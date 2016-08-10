@@ -1,0 +1,800 @@
+﻿@model Portal.Consultoras.Web.Models.TipoEstrategiaModel
+@{
+    ViewBag.Title = "Administrar Tipo de Estrategia";
+}
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        IniDialog();
+        fnGrilla();
+
+        $.ajaxSetup({ cache: false });
+
+        $("#btnNuevo").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            $.ajaxSetup({ cache: false });
+            $("#chkNueva").attr("checked", false);
+            $("#chkRecoProduc").attr("checked", false);
+            $("#chkRecoPerfil").attr("checked", false);
+            $("#txtPaisOferta").val($("#ddlPais option:selected").html());
+            $("#txtPaisModal").val($("#ddlPais option:selected").html());
+            $("#hdPais").val($("#ddlPais").val());
+            $("#txtDescripcionOriginalModal").val("");
+            $("#txtOrden").val("");
+            $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $("#hdofertas").val("");
+            $("#chkActivo").attr("checked", true);
+            $("#imagenProducto01").val("");
+            $("#imagenProductoAnterior01").val("");
+            $("#hdTipoEstrategiaID").val("0");
+            $("#txtCodigoPrograma").prop('disabled', true).val("");
+
+            $("#chkMostrarImg").attr("checked", false);     /* SB20-353 */
+
+            fnGrillaOfertas('0');
+            showDialog("DialogAdministracionTipoEstrategia");
+        });
+        $("#btnNuevaOferta").click(function () {
+            $("#txtCodigoOferta").val("");
+            $("#txtDescripcionOferta").val("");
+            $("#txtCodigoOferta").focus();
+
+            showDialog("DialogAdministracionNuevaOferta");
+        });
+        $("#btnBuscar").click(function () {
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+
+            $("#hdTipoConsulta").val("1");
+
+            fnGrilla();
+        });
+        $("#chkNueva").click(function () {
+            if ($("#chkNueva").attr('checked')) {
+                $("#chkRecoProduc").removeAttr('checked');
+                $("#chkRecoPerfil").removeAttr('checked');
+                $("#txtCodigoPrograma").prop('disabled', false);
+            }
+        });
+        $("#chkRecoProduc").click(function () {
+            if ($("#chkRecoProduc").attr('checked')) {
+                $("#chkNueva").removeAttr('checked');
+                $("#chkRecoPerfil").removeAttr('checked');
+                $("#txtCodigoPrograma").attr('disabled', true); //prop('disabled', true);
+                $("#txtCodigoPrograma").val(null);
+            }
+        });
+        $("#chkRecoPerfil").click(function () {
+            if ($("#chkRecoPerfil").attr('checked')) {
+                $("#chkNueva").removeAttr('checked');
+                $("#chkRecoProduc").removeAttr('checked');
+                $("#txtCodigoPrograma").attr('disabled', true);//.prop('disabled', true);
+                $("#txtCodigoPrograma").val(null);
+            }
+        });
+        $("#btnAgregarOferta").click(function () {
+            // Grabar la nueva oferta
+            var ofertaID = $("#hdofertaid").val();
+            var paisID = $("#hdPais").val();
+            var codigoOferta = $("#txtCodigoOferta").val();
+            var descripcionOferta = $("#txtDescripcionOferta").val();
+            /*R20160301 - I*/
+            var flagNueva = ($("#chkNueva").attr("checked")) ? true : false;
+            var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
+            if (flagNueva && $("#txtCodigoPrograma").val() == "") {
+                alert("No ingresó Codigo de Programa");
+                return false;
+            }
+            /*R20160301 - F*/
+            if ($.trim(codigoOferta) == "") {
+                alert("No ingresó el código de oferta.");
+                return false;
+            }
+
+            if ($.trim(descripcionOferta) == "") {
+                alert("No ingresó la descripción de oferta.");
+                return false;
+            }
+
+
+            var params = {
+                OfertaID: ofertaID,
+                PaisID: paisID,
+                CodigoOferta: codigoOferta,
+                DescripcionOferta: descripcionOferta,
+                CodigoPrograma: codigoPrograma /*R20160301*/
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarTipoEstrategia/RegistrarOferta',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.success == true) {
+                            // malert(data.message);
+                            // HideDialog("DialogAdministracionNuevaOferta");
+                            var id = $("#hdTipoEstrategiaID").val()
+                            // codigoOferta
+                            var ofertas = $("#hdofertas").val() + codigoOferta + ',';
+                            $("#hdofertas").val(ofertas);
+
+                            $("#hdofertaid").val("0");
+                            $("#txtCodigoOferta").val("");
+                            $("#txtDescripcionOferta").val("");
+                            $("#btnAgregarOferta").val("Agregar");
+                            $("#txtCodigoOferta").focus();
+
+                            fnGrillaOfertas(id);
+                        }
+                        else {
+                            alert(data.message);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        alert(data.message);
+                        HideDialog("DialogAdministracionNuevaOferta");
+                    }
+                }
+            });
+
+        });
+    });
+
+
+    function fnGrilla() {
+
+        jQuery("#list").jqGrid({
+            url: baseUrl + "AdministrarTipoEstrategia/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: function () { return jQuery.trim($("#ddlCampania").val()); },
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                Consulta: function () { return jQuery.trim($("#hdTipoConsulta").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma'],
+            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg'],   // SB20-353
+            colModel: [
+                { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
+                { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 180, editable: true, hidden: false, formatter: ShowOferta },
+                { name: 'Orden', index: 'Orden', width: 40, editable: true, align: 'center', resizable: false },
+                { name: 'ImagenEstrategia', index: 'ImagenEstrategia', width: 70, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'OfertaID', index: 'OfertaID', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'FlagActivo', index: 'FlagActivo', width: 40, align: 'center', editable: true, resizable: false, formatter: ShowActions },
+                { name: 'FlagNueva', index: 'FlagNueva', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'FlagRecoProduc', index: 'FlagRecoProduc', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'FlagRecoPerfil', index: 'FlagRecoPerfil', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },      // SB20-353
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Mensaje',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function fnGrillaOfertas(id) {       
+        $("#listaOfertas").jqGrid("GridUnload");
+        var url = "AdministrarTipoEstrategia/ConsultarOfertas/" + id
+        jQuery("#listaOfertas").jqGrid({
+            url: baseUrl + url,
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['', 'Codigo', 'Descripción', ''],
+            colModel: [
+                { name: 'OfertaID', index: 'OfertaID', width: 10, editable: true, resizable: false, hidden: false, formatter: ShowChecks },
+                { name: 'CodigoOferta', index: 'CodigoOferta', width: 30, editable: true, resizable: false, hidden: false },
+                { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 200, editable: true, hidden: false },
+                { name: 'AccionOferta', index: 'AccionOferta', width: 30, editable: true, hidden: false, formatter: ShowActionsOferta }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerOferta'),
+            loadtext: 'Cargando datos...',
+            recordtext: "",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [],
+            sortname: 'Descripcion',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 625,
+            pgtext: '',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                $("#listaOfertas input[type='checkbox']").each(function () {
+                    var valor = $(this).attr("value");
+                    var contenedor = $("#hdofertas").val();
+                    var n = contenedor.lastIndexOf(valor);
+                    if (n > -1) {
+                        $(this).attr("checked", true)
+                    }
+                });
+            }
+        });
+        jQuery("#listaOfertas").jqGrid('navGrid', "#pagerOferta", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listaOfertas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ShowActions(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue); 
+        //var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";    /* SB20-353 */
+        Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
+        return Des;
+    }
+
+    function EditarOferta(id) {
+        var codigoOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'CodigoOferta');
+        var descripcionOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'DescripcionOferta'); 
+        $("#hdofertaid").val(id);
+        $("#txtCodigoOferta").val(codigoOferta);
+        $("#txtDescripcionOferta").val(descripcionOferta);
+        $("#btnAgregarOferta").val("Modificar");
+    }
+
+    function EliminarOferta(id) {
+        var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+        if (!elimina)
+            return false;
+        var codigoOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'CodigoOferta');
+        var params = {
+            OfertaID: id
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministrarTipoEstrategia/EliminarOferta',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        alert(data.message);
+                        // HideDialog("DialogAdministracionNuevaOferta");
+                        var id = $("#hdTipoEstrategiaID").val()
+                        $("#hdofertaid").val("0");
+                        // codigoOferta
+                        var ofertas = $("#hdofertas").val();
+                        ofertas = ofertas.replace(codigoOferta + ',', '');
+                        $("#hdofertas").val(ofertas);
+                        fnGrillaOfertas(id);
+                        fnGrilla();
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert(data.message);
+                    HideDialog("DialogAdministracionNuevaOferta");
+                }
+            }
+        });
+
+    }
+
+    function ShowActionsOferta(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue);
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return EditarOferta('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta' title='Editar Oferta' border='0' /></a>";
+        Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return EliminarOferta('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Oferta' title='Eliminar Oferta' border='0' /></a>";
+        return Des;
+    }
+
+    function ShowOferta(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue);
+        var Des = rowObject[2].replace(/,/g, '<br />');
+        return Des;
+    }
+
+    function ShowChecks(cellvalue, options, rowObject) {
+        var cellValue = rowObject[1];
+        var Des = '<input type="checkbox" onclick="agregarQuitarChecks(this.checked, this.value)" value="' + cellValue + '" />';
+        return Des;
+    }
+
+    function agregarQuitarChecks(activo, codigoOferta) {
+        var ofertasSeleccionadas = $("#hdofertas").val();
+        if (activo) {
+            ofertasSeleccionadas += codigoOferta + ',';
+        } else {
+            ofertasSeleccionadas = ofertasSeleccionadas.replace(codigoOferta + ',', '');
+        }
+        $("#hdofertas").val(ofertasSeleccionadas);
+    }
+
+    function ShowImage(cellvalue, options, rowObject) {
+        var image = "";
+        if (cellvalue != "") {
+            image = '<img src="' + cellvalue + '" alt="" width="100px" height="25px" title="" border="0" />';
+        } else {
+            image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+
+    function IniDialog() {
+        $('#DialogAdministracionTipoEstrategia').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 700,
+            draggable: true,
+            title: "Registro de Tipo de Estrategias",
+            buttons:
+            {
+                "Guardar": function () {
+
+                    var tipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+                    var descripcionEstrategia = $("#txtDescripcionOriginalModal").val();
+                    var imagenEstrategia = $("#imagenProducto01").val();
+                    var imagenAnterior = $("#imagenProductoAnterior01").val();
+                    var orden = $("#txtOrden").val();
+                    var flagActivo = "0";
+                    var ofertaID = "";
+
+                    if ($("#chkActivo").attr("checked")) {
+                        flagActivo = "1";
+                    }
+
+                    if ($.trim(descripcionEstrategia) == "") {
+                        alert("No ingresó la descripción.");
+                        return false;
+                    }
+
+                    if (!$.isNumeric(orden)) {
+                        alert("No ingresó un valor válido para el orden a mostrar.");
+                        return false;
+                    }
+
+                    if ($.trim(orden) == "") {
+                        alert("No ingresó el orden a mostrar.");
+                        return false;
+                    }
+
+                    if (parseInt(orden) <= 0) {
+                        alert("Ingrese un orden mayor a cero.");
+                        return false;
+                    }
+                    /*
+                    if ($.trim(imagenEstrategia) == "") {
+                        alert("No seleccionó una imagen.");
+                        return false;
+                    }
+                    */
+                    ofertaID = $("#hdofertas").val();
+                   
+                    if (ofertaID.length > 0) {
+                        ofertaID = ofertaID.substring(0, ofertaID.length - 1);
+                    } else {
+                        alert("No se ha seleccionado una oferta.");
+                        return false;
+                    }
+
+                    // SB2-353 - INICIO
+                    if ($("#chkMostrarImg").attr("checked")) {
+                        if ($("#img01").attr("src") == "" || ($("#img01").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
+                            alert("Se debe seleccionar una imagen.");
+                            return false;
+                        }
+                    }
+                    // SB2-353 - FIN
+
+                    var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
+                    var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
+                    var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
+                    var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
+                    var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0"; // SB2-353
+
+                    var params = {
+                        TipoEstrategiaID: tipoEstrategiaID,
+                        DescripcionEstrategia: descripcionEstrategia,
+                        ImagenEstrategia: imagenEstrategia,
+                        Orden: orden,
+                        FlagActivo: flagActivo,
+                        OfertaID: ofertaID,
+                        ImagenAnterior: imagenAnterior,
+                        FlagNueva: flagNueva,
+                        FlagRecoPerfil: flagRecoPerfil,
+                        FlagRecoProduc: flagRecoProduc,
+                        CodigoPrograma: codigoPrograma,
+                        FlagMostrarImg: flagMostrarImg  // SB2-353
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'AdministrarTipoEstrategia/Registrar',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    alert(data.message);
+                                    HideDialog("DialogAdministracionTipoEstrategia");
+                                    $("#hdTipoConsulta").val("1");
+                                    jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                                }
+                                else {
+                                    alert(data.message);
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                alert(data.message);
+                                HideDialog("DialogAdministracionTipoEstrategia");
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+
+        $('#DialogAdministracionNuevaOferta').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 700,
+            draggable: true,
+            title: "Registro de Ofertas",
+            buttons:
+            {
+                "Nueva Oferta": function () {
+                    $("#hdofertaid").val("0");
+                    $("#txtCodigoOferta").val("");
+                    $("#txtDescripcionOferta").val("");
+                    $("#btnAgregarOferta").val("Agregar");
+                    $("#txtCodigoOferta").focus();
+                },
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+    }
+
+    $.jgrid.extend({
+        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg) {
+            if (id) {
+
+                $("#txtPaisModal").val($("#ddlPais option:selected").html());
+                $("#hdPais").val($("#ddlPais").val());
+                $("#txtDescripcionOriginalModal").val(descripcion);
+                $("#txtOrden").val(orden);
+                $("#txtPaisOferta").val($("#ddlPais option:selected").html());
+                var img = $($("#list").jqGrid('getCell', id, 'ImagenEstrategia')).attr('src');
+                $('#img01').attr('src', img);
+                img = img.replace(/^.*[\\\/]/, '');
+                //if (img.lastIndexOf("?") >= 0) {
+                if (img.length > 0) {        // SB20-353
+                    //img = img.substring(0, img.lastIndexOf("?")); // SB20-353
+                    //alert(img);
+                    $('#imagenProducto01').val(img);
+                    $('#imagenProductoAnterior01').val(img);
+                }
+               
+                var flagNueva = jQuery("#list").jqGrid('getCell', id, 'FlagNueva');
+                var flagRecoProduc = jQuery("#list").jqGrid('getCell', id, 'FlagRecoProduc');
+                var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
+
+                $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
+                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
+                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1") ? true : false);
+
+                $("#hdTipoEstrategiaID").val(id);
+                $("#hdofertas").val(ofertas + ',');
+
+                if (flagactivo == "1") {
+                    $("#chkActivo").attr("checked", true);
+                }
+                $("#txtCodigoPrograma").prop('disabled', true);
+                $("#txtCodigoPrograma").val(codigoPrograma);
+
+                /* SB20-353 - INICIO */
+                if (flagMostrarImg == "1") {
+                    $("#chkMostrarImg").attr("checked", true);
+                }
+                else {
+                    $("#chkMostrarImg").attr("checked", false);
+                }
+                /* SB20-353 - FIN */
+
+                fnGrillaOfertas(id);
+
+                showDialog("DialogAdministracionTipoEstrategia");
+            } else {
+                alert("No selecciono el Cliente");
+            }
+            return false;
+        },
+        Eliminar: function (Id) {
+            var paisID = $("#hdPais").val();
+
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarTipoEstrategia/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ PaisID: paisID, TipoEstrategiaID: Id }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+            return false;
+        }
+    });
+</script>
+<input type="hidden" id="hdTipoConsulta" value="0" />
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Administrar Tipo de Estrategia</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titA">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <!--div class="titB">Campaña:</!--div>
+                <div class="selectA borde_redondeado">
+                </div -->
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo"  />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+<div id="DialogAdministracionTipoEstrategia" style="display: none;">
+    <input type="hidden" id="hdPais" value="" />
+    <input type="hidden" id="hdofertas" value="" />
+    <input type="hidden" id="hdofertaid" value="0" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="0" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titB">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisModal" readonly="readonly" />
+            </div>
+            <div class="titB">Orden:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtOrden" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Descripción:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionOriginalModal" />
+            </div>
+            <div class="titB">Activo:</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" id="chkActivo" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Tipo:</div>
+            <div class="selectE borde_redondeado">
+                <div class="titB">Nueva:</div>
+                <div class="selectCheck borde_redondeado">
+                    <input type="checkbox" id="chkNueva" />
+                </div>
+                <div class="titF">Recomendación por CUV:</div>
+                <div class="selectCheck borde_redondeado">
+                    <input type="checkbox" id="chkRecoProduc" />
+                </div>
+                <div class="titF" style="width:180px">Recomendación por perfil:</div>
+                <div class="selectCheck borde_redondeado">
+                    <input type="checkbox" id="chkRecoPerfil" />
+                </div>
+            </div>
+        </div>
+        <div class="div-3 divCodigoPrograma">
+            <div class="titB">Código Programa:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCodigoPrograma" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Imagen:</div>
+            <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
+            </div>
+
+            <!--SB2-353 - INICIO -->
+            <div class="titB">Mostrar imagen:</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" id="chkMostrarImg" />
+            </div>
+            <!--SB2-353 - FIN -->
+
+            <div class="titB" style="display: none;">Oferta:</div>
+            <div class="container clearfix" style="display: none;">
+                <div class="selectA borde_redondeado">
+                    <!-- table id="listaOfertas"></table>
+                    <div id="pagerOferta"></div -->
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div>
+            <div class="titG" style="width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="imagenProducto01" />
+                    <input type="hidden" id="imagenProductoAnterior01" />
+                    <div id="fpUpload01">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                element: document.getElementById('fpUpload01'),
+                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            $("#imagenProducto01").val(responseJSON.name);
+                                            // req. 1664
+                                            $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="titF"></div>
+            <div class="titG">
+                <div class="input_search">
+                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogAdministracionNuevaOferta" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3" style="display: none">
+            <div class="titB">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisOferta" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Código:</div>
+            <div class="selectP2 borde_redondeado" style="width:50px">
+                <input type="text" id="txtCodigoOferta" style="width:50px" />
+            </div>
+            <div class="titB">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width:230px">
+                <input type="text" id="txtDescripcionOferta" style="width:230px" />
+            </div>
+            <div class="input_search">
+                <input type="button" name="btnAgregarOferta" id="btnAgregarOferta" value="Agregar" style="float:right" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="container clearfix">
+                <div class="selectA borde_redondeado" style="width:630px">
+                    <table id="listaOfertas"></table>
+                    <div id="pagerOferta"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>

@@ -1,0 +1,14 @@
+version: 0.0
+os: windows
+files:
+  - source: /Publish
+    destination: C:\inetpub\wwwroot\SB2
+hooks:
+  BeforeInstall:
+    - location: /scripts/stoppool_web.bat
+      timeout: 300
+  AfterInstall:
+    - location: /scripts/startpool_web.bat
+    - location: /scripts/permisos_web.bat
+    - location: /scripts/configuracion_web.bat
+      timeout: 900

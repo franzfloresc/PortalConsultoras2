@@ -1,0 +1,297 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model  PedidoWebClientePrincipalMobilModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+            </li>
+            <li>|</li>
+            <li>
+                Pedido ingresado por cliente
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="tabs-link tab-primary upper">
+            @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
+            {
+                <a id="tab_@i" href="javascript:;" class="mytab @( i == 0 ? "active" : "")">
+                    <small>CAMPAÑA</small>
+                    <br />
+                    <b>@(Model.ListaPedidoCliente[i].CampaniaID.ToString().Substring(4))</b>
+                    @(Model.ListaPedidoCliente[i].CampaniaID.ToString().Substring(0, 4))
+                </a>
+                <input id="htab_@i" type="hidden" value="@Model.ListaPedidoCliente[i].CampaniaID" />
+            }
+        </div>
+
+        @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
+        {
+            <div id="tabcontenido_@i" class="block-white" style="margin-top: 0px;">
+                @foreach (var item2 in Model.ListaPedidoCliente[i].ListaPedidoWebDetalle)
+                {
+                    var totalPedido = Model.PaisID == 4 ? (string.Format("{0:#,##0}", item2.ImporteTotalPedido).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item2.ImporteTotalPedido));
+                    var collapse = "collapse";
+                    <div class="panel-group claseAcordion" id="accordion_@(i + "_" + item2.ClienteID)" role="tablist" aria-multiselectable="false">
+                        <div class="panel panel-line-info ">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title upper">
+                                    <a role="button" class="esconderPrecio" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@(i + "_" + item2.ClienteID)" aria-expanded="false" aria-controls="collapseOne">
+                                        <i class="icon-plus-belcorp"></i> @Html.DisplayTextFor(modelItem => @item2.Nombre)
+                                        <div class="panel-title-total">@Model.Simbolo @totalPedido</div>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne_@(i + "_" + item2.ClienteID)" class="panel-collapse @collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body posr">
+                                    <div class="list-table-new">
+                                        <ul class="list-table-title upper">
+                                            <li>Productos <span class="table-title-right">Cant</span></li>
+                                        </ul>
+                                        <ul class="list-table-body">
+                                            @foreach (var item3 in item2.ListaPedidoWebDetalleProductos)
+                                            {
+                                                <li>
+                                                    <div class="posr">
+                                                        <div class="table-width">
+                                                            <strong class="upper">@Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</strong>
+                                                            <div class="mb-10">
+                                                                <strong class="text-lg">@Html.DisplayTextFor(modelItem => item3.CUV)</strong>
+                                                            </div>
+                                                            Precio Unitario
+                                                            @if (Model.PaisID == 4)//CO
+                                                            {
+                                                                @Model.Simbolo @(string.Format("{0:#,##0}", item3.PrecioUnidad).Replace(',', '.'))
+                                                            }
+                                                            else
+                                                            {
+                                                                @Model.Simbolo @(string.Format("{0:#,##0.00}", item3.PrecioUnidad))
+                                                            }
+                                                            <br />
+                                                            <div class="upper">
+                                                                <strong>Subtotal </strong>
+                                                                @if (Model.PaisID == 4)//CO
+                                                                {
+                                                                    <b>@Model.Simbolo  @(string.Format("{0:#,##0}", item3.ImporteTotal).Replace(',', '.'))</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b>@Model.Simbolo  @(string.Format("{0:#,##0.00}", item3.ImporteTotal))</b>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <span class="cantidad-numero"> @Html.DisplayTextFor(modelItem => @item3.Cantidad) </span>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                            <div class="row">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="upper" style="padding-top:30px;"><strong>Total Pedido</strong></td>
+                                                            <td class="text-right" style="padding-top: 30px;">
+                                                                <b>@Model.Simbolo @totalPedido</b>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                    @*<p id="btnEnviarCorreoCliente" class="upper text-center">
+                                        <a class="pcolor" href="javascript:;" onclick="onEnviarCorreoCliente(@item2.ClienteID, '@item2.eMail.ToString()','@item2.CampaniaID' );">
+                                            <i class="icon-lg icon-envelope"></i>ENVIAR LISTADO A CLIENTE
+                                        </a>
+                                    </p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;">
+                MONTO TOTAL DE MI PEDIDO
+                <br />
+                <div class="text-lg">
+                    @if (Model.PaisID == 4)//CO
+                    {
+                        @Model.Simbolo   @(string.Format("{0:#,##0}", Model.ListaPedidoCliente[i].ImporteTotal).Replace(',', '.'))
+                    }
+                    else
+                    {
+                        @Model.Simbolo   @(string.Format("{0:#,##0.00}", Model.ListaPedidoCliente[i].ImporteTotal))
+                    }
+                </div>
+            </div>
+        }
+        <br />
+        <p class="text-center">
+            <a href="javascript:;" class="btn btn-line" onclick="onEnviarCorreoConsultora();">
+                Enviar listado a mi correo
+            </a>
+        </p>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var ISO = "";
+        var tabActual = "tab_1";
+        jQuery(document).ready(function () {
+
+            $("body").on("click", ".esconderPrecio", function () {
+                var div = $(this).find('.panel-title-total');
+                if($(div).is(':visible')) {
+                    $(div).hide();
+                } else {
+                    $(div).show();
+                }
+            });
+
+            $('.claseAcordion .panel-collapse').on('shown.bs.collapse', function () {
+                $(this).prev().find(".icon-plus-belcorp").removeClass("icon-plus-belcorp").addClass("icon-minus-belcorp");
+            }).on('hidden.bs.collapse', function () {
+                $(this).prev().find(".icon-minus-belcorp").removeClass("icon-minus-belcorp").addClass("icon-plus-belcorp");
+            });
+
+            $("#tab_0").addClass("active");
+            $("#tab_2").removeClass("active");
+            $("#tab_1").removeClass("active");
+            $("#tabcontenido_0").show();
+            $("#tabcontenido_1").hide();
+            $("#tabcontenido_2").hide();
+            $("#parteFinal_0").show();
+            $("#parteFinal_1").hide();
+            $("#parteFinal_2").hide();
+
+            $(".mytab").click(function () {
+                var id = $(this).attr("id");
+                //capturando tab activado
+                var valorTab = $('.mytab.active');
+                var idTab = $(valorTab).attr("id");
+                var campaniaHidden = $("#h" + id).val();
+                if (idTab != id) {
+                    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '/Mobile/PedidoCliente/' + campaniaHidden, 'pageName': 'Pedidos clientes – ' + campaniaHidden + ' | Somos Belcorp Mobile' });
+                }
+                if (id == "tab_0") {
+                    $("#" + id).addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_1").removeClass("active");
+                    $("#tabcontenido_0").fadeIn();
+                    $("#tabcontenido_1").hide();
+                    $("#tabcontenido_2").hide();
+                    $("#parteFinal_0").fadeIn();
+                    $("#parteFinal_1").hide();
+                    $("#parteFinal_2").hide();
+                }
+                if (id == "tab_1") {
+                    $("#" + id).addClass("active");
+                    $("#tab_2").removeClass("active");
+                    $("#tab_0").removeClass("active");
+                    $("#tabcontenido_0").hide();
+                    $("#tabcontenido_1").fadeIn();
+                    $("#tabcontenido_2").hide();
+                    $("#parteFinal_0").hide();
+                    $("#parteFinal_1").fadeIn();
+                    $("#parteFinal_2").hide();
+                }
+                if (id == "tab_2") {
+                    $("#" + id).addClass("active");
+                    $("#tab_1").removeClass("active");
+                    $("#tab_0").removeClass("active");
+                    $("#tabcontenido_0").hide();
+                    $("#tabcontenido_1").hide();
+                    $("#tabcontenido_2").fadeIn();
+                    $("#parteFinal_0").hide();
+                    $("#parteFinal_1").hide();
+                    $("#parteFinal_2").fadeIn();
+                }
+            });
+        });
+
+        function onEnviarCorreoCliente(ClientId, Email, CampaniaID) {
+            var item = {
+                ClientId: ClientId,
+                Email: Email,
+                CampaniaId: CampaniaID
+            };
+            ShowLoading();
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("EnviarEmailCliente", "PedidoCliente", new { area = "Mobile" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.success == true) {
+                            messageInfo(data.message);
+                            CloseLoading();
+                            dataLayer.push({ 'event': 'virtualEvent', 'category': 'Pedidos Web', 'action': 'Enviar email', 'label': 'Detalle cliente - ' + CampaniaID });
+                        }
+                        else {
+                            CloseLoading();
+                            messageInfo(data.message);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        messageInfo(data.message);
+                        CloseLoading();
+                    }
+                }
+            });
+        }
+
+        function onEnviarCorreoConsultora() {
+            var valorTab = $('.mytab.active');
+            var id = $(valorTab).attr("id");
+            var campaniaHidden = $("#h" + id).val();
+            var item = {
+                CampaniaId: campaniaHidden
+            };
+            ShowLoading();
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("EnviarEmailConsultora", "PedidoCliente", new { area = "Mobile" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.success == true) {
+                            messageInfo(data.message);
+                            CloseLoading();
+                            dataLayer.push({ 'event': 'virtualEvent', 'category': 'Pedidos Web', 'action': 'Enviar email', 'label': 'Detalle consultora - ' + campaniaHidden });
+                        }
+                        else {
+                            CloseLoading();
+                            messageInfo(data.message);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        messageInfo(data.message);
+                        CloseLoading();
+                    }
+                }
+            });
+        }
+    </script>
+}

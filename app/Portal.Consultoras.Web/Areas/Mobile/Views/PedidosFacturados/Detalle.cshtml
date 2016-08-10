@@ -1,0 +1,136 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoWebMobilModel
+
+<div class="block-white" style="margin-top:0px;">
+    <br />
+    <div class="upper">
+        <div>
+            <strong class="text-primary">
+                Total Facturado
+            </strong>
+            <span class="pull-right">
+                <strong>
+                    @Model.Simbolo
+                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                    {
+                        @(string.Format("{0:#,##0}", Model.ImporteTotal).Replace(',', '.'))
+                    }
+                    else
+                    {
+                        @(string.Format("{0:#,##0.00}", Model.ImporteTotal).Replace(',', '.'))
+                    }
+                </strong>
+            </span>
+        </div>
+    </div>
+    <hr style="border-bottom: 1px solid #CCC" />
+
+    <div class="list-table-new">
+        <ul class="list-table-title upper">
+            <li>Productos <span class="table-title-right">Cant</span></li>
+        </ul>
+        <ul class="list-table-body">
+            @foreach (var item in Model.ListaPedidoWebDetalle)
+            {
+                <li>
+                    <div class="posr">
+                        <div class="table-width">
+                            <strong class="upper">@item.DescripcionProd</strong>
+                            <div class="mb-10">
+                                <strong class="text-lg">@item.CUV</strong>
+                            </div>
+                            Precio Unitario  @Model.Simbolo
+                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                            {
+                                @(string.Format("{0:#,##0}", item.PrecioUnidad).Replace(',', '.'))
+                            }
+                            else
+                            {
+                                @(string.Format("{0:#,##0.00}", item.PrecioUnidad).Replace(',', '.'))
+                            }
+                            <br />
+                            Total @Model.Simbolo
+                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                            {
+                                @(string.Format("{0:#,##0}", item.ImporteTotal).Replace(',', '.'))
+                            }
+                            else
+                            {
+                                @(string.Format("{0:#,##0.00}", item.ImporteTotal).Replace(',', '.'))
+                            }
+                            <br />
+                            Descuento @Model.Simbolo
+                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                            {
+                                @(string.Format("{0:#,##0}", item.ImporteDescuento).Replace(',', '.'))
+                            }
+                            else
+                            {
+                                @(string.Format("{0:#,##0.00}", item.ImporteDescuento).Replace(',', '.'))
+                            }
+                            <div class="upper mt-20">
+                                <strong>Importe a Pagar </strong>
+                                <b>
+                                    @Model.Simbolo
+                                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                                    {
+                                        @(string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.'))
+                                    }
+                                    else
+                                    {
+                                        @(string.Format("{0:#,##0.00}", item.ImporteTotalPedido).Replace(',', '.'))
+                                    }
+                                </b>
+                            </div>
+                        </div>
+                        <span class="cantidad-numero"> @item.Cantidad </span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <table class="table pcolor">
+        <tbody>
+            <tr>
+                <td class="upper" style="padding-top:25px;">Importe Total<br>Flete</td>
+                <td class="text-right" style="padding-top:25px;">
+                    @Model.Simbolo
+                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                    {
+                        @(string.Format("{0:#,##0}", Model.Subtotal).Replace(',', '.'))
+                    }
+                    else
+                    {
+                        @(string.Format("{0:#,##0.00}", Model.Subtotal).Replace(',', '.'))
+                    }
+                    <br />
+                    @Model.Simbolo
+                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                    {
+                        @(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))
+                    }
+                    else
+                    {
+                        @(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="block-primary text-center" style="margin-top: -10px;">
+    Total Facturado <br />
+    <div class="text-lg">
+        @Model.Simbolo
+        @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+        {
+            @(string.Format("{0:#,##0}", Model.ImporteTotal).Replace(',', '.'))
+        }
+        else
+        {
+            @(string.Format("{0:#,##0.00}", Model.ImporteTotal).Replace(',', '.'))
+        }
+    </div>
+</div>

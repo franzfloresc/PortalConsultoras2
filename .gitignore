@@ -1,0 +1,21 @@
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Dd]ebugPublic/
+**/[Rr]elease/
+**/[Rr]eleases/
+
+# Mac File
+.DS_Store
+**/.DS_Store
+
+#appspec.yml
+#appspecWEB.yml
+#appspecWS.yml
+#scripts/configuracion_web.bat
+#scripts/configuracion_ws.bat
+#scripts/permisos_web.bat
+#scripts/permisos_ws.bat
+#scripts/startpool_web.bat
+#scripts/startpool_ws.bat
+#scripts/stoppool_web.bat
+#scripts/stoppool_ws.bat

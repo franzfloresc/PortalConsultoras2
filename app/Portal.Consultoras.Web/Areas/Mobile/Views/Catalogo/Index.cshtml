@@ -1,0 +1,96 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model CatalogoMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+<div class="wrapper_resumen_mobile">
+    <div class="content_320">
+        <div class="content_app">
+            DESCARGA TU<br/>
+            APP DE CATÁLOGOS <br/>
+            <span>Grátis en Play Store</span>
+        </div>
+        <a class="btn_obtener_app">OBTENER</a>
+        <hr class="clear" />
+    </div>
+</div>
+
+<div class="titulo_mobile">MIS CATÁLOGOS Y REVISTAS</div>
+<div class="fondo_f2f2f2">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA ESIKA-->
+    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+        <li class="one">
+            <a href="#" data-tag="EstadoCuenta">
+                CATÁLOGOS
+                <div class="marcador_tab"></div>
+            </a>
+        </li>
+        <li class="two">
+            <a href="#" data-tag="LugaresPago">
+                REVISTAS
+                <div class="marcador_tab oculto"></div>
+            </a>
+        </li>
+        
+        <hr id="barCursor">
+    </ul>
+</div>
+<div class="wrapper_resumen_mobile">
+    <!--TAB CATÁLOGOS-->
+    <div id="tab_catalogos_mobile">
+        <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
+        <div class="titulo_catalogo">CATÁLOGOS C-09</div>
+        <div class="content_carrusel_catalogo">
+            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
+            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" /></a>
+            <!--ITEM 1-->
+            <div class="content_item_catalogo">
+                <a class="content_catalogo">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/lbel_revista.png")" alt="-" />
+                </a>
+                <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_mensaje" href="javascript:;" onclick="javascript: $('#CompartirCorreoMobile').show();"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+            </div>
+            <!--ITEM 2-->
+            <div class="content_item_catalogo">
+                <a class="content_catalogo">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/esika_revista.png")" alt="-" />
+                </a>
+                <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_mensaje"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+            </div>
+            <!--ITEM 3-->
+            <div class="content_item_catalogo">
+                <a class="content_catalogo">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/cyzone_revista.png")" alt="-" />
+                </a>
+                <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_mensaje"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+            </div>
+        </div>
+       
+    </div>
+    <!--FIN-->
+    <!--TAB REVISTA-->
+    <div id="tab_revistas_mobile">
+        <div class="titulo_catalogo">REVISTAS C-09</div>
+        <div class="content_revistas_mobile">
+            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
+            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" /></a>
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/revista_c09.png")" alt="-" />
+        </div>
+    </div>
+    <!--FIN TAB REVISTA-->
+    
+</div>
+
+<!--POP UP COMPARTIR CATALOGO-->
+<div id="CompartirCorreoMobile" class="CompartirMobile">
+    <div class="content_compartir_correo">xlzñskdñdks<br/>xlzñskdñdksxlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />fin
+    </div>
+</div>

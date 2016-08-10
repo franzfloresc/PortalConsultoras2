@@ -1,0 +1,453 @@
+﻿@model Portal.Consultoras.Web.Models.GestionaPostulanteModel
+
+@{
+    ViewBag.Title = "GestionaPostulante";
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
+    
+    var estadoPostulantes = ViewBag.EstadoPostulantes as SelectList;
+}
+<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>        
+
+<style>
+    .ui-widget-content.ui-dialog {
+        behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important;
+    }
+</style>
+
+<style>
+    .ui-datepicker-trigger { cursor: pointer; }
+    .ui-widget-header { height: 20px !important; }
+    .modal_base { padding-left: 0 !important; }
+    .modal_base .content {
+        box-sizing: border-box;
+        behavior: url('/Content/Css/Pie/PIE.htc)');
+        z-index: 1000000;
+    }
+    .modal_base .content h2 {
+        padding: 0 30px;
+    } 
+    .modal_base .content .elements {
+        width: 95% !important;
+        padding-top: 25px !important;
+    }
+    .div-3 .titC {
+        width: 140px !important;
+    }
+    .width_150{
+        width: 150px;
+    }
+    #Estado {
+        width: 100%;
+    }
+</style>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Herramienta de Gesti&oacute;n</h1>
+            </div>           
+            <div class="div-3">
+                <div class="titC width_150">Fecha Desde:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.FechaDesde)
+                </div>
+                <div class="titC width_150">Fecha hasta:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.FechaHasta)
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Nombre:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.Nombre, new { @style = "text-transform: uppercase;" })
+                </div>
+                <div class="titC width_150">Estado:</div>
+                <div class="selectP2 borde_redondeado" style="width:280px;">
+                    @Html.DropDownListFor(m => Model.Estado, estadoPostulantes, "Todos")
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Cedula Identidad:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.DocumentoIdentidad, new { @style = "text-transform: uppercase;" })
+                </div>
+                <div class="titC width_150"></div>
+                <div class="input_search">
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix" style="width:1300px;">
+        <div class="border-wrapper" id="tablaSolicitudPostulantes" style="overflow-x:hidden">
+            <table id="gvwSolicitudesPostulante"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+<div id="modal_general" class="modal_base" style="display:none;">
+    <div class="content" id="modal_content">
+    </div>
+</div>
+
+<div id="modal_opcion" class="modal_base" style="display:none;">
+    <div class="content" id="modal_opcion_content">
+    </div>
+</div>
+<script>
+
+
+    //Nueva funcionalidad
+    var colNames = ['ID', 'Fecha Registro', 'Tipo','Fuente', 'Nombre', 'Documento Identidad', 'Zona', 'Sección', 'Territorio', 'Dirección', 'Ubicación', 'Evaluación Crediticia', 'Estado', 'Modificar', 'Ver', '', 'Reactivar', ' '];
+
+    function fnGrilla() {
+
+        jQuery("#gvwSolicitudesPostulante").jqGrid({
+            url: '@Url.Action("ConsultarSolicitudesPostulante", "Unete")',
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PrefijoISOPais: function () { return $("#PrefijoISOPais").val(); },
+                FechaDesde: function () { return $("#FechaDesde").val(); },
+                FechaHasta: function () { return $("#FechaHasta").val(); },
+                Nombre: function () { return $('#Nombre').val(); },
+                Estado: function () { return $("#Estado").val(); },
+                DocumentoIdentidad: function () { return $("#DocumentoIdentidad").val(); },
+            }),
+            mtype: 'POST',
+            contentType: "application/json; charset=utf-8",
+            colNames: colNames,
+            colModel: [
+                { name: 'SolicitudPostulanteID', index: 'SolicitudPostulanteID', width: 3, editable: false, align: 'center', hidden: true },
+                { name: 'FechaCreacion', index: 'FechaCreacion', width: 9, editable: true, resizable: false, align: 'center' },
+                { name: 'FuenteIngreso', index: 'FuenteIngreso', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'Tipo', index: 'Tipo', width: 11, editable: true, resizable: false, align: 'center' },
+                { name: 'NombreCompleto', index: 'NombreCompleto', width: 15, editable: true, resizable: false },
+                { name: 'NumeroDocumento', index: 'NumeroDocumento', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoZona', index: 'CodigoZona', width: 15, editable: true, resizable: false },
+                { name: 'CodigoSeccion', index: 'CodigoSeccion', width: 15, editable: true, resizable: false },
+                { name: 'CodigoTerritorio', index: 'CodigoTerritorio', width: 15, editable: true, resizable: false },
+                { name: 'Direccion', index: 'Direccion', width: 20, editable: true, resizable: false },
+                {
+                    name: 'Ubicacion', index: 'Ubicacion', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[10] == '2' ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
+                            '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarUbicacion(' + rowObject[0] + ');" /></a>';
+                    }
+                },
+                {
+                    name: 'EvaluacionCrediticia', index: 'EvaluacionCrediticia', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[11] == '2' ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
+                            rowObject[11] == '3' ? '<img src="@Url.Content("~/Content/Images/icons/sign-error.png")" />' :
+                            '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarEvaluacionCrediticia(' + rowObject[0] + ');" /></a>';
+                    }
+
+                },
+                {
+                    //name: 'Estado', index: 'Estado', width: 20, editable: true, resizable: false
+                    name: 'Estado', index: 'Estado', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[16].toUpperCase() == 'FALSE' && rowObject[12].toUpperCase() != 'RECHAZADA' ? 'PENDIENTE DE CONFIRMAR CORREO' : rowObject[12].toUpperCase();
+                    }
+
+
+                },
+                {
+                    name: 'Modificar', index: 'SolicitudPostulanteID', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Edit.png")" onclick="modificar(' + rowObject[0] + ')" /></a>';
+                    }
+                },
+                {
+                    name: 'Ver', index: 'SolicitudPostulanteID', width: 4, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="ver(' + rowObject[0] + ')" /></a>';
+                    }
+                }
+                ,
+                {
+                    name: 'Pendiente de Confirmación', index: 'IndicadorActivo', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[16].toUpperCase() == 'FALSE' ? '<button onclick="reenviar(' + rowObject[0] + ')" style="padding:0;text-align:center;color:#A1A1A1;">Reenviar<br/>Correo</button>' : '';
+                        
+                    }
+                },
+
+                {
+                    name: 'Reactivar', index: 'Reactivar', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[12].toUpperCase() == 'RECHAZADA' ? '<input type="button" value="Reactivar" onclick="reactivar(' + rowObject[0] + ')" style="padding:0;" />' : '';
+                    }
+                }
+                ,
+                {
+                    name: 'Enviar a FFVV', index: ' ', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[16].toUpperCase() == 'FALSE' && rowObject[12].toUpperCase() == 'EN APROBACIÓN DE FFVV' ? '<button value="Enviar" onclick="enviarFFVV(' + rowObject[0] + ')" style="padding:0;text-align:center;color:#A1A1A1;">Enviar a<br/>FFVV</button>' : '';
+                    }
+                }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'SolicitudPostulanteID',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 1300,
+            shrinkToFit: true,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+
+            },
+            gridComplete: function () {
+
+                var option = $('#Estado').val();
+
+                if (typeof option != 'undefined' && option != null) {
+
+                    switch (option) {
+                        case "":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
+
+                            break;
+                        case "2":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            break;
+
+                        case "3":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            break;
+
+                        case "4":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            break;
+
+                        case "7":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
+                            break;
+                    }
+
+                }
+            }
+        });
+    
+        jQuery("#gvwSolicitudesPostulante").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#gvwSolicitudesPostulante").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function consultarUbicacion(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1050);
+        modal.dialog("option", "height", 590);
+
+        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function consultarEvaluacionCrediticia(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 650);
+        modal.dialog("option", "height", 325);
+
+        $.get('@Url.Action("ConsultarEstadoCrediticia", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function reactivar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("ReactivarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function reenviar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("EnviarCorreoNotificacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            //modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function enviarFFVV(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("EnviarAFFVV", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            //modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+            fnGrilla();
+        });
+    }
+
+    function modificar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1230);
+        modal.dialog("option", "height", 700);
+
+        $.get('@Url.Action("Detalle", "Unete")', { id: solicitudPostulanteID, modoLectura: false }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function ver(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1230);
+        modal.dialog("option", "height", 570);
+
+        $.get('@Url.Action("Detalle", "Unete")', { id: solicitudPostulanteID, modoLectura: true }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function IntegerNumber(e) {
+        // Allow: backspace, delete, tab, escape, enter
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return true;
+        }
+
+        // Allow copy, cut and don't allow paste
+        var ctrlDown = e.ctrlKey || e.metaKey; // Mac support
+        if (ctrlDown && e.altKey) return true;
+        else if (ctrlDown && e.keyCode == 67) return true; // c
+        else if (ctrlDown && e.keyCode == 86) return false; // v
+        else if (ctrlDown && e.keyCode == 88) return true; // x
+
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || e.altKey || e.ctrlKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    }
+
+    function Text(e) {
+        var key = e.keyCode;
+
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            return true;
+        } else {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                return false;
+            } else {
+                var RegExpression = /^[a-zA-ZñáéíóúÑÁÉÍÓÚäëïöüÄËÏÖÜ\s]*$/;
+                return RegExpression.test(String.fromCharCode(key));
+            }
+        }
+    }
+
+    var modal, modalOpcion;
+
+    $(function () {
+
+        $('#Estado').val(parseInt('@Convert.ToInt32(Portal.Consultoras.Web.ServiceUnete.EnumsEstadoPostulante.EnGestionServicioAlCliente)'));
+
+        $('#btnBuscar').click(function (e) {
+            fnGrilla();
+            e.preventDefault();
+            console.info(e.target);
+        })
+
+        $("#FechaDesde, #FechaHasta").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+
+        fnGrilla();
+
+        modal = $("#modal_general").dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: true,
+            draggable: true,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false,
+            open: function () {
+                $('body').css('overflow', 'hidden');
+            },
+            close: function () {
+                $('body').css('overflow', 'auto');
+            }
+        });
+
+        modalOpcion = $("#modal_opcion").dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: true,
+            draggable: true,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false,
+            open: function () {
+                $('body').css('overflow', 'hidden');
+            },
+            close: function () {
+                $('body').css('overflow', 'auto');
+            }
+        });
+    });
+</script>

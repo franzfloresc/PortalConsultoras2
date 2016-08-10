@@ -1,0 +1,197 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoDetalleMobileModel
+
+@if (ViewBag.MensajeCierreCampania != null)
+{
+    <div class="alert-top-icon text-success">
+        <i class="icon-exclamation-circle"></i> <div>@ViewBag.MensajeCierreCampania</div>
+    </div>
+}
+<div class="list-table-new">
+    <ul class="list-table-title upper">
+        <li>Productos  <span class="table-title-right">Cant</span></li>
+    </ul>
+    <ul class="list-table-body">
+        @foreach (var item in Model.Detalle)
+        {
+            var precioUnitario = Model.CodigoISO == "CO" ? (string.Format("{0:#,##0}", item.PrecioUnidad).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item.PrecioUnidad));
+            var importeTotal = Model.CodigoISO == "CO" ? (string.Format("{0:#,##0}", item.ImporteTotal).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item.ImporteTotal));
+
+            var descripcionOferta = string.IsNullOrEmpty(item.DescripcionOferta) ? 
+                                                item.DescripcionEstrategia : 
+                                                item.DescripcionOferta.Replace("[", "").Replace("]", "");
+            var nuevaDescripcionProducto = item.TipoEstrategiaID == 1 ? item.DescripcionProd.Split('|')[0] : item.DescripcionProd;
+            
+            <li>
+                <div class="posr">
+                    <div class="table-width">
+                        <!-- Nombre de Producto -->
+                        <strong class="upper">
+                            @if (item.IndicadorMontoMinimo == 0)
+                            {
+                                <span class="texto_rojo">*</span>
+                            }
+
+                            <span id="DescripcionProducto_@item.PedidoDetalleID">@(nuevaDescripcionProducto)</span>
+
+                            @if (item.TipoPedido == "M")
+                            {
+                                <br />
+                                <small><span class="text-success">App móvil</span></small>
+                            }
+                            @if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                            {
+                                <br />
+                                <small><span class="text-success">Oferta Liquidación</span></small>
+                            }
+                            else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                            {
+                                <br />
+                                <small><span class="text-success">Oferta Flexipago</span></small>
+                            }
+                            else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                            {
+                                <br />
+                                <small><span class="text-success">Pre-venta Digital</span></small>
+                            }
+                            else if (!string.IsNullOrEmpty(descripcionOferta))
+                            {
+                                <br />
+                                <small><span class="text-success">@descripcionOferta</span></small>
+                            }
+                        </strong>
+
+                        <!-- Código de Producto -->
+                        <div class="mb-10">
+                            <strong class="text-lg">@item.CUV</strong>
+                        </div>
+
+                        <!-- Precio Unitario -->
+                        @Html.Hidden("PrecioUnidad_" + item.PedidoDetalleID, item.PrecioUnidad)
+                        Precio Unitario :
+                        @Model.Simbolo
+                        @precioUnitario
+                        <br />
+
+                        <!-- Cliente -->
+                        @Html.Hidden("ClienteID_" + item.PedidoDetalleID, item.ClienteID)
+                        @Html.Hidden("ClienteNombre_" + item.PedidoDetalleID, item.Nombre)
+                        <div class="mb-20">
+                            Cliente:
+                            <span class="upper">@item.Nombre</span>
+                        </div>
+
+                        <!-- Sub Total -->
+                        <div class="upper">
+                            <strong>Subtotal </strong>
+                            <strong>
+                                @Model.Simbolo
+                                @if (item.IndicadorMontoMinimo == 1)
+                                {
+                                    <span id="ImporteTotalMinimo_@item.PedidoDetalleID" class="classImporteTotal_minimo" style="display: none;">@importeTotal</span>
+                                }
+                                <span id="ImporteTotal_@item.PedidoDetalleID" class="classImporteTotal">@importeTotal</span>
+                            </strong>
+                        </div>
+                    </div>
+
+                    <!-- Cantidad -->
+                    @Html.Hidden("CantidadTemporal_" + item.PedidoDetalleID, item.Cantidad)
+
+                    @Html.TextBoxFor(p => item.Cantidad, item.TipoEstrategiaID == 1 ? 
+                    (object)new
+                    {
+                        id = "Cantidad_" + item.PedidoDetalleID,
+                        @type = "tel",
+                        maxlength = "2",
+                        onblur = "UpdateLiquidacion(" + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV + "','1','" + item.Cantidad + "')",
+                        @class = "form-control cantidad-product-input",
+                        @onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);",
+                        @readonly = "readonly"
+                    } : new
+                    {
+                        id = "Cantidad_" + item.PedidoDetalleID,
+                        @type = "tel",
+                        maxlength = "2",
+                        onblur = "UpdateLiquidacion(" + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV + "','1','" + item.Cantidad + "')",
+                        @class = "form-control cantidad-product-input",
+                        @onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);",
+                    })
+
+                    <!-- Botón para Eliminar -->
+                    <span class="subaction ">
+                        <a href='javascript:;' class="text-primary" onclick="return EliminarPedido(@item.CampaniaID, @item.PedidoID, @item.PedidoDetalleID, @item.TipoOfertaSisID, '@item.CUV', @item.Cantidad, '@nuevaDescripcionProducto', @precioUnitario, @item.MarcaID, '@item.DescripcionOferta');">
+                            <i class="icon-delete icon-lg"></i>
+                        </a>
+                    </span>
+                </div>
+
+                <!-- Mensajes de Oferta CUV -->
+                @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
+                {
+                    <div class="alert-top-icon text-success">
+                     <div class="text-left">
+                            El precio total no incluye el descuento para ofertas con más de
+                            un precio (1x, 2x). Al validar tu pedido, el sistema elegirá la
+                            mejor combinación de precios posibles para ti.
+                        </div>
+                    </div>
+                }
+
+                <!-- Mensajes de Validación -->
+                @if (!string.IsNullOrEmpty(item.Mensaje))
+                {
+                    <div class="simple-alert text-danger">
+                        <span class="alert-icon"><i class="icon-exclamation-circle"></i></span>
+                        <small>
+                            @if (item.TipoObservacion != 0)
+                            {
+                                @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""))
+                            }
+                            else
+                            {
+                                @Html.Raw(item.Mensaje)
+                            }
+                        </small>
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+<!-- Total de Pedido -->
+<table class="table">
+    <tbody>
+        <tr>
+            <td class="upper" style="padding-top: 30px;">
+                <strong class="text-primary">
+                    Total Pedido
+                </strong>
+            </td>
+            <td class="text-right" style="padding-top: 30px;">
+                <strong>@Model.Simbolo <span id="sTotal">@Model.DescripcionTotal</span></strong>
+            </td>
+        </tr>
+        @if (Model.CodigoISO == "DO" || Model.CodigoISO == "PR" || Model.CodigoISO == "MX" || Model.CodigoISO == "CO")
+        {
+            <tr>
+                <td class="upper" style="padding-top: 30px;"><strong class="text-primary">Total Validando Monto Mínimo</strong></td>
+                <td class="text-right" style="padding-top: 30px;">
+                    <b>@Model.Simbolo <span id="sTotalMinimo">@Model.DescripcionTotalMinimo</span></b>
+                </td>
+            </tr>
+            if (Model.PedidoConProductosExceptuadosMontoMinimo)
+            {
+                <tr>
+                    <td colspan="2">
+                        <br />
+                        <span class="texto_rojo"><b>* </b><small>No se considera para el Monto Mínimo.</small></span>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

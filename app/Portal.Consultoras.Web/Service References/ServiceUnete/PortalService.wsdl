@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV2" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV2Response" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCantidadNuevasSolicitudesPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCantidadNuevasSolicitudesPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulanteALeidas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteALeidas" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulanteALeidas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteALeidasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUnete" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerParametrosUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTablaLogicaDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTablaLogicaDatos" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTablaLogicaDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTablaLogicaDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstado" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerRegiones_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerRegiones" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerRegiones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerRegionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerZonas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerZonas" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerZonas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerZonasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSecciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSecciones" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSecciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSeccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTerritorios_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTerritorios" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTerritorios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTerritoriosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulantePorEstadoEnPortalGZ_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulantePorEstadoEnPortalGZ" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulantePorEstadoEnPortalGZ_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulantePorEstadoEnPortalGZResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoEnPortalGZ_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoEnPortalGZ" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarEstadoEnPortalGZ_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEstadoEnPortalGZResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPortalService">
+    <wsdl:operation name="ObtenerSolicitudesPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" message="tns:IPortalService_ObtenerSolicitudesPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteResponse" message="tns:IPortalService_ObtenerSolicitudesPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulanteV2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2" message="tns:IPortalService_ObtenerSolicitudesPostulanteV2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2Response" message="tns:IPortalService_ObtenerSolicitudesPostulanteV2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulanteResponse" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulanteALeidas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteALeidas" message="tns:IPortalService_ActualizarSolicitudPostulanteALeidas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteALeidasResponse" message="tns:IPortalService_ActualizarSolicitudPostulanteALeidas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulante" message="tns:IPortalService_ObtenerSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteResponse" message="tns:IPortalService_ObtenerSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUneteResponse" message="tns:IPortalService_ObtenerParametrosUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTablaLogicaDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerTablaLogicaDatos" message="tns:IPortalService_ObtenerTablaLogicaDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerTablaLogicaDatosResponse" message="tns:IPortalService_ObtenerTablaLogicaDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstado" message="tns:IPortalService_ActualizarEstado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoResponse" message="tns:IPortalService_ActualizarEstado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulante" message="tns:IPortalService_ActualizarSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteResponse" message="tns:IPortalService_ActualizarSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerRegiones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerRegiones" message="tns:IPortalService_ObtenerRegiones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerRegionesResponse" message="tns:IPortalService_ObtenerRegiones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerZonas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerZonas" message="tns:IPortalService_ObtenerZonas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerZonasResponse" message="tns:IPortalService_ObtenerZonas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSecciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSecciones" message="tns:IPortalService_ObtenerSecciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSeccionesResponse" message="tns:IPortalService_ObtenerSecciones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTerritorios">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerTerritorios" message="tns:IPortalService_ObtenerTerritorios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerTerritoriosResponse" message="tns:IPortalService_ObtenerTerritorios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulantePorEstadoEnPortalGZ">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorEstadoEnPortalGZ" message="tns:IPortalService_ObtenerSolicitudesPostulantePorEstadoEnPortalGZ_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorEstadoEnPortalGZResponse" message="tns:IPortalService_ObtenerSolicitudesPostulantePorEstadoEnPortalGZ_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ" message="tns:IPortalService_ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZResponse" message="tns:IPortalService_ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoEnPortalGZ">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoEnPortalGZ" message="tns:IPortalService_ActualizarEstadoEnPortalGZ_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoEnPortalGZResponse" message="tns:IPortalService_ActualizarEstadoEnPortalGZ_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePaso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso" message="tns:IPortalService_ActualizarSolicitudPostulantePaso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePaso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePasoList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoListResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenerSolicitudesPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulanteV2">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulanteALeidas">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteALeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUnete">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerParametrosUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTablaLogicaDatos">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerTablaLogicaDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstado">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerRegiones">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerRegiones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerZonas">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerZonas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSecciones">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSecciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTerritorios">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerTerritorios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulantePorEstadoEnPortalGZ">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorEstadoEnPortalGZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerCantidadSolicitudesPostulantePorEstadoEnPortalGZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEstadoEnPortalGZ">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstadoEnPortalGZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePaso">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarSolicitudPostulantePasoList">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PortalService">
+    <wsdl:port name="BasicHttpBinding_IPortalService" binding="tns:BasicHttpBinding_IPortalService">
+      <soap:address location="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

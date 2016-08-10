@@ -1,0 +1,1175 @@
+﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
+@{
+    ViewBag.Title = "Administración de Ofertas Liquidación";
+}
+
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administrador Ofertas <span>ShowRoom</span></h1>
+            </div>
+            <div class="div-2">
+                <h3>Datos del Evento</h3>
+            </div>
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Tipo Oferta:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CodigoTipoOferta, new SelectList(Model.lstConfiguracionOferta, "CodigoOferta", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionOferta" })
+                </div>
+                <div class="input_search">
+                    <input type="button" value="Buscar" id="btnBuscar" name="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap_cab" id="divDatosShowRoom" style="display: none;">
+    <fieldset style="border: 1px black; border-style: groove; margin-left: 200px; margin-right: 200px;">
+        <legend></legend>
+        <div class="elements" style="padding-top: 20px; padding-bottom: 0;">
+        <div class="div-3">
+                <input type="hidden" id="hdEventoID" />
+                <input type="hidden" id="hdCampaniaID" />
+            <div class="titG">
+                Nombre:
+            </div>
+            <div class="selectA borde_redondeado">
+                    <input type="text" id="txtNombre" />
+            </div>
+            <div class="titG">
+                    TextoEstrategia:
+            </div>
+            <div class="selectA borde_redondeado">
+                    <input type="text" id="txtTextoEstrategia" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">
+                Imagen 1:
+            </div>
+            <div class="selectA borde_redondeado">
+                <input type="text" id="txtImagen1" />
+            </div>
+                <div class="titG">
+                    Oferta Estrategia:
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="txtOfertaEstrategia" />
+                </div>
+            </div>
+            <div class="div-3">
+            <div class="titG">
+                    Imagen Banner:
+            </div>
+            <div class="selectA borde_redondeado">
+                <input type="text" id="txtImagen2" />
+            </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">                    
+                </div>
+                <div class="titG">
+                </div>
+                <div class="titG">                    
+                </div>
+                <div class="titG">
+                </div>
+                <div class="titG">
+                </div>
+                <div class="input_search">
+                    <input type="button" value="Guardar" id="btnGuardar" name="">
+                </div>
+            </div>
+            <div class="div-3">
+                
+            </div>
+        </div>
+    </fieldset>    
+</div>
+
+<div class="elements" id="divCargaArchivos" style="display: none;">
+    <div class="div-2">
+        <h3>Carga de Archivo y Configuración</h3>
+        <div class="div-3">
+            <div class="titC" style="width:140px;">Carga de Consultora:</div>
+            <div class="titC" style="padding: 0;">
+                <a href="#" id="lnkConsultoras">
+                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt="" />
+                </a>
+            </div>
+
+            <div class="titC" style="width:140px;">Carga de Stock:</div>
+            <div class="titC" style="padding: 0;">
+                <a href="#" id="lnkStock">
+                    <img title="Cargar Stock" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                </a>
+            </div>
+
+            @*<div class="titC" style="width:140px;">Modal:</div>
+            <div class="titC" style="padding: 0;">
+                <a href="#" id="lnkModal">
+                    <img title="Modal" src='@Url.Content("~/Content/Images/admmaxitems.png")' alt="" />
+                </a>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="wrap" id="divOfertasShowRoom" style="display: none;">
+    <div class="container clearfix">
+        <h3>Ofertas ShowRoom</h3>
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+        <div class="div-3">
+            <div class="titAuto">
+                <div class="input_horizontal">
+                    <input type="button" name="btnExcel" id="btnExcel" value="Excel" />
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+<div id="DialogMensajes" style="display: none;">
+    <div class="Content_modal">
+        <div class="message_text">
+            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+        </div>
+    </div>
+</div>
+
+<div id="DialogCargarConsultoras" style="display: none;">
+    @using (Html.BeginForm("CargarMasivaConsultora", "ShowRoom", FormMethod.Post, new { id = "frmCargarConsultoras", enctype = "multipart/form-data" }))
+    {
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="hidden" id="hdCargaCampaniaID" name="hdCargaCampaniaID" />
+                    <input type="hidden" id="hdCargaEventoID" name="hdCargaEventoID" />
+                    <input type="file" id="flCargarConsultoras" name="flCargarConsultoras" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align:left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- Código SAP</div>
+                    <div>- Descripción</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="DialogCargarStock" style="display: none;">
+    @using (Html.BeginForm("ActualizarStockMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarStock", enctype = "multipart/form-data" }))
+    {
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="file" id="flStock" name="flStock" />
+            </div>
+        </div>
+        </div>
+    }
+</div>
+
+<div id="DialogRegistroOfertaShowRoom" style="display: none;">
+    <input type="hidden" id="hdTallaColorID" value="0" />
+    <input type="hidden" id="hdCampaniaID" />
+    <input type="hidden" id="ImagenProducto" />
+    <input type="hidden" id="ImagenProductoAnterior" />
+    <input type="hidden" id="FlagTransaccion" value="0" />
+    <input type="hidden" id="hdCodigoOferta" value="" />
+    <input type="hidden" id="hdCodigoCampania" value="" />
+    <input type="hidden" id="hdFlagImagen" value="0" />
+    <input type="hidden" id="hdOrdenAnterior" value="" />
+    <input type="hidden" id="hdStockProducto" value="0" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisModal" readonly="readonly" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCampaniaModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo Oferta:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtTipoOfertaModal" readonly="readonly" />
+            </div>
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionModal" />
+            </div>
+            <div class="titG">Precio Normal:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioOfertaModal" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Unid. Permitidas:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
+            </div>
+            <div class="titG">Orden:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtOrdenModal" maxlength="6">
+            </div>
+        </div>        
+        <div class="div-3">
+            <div class="titG">Descripción Producto 1:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionProducto1Modal">
+            </div>
+            <div class="titG">Imagen Producto 1:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtImagenProducto1Modal">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción Producto 2:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionProducto2Modal">
+            </div>
+            <div class="titG">Imagen Producto 2:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtImagenProducto2Modal">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción Producto 3:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionProducto3Modal">
+            </div>
+            <div class="titG">Imagen Producto 3:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtImagenProducto3Modal">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Imagen:</div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview1" style="cursor:pointer;">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview2" style="cursor:pointer;">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview3" style="cursor:pointer;">
+            </div>
+            <div class="titG">¿Habilitar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto01">
+            </div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto02">
+            </div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto03">
+            </div>                        
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var paisNombre = "";
+    var paisID = 11;
+    
+    jQuery(document).ready(function () {
+        CargarDialog();
+        CargarAjaxForm();
+        CargarEventos();               
+    });
+    
+    function CargarDialog() {
+        $('#DialogMensajes').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            draggable: true,
+            title: ":: Mensaje ::",
+            buttons:
+            {
+                "Aceptar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        
+        $('#DialogCargarConsultoras').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga de Consultoras",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarConsultoras').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        
+        $('#DialogCargarStock').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga Stock de Productos",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarStock').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogRegistroOfertaShowRoom').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Registro / Edición Ofertas Show Room",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#txtDescripcionModal').val()) == "")
+                        vMessage += "- Debe ingresar la Descripción del Producto.\n";
+                    if (jQuery.trim($('#txtOrdenModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
+                        vMessage += "- Debe ingresar un Orden de Priorización válido.\n";
+                    if (jQuery.trim($('#txtUnidadesPermitidasModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
+                        vMessage += "- Debe ingresar las unidades permitidas válido.\n";
+                    if (jQuery.trim($('#hdStockProducto').val()) == "0" && $("#chkHabilitarOferta").attr('checked')) {
+                        vMessage += "- La Oferta no se podrá habilitar hasta que el stock sea mayor que 0.\n";
+                        $("#chkHabilitarOferta").removeAttr('checked');
+                    }
+                    if (jQuery.trim($('#txtDescripcionProducto1Modal').val()) == "")
+                        vMessage += "- Debe ingresar la Descripción del Producto 1.\n";
+                    if (jQuery.trim($('#txtImagenProducto1Modal').val()) == "")
+                        vMessage += "- Debe ingresar la Imagen del Producto 1.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        if ($("#FlagTransaccion").val() == "1") {
+                            if ($("#hdOrdenAnterior").val() != $("#txtOrdenModal").val()) {
+                                $.getJSON(baseUrl + 'ShowRoom/ValidarPriorizacion', { paisID: paisID, codigoOferta: $.trim($("#hdCodigoOferta").val()), CampaniaID: jQuery('#hdCampaniaID').val(), Orden: $("#txtOrdenModal").val() }, function (data) {
+                                    if (data.FlagExiste == "0")
+                                        RegistrarOfertaShowRoom();
+                                    else {
+                                        alert("El valor de Priorización ya está asignado a otro Producto, verifique");
+                                        return false;
+                                    }
+                                });
+                            } else RegistrarOfertaShowRoom();
+                        } else {
+                            $.getJSON(baseUrl + 'ShowRoom/ValidarPriorizacion', { paisID: paisID, codigoOferta: $.trim($("#hdCodigoOferta").val()), CampaniaID: jQuery('#hdCampaniaID').val(), Orden: $("#txtOrdenModal").val() }, function (data) {
+                                if (data.FlagExiste == "0")
+                                    RegistrarOfertaShowRoom();
+                                else {
+                                    alert("El valor de Priorización ya está asignado a otro Producto, verifique");
+                                    return false;
+                                }
+                            });
+                        }
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+    
+    function CargarAjaxForm() {
+        $('#frmCargarConsultoras').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flCargarConsultoras').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).'
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    alert(response);
+                    $('#DialogCargarConsultoras').dialog('close');
+                }
+            }
+        });
+
+        $('#frmCargarStock').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flStock').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    alert(response);
+                    $('#DialogCargarStock').dialog('close');
+            }
+            }
+        });
+    }
+        
+    function CargarEventos() {
+        $('#ddlPais').change(function () {
+            var Id = $(this).val();
+            if (Id != "") {
+                waitingDialog({});
+                $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                    if (checkTimeout(data)) {
+                        LimpiarDependencias(Id);
+
+                        var ddlCampania = $('#ddlCampania');
+                        var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+                        ddlCampania.empty();
+                        ddlConfiguracionOferta.empty();
+                        if (data.lista.length > 0) {
+                            ddlCampania.append($('<option/>', {
+                                value: "",
+                                text: "-- Seleccionar --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lista) {
+                                    ddlCampania.append($('<option/>', {
+                                        value: data.lista[item].CampaniaID,
+                                        text: data.lista[item].Codigo
+                                    }));
+                                }
+                            }
+                        }
+                        if (data.lstConfig.length > 0) {
+                            ddlConfiguracionOferta.append($('<option/>', {
+                                value: "0",
+                                text: "-- Todos --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lstConfig) {
+                                    ddlConfiguracionOferta.append($('<option/>', {
+                                        value: data.lstConfig[item].CodigoOferta,
+                                        text: data.lstConfig[item].Descripcion
+                                    }));
+                                }
+                            }
+                        }
+                        closeWaitingDialog();
+                    }
+                });
+            } else LimpiarDependencias(Id);
+        });
+        
+        $("#btnBuscar").click(function () {
+            $("#divDatosShowRoom").css("display", "none");
+            $("#divCargaArchivos").css("display", "none");
+            $("#divOfertasShowRoom").css("display", "none");
+            $("#txtNombre").val("");
+            $("#txtTextoEstrategia").val("");
+            $("#txtImagen1").val("");
+            $("#txtOfertaEstrategia").val("");
+            $("#txtImagen2").val("");
+
+            var msjex = "";
+            if ($("#ddlPais").val() == "")
+                msjex += " - Debe seleccionar un País .\n";
+            if ($("#ddlCampania").val() == "")
+                msjex += " - Debe seleccionar un Campania .\n";
+
+            if (msjex == "") {
+                paisNombre = $("#ddlPais option:selected").text();
+                paisID = $("#ddlPais").val();
+
+                var item = {
+                    campaniaID: $("#ddlCampania").val()
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'ShowRoom/ConsultarShowRoom',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (response) {
+                        if (checkTimeout(response)) {
+                            if (response.success) {
+                                $("#divDatosShowRoom").css("display", "");
+                                $("#divCargaArchivos").css("display", "");
+                                $("#divOfertasShowRoom").css("display", "");
+                                if (response.data == "-1") {
+                                    alert_msg(response.message);
+                                    $("#hdEventoID").val("0");
+                                    $("#hdCargaEventoID").val("0");
+                                    $("#hdCampaniaID").val($("#ddlCampania").val());
+                                    $("#hdCargaCampaniaID").val($("#ddlCampania").val());
+                                } else {
+                                    var data = response.data;
+                                    $("#hdEventoID").val(data.EventoID);
+                                    $("#hdCargaEventoID").val(data.EventoID);
+                                    $("#hdCampaniaID").val(data.CampaniaID);
+                                    $("#hdCargaCampaniaID").val(data.CampaniaID);
+                                    $("#txtNombre").val(data.Nombre);
+                                    $("#txtTextoEstrategia").val(data.TextoEstrategia);
+                                    $("#txtImagen1").val(data.Imagen1);
+                                    $("#txtOfertaEstrategia").val(data.OfertaEstrategia);
+                                    $("#txtImagen2").val(data.Imagen2);
+                                }
+                            } else {
+                                alert_msg(response.message);
+                            }
+                        }
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            alert_msg(response.message);
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+
+                fnGrilla();
+            }
+            else {
+                alert(msjex);
+                return false;
+            }
+        });
+
+        $("#btnGuardar").click(function () {
+            var eventoID = $("#hdEventoID").val();
+            var campaniaID = $("#hdCampaniaID").val();
+            var nombre = $("#txtNombre").val();
+            var textoEstrategia = $("#txtTextoEstrategia").val();
+            var imagen1 = $("#txtImagen1").val();
+            var ofertaEstrategia = $("#txtOfertaEstrategia").val();
+            var imagen2 = $("#txtImagen2").val();
+
+            var showRoom = {
+                EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
+                CampaniaID: campaniaID,
+                Nombre: nombre,
+                Imagen1: imagen1,
+                OfertaEstrategia: ofertaEstrategia,
+                TextoEstrategia: textoEstrategia,
+                Imagen2: imagen2
+            };
+            
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'ShowRoom/GuardarShowRoom',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(showRoom),
+                    async: true,
+                    success: function (response) {
+                        if (checkTimeout(response)) {
+                            if (response.success) {
+                                var id = response.data;
+
+                                $("#hdEventoID").val(id);
+                                $("#hdCargaEventoID").val(id);
+
+                                alert_msg(response.message);
+                            } else {
+                                alert_msg(response.message);
+                            }
+                        }
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            alert_msg(response.message);
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+                     
+        });
+        
+        $("#lnkConsultoras").click(function () {
+            showDialog("DialogCargarConsultoras");
+            LimpiarCargaDescProd();
+            return false;
+        });
+
+        $("#lnkStock").click(function () {
+            showDialog("DialogCargarStock");
+            LimpiarCarga();
+            return false;
+        });
+        
+        $("#chkImagenProducto01").click(function () {
+            if ($("#chkImagenProducto01").attr('checked')) {
+                $("#ImagenProducto").val($("#preview1").attr('src').replace(/^.*[\\\/]/, ''));
+
+                // 1664
+                var img01 = $('#ImagenProducto').val();
+                if (img01.lastIndexOf("?") >= 0) {
+                    img01 = img01.substring(0, img01.lastIndexOf("?"));
+                    $('#ImagenProducto').val(img01);
+                }
+
+                $("#chkImagenProducto02").removeAttr('checked');
+                $("#chkImagenProducto03").removeAttr('checked');
+            } else
+                $("#ImagenProducto").val("");
+    });
+        $("#chkImagenProducto02").click(function () {
+            if ($("#chkImagenProducto02").attr('checked')) {
+                $("#ImagenProducto").val($("#preview2").attr('src').replace(/^.*[\\\/]/, ''));
+
+                // 1664
+                var img01 = $('#ImagenProducto').val();
+                if (img01.lastIndexOf("?") >= 0) {
+                    img01 = img01.substring(0, img01.lastIndexOf("?"));
+                    $('#ImagenProducto').val(img01);
+                }
+
+                $("#chkImagenProducto01").removeAttr('checked');
+                $("#chkImagenProducto03").removeAttr('checked');
+            } else
+                $("#ImagenProducto").val("");
+        });
+
+        $("#chkImagenProducto03").click(function () {
+            if ($("#chkImagenProducto03").attr('checked')) {
+                $("#ImagenProducto").val($("#preview3").attr('src').replace(/^.*[\\\/]/, ''));
+
+                // 1664
+                var img01 = $('#ImagenProducto').val();
+                if (img01.lastIndexOf("?") >= 0) {
+                    img01 = img01.substring(0, img01.lastIndexOf("?"));
+                    $('#ImagenProducto').val(img01);
+                }
+
+                $("#chkImagenProducto01").removeAttr('checked');
+                $("#chkImagenProducto02").removeAttr('checked');
+            } else
+                $("#ImagenProducto").val("");
+        });
+    }
+
+    function RegistrarOfertaShowRoom() {
+        var accion = "";
+        if ($("#FlagTransaccion").val() == "1")
+            accion = "UpdateOfertaShowRoom";
+        else
+            accion = "InsertOfertaShowRoom";
+
+        var Item = {
+            CampaniaID: jQuery('#hdCampaniaID').val(),
+            CUV: jQuery('#txtCUVModal').val(),
+            Descripcion: $("#txtDescripcionModal").val(),
+            PrecioOferta: $("#txtPrecioOfertaModal").val(),
+            ImagenProducto: $("#ImagenProducto").val(),
+            ImagenProductoAnterior: $('#ImagenProductoAnterior').val(),
+            Orden: $("#txtOrdenModal").val(),
+            UnidadesPermitidas: $("#txtUnidadesPermitidasModal").val(),
+            DescripcionProducto1: $("#txtDescripcionProducto1Modal").val(),
+            DescripcionProducto2: $("#txtDescripcionProducto2Modal").val(),
+            DescripcionProducto3: $("#txtDescripcionProducto3Modal").val(),
+            ImagenProducto1: $("#txtImagenProducto1Modal").val(),
+            ImagenProducto2: $("#txtImagenProducto2Modal").val(),
+            ImagenProducto3: $("#txtImagenProducto3Modal").val(),
+            CodigoCampania: $("#txtCampaniaModal").val(),
+            FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
+            CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
+            FlagImagen: $("#hdFlagImagen").val(),
+            PaisID: paisID
+        };
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'ShowRoom/' + accion,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        HideDialog("DialogRegistroOfertaShowRoom");
+                        LimpiarDatos();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    HideDialog("DialogRegistroOfertaShowRoom");
+                }
+            }
+        });
+    }
+
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "ShowRoom/ConsultarOfertaShowRoom",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function() { return $("#ddlPais").val() },
+                CodigoOferta: function() { return ($("#ddlConfiguracionOferta").val() == "" ? "0" : $("#ddlConfiguracionOferta").val()); },
+                CampaniaID: function() { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
+                'DescripcionProducto1', 'DescripcionProducto2', 'DescripcionProducto3', 'ImagenProducto1', 'ImagenProducto2', 'ImagenProducto3', 'Foto', ''],
+            colModel: [
+                { name: 'TipoOferta', index: 'TipoOferta', width: 50, editable: true, resizable: false },
+                { name: 'CodigoProducto', index: 'CodigoProducto', width: 60, editable: true, resizable: false },
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false },
+                { name: 'CUV', index: 'CUV', width: 40, editable: true, resizable: false },
+                { name: 'Descripcion', index: 'Descripcion', width: 135, editable: true, resizable: false },
+                { name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
+                { name: 'Orden', index: 'Orden', width: 35, editable: true, resizable: false },
+                { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false },
+                { name: 'StockInicial', index: 'StockInicial', width: 50, editable: true, resizable: false },
+                { name: 'UnidadesPermitidas', index: 'UnidadesPermitidas', width: 65, editable: true, resizable: false },
+                { name: 'DescripcionProducto1', index: 'DescripcionProducto1', width: 65, editable: true, resizable: false, hidden:true },
+                { name: 'DescripcionProducto2', index: 'DescripcionProducto2', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'DescripcionProducto3', index: 'DescripcionProducto3', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenProducto1', index: 'ImagenProducto1', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenProducto2', index: 'ImagenProducto2', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenProducto3', index: 'ImagenProducto3', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function() {
+            },
+            gridComplete: function() {
+            }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[17] + "','" + rowObject[21] + "','" + rowObject[22] + "','" + rowObject[23] + "','" + rowObject[20] + "','" + rowObject[24] + "','" + rowObject[25] + "','" + rowObject[18] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[17] + "');\" >" + "<img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
+            var Remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[17] + "');\" >" + "<img src='@Url.Content("~/Content/Images/delete.png")' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
+
+            var resultado = Edit;
+
+            if (rowObject[20] == "True")
+                resultado += Del;
+
+            if (rowObject[6] > 0)
+                resultado += Remove;
+
+            return resultado;
+        };
+
+        function ShowImage(cellvalue, options, rowObject) {
+            var image = "";
+            var filename = rowObject[16].replace(/^.*[\\\/]/, '');
+            if (rowObject[10] != "") {
+                // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />';
+                image = '<img src="' + rowObject[16] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+            } else {
+                image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+            }
+            return image;
+        };
+    }
+
+    $.jgrid.extend({
+        Editar: function (ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock) {
+            if (ID) {
+                LimpiarDatos();
+
+                $.getJSON(baseUrl + 'ShowRoom/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: CodigoSAP }, function (data) {
+                    if (data.lista.length > 0) {
+                        if (data.lista[0].FotoProducto01 != "") {
+                            $('#preview1').attr('src', data.lista[0].FotoProducto01);
+                            $("#chkImagenProducto01").val($('#preview1').attr('src').replace(/^.*[\\\/]/, ''));
+
+                            var img01 = $('#chkImagenProducto01').val();
+                            if (img01.lastIndexOf("?") >= 0) {
+                                img01 = img01.substring(0, img01.lastIndexOf("?"));
+                                $('#chkImagenProducto01').val(img01);
+                            }
+
+                            $("#chkImagenProducto01").removeAttr('disabled');
+                        } else
+                            $("#chkImagenProducto01").attr('disabled', true);
+                        if (data.lista[0].FotoProducto02 != "") {
+                            $('#preview2').attr('src', data.lista[0].FotoProducto02); // 1664
+                            $("#chkImagenProducto02").val($('#preview2').attr('src').replace(/^.*[\\\/]/, ''));
+
+                            var img01 = $('#chkImagenProducto02').val();
+                            if (img01.lastIndexOf("?") >= 0) {
+                                img01 = img01.substring(0, img01.lastIndexOf("?"));
+                                $('#chkImagenProducto02').val(img01);
+                            }
+
+                            $("#chkImagenProducto02").removeAttr('disabled');
+                        } else
+                            $("#chkImagenProducto02").attr('disabled', true);
+                        if (data.lista[0].FotoProducto03 != "") {
+                            $('#preview3').attr('src', data.lista[0].FotoProducto03); // 1664
+                            $("#chkImagenProducto03").val($('#preview3').attr('src').replace(/^.*[\\\/]/, ''));
+
+                            var img01 = $('#chkImagenProducto03').val();
+                            if (img01.lastIndexOf("?") >= 0) {
+                                img01 = img01.substring(0, img01.lastIndexOf("?"));
+                                $('#chkImagenProducto03').val(img01);
+                            }
+
+                            $("#chkImagenProducto03").removeAttr('disabled');
+                        } else
+                            $("#chkImagenProducto03").attr('disabled', true);
+                    } else {
+                        $("#chkImagenProducto02").attr('disabled', true);
+                        $("#chkImagenProducto03").attr('disabled', true);
+                        $("#chkImagenProducto01").attr('disabled', true);
+                    }
+                    if (Flag != "0")
+                        $("#FlagTransaccion").val("1");
+
+                    $.ajaxSetup({
+                        cache: false
+                    });
+                    if (Flag == "0") {
+                        $.getJSON(baseUrl + 'ShowRoom/ObtenerOrdenPriorizacion', { paisID: paisID, ConfiguracionOfertaID: FlagOrden, CampaniaID: CampaniaID }, function (data) {
+                            $('#txtOrdenModal').val(data.Orden);
+                        });
+                    } else {
+                        $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
+                        $("#hdOrdenAnterior").val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
+                    }
+
+                    $('#hdCampaniaID').val(CampaniaID);
+                    $('#hdStockProducto').val(Stock);
+                    $("#txtPaisModal").val(paisNombre);
+                    $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
+
+                    $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
+                    $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
+                    $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
+                    $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+                    if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
+                        $("#txtUnidadesPermitidasModal").val("1");
+                    else
+                        $("#txtUnidadesPermitidasModal").val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
+                    
+                    $('#txtDescripcionProducto1Modal').val(jQuery("#list").jqGrid('getCell', ID, 'DescripcionProducto1'));
+                    $('#txtDescripcionProducto2Modal').val(jQuery("#list").jqGrid('getCell', ID, 'DescripcionProducto2'));
+                    $('#txtDescripcionProducto3Modal').val(jQuery("#list").jqGrid('getCell', ID, 'DescripcionProducto3'));
+                    $('#txtImagenProducto1Modal').val(jQuery("#list").jqGrid('getCell', ID, 'ImagenProducto1'));
+                    $('#txtImagenProducto2Modal').val(jQuery("#list").jqGrid('getCell', ID, 'ImagenProducto2'));
+                    $('#txtImagenProducto3Modal').val(jQuery("#list").jqGrid('getCell', ID, 'ImagenProducto3'));
+                   
+                    var imagen = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
+
+                    if (imagen != "prod_grilla_vacio.png") {
+                        $('#ImagenProductoAnterior').val(imagen);
+                        
+                        var img01 = $('#ImagenProductoAnterior').val();
+                        if (img01.lastIndexOf("?") >= 0) {
+                            img01 = img01.substring(0, img01.lastIndexOf("?"));
+                            $('#ImagenProductoAnterior').val(img01);
+                        }
+
+                        $('#ImagenProducto').val(imagen);
+                        
+                        var img02 = $('#ImagenProducto').val();
+                        if (img02.lastIndexOf("?") >= 0) {
+                            img02 = img02.substring(0, img02.lastIndexOf("?"));
+                            $('#ImagenProducto').val(img02);
+                        }
+                    } else {
+                        $('#ImagenProductoAnterior').val("");
+                        $('#ImagenProducto').val("");
+                    }
+
+                    var img02 = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
+                    if (img02.lastIndexOf("?") >= 0) {
+                        img02 = img02.substring(0, img02.lastIndexOf("?"));
+                    }
+
+                    if ($("#chkImagenProducto03").val() == img02)
+                        $('#chkImagenProducto03').attr('checked', true);
+                    if ($("#chkImagenProducto02").val() == img02)
+                        $('#chkImagenProducto02').attr('checked', true);
+                    if ($("#chkImagenProducto01").val() == img02)
+                        $('#chkImagenProducto01').attr('checked', true);
+                    if (FlagCheck == "True")
+                        $('#chkHabilitarOferta').attr('checked', true);
+                    else
+                        $('#chkHabilitarOferta').removeAttr('checked');
+                    $('#hdCodigoOferta').val(CodigoOferta);
+
+                    showDialog("DialogRegistroOfertaShowRoom");
+                });
+
+            } else {
+                alert("Debe seleccionar un Producto, verifique");
+            }
+            return false;
+        },
+        Eliminar: function (ID, CUV, CampaniaID) {
+            var elimina = confirm('¿ Está seguro que desea deshabilitar el producto seleccionado?');
+            if (!elimina)
+                return false;
+
+            var Item = {
+                CampaniaID: CampaniaID,
+                CUV: CUV,
+                PaisID: paisID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'ShowRoom/DeshabilitarOfertaShowRoom',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        LimpiarDatos();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        Remover: function (ID, CUV, CampaniaID) {
+            var elimina = confirm('¿ Está seguro que desea eliminar el producto seleccionado?');
+            if (!elimina)
+                return false;
+
+            var Item = {
+                CampaniaID: CampaniaID,
+                CUV: CUV,
+                PaisID: paisID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'ShowRoom/RemoverOfertaShowRoom',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        LimpiarDatos();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    function LimpiarDatos() {
+        $('#hdCampaniaID').val("");
+        $('#NombreImagen').val("");
+        $('#NombreImagenAnterior').val("");
+        $('#txtPaisModal').val("");
+        $('#txtTipoOfertaModal').val("");
+        $('#txtCUVModal').val("");
+        $('#txtDescripcionModal').val("");
+        $('#txtPrecioOfertaModal').val("");
+        $('#chkHabilitarOferta').removeAttr('checked');
+        $('#chkImagenProducto01').removeAttr('checked');
+        $('#chkImagenProducto02').removeAttr('checked');
+        $('#chkImagenProducto03').removeAttr('checked');
+        $('#preview1').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+        $('#preview2').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+        $('#preview3').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+        $("#FlagTransaccion").val("0");
+        $("#hdCodigoOferta").val("");
+        $("#hdFlagImagen").val("0");
+        $("#hdStockProducto").val("0");
+        $('#txtUnidadesPermitidasModal').val("");
+        $('#txtDescripcionProducto1Modal').val("");
+        $('#txtDescripcionProducto2Modal').val("");
+        $('#txtDescripcionProducto3Modal').val("");
+        $('#txtImagenProducto1Modal').val("");
+        $('#txtImagenProducto2Modal').val("");
+        $('#txtImagenProducto3Modal').val("");
+    }
+    
+    function LimpiarCarga() {
+        var divcontainer = $('#flStock').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+    
+    function LimpiarCargaDescProd() {
+        var divcontainer = $('#flCargarConsultoras').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+    
+    function LimpiarDependencias(Id) {
+        var ddlCampania = $('#ddlCampania');
+        ddlCampania.empty();
+        ddlCampania.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+        var ddlConfiguracionOferta = $('#ddlConfiguracionOferta');
+        ddlConfiguracionOferta.empty();
+        ddlConfiguracionOferta.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+        $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+    }
+    
+    function alert_msg(message) {
+        $('#DialogMensajes .message_text').html(message);
+        $('#DialogMensajes').dialog('open');
+    }
+
+</script>

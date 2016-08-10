@@ -1,0 +1,174 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Data;
+
+namespace Portal.Consultoras.BizLogic
+{
+    public class BLProducto
+    {
+        public List<BEProductoDescripcion> GetProductoDescripcionByCUVandCampania(int paisID, int campaniaID, string CUV)
+        {
+            List<BEProductoDescripcion> productoDescripcion = new List<BEProductoDescripcion>();
+            var DAProductoDescripcion = new DAProductoDescripcion(paisID);
+
+            using (IDataReader reader = DAProductoDescripcion.GetProductoDescripcionByCUVandCampania(CUV, campaniaID))
+            {
+                while (reader.Read())
+                {
+                    var prod = new BEProductoDescripcion(reader);
+                    productoDescripcion.Add(prod);
+                }
+            }
+            return productoDescripcion;
+        }
+        public IList<BEProductoDescripcion> GetProductoComercialByPaisAndCampania(int CampaniaID, string codigo, int PaisID, int rowCount)
+        {
+            var productos = new List<BEProductoDescripcion>();
+            var DAProducto = new DAProducto(PaisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByPaisAndCampania(CampaniaID, PaisID))
+                while (reader.Read())
+                {
+                    var prod = new BEProductoDescripcion(reader);
+                    prod.PaisID = PaisID;
+                    productos.Add(prod);
+                }
+
+            return (from venta in productos
+                    where venta.CUV.Contains(codigo)
+                    select venta).Take(rowCount).ToList();
+        }
+
+        public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
+        {
+            IList<BEProducto> productos;
+            if (true) //TODO: Validar cache
+            {
+                productos = new List<BEProducto>();
+                var DAProducto = new DAProducto(paisID);
+
+                using (IDataReader reader = DAProducto.GetProductoComercialByCampania(campaniaID))
+                {
+                    while (reader.Read())
+                    {
+                        productos.Add(new BEProducto(reader));
+                    }
+                }
+            }
+
+            var productosSel = new List<BEProducto>();
+            int count = 0;
+            foreach (BEProducto producto in productos)
+            {
+                if (criterio == 1 && producto.CUV.Contains(codigoDescripcion)
+                    || criterio == 2 && producto.Descripcion.ToUpper().Contains(codigoDescripcion.ToUpper()))
+                {
+                    productosSel.Add(producto);
+                    count++;
+                    if (count >= rowCount)
+                        break;
+                }
+            }
+
+            return (from producto in productosSel
+                    orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
+                    select producto).ToList();
+        }
+
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearch(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearch(campaniaID, rowCount, criterio, codigoDescripcion))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return (from producto in productos
+                    orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
+                    select producto).ToList();
+        }
+
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return (from producto in productos
+                    orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
+                    select producto).ToList();
+        }
+
+        public int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)
+        {
+            var DAProductoDescripcion = new DAProductoDescripcion(producto.PaisID);
+            return DAProductoDescripcion.UpdProductoDescripcion(producto, codigoUsuario);
+        }
+
+        public IList<BEProductoDescripcion> GetProductosByCampaniaCuv(int paisID, int anioCampania, string codigoVenta)
+        {
+            var productos = new List<BEProductoDescripcion>();
+            var DAProductoComercial = new DAProductoDescripcion(paisID);
+
+            using (IDataReader reader = DAProductoComercial.GetProductosByCampaniaCuv(anioCampania, codigoVenta))
+                while (reader.Read())
+                {
+                    var producto = new BEProductoDescripcion(reader);
+                    productos.Add(producto);
+                }
+
+            return productos;
+        }
+
+        public BEProductoDescripcion GetProductoByCampaniaCuv(int paisID, int anioCampania, string codigoZona, string codigoVenta)
+        {
+            BEProductoDescripcion beProductoDescripcion = null;
+            var daProductoComercial = new DAProductoDescripcion(paisID);
+
+            using (IDataReader reader = daProductoComercial.GetProductoByCampaniaCuv(anioCampania, codigoZona, codigoVenta))
+                if (reader.Read())
+                {
+                    beProductoDescripcion = new BEProductoDescripcion(reader);
+                }
+
+            return beProductoDescripcion;
+        }
+
+        #region Producto Sugerido
+
+        public IList<BEProducto> GetProductoSugeridoByCUV(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = DAProducto.GetProductoSugeridoByCUV(campaniaID, consultoraID, cuv, regionID, zonaID, codigoRegion, codigoZona))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
+        }
+
+        #endregion
+    }
+}

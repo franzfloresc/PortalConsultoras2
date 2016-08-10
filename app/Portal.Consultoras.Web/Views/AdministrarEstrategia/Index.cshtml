@@ -1,0 +1,1947 @@
+﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
+@{
+    ViewBag.Title = "Administración de Estrategias";
+}
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+
+        fnGrilla();
+        IniDialog();
+
+        $('.ValidaNumeral').keyup(function (evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        });
+
+        $('.ValidaNumeral').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        $("#btnNuevo").click(function () {            
+
+            $.jstree._reference($("#arbolRegionZona")).check_all();
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+
+            if ($("#ddlTipoEstrategia").val() == "") {
+                alert("Debe seleccionar un tipo de estrategia, verifique.");
+                return false;
+            }
+            $("#hdTipoConsulta").val("1");
+            $("#ddlCampaniaFin").val("");
+            SeleccionarTipoOferta();
+            PedidoAsociadoChecks();
+            $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $("#chkImagenProducto01").attr('disabled', true);
+            $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $("#chkImagenProducto02").attr('disabled', true);
+            $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $("#chkImagenProducto03").attr('disabled', true);
+            $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
+            $("#hdEstrategiaID").val("0");
+            $("#hdCampania").val($("#ddlCampania").val());
+            $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
+            $("#txtAlcance").val($("#ddlPais option:selected").html());
+            $("#spanCampania").val($("#ddlCampania option:selected").html());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $('#chkImagenProducto01').attr('checked', false);
+            $('#chkImagenProducto02').attr('checked', false);
+            $('#chkImagenProducto03').attr('checked', false);
+            $('#chkHabilitarOferta').attr('checked', false);
+            $('#hdZonas').val('');
+            $('#chkVisible1').attr("checked", true);
+            $('#chkVisible2').attr("checked", false);
+            $('#chkVisible3').attr("checked", true);
+            $('#chkVisible4').attr("checked", false);
+            $('#chkVisible5').attr("checked", false);
+            $('#hdColorFondo').val("#FFF");
+            ActivarDesactivarChecks();
+            $('#mensajeErrorCUV').val("");
+            $('#mensajeErrorCUV2').val("");
+            $("#linkAlcance").click();
+            $(".checksPedidosAsociados").html('');
+
+            /* SB20-312 - INICIO */
+            if ($('#ddlTipoEstrategia').val() == 3009) {
+                $("#txtOrden").val("");
+                $('#div-orden').hide();
+
+                $('#txt1-estrella').html('Oferta de Último Minuto');
+                $('#txt2-estrella').hide();
+            }
+            else {
+                //$("#txtOrden").val("");
+                $('#div-orden').show();
+
+                $('#txt1-estrella').html('Mostrar estrella');
+                $('#txt2-estrella').show();
+            }
+
+            $("#ddlEtiqueta1").children('option').show();
+            $("#ddlEtiqueta2").children('option').show();
+
+            if ($('#ddlTipoEstrategia').val() == 1009) {
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[value='3003']").show();
+            }
+            else if ($('#ddlTipoEstrategia').val() == 3009 || $('#ddlTipoEstrategia').val() == 3011) {
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[value='1']").show();
+
+                $("#ddlEtiqueta2").children('option').hide();
+                $("#ddlEtiqueta2").children("option[value='3']").show();
+            }
+            
+            /* SB20-312 - FIN */
+
+            HideDialog("DialogZona");
+            showDialog("DialogAdministracionEstrategia");
+        });
+        $("#ddlTipoEstrategia").change(function () {
+            SeleccionarTipoOferta();
+            PedidoAsociadoChecks();
+        });
+        $("#btnBuscar").click(function () {
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+
+            if ($("#ddlTipoEstrategia").val() == "") {
+                alert("Debe seleccionar el tipo de estrategia, verifique.");
+                return false;
+            }
+
+            $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
+            $("#hdTipoConsulta").val("1");
+            fnGrilla();
+        });
+        $('#ddlPais').change(function () {
+            $("#hdTipoConsulta").attr("value", "0");
+            $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+            var Id = $(this).val();
+            //if (Id != "") {
+            waitingDialog({});
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                type: 'GET',
+                url: baseUrl + 'AdministrarEstrategia/ObtenterCampanias',
+                data: "PaisID=" + (Id == "" ? 0 : Id),
+                cache: false,
+                dataType: 'Json',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        var ddlCampania = $('#ddlCampania');
+                        var ddlCampaniaFin = $('#ddlCampaniaFin');
+                        ddlCampania.empty();
+                        ddlCampaniaFin.empty();
+                        if (data.lista.length > 0) {
+                            ddlCampania.append($('<option/>', {
+                                value: "",
+                                text: "-- Seleccionar --"
+                            }));
+                            ddlCampaniaFin.append($('<option/>', {
+                                value: "",
+                                text: "-- Seleccionar --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lista) {
+                                    ddlCampania.append($('<option/>', {
+                                        value: data.lista[item].CampaniaID,
+                                        text: data.lista[item].Codigo
+                                    }));
+                                    ddlCampaniaFin.append($('<option/>', {
+                                        value: data.lista[item].CampaniaID,
+                                        text: data.lista[item].Codigo
+                                    }));
+                                }
+                            }
+                        }
+
+                        cargarArbol();
+
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (x, xh, xhr) {
+                    if (checkTimeout(x)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+        });
+        $("#linkAlcance").click(function () {
+            var strZonas = $("#hdZonas").val();
+            if (strZonas != "") {
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                var strZonasArreglo = strZonas.split(",");
+                for (i = 0; i < strZonasArreglo.length; i++) {
+                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                }
+                $("#chkSeleccionar").attr("checked", true);
+                $.jstree._reference($("#arbolRegionZona")).get_unchecked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    $("#chkSeleccionar").attr("checked", false);
+                });
+            } else {
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+                var zonas = "";
+                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    zonas += this.id + ",";
+                });
+                if (zonas != "") {
+                    zonas = zonas.substring(0, zonas.length - 1);
+                }
+                $("#hdZonas").val(zonas);
+                $("#chkSeleccionar").attr("checked", true);
+            }
+            $('#arbolRegionZona').jstree('close_all');
+            showDialog("DialogZona");
+            return false;
+        });
+        $("#linkTallaColor").click(function () {
+            if ($.trim($("#txtCUV2").val()) == "") {
+                alert("Debe ingresar un valor para CUV2");
+                return false;
+            }
+            fnGrillaTC();
+            showDialog("DialogTonoMarca");
+            return false;
+        });
+        $("#chkSeleccionar").click(function () {
+            if (this.checked)
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+        });
+        $("#txtCUV").keyup(function () {
+            if ($(this).val().length == 5) {
+
+                if ($("#txtCUV2").val() == "") {
+                    alert("Debe ingresar un valor para el CUV2");
+                    return false;
+                }
+
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+
+                var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+                var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+
+                var params = {
+                    CampaniaID: $("#ddlCampania").val(),
+                    CUV2: $("#txtCUV2").val(),
+                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                    CUV1: $("#txtCUV").val(),
+                    flag: "1",
+                    FlagNueva: flagNueva,
+                    FlagRecoProduc: flagRecoProduc,
+                    FlagRecoPerfil: flagRecoPerfil
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        if (data.message == "OK") {
+                            $("#txtPrecio").val(parseFloat(data.precio).toFixed(2));
+                            $('#mensajeErrorCUV').val("");
+                            closeWaitingDialog();
+                        } else {
+                            $('#mensajeErrorCUV').val(data.message);
+                            alert($('#mensajeErrorCUV').val());
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (data, error) {
+                        $('#mensajeErrorCUV').val(data.message);
+                        alert($('#mensajeErrorCUV').val());
+                        closeWaitingDialog();
+                    }
+                });
+            }
+        });
+        $("#txtCUVTC").keyup(function () {
+
+            if ($(this).val().length == 5) {
+
+                if ($("#txtCUV2").val() == "") {
+                    alert("Debe ingresar un valor para el CUV2");
+                    return false;
+                }
+
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+
+                var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+                var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+
+                var params = {
+                    CampaniaID: $("#ddlCampania").val(),
+                    CUV2: $("#txtCUVTC").val(),
+                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                    CUV1: "0",
+                    flag: "2",
+                    FlagNueva: flagNueva,
+                    FlagRecoProduc: flagRecoProduc,
+                    FlagRecoPerfil: flagRecoPerfil
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        if (data.message == "OK") {
+                            $("#txtDescripcionCUVTC").val(data.descripcion);
+                            $("#txtPrecioCUVTC").val(parseFloat(data.precio).toFixed(2));
+                            closeWaitingDialog();
+                        } else {
+                            alert(data.message);
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (data, error) {
+                        $('#mensajeErrorCUV').val(data.message);
+                        alert($('#mensajeErrorCUV').val());
+                        closeWaitingDialog();
+                    }
+                });
+            }
+
+        });
+        $("#txtCUV2").keyup(function () {
+            if ($(this).val().length == 5) {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+
+                var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+                var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+
+                var params = {
+                    CampaniaID: $("#ddlCampania").val(),
+                    CUV2: $("#txtCUV2").val(),
+                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                    CUV1: "0",
+                    flag: "0",
+                    FlagNueva: flagNueva, 
+                    FlagRecoProduc: flagRecoProduc, 
+                    FlagRecoPerfil: flagRecoPerfil
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        
+                        $('#mensajeErrorCUV').val("");
+                        if (data.message == "OK") {
+                            $("#txtDescripcion").val(data.descripcion);
+                            
+                            //if (data.wsprecio > 0) {
+
+                            //    $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            //    $("#txtPrecio2")[0].disabled = true;
+                                
+                            //}
+                            //else if(data.wsprecio == 0)
+                            //{
+                            //    if (data.precio == 0) {
+                            //        $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            //        $("#txtPrecio2")[0].disabled = true;
+                            //    }
+                            //    else {
+                            //$("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            //        $("#txtPrecio2")[0].disabled = true;
+                            //    }
+                                
+                               
+                            //}
+                            //else if (data.wsprecio == -1)
+                            //{
+                            //    $("#txtPrecio2")[0].disabled = true;
+                            //    alert("No se pudo obtener el precio del producto");
+                            //}
+
+                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+
+                            $("#txtPrecio").val("");
+                            $("#txtCUV").val("");
+
+                            $("#preview1").attr("src", data.imagen1);
+                            $("#preview2").attr("src", data.imagen2);
+                            $("#preview3").attr("src", data.imagen3);
+
+                            if (data.imagen1 == "") {
+                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto01").attr('disabled', true);
+                            } else { $("#chkImagenProducto01").attr('disabled', false); }
+                            if (data.imagen2 == "") {
+                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto02").attr('disabled', true);
+                            } else { $("#chkImagenProducto02").attr('disabled', false); }
+                            if (data.imagen3 == "") {
+                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto03").attr('disabled', true);
+                            } else { $("#chkImagenProducto03").attr('disabled', false); }
+
+                            var img01 = data.imagen1.replace(/^.*[\\\/]/, '');
+                            if (img01.lastIndexOf("?") >= 0) {
+                                img01 = img01.substring(0, img01.lastIndexOf("?"));
+                                $('#chkImagenProducto01').val(img01);
+                            }
+                           $('#chkImagenProducto01').val(img01);//20150806
+                            var img02 = data.imagen2.replace(/^.*[\\\/]/, '');
+                            if (img02.lastIndexOf("?") >= 0) {
+                                img02 = img02.substring(0, img02.lastIndexOf("?"));
+                                $('#chkImagenProducto02').val(img02);
+                            }
+                            $('#chkImagenProducto02').val(img02);//20150806
+                            var img03 = data.imagen3.replace(/^.*[\\\/]/, '');
+                            if (img03.lastIndexOf("?") >= 0) {
+                                img03 = img03.substring(0, img03.lastIndexOf("?"));
+                                $('#chkImagenProducto03').val(img03);
+                            }
+                            $('#chkImagenProducto03').val(img03);//20150806
+                            $('#mensajeErrorCUV2').val("");
+                            closeWaitingDialog();
+                        } else {
+                            $('#mensajeErrorCUV2').val(data.message);
+                            alert($('#mensajeErrorCUV2').val());
+                            $("#txtDescripcion").val("");
+                            $("#txtPrecio2").val("");
+
+                            $("#txtPrecio").val("");
+                            $("#txtCUV").val("");
+
+                            $("#preview1").attr("src", data.imagen1);
+                            $("#preview2").attr("src", data.imagen2);
+                            $("#preview3").attr("src", data.imagen3);
+
+                            if (data.imagen1 == "") {
+                                $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto01").attr('disabled', true);
+                            } else { $("#chkImagenProducto01").attr('disabled', false); }
+                            if (data.imagen2 == "") {
+                                $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto02").attr('disabled', true);
+                            } else { $("#chkImagenProducto02").attr('disabled', false); }
+                            if (data.imagen3 == "") {
+                                $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                                $("#chkImagenProducto03").attr('disabled', true);
+                            } else { $("#chkImagenProducto03").attr('disabled', false); }
+                            $('#chkImagenProducto01').attr('checked', false);
+                            $('#chkImagenProducto02').attr('checked', false);
+                            $('#chkImagenProducto03').attr('checked', false);
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (data, error) {
+                        alert(data.message);
+                        closeWaitingDialog();
+                    }
+                });
+            }
+        });
+        $("#chkImagenProducto01").click(function () {
+            if ($("#chkImagenProducto01").attr('checked')) {
+                $("#ImagenProducto").val($(this).val());
+                $("#chkImagenProducto02").removeAttr('checked')
+                $("#chkImagenProducto03").removeAttr('checked')
+            }
+        });
+        $("#chkImagenProducto02").click(function () {
+            if ($("#chkImagenProducto02").attr('checked')) {
+                $("#ImagenProducto").val($(this).val());
+                $("#chkImagenProducto01").removeAttr('checked')
+                $("#chkImagenProducto03").removeAttr('checked')
+            }
+        });
+        $("#chkImagenProducto03").click(function () {
+            if ($("#chkImagenProducto03").attr('checked')) {
+                $("#ImagenProducto").val($(this).val());
+                $("#chkImagenProducto01").removeAttr('checked')
+                $("#chkImagenProducto02").removeAttr('checked')
+            }
+        });
+        ActivarDesactivarChecks();
+        PaletaColores();
+        $(".activar-desactivar").click(function () {
+            if (!$(this).attr("checked")) {
+                $(this).parent().parent().find("input").each(function () {
+                    $(this).val('');
+                    $("#chkEstrella").attr('checked', false);
+                    $(this).attr('disabled', true);
+                });
+                $(this).parent().parent().find("select").each(function () {
+                    $(this).val('');
+                    $(this).attr('disabled', true);
+                });
+                $(this).attr('disabled', false);
+                PaletaColores();
+            } else {
+                $(this).parent().parent().find("input").each(function () {
+                    $(this).val('');
+                    $("#chkEstrella").attr('checked', false);
+                    $(this).attr('disabled', false);
+                });
+                $(this).parent().parent().find("select").each(function () {
+                    $(this).val('');
+                    $(this).attr('disabled', false);
+                });
+                $(this).attr('disabled', false);
+                PaletaColores();
+            }
+        });
+        $("#preview1").click(function () {
+            if ($("#chkImagenProducto01").attr("disabled") != "disabled") {
+                MostrarVistaPrevia("preview1");
+            }
+        });
+        $("#preview2").click(function () {
+            if ($("#chkImagenProducto02").attr("disabled") != "disabled") {
+                MostrarVistaPrevia("preview2");
+            }
+        });
+        $("#preview3").click(function () {
+            if ($("#chkImagenProducto03").attr("disabled") != "disabled") {
+                MostrarVistaPrevia("preview3");
+            }
+        });
+        
+        
+    });
+
+    ///////////////
+
+    $(document).keydown(function (e) {
+        if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
+            e.preventDefault();
+        }
+    })
+
+    //////////////
+
+    // 2209 - Inicio
+    function CerrarTallaColor() {
+
+        var params = {
+            CampaniaID: $("#ddlCampania").val(),
+            CUV2: $("#txtCUV2").val(),
+            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+            CUV1: "",
+            flag: "3",
+            FlagNueva: "0",
+            FlagRecoProduc: "0",
+            FlagRecoPerfil: "0"
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                if (data.message == "OK") {
+                    var cantidad = parseInt(data.precio);
+                    if (cantidad > 0) {
+                        alert("Debe ingresar todas las descripciones a las tallas/colores.");
+                        return false;
+                    } else {
+                        HideDialog("DialogTonoMarca");
+                    }
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                alert(data.message);
+            }
+        });
+    }
+    // 2209 - Fin
+    function MostrarVistaPrevia(id) {
+        $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));        
+        $("#imgTipoOferta").attr("src", $("#ddlTipoEstrategia option:selected").attr('imagen-tipo'));
+        $("#imgEstrella").hide();
+        $(".zona_estrategia_1").html("");
+        $(".zona_estrategia_2").html("");
+        $(".zona_estrategia_3").html("");
+        $(".zona_estrategia_4").html("");
+
+        if ($("#chkVisible1").attr("checked")) { $(".zona_estrategia_1").html(InitCap($("#txtDescripcion").val())); }
+        else { $(".zona_estrategia_1").html(""); }
+        if ($("#chkVisible2").attr("checked")) {
+            if ($("#ddlEtiqueta1 option:selected").html() != "-- Seleccionar --") {
+                $(".zona_estrategia_2").html($("#ddlEtiqueta1 option:selected").html() + " " + $("#hdSimbolo").val() + " " + parseFloat($("#txtPrecio").val()).toFixed(2));
+            }
+        }
+        else { $(".zona_estrategia_2").html(""); }
+        if ($("#chkVisible3").attr("checked")) {
+            if ($("#ddlEtiqueta2 option:selected").html() != "-- Seleccionar --") {
+                $(".zona_estrategia_3").html($("#ddlEtiqueta2 option:selected").html() + " " + $("#hdSimbolo").val() + " " + parseFloat($("#txtPrecio2").val()).toFixed(2));
+            }
+        }
+        else { $(".zona_estrategia_3").html(""); }
+        if ($("#chkVisible4").attr("checked")) { $(".zona_estrategia_4").html($("#txtTextoLibre").val()); }
+        else { $(".zona_estrategia_4").html(""); }
+
+        if ($("#chkVisible5").attr("checked")) {
+            $(".Content_modal_ZE").css("background-color", $("#hdColorFondo").val());
+            if (!$("#chkEstrella").attr("disabled")) {
+                if ($("#chkEstrella").attr("checked")) {
+                    $("#imgEstrella").show();
+                } else {
+                    $("#imgEstrella").hide();
+                }
+            } else {
+                $("#imgEstrella").hide();
+            }
+        }
+        else { $(".Content_modal_ZE").css("background-color", "#FFF"); }
+
+        showDialog('divVistaPrevia');
+        return false;
+    }
+    function InitCap(str) {
+        return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+    function PaletaColores() {
+        $("#txtColorFondo").spectrum({
+            color: $("#hdColorFondo").val(),
+            showInput: true,
+            className: "full-spectrum",
+            showInitial: true,
+            showPalette: true,
+            showSelectionPalette: true,
+            maxPaletteSize: 10,
+            preferredFormat: "hex",
+            localStorageKey: "spectrum.demo",
+            move: function (color) {
+
+            },
+            show: function () {
+
+            },
+            beforeShow: function () {
+
+            },
+            hide: function () {
+
+            },
+            change: function () {
+                $("#hdColorFondo").val($(this).val());
+            },
+            palette: [
+                ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
+                "rgb(204, 204, 204)", "rgb(217, 217, 217)", "rgb(255, 255, 255)"],
+                ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+                "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+                ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+                "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+                "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+                "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+                "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+                "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+                "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+                "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+                "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+                "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+            ]
+        });
+    }
+    function SeleccionarTipoOferta() {
+        var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+        var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+        var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+
+        $("#ddlCampaniaFin").val("");
+        $("#list").jqGrid('hideCol', ["NumeroPedido"]);
+        if (flagNueva == "1") {
+            $(".DatosNuevas").show();
+            $(".OcultarNuevas").css({ visibility: "hidden" });
+            $("#txtLimite").val("1");
+            $("#list").jqGrid('showCol', ["NumeroPedido"]);
+        } else {
+            $(".DatosNuevas").hide();
+            $(".OcultarNuevas").css({ visibility: "visible" });
+            $("#txtLimite").val("99");
+        }
+        if (flagRecoProduc == "1" || flagRecoPerfil == "1") {
+            $(".Recomendados").show();
+            if (flagRecoProduc == "1") {
+                $("#idEstrella").hide();
+                $("#idColorFondo").show();                
+            }
+            if (flagRecoPerfil == "1") {
+                $("#idColorFondo").hide();
+                $("#idEstrella").show();
+                $("#idEstrella").attr("checked", false);
+            }
+        } else {
+            $(".Recomendados").hide();
+        }
+    }
+
+    function PedidoAsociadoChecks() {
+        // $(".checksPedidosAsociados").html('');
+        waitingDialog({});
+        $.ajaxSetup({ cache: false });
+        var codigoPrograma = $("#ddlTipoEstrategia option:selected").attr("Codigo-Programa");
+
+        if (codigoPrograma == undefined) {
+            codigoPrograma = '00';
+        }
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + 'AdministrarEstrategia/ObtenerPedidoAsociado',
+            data: "CodigoPrograma=" + codigoPrograma,
+            async: true,
+            dataType: 'Json',
+            success: function (data) {
+                if (data != null && data.pedidoAsociado.length > 0) {
+                    var pedidoAsociados = data.pedidoAsociado[0].PedidoAsociado.split(',');
+                    $.each(pedidoAsociados, function (x) {
+                        var item = $(this)[0];
+                        $(".checksPedidosAsociados")
+                            .append('<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' + item + '" name="PedidoAsociado_' + item + '" value=' + item + ' >' + item + '</div>');
+                    });
+                }
+                closeWaitingDialog();
+            },
+            error: function (x, xh, xhr) {
+                if (checkTimeout(x)) {
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function ActivarDesactivarChecks() {
+        $(".activar-desactivar").each(function () {
+            if (!$(this).attr("checked")) {
+                $(this).parent().parent().find("input").each(function () {
+                    $(this).val('');
+                    $("#chkEstrella").attr('checked', false);
+                    $(this).attr('disabled', true);
+                });
+                $(this).parent().parent().find("select").each(function () {
+                    $(this).val('');
+                    $(this).attr('disabled', true);
+                });
+                $(this).attr('disabled', false);
+                PaletaColores();
+            } else {
+                $(this).parent().parent().find("input").each(function () {
+                    $(this).val('');
+                    $("#chkEstrella").attr('checked', false);
+                    $(this).attr('disabled', false);
+                });
+                $(this).parent().parent().find("select").each(function () {
+                    $(this).val('');
+                    $(this).attr('disabled', false);
+                });
+                $(this).attr('disabled', false);
+                PaletaColores();
+            }
+        });
+    }
+    function cargarArbol() {
+        $("#arbolRegionZona").jstree({
+            json_data: {
+                ajax: {
+                    url: baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas",
+                    data: function (n) {
+                        return { pais: $("#ddlPais").val(), region: 0, zona: 0 };
+                    },
+                    type: "GET",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                    success: function (data, textStatus, jqXHR) { },
+                    complete: function () {
+                        // $.jstree._reference($("#arbolRegionZona")).check_all();
+                        $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+                        closeWaitingDialog();
+                    }
+                }
+            },
+            "themes": {
+                "theme": "apple",
+                "dots": true,
+                "icons": false
+            },
+            plugins: ["themes", "json_data", "ui", "checkbox"]
+        });
+    }
+    function fnGrilla() {
+        $("#list").jqGrid("GridUnload");
+        jQuery("#list").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val(),
+                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                CUV: $("#CUV").val(),
+                Consulta: $("#hdTipoConsulta").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
+            colModel: [
+                { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false },
+                { name: 'ID', index: 'ID', width: 20, editable: true, hidden: false },
+                { name: 'NumeroPedido', index: 'NumeroPedido', width: 40, editable: true, hidden: false },
+                { name: 'Precio2', index: 'Precio2', width: 70, editable: true, align: 'center', resizable: false },
+                { name: 'CUV2', index: 'CUV2', width: 70, editable: true, resizable: false, sortable: false, align: 'center' },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false },
+                { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false },
+                { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false },
+                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Orden',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        //  $("#list").jqGrid('hideCol', ["NumeroPedido"]); /*R20160301*/
+    }
+    function fnGrillaTC() {
+        $("#listTC").jqGrid("GridUnload");
+        jQuery("#listTC").jqGrid({
+            url: baseUrl + "AdministrarEstrategia/ConsultarTallaColor",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: $("#ddlCampania").val(),
+                CUV: $("#txtCUV2").val()
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['ID', 'CUV', 'Descripción', 'Precio', 'Tipo', 'Talla/Color', 'Desc T/C', '', ''],
+            colModel: [
+                { name: 'ID', index: 'ID', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, hidden: false },
+                { name: 'DescripcionCUV', index: 'DescripcionCUV', width: 110, editable: true, resizable: false, hidden: false },
+                { name: 'PrecioUnitario', index: 'PrecioUnitario', width: 30, editable: true, resizable: false, hidden: false },
+                { name: 'Tipo', index: 'Tipo', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'DescripcionTipo', index: 'DescripcionTipo', width: 50, editable: true, resizable: false, hidden: false },
+                { name: 'DescripcionTallaColor', index: 'DescripcionTallaColor', width: 90, editable: true, resizable: false, hidden: false },
+                { name: 'Accion', index: 'Accion', width: 30, editable: true, resizable: false, hidden: false, align: "center", formatter: ShowActionsTC },
+                { name: 'IDAux', index: 'IDAux', width: 0, editable: true, resizable: false, hidden: true }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerTC'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [],
+            sortname: 'ID',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 650,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                showDialog("DialogTonoMarca");
+            }
+        });
+        jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+    function ShowInputTC(cellvalue, options, rowObject) {
+        var Des = "";
+        Des += "<input type='text' value='" + cellvalue + "' style='width:160px' />";
+        return Des;
+    }
+    function ShowActionsTC(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(rowObject[0]);
+        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
+        if ($.trim(rowObject[1]) != $.trim($("#txtCUV2").val())) {
+            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
+        }
+        return Des;
+    }
+    function EditarTalla(id) {
+        $("#hdTallaColorID").val(id);
+        $('#txtCUVTC').val(jQuery("#listTC").jqGrid('getCell', id, 'CUV'));
+        $('#txtDescripcionCUVTC').val(jQuery("#listTC").jqGrid('getCell', id, 'DescripcionCUV'));
+        $('#txtPrecioCUVTC').val(jQuery("#listTC").jqGrid('getCell', id, 'PrecioUnitario'));
+        $('#ddlTallaColor').val(jQuery("#listTC").jqGrid('getCell', id, 'Tipo'));
+        $('#txtDescripcionTC').val(jQuery("#listTC").jqGrid('getCell', id, 'DescripcionTallaColor'));
+        $('#txtCUVTC').attr("readonly", true);
+        showDialog("DialogEditarTallaColor");
+        return false;
+    }
+    function Eliminar(id) {
+        var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+        if (!elimina)
+            return false;
+
+        var params = {
+            Id: id
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministrarEstrategia/EliminarTallaColor',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                alert(data.message);
+                fnGrillaTC();
+            },
+            error: function (data, error) {
+                alert(data.message);
+            }
+        });
+    }
+    function ShowActions(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue);
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        if (cellValueInt == "1") {
+            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+        }
+        return Des;
+    }
+    function ShowImage(cellvalue, options, rowObject) {
+        var image = "";
+        if (cellvalue != "") {
+            image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
+        } else {
+            image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+    function IniDialog() {
+        $('#DialogAdministracionEstrategia').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            close: function () { $('input:checkbox').removeAttr('checked'); },
+            draggable: false,
+            title: "Registro de Estrategias",
+            buttons:
+            {
+                "Guardar": function () {
+                    if (!$("#chkVisible2").attr("checked")) {
+                        $('#mensajeErrorCUV').val('');
+                    }
+
+                    if ($('#mensajeErrorCUV').val() != "") {
+                        alert($('#mensajeErrorCUV').val());
+                        return false;
+                    }
+                    if ($('#mensajeErrorCUV2').val() != "") {
+                        alert($('#mensajeErrorCUV2').val());
+                        return false;
+                    }
+                    
+                    if ($(".DatosNuevas").css("display") == "block") {
+                        if ($("#ddlCampaniaFin").val() == "") {
+                            alert("Seleccione la campaña de vigencia hasta.");
+                            return false;
+                        }
+                        var campaniaIni = $("#spanCampania").val();
+                        var campaniaFin = $("#ddlCampaniaFin").val();
+                        if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
+                            alert("La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                            return false;
+                        }                    
+                        //if ($("#txtPedidoAsociado").val() == "") {
+                        //    alert("Ingrese un número de pedido asociado.");
+                        //    return false;
+                        //}
+                        //var nroPedido = $("#txtPedidoAsociado").val();
+                        //if (!$.isNumeric(nroPedido)) {
+                        //    alert("Ingrese un valor válido para el número de pedido asociado.");
+                        //    return false;
+                        //}
+                        //if (parseInt(nroPedido) <= 0 || parseInt(nroPedido) > 4) {
+                        //    alert("Ingrese un valor entre 1 y 4 para el número de pedido asociado.");
+                        //    return false;
+                        //}
+                    }
+                    if ($("#chkVisible1").attr("checked")) {
+                        var valor = $("#txtDescripcion").val();
+                        if ($.trim(valor) == "") {
+                            alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible2").attr("checked")) {
+                        var m = "";
+                        if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") {
+                            m += "- Ingrese un valor para el CUV1." + "\n";
+                        }
+                        if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
+                            m += "- Seleccione la etiqueta correspondiente." + "\n";
+                        }
+                        if ($.trim($("#txtPrecio").val()) == "" || $.isNumeric($("#txtPrecio").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            alert(m);
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible3").attr("checked")) {
+                        var m = "";
+                        if ($.trim($("#txtCUV2").val()) == "") {
+                            m += "- Ingrese un valor para el CUV2." + "\n";
+                        }
+                        if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
+                            m += "- Seleccione la etiqueta correspondiente." + "\n";
+                        }
+                        if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio2").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            alert(m);
+                            return false;
+                        }
+                    }
+                    if ($.trim($("#txtCUV2").val()) == "") {
+                        alert("Debe ingresar un valor para el CUV2.");
+                        return false;
+                    }
+                    if ($("#chkVisible4").attr("checked")) {
+                        if ($.trim($("#txtTextoLibre").val()) == "") {
+                            alert("Ingrese un valor de texto libre");
+                            return false;
+                        }
+                    }
+                    if ($("#chkVisible5").attr("checked")) {
+                        if ($("#idEstrella").css("display") == "block") {
+                            if (!$("#chkEstrella").attr("checked")) {
+                                alert("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                                return false;
+                            }
+                        }
+                    } else {
+                        $("#hdColorFondo").val("");
+                    }
+                    if (!$('#chkImagenProducto01').attr('checked') && !$('#chkImagenProducto02').attr('checked') && !$('#chkImagenProducto03').attr('checked')) {
+                        alert("Seleccione una imagen a mostrar.");
+                        return false;
+                    }
+                    if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                        alert("Ingrese un orden para mostrar.");
+                        return false;
+                    }
+                    if ($("#txtOrden").val() <= 0) {
+                        alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+                        return false;
+                    }
+                    if ($("#hdZonas").val() == "") {
+                        alert("Debe seleccionar el alcance de la estrategia.");
+                        return false;
+                    }
+                    if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
+                        alert("Ingrese un valor para el limite de venta.");
+                        return false;
+                    }
+                    if ($("#txtLimite").val() <= 0) {
+                        alert("Ingrese un valor para el limite de venta mayor a cero.");
+                        return false;
+                    }
+                    var EstrategiaID = $("#hdEstrategiaID").val();
+                    var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+                    var CampaniaID = $("#hdCampania").val();
+                    var CampaniaIDFin = $("#ddlCampaniaFin").val();
+                    var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
+                    var ImagenURL = $("#ImagenProducto").val();
+                    var LimiteVenta = $("#txtLimite").val();
+                    var DescripcionCUV2 = $("#txtDescripcion").val();
+                    var FlagDescripcion = ($("#chkVisible1").attr("checked")) ? "1" : "0";
+                    var CUV = $("#txtCUV").val();
+                    var EtiquetaID = $("#ddlEtiqueta1").val();
+                    var Precio = $("#txtPrecio").val();
+                    var FlagCEP = ($("#chkVisible2").attr("checked")) ? "1" : "0";
+                    var CUV2 = $("#txtCUV2").val();
+                    var EtiquetaID2 = $("#ddlEtiqueta2").val();
+                    var Precio2 = $("#txtPrecio2").val();
+                    var FlagCEP2 = ($("#chkVisible3").attr("checked")) ? "1" : "0";
+                    var TextoLibre = $("#txtTextoLibre").val();
+                    var FlagTextoLibre = ($("#chkVisible4").attr("checked")) ? "1" : "0";
+                    var Cantidad = $("#txtCantidad").val();
+                    var FlagCantidad = ($("#chkVisible5").attr("checked")) ? "1" : "0";
+                    var Zona = $("#hdZonas").val();
+                    var Orden = $("#txtOrden").val();
+                    var flagEstrella = ($("#chkEstrella").attr("checked")) ? "1" : "0";
+                    var colorFondo = $("#hdColorFondo").val();
+
+                    var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
+                        return $(this).val();
+                    }).get().join(",");
+
+                    if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
+                        NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
+                    }
+                    var params = {
+                        EstrategiaID: EstrategiaID,
+                        TipoEstrategiaID: TipoEstrategiaID,
+                        CampaniaID: CampaniaID,
+                        CampaniaIDFin: CampaniaIDFin,
+                        NumeroPedido: NumeroPedidoAsociado,
+                        Activo: Activo,
+                        ImagenURL: ImagenURL,
+                        LimiteVenta: LimiteVenta,
+                        DescripcionCUV2: DescripcionCUV2,
+                        FlagDescripcion: FlagDescripcion,
+                        CUV: CUV,
+                        EtiquetaID: EtiquetaID,
+                        Precio: Precio,
+                        FlagCEP: FlagCEP,
+                        CUV2: CUV2,
+                        EtiquetaID2: EtiquetaID2,
+                        Precio2: Precio2,
+                        FlagCEP2: FlagCEP2,
+                        TextoLibre: TextoLibre,
+                        FlagTextoLibre: FlagTextoLibre,
+                        Cantidad: Cantidad,
+                        FlagCantidad: FlagCantidad,
+                        Zona: Zona,
+                        Orden: Orden,
+                        ColorFondo: colorFondo,
+                        FlagEstrella: flagEstrella
+                    };
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'AdministrarEstrategia/RegistrarEstrategia',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (data.success) {
+                                alert(data.message);
+                                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                                HideDialog("DialogAdministracionEstrategia");
+                                fnGrilla();
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function (data, error) {
+                            alert(data.message);
+                        }
+                    });
+
+                },
+                "Salir": function () {
+                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                    $('input:checkbox').removeAttr('checked');
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogZona').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: false,
+            title: "Seleccione el alcance de la estrategia",
+            buttons:
+            {
+                "Guardar": function () {
+                    var zonas = "";
+                    $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                        if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                            return true;
+                        }
+                        zonas += this.id + ",";
+                    });
+                    if (zonas != "") {
+                        zonas = zonas.substring(0, zonas.length - 1);
+                    }
+                    if (zonas == "") {
+                        alert("No se ha marcado ninguna zona o región.");
+                        return false;
+                    }
+                    $("#hdZonas").val(zonas);
+                    alert("Se agregaron las zonas seleccionadas.");
+                    $(this).dialog('close');
+                },
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        
+        $('#divVistaPrevia').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 250,
+            draggable: false,
+            title: "Vista previa",
+            buttons:
+            {
+                "Cerrar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogTonoMarca').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: false,
+            width: 700,
+            draggable: false,
+            title: "Seleccionar Talla/Color",
+            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+            buttons:
+            {
+                "Nueva Talla/Color": function () {
+                    $("#hdTallaColorID").val("0");
+                    $("#ddlTallaColor").val("0");
+                    $("#txtDescripcionTC").val("");
+                    $("#txtCUVTC").val("");
+                    $("#txtDescripcionCUVTC").val("");
+                    $("#txtPrecioCUVTC").val("");
+                    $('#txtCUVTC').attr("readonly", false);
+                    showDialog("DialogEditarTallaColor");
+                },
+                "Salir": CerrarTallaColor
+            }
+        });
+
+        $('#DialogEditarTallaColor').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 550,
+            draggable: false,
+            title: "Registro Talla/Color",
+            buttons:
+            {
+                "Guardar": function () {
+                    var msj = "";
+
+                    if ($("#txtCUVTC").val() == "") {
+                        msj += "- Ingrese un CUV." + "\n";
+                    }
+
+                    if ($("#ddlTallaColor").val() == "0") {
+                        msj += "- Seleccione el tipo (Talla/Color)." + "\n";
+                    }
+
+                    if ($("#txtDescripcionTC").val() == "") {
+                        msj += "- Ingrese descripción (Talla/Color)." + "\n";
+                    }
+
+                    if (msj != "") {
+                        alert(msj);
+                        return false;
+                    }
+
+                    var id = $("#hdTallaColorID").val();
+                    var cuv = $("#txtCUVTC").val();
+                    var campaniaID = $("#ddlCampania").val();
+                    var tipo = $("#ddlTallaColor").val();
+                    var descripcion = $("#txtDescripcionTC").val();
+                    var CUVPadre = $("#txtCUV2").val();
+                    var xmlString = '<params>';
+
+                    xmlString += '<param ';
+                    xmlString += ' ID = "' + id + '"';
+                    xmlString += ' CampaniaID = "' + campaniaID + '"';
+                    xmlString += ' CUV = "' + cuv + '"';
+                    xmlString += ' Tipo = "' + tipo + '"';
+                    xmlString += ' Descripcion = "' + descripcion + '"';
+                    xmlString += ' CUVPadre = "' + CUVPadre + '"';
+                    xmlString += ' />';
+                    xmlString += '</params>';
+
+                    var params = {
+                        xmlTallaColor: xmlString
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'AdministrarEstrategia/RegistrarTallaColor',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (data.success) {
+                                alert(data.message);
+                                fnGrillaTC();
+                                HideDialog("DialogEditarTallaColor");
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function (data, error) {
+                            alert(data.message);
+                        }
+                    });
+                },
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+    $.jgrid.extend({
+        Editar: function (id) {
+            if (id) {
+                waitingDialog({});
+
+                $("#hdEstrategiaID").val(id);
+                $('#mensajeErrorCUV').val("")
+                $('#mensajeErrorCUV2').val("");
+                $(".checksPedidosAsociados").html('');
+
+                var params = {
+                    EstrategiaID: $("#hdEstrategiaID").val()
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'AdministrarEstrategia/FiltrarEstrategia',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        $("#hdSimbolo").val(data.Simbolo);
+
+                        if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
+                        else $("#chkHabilitarOferta").attr("checked", false);
+                        
+                        if (data.FlagDescripcion == "1") $("#chkVisible1").attr("checked", true);
+                        else $("#chkVisible1").attr("checked", false);
+                        
+                        if (data.FlagCEP == "1") $("#chkVisible2").attr("checked", true);
+                        else $("#chkVisible2").attr("checked", false);
+                        
+                        if (data.FlagCEP2 == "1") $("#chkVisible3").attr("checked", true);
+                        else $("#chkVisible3").attr("checked", false);
+                        
+                        if (data.FlagTextoLibre == "1") $("#chkVisible4").attr("checked", true);
+                        else $("#chkVisible4").attr("checked", false);
+                        
+                        if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
+                        else $("#chkVisible5").attr("checked", false);
+                        
+                        if (data.ColorFondo != "") {
+                            $("#hdColorFondo").val(data.ColorFondo);
+                        } else {
+                            $("#hdColorFondo").val("#FFF");
+                        }
+                        ActivarDesactivarChecks();
+
+                        $("#hdCampania").val($("#ddlCampania").val());
+                        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
+                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
+
+                        SeleccionarTipoOferta();
+
+                        $("#txtAlcance").val($("#ddlPais option:selected").html());
+                        $("#spanCampania").val($("#ddlCampania option:selected").html());
+                        $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+                        $("#hdEstrategiaID").val(data.EstrategiaID);
+                        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
+                        $("#hdCampania").val(data.CampaniaID);
+                        $("#ddlCampaniaFin").val(data.CampaniaIDFin);
+                        $("#hdNumeroPedido").val(data.NumeroPedido);
+
+                        // variable para comparar
+                        $("#ImagenProducto").val(data.ImagenURL);
+                        $("#imagenProductoAnterior01").val(data.ImagenURL);
+
+                        $("#preview1").attr("src", data.FotoProducto01);
+                        $("#preview2").attr("src", data.FotoProducto02);
+                        $("#preview3").attr("src", data.FotoProducto03);
+
+                        $('#chkImagenProducto01').attr('checked', false);
+                        $('#chkImagenProducto02').attr('checked', false);
+                        $('#chkImagenProducto03').attr('checked', false);
+
+                        if (data.FotoProducto01 == "") {
+                            $("#preview1").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                            $("#chkImagenProducto01").attr('disabled', true);
+                        } else { $("#chkImagenProducto01").attr('disabled', false); }
+                        if (data.FotoProducto02 == "") {
+                            $("#preview2").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                            $("#chkImagenProducto02").attr('disabled', true);
+                        } else { $("#chkImagenProducto02").attr('disabled', false); }
+                        if (data.FotoProducto03 == "") {
+                            $("#preview3").attr("src", '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+                            $("#chkImagenProducto03").attr('disabled', true);
+                        } else { $("#chkImagenProducto03").attr('disabled', false); }
+
+                        var img01 = data.FotoProducto01.replace(/^.*[\\\/]/, '');
+                        if (img01.lastIndexOf("?") >= 0) {
+                            img01 = img01.substring(0, img01.lastIndexOf("?"));
+                            $('#chkImagenProducto01').val(img01);
+                        }
+                        $('#chkImagenProducto01').val(img01);
+
+                        var img02 = data.FotoProducto02.replace(/^.*[\\\/]/, '');
+                        if (img02.lastIndexOf("?") >= 0) {
+                            img02 = img02.substring(0, img02.lastIndexOf("?"));
+                            $('#chkImagenProducto02').val(img02);
+                        }
+                        $('#chkImagenProducto02').val(img02);
+
+                        var img03 = data.FotoProducto03.replace(/^.*[\\\/]/, '');
+                        if (img03.lastIndexOf("?") >= 0) {
+                            img03 = img03.substring(0, img03.lastIndexOf("?"));
+                            $('#chkImagenProducto03').val(img03);
+                        }
+                        $('#chkImagenProducto03').val(img03);
+
+                        if ($("#chkImagenProducto03").val() == data.ImagenURL)
+                            $('#chkImagenProducto03').attr('checked', true);
+                        if ($("#chkImagenProducto02").val() == data.ImagenURL)
+                            $('#chkImagenProducto02').attr('checked', true);
+                        if ($("#chkImagenProducto01").val() == data.ImagenURL)
+                            $('#chkImagenProducto01').attr('checked', true);
+
+                        $("#txtLimite").val(data.LimiteVenta);
+                        $("#txtDescripcion").val(data.DescripcionCUV2);
+                        $("#txtCUV").val(data.CUV1);
+                        $("#ddlEtiqueta1").val(data.EtiquetaID);
+                        if (data.Precio != "0") {
+                            $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
+                        } else {
+                            $("#txtPrecio").val('');
+                        }
+                        $("#txtCUV2").val(data.CUV2);
+                        $("#ddlEtiqueta2").val(data.EtiquetaID2);
+                        if (data.Precio2 != "0") {
+                            $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
+                        } else {
+                            $("#txtPrecio2").val('');
+                        }
+                        $("#txtTextoLibre").val(data.TextoLibre);
+                        $("#txtCantidad").val(data.Cantidad);
+                        $("#hdZonas").val(data.Zona);
+
+                        var strZonas = $("#hdZonas").val();
+                        if (strZonas != "") {
+                            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                            var strZonasArreglo = strZonas.split(",");
+                            for (i = 0; i < strZonasArreglo.length; i++) {
+                                $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                            }
+                        } else {
+                            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                            $("#chkSeleccionar").attr("checked", false);
+                        }
+
+                        /* SB20-312 - INICIO */
+                        if ($('#ddlTipoEstrategia').val() == 3009) {
+                            $("#txtOrden").val("");
+                            $('#div-orden').hide();
+
+                            $('#txt1-estrella').html('Oferta de Último Minuto');
+                            $('#txt2-estrella').hide();
+                        }
+                        else {
+                            $("#txtOrden").val(data.Orden);
+                            $('#div-orden').show();
+
+                            $('#txt1-estrella').html('Mostrar estrella');
+                            $('#txt2-estrella').show();
+                        }
+
+                        if ($('#ddlTipoEstrategia').val() == 3009 || $('#ddlTipoEstrategia').val() == 3011) {
+                            $("#ddlEtiqueta1").children('option').hide();
+                            $("#ddlEtiqueta1").children("option[value='1']").show();
+
+                            $("#ddlEtiqueta2").children('option').hide();
+                            $("#ddlEtiqueta2").children("option[value='3']").show();
+                        }
+                        else {
+                            $("#ddlEtiqueta1").children('option').show();
+                            $("#ddlEtiqueta2").children('option').show();
+                        }
+
+                        /* SB20-312 - FIN */
+
+                        if (data.FlagEstrella == "1") $("#chkEstrella").attr("checked", true);
+                        else $("#chkEstrella").attr("checked", false);
+                        $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
+                        closeWaitingDialog();
+                        showDialog("DialogAdministracionEstrategia");
+                    },
+                    error: function (data, error) {
+                        alert(data.message);
+                        closeWaitingDialog();
+                    }
+                });
+            }
+            return false;
+        },
+        Eliminar: function (id) {
+            var elimina = confirm('¿ Está seguro que desea deshabiltar la estrategia seleccionada?');
+            if (!elimina)
+                return false;
+
+            if (id) {
+                waitingDialog({});
+
+                $("#hdEstrategiaID").val(id);
+
+                var params = {
+                    EstrategiaID: $("#hdEstrategiaID").val()
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        alert(data.message);
+                        fnGrilla();
+                        closeWaitingDialog();
+                    },
+                    error: function (data, error) {
+                        alert(data.message);
+                        closeWaitingDialog();
+                    }
+                });
+            }
+            return false;
+        }
+    });
+
+</script>
+<input type="hidden" id="mensajeErrorCUV" />
+<input type="hidden" id="mensajeErrorCUV2" />
+<input type="hidden" id="hdEstrategiaIDConsulta" />
+<input type="hidden" id="ImagenProducto" />
+<input type="hidden" id="hdEstrategiaID" />
+<input type="hidden" id="hdTipoConsulta" value="0" />
+<input type="hidden" id="hdZonas" value="" />
+<input type="hidden" id="hdSimbolo" />
+<input type="hidden" id="hdTallaColorID" />
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Zona de Estrategias</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo de Estrategia:</div>
+                <div class="selectA borde_redondeado">
+                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
+                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
+                        @if (Model.ListaTipoEstrategia != null)
+                        {
+                            <option value="">-- Seleccionar --</option>
+                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
+                            {
+                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                                    flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                    flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                    imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID">
+                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="titB">CUV<sub>2</sub>:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CUV" name="CUV" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+<div id="DialogAdministracionEstrategia" style="display: none;">
+    <input type="hidden" id="hdPais" value="" />
+    <input type="hidden" id="hdCampania" value="" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="" />
+    <input type="hidden" id="hdColorFondo" value="#FFF" />
+    <input type="hidden" id="hdCodigoPrograma" value="">
+    <input type="hidden" id="hdNumeroPedido" value="">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3 DatosNuevas" style="display: none">
+            <div class="titG">Vigencia Hasta:</div>
+            <div class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
+            </div>
+            <div class="titG">Pedido Asociado:</div>
+            <div class="checksPedidosAsociados">
+            </div>
+        </div>
+        <div class="div-est-3">
+            &nbsp;
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">Orden</div>
+            <div class="titB">Visible</div>
+            <div class="titG">Descripción</div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">1</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible1" disabled class="activar-desactivar" checked="checked" />
+            </div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">2</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible2" class="activar-desactivar" />
+            </div>
+            <div class="titA" style="text-align: right"><span class="OcultarNuevas">CUV:</span></div>
+            <div class="titB">
+                <input type="text" id="txtCUV" class="OcultarNuevas ValidaNumeral" maxlength="5" />
+            </div>
+            <div class="titE">Etiqueta:</div>
+            <div class="titD">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })
+            </div>
+            <div class="titE">Precio:</div>
+            <div class="titB">
+                <input type="text" id="txtPrecio" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">3</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible3" disabled class="activar-desactivar" checked="checked" />
+            </div>
+            <div class="titA" style="text-align: right">CUV<sub>2</sub>:</div>
+            <div class="titB">
+                <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" />
+            </div>
+            <div class="titA"></div>
+            <div class="titE">Etiqueta:</div>
+            <div class="titD">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })
+            </div>
+            <div class="titE">Precio:</div>
+            <div class="titB">
+                <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" />
+            </div>
+            <div class="titE" style="margin-left: 5px">Talla/Color:</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
+            </a>
+        </div>
+        <div class="div-est-3">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">4</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible4" class="activar-desactivar" />
+            </div>
+            <div class="titG">
+                <input type="text" id="txtTextoLibre" maxlength="100" />
+            </div>
+        </div>
+        <div class="div-est-3 Recomendados" style="display: none">
+            <div class="titA">&nbsp;</div>
+            <div class="titA">5</div>
+            <div class="titB">
+                <input type="checkbox" id="chkVisible5" class="activar-desactivar" />
+            </div>
+            <div class="titA" style="display: none">
+                <input type="text" id="txtCantidad" />
+            </div>
+            <div class="titG" id="idColorFondo" style="display: none; width:200px;">
+                Elegir color de fondo:&nbsp;<input type='text' id="txtColorFondo" />
+            </div>
+            <div class="titG" id="idEstrella" style="width:130px;">
+                <span id="txt1-estrella">Mostrar estrella</span>        <!--SB20-312 -->
+                <input type="checkbox" id="chkEstrella" />
+            </div>
+            <div class="titG" style="width:380px" id="txt2-estrella">&nbsp;(Solo para Ofertas Recomendar / Ofertas Segmentadas)</div>   <!--SB20-312 -->
+        </div>
+        <div class="div-est-3">
+            &nbsp;
+        </div>
+        <div class="div-3">
+            <div class="titG">Imagen:</div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview1" style="cursor:pointer; width:100%; height:35px">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview2" style="cursor:pointer; width:100%; height:35px">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview3" style="cursor:pointer; width:100%; height:35px">
+            </div>
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto01">
+            </div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto02">
+            </div>
+            <div class="pdr_modal_check aligncenter">
+                <input type="checkbox" id="chkImagenProducto03">
+            </div>
+        </div>
+        <div class="div-est-3" id="div-orden">      <!--SB20-312 -->
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Orden:</div>
+            <div class="titB">
+                <input type="text" id="txtOrden" value="" maxlength="3" />
+            </div>
+        </div>
+        <div class="div-est-3">
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Alcance:</div>
+            <div class="titD">
+                <input type="text" id="txtAlcance" readonly="readonly" />
+            </div>
+            <div class="titA" style="width:20px">
+            <a href="#" style="margin-left: 5px" id="linkAlcance">
+                <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+            </a>
+                </div>
+            <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+        </div>
+        <div class="div-est-3">
+            <div class="titB">&nbsp;</div>
+            <div class="titB">Limite de Venta:</div>
+            <div class="titB">
+                <input type="text" id="txtLimite" value="99" />
+            </div>
+            <div class="titG">&nbsp;(N&uacute;mero de Unidades m&aacute;ximas por Consultora)</div>
+        </div>
+    </div>
+</div>
+<div id="DialogZona" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="treeview_est_content">
+                <div id="arbolRegionZona" class="demo">
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF"></div>
+            <div class="titF"></div>
+            <div class="titH"><input type="checkbox" id="chkSeleccionar" />Seleccionar todo</div>
+        </div>
+    </div>
+</div>
+<div id="DialogEditarTallaColor" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                 <input type="text" id="txtCUVTC" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width: 300px">
+                 <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Precio:</div>
+            <div class="selectP2 borde_redondeado">
+                 <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo:</div>
+            <div class="selectP2 borde_redondeado">
+                <select id="ddlTallaColor">
+                    <option value='0'>-- Seleccionar --</option>
+                    <option value='C'>Color</option>
+                    <option value='T'>Talla</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción (Talla/Color):</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionTC" />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogTonoMarca" style="display: none;">
+    <div class="Content_modal">
+        <table id="listTC"></table>
+        <div id="pagerTC"></div>
+    </div>
+</div>
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display:none; background-color: #fff;width: 200px;height: 330px;overflow:hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin:5px; overflow: hidden;">
+        <div style="position: absolute; width:100%;">
+            <img id="imgTipoOferta" style="float:right; margin-top:10px;" src="">
+        </div>
+        <div style="position: absolute; width:100%;">
+            <img id="imgEstrella" style="float:left; margin-top:10px; width:23px; height:23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
+        </div> 
+        <img id="imgZonaEstrategia" style="width:128px; height: 161px; margin:5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="zona_estrategia_1"></div>
+    <div>&nbsp;</div>
+    <div class="zona_estrategia_2"></div>
+    <div class="zona_estrategia_3"></div>
+    <div class="zona_estrategia_4"></div>
+</div>
+<div id="loadingScreen"></div>

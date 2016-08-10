@@ -1,0 +1,321 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ClienteSb2Model
+
+@{
+    ViewBag.Title = "Mis clientes";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores" style="width:16%;">MIS <span>CLIENTES</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <hr class="clear" />
+    <input type="text" class="buscador_clientes" id="txtBusqueda" />
+    <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
+    <hr class="clear" />
+    <!--PGINADOR-->
+    <!--
+    <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
+    <ul class="paginador_notificaciones">
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                </span> de
+                <span class="paginas_totales">1</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
+        <li><input type="text" value="10" class="numero_lista" /></li>
+
+    </ul>
+    -->
+
+    <div id="paginadorCab">
+    </div>
+
+    <hr class="clear" />
+    <div class="linea_separadora" style="height:2px"></div>
+    <!--LISTADO ITEMS-->
+    <div class="content_listado_notificaciones">
+        <div class="nombre_cliente_sb texto_gris">Nombres y Apellidos</div>
+        <div class="correo_clientes texto_gris">Correo</div>
+        @*<div class="pedido_detalle_cliente texto_gris">Ver pedidos</div>*@
+        <div class="editar_cliente texto_gris">Editar</div>
+        <div class="eliminar_cliente texto_gris">Eliminar</div>
+    </div>
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+
+    <div id="divListaCliente"></div>
+
+    <!--
+    <div class="content_listado_notificaciones">
+        <div class="nombre_cliente_sb">Fiorella Goyzueta</div>
+        <div class="correo_clientes">fgoyzueta@gmail.com</div>
+        <div class="pedido_detalle_cliente"><a href="#" onclick="javascript:$('#DetallePedidoCliente').show();"><img src="/Content/Images/icono_lupa.png"></a></div>
+        <div class="editar_cliente"><a href="#" onclick="javascript: $('#divEditarCliente').show();"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
+        <div class="eliminar_cliente"><a href="#" onclick="javascript: $('#divEliminarCliente').show();"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
+    </div>
+    <div class="content_listado_notificaciones">
+        <div class="nombre_cliente_sb">Maribel Arcaya Huarisco</div>
+        <div class="correo_clientes">marcay@sixto.com.pe</div>
+        <div class="pedido_detalle_cliente"><a onclick="javascript:$('#DetallePedidoCliente').show();" href="#"><img src="/Content/Images/icono_lupa.png"></a></div>
+        <div class="editar_cliente"><a href="#" onclick="javascript: $('#divEditarCliente').show();"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
+        <div class="eliminar_cliente"><a href="#" onclick="javascript: $('#divEliminarCliente').show();"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
+    </div>
+    -->
+
+    <!--FIN-->
+    <div class="linea_separadora" style="margin-top: -1px; margin-bottom: 17px"></div>
+    <!--PGINADOR-->
+
+    <div id="paginadorPie">
+    </div>
+    <!-- 
+    <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
+    <ul class="paginador_notificaciones">
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                </span> de
+                <span class="paginas_totales">1</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
+        <li><input type="text" value="10" class="numero_lista" /></li>
+
+    </ul>
+    -->
+    <hr class="clear" />
+    <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
+    <hr class="clear" />
+</div>
+
+<!-- POPUP AGREGAR CLIENTE -->
+
+<div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrarPopupCliente">
+            <a href="javascript:;" onclick="CerrarDiv(1);">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+        </div>
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+        <form action="" method="post">
+            <input type="text" name="nombre" id="Nombres" value="" placeholder="Nombres y Apellidos" maxlength="50" class="input_search_form ValidaAlfabeto input-nombre" />
+            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
+            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(1);" />
+            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerCliente(1);" />
+        </form>
+
+        <br />
+        <div id="divValidationSummary" style="display:none;"></div>
+    </div>
+</div>
+
+<!-- FIN POPUP AGREGAR CLIENTE -->
+<!-- POPUP EDITAR CLIENTE -->
+
+<div class="contenedor_popup_agregarCliente mis_clientes" id="divEditarCliente">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrarPopupCliente">
+            <a href="javascript:;" onclick="CerrarDiv(2);">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+        </div>
+        <h6>EDITAR <b>CLIENTE</b></h6>
+        <form action="" method="post">
+            <input type="hidden" id="hdeClienteID" />
+            <input type="text" name="nombre" id="Nombres" value="Fiorella Goyzueta" placeholder="Nombres y Apellidos" maxlength="50" class="input-nombre" />
+            <input type="email" name="correoelectronico" id="Correo" value="fgoyzueta@gmail.com" placeholder="Correo Electrónico" maxlength="80" class="input-correo" />
+            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(2);" />
+            <input type="button" class="btnCliente_agregar" name="editarCliente" value="GUARDAR" onclick="MantenerCliente(2);" />
+        </form>
+
+        <br />
+        <div id="divValidationSummary" style="display:none;"></div>
+    </div>
+</div>
+
+<!-- FIN POPUP EDITAR CLIENTE -->
+<!-- POPUP ELIMINAR CLIENTE -->
+
+<div class="contenedor_popup_eliminarCliente" id="divEliminarCliente">
+    <div class="popup_eliminarCliente">
+        <div class="btn_cerrar_eliminarCliente">
+            <a href="javascript:;" onclick="CerrarDiv(3);">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+        </div>
+        <div class="contenido_popUp eliminarCliente">
+            <input type="hidden" id="hdeClienteID" />
+            <div class="icono_advertencia"></div>
+            <h1><b>IMPORTANTE</b></h1>
+            <span class="mensaje_eliminarCliente">¿Estás seguro que quieres eliminar a tu cliente?</span>
+            <div class="btn_grupo_eliminarCliente">
+                <button type="button" name="btn_eliminarCliente" class="btn_eliminarCliente" onclick="EliminarCliente();">
+                    SI, DESEO ELIMINARLO
+                </button>
+                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente" onclick="CerrarDiv(3);">
+                    NO ELIMINAR
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP ELIMINAR CLIENTE -->
+<!-- POPUP DETALLE PEDIDO CLIENTE -->
+<div class="popup_detalle_cliente" id="DetallePedidoCliente">
+    <div class="content_popUp" style="padding-bottom:0">
+        <div class="btn_cerrar_popup_pedidosFacturados" data-accion="close">
+            <a class="cerrar_compartir" style="margin-right: -20px; margin-top: -19px; margin-bottom: 19px;" href="javascript:;" onclick="javascript: $('#DetallePedidoCliente').hide();">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="pedidosFacturados_campania" style="margin-bottom:10px;">
+            <span></span>
+            <h1><b>Fiorella Goyzueta</b></h1>
+            <form>
+                <select data-selectcamp="">C-09</select>
+            </form>
+
+            <a href="#" class="acciones_pagos" style="margin-top:8px;"><img src="/Content/Images/Esika/imprimir.png"></a>
+            <div class="acciones_pagos" style="margin-top:8px;">
+                <a href="#" title="Imprimir">
+                    <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                </a>
+            </div>
+        </div>
+        <div class="linea_separadora" style="height:2px; margin-bottom:15px"></div>
+
+        <!--CONTENIDO DETALLE CLIENTES-->
+        <!--PGINADOR-->
+        <div class="cantidad_productos_notificaciones"><span>5 productos</span>	TOTAL   <span><b>S/. 147.60</b></span></div>
+        <ul class="paginador_notificaciones">
+            <li class="texto_pagina">Página</li>
+            <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
+            <li style="margin-right: 6px;">
+                <span class="paginas_pedidos">
+                    <span class="pagina_actual">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                    </span> de
+                    <span class="paginas_totales">1</span>
+                </span>
+            </li>
+            <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
+
+        </ul>
+        <hr class="clear">
+        <div class="linea_separadora"></div>
+        <!--LISTADO ITEMS-->
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones texto_gris">Código</div>
+            <div class="descripcion_notificaciones texto_gris">Producto</div>
+            <div class="cantidad_notificaciones texto_gris">Unidades</div>
+            <div class="unitario_notificaciones texto_gris">Precio Unitario</div>
+            <div class="total_notificaciones texto_gris">Importe a Pagar</div>
+        </div>
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones">34727</div>
+            <div class="descripcion_notificaciones">CY EXCHANGE BOLSO REAC</div>
+            <div class="cantidad_notificaciones">1</div>
+            <div class="unitario_notificaciones">S/. 43.90</div>
+            <div class="total_notificaciones">S/. 43.90</div>
+        </div>
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones">34727</div>
+            <div class="descripcion_notificaciones">ES CFX LAPIZ LABIAL EN BARRA 2G VINO GOLDEN</div>
+            <div class="cantidad_notificaciones">1</div>
+            <div class="unitario_notificaciones">S/. 19.90</div>
+            <div class="total_notificaciones">S/. 19.90</div>
+        </div>
+        <!--FIN-->
+        <!--PGINADOR-->
+
+        <hr class="clear">
+        <div class="linea_inferior_roja" style="height:1px"></div>
+        <div class="num_total_pago" id="montoPagarEstadoCuenta" style="padding-right:10px; width:15%;"> S/.  327.49</div>
+        <div class="texto_monto_pago">TOTAL FIORELLA GOYZUETA</div>
+        <hr class="clear" />
+
+    </div>
+</div>
+
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
+
+
+<!-- SB20-322 - INCIO -->
+
+<script id="paginador-template" type="text/x-handlebars-template">
+
+    <div class="resultado_busqueda">
+        <span class="cantidad_productos_agregados">Tengo <b data-paginacion='recordCount'>{{RegistrosTotal}}</b> clientes</span>
+    </div>
+    <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block">
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral" id="paginaactual" data-val="{{Pagina}}">
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+    </ul>
+
+</script>
+
+<script id="cliente-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="content_listado_notificaciones">
+        <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+        <div class="nombre_cliente_sb">{{Nombre}}</div>
+        <div class="correo_clientes">{{eMail}}</div>
+        @*<div class="pedido_detalle_cliente"><a href="#" onclick="javascript:$('#DetallePedidoCliente').show();"><img src="/Content/Images/icono_lupa.png"></a></div>*@
+        <div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
+        <div class="eliminar_cliente"><a href="#" onclick="ShowDivEliminar('{{ClienteID}}');"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
+    </div>
+    {{/each}}
+</script>
+
+<!-- SB20-322 - FIN -->
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>  
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cliente/Index.js")"></script>
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    </script>
+}

@@ -1,0 +1,122 @@
+﻿@using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
+
+@model Portal.Consultoras.Web.Models.ConsultarEstadoCrediticiaModel
+
+@Html.HiddenFor(m => Model.SolicitudPostulanteID)
+@Html.HiddenFor(m => Model.EstadoBuroCrediticioID)
+
+
+<style>
+    .boton_celeste {
+        width: 130px !important;
+        background-color: #009EE4;
+        color: white;
+        border: none;
+        outline: none;
+        border-radius: 15px;
+    }
+    .boton_celeste:disabled {
+        background-color: #BABABA;
+        cursor: default;
+    }
+    .caja {
+        border: 1px solid lightgray !important;
+        padding: 10px !important;
+        width: 94% !important;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+</style>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="div-2">
+            <h2>
+                Evaluaci&oacute;n Crediticia
+                <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+            </h2>
+        </div>
+    </div>
+</div>
+<div class="elements">
+    <div class="div-3 caja borde_redondeado" style="padding: 15px !important;">
+        <h6 style="font-size:12px;">se volvio a consultar el servicio de integracion de VALIDACI&Oacute;N CREDITICIA obteniendo la siguiente respuesta:</h6>
+        <h5 style="text-align:center; color: @(Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PuedeSerConsultora) || Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PodriaSerConsultoraCuandoTengaAval) ? "#009EE4" : "red")">@Model.Mensaje</h5>
+    </div>
+</div>
+<div class="elements" id="opcionManual" style="display: none; padding-top: 0px !important;">
+    <div class="div-3 caja borde_redondeado" style="padding: 15px !important;">
+        <h6>Debes seleccionar una respuesta manualmente que te asignar&aacute; a est&aacute; postulante.</h6>
+        <div class="titC">respuesta: </div>
+        <div class="selectP2 borde_redondeado" style="width:260px;">
+            @Html.DropDownList("EstadoBuroIDServicio", ViewBag.EstadosEvaluacionCrediticia as SelectList, "Seleccione", new { @style = "width:250px;" })
+        </div>
+    </div>
+</div>
+<div class="elements">
+    <div class="div-2">
+        <div class="input_search" style="text-align: center;">
+            <input type="submit" class="boton_celeste borde_redondeado" id="btnAsignar" value="Asignar" />
+            <input type="button" class="boton_celeste borde_redondeado" id="btnCancelar" value="Cancelar" />
+            <input type="button" class="boton_celeste borde_redondeado" id="btnGestionarManualmente" value="Gestionar Manualmente" style="width: 180px !important;" />
+        </div>
+    </div>
+</div>
+
+@*@Html.Hidden("EstadoBuroIDServicio", Model.EstadoBuroCrediticioID)*@
+
+<script>
+    
+
+    $('#modal_general input[type="submit"]').click(function (e) {
+        e.preventDefault();
+    });
+
+    $('#imgCerrar, #btnCancelar').click(function () {
+        modal.dialog('close');
+    });
+    $('#btnGestionarManualmente').click(function () {
+        modal.dialog("option", "height", 425);
+        $('#opcionManual').fadeIn();
+        $('#btnAsignar').attr('disabled', true);
+
+        $('#EstadoBuroIDServicio').change(function () {
+            $('#btnAsignar').attr('disabled', this.value == '' ? true : false);
+
+            $('#EstadoBuroCrediticioID').val(this.value);
+        });
+
+        $(this).hide();
+    });
+
+    @if (Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.ErrorConsumoIntegracion))
+	{
+		 <text>$('#btnAsignar').attr('disabled', true);</text>
+	}
+    
+
+    $('#btnAsignar').click(function () {
+
+        var data = {
+            id: $('#SolicitudPostulanteID').val(),
+            idEstado: $('#EstadoBuroCrediticioID').val() == '' ? $('#EstadoBuroIDServicio').val() : $('#EstadoBuroCrediticioID').val()
+        };
+
+        waitingDialog({});
+
+        $.post('@Url.Action("ConsultarEstadoCrediticia", "Unete")', data, function (actualizado) {
+            if (actualizado) {
+                modal.dialog('close');
+                fnGrilla();
+            }
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+
+    });
+
+    setTimeout(function() {
+        $('.boton_celeste').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
+    }, 10);        
+</script>

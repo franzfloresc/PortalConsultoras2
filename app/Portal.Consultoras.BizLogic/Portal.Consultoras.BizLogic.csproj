@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE1E0DB1-465B-418C-B02E-146CEA9B93E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Portal.Consultoras.BizLogic</RootNamespace>
+    <AssemblyName>Portal.Consultoras.BizLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Binaries\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
+      <HintPath>..\Binaries\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\Binaries\Microsoft.Practices.ServiceLocation.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Microsoft.Practices.Unity.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\Binaries\Microsoft.Practices.Unity.Interception.DLL</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BizLogicException.cs" />
+    <Compile Include="BLAfiliaClienteConsultora.cs" />
+    <Compile Include="BLBanner.cs" />
+    <Compile Include="BLBannerPedido.cs" />
+    <Compile Include="BLBelcorpNoticia.cs" />
+    <Compile Include="BLBelcorpResponde.cs" />
+    <Compile Include="BLCatalogo.cs" />
+    <Compile Include="BLCliente.cs" />
+    <Compile Include="BLComprobantePercepcion.cs" />
+    <Compile Include="BLComunicado.cs" />
+    <Compile Include="BLConfiguracionCampania.cs" />
+    <Compile Include="BLConfiguracionParametroCarga.cs" />
+    <Compile Include="BLConfiguracionPortal.cs" />
+    <Compile Include="BLConfiguracionProgramaNuevas.cs" />
+    <Compile Include="BLConfiguracionTipoProcesoCargaPedidos.cs" />
+    <Compile Include="BLConfiguracionValidacion.cs" />
+    <Compile Include="BLConfiguracionValidacionNuevoPROL.cs" />
+    <Compile Include="BLConfiguracionValidacionZona.cs" />
+    <Compile Include="BLConsultora.cs" />
+    <Compile Include="BLConsultoraDigitales.cs" />
+    <Compile Include="BLConsultoraCatalogo.cs" />
+    <Compile Include="BLConsultoraFicticia.cs" />
+    <Compile Include="BLConsultoraLider.cs" />
+    <Compile Include="BLContenidoDato.cs" />
+    <Compile Include="BLContenidoRevista.cs" />
+    <Compile Include="BLContratoAceptacion.cs" />
+    <Compile Include="BLCronograma.cs" />
+    <Compile Include="BLCronogramaAnticipado.cs" />
+    <Compile Include="BLCrossSelling.cs" />
+    <Compile Include="BLCrossSellingProducto.cs" />
+    <Compile Include="BLCuv.cs" />
+    <Compile Include="BLDatosBelcorp.cs" />
+    <Compile Include="BLDupla.cs" />
+    <Compile Include="BLEscalaDescuento.cs" />
+    <Compile Include="BLEstadoCuenta.cs" />
+    <Compile Include="BLEstrategia.cs" />
+    <Compile Include="BLEtiqueta.cs" />
+    <Compile Include="BLFactorGanancia.cs" />
+    <Compile Include="BLFeErratas.cs" />
+    <Compile Include="BLFileManager.cs" />
+    <Compile Include="BLFormularioDato.cs" />
+    <Compile Include="BLItemCarruselInicio.cs" />
+    <Compile Include="BLLogEnvioCorreo.cs" />
+    <Compile Include="BLLogModificacionCronograma.cs" />
+    <Compile Include="BLLogParametroDiasCargaPedido.cs" />
+    <Compile Include="BLLogPedidoDDInvalido.cs" />
+    <Compile Include="BLMailing.cs" />
+    <Compile Include="BLMensajeCUV.cs" />
+    <Compile Include="BLMenuMobile.cs" />
+    <Compile Include="BLMiAcademia.cs" />
+    <Compile Include="BLConsultoraOnline.cs" />
+    <Compile Include="BLNavidadConsultora.cs" />
+    <Compile Include="BLNotificaciones.cs" />
+    <Compile Include="BLOferta.cs" />
+    <Compile Include="BLOfertaFlexipago.cs" />
+    <Compile Include="BLOfertaNueva.cs" />
+    <Compile Include="BLOfertaProducto.cs" />
+    <Compile Include="BLOfertaWeb.cs" />
+    <Compile Include="BLPaqueteDocumentario.cs" />
+    <Compile Include="BLParticipantesDemandaAnticipada.cs" />
+    <Compile Include="BLPayPalConfiguracion.cs" />
+    <Compile Include="BLPedidoDD.cs" />
+    <Compile Include="BLPedidoDDDetalle.cs" />
+    <Compile Include="BLPedidoFacturado.cs" />
+    <Compile Include="BLPedidoFICDetalle.cs" />
+    <Compile Include="BLPedidoReporteLider.cs" />
+    <Compile Include="BLPedidoWeb.cs" />
+    <Compile Include="BLPedidoWebAnteriores.cs" />
+    <Compile Include="BLPedidoWebDetalle.cs" />
+    <Compile Include="BLPermiso.cs" />
+    <Compile Include="BLProducto.cs" />
+    <Compile Include="BLProductoFaltante.cs" />
+    <Compile Include="BLProductoSugerido.cs" />
+    <Compile Include="BLProveedorDespachoCobranza.cs" />
+    <Compile Include="BLReporteIntegradoWebDD.cs" />
+    <Compile Include="BLResumenCampania.cs" />
+    <Compile Include="BLRol.cs" />
+    <Compile Include="BLRolPermiso.cs" />
+    <Compile Include="BLSegmentoPlaneamiento.cs" />
+    <Compile Include="BLServicio.cs" />
+    <Compile Include="BLShowRoomEvento.cs" />
+    <Compile Include="BLSolicitudCliente.cs" />
+    <Compile Include="BLSolicitudClienteCatalogo.cs" />
+    <Compile Include="BLSolicitudCredito.cs" />
+    <Compile Include="BLSuenioNavidad.cs" />
+    <Compile Include="BLTablaLogicaDatos.cs" />
+    <Compile Include="BLTipoEstrategia.cs" />
+    <Compile Include="BLTipoMeta.cs" />
+    <Compile Include="BLTracking.cs" />
+    <Compile Include="BLUbigeo.cs" />
+    <Compile Include="BLUsuario.cs" />
+    <Compile Include="BLValidacionAutomatica.cs" />
+    <Compile Include="BLZonificacion.cs" />
+    <Compile Include="CacheManager.cs" />
+    <Compile Include="BLLugarPago.cs" />
+    <Compile Include="BLIncentivo.cs" />
+    <Compile Include="FtpConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Data\Portal.Consultoras.Data.csproj">
+      <Project>{022e2be6-d149-4cd7-8af4-b1df2ace8888}</Project>
+      <Name>Portal.Consultoras.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
+      <Project>{2a3b50df-c243-4d7d-b8c0-e4e6c9c6c8d9}</Project>
+      <Name>Portal.Consultoras.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
