@@ -33,15 +33,17 @@
     <div data-div="f">
         <div class="popup_pedidosFacturados" data-popup="facturado">
             <div class="content_popUp" style="padding-top:24px; padding-bottom:24px!important;">
-                <div class="btn_cerrar_popup_pedidosFacturados" data-accion="close">
+                <div class="btn_cerrar_popup_pedidosIngresados" data-accion="close">
                     <a href="#" title="Cerrar Popup">
-                        <img src="@Url.Content("~/Content/Images/btn_cerrar_popupPercepcion.png")" alt="Cerrar" />
+                        <div class="icono_regresar">
+                            <img src="@Url.Content("~/Content/Images/btn_regresar_mispedidos.svg")" alt="Regresar">
+                        </div>
+                        <div class="texto_btn_regresar">REGRESAR A MIS PEDIDOS</div>
                     </a>
-                    <div class="clear"></div>
                 </div>
                 <div class="pedidosFacturados_campania">
                     @*<span></span>*@
-                    <h1>MIS&nbsp;<b>PEDIDOS FACTURADOS</b></h1>
+                    <h1>PEDIDO&nbsp;<b> FACTURADO</b></h1>
                     <form>
                         <select data-selectcamp=""></select>
                     </form>
@@ -51,7 +53,7 @@
                     </a>
                 </div>
                 <div class="contenedor_bloque_datos">
-                    <span class="texto_descripcion">Estos son productos facturados por SomosBelcorp.com, donde encontrarás todos los productos que llegaron en tu caja de pedido.</span>
+                    <span class="texto_descripcion">Estos son los productos que te llegaron en la caja de pedido.</span>
                     <div class="icono_imprimir">
                         <a href="#" title="Imprimir">
                             <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
@@ -76,13 +78,15 @@
             <div class="content_popUp" style="padding-top:24px!important; padding-bottom:24px!important;">
                 <div class="btn_cerrar_popup_pedidosIngresados" data-accion="close">
                     <a href="#" title="Cerrar Popup">
-                        <img src="@Url.Content("~/Content/Images/btn_cerrar_popupPercepcion.png")" alt="Cerrar" />
+                        <div class="icono_regresar">
+                            <img src="@Url.Content("~/Content/Images/btn_regresar_mispedidos.svg")" alt="Regresar">
+                        </div>
+                        <div class="texto_btn_regresar">REGRESAR A MIS PEDIDOS</div>
                     </a>
-                    <div class="clear"></div>
                 </div>
                 <div class="pedidosFacturados_campania">
                     @*<span></span>*@
-                    <h1>MIS&nbsp;<b>PEDIDOS INGRESADOS</b></h1>
+                    <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
                     <form>
                         <select data-selectcamp=""></select>
                     </form>
@@ -92,7 +96,7 @@
                     </a>
                 </div>
                 <div class="contenedor_bloque_datos">
-                    <span class="texto_descripcion">Estos son los productos ingresados por SomosBelcorp.com.</span>
+                    <span class="texto_descripcion">Estos son los productos que ingresaste por SomosBelcorp.com</span>
                     <div class="icono_imprimir">
                         <a href="#" title="Imprimir">
                             <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
@@ -222,7 +226,7 @@
                             </div>
                             <div class="pack_documentario @estiloSinRuta">
                                 <a href="@rutaPaqueteDocumentario" target="_blank" title="Pack Documentario">
-                                    <img src="@Url.Content("~/Content/Images/icono-pack-documentario.png")" alt="Pack Documentario" />
+                                    <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
                                 </a>
                             </div>
                             <div class="estado_detalles">
@@ -276,7 +280,7 @@
             <div>
                 <ul data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-estado="ingresado">
                     <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
-                    <li class="texto_pagina" >Página</li>
+                    <li class="texto_pagina">Página</li>
                     <li class="flecha_paginador_atras" data-paginacion="back"></li>
                     <li>
                         <span class="paginas_pedidos">
@@ -346,9 +350,9 @@
         <div class="importePago_prod">{{detalle.Simbolo}} {{detalle.ImporteTotal}}</div>
         <div class="importePago_prod">{{detalle.NombreCliente}}</div>
     </div>
-    {{/each}}   
+    {{/each}}
     <div class="linea_separadora_roja" style="height: 1px; margin-top:-1px;"></div>
-    
+
     <div style="text-align:right; padding-right:40px;">
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:30%;">
             <div class="totalTexto" style="font-size:14px; text-align:right;">
@@ -405,11 +409,13 @@
             &nbsp;productos
         </div>
         <div class="totalPedidoFacturado" style="display:inline-block; margin-right:0px!important;">
-            <span>TOTAL 
+            <span>
+                TOTAL
                 {{#iff ClienteID '>' '0'}}
                 <span data-cliente-nombre="">{{Nombre}}</span>
                 {{/iff}}
-            :</span>
+                :
+            </span>
             <span><b>{{Simbolo}} {{ImporteFacturado}}</b></span>
         </div>
     </div>
@@ -417,7 +423,7 @@
     <div class="linea_separadora" style="height:1px;"></div>
     <!--fin Paginador-->
     <div id="divGrilla">
-         <!--CABECERA DE TABLAS FACTURADOS-->
+        <!--CABECERA DE TABLAS FACTURADOS-->
         <div class="content_datos_pedidosFacturados">
             <div class="codigo_prod texto_gris_popup">Código</div>
             <div class="descripcion_prod texto_gris_popup">Descripción</div>
@@ -494,6 +500,5 @@
     <div class="clear"></div>
 </script>
 @section scripts{
-<script src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
 }

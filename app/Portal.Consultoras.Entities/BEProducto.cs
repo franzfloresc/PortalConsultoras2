@@ -157,6 +157,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoProducto { get; set; }
 
+        [DataMember]
+        public decimal PrecioValorizado { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
@@ -211,8 +214,10 @@ namespace Portal.Consultoras.Entities
                 TieneSugerido = Convert.ToInt32(datarec["TieneSugerido"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoProducto") && datarec["CodigoProducto"] != DBNull.Value)
-                CodigoProducto = Convert.ToString(datarec["CodigoProducto"]); 
-    
+                CodigoProducto = Convert.ToString(datarec["CodigoProducto"]);
+
+            if (DataRecord.HasColumn(datarec, "PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
+                PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);                
         }
 
         public BEProducto()

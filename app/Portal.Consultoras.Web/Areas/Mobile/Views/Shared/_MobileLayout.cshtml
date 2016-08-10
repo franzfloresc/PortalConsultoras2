@@ -223,7 +223,7 @@
         
     </section>
     <!-- Pie de Página Antiguo -->
-    <footer class="footer-page">
+    @*<footer class="footer-page">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-2">
@@ -236,36 +236,41 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>*@
     <!-- Pie de Página -->
-        @*<footer class="footer-page">
-            <a class="menu_footer">
-                NUESTRAS MARCAS
+        <footer class="footer-page">
+            <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                AYUDA
             </a>
-            <a class="menu_footer">
-               AYUDA
-            </a>
-            <a class="menu_footer">
+            <div id="collapseOne" class="panel-collapse collapse">
+                <a class="menu_subfooter">PREGUNTAS FRECUENTES</a>
+                <a class="menu_subfooter">CONTÁCTANOS</a> 
+                <a class="menu_subfooter">TUTORIAL</a>  
+                    
+            </div>
+            <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2">
                 LEGAL
             </a>
+            <div id="collapseOne2" class="panel-collapse collapse">
+                <a class="menu_subfooter">CONDICIONES DE USO WEB</a>
+                <a class="menu_subfooter">TÉRMINOS Y CONDICIONES</a>                
+            </div>
+            <a class="version_escritorio">Ir a la versión escritorio</a>
             <div class="content_redes">
-                <div class="pedido_pais"><img src="/Content/Banderas/PE.png"><span>Perú</span></div>
-                <div class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></div>
-                <div class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></div>
+                <div class="col-xs-2">
+                    <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+                    </a>
+                </div> 
+                <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
+                <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
                 <hr class="clear" />
             </div>
-            <div class="col-xs-2">
-                <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-                    <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
-                </a>
-            </div>               
-                    
-            <div class="unete_2016"> Copyright Belcorp 2016. All rigths reserved.</div>
-                       
+                                     
                     
                
             <hr class="clear" />
-        </footer>*@
+        </footer>
         <!-- BOTÓN AGREGAR PEDIDO -->
     
     <span class="toUp bg-primary">
@@ -414,11 +419,10 @@
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
         var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
-        var urlGetCantidadProductos = '@Url.Action("GetCantidadProductos", "Pedido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
-        var urlGetResumenCampania = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
 
         $(function () {
@@ -856,73 +860,6 @@
             }
         }
 
-        function CargarResumenCampania() {
-            $.ajax({
-                type: 'GET',
-                url: urlGetResumenCampania,
-                data: '',
-                cache: false,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        if (data.result) {
-                            var montoWebAcumulado = "0";
-                            var montoTotalPagar = "0";
-
-                            if (data.montoWebAcumulado == 0) {
-                                if (data.paisID == 4)  //Formato de decimales para Colombia
-                                    montoWebAcumulado = "0";
-                                else
-                                    montoWebAcumulado = "0.00";
-                            } else {
-                                if (data.paisID == 4)  //Formato de decimales para Colombia
-                                    montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                                else
-                                    montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                            }
-
-                            if (data.montoTotalPagar == 0) {
-                                if (data.paisID == 4)  //Formato de decimales para Colombia
-                                    montoTotalPagar = "0";
-                                else
-                                    montoTotalPagar = "0.00";
-                            } else {
-                                if (data.paisID == 4)  //Formato de decimales para Colombia
-                                    montoTotalPagar = SeparadorMiles(data.montoTotalPagar.toFixed(0));
-                                else
-                                    montoTotalPagar = data.montoTotalPagar.toFixed(2);
-                            }
-
-                            var fecha = data.fechaVencimiento || "";
-                            var dateString = fecha.substr(6);
-                            var currentTime = new Date(parseInt(dateString));
-                            var month = currentTime.getMonth() + 1;
-                            var day = currentTime.getDate();
-                            //var year = currentTime.getFullYear();
-                            var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month); //+ "/" + year;
-
-                            if (date == '01/01') date = '--/--';
-
-                            $(".js-div-deuda").html(data.Simbolo + " " + "<span>" + montoTotalPagar + "</span>");
-                            $(".js-div-vencimiento").html('Vencimiento: ' + date);
-                            $(".js-span-pedidoingresado").html("Pedido ingresado: " + data.Simbolo + " " + montoWebAcumulado);
-                        }
-                        else {
-                            console.error("Ocurrio un error con el Resumen de Campaña.");
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        };
-
-        //GR-799
-
         function messageInfoValidado(message, fnAceptar) {
             $('#mensajeInformacionvalidado').html(message);
             $('#popupInformacionValidado').modal("show");
@@ -931,8 +868,6 @@
                 $('#popupInformacionValidado .btn-aceptar').on('click', fnAceptar);
             }
         }
-
-        //END GR-799
 
         function CargarCantidadProductosPedidos() {
             jQuery.ajax({
@@ -943,7 +878,23 @@
                 success: function (data) {
                     if (checkTimeout(data)) {
 
+                        if (data.montoWebAcumulado == 0) {
+                            if (data.paisID == 4)  //Formato de decimales para Colombia
+                                montoWebAcumulado = "0";
+                            else
+                                montoWebAcumulado = "0.00";
+                        } else {
+                            if (data.paisID == 4)  //Formato de decimales para Colombia
+                                montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                            else
+                                montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                        }
+
                         $(".num-menu-shop").html(data.cantidadProductos);
+                        $(".js-span-pedidoingresado").html(montoWebAcumulado);
+
+                        $("#spnCantidadProductos").html(data.cantidadProductos);
+                        $("#spnDescripcionTotal").html(montoWebAcumulado);
 
                         if (data.mensaje != '') {
                             console.log(data.mensaje);

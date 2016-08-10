@@ -2,7 +2,7 @@
 
     $(".footer-page").css({ "margin-bottom": "54px" });
 
-    CargarResumenCampania();
+    CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
 
     //Cargando custom helpers handlebars js
@@ -339,7 +339,6 @@ function AgregarProductoDestacado() {
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarCantidadProductosPedidos();
-                            CargarResumenCampania();
                             CloseLoading();
                         }
                     },

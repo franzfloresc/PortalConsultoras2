@@ -575,7 +575,8 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                    int OrdenEstrategia = Convert.ToInt32(Orden);
+                    //int OrdenEstrategia = Convert.ToInt32(Orden);
+                    int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
 
                     foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                     {

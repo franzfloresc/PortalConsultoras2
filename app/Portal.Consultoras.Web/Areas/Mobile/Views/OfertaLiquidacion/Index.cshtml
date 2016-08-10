@@ -27,131 +27,89 @@
 </div>
 
 <div class="wrapper_resumen_mobile">
-
     <div class="descripcion_liquidacion_web">
-
         <h2>APROVECHA ESTOS PRODUCTOS SÓLO POR WEB. Se atenderá hasta agotar stock.</h2>
         <span>
             Suman al monto mínimo del pedido. No suma la escala de comisión, ni otorga puntaje, ni comisión. Precio neto consultora. Productos vigentes en 201611.
         </span>
-
     </div>
-
-    <div class="contenedor_productos_liquidacion">
-
-        <div class="content_item_home">
-            <div class="producto_img_mobile">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>Cyzone</h6>
-                <p class="nombre_producto">
-                    Cyzone AMILET FRAG FEMENINA 50 ML
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">S/. 42.00</span>
-                    <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '6541' , TipoEstrategiaID: '3011' , Posicion: 0 , FlagNueva: '0' }, this); ">
-                    AGRÉGALO
-                </a>
+    <div class="fondo_f5f5f7">
+        <div id="liquidacionMobile" class="contenedor_productos_liquidacion">   
+        </div>
+        <div style="text-align:center" class="liquidacion_productos2">
+            <img style="display:none;" id="loader" src="@Url.Content("~/Content/Images/loading_spinner.gif" )" alt="" width="30" height="31" />
+            <div class="clear"></div>
+            <div id="boton_vermas" class="ver-mas-vertical" style="display:none;">
+                <span class="text">VER MÁS</span>
+                <span class="icono"></span>
             </div>
         </div>
-
-        <div class="content_item_home">
-            <div class="producto_img_mobile">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>Cyzone</h6>
-                <p class="nombre_producto">
-                    Cyzone AMILET FRAG FEMENINA 50 ML
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">S/. 42.00</span>
-                    <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '6541' , TipoEstrategiaID: '3011' , Posicion: 0 , FlagNueva: '0' }, this); ">
-                    AGRÉGALO
-                </a>
-            </div>
-        </div>
-
-        <div class="content_item_home">
-            <div class="producto_img_mobile">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>Cyzone</h6>
-                <p class="nombre_producto">
-                    Cyzone AMILET FRAG FEMENINA 50 ML
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">S/. 42.00</span>
-                    <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '6541' , TipoEstrategiaID: '3011' , Posicion: 0 , FlagNueva: '0' }, this); ">
-                    AGRÉGALO
-                </a>
-            </div>
-        </div>
-
-        <div class="content_item_home">
-            <div class="producto_img_mobile">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>Cyzone</h6>
-                <p class="nombre_producto">
-                    Cyzone AMILET FRAG FEMENINA 50 ML
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">S/. 42.00</span>
-                    <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '6541' , TipoEstrategiaID: '3011' , Posicion: 0 , FlagNueva: '0' }, this); ">
-                    AGRÉGALO
-                </a>
-            </div>
-        </div>
-
     </div>
-
 </div>
 
 <div class="btn_agregarPedido">
     <form>
-        <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
+        <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new {area = "Mobile"})';" name="btnAgregarPedido" value="INGRESA TU PEDIDO"/>
     </form>
 </div>
 
-
+<script id="OfertasLiquidacionMobile-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="content_item_home">
+        <div class="liquidacion_item" data-idposicion="{{Posicion}}">
+            <input type="hidden" class="TipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="OfertaProductoID" value="{{OfertaProductoID}}" />
+            <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="valorCUV" value="{{CUV}}" />
+            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
+            <input type="hidden" class="Stock" value="{{Stock}}" />
+            <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
+            <div class="producto_img_mobile">
+                <img src="{{ImagenProducto}}" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">{{Descripcion}}</p>
+                <div class="producto_precio">
+                    <span class="producto_stock">Stock: <span class="claseStock">{{Stock}}</span></span>
+                    <span class="producto_precio_oferta"><b>@ViewBag.Simbolo<span id="precio_oferta">{{PrecioString}}</span></b></span>
+                </div>
+                <hr class="clear" />                                
+                {{#if TieneTallaColor}}
+                <a class="boton_liquidacion js-boton_tonotalla" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:218px!important;">
+                    {{TextoBotonTallaColor}}
+                </a>
+                {{else}}               
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarOfertaProducto"> AGREGALO</a>
+                {{/if}}
+            </div>                               
+        </div>            
+    </div>
+    {{/each}}
+</script>
 
 @section scripts
 {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/OfertaLiquidacion/Index.js")"></script>
+    <script type="text/javascript">
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new { area = "" })';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new { area = "" })';
+        var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "OfertaLiquidacion", new { area = "" })';
+        var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
+        var urlGetJSONLiquidaciones = '@Url.Action("JsonGetOfertasLiquidacion", "OfertaLiquidacion", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+    </script>   
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/OfertaLiquidacion/Index.js")"></script>   
 }

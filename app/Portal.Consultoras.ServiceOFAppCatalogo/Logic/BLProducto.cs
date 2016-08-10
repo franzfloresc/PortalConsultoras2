@@ -26,12 +26,12 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo.Logic
             return listaProducto;
         }
 
-        public List<Producto> ObtenerProductosHistorialCatalogoPersonalizado(string codigoIso, int campaniaId)
+        public List<Producto> ObtenerProductosHistorialAppCatalogo(string codigoIso, int campaniaId)
         {
             var listaProducto = new List<Producto>();
             var daProducto = new DAProducto("");
 
-            using (IDataReader reader = daProducto.ObtenerProductosHistorialCatalogoPersonalizado(codigoIso, campaniaId))
+            using (IDataReader reader = daProducto.ObtenerProductosHistorialAppCatalogo(codigoIso, campaniaId))
                 while (reader.Read())
                 {
                     var entidad = new Producto(reader);

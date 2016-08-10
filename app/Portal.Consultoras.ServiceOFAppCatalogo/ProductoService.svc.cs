@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.ServiceOFAppCatalogo.Entities;
 using Portal.Consultoras.ServiceOFAppCatalogo.Logic;
 using Portal.Consultoras.ServiceOFAppCatalogo.ServicePROLConsultas;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Portal.Consultoras.ServiceOFAppCatalogo
 {
@@ -22,10 +23,11 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo
             //codigoIso: PE,CL,CO, etc.
             //campaniaId: 201612,201613, etc.
             //codigoConsultora: 000758833
-            //tipoProductoMostrar: 1 -> Catalogo Personalizado; 2 -> PCM
+            //tipoProductoMostrar: 1 -> App Catalogo; 2 -> PCM
 
             var listaCuvMostrar = new List<Producto>();
             var listaCuvMostrarConStock = new List<Producto>();
+            var listaFinal = new List<Producto>();
 
             if (tipoOfertaFinal == 1)
             {
@@ -34,14 +36,29 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo
                     var blProducto = new BLProducto();
                     listaCuvMostrar = blProducto.ObtenerProductosMostrar(codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona);
 
-                    listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);                    
+                    listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
 
-                    var listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                    List<Producto> listaProductosHistorial = tipoProductoMostrar == 1 
+                        ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                        : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
 
+                    if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
+                    {
+                        listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                        if (tipoProductoMostrar == 1)
+                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
+                        else
+                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);                        
+                    }
+
+                    listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
+
+                    var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
+                    listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
                 }
                 catch (Exception ex)
                 {
-                    listaCuvMostrarConStock = new List<Producto>();
+                    listaFinal = new List<Producto>();
                 }
             }
             else
@@ -55,15 +72,28 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo
                     
                     listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
 
-                    var listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                    List<Producto> listaProductosHistorial = tipoProductoMostrar == 1
+                        ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                        : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
+
+                    if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
+                    {
+                        listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                        if (tipoProductoMostrar == 1)
+                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
+                        else
+                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
+                    }
+
+                    listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
                 }
                 catch (Exception ex)
                 {
-                    listaCuvMostrarConStock = new List<Producto>();
+                    listaFinal = new List<Producto>();
                 }                          
             }
 
-            return listaCuvMostrarConStock;
+            return listaFinal;
         }
 
         public List<Producto> ObtenerProductosMostrarConStock(string codigoIso, List<Producto> listaCuvMostrar)
@@ -102,19 +132,19 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo
             var lista = new List<Producto>();
 
             lista = tipoProductoMostrar == 1 
-                ? ObtenerProductosHistorialCatalogoPersonalizado(codigoIso, campaniaId)
+                ? ObtenerProductosHistorialAppCatalogo(codigoIso, campaniaId)
                 : ObtenerProductosHistorialPcm(codigoIso, campaniaId);
 
             return lista;
         }
 
-        public List<Producto> ObtenerProductosHistorialCatalogoPersonalizado(string codigoIso, int campaniaId)
+        public List<Producto> ObtenerProductosHistorialAppCatalogo(string codigoIso, int campaniaId)
         {
             var lista = new List<Producto>();
 
             var blProducto = new BLProducto();
 
-            lista = blProducto.ObtenerProductosHistorialCatalogoPersonalizado(codigoIso, campaniaId);
+            lista = blProducto.ObtenerProductosHistorialAppCatalogo(codigoIso, campaniaId);
 
             return lista;
         }
@@ -125,9 +155,63 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo
 
             #region Obtener Listado Productos PCM
 
+            string clientId = "ws_pe_lbel";
+            string clientSecret = "peru1234";
+            string grantType = "client_credentials";
+            string urlAuth = "https://10.12.6.218:9002/authorizationserver/oauth";
+            string urlService = "https://10.12.6.218:9002/belcorpstorewebservices/v1/belcorpsitePE/belcorpstore/products/export/full";
 
+            string responseStringToken = string.Empty;
+            string responseStringService = string.Empty;
+ 
+            List<KeyValuePair<string, string>> postData = new List<KeyValuePair<string, string>>();
+            postData.Add(new KeyValuePair<string, string>("client_id", clientId));
+            postData.Add(new KeyValuePair<string, string>("client_secret", clientSecret));
+            postData.Add(new KeyValuePair<string, string>("grant_type", grantType));
+
+            HttpContent content = new FormUrlEncodedContent(postData);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+            using (HttpClient client = new HttpClient())
+            {
+                //Obtener el Token
+                HttpResponseMessage responseResultToeken = client.PostAsync(urlAuth, content).Result;
+                string result = responseResultToeken.Content.ReadAsStringAsync().Result;
+                JObject obj = JObject.Parse(result);
+                
+                responseStringToken = (string)obj["access_token"];
+            }
+
+            using (HttpClient client = new HttpClient())
+            {
+                //Consumir el Servicio
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseStringToken);
+
+                HttpResponseMessage responseResultService = client.GetAsync(urlService).Result;
+                string result = responseResultService.Content.ReadAsStringAsync().Result;
+                JObject obj = JObject.Parse(result);
+
+                responseStringService = (string)obj["products"];
+            }
 
             #endregion
+
+            return lista;
+        }
+
+        public List<Producto> ObtenerProductosFinalesMostrar(List<Producto> listaProductosMostrar, List<Producto> listaProductosHistorial)
+        {
+            var lista = new List<Producto>();
+
+            foreach (var producto in listaProductosMostrar)
+            {
+                var item = listaProductosHistorial.FirstOrDefault(p => p.Cuv == producto.Cuv);
+
+                if (item != null)
+                    lista.Add(item);
+            }
 
             return lista;
         }

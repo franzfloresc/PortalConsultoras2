@@ -1131,8 +1131,8 @@ h4.re3 {
 }
 .footer-page {
     background: #ecebf0;
-    padding-bottom: 23px;
-    padding-top:20px;
+    padding-bottom: 17px;
+   
     /*margin-bottom: 54px;*/
    }
 .list-inline-border {
@@ -3872,7 +3872,7 @@ width:100%;
 #divProductoMantenedor{
     width: 100%;
     margin: 0 auto;
-    max-width: 292px;
+    /*max-width: 292px;*/
 }
 
 .content_foto{
@@ -4260,10 +4260,9 @@ width:100%;
 }
 .menu_footer{
     padding-left:15px;
-    border-top:1px solid white;
+    /*border-top:1px solid white;*/
     border-bottom:1px solid #9e9e9f;
     font-family:'Lato';
-    letter-spacing:1px;
     color:black;
     font-size:12px;
     width:100%;
@@ -4294,13 +4293,16 @@ width:100%;
 .redes_sociales{
     float:right;
     margin-left:34px;
+    display:block;
+    cursor:pointer;
+    margin-top:9px;
+    zoom:88%;
 }
 .content_redes{
-    width:100%;
-    border-top:1px solid white;
+    width:100%;    
     padding-right:14px;
     padding-top:7px;
-    padding-bottom:25px;    
+       
 }
 .unete_2016 {
     margin-top: 14px;
@@ -4344,6 +4346,7 @@ body{
 
 .ingresoPedido{
     display:block;
+    width: 91.25%;
     height:auto;
     font-family:'Lato';
     padding-top: 19px;
@@ -4539,7 +4542,7 @@ body{
 .btn_verMiPedido{
     width: 100%;
     margin: 0 auto;
-    max-width: 292px;
+    /*max-width: 292px;*/
     color: #000;
     display: block;
     height: 45px;
@@ -4679,6 +4682,7 @@ body{
 }
 
 .icono_eliminar_item_pedido{
+    width:6%;
     text-align: right;
     padding-top: 6px;
 }
@@ -4699,6 +4703,7 @@ body{
 
 .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos{
     width:38%;
+    max-width:55.56px;
 }
 
 .precios_item{
@@ -4789,6 +4794,8 @@ body{
     font-size:11px;
     font-weight:400;
     color:#000;
+    margin-top:25px;
+    margin-bottom:30px;
 }
 
 .mensaje_eliminarPedido a{
@@ -5096,8 +5103,8 @@ body{
 
 .descripcion_liquidacion_web{
     display:block;
-    width: 100%;
-    max-width: 292px;
+    width: 86%;
+    /*max-width: 292px;*/
     margin:0 auto;
     margin-bottom:27px;
 }
@@ -5147,6 +5154,11 @@ body{
 
 .contenedor_productos_liquidacion .producto_precio .producto_precio_normal{
     text-decoration:line-through;
+}
+
+.contenedor_productos_liquidacion .producto_precio .producto_stock {
+    text-decoration: none !important;
+    font-size: 12px !important;
 }
 /*CATÁLOGOS*/
 .content_app{
@@ -5356,7 +5368,7 @@ body{
     cursor:pointer;
  }
 /*POP UP COMPARTIR CORREO CATALOGO*/
-.CompartirMobile{
+.PopMobile1{
     position:fixed;
     z-index:2000;
     overflow-y:scroll;
@@ -5366,10 +5378,316 @@ body{
     display:none;
     top:0;
 }
-.content_compartir_correo{
-    width:90%;
-    height:auto;
+.content_popMobile{
+     width: 90%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    margin-top: 15px;
+    padding: 20px;
+    overflow:hidden;
+}
+.titulo_compartir {
+    font-family: 'Lato';
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 0.82;
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.Label_compartir {
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    color: #000000;
+    float: left;
+    margin-bottom: 15px;
+}
+.mostrar_todos {
+    display: block;
+    float: right;
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+    padding-left: 14px;
+    text-decoration: underline;
+    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background-position: 0px 2px;
+    margin-top: 2px;
+}
+.text_compartir {
+    width: 100%;
+    height: 160px;
+    padding: 20px;
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 1.54;
+    color: black;
+    background: white;
+    border: 1px solid #c5c5c5;
+    margin-bottom: 15px;
+}
+.content_checkbox {
+    float: left;
+    /* overflow: hidden; */
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-top: 16px;
+}
+.btn_enviar_correo{
+    width: 100%;
+    height: 45px;
+    background-color: #e81c36;
+    text-align: center;
+    display: block;
+    float: right;
+    color: white;
+    line-height: 45px;
+    font-weight: 700;
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+.inputradio{   
+    opacity: 0;
+    width: 0px !important;
+    height: 0px !important;
+    position: absolute;
+    /* top: 2px; */
+    /* left: 2px; */
+    z-index: 2;
+    /* display: inline-block;
+    /* display: inline-block; */
+    
+}
+.inputfalso{
+    border: 1px solid #d2dae1;   
+    display: inline-block;   
+    position: absolute;
+    left: 0px;
+    width: 16px;
+    height:16px;
+    margin-left: 0 !important; 
+    cursor: pointer;
+}
+input[type="checkbox"]:checked + span:after {    
+    content: "■"; /* el valor de la propiedad content también puede ser cualquier imagen, sólo tendríamos que pasarle la ruta de la imagen*/
+    content: "■";
+    position: absolute;
+    z-index: 1002;
+    top: 2px;
+    overflow: hidden;
+    width: 10px;
+    height: 10px;
+    left: 2px;
+    background:#e81c36;
+    color: #e81c36;
+    font-size: 10px;
+}
+.check_label{
+    float: left;
+    margin-left: 5px;
+    margin-right: 34px;
+    font-family: 'Lato';
+    font-size:13px;
+   margin-top: 16px;
+   cursor: pointer;
+}
+.content_checkbox{
+   float: left;
+    /* overflow: hidden; */
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-top: 16px;
+}
+.cerrar_popMobile {
+    width: 19px;
+    height: 19px;
+    display: block;
+    position: relative;
+    /* direction: ltr; */
+    right: 0;
+    float: right;
+    /* text-align: right; */
+    
+}
+.cerrar_popMobile img{
+    width:100%;
+}
+
+/*MENSAJES DE ALERTA CATÁLOGOS*/
+.MensajeAlertaMobile{
+    position:fixed;
+    z-index:2010;
+    overflow-y:auto;
+    width:100%;
+    height:100%;
+    padding:15px;
+    display:none;
+    top:0;
+    background:rgba(0,0,0,0.5)
+}
+.content_mensajeAlerta{
+    width: 100%;
+    height: 100%;
+    /* height: 0; */
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+.icono_alerta{
+    width:50px;
+    height:50px;
+    margin: 0 auto;
+    margin-top:30px;    
+}
+.check_icono_mobile{
+    background: url("../../../Images/Esika/icono_check_lbel.svg") no-repeat;
+    background-size: cover;
+}
+.exclamacion_icono_mobile{
+    background: url("../../../Images/Esika/icono_exclamacion_lbel.svg") no-repeat;
+    background-size: cover;
+}
+.icono_alerta img{
+    width:100%;
+}
+.mensaje_alerta{
+    font-family:'Lato';
+    font-size:14px;
+    text-align:center;
+    margin-top:13px;
+    margin-bottom:17px;
+    color:black;
+}
+.btn_ok_mobile{
     margin:0 auto;
-    position:relative;
-    background:white;
+    width: 139px;
+    height: 45px;
+    line-height:45px;
+    color:white;
+    text-align:center;
+    display:block;
+    background-color: #e81c36;
+    margin-bottom:20px;
+    
+}
+
+* ver mas la fleca abajo => poner solo la clase al contenedor*/
+
+.ver-mas-vertical span.icono{visibility:hidden}
+
+.ver-mas-vertical {
+        font-size:11px;
+        text-transform:uppercase;
+        position:relative;
+        bottom:20px;
+        margin:15px 0 0 0;
+        cursor: pointer;
+}
+
+.ver-mas-vertical span.text{
+    width: 100%;
+      height: 18px;
+      font-family: Lato;
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      color: #000000;
+
+	display:block;
+	position:relative;
+	/*float:right;
+	width:60px;*/
+	text-align:center;
+	-moz-transition:all .5s ease-in-out;
+	-ms-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+	}
+
+.ver-mas-vertical span.icono{
+	position:absolute;
+    width:26px;
+	height:14px;
+    right:48.8%;
+    opacity:.1;
+	text-align:center;
+    -moz-transition:all .2s ease-in-out;
+	-ms-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;
+    bottom: -15px;
+}
+
+.ver-mas-vertical:hover{
+	-moz-transition:all .6s ease-in-out;
+	-ms-transition:all .6s ease-in-out;
+	-o-transition:all .6s ease-in-out;
+	transition:all .6s ease-in-out;
+}
+
+.ver-mas-vertical:hover span.text{margin-bottom:15px}
+.ver-mas-vertical:hover span.icono{
+    visibility:visible;
+    bottom:-25px;
+    opacity:1;
+}
+
+.ver-mas-vertical span.icono{
+	background:url(../../../Images/ver-mas-flecha-vertical.svg) center no-repeat;
+    /*background-size:30px 15px;*/
+}
+
+/* fin ver mas la fleca abajo*/
+
+@media only screen and (max-width : 425px) {
+    .mostrar_todos{
+        float:left;
+        width:100%;
+        margin-top:5px;
+        margin-bottom:10px;
+    }
+    .Label_compartir{
+        width:100%;
+    }
+    .titulo_compartir{
+        font-size:19px;
+    }
+}
+/*CAMBIO FOOTER*/
+.version_escritorio{
+    font-family: 'Lato';
+    font-size: 12px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+    display: block;
+    width: 200px;
+}
+.menu_subfooter{
+    padding-left:15px;
+    border-bottom: 1px solid white;
+    font-family: 'Lato';
+    color: black;
+    font-size: 12px;
+    width: 100%;
+    cursor: pointer;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: block;
+    background:#e2e1e7;
 }

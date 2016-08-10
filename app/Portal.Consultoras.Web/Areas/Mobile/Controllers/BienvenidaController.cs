@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
@@ -17,21 +18,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var model = new BienvenidaModel();
-            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
 
             try
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                }
-                model.MontoAhorroCatalogo = 0;
-                model.MontoAhorroRevista = 0;
-
+                var bePedidoWeb = ObtenerPedidoWeb();
                 if (bePedidoWeb != null)
                 {
                     model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
                     model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
+                }
+
+                var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if (bePedidoWebDetalle != null)
+                {
+                    model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
                 }
 
                 if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
@@ -49,16 +49,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                model.PaisID = userData.PaisID;
+                model.CodigoISO = userData.CodigoISO;
                 model.NombrePais = userData.NombrePais;
                 model.CodigoZona = userData.CodigoZona;                
                 model.NumeroCampania = userData.CampaniaID == 0 ? "" : userData.CampaniaID.ToString().Substring(4);                
                 model.DiasParaCierre = ViewBag.Dias;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.TieneFechaPromesa = ViewBag.TieneFechaPromesa;
-                model.PaisID = userData.PaisID;
-                //r20151104M
                 model.DiaFechaPromesa = (ViewBag.DiaFechaPromesa == null ? 0 : ViewBag.DiaFechaPromesa);
-                //r20151104M
                 model.MensajeFechaPromesa = ViewBag.MensajeFechaPromesa;
                 model.IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC;
                 model.InscritaFlexipago = userData.InscritaFlexipago;
@@ -85,7 +84,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
-                    model.RutaChile = string.Empty; // CAH - R20150931
+                    model.RutaChile = string.Empty; 
                 }
                 var parametro = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
                 var urlChile = Util.EncriptarQueryString(parametro);
@@ -106,6 +105,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             model.PROL1 = true;
                         }
                     }
+                }
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
+                        model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+                    else
+                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+
+                    var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+
+                    model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 }
             }
             catch (FaultException ex)

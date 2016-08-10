@@ -145,6 +145,12 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoProducto { get; set; }
 
         public bool TieneStockPROL { get; set; }
+
+        public decimal PrecioValorizado { get; set; }
+
+        public string PrecioValorizadoString { get; set; }
+
+        public string Simbolo { get; set; }
     }
 
     public class ObservacionModel

@@ -1,8 +1,6 @@
 ﻿
 $(document).ready(function () {
     CargarPedido();
-
-    //signo_menos
 });
 
 function CargarPedido() {
@@ -21,6 +19,13 @@ function CargarPedido() {
             }
 
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
+
+            var divMensajeCierreCampania = $("#divMensajeCierreCampania").html();
+            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;p&gt;", "<p>");
+            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;b&gt;", "<b>");
+            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;/b&gt;", "</b>");
+            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;/p&gt;", "</b>");
+            $("#divMensajeCierreCampania").html(divMensajeCierreCampania);
 
             if ($('#divProductosDetalle').find(".icono_advertencia_notificacion").length > 0) {
                 $("#iconoAdvertenciaNotificacion").show();
@@ -433,7 +438,7 @@ function PedidoDetalleEliminarTodo() {
     var item = {};
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/DeleteAll',
+        url: urlPedidoDeleteAll,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -476,7 +481,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     if (data.pedidoReservado) {
                         var fnRedireccionar = function () {
                             ShowLoading();
-                            location.href = urlValidado;
+                            location.href = urlPedidoValidado;
                         }
                         if (mostrarAlerta == true) 
                             alert_msg(data.message, fnRedireccionar);                        
@@ -596,7 +601,7 @@ function PedidoUpdate(item, PROL) {
                     if (PROL == "0")
                         $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
 
-                    CalcularTotalPedido(data.Total, data.Total_Minimo);
+                    CalcularTotalPedido(data.TotalFormato, data.Total_Minimo);
                     ActualizarCantidadTotalPedido();
                     CargarPedido();
                 }
@@ -612,14 +617,7 @@ function PedidoUpdate(item, PROL) {
 
 function CalcularTotalPedido(Total, Total_Minimo) {
 
-    if (codigoIsoPais == 'CO') {
-        Total = Total.replace(/\,/g, '');
-        Total = parseFloat(Total).toFixed(0);
-        $('#lblDescripcionTotal').html(SeparadorMiles(Total));
-    } else {
-        Total = parseFloat(Total.replace(',', ''));
-        $('#lblDescripcionTotal').html(parseFloat(Total).toFixed(2));
-    }
+    $('#lblDescripcionTotal').html(Total);
 }
 
 function ActualizarCantidadTotalPedido() {
@@ -773,80 +771,80 @@ function EjecutarServicioPROL() {
             $("hdfPROLSinStock").val(model.PROLSinStock == true ? "1" : "0");
             $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
 
-            var step = 0;
-            var arrayProductoGuardado = new Array();
-            var botonEjecutarPROL = $.trim($('#btnGuardarPedido').text()).toLowerCase();
+            //var step = 0;
+            //var botonEjecutarPROL = $.trim($('#btnGuardarPedido').text()).toLowerCase();
             var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
 
-            if (!model.ErrorPROL) {
-                if (model.ObservacionRestrictiva == false && model.ObservacionInformativa == false) {
-                    if (botonEjecutarPROL == "guardar pedido") {
-                        mensajePedidoCheckout = "Guardado con éxito";
-                    } else if (botonEjecutarPROL == "validar pedido") {
-                        mensajePedidoCheckout = "Satisfactoriamente";
-                    }
-                }
+            //if (!model.ErrorPROL) {
+            //    if (model.ObservacionRestrictiva == false && model.ObservacionInformativa == false) {
+            //        if (botonEjecutarPROL == "guardar pedido") {
+            //            mensajePedidoCheckout = "Guardado con éxito";
+            //        } else if (botonEjecutarPROL == "validar pedido") {
+            //            mensajePedidoCheckout = "Satisfactoriamente";
+            //        }
+            //    }
 
-                if (botonEjecutarPROL == "guardar pedido") {
-                    step = 1;
-                } else if (botonEjecutarPROL == "validar pedido") {
-                    step = 2;
-                }
-            }
+            //    if (botonEjecutarPROL == "guardar pedido") {
+            //        step = 1;
+            //    } else if (botonEjecutarPROL == "validar pedido") {
+            //        step = 2;
+            //    }
+            //}
 
-            if (model.ListaProductos.length > 0 && step > 0) {
+            //var arrayProductoGuardado = new Array();
+            //if (model.ListaProductos.length > 0 && step > 0) {
 
-                $.each(model.ListaProductos, function (index, item) {
-                    if (item.DescripcionEstrategia == null || item.DescripcionEstrategia == "") {
-                        item.DescripcionEstrategia = "Estándar";
-                    }
+                //$.each(model.ListaProductos, function (index, item) {
+                //    if (item.DescripcionEstrategia == null || item.DescripcionEstrategia == "") {
+                //        item.DescripcionEstrategia = "Estándar";
+                //    }
 
-                    if (item.Categoria == null || item.Categoria == "") {
-                        item.Categoria = "Sin Categoría";
-                    }
+                //    if (item.Categoria == null || item.Categoria == "") {
+                //        item.Categoria = "Sin Categoría";
+                //    }
 
-                    arrayProductoGuardado.push({
-                        name: item.DescripcionProd,
-                        id: item.CUV,
-                        price: item.PrecioUnidad.toString(),
-                        brand: item.DescripcionMarca,
-                        category: item.Categoria,
-                        variant: item.DescripcionEstrategia,
-                        quantity: item.Cantidad
-                    });
-                });
+                //    arrayProductoGuardado.push({
+                //        name: item.DescripcionProd,
+                //        id: item.CUV,
+                //        price: item.PrecioUnidad.toString(),
+                //        brand: item.DescripcionMarca,
+                //        category: item.Categoria,
+                //        variant: item.DescripcionEstrategia,
+                //        quantity: item.Cantidad
+                //    });
+                //});
 
-                var dataLayerAccion = 'Validar';
-                var dataLayerStep = 0;
-                if (botonEjecutarPROL == "guardar pedido") {
-                    dataLayerStep = 2;
-                    if (model.PeriodoAnalisisPedido == "Venta") {
-                        dataLayerAccion = 'Guardar';
-                        dataLayerStep = 1;
-                    }
-                }
-                else {
-                    if (botonEjecutarPROL == "validar pedido") {
-                        if (model.PeriodoAnalisisPedido == "Facturacion") {
-                            dataLayerStep = 2;
-                        }
-                    }
-                }
+                //var dataLayerAccion = 'Validar';
+                //var dataLayerStep = 0;
+                //if (botonEjecutarPROL == "guardar pedido") {
+                //    dataLayerStep = 2;
+                //    if (model.PeriodoAnalisisPedido == "Venta") {
+                //        dataLayerAccion = 'Guardar';
+                //        dataLayerStep = 1;
+                //    }
+                //}
+                //else {
+                //    if (botonEjecutarPROL == "validar pedido") {
+                //        if (model.PeriodoAnalisisPedido == "Facturacion") {
+                //            dataLayerStep = 2;
+                //        }
+                //    }
+                //}
 
-                if (dataLayerStep > 0) {
-                    dataLayer.push({
-                        'event': 'productCheckout',
-                        'action': dataLayerAccion,
-                        'label': mensajePedidoCheckout,
-                        'ecommerce': {
-                            'checkout': {
-                                'actionField': { 'step': dataLayerStep, 'option': mensajePedidoCheckout },
-                                'products': arrayProductoGuardado
-                            }
-                        }
-                    });
-                }
-            }
+                //if (dataLayerStep > 0) {
+                //    dataLayer.push({
+                //        'event': 'productCheckout',
+                //        'action': dataLayerAccion,
+                //        'label': mensajePedidoCheckout,
+                //        'ecommerce': {
+                //            'checkout': {
+                //                'actionField': { 'step': dataLayerStep, 'option': mensajePedidoCheckout },
+                //                'products': arrayProductoGuardado
+                //            }
+                //        }
+                //    });
+                //}
+            //}
 
             $('#btnGuardarPedido').text(model.BotonPROL);
 
@@ -868,16 +866,16 @@ function EjecutarServicioPROL() {
                         return true;
                     }
 
-                    dataLayer.push({
-                        'event': 'productCheckout',
-                        'action': 'Validado',
-                        'ecommerce': {
-                            'checkout': {
-                                'actionField': { 'step': 3 },
-                                'products': arrayProductoGuardado
-                            }
-                        }
-                    });
+                    //dataLayer.push({
+                    //    'event': 'productCheckout',
+                    //    'action': 'Validado',
+                    //    'ecommerce': {
+                    //        'checkout': {
+                    //            'actionField': { 'step': 3 },
+                    //            'products': arrayProductoGuardado
+                    //        }
+                    //    }
+                    //});
 
                     messageInfo('<h3 class="text-primary">Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
                     window.setTimeout(function () {

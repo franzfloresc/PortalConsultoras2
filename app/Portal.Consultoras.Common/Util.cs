@@ -2754,12 +2754,17 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static string DecimalToStringFormat(decimal valor, string pais)
         {
-            var importe = string.Format("{0:#,##0.00}", valor);
+            if (string.IsNullOrEmpty(pais)) return "";
 
-            if (pais == Constantes.CodigosISOPais.Colombia || pais == Constantes.CodigosISOPais.Chile || pais == Constantes.CodigosISOPais.CostaRica)
-            {
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais))
                 importe = importe.Split('.')[0].Replace(",", ".");
-            }
+            
+            //if (pais == Constantes.CodigosISOPais.Colombia || pais == Constantes.CodigosISOPais.Chile || pais == Constantes.CodigosISOPais.CostaRica)
+            //{
+            //    importe = importe.Split('.')[0].Replace(",", ".");
+            //}
 
             return importe;
         }
@@ -2806,6 +2811,13 @@ namespace Portal.Consultoras.Common
             }
             return montoval;
         }
+
+        public static string SubStrCortarNombre(string cadena, int cant = -100)
+        {
+            var str = SubStr(cadena, 0, cant);
+            str = str == cadena && cadena != "" ? str : (str + "...");
+            return str;
+        }
     }
 
 
@@ -2815,6 +2827,8 @@ namespace Portal.Consultoras.Common
         {
             try
             {
+                if (r == null) return false;
+
                 return r.GetOrdinal(columnName) >= 0;
             }
             catch (IndexOutOfRangeException)

@@ -65,5 +65,11 @@ namespace Portal.Consultoras.Web.Models
         public string UrlImagenCompartirCatalogo { get; set; }
 
         public IList<BEEscalaDescuento> ListaEscalaDescuento { get; set; }
+
+        public decimal MontoDeuda { get; set; }
+
+        public string FechaVencimiento { get; set; }
+
+        public decimal MontoPedido { get; set; }
     }
 }

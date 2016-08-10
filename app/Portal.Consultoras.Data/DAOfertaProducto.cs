@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Data
 
         public int InsPedidoWebDetalleOferta(BEPedidoWebDetalle pedidowebdetalle)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoWebDetalleOferta");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoWebDetalleOferta_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, pedidowebdetalle.ConsultoraID);
             Context.Database.AddInParameter(command, "@MarcaID", DbType.Byte, pedidowebdetalle.MarcaID);

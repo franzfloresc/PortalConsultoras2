@@ -8,7 +8,7 @@
 }
 
 <div class="contenedor_producto">
-    <div class="content_320">
+    <div class="content_320 ingresoPedidom">
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
@@ -18,178 +18,6 @@
                 </h2>
 
                 <div id="divProductosDetalle">
-
-                    @*<div>
-                                <div class="textos_resumen">
-                                    <span>HE AGREGADO :</span>
-                                    <span>MONTO TOTAL :</span>
-                                    <span>MI GANANCIA :</span>
-                                </div>
-                                <div class="montos_resumen">
-                                    <span><b class="CantidadProducto">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
-                                    <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
-                                    <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b>@Model.GananciaFormat</b></span>
-                                </div>
-                            </div>
-                            <div class="detalle_pedido_ingresado">
-                                <span class="titulo_detalle">DETALLE</span>
-                            </div>
-                            @if (ViewBag.MensajeCierreCampania != null)
-                        {
-                            <div class="alert-top-icon text-success">
-                                <i class="icon-exclamation-circle"></i> <div>@ViewBag.MensajeCierreCampania</div>
-                            </div>
-                        }
-                            <div>
-                                <div class="contenedor_items_pedido">
-                                    <div class="bloque_descripcion_items_ingresados">
-                                        <div class="descripcion_item_pedido">
-                                            <span class="mensaje_tipoProd">OFERTAS PARA TÍ</span>
-                                            <span class="cod_prod">41223</span>
-                                            <span class="desc_prod">
-                                                Máscara Full Size Negro
-                                            </span>
-                                            <span class="nom_cliente">Cliente : María Elena Álvarez</span>
-                                        </div>
-                                        <div class="icono_eliminar_item_pedido">
-                                            <a href="#" title="Eliminar">
-                                                <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="bloque_cantidades_precios_items_ingresados">
-                                        <div class="contenedor_cantidadProductos">
-                                            <div>
-                                                <span class="signo_menos" id="resta">
-                                                    <img src="/Content/Images/Mobile/Esika/menos.png">
-                                                </span>
-                                                <div class="campo_cantidadProductos">
-                                                    <input type="text" name="cantidad" value="1" id="txtCantidad" />
-                                                </div>
-                                                <span class="signo_mas" id="suma">
-                                                    <img src="/Content/Images/Mobile/Esika/mas.png">
-                                                </span>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="precios_item">
-                                            <span class="precio_normal_pedido">
-                                                <span>$ 10,000,000</span>
-                                            </span>
-                                            <span class="precio_oferta_pedido">
-                                                <span>$ 1000,000,000</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="contenedor_items_pedido">
-                                    <div class="bloque_descripcion_items_ingresados">
-                                        <div class="descripcion_item_pedido">
-                                            <span class="mensaje_tipoProd">LIQUIDACIÓN</span>
-                                            <span class="cod_prod">62238</span>
-                                            <span class="desc_prod">
-                                                Cyzone pulsera Instadays. De metal bañado en bronce envejecido y cinta
-                                                negra. Largo regulable: de 65 a 85 cm / de 25.5 a 33.5’’
-                                            </span>
-                                            <span class="nom_cliente">Cliente : María Elena Álvarez</span>
-                                        </div>
-                                        <div class="icono_eliminar_item_pedido">
-                                            <a href="#" title="Eliminar">
-                                                <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="bloque_cantidades_precios_items_ingresados">
-                                        <div class="contenedor_cantidadProductos">
-                                            <div>
-                                                <span class="signo_menos" id="resta">
-                                                    <img src="/Content/Images/Mobile/Esika/menos.png">
-                                                </span>
-                                                <div class="campo_cantidadProductos">
-                                                    <input type="text" name="cantidad" value="1" id="txtCantidad" />
-                                                </div>
-                                                <span class="signo_mas" id="suma">
-                                                    <img src="/Content/Images/Mobile/Esika/mas.png">
-                                                </span>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="precios_item">
-                                            <span class="precio_normal_pedido">
-                                                <span>$ 500,000</span>
-                                            </span>
-                                            <span class="precio_oferta_pedido">
-                                                <span>$ 2,500,000</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- NOTIFICACIÓN CASO PRODUCTO AGOTADO -->
-                                    <div class="notificacion_productoAgotado">
-                                        <span>
-                                            Lo sentimos, se nos agotó este producto. Por favor elimínalo y vuelve a guardar tu pedido.
-                                        </span>
-                                    </div>
-                                    <!-- FIN NOTIFICACIÓN CASO PRODUCTO AGOTADO -->
-                                </div>
-                                <div class="contenedor_items_pedido">
-                                    <div class="bloque_descripcion_items_ingresados">
-                                        <div class="descripcion_item_pedido">
-                                            <span class="mensaje_tipoProd">LIQUIDACIÓN</span>
-                                            <span class="cod_prod">62238</span>
-                                            <span class="desc_prod">
-                                                Cyzone pulsera Instadays. De metal bañado en bronce envejecido y cinta
-                                                negra. Largo regulable: de 65 a 85 cm / de 25.5 a 33.5’’
-                                            </span>
-                                            <span class="nom_cliente">Cliente : María Elena Álvarez</span>
-                                        </div>
-                                        <div class="icono_eliminar_item_pedido">
-                                            <a href="#" title="Eliminar">
-                                                <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="bloque_cantidades_precios_items_ingresados">
-                                        <div class="contenedor_cantidadProductos">
-                                            <div>
-                                                <span class="signo_menos" id="resta">
-                                                    <img src="/Content/Images/Mobile/Esika/menos.png">
-                                                </span>
-                                                <div class="campo_cantidadProductos">
-                                                    <input type="text" name="cantidad" value="1" id="txtCantidad" />
-                                                </div>
-                                                <span class="signo_mas" id="suma">
-                                                    <img src="/Content/Images/Mobile/Esika/mas.png">
-                                                </span>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="precios_item">
-                                            <span class="precio_normal_pedido">
-                                                <span>$ 500,000</span>
-                                            </span>
-                                            <span class="precio_oferta_pedido">
-                                                <!-- ICONO ADVERTENCIA -->
-                                                <span class="icono_advertencia_notificacion"></span>
-                                                <!-- FIN ICONO ADVERTENCIA -->
-                                                <span>$ 2,500,000</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="separador"></div>
-                            <div>
-                                <div class="textos_resumen">
-                                    <span>HE AGREGADO :</span>
-                                    <span>MONTO TOTAL :</span>
-                                    <span>MI GANANCIA :</span>
-                                </div>
-                                <div class="montos_resumen">
-                                    <span><b class="CantidadProducto">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
-                                    <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
-                                    <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b>@Model.GananciaFormat</b></span>
-                                </div>
-                            </div>*@
                 </div>
 
                 <div class="mensajes_adicionales_ingresoPedido" id="iconoAdvertenciaNotificacion" style="display: none;">
@@ -315,7 +143,7 @@
 
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
-        <i class="icon-exclamation-circle"></i> <div>{{MensajeCierreCampania}}</div>
+        <i class="icon-exclamation-circle"></i> <div id="divMensajeCierreCampania">{{MensajeCierreCampania}}</div>
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
@@ -379,9 +207,9 @@
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
-                        <span class="signo_menos" data-cantidad-agregar="-">
+                        @*<span class="signo_menos" data-cantidad-agregar="-">
                             <img src="/Content/Images/Mobile/Esika/menos.png">
-                        </span>
+                        </span>*@
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="text"
@@ -408,15 +236,15 @@
                                    data-cantidad-input="-">
                             {{/iff}}
                         </div>
-                        <span class="signo_mas" data-cantidad-agregar="+">
+                        @*<span class="signo_mas" data-cantidad-agregar="+">
                             <img src="/Content/Images/Mobile/Esika/mas.png">
-                        </span>
+                        </span>*@
                         <div class="clear"></div>
                     </div>
                 </div>
                 <div class="precios_item">
                     <span class="precio_normal_pedido">
-                        <span>{{this.Simbolo}} {{detalle.PrecioUnidad}}</span>
+                        <span>{{../Simbolo}} {{detalle.PrecioUnidad}}</span>
                     </span>
                     <span class="precio_oferta_pedido">
                         <!-- ICONO ADVERTENCIA -->
@@ -426,7 +254,7 @@
                         {{/if}}
                         {{/if}}
                         <!-- FIN ICONO ADVERTENCIA -->
-                        <span>{{this.Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.ImporteTotal}}</label></span>
+                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.ImporteTotal}}</label></span>
                     </span>
                 </div>
             </div>
@@ -489,25 +317,25 @@
         var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-        var urlListadoPedido = '@Url.Action("CargarListaPedido", "Pedido", new {area = "Mobile"})';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
-        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
-        var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
-        var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
-        var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
-        var urlActualizarCantidadTotalPedido = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
-        var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';
 
         var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';
         var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
+        var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+        var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
 
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+        var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
+        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
+        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
+        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+        var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
+        var urlActualizarCantidadTotalPedido = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
+        @*var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';*@
+        
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "Mobile" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var urlValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var fnEliminarProducto = null;
         
     </script>

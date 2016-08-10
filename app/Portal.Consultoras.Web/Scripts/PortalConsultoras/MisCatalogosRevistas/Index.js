@@ -1,5 +1,6 @@
 ﻿
 var listaCorreo = new Array();
+var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 
 // js-RenderCatalogo
 jQuery(document).ready(function () {
@@ -395,6 +396,7 @@ function CompartirFacebook(Catalogo, btn) {
 // catalogo email
 var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
+    $("#comentarios").val(valContenidoCorreoDefecto);
     // remover todos los tag
     $('#tagCorreo').removeTagAll();
     // asignar el check al catalogo correspondiente mediante tipoCatalogo
@@ -649,7 +651,7 @@ function ObtenerImagenRevista(campania, defered) {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response) {
-                    response = response.startsWith("https") ? response.replace("https://", "http://") : response;
+                    //response = response.startsWith("https") ? response.replace("https://", "http://") : response;
                     src = response;
                 } else {
                     src = defaultImageRevista;

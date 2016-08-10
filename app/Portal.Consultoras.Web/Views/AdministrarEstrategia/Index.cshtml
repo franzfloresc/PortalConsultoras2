@@ -1121,14 +1121,19 @@
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }
-                    if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
-                        alert("Ingrese un orden para mostrar.");
-                        return false;
+
+                    /* SB20-255 - INICIO */
+                    if ($('#ddlTipoEstrategia').val() != 3009) {
+                        if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                            alert("Ingrese un orden para mostrar.");
+                            return false;
+                        }
+                        if ($("#txtOrden").val() <= 0) {
+                            alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+                            return false;
+                        }
                     }
-                    if ($("#txtOrden").val() <= 0) {
-                        alert("Ingrese un valor para el orden a mostrar mayor a cero.");
-                        return false;
-                    }
+                    /* SB20-255 - FIN */
                     if ($("#hdZonas").val() == "") {
                         alert("Debe seleccionar el alcance de la estrategia.");
                         return false;

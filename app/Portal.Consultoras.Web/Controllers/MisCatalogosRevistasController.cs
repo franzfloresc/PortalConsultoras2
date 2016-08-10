@@ -206,6 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
                 lista.Update(c=> {c.Nombre = c.Nombre.Trim(); c.eMail = c.eMail.Trim();});
+                lista = lista.Where(c => c.eMail != "").ToList();
                 Session[Constantes.ConstSession.ClientesByConsultora] = lista;
             }
             lista = lista.Where(c => c.eMail.Contains(term)).ToList();

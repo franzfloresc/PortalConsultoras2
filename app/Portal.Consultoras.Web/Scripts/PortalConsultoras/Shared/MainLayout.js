@@ -7,9 +7,25 @@
         closeWaitingDialog();
     });
 
-    CargarCantidadProductosPedidos();
-    CargarCantidadNotificacionesSinLeer();
+    HandlebarsRegisterHelper();
+
     CargarResumenCampaniaHeader();
+    CargarCantidadNotificacionesSinLeer();
+
+    $('#alertDialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
 
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
@@ -118,27 +134,50 @@
     MostrarShowRoomBannerLateral();
 });
 
-function CargarCantidadProductosPedidos(inSession) {
-    inSession = inSession || false;
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Pedido/GetCantidadProductos",
-        data: JSON.stringify({ inSession: inSession }),
+function alert_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
+}
+
+function CargarResumenCampaniaHeader() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'GestionContenido/GetResumenCampania',
+        data: '',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {                
-                if (data.cantidadProductos > 0) {
-                    $("#pCantidadProductosPedido").html(data.cantidadProductos);
-                    //$("#pCantidadProductosPedido").addClass("notificaciones_existentes");
-                } else {
-                    $("#pCantidadProductosPedido").html(0);
-                    //$("#pCantidadProductosPedido").removeClass("notificaciones_existentes");
-                }
+            if (checkTimeout(data)) {
+                if (data.result) {
+                    var montoWebAcumulado = "0";
+                    var montoTotalPagar = "0";
 
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
+                    if (data.montoWebAcumulado == 0) {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            montoWebAcumulado = "0";
+                        else
+                            montoWebAcumulado = "0.00";
+                    } else {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                        else
+                            montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                    }
+
+                    if (data.cantidadProductos > 0) {
+                        $("#pCantidadProductosPedido").html(data.cantidadProductos);
+                    } else {
+                        $("#pCantidadProductosPedido").html(0);
+                    }
+
+                    $("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
+                    $("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
+                }
+                else {
+                    console.error("Ocurrio un error con el Resumen de Campaña.");
                 }
             }
         },
@@ -173,72 +212,6 @@ function CargarCantidadNotificacionesSinLeer() {
                     console.log(data.mensaje);
                 }
             };
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(error);
-            }
-        }
-    });
-};
-function CargarResumenCampaniaHeader() {
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.result) {
-                    var montoWebAcumulado = "0";
-                    var montoTotalPagar = "0";
-
-                    if (data.montoWebAcumulado == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoWebAcumulado = "0";
-                        else
-                            montoWebAcumulado = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                        else
-                            montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    }
-
-                    if (data.montoTotalPagar == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoTotalPagar = "0";
-                        else
-                            montoTotalPagar = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoTotalPagar = SeparadorMiles(data.montoTotalPagar.toFixed(0));
-                        else
-                            montoTotalPagar = data.montoTotalPagar.toFixed(2);
-                    }
-
-                    var fecha = data.fechaVencimiento || "";
-                    var dateString = fecha.substr(6);
-                    var currentTime = new Date(parseInt(dateString));
-                    var month = currentTime.getMonth() + 1;
-                    var day = currentTime.getDate();
-                    //var year = currentTime.getFullYear();
-                    var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month); //+ "/" + year;
-
-                    if (date == '01/01') date = '--/--';
-
-                    $("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
-                    $("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
-                    $("#spanDeuda").html(data.Simbolo + " " + "<span>" + montoTotalPagar + "</span>");
-                    $("#spanVencimiento").html(date);
-                    $("#spanPedidoIngresado").html("Pedido ingresado: " + data.Simbolo + " " + montoWebAcumulado);
-                }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
-            }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "GestionContenido/Index"))
                     return RedirectToAction("Index", "Bienvenida");
             }
-            catch (FaultException ex) 
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Entidad = entidad
             }, JsonRequestBehavior.AllowGet);
-              
+
         }
 
         public ActionResult FondoLogin()
@@ -143,53 +143,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var PaisID = userData.PaisID;
-                decimal montoWebAcumulado = 0M;
-                decimal montoTotalPagar = 0M;
-                DateTime fechaVencimiento = DateTime.MinValue;
-                
-                if (SessionKeys.CheckDataSessionResumenCampania())
-                {
-                    var resumenCampania = SessionKeys.GetDataSessionResumenCampania();
+                var pedidoWeb = ObtenerPedidoWeb();
+                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                    montoWebAcumulado = resumenCampania.montoWebAcumulado;
-                    montoTotalPagar = resumenCampania.montoTotalPagar;
-                    fechaVencimiento = resumenCampania.fechaVencimiento;
-                }
-                else
-                {
-                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                    {
-                        montoWebAcumulado = sv.GetPedidoWebAcumulado(userData.PaisID, 
-                                                                     userData.CampaniaID, 
-                                                                     int.Parse(userData.ConsultoraID.ToString())).Select(x => x.ImporteTotal)
-                                                                                                                 .DefaultIfEmpty(0M)
-                                                                                                                 .First();
-                    }
-                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                    {
-                        if (PaisID == 4 || PaisID == 11 || PaisID == 3)
-                            montoTotalPagar = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString())).Select(x => x.SaldoPendiente)
-                                                                                                                            .DefaultIfEmpty(0M)
-                                                                                                                            .First();
-                        else
-                            montoTotalPagar = sv.GetSaldoPendiente(userData.PaisID,
-                                                                   userData.CampaniaID, 
-                                                                   int.Parse(userData.ConsultoraID.ToString())).Select(x => x.SaldoPendiente)
-                                                                                                               .DefaultIfEmpty(0M)
-                                                                                                               .First();
-
-                        fechaVencimiento = sv.GetFechaVencimiento(userData.PaisID, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                    }
-                    var resumenCampania = new { montoWebAcumulado, montoTotalPagar, fechaVencimiento };
-                    SessionKeys.SetDataSessionResumenCampania(resumenCampania);
-                }
-                
                 return Json(new
                 {
                     result = true,
-                    montoWebAcumulado = montoWebAcumulado,
-                    montoTotalPagar = montoTotalPagar,
-                    fechaVencimiento = fechaVencimiento,
+                    montoWebAcumulado = pedidoWebDetalle.Sum(p => p.ImporteTotal),
+                    cantidadProductos = pedidoWebDetalle.Sum(p => p.Cantidad),
                     Simbolo = userData.Simbolo,
                     paisID = PaisID
                 }, JsonRequestBehavior.AllowGet);

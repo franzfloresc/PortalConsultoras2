@@ -14,6 +14,7 @@ using System.Net;
 using System.Web.Security;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -387,7 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
                 model.Simbolo = oBEUsuario.Simbolo;
                 model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                model.ModelPedido = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
+                model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
                 model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
                 model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
                 model.ZonaHoraria = oBEUsuario.ZonaHoraria;
@@ -473,17 +474,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public PedidoDetalleModel GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
+        public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
         {
             List<ServiceSAC.BEProductoFaltante> olstProductoFaltante = new List<ServiceSAC.BEProductoFaltante>();
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
                 olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(PaisID, CampaniaID, ZonaID).ToList();
             }
-            PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
-            PedidoModelo.ListaProductoFaltante = olstProductoFaltante;
-            //ViewBag.ModelPedido = PedidoModelo;
-            return PedidoModelo;
+            return olstProductoFaltante;
         }
 
         public List<TipoLinkModel> GetLinksPorPais(int PaisID)

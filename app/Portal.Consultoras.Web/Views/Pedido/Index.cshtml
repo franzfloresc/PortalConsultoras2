@@ -131,20 +131,22 @@
     <div class="clear"></div>
     
     <div class="caja_pedidos">
-        <div id="divBarra" style="display:none;">
+        <div id="divBarra" style="display: none;">
             <div id="divBarraMensaje">
-                <div class="content_BarrMensaje">
-                    <div class="mensaje_barra">¡YA LLEGAS AL 30% DSCTO!</div>
-                    <div class="agrega_barra">Solo agrega S/. 50</div>
-                    
-                </div>
-                <hr class="clear" />
-                <div class="flechita_barra"></div>
-                
+                <div id="divBarraMensajeLogrado">
+                    <div style="float:right;">
+                        <div class="content_BarrMensaje">
+                            <div class="mensaje_barra" style="display: inline;">¡YA LLEGAS AL 30% DSCTO!</div>
+                            <div class="agrega_barra">Solo agrega S/. 50</div>
+                        </div>
+                        <hr class="clear" />
+                        <div class="flechita_barra"></div>
+                    </div>
+                </div>                
             </div>
             <hr class="clear" />
             <div id="divBarraLimite">
-                <div class="monto_minimo_barra" style="width:130px">25% DSCTO<br/>M. mínimo: S/. 250
+                @*<div class="monto_minimo_barra" style="width: 18%;">25% DSCTO<br/>M. mínimo: S/. 250
                     <div class="linea_indicador_barra"></div>
                 </div>
                 <div class="bandera_marcador"></div>
@@ -159,7 +161,7 @@
                 <div class="monto_minimo_barra ml_6">
                     40% DSCTO<br />S/. 1901
                     <div class="linea_indicador_barra"></div>
-                </div>
+                </div>*@
             </div>
             <hr class="clear" />
             <div id="divBarraPosicion" class="BarraPosicion">
@@ -255,20 +257,20 @@
                             {
                                 <p class="monto_descuento">
                                     <b>
-                                        @Model.Simbolo<span class="num">@Math.Round(Model.MontoDescuento, 2)</span>
+                                        @Model.Simbolo<span class="num">@Model.FormatoMontoDescuento</span>
                                     </b>
                                 </p>
                                 <p class="monto_montodescuento">
                                     <b>
-                                        @Model.Simbolo<span class="num">@Math.Round(Model.MontoEscala, 2)</span>
+                                        @Model.Simbolo<span class="num">@Model.FormatoMontoEscala</span>
                                     </b>
                                 </p>
                             }
                             
-                            @{ var montoAhorroTotal = Model.MontoAhorroCatalogo + Model.MontoAhorroRevista; }
+                            
                             <p class="monto_ganancia">
                                 <b>
-                                    @Model.Simbolo <span id="spnMontoGanancia">@Math.Round(montoAhorroTotal, 2)</span>
+                                    @Model.Simbolo <span id="spnMontoGanancia">@Model.FormatoMontoGanancia</span>
                                 </b>
                             </p>
                         </div>
@@ -398,7 +400,7 @@
             <h1>
                 OFERTAS
                 <b>PARA TÍ</b>
-                <b class="">@Model.SobreNombre.ToUpper()</b>
+                <b class="">@Model.SobreNombre</b>
             </h1>
             <div class="texto_exclusivo_web">
                 EXCLUSIVO SÓLO POR WEB
@@ -418,9 +420,10 @@
 
 <div class="contenedor_popup_agregarCliente" id="divClientes">
     <div class="popup_agregarCliente">
-        <div class="btn_cerrarPopupCliente">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="javascript: $('#divClientes').hide();">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <h6>AGREGAR <b>CLIENTE</b></h6>
@@ -652,9 +655,10 @@
 
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
-        <div class="btn_cerrar_productosAgotados">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="javascript: $('#divProductoAgotado').hide()">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenedor_lista_productosAgotados">
@@ -714,7 +718,7 @@
 <!-- FIN PRODUCTOS SUGERIDOS -->
 <!-- POPUP OFERTA FINAL -->
 
-<div class="contenedor_popup_ofertaFinal">
+<div class="contenedor_popup_ofertaFinal" id="divOfertaFinal">
     <div class="popup_ofertaFinal">
         <div class="btn_cerrar_ofertaFinal">
             <a href="#" title="Cerrar">
@@ -723,14 +727,16 @@
             </a>
         </div>
         <div class="contenido_popUp">
-            <div class="icono_aprobacion"></div>
+            <div id="divIconoOfertaFinal"></div>
             <h1 class="titulo_ofertaFinal">
-                GUARDASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>
+                <span id="spnTituloOfertaFinal">TODAVIA<b>&nbsp;TE FALTA UN POCO</b></span>
             </h1>
-            <span class="descripcion_ofertaFinal">Agrega S/. 21 para conseguir 30% DSCTO y gana más esta campaña.</span>
+            <span class="descripcion_ofertaFinal">
+                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal">21</span> <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
+            </span>
             <div class="contenedor_bloques_agregaProductos">
                 <div class="bloque_descripciones">
-                    <h6 class="descripcion_principal"><b>Consigue más ganancias agregando uno de estos productos</b></h6>
+                    <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
                     <span class="enlace_catalogos">
                         También puedes buscarlo en tus
                         <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
@@ -739,46 +745,11 @@
                         NO, GRACIAS
                     </button>
                 </div>
-                <div class="bloque_carousel">
-                    <span class="btn_controles_carousel btn_control_atras">
-                        <a href="#" title="Botón Atrás">
-                            <img src="@Url.Content("~/Content/Images/Esika/previous_ofertas_home.png")" alt="Botón Atrás" />
-                        </a>
-                    </span>
-                    <div class="content_item_carrusel">
-                        <div class="producto_img_home">
-                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200067349_20166493_02_jllgfzcdqi.png">
-                        </div>
-                        <div class="etiqueta_producto">
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <h6>Cyzone</h6>
-                            <p class="nombre_producto">
-                                <b>Cyzone ESMALTE LIQUIDO NAILS IN 5 ML LIL...</b>
-                            </p>
-                            <div class="producto_precio">
-                                <span class="producto_precio_normal">S/. 42.00</span>
-                                <span class="producto_precio_oferta"><b>S/. 25.00</b></span>
-                            </div>
-                            <div class="liquidacion_rango_home">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                                <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
-                            </div>
-                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '6537' , TipoEstrategiaID: '3009' , Posicion: 0 , FlagNueva: '0' }, this); ">
-                                AGRÉGALO
-                            </a>
-
-                            <div class="clear"></div>
+                <div style="display: inline-block;" class="bloque_carousel">
+                    <div style=" margin-left: 27px; margin-right: 27px; position: relative; bottom: 19px;">
+                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         </div>
                     </div>
-                    <span class="btn_controles_carousel btn_control_siguiente">
-                        <a href="#" title="Botón Adelante">
-                            <img src="@Url.Content("~/Content/Images/Esika/next.png")" alt="Botón Adelante" />
-                        </a>
-                    </span>
                 </div>
             </div>
         </div>
@@ -1240,9 +1211,56 @@
     </div>
 </script>
 
+<script id="ofertaFinal-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal">
+        <div style="display: none;">
+            <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdOfertaFinalConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdOfertaFinalIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdOfertaFinalTipo" value="1" />
+            <input type="hidden" class="hdOfertaFinalMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdOfertaFinalPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdOfertaFinalPagina" value="0" />
+            <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+        <div class="producto_img_home">
+            <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
+        </div>
+        <div class="etiqueta_producto">
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>{{DescripcionMarca}}</h6>
+            <p class="nombre_producto">
+                <b>{{Descripcion}}</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home agregarOfertaFinal">
+                AGRÉGALO
+            </a>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';

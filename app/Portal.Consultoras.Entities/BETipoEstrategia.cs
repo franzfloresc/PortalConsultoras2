@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoPrograma { get; set; }
 
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353
+        public int FlagMostrarImg { get; set; }      // SB2-353 
 
         public BETipoEstrategia(IDataRecord row)
         {

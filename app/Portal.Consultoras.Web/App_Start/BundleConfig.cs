@@ -175,6 +175,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/respond.min.js",
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
+                "~/Scripts/handlebars.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js"
                 ));

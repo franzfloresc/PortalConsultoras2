@@ -73,14 +73,13 @@
         <div class="eliminar_cliente"><a href="#" onclick="javascript: $('#divEliminarCliente').show();"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
     </div>
     -->
-
     <!--FIN-->
     <div class="linea_separadora" style="margin-top: -1px; margin-bottom: 17px"></div>
     <!--PGINADOR-->
 
     <div id="paginadorPie">
     </div>
-    <!-- 
+    <!--
     <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
     <ul class="paginador_notificaciones">
         <li class="texto_pagina">Página</li>
@@ -107,15 +106,25 @@
 
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
     <div class="popup_agregarCliente">
-        <div class="btn_cerrarPopupCliente">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarDiv(1);">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <h6>AGREGAR <b>CLIENTE</b></h6>
         <form action="" method="post">
             <input type="text" name="nombre" id="Nombres" value="" placeholder="Nombres y Apellidos" maxlength="50" class="input_search_form ValidaAlfabeto input-nombre" />
             <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
+            <div class="noti mensaje_producto_noExiste">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        El correo ingresado <b>no existe.</b><br />
+                        Por favor ingresa un correo válido.
+                    </span>
+                </div>
+            </div>
             <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(1);" />
             <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerCliente(1);" />
         </form>
@@ -130,9 +139,10 @@
 
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divEditarCliente">
     <div class="popup_agregarCliente">
-        <div class="btn_cerrarPopupCliente">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarDiv(2);">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <h6>EDITAR <b>CLIENTE</b></h6>
@@ -154,9 +164,10 @@
 
 <div class="contenedor_popup_eliminarCliente" id="divEliminarCliente">
     <div class="popup_eliminarCliente">
-        <div class="btn_cerrar_eliminarCliente">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarDiv(3);">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenido_popUp eliminarCliente">
@@ -311,11 +322,9 @@
 </script>
 
 <!-- SB20-322 - FIN -->
-
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>  
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cliente/Index.js")"></script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cliente/Index.js")"></script>
 }

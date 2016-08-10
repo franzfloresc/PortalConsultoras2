@@ -415,39 +415,10 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>    
-    
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
-    <script type='text/javascript'>
-        $(document).ready(function () {
-            HandlebarsRegisterHelper();
 
-            $('#alertDialogMensajes').dialog({
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                width: 400,
-                draggable: true,
-                buttons:
-                {
-                    "Aceptar": function () {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-        });
-
-        function alert_msg(message, titulo) {
-            titulo = titulo || "MENSAJE";
-            $('#alertDialogMensajes .terminos_title_2').html(titulo);
-            $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-            $('#alertDialogMensajes').dialog('open');
-        }
-
-    </script>
-    
+           SetFormatDecimalPais('@ViewBag.FormatDecimalPais');
+           
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

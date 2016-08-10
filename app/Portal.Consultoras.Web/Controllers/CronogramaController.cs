@@ -858,16 +858,16 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                        configuracionConsultoraDA.CampaniaID = Convert.ToString(UserData().CampaniaID);
-                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(UserData().ConsultoraID);
-                        configuracionConsultoraDA.ZonaID = UserData().ZonaID;
+                        configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
+                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                        configuracionConsultoraDA.ZonaID = userData.ZonaID;
 
-                        consultoraDA = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
+                        consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
                        
                         if (consultoraDA == 0)
                         {
                             BECronograma cronograma;
-                            cronograma = sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID, UserData().ZonaID, 2).FirstOrDefault();
+                            cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
                             DateTime fechaDA = (DateTime)cronograma.FechaInicioWeb;
 
                             //R20151123 Inicio

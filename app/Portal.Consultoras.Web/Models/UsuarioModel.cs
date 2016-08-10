@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,6 @@ namespace Portal.Consultoras.Web.Models
             this.NombrePais = string.Empty;
             this.Celular = string.Empty;
             this.Telefono = string.Empty;
-            this.ModificaPedido = false;
             this.DiasAntes = 0;
             this.DiasDuracionCronograma = 1;
             this.HabilitarRestriccionHoraria = false;
@@ -119,11 +119,10 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTerritorio { get; set; }
         public string Simbolo { get; set; }
         public decimal MontoMinimo { get; set; }
-        public PedidoDetalleModel ModelPedido { get; set; }
+        public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }
-        public bool ModificaPedido { get; set; }
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }

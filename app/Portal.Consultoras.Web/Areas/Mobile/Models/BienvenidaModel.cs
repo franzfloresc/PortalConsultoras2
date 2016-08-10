@@ -25,5 +25,9 @@
         public bool PROL1 { get; set; }
         public decimal MontoAhorroCatalogo { get; set; }
         public decimal MontoAhorroRevista { get; set; }
+        public decimal MontoPedido { get; set; }
+        public string CodigoISO { get; set; }
+        public decimal MontoDeuda { get; set; }
+        public string FechaVencimiento { get; set; }
     }
 }

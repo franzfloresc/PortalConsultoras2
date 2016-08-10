@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(function () {
+﻿
+var formatDecimalPais = formatDecimalPais || new Object();
+
+jQuery(document).ready(function () {
     CreateLoading();
 });
 (function ($) {
@@ -200,7 +203,53 @@
         $(idHtml).html(htmlDiv);
         return "";
     }
+    
+    SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
+        if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
+            var listaDatos = miles.split("|");
+            if (listaDatos.length < 2)
+                return new Object();
+            
+            miles = listaDatos.length > 0 ? listaDatos[0] : "";
+            decimal = listaDatos.length > 1 ? listaDatos[1] : "";
+            decimalCantidad = listaDatos.length > 2 ? listaDatos[2] : "";
+        }
 
+
+        formatDecimalPais = formatDecimalPais || new Object();
+        formatDecimalPais.miles = miles || ",";
+        formatDecimalPais.decimal = decimal || ".";
+        formatDecimalPais.decimalCantidad = decimalCantidad || 2;
+    }
+
+    DecimalToStringFormat = function (monto) {
+        formatDecimalPais = formatDecimalPais || new Object();
+        var decimal = formatDecimalPais.decimal || ".";
+        var decimalCantidad = formatDecimalPais.decimalCantidad;
+        var miles = formatDecimalPais.miles || ",";
+
+        monto = monto || 0;
+        var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
+        
+        decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
+
+        var pEntera = $.trim(parseInt(montoOrig));
+        var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+
+        // recorremos la parte entera para poner el separador
+        var pEnteraFinal = "";
+        do {
+            var x = pEntera.length;
+            var sub = pEntera.substring(x, x - 3);
+            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+            pEntera = pEntera.substring(x - 3, 0);
+
+        } while (pEntera.length > 0);
+
+        return pEnteraFinal + pDecimal;
+    }
 })(jQuery);
 
 function showDialog(dialogId) {

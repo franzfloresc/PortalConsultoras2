@@ -2774,6 +2774,7 @@ header {
     /*height:2692px;
     height:2521px;*/
     height:auto;
+    min-height:200px;
     padding-top:30px;
     background:#f8f8f8;
     /*margin-bottom:100px;*/
@@ -3295,6 +3296,54 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     max-width:283.5px;
     margin:0 auto;
+    position:relative;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste{
+    display:none;
+    height: 66px;
+    padding: 0 19px 0px 19px;
+    max-width: 700px;
+    top: 30.1%;
+    right: -100%;
+    box-shadow:-6px 6px 17px -2px #999;
+    -moz-box-shadow:-6px 6px 17px -2px #999;
+    -o-box-shadow:-6px 6px 17px -2px #999;
+    -ms-box-shadow:-6px 6px 17px -2px #999;
+    -webkit-box-shadow:-6px 6px 17px -2px #999;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:after{
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-right-color: #FFF;
+    border-width: 12px;
+    margin-top: -12px;
+    left: 0%;
+    margin-left: -23px;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste .noti_message.red_texto_size{
+    margin-top:-17px;
+}
+
+.popup_agregarCliente .icono_advertencia_notificacion{
+    display:inline-block;
+    vertical-align:middle;
+    float:none;
+}
+
+.popup_agregarCliente .descripcion_mensaje{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:18px;
+    font-family: 'Lato';
+    font-weight: 400;
 }
 
 .popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"]{
@@ -4402,7 +4451,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:329px;
 }
 
-.bloque_carousel .content_item_carrusel{
+.bloque_carousel .content_item_carrusel_ofertaFinal{
     height:329px;
     margin-right:0px;
     float:left;
@@ -5743,6 +5792,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .boton_cerrar_s {
     overflow: hidden;
 }
+
 /****************************************************************
  *
  * CSS Percentage Circle
@@ -20211,6 +20261,21 @@ label.checkpop.c_on {
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
 }
+.content_item_carrusel_ofertaFinal{
+    position:relative;
+    float: left;
+    width:248px;
+    margin-right:25px;
+    height: 357px;
+    background:white;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+}
+.previous_ofertas.next{
+    right: 0px;
+}
 .producto_img_home{
     height:166px;
    
@@ -20292,6 +20357,160 @@ label.checkpop.c_on {
     -moz-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
 }
+
+.miAcademia_venezuela{
+    width:100%;
+    height:auto;
+}
+
+.miAcademia_venezuela .item_video{
+    width: 100%;
+}
+
+.miAcademia_venezuela .item_video_left, .sinTutoriales .item_video_left{
+    display: inline-block;
+    float: none;
+}
+
+.miAcademia_venezuela .item_video_left{
+    width: 29.8%;
+    margin-right: 5%;
+    vertical-align: top;  
+}
+
+.sinTutoriales .item_video_left{
+    width:46.42%;
+    margin-right: 8%;
+    vertical-align:middle;
+}
+
+.miAcademia_venezuela .item_video_right, .sinTutoriales .item_video_right{
+    margin-left: 0%;
+    display: inline-block;
+    float: none;    
+}
+
+.miAcademia_venezuela .item_video_right{
+    width: 64.8%;
+    text-align: right;
+    vertical-align: middle;
+    margin-top: 0px;
+}
+
+.sinTutoriales .item_video_right{
+    width: 42%;
+    text-align: left;
+    vertical-align: top;
+    margin-top:46px;
+}
+
+.miAcademia_venezuela .porcentaje_cursosAcademia{
+    margin: -27.5px auto 0 auto;
+    position: relative;
+    top: 50%;
+}
+
+.miAcademia_venezuela .sin_iniciar{
+    line-height:107px;
+}
+
+.titulo_creceTusVentas{
+    display:block;
+    padding:0;
+    font-family:'Lato';
+    color:#000;
+    font-weight:400;
+    letter-spacing:0.4px;
+    font-size:21px;
+    margin:0 0 27px 0;
+}
+
+.contenedor_ir_miAcademia{
+    display:block;
+}
+
+.contenedor_ir_miAcademia span, .contenedor_ir_miAcademia a{
+    display:block;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:400;
+    color:#000;
+    letter-spacing:0.3px;
+}
+
+.contenedor_ir_miAcademia span{
+    margin-bottom:17px;
+}
+
+.contenedor_ir_miAcademia a span{
+    display:inline-block;
+}
+
+.icono_arrow{
+    margin-right:5px;
+    color:#e81c36!important;
+    font-size:12px!important;
+}
+
+.contenedor_cursos_academia{
+    display:block;
+}
+
+.curso_descripcion, .curso_titulo, .curso_porcentaje_avance{
+    display:inline-block;
+    height:107px;
+    vertical-align:middle;
+    text-align:left;
+}
+
+.curso_descripcion{
+    width:77%;
+    border-bottom:1px solid #CCC;
+}
+
+.curso_titulo{
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 400;
+    color: #000;
+    /*line-height: 107px;*/
+    letter-spacing:0.3px;
+    width: 78%;
+}
+
+.curso_titulo span{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.curso_porcentaje_avance{
+    width: 20%;
+    text-align: right;
+    /*position: relative;
+    top: 50%;
+    margin-top: -53.5px;*/
+}
+
+.curso_porcentaje_avance .porcentaje_curso{
+    width:auto;
+    height:100%;
+}
+
+.curso_img{
+    display:inline-block;
+    margin-right:20px;
+    vertical-align:middle;
+    max-width:138px;
+    height:85px;
+    text-align:left;
+}
+
+.curso_img img{
+    width:100%;
+    height:auto;
+}
+
 .titulo_video{
     padding-bottom: 20px;
     width: 100%;
@@ -20317,15 +20536,15 @@ label.checkpop.c_on {
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
-    margin-top:28px;
+    margin-top:22px;
     float:left;
 }
 .item_video{
     width:100%;
-    height:256px;
+    height:307px;
     background:black;
     margin-bottom:14px;
-    background:url("../../../Images/Lbel/home-video.png") no-repeat;
+    background:url("../../../Images/Lbel/home-video.png") no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -20336,7 +20555,7 @@ label.checkpop.c_on {
 .item_video_right{
     float: right;
     width: 35%;
-    margin-top: 30px;
+    margin-top: 23px;
     margin-left: 5%;
 }
 .titulo_item_video{
@@ -20354,23 +20573,58 @@ label.checkpop.c_on {
 .porcentaje_curso{
     width: 30%;
     /* margin-left: 5%; */
-    display:inline-block;
     vertical-align:middle;
+    display:none;
+    opacity:0;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
+
+.mostrarPorcentajes{
+    display:inline-block;
+    opacity:1;
+}
+
+.easyPieChart {
+    position: relative;
+    text-align: center;
+}
+
+.easyPieChart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.porcentaje_cursosAcademia {
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-weight: 100;
+    font-size: 13px;
+    color:#000;
+    font-family:'Lato';
+    margin:0 auto;
+}
+
 .borde_video{
     padding-bottom:11px;
     border-bottom: 1px solid #e7e1e1;
     margin-bottom:11px;
     overflow:hidden;
-    }
+}
+
 .sin_iniciar{
     text-align:center;
-    COLOR: #b75d9f;
+    color:#642f80;
     font-family: 'lato';
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.2px;
     }
+
 .carrusel_liquidacion{
     width:31%;
     float:left;
@@ -22129,15 +22383,26 @@ body{
 .btn_cerrar_popup_pedidosIngresados{
     display: block;
     position: relative;
-    top: 4%;
-    /*right: 6%;*/
-    text-align:right;
+    text-align: right;
+}
+
+.btn_cerrar_popup_pedidosIngresados .icono_regresar{
+    display: inline-block;
+    width: 12px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.btn_cerrar_popup_pedidosIngresados .texto_btn_regresar{
+    display: inline-block;
+    color: #000;
+    vertical-align: middle;
+    font-size:14px;
 }
 
 .btn_cerrar_popup_pedidosIngresados a{
-    display:block;
-    width:25px;
-    float:right;
+    display:inline-block;
+    width:18%;
     height:auto;
     opacity:1;
     transition:all 0.3s ease;
@@ -22148,13 +22413,8 @@ body{
 }
 
 .btn_cerrar_popup_pedidosIngresados a:hover{
-    opacity:0.5;
-    top:3.8%;
-}
-
-.btn_cerrar_popup_pedidosIngresados:hover{
-    opacity:0.5;
-    top:3.8%;
+    opacity:0.7;
+    /*top:3.8%;*/
 }
 
 .popup_pedidosIngresados .contenedor_bloque_datos{
@@ -22264,6 +22524,7 @@ body{
 .seleccion_pagina select{
     font-family:'Lato';
     color:#000;
+    font-size: 11.7px;
 }
 
 .mostrarPaginadorPedidos.inferior .seleccion_pagina select
@@ -25748,7 +26009,7 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    margin-left: 34%;
+    margin-left: 31.5%;
     margin-top: 4px;
     background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
 }
@@ -25766,7 +26027,7 @@ input[type="checkbox"]:checked + span:after {
     -webkit-border-radius: 10px;
     height: 16.8px;
     overflow:hidden;
-    border: solid 1px #979797;
+    border: solid 1px rgb(234,234,234);
 }
 .BarraMinimo{
     background: #333; height: 100%; display: block; width: 44px; float: left;
@@ -25801,7 +26062,7 @@ input[type="checkbox"]:checked + span:after {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
 }
 .ml_16{
-    margin-left:13%;
+    margin-left:16%;
 }
 .ml_6{
     margin-left:1%;
@@ -25870,4 +26131,81 @@ input[type="checkbox"]:checked + span:after {
     text-align:right;
     padding-top:23px;
     padding-bottom:23px;
+}
+
+/*MENSAJES DE ALERTA*/
+.mensaje_alerta_belcorp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index: 1020;
+    display:none;
+}
+.content_mensaje_alerta{
+    width:511px;
+    height:330px;
+    background:white;
+    top:50%;
+    position:relative;
+    margin:-165px auto 0 auto;
+}
+.btn_cerrar_alerta{
+    width:19px;
+    height:19px;
+    float:right;
+    display:block;
+    margin-right:19px;
+    margin-top:19px;
+    margin-bottom:10px;
+}
+.btn_cerrar_alerta img{
+    width:100%;
+}
+.icono_mensaje_alerta{
+    width:60px;
+    height:60px;
+    margin:0 auto;
+}
+.icono_check_alerta{
+    background:url(../../../Images/Lbel/icono_check_esika.svg) no-repeat;
+    background-size:cover;
+}
+.texto_mensaje_alerta {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 28px;
+    margin-top:15px;
+    margin-bottom: 12px;
+    text-align:center;
+}
+.sub_texto_alerta{
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    text-align:center;
+    padding-left:50px;
+    padding-right:50px;
+}
+.btn_ok_alerta{
+    display:block;
+    width:139px;
+    height:45px;
+    line-height:45px;
+    margin:auto;
+    margin-top:30px;
+    background:#613c87;
+    color:white;
+    font-family:'Lato';
+    font-weight:900;
+    text-align:center;
+    font-size:13px;
+}
+.icono_exclamacion_alerta{
+    background:url(../../../Images/Lbel/icono_exclamacion_esika.svg) no-repeat;
+    background-size:cover;
 }

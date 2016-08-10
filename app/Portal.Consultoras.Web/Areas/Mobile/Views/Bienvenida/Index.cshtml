@@ -13,7 +13,6 @@
     }
 }
 
-
 @section styles{
     <style type="text/css">
         body {
@@ -35,7 +34,7 @@
         <div class="content_resumen_dato_mobile">
             <div class="saludo_mobile">¡Hola</div>
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
-            <a class="cambiar_datos_mobile"></a>
+           
             <hr class="clear" />
             <div class="info_cam_mobile">
                 ESTÁS EN
@@ -55,7 +54,7 @@
                     EL CIERRE ES EN
                     <span>@(Model.DiasParaCierre) días</span>
                 </div>
-            }            
+            }
         </div>
         <hr class="clear" />
         <!--FIN RESUMEN-->
@@ -75,18 +74,12 @@
             <div class="icono_item"></div>
             <div class="titulo_item_mobile">MI GANANCIA ESTIMADA:</div>
             <div class="monto_ganancia_mobile">
-                @Model.Simbolo <span>
-                    @if (Model.PaisID == 4) //Formato decimales para Colombia
-                    {
-                        @Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista).ToString("#,##0").Replace(',', '.')
-                    }
-                    else
-                    {
-                        @Decimal.Round(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, 2)
-                    }
+                @Model.Simbolo
+                <span>
+                    @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior js-span-pedidoingresado">Pedido ingresado: @Model.Simbolo - </div>
+            <div class="texto_inferior">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
             <div class="texto_inferior text-10px">*Monto referencial.</div>
         </div>
         <!-- FIN ITEM 1-->
@@ -99,9 +92,9 @@
             <div class="titulo_item_mobile">MI ESTADO DE CUENTA:</div>
             <div class="texto_inferior"> Mi deuda actual es:</div>
             <div class="monto_ganancia_mobile js-div-deuda">
-                @Model.Simbolo <span>-</span>
+                @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
-            <div class="texto_inferior js-div-vencimiento">Vencimiento: -</div>
+            <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.PaisID == 3) //Chile
             {
                 <a class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a>
@@ -136,7 +129,7 @@
     <!--FIN COMPARTIR CATÁLOGOS-->
     <!--APP CATÁLOGOS-->
     <div class="comartir_home_mobile">
-        MULTIPLICA TUS CLIENTES CON<br/>
+        MULTIPLICA TUS CLIENTES CON<br />
         EL APP DE CATÁLOGO
         <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
         <a class="btn_comparte_ws" href="#">Compartir por <b>whatsapp</b></a>
@@ -154,7 +147,7 @@
             EXCLUSIVO SÓLO POR WEB
         </div>
     </div>
-    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">     
+    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">
     </div>
 </div>
 
@@ -255,14 +248,14 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
                 <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a> 
+                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
                     <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
                 </div>
                 <div class="clear"></div>
                 <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGR&Eacute;GALO
-                </a>                
+                </a>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
 <div class="titulo_mobile">MIS CATÁLOGOS Y REVISTAS</div>
 <div class="fondo_f2f2f2">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
         <li class="one">
             <a href="#" data-tag="EstadoCuenta">
@@ -90,7 +90,101 @@
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->
-<div id="CompartirCorreoMobile" class="CompartirMobile">
-    <div class="content_compartir_correo">xlzñskdñdks<br/>xlzñskdñdksxlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />xlzñskdñdks<br />fin
+<div id="CompartirCorreoMobile" class="PopMobile1">
+    <div class="content_popMobile">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#CompartirCorreoMobile').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
+        <div class="Label_compartir">Agregar contacto:</div>
+        <a class="mostrar_todos">Añadir todos mis contáctos (12)</a>
+        <hr class="clear" />
+        <!--TAG-->
+        <div style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
+            <div style="min-height:25px; max-height:150px;">
+                <textarea id="hero-demo">Hola Alan soy el tag 1, Hola Alan soy el tag 2, Hola Alan soy el tag 3</textarea>
+            </div>
+        </div>
+        <!--FIN TAG-->
+        <div class="Label_compartir">Mensaje (Editable):</div>
+        <hr class="clear" />
+
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola,
+Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        </textarea>
+        <div class="Label_compartir">Catálogos a enviar:</div>
+        <hr class="clear" />
+        <div id="divCheckbox">
+            <!--CHECBOX1-->
+            <div data-cat="Esika">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Esika</div>
+            </div>
+            <!--CHECBOX 2-->
+            <div data-cat="Lbel">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox" checked="checked">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">L'bel</div>
+            </div>
+            <!--CHECBOX 3-->
+            <div data-cat="Cyzone">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Cyzone</div>
+            </div>
+            <hr class="clear">
+        </div>
+        <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
     </div>
 </div>
+<!--FIN-->
+<!--MENSAJE DE ALERTA 1-->
+<div id="MensajeAlertaMobile" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO</b>!</div>
+        <div class="mensaje_alerta">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+<!--MENSAJE DE ALERTA 2-->
+<div id="MensajeAlertaMobile2" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile2').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">LO <b>SENTIMOS</b>!</div>
+        <div class="mensaje_alerta">Debe seleccionar al menos <br/>un Catálogo</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+
+@section styles{
+
+    <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="~/Scripts/Tag/jquery.tag-editor.js"></script>
+    <script src="~/Scripts/Tag/jquery.caret.min.js"></script>
+    <script src="~/Scripts/Tag/jquery.tag-autcomplete.js"></script>
+}

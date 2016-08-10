@@ -10,13 +10,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AWSSDK.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:52</publishTime>
     </File>
     <File Include="bin/ClosedXML.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:52</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/es/System.Web.Razor.resources.dll">
       <publishTime>07/09/2013 11:35:56</publishTime>
@@ -31,64 +31,70 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/09/2013 11:35:56</publishTime>
     </File>
     <File Include="bin/HiQPdf.dep">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/HiQPdf.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Caching.dll">
       <publishTime>02/24/2016 18:33:07</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.Unity.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.Unity.Interception.dll">
-      <publishTime>02/24/2016 18:33:07</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>07/08/2013 15:15:08</publishTime>
     </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>05/30/2016 15:53:17</publishTime>
+    </File>
     <File Include="bin/Omu.Drawing.dll">
-      <publishTime>02/24/2016 18:33:08</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/OpenSource.Library.DataAccess.dll">
-      <publishTime>02/24/2016 18:33:08</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.BizLogic.dll">
-      <publishTime>05/19/2016 14:45:57</publishTime>
+      <publishTime>06/30/2016 15:25:08</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.Common.dll">
-      <publishTime>05/19/2016 14:45:25</publishTime>
+      <publishTime>06/22/2016 14:22:42</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.Data.dll">
-      <publishTime>05/19/2016 14:45:50</publishTime>
+      <publishTime>06/30/2016 15:25:06</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.Entities.dll">
-      <publishTime>05/19/2016 14:45:45</publishTime>
+      <publishTime>06/30/2016 15:25:06</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.Service.dll">
-      <publishTime>05/19/2016 14:46:03</publishTime>
+      <publishTime>06/30/2016 15:25:09</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.ServiceContracts.dll">
-      <publishTime>05/19/2016 14:45:53</publishTime>
+      <publishTime>06/30/2016 15:25:07</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.ServiceHost.dll">
-      <publishTime>05/19/2016 14:46:07</publishTime>
+      <publishTime>06/30/2016 15:25:10</publishTime>
+    </File>
+    <File Include="bin/StackExchange.Redis.dll">
+      <publishTime>05/30/2016 15:53:18</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>02/24/2016 18:33:28</publishTime>
+      <publishTime>05/30/2016 15:53:15</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
       <publishTime>07/09/2013 11:05:12</publishTime>
@@ -103,43 +109,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/09/2013 11:05:12</publishTime>
     </File>
     <File Include="bin/TSHAK.Components.dll">
-      <publishTime>02/24/2016 18:33:08</publishTime>
+      <publishTime>05/30/2016 15:48:53</publishTime>
     </File>
     <File Include="CatalogoService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="ClienteService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="ConsultoraWebService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="ContenidoService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="ODSService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="PedidoService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="SACService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="SeguridadService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="UbigeoWebService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="UsuarioService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/19/2016 15:21:41</publishTime>
+      <publishTime>06/22/2016 14:33:46</publishTime>
     </File>
     <File Include="ZonificacionService.svc">
-      <publishTime>02/24/2016 18:33:12</publishTime>
+      <publishTime>05/30/2016 15:48:59</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -12,6 +12,8 @@ using System.Net;
 using Portal.Consultoras.Web.ServiceLMS;
 //using Portal.Consultoras.Web.ServiceLMS;
 
+using System.Web.Script.Serialization;
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -141,6 +143,45 @@ namespace Portal.Consultoras.Web.Controllers
             ContenidoServiceClient sv = new ContenidoServiceClient();
             return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
         }
+
+        /* SB20-255 - INICIO */
+        public JsonResult GetMisCursos()
+        {
+            try
+            {
+                //string key = ConfigurationManager.AppSettings["secret_key"];
+                //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
+                string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
+                string token = ConfigurationManager.AppSettings["TokenMisCursos"];
+                //string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
+                string IsoUsuario = "CL-0562942";
+                urlMC = String.Format(urlMC, IsoUsuario);
+                
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers.Add("Content-Type", "application/json");
+                    wc.Headers.Add("token", token);
+                    string result = wc.DownloadString(urlMC);
+
+                    return Json(new
+                    {
+                        success = true,
+                        data = result,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ex.Message,
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /* SB20-255 - FIN */
 
     }
 }

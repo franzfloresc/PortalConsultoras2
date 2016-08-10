@@ -29,10 +29,10 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader ObtenerProductosHistorialCatalogoPersonalizado(string codigoIso, int campaniaId)
+        public IDataReader ObtenerProductosHistorialAppCatalogo(string codigoIso, int campaniaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoCatalogoByCodigoIsoCampa");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoIso);
+            Context.Database.AddInParameter(command, "@CodigoIso", DbType.String, codigoIso);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
 
             return Context.ExecuteReader(command);

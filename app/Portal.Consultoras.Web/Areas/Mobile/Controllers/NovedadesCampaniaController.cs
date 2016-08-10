@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionKeys.ClearSessionCantidadProductos();
-
             var userData = UserData();
 
             var model = new List<BEBannerInfo>();

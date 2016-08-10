@@ -10,14 +10,6 @@ using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Data
 {
-    public enum EDbSource : int
-    {
-        Portal = 1,
-        ODS = 2,
-        Digitacion = 3,
-        OnPremise = 4
-    }
-    
     public abstract class DataAccess
     {
         //private static string logFileBaseName = null;
@@ -36,8 +28,8 @@ namespace Portal.Consultoras.Data
         public DataAccess(string paisIso)
         {
             string cadenaConexion = paisIso == ""
-                ? ConfigurationManager.ConnectionStrings["ConnectionCatalogo"].ToString()
-                : ConfigurationManager.ConnectionStrings["Connection" + paisIso].ToString();
+                ? "ConnectionCatalogo"
+                : "Connection" + paisIso;
 
             this.context = new DbContext(cadenaConexion);
         }

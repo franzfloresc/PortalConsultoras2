@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var productosDestacados = new ProductosDestacadosMobilModel();
             try
             {
-                var lstPedidoWebDetalle = ObtenerPedidoWeb();
+                var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
                 productosDestacados.PaisId = userData.PaisID;
                 productosDestacados.Simbolo = userData.Simbolo;
@@ -109,25 +109,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 lst = (List<BETipoEstrategia>)Session["ListaTipoEstrategia"];
             }
             return lst;
-        }
-
-        private List<BEPedidoWebDetalle> ObtenerPedidoWeb()
-        {
-            var userData = UserData();
-
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle;
-            if (Session["PedidoWeb"] == null)
-            {
-                using (var sv = new PedidoServiceClient())
-                {
-                    olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
-                }
-            }
-            else
-                olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWeb"];
-
-            Session["PedidoWeb"] = olstPedidoWebDetalle;
-            return olstPedidoWebDetalle;
         }
 
         private string DarFormatoANumero(string codigoIso, decimal monto)
