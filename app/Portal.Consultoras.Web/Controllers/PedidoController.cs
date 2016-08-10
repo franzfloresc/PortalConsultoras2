@@ -4146,6 +4146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
                 pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.Update(p=> p.CodigoIso = userData.CodigoISO);
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;

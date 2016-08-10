@@ -1006,7 +1006,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        protected string NombreMes(int Mes)
+        public string NombreMes(int Mes)
         {
             string Result = string.Empty;
             switch (Mes)
