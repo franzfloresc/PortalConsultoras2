@@ -34,7 +34,7 @@
         <div class="content_resumen_dato_mobile">
             <div class="saludo_mobile">¡Hola</div>
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
-           
+
             <hr class="clear" />
             <div class="info_cam_mobile">
                 ESTÁS EN
@@ -111,7 +111,6 @@
             {
                 @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
             }
-
         </div>
         <!--FIN ITEM 2-->
     </div>
@@ -121,7 +120,7 @@
     <!--COMPARTIR CATÁLOGOS-->
     <div class="comartir_home_mobile">
         TUS CATÁLOGOS C@(Model.NumeroCampania)
-        <a class="btn_compartelos" href="#">COMPÁRTELOS</a>
+        <a class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
     </div>
     <div class="imagen_catalogo catalogo_esika"></div>
     <hr class="clear" />
@@ -148,6 +147,7 @@
         </div>
     </div>
     <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">
+        <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
 
@@ -164,13 +164,16 @@
     <div class="linea_separadora_mobile"></div>
     <!--FIN-->
     <!--LIQUIDACIÓN-->
-    <div class="comartir_home_mobile">
-        LIQUIDACIÓN WEB
-        <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
-    </div>
-    <div class="imagen_catalogo liquidacion_esika"></div>
-    <hr class="clear" />
-    <div class="linea_separadora_mobile oculto_lbel"></div>
+    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+    {
+        <div class="comartir_home_mobile">
+            LIQUIDACIÓN WEB
+            <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+        </div>
+        <div class="imagen_catalogo liquidacion_esika"></div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile oculto_lbel"></div>
+    }
     <!--FIN-->
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -233,6 +236,26 @@
             <div class="producto_img_mobile">
                 <img src="{{FotoProducto01}}" />
             </div>
+            {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}      <!--SB20-351 -->
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{/iff}}
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+            {{/if_eq}}
+            {{/if_eq}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
                 {{#if_eq FlagNueva '1'}}
@@ -262,6 +285,7 @@
     {{/each}}
 </script>
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
         var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
@@ -274,5 +298,4 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
 }

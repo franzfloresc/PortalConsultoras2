@@ -187,7 +187,7 @@
                 <div class="borde_c"></div>
                 <div class="mensaje_header">
                     <a href="#">
-                        <div class="campana_svg tutoriales_svg"></div>
+                        <div class="tutoriales_svg"></div>
                     </a>
                 </div>
 
@@ -400,6 +400,10 @@
         <script src="~/Scripts/IE8.js"></script>
     <![endif]-->
 
+    <script type="text/javascript">
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
 
     <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
@@ -414,11 +418,7 @@
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(trme, s);
         })();
-    </script>    
-
-
-           SetFormatDecimalPais('@ViewBag.FormatDecimalPais');
-           
+    </script>               
     @RenderSection("scripts", required: false)
 </body>
 </html>

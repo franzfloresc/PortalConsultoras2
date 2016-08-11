@@ -462,6 +462,55 @@ namespace Portal.Consultoras.Web.Controllers
             return View(newModel);
         }
 
+        [HttpGet]
+        public JsonResult JSONGetMisDatos()
+        {
+            BEUsuario beusuario = new BEUsuario();
+            var model = new MisDatosModel();
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+            }
+
+            if (beusuario != null)
+            {
+                model.PaisISO = userData.CodigoISO;
+                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
+                model.NombreCompleto = beusuario.Nombre;
+                model.EMail = beusuario.EMail;
+                model.Telefono = beusuario.Telefono;
+                model.Celular = beusuario.Celular;
+                model.Sobrenombre = beusuario.Sobrenombre;
+                model.CompartirDatos = beusuario.CompartirDatos;
+                model.AceptoContrato = beusuario.AceptoContrato;
+                model.UsuarioPrueba = userData.UsuarioPrueba;
+                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+
+                BEZona[] bezona;
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
+                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
+                }
+                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
+
+                if (beusuario.EMailActivo) model.CorreoAlerta = "";
+                if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
+
+                if (model.UsuarioPrueba == 1)
+                {
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
+                    }
+                }
+            }
+            return Json(new
+            {
+                lista = model
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult ValidarCorreoComunidad(string correo)
         {

@@ -75,13 +75,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 }
+                bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
             }
             else
             {
                 bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
             }
 
-            Session["PedidoWeb"] = bePedidoWeb ?? new BEPedidoWeb();
+            bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
+
+            Session["PedidoWeb"] = bePedidoWeb;
             return bePedidoWeb;
         }
 
@@ -110,7 +113,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            Session["PedidoWebDetalle"] = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
+            olstPedidoWebDetalle = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
+
+            Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
             return olstPedidoWebDetalle;
         }
 
@@ -447,6 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + ".</b></p>";
                 }
 
+                ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
                 ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
 
                 model.MenuNotificaciones = 1;
@@ -643,6 +649,7 @@ namespace Portal.Consultoras.Web.Controllers
                 MenuBelcorpResponde();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+                ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
                 ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
 
                 ViewBag.MenuNotificaciones = model.MenuNotificaciones;
@@ -670,7 +677,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetFormatDecimalPais(string isoPais)
         {
             var listaPaises = ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "";
-            if (listaPaises == "") return ",|.|2";
+            if (listaPaises == "" || isoPais == "") return ",|.|2";
             if (listaPaises.Contains(isoPais)) return ".||0";            
             return ",|.|2";
         }
@@ -1067,6 +1074,96 @@ namespace Portal.Consultoras.Web.Controllers
             grid.SortColumn = sidx ?? "";
             grid.SortOrder = sord ?? "asc";
             return grid;
+        }
+
+        protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
+        {
+            constSession = constSession ?? "";
+            constSession = constSession.Trim();
+            if (constSession == "")
+                return new BEConfiguracionProgramaNuevas();
+
+            if (Session[constSession] != null)
+                return (BEConfiguracionProgramaNuevas)Session[constSession];
+
+            try
+            {
+                BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
+                }
+
+                Session[constSession] = oBEConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
+            }
+            catch (Exception)
+            {
+                Session[constSession] = new BEConfiguracionProgramaNuevas();
+            }
+
+            return (BEConfiguracionProgramaNuevas)Session[constSession];
+        }
+
+        protected BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
+        {
+            constSession = constSession ?? "";
+            constSession = constSession.Trim();
+            if (constSession == "")
+                return new BEConsultorasProgramaNuevas();
+
+            if (Session[constSession] != null)
+                return (BEConsultorasProgramaNuevas)Session[constSession];
+
+            try
+            {
+                var oBEConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas();
+                oBEConsultorasProgramaNuevas.CodigoConsultora = userData.CodigoConsultora;
+                oBEConsultorasProgramaNuevas.Campania = userData.CampaniaID.ToString();
+                oBEConsultorasProgramaNuevas.CodigoPrograma = codigoPrograma;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    oBEConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, oBEConsultorasProgramaNuevas);
+                }
+
+                Session[constSession] = oBEConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
+            }
+            catch (Exception)
+            {
+                Session[constSession] = new BEConsultorasProgramaNuevas();
+            }
+
+            return (BEConsultorasProgramaNuevas)Session[constSession];
+        }
+
+        protected List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
+        {
+            constSession = constSession ?? "";
+            constSession = constSession.Trim();
+            if (constSession == "")
+                return new List<BEMensajeMetaConsultora>();
+
+            if (Session[constSession] != null)
+                return (List<BEMensajeMetaConsultora>)Session[constSession];
+
+            try
+            {
+                var lista = new List<BEMensajeMetaConsultora>();
+                var entity = new BEMensajeMetaConsultora();
+                entity.TipoMensaje = tipoMensaje ?? "";
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    lista = sv.GetMensajeMetaConsultora(userData.PaisID, entity).ToList();
+                }
+
+                Session[constSession] = lista ?? new List<BEMensajeMetaConsultora>();
+            }
+            catch (Exception)
+            {
+                Session[constSession] = new List<BEMensajeMetaConsultora>();
+            }
+
+            return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
         #endregion

@@ -4201,6 +4201,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var objR = new BarraConsultoraModel();
             objR.ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>();
+            objR.ListaMensajeMeta = new List<BEMensajeMetaConsultora>();
 
             try
             {
@@ -4232,8 +4233,28 @@ namespace Portal.Consultoras.Web.Controllers
                 rtpa = rtpa ?? new List<ObjMontosProl>();
                 if (!rtpa.Any())
                     return objR;
-                
+
                 var obj = rtpa[0];
+
+                #region Tipping Point
+
+                objR.TippingPointStr = "";
+                objR.TippingPoint = 0;
+                if (userData.MontoMaximo > 0)
+                {
+                    var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
+
+                    if (tp.IndExigVent == "1")
+                    {
+                        var oBEConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
+
+                        objR.TippingPoint = oBEConsultorasProgramaNuevas.MontoVentaExigido;
+                        objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                    }
+                }
+                
+                #endregion
+
                 objR.MontoMaximo = 0;
                 objR.MontoEscala = 0;
                 objR.MontoDescuento = 0;
@@ -4251,11 +4272,7 @@ namespace Portal.Consultoras.Web.Controllers
                     objR.MontoEscala = decimal.Parse(obj.MontoEscala);
                 if (objR.MontoDescuentoStr != "")
                     objR.MontoDescuento = decimal.Parse(obj.MontoTotalDescuento);
-
-                objR.TippingPointStr = "";
-                objR.TippingPoint = 0;
-
-
+                
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
 
@@ -4263,7 +4280,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    if (Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO) == "")
+                    if (objR.MontoMaximoStr == "")
                     {
                         listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
                     }
@@ -4282,6 +4299,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region Mensajes
+                objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
+                #endregion
             }
             catch (Exception)
             {

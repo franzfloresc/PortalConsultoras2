@@ -89,7 +89,7 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
-            <a class="mis_datos" href="@Url.Action("Index", "MisDatos")">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            <a class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -1091,106 +1091,104 @@
     </div>
     <!-- FIN POPUP INVITACIÓN A FLEXIPAGO -->
     <!-- POPUP MIS DATOS -->
-    <div class="contenedor_popup_misDatos" id="popupMisDatos" style="display:none;">
-        <div class="popup_actualizarMisDatos">
-            <div class="btn_cerrar_actualizarMisDatos">
-                <a href="javascript:;" onclick="return $('#popupMisDatos').hide();" title="Cerrar">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
-            <div class="contenido_popUp">
-                <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
-                <form class="formulario_actualizar_datos">
-                    <div class="datos_consultora">
-                        <div class="datos_consultora_img">
-                            <a class="subir_foto"></a>
-                            <div class="foto_perfil_home">
-                                <img src="/Content/Images/Esika/user.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="datos_consultora_textos">
-                            <div class="datos_cod_usuario">
-                                <span>Tu Código de usuario:</span>
-                                <span>037816272 (Zona: 9011)</span>
-                            </div>
-                            <div class="datos_nombre_usuario">
-                                <span>Tu Nombre completo:</span>
-                                <span>ANA SOFIA SHIMABUKURO UCHIMA</span>
-                            </div>
-                            <div class="enlace_cambiarContrasenia">
-                                <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
-                            </div>
+    <div class="popup_actualizarMisDatos" id="popupMisDatos" style="display: none;">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void();" id="cerrarPopupMisDatos" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
+            <form class="formulario_actualizar_datos">
+                <div class="datos_consultora">
+                    <div class="datos_consultora_img">
+                        <a class="subir_foto"></a>
+                        <div class="foto_perfil_home">
+                            <img src="/Content/Images/Esika/user.jpg" alt="">
                         </div>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                        <div>
-                            <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
-                            <input type="text" name="nombres" />
+                    <div class="datos_consultora_textos">
+                        <div class="datos_cod_usuario">
+                            <span>Tu Código de usuario:</span>
+                            <span id="codigoUsurioMD"></span>
                         </div>
-                        <div>
-                            <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                            <input type="text" name="nombres" />
+                        <div class="datos_nombre_usuario">
+                            <span>Tu Nombre completo:</span>
+                            <span id="nombresUsuarioMD"></span>
                         </div>
-                    </div>
-                    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                        <div>
-                            <label>Tu teléfono:</label>
-                            <input type="text" name="telefono" />
-                        </div>
-                        <div>
-                            <label>Tu celular:</label>
-                            <input type="text" name="celular" />
+                        <div class="enlace_cambiarContrasenia">
+                            <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                         </div>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                        <div class="checkbox_condiciones">
-                            <input type="checkbox" name="condiciones" id="chkAceptoContratoMisDatos" />
-                            <label for="chkAceptoContratoMisDatos" class="texto_terminosCondiciones">
-                                Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
-                            </label>
-                        </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
+                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD"/>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                        <div class="datos_obligatorios">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-                        </div>
-                        <div class="contenedor_boton_actualizar">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
-                                ACTUALIZAR
-                            </button>
-                        </div>
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
+                        <input type="text" name="txtEMailMD" id="txtEMailMD"/>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                        <div>
-                            <label>Tu contraseña</label>
-                            <input type="password" name="password" />
-                        </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label>Tu teléfono:</label>
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD"/>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                        <div>
-                            <label>Nueva contraseña</label>
-                            <input type="password" name="password" />
-                        </div>
-                        <div>
-                            <label>Repite la nueva contraseña</label>
-                            <input type="password" name="password" />
-                        </div>
+                    <div>
+                        <label>Tu celular:</label>
+                        <input type="text" name="txtCelularMD" id="txtCelularMD"/>
                     </div>
-                    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                        <div class="contenedor_boton_cancelar misDatos">
-                            <button type="button" name="btn_cancelar" class="btn_cancelar">
-                                CANCELAR
-                            </button>
-                        </div>
-                        <div class="contenedor_boton_actualizar misDatos">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
-                                GUARDAR
-                            </button>
-                        </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div class="checkbox_condiciones">
+                        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                            Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                        </label>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div class="datos_obligatorios">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                    </div>
+                    <div class="contenedor_boton_actualizar">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
+                            ACTUALIZAR
+                        </button>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Tu contraseña</label>
+                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior"/>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01"/>
+                    </div>
+                    <div>
+                        <label>Repite la nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02"/>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div class="contenedor_boton_cancelar misDatos">
+                        <button type="button" name="btn_cancelar" class="btn_cancelar">
+                            CANCELAR
+                        </button>
+                    </div>
+                    <div class="contenedor_boton_actualizar misDatos">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
+                            GUARDAR
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
@@ -1207,8 +1205,8 @@
 
             {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}      <!--SB20-351 -->
-            <div class="etiqueta_producto" style="right: 0%!important;">
+            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
+            <div class="etiqueta_producto">
                 <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
             </div>
             {{/iff}}
@@ -1238,7 +1236,7 @@
                 </p>
                 {{/if_eq}}
 
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}      <!--SB20-351 -->
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
                 {{#if_eq EtiquetaID '1'}}
                 <div class="producto_precio">
                     <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
@@ -1533,9 +1531,7 @@
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
         var sessionIsContrato = '@Session["IsContrato"]';
-
         @{ Session["IsContrato"] = 0; }
-                        contadorFondoPopUp++;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
 }

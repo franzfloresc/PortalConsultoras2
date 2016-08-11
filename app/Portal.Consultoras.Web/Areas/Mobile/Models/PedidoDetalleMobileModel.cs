@@ -69,5 +69,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string GananciaFormat { get; set; }
 
         public string MensajeCierreCampania { get; set; }
+
+        public string FechaFacturacionPedido { get; set; }
     }
 }

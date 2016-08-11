@@ -18,29 +18,16 @@
                 </h2>
 
                 <div id="divProductosDetalle">
-                </div>
-
-                <div class="mensajes_adicionales_ingresoPedido" id="iconoAdvertenciaNotificacion" style="display: none;">
-                    <!-- ICONO ADVERTENCIA -->
-                    <span class="icono_advertencia_notificacion"></span>
-                    <!-- FIN ICONO ADVERTENCIA -->
-                    <span class="detalle_mensajeAdicional">
-                        El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                        Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
-                    </span>
-                </div>
-                <div class="mensaje_eliminarPedido">
-                    <span>
-                        Para eliminar el pedido completo
-                        <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
-                    </span>
+                    <div class="text-center">
+                        <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="tooltip_noOlvidesGuardarTuPedido">
+        <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
             <h2>¡Es importante que guardes tu pedido!</h2>
-            <span>Puedes realizar cambios hasta el 6 de Junio</span>
+            <span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>
         </div>
 
     </div>
@@ -134,7 +121,7 @@
         <div class="montos_resumen">
             <span><b class="lblCantidadProducto">{{this.CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b>{{GananciaFormat}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia">{{GananciaFormat}}</b></span>
         </div>
     </div>
     <div class="detalle_pedido_ingresado">
@@ -300,6 +287,21 @@
         </div>
     </div>
 
+    <div class="mensajes_adicionales_ingresoPedido" id="iconoAdvertenciaNotificacion" style="display: none;">
+        <!-- ICONO ADVERTENCIA -->
+        <span class="icono_advertencia_notificacion"></span>
+        <!-- FIN ICONO ADVERTENCIA -->
+        <span class="detalle_mensajeAdicional">
+            El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
+            Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
+        </span>
+    </div>
+    <div class="mensaje_eliminarPedido">
+        <span>
+            Para eliminar el pedido completo
+            <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
+        </span>
+    </div>
 </script>
 
 @section Scripts{
@@ -332,7 +334,6 @@
         var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
         var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
         var urlActualizarCantidadTotalPedido = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
-        @*var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';*@
         
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "Mobile" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';

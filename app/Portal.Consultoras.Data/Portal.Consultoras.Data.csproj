@@ -76,6 +76,7 @@
     <Compile Include="DAConsultoraDigitales.cs" />
     <Compile Include="DAConsultoraCatalogo.cs" />
     <Compile Include="DAConsultoraLider.cs" />
+    <Compile Include="DAConsultorasProgramaNuevas.cs" />
     <Compile Include="DAContenidoRevista.cs" />
     <Compile Include="DAContratoAceptacion.cs" />
     <Compile Include="DACrossSelling.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="DALugarPago.cs" />
     <Compile Include="DAMailing.cs" />
     <Compile Include="DAMensajeCUV.cs" />
+    <Compile Include="DAMensajeMetaConsultora.cs" />
     <Compile Include="DAMenuMobile.cs" />
     <Compile Include="DAMiAcademia.cs" />
     <Compile Include="DAConsultoraOnline.cs" />

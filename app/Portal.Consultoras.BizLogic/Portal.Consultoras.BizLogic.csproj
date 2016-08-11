@@ -109,6 +109,7 @@
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
     <Compile Include="BLConsultoraLider.cs" />
+    <Compile Include="BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />
     <Compile Include="BLContratoAceptacion.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="BLLogPedidoDDInvalido.cs" />
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
+    <Compile Include="BLMensajeMetaConsultora.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
     <Compile Include="BLConsultoraOnline.cs" />

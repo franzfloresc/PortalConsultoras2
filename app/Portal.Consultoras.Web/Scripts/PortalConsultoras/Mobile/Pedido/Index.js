@@ -1,9 +1,8 @@
 ﻿$(document).ready(function () {
+    $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
     });
-    $("#divProductoMantenedor").hide();
-    CargarProductosDestacados();
     $("#txtCodigoProducto").on("keyup", function () {
         $('#divMensajeCUV').hide();
         posicion = -1;
@@ -54,6 +53,8 @@
             return opts.inverse(this);
         }
     });
+
+    CargarProductosDestacados("");
 
     var CuvEnSession = $("#hdCuvEnSession").val();
     if (CuvEnSession != null) {
@@ -640,13 +641,13 @@ function TagManagerCarruselClickAgregarEstrategia(boton) {
 
 /** Funciones de Google Tag Manager Carrousel**/
 function AgregarProductoCarrusel(data) {
-    data = EstructurarDataCarousel(data);
 
     $('#slick-prev').remove();
     $('#slick-next').remove();
-    if ($('#divContenidoEstrategias').hasClass('slick-initialized')) {
-        $('#divContenidoEstrategias').unslick();
-    };
+    $('#divContenidoEstrategias').unslick();
+    $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
+
+    data = EstructurarDataCarousel(data);
 
     var source = $("#html-estrategia").html();
     var template = Handlebars.compile(source);

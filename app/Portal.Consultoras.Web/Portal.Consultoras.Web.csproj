@@ -75,9 +75,6 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="CourtesyFlush">
-      <HintPath>..\Library\CourtesyFlush.dll</HintPath>
-    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\DocumentFormat.OpenXml.dll</HintPath>
@@ -2102,6 +2099,8 @@
     <Content Include="Content\Images\timer-sprite.png" />
     <Content Include="Content\Images\tipBtm.png" />
     <Content Include="Content\Images\tipMid.png" />
+    <Content Include="Content\Images\tippingPoint.PNG" />
+    <Content Include="Content\Images\tippingPointActivo.PNG" />
     <Content Include="Content\Images\tipTop.png" />
     <Content Include="Content\Images\tooltip-flecha.png" />
     <Content Include="Content\Images\tooltip_guardar.png" />
@@ -2263,7 +2262,6 @@
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_Head.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />

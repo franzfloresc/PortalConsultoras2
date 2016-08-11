@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Models;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoValidacionPROLMobileModel
     {
+        public decimal MontoAhorroRevista;
+
         public string CodigoISO { get; set; }
 
         public bool ObservacionInformativa { get; set; }
@@ -38,5 +40,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool ValidacionInteractiva { get; set; }
 
         public string MensajeValidacionInteractiva { get; set; }
+
+        public decimal MontoAhorroCatalogo { get; set; }
+
+        public decimal MontoDescuento { get; set; }
+
+        public decimal MontoEscala { get; set; }
     }
 }

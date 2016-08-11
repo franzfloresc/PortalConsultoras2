@@ -278,7 +278,7 @@
         </div>
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="display:none;">
             <div>
-                <ul data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-estado="ingresado">
+                <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-estado="ingresado">
                     <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
                     <li class="texto_pagina">Página</li>
                     <li class="flecha_paginador_atras" data-paginacion="back"></li>
@@ -371,7 +371,7 @@
     <!--Paginador-->
     <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="width:46%; margin-top:0px!important; padding-bottom:43px!important; float:right;">
         <div>
-            <ul data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}">
+            <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}">
                 {{#iff RecordCount '>' 0}}
                 <li class="productos_agregados_usuario">
                     <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>

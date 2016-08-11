@@ -4,16 +4,12 @@ $(document).ready(function () {
 });
 
 function CargarPedido() {
-    ShowLoading();
-    $('#divProductosDetalle').empty();
     jQuery.ajax({
         type: 'POST',
         url: urlDetallePedido,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        async: false,
         success: function (data) {
-            CloseLoading();
             if (!checkTimeout(data)) {
                 return false;
             }
@@ -21,16 +17,17 @@ function CargarPedido() {
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
 
             var divMensajeCierreCampania = $("#divMensajeCierreCampania").html();
-            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;p&gt;", "<p>");
-            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;b&gt;", "<b>");
-            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;/b&gt;", "</b>");
-            divMensajeCierreCampania = divMensajeCierreCampania.replace("&lt;/p&gt;", "</b>");
+            divMensajeCierreCampania = divMensajeCierreCampania.ReplaceAll("&lt;p&gt;", "<p>");
+            divMensajeCierreCampania = divMensajeCierreCampania.ReplaceAll("&lt;b&gt;", "<b>");
+            divMensajeCierreCampania = divMensajeCierreCampania.ReplaceAll("&lt;/b&gt;", "</b>");
+            divMensajeCierreCampania = divMensajeCierreCampania.ReplaceAll("&lt;/p&gt;", "</b>");
             $("#divMensajeCierreCampania").html(divMensajeCierreCampania);
 
             if ($('#divProductosDetalle').find(".icono_advertencia_notificacion").length > 0) {
                 $("#iconoAdvertenciaNotificacion").show();
             }
 
+            $(".tooltip_noOlvidesGuardarTuPedido").show();
             $(".btn_guardarPedido").show();
             $("footer").hide();
         },
