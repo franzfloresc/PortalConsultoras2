@@ -136,8 +136,8 @@
                 <div id="divBarraMensajeLogrado">
                     <div style="float:right;">
                         <div class="content_BarrMensaje">
-                            <div class="mensaje_barra" style="display: inline;">¡YA LLEGAS AL 30% DSCTO!</div>
-                            <div class="agrega_barra">Solo agrega S/. 50</div>
+                            <div class="mensaje_barra" style="display: inline;"></div>
+                            <div class="agrega_barra"></div>
                         </div>
                         <hr class="clear" />
                         <div class="flechita_barra"></div>
@@ -721,7 +721,7 @@
 <div class="contenedor_popup_ofertaFinal" id="divOfertaFinal">
     <div class="popup_ofertaFinal">
         <div class="btn_cerrar_ofertaFinal">
-            <a href="#" title="Cerrar">
+            <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -741,7 +741,7 @@
                         También puedes buscarlo en tus
                         <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
                     </span>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
                         NO, GRACIAS
                     </button>
                 </div>
@@ -996,9 +996,11 @@
             </div>
             {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                <div class="etiqueta_producto" style="right: 0%!important;">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
+                    {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                    {{/iff}}
                 {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
                 <div class="etiqueta_producto">
                     <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
@@ -1024,7 +1026,7 @@
                 </p>
                 {{/if_eq}}
 
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}  <!--SB20-351 -->
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
                     {{#if_eq EtiquetaID '1'}}
                     <div class="producto_precio">
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
@@ -1040,7 +1042,7 @@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
-                {{/if_eq}}
+                {{/iff}}
 
                 <div class="contenedor_cantidad_producto">
                     {{#iff TipoEstrategiaImagenMostrar '==' '2'}}

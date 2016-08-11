@@ -273,9 +273,9 @@
         </footer>
         <!-- BOTÓN AGREGAR PEDIDO -->
     
-    <span class="toUp bg-primary">
+    @*<span class="toUp bg-primary">
         <i class="icon-angle-up"></i>
-    </span>
+    </span>*@
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
@@ -426,8 +426,9 @@
         var baseUrl = "@Url.Content("~")";
 
         $(function () {
-            $('.toUp').hide();
+            HandlebarsRegisterHelper();
 
+            //$('.toUp').hide();
             //$(window).scroll(function () {
             //    if ($(this).scrollTop() > 70) {
             //        $('.toUp').fadeIn();

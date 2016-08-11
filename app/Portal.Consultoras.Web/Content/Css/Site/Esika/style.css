@@ -1575,7 +1575,7 @@ header {
     position: absolute;
     width: 100%;
     height: 206px;
-    top: 9%;
+    /*top: 9%;*/
     left: 0%;
     z-index: 1;
     background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat left bottom;
@@ -4760,7 +4760,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -263px auto 0 -360.5px;
+    margin: -300px auto 0 -360.5px;;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -4784,7 +4784,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .incremento_altura_misDatos{
-    margin:-265.5px auto 0 auto;
+    margin: -300px auto 0 -360.5px;;
     min-height:516px;
 }
 
@@ -21150,7 +21150,9 @@ body{
 .tutoriales_svg{
         background: url(../../../Images/Esika/tutorial.png) no-repeat;
         background-position: 0 4px;
-
+        background-size: 100%;        
+    width: 20px;
+    height: 24px;
 }
  .EstadoCuenta{
       float:left;
@@ -25666,7 +25668,10 @@ input[type="checkbox"]:checked + span:after {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    height: 100%; display: block; width: 50%; position: relative; float: left; 
+    height: 100%; 
+    display: block;
+    width: 0px; 
+    position: relative; float: left; 
     background: rgba(168,166,168,1);
     background: -moz-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(168,166,168,1)), color-stop(100%, rgba(255,255,255,1)));
@@ -25712,6 +25717,15 @@ input[type="checkbox"]:checked + span:after {
     height:10px;
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 
+}
+.tippingPoint{
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;   
+    background: url("../../../Images/tippingPoint.png") no-repeat;
+}
+.tippingPoint.activo{
+    background: url("../../../Images/tippingPointActivo.png") no-repeat;
 }
 
 /*PEDIDO VALIDADO*/

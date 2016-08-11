@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Service
         private BLProductoSugerido BLProductoSugerido;
         private BLConfiguracionProgramaNuevas BLConfiguracionProgramaNuevas;
         private BLEscalaDescuento BLEscalaDescuento;
+        private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
+        private BLMensajeMetaConsultora BLMensajeMetaConsultora;
 
         public PedidoService()
         {
@@ -50,6 +52,8 @@ namespace Portal.Consultoras.Service
             BLProductoSugerido = new BLProductoSugerido();
             BLConfiguracionProgramaNuevas = new BLConfiguracionProgramaNuevas();
             BLEscalaDescuento = new BLEscalaDescuento();
+            BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
+            BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
         }
 
         #region Reporte Lider
@@ -1556,6 +1560,16 @@ namespace Portal.Consultoras.Service
         public string PruebaPase()
         {
             return "Hola Mundo";
+        }
+
+        public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entity)
+        {
+            return BLConsultorasProgramaNuevas.GetConsultorasProgramaNuevas(paisID, entity);
+        }
+
+        public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entity)
+        {
+            return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entity);
         }
     }
 }

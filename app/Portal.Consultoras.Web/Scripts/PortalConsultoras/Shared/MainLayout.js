@@ -8,7 +8,7 @@
     });
 
     HandlebarsRegisterHelper();
-
+    SetFormatDecimalPais(formatDecimalPaisMain);
     CargarResumenCampaniaHeader();
     CargarCantidadNotificacionesSinLeer();
 

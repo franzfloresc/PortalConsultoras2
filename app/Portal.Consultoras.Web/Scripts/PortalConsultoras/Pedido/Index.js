@@ -198,7 +198,7 @@ $(document).ready(function () {
                 EsSugerido: true
             };
 
-            AgregarProducto('Insert', model, 'divProductoSugerido');
+            AgregarProducto('Insert', model, 'divProductoSugerido', true);
 
             $("#divProductoAgotadoFinal").hide();
         }
@@ -315,14 +315,28 @@ $(document).ready(function () {
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
                 EsSugerido: false
-            };            
-
-            AgregarProducto('Insert', model, "", false);
-
-            EjecutarServicioPROLSinOfertaFinal();
+            };                        
+            
+            AgregarProducto('Insert', model, "", false);                       
+            
+            setTimeout(function () {
+                $("#divOfertaFinal").hide();
+                EjecutarServicioPROLSinOfertaFinal();
+            }, 1000);                                   
         }
     });
 
+    $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
+        var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
+        
+        if (esMontoMinimo) {
+            $("#divOfertaFinal").hide();
+        } else {
+            var data = $("#btnNoGraciasOfertaFinal")[0].data;
+            MostrarMensajeProl(data);
+        }
+    });
+    
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
@@ -540,7 +554,7 @@ function CargarDetallePedido(page, rows) {
             //MostrarMicroEfecto();
         },
         error: function (error) {
-            alert(error);
+            //alert(error);
         }
     });
 }
@@ -1080,7 +1094,7 @@ function ArmarCarouselEstrategias(data) {
     var context = data;
     var htmlDiv = template(context);
     $('#divListadoEstrategia').empty().html(htmlDiv);
-
+    cierreCarouselEstrategias();
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         $('#divListadoEstrategia').parents('.caja_carousel_productos').hide();
     } else {
@@ -1101,8 +1115,11 @@ function ArmarCarouselEstrategias(data) {
         });
         $(".slick-prev").insertAfter('#divCarruselVertical');
         $(".slick-next").insertBefore('#divCarruselVertical');
+        if (data.length > cant) {
+            $('#cierreCarousel').show();
+        }
     }
-    $('#cierreCarousel').show();
+    
 };
 
 function cierreCarouselEstrategias() {
@@ -2218,6 +2235,8 @@ function EjecutarServicioPROL() {
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             //var montoTotalPedido = parseFloat($("#hdfTotal").val());
 
+            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+            
             var cumpleOferta;
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
@@ -2307,11 +2326,13 @@ function EjecutarServicioPROL() {
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
+    AbrirSplash();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
+        //async: false,
         success: function (response) {
             CerrarSplash();
 
@@ -2325,7 +2346,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
-            var mensajePedido = "";
+            var mensajePedido = "";            
 
             if (response.data.ErrorProl == false) {
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
@@ -2404,56 +2425,31 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             $('#btnValidarPROL').val(response.data.Prol);
 
-            var codigoMensajeProl = response.data.CodigoMensajeProl;
-            //var montoTotalPedido = parseFloat($("#hdfTotal").val());
+            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+            MostrarMensajeProl(response.data);                        
+        },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
 
-            var cumpleOferta;
-            if (response.data.Reserva == true) {
-                if (response.data.ZonaValida == true) {
-                    if (response.data.ObservacionInformativa == false) {
-                        if (response.data.ProlSinStock == true) {
-                            showDialog("divReservaSatisfactoria3");
-                            CargarDetallePedido();
-                        } else {
-                            showDialog("divReservaSatisfactoria");
-                            location.href = baseUrl + 'Pedido/PedidoValidado';
-                        }
-                    } else {
-                        $('#DivObsBut').css({ "display": "none" });
-                        $('#DivObsInfBut').css({ "display": "block" });
-
-                        showDialog("divObservacionesPROL");
-                        $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-
-                        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                        dataLayer.push({
-                            'event': 'pageview',
-                            'virtualUrl': '/Pedido/Observacion-Validar'
-                        });
-                        CargarDetallePedido();
-                    }
-                } else {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'virtualUrl': '/Pedido/Validar-Sin-Error'
-                    });
-
-                    if (viewBagNombrePais == 'Venezuela') {
-                        showDialog("divReservaSatisfactoriaVE");
-                    } else {
-                        if (viewBagNombrePais == 'Colombia') {
-                            showDialog("divReservaSatisfactoriaCO");
-                        } else {
-                            showDialog("divReservaSatisfactoria3");
-                        }
-                    }
-
+function MostrarMensajeProl(data) {
+    if (data.Reserva == true) {
+        if (data.ZonaValida == true) {
+            if (data.ObservacionInformativa == false) {
+                if (data.ProlSinStock == true) {
+                    showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
+                } else {
+                    showDialog("divReservaSatisfactoria");
+                    location.href = baseUrl + 'Pedido/PedidoValidado';
                 }
             } else {
-                $('#DivObsBut').css({ "display": "block" });
-                $('#DivObsInfBut').css({ "display": "none" });
+                $('#DivObsBut').css({ "display": "none" });
+                $('#DivObsInfBut').css({ "display": "block" });
 
                 showDialog("divObservacionesPROL");
                 $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
@@ -2465,13 +2461,39 @@ function EjecutarServicioPROLSinOfertaFinal() {
                 });
                 CargarDetallePedido();
             }
-        },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
+        } else {
+            _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Pedido/Validar-Sin-Error'
+            });
+
+            if (viewBagNombrePais == 'Venezuela') {
+                showDialog("divReservaSatisfactoriaVE");
+            } else {
+                if (viewBagNombrePais == 'Colombia') {
+                    showDialog("divReservaSatisfactoriaCO");
+                } else {
+                    showDialog("divReservaSatisfactoria3");
+                }
             }
+
+            CargarDetallePedido();
         }
-    });
+    } else {
+        $('#DivObsBut').css({ "display": "block" });
+        $('#DivObsInfBut').css({ "display": "none" });
+
+        showDialog("divObservacionesPROL");
+        $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+
+        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
+        dataLayer.push({
+            'event': 'pageview',
+            'virtualUrl': '/Pedido/Observacion-Validar'
+        });
+        CargarDetallePedido();
+    }
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -2508,13 +2530,13 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
     if (tipoPopupMostrar == 1) {
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
         $("#spnTituloOfertaFinal").html("GUARDASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
-        $("#spnMontoFaltanteOfertaFinal").html(montoFaltante);
+        $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y gana más esta campaña.");
         $("#spnSubTituloOfertaFinal").html("Consigue más ganancias agregando uno de estos productos");
     } else {
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
         $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
-        $("#spnMontoFaltanteOfertaFinal").html(montoFaltante);
+        $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
         $("#spnSubTituloOfertaFinal").html("Completa tu pedido con alguno de estos productos");
     }
@@ -2604,11 +2626,13 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 if (parametriaEd != null && parametriaEd.length != 0) {
                     if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                         montoFaltante = diferenciaMontoEd;
-                        porcentajeDescuento = parametriaEd[0].PorDescuento;
+                        porcentajeDescuento = escalaDescuento.PorDescuento;
                         resultado = true;
                     } else {
                         resultado = false;
                     }
+                } else {
+                    resultado = false;
                 }
             }
         }
@@ -2633,6 +2657,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                         } else {
                             resultado = false;
                         }
+                    } else {
+                        resultado = false;
                     }
                 } else {
                     resultado = false;
@@ -3441,12 +3467,11 @@ function CambioPagina(obj) {
     return true;
 }
 
-function AgregarProducto(url, model, divDialog, async) {
+function AgregarProducto(url, model, divDialog, cerrarSplash) {
     AbrirSplash();
 
-    tieneMicroefecto = true;   
-
-    async = async || true;
+    tieneMicroefecto = true;    
+    
     divDialog = $.trim(divDialog);
 
     jQuery.ajax({
@@ -3455,10 +3480,10 @@ function AgregarProducto(url, model, divDialog, async) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
-        async: async,
+        async: true,
         success: function (response) {
             if (!checkTimeout(response)) {
-                CerrarSplash();
+                if (cerrarSplash) CerrarSplash();
                 return false;
             }
 
@@ -3474,10 +3499,10 @@ function AgregarProducto(url, model, divDialog, async) {
 
                 CargarDetallePedido();
                 CargarResumenCampaniaHeader();
-                CerrarSplash();
+                if (cerrarSplash) CerrarSplash();
                 MostrarBarra(response);
             } else {
-                CerrarSplash();
+                if (cerrarSplash) CerrarSplash();
             }
             return true;
         },
@@ -3547,13 +3572,20 @@ function AjaxError(data) {
 // Barra
 
 function MostrarBarra(datax) {
-    return;
+    $("#divBarra").hide();
+    return false;
+
+    //return;
     $("#divBarra #divLimite").html("");
     var datax = datax || new Object();
     data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
 
-    //data.MontoMinimo = 300;
-    //data.MontoMinimoStr = "300.00";
+    //data.MontoMinimo = 100;
+    //data.MontoMinimoStr = "100.00";
+    //data.TippingPoint = 150.99;
+    //data.TippingPointStr = "150.99";
+    //data.MontoMaximo = 200.99;
+    //data.MontoMaximoStr = "200.99";
     //data.MontoEscala = 2900.99;
     //data.MontoEscalaStr = "2900.99";
 
@@ -3561,13 +3593,14 @@ function MostrarBarra(datax) {
     var md = data.MontoDescuento;
     var mx = data.MontoMaximo;
     var mn = data.MontoMinimo;
-    var tp = data.TippingPoin;
+    var tp = data.TippingPoint;
     var mt = data.TotalPedido;
 
     var salto = "<br>";
-
+    var listaMensajeMeta = data.ListaMensajeMeta;
     var listaLimite = new Array();
-    var widthTotal = $("#divBarra").outerWidth();
+
+    var widthTotal = $("#divListadoPedido").outerWidth();
     var wPrimer = 0;
     var vLogro = 0;
     var wMsgFin = 0;
@@ -3575,26 +3608,17 @@ function MostrarBarra(datax) {
 
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
-        listaLimite.push({
-            nombre: "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr,
-            msgLimite: "!VAMOS, ADELANTE!",
-            msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-            width: wmin,
-            valor: data.MontoMinimo,
-            valorStr: data.MontoMinimoStr
-        });
     }
-    else {
-        wPrimer = 0;
-        listaLimite.push({
-            nombre: "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr,
-            msgLimite: "!VAMOS, ADELANTE!",
-            msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-            width: 0,
-            valor: data.MontoMinimo,
-            valorStr: data.MontoMinimoStr
-        });
-    }
+
+    listaLimite.push({
+        nombre: "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr,
+        msgLimite: "!VAMOS, ADELANTE!",
+        msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+        tipoMensaje: 'MontoMinimo',
+        width: wPrimer,
+        valor: data.MontoMinimo,
+        valorStr: data.MontoMinimoStr
+    });
     
     if (mx > 0) {
         vLogro = mt - md;
@@ -3604,8 +3628,9 @@ function MostrarBarra(datax) {
                 nombre: "",
                 msgLimite: "!VAMOS POR LA BONIFICACIÓN!",
                 msgFalta: "Solo te faltan " + vbSimbolo + " {falta}.",
-                valor: data.TippingPoin,
-                valorStr: data.TippingPoinStr
+                tipoMensaje: 'TippingPoint',
+                valor: data.TippingPoint,
+                valorStr: data.TippingPointStr
             });
         }
 
@@ -3614,6 +3639,7 @@ function MostrarBarra(datax) {
             nombre: "L. crédito" + salto + data.MontoMaximoStr,
             msgLimite: dif <= 0 ? "" : ("SOLO PUEDES AGREGAR " + vbSimbolo + " " + dif + " MÁS"),
             msgFalta: "Ya estas por llegar a tu tope de linea de crédito.",
+            tipoMensaje: 'MontoMaximo',
             widthR: wmin,
             valor: data.MontoMaximo,
             valorStr: data.MontoMaximoStr
@@ -3639,6 +3665,8 @@ function MostrarBarra(datax) {
                     msgLimite: "!VAMOS, ADELANTE!",
                     msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
                     width: wmin,
+                    tipoMensaje: 'EscalaDescuento',
+                    valPor: monto.PorDescuento,
                     valor: data.MontoMinimo,
                     valorStr: data.MontoMinimoStr,
                     tipo: 'min'
@@ -3653,6 +3681,8 @@ function MostrarBarra(datax) {
                     msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
                     msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
                     widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
+                    tipoMensaje: 'EscalaDescuento',
+                    valPor: monto.PorDescuento,
                     valor: montox.MontoHasta,
                     valorStr: montox.MontoHastaStr,
                     tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
@@ -3665,6 +3695,10 @@ function MostrarBarra(datax) {
 
     listaLimite = listaLimite || new Array();
 
+    if (listaLimite.length == 0) {
+        $("#divBarra").hide();
+        return false;
+    }
     // obtener valor minimo y maximo, distancia a trabajar
     var vm = 0, vx = 0, w = 0;
     $.each(listaLimite, function (ind, limite) {
@@ -3680,6 +3714,8 @@ function MostrarBarra(datax) {
     var indPuntoLimite = 0;
     var wLimite = 0;
     var vLimite = 0;
+    var tipoMensaje = "";
+    var valPor = "";
     // poner width segun el rango min y max, dentro del area
     $.each(listaLimite, function (ind, limite) {
         if (!limite.width) {
@@ -3694,6 +3730,8 @@ function MostrarBarra(datax) {
             wLimite = limite.width;
             indPuntoLimite = 0;
             vLimite = limite.valor;
+            tipoMensaje = limite.tipoMensaje;
+            valPor = limite.valPor;
         }
         else {
             var valBack = listaLimite[ind - 1].valor;
@@ -3701,16 +3739,22 @@ function MostrarBarra(datax) {
                 wLimite = limite.width;
                 indPuntoLimite = ind;
                 vLimite = limite.valor;
+                tipoMensaje = limite.tipoMensaje;
+                valPor = limite.valPor;
             }
             else if (vLogro >= limite.valor) {
                 wLimite = ind == listaLimite.length - 1 ? widthTotal : limite.width;
                 indPuntoLimite = ind;
                 vLimite = limite.valor;
+                tipoMensaje = limite.tipoMensaje + (ind == listaLimite.length - 1 ? "Supero" : "");
+                valPor = limite.valPor;
             }
             else if (valBack == vLogro) {
                 wLimite = limite.width;
                 indPuntoLimite = ind;
                 vLimite = limite.valor;
+                tipoMensaje = limite.tipoMensaje;
+                valPor = limite.valPor;
             }
         }        
     });
@@ -3736,6 +3780,12 @@ function MostrarBarra(datax) {
                         + '<div class="linea_indicador_barra"></div>'
                     + '</div>'
                 + '</div>';
+    var htmlTippintPoint = '<div>'
+               + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
+                        + '<div style="width:{wText}px;position: absolute;"><div class="tippingPoint {estado}"></div></div>'
+                        + '<div class="linea_indicador_barra"></div>'
+                    + '</div>'
+                + '</div>';
     var htmlPuntoLimite = '<div>'
         + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
             + '<div class="bandera_marcador" style="margin-top: -6px;margin-left: 45px;"></div>'
@@ -3747,7 +3797,7 @@ function MostrarBarra(datax) {
         htmlPuntoLimite = htmlPunto;
     }    
 
-    var wSumLeft = 0, msgLimite = "", msgFalta = "";
+    var wSumLeft = 0, msgLimite = "";
     $("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
         w1 = ind == 0 ? limite.width : w1;
@@ -3757,16 +3807,17 @@ function MostrarBarra(datax) {
         limite.widthAdd = wadd;
         limite.widthSum = wSumLeft;
         //var objH = $("<a>").css("width", www).append($("<span>").append(limite.nombre));
-        var htmlSet = indPuntoLimite == ind ? htmlPuntoLimite : htmlPunto;
+        var htmlSet = indPuntoLimite == ind && ind > 0 ? htmlPuntoLimite : htmlPunto;
+        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
         var wText = ind == 0 ? "130" : "90";
         var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
-        htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl);
+        var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
+        htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo);
         var objH = $(htmlSet).css("width", wadd).css("float", 'left');
         $("#divBarra #divBarraLimite").append(objH);
 
         msgLimite = indPuntoLimite == ind ? limite.msgLimite : msgLimite;
         msgLimite = indPuntoLimite == listaLimite.length - 1 && vLogro > limite.valor ? "" : msgLimite;
-        msgFalta = indPuntoLimite == ind ? limite.msgFalta : msgFalta;
     });
     $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
     // pintar la barra
@@ -3780,17 +3831,27 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraPosicion").css("width", wTotal);
     $("#divBarra").css("width", wTotal);
 
-    if (msgLimite != "") {
+    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
+    objMsg.Titulo = $.trim(objMsg.Titulo);
+    objMsg.Mensaje = $.trim(objMsg.Mensaje);
+    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
+        $("#divBarra").show();
+        $("#divBarra #divBarraMensajeLogrado").hide();
+        return false;
+    }
+    valPor = valPor || "";
+    //if (msgLimite != "") {
+        $("#divBarra").show();
         $("#divBarra #divBarraMensajeLogrado").show();
-        $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(msgLimite);
-        $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(msgFalta.replace("{falta}", parseFloat(vLimite - vLogro).toFixed(2)));
+        $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#valor", valPor));
+        $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#valor", vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro))));
         var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
         wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
         $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
-    }
-    else {
-        $("#divBarra #divBarraMensajeLogrado").hide();
-    }
+    //}
+    //else {
+    //    $("#divBarra #divBarraMensajeLogrado").hide();
+    //}
     
 }
 

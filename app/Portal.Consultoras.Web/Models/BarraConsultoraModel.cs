@@ -24,5 +24,6 @@ namespace Portal.Consultoras.Web.Models
         public string TotalPedidoStr { get; set; }
 
         public IList<BarraConsultoraEscalaDescuentoModel> ListaEscalaDescuento { get; set; }
+        public IList<BEMensajeMetaConsultora> ListaMensajeMeta { get; set; }
     }
 }

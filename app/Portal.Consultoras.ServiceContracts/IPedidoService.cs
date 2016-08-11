@@ -839,5 +839,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string PruebaPase();
+        
+        [OperationContract]
+        BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
+
+        [OperationContract]
+        List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
+        
     }
 }

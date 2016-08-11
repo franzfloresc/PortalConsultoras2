@@ -99,6 +99,7 @@
     <Compile Include="BEConsultoraEstadoSAC.cs" />
     <Compile Include="BEConsultoraFicticia.cs" />
     <Compile Include="BEConsultoraSolicitudCliente.cs" />
+    <Compile Include="BEConsultorasProgramaNuevas.cs" />
     <Compile Include="BEConsultoraTop.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="BEMailing.cs" />
     <Compile Include="BEMatrizComercial.cs" />
     <Compile Include="BEMensajeCUV.cs" />
+    <Compile Include="BEMensajeMetaConsultora.cs" />
     <Compile Include="BEMenuMobile.cs" />
     <Compile Include="BEMisPedidos.cs" />
     <Compile Include="BENavidadConsultora.cs" />

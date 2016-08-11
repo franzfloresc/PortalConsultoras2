@@ -4132,6 +4132,7 @@ width:100%;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    position:relative;
 }
 .previous_ofertas_mobile{
     display:block;
@@ -5074,6 +5075,20 @@ body{
     /* margin-bottom: 25px; */
 }
 
+.etiqueta_producto {
+    display: block;
+    position: absolute;
+    width: 53px;
+    height: 53px;
+    top: 4%;
+    right: 4%;
+}
+
+.etiqueta_producto img{
+    width:100%;
+    height:auto;
+}
+
 .mobileLiquidaciones{
     background: url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat center center;
 }
@@ -5569,6 +5584,71 @@ input[type="checkbox"]:checked + span:after {
     margin-bottom:20px;
     
 }
+
+.ver-mas-vertical span.icono{visibility:hidden}
+
+.ver-mas-vertical {
+        font-size:11px;
+        text-transform:uppercase;
+        position:relative;
+        bottom:20px;
+        margin:15px 0 0 0;
+        cursor: pointer;
+}
+
+.ver-mas-vertical span.text{
+    width: 100%;
+      height: 18px;
+      font-family: Lato;
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      color: #000000;
+
+	display:block;
+	position:relative;
+	/*float:right;
+	width:60px;*/
+	text-align:center;
+	-moz-transition:all .5s ease-in-out;
+	-ms-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+	}
+
+.ver-mas-vertical span.icono{
+	position:absolute;
+    width:26px;
+	height:14px;
+    right:48.8%;
+    opacity:.1;
+	text-align:center;
+    -moz-transition:all .2s ease-in-out;
+	-ms-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;
+    bottom: -15px;
+}
+
+.ver-mas-vertical:hover{
+	-moz-transition:all .6s ease-in-out;
+	-ms-transition:all .6s ease-in-out;
+	-o-transition:all .6s ease-in-out;
+	transition:all .6s ease-in-out;
+}
+
+.ver-mas-vertical:hover span.text{margin-bottom:15px}
+.ver-mas-vertical:hover span.icono{
+    visibility:visible;
+    bottom:-25px;
+    opacity:1;
+}
+
+.ver-mas-vertical span.icono{
+	background:url(../../../Images/ver-mas-flecha-vertical.svg) center no-repeat;
+    /*background-size:30px 15px;*/
+}
+
+/* fin ver mas la fleca abajo*/
+
 @media only screen and (max-width : 425px) {
     .mostrar_todos{
         float:left;

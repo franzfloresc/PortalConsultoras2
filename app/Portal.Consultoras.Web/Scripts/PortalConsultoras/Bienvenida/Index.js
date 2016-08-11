@@ -53,6 +53,7 @@
 
     CargarBanners();
     CrearDialogs();
+
     $("#btnActualizarDatos").click(function () {
         ActualizarDatos();
         return false;
@@ -79,6 +80,23 @@
     });
     $("#cerrarInvitacionFlexipago").click(function () {
         $('#popupInvitaionFlexipago').hide();
+        if (contadorFondoPopUp == 1) {
+            $("#fondoComunPopUp").hide();
+        }
+        contadorFondoPopUp--;
+        return false;
+    });
+    $("#abrirPopupMisDatos").click(function () {
+        if (contadorFondoPopUp == 0) {
+            $("#fondoComunPopUp").show();
+        }
+        waitingDialog({});
+        CargarMisDatos();
+        contadorFondoPopUp++;
+        return false;
+    });
+    $("#cerrarPopupMisDatos").click(function () {
+        $('#popupMisDatos').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
@@ -144,7 +162,6 @@
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-
     $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
         var contenedor = $(this).parents(".content_item_carrusel");
 
@@ -351,32 +368,7 @@ function EstructurarDataCarousel(array) {
         };
 
         item.MostrarTextoLibre = item.TextoLibre.length > 0;
-});
-
-/* Métodos Mis Cursos */
-function CargarMisCursos() {
-
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'MiAcademia/GetMisCursos',
-        //data: {},
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (resp) {
-            if (resp.success) {
-                alert(resp.data);
-            }
-            else {
-                alert(resp.error);
-            }
-        },
-        error: function (error) {
-            alert(error);
-        }
     });
-}
-/* SB20-255 - FIN */
-
     return array;
 };
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
@@ -1341,6 +1333,33 @@ function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
     return false;
 };
 
+/* INICIO MISDATOS CLICK SB20-317*/
+
+function CargarMisDatos() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Bienvenida/JSONGetMisDatos',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            var temp = data.lista;
+            $('#codigoUsurioMD').html(temp.CodigoUsuario);
+            $('#nombresUsuarioMD').html(temp.NombreCompleto);
+            $('#txtEMailMD').val(temp.EMail);
+            $('#txtTelefonoMD').val(temp.Telefono);
+            $('#txtCelularMD').val(temp.Celular);
+            $('#popupMisDatos').show();
+            closeWaitingDialog();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+};
+
+/**FIN**/
+
+
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
 
@@ -1724,6 +1743,7 @@ function AbrirAceptacionContrato() {
                     $("#fondoComunPopUp").show();
                 }
                 $("#popupAceptacionContrato").show();
+                contadorFondoPopUp++;
             }
         }
     }

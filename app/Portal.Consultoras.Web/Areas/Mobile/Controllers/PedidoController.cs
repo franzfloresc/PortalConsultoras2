@@ -269,6 +269,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
+            model.FechaFacturacionPedido = ViewBag.FechaFacturacionPedido;
 
             // esto se debe guardar en session o en user data,
             BEPedidoWeb bePedidoWebByCampania = new BEPedidoWeb();
@@ -457,6 +458,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             List<ObservacionModel> olstObservaciones = new List<ObservacionModel>();
             bool restrictivas = false, informativas = false, errorProl = false, reservaProl = false;
+            decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
+            string codigoMensaje = "";
 
             try
             {
@@ -483,9 +486,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         if (usuario.ValidacionInteractiva)
                         {
                             if (usuario.NuevoPROL && usuario.ZonaNuevoPROL)
-                                olstObservaciones = DevolverObservacionesPROLv2(olstPedidoWebDetalle, out restrictivas, out informativas, out errorProl, out reservaProl);
+                                olstObservaciones = DevolverObservacionesPROLv2(olstPedidoWebDetalle, out restrictivas, out informativas, out errorProl, out reservaProl, out montoAhorroCatalogo, out montoAhorroRevista, out montoDescuento, out montoEscala, out codigoMensaje);
                             else
-                                olstObservaciones = DevolverObservacionesPROL(olstPedidoWebDetalle, out restrictivas, out informativas, out errorProl, out reservaProl);
+                                olstObservaciones = DevolverObservacionesPROL(olstPedidoWebDetalle, out restrictivas, out informativas, out errorProl, out reservaProl, out montoAhorroCatalogo, out montoAhorroRevista, out montoDescuento, out montoEscala, out codigoMensaje);
 
                             Session["ObservacionesPROL"] = olstObservaciones;
                         }
@@ -517,22 +520,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ZonaValida = usuario.ZonaValida;
                 model.ValidacionInteractiva = usuario.ValidacionInteractiva;
                 model.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
-                //model.MontoAhorroCatalogo = montoAhorroCatalogo;
-                //model.MontoAhorroRevista = montoAhorroRevista;
-                //model.MontoDescuento = montoDescuento;
-                //model.MontoEscala = montoEscala;
-                //model.Prol = model.ZonaValida
-                //    ? usuario.PROLSinStock
-                //        ? "Guarda tu pedido"
-                //        : usuario.NuevoPROL && usuario.ZonaNuevoPROL
-                //            ? "Guarda tu pedido"
-                //            : usuario.MostrarBotonValidar
-                //                ? "Valida tu pedido"
-                //                : "Guarda tu pedido"
-                //    : "Guarda tu pedido";
-                //model.EsModificacion = usuario.ModificaPedido;
+                model.MontoAhorroCatalogo = montoAhorroCatalogo;
+                model.MontoAhorroRevista = montoAhorroRevista;
+                model.MontoDescuento = montoDescuento;
+                model.MontoEscala = montoEscala;
+                model.BotonPROL = model.ZonaValida
+                    ? usuario.PROLSinStock
+                        ? "Guarda tu pedido"
+                        : usuario.NuevoPROL && usuario.ZonaNuevoPROL
+                            ? "Guarda tu pedido"
+                            : usuario.MostrarBotonValidar
+                                ? "Valida tu pedido"
+                                : "Guarda tu pedido"
+                    : "Guarda tu pedido";
                 model.EsDiaPROL = usuario.DiaPROL;
-                //model.ProlSinStock = usuario.PROLSinStock;
+                model.PROLSinStock = usuario.PROLSinStock;
                 model.ZonaNuevoProlM = usuario.ZonaNuevoPROL;
                 model.CodigoISO = usuario.CodigoISO;
 
@@ -1045,12 +1047,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return DiaPROL;
         }
 
-        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> lstPedidoWebDetalle, out bool restrictivas, out bool informativas, out bool existeError, out bool reserva)
+        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> lstPedidoWebDetalle, out bool restrictivas, out bool informativas, out bool existeError, out bool reserva, out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, out decimal montoEscala, out string codigoMensaje)
         {
             restrictivas = false;
             informativas = false;
             existeError = false;
             reserva = false;
+            montoAhorroCatalogo = 0;
+            montoAhorroRevista = 0;
+            montoDescuento = 0;
+            montoEscala = 0;
+            codigoMensaje = "";
 
             var userData = UserData();
 
@@ -1177,6 +1184,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (datos != null)
             {
+                #region Actualizar montos del servicio de prol a Pedido
+
+                Decimal.TryParse(datos.montoAhorroCatalogo, out montoAhorroCatalogo);
+                Decimal.TryParse(datos.montoAhorroRevista, out montoAhorroRevista);
+                Decimal.TryParse(datos.montoDescuento, out montoDescuento);
+                Decimal.TryParse(datos.montoEscala, out montoEscala);
+
+                codigoMensaje = datos.codigoMensaje;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+                    bePedidoWeb.PaisID = userData.PaisID;
+                    bePedidoWeb.CampaniaID = userData.CampaniaID;
+                    bePedidoWeb.ConsultoraID = userData.ConsultoraID;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
+                    bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
+                    bePedidoWeb.DescuentoProl = montoDescuento;
+                    bePedidoWeb.MontoEscala = montoEscala;
+
+                    sv.UpdateMontosPedidoWeb(bePedidoWeb);
+
+                    Session["PedidoWeb"] = null;
+                }
+
+                #endregion
+
                 DataTable dtr = datos.data.Tables[0];
                 if (datos.codigoMensaje != "00")
                 {
@@ -1282,12 +1317,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return lstPedidoWebDetalleObsvaciones;
         }
 
-        private List<ObservacionModel> DevolverObservacionesPROLv2(List<BEPedidoWebDetalle> lstPedidoWebDetalle, out bool restrictivas, out bool informativas, out bool existeError, out bool reserva)
+        private List<ObservacionModel> DevolverObservacionesPROLv2(List<BEPedidoWebDetalle> lstPedidoWebDetalle, out bool restrictivas, out bool informativas, out bool existeError, out bool reserva, out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, out decimal montoEscala, out string codigoMensaje)
         {
             restrictivas = false;
             informativas = false;
             existeError = false;
             reserva = false;
+            montoAhorroCatalogo = 0;
+            montoAhorroRevista = 0;
+            montoDescuento = 0;
+            montoEscala = 0;
+            codigoMensaje = "";
 
             var userData = UserData();
 
@@ -1367,6 +1407,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 int ValidacionReemplazo = 0;
                 decimal MontoTotalPROL = 0;
                 Decimal.TryParse(datos.montototal, out MontoTotalPROL);
+
+                #region Actualizar montos del servicio de prol a Pedido
+
+                Decimal.TryParse(datos.montoAhorroCatalogo, out montoAhorroCatalogo);
+                Decimal.TryParse(datos.montoAhorroRevista, out montoAhorroRevista);
+                Decimal.TryParse(datos.montoDescuento, out montoDescuento);
+                Decimal.TryParse(datos.montoEscala, out montoEscala);
+
+                codigoMensaje = datos.codigoMensaje;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+                    bePedidoWeb.PaisID = userData.PaisID;
+                    bePedidoWeb.CampaniaID = userData.CampaniaID;
+                    bePedidoWeb.ConsultoraID = userData.ConsultoraID;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
+                    bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
+                    bePedidoWeb.DescuentoProl = montoDescuento;
+                    bePedidoWeb.MontoEscala = montoEscala;
+
+                    sv.UpdateMontosPedidoWeb(bePedidoWeb);
+
+                    Session["PedidoWeb"] = null;
+                }
+
+                #endregion
+
                 if (datos.codigoMensaje != "00")
                 {
                     foreach (DataRow row in dtr.Rows)
