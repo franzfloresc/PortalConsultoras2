@@ -2407,9 +2407,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Bienvenida\_OfertasParaTi.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.ttf" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.woff" />
