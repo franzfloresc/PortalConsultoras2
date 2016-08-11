@@ -71,8 +71,70 @@
     <div class="content_320">
         <!--ITEM 1-->
         <div class="item1_mobile">
+            @{
+                string cabezaEscala=null, pieEscala=null;
+                if(Model.PaisID == 11) //PERU
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 4) //COLOMBIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 6) //ECUADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 3) //CHILE
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 2) //BOLIVIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 9) //MEXICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PaisID == 5) //COSTA RICA
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";                
+                }
+                else if (Model.PaisID == 8)//GUATEMALA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 7)//EL SALVADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 10)//PANAMA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }else if (Model.PaisID == 13)//DOMINICANA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 12)//PUERTO RICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+            }
             <div class="icono_item"></div>
-            <div class="titulo_item_mobile">MI GANANCIA ESTIMADA:</div>
+            <div class="titulo_item_mobile" style="text-transform: uppercase;">@(cabezaEscala)</div>
             <div class="monto_ganancia_mobile">
                 @Model.Simbolo
                 <span>
@@ -80,7 +142,7 @@
                 </span>
             </div>
             <div class="texto_inferior">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
-            <div class="texto_inferior text-10px">*Monto referencial.</div>
+            <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
         </div>
         <!-- FIN ITEM 1-->
     </div>
@@ -126,17 +188,21 @@
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
-    <!--APP CATÁLOGOS-->
-    <div class="comartir_home_mobile">
-        MULTIPLICA TUS CLIENTES CON<br />
-        EL APP DE CATÁLOGO
-        <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
-        <a class="btn_comparte_ws" href="#">Compartir por <b>whatsapp</b></a>
-    </div>
-    <div class="imagen_catalogo celular_esika"><img src="@Url.Content("~/Content/Images/mobile/Esika/app.png")" alt="-" /></div>
-    <hr class="clear" />
-    <div class="linea_separadora_mobile"></div>
-    <!--FIN APP CATÁLOGOS-->
+    @if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Colombia || Model.CodigoISO == Constantes.CodigosISOPais.Chile || Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Ecuador)
+    {
+        <!--APP CATÁLOGOS-->
+        <div class="comartir_home_mobile">
+            MULTIPLICA TUS CLIENTES CON<br />
+            EL APP DE CATÁLOGO
+            <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
+            <a class="btn_comparte_ws" href="#">Compartir por <b>WhatsApp</b></a>
+        </div>
+        <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+        <!--FIN APP CATÁLOGOS-->
+    }
+    
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris">

@@ -3,16 +3,7 @@
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
     CargarPopupsConsultora();
-
-    //Cargando custom helpers handlebars js
-    Handlebars.registerHelper('if_eq', function (a, b, opts) {
-        if (a == b) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
-    });
-
+    
     $(window).scroll(function () {
 
         var $this = $(this);
@@ -30,8 +21,7 @@
 
     });
 
-    // Función para animación y características de carga circular de Cu
-
+    // Función para animación y características de carga circular de Cursos Academia
     function porcentajesCursos() {
 
         $('.porcentaje_cursosAcademia').easyPieChart({
@@ -50,10 +40,11 @@
         });
 
     }
-
+    
     CargarBanners();
     CrearDialogs();
-
+    $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
+    $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {
         ActualizarDatos();
         return false;
@@ -107,9 +98,21 @@
         waitingDialog({});
         DownloadAttachPDFTerminos();
     });
-    $(".cambiar_contrasenia").click(function () {
-
+    $('#hrefTerminosMD').click(function () {
+        waitingDialog({});
+        DownloadAttachContratoActualizarDatos();
     });
+    $('#hrefContratoMD').click(function () {
+        waitingDialog({});
+        DownloadAttachContratoCO();
+    });
+    $("#btnCancelarMD").click(function() {
+        $(".campos_cambiarContrasenia").fadeOut(200);
+        $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
+        $(".campos_actualizarDatos").delay(200);
+        $(".campos_actualizarDatos").fadeIn(200);
+    });
+    
     $("#lnkCambiarContrasena").click(function () {
         if ($("#divCambiarContrasena").is(":visible")) {
             $(".grupo_input_password").slideUp(200);
@@ -133,31 +136,53 @@
             $(".popup_actualizarMisDatos").addClass("incremento_altura_misDatos");
             $(".campos_cambiarContrasenia").delay(200);
             $(".campos_cambiarContrasenia").fadeIn(200);
+        }
+    });
+    $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtEMailMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtSobrenombreMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+            return re.test(keyChar);
+        }
+    });
 
-        }
-    });
-    $("#txtTelefono").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
-    $("#txtCelular").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
     $(document).on('click', '.js-agregar-liquidacion', function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
@@ -299,12 +324,8 @@ function CargarPopupsConsultora() {
     //    showDialog('idSueniosNavidad');
     //}
 };
-
 function ActualizarMontoPedidoIngresado() {
     CargarResumenCampaniaHeader();
-    setTimeout(function () {
-        $("#spanPedidoIngresado").html($("#spPedidoWebAcumulado").html());
-    }, 1500);
 }
 
 //Metodos para carousel Ofertas para Tí
@@ -330,11 +351,7 @@ function CargarCarouselEstrategias(cuv) {
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
 
-    var source = $("#estrategia-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
-    $('#divCarruselHorizontal').empty().html(htmlDiv);
+    SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
 
     if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
         $('.fondo_gris').hide();
@@ -739,16 +756,10 @@ function CargarEstrategiasEspeciales(objInput, e) {
 
 };
 function ArmarPopupPackNuevas(obj) {
-    var source = $("#packnuevas-template").html();
-    var template = Handlebars.compile(source);
-    var context = obj;
-    return template(context);
+    return SetHandlebars("#packnuevas-template", obj);
 };
 function ArmarPopupLanzamiento(obj) {
-    var source = $("#lanzamiento-template").html();
-    var template = Handlebars.compile(source);
-    var context = obj;
-    return template(context);
+    return SetHandlebars("#lanzamiento-template", obj);
 };
 function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
@@ -848,10 +859,8 @@ function CargarCarouselLiquidaciones() {
 function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data.lista);
 
-    var source = $("#liquidacion-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
+    var htmlDiv = SetHandlebars("#liquidacion-template", data);
+
     //Se agrega item VER MAS
     if (htmlDiv.length > 0) {
         htmlDiv += [
@@ -1343,6 +1352,10 @@ function CargarMisDatos() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             var temp = data.lista;
+            $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
+            $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
+            $('#hdn_CorreoMD').val(temp.EMail);
+            $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
             $('#codigoUsurioMD').html(temp.CodigoUsuario);
             $('#nombresUsuarioMD').html(temp.NombreCompleto);
             $('#txtEMailMD').val(temp.EMail);
@@ -1356,9 +1369,199 @@ function CargarMisDatos() {
         }
     });
 };
+function CambiarContrasenia() {
+    var oldPassword = $("#txtContraseniaAnterior").val();
+    var newPassword01 = $("#txtNuevaContrasenia01").val();
+    var newPassword02 = $("#txtNuevaContrasenia02").val();
+    var vMessage = "";
 
+    if (oldPassword == "")
+        vMessage += "- Debe ingresar la Contraseña Anterior.\n";
+
+    if (newPassword01 == "")
+        vMessage += "- Debe ingresar la Nueva Contraseña.\n";
+
+    if (newPassword02 == "")
+        vMessage += "- Debe repetir la Nueva Contraseña.\n";
+
+    if (newPassword01.length <= 3)
+        vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
+
+    if (newPassword01 != "" && newPassword02 != "") {
+        if (newPassword01 != newPassword02)
+            vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+    }
+
+    if (vMessage != "") {
+        alert(vMessage);
+        return false;
+    } else {
+
+        var item = {
+            OldPassword: oldPassword,
+            NewPassword: newPassword01
+        };
+
+        waitingDialog({});
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MisDatos/CambiarContrasenia',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        if (data.message == "0") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val('');                            
+                            alert("La contraseña anterior ingresada es inválida");
+                        } else if (data.message == "1") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val('');
+                            alert("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
+                        } else if (data.message == "2") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val('');
+                            $(".campos_cambiarContrasenia").fadeOut(200);
+                            $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
+                            $(".campos_actualizarDatos").delay(200);
+                            $(".campos_actualizarDatos").fadeIn(200);
+                            alert("Se cambió satisfactoriamente la contraseña.");
+                        }
+                        return false;
+                    }
+                }
+            },
+            error: function (data, error) {
+                //debugger;
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();                    
+                    alert("Error en el Cambio de Contraseña");
+                }
+            }
+        });
+    }
+}
+function ActualizarMD() {
+    if (jQuery.trim($('#txtEMailMD').val()) == "") {
+        $('#txtEMailMD').focus();
+        alert("Debe ingresar EMail.\n");
+        return false;
+    }
+    if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+        $('#txtEMailMD').focus();
+        alert("El formato del correo electrónico ingresado no es correcto.\n");
+        return false;
+    }
+    if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
+        ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
+        $('#txtTelefonoMD').focus();
+        alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+        return false;
+    }
+
+    waitingDialog({});
+    var item = {
+        CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+        EMail: $.trim(jQuery('#txtEMailMD').val()),
+        Telefono: jQuery('#txtTelefonoMD').val(),
+        Celular: jQuery('#txtCelularMD').val(),
+        Sobrenombre: jQuery('#txtSobrenombreMD').val(),
+        CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
+        NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
+        CompartirDatos: false,
+        AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
+    };
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisDatos/ActualizarDatos',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                if (data.success == true) {
+                    $('#popupMisDatos').hide();
+                    if (contadorFondoPopUp == 1) {
+                        $("#fondoComunPopUp").hide();
+                    }
+                    contadorFondoPopUp--;
+                    alert(data.message);
+                } else {
+                    $('#popupMisDatos').hide();
+                    if (contadorFondoPopUp == 1) {
+                        $("#fondoComunPopUp").hide();
+                    }
+                    contadorFondoPopUp--;
+                    alert(data.message);
+                }                    
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                if (contadorFondoPopUp == 1) {
+                    $("#fondoComunPopUp").hide();
+                }
+                contadorFondoPopUp--;
+                alert("ERROR");
+            }
+        }
+    });
+}
+function ValidateOnlyNums(id) {
+    return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
+}
+function DownloadAttachPDFMD(requestedFile) {
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+
+        iframe_.onreadystatechange = function () {
+
+            switch (this.readyState) {
+                case "loading":
+                    waitingDialog({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    closeWaitingDialog();
+                    break;
+                default:
+                    closeWaitingDialog();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            closeWaitingDialog();
+        });
+    }
+    document.body.appendChild(iframe_);
+}
+//function DownloadAttachContratoCO() {
+//    var requestedFile = "/Content/FAQ/Contrato_CO.pdf";
+//    DownloadAttachPDF(requestedFile);
+//}
+function DownloadAttachContratoActualizarDatos() {
+    var archivoMD = $('#hdn_NombreArchivoContratoMD').val();
+    var requestedFile = "/Content/FAQ/" + archivoMD + ".pdf";
+    DownloadAttachPDFMD(requestedFile);
+}
 /**FIN**/
-
 
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
@@ -1384,13 +1587,7 @@ function CargarMisCursos() {
     });
 };
 function ArmarDivMisCursos(data) {
-
-    var source = $("#miscursos-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
-    $('#divMisCursos').empty().html(htmlDiv);
-
+    SetHandlebars("#miscursos-template", data, "#divMisCursos");
 };
 
 // Métodos ActualizarDatos

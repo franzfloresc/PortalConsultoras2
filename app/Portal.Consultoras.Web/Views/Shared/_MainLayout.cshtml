@@ -165,11 +165,25 @@
                 <div class="campana" style="width:auto;">
                     <a href="#">
                         <div class="campana_svg"></div>
-                        <p class="notificaciones" id="pCantidadProductosPedido" style="width:auto">0</p>
+                        <p class="notificaciones" id="pCantidadProductosPedido" style="width:14px">0</p>
                     </a>
+                    
                     <div class="info_cam">
                         <div class="flechita_info"></div>
-                        <h1> RESUMEN DE CAMPAÑA</h1>
+                        <div class="linea_blanca"></div>
+                        <div id="SinProductos">
+                            <div class="sin_productos">
+                                Todavía no has agregado <br />ningún producto a tu<br /> pedido.
+                            </div>
+                            <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
+
+                        </div>
+                        <div id="carrito_items">
+                        </div>
+                        
+                        
+                        
+                        @*<h1> RESUMEN DE CAMPAÑA</h1>
                         <p>
                             PEDIDO WEB ACUMULADO <br />
                             <b>TOTAL A PAGAR</b>
@@ -178,16 +192,14 @@
                             <span id="spPedidoWebAcumulado"></span>
                             <br />
                             <span id="spTotalMontoAPagar"></span>
-                        </span>
-                        <hr class="clear" />
-                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER MI PEDIDO</a>
-                    </div>
+                        </span>*@
+                       </div>
                 </div>
 
                 <div class="borde_c"></div>
                 <div class="mensaje_header">
                     <a href="#">
-                        <div class="tutoriales_svg"></div>
+                        <div class="campana_svg tutoriales_svg"></div>
                     </a>
                 </div>
 
@@ -401,7 +413,7 @@
     <![endif]-->
 
     <script type="text/javascript">
-        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
@@ -418,7 +430,28 @@
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(trme, s);
         })();
-    </script>               
+    </script>
+    <script id="resumenCampania-template" type="text/x-handlebars-template">
+        <div class="info_productos_carrito">
+            He agregado <span>{{cantidadProductos}}</span> productos.<br />
+            Últimos agregados:
+        </div>
+        <!--ITEMS CARRITO-->
+        {{#each this.ultimosTresPedidos}}
+        <div class="productos_agregado_carrito">
+            <div class="marca_belcorp">{{DescripcionLarga}}</div>
+            <hr class="clear" />
+            <div class="descripcion_producto_carrito">{{DescripcionProd}}</div>
+            <div class="marca_belcorp" style="font-size:13px;">x{{Cantidad}}</div>
+            <div class="precio_carrito">{{../Simbolo}}{{ImporteTotal}}</div>
+        </div>
+        {{/each}}
+        <!--FIN-->
+        <div class="pago_pedido_carrito">PEDIDO TOTAL <span>{{Simbolo}} {{montoWebAcumulado}}</span></div>
+        <hr class="clear" />
+        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

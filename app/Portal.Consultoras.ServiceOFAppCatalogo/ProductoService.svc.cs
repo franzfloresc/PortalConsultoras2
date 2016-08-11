@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.ServiceOFAppCatalogo.Entities;
-using Portal.Consultoras.ServiceOFAppCatalogo.Logic;
-using Portal.Consultoras.ServiceOFAppCatalogo.ServicePROLConsultas;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Logic;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "ProductoService" en el código, en svc y en el archivo de configuración a la vez.
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione ProductoService.svc o ProductoService.svc.cs en el Explorador de soluciones e inicie la depuración.

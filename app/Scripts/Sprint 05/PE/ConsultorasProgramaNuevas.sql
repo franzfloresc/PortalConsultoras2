@@ -40,22 +40,22 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	);
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('MontoMinimo', '¡VAMOS, ADELANTE!', 'Te faltan #valor para alcanzar el monto mínimo y poder pasar tu pedido')
+	values('MontoMinimo', '¡VAMOS, ADELANTE!', 'Te faltan #valor para pasar pedido')
 					
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('TippingPoint', '¡VAMOS POR LA BONIFICACIÓN!', 'Pasando solo #valor más recibirás los productos gratis de tu programa de nuevas')
+	values('TippingPoint', '¡RECIBE TU BONIFICACIÓN DEL PROGRAMA DE NUEVAS!', 'Sólo te faltan #valor más.')
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('MontoMaximo', '¡VAMOS, ADELANTE!', 'Puedes ingresar un pedido de hasta #valor')
+	values('MontoMaximo', '¡SÓLO PUEDES AGREGAR #valor MÁS!', 'Ya estas por llegar a tu tope de línea de crédito.')
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('MontoMaximoSupero', '¡FELICIDADES!', 'Tu pedido ya alcanzó el monto máximo de tu línea de crédito')
+	values('MontoMaximoSupero', 'YA ALCANZASTE EL LÍMITE DE TU LÍNEA DE CRÉDITO', 'Tu pedido ya alcanzó el monto máximo de tu línea de crédito.')
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('EscalaDescuento', '¡YA LLEGAS AL #valor% DSCTO!', 'Te faltan solo #valor para obtener un mayor descuento y ganar más')
+	values('EscalaDescuento', '¡YA LLEGAS AL #porcentaje% DSCTO!', 'Solo agrega #valor más.')
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('EscalaDescuentoSupero', '¡FELICIDADES!', '¡Felicitaciones! Ya alcanzaste la última escala de descuento')
+	values('EscalaDescuentoSupero', '¡BIEN!', 'Ya alcanzaste el #porcentaje de descuento.')
 
 end
 go

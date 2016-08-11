@@ -609,7 +609,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Simbolo = userData.Simbolo,
 
-                CantidadProducto = items.Sum(p => p.Cantidad),
+                CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
                 OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),

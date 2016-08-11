@@ -127,10 +127,7 @@ function RenderGrilla(data) {
         return false;
     }
 
-    var source = $("#js-EstadoCuenta").html();
-    var template = Handlebars.compile(source);
-    var htmlDiv = template(data);
-    $("#dellateContenido").html(htmlDiv);
+    SetHandlebars("#js-EstadoCuenta", data, "#dellateContenido");
 }
 
 function fnEnviarCorreo() {
@@ -243,10 +240,7 @@ function getLugarPago() {
         async: true,
         cache: false,
         success: function (data) {
-            var source = $("#js-LugaresPago").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
-            $("#divContenidoLugarPago").html(htmlDiv);
+            SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");

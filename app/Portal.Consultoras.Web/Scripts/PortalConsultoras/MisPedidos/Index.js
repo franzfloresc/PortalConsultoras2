@@ -182,6 +182,7 @@ function CambioPagina(obj) {
 }
 
 function PopupCerrarTodos() {
+    $("html").css({ "overflow": "auto" });
     //$('[data-popup]').hide("slide", { direction: slidedireccion }, slidetime);
     $('[data-popup]').hide();
     //$('[data-popup]').slideUp(slidetime);
@@ -194,15 +195,20 @@ function PopupMostrar(popup, campFormat) {
     popup = $.trim(popup);
     popup = popup.toLowerCase();
     popup = popup[0];
+    $("html").css({ "overflow": "hidden" });
+    $("#divGrilla").find("select[data-cliente]").val(-1);
     if (popup == "f") {
-        $(".popup_pedidosFacturados").show();
+        $('[data-popup="facturado"]').show();
+        //$(".popup_pedidosFacturados").show();
         //CargarDetalleFacturado(campFormat);
     }
     else if (popup == "i") {
-        $(".popup_pedidosIngresados").show();
+        $('[data-popup="ingresado"]').show();
+        //$(".popup_pedidosIngresados").show();
         //CargarDetalleIngresado(campFormat);
     }
     else {
+        $("html").css({ "overflow": "auto" });
         return false;
     }
     DetalleVisible(false);
@@ -214,11 +220,11 @@ function DetalleVisible(accion, popup) {
         if (popup) {
             PopupCerrarTodos();
         }
-        $("#contenidoGrilla").show();
+        //$("#contenidoGrilla").show();
         //$(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
     }
     else {
-        $("#contenidoGrilla").hide();
+        //$("#contenidoGrilla").hide();
         //$(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
     }
 }
@@ -256,9 +262,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
                 return false;
             }
 
-            var source = $("#html-detalle-facturado").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
+            var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
             if (tipo == "i") {
                 $('#pedidoPorCliente').attr("data-camp", camp);
                 $('#pedidoPorCliente').empty().html(htmlDiv);
@@ -321,12 +325,8 @@ function CargarDetalleIngresado(camp, page, rows) {
                 return false;
             }
 
-            var source = $("#html-detalle-ingresado").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
-
+            SetHandlebars("#html-detalle-ingresado", data, '#pedidoPorCliente');
             $('#pedidoPorCliente').attr("data-camp", camp);
-            $('#pedidoPorCliente').empty().html(htmlDiv);
 
             // mostarar el primero
             var primer = $(".acordion_titulo > [data-acordion]")[0];
@@ -383,9 +383,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
                 return false;
             }
 
-            var source = $("#html-detalle-ingresado-detalle").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
+            var htmlDiv = SetHandlebars("#html-detalle-ingresado-detalle", data);
 
             $("#pedidoPorCliente [data-contenido='" + cliente + "']").empty().html(htmlDiv);
             if (data.RecordCount > 0) {

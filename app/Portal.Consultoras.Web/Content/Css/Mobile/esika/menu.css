@@ -8,17 +8,16 @@
 .menu {
     background: #fff;
     font-family: Arial, Helvetica, sans-serif;
-    left: -80%; /* start off behind the scenes */
+    left: -100%;
     height: 100%;
     position: fixed;
-    width: 79%;
-    border: 1px solid #6f8390;
+    width: 90%;
+    -webkit-box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
+    -moz-box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
+    box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
     border-top: none;
     color: #722789;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 1000000;
-    font-size: 18px;
+    overflow:auto;
 }
 
     .menu ul {
@@ -43,20 +42,16 @@
         }
 
     .menu a {
-        color: #6f2072;
-        font-size: 20px;
-        text-decoration: none;
-        text-transform: uppercase;
+        
     }
 
 .icon-close {
     cursor: pointer;
-    right: 18px;
-    top: 5px;
+    right: 10px;
+    top: 10px;
     display: none;
-    position: fixed;
-    z-index: 1000000;
-    background-color: #fff;
+    position: absolute;
+    z-index: 1000000 !important;
 }
 
 
@@ -160,7 +155,7 @@
 
 .bg_white {
     background-color: white;
-    width: 100%;
+    width: 90%;
     height: 100%;
     position: fixed;
     z-index: 100000;
@@ -273,3 +268,75 @@ div#caja-back-header {
     
 
 
+/*CAMBIOS MENU*/
+.foto_menu{
+    width:89px;
+    margin:auto;
+    overflow:hidden;
+    
+}
+.menu[style="left: 0px;"] {
+    width: 90%;
+}
+.saludo_menu{
+    text-align:center;
+    font-family:'Lato';
+    color:black;
+    font-size:17px;
+    margin-top:7px;
+    padding-bottom:30px;
+    padding-left:22px;
+    padding-right:22px;
+    letter-spacing:0.3px;
+    border-bottom:1px solid #e5e5e5;
+}
+.menu_mobile_belcorp{
+    display:block;
+    font-family:'Lato';
+    color:black;
+    font-size:14px;
+    padding-top:12px;
+    padding-bottom:12px;
+    padding-left:22px;
+    border-bottom:1px solid #e5e5e5;
+    color:black;
+}
+.btn_cerrar_sesion{
+    display:block;
+    font-family:'Lato';
+    color:black;
+    font-size:13px;
+    text-decoration:underline;
+    margin-top:60px;
+    padding-left:22px;
+    cursor:pointer;
+    margin-bottom: 20px;
+}
+.indicador_bel{
+    background: url("../../../Images/mobile/Esika/indicador_pedido.png") no-repeat;
+    background-position: 10px 17px;
+}
+.indicador_submenu{
+    background: url("../../../Images/mobile/Esika/menu_mobile.png") no-repeat;
+    background-position: 95% 19px;
+}
+.submenu_1{
+    padding-top:25px;
+    padding-bottom:10px;
+    background:#f1f1f1;
+}
+.menu_subHeader{
+    display: block;
+    margin-bottom: 15px;
+    padding-left: 43px;
+    font-family: 'Lato';
+    color: black;
+    font-size: 14px
+}
+.content_close{   
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height: 37px;
+
+}

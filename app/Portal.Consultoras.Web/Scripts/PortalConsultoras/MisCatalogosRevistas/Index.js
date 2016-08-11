@@ -30,15 +30,16 @@ jQuery(document).ready(function () {
 
     $(".mostrar_todos").html($.trim($(".mostrar_todos").html()).replace("##", listaCorreo.length));
     
-        $('#tagCorreo').tagsInput({
+    $('#tagCorreo').tagsInput({
         'width': '100%',
+        'height': '50px',
         minInputWidth: '100%',
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
-        classMain: 'tag-editor',
+        classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
-        'autocomplete' :{
+        'autocomplete': {
             'source': listaCorreo,
             'create': renderItemCliente
         }

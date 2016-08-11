@@ -1,10 +1,20 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@model CatalogoMobileModel
+@model ClienteMobileModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
-<div class="wrapper_resumen_mobile">
+<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
+<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
+<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+<span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+
+<div class="wrapper_resumen_mobile" style="display:none;">
     <div class="content_320">
         <div class="content_app">
             DESCARGA TU<br/>
@@ -22,13 +32,13 @@
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
         <li class="one">
-            <a href="#" data-tag="EstadoCuenta">
+            <a href="#" data-tag="Catalogos">
                 CATÁLOGOS
                 <div class="marcador_tab"></div>
             </a>
         </li>
         <li class="two">
-            <a href="#" data-tag="LugaresPago">
+            <a href="#" data-tag="Revistas">
                 REVISTAS
                 <div class="marcador_tab oculto"></div>
             </a>
@@ -39,13 +49,13 @@
 </div>
 <div class="wrapper_resumen_mobile">
     <!--TAB CATÁLOGOS-->
-    <div id="tab_catalogos_mobile">
+    <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-09</div>
-        <div class="content_carrusel_catalogo">
-            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
-            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" /></a>
-            <!--ITEM 1-->
+        <div class="content_carrusel_catalogo" id="divCatalogo">
+            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
+            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>    
+            @*<!--ITEM 1-->
             <div class="content_item_catalogo">
                 <a class="content_catalogo">
                     <img src="@Url.Content("~/Content/Images/mobile/Esika/lbel_revista.png")" alt="-" />
@@ -71,18 +81,20 @@
                 <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
                 <a class="btn_facebook"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
-            </div>
+            </div>*@
         </div>
        
     </div>
     <!--FIN-->
     <!--TAB REVISTA-->
-    <div id="tab_revistas_mobile">
+    <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
         <div class="titulo_catalogo">REVISTAS C-09</div>
         <div class="content_revistas_mobile">
-            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
-            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" /></a>
-            <img src="@Url.Content("~/Content/Images/mobile/Esika/revista_c09.png")" alt="-" />
+            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
+            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
+            <a id="lbPortadaGana" href="#" target="_blank">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
+            </a>
         </div>
     </div>
     <!--FIN TAB REVISTA-->
@@ -98,12 +110,12 @@
         <hr class="clear" />
         <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
         <div class="Label_compartir">Agregar contacto:</div>
-        <a class="mostrar_todos">Añadir todos mis contáctos (12)</a>
+        <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
         <hr class="clear" />
         <!--TAG-->
         <div style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
             <div style="min-height:25px; max-height:150px;">
-                <textarea id="hero-demo">Hola Alan soy el tag 1, Hola Alan soy el tag 2, Hola Alan soy el tag 3</textarea>
+                <textarea id="tagCorreo"></textarea>
             </div>
         </div>
         <!--FIN TAG-->
@@ -127,7 +139,7 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
             <!--CHECBOX 2-->
             <div data-cat="Lbel">
                 <div class="content_checkbox">
-                    <input class="inputradio" type="checkbox" checked="checked">
+                    <input class="inputradio" type="checkbox">
                     <span class="inputfalso"></span>
                 </div>
                 <div class="check_label">L'bel</div>
@@ -156,7 +168,7 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
         <div class="icono_alerta check_icono_mobile"></div>
         <div class="titulo_compartir">¡BIEN <b>HECHO</b>!</div>
         <div class="mensaje_alerta">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
-        <a class="btn_ok_mobile">OK</a>
+        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile').hide();">OK</a>
     </div>
 
 </div>
@@ -171,19 +183,46 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir">LO <b>SENTIMOS</b>!</div>
         <div class="mensaje_alerta">Debe seleccionar al menos <br/>un Catálogo</div>
-        <a class="btn_ok_mobile">OK</a>
+        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile2').hide();">OK</a>
     </div>
 
 </div>
 <!--FIN-->
+
+<script id="catalogo-template" type="text/x-handlebars-template">
+    <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
+        <div data-tipo="content">
+            <a class="content_catalogo" data-tipo="img" target="_blank" href="">
+                <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
+            </a>
+            <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
+            <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+            <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+            <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+        </div>
+    </div>
+</script>
 
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
 }
 @section scripts{
+    <script type="text/javascript">
+
+        var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var codigoIso = '@ViewBag.CodigoISO';
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Revista", new { area = "Mobile" })';
+        var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+        var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
+
+    </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Catalogo/Index.js")"></script>
     <script src="~/Scripts/Tag/jquery.tag-editor.js"></script>
     <script src="~/Scripts/Tag/jquery.caret.min.js"></script>
     <script src="~/Scripts/Tag/jquery.tag-autcomplete.js"></script>

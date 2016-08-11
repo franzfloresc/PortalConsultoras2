@@ -2,14 +2,14 @@
 function main() {
     $('.icon-menu').click(function () {
         $('.menu').animate({ left: '0px' }, 200);
-        $('body').animate({ left: '80%' }, 200);
+        $('body').animate({ left: '100%' }, 200);
         $('body').css({ 'overflow-x': 'hidden' });
         $('body').css({ 'overflow-y': 'hidden' });
         $('.icon-close').css({ 'display': 'block' });
         $('.bg_white').css({ 'display': 'block' });
     });
     $('.icon-close').click(function () {
-        $('.menu').animate({ left: '-80%' }, 200);
+        $('.menu').animate({ left: '-100%' }, 200);
         $('body').animate({ left: '0px' }, 200);
         $('.icon-close').css({ 'display': 'none' });
         $('.bg_white').css({ 'display': 'none' });

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using StackExchange.Redis;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.Logic
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
 {
     internal enum ECacheItem
     {

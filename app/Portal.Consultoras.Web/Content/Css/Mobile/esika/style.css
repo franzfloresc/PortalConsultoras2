@@ -4979,8 +4979,14 @@ body{
 .celular_esika{
     width:62px;
     height:110px;    
-    background: url("../../../Images/mobile/Esika/app.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Esika/app.png") no-repeat right bottom;*/
 }
+
+.celular_esika img{
+    width: 100%;
+    height: auto;
+}
+
 .video_esika{
     width:98px;
     height:66px;
@@ -5705,4 +5711,20 @@ input[type="checkbox"]:checked + span:after {
     padding-bottom: 8px;
     display: block;
     background:#e2e1e7;
+}
+.content_datos_c{
+    float:left;
+    padding-top: 7px;
+}
+.nombre_compartir{
+    
+    font-family:'lato';
+    font-size:10pt;
+    color:black;
+}
+.correo_compartir{
+    
+    color:#777;
+    font-family:'lato';
+    font-size:10pt;
 }
