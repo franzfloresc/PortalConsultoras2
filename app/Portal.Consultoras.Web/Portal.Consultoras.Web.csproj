@@ -979,7 +979,6 @@
     <Content Include="Content\Css\Mobile\lbel\theme.min.css" />
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
-    <Content Include="Content\Css\Site\Esika\ActualizarDatos_esika.css" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.svg" />
@@ -997,7 +996,6 @@
     <Content Include="Content\Css\Site\flexslider.css" />
     <Content Include="Content\Css\Site\hover.css" />
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
-    <Content Include="Content\Css\Site\Lbel\ActualizarDatos_lbel.css" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Site\Lbel\fonts\icomoon.svg" />
@@ -2275,7 +2273,6 @@
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_Head.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
