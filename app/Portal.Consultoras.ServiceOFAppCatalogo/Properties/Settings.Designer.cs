@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.Properties {
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -28,9 +28,9 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsCon" +
             "sulta.asmx")]
-        public string Portal_Consultoras_ServiceOFAppCatalogo_ServicePROLConsultas_wsConsulta {
+        public string Portal_Consultoras_ServiceCatalogoPersonalizado_ServicePROLConsultas_wsConsulta {
             get {
-                return ((string)(this["Portal_Consultoras_ServiceOFAppCatalogo_ServicePROLConsultas_wsConsulta"]));
+                return ((string)(this["Portal_Consultoras_ServiceCatalogoPersonalizado_ServicePROLConsultas_wsConsulta"]));
             }
         }
     }

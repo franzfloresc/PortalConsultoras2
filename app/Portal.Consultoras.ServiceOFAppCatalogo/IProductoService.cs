@@ -4,9 +4,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using Portal.Consultoras.ServiceOFAppCatalogo.Entities;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IProductoService" en el código y en el archivo de configuración a la vez.
     [ServiceContract]

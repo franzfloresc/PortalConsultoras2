@@ -702,25 +702,11 @@ function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
 }
 
 function ArmarDetallePedidoPaginador(data) {
-    var html = '';
-
-    var source = $("#paginador-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#paginador-template", data);
 }
 
 function ArmarDetallePedido(array) {
-    var html = '';
-
-    var source = $("#producto-template").html();
-    var template = Handlebars.compile(source);
-    var context = array;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#producto-template", array);
 }
 
 function AgregarProductoListado() {
@@ -1089,11 +1075,9 @@ function CargarCarouselEstrategias(cuv) {
 
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
-    var source = $("#estrategia-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
-    $('#divListadoEstrategia').empty().html(htmlDiv);
+
+    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+
     cierreCarouselEstrategias();
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         $('#divListadoEstrategia').parents('.caja_carousel_productos').hide();
@@ -1294,14 +1278,10 @@ function ObtenerProductosSugeridos(CUV) {
             }
 
             $("#divCarruselSugerido").html('');
-            var html = '';
-
-            var source = $("#js-CarruselSugerido").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(lista);
 
             $('#divProductoAgotadoFinal').show();
-            $("#divCarruselSugerido").html(htmlDiv);
+
+            SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
 
             $.each($("#divCarruselSugerido .sugerido"), function (index, obj) {
                 var h = $(obj).find(".nombre_producto").height();
@@ -1958,6 +1938,7 @@ function AgregarProductoDestacado(popup) {
                                 cierreCarouselEstrategias();
                                 CargarCarouselEstrategias(cuv);
                                 HideDialog("divVistaPrevia");
+                                CargarResumenCampaniaHeader();
                                 MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
 
                                 tieneMicroefecto = true;
@@ -3572,8 +3553,8 @@ function AjaxError(data) {
 // Barra
 
 function MostrarBarra(datax) {
-    $("#divBarra").hide();
-    return false;
+    //$("#divBarra").hide();
+    //return false;
 
     //return;
     $("#divBarra #divLimite").html("");
@@ -3841,10 +3822,11 @@ function MostrarBarra(datax) {
     }
     valPor = valPor || "";
     //if (msgLimite != "") {
+    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
         $("#divBarra").show();
         $("#divBarra #divBarraMensajeLogrado").show();
-        $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#valor", valPor));
-        $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#valor", vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro))));
+        $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+        $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
         var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
         wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
         $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
@@ -3892,17 +3874,11 @@ function CargarEstrategiasEspeciales(objInput, e) {
 };
 function ArmarPopupPackNuevas(obj) {
     console.log(obj);
-    var source = $("#packnuevas-template").html();
-    var template = Handlebars.compile(source);
-    var context = obj;
-    return template(context);
+    return SetHandlebars("#packnuevas-template", obj);
 };
 function ArmarPopupLanzamiento(obj) {
     console.log(obj);
-    var source = $("#lanzamiento-template").html();
-    var template = Handlebars.compile(source);
-    var context = obj;
-    return template(context);
+    return SetHandlebars("#lanzamiento-template", obj);
 };
 
 function HidePopupEstrategiasEspeciales() {

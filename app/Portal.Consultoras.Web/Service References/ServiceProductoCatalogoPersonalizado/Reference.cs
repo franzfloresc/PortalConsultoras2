@@ -15,8 +15,8 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Producto", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceOFAppCatalogo.E" +
-        "ntities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Producto", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersona" +
+        "lizado.Entities")]
     [System.SerializableAttribute()]
     public partial class Producto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

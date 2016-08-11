@@ -137,29 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception) { catalogos = new List<Catalogo>(); }
             return catalogos;
         }
-
-        private string getPaisNombreByISO(string paisISO)
-        {
-            switch (paisISO)
-            {
-                case "AR": return "argentina";
-                case "BO": return "bolivia";
-                case "CL": return "chile";
-                case "CO": return "colombia";
-                case "CR": return "costarica";
-                case "DO": return "republicadominicana";
-                case "EC": return "ecuador";
-                case "GT": return "guatemala";
-                case "MX": return "mexico";
-                case "PA": return "panama";
-                case "PE": return "peru";
-                case "PR": return "puertorico";
-                case "SV": return "elsalvador";
-                case "VE": return "venezuela";
-                default: return "sinpais";
-            }
-        }
-
+        
         private string CalcularCampaniaAnterior(string CampaniaActual)
         {
             var campAct = CampaniaActual.Substring(4, 2);
@@ -176,22 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1).ToString() + "01";
             else
                 return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
-        {
-            string resultado = catalogo.Estado.ToString();
-            if (catalogo.Estado == 2)
-            {
-                resultado = "1";
-                if ((campania >= catalogo.CampaniaInicio && campania <= catalogo.CampaniaFin )
-                    || (catalogo.CampaniaInicio != 0 && catalogo.CampaniaFin == 0 && campania >= catalogo.CampaniaInicio)
-                    )
-                {
-                    resultado = "0";
-                }
-            }
-            return resultado;
         }
 
         public JsonResult AutocompleteCorreo()
@@ -594,7 +556,46 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
+
+        private string CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
+        {
+            string resultado = catalogo.Estado.ToString();
+            if (catalogo.Estado == 2)
+            {
+                resultado = "1";
+                if ((campania >= catalogo.CampaniaInicio && campania <= catalogo.CampaniaFin)
+                    || (catalogo.CampaniaInicio != 0 && catalogo.CampaniaFin == 0 && campania >= catalogo.CampaniaInicio)
+                    )
+                {
+                    resultado = "0";
+                }
+            }
+            return resultado;
+        }
+
+        private string getPaisNombreByISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case "AR": return "argentina";
+                case "BO": return "bolivia";
+                case "CL": return "chile";
+                case "CO": return "colombia";
+                case "CR": return "costarica";
+                case "DO": return "republicadominicana";
+                case "EC": return "ecuador";
+                case "GT": return "guatemala";
+                case "MX": return "mexico";
+                case "PA": return "panama";
+                case "PE": return "peru";
+                case "PR": return "puertorico";
+                case "SV": return "elsalvador";
+                case "VE": return "venezuela";
+                default: return "sinpais";
+            }
+        }
+
         private bool ValidarCorreoFormato(string correo)
         {
             bool Result = false;

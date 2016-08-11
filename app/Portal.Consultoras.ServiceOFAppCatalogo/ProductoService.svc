@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Portal.Consultoras.ServiceOFAppCatalogo.ProductoService" CodeBehind="ProductoService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Portal.Consultoras.ServiceCatalogoPersonalizado.ProductoService" CodeBehind="ProductoService.svc.cs" %>

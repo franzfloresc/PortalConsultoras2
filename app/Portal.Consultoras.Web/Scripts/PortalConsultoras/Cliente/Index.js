@@ -231,25 +231,11 @@ function CargarListaCliente(page, rows) {
 }
 
 function ArmarListaCliente(array) {
-    var html = '';
-
-    var source = $("#cliente-template").html();
-    var template = Handlebars.compile(source);
-    var context = array;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#cliente-template", array);
 }
 
 function ArmarListaClientePaginador(data) {
-    var html = '';
-
-    var source = $("#paginador-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#paginador-template", data);
 }
 
 function showDivAgregar() {

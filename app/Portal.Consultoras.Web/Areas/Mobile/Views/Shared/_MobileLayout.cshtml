@@ -13,14 +13,14 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        
+
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-        
+
     }
     else
-    {   
-                
+    {
+
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
 
@@ -66,35 +66,71 @@
         </script>
         <!-- End Google Tag Manager -->
     }
-    <div class="bg_white"></div>
+
     <!-- Menu icon -->
-    <div class="icon-close">
-        <img src="@Url.Content("~/Content/Images/mobile/img-icon/m_ic_cerrar.png")" width="50" height="50" alt="X" />
-    </div>
+
     <div class="menu">
-        <div class="nombre" style="color:#768ea3;">HOLA @ViewBag.NombreConsultora</div>
-        <div class="nombre bg_sky">ESTÁS EN <strong>C-@ViewBag.NumeroCampania</strong></div>
-        <div id="cssmenu">
-            @Html.Partial("_MobileMenuLateral")
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="naranja-box">
-                        <a href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
-                           role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido"
-                           class="btn btn-line-hover btn-block"><i class="icon-lg icon-shop-belcorp"></i>INGRESA TU PEDIDO</a>
+        <div class="content_close">
+            <div class="icon-close">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
+            </div>
+        </div>
+        <div class="foto_menu">
+            <div class="content_foto">
+                <div class="foto_usuaria_mobile">
+                    <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
+                </div>
+                <a class="subir_foto_mobile"></a>
+            </div>
+        </div>
+        <div class="saludo_menu">¡Hola Valeria!</div>
+        <div class="botones">
+            <a class="menu_mobile_belcorp indicador_bel" href="#">INGRESA <b>TU PEDIDO</b></a>
+            <a class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu">Mi Negocio</a>
+            <!--SUBMENU-->
+            <div id="SubMenu" class="panel-collapse collapse submenu_1">
+                <a class="menu_subHeader">Consultora Online</a>
+                <a class="menu_subHeader">Zona de Liquidación</a>
+                <a class="menu_subHeader">Seguimiento a tu Pedido</a>
+                <a class="menu_subHeader">Estado de cuenta</a>
+                <a class="menu_subHeader">Pedidos FIC</a>
+                <a class="menu_subHeader">Pedidos Ingresados </a>
+                <a class="menu_subHeader">Pedidos Facturados</a>
+                <a class="menu_subHeader">Mis Clientes</a>
+                <a class="menu_subHeader">Productos Agotados</a>
+
+            </div>
+            <!--FIN-->
+            <a class="menu_mobile_belcorp" href="#">Catálogos y Revistas</a>
+            <a class="menu_mobile_belcorp" href="#">Mi Asesor de Belleza</a>
+            <a class="menu_mobile_belcorp" href="#">Mi Academia</a>
+            <a class="menu_mobile_belcorp" href="#">Mi Comunidad</a>
+            <a class="menu_mobile_belcorp" href="#">Mis Notificaciones</a>
+        </div>
+        <a class="btn_cerrar_sesion">Cerrar sesión</a>
+        @*<div class="nombre" style="color:#768ea3;">HOLA @ViewBag.NombreConsultora</div>
+            <div class="nombre bg_sky">ESTÁS EN <strong>C-@ViewBag.NumeroCampania</strong></div>
+            <div id="cssmenu">
+                @Html.Partial("_MobileMenuLateral")
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                        <div class="naranja-box">
+                            <a href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
+                               role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido"
+                               class="btn btn-line-hover btn-block"><i class="icon-lg icon-shop-belcorp"></i>INGRESA TU PEDIDO</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="clear"></div>
-        <div class="sesion">
-            <a href="@Url.Action("LogOut", "Login", new { area = "" })" role="menu" region="Lateral-inferior" parent="Cerrar sesión" title="Cerrar sesión" id="lnk-lat-cerrar-sesion" class="cerrarsesion">
-                <figure>
-                    <img src="@Url.Content("~/Content/Images/mobile/img-icon/mobile_icon_cerrar_sesion_plomo.png")" width="45" height="44" alt="-" />
-                </figure>
-                <span>Cerrar Sesión</span>
-            </a>
-        </div>
+            <div class="clear"></div>
+            <div class="sesion">
+                <a href="@Url.Action("LogOut", "Login", new { area = "" })" role="menu" region="Lateral-inferior" parent="Cerrar sesión" title="Cerrar sesión" id="lnk-lat-cerrar-sesion" class="cerrarsesion">
+                    <figure>
+                        <img src="@Url.Content("~/Content/Images/mobile/img-icon/mobile_icon_cerrar_sesion_plomo.png")" width="45" height="44" alt="-" />
+                    </figure>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>*@
     </div>
 
     <!-- alert-top -->
@@ -212,15 +248,15 @@
         </div>
     </div>
     <section style="min-height: 400px;">
-        
-            <div id="content">
-                @RenderBody()
-            </div>
-            <div class="clear">
-                <br />
-                <br />
-            </div>
-        
+
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
+
     </section>
     <!-- Pie de Página Antiguo -->
     @*<footer class="footer-page">
@@ -238,44 +274,44 @@
             </div>
         </footer>*@
     <!-- Pie de Página -->
-        <footer class="footer-page">
-            <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                AYUDA
-            </a>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <a class="menu_subfooter">PREGUNTAS FRECUENTES</a>
-                <a class="menu_subfooter">CONTÁCTANOS</a> 
-                <a class="menu_subfooter">TUTORIAL</a>  
-                    
+    <footer class="footer-page">
+        <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+            AYUDA
+        </a>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <a class="menu_subfooter">PREGUNTAS FRECUENTES</a>
+            <a class="menu_subfooter">CONTÁCTANOS</a>
+            <a class="menu_subfooter">TUTORIAL</a>
+
+        </div>
+        <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2">
+            LEGAL
+        </a>
+        <div id="collapseOne2" class="panel-collapse collapse">
+            <a class="menu_subfooter">CONDICIONES DE USO WEB</a>
+            <a class="menu_subfooter">TÉRMINOS Y CONDICIONES</a>
+        </div>
+        <a class="version_escritorio">Ir a la versión escritorio</a>
+        <div class="content_redes">
+            <div class="col-xs-2">
+                <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+                    <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+                </a>
             </div>
-            <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2">
-                LEGAL
-            </a>
-            <div id="collapseOne2" class="panel-collapse collapse">
-                <a class="menu_subfooter">CONDICIONES DE USO WEB</a>
-                <a class="menu_subfooter">TÉRMINOS Y CONDICIONES</a>                
-            </div>
-            <a class="version_escritorio">Ir a la versión escritorio</a>
-            <div class="content_redes">
-                <div class="col-xs-2">
-                    <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-                        <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
-                    </a>
-                </div> 
-                <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
-                <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
-                <hr class="clear" />
-            </div>
-                                     
-                    
-               
+            <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
+            <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
             <hr class="clear" />
-        </footer>
-        <!-- BOTÓN AGREGAR PEDIDO -->
-    
-    @*<span class="toUp bg-primary">
+        </div>
+
+
+
+        <hr class="clear" />
+    </footer>
+    <!-- BOTÓN AGREGAR PEDIDO -->
+
+    <span class="toUp bg-primary">
         <i class="icon-angle-up"></i>
-    </span>*@
+    </span>
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
@@ -410,7 +446,7 @@
     </div>
 
     @Scripts.Render("~/Scripts/Mobile")
-    
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
     <script type="text/javascript">
@@ -419,16 +455,16 @@
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
         var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
-        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetCantidadProductos", "Pedido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
+        var urlGetResumenCampania = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
 
         $(function () {
-            HandlebarsRegisterHelper();
+            $('.toUp').hide();
 
-            //$('.toUp').hide();
             //$(window).scroll(function () {
             //    if ($(this).scrollTop() > 70) {
             //        $('.toUp').fadeIn();
@@ -473,7 +509,7 @@
                     if (theEvent.preventDefault) theEvent.preventDefault();
                 }
             });
-            
+
             $("body").on("click", "[data-cantidad-agregar]", function () {
                 var signo = $(this).attr("data-cantidad-agregar");
                 var objPadre = $(this).parents("[data-cantidad-contenedor]");
@@ -861,6 +897,73 @@
             }
         }
 
+        function CargarResumenCampania() {
+            $.ajax({
+                type: 'GET',
+                url: urlGetResumenCampania,
+                data: '',
+                cache: false,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.result) {
+                            var montoWebAcumulado = "0";
+                            var montoTotalPagar = "0";
+
+                            if (data.montoWebAcumulado == 0) {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoWebAcumulado = "0";
+                                else
+                                    montoWebAcumulado = "0.00";
+                            } else {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                                else
+                                    montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                            }
+
+                            if (data.montoTotalPagar == 0) {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoTotalPagar = "0";
+                                else
+                                    montoTotalPagar = "0.00";
+                            } else {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoTotalPagar = SeparadorMiles(data.montoTotalPagar.toFixed(0));
+                                else
+                                    montoTotalPagar = data.montoTotalPagar.toFixed(2);
+                            }
+
+                            var fecha = data.fechaVencimiento || "";
+                            var dateString = fecha.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            //var year = currentTime.getFullYear();
+                            var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month); //+ "/" + year;
+
+                            if (date == '01/01') date = '--/--';
+
+                            $(".js-div-deuda").html(data.Simbolo + " " + "<span>" + montoTotalPagar + "</span>");
+                            $(".js-div-vencimiento").html('Vencimiento: ' + date);
+                            $(".js-span-pedidoingresado").html("Pedido ingresado: " + data.Simbolo + " " + montoWebAcumulado);
+                        }
+                        else {
+                            console.error("Ocurrio un error con el Resumen de Campaña.");
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        };
+
+        //GR-799
+
         function messageInfoValidado(message, fnAceptar) {
             $('#mensajeInformacionvalidado').html(message);
             $('#popupInformacionValidado').modal("show");
@@ -869,6 +972,8 @@
                 $('#popupInformacionValidado .btn-aceptar').on('click', fnAceptar);
             }
         }
+
+        //END GR-799
 
         function CargarCantidadProductosPedidos() {
             jQuery.ajax({
@@ -879,23 +984,7 @@
                 success: function (data) {
                     if (checkTimeout(data)) {
 
-                        if (data.montoWebAcumulado == 0) {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = "0";
-                            else
-                                montoWebAcumulado = "0.00";
-                        } else {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                            else
-                                montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                        }
-
                         $(".num-menu-shop").html(data.cantidadProductos);
-                        $(".js-span-pedidoingresado").html(montoWebAcumulado);
-
-                        $("#spnCantidadProductos").html(data.cantidadProductos);
-                        $("#spnDescripcionTotal").html(montoWebAcumulado);
 
                         if (data.mensaje != '') {
                             console.log(data.mensaje);

@@ -19,7 +19,7 @@
             nombreConsultora += "!";
         }
     }
-
+    
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
 
@@ -61,7 +61,6 @@
             <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
         </div>
         <div class="resumen_belcorp_cam">
-
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
                 <div class="nombre_consultora">
@@ -194,17 +193,78 @@
             <div>MIS GANANCIAS</div>
             <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
         </div>
-        <hr class="clear" />
+        <hr class="clear"/>
         <div class="info_centro">
-            Voy ganando:
+              @{
+                string cabezaEscala=null, pieEscala=null;
+                if(Model.PaisID == 11) //PERU
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 4) //COLOMBIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 6) //ECUADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 3) //CHILE
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 2) //BOLIVIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 9) //MEXICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PaisID == 5) //COSTA RICA
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";                
+                }
+                else if (Model.PaisID == 8)//GUATEMALA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 7)//EL SALVADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 10)//PANAMA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }else if (Model.PaisID == 13)//DOMINICANA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 12)//PUERTO RICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+            }
+            @(cabezaEscala)
             <div class="deuda_home">
                 @Model.Simbolo
                 <span>
-                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista),  Model.PrefijoPais)
+                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.PrefijoPais)
                 </span>
             </div>
             <span>Pedido ingresado: <span id="spanPedidoIngresado">@Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoPedido, Model.PrefijoPais)</span></span>
-            <div style="font-size: 10px; color: #777; font-weight: 300; line-height: 1.68; ">*Monto referencial.</div>
         </div>
         <!--ESCALA DE DESCUENTO-->
         <div class="content_escala">
@@ -247,6 +307,7 @@
                     }
                 }
             }
+            <div style="font-size: 9px; color: #777; font-weight: 300; line-height: 7.9px; margin-top: 7px;">@(pieEscala)</div>
         </div>
         <!--FIN ESCALA DE DESCUENTO-->
     </div>
@@ -1038,7 +1099,7 @@
                     <div>
                         <span class="icono_check"></span>
                         <span class="texto_descripcionCondiciones">
-                            Pasar tu pedido hasta el <span id="fechaHasta"></span>
+                            Pasar tu pedido hasta el <span id="fechaHasta" style="display: inline;"></span>
                         </span>
                     </div>
                     <div>
@@ -1100,6 +1161,11 @@
         </div>
         <div class="contenido_popUp">
             <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
+            <input type="hidden" id="hdn_CorreoMD" value=""/>
+            <input type="hidden" id="hdn_CodigoUsuarioMD" value=""/>
+            <input type="hidden" id="hdn_NombreCompletoMD" value=""/>
+            <input type="hidden" id="hdn_NombreArchivoContratoMD" value=""/>
+            
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
                     <div class="datos_consultora_img">
@@ -1117,7 +1183,7 @@
                             <span>Tu Nombre completo:</span>
                             <span id="nombresUsuarioMD"></span>
                         </div>
-                        <div class="enlace_cambiarContrasenia">
+                        <div class="enlace_cambiarContraseniachkAceptoContratoMD">
                             <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                         </div>
                     </div>
@@ -1155,7 +1221,7 @@
                         <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                     </div>
                     <div class="contenedor_boton_actualizar">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
                             ACTUALIZAR
                         </button>
                     </div>
@@ -1178,12 +1244,12 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div class="contenedor_boton_cancelar misDatos">
-                        <button type="button" name="btn_cancelar" class="btn_cancelar">
+                        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
                             CANCELAR
                         </button>
                     </div>
                     <div class="contenedor_boton_actualizar misDatos">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
                             GUARDAR
                         </button>
                     </div>

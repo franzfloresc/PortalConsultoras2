@@ -7,10 +7,6 @@
 
 @{
     var base1 = new BaseController();
-    //var campaniaNro = ((Model.PedidoActual.CampaniaID == 0) ? "" : Model.PedidoActual.CampaniaID.ToString().Substring(4, 2));
-    //var formatoCampania = ((Model.PedidoActual.CampaniaID == 0) ? "" : Model.PedidoActual.CampaniaID.ToString().Substring(0, 4) + "-" + Model.PedidoActual.CampaniaID.ToString().Substring(4, 2));
-    //var formatoFecha = Model.PedidoActual.FechaRegistro.Day + " de " + base1.NombreMes(Model.PedidoActual.FechaRegistro.Month);
-    //var cantidad = (Model.PedidoActual.CampaniaID == 0 ? 0 : 1) + Model.ListaFacturados.Count;
     Model.ListaFacturados = Model.ListaFacturados ?? new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
     var cantidad = Model.ListaFacturados.Count;
     var mensajeCantidad = cantidad == 0
@@ -31,88 +27,89 @@
 <!-- Fin titulo-->
 <div id="cuerpo">
     <div data-div="f">
-        <div class="popup_pedidosFacturados" data-popup="facturado">
-            <div class="content_popUp" style="padding-top:24px; padding-bottom:24px!important;">
-                <div class="btn_cerrar_popup_pedidosIngresados" data-accion="close">
-                    <a href="#" title="Cerrar Popup">
-                        <div class="icono_regresar">
-                            <img src="@Url.Content("~/Content/Images/btn_regresar_mispedidos.svg")" alt="Regresar">
-                        </div>
+        <div class="popup_frame" data-popup="facturado">
+            <div class="popup_body">
+                <div class="popup_btn_cerrar_top" data-accion="close">
+                    <a href="javascript:;" title="Cerrar Popup">
+                        <div class="icono_regresar"><span class="img"></span></div>
                         <div class="texto_btn_regresar">REGRESAR A MIS PEDIDOS</div>
                     </a>
                 </div>
-                <div class="pedidosFacturados_campania">
-                    @*<span></span>*@
-                    <h1>PEDIDO&nbsp;<b> FACTURADO</b></h1>
-                    <form>
-                        <select data-selectcamp=""></select>
-                    </form>
-                    <a id="verIngresado" class="veringresado" style="top: 12px;">
-                        <b class="flecha_atras"></b>
-                        <b>VER PEDIDO INGRESADO</b>
-                    </a>
-                </div>
-                <div class="contenedor_bloque_datos">
-                    <span class="texto_descripcion">Estos son los productos que te llegaron en la caja de pedido.</span>
-                    <div class="icono_imprimir">
-                        <a href="#" title="Imprimir">
-                            <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                <div class="popup_content">
+                    <div class="pedidosFacturados_campania">
+                        @*<span></span>*@
+                        <h1>PEDIDO&nbsp;<b> FACTURADO</b></h1>
+                        <form>
+                            <select data-selectcamp=""></select>
+                        </form>
+                        <a id="verIngresado" class="veringresado" style="top: 12px;">
+                            <b class="flecha_adelante"></b>
+                            <b>VER PEDIDO INGRESADO</b>
                         </a>
                     </div>
-                    <div class="icono_excel">
-                        <a href="#" title="Descargar Excel">
-                            <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcelFacturado(this);" />
-                        </a>
+                    <div class="contenedor_bloque_datos">
+                        <span class="texto_descripcion">Estos son los productos que te llegaron en la caja de pedido.</span>
+                        <div class="icono_imprimir" style="bottom: 20%;right: 3.5%;">
+                            <a href="javascript:;" title="Imprimir">
+                                <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                            </a>
+                        </div>
+                        <div class="icono_excel">
+                            <a href="javascript:;" title="Descargar Excel">
+                                <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcelFacturado(this);" />
+                            </a>
+                        </div>
+                        <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
                     </div>
-                    <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
-                </div>
-                <!--CONTENIDO TABLAS FACTURADOS-->
-                <div id="divContenidofacturado">
-
+                    <!--CONTENIDO TABLAS FACTURADOS-->
+                    <div id="divContenidofacturado">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div data-div="i">
-        <div class="popup_pedidosIngresados" data-popup="ingresado">
-            <div class="content_popUp" style="padding-top:24px!important; padding-bottom:24px!important;">
-                <div class="btn_cerrar_popup_pedidosIngresados" data-accion="close">
-                    <a href="#" title="Cerrar Popup">
-                        <div class="icono_regresar">
-                            <img src="@Url.Content("~/Content/Images/btn_regresar_mispedidos.svg")" alt="Regresar">
-                        </div>
+        <div class="popup_frame" data-popup="ingresado">
+            <div class="popup_body">
+                <div class="popup_btn_cerrar_top" data-accion="close">
+                    <a href="javascript:;" title="Cerrar Popup">
+                        <div class="icono_regresar"><span class="img"></span></div>
                         <div class="texto_btn_regresar">REGRESAR A MIS PEDIDOS</div>
                     </a>
                 </div>
-                <div class="pedidosFacturados_campania">
-                    @*<span></span>*@
-                    <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
-                    <form>
-                        <select data-selectcamp=""></select>
-                    </form>
-                    <a id="regresarFacturado" class="veringresado" style="top: 12px;">
-                        <b class="flecha_atras"></b>
-                        <b>RETORNAR PEDIDO FACTURADOS</b>
-                    </a>
-                </div>
-                <div class="contenedor_bloque_datos">
-                    <span class="texto_descripcion">Estos son los productos que ingresaste por SomosBelcorp.com</span>
-                    <div class="icono_imprimir">
-                        <a href="#" title="Imprimir">
-                            <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
-                        </a>
-                    </div>
-                    <div class="icono_excel">
-                        <a href="#" title="Descargar Excel">
-                            <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcel(this);" />
-                        </a>
-                    </div>
-                    <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
-                </div>
-                <!-- CONTENIDO TABLAS CLIENTE-->
-                <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
-                </div>
+                <div class="popup_content">
+                    <div>
+                        <div class="pedidosFacturados_campania">
+                            @*<span></span>*@
+                            <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
+                            <form>
+                                <select data-selectcamp=""></select>
+                            </form>
+                            <a id="regresarFacturado" class="veringresado" style="top: 12px;">
+                                <b class="flecha_atras"></b>
+                                <b>RETORNAR PEDIDO FACTURADOS</b>
+                            </a>
+                        </div>
+                        <div class="contenedor_bloque_datos">
+                            <span class="texto_descripcion">Estos son los productos que ingresaste por SomosBelcorp.com</span>
+                            <div class="icono_imprimir" style="bottom: 20%;right: 3.5%;">
+                                <a href="javascript:;" title="Imprimir">
+                                    <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                                </a>
+                            </div>
+                            <div class="icono_excel">
+                                <a href="javascript:;" title="Descargar Excel">
+                                    <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcel(this);" />
+                                </a>
+                            </div>
+                            <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
+                        </div>
+                        <!-- CONTENIDO TABLAS CLIENTE-->
+                        <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
+                        </div>
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -123,7 +120,7 @@
             <div class="tabla_misPedidos">
                 <!--CONTENEDOR -->
                 <div class="content_mis_pedidos">
-                    @*<div class="icono_campanias"></div>*@
+                    <div class="icono_campanias"></div>
                     <div class="titulo_detalle_pago titulo_campanias">
                         <div>MIS ÚLTIMAS<b> CAMPAÑAS</b></div>
                     </div>
@@ -293,11 +290,11 @@
                     <li class="flecha_paginador_adelante" data-paginacion="next"></li>
                     <li class="seleccion_pagina">
                         <select data-paginacion="rows" data-val="{{PageSize}}">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
+                            <option value="10">ver 10 filas</option>
+                            <option value="20">ver 20 filas</option>
+                            <option value="30">ver 30 filas</option>
+                            <option value="40">ver 40 filas</option>
+                            <option value="50">ver 50 filas</option>
                         </select>
                     </li>
                 </ul>
@@ -319,7 +316,7 @@
             <span>{{CantidadProducto}}</span>
             <span>PRODUCTOS</span>
         </div>
-        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:19%!important; font-size:14px;">
             <div class="totalTexto">SUBTOTAL:</div>
             <div class="totalTexto">OFERTAS POR NIVELES:</div>
             <div class="totalTexto">MONTO TOTAL:</div>
@@ -373,17 +370,17 @@
         <div>
             <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}">
                 {{#iff RecordCount '>' 0}}
-                <li class="productos_agregados_usuario">
+                <li class="productos_agregados_usuario" style="display: none;">
                     <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>
                     &nbsp;productos
                 </li>
                 <li class="seleccion_pagina" style="margin-left:10px;">
                     <select data-paginacion="rows" data-val="{{PageSize}}">
-                        <option value="10">ver 10</option>
-                        <option value="20">ver 20</option>
-                        <option value="30">ver 30</option>
-                        <option value="40">ver 40</option>
-                        <option value="50">ver 50</option>
+                        <option value="10">ver 10 filas</option>
+                        <option value="20">ver 20 filas</option>
+                        <option value="30">ver 30 filas</option>
+                        <option value="40">ver 40 filas</option>
+                        <option value="50">ver 50 filas</option>
                     </select>
                 </li>
                 <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
@@ -404,7 +401,7 @@
         </div>
     </div>
     <div style="float:right;">
-        <div class="productos_agregados_usuario" style="display:inline-block;display:none;">
+        <div class="productos_agregados_usuario" style="display:inline-block;">
             <span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
             &nbsp;productos
         </div>
@@ -426,7 +423,7 @@
         <!--CABECERA DE TABLAS FACTURADOS-->
         <div class="content_datos_pedidosFacturados">
             <div class="codigo_prod texto_gris_popup">Código</div>
-            <div class="descripcion_prod texto_gris_popup">Descripción</div>
+            <div class="descripcion_prod texto_gris_popup">Producto</div>
             <div class="cantidadProd texto_gris_popup">Unidades</div>
             <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
             <div class="totalPrecio_prod texto_gris_popup">Subtotal</div>
@@ -464,7 +461,7 @@
     <!--FIN CONTENIDO DE TABLAS FACTURADOS-->
     {{#iff tipo '==' 'f'}}
     <div style="text-align:right; padding-right:40px;">
-        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:12%!important;">
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:13%!important;">
             <div class="totalTexto">IMPORTE TOTAL:</div>
             <div class="totalTexto">FLETE:</div>
             <div class="totalTexto">TOTAL FACTURADO:</div>

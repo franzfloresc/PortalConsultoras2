@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Web;
 using Portal.Consultoras.Common;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.Entities
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
 {
     [DataContract]
     public class Producto

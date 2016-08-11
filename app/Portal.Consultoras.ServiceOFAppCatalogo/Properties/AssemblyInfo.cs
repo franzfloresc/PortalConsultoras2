@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("Portal.Consultoras.ServiceOFAppCatalogo")]
+[assembly: AssemblyTitle("Portal.Consultoras.ServiceCatalogoPersonalizado")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Portal.Consultoras.ServiceOFAppCatalogo")]
+[assembly: AssemblyProduct("Portal.Consultoras.ServiceCatalogoPersonalizado")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

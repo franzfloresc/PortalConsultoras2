@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using Portal.Consultoras.ServiceOFAppCatalogo.Data;
-using Portal.Consultoras.ServiceOFAppCatalogo.Entities;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Data;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.Logic
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
 {
     public class BLProducto
     {

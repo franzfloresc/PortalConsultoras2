@@ -52,34 +52,13 @@ function CargarEscalaPercepciones(page, rows) {
     });
 };
 function ArmarEscalaPercepciones(array) {
-    var html = '';
-
-    var source = $("#producto-template").html();
-    var template = Handlebars.compile(source);
-    var context = array;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#producto-template", array);
 };
 function ArmarPaginador(data) {
-    var html = '';
-
-    var source = $("#paginador-percepciones-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#paginador-percepciones-template", data);
 };
 function ArmarDetallePercepcion(data) {
-    var html = '';
-
-    var source = $('#popup-percepcion-template').html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    html = template(context);
-
-    return html;
+    return SetHandlebars("#popup-percepcion-template", data);
 };
 function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);

@@ -49,14 +49,6 @@ $(document).ready(function () {
         e.preventDefault();
         (this).blur();
     });
-
-    Handlebars.registerHelper('if_eq', function (a, b, opts) {
-        if (a == b) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
-    });
     //HorarioRestringido();
     ReservadoOEnHorarioRestringido();
 });
@@ -135,10 +127,7 @@ function CargarOfertasLiquidacion() {
 };
 function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
-    var source = $("#OfertasLiquidacionMobile-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
+    var htmlDiv = SetHandlebars("#OfertasLiquidacionMobile-template", data);
     $('#liquidacionMobile').append(htmlDiv);
 };
 function EstructurarDataCarouselLiquidaciones(array) {

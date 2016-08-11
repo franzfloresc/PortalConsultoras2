@@ -75,6 +75,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="CourtesyFlush">
+      <HintPath>..\Library\CourtesyFlush.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\DocumentFormat.OpenXml.dll</HintPath>
@@ -205,6 +208,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\CatalogoClienteModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\ClienteMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\EstadoCuentaMobilModel.cs" />
@@ -975,6 +979,7 @@
     <Content Include="Content\Css\Mobile\lbel\theme.min.css" />
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
+    <Content Include="Content\Css\Site\Esika\ActualizarDatos_esika.css" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.svg" />
@@ -992,6 +997,7 @@
     <Content Include="Content\Css\Site\flexslider.css" />
     <Content Include="Content\Css\Site\hover.css" />
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
+    <Content Include="Content\Css\Site\Lbel\ActualizarDatos_lbel.css" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Site\Lbel\fonts\icomoon.svg" />
@@ -1503,6 +1509,7 @@
     <Content Include="Content\Images\Esika\fle_.png" />
     <Content Include="Content\Images\Esika\fondo.png" />
     <Content Include="Content\Images\Esika\fondo_circulo.png" />
+    <Content Include="Content\Images\Esika\fondo_pestana.png" />
     <Content Include="Content\Images\Esika\home-video.png" />
     <Content Include="Content\Images\Esika\icono-admiracion.png" />
     <Content Include="Content\Images\Esika\icono-campanias.jpg" />
@@ -1818,6 +1825,7 @@
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
     <Content Include="Content\Images\mobile\Esika\banner1.png" />
+    <Content Include="Content\Images\mobile\Esika\btn_cerrar_header.png" />
     <Content Include="Content\Images\mobile\Esika\camara.png" />
     <Content Include="Content\Images\mobile\Esika\carpeta.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_facebook.png" />
@@ -1844,6 +1852,7 @@
     <Content Include="Content\Images\mobile\Esika\mas_footer.png" />
     <Content Include="Content\Images\mobile\Esika\menos.png" />
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
+    <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
@@ -1960,6 +1969,9 @@
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
+    <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
+    <Content Include="Content\Images\mobile\Lbel\icono_check_lbel.svg" />
+    <Content Include="Content\Images\mobile\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\mobile\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\mobile\Lbel\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
@@ -2193,6 +2205,7 @@
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
@@ -2262,6 +2275,7 @@
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\SeguimientoPedido\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_Head.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
@@ -2396,6 +2410,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Bienvenida\_OfertasParaTi.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.ttf" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.woff" />

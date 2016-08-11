@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.ServicePROLConsultas {
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.ServicePROLConsultas {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.ServiceOFAppCatalogo.ServicePROLConsultas {
         
         /// <remarks/>
         public wsConsulta() {
-            this.Url = global::Portal.Consultoras.ServiceOFAppCatalogo.Properties.Settings.Default.Portal_Consultoras_ServiceOFAppCatalogo_ServicePROLConsultas_wsConsulta;
+            this.Url = global::Portal.Consultoras.ServiceCatalogoPersonalizado.Properties.Settings.Default.Portal_Consultoras_ServiceCatalogoPersonalizado_ServicePROLConsultas_wsConsulta;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

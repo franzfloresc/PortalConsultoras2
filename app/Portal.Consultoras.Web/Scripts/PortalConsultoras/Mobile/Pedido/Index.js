@@ -45,15 +45,6 @@
         };
     });
 
-    //Cargando custom helpers handlebars js
-    Handlebars.registerHelper("if_eq", function (a, b, opts) {
-        if (a == b) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
-    });
-
     CargarProductosDestacados("");
 
     var CuvEnSession = $("#hdCuvEnSession").val();
@@ -648,11 +639,8 @@ function AgregarProductoCarrusel(data) {
     $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
 
     data = EstructurarDataCarousel(data);
-
-    var source = $("#html-estrategia").html();
-    var template = Handlebars.compile(source);
-    var htmlDiv = template(data);
-    $("#divContenidoEstrategias").html(htmlDiv);
+    
+    SetHandlebars("#html-estrategia", data, "#divContenidoEstrategias");
 
     RegistrarOwlCarrousel();
 };

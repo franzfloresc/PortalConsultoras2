@@ -5,14 +5,6 @@
     CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
 
-    //Cargando custom helpers handlebars js
-    Handlebars.registerHelper('if_eq', function (a, b, opts) {
-        if (a == b) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
-    });
 });
 
 function RedirectPagaEnLineaAnalytics() {
@@ -51,11 +43,7 @@ function CargarCarouselEstrategias(cuv) {
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
 
-    var source = $("#estrategia-template").html();
-    var template = Handlebars.compile(source);
-    var context = data;
-    var htmlDiv = template(context);
-    $('#divCarouseHorizontalMobile').empty().html(htmlDiv);
+    SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
 
     if ($.trim($('#divCarouseHorizontalMobile').html()).length == 0) {
         $('.fondo_gris').hide();

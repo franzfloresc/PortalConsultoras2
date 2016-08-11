@@ -145,12 +145,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var PaisID = userData.PaisID;
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var ultimosTresPedidos = pedidoWebDetalle.Count > 0 ?
+                                         //pedidoWebDetalle.Skip(Math.Max(0, pedidoWebDetalle.Count() - 3)).ToList() :
+                                         pedidoWebDetalle.Take(3).ToList() :
+                                         new List<BEPedidoWebDetalle>();
 
                 return Json(new
                 {
                     result = true,
                     montoWebAcumulado = pedidoWebDetalle.Sum(p => p.ImporteTotal),
                     cantidadProductos = pedidoWebDetalle.Sum(p => p.Cantidad),
+                    ultimosTresPedidos = ultimosTresPedidos,
                     Simbolo = userData.Simbolo,
                     paisID = PaisID
                 }, JsonRequestBehavior.AllowGet);

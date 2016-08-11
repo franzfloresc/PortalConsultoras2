@@ -8,7 +8,7 @@ using System.Web;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Data;
 
-namespace Portal.Consultoras.ServiceOFAppCatalogo.Data
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Data
 {
     public class DAProducto : DataAccess
     {
