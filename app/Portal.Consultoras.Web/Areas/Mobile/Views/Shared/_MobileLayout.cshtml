@@ -462,6 +462,7 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
 
         $(function () {
             HandlebarsRegisterHelper();
