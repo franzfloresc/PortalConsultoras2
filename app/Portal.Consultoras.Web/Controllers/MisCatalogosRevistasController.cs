@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return Json(new
                     {
-                        success = true,
+                        success = false,
                         message = "No se pudo realizar el envió de correos a lo(s) clientes seleccionados, debido a que por ahora no existen catálogos publicados para esta Campaña.",
                         extra = ""
                     });
@@ -538,7 +538,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
+                    success = string.IsNullOrEmpty(CorreosInvalidos),
                     message = string.IsNullOrEmpty(CorreosInvalidos)
                         ? "Se envió satisfactoriamente el correo a los cliente(s) seleccionado(s)."
                         : ("Los siguientes correos no fueron enviados pues no tienen un formato correcto: " + CorreosInvalidos),

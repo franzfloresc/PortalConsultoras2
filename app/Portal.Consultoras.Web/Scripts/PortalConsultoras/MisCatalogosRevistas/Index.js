@@ -88,7 +88,7 @@ function ObtenerURLExpofertas() {
                     
                 }
                 else {
-                    alert('Error al cargar la informacion de Expoferta.');
+                    MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
                 }
             }
         }
@@ -436,13 +436,13 @@ function CatalogoEnviarEmail() {
 
     var correoEnviar = $('#tagCorreo').exportTag() || new Array();
     if (correoEnviar.length <= 0) {
-        alert_msg("No hay correo asignados para compartir.");
+        MonstrarExclamacion("No se ha ingresado ningún correo electrónico.");
         closeWaitingDialog();
         return false;
     }
     var catalogoEnviar = $("#divCheckbox").find("[type='checkbox'][checked]") || new Array();
     if (catalogoEnviar.length <= 0) {
-        alert_msg("No hay catálogo asignados para compartir.");
+        MonstrarExclamacion("No se ha seleccionado ningún catálogo.");
         closeWaitingDialog();
         return false;
     }
@@ -501,11 +501,14 @@ function CatalogoEnviarEmail() {
             closeWaitingDialog();
             $('#CompartirCorreo').hide();
             if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (!data.success) {
+                if (data.success) {
+                    MonstrarAlerta(data.message);
                     if (data.extra == "R") {
                         location.href = '/Bienvenida';
                     }
+                }
+                else {
+                    MonstrarExclamacion(data.message);
                 }
             }
         },
@@ -513,7 +516,7 @@ function CatalogoEnviarEmail() {
             closeWaitingDialog();
             $('#CompartirCorreo').hide();
             if (checkTimeout(data)) {
-                alert_msg("ERROR");
+                MonstrarExclamacion("ERROR");
             }
         }
     });
@@ -707,5 +710,17 @@ function SetGoogleAnalytics() {
             'virtualUrl': '/Revista/Proxima-C' + $("#hdrCampaniaActual").val() + '/Vista'
         });
     }
+}
+
+// mensaje alerta
+
+function MonstrarExclamacion(texto) {    
+    $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
+    $("#mensaje_exclamacion").show();
+}
+
+function MonstrarAlerta(texto) {
+    $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
+    $("#mensaje_alerta").show();
 }
 
