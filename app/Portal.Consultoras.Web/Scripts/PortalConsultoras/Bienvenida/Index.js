@@ -1466,6 +1466,12 @@ function ActualizarMD() {
         return false;
     }
 
+    if (!$('#chkAceptoContratoMD').is(':checked'))
+    {
+        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+        return false;
+    }
+
     waitingDialog({});
     var item = {
         CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),

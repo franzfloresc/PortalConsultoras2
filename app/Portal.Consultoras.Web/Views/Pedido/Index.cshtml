@@ -51,6 +51,8 @@
     <input id="hdnHasFlexipago" type="hidden" value="@Model.IndicadorFlexiPago" />
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
     <input id="hdfNomConsultora" type="hidden" value="@Model.NombreConsultora" />
+    
+    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo"/>
 
     <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
     <div class="clear"></div>
@@ -229,14 +231,18 @@
                             <p class="monto_total">
                                 MONTO TOTAL :
                             </p>
-                            @if (Model.MontoDescuento > 0)
-                            {
-                                <p class="monto_descuento"><span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:
-                                </p>
-                                <p class="monto_montodescuento">
-                                    MONTO DESCUENTO :
-                                </p>
-                            }
+                            
+                            <div id="divMontosEscalaDescuentoTexto" style="display: block;">
+                                @if (Model.MontoDescuento > 0)
+                                {
+                                    <p class="monto_descuento">
+                                        <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:
+                                    </p>
+                                    <p class="monto_montodescuento">
+                                        MONTO DESCUENTO :
+                                    </p>
+                                }
+                            </div>                           
                             <p class="monto_ganancia">
                                 MI GANANCIA :
                             </p>
@@ -253,20 +259,22 @@
                                     </span>
                                 </b>
                             </p>
-                            @if (Model.MontoDescuento > 0)
-                            {
-                                <p class="monto_descuento">
-                                    <b>
-                                        @Model.Simbolo<span class="num">@Model.FormatoMontoDescuento</span>
-                                    </b>
-                                </p>
-                                <p class="monto_montodescuento">
-                                    <b>
-                                        @Model.Simbolo<span class="num">@Model.FormatoMontoEscala</span>
-                                    </b>
-                                </p>
-                            }
                             
+                            <div id="divMontosEscalaDescuento" style="display: block;">
+                                @if (Model.MontoDescuento > 0)
+                                {
+                                    <p class="monto_descuento">
+                                        <b>
+                                            @Model.Simbolo<span class="num" id="spnMontoDescuento">@Model.FormatoMontoDescuento</span>
+                                        </b>
+                                    </p>
+                                    <p class="monto_montodescuento">
+                                        <b>
+                                            @Model.Simbolo<span class="num" id="spnMontoEscala">@Model.FormatoMontoEscala</span>
+                                        </b>
+                                    </p>
+                                }
+                            </div>                            
                             
                             <p class="monto_ganancia">
                                 <b>

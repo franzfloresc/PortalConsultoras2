@@ -157,17 +157,9 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.PaisID == 3) //Chile
+            @if (Model.PaisID == 12) //Puerto Rico
             {
                 <a class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a>
-            }
-            else if (Model.PaisID == 4) //Colombia
-            {
-                <a class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA ONLINE</a>
-            }
-            else if (Model.PaisID == 12) //Puerto Rico
-            {
-                <a class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA ONLINE</a>
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
@@ -195,7 +187,10 @@
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
             <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
-            <a class="btn_comparte_ws" href="#">Compartir por <b>WhatsApp</b></a>
+            @if (Model.IsConsultoraOnline != -1)
+            {
+                <a class="btn_comparte_ws" href="#">Compartir por <b>WhatsApp</b></a>
+            }    
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
         <hr class="clear" />
@@ -236,7 +231,9 @@
             LIQUIDACIÓN WEB
             <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
-        <div class="imagen_catalogo liquidacion_esika"></div>
+        <div class="imagen_catalogo liquidacion_esika">
+            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/Liquidaciones/@(Model.CodigoISO)/liquidaciones.png" alt="Alternate Text" />
+        </div>
         <hr class="clear" />
         <div class="linea_separadora_mobile oculto_lbel"></div>
     }
@@ -287,9 +284,12 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-<div class="banner_inferior_mobile oculto_lbel">
-    <img src="@Url.Content("~/Content/Images/mobile/Esika/banner1.png")" alt="-" />
-</div>
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
+{
+    <div class="banner_inferior_mobile oculto_lbel">
+        <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/CatalogoPersonalizado/@(Model.CodigoISO)/catalogo.png" alt="-" />
+    </div>
+}
 <div class="btn_agregarPedido">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />

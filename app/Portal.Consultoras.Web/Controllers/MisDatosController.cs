@@ -208,7 +208,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         cadena = cadena + "<br /><br /> Estimada consultora " + entidad.Nombre + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                       "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
-                        Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + UserData().CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
+                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
+                        //Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
 
                         return Json(new
                         {

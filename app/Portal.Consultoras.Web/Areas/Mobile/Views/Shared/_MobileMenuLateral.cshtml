@@ -8,38 +8,47 @@
     var urlDomain = Util.GetUrlHost(Request);
 }
 
-<ul>
+<div class="botones">
+    <a class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
+       role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
     @foreach (var item in itemsMenu)
+{
+    if (item.SubMenu.Count == 0)
     {
-        if (item.SubMenu.Count == 0)
-        {
-            var target = item.PaginaNueva ? "_blank" : "_self";
-            var url = item.Version == "Completa"
-                ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
-                : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
+        var target = item.PaginaNueva ? "_blank" : "_self";
+        var url = item.Version == "Completa"
+            ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
+            : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
 
-            if (item.Descripcion.ToLower().Trim() == "mi comunidad")
-            {
-                <li>
-                    @if (ViewBag.EsUsuarioComunidad == 0)
-                    {
-                        <a href="javascript:;" onclick="return ShowComunidad();" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                            <figure><img class="icon" src="@Url.Content(item.UrlImagen)" alt="-" /></figure>
-                            <span>@item.Descripcion</span>
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="@url" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                            <figure><img class="icon" src="@Url.Content(item.UrlImagen)" alt="-" /></figure>
-                            <span>@item.Descripcion</span>
-                        </a>
-                    }
-                </li>
+        if (item.Descripcion.ToLower().Trim() == "mi comunidad")
+        {
+            url = ViewBag.EsUsuarioComunidad == 0 ? "javascript:;" : url;
+            var onclickF = ViewBag.EsUsuarioComunidad == 0 ? "onclick='return ShowComunidad();'" : "";
+            <a class="menu_mobile_belcorp" href="@url" @onclickF role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                @item.Descripcion
+            </a>
+                @*<li>
+                    <a href="@url" @onclickF role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                        <figure><img class="icon" src="@Url.Content(item.UrlImagen)" alt="-" /></figure>
+                        <span>@item.Descripcion</span>
+                    </a>
+                </li>*@
             }
             else
             {
-                <li>
+                <a class="menu_mobile_belcorp" href="@url" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                    @if (item.Descripcion.ToLower().Trim() == "consultora online")
+                    {
+                        <div id="divPedidosOnlineSinLeer" class="circulo cir-l circlemenu-success" style="display: none;">0</div>
+                    }
+                    @if (item.Descripcion.ToLower().Trim() == "mis notificaciones")
+                    {
+                        <div id="divNotificacionesSinLeer" class="circulo cir-l" style="display:none;">0</div>
+                    }
+                    @item.Descripcion
+                </a>
+
+                @*<li>
                     <a href="@url" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
                         @if (item.Descripcion.ToLower().Trim() == "consultora online")
                         {
@@ -52,12 +61,25 @@
                         <figure><img class="icon" src="@Url.Content(item.UrlImagen)" alt="-" /></figure>
                         <span>@item.Descripcion</span>
                     </a>
-                </li>
+                </li>*@
             }
-        }
-        else
-        {
-            <li class="has-sub">
+    }
+    else
+    {
+        <a class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
+        <div class="panel-collapse collapse submenu_1" id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
+            @foreach (var subItem in item.SubMenu)
+            {
+                var target = subItem.PaginaNueva ? "_blank" : "_self";
+                var url = subItem.Version == "Completa"
+                    ? subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subItem.UrlItem)
+                    : subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}{1}", urlDomain, subItem.UrlItem);
+
+                <a class="menu_subHeader" href="@url" role="menu" region="Principal" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion</a>
+            }
+        </div>
+
+            @*<li class="has-sub">
                 <a href="javascript:;">
                     <figure>
                         <img class="icon" src="@Url.Content(item.UrlImagen)" alt="-" />
@@ -81,7 +103,7 @@
                         </li>
                     }
                 </ul>
-            </li>
+            </li>*@
         }
     }
-</ul>
+</div>

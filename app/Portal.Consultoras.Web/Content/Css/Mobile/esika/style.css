@@ -4667,9 +4667,12 @@ body{
 }
 
 .mensaje_tipoProd{
-    font-size:10.5px;
-    color:#e81c36;
-    font-weight:bold;
+    font-size: 12px;
+    color: #e81c36;
+    font-weight: bold;
+    line-height: 6px;
+    margin-bottom: 13px!important;
+    text-transform: uppercase;
 }
 
 .cod_prod, .desc_prod, .nom_cliente{
@@ -4996,8 +4999,14 @@ body{
     width:110px;
     height:63px;
     margin-top:35px;
-    background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
+
+.liquidacion_esika img{
+    width: 100%;
+    height: auto;
+}
+
 .btn_comparte_ws{
     display:block;
     margin-top:10px;
@@ -5713,8 +5722,9 @@ input[type="checkbox"]:checked + span:after {
     background:#e2e1e7;
 }
 .content_datos_c{
-    float:left;
+    /*float:left;*/
     padding-top: 7px;
+    width: 100%;
 }
 .nombre_compartir{
     
