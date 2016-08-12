@@ -49,6 +49,7 @@
         ActualizarDatos();
         return false;
     });
+    
     $("#btnCerrarActualizarDatos").click(function () {
         CerrarPopupActualizacionDatos();
         return false;

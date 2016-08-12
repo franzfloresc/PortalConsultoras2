@@ -46,7 +46,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     model.Saludo = ViewBag.Usuario;
                 }
-
+                
+                model.codigoConsultora = userData.CodigoConsultora;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 model.PaisID = userData.PaisID;

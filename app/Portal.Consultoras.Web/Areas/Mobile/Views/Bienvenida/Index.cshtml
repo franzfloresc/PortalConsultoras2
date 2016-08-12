@@ -187,9 +187,25 @@
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
             <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
+
             @if (Model.IsConsultoraOnline != -1)
             {
-                <a class="btn_comparte_ws" href="#">Compartir por <b>WhatsApp</b></a>
+                string ulrAppCatalogo = "", urlWhatsApp = "";
+                if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                {    
+                    var userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+                    if (userAgent.Contains("iphone;"))
+                    {
+                        ulrAppCatalogo = "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8";
+                    }
+                    else
+                    {
+                        ulrAppCatalogo = "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
+                    }
+                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + ulrAppCatalogo;
+                }
+                <input type="hidden" value="@urlWhatsApp"/>   
+                <a id="btnCompartirWhatsApp" href="@(urlWhatsApp)" data-action="share/whatsapp/share">Compartir por <b>WhatsApp</b></a>
             }    
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
