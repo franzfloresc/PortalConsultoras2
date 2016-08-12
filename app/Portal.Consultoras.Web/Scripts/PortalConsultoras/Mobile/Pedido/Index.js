@@ -418,7 +418,7 @@ function InsertarProducto() {
                 }
 
                 CloseLoading();
-                $("#divMensajeProductoAgregado").show();
+                //$("#divMensajeProductoAgregado").show();
 
                 $("#divProductoObservaciones").html("");
                 $("#divProductoMantenedor").hide();
@@ -435,7 +435,7 @@ function InsertarProducto() {
                 $("#hdCuvEnSession").val("");
 
                 setTimeout(function () {
-                    $("#divMensajeProductoAgregado").fadeOut();
+                    //$("#divMensajeProductoAgregado").fadeOut();
                     $('.toUp').click();
                 }, 2000);
             },
@@ -639,7 +639,7 @@ function AgregarProductoCarrusel(data) {
     $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
 
     data = EstructurarDataCarousel(data);
-    
+
     SetHandlebars("#html-estrategia", data, "#divContenidoEstrategias");
 
     RegistrarOwlCarrousel();
