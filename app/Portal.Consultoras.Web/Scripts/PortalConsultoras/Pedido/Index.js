@@ -639,7 +639,7 @@ function InsertarProducto(form) {
                 $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
                 tieneMicroefecto = true;
-
+                MostrarBarra(response);
                 CargarDetallePedido();
             } else {
                 alert(response.message);
@@ -2209,7 +2209,48 @@ function EjecutarServicioPROL() {
 
             var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
 
-            $("#spnMontoGanancia").html(montoAhorro.toFixed(2));
+            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
+
+            var montoDescuento = parseFloat(response.data.MontoDescuento);
+            var montoEscala = parseFloat(response.data.MontoEscala);
+            if (montoDescuento > 0) {               
+                var htmlTexto = "";
+                htmlTexto += '<p class="monto_descuento">';
+                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
+                htmlTexto += '</p>';
+                htmlTexto += '<p class="monto_montodescuento">';
+                htmlTexto += 'MONTO DESCUENTO :';
+                htmlTexto += '</p>';
+                
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
+                $("#divMontosEscalaDescuentoTexto").css("display", "block");
+
+                var htmlMontos = "";
+                htmlMontos += '<p class="monto_descuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+                htmlMontos += '<p class="monto_montodescuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+                                        
+                $("#divMontosEscalaDescuento").html("");
+                $("#divMontosEscalaDescuento").html(htmlMontos);
+
+                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
+                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#divMontosEscalaDescuento").css("display", "block");                                
+            } else {
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuento").html("");
+                
+                $("#divMontosEscalaDescuentoTexto").css("display", "none");
+                $("#divMontosEscalaDescuento").css("display", "none");
+            }
 
             $('#btnValidarPROL').val(response.data.Prol);
 
@@ -2402,7 +2443,48 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
 
-            $("#spnMontoGanancia").html(montoAhorro.toFixed(2));
+            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
+
+            var montoDescuento = parseFloat(response.data.MontoDescuento);
+            var montoEscala = parseFloat(response.data.MontoEscala);
+            if (montoDescuento > 0) {
+                var htmlTexto = "";
+                htmlTexto += '<p class="monto_descuento">';
+                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
+                htmlTexto += '</p>';
+                htmlTexto += '<p class="monto_montodescuento">';
+                htmlTexto += 'MONTO DESCUENTO :';
+                htmlTexto += '</p>';
+
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
+                $("#divMontosEscalaDescuentoTexto").css("display", "block");
+
+                var htmlMontos = "";
+                htmlMontos += '<p class="monto_descuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+                htmlMontos += '<p class="monto_montodescuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+
+                $("#divMontosEscalaDescuento").html("");
+                $("#divMontosEscalaDescuento").html(htmlMontos);
+
+                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
+                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#divMontosEscalaDescuento").css("display", "block");
+            } else {
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuento").html("");
+
+                $("#divMontosEscalaDescuentoTexto").css("display", "none");
+                $("#divMontosEscalaDescuento").css("display", "none");
+            }
 
             $('#btnValidarPROL').val(response.data.Prol);
 
@@ -2531,47 +2613,47 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
 
-    //var tipoOfertaFinal = $("#hdOfertaFinal").val();
-    //var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
-    //var esFacturacion = $("#hdEsFacturacion").val();
+    var tipoOfertaFinal = $("#hdOfertaFinal").val();
+    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
+    var esFacturacion = $("#hdEsFacturacion").val();
 
-    //if (tipoOfertaFinal == "1" || tipoOfertaFinal == "2")
-    //    resultado = true;
+    if (tipoOfertaFinal == "1" || tipoOfertaFinal == "2")
+        resultado = true;
 
-    //if (resultado) {
-    //    if (esFacturacion == "True" && esOfertaFinalZonaValida == "True")
-    //        resultado = true;
-    //    else
-    //        resultado = false;
-    //}
+    if (resultado) {
+        if (esFacturacion == "True" && esOfertaFinalZonaValida == "True")
+            resultado = true;
+        else
+            resultado = false;
+    }
 
-    //if (resultado) {
-    //    var cumpleParametria = CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
-    //    if (cumpleParametria.resultado) {
-    //        montoFaltante = cumpleParametria.montoFaltante;
-    //        porcentajeDescuento = cumpleParametria.porcentajeDescuento;
-    //        var listaProductoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
+    if (resultado) {
+        var cumpleParametria = CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
+        if (cumpleParametria.resultado) {
+            montoFaltante = cumpleParametria.montoFaltante;
+            porcentajeDescuento = cumpleParametria.porcentajeDescuento;
+            var listaProductoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
 
-    //        if (listaProductoOfertaFinal != null) {
-    //            $.each(listaProductoOfertaFinal, function(index, value) {
-    //                if (value.PrecioCatalogo >= montoFaltante) {
-    //                    productosMostrar.push(value);
-    //                    return false;
-    //                }
-    //            });
+            if (listaProductoOfertaFinal != null) {
+                $.each(listaProductoOfertaFinal, function(index, value) {
+                    if (value.PrecioCatalogo >= montoFaltante) {
+                        productosMostrar.push(value);
+                        return false;
+                    }
+                });
 
-    //            if (productosMostrar.length == 0) {
-    //                resultado = false;
-    //            } else {
-    //                resultado = true;
-    //            }
-    //        } else {
-    //            resultado = false;
-    //        }
-    //    }            
-    //    else
-    //        resultado = false;
-    //}
+                if (productosMostrar.length == 0) {
+                    resultado = false;
+                } else {
+                    resultado = true;
+                }
+            } else {
+                resultado = false;
+            }
+        }            
+        else
+            resultado = false;
+    }
 
     return {
         resultado: resultado,
@@ -2590,10 +2672,18 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     if (tipoPopupMostrar == 1) {
         if (codigoMensajeProl == "00") {
             var escalaDescuento = null;
-
+            var escalaDescuentoSiguiente = null;
+            
             $.each(listaEscalaDescuento, function(index, value) {
                 if (value.MontoHasta >= monto) {
                     escalaDescuento = value;
+
+                    if (index <= listaEscalaDescuento.length - 1) {
+                        escalaDescuentoSiguiente = listaEscalaDescuento[index + 1];
+                    } else {
+                        escalaDescuentoSiguiente = null;
+                    }
+                    
                     return false;
                 }
             });
@@ -2607,7 +2697,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 if (parametriaEd != null && parametriaEd.length != 0) {
                     if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                         montoFaltante = diferenciaMontoEd;
-                        porcentajeDescuento = escalaDescuento.PorDescuento;
+                        porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                         resultado = true;
                     } else {
                         resultado = false;
@@ -2625,7 +2715,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
             if (tipoError == 95) {
                 var mensajePedido = listaObservacionesProl[0].Descripcion || "";
 
-                if (mensajePedido.toLowerCase().includes("monto mínimo")) {
+                if (mensajePedido.toLowerCase().includes("pedido mínimo")) {
                     var montoMinimo = parseFloat($("#hdMontoMinimo").val());
                     var diferenciaMonto = montoMinimo - monto;
 
@@ -3730,7 +3820,7 @@ function MostrarBarra(datax) {
                 tipoMensaje = limite.tipoMensaje + (ind == listaLimite.length - 1 ? "Supero" : "");
                 valPor = limite.valPor;
             }
-            else if (valBack == vLogro) {
+            else if (valBack == vLogro && vLogro > 0) {
                 wLimite = limite.width;
                 indPuntoLimite = ind;
                 vLimite = limite.valor;
@@ -3755,10 +3845,11 @@ function MostrarBarra(datax) {
     }
     // colocar los puntos de limite
     var w1 = 0;
+    var styleMin = 'style="margin-left: 6px;"';
     var htmlPunto = '<div>'
                + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
                         + '<div style="width:{wText}px;position: absolute;">{texto}</div>'
-                        + '<div class="linea_indicador_barra"></div>'
+                        + '<div class="linea_indicador_barra" {style}></div>'
                     + '</div>'
                 + '</div>';
     var htmlTippintPoint = '<div>'
@@ -3793,7 +3884,8 @@ function MostrarBarra(datax) {
         var wText = ind == 0 ? "130" : "90";
         var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
         var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
-        htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo);
+        var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
+        htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo).replace("{style}", styleMinx);
         var objH = $(htmlSet).css("width", wadd).css("float", 'left');
         $("#divBarra #divBarraLimite").append(objH);
 
@@ -3805,7 +3897,7 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraMinimo").css("width", wPrimer);
     //wLogro = wLogro <= wmin ? wLogro : wLogro > w ? w + 25 : (wLogro + wPrimer);
     wLogro = vLogro < vm ? wLogro : wLogro > w ? w + 25 + wPrimer : vLogro != vm ? (wLogro + wPrimer) : wLogro;
-    wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer);
+    wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer + (mn == 0 ? wmin : 0));
     var wTotal = w + wmin + wPrimer;
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);

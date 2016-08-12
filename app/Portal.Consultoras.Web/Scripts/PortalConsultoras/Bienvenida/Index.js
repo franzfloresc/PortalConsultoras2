@@ -49,6 +49,7 @@
         ActualizarDatos();
         return false;
     });
+    
     $("#btnCerrarActualizarDatos").click(function () {
         CerrarPopupActualizacionDatos();
         return false;
@@ -1463,6 +1464,12 @@ function ActualizarMD() {
         ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
         $('#txtTelefonoMD').focus();
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+        return false;
+    }
+
+    if (!$('#chkAceptoContratoMD').is(':checked'))
+    {
+        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
         return false;
     }
 

@@ -11,6 +11,10 @@
     background: #fff;
     line-height: 20px;
 }
+.tag_fijo_scroll{
+    overflow: auto;
+    height: 50px !important;
+}
 
 .tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px;}
 

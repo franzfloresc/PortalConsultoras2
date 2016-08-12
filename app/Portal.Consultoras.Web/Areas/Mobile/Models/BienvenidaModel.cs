@@ -13,6 +13,8 @@
         public string UrlChileEncriptada { get; set; }
         public string MensajeCierreCampania { get; set; }
         public int TieneFechaPromesa { get; set; }
+        public int IsConsultoraOnline { get; set; }
+        public string codigoConsultora { get; set; }
         public int PaisID { get; set; }
         public int DiaFechaPromesa { get; set; }
         public string MensajeFechaPromesa { get; set; }

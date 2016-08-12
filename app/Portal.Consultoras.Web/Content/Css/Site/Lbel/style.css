@@ -3588,7 +3588,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     top: 50%;
     left:4.5%;
     bottom: 0%;
-    background:url(../../../Images/Lbel/icono_exclamacion.png) no-repeat center center;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat center center;
     /*border: 1px solid #000;
     border-radius: 100%;*/
     margin-top: -20px;
@@ -4902,7 +4902,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .datos_consultora_img{
     width: 21%;
     height: 117px;
-    margin-left:10px;
+    margin-left:9px;
 }
 
 .datos_consultora_textos{
@@ -19939,7 +19939,7 @@ label.checkpop.c_on {
 }
 .deuda_home{
     font-family:'lato';
-    font-size:20px;
+    font-size:34px;
     font-weight:300;
     color:black;
 }
@@ -20448,6 +20448,14 @@ label.checkpop.c_on {
     display: flex;
     height: 100%;
     align-items: center;
+}
+
+.curso_titulo a{
+    display:block;
+}
+
+.curso_titulo a:hover{
+    text-decoration:underline;
 }
 
 .curso_porcentaje_avance{

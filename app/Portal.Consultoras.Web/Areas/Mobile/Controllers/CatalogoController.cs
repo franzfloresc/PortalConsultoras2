@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -182,11 +183,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpPost]
-        public JsonResult EnviarEmail(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
+        public JsonResult EnviarEmail(List<Portal.Consultoras.Web.Areas.Mobile.Models.CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
         {
             string CampaniaID = string.Empty;
             string FechaFacturacion = string.Empty;
-            List<CatalogoClienteModel> lstClientesCat = new List<CatalogoClienteModel>();
+            List<Portal.Consultoras.Web.Areas.Mobile.Models.CatalogoClienteModel> lstClientesCat = new List<Portal.Consultoras.Web.Areas.Mobile.Models.CatalogoClienteModel>();
 
             // Flags => Considerar a todos los clientes
             //if (Flags.Split('|')[0] == "1" || Flags.Split('|')[1] == "1" || Flags.Split('|')[2] == "1" || Flags.Split('|')[3] == "1")
