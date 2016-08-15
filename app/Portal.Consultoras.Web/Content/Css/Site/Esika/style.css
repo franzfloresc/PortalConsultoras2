@@ -1665,6 +1665,10 @@ header {
     top: 10.1%;
 }
 
+#divNotiNombre, #divNotiNombre2 {
+    top: -25.1%;
+}
+
 .noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
     bottom: 100%;
     left: 50%;
@@ -4317,6 +4321,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin:0 auto;
     background:url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat center center;
     margin-bottom:18px;
+    background-size:cover;
 }
 
 .titulo_agregarUnidades{
@@ -4783,12 +4788,12 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .incremento_altura{
-        margin: -301px auto 0 -360.5px;
+    margin: -301px auto 0 -360.5px;
     min-height: 570px;
 }
 
 .incremento_altura_misDatos{
-    margin:-300px auto 0 -360.5px;
+    margin:-265.5px auto 0 -360.5px;
     min-height:516px;
 }
 
@@ -4882,6 +4887,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     text-align:right;
     font-weight:bold;
     text-decoration:underline;
+    margin-top:10px;
 }
 
 .grupo_input_actualizarMisDatos div:first-child{
@@ -20648,10 +20654,10 @@ label.checkpop.c_on {
     background:black;
     margin-bottom:14px;
     background:url("../../../Images/Esika/home-video.png") no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/home-video.png',sizingMethod='scale');
     -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");
 }
@@ -26113,4 +26119,73 @@ position: relative; float: left;
 }
 .esika{
     background:#e81c36;
+}
+
+/*PEDIDO VALIDADO 2*/
+.btn_ModificaPedido{
+    float:right;
+    width:218px;
+    height:45px;
+    background:#e81c36;
+    line-height:45px;
+    color:white;
+    text-align:center;
+    display:block;
+    font-family: 'Lato';
+    font-size: 12.7px;
+    font-weight:700;
+    margin-top:35px;
+    position:relative;
+}
+.info_modificarvalidado{
+    float:right;
+    width:213px;
+    height:107px;
+    padding: 20px;
+    margin-right: 15px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight:900;
+    color:#e81c36;
+    text-align:center;
+    line-height: 17px;
+    margin-top: 10px;
+}
+.info_modificarvalidado span{
+     font-family: 'Lato';
+    font-size: 12px;
+    font-weight:400;
+    color:black;
+    text-align:center;
+    display:block;
+    margin-top: 5px;
+    line-height: 15px;
+}
+.linea_gris{
+    width:100%;
+    height:2px;
+    background:#ccc;
+}
+.eliminar_pedidoValidado{
+    font-family: 'Lato';
+    font-size: 11px;
+    font-weight:400;
+    color:black;
+    float:right;
+    margin-top:30px;
+    
+}
+.eliminar_pedidoValidado a{
+    color:#e81c36;
+    display:inline-block;
+}
+div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
+    background-color:white;
+}
+.content_listado_notificaciones:hover{
+    background:#f0f0f0;
 }

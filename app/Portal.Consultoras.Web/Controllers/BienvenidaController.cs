@@ -214,6 +214,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";     // SB20-255
             }
             catch (FaultException ex)
             {

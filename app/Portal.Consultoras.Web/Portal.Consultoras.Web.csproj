@@ -446,6 +446,7 @@
     <Compile Include="Models\ReportePedidoFICModel.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
+    <Compile Include="Models\RootMiCurso.cs" />
     <Compile Include="Models\RVDigitalModel.cs" />
     <Compile Include="Models\RVDigitalPaqueteDocumentarioModel.cs" />
     <Compile Include="Models\ServicioCampaniaModel.cs" />
@@ -964,7 +965,6 @@
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
-    <Content Include="Content\Css\Mobile\esika\theme.min.css" />
     <Content Include="Content\Css\Mobile\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.eot" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.svg" />
@@ -976,7 +976,6 @@
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
-    <Content Include="Content\Css\Mobile\lbel\theme.min.css" />
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
@@ -1512,6 +1511,7 @@
     <Content Include="Content\Images\Esika\icono-admiracion.png" />
     <Content Include="Content\Images\Esika\icono-campanias.jpg" />
     <Content Include="Content\Images\Esika\icono-campanias.png" />
+    <Content Include="Content\Images\Esika\icono-campanias.svg" />
     <Content Include="Content\Images\Esika\icono_acordion_despliegue.png" />
     <Content Include="Content\Images\Esika\icono_advertencia.png" />
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.png" />
@@ -1716,6 +1716,7 @@
     <Content Include="Content\Images\Lbel\icono-admiracion.png" />
     <Content Include="Content\Images\Lbel\icono-campanias.jpg" />
     <Content Include="Content\Images\Lbel\icono-campanias.png" />
+    <Content Include="Content\Images\Lbel\icono-campanias.svg" />
     <Content Include="Content\Images\Lbel\icono_acordion_despliegue.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />

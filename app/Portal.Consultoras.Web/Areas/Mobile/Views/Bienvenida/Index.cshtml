@@ -141,7 +141,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
+            <div class="texto_inferior"><a href="@Url.Action("Index","Pedido")">Pedido ingresado</a>: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
             <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
         </div>
         <!-- FIN ITEM 1-->
@@ -192,18 +192,12 @@
             {
                 string ulrAppCatalogo = "", urlWhatsApp = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {    
-                    var userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
-                    if (userAgent.Contains("iphone;"))
-                    {
-                        ulrAppCatalogo = "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8";
-                    }
-                    else
-                    {
-                        ulrAppCatalogo = "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-                    }
-                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + ulrAppCatalogo;
-                } 
+                {
+                    var request = HttpContext.Current.Request;
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');                   
+                    ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
+                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
+                }
                 <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share">Compartir por <b>WhatsApp</b></a>
             }    
         </div>
@@ -250,7 +244,7 @@
             <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/Liquidaciones/@(Model.CodigoISO)/liquidaciones.png" alt="Alternate Text" />
         </div>
         <hr class="clear" />
-        <div class="linea_separadora_mobile oculto_lbel"></div>
+        <div class="linea_separadora_mobile mg_bottom"></div>
     }
     <!--FIN-->
 </div>
@@ -305,6 +299,62 @@
         <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/CatalogoPersonalizado/@(Model.CodigoISO)/catalogo.png" alt="-" />
     </div>
 }
+
+<!-- POPUP DEMANDA ANTICIPADA -->
+@*<div class="contenedor_fondo_popup">
+    <div class="popup_demandaAnticipada" id="popupDemandaAnticipada">
+        <div class="contenido_popUp">
+            <h1 class="titulo_demandaAnticipada">
+                ¡PASA TU PEDIDO POR<br /><b>DEMANDA</b>
+                <b>ANTICIPADA&nbsp;</b><br />Y RECIBE ESTOS BENEFICIOS
+            </h1>
+            <div class="descripcion_demanda">
+                <div class="demanda_img_regalo">
+                    <img src="@Url.Content("~/Content/Images/Esika/demanda_anticipada_regalo_img.png")" alt="Demanda Anticipada Imagen" />
+                </div>
+                <div class="demanda_promo">
+                    <span>1 Producto de regalo* + Flete Gratis</span>
+                    <span>* Ver regalos en Belcorpnoticias</span>
+                </div>
+            </div>
+            <div class="descripcion_demanda">
+                <h6 class="demanda_condiciones_subtitulo">Condiciones:</h6>
+                <div class="demanda_descripcion_texto">
+                    <span class="demanda_img_check">
+                        <img src="@Url.Content("~/Content/Images/icono_check.svg")" alt="Icono Check" />
+                    </span>
+                    <span class="demanda_mensajes">
+                        Cumplir con el monto mínimo (no cuenta expoferta) y máximo (nuevas).
+                    </span>
+                </div>
+                <div class="demanda_descripcion_texto">
+                    <span class="demanda_img_check">
+                        <img src="@Url.Content("~/Content/Images/icono_check.svg")" alt="Icono Check" />
+                    </span>
+                    <span class="demanda_mensajes">
+                        Pasar tu pedido hasta el Lunes 29 de Febrero (22:00 horas).
+                    </span>
+                </div>
+                <button type="button" name="btn_participaAhora" class="btn_participaAhora">
+                    PARTICIPA AHORA
+                </button>
+                <div class="descripcion_tiempoPasePedido">
+                    <span class="icono_notademanda"></span>
+                    <span class="texto_tiempo_pasePedido">
+                        Si aceptas participar no podrás modificar tu pedido luego del Lunes 29 de Febrero (22:00 horas).
+                    </span>
+                </div>
+                <div class="enlace_noGracias">
+                    <a href="#">
+                        NO GRACIAS
+                    </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>*@
+<!-- FIN POPUP DEMANDA ANTICIPADA -->
+
 <div class="btn_agregarPedido">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />

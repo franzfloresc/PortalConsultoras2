@@ -32,9 +32,9 @@ namespace Portal.Consultoras.Web
             //ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin
 
             bundles.Add(new ScriptBundle("~/bundles/JQueryJs").Include(
-               "~/Scripts/jquery-*", 
-               "~/Scripts/jquery-migrate-*", 
-               "~/Scripts/jquery.validate*", 
+               "~/Scripts/jquery-*",
+               "~/Scripts/jquery-migrate-*",
+               "~/Scripts/jquery.validate*",
                "~/Scripts/jquery.validate.unobtrusive*",
                "~/Scripts/jquery.unobtrusive-ajax*",
                "~/Scripts/jquery-ui-1.9.2.custom*"));
@@ -148,27 +148,19 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/Lbel/jquery-ui.css"
                ));
 
-            #region SB2 MOBILE
-
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
                "~/Content/Css/Mobile/esika/icomon.css",
                "~/Content/Css/Mobile/esika/menu.css",
-               
                "~/Content/Css/Mobile/esika/style.css",
-               "~/Content/Css/Mobile/esika/theme.css",
-               "~/Content/Css/Mobile/esika/theme.min.css"
+               "~/Content/Css/Mobile/esika/theme.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
                "~/Content/Css/Mobile/lbel/icomon.css",
                "~/Content/Css/Mobile/lbel/menu.css",
-               
                "~/Content/Css/Mobile/lbel/style.css",
-               "~/Content/Css/Mobile/lbel/theme.css",
-               "~/Content/Css/Mobile/lbel/theme.min.css"
+               "~/Content/Css/Mobile/lbel/theme.css"
                ));
-
-            #endregion
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
                 "~/Scripts/modernizr.custom.js",

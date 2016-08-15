@@ -87,7 +87,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
-
             ViewBag.MenuMobile = lstModel;
         }
 

@@ -1576,7 +1576,7 @@ header {
 
 .mensaje_escalaDescuento{
     float:left;
-    color:red;
+    color:#613c87;
     font-family:'Lato';
     font-size:16px;
 }
@@ -1627,6 +1627,10 @@ header {
     width: auto;
     max-width: 700px;
     top: 10.1%;
+}
+
+#divNotiNombre, #divNotiNombre2 {
+    top: -25.1%;
 }
 
 .noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
@@ -3298,6 +3302,53 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin:0 auto;
 }
 
+.popup_agregarCliente .noti.mensaje_producto_noExiste{
+    display:none;
+    height: 66px;
+    padding: 0 19px 0px 19px;
+    max-width: 700px;
+    top: 42.5%;
+    right: -53%;
+    box-shadow:-6px 6px 17px -2px #999;
+    -moz-box-shadow:-6px 6px 17px -2px #999;
+    -o-box-shadow:-6px 6px 17px -2px #999;
+    -ms-box-shadow:-6px 6px 17px -2px #999;
+    -webkit-box-shadow:-6px 6px 17px -2px #999;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:after{
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-right-color: #FFF;
+    border-width: 12px;
+    margin-top: -12px;
+    left: 0%;
+    margin-left: -23px;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste .noti_message.red_texto_size{
+    margin-top:-17px;
+}
+
+.popup_agregarCliente .icono_advertencia_notificacion{
+    display:inline-block;
+    vertical-align:middle;
+    float:none;
+}
+
+.popup_agregarCliente .descripcion_mensaje{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:18px;
+    font-family: 'Lato';
+    font-weight: 400;
+}
+
 .popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"]{
     display:block;
     width:100%;
@@ -3842,7 +3893,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 /* POPUP INVITACIÓN FLEXIPAGO */
 
-.contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_fondo_popup{
+.contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup{
     position:fixed;
     top:0;
     left:0;
@@ -3852,10 +3903,6 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:100%;
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
-}
-
-.contenedor_popup_invitacionFlexipago{
-    display:none;
 }
 
 .btn_cerrar_invitacionFlexipago{
@@ -3979,7 +4026,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 /* POPUP DEMANDA ANTICIPADA */
 
 .contenedor_popup_demandaAnticipada{
-
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
 }
 
 .popup_demandaAnticipada{
@@ -4001,15 +4056,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_demandaAnticipada .contenido_popUp{
-    max-width:613px;
+    max-width:566px;
 }
 
 .titulo_demandaAnticipada{
     width:100%;
-    margin:0 0 19px 0;
+    margin:0 auto 19px auto;
     padding:0;
     font-family:'Lato';
-    font-size:28px;
+    font-size:21px;
     color:#000;
     font-weight:300!important;
     margin-bottom:31px;
@@ -4022,7 +4077,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .mensaje_productoRegalo{
     display:block;
-    font-size:22px;
+    font-size:21px;
     font-weight:bold;
     color:#000;
     text-align:center;
@@ -4038,12 +4093,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .foto_referencial, .descripcion_condiciones{
     display:inline-block;
-    vertical-align:top;
+    vertical-align:middle;
 }
 
 .foto_referencial{
+    position:relative;
     margin-right: 35px;
-    width: 28.8%;
+    width: 31.8%;
     height: 225px;
     border: none;
     background: url(../../../Images/Esika/demanda_anticipada_regalo_img.png) center center no-repeat;
@@ -4053,14 +4109,14 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     display:block;
     position:absolute;
     bottom:-5%;
-    left:0%;
+    left:3%;
     font-size:12px;
     font-weight:400;
     color:#000;
 }
 
 .descripcion_condiciones{
-    width:65%;
+    width:58%;
 }
 
 .descripcion_condiciones h6{
@@ -4080,7 +4136,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .icono_check{
-    background: url(../../../Images/icono_check.png) no-repeat center center;
+    background: url(../../../Images/icono_check.svg) no-repeat center center;
     width: 12px;
     height: 8px;
     margin-right: 10px;
@@ -4089,7 +4145,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .texto_descripcionCondiciones{
-    width:93%;
+    width:91.3%;
 }
 
 .descripcion_condiciones div span{
@@ -4113,7 +4169,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .contenedor_notasDemanda{
     display:block;
-    padding:0 11px;
+    padding:0 5px;
 }
 
 .contenedor_notasDemanda div{
@@ -4143,15 +4199,16 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias{
-    width:100%;
+    width:97%;
     padding:0 11px;
     margin-bottom: 25px;
+    margin-top:-8px;
     text-align:right;
 }
 
 .btn_noGracias a{
     display: inline-block;
-    width: 14%;
+    width: 17%;
     text-align: right;
 }
 
@@ -4282,7 +4339,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     color: #FFF;
     letter-spacing: 0.5px;
     position: relative;
-    left: -3px;
+    left: -4px;
 }
 
 .popup_ofertaFinal{
@@ -4439,10 +4496,6 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /* POPUP ACEPTACIÓN DE CONTRATO */
-
-.contenedor_popup_aceptacionContrato{
-    display:none;
-}
 
 .btn_cerrar_aceptacionContrato{
     display: block;
@@ -4666,7 +4719,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -263px auto 0 -360.5px;
+    margin: -300px auto 0 -360.5px;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -4690,7 +4743,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .incremento_altura_misDatos{
-    margin:-265.5px auto 0 auto;
+    margin:-265.5px auto 0 -360.5px;
     min-height:516px;
 }
 
@@ -4741,7 +4794,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .grupo_input_actualizarMisDatos{
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 .grupo_input_password{
@@ -4784,6 +4837,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     text-align:right;
     font-weight:bold;
     text-decoration:underline;
+    margin-top:10px;
 }
 
 .grupo_input_actualizarMisDatos div:first-child{
@@ -4877,6 +4931,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 #popupMisDatos{
     display:block;
+    margin: -279.5px auto 0 -360.5px;
 }
 
 .titulo_misDatos{
@@ -20519,10 +20574,10 @@ label.checkpop.c_on {
     background:black;
     margin-bottom:14px;
     background:url("../../../Images/Lbel/home-video.png") no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Lbel/home-video.png',sizingMethod='scale');
     -ms-behavior: url("../../../Css/Site/Lbel/backgroundsize.min.htc");
 }
@@ -25182,589 +25237,6 @@ div.subir_archivo input {
     line-height: 1.6em;
 }
 
-/* POPUP INVITACIÓN FLEXIPAGO */
-
-.contenedor_popup_invitacionFlexipago, .contenedor_popup_demandaAnticipada, .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_aceptacionContrato, .contenedor_popup_detalleCarousel, .contenedor_popup_actualizarMisDatos, .contenedor_popup_misDatos, .contenedor_fondo_popup{
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index:1000;
-}
-
-.contenedor_popup_invitacionFlexipago{
-    display:none;
-}
-
-.btn_cerrar_invitacionFlexipago{
-    display: block;
-    width: 100%;
-    max-width: 38px;
-    height: auto;
-    position: absolute;
-    top: 21px;
-    right: 0px;
-}
-
-.btn_cerrar_invitacionFlexipago img{
-    width:50%;
-    border:0px;
-}
-
-.popup_invitacionFlexiPago{
-    display:block;
-    position:relative;
-    top:50%;
-    margin: -200px auto 0 auto;
-    background:#FFF;
-    width:100%;
-    max-width:618px;
-    height:auto;
-    padding-top:70px;
-    padding-bottom:70px;
-    box-sizing:border-box;
-    font-family:'Lato';
-}
-
-.contenido_popUp{
-    display:block;
-    margin:0 auto;
-    width:100%;
-    max-width:458px;
-    height:auto;
-}
-
-.titulo_invitacionFlexipago{
-    width:100%;
-    margin:0 0 19px 0;
-    padding:0;
-    font-family:'Lato';
-    font-size:28px;
-    color:#000;
-    font-weight:300;
-    text-align:center;
-}
-
-.titulo_invitacionFlexipago b{
-    font-weight:bold;
-}
-
-.mensaje_popUp_invitacionFlexipago{
-    display:block;
-    font-size:14px;
-    font-weight:normal;
-    color:#000;
-    text-align:center;
-    margin-bottom:8px;
-}
-
-.area_logoFlexiPago{
-    display:block;
-    width:131px;
-    height:auto;
-    text-align:center;
-    margin:0 auto;
-    margin-bottom:50px;
-}
-
-.area_logoFlexiPago img{
-    margin:0;
-    width:100%;
-}
-
-.btn_grupo_invitacionFlexiPago{
-    display:block;
-    text-align:center;
-    font-size:14px;
-}
-
-.btn_conoceMas, .btn_inscribeteAhora{
-    display:inline-block;
-    width:176px;
-    height:50px;
-    line-height:50px;
-    font-family:'Lato';
-    font-weight:bold;
-    text-align:center;
-    vertical-align:middle;
-}
-
-.btn_conoceMas{
-    border:1px solid #000;
-    color:#000;
-    margin-right:13px;
-    background:#FFF;
-}
-
-.btn_inscribeteAhora{
-    border:none;
-    background:#642f80;
-    color:#FFF;
-}
-
-.btn_noInscripcion{
-    display:block;
-    margin-top:10px;
-    text-decoration:underline;
-    color:#000;
-    font-family:'Lato';
-}
-
-/* POPUP DEMANDA ANTICIPADA */
-
-.contenedor_popup_demandaAnticipada{
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index:1000;
-}
-
-.popup_demandaAnticipada .contenido_popUp{
-    max-width:566px;
-}
-
-.titulo_demandaAnticipada{
-    width:100%;
-    margin:0 auto 19px auto;
-    padding:0;
-    font-family:'Lato';
-    font-size:21px;
-    color:#000;
-    font-weight:300!important;
-    margin-bottom:31px;
-    text-align:center;
-}
-
-.titulo_demandaAnticipada b{
-    font-weight:bold;
-}
-
-.mensaje_productoRegalo{
-    display:block;
-    font-size:21px;
-    font-weight:bold;
-    color:#000;
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.contenedor_condicionesDemanda{
-    display:block;
-    height:auto;
-    padding-left: 11px;
-    /*margin-bottom:18px;*/
-}
-
-.foto_referencial, .descripcion_condiciones{
-    display:inline-block;
-    vertical-align:middle;
-}
-
-.foto_referencial{
-    position:relative;
-    margin-right: 35px;
-    width: 31.8%;
-    height: 225px;
-    border: none;
-    background: url(../../../Images/Esika/demanda_anticipada_regalo_img.png) center center no-repeat;
-}
-
-.ver_belcorpNoticias{
-    display:block;
-    position:absolute;
-    bottom:-5%;
-    left:3%;
-    font-size:12px;
-    font-weight:400;
-    color:#000;
-}
-
-.descripcion_condiciones{
-    width:58%;
-}
-
-.descripcion_condiciones h6{
-    width:100%;
-    font-size:13px;
-    font-weight:bold;
-    color:#000;
-    margin: 0 0 16px 0px;
-    padding: 0;
-}
-
-.descripcion_condiciones div{
-    display:block;
-    width:97%;
-    margin-bottom: 10px;
-    margin-top: 12px;
-}
-
-.icono_check{
-    background: url(../../../Images/icono_check.svg) no-repeat center center;
-    width: 12px;
-    height: 8px;
-    margin-right: 10px;
-    vertical-align: top;
-    margin-top: 7px;
-}
-
-.texto_descripcionCondiciones{
-    width:91.3%;
-}
-
-.descripcion_condiciones div span{
-    display:inline-block;
-    color:#000;
-}
-
-.btn_participaAhora{
-    border: 0;
-    margin-top:12px;
-    width: 100%;
-    height:45px;
-    background:#642f80;
-    color:#FFF;
-    font-size:13px;
-    font-family:'Lato';
-    font-weight:bold;
-    text-align:center;
-    line-height:45px;
-}
-
-.contenedor_notasDemanda{
-    display:block;
-    padding:0 5px;
-}
-
-.contenedor_notasDemanda div{
-    display:inline-block;
-    vertical-align:top;
-}
-
-.descripcion_notaDemanda{
-    width: 100%;
-    padding-left:10px;
-}
-
-.icono_notaDemanda, .texto_notaDemanda{
-    display: inline-block;
-    vertical-align: top;
-}
-
-.icono_notaDemanda{
-    width:20px;
-    height:20px;
-    margin-right: 5px;
-    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
-}
-
-.texto_notaDemanda{
-    width: 91%;
-}
-
-.btn_noGracias{
-    width:97%;
-    padding:0 11px;
-    margin-bottom: 25px;
-    margin-top:-8px;
-    text-align:right;
-}
-
-.btn_noGracias a{
-    display: inline-block;
-    width: 17%;
-    text-align: right;
-}
-
-.btn_noGracias a span{
-    font-size:13px;
-    color:#969696;
-}
-
-/* POPUP AGREGAR UNIDADES */
-
-.contenedor_popup_agregarUnidades{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index:1000;
-}
-
-.btn_cerrar_agregarUnidades{
-    display: block;
-    width: 100%;
-    max-width: 38px;
-    height: auto;
-    position: absolute;
-    top: 21px;
-    right: 0px;
-}
-
-.btn_cerrar_agregarUnidades img{
-    width:50%;
-    border:0px;
-}
-
-.popup_agregarUnidades{
-    display:block;
-    position:relative;
-    top:50%;
-    margin: -153px auto 0 auto;
-    background:#FFF;
-    width:100%;
-    max-width:481px;
-    height:auto;
-    padding-top:40px;
-    padding-bottom:40px;
-    box-sizing:border-box;
-    font-family:'Lato';
-}
-
-.icono_aprobacion{
-    display:block;
-    width:60px;
-    height:60px;
-    margin:0 auto;
-    background:url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat center center;
-    margin-bottom:18px;
-    background-size:cover;
-}
-
-.titulo_agregarUnidades{
-    width:100%;
-    margin:0 0 19px 0;
-    padding:0;
-    font-family:'Lato';
-    font-size:28px;
-    color:#000;
-    font-weight:300;
-    text-align:center;
-}
-
-.titulo_agregarUnidades b{
-    font-weight:bold;
-}
-
-.mensaje_agregarUnidades{
-    display:block;
-    font-size:16px;
-    font-weight:normal;
-    color:#000;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.btn_ok{
-    display:block;
-    width:139px;
-    height:45px;
-    font-weight:bold;
-    font-size:13px;
-    text-align:center;
-    line-height:45px;
-    background:#642f80;
-    color:#FFF;
-    margin:0 auto;
-    border:0px;
-}
-
-/* POPUP OFERTA FINAL */
-
-.contenedor_popup_ofertaFinal{
-    display:none;
-}
-
-.btn_cerrar_ofertaFinal{
-    display: block;
-    width: 100%;
-    max-width: 29px;
-    height: auto;
-    position: absolute;
-    top: 5px;
-    right: -43px;
-}
-
-.btn_cerrar_ofertaFinal img{
-    width:100%;
-    height:auto;
-    border:0px;
-}
-
-.texto_btn_cerrar{
-    font-size: 9px;
-    color: #FFF;
-    letter-spacing: 0.5px;
-    position: relative;
-    left: -3px;
-}
-
-.popup_ofertaFinal{
-    display:block;
-    position:relative;
-    top:50%;
-    margin:-290.4px auto 0 auto;
-    background:#FFF;
-    width:100%;
-    max-width:597px;
-    height:auto;
-    padding-top:40px;
-    box-sizing:border-box;
-    font-family:'Lato';
-}
-
-.popup_ofertaFinal .icono_advertencia{
-    display:block;
-    width:60px;
-    height:60px;
-    background:url(../../../Images/Esika/icono_exclamacion_lbel.svg) no-repeat center center;
-    margin:0 auto 18px auto;
-    background-size:cover;
-}
-
-.popup_ofertaFinal .contenido_popUp{
-    max-width:100%;
-}
-
-.titulo_ofertaFinal{
-    width:100%;
-    margin:0 0 9px 0;
-    padding:0;
-    font-family:'Lato';
-    font-size:21px;
-    color:#000;
-    font-weight:300!important;
-    text-align:center;
-}
-
-.descripcion_ofertaFinal{
-    display:block;
-    font-size:14px;
-    font-weight:700;
-    text-align:center;
-    margin-bottom:29.8px;
-}
-
-.contenedor_bloques_agregaProductos{
-    display:block;
-    background:#f5f5f5;
-    height:auto;
-    padding-top:25px;
-    padding-bottom:32px;
-}
-
-.bloque_descripciones, .bloque_carousel{
-    display:inline-block;
-    height:auto;
-    vertical-align:top;
-    position:relative;
-}
-
-.bloque_descripciones{
-    width: 42%;
-    padding-left: 41px;
-    height:329px;
-}
-
-.descripcion_principal{
-    display:block;
-    font-size:17px;
-    color:#000;
-    margin-bottom:18px;
-}
-
-.enlace_catalogos{
-    display:block;
-    font-size:14px;
-    font-weight:400;
-    color:#000;
-    margin-bottom:140px;
-}
-
-.enlace_catalogos a{
-    text-decoration:underline;
-}
-
-.btn_noGracias_agregarProductos{
-    display:block;
-    position:absolute;
-    margin-left:10px;
-    bottom:14px;
-    border:1px solid #9b9b9b;
-    background:transparent;
-    width:139px;
-    height:45px;
-    line-height:45px;
-    color:#000;
-    font-family:'Lato';
-    font-size:13px;
-    font-weight:900;
-    text-align:center;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
-}
-
-.btn_noGracias_agregarProductos:hover{
-    opacity:0.5;
-    filter:alpha(opacity=50);
-}
-
-.bloque_carousel{
-    width:53%;
-    height:329px;
-}
-
-.bloque_carousel .content_item_carrusel{
-    height:329px;
-    margin-right:0px;
-    float:left;
-    vertical-align:middle;
-    overflow:hidden;
-}
-
-.bloque_carousel .producto_img_home{
-    margin-top:7px;
-}
-
-.bloque_carousel .producto_precio{
-    margin-bottom:3px;
-}
-
-.bloque_carousel .btn_controles_carousel{
-    float:left;
-    height:329px;
-}
-
-.btn_controles_carousel.btn_control_atras{
-    margin-right:10px;
-}
-
-.btn_controles_carousel.btn_control_atras a, .btn_controles_carousel.btn_control_siguiente a{
-    position: relative;
-    top: 50%;
-    margin-top: -35px;
-}
-
-.btn_controles_carousel.btn_control_siguiente{
-    margin-left:10px;
-}
 /*COMPARTIR CATALOGO POR CORREO*/
 
 .CompartirCorreoPop{
@@ -26279,6 +25751,86 @@ position: relative; float: left;
 }
 /* FIN POPUP LAYOUT*/
 
+/*PEDIDOS VALIDADOS*/
+.montos_pedidoValidado{
+    width:100%;
+    border-top:2px solid black;
+    margin-top:-1px;
+    padding-top:35px;
+    padding-right:18px;
+}
+.monto_totalValidado{
+    float:right;
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    margin-bottom:16px;
+}
+.monto_totalValidado span{
+    font-size: 22px;
+    margin-top: -3px;
+    margin-left: 18px;
+    /* display: inline-block; */
+    font-weight: 700;
+    float: right;
+}
+.monto_gananciaValidado{
+    float:right;
+    font-family:'Lato';
+    font-size:16px;
+    color:#613c87;
+}
+.monto_gananciaValidado span{
+    font-size: 22px;
+    margin-top: -3px;
+    margin-left: 18px;
+    /* display: inline-block; */
+    font-weight: 700;
+    float: right;
+}
+.info_extra_Validado{
+    float:right;
+    position:relative;
+    width:315px;
+    height:21px;
+    text-align:right;
+    margin-right:10px;
+    margin-top: 3px;
+}
+.info_extra_Validado img{
+    cursor:pointer;
+}
+.monto_resumenValidado{
+    display:none;
+    position: absolute;
+    text-align:left;
+    overflow:hidden;
+    min-height: 77px;
+    padding: 18px;
+    padding-right:25px;
+    right: 30px;
+    top: -30px;
+    -webkit-box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
+    -moz-box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
+    box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
+    background:url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+
+}
+.info_extra_Validado:hover .monto_resumenValidado{
+    display:block;
+}
+.monto_1{
+  font-family: 'Lato';
+  font-size: 13px;
+  font-weight: 400;
+  float:left;
+  width:110px;
+}
+
+.monto_numero{
+    margin-left:4px;
+    float:left;
+
 
 /*CAMBIOS CARRITO DE COMPRAS*/
 .info_productos_carrito {
@@ -26357,4 +25909,72 @@ position: relative; float: left;
 }
 .esika{
     background:#613c87;
+}
+/*PEDIDO VALIDADO 2*/
+.btn_ModificaPedido{
+    float:right;
+    width:218px;
+    height:45px;
+    background:#613c87;
+    line-height:45px;
+    color:white;
+    text-align:center;
+    display:block;
+    font-family: 'Lato';
+    font-size: 12.7px;
+    font-weight:700;
+    margin-top:35px;
+    position:relative;
+}
+.info_modificarvalidado{
+    float:right;
+    width:213px;
+    height:107px;
+    padding: 20px;
+    margin-right: 15px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight:900;
+    color:#613c87;
+    text-align:center;
+    line-height: 17px;
+    margin-top: 10px;
+}
+.info_modificarvalidado span{
+     font-family: 'Lato';
+    font-size: 12px;
+    font-weight:400;
+    color:black;
+    text-align:center;
+    display:block;
+    margin-top: 5px;
+    line-height: 15px;
+}
+.linea_gris{
+    width:100%;
+    height:2px;
+    background:#ccc;
+}
+.eliminar_pedidoValidado{
+    font-family: 'Lato';
+    font-size: 11px;
+    font-weight:400;
+    color:black;
+    float:right;
+    margin-top:30px;
+    
+}
+.eliminar_pedidoValidado a{
+    color:#e81c36;
+    display:inline-block;
+}
+div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
+    background-color:white;
+}
+.content_listado_notificaciones:hover{
+    background:#f0f0f0;
 }

@@ -252,11 +252,6 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
-	where sysobjects.id = object_id('dbo.PedidoWeb') and SYSCOLUMNS.NAME = N'MontoDescuento') = 0
-	ALTER TABLE dbo.PedidoWeb ADD MontoDescuento money
-go
-
-if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('dbo.PedidoWeb') and SYSCOLUMNS.NAME = N'MontoEscala') = 0
 	ALTER TABLE dbo.PedidoWeb ADD MontoEscala money
 go
@@ -1525,7 +1520,7 @@ SELECT
 	EstimadoGanancia,
 	CodigoUsuarioCreacion,
 	CodigoUsuarioModificacion,
-	MontoDescuento,
+	DescuentoProl,
 	MontoEscala,
 	MontoAhorroCatalogo,
 	MontoAhorroRevista
@@ -1570,7 +1565,7 @@ update PedidoWeb
 set
 	MontoAhorroCatalogo = @MontoAhorroCatalogo,
 	MontoAhorroRevista = @MontoAhorroRevista,
-	MontoDescuento = @MontoDescuento,
+	DescuentoProl = @MontoDescuento,
 	MontoEscala = @MontoEscala
 where CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID
 
