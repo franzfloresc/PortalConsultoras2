@@ -117,6 +117,13 @@
             'segmentoconstancia': '@ViewBag.SegmentoConstancia',
             'socianivel': '@ViewBag.DescripcionNivelAnalytics'
         });
+
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
     </script>
     <!-- End Google Tag Manager -->
     @if (ViewBag.PaisAnalytics == "EC")
