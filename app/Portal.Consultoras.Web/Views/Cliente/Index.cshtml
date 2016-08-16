@@ -115,12 +115,20 @@
         <h6>AGREGAR <b>CLIENTE</b></h6>
         <form action="" method="post">
             <input type="text" name="nombre" id="Nombres" value="" placeholder="Nombres y Apellidos" maxlength="50" class="input_search_form ValidaAlfabeto input-nombre" />
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
-            <div class="noti mensaje_producto_noExiste">
+            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
                 <div class="noti_message red_texto_size">
                     <span class="icono_advertencia_notificacion"></span>
                     <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b><br />
+                        Por favor ingresa un nombre válido.
+                    </span>
+                </div>
+            </div>
+            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        El correo ingresado no es válido <br />
                         Por favor ingresa un correo válido.
                     </span>
                 </div>
@@ -148,8 +156,25 @@
         <h6>EDITAR <b>CLIENTE</b></h6>
         <form action="" method="post">
             <input type="hidden" id="hdeClienteID" />
-            <input type="text" name="nombre" id="Nombres" value="Fiorella Goyzueta" placeholder="Nombres y Apellidos" maxlength="50" class="input-nombre" />
-            <input type="email" name="correoelectronico" id="Correo" value="fgoyzueta@gmail.com" placeholder="Correo Electrónico" maxlength="80" class="input-correo" />
+            <input type="text" name="nombre" id="Nombres2" value="Fiorella Goyzueta" placeholder="Nombres y Apellidos" maxlength="50" class="input-nombre" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiNombre2">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        Por favor ingresa un nombre válido.
+                    </span>
+                </div>
+            </div>
+            <input type="email" name="correoelectronico" id="Correo2" value="fgoyzueta@gmail.com" placeholder="Correo Electrónico" maxlength="80" class="input-correo" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiCorreo2">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        El correo ingresado no es válido <br />
+                        Por favor ingresa un correo válido.
+                    </span>
+                </div>
+            </div>
             <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(2);" />
             <input type="button" class="btnCliente_agregar" name="editarCliente" value="GUARDAR" onclick="MantenerCliente(2);" />
         </form>

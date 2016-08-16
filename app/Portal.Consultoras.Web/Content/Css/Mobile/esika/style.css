@@ -5172,7 +5172,7 @@ body{
 .contenedor_productos_liquidacion .content_item_home{
     width: 100%;
     max-width: 268px;
-    margin-bottom: 44px;
+    margin-bottom: 16px;
     display: inline-block;
     margin-left:5px;
     margin-right: 5px;
@@ -5231,6 +5231,8 @@ body{
     text-align: center;
     line-height:50px;
     letter-spacing:0.25px;
+    font-family:'Lato';
+    margin-top: -6px;
 }
 .fondo_f2f2f2{
     background:#f2f2f2;
@@ -5584,11 +5586,11 @@ input[type="checkbox"]:checked + span:after {
     margin-top:30px;    
 }
 .check_icono_mobile{
-    background: url("../../../Images/Esika/icono_check_lbel.svg") no-repeat;
+    background: url("../../../Images/Esika/icono_check_esika.svg") no-repeat;
     background-size: cover;
 }
 .exclamacion_icono_mobile{
-    background: url("../../../Images/Esika/icono_exclamacion_lbel.svg") no-repeat;
+    background: url("../../../Images/Esika/icono_exclamacion_esika.svg") no-repeat;
     background-size: cover;
 }
 .icono_alerta img{
@@ -5737,4 +5739,84 @@ input[type="checkbox"]:checked + span:after {
     color:#777;
     font-family:'lato';
     font-size:10pt;
+}
+
+/* POPUP DEMANDA ANTICIPADA */
+
+.contenedor_fondo_popup{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_demandaAnticipada{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -253.5px auto 0 auto;
+    background: #FFF;
+    width: 91%;
+    max-width: 623px;
+    height: auto;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 4;
+}
+
+.titulo_demandaAnticipada{
+    margin: 0 0 19px 0px;
+    padding:0;
+    font-size:19px;
+    color:#000;
+    text-align:center;
+    line-height:24px;
+}
+
+.icono_notaDemanda{
+    width:20px;
+    height:20px;
+    margin-right: 5px;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+}
+
+.descripcion_demanda{
+    display:block;
+    padding:0 20px;
+}
+
+.demanda_img_regalo, .demanda_promo{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.demanda_img_regalo{
+    width: 24.04%;
+    margin-right: 8%;
+}
+
+.demanda_promo{
+    width: 66.7%;
+}
+
+.demanda_promo span:first-child{
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+}
+
+.demanda_img_regalo img{
+    width:100%;
+    height:auto;
+}
+
+.demanda_promo span{
+    display:block;
 }

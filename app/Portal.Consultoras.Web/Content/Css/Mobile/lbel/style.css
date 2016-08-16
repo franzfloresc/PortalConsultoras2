@@ -4981,7 +4981,7 @@ body{
 }
 .liquidacion_esika{
     width:110px;
-    height:63px;
+    height:55px;
     margin-top:35px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
@@ -5158,7 +5158,7 @@ body{
 .contenedor_productos_liquidacion .content_item_home{
     width: 100%;
     max-width: 268px;
-    margin-bottom: 44px;
+    margin-bottom: 16px;
     display: inline-block;
     margin-left:5px;
     margin-right: 5px;
@@ -5215,6 +5215,7 @@ body{
     letter-spacing: 0.25px;
     border-bottom: 1px solid black;
     position:relative;
+    font-family:'Lato';
 }
 .fondo_f2f2f2{
     background:white;
@@ -5719,4 +5720,201 @@ input[type="checkbox"]:checked + span:after {
     color:#777;
     font-family:'lato';
     font-size:10pt;
+}
+.mg_bottom {
+    margin-bottom: 25px;
+}
+
+/* POPUP DEMANDA ANTICIPADA */
+
+.contenedor_popup_demandaAnticipada{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_demandaAnticipada{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -253.5px auto 0 -311.5px;
+    background: #FFF;
+    width: 100%;
+    max-width: 623px;
+    height: auto;
+    padding-top: 42px;
+    padding-left: 13px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 4;
+}
+
+.popup_demandaAnticipada .contenido_popUp{
+    max-width:566px;
+}
+
+.titulo_demandaAnticipada{
+    width:100%;
+    margin:0 auto 19px auto;
+    padding:0;
+    font-family:'Lato';
+    font-size:21px;
+    color:#000;
+    font-weight:300!important;
+    margin-bottom:31px;
+    text-align:center;
+}
+
+.titulo_demandaAnticipada b{
+    font-weight:bold;
+}
+
+.mensaje_productoRegalo{
+    display:block;
+    font-size:21px;
+    font-weight:bold;
+    color:#000;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.contenedor_condicionesDemanda{
+    display:block;
+    height:auto;
+    padding-left: 11px;
+    /*margin-bottom:18px;*/
+}
+
+.foto_referencial, .descripcion_condiciones{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.foto_referencial{
+    position:relative;
+    margin-right: 35px;
+    width: 31.8%;
+    height: 225px;
+    border: none;
+    background: url(../../../Images/Esika/demanda_anticipada_regalo_img.png) center center no-repeat;
+}
+
+.ver_belcorpNoticias{
+    display:block;
+    position:absolute;
+    bottom:-5%;
+    left:3%;
+    font-size:12px;
+    font-weight:400;
+    color:#000;
+}
+
+.descripcion_condiciones{
+    width:58%;
+}
+
+.descripcion_condiciones h6{
+    width:100%;
+    font-size:13px;
+    font-weight:bold;
+    color:#000;
+    margin: 0 0 16px 0px;
+    padding: 0;
+}
+
+.descripcion_condiciones div{
+    display:block;
+    width:97%;
+    margin-bottom: 10px;
+    margin-top: 12px;
+}
+
+.icono_check{
+    background: url(../../../Images/icono_check.svg) no-repeat center center;
+    width: 12px;
+    height: 8px;
+    margin-right: 10px;
+    vertical-align: top;
+    margin-top: 7px;
+}
+
+.texto_descripcionCondiciones{
+    width:91.3%;
+}
+
+.descripcion_condiciones div span{
+    display:inline-block;
+    color:#000;
+}
+
+.btn_participaAhora{
+    border: 0;
+    margin-top:12px;
+    width: 100%;
+    height:45px;
+    background:#e81c36;
+    color:#FFF;
+    font-size:13px;
+    font-family:'Lato';
+    font-weight:bold;
+    text-align:center;
+    line-height:45px;
+}
+
+.contenedor_notasDemanda{
+    display:block;
+    padding:0 5px;
+}
+
+.contenedor_notasDemanda div{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.descripcion_notaDemanda{
+    width: 100%;
+    padding-left:10px;
+}
+
+.icono_notaDemanda, .texto_notaDemanda{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.icono_notaDemanda{
+    width:20px;
+    height:20px;
+    margin-right: 5px;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+}
+
+.texto_notaDemanda{
+    width: 91%;
+}
+
+.btn_noGracias{
+    width:97%;
+    padding:0 11px;
+    margin-bottom: 25px;
+    margin-top:-8px;
+    text-align:right;
+}
+
+.btn_noGracias a{
+    display: inline-block;
+    width: 17%;
+    text-align: right;
+}
+
+.btn_noGracias a span{
+    font-size:13px;
+    color:#969696;
 }

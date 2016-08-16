@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -32,6 +33,28 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoZona = UserData().CodigoZona; //R20160204
 
             return View(clienteModel);
+        }
+
+        [AllowAnonymous]
+        public ActionResult DescargarAppCatalogos()
+        {
+            var redirect = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+                
+                if (userAgent.Contains("iphone;"))
+                {
+                    redirect = "<script>window.location = 'https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8';</script>";
+                    
+                }
+                else
+                {
+                    redirect = "<script>window.location = 'https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419';</script>";
+                }
+            }
+
+            return Content(redirect);
         }
 
         public ActionResult ConsultarClientes(string sidx, string sord, int page, int rows)
@@ -817,7 +840,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
 
         private bool ValidarCorreoFormato(string correo)
         {

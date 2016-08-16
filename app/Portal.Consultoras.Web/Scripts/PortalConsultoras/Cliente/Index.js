@@ -15,7 +15,10 @@ $(document).ready(function () {
             else {
                 var keyChar = String.fromCharCode(charCode);
                 var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                $('#divNotiCorreo').hide();
+                $('#divNotiCorreo2').hide();
                 return re.test(keyChar);
+
             }
         });
 
@@ -42,6 +45,8 @@ $(document).ready(function () {
             else {
                 var keyChar = String.fromCharCode(charCode);
                 var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                $('#divNotiNombre').hide();
+                $('#divNotiNombre2').hide();
                 return re.test(keyChar);
             }
         });
@@ -249,8 +254,8 @@ function ShowDivEditar(obj) {
     var correo = $(div).find('.correo_clientes').html();
 
     $('#divEditarCliente').find('#hdeClienteID').val(id);
-    $('#divEditarCliente').find('#Nombres').val(nombre);
-    $('#divEditarCliente').find('#Correo').val(correo);
+    $('#divEditarCliente').find('#Nombres2').val(nombre);
+    $('#divEditarCliente').find('#Correo2').val(correo);
 
     $('#divEditarCliente').show();
 }
@@ -264,23 +269,50 @@ function ShowDivEliminar(id) {
 
 function MantenerCliente(opt) {
 
+    debugger;
+
     var div = (opt == 1) ? $('#divAgregarCliente') : $('#divEditarCliente');
+    //var vMessage = "";
+    var vcont = 0;
 
-    var vMessage = "";
-    if (jQuery.trim($(div).find('#Nombres').val()) == "")
-        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+    if (opt == 1) {
+        
+        if (jQuery.trim($(div).find('#Nombres').val()) == "") {
+            //vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+            vcont++;
+            $('#divNotiNombre').show();
+        }
 
-    if (jQuery.trim($(div).find('#Correo').val()) != "") {
-        if (!validateEmail($(div).find('#Correo').val()))
-            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+        if (jQuery.trim($(div).find('#Correo').val()) != "") {
+            if (!validateEmail($(div).find('#Correo').val())) {
+                //vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+                vcont++;
+                $('#divNotiCorreo').show();
+            }
+        }
+    }
+    else {
+        if (jQuery.trim($(div).find('#Nombres2').val()) == "") {
+            //vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+            vcont++;
+            $('#divNotiNombre2').show();
+        }
+
+        if (jQuery.trim($(div).find('#Correo2').val()) != "") {
+            if (!validateEmail($(div).find('#Correo2').val())) {
+                //vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+                vcont++;
+                $('#divNotiCorreo2').show();
+            }
+        }
     }
 
-    if (vMessage != "") {
+    if (vcont > 0) {
 
         //$(div).find('#divValidationSummary').html(vMessage);
        // $(div).find('#divValidationSummary').show()
         
-        alert_msg(vMessage);
+        //alert_msg(vMessage);
 
         //$('#Nombres').focus();
         return false;
@@ -290,12 +322,19 @@ function MantenerCliente(opt) {
     var nombre = "";
     var correo = "";
 
-    if (opt == 2) {
-        id = $(div).find('#hdeClienteID').val();
+    if (opt == 1) {
+        nombre = $(div).find('#Nombres').val();
+        correo = $(div).find('#Correo').val();
     }
 
-    nombre = $(div).find('#Nombres').val();
-    correo = $(div).find('#Correo').val();
+    if (opt == 2) {
+        id = $(div).find('#hdeClienteID').val();
+        nombre = $(div).find('#Nombres2').val();
+        correo = $(div).find('#Correo2').val();
+    }
+
+    //alert('OK');
+    //return;
 
     //if ($('#hdNombreAnt').val().toUpperCase() == jQuery('#Nombres').val().toUpperCase())
     //    $("#hdFlag").val("0");
@@ -444,6 +483,15 @@ function CerrarDiv(opt) {
         case 3:
             $('#divEliminarCliente').hide();
             break;
+    }
+
+    if (opt == 1) {
+        $('#divNotiNombre').hide();
+        $('#divNotiCorreo').hide();
+    }
+    else {
+        $('#divNotiNombre2').hide();
+        $('#divNotiCorreo2').hide();
     }
 
     Limpiar();

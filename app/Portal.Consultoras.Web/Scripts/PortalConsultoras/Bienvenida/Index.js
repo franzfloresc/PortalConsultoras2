@@ -225,7 +225,14 @@
 
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
-    });
+    })
+
+    // SB20-255
+    if (UrlImgMiAcademia != null) {
+        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
+    }
+
+    CargarMisCursos();      // SB20-255
 });
 
 function CrearDialogs() {
@@ -325,9 +332,6 @@ function CargarPopupsConsultora() {
     //    showDialog('idSueniosNavidad');
     //}
 };
-function ActualizarMontoPedidoIngresado() {
-    CargarResumenCampaniaHeader();
-}
 
 //Metodos para carousel Ofertas para Tí
 function CargarCarouselEstrategias(cuv) {
@@ -643,8 +647,7 @@ function AgregarProductoDestacado(popup) {
                             waitingDialog({});
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
-                            MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
-                            ActualizarMontoPedidoIngresado();
+                            CargarResumenCampaniaHeader(true);
                             closeWaitingDialog();
                             if (popup) {
                                 HidePopupEstrategiasEspeciales();
@@ -665,25 +668,6 @@ function AgregarProductoDestacado(popup) {
             }
         }
     });
-};
-function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
-    if (imagen == "") {
-        $(".info_pop_liquidacion").addClass("info_pop_liquidacion_sinimagen");
-        $("#contenedorProductoAgregado").hide();
-    } else {
-        $(".info_pop_liquidacion").removeClass("info_pop_liquidacion_sinimagen");
-        $("#imgProductoAgregado").attr("src", imagen);
-        $("#contenedorProductoAgregado").show();
-    }
-    $("#nombreProductoAgregado").text(descripcion);
-    $("#cantidadProductoAgregado").text(cantidad);
-    $("#totalProductoAgregado").text(total);
-    //$('#pop_liquidacion').show();
-
-    //setTimeout(CerrarProductoAgregado, 5000);
-};
-function CerrarProductoAgregado() {
-    $('#pop_liquidacion').hide();
 };
 function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
@@ -995,8 +979,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         success: function (data) {
                             if (data.success == true) {
                                 InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
-                                ActualizarMontoPedidoIngresado();
-                                MostrarProductoAgregado(item.imagenProducto, item.descripcionProd, item.Cantidad, parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2));
+                                CargarResumenCampaniaHeader(true);
                             }
                             else {
                                 alert_msg_pedido(data.message);
@@ -1195,7 +1178,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
         success: function (result) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
-                    ActualizarMontoPedidoIngresado();
+                    CargarResumenCampaniaHeader(true);
 
                     alert_unidadesAgregadas(result.message, 1);
 
@@ -1573,6 +1556,9 @@ function DownloadAttachContratoActualizarDatos() {
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
 
+    $('#divSinTutoriales').hide();
+    $('#divTutorialesV').hide();
+
     $('#divMisCursos').html('<div style="text-align: center;">Cargando Mis Cursos ...<br><img src="' + urlLoad + '" /></div>');
 
     $.ajax({
@@ -1582,17 +1568,31 @@ function CargarMisCursos() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (response.success) {
-                ArmarDivMisCursos(response.data);
+                //ArmarDivMisCursos(response.data);
+                if (paisISO == 'VE') {
+                    SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
+                    $('#divTutoriales').hide();
+                    $('#divTutorialesV').show();
+                }
+                else {
+                    SetHandlebars("#miscursos-template", response.data, "#divMisCursos");
+                    $('#divTutoriales').show();
+                }
             }
             else {
-                $('#divMisCursos').html('<div style="text-align: center;">En este momento los talleres no se encuentran disponibles. Vuelve a revisar tus talleres más tarde.</div>');
+                //$('#divMisCursos').html('<div style="text-align: center;">En este momento los talleres no se encuentran disponibles. Vuelve a revisar tus talleres más tarde.</div>');
+                $('#divTutoriales').hide();
+                $('#divSinTutoriales').show();
             }
         },
         error: function (error) {
-            $('#divMisCursos').html('<div style="text-align: center;">Ocurrio un error al cargar los cursos.</div>');
+            //$('#divMisCursos').html('<div style="text-align: center;">Ocurrio un error al cargar los cursos.</div>');
+            $('#divTutoriales').hide();
+            $('#divSinTutoriales').show();
         }
     });
 };
+
 function ArmarDivMisCursos(data) {
     SetHandlebars("#miscursos-template", data, "#divMisCursos");
 };

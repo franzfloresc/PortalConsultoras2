@@ -13,7 +13,8 @@ using Portal.Consultoras.Web.ServiceLMS;
 //using Portal.Consultoras.Web.ServiceLMS;
 
 using System.Web.Script.Serialization;
-
+using Newtonsoft.Json;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -153,30 +154,46 @@ namespace Portal.Consultoras.Web.Controllers
                 //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
                 string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
                 string token = ConfigurationManager.AppSettings["TokenMisCursos"];
-                //string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
-                string IsoUsuario = "CL-0562942";
+                string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
+                //string IsoUsuario = "CL-0562942";
                 urlMC = String.Format(urlMC, IsoUsuario);
+                int max = 4;
+                if (ViewBag.CodigoISODL == "VE") max = 3;
                 
-                using (WebClient wc = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    wc.Headers.Add("Content-Type", "application/json");
-                    wc.Headers.Add("token", token);
-                    string result = wc.DownloadString(urlMC);
+                    client.Headers.Add("Content-Type", "application/json");
+                    client.Headers.Add("token", token);
+                    string json = client.DownloadString(urlMC);
 
-                    return Json(new
+                    if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
                     {
-                        success = true,
-                        data = result,
-                    }, JsonRequestBehavior.AllowGet);
+                        var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
+
+                        var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = lstCursos,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Token not Valid",
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                
             }
             catch(Exception ex)
             {
                 return Json(new
                 {
                     success = false,
-                    error = ex.Message,
+                    message = ex.Message,
                 }, JsonRequestBehavior.AllowGet);
             }
         }

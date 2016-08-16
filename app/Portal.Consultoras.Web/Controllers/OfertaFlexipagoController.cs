@@ -58,9 +58,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "Lbel";
+                case 1: result = "L'Bel";
                     break;
-                case 2: result = "Esika";
+                case 2: result = "Ésika";
                     break;
                 case 3: result = "Cyzone";
                     break;

@@ -141,7 +141,8 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes').dialog('open');
 }
 
-function CargarResumenCampaniaHeader() {
+function CargarResumenCampaniaHeader(showPopup) {
+    showPopup = showPopup || false;
     $.ajax({
         type: 'GET',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
@@ -206,6 +207,12 @@ function CargarResumenCampaniaHeader() {
 
                         $("#carrito_items").append(html);
 
+                    }
+
+                    if (showPopup == true) {
+                        $popup = $('.info_cam');
+                        $popup.show();
+                        setTimeout(function () { $popup.hide(); }, 5000);
                     }
                 }
                 else {

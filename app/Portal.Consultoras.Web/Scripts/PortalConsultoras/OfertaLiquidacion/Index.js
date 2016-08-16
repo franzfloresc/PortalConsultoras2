@@ -201,8 +201,7 @@ $(document).ready(function () {
                                         $(HiddenStock).val(parseInt(Stock - Cantidad));
                                         $(txtCantidad).val(1);
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
-                                        CargarResumenCampaniaHeader();
-                                        MostrarProductoAgregado(imagenProducto, DescripcionProd, Cantidad, parseFloat(Cantidad * PrecioUnidad).toFixed(2));
+                                        CargarResumenCampaniaHeader(true);
                                         $('#divVistaPrevia').dialog('close');
                                     }
                                     else {
@@ -310,17 +309,13 @@ $(document).ready(function () {
                                 success: function (data) {
                                     if (data.success == true) {
                                         $(this).attr('disabled', true);
-                                        //$(this).parent().parent().parent().parent().find(".ddlTallaColor").attr('disabled', true);
                                         $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
                                         $(div).css('display', 'block');
-                                        //$("#hdFlagOferta").val("1");
-                                        //$("#hdFlagOfertaLiquidacion").val("1");
                                         $(lblStock).text(parseInt(Stock - Cantidad));
                                         $(HiddenStock).val(parseInt(Stock - Cantidad));
                                         $(txtCantidad).val(1);
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
-                                        CargarResumenCampaniaHeader();
-                                        MostrarProductoAgregado(imagenProducto, DescripcionProd, Cantidad, parseFloat(Cantidad * PrecioUnidad).toFixed(2));
+                                        CargarResumenCampaniaHeader(true);
                                     }
                                     else {
                                         alert_msg(data.message);
@@ -593,17 +588,6 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             }
         })
     }
-};
-function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
-
-    $("#imgProductoAgregado").attr("src", imagen);
-    $("#nombreProductoAgregado").text(descripcion);
-    $("#cantidadProductoAgregado").text(cantidad);
-    $("#totalProductoAgregado").text(total)
-
-    //$('#pop_liquidacion').show();
-
-    //setTimeout(CerrarProductoAgregado, 3000);
 };
 function CerrarProductoAgregado() {
     $('#pop_liquidacion').hide();

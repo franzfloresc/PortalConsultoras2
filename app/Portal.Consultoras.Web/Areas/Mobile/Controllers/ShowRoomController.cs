@@ -159,10 +159,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             switch (marcaId)
             {
                 case 1:
-                    result = "Lbel";
+                    result = "L'Bel";
                     break;
                 case 2:
-                    result = "Esika";
+                    result = "Ésika";
                     break;
                 case 3:
                     result = "Cyzone";

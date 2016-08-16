@@ -22,130 +22,130 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Fecha = DateTime.Now;
-            try
-            {
-                ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                string claimUser = FederationClaimName.Value.ToUpper();
-                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
-
-                string UserPortal = string.Empty;
-                bool UsuarioSAC = false;
-                int Tipo = 0;
-
-                if (claimUser.Contains(DomConsultora))
-                {
-                    UserPortal = claimUser.Replace(DomConsultora + @"\", "");
-                    Tipo = 1;
-                }
-                else
-                    if (claimUser.Contains(DomBelcorp))
-                    {
-                        UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-                        UsuarioSAC = true;
-                        Tipo = 2;
-                    }
-
-
-                if (!string.IsNullOrEmpty(UserPortal))
-                {
-                    List<BEPais> lst = new List<BEPais>();
-
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        lst = sv.SelectPaises().ToList();
-                    }
-
-                    string Pais = string.Empty;
-                    string Codigo = string.Empty;
-
-                    if (!UsuarioSAC)
-                    {
-                        Pais = UserPortal.Substring(0, 2);
-                        Codigo = UserPortal.Substring(2, UserPortal.Length - 2);
-                    }
-                    else
-                    {
-                        Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
-                        Pais = FederationClaimCountry.Value.ToUpper();
-                        Codigo = UserPortal;
-                    }
-
-
-                    BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
-                    if (PaisModel != null)
-                    {
-                        UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
-                        if (usuario != null)
-                        {
-                            //Inicio Cambios_Landing_Comunidad
-                            if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-                            {
-                                //REQ-2589 - Inicio
-                                //TISMART
-                                bool esMovil = Request.Browser.IsMobileDevice;
-
-                                if (esMovil)
-                                {
-                                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                                }
-                                else
-                                {
-                                    if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
-                                    {
-                                        Session["PrimeraVezSession"] = 0;
-                                    }
-
-                                    if (usuario.CambioClave == 0) //2532 EG
-                                    {
-                                        return RedirectToAction("Landing", "Bienvenida");
-                                    }
-                                    else
-                                    {
-                                        return RedirectToAction("Index", "Bienvenida");
-                                    }
-                                }
-                                //REQ-2589 - Fin 
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                            //Fin Cambios_Landing_Comunidad
-
-                        }
-                        else
-                        {
-                            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                            return Redirect(Url);
-                        }
-                    }
-                    else
-                    {
-                        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                        return Redirect(Url);
-                    }
-                }
-                else
-                {
-                    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                    return Redirect(Url);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
-                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                return Redirect(Url);
-            }
-
-            //var LoginModel = new LoginModel()
+            //ViewBag.Fecha = DateTime.Now;
+            //try
             //{
-            //    listaPaises = DropDowListPaises()
-            //};
-            //return View(LoginModel);
+            //    ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+            //    Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+            //    string claimUser = FederationClaimName.Value.ToUpper();
+            //    string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+            //    string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
+
+            //    string UserPortal = string.Empty;
+            //    bool UsuarioSAC = false;
+            //    int Tipo = 0;
+
+            //    if (claimUser.Contains(DomConsultora))
+            //    {
+            //        UserPortal = claimUser.Replace(DomConsultora + @"\", "");
+            //        Tipo = 1;
+            //    }
+            //    else
+            //        if (claimUser.Contains(DomBelcorp))
+            //        {
+            //            UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
+            //            UsuarioSAC = true;
+            //            Tipo = 2;
+            //        }
+
+
+            //    if (!string.IsNullOrEmpty(UserPortal))
+            //    {
+            //        List<BEPais> lst = new List<BEPais>();
+
+            //        using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            //        {
+            //            lst = sv.SelectPaises().ToList();
+            //        }
+
+            //        string Pais = string.Empty;
+            //        string Codigo = string.Empty;
+
+            //        if (!UsuarioSAC)
+            //        {
+            //            Pais = UserPortal.Substring(0, 2);
+            //            Codigo = UserPortal.Substring(2, UserPortal.Length - 2);
+            //        }
+            //        else
+            //        {
+            //            Claim FederationClaimCountry = claimsPrincipal.FindFirst(ClaimTypes.Country);
+            //            Pais = FederationClaimCountry.Value.ToUpper();
+            //            Codigo = UserPortal;
+            //        }
+
+
+            //        BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
+            //        if (PaisModel != null)
+            //        {
+            //            UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
+            //            if (usuario != null)
+            //            {
+            //                //Inicio Cambios_Landing_Comunidad
+            //                if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
+            //                {
+            //                    //REQ-2589 - Inicio
+            //                    //TISMART
+            //                    bool esMovil = Request.Browser.IsMobileDevice;
+
+            //                    if (esMovil)
+            //                    {
+            //                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            //                    }
+            //                    else
+            //                    {
+            //                        if (usuario.EMail == null || usuario.EMail == "" || usuario.EMailActivo == false)
+            //                        {
+            //                            Session["PrimeraVezSession"] = 0;
+            //                        }
+
+            //                        if (usuario.CambioClave == 0) //2532 EG
+            //                        {
+            //                            return RedirectToAction("Landing", "Bienvenida");
+            //                        }
+            //                        else
+            //                        {
+            //                            return RedirectToAction("Index", "Bienvenida");
+            //                        }
+            //                    }
+            //                    //REQ-2589 - Fin 
+            //                }
+            //                else
+            //                {
+            //                    return RedirectToAction("Index", "Bienvenida");
+            //                }
+            //                //Fin Cambios_Landing_Comunidad
+
+            //            }
+            //            else
+            //            {
+            //                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+            //                return Redirect(Url);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+            //            return Redirect(Url);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+            //        return Redirect(Url);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
+            //    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+            //    return Redirect(Url);
+            //}
+
+            var LoginModel = new LoginModel()
+            {
+                listaPaises = DropDowListPaises()
+            };
+            return View(LoginModel);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
@@ -178,69 +178,69 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            if (Session["UserData"] != null)
-            {
-                if (((UsuarioModel)Session["UserData"]).EsUsuarioComunidad)
-                {
-                    try
-                    {
-                        ServiceComunidad.BEUsuarioComunidad usuario = null;
-                        using (ServiceComunidad.ComunidadServiceClient sv = new ServiceComunidad.ComunidadServiceClient())
-                        {
-                            usuario = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
-                            {
-                                UsuarioId = 0,
-                                CodigoUsuario = ((UsuarioModel)Session["UserData"]).CodigoUsuario,
-                                Tipo = 3,
-                                PaisId = ((UsuarioModel)Session["UserData"]).PaisID,
-                            });
-                        }
+            //if (Session["UserData"] != null)
+            //{
+            //    if (((UsuarioModel)Session["UserData"]).EsUsuarioComunidad)
+            //    {
+            //        try
+            //        {
+            //            ServiceComunidad.BEUsuarioComunidad usuario = null;
+            //            using (ServiceComunidad.ComunidadServiceClient sv = new ServiceComunidad.ComunidadServiceClient())
+            //            {
+            //                usuario = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
+            //                {
+            //                    UsuarioId = 0,
+            //                    CodigoUsuario = ((UsuarioModel)Session["UserData"]).CodigoUsuario,
+            //                    Tipo = 3,
+            //                    PaisId = ((UsuarioModel)Session["UserData"]).PaisID,
+            //                });
+            //            }
 
-                        if (usuario != null)
-                        {
-                            String uniqueId = LithiumSSOClient.SSOClient.ANONYMOUS_UNIQUE_ID;
-                            LithiumSSOClient.SSOClient.writeLithiumCookie(uniqueId, usuario.CodigoUsuario, usuario.Correo, System.Web.HttpContext.Current.Request, System.Web.HttpContext.Current.Response);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
+            //            if (usuario != null)
+            //            {
+            //                String uniqueId = LithiumSSOClient.SSOClient.ANONYMOUS_UNIQUE_ID;
+            //                LithiumSSOClient.SSOClient.writeLithiumCookie(uniqueId, usuario.CodigoUsuario, usuario.Correo, System.Web.HttpContext.Current.Request, System.Web.HttpContext.Current.Response);
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
 
-            int Tipo = 0;
-            if (Session["UserData"] != null)
-            {
-                Tipo = ((UsuarioModel)Session["UserData"]).TipoUsuario;
-            }
+            //int Tipo = 0;
+            //if (Session["UserData"] != null)
+            //{
+            //    Tipo = ((UsuarioModel)Session["UserData"]).TipoUsuario;
+            //}
             Session["UserData"] = null;
             Session.Clear();
             Session.Abandon();
 
-            FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-            FederatedAuthentication.SessionAuthenticationModule.SignOut();
-            FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-            FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
+            //FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
+            //FederatedAuthentication.SessionAuthenticationModule.SignOut();
+            //FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
+            //FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
 
             FormsAuthentication.SignOut();
 
-            string URLSignOut = string.Empty;
-            switch (Tipo)
-            {
-                case 0:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-                    break;
-                case 1:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
-                    break;
-                case 2:
-                    URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
-                    break;
-            }
-            return Redirect(URLSignOut);
+            //string URLSignOut = string.Empty;
+            //switch (Tipo)
+            //{
+            //    case 0:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
+            //        break;
+            //    case 1:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOut");
+            //        break;
+            //    case 2:
+            //        URLSignOut = ConfigurationManager.AppSettings.Get("URLSignOutPartner");
+            //        break;
+            //}
+            //return Redirect(URLSignOut);
             
-            //return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Login");
         }
 
         public JsonResult ValidateResult()

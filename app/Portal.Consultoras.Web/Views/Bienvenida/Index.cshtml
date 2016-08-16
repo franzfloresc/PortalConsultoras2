@@ -340,180 +340,73 @@
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
-    <div class="content_video_home" style="display:block;">
+    <div class="content_video_home" style="display:block;" id="divTutoriales">
         <div class="titulo_video">
-            <div>APRENDE A VENDER M&Aacute;S</div>
-            <a href="#" class="ver_mas_video">VER M&Aacute;S +</a>
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
         </div>
         <div class="item_video_left">
             <div class="item_video">
-
             </div>
             @*CONVI&Eacute;RTETE EN UNA VERDADERA COACH DE BELLEZA*@
         </div>
+
         <div class="item_video_right">
-            <!--TITULO 1-->
-            <div class="borde_video">
-                <a class="titulo_item_video">
-                    ¿C&oacute;mo conseguir tu primer pedido?
-                </a>
-                <div class="porcentaje_curso">
-                    <div class="sin_iniciar oculto">SIN INICIAR</div>
-                    <div class="porcentaje_cursosAcademia" data-percent="33">
-                        <span></span>%
-                    </div>
-                    @*<div class="c100 p33 center" >
-                        <span>33%</span>
-                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
-                    </div>*@
-                </div>
-            </div>
-            <!--TITULO 2-->
-            <div class="borde_video">
-                <a class="titulo_item_video">
-                    Maquillaje &Eacute;sika Pro, l&iacute;nea creada con la asesor&iacute;a de Claudia Betancur, celebrity make up artist
-                </a>
-                <div class="porcentaje_curso">
-                    <div class="sin_iniciar">SIN INICIAR</div>
-                </div>
-            </div>
-            <!--TITULO 3-->
-            <div class="borde_video">
-                <a class="titulo_item_video">
-                    ¿C&oacute;mo fidelizar a un cliente?
-                </a>
-                <div class="porcentaje_curso">
-                    <div class="sin_iniciar oculto">SIN INICIAR</div>
-                    <div class="porcentaje_cursosAcademia" data-percent="80">
-                        <span></span>%
-                    </div>
-                </div>
-               @*<div class="porcentaje_curso">
-                    <div class="c100 p80 center">
-                        <span>80%</span>
-                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
-                    </div>
-                </div>*@
-            </div>
-            <!--TITULO 4-->
-            <div class="borde_video">
-                <a class="titulo_item_video">
-                    ¿C&oacute;mo conseguir tu primer pedido?
-                </a>
-                <div class="porcentaje_curso">
-                    <div class="sin_iniciar">SIN INICIAR</div>
-                    <div class="c100 p80 center oculto">
-                        <span>33%</span>
-                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
-                    </div>
-                </div>
-            </div>
+            <div id="divMisCursos"></div>
         </div>
+
     </div>
     <!-- FIN TUTORIALES-->
 
     <!-- SIN TUTORIALES -->
-    <div class="content_video_home sinTutoriales" style="display:none;">
+    <div class="content_video_home sinTutoriales" style="display:none;" id="divSinTutoriales">
         <div class="titulo_video">
-            <div>APRENDE A VENDER M&Aacute;S</div>
-            <a href="#" class="ver_mas_video">VER M&Aacute;S +</a>
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
         </div>
         <div class="item_video_left">
             <div class="item_video">
             </div>
         </div>
-        <div class="item_video_right">
+        <div class="item_video_right" >
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
                 <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
-                <a href="#" title="Ir a Mi Academia">
+                <a href="@Url.Action("Index", "MiAcademia")" title="Ir a Mi Academia">
                     <span class="icono_arrow">&#9658;</span><span>IR A "MI ACADEMIA"</span>
                 </a>
             </div>            
         </div>
     </div>
+
     <!-- FIN SIN TUTORIALES-->
 
     <!-- TUTORIALES PARA VENEZUELA -->
-    <div class="content_video_home miAcademia_venezuela" style="display:none;">
+    <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
-            <div>APRENDE A VENDER M&Aacute;S</div>
-            <a href="#" class="ver_mas_video">VER M&Aacute;S +</a>
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
         </div>
         <div class="item_video_left">
             <div class="item_video">
-
             </div>
         </div>
         <div class="item_video_right">
-            <div class="contenedor_cursos_academia">
-                <div class="curso_img">
-                    <img src="@Url.Content("~/Content/Images/Esika/home-video.png")" alt="Imagen Curso" />
-                </div>
-                <div class="curso_descripcion">
-                    <div class="curso_titulo">
-                        <span>
+            <div id="divMisCursosV"></div>
                             <a href="#">
                                 ¿Cómo conseguir tu primer pedido?
                             </a>
                         </span>
-                    </div>
-                    <div class="curso_porcentaje_avance">
-                        <div class="porcentaje_curso">
-                            <div class="sin_iniciar oculto">SIN INICIAR</div>
-                            <div class="porcentaje_cursosAcademia" data-percent="33">
-                                <span></span>%
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="contenedor_cursos_academia">
-                <div class="curso_img">
-                    <img src="@Url.Content("~/Content/Images/Esika/home-video.png")" alt="Imagen Curso" />
-                </div>
-                <div class="curso_descripcion">
-                    <div class="curso_titulo">
-                        <span>
                             <a href="#">
                                 Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
                             </a>
                         </span>
-                    </div>
-                    <div class="curso_porcentaje_avance">
-                        <div class="porcentaje_curso">
-                            <div class="sin_iniciar">SIN INICIAR</div>
-                            <div class="porcentaje_cursosAcademia oculto" data-percent="80">
-                                <span></span>%
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="contenedor_cursos_academia">
-                <div class="curso_img">
-                    <img src="@Url.Content("~/Content/Images/Esika/home-video.png")" alt="Imagen Curso" />
-                </div>
-                <div class="curso_descripcion">
-                    <div class="curso_titulo">
-                        <span>
                             <a href="#">
                                 ¿Cómo fidelizar a un cliente?
                             </a>
                         </span>
-                    </div>
-                    <div class="curso_porcentaje_avance">
-                        <div class="porcentaje_curso">
-                            <div class="sin_iniciar oculto">SIN INICIAR</div>
-                            <div class="porcentaje_cursosAcademia" data-percent="80">
-                                <span></span>%
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-     </div>
+    </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
 
     <!--CAROUSEL LIQUIDACION HOME-->
@@ -1539,77 +1432,103 @@
 
 <script id="miscursos-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div class="content_video_home">
-        <div class="titulo_video">
-            <div>APRENDE A VENDER M&Aacute;S</div>
-            <a href="#" class="ver_mas_video">VER M&Aacute;S +</a>
-        </div>
-        <div class="item_video_left">
-            <div class="item_video">
-
+    <div class="borde_video">
+        <a class="titulo_item_video">
+            {{nombre}}
+        </a>
+        <div class="porcentaje_curso">
+            {{#if_eq estado '0'}}
+            <div class="sin_iniciar">
+                SIN INICIAR
             </div>
-            CONVI&Eacute;RTETE EN UNA VERDADERA COACH DE BELLEZA
-        </div>
-        <div class="item_video_right">
-            <!--TITULO 1-->
-            <div class="borde_video">
-                <a class="titulo_item_video">
-                    {{nombre}}
-                </a>
-                <div class="porcentaje_curso">
-                    <div class="sin_iniciar oculto">
-                        {{#if_eq estado '1'}} SIN INICIAR
-                        {{else if_eq estado '2' }} EN PROCESO
-                        {{else if_eq estado '3' }} FINALIZADO
-                        {{/if_eq}}
-                    </div>
-                    <div class="c100 p60 center">
-                        <span>{{porcentaje_de_avance}}</span>
-                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
-                    </div>
-                </div>
+            {{else if_eq estado '1' }}
+            <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                <span></span>%
             </div>
+            {{else if_eq estado '2' }}
+            <div class="sin_iniciar">
+                FINALIZADO
+            </div>
+            {{/if_eq}}
         </div>
     </div>
     {{/each}}
 </script>
+
+<script id="miscursosv-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="contenedor_cursos_academia">
+        <div class="curso_img">
+            <img src="{{imagen}}" alt="Imagen Curso" />
+        </div>
+        <div class="curso_descripcion">
+            <div class="curso_titulo">
+                <span>{{nombre}}</span>
+            </div>
+            <div class="curso_porcentaje_avance">
+                <div class="porcentaje_curso">
+
+                    {{#if_eq estado '0'}}
+                    <div class="sin_iniciar">
+                        SIN INICIAR
+                    </div>
+                    {{else if_eq estado '1' }}
+                    <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                        <span></span>%
+                    </div>
+                    {{else if_eq estado '2' }}
+                    <div class="sin_iniciar">
+                        FINALIZADO
+                    </div>
+                    {{/if_eq}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{/each}}
+</script>
+
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
 
     <script type="text/javascript">
-        var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
-        var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
-        var viewBagPrimeraVez = '@Model.PrimeraVez';
-        var ViewBagRutaChile = '@Model.rutaChile';
-        var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-        var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
-        var viewBagCambioClave = '@Model.CambioClave';
-        var viewBagPaisID = '@Model.PaisID';
-        var viewBagIndicadorContrato = '@Model.IndicadorContrato';
-        var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
-        var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
-        var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
-        var viewBagCampanaInvitada = '@Model.CampanaInvitada';
-        var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var viewBagNroCampana = '@Model.NroCampana';
-        var viewBagCodigoConsultora = '@Model.CodigoConsultora';
-        var viewBagPrefijoPais = '@Model.PrefijoPais';
-        var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
-        var viewBagRolID = '@ViewBag.Rol';
-        var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
-        var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
-        var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
-        var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
-        var viewBagValidaSegmento = '@Model.ValidaSegmento';
-        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-        var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
-        var contadorFondoPopUp = 0;
-        var sessionIsContrato = '@Session["IsContrato"]';
-        @{ Session["IsContrato"] = 0; }
+    var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+    var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+    var viewBagPrimeraVez = '@Model.PrimeraVez';
+    var ViewBagRutaChile = '@Model.rutaChile';
+    var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+    var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+    var viewBagCambioClave = '@Model.CambioClave';
+    var viewBagPaisID = '@Model.PaisID';
+    var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+    var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+    var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+    var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
+    var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+    var viewBagCampaniaActual = '@Model.CampaniaActual';
+    var viewBagNroCampana = '@Model.NroCampana';
+    var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+    var viewBagPrefijoPais = '@Model.PrefijoPais';
+    var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+    var viewBagRolID = '@ViewBag.Rol';
+    var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+    var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
+    var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
+    var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
+    var viewBagValidaSegmento = '@Model.ValidaSegmento';
+    var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+    var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+    var contadorFondoPopUp = 0;
+    var sessionIsContrato = '@Session["IsContrato"]';
+    @{ Session["IsContrato"] = 0; }
+    var paisISO = '@ViewBag.CodigoISODL';
+    var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
 }

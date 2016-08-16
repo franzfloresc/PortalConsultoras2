@@ -872,7 +872,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             //R20151123 Inicio
                             TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
-                            var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " horas.";
+                            var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " horas";
                             var diasemana = "";
                             var dia = fechaDA.DayOfWeek.ToString();
 

@@ -54,9 +54,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "Lbel";
+                case 1: result = "L'Bel";
                     break;
-                case 2: result = "Esika";
+                case 2: result = "Ésika";
                     break;
                 case 3: result = "Cyzone";
                     break;
@@ -141,7 +141,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = lst.Take(cantidadregistros).ToList();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                lst.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                 lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
             }
            
