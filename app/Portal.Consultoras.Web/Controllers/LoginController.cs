@@ -22,6 +22,17 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            return Login();
+
+            //var LoginModel = new LoginModel()
+            //{
+            //    listaPaises = DropDowListPaises()
+            //};
+            //return View(LoginModel);
+        }
+
+        private ActionResult Login()
+        {
             ViewBag.Fecha = DateTime.Now;
             try
             {
@@ -42,11 +53,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                     if (claimUser.Contains(DomBelcorp))
-                {
-                    UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-                    UsuarioSAC = true;
-                    Tipo = 2;
-                }
+                    {
+                        UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
+                        UsuarioSAC = true;
+                        Tipo = 2;
+                    }
 
 
                 if (!string.IsNullOrEmpty(UserPortal))
@@ -140,13 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                 return Redirect(Url);
             }
-
-            //var LoginModel = new LoginModel()
-            //{
-            //    listaPaises = DropDowListPaises()
-            //};
-            //return View(LoginModel);
-        }
+        } 
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
@@ -177,6 +182,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult LogOut()
+        {
+            return CerrarSesion();
+
+            //return RedirectToAction("Index", "Login");
+        }
+
+        private ActionResult CerrarSesion()
         {
             if (Session["UserData"] != null)
             {
@@ -239,8 +251,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
             return Redirect(URLSignOut);
-
-            //return RedirectToAction("Index", "Login");
         }
 
         public JsonResult ValidateResult()
