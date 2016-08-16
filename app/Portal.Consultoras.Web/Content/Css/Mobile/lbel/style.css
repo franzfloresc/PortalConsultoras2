@@ -4512,7 +4512,7 @@ body{
     text-align:center;
     font-size:13px;
     color:#1a1a1a;
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     margin-bottom:25px;
     position:relative;
 }
