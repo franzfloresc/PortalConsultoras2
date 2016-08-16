@@ -1480,6 +1480,7 @@
     <Content Include="Content\Images\Esika\consultora_online.png" />
     <Content Include="Content\Images\Esika\cyzone_revista.png" />
     <Content Include="Content\Images\Esika\demanda_anticipada_regalo_img.png" />
+    <Content Include="Content\Images\Esika\demanda_anticipada_regalo_mobile_img.png" />
     <Content Include="Content\Images\Esika\divisor.png" />
     <Content Include="Content\Images\Esika\divisor_liquidacion.png" />
     <Content Include="Content\Images\Esika\dolar.png" />
