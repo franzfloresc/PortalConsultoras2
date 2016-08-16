@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPaginateProductoSugerido(int campaniaID, string cuvAgotado, string cuvSugerido)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaginateProductoSugerido");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaginateProductoSugerido_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@CuvAgotado", DbType.String, cuvAgotado);
             Context.Database.AddInParameter(command, "@CuvSugerido", DbType.String, cuvSugerido);
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetImagenesByCUV(int campaniaID, string cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCUV");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCUV_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Data
 
         public string InsProductoSugerido(BEProductoSugerido entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoSugerido");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoSugerido_SB2");
             Context.Database.AddOutParameter(command, "Return", DbType.String, 10000);
             Context.Database.AddInParameter(command, "ProductoSugeridoID", DbType.Int32, entity.ProductoSugeridoID);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.String, entity.CampaniaID);
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Data
 
         public string UpdProductoSugerido(BEProductoSugerido entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdProductoSugerido");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdProductoSugerido_SB2");
             Context.Database.AddOutParameter(command, "Return", DbType.String, 10000);
             Context.Database.AddInParameter(command, "ProductoSugeridoID", DbType.Int32, entity.ProductoSugeridoID);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.String, entity.CampaniaID);
@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Data
 
         public string DelProductoSugerido(BEProductoSugerido entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoSugerido");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoSugerido_SB2");
             Context.Database.AddOutParameter(command, "Return", DbType.String, 10000);
             Context.Database.AddInParameter(command, "ProductoSugeridoID", DbType.Int32, entity.ProductoSugeridoID);
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
