@@ -85,7 +85,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID);
 
         [OperationContract]
-        DateTime GetFechaVencimiento(int paisId, string codigoIso, int campaniaId, string codigoConsultora);
+        DateTime GetFechaVencimiento(int paisID, int campaniaId, int regionId, int zonaId);
 
         #endregion
 

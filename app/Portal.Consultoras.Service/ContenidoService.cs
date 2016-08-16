@@ -167,10 +167,10 @@ namespace Portal.Consultoras.Service
             return BLResumenCampania.GetDeudaTotal(paisID, ConsultoraID);
         }
 
-        public DateTime GetFechaVencimiento(int paisId, string codigoIso, int campaniaId, string codigoConsultora)
+        public DateTime GetFechaVencimiento(int paisId, int campaniaId, int regionId, int zonaId)
         {
             var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetFechaVencimiento(paisId, codigoIso, campaniaId, codigoConsultora);
+            return BLResumenCampania.GetFechaVencimiento(paisId, campaniaId, regionId, zonaId);
         }
 
         #endregion

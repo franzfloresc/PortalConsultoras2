@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else
                         model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
 
-                    var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CampaniaID, userData.RegionID, userData.ZonaID);
 
                     model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 }
