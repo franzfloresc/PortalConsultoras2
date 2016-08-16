@@ -3928,18 +3928,19 @@ width:100%;
     display:block;
 }
 
+.enlace_sociasEmpresarias .btn_seguirp_mobile{
+    width: 7px;
+    height: 8px;
+    background-position: center center;
+}
+
 .texto_enlace_socias{
     text-decoration:underline;
     text-transform:uppercase;
     color:#000;
     font-weight:700;
-    letter-spacing:0.65px;
+    letter-spacing:0.95px;
     font-size:10px;
-}
-
-.flecha_enlace_sociasEmpresarias{
-    color:#e81c36;
-    font-size:12px;
 }
 
 .cambiar_datos_mobile{
