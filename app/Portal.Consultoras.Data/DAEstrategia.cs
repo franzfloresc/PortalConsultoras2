@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Data
         public int InsertEstrategia(BEEstrategia entidad)
         {
             int result;
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategia"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategia_SB2"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
@@ -80,11 +80,11 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagDescripcion", DbType.Int32, entidad.FlagDescripcion);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV1);
                 Context.Database.AddInParameter(command, "@EtiquetaID", DbType.Int32, entidad.EtiquetaID);
-                Context.Database.AddInParameter(command, "@Precio", DbType.String, entidad.Precio);
+                Context.Database.AddInParameter(command, "@Precio", DbType.Decimal, entidad.Precio);
                 Context.Database.AddInParameter(command, "@FlagCEP", DbType.Int32, entidad.FlagCEP);
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@EtiquetaID2", DbType.Int32, entidad.EtiquetaID2);
-                Context.Database.AddInParameter(command, "@Precio2", DbType.String, entidad.Precio2);
+                Context.Database.AddInParameter(command, "@Precio2", DbType.Decimal, entidad.Precio2);
                 Context.Database.AddInParameter(command, "@FlagCEP2", DbType.Int32, entidad.FlagCEP2);
                 Context.Database.AddInParameter(command, "@TextoLibre", DbType.String, entidad.TextoLibre);
                 Context.Database.AddInParameter(command, "@FlagTextoLibre", DbType.Int32, entidad.FlagTextoLibre);
