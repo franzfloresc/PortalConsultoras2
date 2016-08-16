@@ -1474,7 +1474,7 @@ function ObservacionesProducto(item) {
                     'virtualUrl': '/Pedido/Mensajes/Producto-revista'
                 });
                 if (isEsika) {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika Somos Belcorp con oferta especial.</div></div>");
+                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
                 } else {
                     $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la revista Somos Belcorp con oferta especial.</div></div>");
                 }                
