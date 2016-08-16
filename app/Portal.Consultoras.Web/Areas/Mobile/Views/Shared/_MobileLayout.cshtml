@@ -471,7 +471,14 @@
 
         $(function () {
             HandlebarsRegisterHelper();
-
+            $('.menu_footer').on('click', function () {
+                var $obj = $(this);
+                if ($obj.hasClass('menu_footer')) {
+                    $obj.addClass('menu_footer_menos').removeClass('menu_footer');
+                } else {
+                    $obj.addClass('menu_footer').removeClass('menu_footer_menos');
+                }
+            });
             //$('.toUp').hide();
             //$(window).scroll(function () {
             //    if ($(this).scrollTop() > 70) {

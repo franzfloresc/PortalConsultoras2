@@ -1850,6 +1850,7 @@
     <Content Include="Content\Images\mobile\Esika\mas.png" />
     <Content Include="Content\Images\mobile\Esika\mas_footer.png" />
     <Content Include="Content\Images\mobile\Esika\menos.png" />
+    <Content Include="Content\Images\mobile\Esika\menos_footer.png" />
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
