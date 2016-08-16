@@ -102,6 +102,9 @@ namespace Portal.Consultoras.Web.Models
         public string NombreCorto { get; set; }
         public int DiasCampania { get; set; }
         public DateTime FechaFacturacion { get; set; }
+
+        public DateTime FechaLimPago { get; set; }
+
         public int PedidoID { get; set; }
         public string CodigorRegion { get; set; }
         public string CodigoZona { get; set; }

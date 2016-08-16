@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Data
         public int InsertEstrategia(BEEstrategia entidad)
         {
             int result;
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategia"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategia_SB2"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
