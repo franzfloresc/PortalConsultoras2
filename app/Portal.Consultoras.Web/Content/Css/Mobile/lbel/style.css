@@ -4483,6 +4483,10 @@ body{
     font-weight:bold;
 }
 
+.contenedor_cantidadProductos div .campo_cantidadProductos input[value]{
+    color:#000;
+}
+
 .contenedor_seleccionCliente{
     display:block;
     margin-bottom:30px;
