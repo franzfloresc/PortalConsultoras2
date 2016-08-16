@@ -1,532 +1,165 @@
 ﻿@model Portal.Consultoras.Web.Models.NotificacionesModel
 @{
     ViewBag.Title = "Notificaciones";
+    var sinLeer = Model.ListaNotificaciones.Where(x => x.Visualizado == false).Count();
 }
-<script type="text/javascript">
-    $(document).ready(function () {
 
-        $('#DialogMensajes').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 400,
-            draggable: true,
-            title: ":: Mensaje ::",
-            buttons:
-            {
-                "Aceptar": function () {
-                    $(this).dialog('close');
-                }
-            }
-        });
-        $('#divObservaciones').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 750,
-            height: 500,
-            draggable: true,
-            title: "Observaciones PROL",            
-        });
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>NOTIFICACIONES</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="content_left_pagos">
 
-        $('#divNotificacionCatalogo').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 850,
-            height: 500,
-            draggable: true,
-            title: "",
-        });
+        <!--CONTENIDO DE TITULO -->
+        <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor:default!important;">
+            <img src="/Content/Images/Esika/notificaciones.png" alt="" style="float:left">
+            <p class="notificaciones notificaciones_existentes notificaciones_activas">@sinLeer</p>
+        </a>
+        @if (sinLeer > 0)
+        {
 
-        $('#divSolicitudClienteDetalle').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 770,
-            height: 520,
-            draggable: true,
-            open: function (event, ui) {
-                $(this).scrollTop(0); //R2548 - CS
-                $('#MensajeClienteInfo').text('');
-                var working = $("#buttonsAction").contents();
-                $("#locButtons").html('');
-                $("#locButtons").append(working);
-
-                if ($.browser.msie) {         //this is for only ie condition ( microsoft internet explore )
-                    $('input[type="text"][placeholder]').each(function () {
-                        var obj = $(this);
-
-                        if (obj.attr('placeholder') != '') {
-                            obj.css({ 'color': '#d3d3d3' });
-                            obj.addClass('IePlaceHolder');
-
-                            if ($.trim(obj.val()) == '' && obj.attr('type') != 'password') {
-                                obj.val(obj.attr('placeholder'));
-                            }
-                        }
-        });
-
-                    $('.IePlaceHolder').focus(function () {
-                        var obj = $(this);
-
-                        if (obj.val() == obj.attr('placeholder')) {
-                            obj.css({ color: '' });
-                            obj.val('');
-                        }
-    });
-
-                    $('.IePlaceHolder').blur(function () {
-                        var obj = $(this);
-                        if ($.trim(obj.val()) == '') {
-
-
-                            obj.css({ color: '#d3d3d3' });
-                            obj.val(obj.attr('placeholder'));
-                        }
-                    });
-                } else {
-                    $('.ie8placeholder').data('holder', $('.ie8placeholder').attr('placeholder'));
-                    $('.ie8placeholder').focus(function () {
-                        var obj = $(this);
-                        obj.attr('placeholder', '');
-                    });
-                    $('.ie8placeholder').focusout(function () {
-
-                        var obj = $(this);
-                        obj.attr('placeholder', obj.data('holder'));
-                    });
-
-                }
-
-                $('textarea[maxlength]').keyup(function () {
-
-                    var limit = parseInt($(this).attr('maxlength'));
-                    var text = $(this).val();
-                    var chars = text.length;
-
-                    if (chars > limit) {
-                        var new_text = text.substr(0, limit);
-                        $(this).val(new_text);
-                    }
-
-                   // $("#divCaracteres").html(chars + ' de ' + limit + ' caracteres');
-
-                });
-
-            }
-        });
-
-        $('#divPedidoRechazado').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 350,
-            close: function (event, ui) {
-                $('#divPedidoRechazado').dialog('close');
-
-            }
-            //height: 380,
-            //draggable: true
-        });
-        $('#divPedidoAceptado').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 350,
-            close: function (event, ui) {
-                $('#divPedidoAceptado').dialog('close');
-
-            }
-            //height: 380,
-            //draggable: true
-        });
-
-    });
-
-    //R2319
-    function alert_msg(message) {
-        $('#DialogMensajes .message_text').html(message);
-        $('#DialogMensajes').dialog('open');
-    }
-
-    function cerrarDialogo(divDialogo) {
-        $('#' + divDialogo).dialog('close');
-    }
-	//R2073 - R2133
-    function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo)
-    {
-        waitingDialog({});
-
-        var TipoOrigen = 1;
-        if (Proceso == "VALAUTO")
-            TipoOrigen = 1;
+            <div class="aviso_mensajes">TIENES @sinLeer MENSAJES SIN LEER</div>
+        }
         else
-            if (Proceso == "VALMOVIL")
-                TipoOrigen = 2;
-            else
-                TipoOrigen = 3;
-        //R2319 - JLCS
-        if (Proceso == "BUSCACONS")
-            TipoOrigen = 4;
-
-        if (Proceso == "CATALOGO")
-            TipoOrigen = 5;
-
-        if (Visualizado == "False") {
-            $.ajaxSetup({ cache: false });
-            $.get(baseUrl + "Notificaciones/ListarNotificaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-                if (checkTimeout(data)) {
-                    $('#divListadoPedido').html(data);
-                    var imagen = "";
-                    
-                    if ($("#TieneNotificacion").val() == 1) {
-                    
-                        imagen = '@Url.Content("~/Content/Images/ConNotificaciones.png")';
-                    } else {
-                        imagen = '@Url.Content("~/Content/Images/SinNotificaciones.png")';
-                    }
-      
-                    $('#Notificacion').attr('src', imagen);
-                }
-            });
+        {
+            <div class="aviso_mensajes">NO <b>TIENES MENSAJES</b></div>
         }
-
-        //R2319 - JLCS
-        if (TipoOrigen == 4) {
-            location.href = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
-            //$.ajaxSetup({ cache: false });
-            //$.get(baseUrl + "Notificaciones/ListarDetalleSolicitudCliente?SolicitudId=" + ProcesoId, function (data) {
-            //    if (checkTimeout(data)) {
-            //        $('#divListadoDetalleSolicitud').html(data);
-            //        $('#divSolicitudClienteDetalle').dialog('option', 'title', '');
-            //        $('#divSolicitudClienteDetalle').dialog('open');
-            //        closeWaitingDialog();
-            //    }
-            //});
-        }
-        else if (TipoOrigen == 5) {
-            $.ajaxSetup({ cache: false });
-            $.get(baseUrl + "Notificaciones/ListarDetalleSolicitudClienteCatalogo?SolicitudId=" + ProcesoId, function (data) {
-                if (checkTimeout(data)) {
-                    $('#divDetalleNotificacionCatalogo').html(data);
-                    $('#divNotificacionCatalogo').dialog('option', 'title', '');
-                    $('#divNotificacionCatalogo').dialog('open');
-                    closeWaitingDialog();
-                }
-            });
-        }
-        else if (TipoOrigen != 3) {
-            $.ajaxSetup({ cache: false });
-            $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-                if (checkTimeout(data)) {
-                    $('#divListadoObservaciones').html(data);
-                    $('#divObservaciones').dialog('option', 'title', Asunto);
-                    $('#divObservaciones').dialog('open');
-                    switch (Estado) {
-                        /*Pedido no reservado por monto mínimo/maximo */
-                        case "2":
-                            $('#sMensajePedidoPROL').html(Observaciones);
-                            /*RE2584 - CS(CGI) - 22/05/2015*/
-                            $('#SaltoLinea').html('&nbsp;');
-                            if (EsMontoMinimo=="True")
-                            {
-                                $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                            }                            
-                            break;
-                        case "3":
-                            $('#sMensajePedidoPROL').html(Observaciones);
-                            $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                            break;
-                        case "4":
-                            /*RE2584 - CS(CGI) - 22/05/2015*/
-                            $('#sFelicitaciones').html('¡Lo lograste!');
-                            $('#sMensajePedidoPROL').html(Observaciones);
-                            var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
-                            /*RE2584 - CS(CGI) - 22/05/2015*/
-                            $('#sMensajeFacturacion').html(Mensaje);
-                            break;
-                        case "5":
-                            /*RE2584 - CS(CGI) - 22/05/2015*/
-                            $('#sFelicitaciones').html('¡Lo lograste!');
-                            $('#sMensajePedidoPROL').html(Observaciones);
-                            /*RE2584 - CS(CGI) - 22/05/2015*/
-                            var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
-                            $('#sMensajeFacturacion').html(Mensaje);
-                            break;
-                    }
-                    closeWaitingDialog();
-                }
-            });
-        }
-        else {
-            $.ajaxSetup({ cache: false });
-            $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones, function (data) {
-                if (checkTimeout(data)) {
-                    $('#divListadoObservaciones').html(data);
-                    $('#divObservaciones').dialog('option', 'title', Asunto);
-                    $('#divObservaciones').dialog('open');
-                    closeWaitingDialog();
-                }
-            });
-
-        }
-
-    }
-
-    function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact)
-    {
-            Result = "el día de hoy";
-        return Result;
-    }
-
-</script>
-<div class="wrap_cab">
-    <div class="filtros">
-        <div class="elements">
-            <div class="div-1">
-                <div class="box">
-                    <div class="box-t"></div>
-                    <div class="box-c">
-                        @if (ViewBag.Campania != null)
+        <hr class="clear">
+        <div class="linea_separadora" style="height:2px"></div>
+        <!--FIN CONTENIDO TITULO -->
+        <!--CONTENIDO DE TABLAS -->
+        <div class="content_datos_mispagos">
+            <div class="fecha_pagos texto_black_notificaciones">Destinatario</div>
+            <div class="movimientos_pagos texto_black_notificaciones">Asunto</div>
+            <div class="pedidos_pagos texto_black_notificaciones" style="padding-right:50px;">Fecha y Hora</div>
+            <div class="abonos_pagos texto_black_notificaciones">Campaña</div>
+        </div>
+        <div class="linea_separadora" style="margin-top:-1px"></div>
+        <div id="dellateContenido">
+            @foreach (var item in Model.ListaNotificaciones)
+            {
+                <div class="content_datos_mispagos">
+                    <div class="fecha_pagos">SOMOSBELCORP</div>
+                    <a class="movimientos_pagos">@item.Asunto</a>
+                    <div class="pedidos_pagos">@Html.DisplayTextFor(modelItem => item.FechaHoraValidación)</div>
+                    <div class="abonos_pagos">
+                        @if (item.CampaniaId != 0)
                         {
-                            if (ViewBag.Dias == 0)
-                            {
-
-                            <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
-
-                            }
-                            else
-                            {
-                            <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
-
-                            }
-                            <p>@ViewBag.MensajeCierreCampania</p>
+                            @Html.DisplayTextFor(modelItem => item.CampaniaId)
                         }
-                        else
-                        {
-                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
-                        }
-                    </div>
-                    <div class="box-b"></div>                                                        
                 </div>
-                 
             </div>
-            <div class="div-2">
-                <br />
-                <h1>Notificaciones</h1>
+            }
+            <!--FIN CONTENIDO TABLAS-->
+            <hr class="clear">
+        </div>
+    </div>
+</div>
+<div class="PopUpNotificaciones">
+    <div class="fondo_popNoti">
+        <div class="content_popNotificaciones">
+            <div class="saludo_notificaciones">Hola Valeria,</div>
+            <div class="btn_cerrar_popup_notificaciones" data-accion="close">
+                <a href="#" title="Cerrar Popup">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popupPercepcion.png")" alt="Cerrar" />
+                </a>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
-</div>
-<div class="wrap">
-    <div class="container clearfix">
-        <div class="border-wrapper">
-            <div id="divListadoPedido" class="tabla2">
-                @if (Model != null)
-                {
-                    Html.RenderPartial("ListadoNotificaciones", this.Model);
-                }
-            </div>
+    <div class="content_popNotificaciones">
+        <div class="texto_titulo_noti">
+            ¡Lo lograste!<br />
+            Tu pedido ha sido reservado con éxito.
         </div>
-        <div class="sep"></div>
-    </div>
-</div>
-<div id="divObservaciones" class="wrap">
-    <div class="Content_modal_home">
-        <div id="divListadoObservaciones">
-            @if (Model != null && Model.ListaNotificacionesDetalle != null)
-            {
-                Html.RenderPartial("ListadoObservaciones", this.Model);
-            }
+        <div class="texto_secundario_noti">
+            Para que el pedido pase correctamente, se ha tenido que realizar lo siguiente:<br />
+            - Se eliminó el producto 05364 - <span>CY CC BETTER LIPS DR. ROSE</span> - por estar agotado<br /><br />
+
+            Será enviado a Belcorp el día de hoy, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.
         </div>
-    </div>
-</div>
-<div id="divSolicitudClienteDetalle" class="wrap">
-    <div class="Content_modal_notificacion">
-        <div id="divListadoDetalleSolicitud">
+        <p class="texto_detalle">DETALLE</p>
+        <div class="linea_separadora" style="height:2px; margin-bottom:17px;"></div>
+
+        <!--PGINADOR-->
+        <div class="cantidad_productos_notificaciones"><span>5 productos</span>	TOTAL   <span>S/. 147.60</span></div>
+        <ul class="paginador_notificaciones">
+            <li class="texto_pagina">Página</li>
+            <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
+            <li style="margin-right: 6px;">
+                <span class="paginas_pedidos">
+                    <span class="pagina_actual">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                    </span> de
+                    <span class="paginas_totales">1</span>
+                </span>
+            </li>
+            <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
+        </ul>
+        <hr class="clear" />
+        <div class="linea_separadora"></div>
+        <!--LISTADO ITEMS-->
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones texto_gris">Cód. Venta</div>
+            <div class="descripcion_notificaciones texto_gris">Descripción</div>
+            <div class="cantidad_notificaciones texto_gris">Cantidad</div>
+            <div class="unitario_notificaciones texto_gris">Precio Unitario</div>
+            <div class="total_notificaciones texto_gris">Precio total</div>
         </div>
-    </div>  
-    <div id="buttonPlace" class="div-3">
-        <div id="locButtons" style="margin: 20px auto 5px auto; width: 350px !important;">
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones">34727</div>
+            <div class="descripcion_notificaciones">CY EXCHANGE BOLSO REAC</div>
+            <div class="cantidad_notificaciones">1</div>
+            <div class="unitario_notificaciones">S/. 43.90</div>
+            <div class="total_notificaciones">S/. 43.90</div>
         </div>
-    </div>
-</div>
-
-@*R20150802*@
-<div id="divNotificacionCatalogo" class="wrap">
-    <div class="Content_modal_home">
-        <div id="divDetalleNotificacionCatalogo">
-            @if (Model != null && Model.NotificacionDetalleCatalogo != null)
-            {
-                Html.RenderPartial("ListadoDetalleCatalogo", this.Model);
-            }
-    </div>
-</div>
-</div>
-
-<div id="divPedidoRechazado" style="color: #768591;">
-    <h3 style="display: table; margin: 0 auto 0 auto; color: #768591;">Pedido Rechazado</h3>
-    <div style="display: table; margin: 5px auto; font-family: 'Museo Sans 300'; color: #768591;">
-        <p style="text-align: center; font-family: 'Museo Sans 300';">
-                       Esperamos que pronto puedas aceptar<br />
-                       solicitudes de otros clientes<br />
-            para que tu negocio siga creciendo<br />
-            <br />
-            Belcorp 
-        </p>
-
-                 </div>
-    <div class="btnMorado">
-        <input value="Aceptar" type="button" onclick="cerrarDialogo('divPedidoRechazado');" />
-     </div>
-</div>
-<!-- R2442-->
-<div id="divPedidoAceptado">
-    <h3 style="display: table; margin: 0 auto 0 auto; color: #768591;">¡Ya tienes un nuevo cliente!</h3>
-    <div style="display: table; margin: 5px auto;">
-        <p style="text-align: center; font-family: 'Museo Sans 300'; color: #768591;">
-                      Has aceptado esta nueva solicitud de<br />
-                      pedido. Contacta a tu nuevo cliente, sé<br />
-                    amable y esfuérzate por entregarle sus<br />
-                    productos lo más pronto posible.
-                        </p>
-
-                 </div>
-    <div class="btnMorado">
-        <input value="Aceptar" type="button" onclick="cerrarDialogo('divPedidoAceptado');" />
-     </div>
-
-</div>
-@*R2442*@
-<div id="DialogMensajes" style="display: none;">
-    <div class="Content_modal">
-        <div class="message_text">
-            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.        
+        <div class="content_listado_notificaciones">
+            <div class="cod_venta_notificaciones">34727</div>
+            <div class="descripcion_notificaciones">ES CFX LAPIZ LABIAL EN BARRA 2G VINO GOLDEN</div>
+            <div class="cantidad_notificaciones">1</div>
+            <div class="unitario_notificaciones">S/. 19.90</div>
+            <div class="total_notificaciones">S/. 19.90</div>
         </div>
+        <!--FIN-->
+        <div class="linea_separadora" style="margin-top: -1px; margin-bottom: 17px"></div>
+        <!--PGINADOR-->
+        <div class="cantidad_productos_notificaciones"><span>5 productos</span>	TOTAL   <span>S/. 147.60</span></div>
+        <ul class="paginador_notificaciones">
+            <li class="texto_pagina">Página</li>
+            <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
+            <li style="margin-right: 6px;">
+                <span class="paginas_pedidos">
+                    <span class="pagina_actual">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                    </span> de
+                    <span class="paginas_totales">1</span>
+                </span>
+            </li>
+            <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
+        </ul>
+        <hr class="clear" />
+        <div class="linea_inferior_roja" style="margin-top:10px"></div>
+        <div class="num_total_pago" id="montoPagarEstadoCuenta" style="padding-right:10px"> S/.  327.49</div>
+        <div class="texto_monto_pago">Total Monto a pagar: </div>
     </div>
 </div>
 
-<div id="loadingScreen"></div>
-<script type="text/javascript">
-    function AceptarSolicitud(SolicitudClienteId, ConsultoraID, Marca, EmailCliente, NombreCliente) {
-
-        var MensajeaCliente = $('#taMensaje').val();
-        //R2442 - JICM - cambió de mensaje
-        var error = 0;
-        
-        if ($.trim(MensajeaCliente).length == 0) {
-                      
-            alert_msg("Ingrese un mensaje");
-            return;
-            
-        }
-     
-
-        waitingDialog({});
-
-       
-
-        var params = {
-            SolicitudId: SolicitudClienteId,
-            ConsultoraID: ConsultoraID,
-            emailCliente: EmailCliente,
-            NombreCliente: NombreCliente,
-            MensajeaCliente: MensajeaCliente,
-            Marca: Marca
-        };
-
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "Notificaciones/AceptarSolicitud",
-            contentType: 'application/json',
-            data: JSON.stringify(params),
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    if (data.success == true) {
-                        $('#MensajeClienteInfo').text('');
-                        $('#divSolicitudClienteDetalle').dialog('close');
-                        $('#divPedidoAceptado').dialog('open')//R2442
-                        //2579 EGL
-                        dataLayer.push({
-                            'event': 'acceptOrder',
-                            'order': {
-                                'id': SolicitudClienteId,
-
-                            }
-                        });
-
-                    }
-                   
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    $('#MensajeClienteInfo').text('');
-                    alert_msg("Ocurrió un error inesperado. Consulte con su administrador del sistema para obtener mayor información");
-                }
-            }
+@section scripts{
+    <script type="text/javascript">
+        // POPUP NOTIFICACIONES //
+        $(document).ready(function () {
+            $(".movimientos_pagos").click(function () {
+                $(".PopUpNotificaciones").fadeIn(400);
+            });
+            $(".btn_cerrar_popup_notificaciones").click(function () {
+                $(".PopUpNotificaciones").fadeOut(200);
+            });
         });
-    }
-
-    function RechazarSolicitud(SolicitudId, NumIteracion, CodigoUbigeo, Campania, MarcaID) {
-        waitingDialog({});
-
-        var params = {
-            SolicitudId: SolicitudId,
-            NumIteracion: NumIteracion,
-            CodigoUbigeo: CodigoUbigeo,
-            Campania: Campania,
-            MarcaId: MarcaID
-        };
-
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "Notificaciones/RechazarSolicitud",
-            contentType: 'application/json',
-            data: JSON.stringify(params),
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    if (data.success == true) {
-                        $('#divSolicitudClienteDetalle').dialog('close');
-                        $('#divPedidoRechazado').dialog('open');
-                        //R2442
-                        $.ajaxSetup({ cache: false });
-                        $.get(baseUrl + "Notificaciones/ListarNotificaciones?ProcesoId=" + SolicitudId + "&TipoOrigen=4", function (data) {
-                            if (checkTimeout(data)) {
-                                $('#divListadoPedido').html(data);
-                            }
-                        });
-                        dataLayer.push({
-                            'event': 'cancelOrder',
-                            'order': {
-                                'id': SolicitudId,
-
-                            }
-                        });
-                    }
-                    else {
-
-                    }
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert_msg("Ocurrió un error inesperado. Consulte con su administrador del sistema para obtener mayor información");
-                }
-            }
-        });
-
-    }
-
-</script>
+    </script>
+}
