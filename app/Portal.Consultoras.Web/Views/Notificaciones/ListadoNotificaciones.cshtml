@@ -30,13 +30,9 @@
                     @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
                 </td>
                 <td class="center"><!-- R2133 -->
-                    @if (item.CampaniaId == 0)
+                    @if (item.CampaniaId != 0)
                     {
-                        
-                    }
-                    else
-                    {
-                        @Html.DisplayTextFor(modelItem => item.CampaniaId)
+                       @Html.DisplayTextFor(modelItem => item.CampaniaId)
                     }
                 </td>
             </tr>
