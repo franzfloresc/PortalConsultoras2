@@ -3875,14 +3875,15 @@ width:100%;
 }
 
 .content_foto{
-    float:left;
+    display:inline-block;
     position:relative;
+    vertical-align:middle;
 }
 .foto_usuaria_mobile{
     width:89px;
     height:87px;
     border-radius:100px;
-    overflow:hidden
+    overflow:hidden;
 }
 .foto_usuaria_mobile img{
     width:100%;
@@ -3899,7 +3900,7 @@ width:100%;
 .content_resumen_dato_mobile{
     /*float:left;*/
     display:inline-block;
-    margin-left:20px;
+    margin-left:18px;
     width:180px;
     height:auto;
     font-family:'Lato';
