@@ -4098,6 +4098,7 @@ width:100%;
 .imagen_catalogo{
     float:right;
     margin-top:20px;
+    margin-bottom: 20px;
 }
 .fondo_gris {
     background: #f0f0f0;
