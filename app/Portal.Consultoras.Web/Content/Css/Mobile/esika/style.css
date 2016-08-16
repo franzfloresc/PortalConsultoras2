@@ -5006,18 +5006,29 @@ body{
     width: 100%;
     height: auto;
 }
-
+.texto_ws{
+    display:block;
+    float:left;
+    margin-top:10px;
+    margin-right:5px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    letter-spacing:0.2px;
+}
 .btn_comparte_ws{
     display:block;
     margin-top:10px;
     margin-bottom:30px;
-    padding-left:25px;
+    padding-left:20px;
     font-family:'Lato';
     font-size:13px;
     color:black;
     letter-spacing:0.2px;
     background: url("../../../Images/mobile/Esika/ws.png") no-repeat;
     background-position:0 3px;
+    text-decoration:underline;
+    float:left;
    
 }
 .btn_comparte_ws:hover{
@@ -5819,4 +5830,156 @@ input[type="checkbox"]:checked + span:after {
 
 .demanda_promo span{
     display:block;
+}
+/*PEDIDO VALIDADO*/
+.agregados_reservado{
+    font-family:'Lato';
+    font-size:13px;
+    color:#606061;
+    margin-top:20px;
+    margin-bottom:5px;
+}
+.monto_reservado_mobile{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-bottom:5px;
+}
+.ganancia_reservado{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:#e81c36;
+    margin-bottom:5px;
+}
+.btn_ver_pedido_reservado{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    text-align:center;
+    display:block;
+    margin-top:25px;
+    cursor:pointer;
+}
+.tooltip_validado {
+    width: 280px;
+    height: 86px;
+    margin: 0 auto;
+    margin-top:30px;
+    background: white;
+    -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    position:relative;
+    padding:17px;
+}
+.tooltip_validado:before{
+    position:absolute;
+    top:100%;
+    left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+    border-color: rgba(5, 7, 8, 0);
+	border-top-color: white;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.btn_editar_pedido{
+    width:100%;
+    height:54px;
+    line-height:54px;
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:900;
+    color:white;
+    text-align:center;
+    display:block;    
+    margin-top:30px;
+    background:#e81c36;
+    
+
+}
+.icono_tooltip_validado{
+    float:left;
+    width:20px;
+    height:20px;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background-size:cover;
+}
+.info_tooltip{
+    width:210px;
+    float:left;
+    margin-left:10px;
+    font-family:'Lato';
+    font-size:14px;
+    line-height:17px;
+    color:black;
+}
+.linea_gris{
+    width:100%;
+    height:1px;
+    background:#979797;    
+}
+.detalle_reservado{
+    text-align:center;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:900;
+    color:black;
+    margin-top:8px;
+    margin-bottom:8px;
+    display:block;
+}
+.detalle_pedido_reservado{
+    width:100%;
+    height:auto;
+    padding-top:25px;
+    padding-bottom:25px;
+    border-bottom:1px solid #979797;
+    overflow:hidden;
+}
+.left_reservado{
+    float:left;
+}
+.right_reservado{
+    float:right;
+    text-align:right;
+}
+.datos_Reservado{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    line-height:18px;
+}
+.datos_Reservado span{
+    display:block;
+}
+.texto_reservado{
+    font-family:'Lato';
+    font-size:13px;
+    color:#979797
+}
+.texto_reservado span{
+    display:block;
+}
+.importe_reservado{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-top: 3px;
+}
+.linea_roja{
+    width:100%;
+    height:2px;
+    margin-top:-1px;
+    background:#e81c36;   
 }
