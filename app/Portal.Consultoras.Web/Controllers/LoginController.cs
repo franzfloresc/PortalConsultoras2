@@ -80,11 +80,11 @@ namespace Portal.Consultoras.Web.Controllers
                         UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
                         if (usuario != null)
                         {
-                            Inicio Cambios_Landing_Comunidad
+                            //Inicio Cambios_Landing_Comunidad
                             if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                             {
-                                REQ - 2589 - Inicio
-                                TISMART
+                                //REQ - 2589 - Inicio
+                                //TISMART
                                 bool esMovil = Request.Browser.IsMobileDevice;
 
                                 if (esMovil)
@@ -107,13 +107,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         return RedirectToAction("Index", "Bienvenida");
                                     }
                                 }
-                                REQ - 2589 - Fin
+                                //REQ - 2589 - Fin
                             }
                             else
                             {
                                 return RedirectToAction("Index", "Bienvenida");
                             }
-                            Fin Cambios_Landing_Comunidad
+                            //Fin Cambios_Landing_Comunidad
 
                         }
                         else
