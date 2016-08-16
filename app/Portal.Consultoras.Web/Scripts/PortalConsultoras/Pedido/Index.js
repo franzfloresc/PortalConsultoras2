@@ -2508,7 +2508,9 @@ function MostrarMensajeProl(data) {
                     CargarDetallePedido();
                 } else {
                     showDialog("divReservaSatisfactoria");
-                    location.href = baseUrl + 'Pedido/PedidoValidado';
+                    setTimeout(function () {
+                        location.href = baseUrl + 'Pedido/PedidoValidado';
+                    }, 4000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
