@@ -163,6 +163,29 @@ END
 
 GO
 
+DELETE FROM MenuMobile WHERE Posicion='Menu'
+
+INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+VALUES
+(1, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile'),
+(2, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile'),
+(3, 'Mi Asesor de Belleza', 0, 3, '', '', 0, 'Menu', 'Mobile'),
+(4, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile'),
+(5, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile'),
+(6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
+
+(7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
+(8, 'Zona de Liquidación', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
+(10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
+--(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
+(12, 'Pedidos Ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(13, 'Pedidos Facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(14, 'Mis Clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
+(15, 'Productos Agotados', 1, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile')
+--(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
+GO
+
 /*FIN INSERTS*/
 
 /*NUEVOS CAMPOS*/
@@ -233,6 +256,43 @@ go
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
  where sysobjects.id = object_id('dbo.pedidowebdetalle') and SYSCOLUMNS.NAME = N'OrdenPedidoWD') = 0
 	ALTER TABLE dbo.PedidoWebDetalle ADD OrdenPedidoWD int
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+ where sysobjects.id = object_id('dbo.MensajeMetaConsultora')) = 0
+ begin
+
+	CREATE TABLE dbo.MensajeMetaConsultora(
+		TipoMensaje varchar(50),
+		Titulo varchar(1000),
+		Mensaje varchar(1000)
+	);
+	
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('MontoMinimo', '¡VAMOS, ADELANTE!', 'Te faltan #valor para pasar pedido')
+					
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('TippingPoint', '¡RECIBE TU BONIFICACIÓN DEL PROGRAMA DE NUEVAS!', 'Sólo te faltan #valor más.')
+	
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('MontoMaximo', '¡SÓLO PUEDES AGREGAR #valor MÁS!', 'Ya estas por llegar a tu tope de línea de crédito.')
+	
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('MontoMaximoSupero', 'YA ALCANZASTE EL LÍMITE DE TU LÍNEA DE CRÉDITO', 'Tu pedido ya alcanzó el monto máximo de tu línea de crédito.')
+	
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('EscalaDescuento', '¡YA LLEGAS AL #porcentaje% DSCTO!', 'Solo agrega #valor más.')
+	
+	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
+	values('EscalaDescuentoSupero', '¡BIEN!', 'Ya alcanzaste el #porcentaje de descuento.')
+
+end
+
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+ where sysobjects.id = object_id('dbo.TipoEstrategia') and SYSCOLUMNS.NAME = N'FlagMostrarImg') = 0
+	ALTER TABLE dbo.TipoEstrategia ADD FlagMostrarImg TINYINT NULL 
 go
 
 /*FIN NUEVOS CAMPOS*/
@@ -665,7 +725,7 @@ CREATE PROCEDURE GetOfertasPortal_2_SB2
  @CantidadRegistros int  
 AS  
 /*  
- GetOfertasPortal 1702, 100, 201414  
+GetOfertasPortal_2_SB2 1702, 100, 201414  
 */  
 BEGIN  
  SET NOCOUNT ON  
@@ -1738,5 +1798,604 @@ BEGIN
 END
 
 go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetConsultorasProgramaNuevas_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetConsultorasProgramaNuevas_SB2
+GO
+
+CREATE PROCEDURE dbo.GetConsultorasProgramaNuevas_SB2
+	@CodigoConsultora varchar(50),
+	@Campania varchar(10),
+	@CodigoPrograma varchar(5)
+AS
+
+BEGIN
+
+SELECT 
+	Campania
+	,CodigoConsultora
+	,CodigoPrograma
+	,Participa
+	,Motivo
+	,MontoVentaExigido
+FROM ods.ConsultorasProgramaNuevas
+WHERE CodigoConsultora = @CodigoConsultora
+	AND Campania = @Campania
+	AND CodigoPrograma = @CodigoPrograma
+
+END
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMensajeMetaConsultoras_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetMensajeMetaConsultoras_SB2
+GO
+
+CREATE PROCEDURE dbo.GetMensajeMetaConsultoras_SB2
+	@TipoMensaje varchar(50) = ''
+AS
+
+BEGIN
+		set @TipoMensaje = isnull(@TipoMensaje, '')
+
+		SELECT 
+			TipoMensaje
+			,Titulo
+			,Mensaje
+		FROM dbo.MensajeMetaConsultora
+		WHERE TipoMensaje = @TipoMensaje or @TipoMensaje = ''
+
+END
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPedidosIngresadoFacturado_SB2]') AND type in (N'P', N'PC')) 
+ DROP PROCEDURE [dbo].[GetPedidosIngresadoFacturado_SB2]
+GO
+
+-- GetPedidosIngresadoFacturado_SB2 2, 201612
+
+/*
+ unión de estas dos store
+exec GetPedidosWebByConsultoraCampania 2, 201612
+exec GetPedidosFacturados '000758833'
+*/
+
+create procedure dbo.GetPedidosIngresadoFacturado_SB2
+	@ConsultoraID int,
+	@CampaniaID int,
+	@top int = 5
+AS
+begin
+
+--declare @ConsultoraID int = 2,
+--@CampaniaID int = 201612,
+
+set @top = isnull(@top, 5)
+if @top <= 0
+	set @top = 5
+
+DECLARE @T1 TABLE (
+id int identity(1,1)
+, EstadoPedido varchar(1)
+, CampaniaID int 
+, ImporteTotal money
+, Flete money
+, ImporteCredito money
+, MotivoCreditoID int
+, PaisID int
+, Clientes smallint
+, EstadoPedidoDesc varchar(12)
+, ConsultoraID bigint
+, PedidoID int
+, FechaRegistro datetime
+, CanalIngreso varchar(12)
+, CantidadProductos int
+)
+
+-- agregar ingresados
+
+INSERT INTO @T1
+select top (@top) 
+	'I' as EstadoPedido,
+	PW.CampaniaID,  
+    PW.ImporteTotal,  
+	0 Flete,
+    pw.ImporteCredito,  
+    ISNULL(pw.MotivoCreditoID,0) MotivoCreditoID,  
+    pw.PaisID,  
+    PW.Clientes, 
+	'INGRESADO' AS EstadoPedidoDesc,
+    PW.ConsultoraID,  
+    PW.PedidoID,
+	PW.FechaRegistro,
+	'WEB' as CanalIngreso,
+	SUM(PWD.Cantidad) as CantidadProductos
+FROM PedidoWeb PW
+INNER JOIN PedidoWebDetalle(NOLOCK) PWD ON 
+	PW.PedidoID=PWD.PedidoID
+	and PW.ConsultoraID = PWD.ConsultoraID
+	and PW.CampaniaID = PWD.CampaniaID
+WHERE 
+	pw.ConsultoraID = @ConsultoraID 
+	and pw.CampaniaID <> @CampaniaID
+	and	(select count(*) from PedidoWebDetalle(NOLOCK) where CampaniaID = PW.CampaniaID and ConsultoraID = PW.ConsultoraID) <> 0
+group by PW.CampaniaID, PW.ImporteTotal, pw.ImporteCredito, ISNULL(pw.MotivoCreditoID,0),pw.PaisID,  
+    PW.Clientes, PW.ConsultoraID, PW.PedidoID,	PW.FechaRegistro
+ORDER BY 
+	PW.CampaniaID desc 
+
+-- agregar facturado
+
+INSERT INTO @T1
+SELECT top (@top) 
+	'F',
+	CA.CODIGO AS CampaniaID,
+	P.MontoFacturado AS ImporteTotal,
+	P.Flete,
+	0 ImporteCredito,
+	0 MotivoCreditoID,
+	0 PaisID,
+	'' Clientes,
+	'FACTURADO' AS EstadoPedidoDesc,
+	0 ConsultoraID,
+	0 PedidoID,
+	isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
+	isnull(P.Origen,'') as CanalIngreso,
+	SUM(PD.Cantidad) as CantidadProductos
+FROM ods.Pedido(NOLOCK) P 
+INNER JOIN ods.PedidoDetalle(NOLOCK) PD ON 
+	P.PedidoID=PD.PedidoID
+iNNER JOIN ods.ProductoComercial (nolock) PC ON 
+	PD.CampaniaID = PC.CampaniaID 
+	and PD.CUV = PC.CUV
+INNER JOIN ods.Campania(NOLOCK) CA ON 
+	P.CampaniaID=CA.CampaniaID
+INNER JOIN ods.Consultora(NOLOCK) CO ON 
+	P.ConsultoraID=CO.ConsultoraID
+WHERE 
+	co.ConsultoraID=@ConsultoraID
+	and	P.CampaniaID <> @CampaniaID
+GROUP BY 
+	P.PedidoID,CA.Codigo,P.MontoFacturado,P.Origen,P.Flete,p.FechaFacturado
+ORDER BY 
+	CA.Codigo desc 
+
+-- eliminar repetido, <> @CampaniaID, prioridad F
+delete @T1
+FROM @T1 T
+		INNER JOIN (
+		select CampaniaID, count(EstadoPedido) AS CantEstado
+		from @T1
+		where CampaniaID <> @CampaniaID
+		group by CampaniaID
+		having count(EstadoPedido) > 1
+) AS R
+ON R.CampaniaID = T.CampaniaID AND T.EstadoPedido <> 'F'
+
+SELECT top (@top)
+ CampaniaID  
+, ImporteTotal 
+, Flete
+, ImporteCredito 
+, MotivoCreditoID 
+, PaisID 
+, Clientes 
+, EstadoPedidoDesc 
+, ConsultoraID 
+, PedidoID
+, FechaRegistro
+, CanalIngreso 
+, CantidadProductos 
+FROM @T1 order by CampaniaID desc
+
+
+end
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPedidoCUVmarquesina_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[GetPedidoCUVmarquesina_SB2]
+GO
+
+CREATE PROCEDURE [dbo].[GetPedidoCUVmarquesina_SB2]
+	@CampaniaID int,
+	@ConsultoraID bigint,
+	@CUV varchar(10)
+AS
+BEGIN
+	select 
+		Isnull(CUV,'') as CUV,
+		ISNULL(Cantidad, '0') as Cantidad,
+		ISNULL(PedidoDetalleID, '') PedidoWebDetalleID,
+		ISNULL(PedidoID, '') PedidoID
+	from [dbo].[PedidoWebDetalle] WITH (NOLOCK)
+	WHERE 
+		CampaniaID = @CampaniaID 
+		AND ConsultoraID = @ConsultoraID 
+		and CUV = @CUV
+END
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsPedidoWebDetalleOferta_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsPedidoWebDetalleOferta_SB2]
+GO
+
+CREATE PROCEDURE [dbo].[InsPedidoWebDetalleOferta_SB2]
+	@CampaniaID int,
+	@ConsultoraID int,
+	@MarcaID tinyint,
+	@Cantidad int,
+	@PrecioUnidad money,
+	@CUV varchar(20),
+	@ConfiguracionOfertaID INT,
+	@TipoOfertaSisID INT,
+	@PaisID int,
+	@IPUsuario varchar(25) = null,
+	@CodigoUsuarioCreacion varchar(25) = null
+AS
+BEGIN
+DECLARE @PedidoDetalleID INT;
+DECLARE @PedidoID  INT = 0;
+DECLARE @OfertaWeb INT  = 1;
+DECLARE @ExisteDet INT = 0;
+DECLARE @Orden INT=0;
+
+	EXEC [dbo].[InsPedidoWebOferta] @CampaniaID, @ConsultoraID , @PaisID, @IPUsuario, @CodigoUsuarioCreacion;
+
+	SELECT @PedidoID = PedidoID FROM dbo.PedidoWeb WHERE CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID;
+
+	SELECT @PedidoDetalleID = MAX(ISNULL(PedidoDetalleID,0))
+		   , @Orden = max(ISNULL(OrdenPedidoWD,0))
+		   FROM dbo.PedidoWebDetalle 
+		   WHERE CampaniaID = @CampaniaID AND PedidoID = @PedidoID
+	
+	SET @PedidoDetalleID = ISNULL(@PedidoDetalleID, 0) + 1
+	SET @Orden = ISNULL(@Orden, 0) + 1
+
+	--SET @PedidoDetalleID =	(SELECT ISNULL(MAX(PedidoDetalleID),0) + 1 
+	--							FROM	dbo.PedidoWebDetalle 
+	--							WHERE	CampaniaID = @CampaniaID AND
+	--									PedidoID = @PedidoID);
+
+	/* Validar Al Agregar Nuevamente */
+	set @ExisteDet = (select count(*) from PedidoWebDetalle 
+						where CampaniaID = @CampaniaID 
+							  AND PedidoID = @PedidoID
+							  AND CUV = @CUV
+							  AND ClienteID IS NULL);
+
+	IF @ExisteDet = 0 
+		BEGIN
+			INSERT INTO dbo.PedidoWebDetalle 
+			(
+			 CampaniaID,
+			 PedidoID,
+			 PedidoDetalleID,
+			 MarcaID,
+			 ConsultoraID,
+			 ClienteID,
+			 Cantidad,
+			 PrecioUnidad,
+			 ImporteTotal,
+			 CUV,
+			 OfertaWeb, 
+			 ModificaPedidoReservado,
+			 ConfiguracionOfertaID,
+			 TipoOfertaSisID,
+			 CodigoUsuarioCreacion,
+			 FechaCreacion,
+			 OrdenPedidoWD
+			)
+
+		VALUES (@CampaniaID,@PedidoID,@PedidoDetalleID,
+				@MarcaID,@ConsultoraID,NULL,
+				@Cantidad,@PrecioUnidad,@Cantidad*@PrecioUnidad,@CUV,@OfertaWeb,0, @ConfiguracionOfertaID, @TipoOfertaSisID,
+				@CodigoUsuarioCreacion, dbo.fnObtenerFechaHoraPais(), @Orden)
+		END
+	ELSE
+		BEGIN
+			UPDATE dbo.PedidoWebDetalle
+				SET Cantidad += @Cantidad,
+					ImporteTotal = ((Cantidad + @Cantidad) * @PrecioUnidad),
+					CodigoUsuarioModificacion = @CodigoUsuarioCreacion,
+					FechaModificacion = dbo.fnObtenerFechaHoraPais(),
+					OrdenPedidoWD = @Orden
+			WHERE CampaniaID = @CampaniaID 
+				  AND PedidoID = @PedidoID
+				  AND CUV = @CUV
+				  AND ClienteID IS NULL		
+		END
+END
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertarEstrategia_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertarEstrategia_SB2]
+GO
+
+CREATE PROCEDURE [dbo].[InsertarEstrategia_SB2]
+	@EstrategiaID int,
+	@TipoEstrategiaID int,
+	@CampaniaID int,
+	@CampaniaIDFin int,
+	@NumeroPedido int,
+	@Activo bit,
+	@ImagenURL varchar(800),
+	@LimiteVenta int,
+	@DescripcionCUV2 varchar(800),
+	@FlagDescripcion bit,
+	@CUV varchar(20),
+	@EtiquetaID int,
+	@Precio numeric(12,2),
+	@FlagCEP bit,
+	@CUV2 varchar(20),
+	@EtiquetaID2 int,
+	@Precio2 numeric(12,2),
+	@FlagCEP2 bit,
+	@TextoLibre varchar(800),
+	@FlagTextoLibre bit,
+	@Cantidad int,
+	@FlagCantidad bit,
+	@Zona varchar(8000),
+	@Orden int,
+	@UsuarioCreacion varchar(100),
+	@UsuarioModificacion varchar(100),
+	@ColorFondo varchar(20),
+	@FlagEstrella bit
+AS
+BEGIN
+	SET NOCOUNT ON
+		BEGIN TRY
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
+
+				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
+				BEGIN
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa?a seleccionado.', 16, 1)
+				END
+
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
+				BEGIN
+					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
+					BEGIN
+						RAISERROR('El orden ingresado para la estrategia ya est? siendo utilizado.', 16, 1)
+					END
+				END
+
+			    INSERT INTO dbo.Estrategia
+			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella )
+				VALUES
+			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
+				,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
+				,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella)
+			END
+			ELSE
+			BEGIN
+
+				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
+				BEGIN
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa?a seleccionado.', 16, 1)
+				END
+				 
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)		-- SB20-312
+				BEGIN
+					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
+					BEGIN
+						RAISERROR('El orden ingresado para la estrategia ya est? siendo utilizado.', 16, 1)
+					END
+				END
+				
+				DECLARE @CantidadYaSolicitada INT
+				SELECT @CantidadYaSolicitada = Cantidad FROM PEDIDOWEBDETALLE WHERE CUV = @CUV AND CampaniaID = @CampaniaID
+				IF @LimiteVenta < @CantidadYaSolicitada
+				BEGIN
+					DECLARE @mensaje VARCHAR(2000)
+					SET @mensaje = 'No se puede reducir el limite de venta por que ya se hicieron ' + convert(varchar, @CantidadYaSolicitada) + ' pedido(s) de ?ste producto.'
+					RAISERROR(@mensaje, 16, 1)
+				END
+
+				UPDATE Estrategia SET
+					TipoEstrategiaID= @TipoEstrategiaID,
+					CampaniaID= 	  @CampaniaID,
+					CampaniaIDFin= 	  @CampaniaIDFin,
+					NumeroPedido= 	  @NumeroPedido,
+					Activo= 		  @Activo,
+					ImagenURL= 		  @ImagenURL,
+					LimiteVenta= 	  @LimiteVenta, 
+					DescripcionCUV2=  @DescripcionCUV2,
+					FlagDescripcion=  @FlagDescripcion ,
+					CUV= 			  @CUV,
+					EtiquetaID= 	  @EtiquetaID,
+					Precio= 		  @Precio,
+					FlagCEP= 		  @FlagCEP, 
+					CUV2= 			  @CUV2,
+					EtiquetaID2= 	  @EtiquetaID2,
+					Precio2=		  @Precio2,
+					FlagCEP2= 		  @FlagCEP2, 
+					TextoLibre= 	  @TextoLibre, 
+					FlagTextoLibre=   @FlagTextoLibre,
+					Cantidad= 		  @Cantidad,
+					FlagCantidad= 	  @FlagCantidad,
+					Zona= 			  @Zona,
+					Orden= 			  @Orden,
+					UsuarioModificacion	=  @UsuarioModificacion,
+					FechaModificacion	= GETDATE(),
+					ColorFondo			= @ColorFondo, 
+					FlagEstrella		= @FlagEstrella
+				WHERE EstrategiaID = @EstrategiaID
+			END
+		END TRY
+		BEGIN CATCH
+			DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+			SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+			RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+		END CATCH
+	SET NOCOUNT OFF
+END
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertarTipoEstrategia_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertarTipoEstrategia_SB2]
+GO
+
+CREATE PROCEDURE [dbo].[InsertarTipoEstrategia_SB2]  
+ @TipoEstrategiaID  INT,  
+ @DescripcionEstrategia VARCHAR(200),  
+ @ImagenEstrategia  VARCHAR(500),  
+ @Orden     INT,  
+ @FlagActivo    BIT,  
+ @UsuarioRegistro  VARCHAR(100),  
+ @UsuarioModificacion VARCHAR(100),  
+ @OfertaID    VARCHAR(8000),  
+ @FlagNueva    INT,  
+ @FlagRecoPerfil   INT,  
+ @FlagRecoProduc   INT,
+ @CodigoPrograma VARCHAR(3),
+ @FlagMostrarImg TINYINT	/* SB20-353 */
+AS  
+BEGIN  
+ SET NOCOUNT ON  
+  BEGIN TRY  
+  DECLARE @TipoEstrategiaIdAux INT  
+  IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE TipoEstrategiaID = @TipoEstrategiaID)  
+   BEGIN  
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE REPLACE(DescripcionEstrategia, ' ', '') = REPLACE(@DescripcionEstrategia, ' ', '') AND TipoEstrategiaID <> @TipoEstrategiaID)  
+    BEGIN  
+     RAISERROR('El Nombre del tipo estrategia ya existe.', 16, 1)  
+    END  
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE orden = @Orden AND TipoEstrategiaID <> @TipoEstrategiaID AND @FlagNueva <> 1)  
+    BEGIN  
+     RAISERROR('El order indicado ya existe.', 16, 1)  
+    END 
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE orden = @Orden AND CodigoPrograma = @CodigoPrograma AND TipoEstrategiaID <> @TipoEstrategiaID AND FlagNueva = 1)  
+    BEGIN  
+     RAISERROR('El Código de programa ya existe.', 16, 1)  
+    END   
+    UPDATE TipoEstrategia SET  
+     DescripcionEstrategia = @DescripcionEstrategia,  
+     ImagenEstrategia	= @ImagenEstrategia,  
+     Orden				= @Orden,  
+     FlagActivo			= @FlagActivo,  
+     UsuarioModificacion  = @UsuarioModificacion,  
+     FechaModificacion  = GETDATE(),  
+     flagNueva			= @FlagNueva,  
+     flagRecoProduc		= @FlagRecoProduc,  
+     flagRecoPerfil		= @FlagRecoPerfil ,
+     CodigoPrograma		= @CodigoPrograma
+	 , FlagMostrarImg	= @FlagMostrarImg	/* SB20-353 */
+    WHERE  
+     TipoEstrategiaID  = @TipoEstrategiaID  
+    SET @TipoEstrategiaIdAux = @TipoEstrategiaID  
+   
+    /*R20160301*/
+    --IF @CodigoPrograma IS NOT NULL OR @CodigoPrograma != '' 
+    IF @CodigoPrograma != '' 
+	BEGIN
+				
+		UPDATE Oferta 
+		SET  CodigoPrograma = @CodigoPrograma
+		FROM Oferta O
+			INNER JOIN TipoEstrategiaOferta TEO ON O.OfertaID = TEO.OfertaID
+			INNER JOIN TipoEstrategia TE ON TEO.TipoEstrategiaID = TE.TipoEstrategiaID
+		WHERE TE.TipoEstrategiaID = @TipoEstrategiaIdAux 
+		
+		DELETE FROM TipoEstrategiaOferta WHERE TipoEstrategiaID = @TipoEstrategiaIdAux  
+		
+		INSERT INTO TipoEstrategiaOferta
+		SELECT @TipoEstrategiaIdAux, OfertaID 
+		FROM Oferta 
+		WHERE CodigoOferta IN (SELECT * FROM dbo.fnSplit(@OfertaID,',')) AND CodigoPrograma =   @CodigoPrograma
+		
+	END								
+	ELSE
+	BEGIN  
+	
+		DELETE FROM TipoEstrategiaOferta WHERE TipoEstrategiaID = @TipoEstrategiaIdAux  
+	    INSERT INTO TipoEstrategiaOferta  
+		SELECT @TipoEstrategiaIdAux, OfertaID FROM Oferta WHERE CodigoOferta IN (SELECT * FROM dbo.fnSplit(@OfertaID,','))  
+    END
+    
+   END  
+   ELSE  
+   BEGIN  
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE REPLACE(DescripcionEstrategia, ' ', '') = REPLACE(@DescripcionEstrategia, ' ', ''))  
+    BEGIN  
+     RAISERROR('El Nombre de la estrategia ya existe.', 16, 1)  
+    END  
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE orden = @Orden AND @FlagNueva <> 1)  
+    BEGIN  
+     RAISERROR('El orden indicado ya existe.', 16, 1)  
+    END  
+    IF EXISTS(SELECT 1 FROM TipoEstrategia WHERE orden = @Orden AND TipoEstrategiaID <> @TipoEstrategiaID AND CodigoPrograma = @CodigoPrograma)  
+    BEGIN  
+     RAISERROR('El Código de programa ya existe.', 16, 1)  
+    END  
+    
+    INSERT INTO TipoEstrategia VALUES (@DescripcionEstrategia, @ImagenEstrategia, @Orden, @FlagActivo, @UsuarioRegistro, GETDATE(), NULL, NULL, @FlagNueva, @FlagRecoProduc, @FlagRecoPerfil, @CodigoPrograma
+	, @FlagMostrarImg)	/* SB20-353 */  
+    SET @TipoEstrategiaIdAux = @@IDENTITY 
+    /*R20160301*/
+    --IF @CodigoPrograma IS NOT NULL OR @CodigoPrograma != '' 
+    IF @CodigoPrograma != '' 
+	BEGIN 
+		INSERT INTO TipoEstrategiaOferta  
+		SELECT @TipoEstrategiaIdAux, OfertaID FROM Oferta WHERE CodigoOferta IN (SELECT * FROM dbo.fnSplit(@OfertaID,',')) AND CodigoPrograma =   @CodigoPrograma		
+	END
+    ELSE
+    BEGIN
+    	INSERT INTO TipoEstrategiaOferta  
+		SELECT @TipoEstrategiaIdAux, OfertaID FROM Oferta WHERE CodigoOferta IN (SELECT * FROM dbo.fnSplit(@OfertaID,','))  
+    END
+   END  
+  END TRY  
+  BEGIN CATCH  
+   DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT  
+   SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()  
+   RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)     
+  END CATCH  
+ SET NOCOUNT OFF  
+END 
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ListarTipoEstrategia_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[ListarTipoEstrategia_SB2]
+GO
+
+CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ @TipoEstrategiaID INT  
+AS  
+BEGIN  
+/*  
+ EXEC ListarTipoEstrategia 0  
+*/  
+ SET NOCOUNT ON  
+  SELECT   
+   TipoEstrategiaID,   
+   DescripcionEstrategia,   
+   dbo.ObtenerDescripcionOferta(TipoEstrategiaID) DescripcionOferta,   
+   Orden,   
+   FlagActivo,   
+   CodigoPrograma,
+   dbo.ObtenerOfertaID(TipoEstrategiaID) OfertaID,  
+   ImagenEstrategia,  
+   FlagNueva,  
+   FlagRecoPerfil,  
+   FlagRecoProduc  
+   , ISNULL(FlagMostrarImg,0) AS FlagMostrarImg 		/* SB20-353 */
+  FROM   
+   TipoEstrategia  
+  WHERE  
+   TipoEstrategiaID = @TipoEstrategiaID OR 0 = @TipoEstrategiaID  
+  ORDER BY Orden, DescripcionEstrategia ASC  
+ SET NOCOUNT OFF  
+END 
+
+GO
 
 /*FIN PROCEDIMIENTOS ALMACENADOS*/

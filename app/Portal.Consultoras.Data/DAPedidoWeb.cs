@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Data
 
 		public IDataReader GetPedidoCuvMarquesina(int CampaniaID, long ConsultoraID, string Cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoCUVmarquesina");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoCUVmarquesina_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@CUV", DbType.String, Cuv);
@@ -630,7 +630,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
 
