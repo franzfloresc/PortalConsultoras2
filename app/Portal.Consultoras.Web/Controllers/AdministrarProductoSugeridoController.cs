@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var userData = UserData();
-            var model = new AdministrarProductoSugerido()
+            var model = new AdministrarProductoSugeridoModel()
             {
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
@@ -245,12 +245,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpPost]
-        public JsonResult Registrar(AdministrarProductoSugerido model)
+        public JsonResult Registrar(AdministrarProductoSugeridoModel model)
         {
             var userData = UserData();
             try
             {
-                Mapper.CreateMap<AdministrarProductoSugerido, BEProductoSugerido>()
+                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
                    .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
                     //.ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                    .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
-                var entidad = Mapper.Map<AdministrarProductoSugerido, BEProductoSugerido>(model);
+                var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
                 entidad.UsuarioRegistro = userData.CodigoConsultora;
@@ -304,15 +304,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpPost]
-        public JsonResult Deshabilitar(AdministrarProductoSugerido model)
+        public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
             var userData = UserData();
             try
             {
-                Mapper.CreateMap<AdministrarProductoSugerido, BEProductoSugerido>()
+                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
                    .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID));
 
-                var entidad = Mapper.Map<AdministrarProductoSugerido, BEProductoSugerido>(model);
+                var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 string r = "";
                 using (PedidoServiceClient sv = new PedidoServiceClient())

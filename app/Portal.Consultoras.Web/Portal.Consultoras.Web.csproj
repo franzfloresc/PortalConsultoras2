@@ -357,7 +357,7 @@
     <Compile Include="Models\AdministrarIncentivosModel.cs" />
     <Compile Include="Models\AdministrarLinkModel.cs" />
     <Compile Include="Models\AdministrarLugaresPagoModel.cs" />
-    <Compile Include="Models\AdministrarProductoSugerido.cs" />
+    <Compile Include="Models\AdministrarProductoSugeridoModel.cs" />
     <Compile Include="Models\AdministrarRevistaViewModel.cs" />
     <Compile Include="Models\BannerModel.cs" />
     <Compile Include="Models\BienvenidaHomeModel.cs" />
