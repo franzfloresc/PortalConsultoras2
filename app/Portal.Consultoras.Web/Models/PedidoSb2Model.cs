@@ -238,6 +238,8 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal MontoMaximo { get; set; }
 
+        public string EsPais { get; set; }
+
         public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
     }
 }

@@ -233,22 +233,46 @@
                                 <span id="spnNombreCliente"></span>
                             </p>
                             <p class="monto_total">
-                                MONTO TOTAL :
+                                Monto total :
                             </p>
                             
                             <div id="divMontosEscalaDescuentoTexto" style="display: block;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
-                                        <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:
+                                        <span class="display: inline-block;">Descuento</span><span class="icon-advertencia"></span>:
                                     </p>
                                     <p class="monto_montodescuento">
-                                        MONTO DESCUENTO :
+                                        Monto Descuento :
                                     </p>
                                 }
-                            </div>                           
+                            </div>
                             <p class="monto_ganancia">
-                                MI GANANCIA :
+                                @{                                                              
+                                    string cabezaEscala=null, pieEscala=null;
+                                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
+                                        || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                                    {
+                                        cabezaEscala = "Ganancia estimada total*";
+                                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                                    }                                   
+                                    else if (Model.PaisID == 3) //CHILE
+                                    {
+                                        cabezaEscala = "Comisión y ahorro total";
+                                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                                    }
+                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                                    {
+                                        cabezaEscala = "Ganancia estimada total*";
+                                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                                    }
+                                    else if (Model.PaisID == 5) //COSTA RICA
+                                    {
+                                        cabezaEscala = "Oportunidad de ahorro total";
+                                        pieEscala = "";                
+                                    }                                                                                                        
+                                }
+                                @(cabezaEscala):
                             </p>
                         </div>
                         <div class="caja_montos_cantidades">
@@ -415,7 +439,7 @@
                 <b class="">@Model.SobreNombre</b>
             </h1>
             <div class="texto_exclusivo_web">
-                EXCLUSIVO SÓLO POR WEB
+                EXCLUSIVAS SÓLO POR WEB
             </div>
             <div class="contenedor_productos">
                 <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
@@ -734,7 +758,7 @@
     <div class="popup_ofertaFinal">
         <div class="btn_cerrar_ofertaFinal">
             <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar"/>
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
@@ -758,7 +782,7 @@
                     </button>
                 </div>
                 <div style="display: inline-block;" class="bloque_carousel">
-                    <div style=" margin-left: 27px; margin-right: 27px; position: relative; bottom: 19px;">
+                    <div style="margin-left: 27px; margin-right: 27px; position: relative; bottom: 19px;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         </div>
                     </div>
@@ -967,9 +991,9 @@
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" />
                 <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
                     <div class="tooltip_flecha"></div>
-                    <h6>Gana desde el comienzo</h6>
-                    <p>Las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP 10 de Esika y más.</p>
-                    <p>*Este Kit se agrega automáticamente sólo en tu primer pedido</p>
+                    <h6>Kit de Inicio</h6>
+                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.) y más.</p>
+                    <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
                 </div>
             </div>
             {{else}}
