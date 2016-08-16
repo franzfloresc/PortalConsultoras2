@@ -4527,6 +4527,7 @@ body{
     color:#1a1a1a;
     padding-left: 5px;
     margin-bottom:25px;
+    position:relative;
 }
 
 .textos_resumen, .montos_resumen{
@@ -4637,6 +4638,20 @@ body{
 
 .nombre_campania_pedido{
     margin: 0 0 21px 0;
+}
+
+.enlace_regresar{
+    display:block;
+    width:48px;
+    height:35px;
+    position:absolute;
+    top:-8px;
+    left:0;
+}
+
+.enlace_regresar img{
+    width:100%;
+    height:auto;
 }
 
 .detalle_pedido_ingresado{
