@@ -105,13 +105,6 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return productos;
-        }
-
-        public DateTime GetFechaVencimiento(int paisId, int campaniaId, int regionId, int zonaId)
-        {
-            var DAResumenCampania = new DAResumenCampania(paisId);
-
-            return DAResumenCampania.GetFechaVencimiento(campaniaId, regionId, zonaId);
-        }
+        }     
     }
 }

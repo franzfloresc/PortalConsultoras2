@@ -331,6 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaNacimiento = oBEUsuario.FechaNacimiento;
                 model.Nivel = oBEUsuario.Nivel;
                 model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
+                model.FechaLimPago = oBEUsuario.FechaLimPago;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;

@@ -82,10 +82,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEResumenCampania> GetFlexipago(int paisID, int CampaniaID, int ConsultoraID);
 
         [OperationContract]
-        IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID);
-
-        [OperationContract]
-        DateTime GetFechaVencimiento(int paisID, int campaniaId, int regionId, int zonaId);
+        IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID);     
 
         #endregion
 

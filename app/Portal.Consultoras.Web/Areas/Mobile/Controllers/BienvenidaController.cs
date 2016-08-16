@@ -108,16 +108,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
+                var fechaVencimientoTemp = userData.FechaLimPago;
+                model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
+
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
                         model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                     else
                         model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-
-                    var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CampaniaID, userData.RegionID, userData.ZonaID);
-
-                    model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 }
 
                 using (var sv = new UsuarioServiceClient())
