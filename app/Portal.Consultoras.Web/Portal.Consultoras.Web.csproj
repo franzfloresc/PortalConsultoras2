@@ -291,6 +291,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
+    <Compile Include="Controllers\MisBeneficiosController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -3318,6 +3319,7 @@
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
     <Content Include="Views\Cliente\MisClientes.cshtml" />
     <Content Include="Views\Cliente\Index_old.cshtml" />
+    <Content Include="Views\MisBeneficios\Index.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
