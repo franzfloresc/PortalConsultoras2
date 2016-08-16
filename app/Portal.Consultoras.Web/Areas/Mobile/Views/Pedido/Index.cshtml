@@ -249,7 +249,11 @@
         //Mensajes CUV
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, se nos agotó este producto.";
-        var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+        if (isEsika) {
+            var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika <b>Somos Belcorp</b> con oferta especial."
+        } else {
+            var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+        }
         var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
         var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
@@ -258,8 +262,8 @@
         var posicionAnteriorPrimeraEstrategia = 0;
         var posicionAnteriorUltimaEstrategia = 0;
         var esTipoDrag = 0;
-        var ofertaLiquidacion = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion';
-        var ofertaAccesorizate = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate';
+        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
         var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';
