@@ -3858,8 +3858,7 @@ width:100%;
     height:auto;
     margin:0 auto;
     padding-top:14px;
-    padding-bottom:6px;
-
+    padding-bottom:14px;
 }
 
 .content_320.ingresoPedidom{
@@ -3881,7 +3880,9 @@ width:100%;
     width:89px;
     height:87px;
     border-radius:100px;
-    overflow:hidden
+    overflow:hidden;
+    display:inline-block;
+    vertical-align:middle;
 }
 .foto_usuaria_mobile img{
     width:100%;
@@ -3896,28 +3897,52 @@ width:100%;
     margin-left: 56px;
 }
 .content_resumen_dato_mobile{
-    float:left;
+    /*float:left;*/
+    display:inline-block;
     margin-left:20px;
     width:180px;
     height:auto;
     font-family:'Lato';
+    vertical-align:middle;
 }
 .saludo_mobile{
-    width:100%;
+    /*width:100%;*/
+    width:24%;
     font-size: 17px;
     color:black;
     letter-spacing:0.3px;
     margin-top:-3px;
+    display:inline-block;
 }
 .nombre_consultora_mobile {
+    display:inline-block;
     font-size: 17px;
     color:black;
-    float:left;
+    /*float:left;*/
     letter-spacing:0.3px;
 }
 .nombre_consultora_mobile:first-letter{
     text-transform:uppercase;
 }
+
+.enlace_sociasEmpresarias{
+    display:block;
+}
+
+.texto_enlace_socias{
+    text-decoration:underline;
+    text-transform:uppercase;
+    color:#000;
+    font-weight:700;
+    letter-spacing:0.65px;
+    font-size:10px;
+}
+
+.flecha_enlace_sociasEmpresarias{
+    color:#642f80;
+    font-size:12px;
+}
+
 .cambiar_datos_mobile{
     margin-top: 7px;
     margin-left: 5px;
@@ -3944,6 +3969,7 @@ width:100%;
     margin-top: -3px;
     display: block;
     letter-spacing:0.8px;
+    text-align:center;
    }
 .borde_gris{
     height:31px;
