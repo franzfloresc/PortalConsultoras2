@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetTipoEstrategia(BETipoEstrategia entidad)
         {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarTipoEstrategia"))
+                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarTipoEstrategia_SB2"))
                 {
                     Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                     return Context.ExecuteReader(command);
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Data
         public int Insert(BETipoEstrategia entidad)
         {
                 int result;
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarTipoEstrategia"))
+                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarTipoEstrategia_SB2"))
                 {
                     Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                     Context.Database.AddInParameter(command, "@DescripcionEstrategia", DbType.String, entidad.DescripcionEstrategia);

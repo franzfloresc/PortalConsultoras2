@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class AdministrarProductoSugerido
+    public class AdministrarProductoSugeridoModel
     {
         public int CampaniaID { get; set; }
         public int PaisID { get; set; }
