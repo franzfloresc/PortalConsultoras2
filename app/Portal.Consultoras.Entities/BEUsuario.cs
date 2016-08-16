@@ -189,6 +189,8 @@ namespace Portal.Consultoras.Entities
                 SegmentoID = Convert.ToInt32(row["SegmentoID"]);
             if (DataRecord.HasColumn(row, "FechaNacimiento") && row["FechaNacimiento"] != DBNull.Value)
                 FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
+            if (DataRecord.HasColumn(row, "FechaLimitePago") && row["FechaLimitePago"] != DBNull.Value)
+                FechaLimPago = Convert.ToDateTime(row["FechaLimitePago"]);
             if (DataRecord.HasColumn(row, "Nivel") && row["Nivel"] != DBNull.Value)
                 Nivel = Convert.ToString(row["Nivel"]);
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
@@ -352,6 +354,10 @@ namespace Portal.Consultoras.Entities
         public int SegmentoID { get; set; }
         [DataMember]
         public DateTime FechaNacimiento { get; set; }
+
+        [DataMember]
+        public DateTime FechaLimPago { get; set; }
+
         [DataMember]
         public String Nivel { get; set; }
         [DataMember]

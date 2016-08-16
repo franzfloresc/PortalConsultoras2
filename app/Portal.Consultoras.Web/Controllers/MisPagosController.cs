@@ -668,13 +668,10 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                             montoPagar = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
 
-                        var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-
-                        fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001"
-                            ? "--/--"
-                            : fechaVencimientoTemp.ToString("dd/MM/yyyy");
+                        var fechaVencimientoTemp = userData.FechaLimPago;
+                        fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");                       
                     }
-                }
+                }                
             }
             catch (FaultException ex)
             {
