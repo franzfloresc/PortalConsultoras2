@@ -2717,9 +2717,10 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
             var tipoError = listaObservacionesProl[0].Caso;
 
             if (tipoError == 95) {
-                var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                var mensajeCUV = listaObservacionesProl[0].CUV;
 
-                if (mensajePedido.toLowerCase().includes("pedido mínimo")) {
+                if (mensajeCUV == "XXXXX") {
                     var montoMinimo = parseFloat($("#hdMontoMinimo").val());
                     var diferenciaMonto = montoMinimo - monto;
 
