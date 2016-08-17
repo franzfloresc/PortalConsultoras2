@@ -1473,6 +1473,7 @@
     <Content Include="Content\Images\Esika\catalogos.png" />
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
+    <Content Include="Content\Images\Esika\catalogo_menu.png" />
     <Content Include="Content\Images\Esika\catálogos.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
@@ -1567,6 +1568,7 @@
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
+    <Content Include="Content\Images\Esika\pestana_esika.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\revista.png" />
