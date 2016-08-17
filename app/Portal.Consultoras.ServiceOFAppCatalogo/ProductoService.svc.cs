@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Utils;
 
 namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 {
@@ -158,43 +159,24 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             string clientId = "ws_pe_lbel";
             string clientSecret = "peru1234";
             string grantType = "client_credentials";
-            string urlAuth = "https://10.12.6.218:9002/authorizationserver/oauth";
+            string urlAuthorizationServer = "https://10.12.6.218:9002";
+            string urlAuthorizationPath = "/authorizationserver/oauth";
             string urlService = "https://10.12.6.218:9002/belcorpstorewebservices/v1/belcorpsitePE/belcorpstore/products/export/full";
 
-            string responseStringToken = string.Empty;
-            string responseStringService = string.Empty;
- 
-            List<KeyValuePair<string, string>> postData = new List<KeyValuePair<string, string>>();
-            postData.Add(new KeyValuePair<string, string>("client_id", clientId));
-            postData.Add(new KeyValuePair<string, string>("client_secret", clientSecret));
-            postData.Add(new KeyValuePair<string, string>("grant_type", grantType));
+            var auth = new AuthConnection();
+            auth.UrlAuthorizationServer = urlAuthorizationServer;
+            auth.ClientId = clientId;
+            auth.ClientSecret = clientSecret;
 
-            HttpContent content = new FormUrlEncodedContent(postData);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            auth.AuthorizationPath = urlAuthorizationPath;
 
-            using (HttpClient client = new HttpClient())
-            {
-                //Obtener el Token
-                HttpResponseMessage responseResultToeken = client.PostAsync(urlAuth, content).Result;
-                string result = responseResultToeken.Content.ReadAsStringAsync().Result;
-                JObject obj = JObject.Parse(result);
-                
-                responseStringToken = (string)obj["access_token"];
-            }
+            const string formatoTokenPath = "{0}/token?client_id={1}&client_secret={2}&grant_type={3}";
+            //string formatoTokenPath = "/authorizationserver/oauth/token?client_id=ws_pe_lbel&client_secret=peru1234&grant_type=client_credentials";
+            string tokenPath = string.Format(formatoTokenPath, urlAuthorizationPath, clientId, clientSecret, grantType);
 
-            using (HttpClient client = new HttpClient())
-            {
-                //Consumir el Servicio
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseStringToken);
+            auth.TokenPath = tokenPath;            
 
-                HttpResponseMessage responseResultService = client.GetAsync(urlService).Result;
-                string result = responseResultService.Content.ReadAsStringAsync().Result;
-                JObject obj = JObject.Parse(result);
-
-                responseStringService = (string)obj["products"];
-            }
+            var products = auth.GetResultFromWebService(urlService);
 
             #endregion
 
