@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                model.CodigoIso = userData.CodigoISO;
+
                 #region Sesiones
 
                 Session["ObservacionesPROL"] = null;
@@ -181,8 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TotalCliente = "";                                                
                 model.ClienteID_ = "-1";
-
-                model.CodigoIso = userData.CodigoISO;                                   
+                                
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;       
                 model.ErrorInsertarProducto = "";                                      
                 model.ListaEstrategias = new List<BEEstrategia>();
