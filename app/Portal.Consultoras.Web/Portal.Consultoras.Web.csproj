@@ -1976,6 +1976,7 @@
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
+    <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_exclamacion_lbel.svg" />

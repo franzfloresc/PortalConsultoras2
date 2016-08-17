@@ -5997,7 +5997,7 @@ input[type="checkbox"]:checked + span:after {
     font-family:'Lato';
     font-size:13px;
     font-weight:700;
-    color:#e81c36;
+    color:#613c87;
     margin-bottom:5px;
 }
 .btn_ver_pedido_reservado{
@@ -6050,7 +6050,7 @@ input[type="checkbox"]:checked + span:after {
     text-align:center;
     display:block;    
     margin-top:30px;
-    background:#e81c36;
+    background:#613c87;
     
 
 }
@@ -6058,7 +6058,7 @@ input[type="checkbox"]:checked + span:after {
     float:left;
     width:20px;
     height:20px;
-    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background:url(../../../Images/Mobile/Lbel/icono_advertencia_b75d9f.svg) no-repeat;
     background-size:cover;
 }
 .info_tooltip{
@@ -6129,4 +6129,53 @@ input[type="checkbox"]:checked + span:after {
     height:2px;
     margin-top:-1px;
     background:#e81c36;   
+}
+.importe_final{
+    font-family:'Lato';
+    font-size:13px;
+    
+    color:black;
+    margin-top: 20px;
+}
+.ganancia_Pedidovalidado{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:#613c87;
+    margin-top: 3px;
+    margin-left:29px;
+}
+.info_validado{
+    float:left;
+    margin-right:8px;
+    position:relative;
+}
+.tooltip_validado_importe{
+    display:none;
+    width:292px;
+    height:60px;
+    padding:13px;
+    background:white;
+    position:absolute;
+    top: -83px;
+   -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+}
+.tooltip_validado_importe:before {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(5, 7, 8, 0);
+    border-top-color: white;
+    border-width: 15px;
+    margin-left: -15px;
+    left: 5%;
+}
+.info_validado:hover .tooltip_validado_importe{
+    display:block;
 }
