@@ -22,15 +22,21 @@
     <div class="clear"></div>
     <div class="caja_pedidos pedidoReservado">
 
+        @Html.Hidden("hdfCorreo", (string)Model.eMail)
+
         <div class="escalaDescuento_texto" style="margin-bottom: 20px;">
-            <div style="float:left;">
-                <div class="content_BarrMensaje">
-                    <div class="mensaje_barra" style="display: inline;">¡YA LLEGAS AL 30% DSCTO!</div>
-                    <div class="agrega_barra">Solo agrega S/. 313.19 más.</div>
+
+            @if (ViewBag.EscalaDescuento != 0)
+            {
+                <div style="float:left;">
+                    <div class="content_BarrMensaje">
+                        <div class="mensaje_barra" style="display: inline;">¡YA LLEGAS AL @ViewBag.PorcentajeEscala% DSCTO!</div>
+                        <div class="agrega_barra">Solo agrega @ViewBag.Simbolo @ViewBag.MontoEscalaDescuento más.</div>
+                    </div>
+                    <hr class="clear">
+                    <div class="flechita_barra"></div>
                 </div>
-                <hr class="clear">
-                <div class="flechita_barra"></div>
-            </div>
+            }
 
             @*@if (ViewBag.EscalaDescuento != 0)
             {
@@ -48,8 +54,18 @@
             <div class="clear"></div>
             <div style="margin-top: 20px; overflow: hidden; margin-bottom: -10px;">
                 <div class="titulo_mis_pedidos">
-                    <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
+                    @if (ViewBag.ZonaNuevoPROL == true)
+                    {
+                        <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
+                    }
+                    else
+                    {
+                        <h1>MI <b>PEDIDO VALIDADO CON ÉXITO</b></h1>
+                    }
                 </div>
+
+                <div id="paginadorCab"></div>
+                <!--
                 <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block" style="margin-top:5px">
                     <li class="seleccion_pagina">
                         <select data-paginacion="rows" style="height: 24px;" data-val="">
@@ -72,6 +88,7 @@
                     </li>
                     <li class="flecha_paginador_adelante" data-paginacion="next"></li>
                 </ul>
+                    -->
             </div>
             <hr class="clear" />
         </div>
@@ -86,6 +103,9 @@
                 <div class="total_listado texto_gris">Precio Total</div>
                 <div class="cliente_listado texto_gris">Cliente</div>
             </div>
+
+            <div id="divListado"></div>
+            <!--
             <div class="linea_separadora" style="margin-top:-1px;"></div>
             <div class="content_listado_notificaciones">
                 <div class="cod_venta_listado">00059</div>
@@ -111,38 +131,40 @@
                 <div class="total_listado">S/. 14.90</div>
                 <div class="cliente_listado">usuariopruebape</div>
             </div>
+                -->
 
         </div>
         <div class="montos_pedidoValidado">
-            <div class="monto_totalValidado">MONTO TOTAL: <span>S/. 580.000.00</span></div>
+            <div class="monto_totalValidado">MONTO TOTAL: <span>@Model.Simbolo @Model.Total</span></div>
             <div class="info_extra_Validado">
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")">
                 <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
-                    <div class="monto_numero" style="opacity:0.6">S/.  680,000,000</div>
+                    @{ decimal msd = (Convert.ToDecimal(Model.Total) + ViewBag.Descuento); }
+                    <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @msd </div>
                     <hr class="clear" />
                     <div class="monto_1">Dscto. por niveles </div>
-                    <div class="monto_numero">S/. -100,000,000</div>
+                    <div class="monto_numero">@Model.Simbolo -@ViewBag.Descuento</div>
                 </div>
                 <!--FIN-->
             </div>
 
             <hr class="clear" />
-            <div class="monto_gananciaValidado">MI GANANCIA: <span>S/. 150.000.00</span></div>
+            <div class="monto_gananciaValidado">MI GANANCIA: <span>@Model.Simbolo @ViewBag.GananciaEstimada</span></div>
             <hr class="clear" />
-            <a class="btn_ModificaPedido" href="#">MODIFICA TU PEDIDO</a>
+            <a class="btn_ModificaPedido" href="#" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
             <div class="info_modificarvalidado">
                 Es importante <br />que guardes tu pedido
-                <span>Puedes realizar cambios hasta el 6 de Junio. </span>
+                <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
             </div>
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>
-            <div class="eliminar_pedidoValidado">Para eliminar el pedido completo haz <a href="#">click aquí</a></div>
+            @*<div class="eliminar_pedidoValidado">Para eliminar el pedido completo haz <a href="#">click aquí</a></div>
             <div class="eliminar_pedidoValidado" style="float:left">
                 <span style="color: #e81c36">(*)</span>    El precio no incluye el descuento de ofertas por niveles.<br />
                 Guarda tu pedido y elegiremos la mejor opción para ti.
-            </div>
+            </div>*@
 
 
         </div>
@@ -351,9 +373,59 @@
 
 @Html.Hidden("hdfModificacionPedidoProl", Model.ModificacionPedidoProl)
 
+
+<script id="producto-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="linea_separadora" style="margin-top:-1px;"></div>
+    <div class="content_listado_notificaciones">
+        <div class="cod_venta_listado">{{CUV}}</div>
+        <div class="descripcion_listado">{{DescripcionProd}}</div>
+        <div class="cantidad_listado">{{Cantidad}}</div>
+        <div class="unitario_listado"> {{PrecioUnidad}}</div>
+        <div class="total_listado">{{ImporteTotal}}</div>
+        <div class="cliente_listado">{{Nombre}}</div>
+    </div>
+
+    {{#IsNullOrEmpty ObservacionPROL '!='}}
+
+    <div class="content_listado_notificaciones">
+        {{Split ObservacionPROL '|' 0}}
+    </div>
+    {{/IsNullOrEmpty}}
+
+    {{/each}}
+</script>
+
+<script id="paginador-template" type="text/x-handlebars-template">
+    <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block" style="margin-top:5px">
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{RegistrosTotal}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral" id="paginaactual" data-val="{{Pagina}}">
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+    </ul>
+</script>
+
 @section scripts{
     <script type="text/javascript">
-        var correoElectronico = '@Model.eMail';
+        //var correoElectronico = '@Model.eMail';
+        var correoElectronico = 'paul.cabrera@hundred.com.pe';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
 }

@@ -1630,7 +1630,7 @@ header {
 }
 
 #divNotiNombre, #divNotiNombre2 {
-    top: -25.1%;
+    top: 25.1%;
 }
 
 .noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
