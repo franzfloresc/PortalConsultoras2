@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                model.EsPais = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
+                    .Contains(userData.CodigoISO) ? "Ésika" : "L'bel";
                 #region Sesiones
 
                 Session["ObservacionesPROL"] = null;
