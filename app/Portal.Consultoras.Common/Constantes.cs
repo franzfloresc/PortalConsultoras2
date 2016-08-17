@@ -148,5 +148,12 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
         }
+
+        public class TipoOfertaFinal
+        {
+            public const int SinConfiguracion = 0;
+            public const int Arp = 1;
+            public const int Jetlore = 2;
+        }
     }
 }

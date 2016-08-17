@@ -799,3 +799,19 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 /* Fin Marcaciones */
+
+/* Tracking Jetlore */
+function TrackingJetloreAdd(cantidad, campania, cuv) {
+    JL.tracker.addToCart({
+        count: cantidad,
+        deal_id: campania + "-" + cuv
+    });
+}
+
+function TrackingJetloreRemove(cantidad, campania, cuv) {
+    JL.tracker.removeFromCart({
+        count: cantidad,
+        deal_id: campania + "-" + cuv
+    });
+}
+/* Fin Tracking Jetlore */

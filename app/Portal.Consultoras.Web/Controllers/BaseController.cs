@@ -472,6 +472,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
 
                 return model;
 
@@ -667,6 +668,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
 
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
 
                 return model;
 

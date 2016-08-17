@@ -1193,6 +1193,8 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                         categoriacad = result.oPedidoDetalle.Categoria;
                     }
 
+                    //AgregarTrackingJetlore(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
+
                     dataLayer.push({
                         'event': 'addToCart',
                         'ecommerce': {
