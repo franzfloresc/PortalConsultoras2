@@ -2243,8 +2243,10 @@ function EjecutarServicioPROL() {
                 $("#divMontosEscalaDescuento").html("");
                 $("#divMontosEscalaDescuento").html(htmlMontos);
 
+                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
                 $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
                 $("#divMontosEscalaDescuento").css("display", "block");                                
             } else {
                 $("#divMontosEscalaDescuentoTexto").html("");
@@ -2477,8 +2479,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
                 $("#divMontosEscalaDescuento").html("");
                 $("#divMontosEscalaDescuento").html(htmlMontos);
 
+                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
                 $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#spnMontoEscala").html(" "+DecimalToStringFormat(totalConDescuento));
                 $("#divMontosEscalaDescuento").css("display", "block");
             } else {
                 $("#divMontosEscalaDescuentoTexto").html("");

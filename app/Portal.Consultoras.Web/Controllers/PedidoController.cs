@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
                 model.MontoDescuento = pedidoWeb.DescuentoProl;
                 model.MontoEscala = pedidoWeb.MontoEscala;
+                model.TotalConDescuento = model.Total - model.MontoDescuento;
 
                 model.DataBarra = GetDataBarra(true);
                 model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
