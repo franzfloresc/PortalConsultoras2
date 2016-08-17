@@ -321,23 +321,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetFechaVencimiento">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetFechaVencimientoResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GetFechaVencimientoResult" type="xs:dateTime" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="InsContenidoDato">
     <xs:complexType>
       <xs:sequence>
