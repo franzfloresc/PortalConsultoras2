@@ -1255,8 +1255,10 @@
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\banamex.png" />
     <Content Include="Content\Images\Esika\bancomer.png" />
+    <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\bbva.png" />
     <Content Include="Content\Images\Esika\bcp.png" />
+    <Content Include="Content\Images\Esika\brillante2016_img.png" />
     <Content Include="Content\Images\Esika\carsa.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
@@ -1531,6 +1533,7 @@
     <Content Include="Content\Images\Esika\img-prev.png" />
     <Content Include="Content\Images\Esika\img_producto.png" />
     <Content Include="Content\Images\Esika\imprimir.png" />
+    <Content Include="Content\Images\Esika\incentivos_img.png" />
     <Content Include="Content\Images\Esika\indicador.png" />
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
@@ -1571,6 +1574,7 @@
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
+    <Content Include="Content\Images\Esika\programaNuevas_img.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\santander.png" />
