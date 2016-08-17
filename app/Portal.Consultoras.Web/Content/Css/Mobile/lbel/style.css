@@ -3858,8 +3858,7 @@ width:100%;
     height:auto;
     margin:0 auto;
     padding-top:14px;
-    padding-bottom:6px;
-
+    padding-bottom:14px;
 }
 
 .content_320.ingresoPedidom{
@@ -3874,15 +3873,17 @@ width:100%;
 }
 
 .content_foto{
-    float:left;
+    display:inline-block;
     position:relative;
+    vertical-align:middle;
 }
 .foto_usuaria_mobile{
     width:89px;
     height:87px;
     border-radius:100px;
-    overflow:hidden
+    overflow:hidden;
 }
+
 .foto_usuaria_mobile img{
     width:100%;
 }
@@ -3896,28 +3897,53 @@ width:100%;
     margin-left: 56px;
 }
 .content_resumen_dato_mobile{
-    float:left;
-    margin-left:20px;
+    /*float:left;*/
+    display:inline-block;
+    margin-left:18px;
     width:180px;
     height:auto;
     font-family:'Lato';
+    vertical-align:middle;
 }
 .saludo_mobile{
-    width:100%;
+    /*width:100%;*/
+    width:24%;
     font-size: 17px;
     color:black;
     letter-spacing:0.3px;
     margin-top:-3px;
+    display:inline-block;
 }
 .nombre_consultora_mobile {
+    display:inline-block;
     font-size: 17px;
     color:black;
-    float:left;
+    /*float:left;*/
     letter-spacing:0.3px;
 }
 .nombre_consultora_mobile:first-letter{
     text-transform:uppercase;
 }
+
+.enlace_sociasEmpresarias{
+    display:block;
+}
+
+.enlace_sociasEmpresarias .btn_seguirp_mobile{
+    width: 7px;
+    height: 8px;
+    background-position: center center;
+}
+
+.texto_enlace_socias{
+    text-decoration:underline;
+    text-transform:uppercase;
+    color:#000;
+    font-weight:700;
+    letter-spacing:0.95px;
+    font-size:10px;
+}
+
 .cambiar_datos_mobile{
     margin-top: 7px;
     margin-left: 5px;
@@ -3944,6 +3970,7 @@ width:100%;
     margin-top: -3px;
     display: block;
     letter-spacing:0.8px;
+    text-align:center;
    }
 .borde_gris{
     height:31px;
@@ -4456,6 +4483,10 @@ body{
     font-weight:bold;
 }
 
+.contenedor_cantidadProductos div .campo_cantidadProductos input[value]{
+    color:#000;
+}
+
 .contenedor_seleccionCliente{
     display:block;
     margin-bottom:30px;
@@ -4485,8 +4516,9 @@ body{
     text-align:center;
     font-size:13px;
     color:#1a1a1a;
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     margin-bottom:25px;
+    position:relative;
 }
 
 .textos_resumen, .montos_resumen{
@@ -4597,6 +4629,20 @@ body{
 
 .nombre_campania_pedido{
     margin: 0 0 21px 0;
+}
+
+.enlace_regresar{
+    display:block;
+    width:48px;
+    height:35px;
+    position:absolute;
+    top:-8px;
+    left:0;
+}
+
+.enlace_regresar img{
+    width:100%;
+    height:auto;
 }
 
 .detalle_pedido_ingresado{

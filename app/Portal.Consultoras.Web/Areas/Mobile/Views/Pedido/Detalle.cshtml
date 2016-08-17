@@ -12,6 +12,9 @@
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
+                <a href="@Url.Action("Index", "Pedido", new { area = "Mobile" })" class="enlace_regresar" title="Regresar">
+                    <img src="@Url.Content("~/Content/images/flecha_volver_mobile.jpg")" alt="Regresar" />
+                </a>
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
@@ -141,18 +144,18 @@
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
-                        <small><span class="text-success">App móvil</span></small>
+                        <span>App móvil</span>
                         {{/iff}}
 
                         {{#iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
                         <br />
-                        <small><span class="text-success">Oferta Liquidación</span></small>
+                        <span>Oferta Liquidación</span>
                         {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Flexipago}}
                         <br />
-                        <small><span class="text-success">Oferta Flexipago</span></small>
+                        <span>Oferta Flexipago</span>
                         {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                         <br />
-                        <small><span class="text-success">Pre-venta Digital</span></small>
+                        <span>Pre-venta Digital</span>
                         {{else}}
                         {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                         <br />

@@ -3860,8 +3860,7 @@ width:100%;
     height:auto;
     margin:0 auto;
     padding-top:14px;
-    padding-bottom:6px;
-
+    padding-bottom:14px;
 }
 
 .content_320.ingresoPedidom{
@@ -3876,14 +3875,15 @@ width:100%;
 }
 
 .content_foto{
-    float:left;
+    display:inline-block;
     position:relative;
+    vertical-align:middle;
 }
 .foto_usuaria_mobile{
     width:89px;
     height:87px;
     border-radius:100px;
-    overflow:hidden
+    overflow:hidden;
 }
 .foto_usuaria_mobile img{
     width:100%;
@@ -3898,28 +3898,52 @@ width:100%;
     margin-left: 56px;
 }
 .content_resumen_dato_mobile{
-    float:left;
-    margin-left:20px;
+    /*float:left;*/
+    display:inline-block;
+    margin-left:18px;
     width:180px;
     height:auto;
     font-family:'Lato';
 }
 .saludo_mobile{
-    width:100%;
+    /*width:100%;*/
+    width:24%;
     font-size: 17px;
     color:black;
     letter-spacing:0.3px;
     margin-top:-3px;
+    display:inline-block;
 }
 .nombre_consultora_mobile {
+    display:inline-block;
     font-size: 17px;
     color:black;
-    float:left;
+    /*float:left;*/
     letter-spacing:0.3px;
 }
 .nombre_consultora_mobile:first-letter{
     text-transform:uppercase;
 }
+
+.enlace_sociasEmpresarias{
+    display:block;
+}
+
+.enlace_sociasEmpresarias .btn_seguirp_mobile{
+    width: 7px;
+    height: 8px;
+    background-position: center center;
+}
+
+.texto_enlace_socias{
+    text-decoration:underline;
+    text-transform:uppercase;
+    color:#000;
+    font-weight:700;
+    letter-spacing:0.95px;
+    font-size:10px;
+}
+
 .cambiar_datos_mobile{
     margin-top: 7px;
     margin-left: 5px;
@@ -3946,6 +3970,7 @@ width:100%;
     margin-top: -3px;
     display: block;
     letter-spacing:0.8px;
+    text-align:center;
    }
 .borde_gris{
     height:31px;
@@ -4485,6 +4510,10 @@ body{
     font-weight:bold;
 }
 
+.contenedor_cantidadProductos div .campo_cantidadProductos input[value]{
+    color:#000;
+}
+
 .contenedor_seleccionCliente{
     display:block;
     margin-bottom:30px;
@@ -4514,8 +4543,9 @@ body{
     text-align:center;
     font-size:13px;
     color:#1a1a1a;
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     margin-bottom:25px;
+    position:relative;
 }
 
 .textos_resumen, .montos_resumen{
@@ -4626,6 +4656,20 @@ body{
 
 .nombre_campania_pedido{
     margin: 0 0 21px 0;
+}
+
+.enlace_regresar{
+    display:block;
+    width:48px;
+    height:35px;
+    position:absolute;
+    top:-8px;
+    left:0;
+}
+
+.enlace_regresar img{
+    width:100%;
+    height:auto;
 }
 
 .detalle_pedido_ingresado{
@@ -5776,6 +5820,7 @@ input[type="checkbox"]:checked + span:after {
     right:0;
     width:100%;
     height:100%;
+    overflow:scroll;
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
 }
@@ -5784,22 +5829,45 @@ input[type="checkbox"]:checked + span:after {
     display: block;
     position: relative;
     top: 50%;
-    margin: -253.5px auto 0 auto;
+    margin: -259px auto 0 auto;
     background: #FFF;
     width: 91%;
-    max-width: 623px;
+    max-width: 450px;
     height: auto;
     padding-top: 21px;
-    padding-bottom: 21px;
+    padding-bottom: 1px;
     box-sizing: border-box;
     font-family: 'Lato';
     z-index: 4;
+}
+
+@media screen and (orientation:landscape){
+
+    .popup_demandaAnticipada{
+        top: 7%;
+        margin: 0 auto;
+        margin-bottom: 3.9%;
+    }
+
+    .demanda_descripcion_texto{
+        margin-bottom:10px!important;
+    }
+
+    .demanda_condiciones_subtitulo{
+        margin-bottom:14px!important;
+    }
+
+    .demanda_promo{
+        width: 68.7%;
+    }
+
 }
 
 .titulo_demandaAnticipada{
     margin: 0 0 19px 0px;
     padding:0;
     font-size:19px;
+    font-weight:300;
     color:#000;
     text-align:center;
     line-height:24px;
@@ -5814,7 +5882,8 @@ input[type="checkbox"]:checked + span:after {
 
 .descripcion_demanda{
     display:block;
-    padding:0 20px;
+    padding:0 19px;
+    margin-bottom:20px;
 }
 
 .demanda_img_regalo, .demanda_promo{
@@ -5823,18 +5892,8 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .demanda_img_regalo{
-    width: 24.04%;
-    margin-right: 8%;
-}
-
-.demanda_promo{
-    width: 66.7%;
-}
-
-.demanda_promo span:first-child{
-    font-size: 17px;
-    font-weight: 700;
-    color: #000;
+    width: 70px;
+    margin-right: 4.25%;
 }
 
 .demanda_img_regalo img{
@@ -5842,8 +5901,108 @@ input[type="checkbox"]:checked + span:after {
     height:auto;
 }
 
+.demanda_promo{
+    width: 66.7%;
+}
+
 .demanda_promo span{
     display:block;
+    color: #000;
+}
+
+.demanda_promo span:first-child{
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
+.demanda_promo span:nth-child(2){
+    font-size:12px;
+}
+
+.demanda_condiciones_subtitulo{
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    color: #000;
+    margin-bottom:16px;
+}
+
+.demanda_descripcion_texto{
+    display:block;
+    margin-bottom:19px;
+}
+
+.demanda_descripcion_texto:last-child{
+    margin-bottom:13px;
+}
+
+.demanda_img_check, .demanda_mensajes{
+    display:inline-block;
+    vertical-align:top;
+    color:#000;
+}
+
+.demanda_img_check{
+    display: inline-block;
+    vertical-align: top;
+    color: #000;
+    margin-right: 0.6%;
+}
+
+.demanda_mensajes{
+    width: 92%;
+    font-size:12px;
+}
+
+.btn_participaAhora{
+    display:block;
+    width:100%;
+    border:none;
+    background:#e81c36;
+    line-height:45px;
+    height:45px;
+    color:#FFF;
+    font-size:13px;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.descripcion_tiempoPasePedido{
+    display:block;
+    margin-bottom:7px;
+}
+
+.descripcion_tiempoPasePedido .icono_notaDemanda, .descripcion_tiempoPasePedido .texto_tiempo_pasePedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.descripcion_tiempoPasePedido .icono_notaDemanda{
+    width:18px;
+    height:18px;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+}
+
+.descripcion_tiempoPasePedido .texto_tiempo_pasePedido{
+    width: 89.6%;
+    font-size:12px;
+    font-weight:400;
+    color:#000;
+}
+
+.enlace_noGracias{
+    display:block;
+}
+
+.enlace_noGracias a{
+    display:block;
+    text-align:right;
+    color:#969696;
+    font-size:13px;
+    font-weight:400;
 }
 /*PEDIDO VALIDADO*/
 .agregados_reservado{
