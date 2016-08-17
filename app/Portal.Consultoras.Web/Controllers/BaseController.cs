@@ -4,11 +4,13 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -179,6 +181,80 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return PedObs.OrderByDescending(p => p.TipoObservacion).ToList();
+        }
+
+        protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
+        {
+            if (Session[Constantes.ConstSession.PROL_CalculoMontosProl] != null)
+            {
+                if (session)
+                {
+                    return (List<ObjMontosProl>)Session[Constantes.ConstSession.PROL_CalculoMontosProl];
+                }
+            }
+
+            var listProducto = ObtenerPedidoWebDetalle();
+
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("cuv");
+            dt.Columns.Add("cantidad");
+            foreach (var prod in listProducto)
+            {
+                dt.Rows.Add(prod.CUV, prod.Cantidad);
+            }
+
+            ds.Tables.Add(dt);
+
+            string ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+            var isoPais = userData.CodigoISO ?? "";
+            isoPais = ambiente.ToLower() == "QA".ToLower() ? "" : ("_" + isoPais);
+            var keyWeb = ambiente + "_Prol_ServicesCalculos" + isoPais;
+
+            var rtpa = new List<ObjMontosProl>();
+            using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
+            {
+                sv.Url = ConfigurationManager.AppSettings[keyWeb];
+                rtpa = sv.CalculoMontosProl(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.ZonaID.ToString(), ds.Tables[0]).ToList();
+            }
+
+            rtpa = rtpa ?? new List<ObjMontosProl>();
+            Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
+            return rtpa;
+        }
+
+        protected void UpdPedidoWebMontosPROL()
+        {
+            decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
+
+            var lista = ServicioProl_CalculoMontosProl(false);
+            if (lista.Count > 0)
+            {
+                var datos = lista[0];
+                Decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
+                Decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
+                Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
+                Decimal.TryParse(datos.MontoEscala, out montoEscala);
+            }
+            
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+                bePedidoWeb.PaisID = userData.PaisID;
+                bePedidoWeb.CampaniaID = userData.CampaniaID;
+                bePedidoWeb.ConsultoraID = userData.ConsultoraID;
+                bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
+                bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
+                bePedidoWeb.DescuentoProl = montoDescuento;
+                bePedidoWeb.MontoEscala = montoEscala;
+
+                sv.UpdateMontosPedidoWeb(bePedidoWeb);
+
+                // poner en Session
+                Session["PedidoWeb"] = null;
+                ObtenerPedidoWeb();
+            }
         }
 
         #endregion

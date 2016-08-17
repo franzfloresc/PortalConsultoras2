@@ -278,6 +278,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["PedidoWebDetalle"] = null;
                 }
 
+                UpdPedidoWebMontosPROL();
+
                 return Json(new
                 {
                     success = true,
@@ -339,6 +341,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.UpdPedidoWebDetalleOferta(entidad);
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {

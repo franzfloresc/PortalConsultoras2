@@ -51,6 +51,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     Session["PedidoWebDetalle"] = null;
                     lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
@@ -389,6 +391,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     Session["PedidoWebDetalle"] = null;
                     lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
@@ -1558,6 +1562,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                     sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
             }
+            
             using (var sv = new SACServiceClient())
             {
                 //Se reutiliza la lista, pues desde el método origen devuelve la información de los productos del pedido de BD.
