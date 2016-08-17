@@ -35,7 +35,12 @@
         </div>
     }
 }
-<div class="titulo_mobile">MIS CATÁLOGOS Y REVISTAS</div>
+<div class="titulo_mobile">
+    <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar">
+        @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS
+</div>
 <div class="fondo_f2f2f2">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
