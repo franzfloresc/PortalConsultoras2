@@ -3651,6 +3651,8 @@ function MostrarBarra(datax) {
     var datax = datax || new Object();
     data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
 
+    ActualizarGanancia(data);
+
     //data.MontoMinimo = 100;
     //data.MontoMinimoStr = "100.00";
     //data.TippingPoint = 150.99;

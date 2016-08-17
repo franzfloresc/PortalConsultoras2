@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MontoDescuento = pedidoWeb.DescuentoProl;
                 model.MontoEscala = pedidoWeb.MontoEscala;
 
-                model.DataBarra = GetDataBarra(true);
+                model.DataBarra = GetDataBarra(true, true);
                 model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
 
                 userData.PedidoID = 0;
@@ -1464,8 +1464,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = !ErrorServer,
                     message = "Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.",
-                    oPedidoDetalle = oBEPedidoWebDetalle
-
+                    oPedidoDetalle = oBEPedidoWebDetalle,
+                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel()
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -4190,119 +4190,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #region barra
-        public BarraConsultoraModel GetDataBarra(bool inEscala = false)
-        {
-            var objR = new BarraConsultoraModel();
-            objR.ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>();
-            objR.ListaMensajeMeta = new List<BEMensajeMetaConsultora>();
-
-            try
-            {
-                var listProducto = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
-
-                var rtpa = ServicioProl_CalculoMontosProl(false);
-                if (!rtpa.Any())
-                    return objR;
-
-                var obj = rtpa[0];
-
-                #region Tipping Point
-
-                objR.TippingPointStr = "";
-                objR.TippingPoint = 0;
-                if (userData.MontoMaximo > 0)
-                {
-                    var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
-
-                    if (tp.IndExigVent == "1")
-                    {
-                        var oBEConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
-
-                        objR.TippingPoint = oBEConsultorasProgramaNuevas.MontoVentaExigido;
-                        objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                    }
-                }
-                
-                #endregion
-
-                objR.MontoMaximo = 0;
-                objR.MontoEscala = 0;
-                objR.MontoDescuento = 0;
-
-                objR.MontoMinimoStr = Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO);
-                objR.MontoMinimo = userData.MontoMinimo;
-
-                objR.MontoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
-                if (objR.MontoMaximoStr != "")
-                    objR.MontoMaximo = userData.MontoMaximo;
-
-                objR.MontoEscalaStr = Util.DecimalToStringFormat(obj.MontoEscala, userData.CodigoISO);
-                objR.MontoDescuentoStr = Util.DecimalToStringFormat(obj.MontoTotalDescuento, userData.CodigoISO);
-                if (objR.MontoEscalaStr != "")
-                    objR.MontoEscala = decimal.Parse(obj.MontoEscala);
-                if (objR.MontoDescuentoStr != "")
-                    objR.MontoDescuento = decimal.Parse(obj.MontoTotalDescuento);
-                
-                objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
-                objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
-
-                #region listaEscalaDescuento
-                var listaEscalaDescuento = new List<BEEscalaDescuento>();
-                if (inEscala)
-                {
-                    if (objR.MontoMaximoStr == "")
-                    {
-                        listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    }
-                }
-
-                foreach (var escala in listaEscalaDescuento)
-                {
-                    objR.ListaEscalaDescuento.Add(new BarraConsultoraEscalaDescuentoModel
-                    {
-                        MontoDesde = escala.MontoDesde,
-                        MontoDesdeStr = Util.DecimalToStringFormat(escala.MontoDesde, userData.CodigoISO),
-                        MontoHasta = escala.MontoHasta,
-                        MontoHastaStr = Util.DecimalToStringFormat(escala.MontoHasta, userData.CodigoISO),
-                        PorDescuento = escala.PorDescuento,
-                    });
-                }
-                #endregion
-
-                #region Mensajes
-                objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
-                #endregion
-            }
-            catch (Exception)
-            {
-                //return new BarraConsultoraModel();
-            }
-
-            return objR;
-        }
-
-        private List<BEEscalaDescuento> GetListaEscalaDescuento()
-        {
-            List<BEEscalaDescuento> listaEscalaDescuento;
-
-            try
-            {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
-                }
-            }
-            catch (Exception)
-            {
-                listaEscalaDescuento = new List<BEEscalaDescuento>();
-            }
-            
-            return listaEscalaDescuento;
-        }
-        #endregion
-
+        
         #region Parametria Oferta Final
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal()

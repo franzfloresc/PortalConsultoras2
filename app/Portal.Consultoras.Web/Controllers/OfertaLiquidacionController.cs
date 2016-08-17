@@ -285,7 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = ""
+                    extra = "",
+                    DataBarra = GetDataBarra()
                 });
             }
             catch (FaultException ex)

@@ -137,7 +137,7 @@
             <div class="titulo_item_mobile" style="text-transform: uppercase;">@(cabezaEscala)</div>
             <div class="monto_ganancia_mobile">
                 @Model.Simbolo
-                <span>
+                <span data-ganancia="">
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
