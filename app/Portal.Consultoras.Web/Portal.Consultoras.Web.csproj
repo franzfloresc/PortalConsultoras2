@@ -1476,6 +1476,7 @@
     <Content Include="Content\Images\Esika\catalogos.png" />
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
+    <Content Include="Content\Images\Esika\catalogo_menu.png" />
     <Content Include="Content\Images\Esika\catálogos.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
@@ -1572,6 +1573,7 @@
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
+    <Content Include="Content\Images\Esika\pestana_esika.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
@@ -1978,6 +1980,7 @@
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
+    <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_exclamacion_lbel.svg" />
