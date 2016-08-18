@@ -802,16 +802,36 @@ function SetMarcaGoogleAnalyticsTermino() {
 
 /* Tracking Jetlore */
 function TrackingJetloreAdd(cantidad, campania, cuv) {
-    JL.tracker.addToCart({
-        count: cantidad,
-        deal_id: campania + "-" + cuv
-    });
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == "True" || catalogoPersonalizado == "True";
+
+    if (esJetlore) {
+        JL.tracker.addToCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }       
 }
 
 function TrackingJetloreRemove(cantidad, campania, cuv) {
-    JL.tracker.removeFromCart({
-        count: cantidad,
-        deal_id: campania + "-" + cuv
-    });
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == "True" || catalogoPersonalizado == "True";
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }    
 }
 /* Fin Tracking Jetlore */
