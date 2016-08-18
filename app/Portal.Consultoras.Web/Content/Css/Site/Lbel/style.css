@@ -20648,10 +20648,16 @@ label.checkpop.c_on {
 }
 
 .borde_video{
-    padding-bottom:11px;
+    padding-top: 13px;
+    padding-bottom: 11px;
     border-bottom: 1px solid #e7e1e1;
-    margin-bottom:11px;
-    overflow:hidden;
+    margin-bottom: 11px;
+    overflow: hidden;
+    min-height: 57.3px;
+}
+
+.borde_video:last-child{
+    border-bottom:none;
 }
 
 .sin_iniciar{

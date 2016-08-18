@@ -1610,6 +1610,8 @@
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
+    <Content Include="Content\Images\flecha_volver_mobile.svg" />
+    <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
     <Content Include="Content\Images\flechita.png" />
     <Content Include="Content\Images\flexipago.png" />
     <Content Include="Content\Images\flexipago_img.jpg" />
