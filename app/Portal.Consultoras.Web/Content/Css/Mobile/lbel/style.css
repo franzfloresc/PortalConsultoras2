@@ -4977,12 +4977,13 @@ body{
 .video_esika{
     width:98px;
     height:66px;
+    margin-bottom:10px;
     background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;
 }
 .liquidacion_esika{
-    width:110px;
-    height:55px;
-    margin-top:35px;
+    width: 110px;
+    min-height: 55px;
+    margin-top: 9px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
 
