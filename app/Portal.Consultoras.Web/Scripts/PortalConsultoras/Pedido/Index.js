@@ -3061,7 +3061,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion) {
 
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
     var Total = parseFloat(Cantidad * Unidad).toFixed(2)
-    $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
+    $('#lblLPImpTotal' + PedidoDetalleID).html(DecimalToStringFormat(Total));
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
     var item = {
         CampaniaID: CampaniaID,

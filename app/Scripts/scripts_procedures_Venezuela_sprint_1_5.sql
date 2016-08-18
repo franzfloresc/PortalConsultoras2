@@ -3205,6 +3205,25 @@ BEGIN
 	where codigousuario = @CodigoConsultora	 
 	declare @CountCodigoNivel bigint
 
+	/*Oferta Final*/	
+	declare @EsOfertaFinalZonaValida bit = 0
+	declare @CodigoZona varchar(4) = ''
+	declare @CodigoRegion varchar(2) = ''
+
+	select 
+		@CodigoZona = IsNull(z.Codigo,''),    
+		@CodigoRegion = IsNull(r.Codigo,'')   
+	from ods.consultora c with(nolock)   
+	inner join ods.Region r on
+		c.RegionID = r.RegionID
+	inner join ods.Zona z on
+		c.ZonaID = z.ZonaID
+	where c.codigo = @CodConsultora   
+	
+	if exists (select 1 from OfertaFinalRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
+		set @EsOfertaFinalZonaValida = 1
+	/*Fin Oferta Final*/
+	
 	IF @UsuarioPrueba = 0
 	BEGIN
 		select	@ZonaID = IsNull(ZonaID,0),
@@ -3286,7 +3305,9 @@ BEGIN
 				else	
 					1
 			end esConsultoraLider,
-			u.EMailActivo --2532
+			u.EMailActivo, --2532
+			isnull(p.OfertaFinal,0) as OfertaFinal,
+			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida 
 		FROM [dbo].[Usuario] u with(nolock)
 		LEFT JOIN (
 			select *
@@ -3371,7 +3392,9 @@ BEGIN
 			isnull(p.PortalLideres,0) PortalLideres,--1589
 			isnull(p.LogoLideres,null) LogoLideres,	--1589	
 			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada, --1688
-			u.EMailActivo --2532
+			u.EMailActivo, --2532
+			isnull(p.OfertaFinal,0) as OfertaFinal,
+			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida 
 		FROM [dbo].[Usuario] u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
