@@ -1298,6 +1298,8 @@
         var dataBarra = JSON.parse($("#hdDataBarra").val());
         dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat('@Model.Total', 10);
         var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
+        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
+        $("#hdDataBarra, #hdListaEscala").val("");
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
 
     </script>

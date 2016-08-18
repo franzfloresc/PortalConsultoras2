@@ -3668,7 +3668,6 @@ function MostrarBarra(datax) {
     var mt = data.TotalPedido;
 
     var salto = "<br>";
-    var listaMensajeMeta = data.ListaMensajeMeta;
     var listaLimite = new Array();
 
     var widthTotal = $("#divListadoPedido").outerWidth();
@@ -3857,7 +3856,7 @@ function MostrarBarra(datax) {
     });
     $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
 
-    console.log(listaLimite, indPuntoLimite, wTotalPunto);
+    //console.log(listaLimite, indPuntoLimite, wTotalPunto);
 
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
@@ -3888,7 +3887,7 @@ function MostrarBarra(datax) {
         }
     }
 
-    console.log(listaLimite, indPuntoLimite, wTotalPunto);
+    //console.log(listaLimite, indPuntoLimite, wTotalPunto);
     // asignar espacio para el progreso
     var wAreaMover = widthTotal - wTotalPunto;
     if (indPuntoLimite > 0) {
@@ -3960,6 +3959,7 @@ function MostrarBarra(datax) {
     var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
     tipoMensaje += vLogro >= vLimite ? "Supero" : "";
 
+    listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
