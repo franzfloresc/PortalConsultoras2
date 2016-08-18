@@ -645,6 +645,7 @@ function AgregarProductoDestacado(popup) {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             waitingDialog({});
+                            ActualizarGanancia(data.DataBarra);
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
@@ -978,6 +979,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         async: true,
                         success: function (data) {
                             if (data.success == true) {
+                                ActualizarGanancia(data.DataBarra);
                                 InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
                                 CargarResumenCampaniaHeader(true);
                             }
@@ -1178,6 +1180,9 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
         success: function (result) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
+
+                    ActualizarGanancia(data.DataBarra);
+
                     CargarResumenCampaniaHeader(true);
 
                     alert_unidadesAgregadas(result.message, 1);

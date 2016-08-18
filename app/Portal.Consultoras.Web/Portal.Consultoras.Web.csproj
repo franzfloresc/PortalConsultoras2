@@ -1610,6 +1610,8 @@
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
+    <Content Include="Content\Images\flecha_volver_mobile.svg" />
+    <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
     <Content Include="Content\Images\flechita.png" />
     <Content Include="Content\Images\flexipago.png" />
     <Content Include="Content\Images\flexipago_img.jpg" />
@@ -2212,6 +2214,7 @@
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />

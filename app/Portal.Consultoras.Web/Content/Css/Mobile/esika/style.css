@@ -3877,7 +3877,7 @@ width:100%;
 .content_foto{
     display:inline-block;
     position:relative;
-    vertical-align:middle;
+    vertical-align:top;
 }
 .foto_usuaria_mobile{
     width:89px;
@@ -4387,6 +4387,7 @@ body{
 
 .ingresoPedido{
     display:block;
+    position:relative;
     width: 91.25%;
     height:auto;
     font-family:'Lato';
@@ -4661,11 +4662,28 @@ body{
 
 .enlace_regresar{
     display:block;
-    width:48px;
-    height:35px;
+    width:22px;
+    height:18px;
     position:absolute;
-    top:-8px;
-    left:0;
+    top: 33%;
+    left: 6.45%;
+    background:url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
+}
+
+.enlace_regresar.detalleP{
+    top: 0%;
+    left: 2.45%;
+    background:url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+}
+
+.enlace_regresar.ingresoP{
+    top: 18%;
+    left: 2.45%;
+}
+
+.enlace_regresar.catalogosR{
+    top: 31%;
+    left: 5.55%;
 }
 
 .enlace_regresar img{
@@ -5158,10 +5176,12 @@ body{
 /* LIQUIDACIONES WEB MOBILE */
 
 .encabezado_liquidacion{
+    display:block;
     background:#000;
     height:51px;
     margin-bottom:25px;
     box-shadow:0 2px 4px 0 rgba(0,0,0,0.23);
+    position:relative;
 }
 
 .etiqueta_producto {
@@ -5292,6 +5312,7 @@ body{
     cursor: pointer;
 }
 .titulo_mobile{
+    position:relative;
     width:100%;
     height:50px;
     background:black;

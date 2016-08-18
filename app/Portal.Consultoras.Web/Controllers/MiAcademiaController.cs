@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                     client.Headers.Add("token", token);
                     string json = client.DownloadString(urlMC);
 
-                    if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
+                    if (!string.IsNullOrEmpty(json) && !json.ToUpper().Contains("ERRORS"))
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
 

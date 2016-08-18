@@ -14,6 +14,9 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
         <div class="content_320 ingresoPedido">
+            <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar ingresoP" title="Regresar">
+                @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
+            </a>
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
                 <input type="text" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" />
@@ -97,7 +100,7 @@
                     <div class="montos_resumen">
                         <span><b id="spnCantidadProductos">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b>@Model.GananciaFormat</b></span>
+                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido">

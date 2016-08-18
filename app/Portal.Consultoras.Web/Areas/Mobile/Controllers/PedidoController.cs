@@ -51,14 +51,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     Session["PedidoWebDetalle"] = null;
                     lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
-            BEPedidoWeb bePedidoWebByCampania = new BEPedidoWeb();
-            using (var sv = new PedidoServiceClient())
-            {
-                bePedidoWebByCampania = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            }
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
 
             if (bePedidoWebByCampania != null)
             {
@@ -271,17 +269,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
             model.FechaFacturacionPedido = ViewBag.FechaFacturacionPedido;
 
-            // esto se debe guardar en session o en user data,
-            BEPedidoWeb bePedidoWebByCampania = new BEPedidoWeb();
-            using (var sv = new PedidoServiceClient())
-            {
-                bePedidoWebByCampania = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            }
-
-            bePedidoWebByCampania = bePedidoWebByCampania ?? new BEPedidoWeb();
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.GananciaFormat = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
-            // fin
-
+            
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
             BEConfiguracionCampania beConfiguracionCampania;
@@ -389,6 +379,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     Session["PedidoWebDetalle"] = null;
                     lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
@@ -413,16 +405,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
 
-            // esto se debe guardar en session o en user data,
-            BEPedidoWeb bePedidoWebByCampania = new BEPedidoWeb();
-            using (var sv = new PedidoServiceClient())
-            {
-                bePedidoWebByCampania = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            }
-            bePedidoWebByCampania = bePedidoWebByCampania ?? new BEPedidoWeb();
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.GananciaFormat = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
-            // fin
-
+            
             model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
 
             return Json(new
@@ -1558,6 +1543,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                     sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
             }
+            
             using (var sv = new SACServiceClient())
             {
                 //Se reutiliza la lista, pues desde el método origen devuelve la información de los productos del pedido de BD.

@@ -12,8 +12,8 @@
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                <a href="@Url.Action("Index", "Pedido", new { area = "Mobile" })" class="enlace_regresar" title="Regresar">
-                    <img src="@Url.Content("~/Content/images/flecha_volver_mobile.jpg")" alt="Regresar" />
+                <a href="@Url.Action("Index", "Pedido", new { area = "Mobile" })" class="enlace_regresar detalleP" title="Regresar">
+                    @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile.svg")" alt="Regresar" />*@
                 </a>
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
@@ -124,7 +124,7 @@
         <div class="montos_resumen">
             <span><b class="lblCantidadProducto">{{this.CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia">{{GananciaFormat}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{GananciaFormat}}</b></span>
         </div>
     </div>
     <div class="detalle_pedido_ingresado">
@@ -286,7 +286,7 @@
         <div class="montos_resumen">
             <span><b class="lblCantidadProducto">{{CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b>{{GananciaFormat}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{GananciaFormat}}</b></span>
         </div>
     </div>
 
