@@ -1,0 +1,241 @@
+﻿@using Portal.Consultoras.Web.ServiceUnete;
+@model Portal.Consultoras.Web.Models.EditarDireccionManualmenteModel
+
+@{
+    var zonas = new SelectList(new List<ZonaBE>(), "ZonaID", "Codigo");
+    var secciones = new SelectList(new List<SeccionBE>(), "SeccionID", "Codigo");
+    var territorios = new SelectList(new List<TerritorioBE>(), "TerritorioID", "Codigo");
+}
+
+<style>
+    .validation {
+        float: left;
+        width: 170px !important;
+        padding: 0 9px !important;
+        min-height: 1px !important;
+        color: #702789;
+    }
+
+    .validation_clear {
+        float: left;
+        width: 140px !important;
+        height: 1px !important;
+        padding: 0 9px !important;
+    }
+
+    .field_20 {
+        color: #702789;
+        float: left;
+        width: 20%;
+    }
+
+    .field_80 {
+        float: left;
+        width: 80%;
+    }
+
+    .field_100 {
+        float: left;
+        width: 100%;
+    }
+
+    .field_85 {
+        float: left;
+        width: 85%;
+    }
+
+    .clear {
+        height: 1px;
+    }
+
+    .field-validation-error {
+        color: #702789;
+    }
+
+    .field_divider {
+        width: 100%;
+        height: 10px;
+        float:left;
+    }
+</style>
+
+@using (Ajax.BeginForm("EditarDireccionManualmente", "Unete", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "modal_content",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "OnSuccess",
+    OnBegin = "waitingDialog({});",
+    OnComplete = "closeWaitingDialog({});"
+}, null))
+{
+    @Html.HiddenFor(m => Model.SolicitudPostulanteID)
+    @Html.HiddenFor(m => Model.CodigoPais)
+    @Html.HiddenFor(m => Model.CodigoZona)
+    @Html.HiddenFor(m => Model.CodigoSeccion)
+    @Html.HiddenFor(m => Model.CodigoTerritorio)
+
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <h2>
+                Gestionar Manualmente
+                <img id="imgCerrarOpcion" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+            </h2>
+        </div>
+        <div class="elements" style="width: 95% !important; padding-top: 10px !important;">
+            <div class="div-3">
+                <div class="titC">Regi&oacute;n</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(m => Model.Region, ViewBag.Regiones as SelectList, " Seleccione", new { @class = "field_85" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.Region)
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC">Zona</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(m => Model.Zona, zonas, "Seleccione", new { @class = "field_85", @disabled = true })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.Zona)
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC">Secci&oacute;n</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(m => Model.Seccion, secciones, "Seleccione", new { @class = "field_85", @disabled = true })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.Seccion)
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC">Territorio</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(m => Model.Territorio, territorios, "Seleccione", new { @class = "field_85", @disabled = true })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.Territorio)
+                </div>
+            </div>
+
+
+        </div>
+        <div class="elements" style="width:95% !important;padding-top: 10px !important;">
+            <div class="div-3">
+                <div class="input_search" style="text-align:center;">
+                    <input type="submit" style="float:initial !important; margin-right: 20px;" id="btnGuardar" value="Aceptar" />
+                    <input type="button" style="float:initial !important;" id="btnCancelar" value="Cancelar" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+<script>
+    var defaultOption = '<option value="" >Seleccione</option>';
+
+    $(function () {
+        $('.numero').keydown(IntegerNumber);
+
+        $('#btnCancelar, #imgCerrarOpcion').click(function () {
+            modalOpcion.dialog('close');
+        });        
+
+        $('#Region').change(function () {
+
+            $('#Zona,#Seccion,#Territorio').attr('disabled', true);
+
+            if (this.value == '') {
+                $('#Zona,#Seccion,#Territorio').html(defaultOption);
+                return;
+            }
+
+
+            $.getJSON('@Url.Action("ObtenerZonas")', { regionID: this.value }, function (data) {
+                $('#Zona,#Seccion,#Territorio').html(defaultOption);
+                $.map(data, function (e, i) {
+                    $('#Zona').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                });
+            }).complete(function () {
+                $('#Zona').attr('disabled', false);
+            });
+        });
+
+        $('#Zona').change(function () {
+            $('#Seccion,#Territorio').attr('disabled', true);
+
+            if (this.value == '') {
+                $('#Seccion,#Territorio').html(defaultOption);
+                $('#CodigoZona').val('');
+                return;
+            }
+
+            $('#CodigoZona').val($(this).find('option:selected').text());
+
+            $.getJSON('@Url.Action("ObtenerSecciones")', { regionID: $('#Region').val(), zonaID: this.value }, function (data) {
+                $('#Seccion,#Territorio').html(defaultOption);
+                $.map(data, function (e, i) {
+                    $('#Seccion').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                });
+            }).complete(function () {
+                $('#Seccion').attr('disabled', false);
+            });
+        });
+
+        $('#Seccion').change(function () {
+            $('#Territorio').attr('disabled', true);
+
+            if (this.value == '') {
+                $('#Territorio').html(defaultOption);
+                $('#CodigoSeccion').val('');
+                return;
+            }
+
+            $('#CodigoSeccion').val($(this).find('option:selected').text());
+
+            $.getJSON('@Url.Action("ObtenerTerritorios")', { regionID: $('#Region').val(), zonaID: $('#Zona').val(), seccionID: this.value }, function (data) {
+                $('#Territorio').html(defaultOption);
+                $.map(data, function (e, i) {
+                    $('#Territorio').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                });
+            }).complete(function () {
+                $('#Territorio').attr('disabled', false);
+            });
+        });
+
+        $('#Territorio').change(function () {
+           
+            if (this.value == '') {
+                $('#CodigoTerritorio').val('');
+                return;
+            }
+
+            $('#CodigoTerritorio').val($(this).find('option:selected').text());
+        });
+    });
+
+    function OnSuccess() {
+        modalOpcion.dialog('close');
+        modal.dialog('close');
+        document.getElementById('btnBuscar').click();
+    }
+</script>

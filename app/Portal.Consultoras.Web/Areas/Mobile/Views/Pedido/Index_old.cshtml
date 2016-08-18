@@ -1,0 +1,1367 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Mobile/slick.css")" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="javascript:;"><i class="icon icon-shop-belcorp"></i></a>
+            </li>
+            <li><i class="icon-angle-next-belcorp"></i></li>
+            <li>
+                Ingresa tu pedido
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-center" style="padding-bottom:0px;">
+            <form action="" method="POST" role="form">
+                <div class="form-group form-search">
+                    <label for="txtCodigoProducto"><strong>Ingresa el código del producto</strong></label>
+                    <input type="tel" class="form-control text-primary" id="txtCodigoProducto" placeholder="Código de producto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                    <a id="btnResetBusqueda" href="javascript:;" class="btn btn-reset"> <i class="icon-close-belcorp"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="divInformacionAccordion">
+    <div class="col-xs-12">
+        <div class="block-center">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0px; margin-top: 0px;">
+                <div class="panel panel-line">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title upper">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="return MostrarOcultarResumenPedido();">
+                                Mi pedido <span>@Model.DescripcionCampaniaActual </span>
+                                <span class="pull-right"><i class="icon-angle-down" id="iconCollpase"></i></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body posr">
+                            Productos: <strong><span id="spnCantidadProductos">@Model.CantidadProductos</span></strong><br />
+                            Monto Total: <strong>@Model.Simbolo <span id="spnDescripcionTotal">@Model.DescripcionTotal</span></strong>
+                            @if (Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.Mexico ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
+                            {
+                                <br />
+                                <span class="text-success">Total Validando Monto Mínimo: <strong>@Model.Simbolo <span id="spnTotalMontoMinimo">@Model.DescripcionTotalMinimo</span></strong></span>
+                            }
+
+                            <div class="block-center center-min">
+                                <a href="@Url.Action("Detalle", "Pedido", new {area = "Mobile"})"
+                                   role="menu" region="ingreso-pedido" parent="Ver mi pedido" title="Ver mi pedido" id="lnk-ing-ver-mi-pedido"
+                                   class="btn btn-line btn-right">Ver mi pedido</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="" id="divListaEstrategias">
+        @Html.Partial("ListaEstrategias", Model)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-center">
+            <div id="divInformacionProducto">
+                <input type="hidden" id="hdfCUV" />
+                <input type="hidden" id="hdTipoOfertaSisID" />
+                <input type="hidden" id="hdConfiguracionOfertaID" />
+                <input type="hidden" id="hdfDescripcionCategoria" />
+                <input type="hidden" id="hdfDescripcionEstrategia" />
+                <input type="hidden" id="hdfDescripcionMarca" />
+                <input type="hidden" id="hdfIndicadorMontoMinimo" />
+                <input type="hidden" id="hdfMarcaID" />
+                <input type="hidden" id="hdfPrecioUnidad" />
+                <input type="hidden" id="hdfDescripcionProd" />
+                <input type="hidden" id="hdCuvRecomendado" />
+                <input type="hidden" id="hdTipoEstrategiaID" />
+                <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
+                <input type="hidden" id="hdfValorFlagNueva" />
+                <input type="hidden" id="hdLimiteVenta" />
+
+                <div id="divObservaciones">
+                </div>
+
+                <div class="text-center">
+                    <div class="text-gris" style="margin-bottom: 6px;">
+                        <strong id="divNombreProducto"></strong>
+                    </div>
+
+                    <div id="divDatosPrecio">
+                        <span style="font-size: 2em; display:none;" id="spnCuv"></span>
+                        <span id="spnTextoPrecio"></span>@Model.Simbolo
+                        <span class="precio" id="spnPrecio"></span>
+                    </div>
+                </div>
+
+                <div id="divProductosNuevasOfertas">
+                    <div class="text-center">
+                        <div class="triangulo-centrado">
+                        </div>
+                        <div class="text-left mt-10">
+                            <div id="listaProductosNuevaOferta">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="form-group" id="divDatosCantidad">
+                    <label for="txtCantidad"><strong>Selecciona la cantidad</strong></label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default pd-lg" type="button" id="resta"> <i class="icon-minus-belcorp"></i></button>
+                        </span>
+                        <input type="tel" class="form-control text-center" value="1" id="txtCantidad" min="1" max="99"
+                               oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default pd-lg" type="button" id="suma"><i class="icon-plus-belcorp"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div id="divDatosCliente">
+                    <div class="form-group">
+                        <label for="ddlClientes"><strong>Asigna un Cliente</strong></label>
+                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @class = "form-control", @required = "required" })
+                    </div>
+                    <div class="text-right">
+                        <a id="linkAgregarCliente" href="javascript:;" class="btn btn-link pcolor"><i class="icon-lg icon-plus-circle-belcorp"></i> Agregar Cliente</a>
+                    </div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button class="btn btn-action-hover btn-round" type="button" id="btnAgregarProducto" disabled="disabled"
+                            style="padding-bottom: 4px; padding-top: 4px;">
+                        <i class="icon-lg icon-shop-belcorp"></i> Agregar a mi pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="agregarCliente" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-alert ">
+        <div class="modal-content">
+            <div class="modal-body">
+                @Html.Partial("../Cliente/AgregarCliente", new ClienteMobileModel())
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
+    <img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
+    <p>Producto <br /> Agregado</p>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
+
+    <script type="text/javascript">
+        var cantProductosLoad = '@Model.ListaEstrategias.Count';
+        var posicion = -1;
+        var posicionAnteriorPrimeraEstrategia = 0;
+        var posicionAnteriorUltimaEstrategia = 0;
+        var esTipoDrag = 0;
+        var ofertaLiquidacion = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion';
+        var ofertaAccesorizate = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate';
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+        var urlInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlInsertOfertaNueva = '@Url.Action("AgregarProductoZE", "Pedido", new {area = ""})';
+        var urlCalcularTotal = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
+        var urlCargarListaEstrategia = '@Url.Action("CargarListaEstrategia", "Pedido", new {area = "Mobile"})';
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+        var urlRefrescarPedidoOfertaNuevaActual = '@Url.Action("RefrescarPedidoOfertaNuevaActual", "Pedido", new {area = "Mobile"})';
+        var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';
+        var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
+        var paisIDSesion = '@Session["PaisID"]';
+        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
+        var urlValidarExistenciaOfertaNueva = '@Url.Action("ValidarExistenciaOfertaNuevaAnterior", "Pedido", new {area = "Mobile"})';
+
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+
+        $(document).ready(function () {
+
+            $("#divInformacionProducto").hide();
+
+            RegistrarOwlCarrousel();
+
+            $("#suma").click(function(event) {
+                var numactual = $("#txtCantidad").val();
+                if (numactual == 99)
+                    $("#txtCantidad").val(Number(99));
+                else
+                    $("#txtCantidad").val(Number(numactual) + 1);
+            });
+
+            $("#resta").click(function(event) {
+                var numactual = $("#txtCantidad").val();
+                if (numactual == 1)
+                    $("#txtCantidad").val(Number(1));
+                else
+                    $("#txtCantidad").val(Number(numactual) - 1);
+            });
+
+            $("#linkAgregarCliente").click(function(event) {
+                ShowAgregarCliente();
+            });
+
+            $("#txtCodigoProducto").on("keyup", function() {
+                posicion = -1;
+                var codigo = $("#txtCodigoProducto").val();
+
+                $("#divInformacionProducto").hide();
+
+                if (codigo == "") {
+                    $("#divListaEstrategias").show();
+                    $("#divInformacionAccordion").show();
+                    $("#accordion").show();
+                } else {
+                    $("#divListaEstrategias").hide();
+                    $("#divInformacionAccordion").hide();
+                    $("#accordion").hide();
+                }
+
+                if (codigo.length == 5) {
+                    $("#txtCodigoProducto").blur();
+                    BuscarByCUV(codigo);
+                }
+            });
+
+            $("#btnAgregarProducto").click(function() {
+                var cantidadProductos = $("#txtCantidad").val();
+                if (cantidadProductos != "" && cantidadProductos != 0) {
+                    $("#divMensajeErrorAgregar").html("");
+
+                    ShowLoading();
+                    AgregarProductoListado();
+                } else {
+                    $("#divMensajeErrorAgregar").html("Debe ingresar un valor entre 1 y 99");
+                }
+            });
+
+            $("body").on("click", ".btnAgregarEstrategia", function () {
+
+                /////
+                if (ReservadoOEnHorarioRestringido())
+                    return;
+                //////
+
+                var article = $(this).parents("article").eq(0);
+                var valorCuv = $(article).find(".valorCuv").val();
+
+                $("#txtCodigoProducto").val(valorCuv);
+                $("#txtCodigoProducto").keyup();
+
+                posicion = $(article).find(".valorPosicion").val();
+
+                TagManagerCarruselClickAgregarEstrategia(this);
+            });
+
+            TagManagerCarruselInicio();
+
+            var CuvEnSession = $("#hdCuvEnSession").val();
+            if (CuvEnSession != null) {
+                $("#txtCodigoProducto").val(CuvEnSession);
+                $("#txtCodigoProducto").keyup();
+            }
+
+            $("#btnResetBusqueda").click(function(e) {
+                e.preventDefault();
+                $("#txtCodigoProducto").val("");
+                $("#txtCodigoProducto").keyup();
+            });
+        });
+
+        function RegistrarOwlCarrousel() {
+
+            $('.slick-list').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: false,
+                dots: false,
+                prevArrow: '<i class="slick-prev" onclick="javascript:TagManagerCarruselPrevia(false);"></i>',
+                nextArrow: '<i class="slick-next" onclick="javascript:TagManagerCarruselSiguiente(false);"></i>',
+                infinite: true,
+                speed: 300,
+                responsive: [
+                    {
+                        breakpoint: 960,
+                        settings: { slidesToShow: 3, slidesToScroll: 1 }
+                    },
+                    {
+                        breakpoint: 680,
+                        settings: { slidesToShow: 1, slidesToScroll: 1 }
+                    },
+                    {
+                        breakpoint: 380,
+                        settings: { slidesToShow: 1, slidesToScroll: 1 }
+                    }
+                ]
+            });
+
+            $(".slick-list").on('swipe', function(event, slick, direction) {
+                if (direction == 'left') {
+                    TagManagerCarruselSiguiente(true);
+                } else if (direction == 'right') {
+                    TagManagerCarruselPrevia(true);
+                }
+            });
+        }
+
+        function AgregarProductoListado() {
+            if (!ReservadoOEnHorarioRestringido()) {
+                var CUV = $('#spnCuv').html();
+                $("#hdCuvRecomendado").val(CUV);
+                $("#btnAgregarProducto").attr("disabled", "disabled");
+                $("#btnAgregarProducto").hide();
+                if ($("#hdTipoOfertaSisID").val() == ofertaLiquidacion) {
+                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Este producto solo lo puedes agregar a tu pedido desde la zona de liquidaciones.</div>');
+                    CloseLoading();
+                    return false;
+                } else if ($("#hdTipoOfertaSisID").val() == ofertaAccesorizate) {
+                    $.ajaxSetup({ cache: false });
+
+                    var Cantidad = $("#txtCantidad").val();
+                    var CUV = $("#spnCuv").html();
+
+                    $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV }, function(data) {
+                        if (parseInt(data.Saldo) < parseInt(Cantidad)) {
+                            if (data.Saldo == data.UnidadesPermitidas) {
+                                $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (' + data.UnidadesPermitidas + ') del producto.</div>');
+                            } else {
+                                if (data.Saldo == "0") {
+                                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Las Unidades Permitidas de Venta son solo (' + data.UnidadesPermitidas + '), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.</div>');
+                                } else {
+                                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Las Unidades Permitidas de Venta son solo (' + data.UnidadesPermitidas + '), pero Usted solo puede adicionar (' + data.Saldo + ') más, debido a que ya agregó este producto a su pedido, verifique.</div>');
+                                }
+                            }
+
+                            $("#btnAgregarProducto").show();
+                            $("#btnAgregarProducto").removeAttr("disabled");
+
+                            CloseLoading();
+                            return false;
+                        } else {
+                            $.ajaxSetup({
+                                cache: false
+                            });
+                            $.getJSON(urlObtenerStockActualProducto, { CUV: CUV }, function(data) {
+                                if (parseInt(data.Stock) < parseInt(Cantidad)) {
+                                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Lamentablemente, la cantidad solicitada para el producto de liquidación sobrepasa el stock actual (' + data.Stock + ').</div>');
+                                    CloseLoading();
+                                    return false;
+                                } else {
+                                    InsertarProducto();
+                                    return true;
+                                }
+                            });
+                        }
+                        CloseLoading();
+                        return false;
+                    });
+                } else {
+                    var cantidadSol = $("#txtCantidad").val();
+
+                    var param = ({
+                        MarcaID: 0,
+                        CUV: CUV,
+                        PrecioUnidad: 0,
+                        Descripcion: 0,
+                        Cantidad: cantidadSol,
+                        IndicadorMontoMinimo: 0,
+                        TipoOferta: $("#hdTipoEstrategiaID").val()
+                    });
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: urlValidarStockEstrategia,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(param),
+                        async: true,
+                        success: function(datos) {
+                            if (!datos.result) {
+                                $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>' + datos.message + '</div>');
+                                CloseLoading();
+                            } else {
+                                InsertarProducto();
+                                return true;
+                            }
+                        },
+                        error: function(data, error) {
+                            if (checkTimeout(data)) {
+                                $("#btnAgregarProducto").show();
+                                $("#btnAgregarProducto").removeAttr("disabled");
+                                CloseLoading();
+                                console.error(data);
+                            }
+                        }
+                    });
+                }
+            }
+            return false;
+        }
+
+        function generarTextoNuevaOfertaActual(model, defered) {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlRefrescarPedidoOfertaNuevaActual,
+                dataType: 'html',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function(data) {
+                    var find = '"';
+                    var re = new RegExp(find, 'g');
+                    data = data.replace(re, '');
+
+                    model.ElementoOfertaTipoNuevo = data;
+                    defered.resolve();
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(data);
+                    }
+                }
+            });
+
+            return defered.promise();
+        }
+
+        function ValidarExistenciaDeOtraOfertaNuevaRegistrada(cuv) {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlValidarExistenciaOfertaNueva,
+                dataType: 'json',
+                data: JSON.stringify({ cuvActual: cuv }),
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function(data) {
+                    if (data.Existe) {
+                        var mensaje = data.Mensaje.replace(/\*/g, '');
+                        $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>' + mensaje + '</div>');
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(data);
+                    }
+                }
+            });
+        }
+
+        function InsertarProducto() {
+            var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
+            var urlInsertar = esOfertaNueva ? urlInsertOfertaNueva : urlInsert;
+            var model;
+
+            var defered = jQuery.Deferred();
+
+            if (!esOfertaNueva) {
+                model = {
+                    Tipo: 1,
+                    CUVComplemento: "",
+                    MarcaIDComplemento: 0,
+                    PrecioUnidadComplemento: 0,
+                    IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
+                    TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
+                    ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
+                    Registros: "",
+                    RegistrosDe: "",
+                    RegistrosTotal: "",
+                    Pagina: "",
+                    PaginaDe: "",
+                    ClienteID_: "",
+                    DescripcionEstrategia: "",
+                    DescripcionLarga: "",
+                    CUV: $("#spnCuv").html(),
+                    MarcaID: $("#hdfMarcaID").val(),
+                    PrecioUnidad: $("#hdfPrecioUnidad").val(),
+                    DescripcionProd: $("#divNombreProducto").html(),
+                    Cantidad: $("#txtCantidad").val(),
+                    ClienteID: $("#ddlClientes").val(),
+                    ClienteDescripcion: $("#ddlClientes option:selected").text()
+                };
+
+                defered.resolve();
+            } else {
+                model = {
+                    MarcaID: $("#hdfMarcaID").val(),
+                    CUV: $("#spnCuv").html(),
+                    PrecioUnidad: $("#hdfPrecioUnidad").val(),
+                    Descripcion: $("#divNombreProducto").html(),
+                    Cantidad: $("#txtCantidad").val(),
+                    IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
+                    TipoOferta: $("#hdTipoOfertaSisID").val()
+                };
+
+                generarTextoNuevaOfertaActual(model, defered);
+            }
+
+            defered.done(function() {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlInsertar,
+                    dataType: 'html',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(model),
+                    async: true,
+                    cache: false,
+                    success: function(data) {
+                        if (checkTimeout(data)) {
+                            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
+                            if (existeError == "1") {
+                                $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
+                                $("#btnAgregarProducto").show();
+                                $("#btnAgregarProducto").removeAttr("disabled");
+                                CloseLoading();
+                            } else {
+                                CloseLoading();
+                                $("#divMensajeProductoAgregado").show();
+
+                                $("#divObservaciones").html("");
+                                $("#divInformacionProducto").hide();
+                                $("#divListaEstrategias").show();
+                                $("#accordion").show();
+                                $("#divInformacionAccordion").show();
+                                $("#btnAgregarProducto").show();
+                                $("#btnAgregarProducto").removeAttr("disabled");
+
+                                var cuv = $("#spnCuv").html();
+                                CargarProductosDestacados(cuv);
+
+                                PedidoOnSuccess();
+
+                                CalcularTotal();
+
+                                $("#hdCuvEnSession").val("");
+
+                                setTimeout(function() {
+                                    $("#divMensajeProductoAgregado").fadeOut();
+                                    $('.toUp').click();
+                                }, 2000);
+                            }
+                        }
+                    },
+                    error: function(data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            console.error(data);
+                        }
+                    }
+                });
+            });
+        }
+
+        function CalcularTotal() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlCalcularTotal,
+                dataType: 'json',
+                async: true,
+                success: function(response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var data = response.data;
+                            $("#spnCantidadProductos").html(data.CantidadProductos);
+                            $(".num-menu-shop").html(data.CantidadProductos);
+                            $("#spnDescripcionTotal").html(data.DescripcionTotal);
+
+                            if (data.CodigoIso == "DO" || data.CodigoIso == "PR" || data.CodigoIso == "MX" || data.CodigoIso == "CO") {
+                                $("#spnTotalMontoMinimo").html(data.DescripcionTotalMinimo);
+                            } else {
+                                $("#spnTotalMontoMinimo").html("");
+                            }
+                        } else {
+                            window.messageInfo(response.message);
+                        }
+                    }
+                },
+                error: function(response, error) {
+                    if (checkTimeout(response)) {
+                        console.error(response);
+                    }
+                }
+            });
+        }
+
+        function PedidoOnSuccess() {
+            var ItemCantidad = $("#txtCantidad").val();
+            var ItemPrecio = $("#spnPrecio").html();
+            var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
+
+            TagManagerClickAgregarProducto(ItemTotal, $("#spnCuv").html(), $("#divNombreProducto").html(), $("#hdfDescripcionCategoria").val(),
+                ItemPrecio, ItemCantidad, $("#hdfDescripcionMarca").val(), $("#hdfDescripcionEstrategia").val(), posicion);
+
+            $("#hdfCUV").val("");
+            $("#hdfDescripcionProd").val("");
+            $("#spnCuv").html("");
+            $("#hdfMarcaID").val("");
+            $("#hdfPrecioUnidad").val("");
+            $("#spnPrecio").val("");
+            $("#divNombreProducto").html("");
+            $("#txtCantidad").val("");
+            $("#txtCodigoProducto").val("");
+            $("#btnAgregarProducto").hide();
+            $("#btnAgregarProducto").attr("disabled", "disabled");
+            $("#divObservaciones").html("");
+        }
+
+        function CargarProductosDestacados(cuv) {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlCargarListaEstrategia,
+                dataType: 'html',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ cuv: cuv }),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        $("#divListaEstrategias").html(data);
+
+                        RegistrarOwlCarrousel();
+
+                        TagManagerCarruselProductoVentaCruzada();
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(data);
+                    }
+                }
+            });
+        }
+
+        /////////
+        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+            var restringido = true;
+
+            $.ajaxSetup({ cache: false });
+            jQuery.ajax({
+                type: 'GET',
+                url: urlReservadoOEnHorarioRestringido,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data.success == false)
+                    restringido = false;
+                else {
+
+                    if (data.pedidoReservado) {
+                        var fnRedireccionar = function () {
+                            ShowLoading();
+                            location.href = urlValidadoPedido;
+                        }
+                        if (mostrarAlerta == true)
+                        {
+                            CloseLoading();
+                            alert_msg(data.message, fnRedireccionar);
+                        }
+                            
+                        else fnRedireccionar();
+                                              
+                    }
+                    else if (mostrarAlerta == true) alert_msg(data.message);
+                }
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+        }
+
+        function alert_msg(message,fnClose) {
+            messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
+        
+        }
+
+        /////////
+
+        function HorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+            var horarioRestringido = false;
+            $.ajaxSetup({
+                cache: false
+            });
+            jQuery.ajax({
+                type: 'GET',
+                url: urlEnHorarioRestringido,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        // esta en horario restringido
+                        if (data.success == true) {
+                            if (mostrarAlerta == true)
+                                window.messageInfo(data.message);
+                            horarioRestringido = true;
+                        }
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(data);
+                    }
+                }
+            });
+            return horarioRestringido;
+        }
+
+        function MostrarOcultarResumenPedido() {
+            if ($("#iconCollpase").attr("class") == "icon-angle-up") {
+                $("#iconCollpase").removeClass("icon-angle-up");
+                $("#iconCollpase").addClass("icon-angle-down");
+            } else {
+                $("#iconCollpase").removeClass("icon-angle-down");
+                $("#iconCollpase").addClass("icon-angle-up");
+            }
+        }
+
+        function maxLengthCheck(object, cantidadMaxima) {
+            if (object.value.length > cantidadMaxima)
+                object.value = object.value.slice(0, cantidadMaxima);
+        }
+
+        function BuscarByCUV(cuv) {
+            if (cuv != $('#hdfCUV').val()) {
+                ShowLoading();
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlFindByCUV,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ CUV: cuv }),
+                    async: true,
+                    cache: false,
+                    success: function(data) {
+                        if (checkTimeout(data)) {
+                            var item = data[0];
+                            if (item.MarcaID != 0) {
+                                $("#hdTipoOfertaSisID").val(item.TipoOfertaSisID);
+                                $("#hdConfiguracionOfertaID").val(item.ConfiguracionOfertaID);
+
+                                jQuery.ajax({
+                                    type: 'POST',
+                                    url: urlObtenerMarcaEstrategia,
+                                    dataType: 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify(item),
+                                    success: function(response) {
+                                        if (checkTimeout(response)) {
+                                            if (response.success) {
+                                                item.DescripcionMarca = response.data.DescripcionMarca;
+                                                item.DescripcionEstrategia = response.data.DescripcionEstrategia;
+                                                item.LimiteVenta = response.data.LimiteVenta;
+                                                item.FlagNueva = response.data.FlagNueva;
+                                                item.TipoEstrategiaID = response.data.TipoEstrategiaID;
+
+                                                if (item.FlagNueva === "1") {
+                                                    ValidarExistenciaDeOtraOfertaNuevaRegistrada(cuv);
+                                                    CargarProductosNuevasOfertas(cuv);
+                                                } else {
+                                                    $("#divObservaciones").html('');
+                                                    $("#divProductosNuevasOfertas").hide();
+                                                }
+
+                                                $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
+                                                ObservacionesProducto(item);
+                                            } else {
+                                                CloseLoading();
+                                                window.messageInfo(response.message);
+                                            }
+                                        }
+                                    },
+                                    error: function(response, error) {
+                                        if (checkTimeout(response)) {
+                                            CloseLoading();
+                                            console.error(response);
+                                        }
+                                    }
+                                });
+                            } else {
+                                $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>' + item.CUV + '</div>');
+                                $("#spnTextoPrecio").html("");
+                                $("#divProductosNuevasOfertas").hide();
+                                $("#divDatosCantidad").hide();
+                                $("#divDatosCliente").hide();
+                                $("#divNombreProducto").hide();
+                                $("#divDatosPrecio").hide();
+                                $("#btnAgregarProducto").hide();
+                                $('#hdfCUV').val(cuv);
+                                $("#divInformacionProducto").show();
+                                CloseLoading();
+                            }
+                        }
+                    },
+                    error: function(data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+
+                            if (data.message == "" || data.message === undefined) {
+                                location.href = urlSesionExperirada;
+                            } else {
+                                console.error(data);
+                            }
+                        }
+                    }
+                });
+            } else {
+                if (cuv == $("#spnCuv").html()) {
+                    $("#divDatosCantidad").show();
+                    $("#divDatosCliente").show();
+                    $("#divNombreProducto").show();
+                    $("#divDatosPrecio").show();
+                }
+                $("#divInformacionProducto").show();
+            }
+        }
+
+        function CargarProductosNuevasOfertas(cuv) {
+            $("#divProductosNuevasOfertas").show();
+
+            var estrategiaEncontrada = ObtenerEstrategiaCoincidente(cuv);
+            var productos = estrategiaEncontrada.DescripcionCUV2.split('|');
+
+            var htmlListado = '';
+
+            $.each(productos, function(index, value) {
+                if (index > 0) {
+                    htmlListado += '<div><span class="text-success">_ </span><span class="text-gris">' + value + '</span></div>';
+                }
+            });
+
+            $("#listaProductosNuevaOferta").html(htmlListado);
+        }
+
+        function ObtenerEstrategiaCoincidente(cuv) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+            var estratgiaEncontrada;
+
+            $.each(listaRecomendados, function(index, value) {
+                if (cuv === value.CUV2) {
+                    estratgiaEncontrada = value;
+                }
+            });
+
+            return estratgiaEncontrada;
+        }
+
+        function ObservacionesProducto(item) {
+            if (item.TipoOfertaSisID == "1707") {
+                var esShowRoom = '@Session["EsShowRoom"]';
+
+                $("#divObservaciones").html("");
+
+                if (esShowRoom == "1") {
+                $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto disponible sólo desde la sección de Pre-venta Digital.</div>');
+                } else {
+                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Esta promoción no se encuentra disponible.</div>');
+                }
+                
+                $("#divDatosCantidad").hide();
+                $("#divDatosCliente").hide();
+                $("#divNombreProducto").hide();
+                $("#divDatosPrecio").hide();
+                $("#btnAgregarProducto").hide();
+                $("#btnAgregarProducto").attr("disabled", "disabled");
+            } else {
+                if (item.TieneStock == true) {
+                    $("#divObservaciones").html("");
+                    if (item.EsExpoOferta == true) {
+                        $("#divObservaciones").append('<div class="alert-top-icon text-success" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/> Producto de ExpoOferta.</div>');
+
+                        $("#divDatosCantidad").hide();
+                        $("#divDatosCliente").hide();
+                        $("#divNombreProducto").hide();
+                        $("#divDatosPrecio").hide();
+                    }
+                    if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+                        $("#divObservaciones").append('<div id="divProdRevista" class="alert-top-icon text-success" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/> Producto en Revista SOMOS BELCORP con oferta especial.</div>');
+
+                        $("#divDatosCantidad").hide();
+                        $("#divDatosCliente").hide();
+                        $("#divNombreProducto").hide();
+                        $("#divDatosPrecio").hide();
+                    }
+
+                    if (item.MensajeCUV != null) {
+                        if (item.MensajeCUV != "") {
+                            window.messageInfo(item.MensajeCUV);
+                        }
+                    }
+                    $("#btnAgregarProducto").show();
+                    $("#btnAgregarProducto").removeAttr("disabled");
+                    $("#divDatosCantidad").show();
+                    $("#divDatosCliente").show();
+                    $("#divNombreProducto").show();
+                    $("#divDatosPrecio").show();
+                } else {
+                    $("#divObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto Agotado.</div>');
+
+                    $("#divDatosCantidad").hide();
+                    $("#divDatosCliente").hide();
+                    $("#divNombreProducto").hide();
+                    $("#divDatosPrecio").hide();
+                    $("#btnAgregarProducto").hide();
+                    $("#btnAgregarProducto").attr("disabled", "disabled");
+                    IngresoFAD(item);
+                }
+            }            
+
+            if (item.ObservacionCUV != null) {
+                $("#divObservaciones").html('<div class="alert-top-icon text-success" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>' + item.ObservacionCUV + '</div>');
+            }
+
+            var estrategiaEncontrada = ObtenerEstrategiaCoincidente(item.CUV);
+
+            if (estrategiaEncontrada) {
+                item.Descripcion = estrategiaEncontrada.DescripcionCUV2.split('|')[0];
+                item.PrecioCatalogo = estrategiaEncontrada.Precio2;
+            }
+
+            $("#txtCodigoProducto").val(item.CUV);
+            $("#spnCuv").html(item.CUV);
+            $("#hdfCUV").val(item.CUV);
+            $("#hdfDescripcionCategoria").val(item.DescripcionCategoria);
+            $("#hdfDescripcionEstrategia").val(item.DescripcionEstrategia);
+            $("#hdfDescripcionMarca").val(item.DescripcionMarca);
+            $("#hdfIndicadorMontoMinimo").val(item.IndicadorMontoMinimo);
+            $("#hdfMarcaID").val(item.MarcaID);
+            $("#txtCantidad").val("1");
+            $("#hdfPrecioUnidad").val(item.PrecioCatalogo);
+            $("#hdfValorFlagNueva").val(item.FlagNueva);
+            $("#hdLimiteVenta").val(item.LimiteVenta);
+
+            //Validar Si es nueva oferta para deshabilitar el input de cantidad
+            if (item.FlagNueva == "1")
+                $("#txtCantidad, #suma, #resta").attr("disabled", true);
+            else
+                $("#txtCantidad, #suma, #resta").attr("disabled", false);
+
+            var paisColombia = "4";
+            if (paisColombia == paisIDSesion) {
+                $("#spnTextoPrecio").html("Precio Unitario: ");
+                $("#spnPrecio").html(SeparadorMiles(parseFloat(item.PrecioCatalogo).toFixed(0)));
+            } else {
+                $("#spnTextoPrecio").html("Precio Unitario: ");
+                $("#spnPrecio").html(parseFloat(item.PrecioCatalogo).toFixed(2));
+            }
+
+            $("#divNombreProducto").html(item.Descripcion);
+            $("#hdfDescripcionProd").val(item.Descripcion);
+            $("#txtCodigoProducto").attr("readonly", "readonly");
+            $("#txtCodigoProducto").removeAttr("readonly");
+
+            $('#hdfCUV').val(item.CUV);
+            $("#divInformacionProducto").show();
+            CloseLoading();
+        }
+
+        function SeparadorMiles(pnumero) {
+            var resultado = "";
+            var numero = pnumero.replace(/\,/g, '');
+
+            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+            else nuevoNumero = numero.replace(/\./g, '');
+
+            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+
+            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+
+            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+
+            if (numero[0] == "-") return "-" + resultado;
+            else return resultado;
+        }
+
+        function IngresoFAD(producto) {
+            var item = {
+                CUV: producto.CUV,
+                PrecioUnidad: producto.PrecioCatalogo
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlIngresoFAD,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        if (data.success == true) {
+
+                        }
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(data);
+                    }
+                }
+            });
+        }
+
+        function ShowAgregarCliente() {
+            $('#Nombre').val("");
+            $('#Email').val("");
+            $('#Telefono').val("");
+            $("#agregarCliente").modal("show");
+        }
+
+        function CloseAgregarCliente() {
+            $("#agregarCliente").modal("hide");
+        }
+
+        function RealizarLuegoGuardarCliente(data) {
+            $('#ddlClientes').append('<option value=' + data.ClienteID + ' selected="selected"> ' + data.Nombre + ' </option>');
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Clientes',
+                'action': 'Agregar',
+                'label': 'Satisfactorio',
+            });
+        }
+
+        /** Funciones de Google Tag Manager**/
+
+        function TagManagerCarruselInicio() {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+            var cantidadRecomendados = $(".slick-active").length;
+
+            var arrayEstrategia = new Array();
+            for (var i = 0; i < cantidadRecomendados; i++) {
+                var recomendado = listaRecomendados[i];
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCUV2,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Productos destacados – Pedido',
+                    'position': recomendado.ID
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+            }
+
+            if (arrayEstrategia.length > 0) {
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+            }
+        }
+
+        function TagManagerCarruselPrevia(esDrag) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+            var primeraEstrategia = $(".slick-active").get(0);
+            var posicionEstrategia = $(primeraEstrategia).find(".valorPosicionCarrusel").val();
+
+            if (!esDrag) {
+                if (posicionEstrategia == 1) {
+                    posicionEstrategia = listaRecomendados.length;
+                } else {
+                    posicionEstrategia = posicionEstrategia - 1;
+                }
+            }
+
+            var recomendado = listaRecomendados[posicionEstrategia - 1];
+            var arrayEstrategia = new Array();
+
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCUV2,
+                'id': recomendado.CUV2,
+                'price': recomendado.Precio2.toString(),
+                'brand': recomendado.DescripcionMarca,
+                'category': 'NO DISPONIBLE',
+                'variant': recomendado.DescripcionEstrategia,
+                'list': 'Productos destacados – Pedido',
+                'position': recomendado.ID
+            };
+
+            arrayEstrategia.push(impresionRecomendado);
+
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
+
+        function TagManagerCarruselSiguiente(esDrag) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+            var cantidadRecomendadosVisibles = $(".slick-active").length;
+
+            var ultimaEstrategia = $(".slick-active").get(cantidadRecomendadosVisibles - 1);
+            var posicionEstrategia = $(ultimaEstrategia).find(".valorPosicionCarrusel").val();
+
+            if (!esDrag) {
+                if (posicionEstrategia == listaRecomendados.length) {
+                    posicionEstrategia = 1;
+                } else {
+                    posicionEstrategia = parseInt(posicionEstrategia) + 1;
+                }
+            }
+
+            var recomendado = listaRecomendados[posicionEstrategia - 1];
+            var arrayEstrategia = new Array();
+
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCUV2,
+                'id': recomendado.CUV2,
+                'price': recomendado.Precio2.toString(),
+                'brand': recomendado.DescripcionMarca,
+                'category': 'NO DISPONIBLE',
+                'variant': recomendado.DescripcionEstrategia,
+                'list': 'Productos destacados – Pedido',
+                'position': recomendado.ID
+            };
+
+            arrayEstrategia.push(impresionRecomendado);
+
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
+
+        function TagManagerCarruselClickAgregarEstrategia(boton) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+            var article = $(boton).parents("article").eq(0);
+            var valorPosicion = $(article).find(".valorPosicionCarrusel").val();
+
+            var recomendado = listaRecomendados[valorPosicion - 1];
+
+            var valorFlagNueva = $(article).find(".valorFlagNueva").val();
+            $("#hdfValorFlagNueva").val(valorFlagNueva);
+
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Productos destacados – Pedido', 'action': 'click' },
+                        'products': [
+                            {
+                                'name': recomendado.DescripcionCUV2,
+                                'id': recomendado.CUV2,
+                                'category': 'NO DISPONIBLE',
+                                'variant': recomendado.DescripcionEstrategia,
+                                'position': recomendado.ID
+                            }
+                        ]
+                    }
+                }
+            });
+        }
+
+        function TagManagerClickAgregarProducto(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, posicion) {
+            var cuvSesion = $("#hdCuvEnSession").val();
+            var descripcionTitulo = "";
+            if (cuvSesion == null || cuvSesion == "") {
+                descripcionTitulo = "Productos destacados – Pedido";
+                if (posicion == -1) {
+                    posicion = 1;
+                    descripcionTitulo = "Estándar";
+                }
+            } else { //viene de la pagina productos recomendados
+                descripcionTitulo = "Productos destacados";
+                var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+                var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+                for (var i = 0; i < listaRecomendados.length; i++) {
+                    var recomendado = listaRecomendados[i];
+                    var cuv = recomendado.CUV2;
+                    if (cuv == cuvSesion) {
+                        variant = recomendado.DescripcionEstrategia;
+                        posicion = recomendado.ID;
+                        break;
+                    }
+                }
+            }
+
+            if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
+                if (variant == null || variant == "") {
+                    variant = "Estándar";
+                }
+                if (Categoria == null || Categoria == "") {
+                    Categoria = "Sin Categoría";
+                }
+
+                dataLayer.push({
+                    'event': 'addToCart',
+                    'ecommerce': {
+                        'add': {
+                            'actionField': { 'list': descripcionTitulo },
+                            'products': [
+                                {
+                                    'name': DescripcionProd,
+                                    'price': Precio,
+                                    'brand': Marca,
+                                    'id': CUV,
+                                    'category': Categoria,
+                                    'variant': variant,
+                                    'quantity': parseInt(Cantidad),
+                                    'position': parseInt(posicion)
+                                }
+                            ]
+                        }
+                    }
+                });
+            }
+
+            posicion = -1;
+        }
+
+        function TagManagerCarruselDrag(cantidadElementos) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+            var cantidadRecomendadosVisibles = $(".slick-active").length;
+
+            var primeraEstrategia = $(".slick-active").get(0);
+            var posicionPrimeraEstrategia = $(primeraEstrategia).find(".valorPosicionCarrusel").val();
+
+            var ultimaEstrategia = $(".slick-active").get(cantidadRecomendadosVisibles - 1);
+            var posicionUltimaEstrategia = $(ultimaEstrategia).find(".valorPosicionCarrusel").val();
+
+            var posicionEnviar = 0;
+            if (posicionAnteriorUltimaEstrategia != 0 && posicionAnteriorPrimeraEstrategia != 0) {
+                if (posicionAnteriorUltimaEstrategia + 1 == posicionUltimaEstrategia) {
+                    posicionEnviar = posicionUltimaEstrategia;
+                } else {
+                    if (posicionAnteriorUltimaEstrategia == posicionUltimaEstrategia - 1) {
+                        posicionEnviar = posicionPrimeraEstrategia;
+                    } else {
+                        if (posicionAnteriorUltimaEstrategia == cantidadElementos && posicionUltimaEstrategia == 1) {
+                            posicionEnviar = posicionUltimaEstrategia;
+                        } else //(posicionAnteriorUltimaEstrategia == 1 && posicionUltimaEstrategia == cantidadElementos)
+                        {
+                            posicionEnviar = posicionPrimeraEstrategia;
+                        }
+                    }
+                }
+            }
+
+            var recomendado = listaRecomendados[posicionEnviar - 1];
+            var arrayEstrategia = new Array();
+
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCUV2,
+                'id': recomendado.CUV2,
+                'price': recomendado.Precio2,
+                'brand': recomendado.DescripcionMarca,
+                'category': 'NO DISPONIBLE',
+                'variant': recomendado.DescripcionEstrategia,
+                'list': 'Productos destacados – Pedido',
+                'position': recomendado.ID
+            };
+
+            arrayEstrategia.push(impresionRecomendado);
+
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': impresionRecomendado
+                }
+            });
+
+            posicionAnteriorUltimaEstrategia = 0;
+            posicionAnteriorPrimeraEstrategia = 0;
+        }
+
+        function TagManagerCarruselProductoVentaCruzada() {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+            var cantidadRecomendados = $(".slick-active").length;
+
+            var arrayEstrategia = new Array();
+            for (var i = 0; i < cantidadRecomendados; i++) {
+                var recomendado = listaRecomendados[i];
+
+                if (recomendado.ID == 0) {
+                    var impresionRecomendado = {
+                        'name': recomendado.DescripcionCUV2,
+                        'id': recomendado.CUV2,
+                        'price': recomendado.Precio2.toString(),
+                        'brand': recomendado.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': recomendado.DescripcionEstrategia,
+                        'list': 'Productos destacados – Pedido',
+                        'position': recomendado.ID
+                    };
+
+                    arrayEstrategia.push(impresionRecomendado);
+                }
+            }
+
+            if (arrayEstrategia.length > 0) {
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+            }
+        }
+    </script>
+}

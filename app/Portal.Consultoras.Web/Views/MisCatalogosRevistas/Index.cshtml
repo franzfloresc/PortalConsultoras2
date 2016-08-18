@@ -1,0 +1,216 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    ViewBag.Title = "Catálogos y Revistas";
+}
+
+<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
+<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
+<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>CATÁLOGOS Y REVISTAS</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="texto_revisa_catalogos">Revisa y comparte los catálogos con tus clientes</div>
+
+    <!-- CATALOGO -->
+    <div>
+        <div id="contentCatalogo">
+            <div class="titulo_central" id="TextoCampania"></div>
+            <span class="arrow_catalogo"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="CatalogoMostrar(-1, this)" data-accion="a" /></span>
+            <div>
+                <div class="content_carrusel_catalogo" id="divCatalogo">
+                </div>
+            </div>
+            <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
+            <hr class="clear" />
+        </div>
+
+        <div id="xHtmlItemCatalogo" style="display: none;">
+            <div data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+                <div class="item1_catalogo" data-tipo="content">
+                    <a class="revista" data-tipo="img" target="_blank" href="">
+                        <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
+                    </a>
+                    <div data-tipo="descrip">{descripcion}</div>
+                    <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
+                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="CompartirFacebook('{comp}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
+                    <a class="compartir_catalogo_mensaje" onclick="javascript: AbrirCompartirCorreo('{tipoCatalogo}','{campania}');"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN CATALOGO -->
+
+    <div class="expoferta_revista">
+
+        <!-- REVISTA -->
+        <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
+            <div class="titulo_central" data-titulo='revista'></div>
+            <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
+            <a class="revista_carrusel" id="lbPortadaGana" href="#" target="_blank">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
+            </a>
+            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
+        </div>
+        <!-- FIN REVISTA -->
+
+        <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+
+        @if (!ViewBag.EsConsultoraNueva)
+        {
+            <div class="revista_content">
+                <div style="text-align: center;
+                        font-family: 'lato';
+                        font-size: 16pt;
+                        color: black;
+                        letter-spacing: 0.25px;
+                        font-weight: 700;
+                        margin-top: 48px;
+                        margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
+                        <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c09.png")" /></div>
+                    </div>
+        }
+
+    </div>
+</div>
+
+<!--POP UP COMPARTIR POR CORREOS CATÁLOGOS-->
+<div id="CompartirCorreo" class="CompartirCorreoPop">
+    <div class="contentCompartir">
+        <a class="cerrar_compartir" style="margin-right:-50px;" href="javascript:;" onclick="javascript: $('#CompartirCorreo').hide();">
+            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+        </a>
+        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
+        <div class="Label_compartir">Agregar contacto:</div>
+        <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
+        <hr class="clear" />
+        <!--TAG -->
+        <div style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-left: 8px; ">
+            <div style="width:100%;margin:auto;">
+                <textarea id="tagCorreo"></textarea>
+            </div>
+        </div>
+        <div class="Label_compartir">Mensaje (Editable):</div>
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
+            Hola,
+            Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        </textarea>
+        <div class="Label_compartir">Catálogos a enviar:</div>
+        <hr class="clear" />
+        <div id="divCheckbox">
+            <!--CHECBOX1-->
+            <div data-cat="Esika">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Ésika</div>
+            </div>
+            <!--CHECBOX 2-->
+            <div data-cat="Lbel">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">L'Bel</div>
+            </div>
+            <!--CHECBOX 3-->
+            <div data-cat="Cyzone">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Cyzone</div>
+            </div>
+            <hr class="clear" />
+        </div>
+        <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
+    </div>
+
+</div>
+<!--MENSAJE DE ALERTA 1-->
+<div class="mensaje_alerta_belcorp" id="mensaje_alerta">
+    <div class="content_mensaje_alerta">
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_alerta').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
+        <hr class="clear" />
+        <div class="icono_mensaje_alerta icono_check_alerta"></div>
+        <div class="texto_mensaje_alerta" id="mensaje_alerta_titulo">¡BIEN <b>HECHO</b>! </div>
+        <div class="sub_texto_alerta" id="mensaje_alerta_texto">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
+        <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_alerta').hide();">OK</a>
+    </div>
+</div>
+<!--FIN-->
+<!--MENSAJE DE ALERTA 2-->
+<div class="mensaje_alerta_belcorp" id="mensaje_exclamacion">
+    <div class="content_mensaje_alerta">
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_exclamacion').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
+        <hr class="clear" />
+        <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">LO <b>SENTIMOS</b> </div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Debe seleccionar al menos un Catálogo</div>
+        <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_exclamacion').hide();">OK</a>
+    </div>
+</div>
+<!--FIN-->
+@*<!--POP UP ENVIO SATISFACTORIO-->
+    <div id="EnvioSatisfatorio">
+        <div class="contentEnvio">
+
+        </div>
+    </div>
+    <!--FIN-->*@
+@section styles{
+
+    <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+
+    <script type="text/javascript" id="js-ready-Catalogo">
+
+        var tagLbel = "Lbel";
+        var tagEsika = "Esika";
+        var tagCyzone = "Cyzone";
+
+        var campSelect = "";
+        var campSelectI = 1;
+
+        var aCam = new Array();
+        var linkCat = new Object();
+        var descrCat = new Object();
+        var ordenCat = new Object();
+
+        var cantCat = 3;
+        var cantCam = 3;
+        var cont = 0;
+
+        var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
+        var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+
+        var rCampSelect = "";
+        var rCampSelectI = 1;
+        var cantCamRev = 3;
+        var codigoIso = '@ViewBag.CodigoISO';
+        var aCamRev = new Array();
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Revista", new { area = "Mobile" })';
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
+}

@@ -1,0 +1,937 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model CatalogoMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+
+    </style>
+
+}
+
+<input type="hidden" value="@Model.CampaniaActual" id="hdCampaniaActual" />
+<input type="hidden" value="@Model.CampaniaAnterior" id="hdCampaniaAnterior" />
+<input type="hidden" value="@Model.CampaniaSiguiente" id="hdCampaniaSiguiente" />
+
+<!-- compartir catalagos -->
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+            </li>
+            <li>|</li>
+            <li>
+                Catálogos
+            </li>
+        </ol>
+    </div>
+    <div class="col-xs-12">
+        <p class="">Mira y comparte los catálogos con tus clientes</p>
+        <div class="upper text-center compartir-catalagos" style="margin-top:0px;">
+            <h3 class="title-campana" data-paisid="@Model.PaisID" data-codigozona="@Model.CodigoZona">CAMPAÑA @Model.Campania.Substring(4, 2)</h3>
+            <a id="lnkEnviarCorreo" href="#modal-send-correo" data-target="modal-send-correo" class="btn btn-line mb-20 a-modal-custom">Enviar por correo</a>
+
+            <div id="divContenidoCampaniaAnterior"></div>
+            <div id="divContenidoCampaniaActual"></div>
+            <div id="divContenidoCampaniaSiguiente"></div>
+
+            <ul class="paginator">
+                <li class="prev"><a href="javascript:;" id="lnkCampaniaAnterior"><i class='slide-prev'></i> <span class="text-prev">C - @Model.CampaniaAnterior.Substring(4, 2)</span></a></li>
+                <li class="prev" style="display: none;"><a href="javascript:;" id="lnkCampaniaActual"><i class='slide-prev'></i> <span class="text-prev">C - @Model.CampaniaActual.Substring(4, 2)</span></a></li>
+                <li class="next" style="display: none;"><a href="javascript:;" id="lnkCampaniaActual2"><i class='slide-next'></i> <span class="text-next">C - @Model.CampaniaActual.Substring(4, 2)</span></a></li>
+                <li class="next"><a href="javascript:;" id="lnkCampaniaSiguiente"><i class='slide-next'></i> <span class="text-next">C - @Model.CampaniaSiguiente.Substring(4, 2)</span></a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div id="agregarCliente" class="modal fade">
+    <div class="modal-dialog modal-alert ">
+        <div class="modal-content">
+            <div class="modal-body">
+                @Html.Partial("../Cliente/AgregarCliente", new ClienteMobileModel())
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-content modal-custom" id="modal-send-correo">
+    <div class="modal-header">
+        <button type="button" class="close"><i class="icon-close-belcorp"></i></button>
+        <h4 class="modal-title">Selecciona tus clientes</h4>
+    </div>
+    <div class="modal-body">
+        <table class="table table-campana-correo" id="tblEnviarCorreo">
+            <tbody>
+                <tr>
+                    <td colspan="2" class="text-right"><a id="linkSeleccionarTodos" class="upper">Seleccionar todos</a></td>
+                </tr>
+                @foreach (var cliente in Model.ListaCliente)
+                {
+                    var textDisabled = string.IsNullOrEmpty(cliente.eMail) ? "disabled=disabled" : "";
+                    <tr data-posicionCliente="@cliente.ClienteID">
+                        <td>
+                            <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
+                            <div class="bold clienteNombre">@cliente.Nombre</div>
+                            @if (string.IsNullOrEmpty(cliente.eMail))
+                            {
+                                <a href="javascript:;" class="actualizarCorreo"><i class="icon-plus-belcorp icon-sm"></i> Agregar correo</a>
+                            }
+                            else
+                            {
+                                <div class="break">
+                                    <span class="clienteEmail" style="font-weight: normal;">@cliente.eMail</span>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.EstadoLbel != "1")
+                            {
+                                <div class="check-label">
+                                    <span>L´bel</span>
+                                    <div class="checkbox checkbox--standalone">
+                                        <input type="checkbox" id="checkboxLbel_@cliente.ClienteID" class="checkbox__input seleccionarCatalogo" @textDisabled>
+                                        <label for="checkboxLbel_@cliente.ClienteID" class="checkbox__label"></label>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.EstadoEsika != "1")
+                            {
+                                <div class="check-label">
+                                    <span>Ésika</span>
+                                    <div class="checkbox checkbox--standalone">
+                                        <input type="checkbox" id="checkboxEsika_@cliente.ClienteID" class="checkbox__input seleccionarCatalogo" @textDisabled>
+                                        <label for="checkboxEsika_@cliente.ClienteID" class="checkbox__label"></label>
+                                    </div>
+                                </div>
+                            }
+
+                            @if (Model.EstadoCyzone != "1")
+                            {
+                                <div class="check-label">
+                                    <span>Cyzone</span>
+                                    <div class="checkbox checkbox--standalone">
+                                        <input type="checkbox" id="checkboxCyzone_@cliente.ClienteID" class="checkbox__input seleccionarCatalogo" @textDisabled>
+                                        <label for="checkboxCyzone_@cliente.ClienteID" class="checkbox__label"></label>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+                <!-- end tr -->
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <a href="#" class="btn btn-line" id="btnEnviarCorreo">Enviar Catálogos</a>
+                        <br />
+                        <br />
+                        <p class="upper">
+                            <a href="javascript:;" class="pcolor" id="btnAgregarCliente"><i class="icon-plus-circle-belcorp"></i> Agregar Cliente</a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="display: none;">
+        <table id="tblCopiarCatalogos">
+            <tr data-posicioncliente="0">
+                <td>
+                    <input type="hidden" class="clienteId" />
+                    <div class="bold clienteNombre"></div>
+                    <div class="break">
+                        <span class="clienteEmail"></span>
+                    </div>
+                </td>
+                <td>
+                    @if (Model.EstadoLbel != "1")
+                    {
+                        <div class="check-label">
+                            <span>L´bel</span>
+                            <div class="checkbox checkbox--standalone">
+                                <input type="checkbox" id="checkboxLbel" class="checkbox__input seleccionarCatalogo">
+                                <label for="checkboxLbel" class="checkbox__label"></label>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.EstadoEsika != "1")
+                    {
+                        <div class="check-label">
+                            <span>Ésika</span>
+                            <div class="checkbox checkbox--standalone">
+                                <input type="checkbox" id="checkboxEsika" class="checkbox__input seleccionarCatalogo">
+                                <label for="checkboxEsika" class="checkbox__label"></label>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.EstadoCyzone != "1")
+                    {
+                        <div class="check-label">
+                            <span>Cyzone</span>
+                            <div class="checkbox checkbox--standalone">
+                                <input type="checkbox" id="checkboxCyzone" class="checkbox__input seleccionarCatalogo">
+                                <label for="checkboxCyzone" class="checkbox__label"></label>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var campaniaActual = "";
+        var campaniasCargadas = new Array();
+        var esAgregarCliente = true;
+        var urlDetalleCatalogo = '@Url.Action("Detalle", "Catalogo", new {area = "Mobile"})';
+        var urlDetalleCatalogoEnvioCorreo = '@Url.Action("DetalleEnvioCorreo", "Catalogo", new {area = "Mobile"})';
+        var urlEnviarCatalogoEmail = '@Url.Action("EnviarEmail", "Catalogo", new {area = ""})';
+        var urlBienvenidaInicio = '@Url.Action("Index", "Bienvenida", new {area = "Mobile"})';
+        var urlNoImagen = "@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")";
+
+        $(document).ready(function() {
+            $("body").on("click", ".a-modal-custom", function(event) {
+                event.preventDefault();
+                var m = $(this).data('target');
+                $("#" + m + "").css("top", "66px");
+                $("body, html").addClass('ovh').animate({ scrollTop: 0 }, 500);
+            });
+
+            $(".close").click(function() {
+                var modal = $(this).parents(".modal-custom");
+                modal.css("top", "100%");
+                $("body, html").removeClass('ovh');
+            });
+
+            $('#agregarCliente').on('hidden.bs.modal', function () {
+                $("body, html").addClass('ovh');
+            });
+
+            $("#lnkCampaniaAnterior").click(function() {
+                var campaniaSeleccionada = $("#hdCampaniaAnterior").val();
+
+                if (campaniaActual != campaniaSeleccionada) {
+                    $("#divContenidoCampaniaActual").hide();
+                    $("#divContenidoCampaniaAnterior").show();
+                    $(".a-modal-custom").hide();
+
+                    if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
+                        ShowLoading();
+                        campaniaActual = campaniaSeleccionada;
+                        var campaniaTexto = 'CAMPAÑA ' + campaniaActual.substring(4, 6);
+                        $(".title-campana").html(campaniaTexto);
+                        CloseLoading();
+                    } else {
+                        MostrarCatalogoCampania(0, campaniaSeleccionada);
+                    }
+
+                    var linkCampaniaActual = $("#lnkCampaniaActual");
+                    var linkCampaniaSiguiente = $("#lnkCampaniaSiguiente");
+                    var linkCampaniaActual2 = $("#lnkCampaniaActual2");
+                    var linkCampaniaAnterior = $("#lnkCampaniaAnterior");
+
+                    $(linkCampaniaActual).parent("li").hide();
+                    $(linkCampaniaSiguiente).parent("li").hide();
+                    $(linkCampaniaActual2).parent("li").show();
+                    $(linkCampaniaAnterior).parent("li").hide();
+
+                    TagManagerClickCampania(campaniaSeleccionada);
+                }
+                
+            });
+
+            $("#lnkCampaniaActual").click(function() {
+                var campaniaSeleccionada = $("#hdCampaniaActual").val();
+
+                if (campaniaActual != campaniaSeleccionada) {
+                    $("#divContenidoCampaniaSiguiente").hide();
+                    $("#divContenidoCampaniaActual").show();
+                    $(".a-modal-custom").show();
+
+                    if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
+                        ShowLoading();
+                        campaniaActual = campaniaSeleccionada;
+                        var campaniaTexto = 'CAMPAÑA ' + campaniaActual.substring(4, 6);
+                        $(".title-campana").html(campaniaTexto);
+                        CloseLoading();
+                    } else {
+                        MostrarCatalogoCampania(1, campaniaSeleccionada);
+                    }
+
+                    var linkCampaniaActual = $("#lnkCampaniaActual");
+                    var linkCampaniaSiguiente = $("#lnkCampaniaSiguiente");
+                    var linkCampaniaActual2 = $("#lnkCampaniaActual2");
+                    var linkCampaniaAnterior = $("#lnkCampaniaAnterior");
+
+                    $(linkCampaniaActual).parent("li").hide();
+                    $(linkCampaniaSiguiente).parent("li").show();
+                    $(linkCampaniaActual2).parent("li").hide();
+                    $(linkCampaniaAnterior).parent("li").show();
+
+                    TagManagerClickCampania(campaniaSeleccionada);
+                }
+            });
+
+            $("#lnkCampaniaActual2").click(function() {
+                var campaniaSeleccionada = $("#hdCampaniaActual").val();
+
+                if (campaniaActual != campaniaSeleccionada) {
+                    $("#divContenidoCampaniaAnterior").hide();
+                    $("#divContenidoCampaniaActual").show();
+                    $(".a-modal-custom").show();
+
+                    if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
+                        ShowLoading();
+                        campaniaActual = campaniaSeleccionada;
+                        var campaniaTexto = 'CAMPAÑA ' + campaniaActual.substring(4, 6);
+                        $(".title-campana").html(campaniaTexto);
+                        CloseLoading();
+                    } else {
+                        MostrarCatalogoCampania(1, campaniaSeleccionada);
+                    }
+
+                    var linkCampaniaActual = $("#lnkCampaniaActual");
+                    var linkCampaniaSiguiente = $("#lnkCampaniaSiguiente");
+                    var linkCampaniaActual2 = $("#lnkCampaniaActual2");
+                    var linkCampaniaAnterior = $("#lnkCampaniaAnterior");
+
+                    $(linkCampaniaActual).parent("li").hide();
+                    $(linkCampaniaSiguiente).parent("li").show();
+                    $(linkCampaniaActual2).parent("li").hide();
+                    $(linkCampaniaAnterior).parent("li").show();
+
+                    TagManagerClickCampania(campaniaSeleccionada);
+                }
+            });
+
+            $("#lnkCampaniaSiguiente").click(function() {
+                var campaniaSeleccionada = $("#hdCampaniaSiguiente").val();
+
+                if (campaniaActual != campaniaSeleccionada) {
+                    $("#divContenidoCampaniaActual").hide();
+                    $("#divContenidoCampaniaSiguiente").show();
+                    $(".a-modal-custom").show();
+
+                    if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
+                        ShowLoading();
+                        campaniaActual = campaniaSeleccionada;
+                        var campaniaTexto = 'CAMPAÑA ' + campaniaActual.substring(4, 6);
+                        $(".title-campana").html(campaniaTexto);
+                        CloseLoading();
+                    } else {
+                        MostrarCatalogoCampania(2, campaniaSeleccionada);
+                    }
+
+                    var linkCampaniaActual = $("#lnkCampaniaActual");
+                    var linkCampaniaSiguiente = $("#lnkCampaniaSiguiente");
+                    var linkCampaniaActual2 = $("#lnkCampaniaActual2");
+                    var linkCampaniaAnterior = $("#lnkCampaniaAnterior");
+
+                    $(linkCampaniaActual).parent("li").show();
+                    $(linkCampaniaSiguiente).parent("li").hide();
+                    $(linkCampaniaActual2).parent("li").hide();
+                    $(linkCampaniaAnterior).parent("li").hide();
+
+                    TagManagerClickCampania(campaniaSeleccionada);
+                }
+            });
+
+            $("body").on("click", ".imagenTagManager", function() {
+                var marca = $(this).attr("alt");
+
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catalogo',
+                    'action': 'Ver',
+                    'label': marca,
+                    'value': 0
+                });
+
+            });
+
+            $("body").on("click", ".seleccionarCatalogo", function() {
+                var seleccionado = $(this).is(":checked");
+
+                if (seleccionado) {
+                    $(this).addClass("catalogoSeleccionado");
+                } else {
+                    $(this).removeClass("catalogoSeleccionado");
+                }
+            });
+
+            $("#linkSeleccionarTodos").click(function() {
+                var todos = $("#tblEnviarCorreo").find("input[type=checkbox]");
+
+                $.each(todos, function() {
+                    var input = $(this);
+                    var attr = $(input).prop('disabled');
+
+                    if (!attr) {
+                        $(input).prop("checked", true);
+                        $(input).addClass("catalogoSeleccionado");
+                    }
+                });
+            });
+
+            $("#btnEnviarCorreo").click(function() {
+                var listaEnviar = $("#tblEnviarCorreo").find(".catalogoSeleccionado");
+                var cantidadCatalogoCompleto = $("#tblEnviarCorreo tr").length - 2;
+
+                if (listaEnviar.length == 0) {
+                    window.messageInfo("Debe Seleccionar al menos un catalogo");
+                } else {
+                    /*Obtener lista de Clientes con sus catalogos marcados*/
+                    var listaCliente = new Array();
+                    var arrayCliente = new Array();
+                    var listaClienteEnviar = new Array();
+                    var enviarTagManagerLbel = false;
+                    var enviarTagManagerEsika = false;
+                    var enviarTagManagerCyzone = false;
+                    var cantidadClientesLbel = 0;
+                    var cantidadClientesEsika = 0;
+                    var cantidadClientesCyzone = 0;
+
+                    $.each(listaEnviar, function(index, catalogo) {
+                        var id = $(catalogo).attr("id");
+                        var trPadre = $("#" + id).parents("tr")[0];
+                        var tdInfo = $(trPadre).find("td")[0];
+
+                        var clienteId = $(tdInfo).find(".clienteId").val();
+                        var clienteNombre = $(tdInfo).find(".clienteNombre").html();
+                        var clienteEmail = $(tdInfo).find(".clienteEmail").html();
+
+                        var cliente = {
+                            ClienteID: clienteId,
+                            Nombre: clienteNombre,
+                            Email: clienteEmail
+                        };
+
+                        if (arrayCliente.indexOf(clienteId) <= -1) {
+                            arrayCliente.push(clienteId);
+                            listaCliente.push(cliente);
+                        }
+                    });
+
+                    $.each(listaCliente, function(index2, cliente) {
+                        var enviarCatalogoLbel = $("#checkboxLbel_" + cliente.ClienteID).is(":checked") ? "1" : "0";
+                        var enviarCatalogoEsika = $("#checkboxEsika_" + cliente.ClienteID).is(":checked") ? "1" : "0";
+                        var enviarCatalogoCyzone = $("#checkboxCyzone_" + cliente.ClienteID).is(":checked") ? "1" : "0";
+
+                        if (enviarCatalogoLbel == "1") {
+                            cantidadClientesLbel++;
+                            enviarTagManagerLbel = true;
+                        }
+                        if (enviarCatalogoEsika == "1") {
+                            cantidadClientesEsika++;
+                            enviarTagManagerEsika = true;
+                        }
+                        if (enviarCatalogoCyzone == "1") {
+                            cantidadClientesCyzone++;
+                            enviarTagManagerCyzone = true;
+                        }
+
+                        if (enviarCatalogoLbel == "1" || enviarCatalogoEsika == "1" || enviarCatalogoCyzone == "1") {
+                            var clienteEnviar = {
+                                ClienteID: cliente.ClienteID,
+                                Nombre: cliente.Nombre,
+                                Email: cliente.Email,
+                                LBel: enviarCatalogoLbel,
+                                Esika: enviarCatalogoEsika,
+                                Cyzone: enviarCatalogoCyzone,
+                                Finart: "0"
+                            };
+
+                            listaClienteEnviar.push(clienteEnviar);
+                        }
+                    });
+
+                    /*Fin Obtener lista de Clientes con sus catalogos marcados*/
+                    var flags = "";
+                    var todoLbel = "1";
+                    var todoEsika = "1";
+                    var todoCyzone = "1";
+                    var todoFinart = "0";
+
+                    if (listaClienteEnviar.length == cantidadCatalogoCompleto) {
+                        $.each(listaClienteEnviar, function(index2, cliente) {
+                            if (cliente.LBel == "0") {
+                                todoLbel = "0";
+                            }
+                            if (cliente.Esika == "0") {
+                                todoEsika = "0";
+                            }
+                            if (cliente.Cyzone == "0") {
+                                todoCyzone = "0";
+                            }
+                        });
+                    } else {
+                        todoLbel = "0";
+                        todoEsika = "0";
+                        todoCyzone = "0";
+                    }
+
+
+                    flags = todoLbel + "|" + todoCyzone + "|" + todoEsika + "|" + todoFinart;
+
+                    var valorCampania = $("#hdCampaniaActual").val();
+                    var tipo = valorCampania == campaniaActual ? "1" : "2";
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: urlEnviarCatalogoEmail,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ ListaCatalogosCliente: listaClienteEnviar, Mensaje: "", Flags: flags, Tipo: tipo }),
+                        async: true,
+                        success: function(data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    closeWaitingDialog();
+                                    window.messageInfo(data.message);
+                                } else {
+                                    closeWaitingDialog();
+
+                                    TagManagerEnvioCorreo(enviarTagManagerLbel, enviarTagManagerEsika, enviarTagManagerCyzone, cantidadClientesLbel, cantidadClientesEsika, cantidadClientesCyzone);
+
+                                    window.messageInfo(data.message);
+                                    if (data.extra == "R") {
+                                        location.href = urlBienvenidaInicio;
+                                    }
+                                }
+                            }
+                        },
+                        error: function(data, error) {
+                            if (checkTimeout(data)) {
+                                closeWaitingDialog();
+                                alert("ERROR");
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#btnAgregarCliente").click(function(event) {
+                esAgregarCliente = true;
+                $('#Nombre').val("");
+                $('#Email').val("");
+                $('#Telefono').val("");
+                $('#ClienteID').val("0");
+                $('#FlagValidate').val("0");
+                $("#hdNombreClienteAnterior").val("");
+
+                posicionClienteActual = 0;
+
+                ShowAgregarCliente();
+                $("#liOpcionCliente").html("Agregar Cliente");
+            });
+
+            $("body").on("click", ".actualizarCorreo", function(event) {
+                esAgregarCliente = false;
+                var tdPadre = $(this).parent("td");
+                var trPadre = $(tdPadre).parent("tr");
+
+                var clienteId = $(tdPadre).find(".clienteId").val();
+                var clienteNombre = $(tdPadre).find(".clienteNombre").html();
+
+                posicionClienteActual = $(trPadre).attr("data-posicioncliente");
+
+                $("#ClienteID").val(clienteId);
+                $("#Nombre").val(clienteNombre);
+                $("#hdNombreClienteAnterior").val(clienteNombre);
+                ShowAgregarCliente();
+                $("#liOpcionCliente").html("Modificar Cliente");
+            });
+
+            $("#lnkEnviarCorreo").click(function(event) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catalogo',
+                    'action': 'Click enviar por correo',
+                    'label': campaniaActual
+                });
+            });
+
+            var campania = $("#hdCampaniaActual").val();
+            MostrarCatalogoCampania(1, campania);
+
+            ////R20160204//////
+
+            $(document).on("click", "#lnkesika", function () {
+                
+                var campania = $('.title-campana')[0].innerHTML;
+                var paisid = parseInt($('.title-campana')[0].dataset.paisid);
+                var codigozona = $('.title-campana')[0].dataset.codigozona;
+
+
+                if (paisid == 3) {
+                    //Campañia C04
+
+                    if (codigozona == "1319" && campania == "CAMPAÑA 04") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                    }
+                    else if (codigozona == "1401" && campania == "CAMPAÑA 04") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                    }
+                    else if (codigozona == "1410" && campania == "CAMPAÑA 04") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                    }
+                    else if (codigozona == "1405" && campania == "CAMPAÑA 04") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                    }
+
+                        //Campañia C05
+                    else if (codigozona == "1319" && campania == "CAMPAÑA 05") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                    }
+
+                    else if (codigozona == "1401" && campania == "CAMPAÑA 05") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                    }
+
+                    else if (codigozona == "1410" && campania == "CAMPAÑA 05") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                    }
+                    else if (codigozona == "1405" && campania == "CAMPAÑA 05") {
+
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                    }
+
+                }
+
+            });
+
+
+
+            /////End R20160204////
+
+        });
+
+        function ShowAgregarCliente() {
+            $("#agregarCliente").modal("show");
+        }
+
+        function CloseAgregarCliente() {
+            $("#agregarCliente").modal("hide");
+        }
+
+        function MostrarCatalogoCampania(tipo, campaniaId) {
+            ShowLoading();
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlDetalleCatalogo,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ campaniaId: campaniaId }),
+                success: function(response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var data = response.data;
+                            var urlCatalogo = "//issuu.com/somosbelcorp/docs/";
+                            var html = "";
+                            html += '<div class="row ">';
+
+                            var deferedLbel = jQuery.Deferred();
+                            var deferedEsika = jQuery.Deferred();
+                            var deferedCyzone = jQuery.Deferred();
+                            var htmlLbel = "";
+                            var htmlEsika = "";
+                            var htmlCyzone = "";
+
+                            if (data.EstadoLbel != "1") {
+                                deferedLbel = ObtenerImagenCatalogo(data.LinkLbel, deferedLbel);
+                                deferedLbel.done(function(rutaImagenLbel) {
+                                    htmlLbel += '<div class="col-xs-12 col-sm-6 col-md-4">';
+
+                                    htmlLbel += '<figure class="catalago-item">';
+                                    htmlLbel += '<a href="' + urlCatalogo + data.LinkLbel + '" target="_blank" align=center >';
+                                    htmlLbel += '<img aling="center" src="' + rutaImagenLbel + '" alt="Lbel" width="500" height="800" class="img-responsive imagenTagManager" title="Catálogo Lbel" />';
+
+                                    htmlLbel += '<a aling="center" href="javascript:;" onclick="CompartirFacebook(' + "'" + urlCatalogo + data.LinkLbel + "'" + ',' + "'" + 'Lbel' + "'" + ')"><IMG  style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_compartirface.png")"></a>';
+                                    
+                                    htmlLbel += '<a aling="center" href="whatsapp://send?text=http:' + urlCatalogo + data.LinkLbel + '" data-action="share/whatsapp/share" ><IMG style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_whatsapp_compartir.png")"></a>';
+
+                                    htmlLbel += '</figure>';
+
+                                    htmlLbel += '</div>';
+                                });
+                            } else {
+                                deferedLbel.resolve();
+                            }
+
+                            if (data.EstadoEsika != "1") {
+                                deferedEsika = ObtenerImagenCatalogo(data.LinkEsika, deferedEsika);
+                                deferedEsika.done(function(rutaImagenEsika) {
+                                    htmlEsika += '<div class="col-xs-12 col-sm-6 col-md-4">';
+
+                                    htmlEsika += '<figure class="catalago-item">';
+
+                                    htmlEsika += '<a id="lnkesika" href="' + urlCatalogo + data.LinkEsika + '" target="_blank">';
+
+                                    htmlEsika += '<img src="' + rutaImagenEsika + '" alt="Esika" width="500" height="800" class="img-responsive imagenTagManager" title="Catálogo Esika" />';
+
+                                    htmlEsika += '<a aling="center" href="javascript:;" onclick="CompartirFacebook(' + "'" + urlCatalogo + data.LinkEsika + "'" + ',' + "'" + 'Esika' + "'" + ')"><IMG  style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_compartirface.png")"></a>';
+
+                                    htmlEsika += '<a aling="center" href="whatsapp://send?text=http:' + urlCatalogo + data.LinkEsika + '"  data-action="share/whatsapp/share"><IMG style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_whatsapp_compartir.png")"></a>';
+                                    
+                                    htmlEsika += '</figure>';
+                                    htmlEsika += '</div>';
+                                });
+                            } else
+                                deferedEsika.resolve();
+
+                            if (data.EstadoCyzone != "1") {
+                                deferedCyzone = ObtenerImagenCatalogo(data.LinkCyzone, deferedCyzone);
+                                deferedCyzone.done(function(rutaImagenCyzone) {
+                                    htmlCyzone += '<div class="col-xs-12 col-sm-6 col-md-4">';
+ 
+                                    htmlCyzone += '<figure class="catalago-item">';
+
+                                    htmlCyzone += '<a href="' + urlCatalogo + data.LinkCyzone + '" target="_blank">';
+
+                                    htmlCyzone += '<img src="' + rutaImagenCyzone + '" alt="Cyzone" width="500" height="800" class="img-responsive imagenTagManager" title="Catálogo Cyzone" />';
+
+                                    htmlCyzone += '<a aling="center" href="javascript:;" onclick="CompartirFacebook(' + "'" + urlCatalogo + data.LinkCyzone + "'" + ',' + "'" + 'Esika' + "'" + ')"><IMG  style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_compartirface.png")"></a>';
+
+                                    htmlCyzone += '<a aling="center" href="whatsapp://send?text=http:' + urlCatalogo + data.LinkCyzone + '" data-action="share/whatsapp/share" ><IMG style="padding-top: 10px;" width="50%" HEIGHT="90%"  SRC="@Url.Content("~/Content/Images/mobile/img-icon/boton_whatsapp_compartir.png")"></a>';
+
+                                    htmlCyzone += '</figure>';
+                                    htmlCyzone += '</div>';
+                                });
+                            } else
+                                deferedCyzone.resolve();
+
+                            $.when(deferedLbel, deferedEsika, deferedCyzone).done(function() {
+                                html += htmlLbel;
+                                html += htmlEsika;
+                                html += htmlCyzone;
+                                html += '</div>';
+
+                                if (tipo == 1) {
+                                    $("#divContenidoCampaniaActual").html(html);
+                                } else {
+                                    if (tipo == 2) {
+                                        $("#divContenidoCampaniaSiguiente").html(html);
+                                    } else {
+                                        $("#divContenidoCampaniaAnterior").html(html);
+                                    }
+                                }
+
+                                var campaniaTexto = 'CAMPAÑA ' + data.Campania.substring(4, 6);
+                                $(".title-campana").html(campaniaTexto);
+                                
+                                CloseLoading();
+                            });
+                        } else {
+                            CloseLoading();
+                            window.messageInfo(response.message);
+                        }
+                    }
+
+                    campaniaActual = campaniaId;
+                    campaniasCargadas.push(campaniaId);
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        CloseLoading();
+                        console.log(data);
+                    }
+                }
+            });
+        }
+
+        function ObtenerImagenCatalogo(catalogo, defered) {
+            var src = "";
+
+            jQuery.ajax({
+                type: "GET",
+                url: '//search.issuu.com/api/2_0/document?username=somosbelcorp&q=docname:' + catalogo + '&jsonCallback=?',
+                dataType: "json",
+                success: function(result) {
+                    src = urlNoImagen;
+
+                    if (result.response.docs.length > 0) {
+                        var doc = result.response.docs[result.response.docs.length - 1];
+
+                        src = '//image.issuu.com/' + doc.documentId + '/jpg/page_1_thumb_large.jpg';
+                    }
+
+                    defered.resolve(src);
+                },
+                error: function(x, xh, xhr) {
+                    console.error(xh);
+                    src = urlNoImagen;
+                    defered.resolve(src);
+                }
+            });
+
+            return defered.promise();
+        }
+
+        function CompartirFacebook(catalogo, marca) {
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=https:" + catalogo; 
+            
+            //dataLayer.push({ 'event': 'socialAction', 'network': 'Facebook', 'action': 'Share', 'target': marca });
+
+            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        }
+
+        function RealizarLuegoGuardarCliente(data) {
+            if (esAgregarCliente) {
+                var filaClonar = $("#tblCopiarCatalogos tr").clone();
+
+                $(filaClonar).attr("data-posicioncliente", data.ClienteID.toString());
+
+                if (data.eMail == "" || data.eMail == null) {
+                    var nombreCliente = $(filaClonar).find(".clienteNombre");
+                    var htmlNuevoEmail = '<a href="javascript:;" class="actualizarCorreo"><i class="icon-plus-belcorp icon-sm"></i> Agregar correo</a>';
+                    $(htmlNuevoEmail).insertAfter(nombreCliente);
+                } else {
+                    var inputCorreo = $(filaClonar).find(".clienteEmail");
+                    $(inputCorreo).html(data.eMail);
+                }
+
+                var inputId = $(filaClonar).find(".clienteId");
+                $(inputId).val(data.ClienteID);
+
+                var divNombreCliente = $(filaClonar).find(".clienteNombre");
+                $(divNombreCliente).html(data.Nombre);
+
+                var checkLbel = $(filaClonar).find("#checkboxLbel");
+                $(checkLbel).attr("id", "checkboxLbel_" + data.ClienteID);
+                var lblLbel = $(filaClonar).find("label[for='checkboxLbel']");
+                $(lblLbel).attr("for", "checkboxLbel_" + data.ClienteID);
+
+                var checkEsika = $(filaClonar).find("#checkboxEsika");
+                $(checkEsika).attr("id", "checkboxEsika_" + data.ClienteID);
+                var lblEsika = $(filaClonar).find("label[for='checkboxEsika']");
+                $(lblEsika).attr("for", "checkboxEsika_" + data.ClienteID);
+
+                var checkCyzone = $(filaClonar).find("#checkboxCyzone");
+                $(checkCyzone).attr("id", "checkboxCyzone_" + data.ClienteID);
+                var lblCyzone = $(filaClonar).find("label[for='checkboxCyzone']");
+                $(lblCyzone).attr("for", "checkboxCyzone_" + data.ClienteID);
+
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Clientes',
+                    'action': 'Agregar',
+                    'label': 'Satisfactorio',
+                });
+
+                //$("#tblEnviarCorreo").append(filaClonar);
+                $(filaClonar).insertBefore($("#tblEnviarCorreo tr")[$("#tblEnviarCorreo tr").length - 1]);
+
+                var checkLbelNuevo = "#checkboxLbel_" + data.ClienteID;
+                var checkEsikaNuevo = "#checkboxEsika_" + data.ClienteID;
+                var checkCyzoneNuevo = "#checkboxCyzone_" + data.ClienteID;
+                if (data.eMail == "" || data.eMail == null) {
+                    $(checkLbelNuevo).attr("disabled", "disabled");
+                    $(checkEsikaNuevo).attr("disabled", "disabled");
+                    $(checkCyzoneNuevo).attr("disabled", "disabled");
+                } else {
+                    $(checkLbelNuevo).removeAttr("disabled");
+                    $(checkEsikaNuevo).removeAttr("disabled");
+                    $(checkCyzoneNuevo).removeAttr("disabled");
+                }
+            } else {
+                var trActualizar = $("#tblEnviarCorreo tr[data-posicioncliente='" + data.ClienteID + "']");
+                var tdActualizar = $(trActualizar).find("td")[0];
+                var htmlInsertar = '<input type="hidden" class="clienteId" value="' + data.ClienteID + '">';
+                htmlInsertar += '<div class="bold clienteNombre">' + data.Nombre + '</div>';
+
+                var checkLbelActualizar = "#checkboxLbel_" + data.ClienteID;
+                var checkEsikaActualizar = "#checkboxEsika_" + data.ClienteID;
+                var checkCyzoneActualizar = "#checkboxCyzone_" + data.ClienteID;
+
+                if (data.eMail == "" || data.eMail == null) {
+                    htmlInsertar += '<a href = "javascript:;" class = "actualizarCorreo"><i class = "icon-plus-belcorp icon-sm" ></i>Agregar correo</a>';
+                    $(checkLbelActualizar).attr("disabled", "disabled");
+                    $(checkEsikaActualizar).attr("disabled", "disabled");
+                    $(checkCyzoneActualizar).attr("disabled", "disabled");
+                } else {
+                    htmlInsertar += '<div class="break">';
+                    htmlInsertar += '<span class="clienteEmail">' + data.eMail + '</span>';
+                    htmlInsertar += '</div>';
+                    $(checkLbelActualizar).removeAttr("disabled");
+                    $(checkEsikaActualizar).removeAttr("disabled");
+                    $(checkCyzoneActualizar).removeAttr("disabled");
+                }
+
+                $(tdActualizar).html(htmlInsertar);
+            }
+
+            $('#Nombre').val("");
+            $('#Email').val("");
+            $('#Telefono').val("");
+        }
+
+        function TagManagerClickCampania(campaniaId) {
+            var textoCampania = "C-" + campaniaId.substring(4, 6);
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catalogo',
+                'action': 'Click',
+                'label': 'Ir a ' + textoCampania,
+                'value': 0
+            });
+        }
+
+        function TagManagerEnvioCorreo(enviarTagManagerLbel, enviarTagManagerEsika, enviarTagManagerCyzone, cantidadClientesLbel, cantidadClientesEsika, cantidadClientesCyzone) {
+            if (enviarTagManagerLbel) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catalogo',
+                    'action': 'Compartir_email',
+                    'label': 'Lbel',
+                    'value': cantidadClientesLbel
+                });
+            }
+
+            if (enviarTagManagerEsika) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catalogo',
+                    'action': 'Compartir_email',
+                    'label': 'Esika',
+                    'value': cantidadClientesEsika
+                });
+            }
+
+            if (enviarTagManagerCyzone) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catalogo',
+                    'action': 'Compartir_email',
+                    'label': 'Cyzone',
+                    'value': cantidadClientesCyzone
+                });
+            }
+        }
+    </script>
+}

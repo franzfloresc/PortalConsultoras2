@@ -1,0 +1,39 @@
+﻿@model Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos
+<p class="text_verde2">Has aceptado el pedido de @Model.Cliente</p>
+
+<p class="comment">Si no tienes los productos en stock, no te olvides de agregarlos a tu pedido.</p>
+@if (Model.DetallePedido.Count() > 0)
+{
+    <br />
+    <br />
+    <table>
+        <tr>
+            <th class="text_align_left">PRODUCTO</th>
+            <th>CANTIDAD</th>
+            <th class="text_align_right">PRECIO TOTAL</th>
+        </tr>
+        @foreach (var item in Model.DetallePedido)
+        {
+            <tr>
+                <td class="text_align_left">@Html.Raw(String.Format("{0}{1}<br/>{2}",
+                            item.Producto,
+                            item.Tono == null ? "" : "<br/>Tono: " + item.Tono,
+                            item.Marca)) </td>
+                <td>@item.Cantidad</td>
+                <td class="text_align_right">@ViewBag.Simbolo @item.PrecioTotal</td>
+            </tr>
+        }
+        <!-- 
+            <tr>
+            	<td class="text_align_left">Labial Hydratess<br/>Tono: Tulip<br/>L´Bel </td>
+                <td>2</td>
+                <td class="text_align_right">S/. 470.600.000</td>
+            </tr>
+            <tr>
+            	<td class="text_align_left">Perfume L´Bel by L´Bel<br/>L´Bel </td>
+                <td>2</td>
+                <td class="text_align_right">S/. 470.600.000</td>
+            </tr>            
+                -->
+    </table>
+}

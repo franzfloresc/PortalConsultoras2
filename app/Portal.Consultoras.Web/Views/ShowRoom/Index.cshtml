@@ -1,0 +1,992 @@
+﻿@using Amazon.SimpleDB.Model
+@using Newtonsoft.Json
+@using Portal.Consultoras.Web.Controllers
+@model Portal.Consultoras.Web.Models.ShowRoomEventoModel
+@{
+    ViewBag.Title = "ShowRoom";
+}
+
+<link href="@Url.Content("~/Content/Css/Site/slick-vertical.css")" rel="stylesheet" />
+
+<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
+<input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
+
+<div class="banner_showroom">
+    <img src="@Url.Content("~/Content/Images/showroom/banner_showroom.jpg")" alt="">
+    @*<img src="@Model.Imagen2" alt="">*@
+</div>
+<div class="wrapper_showroom">
+    <div class="titulo_buscado">
+        <div class="titulo_showroom">
+            <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br />
+            Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
+        </div>
+        @*<div class="selector_s">
+            <select>
+                <option>ORDENAR POR</option>
+                <option>ORDENAR POR</option>
+                <option>ORDENAR POR</option>
+            </select>
+        </div>*@
+
+    </div>
+</div>
+<div class="wrapper_showroom_items">
+    @{ var posicion = 1; }
+    @foreach (var item in Model.ListaShowRoomOferta)
+    {
+        var descripcionProducto1 = item.DescripcionProducto1.Split('|');
+        var descripcionProducto2 = item.DescripcionProducto2.Split('|');
+        var descripcionProducto3 = item.DescripcionProducto3.Split('|');
+        var subTitulo = "";
+        if (descripcionProducto1.Length != 0)
+        {
+            subTitulo += descripcionProducto1[0];
+        }
+        if (descripcionProducto2.Length != 0)
+        {
+            subTitulo += subTitulo != "" && descripcionProducto2[0] != "" ? " + " + descripcionProducto2[0] : descripcionProducto2[0];
+        }
+        if (descripcionProducto3.Length != 0)
+        {
+            subTitulo += subTitulo != "" && descripcionProducto3[0] != "" ? " + " + descripcionProducto3[0] : descripcionProducto3[0];
+        }
+
+        <div class="producto_showroom" data-posicion="@posicion">
+            <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+            <input type="hidden" class="valorCuv" value="@item.CUV" />
+            <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+            <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+            <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
+            <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+            <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+            <input type="hidden" class="posicionEstrategia" value="@posicion" />
+            <input type="hidden" class="imagenProducto1" value="@item.ImagenProducto1"/>
+            <input type="hidden" class="imagenProducto2" value="@item.ImagenProducto2" />
+            <input type="hidden" class="imagenProducto3" value="@item.ImagenProducto3" />
+            <input type="hidden" class="descripcionProducto1" value="@item.DescripcionProducto1" />
+            <input type="hidden" class="descripcionProducto2" value="@item.DescripcionProducto2" />
+            <input type="hidden" class="descripcionProducto3" value="@item.DescripcionProducto3" />
+            
+            <div class="divEstaAgotado">
+                @if (item.Stock == 0)
+                {
+                    <div class="producto_agotado">
+                        <div class="agotado_texto">AGOTADO</div>
+                    </div>
+                }
+            </div>
+            
+            <a class="imagen_showroom btnVerDetalleOfertaShowRoom">
+                 @if (string.IsNullOrEmpty(item.ImagenProducto))
+                 {
+                     <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: 100%;" />
+                 }
+                 else
+                 {
+                     @*<img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/CL/CL_210065684_2014841463_01_azdmrggnwo.png" alt="" />*@
+                     <img src="@item.ImagenProducto" alt="" />
+                 }                            
+            </a>
+
+            <div class="titulo_producto_showroom">@item.Descripcion</div>
+            <div class="descripcion_producto_s">@subTitulo</div>
+            <div class="precio_showroom"><span>@Model.Simbolo @Convert.ToInt32(item.PrecioOferta)</span>@Model.Simbolo @Convert.ToInt32(item.PrecioCatalogo)</div>
+            <div class="stock_showroom">STOCK <span class="claseStock">@item.Stock</span></div>
+            <div class="cantidad_showroom_detalle">
+                <div style="margin-top: 5px;margin-right: 10px;float:left;">CANTIDAD</div>
+                <a class="showroom_menos resta" href="javascript:;">-</a>
+                <input class="showroom_cantidad txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                <a class="showroom_mas suma" href="javascript:;">+</a>
+            </div>
+            <hr class="clear" />
+            
+            <div class="divBotonAgotado">
+                @if (item.Stock == 0)
+                {
+                    <a class="boton_agregar_showroom">AGOTADO</a>
+                }
+                else
+                {
+                    <a class="boton_agregar_showroom btnAgregarOfertaShowRoom">AGREGAR A MI PEDIDO</a>
+                }
+            </div>            
+        </div>
+        {
+            posicion++;
+        }
+    }
+</div>
+
+<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+    <div class="titulo_producto_agregado">¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu carrito! </div>
+    <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+    <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+</div>
+
+<div id="DialogMensajesBanner" style="display: none;">
+    <div class="message_text">
+        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+<div id="DialogSetDetalle" style="overflow: inherit; display: none;">
+    <div id="btnCerrarSetDetalle" class="btnCerrarShowroom"></div>
+    @{ var posicionCarrusel = 1; }
+    @foreach (var item2 in Model.ListaShowRoomOferta)
+    {
+        item2.DescripcionProducto1 = item2.DescripcionProducto1 == "" ? "|||" : item2.DescripcionProducto1;
+        item2.DescripcionProducto2 = item2.DescripcionProducto2 == "" ? "|||" : item2.DescripcionProducto2;
+        item2.DescripcionProducto3 = item2.DescripcionProducto3 == "" ? "|||" : item2.DescripcionProducto3;
+
+        var descripcionProductoCarrusel1 = item2.DescripcionProducto1.Split('|');
+        var descripcionProductoCarrusel2 = item2.DescripcionProducto2.Split('|');
+        var descripcionProductoCarrusel3 = item2.DescripcionProducto3.Split('|');
+        var descripcionProducto1_1 = descripcionProductoCarrusel1[0] ?? "";
+        var descripcionProducto1_2 = descripcionProductoCarrusel1[1] ?? "";
+        var descripcionProducto1_3 = descripcionProductoCarrusel1[2] ?? "";
+        var descripcionProducto1_4 = descripcionProductoCarrusel1[3] ?? "";
+        var descripcionProducto2_1 = descripcionProductoCarrusel2[0] ?? "";
+        var descripcionProducto2_2 = descripcionProductoCarrusel2[1] ?? "";
+        var descripcionProducto2_3 = descripcionProductoCarrusel2[2] ?? "";
+        var descripcionProducto2_4 = descripcionProductoCarrusel2[3] ?? "";
+        var descripcionProducto3_1 = descripcionProductoCarrusel3[0] ?? "";
+        var descripcionProducto3_2 = descripcionProductoCarrusel3[1] ?? "";
+        var descripcionProducto3_3 = descripcionProductoCarrusel3[2] ?? "";
+        var descripcionProducto3_4 = descripcionProductoCarrusel3[3] ?? "";
+        var ganaHasta = Convert.ToInt32(item2.PrecioOferta) - Convert.ToInt32(item2.PrecioCatalogo);
+        <div class="contenidoCarrusel" data-carrusel-posicion="@posicionCarrusel" style="display: none;">
+            <div class="fondo_detalle_blanco">
+                <div class="titulo_setDetalle"><span>@item2.Descripcion</span></div>
+                <div class="contenedor_descripcion_detalle">
+                    <!--LISTA DE ITEM-->
+                    <div style="overflow: hidden; margin-top: 10px;">
+                        <div class="producto_detalle_img">
+                            @if (string.IsNullOrEmpty(item2.ImagenProducto1))
+                            {
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                            }
+                            else
+                            {
+                                <img src="@item2.ImagenProducto1" alt="" />
+                            }
+                        </div>
+                        <div class="detalle_texto">
+                            <div class="titulo_detalle_texto"><span>@descripcionProducto1_1</span></div>
+                            @if (descripcionProducto1_2 != "")
+                            {
+                                <div class="descripcion_producto_texto">
+                                    @descripcionProducto1_2
+                                </div>
+                            }
+                            @if (descripcionProducto1_3 != "")
+                            {
+                                <div class="descripcion_producto_texto">
+                                    @descripcionProducto1_3
+                                </div>
+                            }
+                            @if (descripcionProducto1_4 != "")
+                            {
+                                <div class="descripcion_producto_texto">
+                                    @descripcionProducto1_4
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @if (item2.DescripcionProducto2 != "|||")
+                    {
+                        <div style="overflow: hidden; margin-top: 10px;">
+                            <div class="producto_detalle_img">
+                                @if (string.IsNullOrEmpty(item2.ImagenProducto2))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                                }
+                                else
+                                {
+                                    <img src="@item2.ImagenProducto2" alt="" />
+                                }
+                            </div>
+                            <div class="detalle_texto">
+                                <div class="titulo_detalle_texto"><span>@descripcionProducto2_1</span></div>
+                                @if (descripcionProducto2_2 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto2_2
+                                    </div>
+                                }
+                                @if (descripcionProducto2_3 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto2_3
+                                    </div>
+                                }
+                                @if (descripcionProducto2_4 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto2_4
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    } 
+                    @if (item2.DescripcionProducto3 != "|||")
+                    {
+                        <div style="overflow: hidden; margin-top: 10px;">
+                            <div class="producto_detalle_img">
+                                @if (string.IsNullOrEmpty(item2.ImagenProducto3))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                                }
+                                else
+                                {
+                                    <img src="@item2.ImagenProducto3" alt="" />
+                                }
+                            </div>
+                            <div class="detalle_texto">
+                                <div class="titulo_detalle_texto"><span>@descripcionProducto3_1</span></div>
+                                @if (descripcionProducto3_2 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto3_2
+                                    </div>
+                                }
+                                @if (descripcionProducto3_3 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto3_3
+                                    </div>
+                                }
+                                @if (descripcionProducto3_4 != "")
+                                {
+                                    <div class="descripcion_producto_texto">
+                                        @descripcionProducto3_4
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }                    
+                    <!--FIN-->
+                </div>
+                <div class="set_precio">
+                    SET A SOLO<br />
+                    <span id="spnPrecioOfertaShowRoomCarrusel">@Model.Simbolo @Convert.ToInt32(item2.PrecioCatalogo)</span>
+                </div>
+                <div class="set_precio_gana">
+                    GANA HASTA
+                    <span id="spnGanaOfertaShowRoomCarrusel">@Model.Simbolo @ganaHasta</span>
+                </div>
+                <hr class="clear" />
+                <div class="cantidad_detalle">
+                    CANTIDAD<br />
+                    <a class="restaCarrusel" href="javascript:;">
+                        <div class="detalle_menos">-</div>
+                    </a>
+                    <input class="detalle_numero txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " />
+                    <a class="sumaCarrusel" href="javascript:;">
+                        <div class="detalle_mas">+</div>
+                    </a>
+                </div>
+                <a class="cantidad_agregar_detalle btnAgregarPedidoCarrusel">AGREGAR A PEDIDO</a>
+            </div>
+            <div class="imagen_principal_set">
+                <div class="content_imagenp">
+                    @if (string.IsNullOrEmpty(item2.ImagenProducto))
+                    {
+                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                    }
+                    else
+                    {
+                        <img id="imgOfertaShowRoomCarrusel" src="@item2.ImagenProducto" alt="" />
+                    }
+                </div>
+            </div>
+        </div>
+        {
+            posicionCarrusel++;
+        }
+    }
+
+    <div class="contenedor_carrusel_detalle">
+        <a>Ver más<br /> Sets exclusivos<br />para ti</a>
+
+        <div id="carrousel" class="slider center">
+            @{
+                var posicion3 = 1;
+                var total = Model.ListaShowRoomOferta.Count;
+            }
+            @foreach (var item3 in Model.ListaShowRoomOferta)
+            {
+                var soloNombre = item3.ImagenProducto.Substring(0, item3.ImagenProducto.Length - 4);
+                var extension = item3.ImagenProducto.Substring(item3.ImagenProducto.Length - 4);
+                var imagenProductoCarrusel = soloNombre + "_small" + extension;
+                
+                <div>
+                    <div class="divEstaAgotadoCarrusel">
+                        @if (item3.Stock == 0)
+                        {
+                            <div class="agotado_carrusel">AGOTADO</div>
+                        }
+                    </div>
+                    
+                    <a href="javascript:;" class="cambiarProductoCarrusel" data-posicion="@posicion3">
+                        <div class="imagen_carrusel">
+                            @if (string.IsNullOrEmpty(item3.ImagenProducto))
+                            {
+                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                            }
+                            else
+                            {
+                                @*<img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />*@
+                                <img src="@imagenProductoCarrusel" alt="@imagenProductoCarrusel" />
+                            }                            
+                        </div>
+                        <div class="cantidad_productos_carrusel"><span>@posicion3</span>/@total</div>
+                    </a>
+                </div>
+                {
+                    posicion3++;
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        TagManagerOfertaShowRoom();
+
+        $('#DialogMensajesBanner').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            draggable: true,
+            title: ":: Mensaje ::",
+            buttons:
+            {
+                "Aceptar": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#divMensajeProductoAgregado').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 456,
+            draggable: true,
+        });
+
+        $('#DialogSetDetalle').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 1039,
+            draggable: true,
+        });
+
+        $("body").on("click", ".suma", function() {
+            var article = $(this).parents(".producto_showroom").eq(0);
+            var cantidad = $(article).find(".txtCantidad").val();
+            var cajaTexto = $(article).find(".txtCantidad");
+            if (cantidad == 99)
+                $(cajaTexto).val(Number(99));
+            else
+                $(cajaTexto).val(Number(cantidad) + 1);
+        });
+
+        $("body").on("click", ".sumaCarrusel", function() {
+            var article = $(this).parents(".cantidad_detalle").eq(0);
+            var cantidad = $(article).find(".txtCantidad").val();
+            var cajaTexto = $(article).find(".txtCantidad");
+            if (cantidad == 99)
+                $(cajaTexto).val(Number(99));
+            else
+                $(cajaTexto).val(Number(cantidad) + 1);
+        });
+
+        $("body").on("click", ".resta", function() {
+            var article = $(this).parents(".producto_showroom").eq(0);
+            var cantidad = $(article).find(".txtCantidad").val();
+            var cajaTexto = $(article).find(".txtCantidad");
+            if (cantidad == 1)
+                $(cajaTexto).val(Number(1));
+            else
+                $(cajaTexto).val(Number(cantidad) - 1);
+        });
+
+        $("body").on("click", ".restaCarrusel", function() {
+            var article = $(this).parents(".cantidad_detalle").eq(0);
+            var cantidad = $(article).find(".txtCantidad").val();
+            var cajaTexto = $(article).find(".txtCantidad");
+            if (cantidad == 1)
+                $(cajaTexto).val(Number(1));
+            else
+                $(cajaTexto).val(Number(cantidad) - 1);
+        });
+
+        $("body").on("click", ".btnAgregarOfertaShowRoom", function(e) {
+            var article = $(this).parents(".producto_showroom").eq(0);
+            var cantidad = $(article).find(".txtCantidad").val();
+
+            AgregarOfertaShowRoom(article, cantidad);
+            e.preventDefault();
+            (this).blur();
+        });
+
+        $("body").on("click", ".btnAgregarPedidoCarrusel", function(e) {
+            var divPadre = $(this).parents(".contenidoCarrusel").eq(0);
+            var cantidad = $(divPadre).find(".txtCantidad").val();
+            var posicion = $(divPadre).attr("data-carrusel-posicion");
+
+            var article = $(".producto_showroom[data-posicion=" + posicion + "]");
+
+            AgregarOfertaShowRoom(article, cantidad);
+            e.preventDefault();
+            (this).blur();
+        });
+
+
+        $("#btnCerrarSet").click(function() {
+            $("#divMensajeProductoAgregado").dialog('close');
+            $("#DialogSetDetalle").dialog("close");
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas Showroom',
+                'action': 'Click popup Bolsa',
+                'label': 'Volver a sets'
+            });
+        });
+
+        $("#btnIrMipedido").click(function() {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas Showroom',
+                'action': 'Click popup Bolsa',
+                'label': 'Ir a carrito'
+            });
+        });
+
+        $("#btnCerrarSetDetalle").click(function() {
+            $("#DialogSetDetalle").dialog('close');
+        });
+
+        $("body").on("click", ".btnVerDetalleOfertaShowRoom", function(e) {
+            var article = $(this).parents(".producto_showroom").eq(0);
+            VerOfertaShowRoom(article);
+            e.preventDefault();
+            (this).blur();
+        });
+
+        $("body").on("click", ".cambiarProductoCarrusel", function(e) {
+            var posicion = $(this).attr("data-posicion");
+            CambiarProductoCarrusel(posicion);
+            e.preventDefault();
+            (this).blur();
+        });
+
+        $('#carrousel').slick({
+            infinite: false,
+            vertical: true,
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: false,
+            //dots: true,
+            prevArrow: '<button type="button" data-role="none" class="slick-next" onclick="javascript:TagManagerCarruselPrevia(false);">Next</button>',
+            nextArrow: '<button type="button" data-role="none" class="slick-prev" onclick="javascript:TagManagerCarruselSiguiente(false);">Previous</button>'
+        });
+
+        $(".slick-prev").insertAfter('#carrousel');
+        $(".slick-next").insertBefore('#carrousel');
+
+        //$("#carrousel").on('swipe', function (event, slick, direction) {
+        //    if (direction == 'left') {
+        //        //TagManagerCarruselSiguiente(true);
+        //        alert("1");
+        //    } else if (direction == 'right') {
+        //        //TagManagerCarruselPrevia(true);
+        //        alert("2");
+        //    }
+        //});
+    });
+
+    function alert_msg(message) {
+        $('#DialogMensajesBanner .message_text').html(message);
+        $('#DialogMensajesBanner').dialog('open');
+    }
+
+    function VerOfertaShowRoom(article) {
+        var posicion = $(article).attr("data-posicion");
+        var divTotales = $(".contenidoCarrusel");
+        var linkProductoCarrusel = $(".cambiarProductoCarrusel");
+
+        var divMostrar = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+        var linkMostrar = $(".cambiarProductoCarrusel[data-posicion=" + posicion + "]");
+
+        $.each(divTotales, function(index, value) {
+            $(value).css("display", "none");
+        });
+
+        $.each(linkProductoCarrusel, function(index, value) {
+            var div = $(value).find(".cantidad_productos_carrusel");
+
+            $(div).removeClass("item_active");
+        });
+
+        $(divMostrar).css("display", "");
+
+        $.each(linkMostrar, function(index, value) {
+            var div = $(value).find(".cantidad_productos_carrusel");
+
+            $(div).addClass("item_active");
+        });
+
+        $("#DialogSetDetalle").parent().find(".ui-dialog-titlebar").hide();
+        $("#DialogSetDetalle").parent().css("overflow", "inherit");
+        $("#DialogSetDetalle").parent().css("border", "0");
+        $("#DialogSetDetalle").parent().css("border-radius", "0");
+        $("#DialogSetDetalle").parent().css("-webkit-border-radius", "0");
+        $("#DialogSetDetalle").parent().css("-moz-border-radius", "0");
+        $("#DialogSetDetalle").parent().css("-khtml-border-radius", "0");
+        $("#DialogSetDetalle").parent().css("padding", "0");
+
+        showDialog('DialogSetDetalle');
+
+        var carrusel = $("#carrousel");
+        var cantidad = $(carrusel).find(".slick-slide").length;
+
+        $('#carrousel').get(0).slick.setPosition();
+        if (cantidad > 3) {
+            var posicionMostrar = posicion;
+            var totalProductos = $("#hdTotalProductos").val();
+            if (posicionMostrar >= parseInt(totalProductos) - 2) {
+                posicionMostrar = parseInt(totalProductos) - 2;
+            }
+
+            $('#carrousel').slickGoTo(posicionMostrar - 1);
+        }
+
+        AgregarTagManagerClickProducto(article, 1);
+        AgregarTagManagerProductosRelacionados();
+    }
+
+    function CambiarProductoCarrusel(posicion) {
+        var divTotales = $(".contenidoCarrusel");
+        var linkProductoCarrusel = $(".cambiarProductoCarrusel");
+
+        var divMostrar = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+        var linkMostrar = $(".cambiarProductoCarrusel[data-posicion=" + posicion + "]");
+
+        $.each(divTotales, function(index, value) {
+            $(value).css("display", "none");
+        });
+
+        $.each(linkProductoCarrusel, function(index, value) {
+            var div = $(value).find(".cantidad_productos_carrusel");
+
+            $(div).removeClass("item_active");
+        });
+
+        $(divMostrar).css("display", "");
+
+        $.each(linkMostrar, function(index, value) {
+            var div = $(value).find(".cantidad_productos_carrusel");
+
+            $(div).addClass("item_active");
+        });
+
+        var article = $(".producto_showroom[data-posicion=" + posicion + "]");
+        AgregarTagManagerClickProducto(article, 2);
+    }
+
+    function AgregarOfertaShowRoom(article, cantidad) {
+        //var cantidad = $(article).find(".txtCantidad").val();
+        var CUV = $(article).find(".valorCuv").val();
+        var MarcaID = $(article).find(".claseMarcaID").val();
+        var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
+        var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
+        var nombreProducto = $(article).find(".DescripcionProd").val();
+        var posicion = $(article).find(".posicionEstrategia").val();
+        var descripcionMarca = $(article).find(".DescripcionMarca").val();
+
+        if (cantidad == "" || cantidad == 0) {
+            alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+        } else {
+            waitingDialog({});
+            $.ajaxSetup({
+                cache: false
+            });
+            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function(data) {
+                if (parseInt(data.Saldo) < parseInt(cantidad)) {
+                    var Saldo = data.Saldo;
+                    var UnidadesPermitidas = data.UnidadesPermitidas;
+
+                    $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function(data) {
+                        $(article).find(".claseStock").text(data.Stock);
+
+                        closeWaitingDialog();
+
+                        if (Saldo == UnidadesPermitidas)
+                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                        else {
+                            if (Saldo == "0")
+                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                            else
+                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                        }
+                    });
+                } else {
+                    var Item = {
+                        MarcaID: MarcaID,
+                        Cantidad: cantidad,
+                        PrecioUnidad: PrecioUnidad,
+                        CUV: CUV,
+                        ConfiguracionOfertaID: ConfiguracionOfertaID
+                    };
+
+                    $.ajaxSetup({ cache: false });
+                    $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function(data) {
+                        if (parseInt(data.Stock) < parseInt(cantidad)) {
+                            $(article).find(".claseStock").text(data.Stock);
+
+                            closeWaitingDialog();
+                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                        } else {
+                            jQuery.ajax({
+                                type: 'POST',
+                                url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(Item),
+                                async: true,
+                                success: function(response) {
+                                    closeWaitingDialog();
+
+                                    if (response.success == true) {
+                                        $("#spnNombreOfertaShowRoom").html(nombreProducto);
+
+                                        $("#divMensajeProductoAgregado").parent().find(".ui-dialog-titlebar").hide();
+                                        $("#divMensajeProductoAgregado").parent().css("overflow", "inherit");
+                                        $("#divMensajeProductoAgregado").parent().css("border", "0");
+                                        $("#divMensajeProductoAgregado").parent().css("border-radius", "0");
+                                        $("#divMensajeProductoAgregado").parent().css("-webkit-border-radius", "0");
+                                        $("#divMensajeProductoAgregado").parent().css("-moz-border-radius", "0");
+                                        $("#divMensajeProductoAgregado").parent().css("-khtml-border-radius", "0");
+                                        $("#divMensajeProductoAgregado").parent().css("padding", "0");
+                                        $('#divMensajeProductoAgregado').dialog('open');
+
+                                        var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
+                                        if (stockRestante < 1) {
+                                            $(article).find(".resta").attr('disabled', 'disabled');
+                                            $(article).find(".suma").attr('disabled', 'disabled');
+                                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                                            $(article).find(".btnAgregarOfertaShowRoom").attr('disabled', 'disabled');
+
+                                            $(article).find(".claseStock").text("0");
+                                            $(article).find(".txtCantidad").val("0");
+
+                                            var htmlAgotado = '<div class="producto_agotado">';
+                                            htmlAgotado += '<div class="agotado_texto">AGOTADO</div>';
+                                            htmlAgotado += '</div>';
+                                            var htmlBotonAgotado = '<a class="boton_agregar_showroom">AGOTADO</a>';
+
+                                            var divAgotado = $(article).find(".divEstaAgotado");
+                                            $(divAgotado).html("");
+                                            $(divAgotado).html(htmlAgotado);
+                                            var divBotonAgotado = $(article).find(".divBotonAgotado");
+                                            $(divBotonAgotado).html("");
+                                            $(divBotonAgotado).html(htmlBotonAgotado);
+
+                                            var div = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+                                            $(div).find(".txtCantidad").val("0");
+
+                                            var htmlAgotadoCarrusel = '<div class="agotado_carrusel">AGOTADO</div>';
+                                            var divPadreCarrusel = $(".cambiarProductoCarrusel[data-posicion=" + posicion + "]").parent();
+                                            var divAgotadoCarrusel = $(divPadreCarrusel).find(".divEstaAgotadoCarrusel");
+                                            $(divAgotadoCarrusel).html("");
+                                            $(divAgotadoCarrusel).html(htmlAgotadoCarrusel);
+                                        } else {
+                                            $(article).find(".claseStock").text(stockRestante);
+                                            $(article).find(".txtCantidad").val("1");
+
+                                            var div2 = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+                                            $(div2).find(".txtCantidad").val("1");
+                                        }
+
+                                        AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                    } else {
+                                        alert_msg(data.message);
+                                    }
+                                },
+                                error: function(response, error) {
+                                    if (checkTimeout(response)) {
+                                        closeWaitingDialog();
+                                        console.log(response);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+            });
+        }
+    }
+
+    function maxLengthCheck(object, cantidadMaxima) {
+        if (object.value.length > cantidadMaxima)
+            object.value = object.value.slice(0, cantidadMaxima);
+    }
+
+    function TagManagerOfertaShowRoom() {
+        var cadListaofertaShowRoom = $("#hdListaProductosEnShowRoom").val();
+        var listaofertaShowRoom = JSON.parse(cadListaofertaShowRoom);
+        var cantidadofertaShowRoom = $('.producto_showroom').length;
+
+        var arrayEstrategia = new Array();
+        var position = 1;
+        for (var i = 0; i < cantidadofertaShowRoom; i++) {
+            var ofertaShowRoom = listaofertaShowRoom[i];
+            var list = ofertaShowRoom.Stock > 0 ? 'Ofertas Showroom' : 'Ofertas Showroom - agotados';
+
+            var impresionofertaShowRoom = {
+                'name': ofertaShowRoom.Descripcion,
+                'id': ofertaShowRoom.CUV,
+                'price': ofertaShowRoom.PrecioCatalogo.toString(),
+                'category': 'NO DISPONIBLE',
+                'brand': ofertaShowRoom.DescripcionMarca,
+                'position': position,
+                'list': list
+            };
+            position++;
+            arrayEstrategia.push(impresionofertaShowRoom);
+        }
+
+        if (arrayEstrategia.length > 0) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
+    }
+
+    function AgregarTagManagerClickProducto(article, opcion) {
+        var nombreProducto = $(article).find(".DescripcionProd").val();
+        var cuv = $(article).find(".valorCuv").val();
+        var precio = $(article).find(".clasePrecioUnidad").val();
+        var marca = $(article).find(".DescripcionMarca").val();
+        var posicion = $(article).find(".posicionEstrategia").val();
+        var list = opcion == 1 ? 'Ofertas Showroom' : 'Ofertas Showroom popUp';
+
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': list },
+                    'products': [{
+                        'name': nombreProducto,
+                        'id': cuv,
+                        'price': precio,
+                        'brand': marca,
+                        'category': 'NO DISPONIBLE',
+                        'position': parseInt(posicion)
+                    }]
+                }
+            }
+        });
+
+        dataLayer.push({
+            'event': 'productDetails',
+            'ecommerce': {
+                'detail': {
+                    'products': [{
+                        'name': nombreProducto,
+                        'id': cuv,
+                        'price': precio,
+                        'brand': marca,
+                        'category': 'NO DISPONIBLE',
+                    }]
+                }
+            }
+        });
+
+    }
+
+    function AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca) {
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'add': {
+                    'products': [{
+                        'name': nombreProducto,
+                        'id': CUV,
+                        'price': PrecioUnidad,
+                        'brand': descripcionMarca,
+                        'variant': 'Ofertas Showroom',
+                        'category': 'NO DISPONIBLE',
+                        'quantity': cantidad
+                    }]
+                }
+            }
+        });
+    }
+
+    function AgregarTagManagerProductosRelacionados() {
+        var productosActivos = $("#carrousel").find(".slick-active");
+        var arrayEstrategia = new Array();
+
+        $.each(productosActivos, function(index, value) {
+            var posicion = $(value).find(".cambiarProductoCarrusel").attr("data-posicion");
+            var article = $(".producto_showroom[data-posicion=" + posicion + "]");
+
+            var nombreProducto = $(article).find(".DescripcionProd").val();
+            var cuv = $(article).find(".valorCuv").val();
+            var precio = $(article).find(".clasePrecioUnidad").val();
+            var marca = $(article).find(".DescripcionMarca").val();
+            var posicionArticle = $(article).find(".posicionEstrategia").val();
+            var stock = $(article).find(".claseStock").html();
+            var list = parseInt(stock) > 0 ? "Ofertas Showroom popUp" : "Ofertas Showroom popUp - agotados";
+
+            var impresionofertaShowRoom = {
+                'name': nombreProducto,
+                'id': cuv,
+                'price': precio,
+                'category': 'NO DISPONIBLE',
+                'brand': marca,
+                'position': parseInt(posicionArticle),
+                'list': list
+            };
+
+            arrayEstrategia.push(impresionofertaShowRoom);
+        });
+
+        if (arrayEstrategia.length > 0) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
+    }
+
+    function TagManagerCarruselPrevia(esDrag) {
+        var activos = $(".slick-active");
+        var totalProductos = $("#hdTotalProductos").val();
+
+        var arrayEstrategia = new Array();
+
+        if (activos.length > 0) {
+            var inicio = activos.get(0);
+            var posicion = $(inicio).find(".cambiarProductoCarrusel").attr("data-posicion");
+        }
+
+        if (posicion == 1) return;
+
+        if (!esDrag) {
+            if (posicion == 1) {
+                posicion = totalProductos;
+            } else {
+                posicion = posicion - 1;
+            }
+        }
+
+        var article = $(".producto_showroom[data-posicion=" + posicion + "]");
+
+        var nombreProducto = $(article).find(".DescripcionProd").val();
+        var cuv = $(article).find(".valorCuv").val();
+        var precio = $(article).find(".clasePrecioUnidad").val();
+        var marca = $(article).find(".DescripcionMarca").val();
+        var posicionArticle = $(article).find(".posicionEstrategia").val();
+        var stock = $(article).find(".claseStock").html();
+        var list = parseInt(stock) > 0 ? "Ofertas Showroom popUp" : "Ofertas Showroom popUp - agotados";
+
+        var impresionofertaShowRoom = {
+            'name': nombreProducto,
+            'id': cuv,
+            'price': precio,
+            'category': 'NO DISPONIBLE',
+            'brand': marca,
+            'position': parseInt(posicionArticle),
+            'list': list
+        };
+
+        arrayEstrategia.push(impresionofertaShowRoom);
+
+        if (arrayEstrategia.length > 0) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
+    }
+
+    function TagManagerCarruselSiguiente(esDrag) {
+        var activos = $(".slick-active");
+        var totalProductos = $("#hdTotalProductos").val();
+
+        var arrayEstrategia = new Array();
+
+        if (activos.length > 0) {
+            var slickFinal = activos.get(activos.length - 1);
+            var posicion = $(slickFinal).find(".cambiarProductoCarrusel").attr("data-posicion");
+
+            if (posicion == parseInt(totalProductos)) return;
+            
+            if (!esDrag) {
+                if (posicion == parseInt(totalProductos)) {
+                    posicion = 1;
+                } else {
+                    posicion = parseInt(posicion) + 1;
+                }
+            }
+
+            var article = $(".producto_showroom[data-posicion=" + posicion + "]");
+
+            var nombreProducto = $(article).find(".DescripcionProd").val();
+            var cuv = $(article).find(".valorCuv").val();
+            var precio = $(article).find(".clasePrecioUnidad").val();
+            var marca = $(article).find(".DescripcionMarca").val();
+            var posicionArticle = $(article).find(".posicionEstrategia").val();
+            var stock = $(article).find(".claseStock").html();
+            var list = parseInt(stock) > 0 ? "Ofertas Showroom popUp" : "Ofertas Showroom popUp - agotados";
+
+            var impresionofertaShowRoom = {
+                'name': nombreProducto,
+                'id': cuv,
+                'price': precio,
+                'category': 'NO DISPONIBLE',
+                'brand': marca,
+                'position': parseInt(posicionArticle),
+                'list': list
+            };
+
+            arrayEstrategia.push(impresionofertaShowRoom);
+
+
+            if (arrayEstrategia.length > 0) {
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+            }
+        }
+    }
+</script>

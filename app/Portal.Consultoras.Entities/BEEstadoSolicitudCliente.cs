@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Common;
+namespace Portal.Consultoras.Entities
+{
+    [DataContract]
+    public class BEEstadoSolicitudCliente
+    {
+        [DataMember]
+        private int EstadoSolicitudClienteID { get; set; }
+        [DataMember]
+        private string Descripcion { get; set; }
+        [DataMember]
+        private string TipoEstado { get; set; }
+        [DataMember]
+        private bool Activo { get; set; }
+
+        public BEEstadoSolicitudCliente(IDataRecord row)
+        {
+            if (DataRecord.HasColumn(row, "EstadoId"))
+                EstadoSolicitudClienteID = Convert.ToInt32(row["EstadoId"]);
+            if (DataRecord.HasColumn(row, "Descripcion"))
+                Descripcion = row["Descripcion"].ToString();
+            if (DataRecord.HasColumn(row, "Estado"))
+                TipoEstado = row["Estado"].ToString();
+            if (DataRecord.HasColumn(row, "Activo"))
+                Activo = Convert.ToBoolean(row["Activo"]);
+        } 
+
+    }
+}

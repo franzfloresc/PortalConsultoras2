@@ -1,0 +1,299 @@
+﻿@model Portal.Consultoras.Web.Models.AdministrarRevistaViewModel
+@{
+    ViewBag.Title = "Administrar Portada Revista Gana";
+    var defaultImageRevista = Url.Content("~/Content/Images/NoRevista.png");
+}
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administrar Portada <span>de Revista Gana</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">Pais:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownList("ddlPais", new SelectList(Model.ListaPaises, "PaisID", "Nombre", Model.IdPais), "--Seleccionar--")
+                </div>
+                <div class="titC">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownList("ddlCampania", new SelectList(Model.ListaCampanias, "CampaniaID", "Codigo"), "--Seleccionar--")
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG"></div>
+                <div class="input_horizontal">
+                    <input type="button" value="Buscar" id="btnBuscarPortada" name="btnBuscarPortada">
+                    <input type="button" value="Nuevo" id="btnNuevoPortada" name="btnNuevoPortada">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="gvListadoPortada">
+            </table>
+            <div id="pagerListadoPortada"></div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<div id="pgRegistroRevistaGana" title="Agregar/Editar Imagen Portada Gana" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectA borde_redondeado" id="divPaisReg">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectA borde_redondeado" id="divCampaniaReg">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Imagen:</div>
+            <div class="selectA borde_redondeado" align="center">
+                <input type="hidden" id="hdImagePortadaPrev" value="" />
+                <img id="imgPortadaGana" height="200" width="176" data-selectImage='' data-ruta-Inicial='@defaultImageRevista' src='@defaultImageRevista' alt="Imagen Revista Portada" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="titAuto line_height" style="text-align: left;">
+                <label style="display:block;margin-bottom: 3px;">Tamaño máximo: @ViewBag.SizeLimitRevistaDesc</label>
+                <label>Medida: 176 x 200</label>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="input_modifica_pedido">
+                <div id="fupCurrentCampania"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/fileuploader.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#gvListadoPortada").jqGrid({
+                url: "pagerListadoPortada",
+                datatype: "local",
+                colNames: ['IdPaís', 'Campaña', 'Portada', 'Acción'],
+                rownumbers: true,
+                colModel: [{ name: 'IdPais', classes: 'colPais', hidden: true },
+                    { name: 'NroCampania', align: 'center', width: 100 },
+                    { name: 'RutaImagenPortada', align: 'center', width: 300, formatter: function (cellvalue) { return '<image class="row-portada" src="' + cellvalue + '" height="80" width="60" alt="Portada"/>'; } },
+                    { name: '', align: 'center', width: 50, formatter: function () { return '<a href="#" onclick="javascript:return editarPortada(this);" class="icons-btn"><span class="icon-edit"></span></a><a href="#" onclick="javascript:return eliminarPortada(this);" class="icons-btn"><span class="icon-del"></span></a>'; } }],
+                pager: "pagerListadoPortada",
+                height: "auto",
+                width: 930,
+                rowNum: 10,
+                rowList: [10, 20, 30, 40, 50],
+                cmTemplate: { sortable: false },
+                beforeProcessing: function (data) {
+                    return checkTimeout(data);
+                },
+                loadError: function (data) {
+                    if (!checkTimeout(data)) return;
+                    alert("Error al obtener datos, intente nuevamente");
+                }
+            });                 @*Configurar modales*@
+            $("#pgRegistroRevistaGana").dialog({
+                mtype: 'POST',
+                autoOpen: false,
+                modal: true,
+                width: 550,
+                buttons: {
+                    "Grabar": GrabarDatosPortada,
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    $("#pgRegistroRevistaGana").data("idPortada", 0);
+                    $("#ddlPaisReg").removeAttr("disabled").find("option:first").attr("selected", true);
+                    $("#ddlCampaniaReg").removeAttr("disabled").find("option:first").attr("selected", true);
+                    var imagePortada = $("#imgPortadaGana");
+                    imagePortada.attr("src", imagePortada.data("rutaInicial"));
+                    $("#hdImagePortadaPrev").val("");
+                    $("#imgPortadaGana").data("selectImage", "");
+                }
+            });                      @*Clonar combo para modales*@
+            $("#ddlPais").clone().attr("id", "ddlPaisReg").appendTo("#divPaisReg");
+            $("#ddlCampania").clone().attr("id", "ddlCampaniaReg").appendTo("#divCampaniaReg");
+            var uploader;                      @*Configurar carga archivos*@
+            uploader = new qq.FileUploader({
+                allowedExtensions: "@ViewBag.ExtensionImageAllow".split("|"),
+                element: document.getElementById('fupCurrentCampania'),
+                sizeLimit: '@ViewBag.SizeLimitRevista',
+                template: '<div class="qq-uploader">' +
+                    '<div class="qq-upload-drop-area"><span>Arrastrar archivos en este lugar</span></div>' +
+                    '<div class="qq-upload-button">Examinar</div>' +
+                    '<ul class="qq-upload-list" style="display:none"></ul>' +
+                    '</div>',
+                action: '@Url.Action("SaveImagePortada")',
+                onSubmit: function () {
+                    if (uploader && uploader._handler && uploader._handler._options) {
+                        uploader._handler._options.action = this.action + "?prevImage=" + ($('#imgPortadaGana').data('selectImage') || "");
+                    }
+                    waitingDialog('');
+                },
+                onComplete: function (id, fileName, responseJson) {
+                    closeWaitingDialog();
+                    if (checkTimeout(responseJson)) {
+                        if (responseJson.hrefImage) {
+                            $('#imgPortadaGana').data('selectImage', responseJson.fileName).attr("src", responseJson.hrefImage);
+                        }
+                    }
+                }
+            });      @*Evento botones*@
+            $("#btnNuevoPortada").on("click", function (e) {
+                e.preventDefault();
+                $("#pgRegistroRevistaGana").dialog("open");
+            });
+            $("#btnBuscarPortada").on("click", function (e) {
+                e.preventDefault();
+                var sendData = {};
+                sendData.paisId = $("#ddlPais option:selected").val();
+                if (!sendData.paisId || sendData.paisId == "") {
+                    alert("Debe seleccionar país.");
+                    return;
+                }
+                sendData.campania = $("#ddlCampania option:selected").val();
+                $("#gvListadoPortada").jqGrid('setGridParam', {
+                    url: '@Url.Action("ListadoRevistaPortadas")',
+                    datatype: 'json',
+                    page: 1,
+                    postData: sendData
+                }).trigger('reloadGrid');
+            });
+        });
+
+        function GrabarDatosPortada() {
+            var sendData = {};
+            sendData.paisId = $("#ddlPaisReg option:selected").val();
+            if (!sendData.paisId || sendData.paisId == "") {
+                alert("Debe seleccionar país.");
+                return;
+            }
+            sendData.campania = $("#divCampaniaReg option:selected").val();
+            if (sendData.campania == "") {
+                alert("Debe seleccionar campaña.");
+                return;
+            }
+            var idPortada = $("#pgRegistroRevistaGana").data("idPortada") || 0;
+            if (idPortada > 0) {
+                sendData.fileNamePortada = $("#imgPortadaGana").data("selectImage") || "";
+                if (sendData.fileNamePortada == "") {
+                    alert("Debe modificar algun dato para guardar los cambios.");
+                    return;
+                }
+                sendData.id = idPortada;
+                sendData.fileNamePortadaPrev = $("#hdImagePortadaPrev").val();
+                if (sendData.fileNamePortadaPrev != "") {
+                    var pos = sendData.fileNamePortadaPrev.lastIndexOf("/");
+                    if (pos > -1 && sendData.fileNamePortadaPrev.length > pos + 1) sendData.fileNamePortadaPrev = sendData.fileNamePortadaPrev.substr(pos + 1);
+                }
+                waitingDialog({ title: "Procesando" });
+                $.post('@Url.Action("ActualizarRevistaPortadaById")', sendData).done(function (data) {
+                    if (!checkTimeout(data)) return;
+                    closeWaitingDialog();
+                    if (!isNaN(data) && data > 0) {
+                        alert("Los datos se actualizaron correctamente.");
+                        $("#pgRegistroRevistaGana").dialog("close");
+                        $("#btnBuscarPortada").trigger("click");
+                    } else {
+                        $("No se pudo actualizar los datos, intente nuevamente.");
+                    }
+                }).fail(function (data) {
+                    if (!checkTimeout(data)) return;
+                    closeWaitingDialog();
+                    alert("Ha ocurrido un error al actualizar los datos,intente nuevamente.");
+                });
+            } else {
+                sendData.fileNamePortada = $("#imgPortadaGana").data("selectImage") || "";
+                if (sendData.fileNamePortada == "") {
+                    alert("Debe cargar imagen portada.");
+                    return;
+                }
+                waitingDialog({ title: "Procesando" });
+                $.post('@Url.Action("Insertar")', sendData).done(function (data) {
+                    if (!checkTimeout(data)) return;
+                    closeWaitingDialog();
+                    if (!isNaN(data) && data > 0) {
+                        alert("Los datos se registraron correctamente.");
+                        $("#pgRegistroRevistaGana").dialog("close");
+                        $("#btnBuscarPortada").trigger("click");
+                    } else {
+                        $("No se pudo guardar los datos, intente nuevamente.");
+                    }
+                }).fail(function (data) {
+                    if (!checkTimeout(data)) return;
+                    closeWaitingDialog();
+                    alert("Ha ocurrido un error al registrar los datos,intente nuevamente.");
+                });
+            }
+
+        }
+
+        function editarPortada(element) {
+            var tr = $(element).closest("tr");
+            var sendData = {};
+            sendData.paisId = tr.find("td.colPais:first").text();
+            sendData.id = tr.attr("id") || "0";
+            waitingDialog('');
+            $.post('@Url.Action("ObtenerRevistaPortadaById")', sendData).done(function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                $("#ddlPaisReg option[value=" + (data.paisId || 0) + "]").attr("selected", true);
+                if (data.result) {
+                    $("#ddlCampaniaReg option[value=" + (data.result.NroCampania || "") + "]").attr("selected", true);
+                    $("#imgPortadaGana").attr("src", data.result.RutaImagenPortada);
+                    $("#hdImagePortadaPrev").val(data.result.RutaImagenPortada);
+                }
+                $("#ddlPaisReg").attr("disabled", true);
+                $("#ddlCampaniaReg").attr("disabled", true);
+                $("#pgRegistroRevistaGana").data("idPortada", sendData.id).dialog("open");
+            }).fail(function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                alert("Error al obtener datos, intente nuevamente.");
+            });
+            return false;
+        }
+
+        function eliminarPortada(element) {
+            if (!confirm("¿Esta seguro de eliminar el item seleccionado.?")) return false;
+            var tr = $(element).closest("tr");
+            var sendData = {};
+            sendData.paisId = tr.find("td.colPais:first").text();
+            sendData.id = tr.attr("id") || "0";
+            sendData.namePortada = tr.find("img.row-portada").attr("src") || "";
+            if (sendData.namePortada != null) {
+                var pos = sendData.namePortada.lastIndexOf("/");
+                if (pos > -1 && sendData.namePortada.length > pos + 1) sendData.namePortada = sendData.namePortada.substr(pos + 1);
+            }
+            waitingDialog({ title: "Procesando" });
+            $.post('@Url.Action("EliminarRevistaPortadaById")', sendData).done(function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                if (!isNaN(data) && data > 0) {
+                    alert("Se ha eliminado correctamente el item seleccionado.");
+                } else {
+                    alert("No se pudo eliminar item seleccionado,intente nuevamente.");
+                }
+                $("#btnBuscarPortada").trigger("click");
+            }).fail(function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                alert("Error al eliminar datos, intente nuevamente.");
+            });
+            return false;
+        }
+    </script>
+}

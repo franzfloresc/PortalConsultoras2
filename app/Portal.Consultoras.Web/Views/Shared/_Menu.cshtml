@@ -1,0 +1,266 @@
+﻿@{
+    // Asignar permisosList con los elementos solo de la cabecera
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+
+@if (permisoList.Count > 0)
+{
+    <ul id="ulNavPrincipal" class="nav_principal"> <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->
+        @*<li class="new_menu"><a class="new_menu_a" href="#">SOCIA EMPRESARIA</a></li>*@
+        <li class="new_menu">
+            <a class="new_menu_a" href="#">
+                MI NEGOCIO <div class="flecha_menu"></div>
+                <div class="pestana_esika"></div>
+            </a>
+            <ul class="sub_menu_home1">
+                <li>
+                    <div class="linea_menu"> </div>
+
+                    <div class="content_left_menu">
+                        <a class="menu_titulo">INGRESA TU PEDIDO</a>
+                        <a class="menu_enlace">Sigue tu pedido </a>
+                        <a class="menu_enlace">Pedido FIC </a>
+                        <a class="menu_enlace">Mis pedidos</a>
+                        <a class="menu_enlace">Mis pagos</a>
+                    </div>
+                    <div class="content_left_menu">
+                        <a class="menu_enlace">Mis beneficios </a>
+                        <a class="menu_enlace">Mis incentivos</a>
+                        <a class="menu_enlace">Consultora Online</a>
+                        <a class="menu_enlace">Mis clientes</a>
+                        <a class="menu_enlace">Liquidación web</a>
+                    </div>
+                    <a class="menu_imagen">
+                        <img src="../Content/Images/Esika/catalogo_menu.png" />
+                        <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
+                    </a>
+                    <a class="menu_imagen no_margin_right">
+                        <img src="../Content/Images/Esika/catalogo_menu.png" />
+                        <div class="titulo_imagen">PROGR. NUEVAS / BRILLANTE</div>
+                    </a>
+                </li>
+
+
+            </ul>
+        </li>
+        <li class="new_menu">
+            <a class="new_menu_a" href="#">MI ACADEMIA</a>
+        </li>
+        <li class="new_menu">
+            <a class="new_menu_a" href="#">MI COMUNIDAD</a>
+        </li>
+        <li class="new_menu">
+            <a class="new_menu_a" href="#">
+                MI ASESOR DE BELLEZA
+                <div class="flecha_menu"></div>
+                <div class="pestana_esika"></div>
+            </a>
+            <ul class="sub_menu_home2">
+                <li>
+                    <div class="linea_menu"> </div>
+                    <div class="content_left_menu">
+                        <a class="menu_enlace"><b>ÉSIKA</b></a>
+                        <a class="menu_enlace">Maquillador virtual</a>
+                        <a class="menu_enlace">Manicure virtual</a>
+                        <a class="menu_enlace">Ésika fashion</a>
+                    </div>
+                    <div class="content_left_menu">
+                        <a class="menu_enlace"><b>L’BEL</b></a>
+                        <a class="menu_enlace">Diagnóstico de piel</a>
+                        <a class="menu_enlace">Asesor de bases y polvos</a>
+                        <a class="menu_enlace">Belleza a tu medida</a>
+                    </div>
+                    <div class="content_left_menu no_margin_right">
+                        <a class="menu_enlace"><b>CYZONE</b></a>
+                        <a class="menu_enlace">Maquillador virtual</a>
+                        <a class="menu_enlace">Manicure virtual</a>
+                        <a class="menu_enlace">Look Book</a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        @*@foreach (var menuPadre in permisoList)
+            {
+                var pageTarget = menuPadre.PaginaNueva ? "_blank" : "_self";
+
+                if (menuPadre.SubMenus.Count > 0)
+                {
+                    //Menu padre con hijos
+
+                    var menuEspecial = menuPadre.SubMenus.Count == 1; //Solo Cuenten con un Hijo
+
+                    <li class="new_menu @(menuEspecial ? "menu_especial" : "")">
+                        <a href="javascript:;" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                            @menuPadre.Descripcion
+                            <div class="flecha_menu"></div>
+                        </a>
+                        <ul>
+                            @foreach (var menuHijo in menuPadre.SubMenus)
+                            {
+                                var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
+
+                                if (menuHijo.SubMenus.Count > 0)
+                                {
+                                    <li>
+                                        @if (!string.IsNullOrEmpty(menuHijo.Descripcion))
+                                        {
+                                            <div class="titulo_menu">
+                                                @menuHijo.Descripcion
+                                            </div>
+                                        }
+
+                                        @foreach (var menuNieto in menuHijo.SubMenus)
+                                        {
+                                            var pageTargetNieto = menuNieto.PaginaNueva ? "_blank" : "_self";
+
+                                            switch (menuNieto.Descripcion.ToUpperInvariant())
+                                            {
+                                                case "PEDIDO FIC":
+                                                    if (ViewBag.IndicadorPermisoFIC == 1)
+                                                    {
+                                                        if (menuNieto.EsDireccionExterior)
+                                                        {
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                                @menuNieto.Descripcion
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                                @menuNieto.Descripcion
+                                                            </a>
+                                                        }
+                                                    }
+                                                    break;
+                                                case "OFERTAS FLEXIPAGO":
+                                                    if (ViewBag.IndicadorPermisoFlexipago)
+                                                    {
+                                                        if (menuNieto.EsDireccionExterior)
+                                                        {
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                                @menuNieto.Descripcion
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                                @menuNieto.Descripcion
+                                                            </a>
+                                                        }
+                                                    }
+                                                    break;
+                                                default:
+                                                    if (string.IsNullOrEmpty(menuNieto.UrlItem))
+                                                    {
+                                                        <a href="javascript:;">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else if (menuNieto.EsDireccionExterior)
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        @if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                                        {
+                                            <a href="javascript:;">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else if (menuHijo.EsDireccionExterior)
+                                        {
+                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion')" target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion')" target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    //Menu padre sin hijos
+
+                    switch (menuPadre.Descripcion.ToUpperInvariant())
+                    {
+                        case "SOCIA EMPRESARIA":
+                            if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
+                            {
+                                <li class="new_menu">
+                                    <a href="javascript:;" onclick="return setanalyticsmenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                        @menuPadre.Descripcion
+                                    </a>
+                                    <script type="text/javascript">
+                                        document.getElementById("ulNavPrincipal").className += " menu_socia_empresaria";
+                                    </script>
+                                </li>
+                            }
+                            break;
+                        case "MI COMUNIDAD":
+                            if (ViewBag.EsUsuarioComunidad == 0)
+                            {
+                                <li class="new_menu">
+                                    <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                        @menuPadre.Descripcion
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="new_menu">
+                                    <a href="javascript:;" onclick="return setanalyticsmenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                        @menuPadre.Descripcion
+                                    </a>
+                                </li>
+                            }
+                            break;
+                        default:
+                            if (string.IsNullOrEmpty(menuPadre.UrlItem))
+                            {
+                                <li class="new_menu">
+                                    <a href="javascript:;">
+                                        @menuPadre.Descripcion
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="new_menu">
+                                    <a href="javascript:;" onclick="return setanalyticsmenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                        @menuPadre.Descripcion
+                                    </a>
+                                </li>
+                            }
+                            break;
+                    }
+                }
+            }*@
+    </ul>
+}

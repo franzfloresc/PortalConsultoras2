@@ -1,0 +1,119 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ValidacionAutomaticaModel
+@{
+    ViewBag.Title = "Ejecutar Validación Automática PROL";
+}
+<script type="text/javascript">
+
+    jQuery(function () {
+        $("#txtPais").val('@Util.SinAcentosCaracteres(ViewBag.NombrePais)');
+        $("#btnGenerar").click(function () {
+            IniciarProceso();
+        });
+    });
+
+    function IniciarProceso() {
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        };
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: window.baseUrl + 'EjecucionPROLAuto/EjecutarValidacionPROLAuto',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.mensaje);
+                        ListarProceso();
+                    }
+                    else {
+                        alert(data.mensaje);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Se perdió la comunicación. Por favor refrescar la página.");
+                }
+            }
+        });
+    }
+
+    function ListarProceso() {
+        $.ajaxSetup({
+            cache: false
+        });
+        $.get(baseUrl + "EjecucionPROLAuto/ListarProceso", function (data) {
+            $('#divListadoPedido').html(data);
+        });
+    }
+
+</script>
+
+<div class="wrap_cab">
+
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Ejecutar Validación Automática PROL</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper_reg">
+
+            <div class="div-3">
+                <div class="titF">País :</div>
+                <div class="selectP2 disabled borde_redondeado">
+                    <input type="text" id="txtPais" disabled="disabled" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titF"></div>
+                <div class="input_add_alert_left">
+                    <input type="button" name="" id="btnGenerar" value="Ejecutar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <div id="divListadoPedido" class="tabla2">
+                @if (Model != null)
+                {
+                    Html.RenderPartial("ListaProcesoPROL", this.Model);
+                }
+            </div>
+        </div>
+        <div class="sep"></div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            setInterval(function () {
+                $.ajaxSetup({
+                    cache: false
+                });
+                $('#divListadoPedido').hide().load(baseUrl + 'EjecucionPROLAuto/ListarProcesoParcial').fadeIn('slow');
+                //$.get(baseUrl + "EjecucionPROLAuto/ListarProcesoParcial", function (data) {
+                //    $('#divListadoPedido').html(data);
+                //});
+            }, 60000);
+        });
+    </script>
+}

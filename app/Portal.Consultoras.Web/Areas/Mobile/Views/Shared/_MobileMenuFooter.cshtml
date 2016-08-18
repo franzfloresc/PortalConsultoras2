@@ -1,0 +1,63 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+
+@{
+    var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
+    var itemsFooter = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("footer")).ToList();
+    var urlDomain = Util.GetUrlHost(Request);
+}
+
+<!--
+<ul class="list-inline-border">
+    @foreach (var item in itemsFooter)
+    {
+        var target = item.PaginaNueva ? "_blank" : "_self";
+        var url = item.Version == "Completa"
+            ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
+            : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
+        <li>
+            <a href="@url" role="menu" region="Footer" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-foo-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                @item.Descripcion
+            </a>
+        </li>
+    }
+</ul>
+-->
+
+@foreach (var item in itemsFooter)
+{
+    <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.MenuMobileID">
+        @item.Descripcion.ToUpper()
+    </a>
+
+    if (item.SubMenu.Count > 0)
+    {
+        <div id="collapse_@item.MenuMobileID" class="panel-collapse collapse">
+
+            @foreach (var subitem in item.SubMenu)
+            {
+                var target = subitem.PaginaNueva ? "_blank" : "_self";
+                var url = subitem.Version == "Completa"
+                ? subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
+                : subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+
+                <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+            }
+        </div>
+    }
+
+}
+<a class="version_escritorio" href="@Url.Action("Index","Bienvenida", new { area = ""})">Ir a la versión escritorio</a>
+<div class="content_redes">
+    <div class="col-xs-2">
+        <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+            <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+        </a>
+    </div>
+    <a class="redes_sociales" target="_blank" href="https://www.youtube.com/user/somosbelcorp"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
+    <a class="redes_sociales" target="_blank" href="https://www.facebook.com/SomosBelcorpOficial/?fref=ts"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
+    <hr class="clear" />
+</div>
+
+<hr class="clear" />

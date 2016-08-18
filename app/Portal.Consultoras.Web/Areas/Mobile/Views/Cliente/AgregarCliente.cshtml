@@ -1,0 +1,106 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@model ClienteMobileModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
+    <h4 class="modal-title" id="liOpcionCliente">Agregar Cliente</h4>
+</div>
+
+<div class="row text-left">
+    <form id="frmAgregarCliente" role="form" class="form-controls-grey">
+        <div class="col-xs-12">
+            @Html.HiddenFor(model => model.ClienteID)
+            @Html.HiddenFor(model => model.FlagValidate)
+            <input id="hdNombreClienteAnterior" type="hidden" value="@Model.Nombre"/>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, new { @class = "upper" })
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "upper" })
+                <small>(opcional)</small>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Telefono, new { @class = "upper" })
+                <small>(opcional)</small>
+                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Telefono)
+            </div>*@
+
+            <div class="block-center text-center">
+                <a id="btnGuardar" type="submit" class="btn btn-line-action btn-wfijo btn-round">Guardar Cliente</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@helper Script()
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnGuardar").on("click", function (e) {
+                e.preventDefault();
+
+                //debugger;
+                if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
+                    $("#FlagValidate").val("0");
+                else
+                    $("#FlagValidate").val("1");
+
+                var item = {
+                    ClienteID: $("#ClienteID").val(),
+                    Nombre: $('#Nombre').val(),
+                    Email: $('#Email').val(),
+                    //Telefono: $('#Telefono').val(),
+                    FlagValidate: $("#FlagValidate").val()
+                };
+
+                if (!$("#frmAgregarCliente").valid()) {
+                    return false;
+                }
+
+                ShowLoading();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Guardar", "Cliente", new { area = "Mobile" })',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            if (data.success == true) {
+                                CloseLoading();
+                                messageInfo(data.message);
+                                RealizarLuegoGuardarCliente(data.extra);
+                                CloseAgregarCliente();
+                            }
+                            else {
+                                CloseLoading();
+                                messageInfo(data.message);
+                                CloseAgregarCliente();
+                            }
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            messageInfo(data.message);
+                            CloseLoading();
+                            CloseAgregarCliente();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+@{Html.AddScript("AgregarClienteScript", Script());}

@@ -1,0 +1,215 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using System.Globalization
+@model NotificacionesMobileModel
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })"><i class="icon-angle-left"></i>Volver </a>
+            </li>
+            <li>|</li>
+            <li>
+                Mis Notificaciones
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="block-success block-noti">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-notificaciones noti-detalle">
+                    <li>
+                        <span class="icon-noti icon-noti-white"></span>
+                        <div class="text-noti">
+                            <div class="upper">
+                                <strong>@Model.Asunto</strong> <br>
+                                <b>CAMPAÑA @Model.Campania.ToString().Substring(4) @Model.Campania.ToString().Substring(0, 4)</b>
+
+                            </div>
+                            <span>@Model.FechaFacturacion</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12">
+        <p><b>Hola  @Model.NombreConsultora</b></p>
+        <input type="hidden" id="estadoValue" value="@Model.estado" />
+        <input type="hidden" id="fechafacturacion" value="@Model.FechaFacturacion" />
+        <input type="hidden" id="fechaFacturacionDia" value="@Model.FechaFacturacion.Day" />
+        <input type="hidden" id="fechaFacturacionMes" value="@Model.FechaFacturacion.Month" />
+        <input type="hidden" id="observaciones" value="@Model.Observaciones" />
+
+        <p id="sFelicitaciones"></p>
+        <span id="sMensajePedidoPROL"></span>
+        <br />
+        <br />
+        @if (Model.ListaNotificacionesDetalle.Count != 0)
+        {
+            <ul style='padding: 0px 0px 0px 15px; margin-top: 0px; text-align: left;'>
+                @foreach (var item in Model.ListaNotificacionesDetalle)
+                {
+                    <li>
+                        @Html.DisplayTextFor(modelItem => item.MensajePROL)
+                    </li>
+                }
+            </ul>
+        }
+        <span id="sMensajeFacturacion"></span>
+        <h3 class="title-line">Detalle del pedido</h3>
+        <div class="list-table-new">
+            <ul class="list-table-title upper">
+                <li>Productos <span class="table-title-right">Cant</span></li>
+            </ul>
+            <ul class="list-table-body">
+                @foreach (var item in Model.ListaNotificacionesDetallePedido)
+                {
+                    <li>
+                        <div class="posr">
+                            <div class="table-width">
+                                <strong class="upper">@item.Descripcion</strong>
+                                <!-- Código de Producto -->
+                                <div class="mb-10">
+                                    <strong class="text-lg">@item.CUV</strong>
+                                </div>
+
+                                <!-- Precio Unitario de Producto -->
+                                Precio Unitario :
+                                @ViewBag.Simbolo @string.Format("{0:N2}", item.PrecioUnidad)
+                                <br />
+
+                                <!-- Sub Total -->
+                                <div class="upper">
+                                    <strong>Subtotal </strong>
+                                    <strong>@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</strong>
+                                </div>
+                            </div>
+
+                            <!-- Cantidad -->
+                            <div class="cantidad-numero">
+                                <span class="num-cuadro"> @item.Cantidad </span>
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(item.ObservacionPROL))
+                        {
+                            <div>
+                                @{string[] obser = item.ObservacionPROL.Split('|');}
+                                @if (obser != null)
+                                {
+                                    foreach (string ob in obser)
+                                    {
+                                        if (!string.IsNullOrEmpty(ob))
+                                        {
+                                            <span>@ob</span>
+                                        }
+                                    }
+                                }
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+        <br />
+
+        <div class="text-right text-success upper" style="font-size:1.2em;">
+            <strong>Total Pedido</strong> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))
+        </div>
+        <hr class="success" />
+        <p>
+            <b>
+                Gracias,
+                <br />
+                Equipo de Belcorp
+            </b>
+        </p>
+        <br />
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var estado = $('#estadoValue').val();
+            var Observaciones = $('#observaciones').val();
+            var FacturaHoy = $('#fechafacturacion').val();
+            var DiaFact = $('#fechaFacturacionDia').val();
+            var MesFact = $('#fechaFacturacionMes').val();
+
+            switch (estado) {
+                case "2":
+                    $('#sMensajePedidoPROL').html(Observaciones);
+                    $('#sMensajeFacturacion').html('Añade más productos a tu pedido y no pierdas la oportunidad de seguir ganando.');
+                    break;
+                case "3":
+                    $('#sMensajePedidoPROL').html(Observaciones);
+                    $('#sMensajeFacturacion').html('Añade más productos a tu pedido y no pierdas la oportunidad de seguir ganando.');
+                    break;
+                case "4":
+                    $('#sFelicitaciones').html('¡Felicitaciones!');
+                    $('#sMensajePedidoPROL').html(Observaciones);
+                    var Mensaje = "Será enviado " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda.";
+                    $('#sMensajeFacturacion').html(Mensaje);
+                    break;
+                case "5":
+                    $('#sFelicitaciones').html('¡Felicitaciones!');
+                    $('#sMensajePedidoPROL').html(Observaciones);
+                    var Mensaje = "Tu pedido será enviado " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda.";
+                    $('#sMensajeFacturacion').html(Mensaje);
+                    break;
+            }
+        });
+
+        function DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) {
+
+            var FacturaHoy = $('#fechafacturacion').val();
+            var DiaFact = $('#fechaFacturacionDia').val();
+            var MesFact = $('#fechaFacturacionMes').val();
+
+            if (FacturaHoy == 'true') {
+                Result = "el día de hoy";
+            }
+            else {
+                var Meses = new Array();
+                Meses[1] = "Enero";
+                Meses[2] = "Febrero";
+                Meses[3] = "Marzo";
+                Meses[4] = "Abril";
+                Meses[5] = "Mayo";
+                Meses[6] = "Junio";
+                Meses[7] = "Julio";
+                Meses[8] = "Agosto";
+                Meses[9] = "Setiembre";
+                Meses[10] = "Octubre";
+                Meses[11] = "Noviembre";
+                Meses[12] = "Diciembre";
+                var Mes = Meses[MesFact];
+                Result = "el día " + DiaFact + " de " + Mes;
+            }
+
+            return Result;
+        }
+    </script>
+}

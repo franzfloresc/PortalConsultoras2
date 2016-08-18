@@ -1,0 +1,447 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model BienvenidaModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
+    if (Model.NombreConsultora != "")
+    {
+        nombreConsultora += nombreConsultora != Model.NombreConsultora ? "..." : "!";
+    }
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+}
+
+<div class="wrapper_resumen_mobile sombra_wrapper">
+    <div class="content_320">
+        <div class="content_foto">
+            <div class="foto_usuaria_mobile">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
+            </div>
+            <a class="subir_foto_mobile"></a>
+        </div>
+        <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
+        <div class="content_resumen_dato_mobile">
+            <div class="saludo_mobile">¡Hola&nbsp;</div>
+            <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
+            
+            @if (Model.PortalLideres && Model.Lider == 1)
+            {
+                <a href="@Url.Action("Index", "Lider", new {area = ""})" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
+                @if (Model.NombrePais == "Venezuela")
+                {
+                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                }
+                else
+                {
+                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                }
+                </a>
+            }
+            
+            <hr class="clear" />
+            <div class="info_cam_mobile">
+                ESTÁS EN
+                <span>C@(Model.NumeroCampania)</span>
+            </div>
+            <div class="borde_gris"></div>
+            @if (ViewBag.Dias == 0)
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES
+                    <span>Hoy</span>
+                </div>
+            }
+            else
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES EN
+                    <span>@(Model.DiasParaCierre) días</span>
+                </div>
+            }
+        </div>
+        <hr class="clear" />
+        <!--FIN RESUMEN-->
+    </div>
+</div>
+<div class="fondo_faf5e6">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
+    @(Html.Raw(ViewBag.MensajeCierreCampania))
+    <br />
+    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+</div>
+<div class="wrapper_resumen_mobile">
+    <div class="content_320">
+        <!--ITEM 1-->
+        <div class="item1_mobile">
+            @{
+                string cabezaEscala=null, pieEscala=null;
+                if(Model.PaisID == 11) //PERU
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 4) //COLOMBIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 6) //ECUADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 3) //CHILE
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 2) //BOLIVIA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 9) //MEXICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PaisID == 5) //COSTA RICA
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";                
+                }
+                else if (Model.PaisID == 8)//GUATEMALA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 7)//EL SALVADOR
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 10)//PANAMA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }else if (Model.PaisID == 13)//DOMINICANA
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 12)//PUERTO RICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+            }
+            <div class="icono_item"></div>
+            <div class="titulo_item_mobile" style="text-transform: uppercase;">@(cabezaEscala)</div>
+            <div class="monto_ganancia_mobile">
+                @Model.Simbolo
+                <span data-ganancia="">
+                    @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
+                </span>
+            </div>
+            <div class="texto_inferior"><a href="@Url.Action("Index","Pedido")">Pedido ingresado</a>: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
+            <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
+        </div>
+        <!-- FIN ITEM 1-->
+    </div>
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+    <div class="content_320">
+        <!--ITEM 2-->
+        <div class="item1_mobile">
+            <div class="icono_item item_2_home"></div>
+            <div class="titulo_item_mobile">MI ESTADO DE CUENTA:</div>
+            <div class="texto_inferior"> Mi deuda actual es:</div>
+            <div class="monto_ganancia_mobile js-div-deuda">
+                @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
+            </div>
+            <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
+            @if (Model.PaisID == 12) //Puerto Rico
+            {
+                <a class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a>
+            }
+            else if (Model.PaisID == 6 || Model.PaisID == 11)
+            {
+                @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
+            }
+        </div>
+        <!--FIN ITEM 2-->
+    </div>
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+</div>
+<div class="wrapper_resumen_mobile">
+    <!--COMPARTIR CATÁLOGOS-->
+    <div class="comartir_home_mobile">
+        TUS CATÁLOGOS C@(Model.NumeroCampania)
+        <a class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
+    </div>
+    <div class="imagen_catalogo catalogo_esika"></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN COMPARTIR CATÁLOGOS-->
+    @if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Colombia || Model.CodigoISO == Constantes.CodigosISOPais.Chile || Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Ecuador)
+    {
+        <!--APP CATÁLOGOS-->
+        <div class="comartir_home_mobile">
+            MULTIPLICA TUS CLIENTES CON<br />
+            EL APP DE CATÁLOGO
+            <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
+
+            @if (Model.IsConsultoraOnline != -1)
+            {
+                string ulrAppCatalogo = "", urlWhatsApp = "";
+                if (System.Web.HttpContext.Current.Request.UserAgent != null)
+                {
+                    var request = HttpContext.Current.Request;
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');                   
+                    ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
+                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
+                }
+               <span class="texto_ws">Compártelo por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>WhatsApp</b></a>
+            }    
+        </div>
+        <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+        <!--FIN APP CATÁLOGOS-->
+    }
+    
+</div>
+<!--INICIO CARRUSEL-->
+<div class="fondo_gris">
+    <div class="titulo_ofertas_home">
+        OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+        <div class="texto_exclusivo">
+            EXCLUSIVO SÓLO POR WEB
+        </div>
+    </div>
+    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">
+        <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
+    </div>
+</div>
+
+<!--FIN CARRUSEL-->
+<div class="wrapper_resumen_mobile">
+    <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
+    <!--VIDEOS-->
+    <div class="comartir_home_mobile">
+        APRENDE A VENDER MÁS
+        <a class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+    </div>
+    <div class="imagen_catalogo video_esika"></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN-->
+    <!--LIQUIDACIÓN-->
+    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+    {
+        <div class="comartir_home_mobile">
+            LIQUIDACIÓN WEB
+            <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+        </div>
+        <div class="imagen_catalogo liquidacion_esika">
+            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/Liquidaciones/@(Model.CodigoISO)/liquidaciones.png" alt="Alternate Text" />
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile mg_bottom"></div>
+    }
+    <!--FIN-->
+</div>
+<input type="hidden" id="hdTipoEstrategiaID" value="0" />
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
+    <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOfertaEdit" style="float: left;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrellaEdit" style="float:left; margin-top:10px; width:23px; height:23px; margin-left:10px" src="">
+        </div>
+        <img id="imgZonaEstrategiaEdit" style="height: 200px; margin: 5px;" src="" alt="Imagen Producto" />
+    </div>
+    <br />
+    <div class="zona0Edit pedidos_datos_titulo"></div>
+    <div class="zona1Edit pedidos_datos_info texto-centrado" style="width:100%"></div>
+    <div class="zona2Edit texto-centrado"></div>
+    <div class="zona3Edit_1 pedidos_para_ti texto-centrado"></div>
+    <div class="zona3Edit_2 liquidacion_precio texto-centrado"></div>
+    <br />
+    <ul id="OfertasResultados" class="listaOfertas"></ul>
+    <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
+    <div class="zonaCantidad texto-centrado">
+        <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
+                <td>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadZE" id="txtCantidadZE" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="" alt="" /></a>
+                            <a class="menos"><img src="" alt="" /></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tallaColor">
+                <td style="vertical-align: middle;">Talla/Color: &nbsp;&nbsp;</td>
+                <td>
+                    <select id="ddlTallaColor" style="width: 130px; height: 30px; border: 1px solid #cccccc;"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
+{
+    <div class="banner_inferior_mobile oculto_lbel">
+        <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/CatalogoPersonalizado/@(Model.CodigoISO)/catalogo.png" alt="-" />
+    </div>
+}
+
+<!-- POPUP DEMANDA ANTICIPADA -->
+<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
+    <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
+        <div class="contenido_popUp">
+            <h1 class="titulo_demandaAnticipada">
+                ¡PASA TU PEDIDO POR<br /><b>DEMANDA</b>
+                <b>ANTICIPADA&nbsp;</b><br />Y RECIBE ESTOS BENEFICIOS
+            </h1>
+            <div class="descripcion_demanda">
+                <div class="demanda_img_regalo">
+                    <img src="@Url.Content("~/Content/Images/Esika/demanda_anticipada_regalo_mobile_img.png")" alt="Demanda Anticipada Imagen" />
+                </div>
+                <div class="demanda_promo">
+                    <span>1 Producto de regalo* + Flete Gratis</span>
+                    <span>* Ver regalos en Belcorpnoticias</span>
+                </div>
+            </div>
+            <div class="descripcion_demanda">
+                <h6 class="demanda_condiciones_subtitulo">Condiciones:</h6>
+                <div class="demanda_descripcion_texto">
+                    <span class="demanda_img_check">
+                        <img src="@Url.Content("~/Content/Images/icono_check.svg")" alt="Icono Check" />
+                    </span>
+                    <span class="demanda_mensajes">
+                        Cumplir con el monto mínimo (no cuenta expoferta) y máximo (nuevas).
+                    </span>
+                </div>
+                <div class="demanda_descripcion_texto">
+                    <span class="demanda_img_check">
+                        <img src="@Url.Content("~/Content/Images/icono_check.svg")" alt="Icono Check" />
+                    </span>
+                    <span class="demanda_mensajes">
+                        Pasar tu pedido hasta el <span id="fechaHasta" style="display: inline;"></span>
+                    </span>
+                </div>
+                <button type="button" name="btn_participaAhora" class="btn_participaAhora" onclick="return AceptarDemandaAnticipada();">
+                    PARTICIPA AHORA
+                </button>
+                <div class="descripcion_tiempoPasePedido">
+                    <span class="icono_notaDemanda"></span>
+                    <span class="texto_tiempo_pasePedido">
+                        Si aceptas participar no podrás modificar tu pedido luego del <span id="fechaLuego"></span>
+                    </span>
+                </div>
+                <div class="enlace_noGracias">
+                    <a href="javascript:;" onclick="return CancelarDemandaAnticipada();">
+                        NO GRACIAS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN POPUP DEMANDA ANTICIPADA -->
+
+<div class="btn_agregarPedido">
+    <form>
+        <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
+    </form>
+</div>
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div>
+        <div class="content_item_home">
+            <div class="producto_img_mobile">
+                <img src="{{FotoProducto01}}" />
+            </div>
+            {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}      <!--SB20-351 -->
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{/iff}}
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+            {{/if_eq}}
+            {{/if_eq}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                {{#if_eq FlagNueva '1'}}
+                <p class="nombre_producto">
+                    {{DescripcionCUVSplit}}
+                </p>
+                {{else}}
+                <p class="nombre_producto">
+                    {{DescripcionCUV2}}
+                </p>
+                {{/if_eq}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script type="text/javascript">
+        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var ViewBagRutaChile = '@Model.RutaChile';
+        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagPaisID = '@Model.PaisID';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var contadorFondoPopUp = 0;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+}

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Portal.Consultoras.Entities</RootNamespace>
+    <AssemblyName>Portal.Consultoras.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenSource.Library.DataAccess">
+      <HintPath>..\Binaries\OpenSource.Library.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BEAdministracionOfertaProducto.cs" />
+    <Compile Include="BEAfiliaClienteConsultora.cs" />
+    <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEBanner.cs" />
+    <Compile Include="BEBannerInfo.cs" />
+    <Compile Include="BEBannerPedido.cs" />
+    <Compile Include="BEBannerSegmentoZona.cs" />
+    <Compile Include="BEBelcorpResponde.cs" />
+    <Compile Include="BECampania.cs" />
+    <Compile Include="BECatalogo.cs" />
+    <Compile Include="BECatalogoConfiguracion.cs" />
+    <Compile Include="BECatalogoIssuu.cs" />
+    <Compile Include="BECiudad.cs" />
+    <Compile Include="BECliente.cs" />
+    <Compile Include="BEComprobantePercepcion.cs" />
+    <Compile Include="BEComprobantePercepcionDetalle.cs" />
+    <Compile Include="BEComunicado.cs" />
+    <Compile Include="BEConfiguracionCampania.cs" />
+    <Compile Include="BEConfiguracionConsultoraDA.cs" />
+    <Compile Include="BEConfiguracionCrossSelling.cs" />
+    <Compile Include="BEConfiguracionOferta.cs" />
+    <Compile Include="BEConfiguracionPackNuevas.cs" />
+    <Compile Include="BEConfiguracionParametroCarga.cs" />
+    <Compile Include="BEConfiguracionPortal.cs" />
+    <Compile Include="BEConfiguracionTipoProcesoCargaPedidos.cs" />
+    <Compile Include="BEConfiguracionValidacion.cs" />
+    <Compile Include="BEConfiguracionValidacionNuevoPROL.cs" />
+    <Compile Include="BEConfiguracionValidacionZona.cs" />
+    <Compile Include="BEConfirmacionEntrega.cs" />
+    <Compile Include="BEConfirmacionRecojo.cs" />
+    <Compile Include="BEConsultora.cs" />
+    <Compile Include="BEConsultoraCatalogo.cs" />
+    <Compile Include="BEConsultoraCodigo.cs" />
+    <Compile Include="BEConsultoraCUV.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BEConsultoraDatos.cs" />
+    <Compile Include="BEConsultoraDatoSAC.cs" />
+    <Compile Include="BEConsultoraDD.cs" />
+    <Compile Include="BEConsultoraDigitales.cs" />
+    <Compile Include="BEConsultoraEstadoSAC.cs" />
+    <Compile Include="BEConsultoraFicticia.cs" />
+    <Compile Include="BEConsultoraSolicitudCliente.cs" />
+    <Compile Include="BEConsultorasProgramaNuevas.cs" />
+    <Compile Include="BEConsultoraTop.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BEConsultoraUbigeo.cs" />
+    <Compile Include="BEConsultoraWS.cs" />
+    <Compile Include="BEContenidoDato.cs" />
+    <Compile Include="BEContenidoRevista.cs" />
+    <Compile Include="BECronograma.cs" />
+    <Compile Include="BECronogramaFIC.cs" />
+    <Compile Include="BECrossSellingAsociacion.cs" />
+    <Compile Include="BECrossSellingProducto.cs" />
+    <Compile Include="BECUVAutomatico.cs" />
+    <Compile Include="BECUVCredito.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BECuvProgramaNueva.cs" />
+    <Compile Include="BEDatosBelcorp.cs" />
+    <Compile Include="BEDupla.cs" />
+    <Compile Include="BEEscalaDescuento.cs" />
+    <Compile Include="BEEstadoCuenta.cs" />
+    <Compile Include="BEEstadoServicio.cs" />
+    <Compile Include="BEEstadoSolicitudCliente.cs" />
+    <Compile Include="BEEstrategia.cs" />
+    <Compile Include="BEEtiqueta.cs" />
+    <Compile Include="BEFechaNoHabilFacturacion.cs" />
+    <Compile Include="BEFeErratas.cs" />
+    <Compile Include="BEFormularioDato.cs" />
+    <Compile Include="BEGetRegionByPaisParametroCarga.cs" />
+    <Compile Include="BEGetZonaByPaisParametroCarga.cs" />
+    <Compile Include="BEGrupoBanner.cs" />
+    <Compile Include="BEGrupoConsultora.cs" />
+    <Compile Include="BEHabPedidoWS.cs" />
+    <Compile Include="BEIncentivo.cs" />
+    <Compile Include="BEInformacion.cs" />
+    <Compile Include="BEItemCarruselInicio.cs" />
+    <Compile Include="BEKitNueva.cs" />
+    <Compile Include="BELogActualizacionFacturacion.cs" />
+    <Compile Include="BELogCabeceraEnvioCorreo.cs" />
+    <Compile Include="BELogDetalleEnvioCorreo.cs" />
+    <Compile Include="BELogModificacionCronograma.cs" />
+    <Compile Include="BELogParametroDiasCargaPedido.cs" />
+    <Compile Include="BELogPedidoDDInvalido.cs" />
+    <Compile Include="BEMailing.cs" />
+    <Compile Include="BEMatrizComercial.cs" />
+    <Compile Include="BEMensajeCUV.cs" />
+    <Compile Include="BEMensajeMetaConsultora.cs" />
+    <Compile Include="BEMenuMobile.cs" />
+    <Compile Include="BEMisPedidos.cs" />
+    <Compile Include="BENavidadConsultora.cs" />
+    <Compile Include="BENotificaciones.cs" />
+    <Compile Include="BEOferta.cs" />
+    <Compile Include="BEOfertaFlexipago.cs" />
+    <Compile Include="BEOfertaFIC.cs" />
+    <Compile Include="BEOfertaNueva.cs" />
+    <Compile Include="BEOfertaProducto.cs" />
+    <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="BEShowRoomOferta.cs" />
+    <Compile Include="BEOfertaWeb.cs" />
+    <Compile Include="BEPaging.cs" />
+    <Compile Include="BEPais.cs" />
+    <Compile Include="BEPaisCampana.cs" />
+    <Compile Include="BEPaqueteDocumentario.cs" />
+    <Compile Include="BEParametro.cs" />
+    <Compile Include="BEParticipantesDemandaAnticipada.cs" />
+    <Compile Include="BEPayPalConfiguracion.cs" />
+    <Compile Include="BEPedidoConfiguracion.cs" />
+    <Compile Include="BEPedidoDD.cs" />
+    <Compile Include="BEPedidoDDDetalle.cs" />
+    <Compile Include="BEPedidoDDWeb.cs" />
+    <Compile Include="BEPedidoDDWebDetalle.cs" />
+    <Compile Include="BEPedidoExtendidoWS.cs" />
+    <Compile Include="BEPedidoFacturado.cs" />
+    <Compile Include="BEPedidoFIC.cs" />
+    <Compile Include="BEPedidoFICDetalle.cs" />
+    <Compile Include="BEPedidoReporteLiderIndicador.cs" />
+    <Compile Include="BEPedidoReporteLiderListado.cs" />
+    <Compile Include="BEPedidoWeb.cs" />
+    <Compile Include="BEPedidoWebDetalle.cs" />
+    <Compile Include="BEPedidoWebDetalleDescuento.cs" />
+    <Compile Include="BEPedidoWebService.cs" />
+    <Compile Include="BEPermiso.cs" />
+    <Compile Include="BEProducto.cs" />
+    <Compile Include="BEProductoDescripcion.cs" />
+    <Compile Include="BEProductoFaltante.cs" />
+    <Compile Include="BEProveedorDespachoCobranza.cs" />
+    <Compile Include="BERegion.cs" />
+    <Compile Include="BEReporteAfiliados.cs" />
+    <Compile Include="BEReportePedidos.cs" />
+    <Compile Include="BEResumenCampania.cs" />
+    <Compile Include="BERol.cs" />
+    <Compile Include="BESegmentoBanner.cs" />
+    <Compile Include="BESegmentoPlaneamiento.cs" />
+    <Compile Include="BEServicePROLFIC.cs" />
+    <Compile Include="BEServicio.cs" />
+    <Compile Include="BEServicioCampania.cs" />
+    <Compile Include="BEServicioParametro.cs" />
+    <Compile Include="BEServicioSegmentoZona.cs" />
+    <Compile Include="BEShowRoomEvento.cs" />
+    <Compile Include="BEShowRoomEventoConsultora.cs" />
+    <Compile Include="BESolicitudClienteDetalleAppCatalogo.cs" />
+    <Compile Include="BESolicitudClienteAppCatalogo.cs" />
+    <Compile Include="BESolicitudCliente.cs" />
+    <Compile Include="BESolicitudClienteCatalogo.cs" />
+    <Compile Include="BESolicitudCredito.cs" />
+    <Compile Include="BEStockCargaLog.cs" />
+    <Compile Include="BESuenioNavidad.cs" />
+    <Compile Include="BETablaLogicaDatos.cs" />
+    <Compile Include="BETallaColor.cs" />
+    <Compile Include="BETerritorio.cs" />
+    <Compile Include="BETipoEstrategia.cs" />
+    <Compile Include="BETipoLink.cs" />
+    <Compile Include="BETipoMeta.cs" />
+    <Compile Include="BETracking.cs" />
+    <Compile Include="BEUbigeo.cs" />
+    <Compile Include="BEUnidadGeografica.cs" />
+    <Compile Include="BEUsuario.cs" />
+    <Compile Include="BEUsuarioCorreo.cs" />
+    <Compile Include="BEUsuarioRol.cs" />
+    <Compile Include="BEValidacionAutomatica.cs" />
+    <Compile Include="BEZona.cs" />
+    <Compile Include="BEFactorGanancia.cs" />
+    <Compile Include="BELugarPago.cs" />
+    <Compile Include="BEBelcorpNoticia.cs" />
+    <Compile Include="BEZonificacionJerarquia.cs" />
+    <Compile Include="BEConfiguracionProgramaNuevas.cs" />
+    <Compile Include="Enumerations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

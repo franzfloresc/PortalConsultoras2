@@ -1,0 +1,129 @@
+﻿@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
+            <li>|</li>
+            <li>Mis Notificaciones</li>
+        </ol>
+    </div>
+    
+    @if (Model.ListaNotificaciones.Count == 0)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert-top-icon text-success">
+                    <i class="icon-exclamation-circle"></i>
+                    <div>No existe notificaciones para mostrar.</div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-xs-12">
+            <ul class="list-notificaciones">
+                @foreach (var item in Model.ListaNotificaciones)
+                {
+                    var estilo = item.Visualizado ? "" : "no-read";
+
+                    <li class="@estilo">
+                        @if (item.Proceso == "BUSCACONS")
+                        {
+                            <span class="icon-noti icon-nuevo-cliente-green"></span>
+                        }
+                        else
+                        {
+                            <span class="icon-noti icon-noti-green"></span>
+                        }
+                        <div class="text-noti">
+                            <div class="upper">
+                                <strong>
+                                    @if (item.FlagProcedencia == true)
+                                    {
+                                        <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
+                                    }
+                                </strong>
+                                <br />
+                                <b>
+                                    CAMPAÑA
+                                    @if (item.CampaniaId > 0)
+                                    {
+                                        @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
+                                    }
+                                </b>
+                            </div>
+                            <span>
+                                @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
+                            </span>
+                        </div>
+                        <a href="javascript:;" class="btn btn-link btn-more" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">Ver más <i class="icon-angle-next-belcorp"></i></a>
+                    </li>
+                }
+            </ul>
+            <br />
+        </div>
+    }
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
+            ShowLoading();
+
+            var TipoOrigen = 1;
+            if (Proceso == "VALAUTO")
+                TipoOrigen = 1;
+            else
+                if (Proceso == "VALMOVIL")
+                    TipoOrigen = 2;
+                else
+                    TipoOrigen = 3;
+
+            if (Proceso == "BUSCACONS")
+                TipoOrigen = 4
+
+            if (Proceso == "CATALOGO")
+                TipoOrigen = 5;
+
+            if (Visualizado == "False") {
+                $.post('@Url.Action("ActualizarLeidoSolicitud", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+                    if (data.mensaje != '') {
+                        console.log(data.mensaje);
+                    }
+                });
+            }
+
+            if (TipoOrigen == 5) {
+                location.href = '@Url.Action("DetalleSolicitudClienteCatalogo", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
+            } else if (TipoOrigen == 4) {
+                location.href = '@Url.Action("DetallePedido", "ConsultoraOnline", new { area = "Mobile" })' + "?pedidoId=" + ProcesoId; //GR-723
+                //location.href = '@Url.Action("DetalleSolicitudCliente", "Notificaciones", new { area = "Mobile" })' + "?SolicitudId=" + ProcesoId;
+            } else if (TipoOrigen != 3) {
+                location.href = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
+            } else {
+                location.href = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })' + "?ValStockId=" + Observaciones;
+            }
+        }
+    </script>
+}

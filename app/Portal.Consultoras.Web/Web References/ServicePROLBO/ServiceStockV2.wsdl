@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="revisarWebControl">
+        <s:complexType />
+      </s:element>
+      <s:element name="revisarWebControlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="revisarWebControlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="revisarWebControlPais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Pais" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="revisarWebControlPaisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="revisarWebControlPaisResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getHoralActual">
+        <s:complexType />
+      </s:element>
+      <s:element name="getHoralActualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getHoralActualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTablaFaltante">
+        <s:complexType />
+      </s:element>
+      <s:element name="getTablaFaltanteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTablaFaltanteResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsValidarPedido">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dtPedidoOrigen">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="montoMin" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="montoMax" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsValidarPedidoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsValidarPedidoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsValidarPedidoPais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dtPedidoOrigen">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="montoMin" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="montoMax" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="zona" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pais" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsValidarPedidoPaisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsValidarPedidoPaisResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsExisteStock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CODCUV" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsExisteStockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wsExisteStockResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDesReservarPedido">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codConsultora" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDesReservarPedidoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wsDesReservarPedidoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDesReservarPedidoPais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codConsultora" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pais" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsDesReservarPedidoPaisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="wsDesReservarPedidoPaisResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="revisarWebControlSoapIn">
+    <wsdl:part name="parameters" element="tns:revisarWebControl" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlSoapOut">
+    <wsdl:part name="parameters" element="tns:revisarWebControlResponse" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisSoapIn">
+    <wsdl:part name="parameters" element="tns:revisarWebControlPais" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisSoapOut">
+    <wsdl:part name="parameters" element="tns:revisarWebControlPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="getHoralActualSoapIn">
+    <wsdl:part name="parameters" element="tns:getHoralActual" />
+  </wsdl:message>
+  <wsdl:message name="getHoralActualSoapOut">
+    <wsdl:part name="parameters" element="tns:getHoralActualResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTablaFaltanteSoapIn">
+    <wsdl:part name="parameters" element="tns:getTablaFaltante" />
+  </wsdl:message>
+  <wsdl:message name="getTablaFaltanteSoapOut">
+    <wsdl:part name="parameters" element="tns:getTablaFaltanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsValidarPedidoSoapIn">
+    <wsdl:part name="parameters" element="tns:wsValidarPedido" />
+  </wsdl:message>
+  <wsdl:message name="wsValidarPedidoSoapOut">
+    <wsdl:part name="parameters" element="tns:wsValidarPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsValidarPedidoPaisSoapIn">
+    <wsdl:part name="parameters" element="tns:wsValidarPedidoPais" />
+  </wsdl:message>
+  <wsdl:message name="wsValidarPedidoPaisSoapOut">
+    <wsdl:part name="parameters" element="tns:wsValidarPedidoPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockSoapIn">
+    <wsdl:part name="parameters" element="tns:wsExisteStock" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockSoapOut">
+    <wsdl:part name="parameters" element="tns:wsExisteStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoSoapIn">
+    <wsdl:part name="parameters" element="tns:wsDesReservarPedido" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoSoapOut">
+    <wsdl:part name="parameters" element="tns:wsDesReservarPedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisSoapIn">
+    <wsdl:part name="parameters" element="tns:wsDesReservarPedidoPais" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisSoapOut">
+    <wsdl:part name="parameters" element="tns:wsDesReservarPedidoPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlHttpGetIn" />
+  <wsdl:message name="revisarWebControlHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisHttpGetIn">
+    <wsdl:part name="Pais" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getHoralActualHttpGetIn" />
+  <wsdl:message name="getHoralActualHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getTablaFaltanteHttpGetIn" />
+  <wsdl:message name="getTablaFaltanteHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockHttpGetIn">
+    <wsdl:part name="CODCUV" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoHttpGetIn">
+    <wsdl:part name="codConsultora" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisHttpGetIn">
+    <wsdl:part name="codConsultora" type="s:string" />
+    <wsdl:part name="Pais" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlHttpPostIn" />
+  <wsdl:message name="revisarWebControlHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisHttpPostIn">
+    <wsdl:part name="Pais" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="revisarWebControlPaisHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getHoralActualHttpPostIn" />
+  <wsdl:message name="getHoralActualHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getTablaFaltanteHttpPostIn" />
+  <wsdl:message name="getTablaFaltanteHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockHttpPostIn">
+    <wsdl:part name="CODCUV" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsExisteStockHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoHttpPostIn">
+    <wsdl:part name="codConsultora" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisHttpPostIn">
+    <wsdl:part name="codConsultora" type="s:string" />
+    <wsdl:part name="Pais" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="wsDesReservarPedidoPaisHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceStockV2Soap">
+    <wsdl:operation name="revisarWebControl">
+      <wsdl:input message="tns:revisarWebControlSoapIn" />
+      <wsdl:output message="tns:revisarWebControlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <wsdl:input message="tns:revisarWebControlPaisSoapIn" />
+      <wsdl:output message="tns:revisarWebControlPaisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <wsdl:input message="tns:getHoralActualSoapIn" />
+      <wsdl:output message="tns:getHoralActualSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <wsdl:input message="tns:getTablaFaltanteSoapIn" />
+      <wsdl:output message="tns:getTablaFaltanteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedido">
+      <wsdl:input message="tns:wsValidarPedidoSoapIn" />
+      <wsdl:output message="tns:wsValidarPedidoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedidoPais">
+      <wsdl:input message="tns:wsValidarPedidoPaisSoapIn" />
+      <wsdl:output message="tns:wsValidarPedidoPaisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <wsdl:input message="tns:wsExisteStockSoapIn" />
+      <wsdl:output message="tns:wsExisteStockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <wsdl:input message="tns:wsDesReservarPedidoSoapIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <wsdl:input message="tns:wsDesReservarPedidoPaisSoapIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoPaisSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceStockV2HttpGet">
+    <wsdl:operation name="revisarWebControl">
+      <wsdl:input message="tns:revisarWebControlHttpGetIn" />
+      <wsdl:output message="tns:revisarWebControlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <wsdl:input message="tns:revisarWebControlPaisHttpGetIn" />
+      <wsdl:output message="tns:revisarWebControlPaisHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <wsdl:input message="tns:getHoralActualHttpGetIn" />
+      <wsdl:output message="tns:getHoralActualHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <wsdl:input message="tns:getTablaFaltanteHttpGetIn" />
+      <wsdl:output message="tns:getTablaFaltanteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <wsdl:input message="tns:wsExisteStockHttpGetIn" />
+      <wsdl:output message="tns:wsExisteStockHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <wsdl:input message="tns:wsDesReservarPedidoHttpGetIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <wsdl:input message="tns:wsDesReservarPedidoPaisHttpGetIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoPaisHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceStockV2HttpPost">
+    <wsdl:operation name="revisarWebControl">
+      <wsdl:input message="tns:revisarWebControlHttpPostIn" />
+      <wsdl:output message="tns:revisarWebControlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <wsdl:input message="tns:revisarWebControlPaisHttpPostIn" />
+      <wsdl:output message="tns:revisarWebControlPaisHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <wsdl:input message="tns:getHoralActualHttpPostIn" />
+      <wsdl:output message="tns:getHoralActualHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <wsdl:input message="tns:getTablaFaltanteHttpPostIn" />
+      <wsdl:output message="tns:getTablaFaltanteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <wsdl:input message="tns:wsExisteStockHttpPostIn" />
+      <wsdl:output message="tns:wsExisteStockHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <wsdl:input message="tns:wsDesReservarPedidoHttpPostIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <wsdl:input message="tns:wsDesReservarPedidoPaisHttpPostIn" />
+      <wsdl:output message="tns:wsDesReservarPedidoPaisHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceStockV2Soap" type="tns:ServiceStockV2Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="revisarWebControl">
+      <soap:operation soapAction="http://tempuri.org/revisarWebControl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <soap:operation soapAction="http://tempuri.org/revisarWebControlPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <soap:operation soapAction="http://tempuri.org/getHoralActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <soap:operation soapAction="http://tempuri.org/getTablaFaltante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedido">
+      <soap:operation soapAction="http://tempuri.org/wsValidarPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedidoPais">
+      <soap:operation soapAction="http://tempuri.org/wsValidarPedidoPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <soap:operation soapAction="http://tempuri.org/wsExisteStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <soap:operation soapAction="http://tempuri.org/wsDesReservarPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <soap:operation soapAction="http://tempuri.org/wsDesReservarPedidoPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceStockV2Soap12" type="tns:ServiceStockV2Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="revisarWebControl">
+      <soap12:operation soapAction="http://tempuri.org/revisarWebControl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <soap12:operation soapAction="http://tempuri.org/revisarWebControlPais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <soap12:operation soapAction="http://tempuri.org/getHoralActual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <soap12:operation soapAction="http://tempuri.org/getTablaFaltante" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedido">
+      <soap12:operation soapAction="http://tempuri.org/wsValidarPedido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsValidarPedidoPais">
+      <soap12:operation soapAction="http://tempuri.org/wsValidarPedidoPais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <soap12:operation soapAction="http://tempuri.org/wsExisteStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <soap12:operation soapAction="http://tempuri.org/wsDesReservarPedido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <soap12:operation soapAction="http://tempuri.org/wsDesReservarPedidoPais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceStockV2HttpGet" type="tns:ServiceStockV2HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="revisarWebControl">
+      <http:operation location="/revisarWebControl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <http:operation location="/revisarWebControlPais" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <http:operation location="/getHoralActual" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <http:operation location="/getTablaFaltante" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <http:operation location="/wsExisteStock" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <http:operation location="/wsDesReservarPedido" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <http:operation location="/wsDesReservarPedidoPais" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceStockV2HttpPost" type="tns:ServiceStockV2HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="revisarWebControl">
+      <http:operation location="/revisarWebControl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="revisarWebControlPais">
+      <http:operation location="/revisarWebControlPais" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getHoralActual">
+      <http:operation location="/getHoralActual" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTablaFaltante">
+      <http:operation location="/getTablaFaltante" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsExisteStock">
+      <http:operation location="/wsExisteStock" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedido">
+      <http:operation location="/wsDesReservarPedido" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsDesReservarPedidoPais">
+      <http:operation location="/wsDesReservarPedidoPais" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceStockV2">
+    <wsdl:port name="ServiceStockV2Soap" binding="tns:ServiceStockV2Soap">
+      <soap:address location="http://200.87.204.148/WS/ServiceStockV2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceStockV2Soap12" binding="tns:ServiceStockV2Soap12">
+      <soap12:address location="http://200.87.204.148/WS/ServiceStockV2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceStockV2HttpGet" binding="tns:ServiceStockV2HttpGet">
+      <http:address location="http://200.87.204.148/WS/ServiceStockV2.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceStockV2HttpPost" binding="tns:ServiceStockV2HttpPost">
+      <http:address location="http://200.87.204.148/WS/ServiceStockV2.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
