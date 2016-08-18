@@ -1133,7 +1133,7 @@
     <div>
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
-                <img src="{{FotoProducto01}}" />
+                <img src="{{FotoProducto01}}" class="imagen_producto" />
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}
@@ -1456,7 +1456,50 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript">
 
+    function agregarProductoAlCarrito(o) {
+        var btnClickeado = $(o);
+        var contenedorItem = btnClickeado.parent().parent();
+        var imagenProducto = $('.imagen_producto', contenedorItem);
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 30,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 300, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 100, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
+    $(document).ready(function () {
+
+        $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+            e.preventDefault();
+
+            agregarProductoAlCarrito(this);
+
+        });
+
+    });
+
+</script>
     <script type="text/javascript">
     var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
     var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';

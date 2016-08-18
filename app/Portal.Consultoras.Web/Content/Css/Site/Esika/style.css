@@ -109,6 +109,11 @@ header {
     height: 40px;
     /* padding-right: 5px; */
 }
+
+.transicion{
+    position:absolute;
+    z-index:2000;
+}
 .mensaje_header{
      margin-top: 15px;
     float: left;
