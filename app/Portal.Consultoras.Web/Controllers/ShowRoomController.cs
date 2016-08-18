@@ -1060,6 +1060,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsPedidoWebDetalleOferta(entidad);
                 }
 
+                UpdPedidoWebMontosPROL();
+
                 return Json(new
                 {
                     success = true,

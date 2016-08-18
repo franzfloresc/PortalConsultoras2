@@ -407,7 +407,7 @@ function InsertarProducto() {
                     CloseLoading();
                     return false;
                 }
-
+                ActualizarGanancia(data.DataBarra);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
                     $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
@@ -1046,6 +1046,7 @@ function AgregarProductoDestacado() {
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
+                            ActualizarGanancia(data.DataBarra);
                             ShowLoading();
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarProductosDestacados(cuv);

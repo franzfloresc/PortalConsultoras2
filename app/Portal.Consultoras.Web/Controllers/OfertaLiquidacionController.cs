@@ -273,16 +273,20 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.InsPedidoWebDetalleOferta(entidad);
+                    
+                    UpdPedidoWebMontosPROL();
 
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
                 }
 
+
                 return Json(new
                 {
                     success = true,
                     message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = ""
+                    extra = "",
+                    DataBarra = GetDataBarra()
                 });
             }
             catch (FaultException ex)
@@ -339,6 +343,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.UpdPedidoWebDetalleOferta(entidad);
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {

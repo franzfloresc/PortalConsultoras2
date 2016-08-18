@@ -473,6 +473,11 @@ function paginadorAccionGenerico(obj) {
     return rpt;
 }
 //R2116-INICIO
+
+function ActualizarGanancia(data) {
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+}
+
 FuncionesGenerales = {
     ValidarSoloNumeros: function(e) {
         var tecla = (document.all) ? e.keyCode : e.which;
