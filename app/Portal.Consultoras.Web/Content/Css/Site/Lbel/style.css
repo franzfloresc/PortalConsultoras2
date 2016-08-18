@@ -25462,7 +25462,7 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    margin-left: 31.5%;
+    /*margin-left: 31.5%;*/
     margin-top: 4px;
     background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
 }
