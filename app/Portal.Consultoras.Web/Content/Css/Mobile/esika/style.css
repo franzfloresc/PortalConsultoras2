@@ -5900,6 +5900,7 @@ input[type="checkbox"]:checked + span:after {
     height:20px;
     margin-right: 5px;
     background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size:cover;
 }
 
 .descripcion_demanda{
@@ -6006,6 +6007,7 @@ input[type="checkbox"]:checked + span:after {
     width:18px;
     height:18px;
     background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size:cover;
 }
 
 .descripcion_tiempoPasePedido .texto_tiempo_pasePedido{

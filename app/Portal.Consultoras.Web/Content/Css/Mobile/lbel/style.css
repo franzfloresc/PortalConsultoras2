@@ -5977,6 +5977,7 @@ input[type="checkbox"]:checked + span:after {
     height:20px;
     margin-right: 5px;
     background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size:cover;
 }
 
 .texto_notaDemanda{

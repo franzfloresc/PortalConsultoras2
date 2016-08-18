@@ -1238,7 +1238,7 @@
             <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
             <div class="producto_img_home mini">
-                <img src="{{ImagenProducto}}" />
+                <img src="{{ImagenProducto}}" class="imagen_producto" />
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -1473,7 +1473,7 @@
             'left': imagenProducto.offset().left,
         }).animate({
             'top': carrito.offset().top - 30,
-            'left': carrito.offset().left + 100,
+            'left': carrito.offset().left + 115,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
