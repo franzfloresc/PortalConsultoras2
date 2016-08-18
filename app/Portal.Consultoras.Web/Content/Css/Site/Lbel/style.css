@@ -25427,7 +25427,7 @@ input[type="checkbox"]:checked + span:after {
     font-size: 12px;
     font-weight: 900;
     line-height: 1.26;
-    color: #e81c36;
+    color: #613c87;
 }
 .agrega_barra{
     Font-family: 'Lato';
@@ -25464,7 +25464,7 @@ input[type="checkbox"]:checked + span:after {
     float: left;
     /*margin-left: 31.5%;*/
     margin-top: 4px;
-    background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
+    background: url("../../../Images/mobile/Lbel/bandera.png") no-repeat;
 }
 .BarraPosicion{
     background: rgba(255,255,255,1);
