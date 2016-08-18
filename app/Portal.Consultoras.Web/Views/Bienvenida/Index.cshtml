@@ -302,7 +302,7 @@
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
-    <div class="content_video_home" style="display:block;" id="divTutoriales">
+    <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -321,7 +321,7 @@
     <!-- FIN TUTORIALES-->
 
     <!-- SIN TUTORIALES -->
-    <div class="content_video_home sinTutoriales" style="display:none;" id="divSinTutoriales">
+    <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -372,7 +372,7 @@
     <!-- FIN TUTORIALES PARA VENEZUELA -->
 
     <!--CAROUSEL LIQUIDACION HOME-->
-    <div class="carrusel_liquidacion" style="display:block;">
+    <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
         </div>
