@@ -59,6 +59,8 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal Total { get; set; }
 
+        public decimal TotalConDescuento { get; set; }
+
         public string FormatoTotal
         {
             get
@@ -89,6 +91,14 @@ namespace Portal.Consultoras.Web.Models
             {
                 return Util.DecimalToStringFormat(MontoDescuento, CodigoIso); 
                 
+            }
+        }
+
+        public string FormatoTotalConDescuento
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(TotalConDescuento, CodigoIso);
             }
         }
 
@@ -237,6 +247,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMinimo { get; set; }
 
         public decimal MontoMaximo { get; set; }
+
+        public string EsPais { get; set; }
 
         public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
     }

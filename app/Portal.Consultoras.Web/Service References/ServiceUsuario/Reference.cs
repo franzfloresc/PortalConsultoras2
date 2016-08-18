@@ -158,6 +158,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaInicioFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaLimPagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -982,6 +985,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.FechaInicioFacturacionField.Equals(value) != true)) {
                     this.FechaInicioFacturacionField = value;
                     this.RaisePropertyChanged("FechaInicioFacturacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaLimPago {
+            get {
+                return this.FechaLimPagoField;
+            }
+            set {
+                if ((this.FechaLimPagoField.Equals(value) != true)) {
+                    this.FechaLimPagoField = value;
+                    this.RaisePropertyChanged("FechaLimPago");
                 }
             }
         }

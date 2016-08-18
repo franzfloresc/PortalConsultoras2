@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.Models;
-using System.Text;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -29,13 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Notificaciones() 
-        {
-            return View();
-        }
-
         //R2073
-		public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
+        public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
         {
             NotificacionesModel model = new NotificacionesModel();
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
@@ -46,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (TipoOrigen == 4)
                 {
                     sv.UpdNotificacionSolicitudClienteVisualizacion(PaisId, ProcesoId);
-                }//R20150802 
+                }//R20150802
                 if (TipoOrigen == 5)
                 {
                     sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);// Revisar  debería ir el CodigoConsultora.
@@ -59,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.ListaNotificaciones = olstNotificaciones;
-            
+
             return PartialView("ListadoNotificaciones", model);
         }
 
@@ -75,40 +70,41 @@ namespace Portal.Consultoras.Web.Controllers
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
                 ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(PaisId, SolicitudId);
-               ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(PaisId, 56);
-               int horasReasignacion = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo);
-               string horaEjecucionDefault = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5602).Codigo;
-               DateTime FechaEjecucion = beSolicitudCliente.FechaSolicitud.AddHours(horasReasignacion);
-               var HoraEjecucionDefecto = TimeSpan.ParseExact(horaEjecucionDefault, "g", null);
-               if (FechaEjecucion.Hour > HoraEjecucionDefecto.Hours)
-               {
-                   FechaEjecucion = FechaEjecucion.AddDays(1);
-                   FechaEjecucion = FechaEjecucion.Date + HoraEjecucionDefecto;
-               }
+                ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(PaisId, 56);
+                int horasReasignacion = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo);
+                string horaEjecucionDefault = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5602).Codigo;
+                DateTime FechaEjecucion = beSolicitudCliente.FechaSolicitud.AddHours(horasReasignacion);
+                var HoraEjecucionDefecto = TimeSpan.ParseExact(horaEjecucionDefault, "g", null);
+                if (FechaEjecucion.Hour > HoraEjecucionDefecto.Hours)
+                {
+                    FechaEjecucion = FechaEjecucion.AddDays(1);
+                    FechaEjecucion = FechaEjecucion.Date + HoraEjecucionDefecto;
+                }
 
-               model.ConsultoraID = beSolicitudCliente.CodigoConsultora;
-               model.Estado = beSolicitudCliente.Estado;
-               model.SolicitudClienteId = SolicitudId;
-               model.FechaEjecucion = FechaEjecucion;
-               model.MarcaID = beSolicitudCliente.MarcaID;
-               model.FechaDescripcion = FechaEjecucion.Day + " de " + NombreMes(FechaEjecucion.Month); 
-               model.TelefonoCliente = beSolicitudCliente.Telefono;
-               model.NombreCliente = beSolicitudCliente.NombreCompleto;
-               model.EmailCliente = beSolicitudCliente.Email;
-               model.NumIteracion = beSolicitudCliente.NumIteracion;
-               model.Mensaje = beSolicitudCliente.Mensaje;
-               model.MensajeaCliente = beSolicitudCliente.MensajeaCliente;
-               model.MarcaNombre = beSolicitudCliente.MarcaNombre;
-               model.Campania = beSolicitudCliente.Campania;
-               model.CodigoUbigeo = beSolicitudCliente.CodigoUbigeo;
-               model.lsProductosDetalle = sv.GetSolicitudClienteDetalle(PaisId, SolicitudId).ToList();
-                
+                model.ConsultoraID = beSolicitudCliente.CodigoConsultora;
+                model.Estado = beSolicitudCliente.Estado;
+                model.SolicitudClienteId = SolicitudId;
+                model.FechaEjecucion = FechaEjecucion;
+                model.MarcaID = beSolicitudCliente.MarcaID;
+                model.FechaDescripcion = FechaEjecucion.Day + " de " + NombreMes(FechaEjecucion.Month);
+                model.TelefonoCliente = beSolicitudCliente.Telefono;
+                model.NombreCliente = beSolicitudCliente.NombreCompleto;
+                model.EmailCliente = beSolicitudCliente.Email;
+                model.NumIteracion = beSolicitudCliente.NumIteracion;
+                model.Mensaje = beSolicitudCliente.Mensaje;
+                model.MensajeaCliente = beSolicitudCliente.MensajeaCliente;
+                model.MarcaNombre = beSolicitudCliente.MarcaNombre;
+                model.Campania = beSolicitudCliente.Campania;
+                model.CodigoUbigeo = beSolicitudCliente.CodigoUbigeo;
+                model.lsProductosDetalle = sv.GetSolicitudClienteDetalle(PaisId, SolicitudId).ToList();
             }
             ViewBag.Marca = model.MarcaNombre;
 
             return PartialView("ListadoDetalleSolicitud", model);
         }
+
         /*20150802*/
+
         public ActionResult ListarDetalleSolicitudClienteCatalogo(long SolicitudId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -147,7 +143,6 @@ namespace Portal.Consultoras.Web.Controllers
                     beCliente.PaisID = UserData().PaisID;
                     beCliente.Activo = true;
                     sc.Insert(beCliente);
-
                 }
 
                 //R2548 - CS
@@ -164,10 +159,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-
                 }
 
-                 var data = new
+                var data = new
                 {
                     success = true,
                     message = ""
@@ -183,8 +177,6 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-
-           
         }
 
         public JsonResult RechazarSolicitud(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId)
@@ -203,42 +195,37 @@ namespace Portal.Consultoras.Web.Controllers
                 if (NumIteracion == numIteracionMaximo)
                 {
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, 0, "");// 0,"" Añadidos para atender el cambio del SP RechazarSolicitudCliente
-               
                 }
                 else
                 {
                     ServiceSAC.BESolicitudNuevaConsultora nuevaConsultora = sv.ReasignarSolicitudCliente(PaisId, SolicitudId, CodigoUbigeo, Campania, MarcaId, 0, ""); // 0,"" Añadidos para atender el cambio del SP ReasignarSolicitudCliente
-                   if (nuevaConsultora == null)
-                   {
-                       sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, 0, "");// 0,"" Añadidos para atender el cambio del SP RechazarSolicitudCliente
-
-                   }
-                   else
-                   {
-                       try
-                       {
-                           string asunto = "(" + UserData().CodigoISO + ") Nuevo Pedido " + nuevaConsultora.MarcaNombre;
-                           StringBuilder mensaje = new StringBuilder();
-                           mensaje.Append("<p>Estimada " + nuevaConsultora.Nombre + ",<br/><br/>");
-                           //2442 -Mensaje
-                           mensaje.Append("<p>¡Un nuevo cliente eligió contactarse contigo para solicitarte un pedido!<br/>");
-                           mensaje.Append("Para ver que productos fueron solicitados y los datos del cliente, entra a:<br/>");
-                           mensaje.Append("<a href=\"https://www.somosbelcorp.com/Notificaciones\">https://www.somosbelcorp.com/Notificaciones</a><br/>");
-                           mensaje.Append("<br/>");
-                           mensaje.AppendFormat("Recuerda que sólo tienes {0} horas para leer la notificación y decidir si <br/>", horas);
-                           mensaje.AppendFormat("aceptas o rechazas el pedido. Si te demoras más de {0} horas, el pedido <br/>", horas);
-                           mensaje.Append("será asignado a otra consultora y ya no podrás ver los datos del cliente.<br/><br/>");
-                           mensaje.Append("Gracias,<br/>Belcorp.</p>");
-                           Common.Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto,
-                              mensaje.ToString(), true);
-                       }
-                       catch (Exception ex)
-                       {
-                           
-                       }
-
-                   }
-
+                    if (nuevaConsultora == null)
+                    {
+                        sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, 0, "");// 0,"" Añadidos para atender el cambio del SP RechazarSolicitudCliente
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string asunto = "(" + UserData().CodigoISO + ") Nuevo Pedido " + nuevaConsultora.MarcaNombre;
+                            StringBuilder mensaje = new StringBuilder();
+                            mensaje.Append("<p>Estimada " + nuevaConsultora.Nombre + ",<br/><br/>");
+                            //2442 -Mensaje
+                            mensaje.Append("<p>¡Un nuevo cliente eligió contactarse contigo para solicitarte un pedido!<br/>");
+                            mensaje.Append("Para ver que productos fueron solicitados y los datos del cliente, entra a:<br/>");
+                            mensaje.Append("<a href=\"https://www.somosbelcorp.com/Notificaciones\">https://www.somosbelcorp.com/Notificaciones</a><br/>");
+                            mensaje.Append("<br/>");
+                            mensaje.AppendFormat("Recuerda que sólo tienes {0} horas para leer la notificación y decidir si <br/>", horas);
+                            mensaje.AppendFormat("aceptas o rechazas el pedido. Si te demoras más de {0} horas, el pedido <br/>", horas);
+                            mensaje.Append("será asignado a otra consultora y ya no podrás ver los datos del cliente.<br/><br/>");
+                            mensaje.Append("Gracias,<br/>Belcorp.</p>");
+                            Common.Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, emailOculto, asunto,
+                               mensaje.ToString(), true);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
                 }
             }
 
@@ -248,12 +235,10 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "Rechazado"
             };
 
-
-            
-             return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-		//R2073
+        //R2073
         public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
         {
             List<BENotificacionesDetalle> olstObservaciones = new List<BENotificacionesDetalle>();
@@ -282,7 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PaisId = UserData().PaisID;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstObservacionesPedido = sv.GetValidacionStockProductos(PaisId, UserData().ConsultoraID, ValStockId).ToList(); 
+                olstObservacionesPedido = sv.GetValidacionStockProductos(PaisId, UserData().ConsultoraID, ValStockId).ToList();
             }
 
             foreach (var item in olstObservacionesPedido)

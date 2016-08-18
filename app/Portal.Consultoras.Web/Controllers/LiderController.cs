@@ -17,18 +17,18 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             string[] parametros; string strCodigoUsuario;
-            if (UserData().ConsultoraAsociada.ToString().Trim().Length > 0)
+            if (userData.ConsultoraAsociada.ToString().Trim().Length > 0)
             {
                 UsuarioServiceClient sv = new UsuarioServiceClient();
-                strCodigoUsuario = sv.GetUsuarioAsociado(UserData().PaisID, UserData().ConsultoraAsociada);
+                strCodigoUsuario = sv.GetUsuarioAsociado(userData.PaisID, userData.ConsultoraAsociada);
             }
             else
             {
-                strCodigoUsuario = UserData().CodigoUsuario.ToString();
+                strCodigoUsuario = userData.CodigoUsuario.ToString();
             }
             parametros = new string[]
 			    {
-				    UserData().PaisID.ToString() + "|" + strCodigoUsuario
+				    userData.PaisID.ToString() + "|" + strCodigoUsuario
 			    };
             string str = Util.EncriptarQueryString(parametros);
             string url = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "?p=" + str.ToString();

@@ -22,9 +22,9 @@
         var onclickF = "";
         if (item.Descripcion.ToLower().Trim() == "mi comunidad")
         {
-            url = ViewBag.EsUsuarioComunidad == 0 ? "javascript:;" : url;
-            onclickF = ViewBag.EsUsuarioComunidad == 0 ? "onclick='return ShowComunidad();'" : "";
-            <a class="menu_mobile_belcorp" href="@url" @onclickF role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+            //url = ViewBag.EsUsuarioComunidad == 0 ? "javascript:;" : url;
+            //onclickF = ViewBag.EsUsuarioComunidad == 0 ? "onclick='return ShowComunidad();'" : "";
+            <a class="menu_mobile_belcorp" href="http://comunidad.somosbelcorp.com" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
                 @item.Descripcion
             </a>
         }

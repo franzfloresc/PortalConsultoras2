@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     //Agregamos los menú Padre
-                    foreach (var item in lst.Where(item => item.MenuPadreID == 0))
+                    foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
                     {
                         lstModel.Add(new MenuMobileModel
                         {
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //Agregamos los items para cada menú Padre
                     foreach (var item in lstModel)
                     {
-                        var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID);
+                        var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p=>p.OrdenItem);
                         foreach (var subItem in subItems)
                         {
                             item.SubMenu.Add(new MenuMobileModel

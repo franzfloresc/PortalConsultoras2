@@ -32,9 +32,23 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile">
-            <div class="saludo_mobile">¡Hola</div>
+            <div class="saludo_mobile">¡Hola&nbsp;</div>
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
-
+            
+            @if (Model.PortalLideres && Model.Lider == 1)
+            {
+                <a href="@Url.Action("Index", "Lider", new {area = ""})" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
+                @if (Model.NombrePais == "Venezuela")
+                {
+                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                }
+                else
+                {
+                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                }
+                </a>
+            }
+            
             <hr class="clear" />
             <div class="info_cam_mobile">
                 ESTÁS EN
@@ -65,7 +79,7 @@
     <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
-    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SIGUE TU PEDIDO</a>
+    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -137,7 +151,7 @@
             <div class="titulo_item_mobile" style="text-transform: uppercase;">@(cabezaEscala)</div>
             <div class="monto_ganancia_mobile">
                 @Model.Simbolo
-                <span>
+                <span data-ganancia="">
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
@@ -198,7 +212,7 @@
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
-                <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share">Compartir por <b>WhatsApp</b></a>
+               <span class="texto_ws">Compártelo por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>WhatsApp</b></a>
             }    
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
@@ -301,8 +315,8 @@
 }
 
 <!-- POPUP DEMANDA ANTICIPADA -->
-@*<div class="contenedor_fondo_popup">
-    <div class="popup_demandaAnticipada" id="popupDemandaAnticipada">
+<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
+    <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
             <h1 class="titulo_demandaAnticipada">
                 ¡PASA TU PEDIDO POR<br /><b>DEMANDA</b>
@@ -310,7 +324,7 @@
             </h1>
             <div class="descripcion_demanda">
                 <div class="demanda_img_regalo">
-                    <img src="@Url.Content("~/Content/Images/Esika/demanda_anticipada_regalo_img.png")" alt="Demanda Anticipada Imagen" />
+                    <img src="@Url.Content("~/Content/Images/Esika/demanda_anticipada_regalo_mobile_img.png")" alt="Demanda Anticipada Imagen" />
                 </div>
                 <div class="demanda_promo">
                     <span>1 Producto de regalo* + Flete Gratis</span>
@@ -332,27 +346,27 @@
                         <img src="@Url.Content("~/Content/Images/icono_check.svg")" alt="Icono Check" />
                     </span>
                     <span class="demanda_mensajes">
-                        Pasar tu pedido hasta el Lunes 29 de Febrero (22:00 horas).
+                        Pasar tu pedido hasta el <span id="fechaHasta" style="display: inline;"></span>
                     </span>
                 </div>
-                <button type="button" name="btn_participaAhora" class="btn_participaAhora">
+                <button type="button" name="btn_participaAhora" class="btn_participaAhora" onclick="return AceptarDemandaAnticipada();">
                     PARTICIPA AHORA
                 </button>
                 <div class="descripcion_tiempoPasePedido">
-                    <span class="icono_notademanda"></span>
+                    <span class="icono_notaDemanda"></span>
                     <span class="texto_tiempo_pasePedido">
-                        Si aceptas participar no podrás modificar tu pedido luego del Lunes 29 de Febrero (22:00 horas).
+                        Si aceptas participar no podrás modificar tu pedido luego del <span id="fechaLuego"></span>
                     </span>
                 </div>
                 <div class="enlace_noGracias">
-                    <a href="#">
+                    <a href="javascript:;" onclick="return CancelarDemandaAnticipada();">
                         NO GRACIAS
                     </a>
                 </div>
             </div>
-            </div>
         </div>
-    </div>*@
+    </div>
+</div>
 <!-- FIN POPUP DEMANDA ANTICIPADA -->
 
 <div class="btn_agregarPedido">
@@ -427,6 +441,7 @@
         var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
         var viewBagPaisID = '@Model.PaisID';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var contadorFondoPopUp = 0;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
 }

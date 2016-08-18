@@ -126,14 +126,14 @@
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
-                <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor: default!important;">
                     <img src="@Url.Content("~/Content/Images/Esika/notificaciones.png")" alt="" />
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> mensajes sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
+            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
             @*@if (Model.PaisID == 10)
                 {
                 <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
@@ -170,15 +170,15 @@
 
         @if (Model.PaisID == 3) //Chile
         {
-            <a class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 4) //Colombia
         {
-            <a class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 12) //Puerto Rico
         {
-            <a class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 6 || Model.PaisID == 11)
         {
@@ -196,18 +196,9 @@
         <hr class="clear"/>
         <div class="info_centro">
               @{
-                string cabezaEscala=null, pieEscala=null;
-                if(Model.PaisID == 11) //PERU
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 4) //COLOMBIA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 6) //ECUADOR
+                string cabezaEscala = null, pieEscala = null;
+                if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
+                    || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
@@ -217,12 +208,7 @@
                     cabezaEscala = "Comisión y ahorro total";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 2) //BOLIVIA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 9) //MEXICO
+                else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
@@ -230,37 +216,13 @@
                 else if (Model.PaisID == 5) //COSTA RICA
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
-                    pieEscala = "";                
-                }
-                else if (Model.PaisID == 8)//GUATEMALA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 7)//EL SALVADOR
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 10)//PANAMA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                }else if (Model.PaisID == 13)//DOMINICANA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 12)//PUERTO RICO
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
+                    pieEscala = "";
+                }                        
             }
             @(cabezaEscala)
             <div class="deuda_home">
                 @Model.Simbolo
-                <span>
+                <span data-ganancia="">
                     @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.PrefijoPais)
                 </span>
             </div>
@@ -324,7 +286,7 @@
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
             <div class="texto_exclusivo">
-                EXCLUSIVO S&Oacute;LO POR WEB
+                EXCLUSIVAS S&Oacute;LO POR WEB
             </div>
         </div>
         <div class="linea_titulo_absoluto"></div>
@@ -1530,5 +1492,5 @@
     var paisISO = '@ViewBag.CodigoISODL';
     var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
 }

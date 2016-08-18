@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 
 using Portal.Consultoras.Web.ServiceLMS;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -40,16 +41,15 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
                 }
 
+                var fechaVencimientoTemp = userData.FechaLimPago;
+                model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
+                
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
                         model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                     else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
-
-                    var fechaVencimientoTemp = sv.GetFechaVencimiento(userData.PaisID, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-
-                    model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
+                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;                  
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -201,21 +201,20 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
-                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sac = new SACServiceClient())
                 {
-                    ServiceSAC.BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
+                    BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
                     if (comunicado != null)
                         Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    ServiceSAC.BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                    BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
                     if (VisualizaComunicado != null)
                         ComunicadoVisualizado = VisualizaComunicado.Visualizo ? 1 : 0;
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
-
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";     // SB20-255
             }
             catch (FaultException ex)
             {

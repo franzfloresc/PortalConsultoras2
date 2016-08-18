@@ -914,7 +914,10 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.InsPedidoWebDetalleOferta(entidad);
+
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 JSONdata = new
                 {

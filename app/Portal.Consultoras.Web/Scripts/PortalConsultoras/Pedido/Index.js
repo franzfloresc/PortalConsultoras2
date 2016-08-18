@@ -1473,9 +1473,11 @@ function ObservacionesProducto(item) {
                     'event': 'pageview',
                     'virtualUrl': '/Pedido/Mensajes/Producto-revista'
                 });
-
-                $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en Revista Somos Belcorp con oferta especial.</div></div>");
-                //$("#divObservaciones").append("<div id='divProdRevista' class='noti'><div class='noti_message red_texto_size'>Producto en Revista Somos Belcorp con oferta especial.</div></div>");
+                if (isEsika) {
+                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
+                } else {
+                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la revista Somos Belcorp con oferta especial.</div></div>");
+                }                
             }
 
             if (item.MensajeCUV != null) {
@@ -2241,8 +2243,10 @@ function EjecutarServicioPROL() {
                 $("#divMontosEscalaDescuento").html("");
                 $("#divMontosEscalaDescuento").html(htmlMontos);
 
+                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
                 $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
                 $("#divMontosEscalaDescuento").css("display", "block");                                
             } else {
                 $("#divMontosEscalaDescuentoTexto").html("");
@@ -2475,8 +2479,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
                 $("#divMontosEscalaDescuento").html("");
                 $("#divMontosEscalaDescuento").html(htmlMontos);
 
+                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
                 $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(DecimalToStringFormat(montoEscala));
+                $("#spnMontoEscala").html(" "+DecimalToStringFormat(totalConDescuento));
                 $("#divMontosEscalaDescuento").css("display", "block");
             } else {
                 $("#divMontosEscalaDescuentoTexto").html("");
@@ -2508,7 +2514,9 @@ function MostrarMensajeProl(data) {
                     CargarDetallePedido();
                 } else {
                     showDialog("divReservaSatisfactoria");
-                    location.href = baseUrl + 'Pedido/PedidoValidado';
+                    setTimeout(function () {
+                        location.href = baseUrl + 'Pedido/PedidoValidado';
+                    }, 4000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2713,9 +2721,10 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
             var tipoError = listaObservacionesProl[0].Caso;
 
             if (tipoError == 95) {
-                var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                var mensajeCUV = listaObservacionesProl[0].CUV;
 
-                if (mensajePedido.toLowerCase().includes("pedido mínimo")) {
+                if (mensajeCUV == "XXXXX") {
                     var montoMinimo = parseFloat($("#hdMontoMinimo").val());
                     var diferenciaMonto = montoMinimo - monto;
 
@@ -3052,7 +3061,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion) {
 
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
     var Total = parseFloat(Cantidad * Unidad).toFixed(2)
-    $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
+    $('#lblLPImpTotal' + PedidoDetalleID).html(DecimalToStringFormat(Total));
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
     var item = {
         CampaniaID: CampaniaID,
@@ -3650,6 +3659,8 @@ function MostrarBarra(datax) {
     $("#divBarra #divLimite").html("");
     var datax = datax || new Object();
     data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
+
+    ActualizarGanancia(data);
 
     //data.MontoMinimo = 100;
     //data.MontoMinimoStr = "100.00";

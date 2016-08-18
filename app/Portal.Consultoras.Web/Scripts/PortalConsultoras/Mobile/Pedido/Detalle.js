@@ -372,6 +372,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             data: JSON.stringify(param),
             async: true,
             success: function (html) {
+                ActualizarGanancia(html.DataBarra);
                 CloseLoading();
                 CargarPedido();
                 ActualizarCantidadTotalPedido();
@@ -441,6 +442,7 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
+            ActualizarGanancia({ MontoGananciaStr: DecimalToStringFormat(0) });
             if (checkTimeout(data)) {
                 location.reload();
             }
@@ -595,6 +597,7 @@ function PedidoUpdate(item, PROL) {
             CloseLoading();
             if (checkTimeout(data)) {
                 if (data.success == true) {
+                    ActualizarGanancia(data.DataBarra);
                     if (PROL == "0")
                         $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
 

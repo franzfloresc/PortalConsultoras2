@@ -14,6 +14,9 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
         <div class="content_320 ingresoPedido">
+            <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar ingresoP" title="Regresar">
+                @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
+            </a>
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
                 <input type="text" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" />
@@ -97,7 +100,7 @@
                     <div class="montos_resumen">
                         <span><b id="spnCantidadProductos">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b>@Model.GananciaFormat</b></span>
+                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido">
@@ -249,7 +252,11 @@
         //Mensajes CUV
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, se nos agotó este producto.";
-        var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+        if (isEsika) {
+            var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
+        } else {
+            var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+        }
         var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
         var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
@@ -258,8 +265,8 @@
         var posicionAnteriorPrimeraEstrategia = 0;
         var posicionAnteriorUltimaEstrategia = 0;
         var esTipoDrag = 0;
-        var ofertaLiquidacion = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion';
-        var ofertaAccesorizate = '@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate';
+        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
         var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';

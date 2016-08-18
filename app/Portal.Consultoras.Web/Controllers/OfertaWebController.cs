@@ -167,6 +167,8 @@ namespace Portal.Consultoras.Web.Controllers
                         sv.InsPedidoWebDetalleOferta(entidad);
                     }
 
+                    UpdPedidoWebMontosPROL();
+
                     JSONdata = new
                     {
                         success = true,
@@ -257,6 +259,8 @@ namespace Portal.Consultoras.Web.Controllers
                     
                     sv.UpdPedidoWebDetalleOferta(entidad);
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {

@@ -196,7 +196,10 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.InsPedidoWebDetalleOferta(entidad);
+                    
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {
@@ -259,6 +262,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.UpdPedidoWebDetalleOferta(entidad);
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {

@@ -291,6 +291,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
+    <Compile Include="Controllers\MisBeneficiosController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -357,7 +358,7 @@
     <Compile Include="Models\AdministrarIncentivosModel.cs" />
     <Compile Include="Models\AdministrarLinkModel.cs" />
     <Compile Include="Models\AdministrarLugaresPagoModel.cs" />
-    <Compile Include="Models\AdministrarProductoSugerido.cs" />
+    <Compile Include="Models\AdministrarProductoSugeridoModel.cs" />
     <Compile Include="Models\AdministrarRevistaViewModel.cs" />
     <Compile Include="Models\BannerModel.cs" />
     <Compile Include="Models\BienvenidaHomeModel.cs" />
@@ -1254,8 +1255,10 @@
     <Content Include="Content\Images\Esika\background_pedido.png" />
     <Content Include="Content\Images\Esika\banamex.png" />
     <Content Include="Content\Images\Esika\bancomer.png" />
+    <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
     <Content Include="Content\Images\Esika\bbva.png" />
     <Content Include="Content\Images\Esika\bcp.png" />
+    <Content Include="Content\Images\Esika\brillante2016_img.png" />
     <Content Include="Content\Images\Esika\carsa.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
@@ -1473,6 +1476,7 @@
     <Content Include="Content\Images\Esika\catalogos.png" />
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
+    <Content Include="Content\Images\Esika\catalogo_menu.png" />
     <Content Include="Content\Images\Esika\catálogos.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
@@ -1480,6 +1484,7 @@
     <Content Include="Content\Images\Esika\consultora_online.png" />
     <Content Include="Content\Images\Esika\cyzone_revista.png" />
     <Content Include="Content\Images\Esika\demanda_anticipada_regalo_img.png" />
+    <Content Include="Content\Images\Esika\demanda_anticipada_regalo_mobile_img.png" />
     <Content Include="Content\Images\Esika\divisor.png" />
     <Content Include="Content\Images\Esika\divisor_liquidacion.png" />
     <Content Include="Content\Images\Esika\dolar.png" />
@@ -1529,6 +1534,7 @@
     <Content Include="Content\Images\Esika\img-prev.png" />
     <Content Include="Content\Images\Esika\img_producto.png" />
     <Content Include="Content\Images\Esika\imprimir.png" />
+    <Content Include="Content\Images\Esika\incentivos_img.png" />
     <Content Include="Content\Images\Esika\indicador.png" />
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
@@ -1567,8 +1573,10 @@
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
+    <Content Include="Content\Images\Esika\pestana_esika.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
+    <Content Include="Content\Images\Esika\programaNuevas_img.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\santander.png" />
@@ -1603,6 +1611,9 @@
     <Content Include="Content\Images\flag_peru.png" />
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
+    <Content Include="Content\Images\flecha_volver_mobile.JPG" />
+    <Content Include="Content\Images\flecha_volver_mobile.svg" />
+    <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
     <Content Include="Content\Images\flechita.png" />
     <Content Include="Content\Images\flexipago.png" />
     <Content Include="Content\Images\flexipago_img.jpg" />
@@ -1850,6 +1861,7 @@
     <Content Include="Content\Images\mobile\Esika\mas.png" />
     <Content Include="Content\Images\mobile\Esika\mas_footer.png" />
     <Content Include="Content\Images\mobile\Esika\menos.png" />
+    <Content Include="Content\Images\mobile\Esika\menos_footer.png" />
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
@@ -1968,6 +1980,7 @@
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
+    <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_exclamacion_lbel.svg" />
@@ -2204,9 +2217,11 @@
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
@@ -2401,6 +2416,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
+    <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -3208,7 +3224,7 @@
     <Content Include="Views\AdministrarTipoEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_ListadoEstrategias.cshtml" />
-    <Content Include="Views\Notificaciones\Index.cshtml" />
+    <Content Include="Views\Notificaciones\Index_old.cshtml" />
     <Content Include="Views\Notificaciones\ListadoNotificaciones.cshtml" />
     <Content Include="Views\Notificaciones\ListadoObservaciones.cshtml" />
     <Content Include="Views\Paypal\ProcesoDescarga.cshtml" />
@@ -3312,17 +3328,18 @@
     <Content Include="Views\MisPagos\Index.cshtml" />
     <Content Include="Views\MisPagos\_PanelLateral.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
-    <Content Include="Views\Notificaciones\Notificaciones.cshtml" />
+    <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
     <Content Include="Views\Cliente\MisClientes.cshtml" />
     <Content Include="Views\Cliente\Index_old.cshtml" />
-    <None Include="Web References\ServiceLMS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ServiceLMS\ws_server.wsdl" />
+    <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
+    <Content Include="Web References\ServiceLMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3614,17 +3631,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_ws_server</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://prdelb-webprol-261815517.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaPedidos.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicePROLArchivoReserva\</RelPath>
@@ -3701,6 +3707,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceLMS\</RelPath>
+      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_ws_server</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

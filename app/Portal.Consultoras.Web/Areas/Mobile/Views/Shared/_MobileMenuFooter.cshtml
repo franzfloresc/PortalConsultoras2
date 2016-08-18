@@ -28,36 +28,36 @@
 @foreach (var item in itemsFooter)
 {
     <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.MenuMobileID">
-        @item.Descripcion
+        @item.Descripcion.ToUpper()
     </a>
 
     if (item.SubMenu.Count > 0)
     {
         <div id="collapse_@item.MenuMobileID" class="panel-collapse collapse">
 
-        @foreach (var subitem in item.SubMenu)
-        {
-            var target = subitem.PaginaNueva ? "_blank" : "_self";
-            var url = subitem.Version == "Completa"
-            ? subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
-            : subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+            @foreach (var subitem in item.SubMenu)
+            {
+                var target = subitem.PaginaNueva ? "_blank" : "_self";
+                var url = subitem.Version == "Completa"
+                ? subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
+                : subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
 
-            <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion</a>
-        }
+                <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+            }
         </div>
     }
 
 }
-    <a class="version_escritorio" href="https://www.somosbelcorp.com/">Ir a la versión escritorio</a>
-    <div class="content_redes">
-        <div class="col-xs-2">
-            <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-                <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
-            </a>
-        </div>
-        <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
-        <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
-        <hr class="clear" />
+<a class="version_escritorio" href="@Url.Action("Index","Bienvenida", new { area = ""})">Ir a la versión escritorio</a>
+<div class="content_redes">
+    <div class="col-xs-2">
+        <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+            <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+        </a>
     </div>
-
+    <a class="redes_sociales" target="_blank" href="https://www.youtube.com/user/somosbelcorp"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
+    <a class="redes_sociales" target="_blank" href="https://www.facebook.com/SomosBelcorpOficial/?fref=ts"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
     <hr class="clear" />
+</div>
+
+<hr class="clear" />

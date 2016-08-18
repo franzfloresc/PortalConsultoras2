@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Mis Beneficios";
+}
+
+<div class="banner_misBeneficios">
+    <div class="titulo_banner">
+        @if (ViewBag.CodigoISO_MB == "PR")
+        {
+            <h1>
+                MIS&nbsp;<b>PROGRAMAS</b>
+            </h1>
+        }
+        else
+        {
+            <h1>
+                MIS&nbsp;<b>BENEFICIOS</b>
+            </h1>
+        }
+        
+    </div>
+</div>
+<div class="contenedor_infoMisBeneficios" id="contenidoProgramasBelcorp">
+    
+</div>
+<script id="ProgramasBelcorp-template" type="text/x-handlebars-template">
+    {{#each this}}
+        <div class="items_misBeneficios">
+            <div class="contenedor_item_img">
+                <img class="item_img" src="@Url.Content("~/Content/Images/Esika/programaNuevas_img.png")" alt="Alternate Text" />
+                <span class="item_titulo">{{Descripcion}}</span>
+            </div>
+            <div class="contenedor_item_descripcion">
+                <span>
+                    Un programa para que empieces a ganar desde el principio.
+                </span>
+                <a href="{{Url}}" title="Entérate más" target="_blank">Entérate Más</a>
+            </div>
+        </div>
+    {{/each}}
+</script>
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    </script>
+
+    <script type="text/javascript" src="~/Scripts/PortalConsultoras/MisBeneficios/Index.js"></script>
+}

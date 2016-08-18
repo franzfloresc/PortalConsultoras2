@@ -105,13 +105,6 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return productos;
-        }
-
-        public DateTime GetFechaVencimiento(int paisId, string codigoIso, int campaniaId, string codigoConsultora)
-        {
-            var DAResumenCampania = new DAResumenCampania(paisId);
-
-            return DAResumenCampania.GetFechaVencimiento(codigoIso, campaniaId, codigoConsultora);
-        }
+        }     
     }
 }

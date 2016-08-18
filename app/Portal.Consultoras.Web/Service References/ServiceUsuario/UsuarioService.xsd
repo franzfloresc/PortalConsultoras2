@@ -48,6 +48,7 @@
       <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaFinFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaLimPago" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
