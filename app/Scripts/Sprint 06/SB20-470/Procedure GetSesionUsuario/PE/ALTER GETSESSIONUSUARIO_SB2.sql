@@ -135,7 +135,8 @@ BEGIN
 			si.SegmentoInternoId,
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
-			@FechaLimitePago as FechaLimitePago
+			@FechaLimitePago as FechaLimitePago,
+			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (    
 			select *    
