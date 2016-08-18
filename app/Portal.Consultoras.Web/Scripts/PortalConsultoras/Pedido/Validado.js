@@ -38,6 +38,7 @@
             CambioPagina(obj);
         }
     });
+
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
