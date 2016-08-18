@@ -3675,23 +3675,23 @@ function MostrarBarra(datax) {
     var wPrimer = 0;
     var vLogro = 0;
     var wMsgFin = 0;
-    var wmin = parseInt(parseInt(widthTotal, 10) / 20, 10);
+    var wmin = 45; //parseInt(parseInt(widthTotal, 10) / 20, 10);
 
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-
-    listaLimite.push({
-        nombre: "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr,
-        msgLimite: "!VAMOS, ADELANTE!",
-        msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-        tipoMensaje: 'MontoMinimo',
-        width: wPrimer,
-        valor: data.MontoMinimo,
-        valorStr: data.MontoMinimoStr
-    });
-    
+    var textoPunto = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
     if (mx > 0) {
+        listaLimite.push({
+            nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
+            msgLimite: "!VAMOS, ADELANTE!",
+            msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+            tipoMensaje: 'MontoMinimo',
+            width: wPrimer,
+            valor: data.MontoMinimo,
+            valorStr: data.MontoMinimoStr
+        });
+
         vLogro = mt - md;
 
         if (tp > 0) {
@@ -3707,7 +3707,7 @@ function MostrarBarra(datax) {
 
         var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);
         listaLimite.push({
-            nombre: "L. crédito" + salto + data.MontoMaximoStr,
+            nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
             msgLimite: dif <= 0 ? "" : ("SOLO PUEDES AGREGAR " + vbSimbolo + " " + dif + " MÁS"),
             msgFalta: "Ya estas por llegar a tu tope de linea de crédito.",
             tipoMensaje: 'MontoMaximo',
@@ -3717,25 +3717,20 @@ function MostrarBarra(datax) {
         });
     }
     else {
-        if (mt < mn) {
+        if (mt < mn)
             vLogro = mt - md;
-        }
-        else {
-            vLogro = me;
-            if (me < mn) {
-                vLogro = mn;
-            }
-        }
+        else
+            vLogro = me < mn ? mn : me;
 
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
         $.each(listaEscalaDescuento, function (ind, monto) {
             if (ind == 0) {
                 listaLimite.push({
-                    nombre: monto.PorDescuento + "% DSCTO" + salto + "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr,
+                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
                     msgLimite: "!VAMOS, ADELANTE!",
                     msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-                    width: wmin,
+                    width: wPrimer,
                     tipoMensaje: 'EscalaDescuento',
                     valPor: monto.PorDescuento,
                     valor: data.MontoMinimo,
@@ -3748,7 +3743,7 @@ function MostrarBarra(datax) {
                 if (me > montox.MontoHasta && me <= monto.MontoHasta) {
                 }
                 listaLimite.push({
-                    nombre: monto.PorDescuento + "% DSCTO" + salto + vbSimbolo + " " + montox.MontoHastaStr,
+                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
                     msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
                     msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
                     widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
@@ -3762,14 +3757,227 @@ function MostrarBarra(datax) {
         });
     }
 
-    // calcular las distancias
-
+    // validar si hay algun limite
     listaLimite = listaLimite || new Array();
-
     if (listaLimite.length == 0) {
         $("#divBarra").hide();
         return false;
     }
+    
+    var indPuntoLimite = 0;
+    // obtener el punto limite actual
+    $.each(listaLimite, function (ind, limite) {
+        if (ind == 0) {
+            indPuntoLimite = 0;
+        }
+        else {
+            var valBack = listaLimite[ind - 1].valor;
+            if (valBack < vLogro && vLogro < limite.valor) {
+                indPuntoLimite = ind;
+            }
+            else if (vLogro >= limite.valor) {
+                indPuntoLimite = ind;
+            }
+            else if (valBack == vLogro && vLogro > 0) {
+                indPuntoLimite = ind;
+            }
+        }
+    });
+    
+    var wTotal = widthTotal;
+    var vLimite = listaLimite[indPuntoLimite].valor;
+
+    $("#divBarra").show();
+    $("#divBarra #divBarraPosicion").css("width", wTotal);
+    $("#divBarra").css("width", wTotal);
+
+    // colocar los puntos limites
+    var styleMin = 'style="margin-left: 6px;"';
+    var htmlPunto = '<div id="punto_{punto}">'
+                + '<div class="monto_minimo_barra">'
+                    + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra" {style}></div>'
+                + '</div>'
+            + '</div>';
+    var htmlTippintPoint = '<div id="punto_{punto}">'
+                + '<div class="monto_minimo_barra">'
+                    + '<div style="width:{wText}px;position: absolute;" data-texto><div class="tippingPoint {estado}"></div></div>'
+                    + '<div class="linea_indicador_barra"></div>'
+                + '</div>'
+            + '</div>';
+    var htmlPuntoLimite = '<div id="punto_{punto}">'
+                + '<div class="monto_minimo_barra">'
+                    + '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
+                    + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
+                + '</div>'
+            + '</div>';
+
+    if (mx > 0)
+        htmlPuntoLimite = htmlPunto;
+    
+    var wTotalPunto = 0;
+    $("#divBarra #divBarraLimite").html("");
+    $.each(listaLimite, function (ind, limite) {
+        var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
+        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
+
+        var wText = ind == 0 ? "130" : "90";
+        var marl = indPuntoLimite == listaLimite.length - 1 ? "-80" : "21";
+        var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
+        var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
+        htmlSet = htmlSet
+            .replace("{punto}", ind)
+            .replace("{texto}", limite.nombre)
+            .replace("{wText}", wText)
+            .replace("{marl}", marl)
+            .replace("{estado}", activo)
+            .replace("{style}", styleMinx);
+
+        var objH = $(htmlSet).css("float", 'left');
+        $("#divBarra #divBarraLimite").append(objH);
+
+        var wPunto = $("#punto_" + ind + " [data-texto]").width();
+        wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
+        if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
+            if (vLogro < vLimite) {
+                if (mx <= 0) {
+                    wPunto = wmin;
+                }                
+            }
+        }
+
+        $("#punto_" + ind).css("width", wPunto);
+        if (ind == 0) {
+            if (mn == 0) {
+                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
+            }
+        }
+        wTotalPunto += wPunto;
+
+    });
+    $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
+
+    console.log(listaLimite, indPuntoLimite, wTotalPunto);
+
+    if (wTotalPunto > wTotal) {
+        var indAux = indPuntoLimite;
+        while (indAux > 1) {
+            if (indAux - 1 < indPuntoLimite - 1) {    
+                var wwx = $("#punto_" + (indAux - 1) + " [data-texto]").width();
+                wTotalPunto -= wwx;
+                $("#punto_" + (indAux - 1)).remove();
+                listaLimite.splice(indAux - 1, 1);
+                if (wTotalPunto < wTotal) {
+                    indAux = 0;
+                }
+            }
+            indAux--;
+        }
+        if (wTotalPunto > wTotal) {
+            indAux = listaLimite.length;
+            while (indAux > indPuntoLimite + 1) {
+                var wwx = $("#punto_" + (indAux) + " [data-texto]").width();
+                wTotalPunto -= wwx;
+                $("#punto_" + indAux).remove();
+                listaLimite.splice(indAux, 1);
+                indAux--;
+                if (wTotalPunto < wTotal) {
+                    indAux = 0;
+                }
+            }
+        }
+    }
+
+    console.log(listaLimite, indPuntoLimite, wTotalPunto);
+    // asignar espacio para el progreso
+    var wAreaMover = widthTotal - wTotalPunto;
+    if (indPuntoLimite > 0) {
+        if (vLogro >= vLimite) {
+            $("#punto_" + (indPuntoLimite)).css("margin-right", wAreaMover);
+        }
+        else {
+            $("#punto_" + (indPuntoLimite - 1)).css("margin-right", wAreaMover);
+        }
+    }
+    else {
+        $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
+    }
+    
+    var wPuntosAnterior = 0;
+    indAux = indPuntoLimite;
+    while (indAux > 0) {
+        wPuntosAnterior += $("#punto_" + (indAux - 1)).width();
+        indAux--;
+    }
+    if (vLogro >= vLimite) {
+        wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+    }
+
+    var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
+    var wLimiteAnterior = wPuntosAnterior;
+    if (indPuntoLimite > 0) {
+        if (vLogro >= vLimite) { // supero el ultimo limite
+            wLimite = widthTotal;
+            wLimiteAnterior -= parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
+        }
+        else {
+            wLimiteAnterior -= $("#punto_" + (indPuntoLimite - 1)).width() - parseInt($("#punto_" + (indPuntoLimite - 1) + " >  div").width() / 2, 10);
+            if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
+                wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
+            }
+        }
+    }
+    else {
+        if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
+            wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
+        }
+    }
+    wAreaMover = wLimite - wLimiteAnterior;
+
+    // ancho de logrado
+    var vLimiteAnterior = indPuntoLimite > 0 ? listaLimite[indPuntoLimite - 1].valor : 0;
+    var vMover = vLogro - vLimiteAnterior;
+    var vDiferencia = listaLimite[indPuntoLimite].valor - vLimiteAnterior;
+    var wLogro = wLimiteAnterior;
+    wLogro += vDiferencia > 0 ? (vMover * wAreaMover) / vDiferencia : 0;
+
+    if (wLimite == widthTotal) {
+        if (vLogro > vLimite) {
+            wLogro = widthTotal - 20;
+        }
+        else if (vLogro == vLimite) {
+            wLogro = wLimiteAnterior;
+        }
+    }
+
+    //wLogro = wLimite == widthTotal ? vLogro > vLimite ? widthTotal - 20 : wLimite : wLogro;
+    $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
+    $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
+
+    //console.log(widthTotal, wTotalPunto, wAreaMover, wLimite, indPuntoLimite, vLogro, vLimite, wLimiteAnterior);
+
+    // mensaje
+    var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
+    tipoMensaje += vLogro >= vLimite ? "Supero" : "";
+
+    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
+    objMsg.Titulo = $.trim(objMsg.Titulo);
+    objMsg.Mensaje = $.trim(objMsg.Mensaje);
+    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
+        $("#divBarra #divBarraMensajeLogrado").hide();
+        return false;
+    }
+    var valPor = listaLimite[indPuntoLimite].valPor || "";
+    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
+    $("#divBarra #divBarraMensajeLogrado").show();
+    $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
+    wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+
+    return false;
+
     // obtener valor minimo y maximo, distancia a trabajar
     var vm = 0, vx = 0, w = 0;
     $.each(listaLimite, function (ind, limite) {
@@ -3782,11 +3990,7 @@ function MostrarBarra(datax) {
     });
     w = widthTotal - w;
     var fk = vx - vm;
-    var indPuntoLimite = 0;
-    var wLimite = 0;
-    var vLimite = 0;
-    var tipoMensaje = "";
-    var valPor = "";
+
     // poner width segun el rango min y max, dentro del area
     $.each(listaLimite, function (ind, limite) {
         if (!limite.width) {
@@ -3832,6 +4036,7 @@ function MostrarBarra(datax) {
 
     //console.log(wLimite, vLogro, indPuntoLimite, mx, listaLimite);
 
+    // ancho de logrado
     var wLogro = 0;
     if (vLogro == vm) {
         wLogro = vLogro > 0 ? wmin : 0;
@@ -3843,34 +4048,12 @@ function MostrarBarra(datax) {
         wLogro = vLogro / vm;
         wLogro = parseInt(wmin * wLogro * 100) / 100;
     }
+    
     // colocar los puntos de limite
     var w1 = 0;
-    var styleMin = 'style="margin-left: 6px;"';
-    var htmlPunto = '<div>'
-               + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
-                        + '<div style="width:{wText}px;position: absolute;">{texto}</div>'
-                        + '<div class="linea_indicador_barra" {style}></div>'
-                    + '</div>'
-                + '</div>';
-    var htmlTippintPoint = '<div>'
-               + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
-                        + '<div style="width:{wText}px;position: absolute;"><div class="tippingPoint {estado}"></div></div>'
-                        + '<div class="linea_indicador_barra"></div>'
-                    + '</div>'
-                + '</div>';
-    var htmlPuntoLimite = '<div>'
-        + '<div class="monto_minimo_barra" style="float: right; left: 45px;">'
-            + '<div class="bandera_marcador" style="margin-top: -6px;margin-left: 45px;"></div>'
-            + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;">{texto}</div>'
-        + '</div>'
-    + '</div>';
-
-    if (mx > 0) {
-        htmlPuntoLimite = htmlPunto;
-    }    
-
+    
     var wSumLeft = 0, msgLimite = "";
-    $("#divBarra #divBarraLimite").html("");
+    //$("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
         w1 = ind == 0 ? limite.width : w1;
         var www = limite.width + (ind == 0 ? 0 : w1);
@@ -3878,31 +4061,45 @@ function MostrarBarra(datax) {
         wSumLeft += wadd;
         limite.widthAdd = wadd;
         limite.widthSum = wSumLeft;
-        //var objH = $("<a>").css("width", www).append($("<span>").append(limite.nombre));
-        var htmlSet = indPuntoLimite == ind && ind > 0 ? htmlPuntoLimite : htmlPunto;
-        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
-        var wText = ind == 0 ? "130" : "90";
-        var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
-        var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
-        var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo).replace("{style}", styleMinx);
-        var objH = $(htmlSet).css("width", wadd).css("float", 'left');
-        $("#divBarra #divBarraLimite").append(objH);
+
+        $("#punto_" + ind).css("width", wadd);
+        $("#punto_" + ind + " [data-texto]").css("float", "right");
+
+        $("#punto_" + ind + " > div").css("float", "right");
+        $("#punto_" + ind + " > div").css("left", "45px");
+        if (ind == 0) {
+            if (mn == 0) {
+                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "6px;");
+            }
+        }
+        if (indPuntoLimite == ind) {
+            $("#punto_" + ind).css("left", "45px");
+            $("#punto_" + ind + " .bandera_marcador").css("margin-left", "45px");
+            $("#punto_" + ind + " [data-texto]").css("margin-left", "55px");
+        }
+        //var wText = ind == 0 ? "130" : "90";
+        //var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
+        //var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
+        //var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
+        //var htmlSet = indPuntoLimite == ind && ind > 0 ? htmlPuntoLimite : htmlPunto;
+        //htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
+        //htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo).replace("{style}", styleMinx);
+        //var objH = $(htmlSet).css("width", wadd).css("float", 'left');
+        //$("#divBarra #divBarraLimite").append(objH);
 
         msgLimite = indPuntoLimite == ind ? limite.msgLimite : msgLimite;
         msgLimite = indPuntoLimite == listaLimite.length - 1 && vLogro > limite.valor ? "" : msgLimite;
     });
-    $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
+    //$("#divBarra #divBarraLimite").append("<div class='clear'></div>");
+
     // pintar la barra
     $("#divBarra #divBarraMinimo").css("width", wPrimer);
     //wLogro = wLogro <= wmin ? wLogro : wLogro > w ? w + 25 : (wLogro + wPrimer);
     wLogro = vLogro < vm ? wLogro : wLogro > w ? w + 25 + wPrimer : vLogro != vm ? (wLogro + wPrimer) : wLogro;
     wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer + (mn == 0 ? wmin : 0));
-    var wTotal = w + wmin + wPrimer;
+    
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-    $("#divBarra #divBarraPosicion").css("width", wTotal);
-    $("#divBarra").css("width", wTotal);
 
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
@@ -3913,20 +4110,14 @@ function MostrarBarra(datax) {
         return false;
     }
     valPor = valPor || "";
-    //if (msgLimite != "") {
     var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-        $("#divBarra").show();
-        $("#divBarra #divBarraMensajeLogrado").show();
-        $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-        $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-        var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
-        wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-        $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
-    //}
-    //else {
-    //    $("#divBarra #divBarraMensajeLogrado").hide();
-    //}
-    
+    $("#divBarra").show();
+    $("#divBarra #divBarraMensajeLogrado").show();
+    $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
+    wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
 }
 
 // Fin Barra
