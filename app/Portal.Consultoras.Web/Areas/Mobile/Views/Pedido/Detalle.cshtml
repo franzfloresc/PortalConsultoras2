@@ -12,7 +12,7 @@
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                <a href="@Url.Action("Index", "Pedido", new { area = "Mobile" })" class="enlace_regresar detalleP" title="Regresar">
+                <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar">
                     @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile.svg")" alt="Regresar" />*@
                 </a>
                 <h2 class="nombre_campania_pedido">

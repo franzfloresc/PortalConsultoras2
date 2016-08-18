@@ -1482,6 +1482,9 @@
                 'top': carrito.offset().top,
                 'opacity': 0,
             }, 100, 'swing', function () {
+                $(".campana .info_cam").fadeIn(200);
+                $(".campana .info_cam").delay(2500);
+                $(".campana .info_cam").fadeOut(200);
                 $(this).remove();
             });
         });
@@ -1495,6 +1498,12 @@
 
             agregarProductoAlCarrito(this);
 
+        });
+
+        $(".campana.cart_compras").hover(function () {
+            $(".info_cam").fadeIn(200);
+        }, function () {
+            $(".info_cam").fadeOut(200);
         });
 
     });

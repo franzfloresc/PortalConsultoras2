@@ -105,6 +105,11 @@ header {
     /* padding-right: 5px; */
 }
 
+.transicion{
+    position:absolute;
+    z-index:2000;
+}
+
 .campana_svg {
     float: left;
     width: 20px;
@@ -112,10 +117,10 @@ header {
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
 }
-.campana_svg:hover {    
+/*.campana_svg:hover {    
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
-}
+}*/
 .mensaje_header {
     margin-top: 15px;
     float: left;
@@ -124,6 +129,11 @@ header {
     height: 40px;
     margin-right: 12px;
 }
+
+.cart_compras{
+    cursor:pointer;
+}
+
 .mensaje_svg {
     background: url(../../../Images/Esika/mensajes.png) no-repeat;
     background-position: 0 4px;
@@ -19848,9 +19858,9 @@ label.checkpop.c_on {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+/*.campana:hover .info_cam {
     display: block;
-}
+}*/
 
 .ver_pedido {
     text-align: center;

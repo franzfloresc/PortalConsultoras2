@@ -114,6 +114,7 @@ header {
     position:absolute;
     z-index:2000;
 }
+
 .mensaje_header{
      margin-top: 15px;
     float: left;
@@ -130,6 +131,10 @@ header {
     height: 24px;
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
+}
+
+.cart_compras{
+    cursor:pointer;
 }
 
 .mensaje_svg {
@@ -10975,9 +10980,9 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+/*.campana:hover .info_cam {
     display: block;
-}
+}*/
 
 /*.info_cam h1 {
     font-family: 'lato';
