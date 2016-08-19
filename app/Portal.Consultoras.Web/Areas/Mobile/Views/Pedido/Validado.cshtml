@@ -1,0 +1,444 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoDetalleMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
+            <li>|</li>
+            <li>MI PEDIDO</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-white text-center text-success">
+            <div><i class="icon-icon-check icon-ulg"></i></div>
+            <p>Tu pedido ha sido reservado con éxito</p>
+            <p>
+                <a href="javascript:;" id="btnModificarPedido" class="btn btn-line-hover">MODIFICA TU PEDIDO</a>
+            </p>
+
+            @if (ViewBag.Dias == 0)
+            {
+                <span class="fcolor">Puedes modificar tu pedido hasta las @ViewBag.HoraCierre horas, luego se enviará a Belcorp.</span>
+            }
+
+            @*//r20151104*@
+
+            @if (ViewBag.TieneFechaPromesa == 1)
+            {
+                    <span class="fcolor"><b>@ViewBag.MensajeFechaPromesa</b></span>
+            }
+            
+            @if (ViewBag.EscalaDescuento != 0)
+            {
+                <br />
+                <span class="fcolor">¡Tú puedes! Te faltan @Model.Simbolo @ViewBag.MontoEscalaDescuento para llegar a tu siguiente escala de descuento de @ViewBag.PorcentajeEscala%.</span>
+            }
+        </div>
+
+        <div class="block-white">
+            <div class="list-table-new">
+                <ul class="list-table-title upper">
+                    <li>Productos <span class="table-title-right">Cant</span></li>
+                </ul>
+                <ul class="list-table-body">
+                    @Html.Hidden("hdfModificacionPedidoProl", Model.ModificacionPedidoProl)
+                    @Html.Hidden("hdfCorreo", Model.Email)
+                    @foreach (var item in Model.Detalle)
+                    {
+                        var precioUnitario = Model.DecimalToString(item.PrecioUnidad);
+                        var importeTotal = Model.DecimalToString(item.ImporteTotal);
+
+                        <li>
+                            <input type="hidden" id="hdDescripcionProducto" value="@item.DescripcionProd" />
+                            <input type="hidden" id="hdCuv" value="@item.CUV" />
+                            <input type="hidden" id="hdPrecioUnitario" value="@precioUnitario" />
+                            <input type="hidden" id="hdCantidad" value="@item.Cantidad" />
+                            <input type="hidden" id="hdMarcaId" value="@item.MarcaID" />
+
+                            <div class="posr">
+                                <div class="table-width">
+                                    <!-- Nombre de Producto -->
+                                    <strong class="upper">
+                                        @if (item.IndicadorMontoMinimo == 0)
+                                        {
+                                            <span class="text-success">*</span>
+                                        }
+
+                                        <span id="DescripcionProd_@item.PedidoDetalleID">@item.DescripcionProd</span>
+
+                                        @if (item.TipoPedido != "PV")
+                                        {
+                                            <br />
+                                            <span class="text-success">App móvil</span>
+                                        }
+
+                                        @switch (item.ConfiguracionOfertaID)
+                                        {
+                                            case Constantes.TipoOferta.Web:
+                                                <br />
+                                                <span class="text-success">Oferta Web</span>
+                                                break;
+                                            case Constantes.TipoOferta.Liquidacion:
+                                            <br />
+                                            <span class="text-success">Oferta Liquidación</span>
+                                                break;
+                                            case Constantes.TipoOferta.Dupla:
+                                            <br />
+                                            <span class="text-success">Oferta Dupla</span>
+                                                break;
+                                            case Constantes.TipoOferta.Nueva:
+                                            <br />
+                                            <span class="text-success">Pack Oferta Nueva</span>
+                                                break;
+                                            case Constantes.TipoOferta.Flexipago:
+                                            <br />
+                                            <span class="text-success">Oferta Flexipago</span>
+                                                break;
+                                        }
+                                    </strong>
+
+                                    <!-- Código de Producto -->
+                                    <div class="mb-10">
+                                        <strong class="text-lg">@item.CUV</strong>
+                                    </div>
+
+                                    <!-- Precio Unitario de Producto -->
+                                    Precio Unitario :
+                                    @Model.Simbolo
+                                    @precioUnitario
+                                    <br />
+
+                                    <!-- Nombre de Cliente -->
+                                    <div class="mb-20">
+                                        Cliente:
+                                        <span class="upper">@item.Nombre</span>
+                                    </div>
+
+                                    <!-- Sub Total -->
+                                    <div class="upper">
+                                        <strong>Subtotal </strong>
+                                        <strong>
+                                            @Model.Simbolo
+                                            @if (item.IndicadorMontoMinimo == 1)
+                                            {
+                                                <span id="ImporteTotalMinimo_@item.PedidoDetalleID" class="classImporteTotal_minimo" style="display: none;">@importeTotal</span>
+                                            }
+                                            <span id="ImporteTotal_@item.PedidoDetalleID" class="classImporteTotal">@importeTotal</span>
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <!-- Cantidad -->
+                                <div class="cantidad-numero">
+                                    <span class="num-cuadro"> @item.Cantidad </span>
+                                </div>
+                            </div>
+
+                            <!-- Mensajes de Oferta CUV -->
+                            @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
+                            {
+                                <div class="alert-top-icon text-success">
+                                    <div class="text-left">
+                                        Hemos elegido la mejor combinación de precios posibles para ti
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Mensajes de Validación -->
+                            @if (!string.IsNullOrEmpty(item.Mensaje))
+                            {
+                                <div class="simple-alert t-danger">
+                                    <span class="alert-icon"><i class="icon-exclamation-circle"></i></span>
+                                    <small>
+                                        @if (item.TipoObservacion != 0)
+                                        {
+                                            @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""))
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(item.Mensaje)
+                                        }
+                                    </small>
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+                <br />
+
+            </div>
+            <!-- Total de Pedido -->
+            <table class="table">
+                <tbody>
+                    @if (Model.PedidoConDescuentoCuv)
+                    {
+                        <tr>
+                            <td><strong>Subtotal </strong></td>
+                            <td class="text-right" style="font-size: 1.3em;">
+                                <b>@Model.Simbolo @Model.DescripcionSubTotal</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-success">Descuento por ofertas con más de un precio </strong></td>
+                            <td class="text-right" style="font-size: 1.3em;">
+                                <b class="text-success">@Model.Simbolo @Model.DescripcionDescuento</b>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="upper"><strong class="text-primary">Total Pedido </strong></td>
+                        <td class="text-right" style="font-size: 1.3em;">
+                            <b id="sTotal">@Model.Simbolo @Model.DescripcionTotal</b>
+                        </td>
+                    </tr>
+
+                    @if (Model.CodigoISO == "DO" || Model.CodigoISO == "PR" || Model.CodigoISO == "MX" || Model.CodigoISO == "CO")
+                    {
+                        <tr>
+                            <td class="pcolor upper"><strong>Total Validando Monto Mínimo </strong></td>
+                            <td class="text-right" style="font-size: 1.3em;">
+                                <b>@Model.Simbolo @Model.DescripcionTotalMinimo</b>
+                            </td>
+                        </tr>
+                        if (Model.PedidoConProductosExceptuadosMontoMinimo)
+                        {
+                            <tr>
+                                <td colspan="2">
+                                    <br />
+                                    <span class="texto_rojo"><b>* </b><small>No se considera para el Monto Mínimo.</small></span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Popup para Eliminar Item -->
+<div class="modal fade" id="divConfirmarValidarProl">
+    <div class="modal-dialog modal-alert ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Importante</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-noti">
+                    Al hacer click en <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.
+                </p>
+                <br>
+                <p>
+                    <a href="javascript:;" class="btn btn-line-hover" onclick="ConfirmModificar()">Continuar</a>
+                </p>
+                <p>
+                    <a href="javascript:;" class="btn btn-line-hover" data-dismiss="modal">Cancelar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Popup para Eliminar Item -->
+@section Scripts{
+    <script type="text/javascript">
+        var codigoISO = '@Model.CodigoISO';
+        var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';
+        var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
+        var urlIngresarPedido = '@Url.Action("Index", "Pedido", new {area = "Mobile"})';
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
+
+        $(function () {
+            $("#btnModificarPedido").click(function () {
+                if ($("#hdfModificacionPedidoProl").val() == "0")
+                    ConfirmModificar();
+                else
+                    $("#divConfirmarValidarProl").modal("show");
+            });
+        });
+
+        function TagManagerPedidoValidado() {
+            var listaProductos = new Array();
+            $(".list-table-body li").each(function () {
+                var li = $(this);
+
+                var descripcion = $(li).find("#hdDescripcionProducto").val();
+                var cuv = $(li).find("#hdCuv").val();
+                var precioUnitario = $(li).find("#hdPrecioUnitario").val();
+                var cantidad = $(li).find("#hdCantidad").val();
+                var marcaId = $(li).find("#hdMarcaId").val();
+                var descripcionMarca = "";
+                var descripcionEstrategia = "";
+
+                var item = {
+                    CUV: cuv,
+                    MarcaID: marcaId
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlObtenerMarcaEstrategia,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    async: false,
+                    data: JSON.stringify(item),
+                    success: function (response) {
+                        if (checkTimeout(response)) {
+                            if (response.success) {
+                                var data = response.data;
+
+                                descripcionMarca = data.DescripcionMarca;
+                                descripcionEstrategia = data.DescripcionEstrategia;
+                            } else {
+                                window.messageInfo(response.message);
+                            }
+                        }
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            window.messageInfo(response.message);
+                        }
+                    }
+                });
+
+                if (descripcionEstrategia == null || descripcionEstrategia == "") {
+                    item.DescripcionEstrategia = "Estándar";
+                }
+
+                listaProductos.push(
+                    {
+                        name: descripcion,
+                        id: cuv,
+                        price: precioUnitario,
+                        brand: descripcionMarca,
+                        category: 'NO DISPONIBLE',
+                        variant: descripcionEstrategia,
+                        quantity: cantidad
+                    });
+
+            });
+
+            dataLayer.push({
+                'event': 'productCheckout',
+                'action': 'Validado',
+                'ecommerce': {
+                    'checkout': {
+                        'actionField': { 'step': 3 },
+                        'products': listaProductos
+                    }
+                }
+            });
+        }
+
+        function ConfirmModificar() {
+            ShowLoading();
+            jQuery.ajax({
+                type: 'POST',
+                url: urlDeshacerReservaPedidoReservado + '?Tipo=PV',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.success == true) {
+                            dataLayer.push({
+                                'event': 'virtualEvent',
+                                'category': 'Ecommerce',
+                                'action': 'Modificar pedido',
+                                'label': '(not available)'
+                            });
+                            location.href = urlIngresarPedido;
+                        } else {
+                            CloseLoading();
+                            alert(data.message);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                    }
+                }
+            });
+            return false;
+        }
+
+        function EjecutarPROL() {
+            if (!HorarioRestringido()) {
+                ShowLoading();
+                RecalcularPROL();
+            }
+        }
+
+        function RecalcularPROL() {
+            //Se Valida que existan productos
+            if ($(".list-table-body li").length > 0) {
+                EjecutarServicioPROL();
+            } else {
+                CloseLoading();
+            }
+        }
+
+        function EjecutarServicioPROL() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlEjecutarServicioPROL,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(param),
+                async: true,
+                success: function (datos) {
+                    CloseLoading();
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        CloseLoading();
+                    }
+                }
+            });
+        }
+
+        function HorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+            var horarioRestringido = false;
+            jQuery.ajax({
+                type: 'GET',
+                url: urlEnHorarioRestringido,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                cache: false,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        // SI esta en horario restringido
+                        if (data.success == true) {
+                            if (mostrarAlerta == true)
+                                window.messageInfo(response.message);
+                            horarioRestringido = true;
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        window.messageInfo(response.message);
+                    }
+                }
+            });
+            return horarioRestringido;
+        }
+    </script>
+}

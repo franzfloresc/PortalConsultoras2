@@ -1,0 +1,151 @@
+﻿@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })"><i class="icon-angle-left"></i> Volver </a>
+            </li>
+            <li>|</li>
+            <li>
+                Mis Notificaciones
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="block-success block-noti">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-notificaciones noti-detalle">
+                    <li>
+                        <span class="icon-noti icon-noti-white"></span>
+                        <div class="text-noti">
+                            <div class="upper">
+                                <strong>@ViewBag.Asunto</strong> <br>
+                                <b>CAMPAÑA @ViewBag.Campania.ToString().Substring(4) @ViewBag.Campania.ToString().Substring(0, 4)</b>
+                            </div>
+                            <span>@ViewBag.FechaEjecucion</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12">
+        <p style="text-align: justify;">Te ha llegado el siguiente pedido a través del Catálogo Virtual.</p>
+        <div class="list-table">
+            <ul>
+                <li>
+                    Nombre de cliente: <strong>@Model.NotificacionDetalleCatalogo.NombreCliente</strong>
+                </li>
+                <li>
+                    Correo: <strong>@Model.NotificacionDetalleCatalogo.CorreoCliente</strong>
+                </li>
+                <li>
+                    Teléfono: <strong>@Model.NotificacionDetalleCatalogo.TelefonoCliente</strong>
+                </li>
+            </ul>
+        </div>
+        <br />
+        @if (!string.IsNullOrEmpty(Model.NotificacionDetalleCatalogo.DetalleNotificacion))
+        {
+            <div id="divTablaDetalle" class="hide">
+                @Html.Raw(Model.NotificacionDetalleCatalogo.DetalleNotificacion)
+            </div>
+            <h3 class="title-line">Detalle del pedido</h3>
+            <p style="text-align: justify;">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar.</p>
+            <div class="list-table-new">
+                <ul class="list-table-title upper">
+                    <li>Productos <span class="table-title-right">Cant</span></li>
+                </ul>
+                <ul id="ulTablaDetalle" class="list-table-body"></ul>
+            </div>
+            <br />
+            <div class="text-right text-success upper" style="font-size:1.2em;">
+                <strong>Total Pedido</strong> <span id="spanTotalPedido"></span>
+            </div>
+            <hr class="success" />
+        }
+
+        <p><b>Gracias, <br> Equipo de Belcorp</b></p><br />
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var simbolo = '@ViewBag.Simbolo';
+
+        $(document).ready(function () {
+            CargarDetallePedido();
+        });
+
+        function CargarDetallePedido() {
+
+            var tbl = $('#divTablaDetalle table tr:has(td)').map(function (i, v) {
+                var $td = $('td', this);
+                return {
+                    id: ++i,
+                    codigo: $td.eq(0).text(),
+                    descripcion: $td.eq(1).text(),
+                    cantidad: $td.eq(2).text(),
+                    precioUnitario: $td.eq(3).text(),
+                    precioTotal: $td.eq(4).text()
+                }
+            }).get();
+
+            if (tbl.length > 0) {
+                for (var i in tbl) {
+                    if (i == 0) continue;
+                    if (i == (tbl.length - 1)) break;
+
+                    var htmlTable = '';
+                    htmlTable += '<li>';
+                    htmlTable += '<div class="posr">';
+                    htmlTable += '<div class="table-width">';
+                    htmlTable += '<strong class="upper">' + tbl[i].descripcion + '</strong>';
+                    htmlTable += '<div class="mb-10">';
+                    htmlTable += '<strong class="text-lg">' + tbl[i].codigo + '</strong>';
+                    htmlTable += '</div>';
+                    htmlTable += '<div>';
+                    htmlTable += 'Precio Unitario: <span>' + simbolo + ' ' + tbl[i].precioUnitario + '</span><br />';
+                    htmlTable += '<div class="upper">';
+                    htmlTable += '<strong>Subtotal </strong>';
+                    htmlTable += '<strong><span>' + simbolo + ' ' + tbl[i].precioTotal + '</span></strong>';
+                    htmlTable += '</div>';
+                    htmlTable += '</div>';
+                    htmlTable += '</div>';
+                    htmlTable += '<div class="cantidad-numero">';
+                    htmlTable += '<span class="num-cuadro">' + tbl[i].cantidad + '</span>';
+                    htmlTable += '</div>';
+                    htmlTable += '</div>';
+                    htmlTable += '</li>';
+                    $('#ulTablaDetalle').append(htmlTable);
+                }
+
+                $('#spanTotalPedido').html(simbolo + ' ' + tbl[tbl.length - 1].precioTotal);
+            }
+        }
+
+    </script>
+}

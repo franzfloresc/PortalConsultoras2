@@ -1,0 +1,59 @@
+﻿@using Newtonsoft.Json
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model PedidoMobileModel
+<input type="hidden" id="hdCantItemRecomendado" value="@Model.ListaEstrategias.Count" />
+<input type="hidden" id="hdListaEstrategiasPedido" value="@JsonConvert.SerializeObject(Model.ListaEstrategias)" />
+<div class="sec-spaced slide-productos slick-list">
+    @{ var posicionCarrusel = 1; }
+    @foreach (var estrategia in Model.ListaEstrategias)
+    {
+
+        if (estrategia.CUV2 != "00000")
+        {
+            var descripcion = "";
+            if (estrategia.DescripcionCUV2 != null)
+            {
+                descripcion = (estrategia.DescripcionCUV2.Length > 50) ? estrategia.DescripcionCUV2.Substring(0, 50) + "..." : estrategia.DescripcionCUV2;
+            }
+            var estilo = @estrategia.ColorFondo == "" ? "" : "product-recomendado";
+            <div>
+                <article class="panel-product @estilo">
+                    <input type="hidden" class="valorCuv" value="@estrategia.CUV2" />
+                    <input type="hidden" class="valorPosicion" value="@estrategia.ID" />
+                    <input type="hidden" class="valorPosicionCarrusel" value="@posicionCarrusel" />
+                    <input type="hidden" class="valorFlagNueva" value="@estrategia.FlagNueva" />
+                    @if (Model.ListaProductos.Any(p => p.CUV == estrategia.CUV2))
+                    {
+                        <span class="product-add-image"></span>
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(estrategia.ImagenURL))
+                        {
+                            <img src="@estrategia.ImagenURL" class="img-product-top" />
+                        }
+                    }
+                    <figure>
+                        <div class="img-middle">
+                            <img src="@estrategia.FotoProducto01" alt="@estrategia.DescripcionCUV2" width="150" />
+                        </div>
+                        <div class="title-middle">
+                            <figcaption><strong>@(estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|')[0] : descripcion)</strong></figcaption>
+                        </div>
+                    </figure>
+                    <div class="product-precio">
+                        Precio catálogo <b>@estrategia.Simbolo @(Model.PaisId == 4 ? estrategia.Precio2.ToString("#,##0").Replace(',', '.') : estrategia.Precio2.ToString("#,##0.00"))</b>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-line btn-icon btn-block btnAgregarEstrategia"><i class="icon icon-caja"></i>Agregar</a>
+                </article>
+                @{ posicionCarrusel++; }
+            </div>
+        }
+    }
+</div>
+@if (Model.ListaEstrategias.Count > 0)
+{
+    <div class="text-center">
+        <a href="@Url.Action("Index", "ProductosDestacados", new { area = "Mobile" })" class="btn btn-line" id="btnProductosDestacados">Ver más </a>
+    </div>
+}

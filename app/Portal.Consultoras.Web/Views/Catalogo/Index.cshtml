@@ -1,0 +1,1954 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    ViewBag.Title = "Cátalogos";
+}
+<script type="text/javascript">
+
+    if (!Array.prototype.filter) {
+        Array.prototype.filter = function (fun) {
+            "use strict";
+
+            //Probando Filter in IE8
+
+            if (this == null)
+                throw new TypeError();
+
+            var t = Object(this);
+            var len = t.length >>> 0;
+            if (typeof fun != "function")
+                throw new TypeError();
+
+            var res = [];
+            var thisp = arguments[1];
+            for (var i = 0; i < len; i++) {
+                if (i in t) {
+                    var val = t[i]; // in case fun mutates this
+                    if (fun.call(thisp, val, i, t))
+                        res.push(val);
+                }
+            }
+            return res;
+        };
+    }
+
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function (elt) {
+            var len = this.length >>> 0;
+
+            var from = Number(arguments[1]) || 0;
+            from = (from < 0)
+                 ? Math.ceil(from)
+                 : Math.floor(from);
+            if (from < 0)
+                from += len;
+            for (; from < len; from++) {
+                if (from in this &&
+                    this[from] === elt)
+                    return from;
+            }
+            return -1;
+        };
+    }
+
+    var _FirsTime = 0;
+    var _Flagchklbel = 0;
+    var _Flagchkcyzone = 0;
+    var _Flagchkesika = 0;
+    var _Flagchkfinart = 0;
+    var _FlagPage = "";
+    var _FTHLBel = "";
+    var _FTHCyzone = "";
+    var _FTHEsika = "";
+    var _FTHFinart = "";
+    var _TotalRows = 0;
+    var _ColumnaDeshabilitadaLBEL = 0;
+    var _ColumnaDeshabilitadaESIKA = 0;
+    var _ColumnaDeshabilitadaCYZONE = 0;
+    var _ColumnaDeshabilitadaFINART = 0;
+
+    var JsonData = {
+        items: []
+    };
+
+    jQuery(document).ready(function () {
+
+        $("#imgLBel").click(function () {
+            _gaq.push(['_trackEvent', 'Catalogo', 'LBel']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Catalogo/LBel'
+            });
+        });
+
+        $("#imgEsika").click(function () {
+            _gaq.push(['_trackEvent', 'Catalogo', 'Esika']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Catalogo/Esika'
+            });
+        });
+
+        $("#imgCyzone").click(function () {
+            _gaq.push(['_trackEvent', 'Catalogo', 'Cyzone']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Catalogo/Cyzone'
+            });
+        });
+
+        $("#imgFinart").click(function () {
+            _gaq.push(['_trackEvent', 'Catalogo', 'Finart']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Catalogo/Finart'
+            });
+        });
+
+        $("#Correo").keypress(
+            function (evt) {
+                var charCode = (evt.which) ? evt.which : window.event.keyCode;
+                if (charCode <= 13) {
+                    return false;
+                }
+                else {
+                    var keyChar = String.fromCharCode(charCode);
+                    var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                    return re.test(keyChar);
+                }
+            });
+
+        $("#Nombres").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                return re.test(keyChar);
+            }
+        });
+        $("#gallery").preloadify({ imagedelay: 300 });
+
+        $("#message").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            //if (charCode <= 13) {
+            //    return false;
+            //}
+            //else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+            return re.test(keyChar);
+            //}
+        });
+        ColumnasDeshabilitadasxPais();
+        _FirsTime = 1;
+        _FirsTime = 0;
+        IniDialog();
+
+        $(".ui-pg-input").keypress(function () {
+            return false;
+        });
+        $(".ui-pg-input").keyup(function () {
+            return false;
+        });
+        $(".ui-pg-input").keydown(function () {
+            return false;
+        });
+        $(".ui-pg-input").attr("readonly", true);
+        $(".ui-pg-input").css("background-color", "rgb(230, 230, 230)");
+        $(".ui-pg-selbox").css("display", "none");
+
+        //R20160204 - INICIO
+        $("#lnkesika").click(function () {
+            debugger;
+            var campania = $('#TextoCampania')[0].innerHTML;
+            var paisid = parseInt($('#CaratulaEsika')[0].dataset.paisid);
+            var codigozona = $('#CaratulaEsika')[0].dataset.codigozona;
+            var visor = $('#CaratulaEsika')[0].dataset.visor;
+
+
+            if (paisid == 3) {
+                //Campañia C04
+
+                if (codigozona == "1319" && campania == "C04 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                }
+                else if (codigozona == "1401" && campania == "C04 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                }
+                else if (codigozona == "1410" && campania == "C04 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                }
+                else if (codigozona == "1405" && campania == "C04 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016";
+                }
+				
+                    //Campañia C05
+                else if (codigozona == "1319" && campania == "C05 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                }
+
+                else if (codigozona == "1401" && campania == "C05 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                }
+
+                else if (codigozona == "1410" && campania == "C05 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                }
+                else if (codigozona == "1405" && campania == "C05 - 2016") {
+
+                    $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016";
+                }
+				
+            }
+            
+            //EPD-826 - INICIO
+            if (paisid == 11) {
+                
+                if (campania == "C14 - 2016" && visor !="") {
+
+                    if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                }
+                
+                if (campania == "C15 - 2016" && visor != "") {
+
+                    if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                }
+
+            }
+
+            //EPD-826 - FIN
+
+
+        });
+        //R20160204 - FIN
+
+        //EPD-826 - INICIO
+        $("#lnklbel").click(function () {
+
+            var campania = $('#TextoCampania')[0].innerHTML;
+            var paisid = parseInt($('#CaratulaLbel')[0].dataset.paisid);
+            var codigozona = $('#CaratulaLbel')[0].dataset.codigozona;
+            var visor = $('#CaratulaLbel')[0].dataset.visor;
+
+
+            if (paisid == 11) {
+               
+                if(campania == "C14 - 2016" && visor != "")
+                {
+                    if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                }
+                
+                if (campania == "C15 - 2016" && visor != "") {
+                    if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                }
+            }
+
+
+        });
+
+        $("#lnkcyzone").click(function () {
+
+            var campania = $('#TextoCampania')[0].innerHTML;
+            var paisid = parseInt($('#CaratulaCyzone')[0].dataset.paisid);
+            var codigozona = $('#CaratulaCyzone')[0].dataset.codigozona;
+            var visor = $('#CaratulaCyzone')[0].dataset.visor;
+
+                if (paisid == 11) {
+                    
+                    if(campania == "C14 - 2016" && visor !="")
+                    {
+                        if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                    }
+                    
+                    if (campania == "C15 - 2016" && visor != "") {
+                        if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                    }
+                }
+        });
+        //EPD-826 - FIN
+		
+    });
+
+    function IniDialog() {
+        $('#DialogClientes').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: true,
+            title: "Mantenimiento de Clientes",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#Nombres').val()) == "")
+                        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+
+                    if (jQuery.trim($('#Correo').val()) != "") {
+                        if (!validateEmail($('#Correo').val()))
+                            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+                    }
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        $('#Nombres').focus();
+                        return false;
+                    }
+                    else {
+                        fnRegistrar();
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+    function fnGrilla() {
+        //debugger;
+        jQuery("#list").jqGrid({
+            url: baseUrl + "Catalogo/ConsultarClientes",
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['ClienteID', 'Cliente', 'Email', '', '', '', '', ''],
+            colModel: [
+                { name: 'ClienteID', index: 'ClienteID', width: 10, editable: true, resizable: false, hidden: true },
+                { name: 'Nombre', index: 'Nombre', width: 200, editable: true, resizable: false, sortable: false, formatter: CheckEmail },
+                { name: 'eMail', index: 'eMail', width: 150, editable: true, resizable: false, hidden: true },
+                { name: 'chklbel', index: 'chklbel', width: 80, editable: true, resizable: false, sortable: false, align: 'center', formatter: CustomCheckBoxLBEL, edittype: "checkbox", editoptions: { value: "1:0" } },
+                { name: 'chkesika', index: 'chkesika', width: 80, editable: true, resizable: false, sortable: false, align: 'center', formatter: CustomCheckBoxESIKA, edittype: "checkbox", editoptions: { value: "1:0" } },
+                { name: 'chkcyzone', index: 'chkcyzone', width: 80, editable: true, resizable: false, sortable: false, align: 'center', formatter: CustomCheckBoxCYZONE, edittype: "checkbox", editoptions: { value: "1:0" } },
+                { name: 'chkfinart', index: 'chkfinart', width: 80, editable: true, resizable: false, sortable: false, align: 'center', formatter: CustomCheckBoxFINART, edittype: "checkbox", editoptions: { value: "1:0" } },
+                { name: 'imgEdit', index: 'imgEdit', width: 20, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowActions, edittype: "checkbox", editoptions: { value: "1:0" } }
+                //{ name: 'NombreCliente', index: 'NombreCliente', width: 1, editable: true, resizable: false, sortable: false, hidden: true },
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 18,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: '930',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            ajaxGridOptions: { cache: false },
+            loadComplete: function (data) {
+                //debugger;
+                _TotalRows = data.records;
+                var Page = $(".ui-pg-input").val();
+                var Idlbel = "chkChildchklbel" + (parseInt(Page)) + "";
+                var Idcyzone = "chkChildchkcyzone" + (parseInt(Page)) + "";
+                var Idesika = "chkChildchkesika" + (parseInt(Page)) + "";
+                var Idfinart = "chkChildchkfinart" + (parseInt(Page)) + "";
+                var vexiste = false;
+                var indice = "";
+
+                var JsonDataTemp = JsonData;
+                var lista = jQuery("#list").getDataIDs();
+                if (JsonData.items.length > 0) {
+                    for (var i = 0; i < JsonData.items.length ; i++) {
+                        for (var j = 0; j < lista.length; j++) {
+                            if (JsonData.items[i].ClienteID == lista[j]) {
+                                var IndiceLbel = Idlbel + "" + j;
+                                var IndiceCyzone = Idcyzone + "" + j;
+                                var IndiceEsika = Idesika + "" + j;
+                                var IndiceFinart = Idfinart + "" + j;
+                                var cellValueLbel = getCellValue(JsonData.items[i].chklbel);
+                                var cellValueCyzone = getCellValue(JsonData.items[i].chkcyzone);
+                                var cellValueEsika = getCellValue(JsonData.items[i].chkesika);
+                                var cellValueFinart = getCellValue(JsonData.items[i].chkfinart);
+
+                                $("#" + IndiceLbel).attr("value", cellValueLbel);
+                                $("#" + IndiceLbel).attr("checked", cellValueLbel == 0 ? false : true);
+                                $("#" + IndiceEsika).attr("value", cellValueEsika);
+                                $("#" + IndiceEsika).attr("checked", cellValueEsika == 0 ? false : true);
+                                $("#" + IndiceCyzone).attr("value", cellValueCyzone);
+                                $("#" + IndiceCyzone).attr("checked", cellValueCyzone == 0 ? false : true);
+                                $("#" + IndiceFinart).attr("value", cellValueFinart);
+                                $("#" + IndiceFinart).attr("checked", cellValueFinart == 0 ? false : true);
+                            }
+                        }
+                    }
+                }
+
+                //Limpiamos los checks que se encuentran sin correo que hayan sido agregados recientemente
+                $(".CustomChildchklbel").filter(function () {
+                    return this.disabled;
+                }).attr('checked', false);
+                $(".CustomChildchkcyzone").filter(function () {
+                    return this.disabled;
+                }).attr('checked', false);
+                $(".CustomChildchkesika").filter(function () {
+                    return this.disabled;
+                }).attr('checked', false);
+                $(".CustomChildchkfinart").filter(function () {
+                    return this.disabled;
+                }).attr('checked', false);
+
+                var flagBool = false;
+                if (_Flagchklbel == 1) {
+                    $(".CustomChildchklbel").filter(function () {
+                        return !this.disabled;
+                    }).attr('checked', true);
+                    $(".CustomChildchklbel").filter(function () {
+                        return this.disabled;
+                    }).attr('checked', false);
+                    $(".CustomChildchklbel").filter(function () {
+                        return !this.disabled;
+                    }).attr('value', 1);
+                    $(".CustomChildchklbel").filter(function () {
+                        return this.disabled;
+                    }).attr('value', 0);
+                }
+                else {
+                    flagBool = false;
+                    var values = $(".CustomChildchklbel");
+
+                    for (var i in values) {
+                        if (values[i].value == 1) {
+                            flagBool = true;
+                            break;
+                        }
+                    }
+
+                    if ((!flagBool)) {
+                        $(".CustomChildchklbel").attr('checked', false);
+                        $(".CustomChildchklbel").attr('value', 0);
+                    }
+                }
+                if (_Flagchkcyzone == 1) {
+                    $(".CustomChildchkcyzone").filter(function () {
+                        return !this.disabled;
+                    }).attr('checked', true);
+                    $(".CustomChildchkcyzone").filter(function () {
+                        return this.disabled;
+                    }).attr('checked', false);
+                    $(".CustomChildchkcyzone").filter(function () {
+                        return !this.disabled;
+                    }).attr('value', 1);
+                    $(".CustomChildchkcyzone").filter(function () {
+                        return this.disabled;
+                    }).attr('value', 0);
+                }
+                else {
+                    flagBool = false;
+                    var values = $(".CustomChildchkcyzone");
+                    for (var i in values) {
+                        if (values[i].value == 1) {
+                            flagBool = true;
+                            break;
+                        }
+                    }
+                    if (!flagBool) {
+                        $(".CustomChildchkcyzone").attr('checked', false);
+                        $(".CustomChildchkcyzone").attr('value', 0);
+                    }
+                }
+                if (_Flagchkesika == 1) {
+                    $(".CustomChildchkesika").filter(function () {
+                        return !this.disabled;
+                    }).attr('checked', true);
+                    $(".CustomChildchkesika").filter(function () {
+                        return this.disabled;
+                    }).attr('checked', false);
+                    $(".CustomChildchkesika").filter(function () {
+                        return !this.disabled;
+                    }).attr('value', 1);
+                    $(".CustomChildchkesika").filter(function () {
+                        return this.disabled;
+                    }).attr('value', 0);
+                }
+                else {
+                    flagBool = false;
+                    var values = $(".CustomChildchkesika");
+                    for (var i in values) {
+                        if (values[i].value == 1) {
+                            flagBool = true;
+                            break;
+                        }
+                    }
+                    if (!flagBool) {
+                        $(".CustomChildchkesika").attr('checked', false);
+                        $(".CustomChildchkesika").attr('value', 0);
+                    }
+                }
+                if (_Flagchkfinart == 1) {
+                    $(".CustomChildchkfinart").filter(function () {
+                        return !this.disabled;
+                    }).attr('checked', true);
+                    $(".CustomChildchkfinart").filter(function () {
+                        return this.disabled;
+                    }).attr('checked', false);
+                    $(".CustomChildchkfinart").filter(function () {
+                        return !this.disabled;
+                    }).attr('value', 1);
+                    $(".CustomChildchkfinart").filter(function () {
+                        return this.disabled;
+                    }).attr('value', 0);
+                }
+                else {
+                    flagBool = false;
+                    var values = $(".CustomChildchkfinart");
+                    for (var i in values) {
+                        if (values[i].value == 1) {
+                            flagBool = true;
+                            break;
+                        }
+                    }
+                    if (!flagBool) {
+                        $(".CustomChildchkfinart").attr('checked', false);
+                        $(".CustomChildchkfinart").attr('value', 0);
+                    }
+                }
+            },
+            gridComplete: function () {
+                //var lista = jQuery("#list").getDataIDs();
+            },
+            onPaging: function (pgButton) {
+
+            }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        jQuery("#list").closest("div.ui-jqgrid-view").find("div.ui-jqgrid-hdiv table.ui-jqgrid-htable tr.ui-jqgrid-labels > th.ui-th-column > div.ui-jqgrid-sortable")
+        .each(function () {
+            if ((!(this.id == "jqgh_list_Nombre")) && (!(this.id == "jqgh_list_imgEdit"))) {
+                AddCheckBoxHeader(this);
+            }
+        });
+
+        $.jgrid.extend({
+            Editar: function (Id) {
+                if (Id) {
+                    $('#hdNombreAnt').val(jQuery.trim(jQuery("#list").getRowData(Id).Nombre.split('&nbsp;')[1]));
+                    $('#hdClienteId').val(jQuery("#list").jqGrid('getCell', Id, 'ClienteID'));
+                    $('#Nombres').val(jQuery.trim(jQuery("#list").getRowData(Id).Nombre.split('&nbsp;')[1]));
+                    $('#Correo').val(jQuery("#list").jqGrid('getCell', Id, 'eMail'));
+                    showDialog("DialogClientes");
+                } else {
+                    alert("No selecciono el Cliente");
+                }
+                return false;
+            }
+        });
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var cellValueInt = parseInt(cellvalue);
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Cliente' title='Editar Cliente' border='0' /></a>";
+            return Edit;
+        };
+
+        function CheckEmail(cellvalue, options, rowObject) {
+            if (rowObject[2] == "")
+                var Render = "<img src='@Url.Content("~/Content/Images/email_cuenta2.png")'> &nbsp;" + rowObject[1];
+            else
+                var Render = "<img src='@Url.Content("~/Content/Images/email_cuenta.png")'> &nbsp;" + rowObject[1];
+            return Render
+        };
+    }
+
+
+    function getObjects(obj, key, val) {
+        var objects = [];
+        for (var i in obj) {
+            if (!obj.hasOwnProperty(i)) continue;
+            if (typeof obj[i] == 'object') {
+                objects = objects.concat(getObjects(obj[i], key, val));
+            } else if (i == key && obj[key] == val) {
+                objects.push(obj);
+            }
+        }
+        return objects;
+    }
+
+    function AddCheckBoxHeader(el) {
+        $("#" + el.id).removeClass("ui-th-div-ie ui-jqgrid-sortable");
+        var elem = document.createElement("input");
+        elem.id = "chk" + el.id;
+        elem.type = "checkbox";
+        switch (el.id) {
+            case "jqgh_list_chklbel":
+                elem.disabled = (_ColumnaDeshabilitadaLBEL == 0 ? false : true);
+                break;
+            case "jqgh_list_chkesika":
+                elem.disabled = (_ColumnaDeshabilitadaESIKA == 0 ? false : true);
+                break;
+            case "jqgh_list_chkcyzone":
+                elem.disabled = (_ColumnaDeshabilitadaCYZONE == 0 ? false : true);
+                break;
+            case "jqgh_list_chkfinart":
+                elem.disabled = (_ColumnaDeshabilitadaFINART == 0 ? false : true);
+                break;
+        }
+
+        if (elem.addEventListener)
+            elem.addEventListener("click", function () { VerificarChecks(elem.id) }, false);
+        else if (elem.attachEvent)
+            elem.attachEvent("onclick", function () { VerificarChecks(elem.id) });
+
+        el.appendChild(elem);
+    }
+
+    function VerificarChecks(id) {
+        var flagAttr = "";
+        var lista = jQuery("#list").getDataIDs();
+        if ($("#" + id).is(':checked')) {
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).filter(function () {
+                return !this.disabled;
+            }).attr('value', 1);
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).filter(function () {
+                return this.disabled;
+            }).attr('value', 0);
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).filter(function () {
+                return !this.disabled;
+            }).attr('checked', true);
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).filter(function () {
+                return this.disabled;
+            }).attr('checked', false);
+        } else {
+            JsonData = {
+                items: []
+            };
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).attr('value', 0);
+            $(".CustomChild" + jQuery.trim(id.split('_')[2])).attr('checked', false);
+        }
+
+        if (id == "chkjqgh_list_chklbel") {
+            flagAttr = "LB";
+            if ($("#chkjqgh_list_chklbel").is(":checked")) {
+                _Flagchklbel = 1;
+                if (_FTHLBel == "")
+                    _FTHLBel = "1";
+                else
+                    _FTHLBel = "0";
+            }
+            else
+                _Flagchklbel = 0;
+        }
+        else if (id == "chkjqgh_list_chkcyzone") {
+            if ($("#chkjqgh_list_chkcyzone").is(":checked")) {
+                _Flagchkcyzone = 1;
+                flagAttr = "CY";
+                if (_FTHCyzone == "")
+                    _FTHCyzone = "1";
+                else
+                    _FTHCyzone = "0";
+            }
+            else
+                _Flagchkcyzone = 0;
+        }
+        else if (id == "chkjqgh_list_chkesika") {
+            if ($("#chkjqgh_list_chkesika").is(":checked")) {
+                _Flagchkesika = 1;
+                flagAttr = "ES";
+                if (_FTHEsika == "")
+                    _FTHEsika = "1";
+                else
+                    _FTHEsika = "0";
+            }
+            else
+                _Flagchkesika = 0;
+        }
+        else if (id == "chkjqgh_list_chkfinart") {
+            if ($("#chkjqgh_list_chkfinart").is(":checked")) {
+                _Flagchkfinart = 1;
+                flagAttr = "FI";
+                if (_FTHFinart == "")
+                    _FTHFinart = "1";
+                else
+                    _FTHFinart = "0";
+            }
+            else
+                _Flagchkfinart = 0;
+        }
+
+        FillJson(_Flagchklbel, _Flagchkcyzone, _Flagchkesika, _Flagchkfinart, id, flagAttr);
+    }
+
+    function FillJson(estLBel, estCyzone, estEsika, estFinart, id, flagAttr) {
+
+        var Page = $(".ui-pg-input").val();
+        var vexiste = false;
+        if (JsonData.items.length > 0) {
+            for (var i = 0; i < JsonData.items.length ; i++) {
+                if (JsonData.items[i].page == Page) {
+                    vexiste = true;
+                }
+            }
+        }
+
+        if (vexiste) {
+            JsonData.items = JsonData.items.filter(function (el) {
+                return el.page != Page;
+            });
+            var lista = jQuery("#list").getDataIDs();
+            var htmlchklbel, htmlchkcyzone, htmlchkesika, htmlchkfinart;
+            for (var i = 0; i < lista.length; i++) {
+                if (id == "chkjqgh_list_chklbel")
+                    htmlchklbel = $(jQuery("#list").getRowData(lista[i]).chklbel).attr("value", estLBel).get(0).outerHTML;
+                else
+                    htmlchklbel = jQuery("#list").getRowData(lista[i]).chklbel;
+                if (id == "chkjqgh_list_chkcyzone")
+                    htmlchkcyzone = $(jQuery("#list").getRowData(lista[i]).chkcyzone).attr("value", estCyzone).get(0).outerHTML;
+                else
+                    htmlchkcyzone = jQuery("#list").getRowData(lista[i]).chkcyzone;
+                if (id == "chkjqgh_list_chkesika")
+                    htmlchkesika = $(jQuery("#list").getRowData(lista[i]).chkesika).attr("value", estEsika).get(0).outerHTML;
+                else
+                    htmlchkesika = jQuery("#list").getRowData(lista[i]).chkesika;
+                if (id == "chkjqgh_list_chkfinart")
+                    htmlchkfinart = $(jQuery("#list").getRowData(lista[i]).chkfinart).attr("value", estFinart).get(0).outerHTML;
+                else
+                    htmlchkfinart = jQuery("#list").getRowData(lista[i]).chkfinart;
+
+                JsonData.items.push({
+                    "ClienteID": jQuery("#list").getRowData(lista[i]).ClienteID,
+                    "Nombre": jQuery("#list").getRowData(lista[i]).Nombre,
+                    "eMail": jQuery("#list").getRowData(lista[i]).eMail,
+                    "chklbel": htmlchklbel,
+                    "chkesika": htmlchkesika,
+                    "chkcyzone": htmlchkcyzone,
+                    "chkfinart": htmlchkfinart,
+                    "page": Page
+                });
+            }
+        } else {
+            var lista = jQuery("#list").getDataIDs();
+            for (var i = 0; i < lista.length; i++) {
+                var htmlchklbel = $(jQuery("#list").getRowData(lista[i]).chklbel).attr("value", flagAttr == "LB" && $(jQuery("#list").getRowData(lista[i]).chklbel)[0].disabled == false ? estLBel : getCellValue(jQuery("#list").getRowData(lista[i]).chklbel)).get(0).outerHTML;
+                var htmlchkcyzone = $(jQuery("#list").getRowData(lista[i]).chkcyzone).attr("value", flagAttr == "CY" && $(jQuery("#list").getRowData(lista[i]).chkcyzone)[0].disabled == false ? estCyzone : getCellValue(jQuery("#list").getRowData(lista[i]).chkcyzone)).get(0).outerHTML;
+                var htmlchkesika = $(jQuery("#list").getRowData(lista[i]).chkesika).attr("value", flagAttr == "ES" && $(jQuery("#list").getRowData(lista[i]).chkesika)[0].disabled == false ? estEsika : getCellValue(jQuery("#list").getRowData(lista[i]).chkesika)).get(0).outerHTML;
+                var htmlchkfinart = $(jQuery("#list").getRowData(lista[i]).chkfinart).attr("value", flagAttr == "FI" && $(jQuery("#list").getRowData(lista[i]).chkfinart)[0].disabled == false ? estFinart : getCellValue(jQuery("#list").getRowData(lista[i]).chkfinart)).get(0).outerHTML;
+                JsonData.items.push({
+                    "ClienteID": jQuery("#list").getRowData(lista[i]).ClienteID,
+                    "Nombre": jQuery("#list").getRowData(lista[i]).Nombre,
+                    "eMail": jQuery("#list").getRowData(lista[i]).eMail,
+                    "chklbel": htmlchklbel,
+                    "chkesika": htmlchkesika,
+                    "chkcyzone": htmlchkcyzone,
+                    "chkfinart": htmlchkfinart,
+                    "page": Page
+                });
+            }
+        }
+    }
+
+    function limpiar() {
+        $('#hdClienteId').val("0");
+        $('#Nombres').val("");
+        $('#Correo').val("");
+        $("#hdFlag").val("0");
+    }
+
+    function CleanJson() {
+        JsonData = {
+            items: []
+        };
+    }
+
+    /* funciones para checkboxes */
+    /* posiciones: 4=lbel, 5=esika, 6=cyzone, 7=finart */
+    function CustomCheckBoxLBEL(cellvalue, options, rowObject) {
+        //debugger;
+        var name = options.colModel.name;
+        var Page = rowObject[3];
+        var Id = "chkChild" + name + Page + "" + ($(".CustomChild" + name).length);
+        if (rowObject[2] == "" || _ColumnaDeshabilitadaLBEL == 1) {
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" disabled='true' checked='false' />";
+        }
+        else
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" />";
+    }
+
+    function CustomCheckBoxESIKA(cellvalue, options, rowObject) {
+        //debugger;
+        var name = options.colModel.name;
+        var Page = rowObject[3];
+        var Id = "chkChild" + name + Page + "" + ($(".CustomChild" + name).length);
+        if (rowObject[2] == "" || _ColumnaDeshabilitadaESIKA == 1) {
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" disabled='true' checked='false' />";
+        }
+        else
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" />";
+    }
+
+    function CustomCheckBoxCYZONE(cellvalue, options, rowObject) {
+        //debugger;
+        var name = options.colModel.name;
+        var Page = rowObject[3];
+        var Id = "chkChild" + name + Page + "" + ($(".CustomChild" + name).length);
+        if (rowObject[2] == "" || _ColumnaDeshabilitadaCYZONE == 1) {
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" disabled='true' checked='false' />";
+        }
+        else
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" />";
+    }
+
+    function CustomCheckBoxFINART(cellvalue, options, rowObject) {
+        //debugger;
+        var name = options.colModel.name;
+        var Page = rowObject[3];
+        var Id = "chkChild" + name + Page + "" + ($(".CustomChild" + name).length);
+        if (rowObject[2] == "" || _ColumnaDeshabilitadaFINART == 1) {
+            //debugger;
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" disabled='true' checked='false' />";
+        }
+        else
+            return "<input id=\"" + Id + "\" type=\"checkbox\" value='0' class=\"CustomChild" + name + " \" offval=\"no\"  onclick=\"CallingClick('" + name + "',this);\" />";
+    }
+    /* funciones para checkboxes */
+
+    function CallingClick(chkName, selector) {
+        var jsonTemp;
+        var variable = "_Flag" + chkName;
+        var state = $(selector).is(":checked");
+        var contador = 0;
+        var objects = $(".CustomChild" + chkName);
+
+        for (var item in objects) {
+            if (item == "length") {
+                break;
+            } else {
+                if (!objects[item].checked)
+                    contador++;
+            }
+        }
+
+        if (state) {
+            $(selector).attr("value", 1);
+            if (contador == 0) {
+                if (chkName == "chklbel") {
+                    jsonTemp = JsonData.items.filter(function (el) {
+                        //debugger;
+                        var item = el.chklbel;
+                        return getCellValue(el.chklbel) == 1;
+                    });
+                }
+                if (chkName == "chkcyzone") {
+                    jsonTemp = JsonData.items.filter(function (el) {
+                        return getCellValue(el.chkcyzone) == 1;
+                    });
+                }
+
+                if (chkName == "chkesika") {
+                    jsonTemp = JsonData.items.filter(function (el) {
+                        return getCellValue(el.chkesika) == 1;
+                    });
+                }
+
+                if (chkName == "chkfinart") {
+                    jsonTemp = JsonData.items.filter(function (el) {
+                        return getCellValue(el.chkfinart) == 1;
+                    });
+                }
+
+                if ((jsonTemp.length + 1) == _TotalRows) {
+                    $("#chkjqgh_list_" + chkName).attr("checked", true);
+                    window[variable] = 1;
+                }
+            }
+            else {
+                $("#chkjqgh_list_" + chkName).attr("checked", false);
+                window[variable] = 0;
+            }
+
+        } else {
+            $("#chkjqgh_list_" + chkName).attr("checked", false);
+            $(selector).attr("value", 0);
+            window[variable] = 0;
+        }
+
+        var Page = $(".ui-pg-input").val();
+
+
+        var vexiste = false;
+        if (JsonData.items.length > 0) {
+            for (var i = 0; i < JsonData.items.length ; i++) {
+                if (JsonData.items[i].page == Page) {
+                    vexiste = true;
+                }
+            }
+        }
+
+        if (vexiste) {
+            JsonData.items = JsonData.items.filter(function (el) {
+                return el.page != Page;
+            });
+
+            var lista = jQuery("#list").getDataIDs();
+            for (var i in lista) {
+                JsonData.items.push({
+                    "ClienteID": jQuery("#list").getRowData(lista[i]).ClienteID,
+                    "Nombre": jQuery("#list").getRowData(lista[i]).Nombre,
+                    "eMail": jQuery("#list").getRowData(lista[i]).eMail,
+                    "chklbel": jQuery("#list").getRowData(lista[i]).chklbel,
+                    "chkesika": jQuery("#list").getRowData(lista[i]).chkesika,
+                    "chkcyzone": jQuery("#list").getRowData(lista[i]).chkcyzone,
+                    "chkfinart": jQuery("#list").getRowData(lista[i]).chkfinart,
+                    "page": Page
+                });
+            }
+        } else {
+            var lista = jQuery("#list").getDataIDs();
+            for (var i in lista) {
+                JsonData.items.push({
+                    "ClienteID": jQuery("#list").getRowData(lista[i]).ClienteID,
+                    "Nombre": jQuery("#list").getRowData(lista[i]).Nombre,
+                    "eMail": jQuery("#list").getRowData(lista[i]).eMail,
+                    "chklbel": jQuery("#list").getRowData(lista[i]).chklbel,
+                    "chkesika": jQuery("#list").getRowData(lista[i]).chkesika,
+                    "chkcyzone": jQuery("#list").getRowData(lista[i]).chkcyzone,
+                    "chkfinart": jQuery("#list").getRowData(lista[i]).chkfinart,
+                    "page": Page
+                });
+            }
+        }
+    }
+
+    function fnRegistrar() {
+
+        if ($('#hdNombreAnt').val().toUpperCase() == jQuery('#Nombres').val().toUpperCase())
+            $("#hdFlag").val("0");
+        else
+            $("#hdFlag").val("1");
+
+        var item = {
+            ClienteID: jQuery('#hdClienteId').val(),
+            Nombre: jQuery.trim(jQuery('#Nombres').val()),
+            eMail: jQuery.trim(jQuery('#Correo').val()),
+            FlagValidate: $("#hdFlag").val()
+        };
+
+        if (jQuery.trim(jQuery('#Correo').val()) == "") {
+            JsonData.items = JsonData.items.filter(function (el) {
+                return el.ClienteID != jQuery('#hdClienteId').val();
+            });
+            _Flagchklbel = 0;
+            _Flagchkcyzone = 0;
+            _Flagchkesika = 0;
+            _Flagchkfinart = 0;
+
+            $("#chkjqgh_list_chklbel").attr('checked', false);
+            $("#chkjqgh_list_chkcyzone").attr('checked', false);
+            $("#chkjqgh_list_chkesika").attr('checked', false);
+            $("#chkjqgh_list_chkfinart").attr('checked', false);
+        }
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Cliente/Mantener',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                //debugger;
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        var item = data.items;
+                        alert(data.message);
+                        HideDialog("DialogClientes");
+                        limpiar();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+                        /*2505 DCG*/
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Clientes',
+                            'action': 'Agregar',
+                            'label': 'Satisfactorio',
+                        });
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    HideDialog("DialogClientes");
+                }
+            }
+        });
+    }
+
+    function AbrirModal() {
+        limpiar();
+        showDialog("DialogClientes");
+    }
+
+    function textCounter() {
+        var maxlimit = 500
+        if ($("#message").val().length > maxlimit)
+            $("#message").val($("#message").val().substring(0, maxlimit));
+        else
+            $("#remLen").text($("#message").val().length + " de 500 caracteres permitidos");
+    }
+
+    function getCellValue(content) {
+        var k1, val = "0";
+        if (content != undefined) {
+            if (content != "") {
+
+                k1 = content.indexOf(' value=') + 7;
+                val = content.substr(k1, 3);
+                val = val.replace(/[^0-1]/g, '');
+            }
+        }
+        return val;
+    }
+    
+    function GetCatalogosLinksByCampania(campania) {
+        waitingDialog({});
+        $.ajaxSetup({ cache: false });
+
+        jQuery.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCatalogosPublicadosJson", "Catalogo")',
+            dataType: "json",
+            data: {campaniaId: campania},
+            success: function (result) {
+                debugger;
+                var catalogoLbel = null, catalogoCyzone = null, catalogoEsika = null, catalogoFinart = null;
+                $.each(result.Catalogos, function (i, catalogo) {
+                    if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.LBel') catalogoLbel = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Cyzone') catalogoCyzone = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Esika') catalogoEsika = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Finart') catalogoFinart = catalogo;
+                })
+
+                if (_ColumnaDeshabilitadaLBEL != 1) {
+                    if (catalogoLbel == null) {
+                        $('#CaratulaLbel')[0].dataset.visor = ""; //EPD-826
+                        $("#lnklbel").attr("href", "http://www.lbel.com");
+                        $("#lnklbel").attr("onclick", "SetGoogleAnalytics('','Ver','Lbel')");
+                        $("#imgLBel").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaLbel')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnklbel").attr("onclick", "SetGoogleAnalytics('" + catalogoLbel.DocumentID + "','Ver','Lbel')");
+                        $("#lnklbel").attr("href", catalogoLbel.SkinURL);
+                        $("#txtUrlLbel").val(catalogoLbel.SkinURL);
+                        $("#imgLBel").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoLbel.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        document.getElementById('lnkCompartirLbel').title = 'FB-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        document.getElementById('lnklbel').title = 'Ver-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoLBel").css("visibility", "visible");
+                    $("#CaratulaLbel").css("visibility", "visible");
+                    $("#imgLBel").css("visibility", "visible");
+                    $("#imgCompartirLbel").css("visibility", "visible");
+                } else {
+                    $("#logoLBel").css("visibility", "hidden");
+                    $("#CaratulaLbel").css("visibility", "hidden");
+                    $("#imgLBel").css("visibility", "hidden");
+                    $("#imgCompartirLbel").css("visibility", "hidden");
+                }
+
+                if (_ColumnaDeshabilitadaCYZONE != 1) {
+                    if (catalogoCyzone == null) {
+                        $('#CaratulaCyzone')[0].dataset.visor = ""; //EPD-826
+                        $("#lnkcyzone").attr("href", "http://www.cyzone.com");
+                        $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('','Ver','Cyzone')");
+                        $("#imgCyzone").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaCyzone')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('" + catalogoCyzone.DocumentID + "','Ver','Cyzone')");
+                        $("#lnkcyzone").attr("href", catalogoCyzone.SkinURL);
+                        $("#txtUrlCyzone").val(catalogoCyzone.SkinURL);
+                        $("#imgCyzone").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoCyzone.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirCyzone').title = 'FB-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkcyzone').title = 'Ver-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoCyzone").css("visibility", "visible");
+                    $("#CaratulaCyzone").css("visibility", "visible");
+                    $("#imgCyzone").css("visibility", "visible");
+                    $("#imgCompartirCyzone").css("visibility", "visible");
+                } else {
+                    $("#logoCyzone").css("visibility", "hidden");
+                    $("#CaratulaCyzone").css("visibility", "hidden");
+                    $("#imgCyzone").css("visibility", "hidden");
+                    $("#imgCompartirCyzone").css("visibility", "hidden");
+                }
+
+                if (_ColumnaDeshabilitadaESIKA != 1) {
+                    if (catalogoEsika == null) {
+                        $('#CaratulaEsika')[0].dataset.visor = ""; //EPD-826
+                        $("#lnkesika").attr("href", "http://www.esika.biz");
+                        $("#lnkesika").attr("onclick", "SetGoogleAnalytics('','Ver','Esika')");
+                        $("#imgEsika").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaEsika')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnkesika").attr("onclick", "SetGoogleAnalytics('" + catalogoEsika.DocumentID + "','Ver','Esika')");
+                        $("#lnkesika").attr("href", catalogoEsika.SkinURL);
+                        $("#txtUrlEsika").val(catalogoEsika.SkinURL);
+                        $("#imgEsika").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoEsika.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirEsika').title = 'FB-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkesika').title = 'Ver-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoEsika").css("visibility", "visible");
+                    $("#CaratulaEsika").css("visibility", "visible");
+                    $("#imgEsika").css("visibility", "visible");
+                    $("#imgCompartirEsika").css("visibility", "visible");
+                } else {
+                    $("#logoEsika").css("visibility", "hidden");
+                    $("#CaratulaEsika").css("visibility", "hidden");
+                    $("#imgEsika").css("visibility", "hidden");
+                    $("#imgCompartirEsika").css("visibility", "hidden");
+                }
+
+                if (_ColumnaDeshabilitadaFINART != 1) {
+                    if (catalogoFinart == null) {
+                        $("#lnkfinart").attr("href", "http://www.finartsa.biz");
+                        $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('','Ver','Finart')");
+                        $("#imgFinart").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('" + catalogoFinart.DocumentID + "','Ver','Finart')");
+                        $("#lnkfinart").attr("href", catalogoFinart.SkinURL);
+                        $("#txtUrlFinart").val(catalogoFinart.SkinURL);
+                        $("#imgFinart").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoFinart.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirFinart').title = 'FB-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkfinart').title = 'Ver-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoFinart").css("visibility", "visible");
+                    $("#CaratulaFinart").css("visibility", "visible");
+                    $("#imgFinart").css("visibility", "visible");
+                    $("#imgCompartirFinart").css("visibility", "visible");
+                } else {
+                    $("#logoFinart").css("visibility", "hidden");
+                    $("#CaratulaFinart").css("visibility", "hidden");
+                    $("#imgFinart").css("visibility", "hidden");
+                    $("#imgCompartirFinart").css("visibility", "hidden");
+                }
+            },
+            error: function (x, xh, xhr) { console.error(xh); },
+            complete: function () {
+                $("#TextoCampania").text("C" + campania.substring(6, 4) + " - " + campania.substring(0, 4));
+                closeWaitingDialog();
+            }
+        });
+    }
+
+    function GetCatalogosLinks() {
+        GetCatalogosLinksByCampania($("#hdCampaniaActual").val());
+    }
+
+    function GetCatalogosLinks2(Tipo) {
+        if (Tipo == "1") GetCatalogosLinksByCampania($("#hdCampaniaAnterior").val());
+        else GetCatalogosLinksByCampania($("#hdCampaniaSiguiente").val());
+    }
+
+    function ObtenerNombrePais(idPais) {
+        var resultado = "";
+        var pais = parseInt(idPais);
+
+        switch (pais) {
+            case 1:
+                resultado = "argentina";
+                break;
+            case 2:
+                resultado = "bolivia";
+                break;
+            case 3:
+                resultado = "chile";
+                break;
+            case 4:
+                resultado = "colombia";
+                break;
+            case 5:
+                resultado = "costarica";
+                break;
+            case 6:
+                resultado = "ecuador";
+                break;
+            case 7:
+                resultado = "elsalvador";
+                break;
+            case 8:
+                resultado = "guatemala";
+                break;
+            case 9:
+                resultado = "mexico";
+                break;
+            case 10:
+                resultado = "panama";
+                break;
+            case 11:
+                resultado = "peru";
+                break;
+            case 12:
+                resultado = "puertorico";
+                break;
+            case 13:
+                resultado = "republicadominicana";
+                break;
+            case 14:
+                resultado = "venezuela";
+                break;
+            default:
+                resultado = "sinpais";
+                break;
+        }
+
+        return resultado;
+    }
+
+    function ColumnasDeshabilitadasxPais(valor, accion, label) {
+        if (!(typeof (accion) === 'undefined')) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catalogo',
+                'action': accion,
+                'label': label
+            });
+        }
+
+        $.getJSON(baseUrl + 'Catalogo/ColumnasDeshabilitadasxPais', function (data) {
+
+            _ColumnaDeshabilitadaLBEL = data.estadoLbel;
+            _ColumnaDeshabilitadaESIKA = data.estadoEsika;
+            _ColumnaDeshabilitadaCYZONE = data.estadoCyzone;
+            _ColumnaDeshabilitadaFINART = data.estadoFinart;
+
+            fnGrilla();
+            $("#SeccionClientes")[0].style["display"] = "block";
+            $("#btnCatalogoActual")[0].disabled = true;
+            $("#btnCatalogoAnterior")[0].disabled = false;
+            $("#btnCatalogoSiguiente")[0].disabled = false;
+
+            GetCatalogosLinks();
+
+            if (data.catalogoUnificado == '1')
+                $("#imgLogCatLbelUni").attr("src", '@Url.Content("~/Content/Images/unificado_lb_es.png")');
+            else
+                $("#imgLogCatLbelUni").attr("src", '@Url.Content("~/Content/Images/ban-5.png")');
+        });
+    }
+
+    function ColumnasDeshabilitadasxPais2(Tipo, accion, label) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catalogo',
+            'action': accion,
+            'label': label
+        });
+        $.getJSON(baseUrl + 'Catalogo/ColumnasDeshabilitadasxPais2?Tipo=' + Tipo, function (data) {
+
+            _ColumnaDeshabilitadaLBEL = data.estadoLbel;
+            _ColumnaDeshabilitadaESIKA = data.estadoEsika;
+            _ColumnaDeshabilitadaCYZONE = data.estadoCyzone;
+            _ColumnaDeshabilitadaFINART = data.estadoFinart;
+            if (Tipo == "2") {
+                fnGrilla();
+                $("#SeccionClientes")[0].style["display"] = "block";
+                $("#btnCatalogoActual")[0].disabled = false;
+                $("#btnCatalogoAnterior")[0].disabled = false;
+                $("#btnCatalogoSiguiente")[0].disabled = true;
+            }
+            else {
+                $("#SeccionClientes")[0].style["display"] = "none";
+                $("#btnCatalogoActual")[0].disabled = false;
+                $("#btnCatalogoAnterior")[0].disabled = true;
+                $("#btnCatalogoSiguiente")[0].disabled = false;
+            }
+
+            GetCatalogosLinks2(Tipo);
+
+            if (data.catalogoUnificado == '1')
+                $("#imgLogCatLbelUni").attr("src", '@Url.Content("~/Content/Images/unificado_lb_es.png")');
+            else
+                $("#imgLogCatLbelUni").attr("src", '@Url.Content("~/Content/Images/ban-5.png")');
+        });
+    }
+	
+    function RedirectToAction(DocumentoId) {
+        var frmDinamico = document.createElement("form");
+        var data = document.createElement("input");
+        frmDinamico.setAttribute("id", "frmDinamico");
+        frmDinamico.action = baseUrl + "Catalogo/GetEmbedCatalogo";
+        frmDinamico.setAttribute("method", "POST");
+        data.setAttribute("type", "hidden");
+        data.setAttribute("name", "data");
+        var json = {
+            DocumentoId: DocumentoId
+        }
+
+        data.value = JSON.stringify(json);
+        frmDinamico.appendChild(data);
+        document.body.appendChild(frmDinamico);
+        frmDinamico.submit();
+    }
+
+    function getOuterHTML(el) {
+
+        var html = "";
+        var attr = el[0].attributes;
+        var inner = el.html();
+        var name = el[0].tagName.toString().toLowerCase();
+
+        html += "<" + name + " ";
+
+        for (var i = 0; i < attr.length; i++) {
+
+            if (attr[i].nodeValue != null &&
+               attr[i].nodeValue != '') {
+
+                html += attr[i].nodeName + "=";
+                html += "'" + attr[i].nodeValue + "' ";
+            }
+        }
+
+        html += ">";
+        html += inner;
+        html += "</" + name + ">";
+
+        return html;
+    }
+
+    function EnviarCatalogos() {
+        var lista = jQuery("#list").getDataIDs();
+        var jsonCatalogo = {
+            Clientes: []
+        };
+
+        if (lista.length == 0) {
+            alert("No tiene clientes para poder enviar los catálogos, verifique");
+            return;
+        }
+        var mensaje = $("#message").val();
+        //var dataTemplbel;
+        //var dataTempcyzone;
+        //var dataTempesika;
+        //var dataTempfinart;
+
+        //var EmailsLbel = "";
+        //var EmailsCyzone = "";
+        //var EmailsEsika = "";
+        //var EmailsFinart = "";
+
+        waitingDialog({});
+        var validData = JsonData.items.filter(function (el) {
+            return getCellValue(el.chklbel) == 1 ||
+                   getCellValue(el.chkcyzone) == 1 ||
+                   getCellValue(el.chkesika) == 1 ||
+                   getCellValue(el.chkfinart) == 1;
+        });
+
+        /* Validar Clientes con correos Existentes*/
+        var vValidacion = false;
+        for (var i; i < validData; i++) {
+            if (validData[i].eMail == "") {
+                vValidacion = true;
+                break;
+            }
+        }
+
+
+        if (vValidacion) {
+            alert("No todos los clientes seleccionados tienen un correo electronico registrado, verifique");
+            closeWaitingDialog();
+            return false;
+        }
+
+        validData = JsonData.items.filter(function (el) {
+            return getCellValue(el.chklbel) == 1
+        });
+
+        if (validData.length == 0) {
+            validData = JsonData.items.filter(function (el) {
+                return getCellValue(el.chkcyzone) == 1
+            });
+
+            if (validData.length == 0) {
+                validData = JsonData.items.filter(function (el) {
+                    return getCellValue(el.chkesika) == 1
+                });
+
+                if (validData.length == 0) {
+                    validData = JsonData.items.filter(function (el) {
+                        return getCellValue(el.chkfinart) == 1
+                    });
+
+                    if (validData.length == 0) {
+                        alert("Debe seleccionar clientes para poder enviar el o los catálogos, verifique.");
+                        closeWaitingDialog();
+                        return false;
+                    }
+                }
+            }
+        }
+
+        /*Fin validar*/
+
+        JsonData.items = JsonData.items.filter(function (el) {
+            return getCellValue(el.chklbel) == 1 ||
+           getCellValue(el.chkcyzone) == 1 ||
+           getCellValue(el.chkesika) == 1 ||
+           getCellValue(el.chkfinart) == 1;
+        });
+
+
+        var vEementosMailEbel = new Array();
+        var vEementosMailEsika = new Array()
+        var vEementosMailCyzone = new Array();
+        var vEementosMailFinart = new Array();
+
+        for (var i = 0; i < JsonData.items.length; i++) {
+            jsonCatalogo.Clientes.push({
+                "ClienteID": JsonData.items[i].ClienteID,
+                "Nombre": $.trim(JsonData.items[i].Nombre.split(';')[1]),
+                "Email": JsonData.items[i].eMail,
+                "LBel": getCellValue(JsonData.items[i].chklbel),
+                "Esika": getCellValue(JsonData.items[i].chkesika),
+                "Cyzone": getCellValue(JsonData.items[i].chkcyzone),
+                "Finart": getCellValue(JsonData.items[i].chkfinart)
+            });
+
+            if (getCellValue(JsonData.items[i].chklbel) == "1") {
+                vEementosMailEbel.push(getCellValue(JsonData.items[i].chklbel));
+            }
+
+            if (getCellValue(JsonData.items[i].chkesika) == "1") {
+                vEementosMailEsika.push(getCellValue(JsonData.items[i].chkesika));
+            }
+
+            if (getCellValue(JsonData.items[i].chkcyzone) == "1") {
+                vEementosMailCyzone.push(getCellValue(JsonData.items[i].chkcyzone));
+            }
+
+            if (getCellValue(JsonData.items[i].chkfinart) == "1") {
+                vEementosMailFinart.push(getCellValue(JsonData.items[i].chkfinart));
+            }
+
+        }
+
+        var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
+
+        var Tipo;
+
+        if ($("#btnCatalogoActual")[0].disabled == true)
+            Tipo = "1";
+        else
+            Tipo = "2";
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Catalogo/EnviarEmail',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify({ CatalogoClienteModel: EmailsLbel, EmailsCyzone: EmailsCyzone, EmailsEsika: EmailsEsika, EmailsFinart: EmailsFinart, Mensaje: mensaje }),
+            data: JSON.stringify({ ListaCatalogosCliente: jsonCatalogo.Clientes, Mensaje: mensaje, Flags: FlagMarcas, Tipo: Tipo }),
+            async: true,
+            success: function (data) {
+                //debugger;
+                _gaq.push(['_trackEvent', 'Catalogo', 'Enviar-Correo']);
+
+                /*RQ 2505*/
+                if (vEementosMailEbel.length > 0) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catalogo',
+                        'action': 'Compartir_email',
+                        'label': 'Lbel',
+                        'value': vEementosMailEbel.length
+                    });
+
+                }
+
+                if (vEementosMailEsika.length > 0) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catalogo',
+                        'action': 'Compartir_email',
+                        'label': 'Esika',
+                        'value': vEementosMailEsika.length
+                    });
+
+                }
+
+                if (vEementosMailCyzone.length > 0) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catalogo',
+                        'action': 'Compartir_email',
+                        'label': 'Cyzone',
+                        'value': vEementosMailCyzone.length
+                    });
+
+                }
+
+                if (vEementosMailFinart.length > 0) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catalogo',
+                        'action': 'Compartir_email',
+                        'label': 'Finart',
+                        'value': vEementosMailFinart.length
+                    });
+
+                }
+                /*END RQ 2505*/
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        closeWaitingDialog();
+                        alert(data.message);
+                    }
+                    else {
+                        closeWaitingDialog();
+                        alert(data.message);
+                        if (data.extra == "R") {
+                            location.href = '/Bienvenida';
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+    }
+
+    function SetGoogleAnalytics(Imagen, Accion, Label) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catalogo',
+            'action': Accion,
+            'label': Label
+        });
+    }
+
+    function CompartirFacebook(Catalogo) {
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + $("#txtUrl" + Catalogo).val();
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    }
+
+</script>
+
+<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-1">
+                <div class="box">
+                    <div class="box-t"></div>
+                    <div class="box-c">					
+                        @if(ViewBag.Campania != null)
+                        {
+                            if (ViewBag.Dias == 0)
+                            {
+                                <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
+                            }
+                            else
+                            {
+                                <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
+                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>
+                            <!-- R2161 -->
+                            //R20151104
+                            if (ViewBag.TieneFechaPromesa == 1)
+                            {
+                                    <p>@ViewBag.MensajeFechaPromesa</p>
+                            }
+                        }
+                        else
+                        {
+                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
+                        }
+                    </div>
+                    <div class="box-b"></div>
+                </div>
+            </div>
+            <div class="div-2">
+                <h1><span>Catálogos</span></h1>
+                <span>Marca los catálogos que quieres enviar a tus clientes y haz click en el botón “Enviar Catálogo”.</span>
+            </div>
+            @*<div class="img">
+                    @*<img src="~/Content/Images/catalogos.png" />
+                </div>*@
+        </div>
+    </div>
+
+</div>
+<!--/ .wrap-->
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="b_logos">
+            <div class="logospace" style="width:335px"></div>
+            <div class="logo1" id="bannLBel">
+                <div id="logoLBel">
+                    <img id="imgLogCatLbelUni" src="~/Content/Images/ban-5.png" />
+                </div>
+            </div>
+            <div class="logo2" id="bannEsika">
+                <div id="logoEsika">
+                    <img src="~/Content/Images/ban-6.png" />
+                </div>
+            </div>
+            <div class="logo3" id="bannCyzone">
+                <div id="logoCyzone">
+                    <img src="~/Content/Images/ban-7.png" />
+                </div>
+            </div>
+            <div class="logo4" id="bannFinart">
+                <div id="logoFinart">
+                    <img src="~/Content/Images/ban-9.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="b_logos_img">
+            <div class="logospace">
+                <h3>
+                    <span>Revisa tus catálogos aquí</span>
+                    <span id="TextoCampania">@ViewBag.Campania</span>
+                </h3>
+            </div>
+            <div id="gallery">
+                <div class="logo1">
+                    <div id="CaratulaLbel" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
+                        <a href="#" target="_blank" id="lnklbel" rel="Catalogo - Ver Catalogos">
+                            <img id="imgLBel" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 84px" border="0" alt="Catálogo L'Bel" title="Catálogo L'Bel" />
+                        </a>
+                    </div>
+                </div>
+                <div class="logo2">
+                    <div id="CaratulaEsika" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
+                        <a href="#" target="_blank" id="lnkesika" rel="Catalogo - Ver Catalogos">
+                            <img id="imgEsika" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 84px" border="0" alt="Catálogo Esika" title="Catálogo Esika" />
+                        </a>
+                    </div>
+                </div>
+                <div class="logo3">
+                    <div id="CaratulaCyzone" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
+                        <a href="#" target="_blank" id="lnkcyzone" rel="Catalogo - Ver Catalogos">
+                            <img id="imgCyzone" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 70px" border="0" alt="Catálogo Cyzone" title="Catálogo Cyzone" />
+                        </a>
+                    </div>
+                </div>
+                <div class="logo4">
+                    <div id="CaratulaFinart">
+                        <a href="#" target="_blank" id="lnkfinart" rel="Catalogo - Ver Catalogos">
+                            <img id="imgFinart" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 84px" border="0" alt="Catálogo Finart" title="Catálogo Finart" />
+                        </a>   
+                        @*<a href="#" id="lnkfinart" style="height: 100px; width: 84px" rel="Catalogo - Ver Catalogos" onclick="funcion;return false;">
+                            <img id="imgFinart" src='@Url.Content("~/Content/Images/no_image.gif")' border="0" alt="Catálogo Finart" title="Catálogo Finart"  />
+                        </a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap" style=" padding-top:10px;">
+    <div class="container clearfix">
+        <div style=" float:left; padding-left: 368px;">
+            <div class="pointer">
+                <input id="txtUrlLbel" type="text" value="" style="display:none;" />
+                <a id="lnkCompartirLbel" href="javascript:;" rel="Catalogo - Ver Catalogos" title="FB-Lbel CXX20YY">
+                    <img id="imgCompartirLbel" src='@Url.Content("~/Content/Images/facebook_share.png")' onclick="CompartirFacebook('Lbel')" border="0" alt="Compartir en Facebook" title="Compartir en Facebook" />
+                </a>
+            </div>
+        </div>
+        <div style=" float:left; padding-left: 53px;">
+            <div class="pointer">
+                <input id="txtUrlEsika" type="text" value="" style="display:none;" />
+                <a id="lnkCompartirEsika" href="javascript:;" rel="Catalogo - Ver Catalogos" title="FB-Esika CXX20YY">
+                    <img id="imgCompartirEsika" src='@Url.Content("~/Content/Images/facebook_share.png")' onclick="CompartirFacebook('Esika')" border="0" alt="Compartir en Facebook" title="Compartir en Facebook" />
+                </a>
+            </div>
+        </div>
+        <div style=" float:left; padding-left: 53px;">
+            <div class="pointer">
+                <input id="txtUrlCyzone" type="text" value="" style="display:none;" />
+                <a id="lnkCompartirCyzone" href="javascript:;" rel="Catalogo - Ver Catalogos" title="FB-Cyzone CXX20YY">
+                    <img id="imgCompartirCyzone" src='@Url.Content("~/Content/Images/facebook_share.png")' onclick="CompartirFacebook('Cyzone')" border="0" alt="Compartir en Facebook" title="Compartir en Facebook" />
+                </a>
+            </div>
+        </div>
+        <div style=" float:left; padding-left: 53px;">
+            <div class="pointer">
+                <input id="txtUrlFinart" type="text" value="" style="display:none;" />
+                <a id="lnkCompartirFinart"  href="javascript:;" rel="Catalogo - Ver Catalogos" title="FB-Finart CXX20YY">
+                    <img id="imgCompartirFinart" src='@Url.Content("~/Content/Images/facebook_share.png")' onclick="CompartirFacebook('Finart')" border="0" alt="Compartir en Facebook" title="Compartir en Facebook" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="catalogo_botones">
+            <a href="javascript:;" id="btnCatalogoActual" onclick="ColumnasDeshabilitadasxPais('','Click','Catálogo @ViewBag.Campania')" rel="Catalogo - Seguimiento Catalogos" title="Catalogo Actual">Catálogos @ViewBag.Campania</a>
+            <a href="javascript:;" id="btnCatalogoAnterior" onclick="ColumnasDeshabilitadasxPais2(1,'Click','Catálogos Anteriores')" rel="Catalogo - Seguimiento Catalogos" title="Catalogo Anterior">Catálogos Anteriores</a>
+            <a href="javascript:;" id="btnCatalogoSiguiente" onclick="ColumnasDeshabilitadasxPais2(2,'Click','Próximos Catálogos')" rel="Catalogo - Seguimiento Catalogos" title="Proximo Catalogo">Próximos Catálogos</a>
+            @*<input type="button" id="btnCatalogoActual" value="Catálogos @ViewBag.Campania" onclick="ColumnasDeshabilitadasxPais()" />
+            <input type="button" id="btnCatalogoAnterior" value="Catálogos Anteriores" onclick="ColumnasDeshabilitadasxPais2(1)"  />
+            <input type="button" id="btnCatalogoSiguiente" value="Próximos Catálogos" onclick="ColumnasDeshabilitadasxPais2(2)" />*@
+        </div>
+    </div>
+</div>
+<div class="wrap" id="SeccionClientes">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+
+        <div class="border-email">
+            <div class="border-email-left">
+                <img src='@Url.Content("~/Content/Images/email_cuenta.png")' />
+                <span>Tiene Correo</span>
+            </div>
+            <div class="border-email-right">
+                <img src='@Url.Content("~/Content/Images/email_cuenta2.png")' />
+                <span>No Tiene Correo</span>
+            </div>
+        </div>
+        <input type="hidden" id="hdNombreAnt" />
+        <input type="hidden" id="hdnCampania" value="@ViewBag.Campania" />
+        <div class="div-3">
+            <div class="input_modifica">
+                <a href="javascript:;" class="CatalogoInputGeneral" onclick="AbrirModal();" rel="Catalogo - Ingresar Cliente" title="Ingresar Cliente">Ingresar Nuevo Cliente</a>
+                @*<input id="btNuevo" type="button" class="boton_buscar" value="Ingresar Nuevo Cliente" onclick="AbrirModal();" />*@
+            </div>
+        </div>
+
+        <div class="div-2">
+            <div>
+                <p>Si deseas incluir un mensaje, puedes hacerlo aquí (máximo 500 caracteres)</p>
+            </div>
+            <div class="mensaje_caracteres">
+                <textarea id="message" name="message" cols="75" rows="8" onkeydown="textCounter();"
+                    onkeyup="textCounter();"></textarea>
+            </div>
+            <p>
+                <div id="remLen" style="">0 de 500 caracteres permitidos </div>
+            </p>
+        </div>
+
+        <div class="div-3">
+            <div class="input_modifica">
+                <a href="javascript:;" class="CatalogoInputGeneral" onclick="EnviarCatalogos();" rel="Catalogo - Enviar Catalogo" title="Enviar Catalogo" >Enviar Catálogo</a>
+                @*<input id="btnEnviar" type="button" class="boton_buscar" value="Enviar Catálogo" onclick="EnviarCatalogos();" />*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+<div id="DialogClientes">
+    @*    @using (Ajax.BeginForm("Create", "cliente", new AjaxOptions { HttpMethod = "Post", OnSuccess = "onSuccess", OnBegin = "Validar" }, new { id = "Cliente" }))
+    {
+        *@
+
+    <div class="Content_modal">
+        @Html.HiddenFor(model => model.FlagValidate, new { id = "hdFlag", value = "0" })
+        @Html.HiddenFor(model => model.ClienteID, new { id = "hdClienteId" })
+        <div class="div-3">
+            <div class="titC">Nombres:</div>
+            <div class="selectA borde_redondeado">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "input_search_form", maxlength = 50, id = "Nombres" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC">Email:</div>
+            <div class="selectA borde_redondeado">
+                @Html.TextBoxFor(model => model.eMail, new { @class = "input_search_form", maxlength = 80, id = "Correo" })
+            </div>
+        </div>
+        @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
+        @*}*@
+
+    </div>
+</div>

@@ -1,0 +1,251 @@
+﻿@using Newtonsoft.Json
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model ProductosDestacadosMobilModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<input type="hidden" id="hdListaEstrategiasPedido" value="@JsonConvert.SerializeObject(Model.ListaEstrategias)" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Url.Action("BorrarCuvSession", "Pedido", new { area = "Mobile" })"><i class="icon-angle-left"></i>Volver </a>
+            </li>
+            <li>|</li>
+            <li>PRODUCTOS DESTACADOS</li>
+        </ol>
+    </div>
+</div>
+
+@{ var posicionCarrusel = 1; }
+@foreach (var estrategia in Model.ListaEstrategias)
+{
+    var descripcion = "";
+    if (estrategia.DescripcionCUV2 != null)
+    {
+        descripcion = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|')[0] : estrategia.DescripcionCUV2;
+    }
+    var estilo = estrategia.ColorFondo == "" ? "" : "product-recomendado";
+
+    <article class="panel-product @estilo">
+
+        <input type="hidden" class="valorCuv" value="@estrategia.CUV2" />
+        <input type="hidden" class="valorPosicion" value="@estrategia.ID" />
+        <input type="hidden" class="valorPosicionCarrusel" value="@posicionCarrusel" />
+        
+        @if (Model.ListaProductos.Any(p => p.CUV == estrategia.CUV2))
+        {
+            <span class="product-add-image"></span>
+        }
+        @if (!string.IsNullOrEmpty(estrategia.ImagenURL))
+        {
+            <img src="@estrategia.ImagenURL" class="img-product-top" />
+        }
+        
+        <figure>
+            <div class="img-middle">
+                <img src="@estrategia.FotoProducto01" alt="@estrategia.DescripcionCUV2" class="img-responsive marginAuto" width="150" />
+            </div>
+            <div class="title-middle">
+                <strong>@descripcion</strong>
+            </div>
+        </figure>
+        <div class="product-precio">
+            Precio catálogo <b>@estrategia.Simbolo @(Model.PaisId == 4 ? estrategia.Precio2.ToString("#,##0").Replace(',', '.') : estrategia.Precio2.ToString("#,##0.00"))</b>
+        </div>
+        <a href="javascript:void(0);" class="btn btn-line btn-icon btn-block btnAgregarEstrategia"><i class="icon icon-caja"></i>Agregar</a>
+    </article>
+    {
+        posicionCarrusel++;
+    }
+}
+
+
+<div class="row" id="divInformacionAccordion">
+    <div class="col-xs-12">
+        <div class="block-center">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-bottom: 0px; margin-top: 15px;">
+                <div class="panel panel-line center-min">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title upper">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="return MostrarOcultarResumenPedido();">
+                                <strong>Mi pedido <span>@Model.DescripcionCampaniaActual </span></strong>
+                                <span class="pull-right"><i class="icon-angle-down" id="iconCollpase"></i></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body posr">
+                            Productos: <strong><span id="spnCantidadProductos">@Model.CantidadProductos</span></strong><br />
+                            Monto Total: <strong>@Model.Simbolo <span id="spnDescripcionTotal">@Model.DescripcionTotal</span></strong>
+                            @if (Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.Mexico ||
+                                Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
+                            {
+                                <br />
+                                <span class="text-success">Total Validando Monto Mínimo: <strong>@Model.Simbolo <span id="spnTotalMontoMinimo">@Model.DescripcionTotalMinimo</span></strong></span>
+                            }
+                            
+                            <a href="@Url.Action("Detalle", "Pedido", new {area = "Mobile"})"
+                               role="menu" region="ingreso-pedido" parent="Ver mi pedido" title="Ver mi pedido" id="lnk-ing-ver-mi-pedido"
+                               class="btn btn-line btn-right">Ver mi pedido</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        ////////
+
+        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+            var restringido = true;
+
+            $.ajaxSetup({ cache: false });
+            jQuery.ajax({
+                type: 'GET',
+                url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (data) {
+                    
+                    if (checkTimeout(data)) {
+                        if (data.success == false)
+                            restringido = false;
+                        else {
+
+                            if (data.pedidoReservado) {
+                                var fnRedireccionar = function () {
+                                    ShowLoading();
+                                    location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+                                }
+                                if (mostrarAlerta == true) {
+                                    CloseLoading();
+                                    alert_msg(data.message, fnRedireccionar);
+                                }
+
+                                else fnRedireccionar();
+
+                            }
+                            else if (mostrarAlerta == true) alert_msg(data.message);
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                }
+            });
+            return restringido;
+        }
+
+        function alert_msg(message, fnClose) {
+            messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
+
+        }
+
+        ////////
+
+        $(document).ready(function() {
+            TagManagerProductosDestacados();
+
+            $("body").on("click", ".btnAgregarEstrategia", function () {
+
+                if (ReservadoOEnHorarioRestringido())
+                    return;
+
+                ShowLoading();
+
+                TagManagerCarruselClickAgregarEstrategia(this);
+                var article = $(this).parents("article").eq(0);
+                var valorCuv = $(article).find(".valorCuv").val();
+
+                location.href = '@Url.Action("GuardarCuvSession", "Pedido", new {area = "Mobile"})' + "?CUV=" + valorCuv;
+            });
+        });
+
+        function MostrarOcultarResumenPedido() {
+            if ($("#iconCollpase").attr("class") == "icon-angle-up") {
+                $("#iconCollpase").removeClass("icon-angle-up");
+                $("#iconCollpase").addClass("icon-angle-down");
+            } else {
+                $("#iconCollpase").removeClass("icon-angle-down");
+                $("#iconCollpase").addClass("icon-angle-up");
+            }
+        }
+        
+        function TagManagerCarruselClickAgregarEstrategia(boton) {
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+            var article = $(boton).parents("article").eq(0);
+            var valorPosicion = $(article).find(".valorPosicionCarrusel").val();
+
+            var recomendado = listaRecomendados[valorPosicion - 1];
+
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Productos destacados', 'action': 'click' },
+                        'products': [
+                            {
+                                'name': recomendado.DescripcionCUV2,
+                                'id': recomendado.CUV2,
+                                'category': 'NO DISPONIBLE',
+                                'variant': recomendado.DescripcionEstrategia,
+                                'position': recomendado.ID
+                            }
+                        ]
+                    }
+                }
+            });
+        }
+
+        function TagManagerProductosDestacados() {
+            var arrayEstrategia = new Array();
+
+            var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
+            var listaRecomendados = JSON.parse(cadListaRecomendados);
+
+            for (var i = 0; i < listaRecomendados.length; i++) {
+                var recomendado = listaRecomendados[i];
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCUV2,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Productos destacados',
+                    'position': recomendado.ID
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+            }
+
+            if (arrayEstrategia.length > 0) {
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+            }
+        }
+
+    </script>
+}

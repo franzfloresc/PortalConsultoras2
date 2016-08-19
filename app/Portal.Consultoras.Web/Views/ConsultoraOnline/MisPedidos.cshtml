@@ -1,0 +1,287 @@
+﻿@model Portal.Consultoras.Web.Models.MisPedidosModel
+@{
+    ViewBag.Title = "MisPedidos";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+@System.Web.Optimization.Styles.Render("~/bundles/CSSFuzemodal")
+@System.Web.Optimization.Scripts.Render("~/bundles/JSFuzemodal")
+
+
+<div class="banner_pedidos">
+    <div class="text_bienvenida">
+        <h2>BIENVENIDA A <strong>CONSULTORA ONLINE</strong></h2>
+        <p class="font_weight_500">A partir de ahora, tu nombre aparecerá en las páginas web de nuestras marcas y nuevos clientes te contactarán.</p>
+
+        <div class="field25 max_width_250 margin_right_5_porc">
+            <img src="/Content/Images/ConsultoraOnline/a_txt_llama.png" width="137" height="37" alt="" />
+            <p class="margin_left_26 top_menos_6">Recibe la notificación y contacta al cliente.</p>
+        </div>
+        <div class="field25 max_width_250 margin_right_5_porc">
+            <img src="/Content/Images/ConsultoraOnline/b_txt_acepta.png" width="137" height="37" alt="" />
+            <p class="margin_left_26 top_menos_6">Acepta el pedido en máximo 24 horas.</p>
+        </div>
+        <div class="field40 max_width_300">
+            <img src="/Content/Images/ConsultoraOnline/c_txt_entrega.png" width="137" height="37" alt="" />
+            <p class="margin_left_26 top_menos_6">Entrega el pedido y comienza una relación con tu nuevo cliente.</p>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_MenuConsultoraOnline")
+
+<div class="cont_pedido tsm">    
+    <h2>Hola @ViewBag.NombreConsultora,</h2>
+    <div id="viewContentHolder">
+        @Html.Partial("_ListaPedidos", Model)
+    </div>
+</div>
+
+
+
+<!-------------------------------------------MODALS----------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------>
+
+
+
+<div id="modal_aceptar_pedido" class="fuzemodal tsm" style="display: none">
+    <div class="fuzemodal_title">
+        
+        <div class="fuzemodal_title_items" onclick="$('#modal_aceptar_pedido').fuzemodal('close');">
+            <img src="/Content/Images/ConsultoraOnline/close.png" alt="X" />
+        </div>
+    </div>
+
+    <div class="fuzemodal_content">
+        
+        <img src="/Content/Images/ConsultoraOnline/ic_aceptar.png" alt="" />
+        <div id="viewPlaceHolder">
+        </div>        
+    </div>
+</div>
+
+
+<div id="modal_rechazar_pedido" class="fuzemodal tsm" style="display: none">
+    <div class="fuzemodal_title">
+        <span>¿NOS PUEDES CONTAR LA RAZON <br />POR LA QUE NO ACEPTAS EL PEDIDO?</span>
+        <div class="fuzemodal_title_items" onclick="$('#modal_rechazar_pedido').fuzemodal('close'); $('#modal_rechazar_pedido').fuzemodal('close');">
+            <img src="/Content/Images/ConsultoraOnline/close.png" alt="X" />
+        </div>
+    </div>
+
+    <div class="fuzemodal_content">
+        <br />
+        <br />
+
+        <form id="frmRechazoPedido">
+            <input type="hidden" name="SolicitudId" id="SolicitudId" />
+            <input type="hidden" name="NumIteracion" id="NumIteracion" />
+            <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
+            <input type="hidden" name="Campania" id="Campania" />
+            <input type="hidden" name="MarcaID" id="MarcaID" />
+            <input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />
+        <div id="wrap_Rechazar_pedido_preguntas">
+            <input type="hidden" id="RechazaPedidoId" value="none" />
+            <input class="display_none" type="radio" value="1" id="cb21" name="checkbox">
+            <label for="cb21">No tengo tiempo para atenderla.</label>
+
+            <input class="display_none" type="radio" value="2" id="cb22" name="checkbox">
+            <label for="cb22">El cliente vive muy lejos.</label>
+
+            <input class="display_none" type="radio" value="3" id="cb23" name="checkbox">
+            <label for="cb23">El/los productos están agotados en esta campaña.</label>
+
+            <input class="display_none" type="radio" value="4" id="cb24" name="checkbox">
+            <label for="cb24">No pasaré pedido esta campaña.</label>
+
+@*            <input class="display_none" type="radio" value="5" id="cb25" name="checkbox">
+            <label for="cb25">Volveré. Solo me estoy tomando un descanso.</label>*@
+
+            <input class="display_none" type="radio" value="6" id="cb26" name="checkbox">
+            <label for="cb26">Otros</label>
+            <textarea name="txtOtrosRechazo" id="txtOtrosRechazo"></textarea>
+        </div>
+        </form>
+        <div class="fuzemodal_buttons clear_co">
+            <button id="btnEnviarRechazo" class="boton_morado_2 margin_bottom_45" type="button" onclick="EjecutaRechazoPedido();">ENVIAR</button>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div id="modal_cancelar_pedido" class="fuzemodal tsm" style="display: none">
+    <div class="fuzemodal_title">
+        <span>CANCELA EL PEDIDO</span>
+        <div class="fuzemodal_title_items" onclick="$('#modal_cancelar_pedido').fuzemodal('close');">
+            <img src="/Content/Images/ConsultoraOnline/close.png" alt="X" />
+        </div>
+    </div>
+
+    <div class="fuzemodal_content">
+
+        <p>Cuéntanos por qué tuviste que cancelar el pedido</p>
+
+        <br />
+        <form id="frmCancelaPedido">
+        <div id="wrap_cancelar_pedido_preguntas">            
+            <input type="hidden" id="CancelaPedidoId" value="none" />
+            <input type="hidden" name="DivPanelPedidoCancelado" id="DivPanelPedidoCancelado" />
+            <input type="hidden" name="DivPanelTarget" id="DivPanelTarget" />            
+            <input class="display_none" type="radio" value="7" id="cb1" name="checkbox">
+            <label for="cb1">Yo no puedo atender su pedido.</label>
+
+            <input class="display_none" type="radio" value="8" id="cb2" name="checkbox">
+            <label for="cb2">El cliente vive muy lejos.</label>
+
+            <input class="display_none" type="radio" value="9" id="cb3" name="checkbox">
+            <label for="cb3">El/los productos están agotados en esta campaña.</label>
+
+            <input class="display_none" type="radio" value="10" id="cb4" name="checkbox">
+            <label for="cb4">No pasaré pedido esta campaña.</label>
+
+            <input class="display_none" type="radio" value="11" id="cb5" name="checkbox">
+            <label for="cb5">Otros</label>
+
+            <textarea name="txtOtrosCancelado" id="txtOtrosCancelado"></textarea>
+        </div>
+        </form>
+        <div class="fuzemodal_buttons clear_co">
+            <button id="btnCancelarPedido" class="boton_morado_2 margin_bottom_45" type="button" onclick="EjecutaCancelaSolicitud();">ENVIAR</button>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function updateCantidadPedidos() {
+        var cantPedidos = $('#PedidosPendientes').html();
+        var resultCantPedidos = cantPedidos - 1;
+        $('#PedidosPendientes').html(resultCantPedidos);
+    }
+
+    function CancelarSolicitud(PedidoId, DivPanelPedidoCancelado, panelTarget) {
+        $("#CancelaPedidoId").val(PedidoId);
+        $("#DivPanelPedidoCancelado").val(DivPanelPedidoCancelado);
+        $("#DivPanelTarget").val(panelTarget);
+        $("#modal_cancelar_pedido").fuzemodal('open');
+    }
+
+    function EjecutaCancelaSolicitud() {
+        var opc = $('input[name=checkbox]:checked', '#frmCancelaPedido').val();
+        var objHtmlPanelPedido = $("#DivPanelPedidoCancelado").val();
+        var objHtmlPanelTarget = $("#DivPanelTarget").val();
+        var params = {
+            SolicitudId: $("#CancelaPedidoId").val(),
+            OpcionCancelado: opc,
+            RazonMotivoCancelado: $("#txtOtrosCancelado").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "ConsultoraOnline/CancelarPedido", //R2442 - JICM - se actualiza url 
+            contentType: 'application/json',
+            data: JSON.stringify(params),
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        var htmlRechazado = '<div class="text_gris_azul">CANCELADO</div><p class="font_size_11">' + data.message + '</p>';
+                        $('#' + objHtmlPanelPedido).html(htmlRechazado);
+                        var imgCancelado = '<img class="margin_right_10 vertical_align_top" src="/Content/Images/ConsultoraOnline/ic_cerrar.png" width="19" height="19" alt="" />';
+                        $('#alertImage' + objHtmlPanelTarget).html(imgCancelado);
+                        $('#telefonoDisplay' + objHtmlPanelTarget).css('display', 'none');
+                        $('#datosDisplay' + objHtmlPanelTarget).css('display', 'none');
+                        $('#MensajeConsultora' + objHtmlPanelTarget).html('');
+
+                        $('#modal_cancelar_pedido').fuzemodal('close');
+                    }
+                    else {
+                        console.log(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
+                }
+            }
+        });
+
+        $('#modal_cancelar_pedido').fuzemodal('close');
+    }
+
+    function RechazarSolicitud(PedidoId, NumIteracion, CodigoUbigeo, Campania, MarcaID, DivPanelPedidoRechazado) {
+        $("#SolicitudId").val(PedidoId);
+        $("#NumIteracion").val(NumIteracion);
+        $("#CodigoUbigeo").val(CodigoUbigeo);
+        $("#Campania").val(Campania);
+        $("#MarcaID").val(MarcaID);
+        $('#DivPanelPedidoRechazado').val(DivPanelPedidoRechazado);
+        $("#modal_rechazar_pedido").fuzemodal('open');
+    }
+
+    function EjecutaRechazoPedido() {
+        $(btnEnviarRechazo).prop('disabled', true);
+        var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
+        var objHtmlPanelPedidoRechazado = $("#DivPanelPedidoRechazado").val();
+               
+        var params = {
+            SolicitudId : $("#SolicitudId").val(), 
+            NumIteracion : $("#NumIteracion").val(), 
+            CodigoUbigeo : $("#CodigoUbigeo").val(), 
+            Campania : $("#Campania").val(), 
+            MarcaId : $("#MarcaID").val(),       
+            OpcionRechazo: opc,
+            RazonMotivoRechazo: $("#txtOtrosRechazo").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "ConsultoraOnline/RechazarPedido", 
+            contentType: 'application/json',
+            data: JSON.stringify(params),
+            success: function (data) {
+                if (checkTimeout(data)) {
+
+                    if (data.success == true) {
+                        $('#modal_rechazar_pedido').fuzemodal('close');
+                        var htmlRechazado = '<div class="text_gris_azul">RECHAZADO</div><p class="font_size_11">' + data.message + '</p>';
+                        $('#DivPanel' + objHtmlPanelPedidoRechazado).html(htmlRechazado);
+                        var imgRechazado = '<img class="margin_right_10 vertical_align_top" src="/Content/Images/ConsultoraOnline/ic_cerrar.png" width="19" height="19" alt="" />';
+                        $('#alertImage' + objHtmlPanelPedidoRechazado).html(imgRechazado);
+                        $('#telefonoDisplay' + objHtmlPanelPedidoRechazado).css('display', 'none');
+                        $('#datosDisplay' + objHtmlPanelPedidoRechazado).css('display', 'none');
+                        $('#MensajeConsultora' + objHtmlPanelPedidoRechazado).css('display', 'none');
+                        updateCantidadPedidos();
+                        $(btnEnviarRechazo).prop('disabled', false);
+                    }
+                    else {
+                        alert_msg(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
+                }
+            }
+        });
+
+        $('#modal_cancelar_pedido').fuzemodal('close');
+    };
+
+    $(document).ready(function () {
+
+        //*************************************MODALS*******************************//
+        $("#modal_aceptar_pedido").fuzemodal({ buttonIdOrClass: '.btnAcepta', speed: 450 });
+        $("#modal_rechazar_pedido").fuzemodal({ buttonIdOrClass: '.btnRechaza', speed: 450 });
+        $("#modal_cancelar_pedido").fuzemodal({ buttonIdOrClass: '.btnCancela', speed: 450 });
+  
+
+    });
+</script>

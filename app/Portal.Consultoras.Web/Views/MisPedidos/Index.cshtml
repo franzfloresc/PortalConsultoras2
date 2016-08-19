@@ -1,0 +1,439 @@
+﻿@using Portal.Consultoras.Web.Controllers
+@model Portal.Consultoras.Web.Models.MisPedidosSb2Model
+
+@{
+    ViewBag.Title = "Mis Pedidos";
+}
+
+@{
+    var base1 = new BaseController();
+    var campaniaNro = ((Model.PedidoActual.CampaniaID == 0) ? "" : Model.PedidoActual.CampaniaID.ToString().Substring(4, 2));
+    var formatoCampania = ((Model.PedidoActual.CampaniaID == 0) ? "" : Model.PedidoActual.CampaniaID.ToString().Substring(0, 4) + "-" + Model.PedidoActual.CampaniaID.ToString().Substring(4, 2));
+    var formatoFecha = Model.PedidoActual.FechaRegistro.Day + " de " + base1.NombreMes(Model.PedidoActual.FechaRegistro.Month);
+    var cantidad = (Model.PedidoActual.CampaniaID == 0 ? 0 : 1) + Model.ListaFacturados.Count;
+    var mensajeCantidad = cantidad == 0
+        ? "No tienes campañas realizadas."
+        : cantidad == 1
+            ? "Tienes " + cantidad + " campaña realizada."
+            : "Son mis " + cantidad + " últimas campañas realizadas.";
+}
+
+<div class="popup_pedidosFacturados" data-popup="facturado">
+    <div class="content_popUp" style="padding-top:24px; padding-bottom:24px!important;">
+        <div class="btn_cerrar_popup_pedidosFacturados" data-accion="close">
+            <a href="#" title="Cerrar Popup">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popupPercepcion.png")" alt="Cerrar" />
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="pedidosFacturados_campania">
+            <span></span>
+            <h1>MIS&nbsp;<b>PEDIDOS FACTURADOS</b></h1>
+            <form>
+                <select data-selectcamp=""></select>
+            </form>            
+        </div>
+        <div class="contenedor_bloque_datos">
+            <span class="texto_descripcion">Estos son productos facturados por SomosBelcorp.com, donde encontrarás todos los productos que llegaron en tu caja de pedido.</span>
+            <div class="icono_imprimir">
+                <a href="#" title="Imprimir">
+                    <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                </a>
+            </div>
+            <div class="icono_excel">
+                <a href="#" title="Descargar Excel">
+                    <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcelFacturado(this);" />
+                </a>
+            </div>
+            <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
+        </div>
+        <!--CONTENIDO TABLAS FACTURADOS-->
+        <div id="divContenidofacturado">
+           
+        </div>
+    </div>
+</div>
+<div class="popup_pedidosIngresados" data-popup="ingresado">
+    <div class="content_popUp" style="padding-top:24px!important; padding-bottom:24px!important;">
+        <div class="btn_cerrar_popup_pedidosIngresados" data-accion="close">
+            <a href="#" title="Cerrar Popup">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popupPercepcion.png")" alt="Cerrar" />
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="pedidosFacturados_campania">
+            <span></span>
+            <h1>MIS&nbsp;<b>PEDIDOS INGRESADOS</b></h1>
+            <form>
+                <select data-selectcamp=""></select>
+            </form>
+        </div>
+        <div class="contenedor_bloque_datos">
+            <span class="texto_descripcion">Estos son los productos ingresados por SomosBelcorp.com.</span>
+            <div class="icono_imprimir">
+                <a href="#" title="Imprimir">
+                    <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
+                </a>
+            </div>
+            <div class="icono_excel">
+                <a href="#" title="Descargar Excel">
+                    <img src="@Url.Content("~/Content/Images/icono-excel.png")" alt="Descargar Excel" onclick="ExportExcel(this);" />
+                </a>
+            </div>
+            <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
+        </div>
+        <!-- CONTENIDO TABLAS CLIENTE-->
+        <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
+        </div>
+       
+    </div>
+</div>
+
+<!-- Titulo -->
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp content_belcorp_misPedidos">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>PEDIDOS</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<!-- Fin titulo-->
+
+<div class="content_belcorp content_belcorp_misPedidos">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <!--INICIO TABLA MIS PEDIDOS-->
+    <div class="tabla_misPedidos">
+        <!--CONTENEDOR -->
+        <div class="content_mis_pedidos">
+            <div class="icono_campanias"></div>
+            <div class="titulo_detalle_pago titulo_campanias">
+                <div>MIS ÚLTIMAS<b> CAMPAÑAS</b></div>
+            </div>
+
+            <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">@mensajeCantidad</div>
+            
+            <hr class="clear" />
+            <div class="linea_separadora" style="height:2px"></div>
+
+            <!-- CABECERA DE TABLAS -->
+            <div class="content_datos_mispedidos">
+                <div class="nombre_campania texto_gris_cabeceraMisPedidos">Campaña</div>
+                <div class="fecha_pedido texto_gris_cabeceraMisPedidos">Fecha</div>
+                <div class="monto_totalPedido texto_gris_cabeceraMisPedidos">Monto Total</div>
+                <div class="canal_ingreso texto_gris_cabeceraMisPedidos">Canal Ingreso</div>
+                <div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cant. Prod.</div>
+                <div class="seguimiento texto_gris_cabeceraMisPedidos">Seguimiento</div>
+                <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>
+                <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
+            </div>
+            <!-- FIN CABECERA DE TABLAS -->
+
+            <div class="linea_separadora" style="margin-top:-1px"></div>
+
+            <!--CONTENIDO DE TABLAS -->
+
+            <!--Pedido Actual -->
+            @if (Model.PedidoActual.CampaniaID != 0)
+            {
+                <div class="content_datos_mispedidos" data-camp="@Model.PedidoActual.CampaniaID" data-estado="@Model.PedidoActual.EstadoPedidoDesc">
+                    <div class="nombre_campania texto_bold" data-campnro="@campaniaNro" data-campformat="@formatoCampania">@formatoCampania</div>
+                    <div class="fecha_pedido">@formatoFecha</div>
+                    <div class="monto_totalPedido"
+                         data-facturado="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.PedidoActual.ImporteTotal, Model.UserIso))">
+                        @Model.Simbolo @(Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.PedidoActual.ImporteTotal, Model.UserIso))
+                    </div>
+                    <div class="canal_ingreso">@Model.PedidoActual.CanalIngreso</div>
+                    <div class="cantidad_prod">@Model.PedidoActual.CantidadProductos</div>
+                    <div class="seguimiento ingresado">
+                        <a href="javascript:;" title="Seguimiento">
+                            <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
+                        </a>
+                    </div>
+                    <div class="pack_documentario ingresado">
+                        <a href="javascript:;" title="Pack Documentario">
+                            <img src="@Url.Content("~/Content/Images/icono-pack-documentario.png")" alt="Pack Documentario" />
+                        </a>
+                    </div>
+                    <div class="estado_detalles">
+                        <div data-accion="detalle" data-estado="@Model.PedidoActual.EstadoPedidoDesc">
+                            <span class="estado_texto estado_detalleIngresado">
+                                @if (Model.PedidoActual.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
+                                {
+                                    <span class="estado_rechazado_icono">
+                                        <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
+                                    </span>
+                                }
+                                @Model.PedidoActual.EstadoPedidoDesc.ToUpper()
+                            </span>
+                            <span>
+                                <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                    <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--Fin Pedido Actual -->
+            
+            <!--Pedidos Facturados-->
+            @foreach (var item in Model.ListaFacturados)
+            {
+                var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
+                var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
+                var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + base1.NombreMes(item.FechaRegistro.Month);
+                
+                var estiloSinRuta = "";
+                var rutaPaqueteDocumentario = "";
+                if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
+                {
+                    rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
+                }
+                else
+                {
+                    estiloSinRuta = "ingresado";
+                    rutaPaqueteDocumentario = "javascript:;";
+                }
+                
+                <div class="content_datos_mispedidos" data-camp="@item.CampaniaID" data-estado="@item.EstadoPedidoDesc">
+                    <div class="nombre_campania texto_bold" data-campnro="@campaniaFacturadoNro" data-campformat="@formatoCampaniaFacturado">@formatoCampaniaFacturado</div>
+                    <div class="fecha_pedido">@formatoFechaFacturado</div>
+                    <div class="monto_totalPedido"
+                         data-parcial="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteCredito, Model.UserIso))"
+                         data-flete="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.Flete, Model.UserIso))"
+                         data-facturado="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))">
+                        @Model.Simbolo @(Portal.Consultoras.Common.Util.DecimalToStringFormat(item.ImporteTotal, Model.UserIso))
+                    </div>
+                    <div class="canal_ingreso">@item.CanalIngreso</div>
+                    <div class="cantidad_prod">@item.CantidadProductos</div>
+                    <div class="seguimiento">
+                        <a href="javascript:;" title="Seguimiento">
+                            <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
+                        </a>
+                    </div>                    
+                    <div class="pack_documentario @estiloSinRuta">
+                        <a href="@rutaPaqueteDocumentario" target="_blank" title="Pack Documentario">
+                            <img src="@Url.Content("~/Content/Images/icono-pack-documentario.png")" alt="Pack Documentario" />
+                        </a>                                                
+                    </div>
+                    <div class="estado_detalles">
+                        <div data-accion="detalle" data-estado="@item.EstadoPedidoDesc">
+                            <span class="estado_texto estado_detalleFacturado">
+                                @if (item.EstadoPedidoDesc == "RECHAZADO")
+                                {
+                                    <span class="estado_rechazado_icono">
+                                        <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
+                                    </span>
+                                }
+                                @item.EstadoPedidoDesc.ToUpper()
+                            </span>
+                            <span>
+                                <a href="#" title="Ver Estado / Detalles" class="icono_verDetalle">
+                                    <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--FIN CONTENIDO DE TABLAS -->
+        </div>
+    </div>
+    <!--FIN CONTENIDO TABLA MIS PEDIDOS-->
+</div>
+
+<script id="html-detalle-ingresado" type="text/x-handlebars-template">
+    {{#each this.Rows as |detalle|}}
+    <div class="acordion_titulo" data-cliente="{{detalle.ClienteID}}">
+        <div class="titulo_nombreCliente" data-acordion="">
+            <span class="icono_despliegue_acordion"></span>
+            <span class="nombreCliente">{{detalle.Nombre}}</span>
+        </div>
+        <div class="productos_agregados_usuario">
+            <span class="cantidad_productos_agregados"><b>{{detalle.Cantidad}}</b></span>
+            &nbsp;productos
+        </div>
+        <div class="totalPedidoFacturado">
+            <span>TOTAL:</span>
+            <span>
+                <b>{{Simbolo}} {{detalle.ImporteTotal}}</b>
+            </span>
+        </div>
+        <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="display:none;">
+            <div>
+                <ul data-paginacion="block" data-camp="{{detalle.CampaniaId}}" data-cliente="{{detalle.ClienteID}}" data-estado="ingresado">
+                    <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
+                    <li class="texto_pagina" >Página</li>
+                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
+                    <li>
+                        <span class="paginas_pedidos">
+                            <span class="pagina_actual">
+                                <input type="text" name="paginaactual" value="{{detalle.CurrentPage}}" data-paginacion="page" data-val="{{Pagina}}">
+                            </span> de
+                            <span class="paginas_totales" data-paginacion="pageCount">{{detalle.PageCount}}</span>
+                        </span>
+                    </li>
+                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+                    <li class="seleccion_pagina">
+                        <select data-paginacion="rows" data-val="{{PageSize}}">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="icono_mas_menos" data-acordion=""></div>
+        <div class="linea_separadora" style="height:1px; position:absolute; bottom:0%;"></div>
+    </div>
+    <div class="acordion_contenido" data-contenido="{{detalle.ClienteID}}"></div>
+    {{/each}}
+    <div class="linea_separadora_roja" style="height: 2px; margin-top:-1px;"></div>
+    <div style="text-align:right; padding-right:40px;" id="detalle_ingresado_resumen">
+        <div class="cantidad_clientes_pedidosIngresados">
+            <span>{{CantidadCliente}}</span>
+            <span>CLIENTES</span>
+        </div>
+        <div class="cantidad_productos_pedidosIngresados">
+            <span>{{CantidadProducto}}</span>
+            <span>PRODUCTOS</span>
+        </div>
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
+            <div class="totalTexto">SUBTOTAL:</div>
+            <div class="totalTexto">OFERTAS POR NIVELES:</div>
+            <div class="totalTexto">MONTO TOTAL:</div>
+        </div>
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
+            <div class="totalNumero texto_bold">{{Simbolo}} {{SubTotal}}</div>
+            <div class="totalNumero texto_bold">{{Simbolo}} {{OfertaNiveles}}</div>
+            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteTotal}}</div>
+        </div>
+    </div>
+</script>
+<script id="html-detalle-ingresado-detalle" type="text/x-handlebars-template">
+    <div class="content_datos_pedidosIngresados">
+        <div class="codigo_prod texto_gris_popup">Código</div>
+        <div class="descripcion_prod texto_gris_popup">Producto</div>
+        <div class="cantidadProd texto_gris_popup">Unidades</div>
+        <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+        <div class="importePago_prod texto_gris_popup">Precio Total</div>
+    </div>
+    <!--CONTENIDO DE TABLAS FACTURADOS-->
+    {{#each this.Rows as |detalle|}}
+    <div class="content_datos_pedidosIngresados">
+        <div class="codigo_prod">{{detalle.CUV}}</div>
+        <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
+        <div class="cantidadProd">{{detalle.Cantidad}}</div>
+        <div class="precioUnitario_prod">{{detalle.Simbolo}} {{detalle.PrecioUnidad}}</div>
+        <div class="importePago_prod">{{detalle.Simbolo}} {{detalle.ImporteTotal}}</div>
+    </div>
+    {{/each}}   
+    <div class="linea_separadora_roja" style="height: 1px; margin-top:-1px;"></div>
+    <div style="text-align:right; padding-right:40px;">
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:30%;">
+            <div class="totalTexto" style="font-size:14px; text-align:right;">
+                TOTAL&nbsp;&nbsp;
+                <span>{{Nombre}}</span>
+            </div>
+        </div>
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales">
+            <div class="totalNumero texto_bold" style="font-size:15px;">{{Simbolo}} {{ImporteTotal}}</div>
+        </div>
+    </div>
+    <div class="linea_separadora" style="height:1px;"></div>
+</script>
+
+<script id="html-detalle-facturado" type="text/x-handlebars-template">
+
+    <!--Paginador-->
+    <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="width:46%; margin-top:0px!important; padding-bottom:43px!important; float:right;">
+        <div>
+            <ul data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="facturado">
+                {{#iff RecordCount '>' 0}}
+                <li data-paginacion='recordCount' style="display:none;">{{RecordCount}}</li>
+                <li class="texto_pagina">Página</li>
+                <li class="flecha_paginador_atras" data-paginacion="back" style="margin-right:8px;"></li>
+                <li>
+                    <span class="paginas_pedidos">
+                        <span class="pagina_actual">
+                            <input type="text" name="paginaactual" value="{{CurrentPage}}" data-paginacion="page" data-val="{{Pagina}}">
+                        </span> de
+                        <span class="paginas_totales" data-paginacion="pageCount">{{PageCount}}</span>
+                    </span>
+                </li>
+                <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+                <li class="seleccion_pagina" style="margin-left:10px;">
+                    <select data-paginacion="rows" data-val="{{PageSize}}">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </li>
+                {{/iff}}
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+    <div style="float:right;">
+        <div class="productos_agregados_usuario" style="display:inline-block;">
+            <span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
+            &nbsp;productos
+        </div>
+        <div class="totalPedidoFacturado" style="display:inline-block; margin-right:0px!important;">
+            <span>TOTAL:</span>
+            <span><b>{{Simbolo}} {{ImporteFacturado}}</b></span>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="linea_separadora" style="height:1px;"></div>
+    <!--fin Paginador-->
+    <!--CABECERA DE TABLAS FACTURADOS-->
+    <div class="content_datos_pedidosFacturados">
+        <div class="codigo_prod texto_gris_popup">Código</div>
+        <div class="descripcion_prod texto_gris_popup">Descripción</div>
+        <div class="cantidadProd texto_gris_popup">Cantidad</div>
+        <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+        <div class="totalPrecio_prod texto_gris_popup">Total</div>
+        <div class="descuento_prod texto_gris_popup">Descuento</div>
+        <div class="importePago_prod texto_gris_popup">Importe a Pagar</div>
+    </div>
+    <!--CONTENIDO DE TABLAS FACTURADOS-->
+    <div id="pedidoSugerido">
+        {{#each this.Rows as |detalle|}}
+        <div class="content_datos_pedidosFacturados">
+            <div class="codigo_prod">{{detalle.CUV}}</div>
+            <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
+            <div class="cantidadProd">{{detalle.Cantidad}}</div>
+            <div class="precioUnitario_prod">{{Simbolo}} {{detalle.PrecioUnidad}}</div>
+            <div class="totalPrecio_prod">{{Simbolo}} {{detalle.ImporteTotal}}</div>
+            <div class="descuento_prod">{{Simbolo}} {{detalle.ImporteTotal}}</div>
+            <div class="importePago_prod">{{Simbolo}} {{detalle.ImporteTotal}}</div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="linea_separadora_roja" style="height: 2px; margin-top:-1px;"></div>
+    <!--FIN CONTENIDO DE TABLAS FACTURADOS-->
+    <div style="text-align:right; padding-right:40px;">
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:12%!important;">
+            <div class="totalTexto">IMPORTE TOTAL:</div>
+            <div class="totalTexto">FLETE:</div>
+            <div class="totalTexto">TOTAL FACTURADO:</div>
+        </div>
+        <div class="content_datos_pedidosFacturados padding_area_montosTotales">
+            <div class="totalNumero texto_bold">{{Simbolo}} <span data-total=""></span></div>
+            <div class="totalNumero texto_bold">{{Simbolo}} <span data-flete=""></span></div>
+            <div class="totalNumero texto_bold">{{Simbolo}} <span data-facturado=""></span></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</script>
+@section scripts{
+<script src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+<script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
+}

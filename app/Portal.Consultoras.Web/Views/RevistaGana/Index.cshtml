@@ -1,0 +1,392 @@
+﻿@{
+    ViewBag.Title = "Revista Gana";
+    var nroCampania = ViewBag.CurrentCampania.ToString();
+    var campaniaExterno = "";
+    if (nroCampania.Length > 5)
+    {
+        campaniaExterno = nroCampania.Substring(4, 2) + nroCampania.Substring(2, 2);
+    }
+    if (nroCampania.Length > 4)
+    {
+        nroCampania = nroCampania.Substring(4);
+    }
+    var defaultImageRevista = Url.Content("~/Content/Images/revista_no_disponible.jpg");
+}
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-1">
+                <div class="box">
+                    <div class="box-t"></div>
+                    <div class="box-c">
+                        @if (ViewBag.Campania != null)
+                        {
+                            if (ViewBag.Dias == 0)
+                            {
+                                <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
+                            }
+                            else
+                            {
+                                <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
+                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>
+							<!-- R2161 -->
+                            //R20151104
+                            if (ViewBag.TieneFechaPromesa == 1)
+                            {
+                                    <p>@ViewBag.MensajeFechaPromesa</p>
+                            }
+                        }
+                        else
+                        {
+                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
+                        }
+                    </div>
+                    <div class="box-b"></div>
+                </div>
+            </div>
+            <div class="div-2-gana" style="padding-top:60px;">
+                <!-- R2161 -->
+                @if (ViewBag.CodigoIso == "CR" || ViewBag.CodigoIso == "MX" || ViewBag.CodigoIso == "PA")
+                {
+                    <h1 style="padding-left:85px;">Revisa tu Revista <span>Somos Belcorp</span></h1>
+                }
+                else
+                {
+                    <h1 style="padding-left:85px;">Revisa tu Guía de Negocio <span>Ésika</span></h1>
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="bg_revista_gana">
+            <div class="revista_gana_cont">
+                <!-- R2161 -->
+                 @if (ViewBag.CodigoIso == "CR" || ViewBag.CodigoIso == "MX" || ViewBag.CodigoIso == "PA")
+                 {
+                    <h2 class="revista_gana_title">Revista Somos Belcorp - C<span id="spNroCampania">@nroCampania</span> </h2>
+                 }
+                 else
+                 {
+                    <h2 class="revista_gana_title">Guía de Negocio Ésika - C<span id="spNroCampania">@nroCampania</span> </h2>
+                    <span id="numero_campania" data-paisid="@ViewBag.PaisID" data-codigozona="@ViewBag.CodigoZona" hidden="hidden">@ViewBag.CampaniaActual</span>
+                 }
+                
+                <div class="revista_gana_img">
+                    <a id="lbPortadaGana" href="@(ViewBag.UrlFlashpaper + "/" + campaniaExterno + "/" + ViewBag.NamePageFlashpaper + "?e=11111/22222")" target="_blank">
+                        <img id="imgPortadaGana" src="@(ViewBag.UrlImageCurrentCampania == null || ViewBag.UrlImageCurrentCampania == "" ? defaultImageRevista : ViewBag.UrlImageCurrentCampania)" alt="Portada revista gana" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="revista_botones">
+             @if (ViewBag.CodigoIso == "CR" || ViewBag.CodigoIso == "MX" || ViewBag.CodigoIso == "PA")
+             {
+                    <span><a class="activado" data-campania="@(ViewBag.CurrentCampania)" href="#">Revista Campaña C@(nroCampania)</a></span>
+                    <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, -1, ViewBag.NroCampanias)" href="#">Revista Anterior</a></span>
+                    <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, 1, ViewBag.NroCampanias)" href="#">Próxima Revista</a></span>
+             }
+             else
+             {
+                    <span><a class="activado" data-campania="@(ViewBag.CurrentCampania)" href="#">Guía Campaña C@(nroCampania)</a></span>
+                 
+                 if (ViewBag.CodigoIso == "CL")
+                 {
+                         <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, 1, ViewBag.NroCampanias)" href="#">Guía Campaña C@(CalcularCampaniaMin(ViewBag.CurrentCampania, 1, ViewBag.NroCampanias))</a></span>
+                         <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, 2, ViewBag.NroCampanias)" href="#">Guía Campaña C@(CalcularCampaniaMin(ViewBag.CurrentCampania, 2, ViewBag.NroCampanias))</a></span>
+                 }
+                 else
+                 {
+                        <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, -1, ViewBag.NroCampanias)" href="#">Guía Anterior</a></span>
+                        <span><a data-campania="@CalcularCampania(ViewBag.CurrentCampania, 1, ViewBag.NroCampanias)" href="#">Próxima Guía</a></span>
+                 }
+
+             }
+
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+<input id="hdfCampaniaActual" type="hidden" value="@(ViewBag.CurrentCampania)" />
+<input id="hdfCampaniaAnterior" type="hidden" value="@CalcularCampania(ViewBag.CurrentCampania, -1, ViewBag.NroCampanias)" />
+<input id="hdfCampaniaSiguiente" type="hidden" value="@CalcularCampania(ViewBag.CurrentCampania, 1, ViewBag.NroCampanias)" />
+@section scripts
+{
+    <script type="text/javascript">
+        var codigoIso = '@ViewBag.CodigoISO';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Revista", new { area = "Mobile" })';
+
+    $(document).ready(function () {
+        @*Inicio eventos botones*@
+        $(".revista_botones:first a").on("click", function (e) {
+            e.preventDefault();
+            var campania = $(this).data("campania") || 0;
+            campania = campania.toString();
+            if (campania && campania.length > 4) {
+                $("#spNroCampania").text(campania.substr(4));
+                $("#numero_campania").text(campania); //EPD-826
+
+                if (campania == $("#hdfCampaniaActual").val()) {
+                    _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + campania, 'Seleccionada']);
+                    /*RQ 2505*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Revista',
+                        'action': 'Click',
+                        'label': 'Revista Campaña ' + campania.substring(4, 6)
+                    });
+
+                }
+                if (campania == $("#hdfCampaniaAnterior").val()) {
+                    _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + campania, 'Seleccionada']);
+                    /*RQ 2505*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Revista',
+                        'action': 'Click',
+                        'label': 'Revista Anterior'
+                    });
+                }
+                if (campania == $("#hdfCampaniaSiguiente").val()) {
+                    _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + campania, 'Seleccionada']);
+                    /*RQ 2505*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Revista',
+                        'action': 'Click',
+                        'label': 'Próxima Revista'
+            });
+                }
+            }
+            $(".revista_botones:first a").removeClass("activado");
+            $(this).addClass("activado");
+
+            var urlExterno = ObtenerUrlRevista(campania);
+
+            $("#lbPortadaGana").attr("href", urlExterno);
+            waitingDialog({ title: "Cargando Imagen" });
+
+            MostrarRevistaCorrecta(campania);
+        });
+        $("#lbPortadaGana").on("click", function () {
+            
+            var paisid = parseInt($('#numero_campania')[0].dataset.paisid);
+            var codigozona = $('#numero_campania')[0].dataset.codigozona;
+            var numero_campania_ = parseInt($("#numero_campania")[0].innerHTML);
+            SetGoogleAnalytics();
+            var srcPortada = $("#imgPortadaGana").attr("src");
+            if (srcPortada == '@defaultImageRevista') {
+                var nroCampania = $("#spNroCampania").text();
+                alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                return false;
+            }
+            //EPD-826 - INICIO
+            if (paisid == 11) {
+                if (numero_campania_ == 201614) {
+                    if (codigozona == "1072") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                    else if (codigozona == "1075") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                    else if (codigozona == "3035") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                    else if (codigozona == "3036") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                    else if (codigozona == "5035") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                    else if (codigozona == "5044") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+                    }
+                }
+                else if (numero_campania_ == 201615) {
+                    if (codigozona == "1081") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                    else if (codigozona == "3033") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                    else if (codigozona == "3035") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                    else if (codigozona == "3036") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                    else if (codigozona == "5035") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                    else if (codigozona == "5044") {
+                        $(this)[0].attributes[1].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+                    }
+                } //EPD-826 - FIN
+                else {
+                    var srcPortada = $("#imgPortadaGana").attr("src");
+                    if (srcPortada == '@defaultImageRevista') {
+                        var nroCampania = $("#spNroCampania").text();
+                        alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                        return false;
+                    }
+                }
+
+            }
+            else
+            {
+                var srcPortada = $("#imgPortadaGana").attr("src");
+                if (srcPortada == '@defaultImageRevista') {
+                    var nroCampania = $("#spNroCampania").text();
+                    alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                    return false;
+                }
+            }
+            
+        }); @*Fin eventos botones*@
+
+        waitingDialog({ title: "Cargando Imagen" });
+        var campaniaMostrar = $("#hdfCampaniaActual").val();
+        MostrarRevistaCorrecta(campaniaMostrar);
+        var urlExternoMostrar = ObtenerUrlRevista(campaniaMostrar);
+        $("#lbPortadaGana").attr("href", urlExternoMostrar);
+    });
+
+    function SetGoogleAnalytics() {
+        campania = $("#spNroCampania").text();
+        if (campania == $("#hdfCampaniaActual").val().substr(4)) {
+            _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + $("#hdfCampaniaActual").val(), 'Vista']);
+
+            /*RQ 2505*/
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Revista',
+                'action': 'Ver',
+                'label': 'SomosBelcorp'
+            });
+
+        }
+        if (campania == $("#hdfCampaniaAnterior").val().substr(4)) {
+            _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + $("#hdfCampaniaAnterior").val(), 'Vista']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Revista/Anterior-C' + $("#hdfCampaniaActual").val() + '/Vista'
+            });
+        }
+        if (campania == $("#hdfCampaniaSiguiente").val().substr(4)) {
+            _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + $("#hdfCampaniaSiguiente").val(), 'Vista']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Revista/Proxima-C' + $("#hdfCampaniaActual").val() + '/Vista'
+            });
+        }
+    }
+
+    function ObtenerUrlRevista(campania) {
+        var prefijoPais = codigoIso.toLowerCase();
+        var numeroCampania = campania.substring(4, 6);;
+        var anioCampania = campania.substring(0, 4);;
+        return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
+    }
+
+    function MostrarRevistaCorrecta(campania) {
+        var urlImagen = "";
+        var defered = jQuery.Deferred();
+        defered = ObtenerImagenRevista(campania, defered);
+        defered.done(function (urlRevista) {
+            urlImagen = urlRevista;
+        });
+
+        $.when(defered).done(function () {
+            $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? "@defaultImageRevista" : urlImagen);
+
+                closeWaitingDialog();
+            });
+        }
+
+        function ObtenerImagenRevista(campania, defered) {
+            var src = "";
+            var anio = campania.substring(0, 4);
+            var numero = campania.substring(4, 6);
+            var prefijoPais = codigoIso.toLowerCase();
+
+            var codigoRevista = 'revista.' + prefijoPais + '.c' + numero + '.' + anio;
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlObtenerPortadaRevista,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ codigoRevista: codigoRevista }),
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response) {
+                            src = response;
+                        } else {
+                            src = '@defaultImageRevista';
+                        }
+
+                        defered.resolve(src);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        src = '@defaultImageRevista';
+                        console.log(data);
+                        defered.resolve(src);
+                    }
+                }
+            });
+
+            return defered.promise();
+        }
+    </script>
+}
+
+@helper CalcularCampania(Int32 currentCampania, int incremento, int NroCampanias)
+{
+    var nroCampania = currentCampania % 100;
+    var year = currentCampania / 100;
+    int result;
+
+    if (nroCampania + incremento < 1)
+    {
+        result = (year - 1) * 100 + NroCampanias;
+    }
+    else if (nroCampania + incremento > NroCampanias)
+    {
+        result = (year + 1) * 100 + (nroCampania + incremento - NroCampanias);
+    }
+    else
+    {
+        result = currentCampania + incremento;
+    }
+    @result;
+}
+@helper CalcularCampaniaMin(Int32 currentCampania, int incremento, int NroCampanias)
+{
+    var nroCampania = currentCampania % 100;
+    var year = currentCampania / 100;
+    int result;
+
+    if (nroCampania + incremento < 1)
+    {
+        result = (year - 1) * 100 + NroCampanias;
+    }
+    else if (nroCampania + incremento > NroCampanias)
+    {
+        result = (year + 1) * 100 + (nroCampania + incremento - NroCampanias);
+    }
+    else
+    {
+        result = currentCampania + incremento;
+    }
+    @result.ToString().Substring(4, 2);
+}

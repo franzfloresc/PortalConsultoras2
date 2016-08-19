@@ -1,0 +1,284 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model BienvenidaModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
+    if (Model.NombreConsultora != "")
+    {
+        if (nombreConsultora != Model.NombreConsultora)
+        {
+            nombreConsultora += "...";
+        }
+        else
+        {
+            nombreConsultora += "!";
+        }
+    }
+}
+
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+}
+
+<div class="wrapper_resumen_mobile sombra_wrapper">
+    <div class="content_320">
+        <div class="content_foto">
+            <div class="foto_usuaria_mobile">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
+            </div>
+            <a class="subir_foto_mobile"></a>
+        </div>
+        <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
+        <div class="content_resumen_dato_mobile">
+            <div class="saludo_mobile">¡Hola</div>
+            <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
+            <a class="cambiar_datos_mobile"></a>
+            <hr class="clear" />
+            <div class="info_cam_mobile">
+                ESTÁS EN
+                <span>C@(Model.NumeroCampania)</span>
+            </div>
+            <div class="borde_gris"></div>
+            @if (ViewBag.Dias == 0)
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES
+                    <span>Hoy</span>
+                </div>
+            }
+            else
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES EN
+                    <span>@(Model.DiasParaCierre) dias</span>
+                </div>
+            }            
+        </div>
+        <hr class="clear" />
+        <!--FIN RESUMEN-->
+    </div>
+</div>
+<div class="fondo_faf5e6">
+    <div class="triangulo_home"><img src="@Url.Content("~/Content/Images/mobile/Esika/triangulo.png")" alt="-" /></div>
+    @(Html.Raw(ViewBag.MensajeCierreCampania))
+    <br />
+    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SIGUE TU PEDIDO</a>
+</div>
+<div class="wrapper_resumen_mobile">
+    <div class="content_320">
+        <!--ITEM 1-->
+        <div class="item1_mobile">
+            <div class="icono_item"></div>
+            <div class="titulo_item_mobile">MI GANANCIA ESTIMADA:</div>
+            <div class="monto_ganancia_mobile">
+                @Model.Simbolo <span>
+                    @if (Model.PaisID == 4) //Formato decimales para Colombia
+                    {
+                        @Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista).ToString("#,##0").Replace(',', '.')
+                    }
+                    else
+                    {
+                        @Decimal.Round(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, 2)
+                    }
+                </span>
+            </div>
+            <div class="texto_inferior js-span-pedidoingresado">Pedido ingresado: @Model.Simbolo - </div>
+            <div class="texto_inferior text-10px">*Monto referencial.</div>
+        </div>
+        <!-- FIN ITEM 1-->
+    </div>
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+    <div class="content_320">
+        <!--ITEM 2-->
+        <div class="item1_mobile">
+            <div class="icono_item item_2_home"></div>
+            <div class="titulo_item_mobile">MI ESTADO DE CUENTA:</div>
+            <div class="texto_inferior"> Mi deuda actual es:</div>
+            <div class="monto_ganancia_mobile js-div-deuda">
+                @Model.Simbolo <span>-</span>
+            </div>
+            <div class="texto_inferior js-div-vencimiento">Vencimiento: -</div>
+            @if (Model.PaisID == 3) //Chile
+            {
+                <a class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a>
+            }
+            else if (Model.PaisID == 4) //Colombia
+            {
+                <a class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA ONLINE</a>
+            }
+            else if (Model.PaisID == 12) //Puerto Rico
+            {
+                <a class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA ONLINE</a>
+            }
+            else if (Model.PaisID == 6 || Model.PaisID == 11)
+            {
+                @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
+            }
+
+        </div>
+        <!--FIN ITEM 2-->
+    </div>
+    <div class="linea_separadora_mobile" style="margin-top:16px"></div>
+</div>
+<div class="wrapper_resumen_mobile" style="display:none;">
+    <!--COMPARTIR CATÁLOGOS-->
+    <div class="comartir_home_mobile">
+        TUS CATÁLOGOS C@(Model.NumeroCampania)
+        <a class="btn_compartelos" href="#">COMPÁRTELOS</a>
+    </div>
+    <div class="imagen_catalogo"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_home.png")" alt="-" /></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN COMPARTIR CATÁLOGOS-->
+    <!--APP CATÁLOGOS-->
+    <div class="comartir_home_mobile">
+        ¿YA USAS EL APP DEL CATÁLOGO?
+        <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
+    </div>
+    <div class="imagen_catalogo"><img src="@Url.Content("~/Content/Images/mobile/Esika/app.png")" alt="-" /></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN APP CATÁLOGOS-->
+</div>
+<!--INICIO CARRUSEL-->
+<div class="fondo_gris">
+    <div class="titulo_ofertas_home">
+        OFERTAS <b>PARA TI VALERIA</b>
+        <div class="texto_exclusivo">
+            EXCLUSIVO SÓLO POR WEB
+        </div>
+    </div>
+    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">     
+    </div>
+</div>
+
+<!--FIN CARRUSEL-->
+<div class="wrapper_resumen_mobile" style="display:none;">
+    <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
+    <!--VIDEOS-->
+    <div class="comartir_home_mobile">
+        APRENDE A VENDER MÁS
+        <a class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+    </div>
+    <div class="imagen_catalogo"><img src="@Url.Content("~/Content/Images/mobile/Esika/video.png")" alt="-" /></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN-->
+    <!--LIQUIDACIÓN-->
+    <div class="comartir_home_mobile">
+        LIQUIDACIÓN WEB
+        <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+    </div>
+    <div class="imagen_catalogo"><img src="@Url.Content("~/Content/Images/mobile/Esika/liquidacion_home.png")" alt="-" /></div>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    <!--FIN-->
+</div>
+<input type="hidden" id="hdTipoEstrategiaID" value="0" />
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
+    <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOfertaEdit" style="float: left;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrellaEdit" style="float:left; margin-top:10px; width:23px; height:23px; margin-left:10px" src="">
+        </div>
+        <img id="imgZonaEstrategiaEdit" style="height: 200px; margin: 5px;" src="" alt="Imagen Producto" />
+    </div>
+    <br />
+    <div class="zona0Edit pedidos_datos_titulo"></div>
+    <div class="zona1Edit pedidos_datos_info texto-centrado" style="width:100%"></div>
+    <div class="zona2Edit texto-centrado"></div>
+    <div class="zona3Edit_1 pedidos_para_ti texto-centrado"></div>
+    <div class="zona3Edit_2 liquidacion_precio texto-centrado"></div>
+    <br />
+    <ul id="OfertasResultados" class="listaOfertas"></ul>
+    <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
+    <div class="zonaCantidad texto-centrado">
+        <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
+                <td>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadZE" id="txtCantidadZE" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="" alt="" /></a>
+                            <a class="menos"><img src="" alt="" /></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tallaColor">
+                <td style="vertical-align: middle;">Talla/Color: &nbsp;&nbsp;</td>
+                <td>
+                    <select id="ddlTallaColor" style="width: 130px; height: 30px; border: 1px solid #cccccc;"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div class="banner_inferior_mobile" style="display:none;">
+    <img src="@Url.Content("~/Content/Images/mobile/Esika/banner1.png")" alt="-" />
+</div>
+<div class="btn_agregarPedido">
+    <form>
+        <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
+    </form>
+</div>
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div>
+        <div class="content_item_home">
+            <div class="producto_img_mobile">
+                <img src="{{FotoProducto01}}" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    {{DescripcionCUV2}}
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a> 
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>                
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+@section scripts{
+    <script type="text/javascript">
+        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var ViewBagRutaChile = '@Model.RutaChile';
+        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagPaisID = '@Model.PaisID';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+}

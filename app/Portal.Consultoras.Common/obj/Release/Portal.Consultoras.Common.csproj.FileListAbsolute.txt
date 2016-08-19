@@ -1,0 +1,16 @@
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\Portal.Consultoras.Common.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\Portal.Consultoras.Common.pdb
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\AWSSDK.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\ClosedXML.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\DocumentFormat.OpenXml.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\HiQPdf.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\Newtonsoft.Json.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\Omu.Drawing.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\System.Web.Mvc.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\TSHAK.Components.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\Newtonsoft.Json.xml
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\System.Web.Mvc.xml
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Release\HiQPdf.dep
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\obj\Release\Portal.Consultoras.Common.csprojResolveAssemblyReference.cache
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\obj\Release\Portal.Consultoras.Common.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\obj\Release\Portal.Consultoras.Common.pdb

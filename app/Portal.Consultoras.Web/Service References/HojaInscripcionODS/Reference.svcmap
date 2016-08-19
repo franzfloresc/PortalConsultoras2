@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e8ed8047-a659-4784-ad88-d416239bfdc4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ODSService.xsd" MetadataType="Schema" ID="e795585a-d835-4cf7-a105-c77db5cbdae3" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ODSService1.xsd" MetadataType="Schema" ID="5c61887b-67c5-4919-aa1c-ec85b73629d1" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ODSService2.xsd" MetadataType="Schema" ID="db73ee8b-09f7-4324-b8dd-3bb27e375ece" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ODSService3.xsd" MetadataType="Schema" ID="6fef6e52-964f-4f04-bfad-bc4f7cd72594" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ODSService.wsdl" MetadataType="Wsdl" ID="c37f9c18-184e-46cf-a8a3-02ac6e65bafa" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?wsdl" />
+    <MetadataFile FileName="ODSService4.xsd" MetadataType="Schema" ID="8ca2a912-a5f7-4a9d-b663-fd0b5ee21670" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ODSService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,579 @@
+﻿@model Portal.Consultoras.Web.Models.MatrizCampaniaModel
+@{
+    ViewBag.Title = "Actualización – Matriz Campaña";
+}
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        $('#txtPrecioNuevo').keypress(function (e) {
+            var theEvent = e || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            var character = (key != 8 ? String.fromCharCode(key) : "")
+            var newValue = this.value + character;
+            if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
+                //e.preventDefault();
+                return false;
+            }
+        });
+
+        $('#txtFactorRepeticionNuevo').keyup(function (evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        });
+
+        $('#txtFactorRepeticionNuevo').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        $("#btnBuscar").click(function () { PreBuscar(); });
+        $("#btnGrabar").click(function () {
+            var vMessage = "";
+            if (jQuery.trim($('#txtDescripcion').val()) == "") {
+                vMessage += "- Debe ingresar descripción el producto.\n";
+                $('#btnBuscar').focus();
+                alert(vMessage);
+                return false;
+            }
+            if ($('#btnBuscar')[0].value == "Buscar") {
+                vMessage += "- Debe realizar la busqueda de la descripción primero.\n";
+                $('#btnBuscar').focus();
+                alert(vMessage);
+                return false;
+            }
+
+            Grabar();
+        });
+        $("#txtCodVenta").keypress(function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                PreBuscar();
+            }
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[0-9]/;
+                return re.test(keyChar);
+            }
+        });
+        $("#txtDescripcion").keypress(function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]/;
+                return re.test(keyChar);
+            }
+        });
+        $('#ddlPais').change(function () {
+            var Id = $(this).val();
+            if (Id != null) {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+                $.getJSON(baseUrl + 'MatrizCampania/CargarCampania', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                    if (checkTimeout(data)) {
+                        LimpiarDependencias(Id);
+                        if (Id != "") {
+                            var ddlCampania = $('#ddlCampania');
+                            if (data.DropDownListCampania.length > 0) {
+                                for (var item in data.DropDownListCampania) {
+                                    if (data.DropDownListCampania[item].CampaniaID) {
+                                        ddlCampania.append($('<option/>', {
+                                            value: data.DropDownListCampania[item].CampaniaID,
+                                            text: data.DropDownListCampania[item].Codigo
+                                        }));
+                                    }
+                                }
+                            }
+                        }
+                        closeWaitingDialog();
+                    }
+                });
+            }
+        });
+
+        function PreBuscar() {
+            if ($('#btnBuscar')[0].value == "Buscar") {
+                var vMessage = "";
+                if (jQuery.trim($('#ddlPais').val()) == "") {
+                    vMessage += "- Debe seleccionar el país.\n";
+                    $('#ddlPais').focus();
+                    alert(vMessage);
+                    return false;
+                }
+                if (jQuery.trim($('#ddlCampania').val()) == "") {
+                    vMessage += "- Debe seleccionar la campaña.\n";
+                    $('#ddlCampania').focus();
+                    alert(vMessage);
+                    return false;
+                }
+                else {
+                    if (jQuery.trim($('#txtCodVenta').val()) == "") {
+                        vMessage += "- Debe ingresar código único de venta.\n";
+                        alert(vMessage);
+                        $('#txtCodVenta').focus();
+                        return false;
+                    }
+                    else {
+                        Buscar();
+                        return false;
+                    }
+                }
+            }
+            else {
+                $('#btnBuscar')[0].value = "Buscar";
+                $('#ddlPais')[0].disabled = false;
+                $('#ddlCampania')[0].disabled = false;
+                $('#txtCodVenta')[0].disabled = false;
+                limpiarFormulario();
+                return false;
+            }
+            return false;
+        }
+
+        //$("#btnConsultar").click(function () { AbrirModal(); });
+        //$("#Nombres").keypress(function (e) {
+        //    if (e.which == 13) {
+        //        fnGrilla();
+        //    }
+        //});
+        //IniDialog();
+
+        ///////////////
+
+        $(document).keydown(function (e) {
+            if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
+                e.preventDefault();
+            }
+        })
+
+        //////////////
+
+
+    });
+
+    //function IniDialog() {
+    //    $('#DialogProductos').dialog({
+    //        autoOpen: false,
+    //        resizable: false,
+    //        modal: true,
+    //        closeOnEscape: true,
+    //        width: 500,
+    //        draggable: true,
+    //        title: "Búsqueda de productos",
+    //        buttons:
+    //        {
+    //            "Salir": function () {
+    //                $(this).dialog('close');
+    //            }
+    //        }
+    //    });
+    //}
+
+    //function AbrirModal() {
+    //    limpiarModal();
+    //    fnGrilla();
+    //    showDialog("DialogProductos");
+    //}
+
+    //function limpiarModal() {
+    //    $('#Nombres').val("");
+    //}
+
+
+    function limpiarFormulario() {
+        $('#txtDescripcion').val("");
+        $('#txtCodVenta').val("");
+        $('#txtPrecio').val("");
+        $('#txtFactorRepeticion').val("");
+        $('#txtDescripcionNueva').val("");
+        $('#txtPrecioNuevo').val("");
+        $('#txtFactorRepeticionNuevo').val("");
+        //$('#ddlCampania').val("");
+    }
+
+    function Buscar() {
+        
+        waitingDialog({});
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MatrizCampania/ConsultarDescripcion',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ CUV: $("#txtCodVenta").val(), IDCampania: $("#ddlCampania").val(), paisID: $('#ddlPais').val() }),
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        
+                        if (data.lstProducto.length == 1) {
+                           
+                            $("#txtDescripcion").val(data.lstProducto[0].Descripcion);
+                            $("#txtPrecio").val(data.lstProducto[0].PrecioProducto);
+                            $("#txtFactorRepeticion").val(data.lstProducto[0].FactorRepeticion);
+
+                            //if(data.precio > 0)
+                            //{
+                            //    $("#txtPrecioNuevo").val(parseFloat(data.precio).toFixed(2));
+                            //    $("#txtPrecioNuevo")[0].disabled = true;
+                                
+                            //}
+                            //else if(data.precio == 0)
+                            //{
+                            //    $("#txtPrecioNuevo").val("");
+                            //    $("#txtPrecioNuevo")[0].disabled = false;
+                                
+                            //}
+                            //else if(data.precio == -1)
+                            //{
+                            //    $("#txtPrecioNuevo")[0].disabled = true;
+                            //    alert("No se pudo obtener el precio del producto");
+                            //}
+
+                        } else {
+                            $("#txtDescripcion").val(data.lstProducto[0].Descripcion);
+                            $("#txtPrecio").val(data.lstProducto[0].PrecioProducto);
+                            $("#txtFactorRepeticion").val(data.lstProducto[0].FactorRepeticion);
+
+                            $("#txtDescripcionNueva").val(data.lstProducto[1].Descripcion);
+                            $("#txtPrecioNuevo").val(data.lstProducto[1].PrecioProducto);
+                            $("#txtFactorRepeticionNuevo").val(data.lstProducto[1].FactorRepeticion);
+
+                            //if (data.precio > 0) {
+                            //    $("#txtPrecioNuevo").val(parseFloat(data.precio).toFixed(2));
+                            //    $("#txtPrecioNuevo")[0].disabled = true;
+                                
+                            //}
+                            //else if (data.precio == 0) {
+                                
+                            //    $("#txtPrecioNuevo").val("");
+                            //    $("#txtPrecioNuevo")[0].disabled = false;
+
+                            //}
+                            //else if (data.precio == -1) {
+                            //    $("#txtPrecioNuevo")[0].disabled = true;
+                            //    alert("No se pudo obtener el precio del producto");
+                            //}
+
+                        }
+
+                        $('#btnBuscar')[0].value = "Buscar Otro";
+                        $('#ddlPais')[0].disabled = true;
+                        $('#ddlCampania')[0].disabled = true;
+                        $('#txtCodVenta')[0].disabled = true;
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+    }
+
+    function Grabar() {
+        var msj = "";
+
+        if ($('#txtDescripcionNueva').val() == "")
+            msj += "- Debe ingresar la nueva Descripción del Producto \n";
+
+        if ($('#txtPrecioNuevo').val() == "")
+            msj += "- Debe ingresar el Nuevo Precio del Producto \n";
+
+        if ($('#txtFactorRepeticionNuevo').val() == "")
+            msj += "- Debe ingresar el Nuevo Factor Repetición del Producto \n";
+
+        if (msj != "") {
+            alert(msj);
+            return false;
+        }
+
+        waitingDialog({});
+        var item = {
+            CUV: jQuery('#txtCodVenta').val(),
+            CampaniaID: jQuery('#ddlCampania').val(),
+            Descripcion: jQuery('#txtDescripcionNueva').val(),
+            PaisID: jQuery('#ddlPais').val(),
+            PrecioProducto: jQuery('#txtPrecioNuevo').val(),
+            FactorRepeticion: jQuery('#txtFactorRepeticionNuevo').val()
+        };
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MatrizCampania/InsertarProductoDescripcion',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        limpiarFormulario();
+                        $('#btnBuscar')[0].value = "Buscar";
+                        $('#ddlPais')[0].disabled = false;
+                        $('#ddlCampania')[0].disabled = false;
+                        //$('#ddlCampania').val("");
+                        $('#txtCodVenta')[0].disabled = false;
+                        alert(data.message);
+                    }
+                    else
+                        alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+    }
+
+    function LimpiarDependencias(Id) {
+        var ddlCampania = $('#ddlCampania');
+        ddlCampania.empty();
+
+        ddlCampania.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+    }
+
+
+
+    function hasDecimalPlace(value, x) {
+        var pointIndex = value.indexOf('.');
+        return pointIndex >= 0 && pointIndex < value.length - x;
+    }
+
+    @*function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "MatrizCampania/ConsultarProductoCampania",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                vNombre: function () { return jQuery.trim($("#Nombres").val()); },
+                vCampania: function () { return jQuery.trim($("#ddlCampania").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['CUV', 'Descripción', 'Opcion'],
+            colModel: [
+                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false },
+                { name: 'Descripcion', index: 'Descripcion', width: 65, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 15, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'CUV',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 250,
+            width: 465,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ShowActions(cellvalue, options, rowObject) {
+        var cellValueInt = parseInt(cellvalue);
+        var Edit = "&nbsp;<a href='#' onclick=jQuery('#list').Seleccionar('" + rowObject[0] + "');\ >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Seleccionar' title='Seleccionar' border='0' /></a>";
+            return Edit;
+        };*@
+
+    //$.jgrid.extend({
+    //    Seleccionar: function (Id) {
+    //        if (Id) {
+    //            $('#txtDescripcion').val("");
+    //            $('#txtCodVenta').val(jQuery("#list").jqGrid('getCell', Id, 'CUV'));
+    //            $('#DialogProductos').dialog('close');
+    //        } else {
+    //            alert("No selecciono el Cliente");
+    //        }
+    //    }
+    //});
+</script>
+
+
+@*<div class="wrap_cab">
+
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Actualización de <span>Matriz Campaña</span></h1>
+            </div>
+            <div class="div-3">
+                <p>Ingrese el código de campaña y el código de venta cuya descripción será actualizada:</p>
+            </div>
+            <div class="div-3">
+                <div class="titC">Pais:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titC">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(x => x.Nombre, new SelectList(Model.DropDownListCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
+                </div>
+
+            </div>
+            <div class="div-3">
+                <div class="titC">Cod. Venta:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtCodVenta" type="text" maxlength="6" /><img alt="Buscar Cod. Venta" src="" id="btnConsultar" style="display: none" />
+                </div>
+                <div class="input_search">
+                    <input id="btnBuscar" type="button" value="Buscar" />
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC">Descripción:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtDescripcion" type="text" maxlength="100" />
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titC">Precio:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtPrecio" type="text" maxlength="8" />
+                </div>
+                <div class="input_search">
+                    <input id="btnGrabar" type="submit" value="Grabar" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>*@
+
+
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Actualización de <span>Matriz Campaña</span></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <section class="container clearfix">
+        <div class="ofertas_detalle">
+            Ingrese el año de la campaña y el código de venta del producto que se actualizara la descripción:
+        </div>
+        <div class="border-wrapper_reg">
+            <div class="div-3">
+                <div class="titI">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI">Año campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(x => x.Nombre, new SelectList(Model.DropDownListCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
+                </div>
+                <div class="titC">Cod. Venta:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input id="txtCodVenta" type="text" maxlength="6" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                </div>
+                <div class="input_search">
+                    <input id="btnBuscar" type="button" value="Buscar" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI alignright">
+                    <h3>Original:</h3>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI">Descripción:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtDescripcion" type="text" maxlength="250" readonly="readonly" />
+                </div>
+                <div class="titC">Precio:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input id="txtPrecio" type="text" maxlength="8" readonly="readonly" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI">Precio * Factor Rep.:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtFactorRepeticion" type="text" maxlength="3" readonly="readonly" /><img alt="Buscar Cod. Venta" src="" id="" style="display: none" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI alignright">
+                    <h3>Nuevo:</h3>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI">Descripción:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtDescripcionNueva" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" id="" style="display: none" />
+                </div>
+                <div class="titC">Precio:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input id="txtPrecioNuevo" type="text" maxlength="10" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI">Precio * Factor Rep.:</div>
+                <div class="selectA borde_redondeado">
+                    <input id="txtFactorRepeticionNuevo" type="text" maxlength="3" /><img alt="Buscar Cod. Venta" src="" id="" style="display: none" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titI"></div>
+                <div class="input_search">
+                    <input id="btnGrabar" type="submit" value="Grabar" />
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="loadingScreen"></div>

@@ -1,0 +1,15 @@
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\Portal.Consultoras.Common.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\Portal.Consultoras.Common.pdb
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\AWSSDK.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\ClosedXML.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\DocumentFormat.OpenXml.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\HiQPdf.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\Newtonsoft.Json.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\Omu.Drawing.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\System.Web.Mvc.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\TSHAK.Components.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\Newtonsoft.Json.xml
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\System.Web.Mvc.xml
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\bin\Debug\HiQPdf.dep
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\obj\Debug\Portal.Consultoras.Common.dll
+C:\GIT\PortalConsultoras\app\Portal.Consultoras.Common\obj\Debug\Portal.Consultoras.Common.pdb

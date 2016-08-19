@@ -1,0 +1,495 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+
+    //$(document).ajaxComplete(function () {
+    //    //checkTimeout();
+    //});
+
+    jQuery(document).ready(function () {
+        //debugger;
+        if (checkTimeout()) {
+            fnGrilla();
+            IniDialog();
+        }
+
+        $("#Correo").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                return re.test(keyChar);
+            }
+        });
+
+
+        $(".ui-pg-input").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[0-9]/;
+                return re.test(keyChar);
+            }
+        });
+
+        $("#Nombres").keypress(
+                function (evt) {
+                    var charCode = (evt.which) ? evt.which : window.event.keyCode;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                        return re.test(keyChar);
+                    }
+                });
+
+        $("#txtBusqueda").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                return re.test(keyChar);
+            }
+        });
+
+        $("#btnBuscar").click(function () {
+            if (checkTimeout()) {
+                fnGrilla();
+                $("#txtBusqueda").focus();
+            }
+        });
+
+        $("#txtBusqueda").keypress(function (e) {
+            if (e.which == 13) {
+                if (checkTimeout()) {
+                    fnGrilla();
+                    $("#txtBusqueda").focus();
+                }
+            }
+        });
+    });
+
+    function IniDialog() {
+        $('#DialogClientes').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: true,
+            title: "Ingresa o actualiza tus clientes",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#Nombres').val()) == "")
+                        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+
+                    if (jQuery.trim($('#Correo').val()) != "") {
+                        if (!validateEmail($('#Correo').val()))
+                            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+                    }
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        $('#Nombres').focus();
+                        return false;
+                    }
+                    else {
+                        fnRegistrar();
+                    }
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+    function fnGrilla() {
+        _gaq.push(['_trackEvent', 'Cliente', 'Buscar-Cliente']);
+        dataLayer.push({
+            'event': 'pageview',
+            'virtualUrl': '/Cliente/Buscar-Cliente'
+        });
+        jQuery("#list").jqGrid({
+            url: baseUrl + "Cliente/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                vBusqueda: function () { return jQuery.trim($("#txtBusqueda").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Codigo', 'Nombre', 'Correo', 'Opcion'],
+            colModel: [
+                {
+                    name: 'ClienteID', index: 'ClienteID', width: 0, editable: false, align: 'center',
+                    hidden: true
+                },
+                { name: 'Nombre', index: 'Nombre', width: 120, editable: true, resizable: false },
+                { name: 'eMail', index: 'eMail', width: 80, editable: true, resizable: false },
+                { name: 'Activo', index: 'Activo', width: 12, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            width: '930',
+            height: 'auto',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var cellValueInt = parseInt(cellvalue);
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Cliente' title='Editar Cliente' border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";
+            var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Deshacer('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Undo.png")' alt='Deshacer Cambios' title='Deshacer Cambios' border='0' /></a>";
+            if (cellValueInt == 1)
+                return Edit + Del;
+            else
+                return Des;
+        };
+    }
+
+    function AbrirModal() {
+        limpiar();
+
+        showDialog("DialogClientes");
+        return false;
+    }
+
+    $.jgrid.extend({
+        Editar: function (Id) {
+            //debugger;
+            if (Id) {
+                _gaq.push(['_trackEvent', 'Cliente', 'Editar-Cliente']);
+                dataLayer.push({
+                    'event': 'pageview',
+                    'virtualUrl': '/Cliente/Editar-Cliente'
+                });
+                $('#hdNombreAnt').val(jQuery("#list").jqGrid('getCell', Id, 'Nombre'));
+                $('#hdClienteId').val(jQuery("#list").jqGrid('getCell', Id, 'ClienteID'));
+                $('#Nombres').val(jQuery("#list").jqGrid('getCell', Id, 'Nombre'));
+                $('#Correo').val(jQuery("#list").jqGrid('getCell', Id, 'eMail'));
+                showDialog("DialogClientes");
+            } else {
+                alert("No selecciono el Cliente");
+            }
+            return false;
+        },
+
+        Eliminar: function (Id) {
+            _gaq.push(['_trackEvent', 'Cliente', 'Eliminar-Cliente']);
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Cliente/Eliminar-Cliente'
+            });
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'Cliente/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ ClienteID: Id }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        limpiar();
+                        if (data.success == true) {
+                            _gaq.push(['_trackEvent', 'Cliente', 'Eliminar-Cliente', 'Guardar']);
+                            dataLayer.push({
+                                'event': 'pageview',
+                                'virtualUrl': '/Cliente/Eliminar-Cliente/Guardar'
+                            });
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+
+        Deshacer: function (Id) {
+            var elimina = confirm('¿Está seguro de Deshacer los cambios del registro seleccionado?');
+            if (!elimina)
+                return;
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'Cliente/DeshacerCambios',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ ClienteID: Id }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                            alert("El Cliente fue Reactivado");
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    function limpiar() {
+        $('#hdClienteId').val("0");
+        $('#Nombres').val("");
+        $('#Correo').val("");
+        $("#hdFlag").val("0");
+    }
+
+    function fnRegistrar() {
+
+        if ($('#hdNombreAnt').val().toUpperCase() == jQuery('#Nombres').val().toUpperCase())
+            $("#hdFlag").val("0");
+        else
+            $("#hdFlag").val("1");
+
+        var item = {
+            ClienteID: jQuery('#hdClienteId').val(),
+            Nombre: jQuery('#Nombres').val(),
+            eMail: jQuery('#Correo').val(),
+            FlagValidate: $("#hdFlag").val()
+        };
+        //debugger;
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Cliente/Mantener',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                //debugger;
+                // valida si ha habido un timeout
+                if (checkTimeout(data)) {
+                    // si no ha habido timeout continua el procesamiento normal
+                    if (data.success == true) {
+                        if (jQuery('#hdClienteId').val() == "0") {
+                            _gaq.push(['_trackEvent', 'Cliente', 'Nuevo-cliente', 'Guardar']);                           
+                        }
+                        else {
+                            _gaq.push(['_trackEvent', 'Cliente', 'Editar-Cliente', 'Guardar']);                            
+                        }
+
+                        var item = data.items;
+                        alert(data.message);
+                        HideDialog("DialogClientes");
+                        limpiar();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+                        /*2505 DCG*/
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Clientes',
+                            'action': 'Agregar',
+                            'label': 'Satisfactorio',
+                        });
+
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                //debugger;
+                // valida si ha habido un timeout
+                if (checkTimeout(data)) {
+                    // si no ha habido timeout continua el procesamiento normal
+                    alert(data.message);
+                    HideDialog("DialogClientes");
+                }
+            }
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+    var CE_SNAPSHOT_NAME = "Cliente";
+</script>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/4400.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
+</script>
+
+<div class="wrap_cab">
+
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-1">
+                <div class="box">
+                    <div class="box-t"></div>
+                    <div class="box-c">
+                        @if(ViewBag.Campania != null)
+                        {
+                            if (ViewBag.Dias == 0)
+                            {
+                                <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
+                            }
+                            else
+                            {
+                                <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
+                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>
+							<!-- R2161 -->
+                            //R20151104
+                            if (ViewBag.TieneFechaPromesa == 1)
+                            { 
+                                    <p>@ViewBag.MensajeFechaPromesa</p>                            
+                            }
+                        }
+                        else
+                        {
+                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
+                        }
+                    </div>
+                    <div class="box-b"></div>
+                </div>
+            </div>
+            <div class="div-2">
+                <h1><span>Clientes</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="input_cliente">
+                    <input type="text" name="" id="txtBusqueda" maxlength="50" />
+                </div>
+                <div class="input_search">
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                </div>
+                <input type="hidden" id="hdNombreAnt" />
+            </div>
+            <div class="div-4-add">
+                <div class="new"><a href="#" onclick="return AbrirModal();">+ Agregar nuevo Cliente</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ .wrap-->
+
+<div class="wrap">
+
+    <section class="container clearfix">
+        <div class="border-wrapper">
+
+            <table id="list"></table>
+            <div id="pager"></div>
+
+        </div>
+    </section>
+
+</div>
+<div id="loadingScreen"></div>
+@*<div id="DialogClientes">
+    @Html.HiddenFor(model => model.FlagValidate, new { id = "hdFlag", value = "0" })
+    @Html.HiddenFor(model => model.ClienteID, new { id = "hdClienteId" })
+    <div class="center_form">
+        <div class="module_3">Nombres:</div>
+        <div class="module">
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "input_search_form", maxlength = 50, id = "Nombres" })
+
+        </div>
+        <div class="module_2">Email:</div>
+        <div class="module">
+            @Html.TextBoxFor(model => model.eMail, new { @class = "input_search_form", maxlength = 80, id = "Correo" })
+        </div>
+    </div>
+    @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
+</div>*@
+<div id="DialogClientes">
+    @*    @using (Ajax.BeginForm("Create", "cliente", new AjaxOptions { HttpMethod = "Post", OnSuccess = "onSuccess", OnBegin = "Validar" }, new { id = "Cliente" }))
+    {
+        *@
+
+    <div class="Content_modal">
+        @Html.HiddenFor(model => model.FlagValidate, new { id = "hdFlag", value = "0" })
+        @Html.HiddenFor(model => model.ClienteID, new { id = "hdClienteId" })
+        <div class="div-3">
+            <div class="titC">Nombres:</div>
+            <div class="selectA borde_redondeado">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "input_search_form", maxlength = 50, id = "Nombres" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC">Email:</div>
+            <div class="selectA borde_redondeado">
+                @Html.TextBoxFor(model => model.eMail, new { @class = "input_search_form", maxlength = 80, id = "Correo" })
+            </div>
+        </div>
+        @Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })
+        @*}*@
+
+    </div>
+</div>

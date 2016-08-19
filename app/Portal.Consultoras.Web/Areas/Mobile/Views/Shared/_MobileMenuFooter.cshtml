@@ -1,0 +1,24 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+
+@{
+    var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
+    var itemsFooter = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("footer")).ToList();
+    var urlDomain = Util.GetUrlHost(Request);
+}
+
+<ul class="list-inline-border" style="margin-right: 35px;">
+    @foreach (var item in itemsFooter)
+    {
+        var target = item.PaginaNueva ? "_blank" : "_self";
+        var url = item.Version == "Completa"
+            ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
+            : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
+        <li>
+            <a href="@url" role="menu" region="Footer" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-foo-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                @item.Descripcion
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,1254 @@
+@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+}
+
+@{
+    Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
+    if (Model.NombreConsultora != "")
+    {
+        if (nombreConsultora != Model.NombreConsultora)
+        {
+            nombreConsultora += "...";
+        }
+        else
+        {
+            nombreConsultora += "!";
+        }
+    }
+
+    var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
+}
+
+<input type="hidden" id="hdTipoEstrategiaID" value="0" />
+
+<div class="envolvente_pop_up">
+    <div class="pop_liquidacion_home" id="pop_liquidacion" style="display: none;">
+        <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
+        <div class="titulo_liquidacion">
+            ¡PRODUCTO AGREGADO SATISFACTORIAMENTE!
+        </div>
+        <hr class="clear" />
+        <div id="contenedorProductoAgregado" class="imagen_pop_l"><img id="imgProductoAgregado" src="" alt="" /></div>
+        <div class="info_pop_liquidacion">
+            <h1 id="nombreProductoAgregado"></h1>
+            <h2><span id="cantidadProductoAgregado"></span> unidades</h2>
+            <p>@ViewBag.Simbolo <span id="totalProductoAgregado"></span></p>
+        </div>
+        <hr class="clear" />
+        <a href="javascript:;" onclick="javascript: $('#pop_liquidacion').hide();" class="boton_pop_up">CERRAR</a>
+    </div>
+</div>
+
+<div class="content_slider_home">
+    <div id="sliderHomeLoading" class="center">
+        <br />
+        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        <br />
+    </div>
+    <div class="flexslider">
+        <ul class="slides"></ul>
+    </div>
+</div>
+
+<div class="content_belcorp">
+    <div class="content_datos">
+        <a class="subir_foto"></a>
+        <div class="foto_perfil_home">
+            <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+        </div>
+        <div class="resumen_belcorp_cam">
+
+            @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡Feliz Aniversario</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            else
+            {
+                <div class="nombre_consultora">
+                    <span style="margin-top: -0.5px!important;">¡Hola</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            <a class="mis_datos" href="@Url.Action("Index", "MisDatos")">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            <hr class="clear" />
+            <div class="info_cam_belcorp">
+                EST&Aacute;S EN
+                @{
+                    if (nroCampania == "")
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <span>C@(nroCampania)</span>
+
+                    }
+                }
+            </div>
+            @if (ViewBag.Dias == 0)
+            {
+                <div class="info_cam_belcorp2">
+                    EL CIERRE ES
+                    <span>Hoy</span>
+                </div>
+            }
+            else
+            {
+                <div class="info_cam_belcorp2">
+                    EL CIERRE ES EN
+                    <span>@ViewBag.Dias d&iacute;as</span>
+                </div>
+            }
+        </div>
+        <div class="pedido_resumen_home">
+            <div class="mensaje_cierre_fechapromesa">
+                @(Html.Raw(ViewBag.MensajeCierreCampania))
+            </div>
+            <a class="boton_home_guardar" onclick="RedirectIngresaTuPedidoAnalytics();">INGRESA TU PEDIDO</a>
+        </div>
+        <div class="socia_negocio_home">
+            <div class="notificaciones_resumen">
+                <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                    <img src="@Url.Content("~/Content/Images/Esika/notificaciones.png")" alt="" />
+                    <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
+                </a>
+            </div>
+            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> mensajes sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
+            <hr class="clear" />
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
+            @if (Model.PaisID == 10)
+            {
+                <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
+            }
+            @if (ViewBag.IndicadorPermisoFIC == 1)
+            {
+                <a class="seguir_pedido" onclick="RedirectPedidoFicAnalytics();" href="#">INGRESA TU PEDIDO FIC</a>
+            }
+        </div>
+    </div>
+    <hr class="clear" />
+    <div class="items_belcorp">
+        @{
+            string verUltmPagos = Model.PaisID == 3 || Model.PaisID == 4 || Model.PaisID == 12 || Model.PaisID == 6 || Model.PaisID == 11 ? "0" : "1";
+            string ultPg, vermas;
+            if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
+          
+        }
+        <div class="titulo_home_img"></div>
+        <div class="titulo_home_belcorp">
+            <div>MI ESTADO DE CUENTA</div>
+            <a class="btn_ver_mas" style="@vermas" href="@Url.Action("Index", "MisPagos")">VER M&Aacute;S +</a>
+        </div>
+        <hr class="clear" />
+        <div class="info_centro">
+            <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
+            Mi deuda actual es:
+            <div class="deuda_home" id="spanDeuda">
+                -
+            </div>
+            <span>Vencimiento: <span id="spanVencimiento">-</span></span>
+        </div>
+
+        <a class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
+
+        @if (Model.PaisID == 3) //Chile
+        {
+            <a class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 4) //Colombia
+        {
+            <a class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 12) //Puerto Rico
+        {
+            <a class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA ONLINE</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 6 || Model.PaisID == 11)
+        {
+            <a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+        }
+        <hr class="clear" />
+
+    </div>
+    <div class="items_belcorp">
+        <div class="titulo_home_img mis_ganancias_img"></div>
+        <div class="titulo_home_belcorp">
+            <div>MIS GANANCIAS</div>
+            <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
+        </div>
+        <hr class="clear" />
+        <div class="info_centro">
+            Voy ganando:
+            <div class="deuda_home">
+                @Model.Simbolo
+                <span>
+                    @if (Model.PaisID == 4) //Formato decimales para Colombia
+                    {
+                        @Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista).ToString("#,##0").Replace(',', '.')
+                    }
+                    else
+                    {
+                        @Decimal.Round(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, 2)
+                    }
+                </span>
+            </div>
+            <span id="spanPedidoIngresado">Pedido ingresado: @Model.Simbolo - </span>
+            <div style="font-size: 10px; color: #777; font-weight: 300; line-height: 1.68; ">*Monto referencial.</div>
+        </div>
+        <!--ESCALA DE DESCUENTO-->
+        <div class="content_escala">
+            @{
+                string padding = "eg_padding_inactivo";
+                if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
+                {
+                    padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
+
+                    foreach (var item in Model.ListaEscalaDescuento)
+                    {
+                        int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
+                        string clase = (item.Seleccionado ? "escala_select" : "") +
+                                       (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
+
+                        <div class="escala_ganancia @(clase) @(padding)">
+
+                            @if (item.Seleccionado)
+                            {
+                                <div class="indicador_escala"></div>
+                            }
+
+                            <div style="overflow:hidden">
+                                <div class="home_porcentaje">@item.PorDescuento</div>
+                                <div class="texto_dscto">%<span>DSCTO</span></div>
+                            </div>
+                            @if (item.Seleccionado)
+                            {
+                                if (index == Model.ListaEscalaDescuento.Count)
+                                {
+                                    <div class="precio_ganancia">De @Model.Simbolo@Convert.ToInt32(item.MontoDesde) a más.</div>
+                                }
+                                else
+                                {
+                                    <div class="precio_ganancia">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
+                                }
+                            }
+
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <!--FIN ESCALA DE DESCUENTO-->
+    </div>
+    <div class="item_catalogo">
+        <img src="@Model.UrlImagenCompartirCatalogo" style="max-width: 100%!important;" />
+        <a href="@Url.Action("Index", "MisCatalogosRevistas")" class="btn_comparte">COMPARTE TUS CAT&Aacute;LOGOS </a>
+    </div>
+    <hr class="clear" />
+</div>
+
+<!--CAROUSEL OFERTAS PARA TI-->
+<div class="fondo_gris">
+    <div class="content_belcorp" style="text-align:center;">
+        <div class="titulo_ofertas_home">
+            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+            <div class="texto_exclusivo">
+                EXCLUSIVO S&Oacute;LO POR WEB
+            </div>
+        </div>
+        <div class="linea_titulo_absoluto"></div>
+
+        <hr class="clear" />
+        <div class="content_carrusel_ofertas" id="divCarruselHorizontal">
+        </div>
+    </div>
+</div>
+<!--FIN CAROUSEL OFERTAS PARA TI-->
+
+<div class="content_belcorp">
+    <div class="linea_separadora"></div>
+    <!--TUTORIALES-->
+    <div class="content_video_home">
+        <div class="titulo_video">
+            <div>APRENDE A VENDER M&Aacute;S</div>
+            <a href="#" class="ver_mas_video">VER M&Aacute;S +</a>
+        </div>
+        <div class="item_video_left">
+            <div class="item_video">
+
+            </div>
+            CONVI&Eacute;RTETE EN UNA VERDADERA COACH DE BELLEZA
+        </div>
+        <div class="item_video_right">
+            <!--TITULO 1-->
+            <div class="borde_video">
+                <a class="titulo_item_video">
+                    ¿C&oacute;mo conseguir tu primer pedido?
+                </a>
+                <div class="porcentaje_curso">
+                    <div class="sin_iniciar oculto">SIN INICIAR</div>
+                    <div class="c100 p60 center">
+                        <span>33%</span>
+                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+                    </div>
+                </div>
+            </div>
+            <!--TITULO 2-->
+            <div class="borde_video">
+                <a class="titulo_item_video">
+                    Maquillaje &Eacute;sika Pro, l&iacute;nea creada con la asesor&iacute;a de Claudia Betancur, celebrity make up artist
+                </a>
+                <div class="porcentaje_curso">
+                    <div class="sin_iniciar">SIN INICIAR</div>
+                </div>
+            </div>
+            <!--TITULO 3-->
+            <div class="borde_video">
+                <a class="titulo_item_video">
+                    ¿C&oacute;mo fidelizar a un cliente?
+                </a>
+                <div class="porcentaje_curso">
+                    <div class="c100 p80 center">
+                        <span>80%</span>
+                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+                    </div>
+                </div>
+            </div>
+            <!--TITULO 4-->
+            <div class="borde_video">
+                <a class="titulo_item_video">
+                    ¿C&oacute;mo conseguir tu primer pedido?
+                </a>
+                <div class="porcentaje_curso">
+                    <div class="sin_iniciar">SIN INICIAR</div>
+                    <div class="c100 p80 center oculto">
+                        <span>33%</span>
+                        <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TUTORIALES-->
+    <!--CAROUSEL LIQUIDACION HOME-->
+    <div class="carrusel_liquidacion">
+        <div class="titulo_carrusel_liquidacion">
+            LIQUIDACIONES WEB
+        </div>
+        <a class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
+        <hr class="clear" />
+        <div class="pestana_lbel"></div>
+        <div class="content_1_carrusel">
+            <div class="content_carrusel_liquidacion" id="divCarruselLiquidaciones">
+            </div>
+        </div>
+    </div>
+    <!--FIN CAROUSEL LIQUIDACION HOME-->
+    <!--ENLACES-->
+    <hr class="clear" />
+    <div id="bannerBajos" class="center">
+        <br />
+        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        <br />
+        <br />
+    </div>
+</div>
+
+@*<link href="@Url.Content("~/Content/Css/Site/Esika/ActualizarDatos_esika.css")" rel="stylesheet" type="text/css" />*@
+
+@*
+            <div class="slider_promocional">
+                <div class="flexslider">
+                    <div class="wrapper_home_absolute">
+                        <div class="resumen_c">
+                            @if (ViewBag.Campania != null)
+                            {
+                                <div class="campana_actual">
+                                    <h1 class="nombre_c" style="width: 95px; height: 20px; overflow: hidden;">
+                                        @(string.Format("¡{0}!", ViewBag.Usuario))
+                                    </h1>
+                                    <a href="javascript:;" onclick="RedirectTusDatosGoogleAnalytics()" class="info_c">
+                                        <img src="@Url.Content("~/Content/Images/Esika/editar.png")" /> Editar Mis datos
+                                    </a>
+                                </div>
+                                <div class="divisor_campana"></div>
+
+                                <div class="campana_actual" style="width: 66px;">
+                                    Est&aacute;s en<br /><span>C@(Convert.ToString(ViewBag.CampaniaCodigo).Substring(4, 2))</span>
+                                </div>
+                                <div class="divisor_campana"></div>
+
+                                if (ViewBag.Dias == 0)
+                                {
+                                    <div class="campana_actual" style="width: 71px;">
+                                        Tu cierre es<br /><span>Hoy</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="campana_actual" style="width: 71px;">
+                                        Te quedan<br /><span>@ViewBag.Dias</span> d&iacute;as
+                                    </div>
+                                }
+
+                                <hr class="clear" />
+                                if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+                                {
+                                    <div class="saludo_consultora">@ViewBag.MensajeCumpleanos</div>
+                                    <div class="gz_es">Tu GZ es: <span id="spGerenteZona"></span></div>
+                                }
+                                else if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+                                {
+                                    <div class="saludo_consultora">@ViewBag.MensajeAniversario</div>
+                                    <div class="gz_es">Tu GZ es: <span id="spGerenteZona"></span></div>
+                                }
+                                else
+                                {
+                                    <div class="gz_es no_saludo">Tu GZ es: <span id="spGerenteZona"></span></div>
+                                }
+
+                                <div class="resumen_total">
+                                    @ViewBag.MensajeCierreCampania
+
+                                    @if (ViewBag.TieneFechaPromesa == 1)
+                                    {
+                                        <p>@ViewBag.MensajeFechaPromesa</p>
+                                    }
+                                </div>
+
+                                if (ViewBag.InscritaFlexipago == "1")
+                                {
+                                    <div class="precio_total">
+                                        TOTAL A PAGAR<br />
+                                        <span class="spFlexipagoMontoMinimo" style="display: none"><b>FLEXIPAGO</b> MÍN. VALOR A PAGAR<br /></span>
+                                        PEDIDO WEB ACUMULADO<br />
+                                        <b>DEUDA TOTAL</b>
+                                    </div>
+
+                                    <div class="precio_total_dinero">
+                                        <span id="spTotalAPagarFlexipago"></span><br />
+                                        <span class="spFlexipagoMontoMinimo" style="display: none"><span id="spMinValorAPagarFlexipago"></span><br /></span>
+                                        <span id="spPedidoWebAcumuladoFlexipago"></span><br />
+                                        <b><span id="spDeudaTotalFlexipago"></span></b>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="precio_total">
+                                        PEDIDO WEB ACUMULADO<br />
+                                        @if (ViewBag.IndicadorPermisoFIC == 0)
+                                        {
+                                            <b>TOTAL A PAGAR</b>
+                                        }
+                                    </div>
+
+                                    <div class="precio_total_dinero">
+                                        <span id="spPedidoWebAcumulado2"></span><br />
+                                        @if (ViewBag.IndicadorPermisoFIC == 0)
+                                        {
+                                            <b><span id="spTotalAPagar"></span></b>
+                                        }
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="campana_actual">
+                                    <h1 class="nombre_c">¡@ViewBag.Usuario!</h1>
+                                    <a href="javascript:;" onclick=" RedirectTusDatosGoogleAnalytics() " class="info_c">
+                                        <img src="@Url.Content("~/Content/Images/Esika/editar.png")" /> Editar Mis datos
+                                    </a>
+                                </div>
+                                <hr class="clear" />
+                                <div class="resumen_total">
+                                    <span>La Zona @ViewBag.CodigoZonaConsultora</span> no se ubica en el cronograma, por favor contacte al Servicio de Atenci&oacute;n al Cliente.
+                                </div>
+                            }
+
+                            <hr class="clear" />
+                            <a href="javascript:;" onclick="RedirectIngresaTuPedidoAnalytics();" class="ver_pedido" role="menu" region="Lateral" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido">
+                                <img src="@Url.Content("~/Content/Images/Esika/carrito_resumen.png")" /> INGRESA TU PEDIDO
+                            </a>
+
+                            <hr class="clear" />
+                            @{
+                                var cantidadBotones = ViewBag.IndicadorPermisoFIC == 1 ? 3 : 2;
+                            }
+
+                            @if (ViewBag.PaisID == 3) //Chile
+                            {
+                                <a href="javascript:;" onclick=" RedirectPagaEnLineaAnalytics(); " class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2" : "")" role="menu" region="Lateral" title="Paga en L&iacute;nea" id="lnk-lat-paga-en-linea">PAGA<br />EN L?NEA</a>
+                                <a href="javascript:;" onclick="RedirectCatalogoAnalytics();" class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2 no_margin_right" : "")" role="menu" region="Lateral" title="Revisa y env&iacute;a los Cat&aacute;logos" id="lnk-lat-revisa-y-envia-los-catalogos">COMPARTE TUS<br /> CAT&Aacute;LOGOS</a>
+                            }
+                            else
+                            {
+                                if (ViewBag.PaisID == 4) //Colombia
+                                {
+                                    <a href="https://www.zonapagos.com/t_belstar/pagos.asp" class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2" : "")" role="menu" region="Lateral" title="Paga en Linea" id="lnk-lat-paga-en-linea">PAGA<br />EN L?NEA</a>
+                                    <a href="javascript:;" onclick="RedirectCatalogoAnalytics();" class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2 no_margin_right" : "")" role="menu" region="Lateral" title="Revisa y env&iacute;a los Cat&aacute;logos" id="lnk-lat-revisa-y-envia-los-catalogos">COMPARTE TUS<br /> CAT&Aacute;LOGOS</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" onclick="RedirectCatalogoAnalytics();" class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2" : "")" role="menu" region="Lateral" title="Revisa y env&iacute;a los Cat&aacute;logos" id="lnk-lat-revisa-y-envia-los-catalogos">COMPARTE TUS<br /> CAT&Aacute;LOGOS</a>
+                                    <a href="javascript:;" onclick="RedirectBotonBienvenida('@Url.Action(ViewBag.BotonAction, ViewBag.BotonController)', '@ViewBag.BotonAnalytics');" class="boton_secciones @(cantidadBotones == 2 ? "boton_secciones_2 no_margin_right" : "")" role="menu" region="Lateral" title="@ViewBag.BotonTexto@ViewBag.BotonClave" id="lnk-lat-seguimiento-de-tus-pedidos">@ViewBag.BotonTexto<br />@ViewBag.BotonClave</a>
+                                }
+                            }
+
+                            @if (ViewBag.IndicadorPermisoFIC == 1)
+                            {
+                                <a href="javascript:;" onclick="RedirectPedidoFicAnalytics();" class="boton_secciones no_margin_right" role="menu" region="Lateral" title="Pedido FIC" id="lnk-lat-pedido-fic">PEDIDO <br />FIC</a>
+                            }
+                        </div>
+                    </div>
+
+                <ul class="slides"></ul>
+            </div>
+        </div>
+
+    <hr class="clear" />*@
+
+@*<div class="sombra_e">
+        <img src="@Url.Content("~/Content/Images/Esika/sombra.png")" />
+    </div>*@
+
+@*<div class="wrapper_home_content">
+        <section id="SeccionMediaUno" class="pedido_section3"></section>
+        <section id="SeccionMediaDos" class="pedido_section3"></section>
+        <section id="SeccionMediaTres" class="pedido_section3"></section>
+        <section id="SeccionMediaCuatro" class="pedido_section3"></section>
+
+        <hr class="clear" />
+        <div id="SeccionBajaUno">
+        </div>
+        <div id="SeccionBajaDos">
+        </div>
+        <div id="SeccionBajaTres">
+        </div>
+        <div id="SeccionBajaCuatro">
+        </div>
+        <div id="SeccionBajaCinco">
+        </div>
+    </div>*@
+
+@*<div id="divContrato">
+        <div class="terminos_title_2">
+            Aceptaci&oacute;n de Contrato
+        </div>
+        <div class="terminos_content_contrato">
+            <div class="terminos_content_3">
+                <div class="border-wrapper">
+                    <div style="color:black">
+                        Querida consultora @ViewBag.SobreNombre, al dar clic en el bot&oacute;n aceptas los t&eacute;rminos y condiciones de la Solicitud de Cr&eacute;dito.
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <a id="hrefContrato" style="cursor: pointer;">Conoce el detalle aqu&iacute;.</a>
+                </div>
+                <br />
+                <div class="div-3">
+
+                    <input class="input_modifica_horizontal" id="btnAgregar" type="button" value="Aceptar" onclick="javascript: AceptarContrato();" />
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@*<div id="divActualizarDatos" style="display:none;">
+        <div id="btnCerrarActualizarDatos" class="btnCerrar"></div>
+        <div class="Content_Actualizar">
+            <div class="titulo">
+                @if (ViewBag.PrefijoPais == "PE")
+                { <text> Actualizaci&oacute;n y autorizaci&oacute;n de uso de datos personales </text>  }
+                else
+                { <text> Actualizar Datos </text>  }
+            </div>
+            <div class="mensaje_Consultora">
+                Enterate de las &uacute;ltimas novedades e informaci&oacute;n de tu pedido.
+            </div>
+            <hr class="clear" />
+
+            <div class="div-3">
+                <div class="titZ">Nombre</div>
+                <div class="TextBox borde">
+                    @Html.TextBoxFor(model => model.NombreCompleto, new { id = "txtNombre", maxlength = "50", @class = "inputTextBox" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titZ">Tel&eacute;fono</div>
+                <div class="TextBox borde">
+                    @Html.TextBoxFor(model => model.Telefono, new { id = "txtTelefono", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);", onkeypress = "return FuncionesGenerales.ValidarSoloNumerosAndSpecialCharater(event);", @class = "inputTextBox" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titZ">Celular</div>
+                <div class="TextBox borde">
+                    @Html.TextBoxFor(model => model.Celular, new { id = "txtCelular", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);", onkeypress = "return FuncionesGenerales.ValidarSoloNumerosAndSpecialCharater(event);", @class = "inputTextBox" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titZ">Correo electr&oacute;nico</div><div class="asteriscos">*</div>
+                <div class="TextBox borde">
+                    @Html.TextBoxFor(model => model.EMail, new { id = "txtEMail", maxlength = "50", @class = "inputTextBox" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titZ" style="padding-top: 0px">
+                    Confirma tu correo electr&oacute;nico
+                </div><div class="asteriscos" style="margin-top:0px;">*</div>
+                <div class="TextBox borde">
+                    @Html.TextBoxFor(model => model.EMail, new { id = "txtConfirmarEMail", maxlength = "50", @class = "inputTextBox" })
+                </div>
+            </div>
+            <div class="mensaje_CampoObligatorio">
+                *Campos obligatorios
+            </div>
+            <div class="">
+                <div class="cambiarContrasena">
+                    <a href="#" id="lnkCambiarContrasena" style="color: black; font-size: 12px; font-family: 'lato'; text-decoration: none;"><img src="@Url.Content("~/Content/Images/Esika/editar.png")" /> CAMBIAR CONTRASE?A </a>
+                </div>
+            </div>
+            <div id="divCambiarContrasena" class="ocultarCambiarContrasena">
+                <div class="div-3">
+                    <div class="titZ">Nueva contrase?a</div>
+                    <div class="TextBox borde">
+                        <input id="txtActualizarClaveSecreta" type="password" class="inputTextBox" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titZ" style="padding-top: 0px">Confirma tu nueva contraseña</div>
+                    <div class="TextBox borde">
+                        <input id="txtConfirmarClaveSecreta" type="password" class="inputTextBox" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="" style="width: auto">
+                    <input type="checkbox" id="chkAceptoContrato" class="checkBox" @(ViewBag.PrefijoPais == "PE" ? "checked='checked'" : "") />
+                </div>
+                <div class="terminosContrato">
+                    Declaro que he le&iacute;do los <a id="hrefTerminos" class="" style="display: inline-block; color: #e51437; cursor: pointer;">t&eacute;rminos y condiciones </a>
+                    sobre <br /> Protecci&oacute;n de Datos Personales y que me encuentro de acuerdo <br />con los mismos.
+                </div>
+            </div>
+            <div class="contentActualizar">
+                <div id="btnActualizarDatos" class="btnActualizar">
+                    ACTUALIZA TUS DATOS
+                </div>
+            </div>
+        </div>
+        <div id="loadingScreen"></div>
+        @Html.Hidden("hdn_Correo", (string)Model.EMail)
+    </div>*@
+
+@*<div id="divFlexipago">
+        <div id="banner">
+            @if (ViewBag.PaisID == 3) // Chile
+            {
+                <img src="@Url.Content("~/Content/layer-flx-cl/img/fondo_banner_CO_flexipago.jpg")" border="0">
+                <a href="javascript:void(0);" onclick="javascript:ConoceFlex()" class="btn coneFlexi">
+                    <img src="@Url.Content("~/Content/layer-flx-cl/img/boton_conoce_05.png")" border="0">
+                </a>
+                <a href="javascript:void(0);" onclick="javascript:InscribeteFlex()" class="btn inscriFlexi">
+                    <img src="@Url.Content("~/Content/layer-flx-cl/img/boton_inscribete_03.png")" border="0">
+                </a>
+                <a href="javascript:void(0);" onclick="javascript:CerrarPopUpFlex()" class="close"><span>Cerrar</span></a>
+                <a href="javascript:void(0);" onclick="javascript:RechazarInvitacionFlex()" class="inscribirme"><span>No deseo inscribirme</span></a>
+            }
+            else // Colombia
+            {
+                <img src="@Url.Content("~/Content/layer-flx-co/img/fondo_banner_CO_flexipago.jpg")" border="0">
+                <a href="javascript:void(0);" onclick="javascript:ConoceFlex()" class="btn coneFlexi">
+                    <img src="@Url.Content("~/Content/layer-flx-co/img/boton_conoce_05.png")" border="0">
+                </a>
+                <a href="javascript:void(0);" onclick="javascript:InscribeteFlex()" class="btn inscriFlexi">
+                    <img src="@Url.Content("~/Content/layer-flx-co/img/boton_inscribete_03.png")" border="0">
+                </a>
+                <a href="javascript:void(0);" onclick="javascript: CerrarPopUpFlex();" class="close"><span>Cerrar</span></a>
+                <a href="javascript:void(0);" onclick="javascript: RechazarInvitacionFlex();" class="inscribirme"><span>No deseo inscribirme</span></a>
+            }
+        </div>
+    </div>*@
+
+@*<div id="divComunicado">
+        <div class="terminos_title_2">
+            Mensaje IMPORTANTE ¡V Retiro de producto
+        </div>
+        @if (ViewBag.NombrePais != "Ecuador")
+        {
+            if (ViewBag.NombrePais == "Colombia")
+            {
+                <div class="border-wrapper">
+                    <p>
+                        Querida Consultora,
+                    </p>
+                    <p align="justify">
+                        Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                    </p>
+                    <p align="justify">
+                        Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la crema depilatoria Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                    </p>
+                    <p align="justify">
+                        Por eso te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona lo antes posible.
+                    </p>
+                    <p align="justify">
+                        El reembolso del dinero (precio cat&aacute;logo) de las unidades solicitadas por ti se abon&oacute; en t&uacute; cuenta el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                    </p>
+                    <p align="justify">
+                        <u>Importante:</u> todas las consultoras que entreguen los productos lo antes posible, recibir&aacute;n una fragancia de Obsequio que ser&aacute; entregado por tu gerente de Zona.
+                    </p>
+                    <p align="justify">
+                        Qu&eacute; decir a tus clientes cuando pidas el producto?: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                    </p>
+                    <p align="justify">
+                        En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                    </p>
+                    <p align="justify">
+                        <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques a Belcorp al tel&eacute;fono 5948060 en Bogot&aacute; &oacute; 01 8000 937452 en el resto del pa&iacute;s o a trav&eacute;s del chat en la p&aacute;gina www.somosbelcorp.com ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                    </p>
+                    <p align="justify">
+                        Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes y te presentamos disculpas y estamos comprometidos con el servicio, por eso continuaremos trabajando para evitar estos inconvenientes.
+                    </p>
+                    <p align="justify">
+                        Nota: En caso de no haber entregado el producto a tu Gerente de Zona, lo puedes llevar a la Conferencia de cierre de C13 o entregar al transportador cuando recibas el pedido de C13.
+                    </p>
+                    <p>
+                        Atentamente,
+                    </p>
+                    <p>
+                        Servicio al Cliente Belcorp
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="border-wrapper">
+                    <p>
+                        Querida Consultora,
+                    </p>
+                    <p align="justify">
+                        Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n  Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                    </p>
+                    <p align="justify">
+                        Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la Crema Depilatoria para rostro, axilas y bikini con extracto de Cal&eacute;ndula x 50 g Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                    </p>
+                    <p align="justify">
+                        Por eso <strong>te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona antes del 1 de Agosto.</strong>
+                    </p>
+                    <p align="justify">
+                        El reembolso del dinero (precio de cat&aacute;logo) de las unidades colocadas por ti se  abon&oacute; en t&uacute; cuenta Belcorp el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                    </p>
+                    <p align="justify">
+                        <u>Importante:</u> todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por tu gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                    </p>
+                    <p align="justify">
+                        Qu&eacute; decir a tus clientes cuando pidas el producto: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                    </p>
+                    <p align="justify">
+                        En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                    </p>
+                    <p align="justify">
+                        <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques con la l&iacute;nea de atenci&oacute;n al cliente de Belcorp y marques opci&oacute;n 1 ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                    </p>
+                    <p align="justify">
+                        Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes.
+                    </p>
+                    <p>
+                        Atentamente,
+                    </p>
+                    <p>
+                        Servicio al Cliente Belcorp
+                    </p>
+                    <p align="justify">
+                        <u><strong>NOTA: Comunicado para uso exclusivo de la consultora Belcorp. No compartir este documento a trav&eacute;s de copias o redes sociales (Facebook, correo electr&oacute;nico, etc).</strong></u>
+                    </p>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="border-wrapper">
+                <p>
+                    Querida Consultora Belcorp:
+                </p>
+                <p align="justify">
+                    A trav&eacute;s de la presente queremos informarte que, por pol&iacute;tica interna de la compañ&iacute;a, hemos decidido que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone adquirido en la C-10 y C-11 de 2014, sea retirado del mercado.
+                </p>
+                <p align="justify">
+                    Por eso te solicitamos que nos apoyes recogiendo, a la brevedad posible el producto Xpress Your Body de Cyzone a tus clientes y se  lo  entregues directamente a la  Gerente de tu Zona hasta  1 de Agosto de 2014.
+                </p>
+                <p align="justify">
+                    El reembolso del dinero de las unidades adquiriste, ha sido abonado en t&uacute; cuenta Belcorp a precio de cat&aacute;logo (7.99 USD por unidad)  el d&iacute;a 24 de Julio, para que en el momento del recojo  puedas reembolsar  el valor del producto a tu cliente.
+                </p>
+                <p align="justify">
+                    Todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por la  Gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                </p>
+                <p align="justify">
+                    En caso de recibir comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos les indiques que sean  remitidos al <strong>Call Center Belcorp 1800-766672 o  al buz&oacute;n callcenterec@belcorp.biz "</strong>, a fin de que Servicio al Cliente brinde una soluci&oacute;n inmediata
+                </p>
+                <p align="justify">
+                    Queremos agradecerte por el apoyo, comprensi&oacute;n  y compromiso para recoger cuanto antes este  producto  a  tus clientes.
+                </p>
+                <p align="justify">
+                    Atentamente,
+                </p>
+                <p>
+                    Servicio al Cliente<br />
+                    Belcorp-Ecuador
+                </p>
+            </div>
+        }
+    </div>*@
+
+@*<div id="divComunicadoVisualizacion">
+        <div class="tituloC">
+            &nbsp;
+            <div id="btnCerrarComunicado" class="btnCerrar"></div>
+        </div>
+        <a href="https://www.facebook.com/SomosBelcorpOficial/posts/1084375931585422:0" target="_blank">
+            <img src="~/Content/Images/ComunicadoEC.jpg" />
+        </a>
+        <div>
+            <div>
+                <label class="lblComunicadoV">
+                    <input type="checkbox" id="chkMostrarComunicado" class="chkComunicadoV" />
+                    No volver a mostrar
+                </label>
+            </div>
+        </div>
+    </div>*@
+
+@*<div id="divDemandaAnticipada">
+        <div class="textoMensajeDA" style="width:353px;">
+            ¡Pasa tu pedido por demanda anticipada y recibe
+            estos beneficios! <br />
+            - Un producto de regalo (Ver belcorpnoticias) <br />
+            - Flete gratis <br /> <br />
+            Las condiciones para pasar tu pedido en demanda
+            anticipada son: <br />
+            - Cumplir con el monto m&iacute;nimo (no cuenta
+            expoferta) y m&aacute;ximo (nuevas)<br />
+            - Pasar tu pedido hasta el <span class="textFechaDA"></span>
+            .<br /><br />
+            Recuerda que si aceptas participar no podr&aacute;s
+            modificar tu pedido luego del <span class="textFechaDA"></span>.<br />
+
+        </div>
+        <div class="botonesConfirmacion">
+            <input id="btnAcepto" type="button" value="Acepto participar" onclick="javascript: AceptarDemandaAnticipada();" />
+            <input class="btnNo" id="btnNoAcepto" type="button" value="No deseo participar" onclick="javascript: CancelarDemandaAnticipada();" />
+        </div>
+    </div>*@
+
+@*<div id="divMensajeConfirmacion" style="display:none;">
+        <div id="btnCerrarMensajeConfirmacion" class="btnCerrarMensajeConfirmacion">
+        </div>
+        <div class="tituloMensajeConfirmacion">
+            Actualizar Datos
+
+        </div>
+        <div class="">
+            <div id="idMensajeActualizacionDatos" class="textoMensajeConfirmacion">
+
+                <div class="checkImage">
+                    Listo, los datos se actualizaron correctamente.
+                </div>
+                <br />
+                Ahora, revisa tu correo y haz clic en el enlace para terminar el proceso.
+            </div>
+            <div id="idObservacionesActualizacionDatos" class="textoMensajeConfirmacion" style="padding-top: 0px; padding-bottom: 15px;">
+            </div>
+        </div>
+    </div>*@
+
+@*<div id="divMensajeContrato">
+        <div class="terminos_title_2">
+            MENSAJE
+        </div>
+        <div class="Content_modal" style="width:350px;">
+            <div class="message">
+                <div class="message_text">
+                    Ocurri&oacute; un error en la comunicaci&oacute;n o la sesi&oacute;n ha expirado.
+                    <br />
+                    Por favor vuelva a autenticarse.
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!-- POP UP SHOWROOM HTML-->
+@*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
+        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
+        <div class="pestana_pop">
+            <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+        </div>
+        <div class="pestana_preventa">
+            <div class="datos_pop_up">
+                <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
+                <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
+                <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                <div class="titulo_preventa">PRE &middot; VENTA</div>
+                <div class="titulo_digital">DIGITAL</div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                <div class="btn_conoce_mas_aqui">
+                    <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
+                </div>
+            </div>
+            <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+        </div>
+        <div class="content_show_right">
+            <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
+            <div class="slider_pop_up">
+                <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
+                <img src="" alt="" id="imgShowRoomGif"/>
+            </div>
+            <div class="borde_inferior">
+                <div class="check_01">
+                    <label class="checkpop">
+                        <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                        No quiero volver a ver &eacute;ste comunicado
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
+        <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
+        <div class="pestana_pop">
+            <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+        </div>
+        <div class="pestana_preventa2">
+            <div class="datos_pop_up">
+                <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
+                <div class="titulo_preventa">PRE &middot; VENTA</div>
+                <div class="titulo_digital">DIGITAL</div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+                <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
+                <div class="set_desde">SETS DESDE <span>$5,990</span></div>
+                <hr class="clear" />
+                <div class="btn_hoy">
+                    <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
+                </div>
+            </div>
+            <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+            <div class="check_hoy">
+                <label class="checkpop">
+                    <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
+                    No quiero volver a ver &eacute;ste comunicado
+                </label>
+            </div>
+        </div>
+    </div>*@
+
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
+    <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOfertaEdit" style="float: left;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrellaEdit" style="float:left; margin-top:10px; width:23px; height:23px; margin-left:10px" src="">
+        </div>
+        <img id="imgZonaEstrategiaEdit" style="height: 200px; margin: 5px;" src="" alt="Imagen Producto" />
+    </div>
+    <br />
+    <div class="zona0Edit pedidos_datos_titulo"></div>
+    <div class="zona1Edit pedidos_datos_info texto-centrado" style="width:100%"></div>
+    <div class="zona2Edit texto-centrado"></div>
+    <div class="zona3Edit_1 pedidos_para_ti texto-centrado"></div>
+    <div class="zona3Edit_2 liquidacion_precio texto-centrado"></div>
+    <br />
+    <ul id="OfertasResultados" class="listaOfertas"></ul>
+    <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
+    <div class="zonaCantidad texto-centrado">
+        <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
+                <td>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadZE" id="txtCantidadZE" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="" alt="" /></a>
+                            <a class="menos"><img src="" alt="" /></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tallaColor">
+                <td style="vertical-align: middle;">Talla/Color: &nbsp;&nbsp;</td>
+                <td>
+                    <select id="ddlTallaColor" style="width: 130px; height: 30px; border: 1px solid #cccccc;"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<!-- POPUP MENSAJE -->
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
+<!-- FIN POPUP MENSAJE -->
+<!-- POPUP ESCOGER TONO -->
+<div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
+    <div class="popup_escogerTono" id="divTonosTallas">
+        <input type="hidden" id="MarcaID" value="">
+        <input type="hidden" id="PrecioOferta" value="">
+        <input type="hidden" id="CUV" value="">
+        <input type="hidden" id="ConfiguracionOfertaID" value="">
+        <input type="hidden" id="DescripcionProd" value="">
+        <input type="hidden" id="DescripcionMarca" value="">
+        <input type="hidden" id="DescripcionCategoria" value="">
+        <input type="hidden" id="DescripcionEstrategia" value="">
+        <input type="hidden" id="ImagenProducto" value="">
+        <div class="btn_cerrar_escogerTono">
+            <a href="javascript:$('#divTonosTallas').dialog('close');">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+        </div>
+        <div class="contenedor_producto_escogerTono">
+            <h5>ESCOGER <span><b>TONO</b></span></h5>
+            <div class="contenedor_producto">
+                <div class="producto_carousel">
+                    <div class="producto_img">
+                        <img id="imgPopupTonoTalla" src="/Content/Images/Esika/img_producto.png" alt="Alternate Text" />
+                    </div>
+                    @*<div class="oferta_web"></div>
+                        <div class="reco_star"></div>*@
+                    <div class="producto_nombre_descripcion">
+                        <h6 id="marcaPopupTonoTalla">ÉSIKA</h6>
+                        <p class="nombre_producto">
+                            <b>Máscara Mirada Hechizante 8 g / .28 oz.</b>
+                        </p>
+                        <div class="producto_precio">
+                            @*<span class="producto_precio_normal">S/. 47.00</span>*@
+                            <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+                        </div>
+                        <div class="producto_talla_color">
+                            <select id="ddlTallaColorLiq">
+                                <option value="0">Talla/Color</option>
+                            </select>
+                        </div>
+                        <div class="contenedor_cantidad_producto">
+                            <div class="liquidacion_rango_wrapper_pedido">
+                                <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas">
+                                        <img src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a class="menos">
+                                        <img src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <a title="Agregar" class="boton_elegirAgregar js-agregar-popup-liquidacion">
+                                AGREGAR
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- FIN POPUP ESCOGER TONO -->
+<!-- POPUP INVITACIÓN A FLEXIPAGO -->
+
+<div class="contenedor_popup_invitacionFlexipago">
+    <div class="popup_invitacionFlexiPago">
+        <div class="btn_cerrar_invitacionFlexipago">
+            <a href="#" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_invitacionFlexipago">HAZ CRECER<b>&nbsp;TU NEGOCIO</b></h1>
+            <span class="mensaje_popUp_invitacionFlexipago">Felicitaciones, has sido invitada a</span>
+            <span class="area_logoFlexiPago">
+                <img src="@Url.Content("~/Content/Images/flexipago.png")" alt="Logo Flexipago" />
+            </span>
+            <div class="btn_grupo_invitacionFlexiPago">
+                <button type="button" name="btn_conoceMas" class="btn_conoceMas">
+                    CONOCE MÁS
+                </button>
+                <button type="button" name="btn_inscribeteAhora" class="btn_inscribeteAhora">
+                    INSCRÍBETE AHORA
+                </button>
+                <a href="#" title="No deseo inscribirme" class="btn_noInscripcion">No deseo inscribirme</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!-- FIN POPUP INVITACIÓN A FLEXIPAGO -->
+
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div>
+        <div class="content_item_carrusel">
+            <div class="producto_img_home">
+                <img src="{{FotoProducto01}}" />
+            </div>
+            <div class="etiqueta_producto">
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                {{/if_eq}}
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{DescripcionCUV2}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+<script id="liquidacion-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div>
+        <div class="content_item_carrusel">
+            <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
+            <input type="hidden" id="CUV" value="{{CUV}}" />
+            <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+            <div class="producto_img_home mini">
+                <img src="{{ImagenProducto}}" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{#if TieneTallaColor}}
+                <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
+                    {{TextoBotonTallaColor}}
+                </a>
+                {{else}}
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home js-agregar-liquidacion">
+                    AGR&Eacute;GALO
+                </a>
+                {{/if}}
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    <script type="text/javascript">
+        var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+        var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+        var viewBagPrimeraVez = '@Model.PrimeraVez';
+        var ViewBagRutaChile = '@Model.rutaChile';
+        var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+        var viewBagCambioClave = '@Model.CambioClave';
+        var viewBagPaisID = '@Model.PaisID';
+        var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+        var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+        var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+        var viewBagIndicadorFlexiPago = '@ViewBag.IndicadorFlexiPago';
+        var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var viewBagNroCampana = '@Model.NroCampana';
+        var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+        var viewBagPrefijoPais = '@Model.PrefijoPais';
+        var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+        var viewBagNombrePais = '@ViewBag.NombrePais';
+        var viewBagRolID = '@ViewBag.Rol';
+        var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+
+        //Metodos Contrato
+        function AbrirAceptacionContrato() {
+            if (viewBagPaisID == 4) { // Colombia
+                if (viewBagIndicadorContrato == 0) {
+                    var AlreadyViewContrato = '@Session["IsContrato"]';
+                    if (AlreadyViewContrato == 1) {
+                        @{ Session["IsContrato"] = 0; }
+                        showDialog("divContrato");
+                    }
+                }
+            }
+        };
+    </script>
+    @{
+    #if DEBUG
+        <script type="text/javascript" src="~/Scripts/PortalConsultoras/Bienvenida/Index.js"></script>
+    #else
+        @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
+    #endif
+    }
+}

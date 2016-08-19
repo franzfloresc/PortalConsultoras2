@@ -1,0 +1,1127 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
+    <title>Somos Belcorp</title>
+    @Styles.Render("~/Content/Css/Mobile/Site")
+
+    @RenderSection("styles", required: false)
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <script type="text/javascript">
+        dataLayer = [{
+            'campana': '@ViewBag.AnalyticsCampania',
+            'segmento': '@ViewBag.AnalyticsSegmento',
+            'edad': '@ViewBag.AnalyticsEdad',
+            'zona': '@ViewBag.AnalyticsZona',
+            'pais': '@ViewBag.AnalyticsPais',
+            'rol': '@ViewBag.AnalyticsRol',
+            'region': '@ViewBag.AnalyticsRegion',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
+            'periodo': '@ViewBag.AnalyticsPeriodo',
+            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
+            'socianivel': '@ViewBag.AnalyticsSociaNivel'
+        }];
+    </script>
+    @if (!Html.IsDebug())
+    {
+        <!-- Google Tag Manager -->
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+        </noscript>
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
+        </script>
+        <!-- End Google Tag Manager -->
+    }
+    <div class="bg_white"></div>
+    <!-- Menu icon -->
+    <div class="icon-close">
+        <img src="@Url.Content("~/Content/Images/mobile/img-icon/m_ic_cerrar.png")" width="50" height="50" alt="X" />
+    </div>
+    <div class="menu">
+        <div class="nombre" style="color:#768ea3;">HOLA @ViewBag.NombreConsultora</div>
+        <div class="nombre bg_sky">ESTÁS EN <strong>C-@ViewBag.NumeroCampania</strong></div>
+        <div id="cssmenu">
+            @Html.Partial("_MobileMenuLateral")
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="naranja-box">
+                        <a href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
+                           role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido"
+                           class="btn btn-line-hover btn-block"><i class="icon-lg icon-shop-belcorp"></i>INGRESA TU PEDIDO</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="sesion">
+            <a href="@Url.Action("LogOut", "Login", new { area = "" })" role="menu" region="Lateral-inferior" parent="Cerrar sesión" title="Cerrar sesión" id="lnk-lat-cerrar-sesion" class="cerrarsesion">
+                <figure>
+                    <img src="@Url.Content("~/Content/Images/mobile/img-icon/mobile_icon_cerrar_sesion_plomo.png")" width="45" height="44" alt="-" />
+                </figure>
+                <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- alert-top -->
+    <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
+        <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
+            <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
+            <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
+            <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
+        </a>
+        <span class="alert-close"><i class="icon-close-belcorp"></i></span>
+    </div>
+    <!-- end-alert-top -->
+    <!-- Header -->
+    <header id="new-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                </div>
+                <div class="col-xs-4 text-center">
+                    @*<a class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" role="menu" region="Superior" parent="Inicio" title="Inicio" id="lnk-sup-inicio">
+
+                        </a>*@
+                    <a class="logo_mobile" href="#">
+
+                    </a>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div class="menu-shop">
+                        <a class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" role="menu" region="Superior" parent="Pedido" title="Pedido" id="lnk-sup-pedido">
+                            <span class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                            <span class="num-menu-shop">0</span>
+                        </a>
+                        <a class="campana_mobile" href="#" style="margin-left: -15px;">
+                            <div class="campana_svg_mobile"><p class="notificaciones_mobiles">0</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Contenido -->
+    <div id="divShowRoom" class="ocultarPopup" style="display: none;">
+        <input type="hidden" id="hdEventoIDShowRoom" />
+        <input type="hidden" id="hdNombreEventoShowRoom" />
+        <div class="imagen_preventa">
+            <div class="etiqueta_2">
+                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+            </div>
+            <div class="titulo_contador_m">
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigital"></span>
+            </div>
+        </div>
+        <div class="fondo_m">
+            <div class=" row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 24px; width: 110px;">
+                    <div class="texto_dias_m">
+                        SÓLO FALTAN
+                    </div>
+                    <div class="texto_fecha_m">
+                        <span id="spnDiasFaltantes">12</span>
+                    </div>
+                    <div class="texto_dias_m">
+                        DÍAS
+                    </div>
+                </div>
+                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
+                    <div style="height: 20px; width: 135px;">
+                        <div class="text_hora_m">hrs</div>
+                        <div class="text_hora_m">min</div>
+                        <div class="text_hora_m no_margin_right">sec</div>
+                    </div>
+                    <div class="fondo_contador">
+                        <div class="text_numero"><span id="spnHorasFaltantes">18</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnMinutosFaltantes">25</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
+                    </div>
+                    <div style="margin-top: 6px;">
+                        <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="sombra_m"></div>
+    </div>
+    <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
+        <input type="hidden" id="hdEventoIDShowRoom" />
+        <input type="hidden" id="hdNombreEventoShowRoom" />
+        <div class="imagen_preventa">
+            <div class="etiqueta_2">
+                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+            </div>
+            <div class="titulo_contador_m">
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigitalHoy"></span>
+            </div>
+        </div>
+        <div class="fondo_m">
+            <div class=" row_contador">
+                <div style="text-align: center;">
+                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                    <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
+                </div>
+            </div>
+        </div>
+        <div class="contenedor_encuentralos">
+            <div class="row_contador">
+                <a href="javascript:;" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
+            </div>
+        </div>
+        <div class="indicador_red">
+            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
+        </div>
+    </div>
+    <section style="min-height: 400px;">
+        
+            <div id="content">
+                @RenderBody()
+            </div>
+            <div class="clear">
+                <br />
+                <br />
+            </div>
+        
+    </section>
+    <!-- Pie de Página Antiguo -->
+    <footer class="footer-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+                            <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="col-xs-10 text-right">
+                        @Html.Partial("_MobileMenuFooter")
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <!-- Pie de Página -->
+        @*<footer class="footer-page">
+            <a class="menu_footer">
+                NUESTRAS MARCAS
+            </a>
+            <a class="menu_footer">
+               AYUDA
+            </a>
+            <a class="menu_footer">
+                LEGAL
+            </a>
+            <div class="content_redes">
+                <div class="pedido_pais"><img src="/Content/Banderas/PE.png"><span>Perú</span></div>
+                <div class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></div>
+                <div class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></div>
+                <hr class="clear" />
+            </div>
+            <div class="col-xs-2">
+                <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
+                    <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+                </a>
+            </div>               
+                    
+            <div class="unete_2016"> Copyright Belcorp 2016. All rigths reserved.</div>
+                       
+                    
+               
+            <hr class="clear" />
+        </footer>*@
+        <!-- BOTÓN AGREGAR PEDIDO -->
+    
+    <span class="toUp bg-primary">
+        <i class="icon-angle-up"></i>
+    </span>
+    <div class="content-spinner2" id="loading-spin">
+        <div class="busy-loader">
+            <div class="w-ball-wrapper ball-1">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-2">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-3">
+                <div class="w-ball"> </div>
+            </div> <div class="w-ball-wrapper ball-4">
+                <div class="w-ball"> </div>
+            </div>
+            <div class="w-ball-wrapper ball-5">
+                <div class=" w-ball"> </div>
+            </div>
+        </div>
+    </div>
+    <div id="popupInformacion" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="mensajeInformacion" class="text-lg"></div>
+                    <br />
+                    <div>
+                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="mensajeInformacionvalidado" class="text-lg"></div>
+                    <br />
+                    <div>
+                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <div class="row text-left">
+                        <div class="col-xs-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
+                            <ol class="breadcrumb-next upper">
+                                <li class="text-primary">
+                                    Comunidad Somos Belcorp
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="row text-left">
+
+                        <div class="form-controls-grey">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    ¿Aún no eres parte de nuestra comunidad?
+                                    Ingresa tus datos aquí.
+                                </div>
+                                <div class="form-group">
+                                    <input id="txtNombreConCom" class="form-control" placeholder="" value="@ViewBag.NombreC" type="text" readonly="readonly" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="txtApellidoConCom" class="form-control" placeholder="" value="@ViewBag.ApellidoC" type="text" readonly="readonly" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="txtUsuarioComunidad" class="form-control" placeholder="Tu apodo en la Comunidad" maxlength="25" type="text" onblur="if (this.value != '') { ValidarUsuarioIngresado(this.value); }" />
+                                    <div id="ErrorUsuario" style="font-size: 11px; color: red; display: none;">Debe ingresar un apodo.</div>
+                                    <div id="ValUsuario" style="font-size: 11px; display: none;"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input id="txtNuevoCorreoComunidad" class="form-control" placeholder="Correo Electronico" onblur="if (this.value != '') { ValidarCorreoIngresado(this.value); }" />
+                                    <div id="ErrorCorreo" style="font-size: 11px; color: red; display: none;"></div>
+                                    <div id="ValCorreo" style="font-size: 11px; display: none;"></div>
+                                </div>
+
+                                <div class="block-center text-center">
+                                    <a id="btnRegistrarUsuarioComunidad" onclick="return ValidarCorreoComunidad(2)" class=" btn btn-line-action btn-round">Crea tu cuenta</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear">
+                        </div>
+
+                        <div class="col-xs-12">
+                            <hr style="border-top: 1px solid #CCC;" />
+                        </div>
+                        <div class="form-controls-grey">
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    Si ya eres miembro de la Comunidad Somos Belcorp, ingresa tu correo aquí:
+                                </div>
+                                <div class="form-group">
+
+                                    <input id="txtCorreoComunidad" class="form-control" placeholder="Correo Electronico" />
+                                    <div id="ErrorCorreoC" style="font-size: 11px; color: red; display: none;"></div>
+                                    <div id="ES_CorreoC" style="height: 10px; display: none;"></div>
+
+                                </div>
+
+                                <div class="block-center text-center">
+                                    <a id="btnValidarCorreo" class="btn btn-line-action btn-round" onclick="return ValidarCorreoComunidad(1)">Ingresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/Scripts/Mobile")
+
+    <script type="text/javascript">
+
+        var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
+        var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetCantidadProductos", "Pedido", new { area = "" })';
+        var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
+        var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
+        var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
+        var urlGetResumenCampania = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var baseUrl = "@Url.Content("~")";
+
+        $(function () {
+            $('.toUp').hide();
+
+            //$(window).scroll(function () {
+            //    if ($(this).scrollTop() > 70) {
+            //        $('.toUp').fadeIn();
+            //    } else {
+            //        $('.toUp').fadeOut();
+            //    }
+            //});
+
+            //// scroll body to 0px on click
+            //$('.toUp').click(function () {
+            //    $('body, html').animate({
+            //        scrollTop: 0
+            //    }, 500);
+            //    return false;
+            //});
+
+            $(".alert-close").click(function (event) {
+                $(this).parent(".alert-top").slideUp();
+            });
+
+            CargarCantidadProductosPedidos();
+            CargarCantidadNotificacionesSinLeer();
+            //CargarCantidadPedidosConsultoraOnline();
+
+            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
+            });
+
+            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
+            });
+
+            CargarShowRoom();
+
+            $("body").on("keyup", ".ValidaNumeral", function (evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                var regex = /[0-9]|\./;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    if (theEvent.preventDefault) theEvent.preventDefault();
+                }
+            });
+
+            $(document).on("click", ".cantidad_menos_home", function () {
+                var $txtcantidad = $(this).siblings('input');
+                var cantidad = parseInt($txtcantidad.val());
+
+                cantidad = isNaN(cantidad) ? 0 : cantidad;
+                cantidad = cantidad > 1 ? (cantidad - 1) : 1;
+
+                $txtcantidad.val(cantidad);
+            });
+
+            $(document).on("click", ".cantidad_mas_home", function () {
+                var $txtcantidad = $(this).siblings('input');
+                var cantidad = parseInt($txtcantidad.val());
+
+                cantidad = isNaN(cantidad) ? 0 : cantidad;
+                cantidad = cantidad < 99 ? (cantidad + 1) : 99;
+
+                $txtcantidad.val(cantidad);
+            });
+        });
+
+        function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
+
+            if (variant == null || variant == "") {
+                variant = "Estándar";
+            }
+            if (category == null || category == "") {
+                category = "Sin Categoría";
+            }
+
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Productos destacados', 'action': 'click' },
+                        'products': [{
+                            'name': name,
+                            'id': id,
+                            'category': category,
+                            'variant': variant,
+                            'position': position
+                        }]
+                    }
+                }
+            });
+        };
+
+        function ValidarCorreoComunidad(tipo) {
+            $.ajaxSetup({
+                cache: false
+            });
+            var result = true;
+            ShowLoading();
+            var mensaje = "<b>¡Gracias por unirte a Somos Belcorp!</b>, una comunidad de mujeres emprendedoras" +
+                "y apasionadas por el negocio de la belleza." +
+                "<br />" +
+                "<br />" +
+                "Revisa tu correo y sigue los pasos para ingresar." +
+                "¡Te esperamos!" +
+                "<br />";
+            if (tipo == 2) {
+
+                if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
+                    $('#ErrorUsuario').css({ "display": "block" });
+                    $('#ES_Usuario').css({ "display": "block" });
+                    $('#ErrorUsuario').html("Debe ingresar un apodo.");
+                    CloseLoading();
+                    result = false;
+                } else {
+                    if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
+
+                    }
+                }
+
+                if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
+                    $('#ErrorCorreo').css({ "display": "block" });
+                    $('#ES_Correo').css({ "display": "block" });
+                    $('#ErrorCorreo').html("Debe ingresar su correo.");
+                    result = false;
+                } else {
+                    if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
+                        $('#ErrorCorreo').css({ "display": "block" });
+                        $('#ES_Correo').css({ "display": "block" });
+                        $('#ErrorCorreo').html("El formato del correo es incorrecto.");
+                        $('#ErrorCorreo').css({ "color": "red" });
+                        CloseLoading();
+                        result = false;
+                    } else {
+                        if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
+
+                        }
+                    }
+                }
+
+                if (result) {
+
+                    if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.') {
+                        CloseLoading();
+                        return;
+                    }
+
+                    var params = {
+                        usuario: $("#txtUsuarioComunidad").val(),
+                        correo: $("#txtNuevoCorreoComunidad").val()
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: urlRegistrarUsuarioComunidad,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                CloseLoading();
+                                if (data.success == true) {
+                                    CloseComunidad();
+                                    messageInfo(mensaje, function () {
+                                        window.location.reload(true);
+                                    });
+
+                                    dataLayer.push({
+                                        'event': 'virtualEvent',
+                                        'category': 'Comunidad',
+                                        'action': 'Crear cuenta',
+                                        'label': 'Satisfactorio'
+                                    });
+
+                                } else {
+                                    CloseComunidad();
+                                    messageInfo(data.message);
+
+                                    dataLayer.push({
+                                        'event': 'virtualEvent',
+                                        'category': 'Comunidad',
+                                        'action': 'Crear cuenta',
+                                        'label': 'Error'
+                                    });
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                CloseLoading();
+                                CloseComunidad();
+                                messageInfo(data.message);
+
+                                dataLayer.push({
+                                    'event': 'virtualEvent',
+                                    'category': 'Comunidad',
+                                    'action': 'Crear cuenta',
+                                    'label': 'Error'
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Comunidad',
+                        'action': 'Crear cuenta',
+                        'label': 'Error'
+                    });
+                }
+            } else {
+
+                if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
+                    $('#ErrorCorreoC').css({ "display": "block" });
+                    $('#ES_CorreoC').css({ "display": "block" });
+                    $('#ErrorCorreoC').html("Debe ingresar su correo.");
+                    CloseLoading();
+                    result = false;
+                } else {
+                    if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
+                        $('#ErrorCorreoC').css({ "display": "block" });
+                        $('#ES_CorreoC').css({ "display": "block" });
+                        $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
+                        $('#ErrorCorreoC').css({ "color": "red" });
+                        CloseLoading();
+                        result = false;
+                    }
+                }
+
+                if (result) {
+                    if ($('#ErrorCorreo').html() != '')
+                        return;
+
+                    var params = {
+                        correo: $("#txtCorreoComunidad").val()
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: urlValidarCorreoComunidad,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(params),
+                        async: true,
+                        success: function (data) {
+
+                            if (checkTimeout(data)) {
+                                CloseLoading();
+                                if (data.success == true) {
+                                    dataLayer.push({
+                                        'event': 'virtualEvent',
+                                        'category': 'Comunidad',
+                                        'action': 'Ingresar',
+                                        'label': 'Satisfactorio'
+                                    });
+                                    CloseComunidad();
+                                    messageInfo(mensaje, function () {
+                                        window.location.reload(true);
+                                    });
+
+                                } else {
+                                    dataLayer.push({
+                                        'event': 'virtualEvent',
+                                        'category': 'Comunidad',
+                                        'action': 'Ingresar',
+                                        'label': 'Error'
+                                    });
+
+                                    CloseComunidad();
+                                    messageInfo(data.message);
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                dataLayer.push({
+                                    'event': 'virtualEvent',
+                                    'category': 'Comunidad',
+                                    'action': 'Ingresar',
+                                    'label': 'Error'
+                                });
+
+                                CloseLoading();
+                                CloseComunidad();
+                                messageInfo(data.message);
+                            }
+                        }
+                    });
+                } else {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Comunidad',
+                        'action': 'Ingresar',
+                        'label': 'Error'
+                    });
+                }
+            }
+        }
+
+        function ValidarCorreo(correo) {
+            expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return expr.test(correo);
+        }
+
+        function ValidarCorreoIngresado(correo) {
+            $.ajaxSetup({
+                cache: false
+            });
+            ShowLoading();
+            $('#ValCorreo').css({ "display": "block" });
+            $('#ErrorCorreo').css({ "display": "none" });
+            $.ajax({
+                type: "POST",
+                url: urlValidarCorreoIngresado,
+                data: "{'correo': '" + correo + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $('#ValCorreo').css({ "display": "none" });
+                    $('#ErrorCorreo').css({ "display": "block" });
+                    $('#ES_Correo').css({ "display": "block" });
+                    if (data.success == true) {
+                        $('#ErrorCorreo').html("Este correo ya existe.");
+                        $('#ErrorCorreo').css({ "color": "red" });
+                        CloseLoading();
+                    } else {
+                        $('#ErrorCorreo').html("Correo Disponible.");
+                        $('#ErrorCorreo').css({ "color": "green" });
+                        CloseLoading();
+                    }
+                },
+                error: function (result) {
+                    CloseLoading();
+                    CloseComunidad();
+                    messageInfo('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Comunidad',
+                        'action': 'Crear cuenta',
+                        'label': 'Error'
+                    });
+                }
+            });
+        }
+
+        function ValidarUsuarioIngresado(usuario) {
+            $.ajaxSetup({
+                cache: false
+            });
+            $('#ValUsuario').css({ "display": "block" });
+            $('#ErrorUsuario').css({ "display": "none" });
+            ShowLoading();
+            $.ajax({
+                type: "POST",
+                url: urlValidarUsuarioIngresado,
+                data: "{'usuario': '" + usuario + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $('#ValUsuario').css({ "display": "none" });
+                    $('#ErrorUsuario').css({ "display": "block" });
+                    $('#ES_Usuario').css({ "display": "block" });
+
+                    if (data.success == true) {
+                        $('#ErrorUsuario').html("Este apodo ya existe.");
+                        $('#ErrorUsuario').css({ "color": "red" });
+                        CloseLoading();
+                    } else {
+                        $('#ErrorUsuario').html("Apodo Disponible.");
+                        $('#ErrorUsuario').css({ "color": "green" });
+                        CloseLoading();
+                    }
+                },
+                error: function (result) {
+                    CloseLoading();
+                    CloseComunidad();
+                    messageInfo('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Comunidad',
+                        'action': 'Crear cuenta',
+                        'label': 'Error'
+                    });
+                }
+            });
+        }
+
+        function ShowComunidad() {
+            $('.icon-close').click();
+
+            $("#popupComunidad").modal("show");
+        }
+
+        function CloseComunidad() {
+            $("#popupComunidad").modal("hide");
+        }
+
+        function ShowLoading() {
+            $("#loading-spin").fadeIn();
+        }
+
+        function CloseLoading() {
+            $("#loading-spin").fadeOut("fast");
+        }
+
+        function messageInfo(message, fnAceptar) {
+            $('#mensajeInformacion').html(message);
+            $('#popupInformacion').modal("show");
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacion .btn-aceptar').off('click');
+                $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
+            }
+        }
+
+        function CargarResumenCampania() {
+            $.ajax({
+                type: 'GET',
+                url: urlGetResumenCampania,
+                data: '',
+                cache: false,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.result) {
+                            var montoWebAcumulado = "0";
+                            var montoTotalPagar = "0";
+
+                            if (data.montoWebAcumulado == 0) {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoWebAcumulado = "0";
+                                else
+                                    montoWebAcumulado = "0.00";
+                            } else {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                                else
+                                    montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                            }
+
+                            if (data.montoTotalPagar == 0) {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoTotalPagar = "0";
+                                else
+                                    montoTotalPagar = "0.00";
+                            } else {
+                                if (data.paisID == 4)  //Formato de decimales para Colombia
+                                    montoTotalPagar = SeparadorMiles(data.montoTotalPagar.toFixed(0));
+                                else
+                                    montoTotalPagar = data.montoTotalPagar.toFixed(2);
+                            }
+
+                            var fecha = data.fechaVencimiento || "";
+                            var dateString = fecha.substr(6);
+                            var currentTime = new Date(parseInt(dateString));
+                            var month = currentTime.getMonth() + 1;
+                            var day = currentTime.getDate();
+                            //var year = currentTime.getFullYear();
+                            var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month); //+ "/" + year;
+
+                            if (date == '01/01') date = '--/--';
+
+                            $(".js-div-deuda").html(data.Simbolo + " " + "<span>" + montoTotalPagar + "</span>");
+                            $(".js-div-vencimiento").html('Vencimiento: ' + date);
+                            $(".js-span-pedidoingresado").html("Pedido ingresado: " + data.Simbolo + " " + montoWebAcumulado);
+                        }
+                        else {
+                            console.error("Ocurrio un error con el Resumen de Campaña.");
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        };
+
+        //GR-799
+
+        function messageInfoValidado(message, fnAceptar) {
+            $('#mensajeInformacionvalidado').html(message);
+            $('#popupInformacionValidado').modal("show");
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn-aceptar').off('click');
+                $('#popupInformacionValidado .btn-aceptar').on('click', fnAceptar);
+            }
+        }
+
+        //END GR-799
+
+        function CargarCantidadProductosPedidos() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetCantidadProductos,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+
+                        $(".num-menu-shop").html(data.cantidadProductos);
+
+                        if (data.mensaje != '') {
+                            console.log(data.mensaje);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        }
+
+        function CargarCantidadNotificacionesSinLeer() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetNotificacionesSinLeer,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data.cantidadNotificaciones > 0) {
+                            $("#divNotificacionesSinLeer").html(data.cantidadNotificaciones);
+                            $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
+                            $("#divNotificacionesSinLeer").show();
+                        }
+
+                        if (data.mensaje != '') {
+                            console.log(data.mensaje);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        }
+
+        function CargarCantidadPedidosConsultoraOnline() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetCantidadPedidos,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        var cantidadPedidosOnline = data.cantidadPedidos;
+
+                        $("#divPedidosOnlineSinLeer").html(cantidadPedidosOnline);
+
+                        if (cantidadPedidosOnline > 0) {
+                            $("#divPedidosOnlineSinLeer").show();
+
+                            $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
+                            $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
+                            $("#divAlertaPedidosOnline").show();
+                        }
+
+                        if (data.mensaje != '') {
+                            console.log(data.mensaje);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        console.error(error);
+                    }
+                }
+            });
+        }
+
+        function CargarShowRoom() {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetShowRoom,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var showroomConsultora = response.data;
+                            var evento = response.evento;
+
+                            if (showroomConsultora.EventoConsultoraID != 0) {
+                                if (response.estaActivoLateral) {
+                                    $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                    $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                                    if (response.mostrarShowRoomProductos) {
+                                        $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+
+                                        $("#spnPreventaDigitalHoy").html(evento.Nombre);
+
+                                        $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
+
+                                        if (document.getElementById("estiloShowRoom") == null) {
+                                            $("#divShowRoomHoy").show();
+                                            AgregarTagManagerShowRoomBannerLateral(true);
+                                        }
+                                    } else {
+                                        $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+
+                                        $("#spnPreventaDigital").html(evento.Nombre);
+                                        
+                                        AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+
+                                        if (document.getElementById("estiloShowRoom") == null) {
+                                            $("#divShowRoom").show();
+                                            AgregarTagManagerShowRoomBannerLateral(false);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        console.error(error);
+                    }
+                }
+            });
+        }
+
+        function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
+            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+
+            if (esHoy)
+                name += " - fase 2";
+
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': $("#hdEventoIDShowRoom").val(),
+                                'name': name,
+                                'position': 'Home lateral - 1',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        }
+
+        function AgregarTagManagerShowRoomBannerLateral(esHoy) {
+            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+
+            if (esHoy)
+                name += " - fase 2";
+
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': $("#hdEventoIDShowRoom").val(),
+                                'name': name,
+                                'position': 'Home lateral - 1',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        }
+
+        function AgregarTimerShowRoom(dia, mes, anio) {
+            var calcNewYear = setInterval(function () {
+                //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
+                date_future = new Date(anio, mes - 1, dia);
+                date_now = new Date();
+
+                seconds = Math.floor((date_future - (date_now)) / 1000);
+                minutes = Math.floor(seconds / 60);
+                hours = Math.floor(minutes / 60);
+                days = Math.floor(hours / 24);
+
+                hours = hours - (days * 24);
+                minutes = minutes - (days * 24 * 60) - (hours * 60);
+                seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+                //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
+                $("#spnDiasFaltantes").html(days);
+                $("#spnHorasFaltantes").html(hours);
+                $("#spnMinutosFaltantes").html(minutes);
+                $("#spnSegundosFaltantes").html(seconds);
+
+                if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+                    clearInterval(calcNewYear);
+                }
+                if (days < 0) {
+                    $("#spnDiasFaltantes").html(0);
+                    $("#spnHorasFaltantes").html(0);
+                    $("#spnMinutosFaltantes").html(0);
+                    $("#spnSegundosFaltantes").html(0);
+                    clearInterval(calcNewYear);
+                }
+            }, 1000);
+        }
+
+    </script>
+    @RenderSection("scripts", required: false)
+    @{Html.PlaceScripts();}
+</body>
+</html>

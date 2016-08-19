@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Mis Pagos";
+}
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
+            //$("#barCursor").hide();
+
+            // mostrar el tab correcto
+            $("[data-tag-html]").hide();
+            var tag = $(this).attr("data-tag") || "";
+            var obj = $("[data-tag-html='"+ tag + "']");
+            if (obj.length == 1) {
+                obj.show();
+            }
+
+            //mantener seleccionado
+            $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
+            $(this).find("div.marcador_tab").removeClass("oculto");
+
+            //$("#barCursor").show();
+        });
+
+        $('ul[data-tab="tab"] li a[data-action]').click(function (e) {
+
+        });
+
+        $('ul[data-tab="tab"]').mouseover(function () {
+            $("#barCursor").css("opacity", "1");
+        }).mouseout(function () {
+            $("#barCursor").css("opacity", "0");
+        });
+        $('ul[data-tab="tab"] li a')[0].click();
+    });
+</script>
+<div class="fondo_f9f9f9">
+
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>PAGOS</span></div>
+        <!--INICIO PESTAÑAS-->
+        <div class="titulo_tabs">
+            <ul class="tabs_pagos" data-tab="tab">
+                <li class="one">
+                    <a href="#" data-tag="EstadoCuenta">
+                        <img src="@Url.Content("~/Content/Images/Esika/estado_cuenta.png")" />ESTADO<b> DE CUENTA</b>
+                        <div class="marcador_tab oculto"></div>
+                    </a>
+                </li>
+                <li class="two">
+                    <a href="#" data-tag="LugaresPago">
+                        <img src="@Url.Content("~/Content/Images/Esika/lugares_pago.png")" />LUGARES <b>DE PAGO</b>
+                        <div class="marcador_tab oculto"></div>
+                    </a>
+                </li>
+                <li class="three">
+                    <a href="@Url.Action("Index", "FacturaElectronica")" data-action="LugaresPago" target="_blank">
+                        <img src="@Url.Content("~/Content/Images/Esika/facturacion_electronica.png")" />FACTURA <b>ELECTRÓNICA</b>
+                        <div class="marcador_tab oculto"></div>
+                    </a>
+                </li>
+                <hr id="barCursor"/>
+            </ul>
+        </div>
+        <!--FIN PESTAÑAS-->
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <!--INCIO TAB ESTADO DE CUENTA-->
+    <div class="EstadoCuenta" data-tag-html="EstadoCuenta" style="display:none;">
+        <!--CONTENEDOR IZQUIERDO-->
+        <div class="content_left_pagos">
+            <div class="titulo_detalle_pago">
+                <img src="@Url.Content("~/Content/Images/Esika/estado_cuenta.png")" />
+                <div>MI ESTADO<b> DE CUENTA</b></div>
+            </div>
+            <a href="#" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
+            <a href="#" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/imprimir.png")" /></a>
+            <hr class="clear" />
+            <div class="linea_separadora" style="height:2px"></div>
+            <div class="content_datos_mispagos">
+                <div class="fecha_pagos texto_gris">Fecha</div>
+                <div class="movimientos_pagos texto_gris">Últimos Movimientos</div>
+                <div class="pedidos_pagos texto_gris">Pedidos</div>
+                <div class="abonos_pagos texto_gris">Abonos</div>
+            </div>
+            <div class="linea_separadora" style="margin-top:-1px"></div>
+            <!--CONTENIDO DE TABLAS -->
+            <div class="content_datos_mispagos">
+                <div class="fecha_pagos">25/04/2016</div>
+                <div class="movimientos_pagos">Pedido</div>
+                <div class="pedidos_pagos">S/. 19.37</div>
+                <div class="abonos_pagos">S/. 0.00</div>
+            </div>
+            <div class="content_datos_mispagos">
+                <div class="fecha_pagos">25/04/2016</div>
+                <div class="movimientos_pagos">Percepción Ped. o A. Servicio</div>
+                <div class="pedidos_pagos">S/. 19.37</div>
+                <div class="abonos_pagos">S/. 0.00</div>
+            </div>
+            <div class="content_datos_mispagos">
+                <div class="fecha_pagos">25/04/2016</div>
+                <div class="movimientos_pagos">Regularizacion Bancos cuentas corriente</div>
+                <div class="pedidos_pagos">S/. 19.37</div>
+                <div class="abonos_pagos">S/. 0.00</div>
+            </div>
+            <!--FIN CONTENIDO TABLAS-->
+            <div class="linea_inferior_roja"></div>
+            <div class="num_total_pago"> S/. 1, 019.00</div>
+            <div class="texto_monto_pago">Total Monto a pagar: </div>
+            <hr class="clear" />
+            <div class="linea_separadora"></div>
+            <div class="texto_paga_tiempo">
+                *Paga a tiempo y evita Gastos Administrativos y de cobranzas:<br />
+                Si pagas entre el 3er y 9no día de la fecha de vencimiento que aquí se
+                indicase cobrará S/.5 y a partir de C1214, si pagas desde el 10mo día
+                despues de la fecha de vencimiento se cobrará S/.10. Este importe se
+                sumará a tu siguiente pedido
+            </div>
+
+            <div class="linea_separadora" style="height:2px"></div>
+
+        </div>
+        <!--CONTENEDOR DERECHO-->
+        <div class="content_derecha_pagos">
+            <div class="resumen_pagos">
+                <img src="@Url.Content("~/Content/Images/Esika/estado_cuenta.png")" />
+                MI ESTADO<b> DE CUENTA</b>
+                <div class="info_centro">
+                    Mi deuda actual es:
+                    <div class="deuda_home" id="spanDeuda">S/. <span>253.39</span></div>
+                    <span>Vencimiento: 31/05</span>
+                </div>
+                <a class="btn_paga_mispagos" href="#"><img src="@Url.Content("~/Content/Images/Esika/tarjeta.png")" /><span>PAGA ONLINE</span></a>
+            </div>
+            <div class="flexipago_mispagos">
+                <div class="logo_flexipago"><img src="@Url.Content("~/Content/Images/Esika/flexipago.png")" /> </div>
+                <div class="texto_monto_minimo">Monto mínimo a pagar: <span>S/. 200.50</span></div>
+            </div>
+        </div>
+        <hr class="clear" />
+        <div id="bannerBajos">
+            <a class="enlaces_home">
+                <img src="@Url.Content("~/Content/Images/Esika/revista.png")" alt="" />
+                <div class="btn_enlaces" href="#">TU REVISTA</div>
+            </a>
+            <a class="enlaces_home">
+                <img src="@Url.Content("~/Content/Images/Esika/expoferta.png")" alt="" />
+                <div class="btn_enlaces" href="#">EXPOFERTA</div>
+            </a>
+            <a class="enlaces_home no_margin_right">
+                <img src="@Url.Content("~/Content/Images/Esika/venta.png")" alt="" />
+                <div class="btn_enlaces" href="#">HERRAMIENTAS DE VENTA</div>
+            </a>
+        </div>
+    </div>
+    <!--FIN TAB ESTADO DE CUENTA-->
+    <!--INCIO TAB LUGARES DE PAGO-->
+    <div class="LugaresPago" data-tag-html="LugaresPago" style="display:none;">
+        <!--CONTENEDOR IZQUIERDO-->
+        <div class="content_left_pagos">
+            <div class="titulo_detalle_pago">
+                <img src="@Url.Content("~/Content/Images/Esika/lugares_pago.png")" />
+                <div>LUGARES<b> DE PAGO</b></div>
+            </div>
+            <hr class="clear" />
+            <div class="bancos_pagos">Ingresa con un click los lugares de pagos de su preferencia</div>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/bbva.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/scotia.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/interbank.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/bcp.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/financiero.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/nacion.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/multifacil.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/western.png")" /></a>
+            <a href="#" class="logos_bancos"><img src="@Url.Content("~/Content/Images/Esika/carsa.png")" /></a>
+
+
+
+        </div>
+        <!--CONTENEDOR DERECHO-->
+        <div class="content_derecha_pagos">
+            <div class="resumen_pagos">
+                <img src="@Url.Content("~/Content/Images/Esika/estado_cuenta.png")" />
+                MI ESTADO<b> DE CUENTA</b>
+                <div class="info_centro">
+                    Mi deuda actual es:
+                    <div class="deuda_home" id="spanDeuda">S/. <span>253.39</span></div>
+                    <span>Vencimiento: 31/05</span>
+                </div>
+                <a class="btn_paga_mispagos" href="#"><img src="@Url.Content("~/Content/Images/Esika/tarjeta.png")" /><span>PAGA ONLINE</span></a>
+            </div>
+            <div class="flexipago_mispagos">
+                <div class="logo_flexipago"><img src="@Url.Content("~/Content/Images/Esika/flexipago.png")" /> </div>
+                <div class="texto_monto_minimo">Monto mínimo a pagar: <span>S/. 200.50</span></div>
+            </div>
+        </div>
+        <hr class="clear" />
+    </div>
+    <!--FIN TAB LUGARES DE PAGO-->
+
+</div>

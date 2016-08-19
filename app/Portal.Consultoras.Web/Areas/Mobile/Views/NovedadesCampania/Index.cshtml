@@ -1,0 +1,282 @@
+﻿@model List<Portal.Consultoras.Web.ServiceContenido.BEBannerInfo>
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li>
+                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+            </li>
+            <li>|</li>
+            <li>
+                Novedades de Campaña
+            </li>
+        </ol>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (Model.Count > 0)
+        {
+            var contador = 0;
+
+            <div class="slide-ofertas text-center">
+
+                @foreach (var item in Model)
+                {
+                    contador++;
+                    var creative = item.TipoAccion == 0 ? "Banner" : "Producto";
+
+                    <figure class="mb-20">
+                        <input type="hidden" class="bannerId" value="@item.BannerID" />
+                        <input type="hidden" class="nameBanner" value="@item.Titulo" />
+
+                        <input type="hidden" class="posicion" value="@item.Nombre-@item.Orden" />
+                        
+                        <input type="hidden" class="creative" value="@creative" />
+                        <a href="javascript:;" onclick="return EnlaceBanner('@item.URL','@item.Titulo','@item.TipoAccion','@item.CuvPedido','@item.CantCuvPedido','@item.BannerID','@contador','@item.Titulo','@item.Nombre',@item.Orden);">
+                            <img src="@item.Archivo" alt="@item.Titulo" width="680" height="280" class="img-responsive" />
+                        </a>
+                    </figure>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert-top-icon text-success">
+                <i class="icon-exclamation-circle"></i>
+                <div>Por el momento no existen novedades de campaña.</div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            TagManagerEnviarOfertas();
+        });
+
+        function TagManagerEnviarOfertas() {
+            var arrayOfertas = new Array();
+            //debugger;
+            $("figure.mb-20").each(function () {
+                var id = $(this).find(".bannerId").val();
+                var name = $(this).find(".nameBanner").val();
+                var position = $(this).find(".posicion").val();
+                var creative = $(this).find(".creative").val();
+
+                var oferta = {
+                    id: id,
+                    name: name,
+                    position: position,
+                    creative: creative
+                };
+
+                arrayOfertas.push(oferta);
+            });
+
+            if (arrayOfertas.length > 0) {
+                dataLayer.push({
+                    'event': 'promotionView',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': arrayOfertas
+                        }
+                    }
+                });
+            }
+        }
+
+        ////////
+
+        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+            var restringido = true;
+
+            $.ajaxSetup({ cache: false });
+            jQuery.ajax({
+                type: 'GET',
+                url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (data) {
+                    
+                    if (checkTimeout(data)) {
+                        if (data.success == false)
+                            restringido = false;
+                        else {
+
+                            if (data.pedidoReservado) {
+                                var fnRedireccionar = function () {
+                                    ShowLoading();
+                                    location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+                                }
+                                if (mostrarAlerta == true) {
+                                    CloseLoading();
+                                    alert_msg(data.message, fnRedireccionar);
+                                }
+
+                                else fnRedireccionar();
+
+                            }
+                            else if (mostrarAlerta == true) alert_msg(data.message);
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                }
+            });
+            return restringido;
+        }
+
+        function alert_msg(message, fnClose) {
+            messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
+
+        }
+
+        ////////
+
+        function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo, nombre, orden) {
+            //r10260215
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                            {
+                                'id': Id,
+                                'name': Titulo,
+                                'position': nombre + "-" + orden,
+                                'creative': TipoAccion == 0 ? 'Banner' : 'Producto'
+                            }]
+                    }
+                }
+            });
+
+
+            if (TipoAccion == 0) {
+                SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo);
+            }
+
+            if (TipoAccion == 1) {
+
+                if (ReservadoOEnHorarioRestringido())
+                    return;
+                else
+                    InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
+
+                //InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
+                return false;
+            }
+        }
+
+        function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo) {
+            window.open(URL, '_blank');
+            return false;
+        }
+
+        function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
+            var item = {
+                CUV: CUVpedido,
+                CantCUVpedido: CantCUVpedido
+            };
+            ShowLoading();
+            var categoriacad = "";
+            var variantcad = "";
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("InsertarPedidoCuvBanner", "Pedido", new { area = "" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (result) {
+                    if (checkTimeout(result)) {
+                        if (result.success == true) {
+                            ActualizarCantidadTotalPedido();
+
+                            if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") { variantcad = "Estándar"; } else { variantcad = result.oPedidoDetalle.DescripcionEstrategia; }
+                            if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") { categoriacad = "Sin Categoría"; } else { categoriacad = result.oPedidoDetalle.Categoria; }
+
+                            dataLayer.push({
+                                'event': 'addToCart',
+                                'ecommerce': {
+                                    'add': {
+                                        'actionField': { 'list': 'Banner marquesina' },
+                                        'products': [{
+                                            'name': result.oPedidoDetalle.DescripcionProd,
+                                            'price': result.oPedidoDetalle.PrecioUnidad.toString(),
+                                            'brand': result.oPedidoDetalle.DescripcionLarga,
+                                            'id': CUVpedido,
+                                            'category': categoriacad,
+                                            'variant': variantcad,
+                                            'quantity': parseInt(CantCUVpedido),
+                                            'position': 1
+                                        }]
+                                    }
+                                }
+                            });
+
+                            CloseLoading();
+                            messageInfo(result.message);
+                        }
+                        else {
+                            CloseLoading();
+                            if (result.message == "") {
+                                messageInfo('Error al realizar proceso, intentelo mas tarde.');
+                            } else {
+                                messageInfo(result.message);
+                            }
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        CloseLoading();
+                        console.log(data);
+                    }
+                }
+            });
+        }
+
+        function ActualizarCantidadTotalPedido() {
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})',
+                dataType: 'json',
+                async: true,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            var data = response.data;
+                            $(".num-menu-shop").html(data.CantidadProductos);
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        console.error(response);
+                    }
+                }
+            });
+        }
+    </script>
+}

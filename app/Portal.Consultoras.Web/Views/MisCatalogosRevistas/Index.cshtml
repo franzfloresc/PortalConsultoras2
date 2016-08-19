@@ -1,0 +1,126 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    ViewBag.Title = "Catálogos y Revistas";
+}
+
+<link href="@Url.Content("~/Content/Css/Mobile/slick.css")" rel="stylesheet" />
+
+
+<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
+<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
+<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>CATÁLOGOS Y REVISTAS</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    
+    <!-- CATALOGO -->
+    <div>
+        <div id="contentCatalogo">
+            <div class="titulo_central" id="TextoCampania"></div>
+            <span class="arrow_catalogo"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="CatalogoMostrar(-1, this)" data-accion="a" /></span>
+            <div>
+                <div class="content_carrusel_catalogo" id="divCatalogo">
+                </div>
+            </div>
+            <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
+            <hr class="clear" />
+        </div>
+
+        <div id="xHtmlItemCatalogo" style="display: none;">
+            <div data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+                <div class="item1_catalogo" data-tipo="content">
+                    <a class="revista" data-tipo="img" target="_blank" href="">
+                        <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
+                    </a>
+                    <div data-tipo="descrip">{descripcion}</div>
+                    <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
+                    <a class="compartir_catalogo_mensaje"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
+                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="CompartirFacebook('{comp}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN CATALOGO -->
+
+    <div class="expoferta_revista">
+
+    <!-- REVISTA -->
+    <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
+        <div class="titulo_central" data-titulo='revista'></div>
+        <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
+        <a class="revista_carrusel" id="lbPortadaGana" href="#" target="_blank">
+            <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
+        </a>
+        <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
+    </div>
+
+    <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+        <!-- FIN REVISTA -->
+
+        @if (!ViewBag.EsConsultoraNueva)
+        {
+            <div class="revista_content">
+                <div style="text-align: center;
+                            font-family: 'lato';
+                            font-size: 16pt;
+                            color: black;
+                            letter-spacing: 0.25px;
+                            font-weight: 700;
+                            margin-top: 48px;
+                            margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
+                <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c09.png")" /></div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+
+<script type="text/javascript" id="js-ready-Catalogo">
+
+    var tagLbel = "Lbel";
+    var tagEsika = "Esika";
+    var tagCyzone = "Cyzone";
+
+    var campSelect = "";
+    var campSelectI = 1;
+
+    var aCam = new Array();
+    var linkCat = new Object();
+    var descrCat = new Object();
+    var ordenCat = new Object();
+
+    var cantCat = 3;
+    var cantCam = 3;
+    var cont = 0;
+
+    var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
+    var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+    var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+    
+    var rCampSelect = "";
+    var rCampSelectI = 1;
+    var cantCamRev = 3;
+    var codigoIso = '@ViewBag.CodigoISO';
+    var aCamRev = new Array();
+    var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Revista", new { area = "Mobile" })';
+    var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+</script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
+}

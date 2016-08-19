@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{022E2BE6-D149-4CD7-8AF4-B1DF2ACE8888}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Portal.Consultoras.Data</RootNamespace>
+    <AssemblyName>Portal.Consultoras.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HiQPdf">
+      <HintPath>..\Binaries\HiQPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenSource.Library.DataAccess">
+      <HintPath>..\Binaries\OpenSource.Library.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAAfiliaClienteConsultora.cs" />
+    <Compile Include="DABannerPedido.cs" />
+    <Compile Include="DABelcorpNoticia.cs" />
+    <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DAComunicado.cs" />
+    <Compile Include="DAConfiguracionParametroCarga.cs" />
+    <Compile Include="DAConfiguracionProgramaNuevas.cs" />
+    <Compile Include="DAConfiguracionTipoProcesoCargaPedidos.cs" />
+    <Compile Include="DAConfiguracionValidacionNuevoPROL.cs" />
+    <Compile Include="DAConfiguracionPortal.cs" />
+    <Compile Include="DAConsultoraDigitales.cs" />
+    <Compile Include="DAConsultoraCatalogo.cs" />
+    <Compile Include="DAConsultoraLider.cs" />
+    <Compile Include="DAContenidoRevista.cs" />
+    <Compile Include="DAContratoAceptacion.cs" />
+    <Compile Include="DACrossSelling.cs" />
+    <Compile Include="DACrossSellingProducto.cs" />
+    <Compile Include="DACuv.cs" />
+    <Compile Include="DAEscalaDescuento.cs" />
+    <Compile Include="DAEstadoCuenta.cs" />
+    <Compile Include="DAEstrategia.cs" />
+    <Compile Include="DAEtiqueta.cs" />
+    <Compile Include="DAFactorGanancia.cs" />
+    <Compile Include="DABanner.cs" />
+    <Compile Include="DACatalogo.cs" />
+    <Compile Include="DACliente.cs" />
+    <Compile Include="DAComprobantePercepcion.cs" />
+    <Compile Include="DAConfiguracionCampania.cs" />
+    <Compile Include="DAConfiguracionValidacion.cs" />
+    <Compile Include="DAConfiguracionValidacionZona.cs" />
+    <Compile Include="DAConsultora.cs" />
+    <Compile Include="DAConsultoraFicticia.cs" />
+    <Compile Include="DAContenidoDato.cs" />
+    <Compile Include="DACronograma.cs" />
+    <Compile Include="DACronogramaAnticipado.cs" />
+    <Compile Include="DACronogramaDD.cs" />
+    <Compile Include="DADatosBelcorp.cs" />
+    <Compile Include="DADupla.cs" />
+    <Compile Include="DAFeErratas.cs" />
+    <Compile Include="DAFormularioDato.cs" />
+    <Compile Include="DAIncentivo.cs" />
+    <Compile Include="DAItemCarruselInicio.cs" />
+    <Compile Include="DALogCabeceraEnvioCorreo.cs" />
+    <Compile Include="DALogDetalleEnvioCorreo.cs" />
+    <Compile Include="DALogModificacionCronograma.cs" />
+    <Compile Include="DALogParametroDiasCargaPedido.cs" />
+    <Compile Include="DALogPedidoDDInvalido.cs" />
+    <Compile Include="DALugarPago.cs" />
+    <Compile Include="DAMailing.cs" />
+    <Compile Include="DAMensajeCUV.cs" />
+    <Compile Include="DAMenuMobile.cs" />
+    <Compile Include="DAMiAcademia.cs" />
+    <Compile Include="DAConsultoraOnline.cs" />
+    <Compile Include="DANavidadConsultora.cs" />
+    <Compile Include="DANotificaciones.cs" />
+    <Compile Include="DAOferta.cs" />
+    <Compile Include="DAOfertaFlexipago.cs" />
+    <Compile Include="DAOfertaNueva.cs" />
+    <Compile Include="DAOfertaProducto.cs" />
+    <Compile Include="DAOfertaWeb.cs" />
+    <Compile Include="DAPaqueteDocumentario.cs" />
+    <Compile Include="DAParticipantesDemandaAnticipada.cs" />
+    <Compile Include="DAPayPalConfiguracion.cs" />
+    <Compile Include="DAPayPalPagos.cs" />
+    <Compile Include="DAPedidoDD.cs" />
+    <Compile Include="DAPedidoDDDetalle.cs" />
+    <Compile Include="DAPedidoFacturado.cs" />
+    <Compile Include="DAPedidoFIC.cs" />
+    <Compile Include="DAPedidoFICDetalle.cs" />
+    <Compile Include="DAPedidoReporteLider.cs" />
+    <Compile Include="DAPedidoWeb.cs" />
+    <Compile Include="DAPedidoWebAnteriores.cs" />
+    <Compile Include="DAPedidoWebDetalle.cs" />
+    <Compile Include="DAPermiso.cs" />
+    <Compile Include="DAProducto.cs" />
+    <Compile Include="DAProductoDescripcion.cs" />
+    <Compile Include="DAProductoFaltante.cs" />
+    <Compile Include="DAProductoFaltanteDD.cs" />
+    <Compile Include="DAProductoSugerido.cs" />
+    <Compile Include="DAProveedorDespachoCobranza.cs" />
+    <Compile Include="DAReporteIntegradoWebDD.cs" />
+    <Compile Include="DAResumenCampania.cs" />
+    <Compile Include="DARol.cs" />
+    <Compile Include="DARolPermiso.cs" />
+    <Compile Include="DASegmentoPlaneamiento.cs" />
+    <Compile Include="DAServicio.cs" />
+    <Compile Include="DAShowRoomEvento.cs" />
+    <Compile Include="DASolicitudCliente.cs" />
+    <Compile Include="DASolicitudClienteCatalogo.cs" />
+    <Compile Include="DASolicitudCredito.cs" />
+    <Compile Include="DASuenioNavidad.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataAccessConfiguration.cs" />
+    <Compile Include="DATablaLogicaDatos.cs" />
+    <Compile Include="DATipoEstrategia.cs" />
+    <Compile Include="DATipoMeta.cs" />
+    <Compile Include="DATracking.cs" />
+    <Compile Include="DAUbigeo.cs" />
+    <Compile Include="DAUsuario.cs" />
+    <Compile Include="DAUsuarioOP.cs" />
+    <Compile Include="DAValidacionAutomatica.cs" />
+    <Compile Include="DAZonificacion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
+      <Project>{2a3b50df-c243-4d7d-b8c0-e4e6c9c6c8d9}</Project>
+      <Name>Portal.Consultoras.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

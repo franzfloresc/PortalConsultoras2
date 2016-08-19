@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ClienteService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpsBinding_IClienteService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IClienteService_Insert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Insert" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_Insert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_InsertById_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertById" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_InsertById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_Update_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_Update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectById_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectById" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectByNombre_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectByNombre" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_SelectByNombre_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectByNombreResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_CheckClienteByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckClienteByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_CheckClienteByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckClienteByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_UndoCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:UndoCliente" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_UndoCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UndoClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidosWebByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidosWebByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetClientesByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientesByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetClientesByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientesByCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidoWebDetalleByCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebDetalleByCliente" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidoWebDetalleByCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebDetalleByClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogosByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogosByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogosByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogosByCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogoConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogoConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogoConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogoConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidosWebAnterioresByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebAnterioresByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidosWebAnterioresByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebAnterioresByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidoProductosByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoProductosByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetPedidoProductosByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoProductosByCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_InsCatalogoCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsCatalogoCampania" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_InsCatalogoCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsCatalogoCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IClienteService">
+    <wsdl:operation name="Insert">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/Insert" message="tns:IClienteService_Insert_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/InsertResponse" message="tns:IClienteService_Insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/InsertById" message="tns:IClienteService_InsertById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/InsertByIdResponse" message="tns:IClienteService_InsertById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/Update" message="tns:IClienteService_Update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/UpdateResponse" message="tns:IClienteService_Update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/Delete" message="tns:IClienteService_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/DeleteResponse" message="tns:IClienteService_Delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SelectByConsultora" message="tns:IClienteService_SelectByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/SelectByConsultoraResponse" message="tns:IClienteService_SelectByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SelectById" message="tns:IClienteService_SelectById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/SelectByIdResponse" message="tns:IClienteService_SelectById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectByNombre">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SelectByNombre" message="tns:IClienteService_SelectByNombre_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/SelectByNombreResponse" message="tns:IClienteService_SelectByNombre_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckClienteByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/CheckClienteByConsultora" message="tns:IClienteService_CheckClienteByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/CheckClienteByConsultoraResponse" message="tns:IClienteService_CheckClienteByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UndoCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/UndoCliente" message="tns:IClienteService_UndoCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/UndoClienteResponse" message="tns:IClienteService_UndoCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebByConsultora" message="tns:IClienteService_GetPedidosWebByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebByConsultoraResponse" message="tns:IClienteService_GetPedidosWebByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampania" message="tns:IClienteService_GetClientesByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetClientesByCampaniaResponse" message="tns:IClienteService_GetClientesByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoWebDetalleByCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidoWebDetalleByCliente" message="tns:IClienteService_GetPedidoWebDetalleByCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetPedidoWebDetalleByClienteResponse" message="tns:IClienteService_GetPedidoWebDetalleByCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogosByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetCatalogosByCampania" message="tns:IClienteService_GetCatalogosByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetCatalogosByCampaniaResponse" message="tns:IClienteService_GetCatalogosByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogoConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetCatalogoConfiguracion" message="tns:IClienteService_GetCatalogoConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetCatalogoConfiguracionResponse" message="tns:IClienteService_GetCatalogoConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" message="tns:IClienteService_GetPedidosWebAnterioresByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultoraResponse" message="tns:IClienteService_GetPedidosWebAnterioresByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoProductosByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidoProductosByCampania" message="tns:IClienteService_GetPedidoProductosByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetPedidoProductosByCampaniaResponse" message="tns:IClienteService_GetPedidoProductosByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsCatalogoCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/InsCatalogoCampania" message="tns:IClienteService_InsCatalogoCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/InsCatalogoCampaniaResponse" message="tns:IClienteService_InsCatalogoCampania_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IClienteService" type="tns:IClienteService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Insert">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Insert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsertById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByNombre">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckClienteByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/CheckClienteByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/UndoCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoWebDetalleByCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoWebDetalleByCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogoConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogoConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoProductosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoProductosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCatalogoCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsCatalogoCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpsBinding_IClienteService" type="tns:IClienteService">
+    <wsp:PolicyReference URI="#BasicHttpsBinding_IClienteService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Insert">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Insert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsertById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByNombre">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckClienteByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/CheckClienteByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/UndoCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoWebDetalleByCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoWebDetalleByCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogoConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogoConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoProductosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoProductosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCatalogoCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsCatalogoCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ClienteService">
+    <wsdl:port name="BasicHttpBinding_IClienteService" binding="tns:BasicHttpBinding_IClienteService">
+      <soap:address location="http://localhost:41615/ClienteService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpsBinding_IClienteService" binding="tns:BasicHttpsBinding_IClienteService">
+      <soap:address location="https://localhost:44300/ClienteService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

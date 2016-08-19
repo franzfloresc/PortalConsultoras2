@@ -1,0 +1,532 @@
+﻿@model Portal.Consultoras.Web.Models.PedidoDetalleModel
+@{   
+    ViewBag.Title = "Pedido Validado";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        IniDialog();
+    });
+
+    function CambioPagina(tipo) {
+        if ((tipo || null) == null) {
+            return false;
+        }
+        if (!(tipo == -1 || tipo == 3 || tipo == 4)) {
+            return false;
+        }
+        var pt = $("#hdnPaginaDe").val();
+        var pn = $("#paginaactual").val();
+
+        if (tipo == -1) { // input
+            if (pn > pt) {
+                pn = pt;
+                $("#paginaactual").val(pn);
+            }
+
+            var pa = $("#paginaactual").attr("data-val");
+            if (pa == pn) {
+                return false;
+            }
+            if (pn < 1) {
+                $("#paginaactual").val(pa);
+                return false;
+            }
+
+            $("#hdnPagina").val(pn);
+        }
+        if (tipo == 3) {// anterior
+            if (pn == 1) {
+                return false;
+            }
+        }
+        if (tipo == 4) {// posterior
+            if (pn == pt) {
+                return false;
+            }
+        }
+        Paginar(tipo);
+    }
+
+    function Paginar(Tipo) {
+        var PaginaActual = $("#hdnPagina").val();
+        waitingDialog({});
+        $.get(baseUrl + "Pedido/PaginarPedidoValidado?Tipo=" + Tipo + "&PaginaActual=" + PaginaActual, function (data) {
+            if (checkTimeout(data)) {
+                $('#divListadoPedido').html(data);
+                closeWaitingDialog();
+            }
+        });
+    }
+
+    function AbrirModal() {
+        _gaq.push(['_trackEvent', 'Pedido', 'Click', 'Banner-Oferta-Agotados']);
+        dataLayer.push({
+            'event': 'pageview',
+            'virtualUrl': '/Pedido/Click/Banner-Oferta-Agotados'
+        });
+        _gaq.push(['_trackPageview', '/Somosbelcorp/Productos-Agotados']);
+        showDialog("divFaltantesAnunciados");
+    }
+
+    function CerrarDialogo() {
+        $('#divConfirmValidarPROL').dialog('close');
+    }
+
+    function ConfirmModificar() {
+        waitingDialog({});
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Pedido/DeshacerReservaPedidoReservado?Tipo=PV',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify({ correo: jQuery.trim($("#hdfCorreo").val()) }),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        _gaq.push(['_trackEvent', 'Pedido', 'Modificar-Pedido']);
+                        dataLayer.push({
+                            'event': 'pageview',
+                            'virtualUrl': '/Pedido/Modificar-Pedido'
+                        });
+                        location.href = '@Url.Action("Index")';
+                    }
+                    else {
+                        closeWaitingDialog();
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                }
+            }
+        });
+        return false;
+    }
+
+    function IniDialog() {
+        $('#divConfirmValidarPROL').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 550,
+            draggable: true,
+            title: "",
+            close: function (event, ui) {
+                $(this).dialog('close');
+            }
+        });
+        $('#divFaltantesAnunciados').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 625,
+            height: 455,
+            draggable: true,
+            title: "Productos Faltantes Anunciados"
+        });
+        $('#DialogMensajes').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            draggable: true,
+            title: ":: Mensaje ::",
+            buttons:
+            {
+                "Aceptar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+    function alert_msg(message) {
+        $('#DialogMensajes .message_text').html(message);
+        $('#DialogMensajes').dialog('open');
+    }
+
+    function CargarPedido() {
+        $.get(baseUrl + "Pedido/Select", function (data) {
+            if (checkTimeout(data)) {
+                $('#divListadoPedido').html(data);
+            }
+        });
+    }
+
+    function AbrirSplash() {
+        waitingDialog({});
+    }
+
+    function CerrarSplash() {
+        closeWaitingDialog();
+    }
+
+    function Imprimir() {
+        waitingDialog({});
+        setTimeout(function () {
+            DownloadAttachPDF()
+        }, 0);
+    }
+
+    function DownloadAttachPDF() {
+
+        var content = baseUrl + "Pedido/ExportarPDF";
+
+        var iframe_ = document.createElement("iframe");
+        iframe_.style.display = "none";
+        iframe_.setAttribute("src", content);
+
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+            iframe_.onreadystatechange = function () {
+                switch (this.readyState) {
+                    case "loading":
+                        waitingDialog({});
+                        break;
+                    case "complete":
+                    case "interactive":
+                    case "uninitialized":
+                        closeWaitingDialog();
+                        break;
+                    default:
+                        closeWaitingDialog();
+                        break;
+                }
+            };
+        }
+        else {
+            // Si es Firefox o Chrome
+            $(iframe_).ready(function () {
+                closeWaitingDialog();
+            });
+        }
+        document.body.appendChild(iframe_);
+
+    }
+
+    function EnviarCorreo() {
+        waitingDialog({});
+        if (jQuery.trim($("#hdfCorreo").val()) == "") {
+            alert("No tiene una cuenta de correo registrada");
+            closeWaitingDialog();
+            return false;
+        }
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Pedido/EnviarCorreo',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ correo: jQuery.trim($("#hdfCorreo").val()) }),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                    }
+                    else
+                        alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+        return false
+    }
+
+    function ModificarPedido() {
+        if ($("#hdfModificacionPedidoProl").val() == "0")
+            ConfirmModificar();
+        else
+            showDialog("divConfirmValidarPROL");
+        return false
+    }
+
+</script>
+
+<script type="text/javascript">
+    var CE_SNAPSHOT_NAME = "Pedido_Validado";
+</script>
+<!-- RQ-2652 DC- Eliminacion de script -->
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-1">
+                <div class="box">
+                    <div class="box-t"></div>
+                    <div class="box-c">
+                        @if (ViewBag.Campania != null)
+                        {
+                            if (ViewBag.Dias == 0)
+                            {                            
+                            <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
+                            }
+                            else
+                            {
+                            <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
+                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>
+							<!-- R2161 -->
+                            
+                            if (ViewBag.TieneFechaPromesa == 1)
+                            { 
+
+                                    <p>@ViewBag.MensajeFechaPromesa</p>
+                                }
+                            }
+                        else
+                        {
+                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
+                        }
+                    </div>
+                    <div class="box-b"></div>
+                </div>
+            </div>
+            <div class="div-2">
+                <!--RE2584 - CS(CGI) - 22/05/2015 -->
+                @if (ViewBag.ZonaNuevoPROL == true)
+                {
+                    <h1><span>Pedido</span> reservado con éxito.</h1>
+                }
+                else
+                {
+                <h1><span>Pedido</span> validado con éxito</h1>
+                }
+                @if (ViewBag.Dias == 0)
+                {
+                    <span class="blue_texto_size">Puedes modificar tu pedido hasta las @ViewBag.HoraCierre horas, luego se enviará a Belcorp.</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        @Html.Hidden("hdfCorreo", (string)Model.eMail)
+        <div class="top_tabla">
+			<!-- R2161 -->
+            <div class="color_title_left">
+            @if (ViewBag.TieneFechaPromesa == 1)
+            { 
+                if (ViewBag.DiaFechaPromesa == 1)
+                {
+                    //<div style="color: #6c217f; font-size: 14px; font-style: normal;">Si Facturas HOY, recibirás tu pedido el: <b>@ViewBag.MensajeFechaPromesa</b></div>
+                    <div style="color: #6c217f; font-size: 14px; font-style: normal;">@(Convert.ToString(ViewBag.MensajeFechaPromesa)) </div>                    
+                }
+                else
+                {
+                    //<div style="color: #6c217f; font-size: 14px; font-style: normal;">Si Facturas ese día, recibirás tu pedido el: <b>@ViewBag.MensajeFechaPromesa</b></div>
+                    <div style="color: #6c217f; font-size: 14px; font-style: normal;">@(Convert.ToString(ViewBag.MensajeFechaPromesa))</div>                    
+                }
+            }
+            @if (ViewBag.EscalaDescuento != 0)
+            {
+                <!--RE2584 - CS(CGI) 22/05/2015 -->
+                <div class="color_title_left" style="color: blue; font-size: 14px; font-style: normal;">¡Tú puedes! Te faltan @ViewBag.Simbolo @ViewBag.MontoEscalaDescuento para llegar a tu siguiente escala de descuento de @ViewBag.PorcentajeEscala%.</div>
+            }
+            </div>
+            <div class="email" onclick="EnviarCorreo()" style="cursor: pointer; width: auto; text-decoration: underline; font-weight: bold;">E-mail</div>
+            <div class="imprimir" onclick="Imprimir()" style="cursor: pointer; width: auto; text-decoration: underline; font-weight: bold;">Imprimir</div>
+        </div>
+
+        <div class="border-wrapper" style="width:100%;">
+            <div id="divListadoPedido" class="tabla_pedidos">
+                @if (Model != null)
+                {
+                    Html.RenderPartial("ListadoPedidoReservado", this.Model);
+                }
+            </div>
+        </div>
+        <div class="sep"></div>
+        
+        <div>
+            <div class="caja_guardar_pedido" style="height:auto;">
+                <div class="contenedor_guardadoPedido">
+                    <div class="boton_guardarPedido">
+                        <input type="button" id="btnModificarPedido" value="Modifica tu Pedido" style="text-transform: uppercase;" class="info_copy" onclick="ModificarPedido()" />
+                        <div class="tooltips tooltip_guardaPedido msj_info" style="display: none;">
+                            <p>Puedes agregar o eliminar productos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*
+                <div class="input_modifica_pedido">
+                    <div class="tooltip_left">
+                        <div class="tooltip1">
+                            <input type="button" name="" id="btnModificarPedido" value="Modifica tu Pedido" onclick="ModificarPedido()" />
+                        </div>
+                        <div class="tooltip">Puedes agregar o eliminar productos</div>
+                    </div>
+                </div>
+            *@
+            @if (ViewBag.EsKitNueva == 1)
+            {
+                <div class="productos_mensaje" style="float: left; width: 570px; padding-left: 15px; color: blue; font-style: normal;">
+                    Por ser tu primer pedido estarás recibiendo el Kit de nuevas, el cual será incluido en tu factura.
+                </div>
+            }
+
+            @if (ViewBag.EstadoSimplificacionCUV != null && ViewBag.EstadoSimplificacionCUV)
+            {
+                 <div class="caja_guardar_pedido">
+                    <div class="contenedor_guardadoPedido">
+                        <div class="caja_montos">
+                            <p class="monto_total">
+                                <b>
+                                    SUB TOTAL : &nbsp;@ViewBag.Simbolo
+                                    <span id="sTotal" class="num">
+                                        @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.SubTotal).ToString("#,##0").Replace(',', '.') : ViewBag.SubTotal)
+                                    </span>
+                                </b>
+                            </p>
+                            <div class="leyendaIndicadorPROL">
+                                <img src="@Url.Content("~/Content/Images/indicador.png")" />Descuento por ofertas con más de un precio <span id="Descuento"><span id="sSimbolo">@ViewBag.Simbolo</span>@String.Format("{0:N2}", ViewBag.Descuento)</span>
+                            </div>
+                            <div style="clear: both"></div>
+                            <p class="monto_total">
+                                <b>
+                                    MONTO TOTAL : &nbsp;@ViewBag.Simbolo
+                                    <span id="sTotal" class="num">
+                                        @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.MontoTotalPROL).ToString("#,##0").Replace(',', '.') : ViewBag.MontoTotalPROL)
+                                    </span>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                @*<div class="subTotalPROL">SubTotal: <span id="subTotal"><span id="sSimbolo" >@ViewBag.Simbolo</span>@ViewBag.SubTotal</span></div>
+                <div class="leyendaIndicadorPROL">
+                    <img  src="@Url.Content("~/Content/Images/indicador.png")" />Descuento por ofertas con más de un precio <span id="Descuento"><span id="sSimbolo" >@ViewBag.Simbolo</span>@String.Format("{0:N2}",ViewBag.Descuento)</span>
+                </div>               
+                <div style="clear: both"></div>               
+                <div class="total">Monto Total: <span id="sSimbolo" class="superindice">@ViewBag.Simbolo</span><span id="sTotal" class="num">@String.Format("{0:N2}", ViewBag.MontoTotalPROL) </span></div>*@
+            }
+            else
+            {
+                
+                 <div class="caja_guardar_pedido">
+                    <div class="contenedor_guardadoPedido">
+                        <div class="caja_montos">
+                            <p class="monto_total">
+                                <b>
+                                    MONTO TOTAL : &nbsp;@ViewBag.Simbolo
+                                    <span id="sTotal" class="num">
+                                        @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.Total).ToString("#,##0").Replace(',', '.') : ViewBag.Total)
+                                    </span>
+                                </b>
+                            </p>
+                            <p class="monto_ganancia">Mi ganancia : &nbsp;@ViewBag.Simbolo @String.Format("{0:N2}", ViewBag.GananciaEstimada)</p>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="total">Monto Total: <span id="sSimbolo" class="superindice">@ViewBag.Simbolo</span><span id="sTotal" class="num">@ViewBag.Total</span></div>
+                <div class="ganancia" style="display: none;">Oportunidad de Ahorro: <span class="superindice">@ViewBag.Simbolo</span><span class="num">@String.Format("{0:N2}", ViewBag.GananciaEstimada)</span></div>*@
+            }
+        </div>
+
+        <div class="sep"></div>
+        <div class="div-3">
+            <!-- R2133 -->
+            <!-- R2161 -->
+            <!-- R2207 -->
+            @if (ViewBag.NombrePais == "Costa Rica")
+            {
+                <div class="input_modifica_pedido mensaje-movil">
+                    (*) Producto ingresado por aplicación “Pedido Belcorp” desde celular.
+                </div>
+            }
+            else
+            {
+		        if (ViewBag.PedidoProductoMovil == 1)
+		        {
+                    <div class="input_modifica_pedido mensaje-movil">
+                        (*) Tienes productos pendientes de validación ingresados desde celular, por favor modifique su pedido y valide nuevamente.
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="banner-wrapper">
+            <!-- R2161 -->
+            @if (ViewBag.IndicadorPermisoFlexipago)
+            {
+                <div class="one-fourth">
+                    <div class="pointer">
+                        <img src="~/Content/Images/banner_flexipago.jpg" class="ajust" onclick="alert_msg('Para acceder a esta opción primero debes Modificar tu Pedido.')" />
+                    </div>
+                </div>
+            }
+            @if (ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "Panamá" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Chile" || ViewBag.NombrePais == "Ecuador" || ViewBag.NombrePais == "República Dominicana" || ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "Perú" || ViewBag.NombrePais == "Bolivia" || ViewBag.NombrePais == "Colombia")
+            {
+                <div class="one-fourth">
+                    <div class="pointer">
+                        <img src="~/Content/Images/ban_liquidacion.png" class="ajust" onclick="alert_msg('Para acceder a esta opción primero debes Modificar tu Pedido.')" />
+                    </div>
+                </div>
+            }
+            <div class="one-fourth last">
+                <div class="pointer">
+                    <img src="~/Content/Images/banner_producto agotado.jpg" class="ajust" onclick="$('#frmFaltantes').submit();" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divFaltantesAnunciados" class="wrap">
+
+    <div class="Content_modal">
+        @using (Ajax.BeginForm("GetProductoFaltante", "Pedido", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "divListadoFaltantes", OnSuccess = "AbrirModal()", OnBegin = "AbrirSplash()", OnComplete = "CerrarSplash()" }, new { id = "frmFaltantes" }))
+        {
+            <input id="hdfValidar" type="hidden" value="0" />
+            <input id="btnListarFaltantes" type="submit" value="" style="visibility: hidden;" />
+        }
+
+        <div id="divListadoFaltantes" class="tabla">
+            @if (Model != null && Model.ListaProductoFaltante != null)
+            {
+                Html.RenderPartial("ListadoFaltantes", this.Model);
+            }
+        </div>
+
+    </div>
+</div>
+<div id="DialogMensajes">
+    <div class="Content_modal">
+        <div class="message_text">
+            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.        
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<div id="divConfirmValidarPROL" class="modal_2">
+    <div class="modal_2_title_2 color_title">Importante</div>
+    <div class="modal_2_texto" style="margin: 10px;">
+        <center>Al hacer click en <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.</center>
+    </div>
+    <div class="div-3" style="text-align: center;">
+        <div class="input_modal_inline">
+            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="CerrarDialogo()" />
+        </div>
+        <div class="input_modal_inline">
+            <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="ConfirmModificar()" />
+        </div>
+    </div>
+</div>
+

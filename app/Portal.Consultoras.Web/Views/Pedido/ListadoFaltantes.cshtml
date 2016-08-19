@@ -1,0 +1,27 @@
+﻿@model Portal.Consultoras.Web.Models.PedidoDetalleModel
+  
+<table id="tbListadoFaltantes">
+    <thead>
+        <tr>  
+            <th>  
+                Codigo  
+            </th>  
+            <th>  
+                Producto  
+            </th>  
+        </tr> 
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListaProductoFaltante)
+        {  
+            <tr>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.CUV)  
+                </td>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.Descripcion)  
+                </td>  
+            </tr>  
+        }  
+    </tbody>
+</table>

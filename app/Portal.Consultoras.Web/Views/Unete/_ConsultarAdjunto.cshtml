@@ -1,0 +1,35 @@
+﻿@model Tuple<string, string, int>
+@using System.Configuration
+@using Portal.Consultoras.Common
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="div-2">
+            <h2>
+                @if (Model.Item3 == 1)
+                {
+                    <text>Ver Documento Identidad</text>
+                }
+                else
+                {
+                    <text>Ver Documento Domicilio</text>
+                }
+                <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;"/>
+            </h2>
+        </div>
+        <div class="elements border_modal" style="padding-top: 15px !important">
+            <img src='@(ConfigS3.GetUrlFileS3WithAuthentication(string.Format(
+                            ConfigurationManager.AppSettings[
+                                Model.Item3 == 1 ?
+                                    AppSettingsKeys.DocumentosIdentidadStorage :
+                                    AppSettingsKeys.DocumentosDomicilioStorage
+                                ], Model.Item1, Model.Item2)))' height='280' width='380'/>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        $('#imgCerrar').click(function () {
+            modal.dialog('close');
+        });
+    });
+</script>
