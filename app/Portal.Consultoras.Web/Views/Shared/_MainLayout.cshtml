@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Portal.Consultoras.Common
+<!DOCTYPE html>
 <html lang="es" class="no-js">
 <head>
     <meta charset="utf-8" />
@@ -28,6 +29,10 @@
 
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
 
+        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+
         window.history.forward();
 
         function noBack() {
@@ -48,12 +53,26 @@
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
+                    new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
+                 
+    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    {
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+
+        <script type="text/javascript">
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
+    }
+    
     <script type="text/javascript">
         dataLayer.push({
             'event': 'userCustomVars',
@@ -299,7 +318,10 @@
             </div>
         </div>
     </div>
-
+    
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdFlagOfertaWeb" value="0" />
     <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
     <input type="hidden" id="hdFlagValidacion" value="0" />

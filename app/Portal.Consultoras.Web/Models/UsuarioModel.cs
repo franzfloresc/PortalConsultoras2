@@ -255,5 +255,7 @@ namespace Portal.Consultoras.Web.Models
         public int OfertaFinal { get; set; }
 
         public bool EsOfertaFinalZonaValida { get; set; }
+
+        public int CatalogoPersonalizado { get; set; }
     }
 }

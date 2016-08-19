@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -63,6 +64,25 @@
         </script>
         <!-- End Google Tag Manager -->
     }
+    
+    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    {
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+            
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
+    }
+    
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -363,7 +383,8 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";        
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         $(function () {
             HandlebarsRegisterHelper();
@@ -1046,6 +1067,55 @@
             }, 1000);
         }
 
+        /* Tracking Jetlore */
+        function TrackingJetloreAdd(cantidad, campania, cuv) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.addToCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemove(cantidad, campania, cuv) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemoveAll(lista) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart(lista);
+
+            }
+        }
+    /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
