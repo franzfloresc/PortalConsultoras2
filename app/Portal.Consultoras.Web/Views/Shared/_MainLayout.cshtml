@@ -13,61 +13,13 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
-        
-        <!--[if IE 8]>
-
-            <style type="text/css">
-                /* css para IE 8 */
-            
-            .ubicacion_web{
-                margin-top: 19px;
-            }
-
-            .content_slider_home{
-                margin-top:0px;
-            }
-
-            .nav_principal LI UL{
-                background:#FFF;
-                margin-top:20px;
-            }
-
-            </style>
-
-        <![endif]-->
-        
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")        
     }
     else
-    {
-        
+    {   
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
-        
-        <!--[if IE 8]>
-
-            <style type="text/css">
-                /* css para IE 8 */
-            
-            .ubicacion_web{
-                margin-top: 19px;
-            }
-
-            .content_slider_home{
-                margin-top:0px;
-            }
-
-            .nav_principal LI UL{
-                background:#FFF;
-                margin-top:20px;
-            }
-
-            </style>
-
-        <![endif]-->
-        
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")        
     }
 
     <script type="text/javascript">
@@ -184,12 +136,9 @@
                                 Todavía no has agregado <br />ningún producto a tu<br /> pedido.
                             </div>
                             <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
-
                         </div>
                         <div id="carrito_items">
                         </div>
-                        
-                        
                         
                         @*<h1> RESUMEN DE CAMPAÑA</h1>
                         <p>
@@ -413,32 +362,7 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
-    <!--[if lt IE 9]>
-        <script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
-        <script src="~/Scripts/IE8.js"></script>
-    <![endif]-->
-
-    <script type="text/javascript">
-        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-    </script>
-
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
-
-    <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
-
-    <script type='text/javascript'>
-        (function () {
-            var proto = document.location.protocol || 'http:';
-            var trme = document.createElement('script');
-            trme.type = 'text/javascript';
-            trme.async = true;
-            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(trme, s);
-        })();
-    </script>
     <script id="resumenCampania-template" type="text/x-handlebars-template">
         <div class="info_productos_carrito">
             He agregado <span>{{cantidadProductos}}</span> productos.<br />
@@ -460,6 +384,29 @@
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
 
     </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+
+    <script type="text/javascript">
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
+
+    <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
+
+    <script type='text/javascript'>
+        (function () {
+            var proto = document.location.protocol || 'http:';
+            var trme = document.createElement('script');
+            trme.type = 'text/javascript';
+            trme.async = true;
+            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(trme, s);
+        })();
+    </script>
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

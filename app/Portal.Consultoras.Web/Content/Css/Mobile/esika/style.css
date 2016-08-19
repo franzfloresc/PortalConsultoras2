@@ -5710,7 +5710,7 @@ input[type="checkbox"]:checked + span:after {
     
 }
 
-* ver mas la fleca abajo => poner solo la clase al contenedor*/
+/* ver mas la fleca abajo => poner solo la clase al contenedor*/
 
 .ver-mas-vertical span.icono{visibility:hidden}
 
