@@ -10,8 +10,7 @@
 @if (permisoList.Count > 0)
 {
     <ul id="ulNavPrincipal" class="nav_principal">
-        <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->
-        @*<li class="new_menu"><a class="new_menu_a" href="#">SOCIA EMPRESARIA</a></li>*@
+        <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->       
         @foreach (var menuPadre in permisoList)
         {
             var pageTarget = menuPadre.PaginaNueva ? "_blank" : "_self";
@@ -35,9 +34,11 @@
                                 var addIngPedido = false;
                                 var divHtmlF = "";
                                 var addImgen = false;
+                                var final = false;
                                 foreach (var menuHijo in menuPadre.SubMenus)
                                 {
                                     var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
+                                    
                                     //SI TIENE NIETOS
                                     if (menuHijo.SubMenus.Count > 0)
                                     {
@@ -93,7 +94,9 @@
                                         if (contadorRe == 0 && !addIngPedido)
                                         {
                                             contadorRe++;
-                                            <a class="menu_titulo">INGRESA TU PEDIDO</a>
+                                            <a href="javascript:;" class="menu_titulo" onclick=" return SetAnalyticsMenu('Index', 'Pedido', 0, 'Pedido')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                INGRESA TU PEDIDO
+                                            </a>
                                             addIngPedido = true;
                                         }
                                         if (string.IsNullOrEmpty(menuHijo.UrlItem))
@@ -116,32 +119,33 @@
                                         }
 
                                         contadorRe++;
-                                        if (contadorRe%5 == 4)
+                                        if (contadorRe == 5 || (final && contadorRe == menuPadre.SubMenus.Count()-4))
                                         {
                                             @Html.Raw(divHtmlF)
                                             divHtmlF = "";
                                             contadorRe = 0;
+                                            final = true;
                                         }
                                     }
                                 }
 
                                 if (addImgen)
                                 {
-                                    <a class="menu_imagen">
-                                        <img src="../Content/Images/Esika/catalogo_menu.png"/>
+                                    <a href="javascript:;" class="menu_imagen" onclick=" return SetAnalyticsMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" id="lnk-pri-miscatalogosrevistas">
+                                        <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_01.png" />
                                         <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
                                     </a>
                                     if (ViewBag.SegmentoConsultoraMenu == 1)
                                     {
                                         <a class="menu_imagen no_margin_right">
-                                            <img src="../Content/Images/Esika/catalogo_menu.png" />
+                                            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_02.png" />
                                             <div class="titulo_imagen">PROGRAMA NUEVAS</div>
                                         </a>
                                     }
                                     else if (ViewBag.SegmentoConsultoraMenu != 1 && ViewBag.codigoISOMenu != "VE")
                                     {
                                         <a class="menu_imagen no_margin_right">
-                                            <img src="../Content/Images/Esika/catalogo_menu.png" />
+                                            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_03.png" />
                                             <div class="titulo_imagen">BRILLANTE 2016</div>
                                         </a>
                                     }
@@ -157,19 +161,16 @@
                 //Menu padre sin hijos
                 switch (menuPadre.Descripcion.ToUpperInvariant())
                 {
-                        @*case "SOCIA EMPRESARIA":
-                            if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
-                            {
-                                <li class="new_menu">
-                                    <a href="javascript:;" onclick="return setanalyticsmenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                        @menuPadre.Descripcion
-                                    </a>
-                                    <script type="text/javascript">
-                                        document.getElementById("ulNavPrincipal").className += " menu_socia_empresaria";
-                                    </script>
-                                </li>
-                            }
-                            break;*@
+                    case "SOCIA EMPRESARIA":
+                        if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a" onclick="return setanalyticsmenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        break;
                     case "MI COMUNIDAD":
                         if (ViewBag.EsUsuarioComunidad == 0)
                         {
