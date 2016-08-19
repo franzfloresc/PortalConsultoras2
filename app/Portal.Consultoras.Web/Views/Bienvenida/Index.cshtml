@@ -810,21 +810,21 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Nombres</label>
-                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" />
+                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora"/>
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Apellidos</label>
-                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" />
+                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de casa</label>
-                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono"/>
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono celular</label>
-                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -864,18 +864,18 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" />
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto"/>
                     </div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono"/>
                     </div>
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
