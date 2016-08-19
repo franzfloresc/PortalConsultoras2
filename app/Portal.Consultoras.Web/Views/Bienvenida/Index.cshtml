@@ -395,7 +395,11 @@
         <br />
     </div>
 </div>
-
+<div class="flecha_scroll">
+    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+        <img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />
+    </a>
+</div>
 <!-- POPUP COMUNICADO -->
 @*<div id="divComunicado">
         <div class="terminos_title_2">
@@ -1458,6 +1462,18 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript">
 
+    function animacionFlechaScroll() {
+
+        $(".flecha_scroll").animate({
+            'top': '87%'
+        }, 600, 'swing', function () {
+            $(".flecha_scroll").animate({
+                'top': '90%'
+            }, 600, 'swing');
+        });
+
+    }
+
     function agregarProductoAlCarrito(o) {
         var btnClickeado = $(o);
         var contenedorItem = btnClickeado.parent().parent();
@@ -1505,6 +1521,8 @@
         }, function () {
             $(".info_cam").fadeOut(200);
         });
+
+        setInterval(animacionFlechaScroll, 2000);
 
     });
 

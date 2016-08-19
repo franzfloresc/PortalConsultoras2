@@ -110,6 +110,25 @@ header {
     z-index:2000;
 }
 
+.flecha_scroll{
+    display: block;
+    position: fixed;
+    top: 90%;
+    right: 1.5%;
+    width: 40px;
+    height: 40px;
+    z-index: 1000;
+}
+
+.flecha_scroll a{
+    display:block;
+}
+
+.flecha_scroll a img{
+    width:100%;
+    height:auto;
+}
+
 .campana_svg {
     float: left;
     width: 20px;
