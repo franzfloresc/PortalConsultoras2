@@ -36,93 +36,93 @@
                                 var divHtmlF = "";
                                 var addImgen = false;
                                 foreach (var menuHijo in menuPadre.SubMenus)
-                                {                                 
-                                     var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
-                                     //SI TIENE NIETOS
-                                     if (menuHijo.SubMenus.Count > 0)
-                                     {
-                                         margin = contador > 5 ? "no_margin_right" : "";
-                                         <div class="content_left_menu @(margin)">
-                                             @if (!string.IsNullOrEmpty(menuHijo.Descripcion))
-                                             {
-                                                 <a class="menu_enlace" href="#">
-                                                     <b>@menuHijo.Descripcion</b>
-                                                 </a>
+                                {
+                                    var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
+                                    //SI TIENE NIETOS
+                                    if (menuHijo.SubMenus.Count > 0)
+                                    {
+                                        margin = contador > 5 ? "no_margin_right" : "";
+                                        <div class="content_left_menu @(margin)">
+                                            @if (!string.IsNullOrEmpty(menuHijo.Descripcion))
+                                            {
+                                                <a class="menu_enlace" href="#">
+                                                    <b>@menuHijo.Descripcion</b>
+                                                </a>
 
-                                                 foreach (var menuNieto in menuHijo.SubMenus)
-                                                 {
-                                                     var pageTargetNieto = menuNieto.PaginaNueva ? "_blank" : "_self";
+                                                foreach (var menuNieto in menuHijo.SubMenus)
+                                                {
+                                                    var pageTargetNieto = menuNieto.PaginaNueva ? "_blank" : "_self";
 
-                                                     if (string.IsNullOrEmpty(menuNieto.UrlItem))
-                                                     {
-                                                         <a href="javascript:;" class="menu_enlace">
-                                                             @menuNieto.Descripcion
-                                                         </a>
-                                                     }
-                                                     else if (menuNieto.EsDireccionExterior)
-                                                     {
-                                                         <a href="javascript:;" class="menu_enlace" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
-                                                             @menuNieto.Descripcion
-                                                         </a>
-                                                     }
-                                                     else
-                                                     {
-                                                         <a href="javascript:;" class="menu_enlace" onclick="return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]',@Convert.ToInt32(menuNieto.PaginaNueva),    '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
-                                                             @menuNieto.Descripcion
-                                                         </a>
-                                                     }
-                                                     contador++;
-                                                 }
-                                             }
-                                         </div>
-                                     }
-                                     else
-                                     {
-                                         addImgen = true;
-                                         var divHtml = "";
-                                         if (contadorRe % 5 == 0)
-                                         {
-                                             divHtml = "<div class='content_left_menu'>";
-                                             divHtmlF = "</div>";
-                                         }
-                                         
-                                         if (divHtml != "")
-                                         {
-                                             @Html.Raw(divHtml)
-                                         }
-                                         if (contadorRe == 0 && !addIngPedido)
-                                             {
-                                                 contadorRe++;
-                                                 <a class="menu_titulo">INGRESA TU PEDIDO</a>
-                                                 addIngPedido = true;
-                                             }
-                                             if (string.IsNullOrEmpty(menuHijo.UrlItem))
-                                             {
-                                                 <a href="javascript:;" class="menu_enlace">
-                                                     @menuHijo.Descripcion
-                                                 </a>
-                                             }
-                                             else if (menuHijo.EsDireccionExterior)
-                                             {
-                                                 <a href="javascript:;" class="menu_enlace" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion')" target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
-                                                     @menuHijo.Descripcion
-                                                 </a>
-                                             }
-                                             else
-                                             {
-                                                 <a href="javascript:;" class="menu_enlace" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion')" target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
-                                                     @menuHijo.Descripcion
-                                                 </a>
-                                             }
+                                                    if (string.IsNullOrEmpty(menuNieto.UrlItem))
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else if (menuNieto.EsDireccionExterior)
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    contador++;
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        addImgen = true;
+                                        var divHtml = "";
+                                        if (contadorRe%5 == 0)
+                                        {
+                                            divHtml = "<div class='content_left_menu'>";
+                                            divHtmlF = "</div>";
+                                        }
 
-                                         contadorRe++;
-                                         if (contadorRe % 5 == 4)
-                                         {
-                                             @Html.Raw(divHtmlF)
-                                             divHtmlF = "";
-                                             contadorRe = 0;
-                                         }
-                                     }
+                                        if (divHtml != "")
+                                        {
+                                            @Html.Raw(divHtml)
+                                        }
+                                        if (contadorRe == 0 && !addIngPedido)
+                                        {
+                                            contadorRe++;
+                                            <a class="menu_titulo">INGRESA TU PEDIDO</a>
+                                            addIngPedido = true;
+                                        }
+                                        if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                                        {
+                                            <a href="javascript:;" class="menu_enlace">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else if (menuHijo.EsDireccionExterior)
+                                        {
+                                            <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+
+                                        contadorRe++;
+                                        if (contadorRe%5 == 4)
+                                        {
+                                            @Html.Raw(divHtmlF)
+                                            divHtmlF = "";
+                                            contadorRe = 0;
+                                        }
+                                    }
                                 }
 
                                 if (addImgen)
@@ -147,8 +147,7 @@
                                     }
                                 }
 
-}
-}
+                            }
                          </li>
                     </ul>
                 </li>
