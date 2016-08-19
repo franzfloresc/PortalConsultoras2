@@ -807,7 +807,7 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
     var ofertaFinal = $("#hdTipoOfertaFinal").val();
     var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
-    esJetlore = ofertaFinal == "True" || catalogoPersonalizado == "True";
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -824,7 +824,7 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
     var ofertaFinal = $("#hdTipoOfertaFinal").val();
     var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
-    esJetlore = ofertaFinal == "True" || catalogoPersonalizado == "True";
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
     if (esJetlore) {
         JL.tracker.removeFromCart({
@@ -833,5 +833,19 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
             option_id: campania
         });
     }    
+}
+
+function TrackingJetloreRemoveAll(lista) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart(lista);
+
+    }
 }
 /* Fin Tracking Jetlore */
