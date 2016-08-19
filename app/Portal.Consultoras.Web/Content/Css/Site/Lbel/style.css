@@ -3111,8 +3111,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .producto_img img {
     width: auto;
-    height: 93.5%;
-    margin-left: -90px !important;
+    height: 93.5%;    
 }
 
 .producto_nombre_descripcion{
