@@ -21047,6 +21047,7 @@ hr{
     height:auto;
     float:left;
     margin-top:45px;
+    margin-bottom: 45px;
 }
 .titulo_detalle_pago{
     overflow:hidden;
@@ -21121,6 +21122,7 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+    text-decoration: underline;
 }
 .pedidos_pagos{
     width:25%;
