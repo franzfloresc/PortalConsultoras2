@@ -4216,6 +4216,7 @@ width:100%;
     letter-spacing: .2px;
     color: #000;
     margin-bottom: 12px;
+    
 }
 .boton_Agregalo_home {
     display: block;
@@ -5044,12 +5045,13 @@ body{
 .video_esika{
     width:98px;
     height:66px;
+    margin-bottom:10px;
     background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;
 }
 .liquidacion_esika{
-    width:110px;
-    height:63px;
-    margin-top:35px;
+    width: 110px;
+    min-height: 55px;
+    margin-top: 9px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
 
@@ -6152,6 +6154,32 @@ input[type="checkbox"]:checked + span:after {
     height:2px;
     margin-top:-1px;
     background:#e81c36;   
+}
+.pop_sugerido_mobile{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    background: white;
+    top: 176px;
+    padding-top:20px;
+    padding-bottom: 36px;
+    z-index: 1000;
+    -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+    box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+}
+.pop_sugerido_mobile:before{
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(3, 3, 3, 0);
+	border-bottom-color: white;
+	border-width: 11px;
+	margin-left: -11px;
 }
 .importe_final{
     font-family:'Lato';

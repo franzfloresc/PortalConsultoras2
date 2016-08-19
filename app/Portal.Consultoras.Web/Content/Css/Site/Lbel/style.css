@@ -268,7 +268,7 @@ header {
 
 .content_left_menu{
     float:left;
-    margin-right:58px;
+    margin-right:53px;
     margin-top:40px;
     
 }
@@ -4926,6 +4926,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label{
     display:block;
+    cursor: text;
 }
 
 .grupo_input_actualizarMisDatos{
@@ -20957,6 +20958,7 @@ hr{
     height:auto;
     float:left;
     margin-top:45px;
+    margin-bottom: 45px;
 }
 .titulo_detalle_pago{
     overflow:hidden;
@@ -21022,6 +21024,7 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+    text-decoration: underline;
 }
 .pedidos_pagos{
     width:25%;
@@ -22233,7 +22236,7 @@ body{
     -webkit-transition:height 0.5s ease;*/
 }
 
-.btn_cerrar_popup_pedidosFacturados{
+.btn_cerrar_popup_pedidosFacturados, .btn_cerrar_popup_notificaciones{
     display: block;
     position: relative;
     top: 4%;
@@ -25033,6 +25036,16 @@ div.subir_archivo input {
     position:relative;
     overflow:hidden;
 }
+.aviso_mensajes{
+    font-family:'lato';
+    font-weight:300;
+    font-size:12pt;
+    color:black;
+    float:left;
+    margin-left:10px;
+    margin-top:3px;
+    margin-bottom:20px;
+}
 
 .saludo_aniversario{
     color:#613c87;
@@ -25041,6 +25054,114 @@ div.subir_archivo input {
     margin-top:15px;
     margin-bottom:50px;
     overflow:hidden;
+}
+.PopUpNotificaciones{
+    width: 100%;
+    top: 61px;
+    position: absolute;
+    z-index: 899;
+    background: #fff;
+    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    display:none;
+}
+.fondo_popNoti{
+    width: 100%;
+    height: 130px;
+    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat left bottom;
+
+}
+.content_popNotificaciones{
+    max-width: 1189px;
+    margin:0 auto;
+    position: relative;
+    overflow:hidden;
+    font-family:'Lato';
+}
+.saludo_notificaciones{
+    font-family:'Lato';
+    font-size:13pt;
+    color:white;
+    margin-top:60px;
+}
+.texto_titulo_noti{    
+    font-size:16pt;
+    letter-spacing:0.25px;
+    color:black;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.texto_secundario_noti{
+    font-weight:300;
+    font-size:10pt;
+    margin-bottom:30px;
+}
+.texto_secundario_noti span{
+    text-transform:uppercase;
+    letter-spacing:0.25px;
+}
+.texto_detalle{
+    font-size:10pt;
+    letter-spacing:0.25px;
+    margin-bottom:5px;
+}
+.cantidad_productos_notificaciones {
+    float: left;
+    margin-left: 33%;   
+    margin-bottom: 17px;
+    font-size:10pt;
+}
+.cantidad_productos_notificaciones span{
+    margin-right:20px;
+}
+.content_listado_notificaciones{
+    width:100%;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+}
+.cod_venta_notificaciones{
+    width:15%;
+    display:inline-block;
+    vertical-align:middle;
+    padding-left:15px;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+
+.descripcion_notificaciones{
+    width: 20%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15%;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.cantidad_notificaciones{
+    width:13%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:center;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.unitario_notificaciones{
+    width:17%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:right;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.total_notificaciones{
+    width:18%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:right;
+    padding-top:23px;
+    padding-bottom:23px;
 }
 
 /*CLIENTES*/
@@ -25583,7 +25704,7 @@ input[type="checkbox"]:checked + span:after {
     font-size: 12px;
     font-weight: 900;
     line-height: 1.26;
-    color: #e81c36;
+    color: #613c87;
 }
 .agrega_barra{
     Font-family: 'Lato';
@@ -25618,9 +25739,9 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    margin-left: 31.5%;
+    /*margin-left: 31.5%;*/
     margin-top: 4px;
-    background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
+    background: url("../../../Images/mobile/Lbel/bandera.png") no-repeat;
 }
 .BarraPosicion{
     background: rgba(255,255,255,1);
@@ -26135,6 +26256,35 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background:#f0f0f0;
 }
 
+.mensaje_producto_validado{    
+    width: 100%;
+    height: 55px;
+    background: #f0f0f0;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    line-height: 55px;
+    padding-left: 20px;
+    position: relative;
+    margin-top: -1px;
+}
+.mensaje_producto_validado:before{
+    bottom: 99%;
+    left: 20%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(240, 240, 240, 0);
+    border-bottom-color: #f0f0f0;
+    border-width: 12px;
+    margin-left: -12px;
+    z-index: 20;
+}
+
 /* MIS BENEFICIOS */
 
 .banner_misBeneficios{
@@ -26280,4 +26430,3 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
 }
-
