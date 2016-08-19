@@ -5053,11 +5053,12 @@ body{
     min-height: 55px;
     margin-top: 9px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
+    margin-bottom: 0px;
 }
 
 .liquidacion_esika img{
     width: 110px;
-    height: 55px;
+    /*height: 55px;*/
 }
 .texto_ws{
     display:block;

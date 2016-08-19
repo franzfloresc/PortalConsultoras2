@@ -291,7 +291,7 @@ header {
 
 }
 .menu_imagen{
-    margin-top:40px;
+    /*margin-top:40px;*/
     margin-right:45px;
     margin-left:13px;
     float:left;
@@ -25948,7 +25948,7 @@ position: relative; float: left;
     font-size:13px;
 }
 .icono_exclamacion_alerta{
-    background:url(../../../Images/Lbel/icono_exclamacion_esika.svg) no-repeat;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat;
     background-size:cover;
 }
 
