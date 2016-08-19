@@ -103,6 +103,7 @@
                 <div class="total_listado texto_gris">Precio Total</div>
                 <div class="cliente_listado texto_gris">Cliente</div>
             </div>
+            <div class="linea_separadora"></div>
 
             <div id="divListado"></div>
             <!--
@@ -141,11 +142,11 @@
                 <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
-                    @{ decimal msd = (Convert.ToDecimal(Model.Total) + ViewBag.Descuento); }
+                    @{ decimal msd =  (Convert.ToDecimal(Model.Total) + (Math.Abs(ViewBag.Descuento)) ) ; }
                     <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @msd </div>
                     <hr class="clear" />
                     <div class="monto_1">Dscto. por niveles </div>
-                    <div class="monto_numero">@Model.Simbolo -@ViewBag.Descuento</div>
+                    <div class="monto_numero">@Model.Simbolo @ViewBag.Descuento</div>
                 </div>
                 <!--FIN-->
             </div>
@@ -376,7 +377,6 @@
 
 <script id="producto-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div class="linea_separadora" style="margin-top:-1px;"></div>
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
         <div class="descripcion_listado">{{DescripcionProd}}</div>
@@ -389,7 +389,7 @@
     {{#IsNullOrEmpty ObservacionPROL '!='}}
 
     <div class="content_listado_notificaciones">
-        {{Split ObservacionPROL '|' 0}}
+        <div class="mensaje_producto_validado">{{Split ObservacionPROL '|' 0}}</div>           
     </div>
     {{/IsNullOrEmpty}}
 
