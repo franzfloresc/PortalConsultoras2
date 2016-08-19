@@ -4926,6 +4926,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label{
     display:block;
+    cursor: text;
 }
 
 .grupo_input_actualizarMisDatos{
