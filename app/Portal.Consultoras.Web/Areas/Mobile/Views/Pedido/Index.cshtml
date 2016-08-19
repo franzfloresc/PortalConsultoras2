@@ -230,6 +230,38 @@
 </div>
 <!--FIN-->
 
+<!--+CRITERIOS DE ACEPTACIÓN+-->
+
+<!--POP MENSAJE IMPORTANTE-->
+<div id="MensajeImportante" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeImportante').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">Tu pedido tiene observaciones, por favor revísalo</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+<!--POP MENSAJE LO LOGRASTE-->
+<div id="MensajeLograste" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this.ListaEstrategias as |detalle|}}
     <div class="content_item_home" data-item="item">
