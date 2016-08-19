@@ -1612,6 +1612,7 @@
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
     <Content Include="Content\Images\flecha_scroll.svg" />
+    <Content Include="Content\Images\flecha_scroll_arriba.svg" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
     <Content Include="Content\Images\flecha_volver_mobile.svg" />
     <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />

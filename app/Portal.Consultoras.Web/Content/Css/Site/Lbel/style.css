@@ -111,22 +111,35 @@ header {
 }
 
 .flecha_scroll{
-    display: block;
+    display:block;
     position: fixed;
     top: 90%;
-    right: 1.5%;
-    width: 40px;
-    height: 40px;
+    right: 2%;
+    width: 35px;
+    height: 35px;
     z-index: 1000;
 }
 
 .flecha_scroll a{
     display:block;
+    height:35px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    background:url(../../../Images/flecha_scroll.svg) no-repeat center center;
+    background-size:cover;
 }
 
-.flecha_scroll a img{
-    width:100%;
-    height:auto;
+.flecha_scroll_arriba{
+    background:url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center!important;
+    background-size:cover;
+}
+
+.flecha_scroll a:hover{
+    opacity:0.5;
 }
 
 .campana_svg {
@@ -3126,6 +3139,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /*width:96.5px;*/
     height:200px;
     text-align:center;
+    overflow:hidden;
+}
+
+.producto_img img{
+    width: auto;
+    height: 93.5%;
+}
+
+.producto_img_home img{
+    width: auto;
+    height: 93.5%;
 }
 
 .etiqueta_producto {

@@ -397,7 +397,7 @@
 </div>
 <div class="flecha_scroll">
     <a href="#" title="Flecha Scroll" class="enlace_scroll">
-        <img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />
+        @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
     </a>
 </div>
 <!-- POPUP COMUNICADO -->
@@ -1462,71 +1462,138 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript">
 
-    function animacionFlechaScroll() {
+    // MICROEFECTO AGREGAR PRODUCTOS AL CARRITO DE COMPRA
 
-        $(".flecha_scroll").animate({
-            'top': '87%'
-        }, 600, 'swing', function () {
-            $(".flecha_scroll").animate({
-                'top': '90%'
-            }, 600, 'swing');
-        });
+        // Funcion de animación al agregar productos al carrito
 
-    }
+        function agregarProductoAlCarrito(o) {
+            var btnClickeado = $(o);
+            var contenedorItem = btnClickeado.parent().parent();
+            var imagenProducto = $('.imagen_producto', contenedorItem);
+            var carrito = $('.campana');
 
-    function agregarProductoAlCarrito(o) {
-        var btnClickeado = $(o);
-        var contenedorItem = btnClickeado.parent().parent();
-        var imagenProducto = $('.imagen_producto', contenedorItem);
-        var carrito = $('.campana');
+            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
-        }).animate({
-            'top': carrito.offset().top - 30,
-            'left': carrito.offset().left + 115,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 300, 'swing', function () {
-            $(this).animate({
-                'top': carrito.offset().top,
-                'opacity': 0,
-            }, 100, 'swing', function () {
-                $(".campana .info_cam").fadeIn(200);
-                $(".campana .info_cam").delay(2500);
-                $(".campana .info_cam").fadeOut(200);
-                $(this).remove();
+            $(".transicion").css({
+                'height': imagenProducto.css("height"),
+                'width': imagenProducto.css("width"),
+                'top': imagenProducto.offset().top,
+                'left': imagenProducto.offset().left,
+            }).animate({
+                'top': carrito.offset().top - 30,
+                'left': carrito.offset().left + 115,
+                'height': carrito.css("height"),
+                'width': carrito.css("width"),
+                'opacity': 0.5
+            }, 300, 'swing', function () {
+                $(this).animate({
+                    'top': carrito.offset().top,
+                    'opacity': 0,
+                }, 100, 'swing', function () {
+                    $(".campana .info_cam").fadeIn(200);
+                    $(".campana .info_cam").delay(2500);
+                    $(".campana .info_cam").fadeOut(200);
+                    $(this).remove();
+                });
             });
+        }
+
+        $(document).ready(function () {
+
+            // Microefecto al agregar productos al carrito de compras
+
+            $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+                e.preventDefault();
+
+                agregarProductoAlCarrito(this);
+
+            });
+
+            $(".campana.cart_compras").hover(function () {
+                $(".info_cam").fadeIn(200);
+            }, function () {
+                $(".info_cam").fadeOut(200);
+            });
+
+            // MICROEFECTO FLECHA HOME
+
+                // Función de animación de la flecha scroll 
+
+                function animacionFlechaScroll() {
+
+                    $(".flecha_scroll").animate({
+                        'top': '87%'
+                    }, 450, 'swing', function () {
+                        $(this).animate({
+                            'top': '90%'
+                        }, 150, 'swing', function () {
+                            $(this).animate({
+                                'top': '89.5%'
+                            }, 100, 'swing', function () {
+                                $(this).animate({
+                                    'top': '90.5%'
+                                }, 450, 'swing');
+                            });
+                        });
+                    });
+
+                }
+
+                // Intervalo Microefecto Flecha Scroll
+
+                setInterval(animacionFlechaScroll, 2000);
+
+                // Funcion para cambiar background según posicion de scroll
+
+                $(window).scroll(function () {
+
+                    if ($(window).scrollTop() > 1920) {
+
+                        $(".flecha_scroll").animate({
+                            opacity: 0
+                        }, 100, 'swing', function () {
+                            $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                            $(".flecha_scroll").delay(100);
+                            $(".flecha_scroll").animate({
+                                opacity:1
+                            },200,'swing');
+                        });
+
+
+                    } else {
+
+                        $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+
+                    }
+
+                });
+
+                // Evento click que ocurre en la flecha scroll
+
+                $(".flecha_scroll").on('click', function (e) {
+
+                    e.preventDefault();
+                    var posicion = $(window).scrollTop();
+                    if (posicion > 1920) {
+
+                        $('html, body').animate({
+                            scrollTop: $('html, body').offset().top
+                        }, 1000, 'swing');
+
+                    } else {
+
+                        $('html, body').animate({
+                            scrollTop: posicion + 700
+                        }, 1000, 'swing');
+
+                    }
+
+                });
+
         });
-    }
 
-    $(document).ready(function () {
-
-        $(document).on("click", ".boton_Agregalo_home", function (e) {
-
-            e.preventDefault();
-
-            agregarProductoAlCarrito(this);
-
-        });
-
-        $(".campana.cart_compras").hover(function () {
-            $(".info_cam").fadeIn(200);
-        }, function () {
-            $(".info_cam").fadeOut(200);
-        });
-
-        setInterval(animacionFlechaScroll, 2000);
-
-    });
-
-</script>
+    </script>
     <script type="text/javascript">
     var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
     var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
