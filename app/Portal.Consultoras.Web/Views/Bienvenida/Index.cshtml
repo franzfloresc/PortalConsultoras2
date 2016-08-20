@@ -19,7 +19,7 @@
             nombreConsultora += "!";
         }
     }
-    
+
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
 
@@ -161,7 +161,7 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-               @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+                @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
@@ -193,9 +193,9 @@
             <div>MIS GANANCIAS</div>
             <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
         </div>
-        <hr class="clear"/>
+        <hr class="clear" />
         <div class="info_centro">
-              @{
+            @{
                 string cabezaEscala = null, pieEscala = null;
                 if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                     || Model.PaisID == 13 || Model.PaisID == 12) //PERU
@@ -217,7 +217,7 @@
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
-                }                        
+                }
             }
             @(cabezaEscala)
             <div class="deuda_home">
@@ -302,7 +302,7 @@
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
-    <div class="content_video_home" style="display:block;" id="divTutoriales">
+    <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -319,9 +319,8 @@
 
     </div>
     <!-- FIN TUTORIALES-->
-
     <!-- SIN TUTORIALES -->
-    <div class="content_video_home sinTutoriales" style="display:none;" id="divSinTutoriales">
+    <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -330,19 +329,18 @@
             <div class="item_video">
             </div>
         </div>
-        <div class="item_video_right" >
+        <div class="item_video_right">
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
                 <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
                 <a href="@Url.Action("Index", "MiAcademia")" title="Ir a Mi Academia">
                     <span class="icono_arrow">&#9658;</span><span>IR A "MI ACADEMIA"</span>
                 </a>
-            </div>            
+            </div>
         </div>
     </div>
 
     <!-- FIN SIN TUTORIALES-->
-
     <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
@@ -355,24 +353,23 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-                            <a href="#">
-                                ¿Cómo conseguir tu primer pedido?
-                            </a>
-                        </span>
-                            <a href="#">
-                                Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-                            </a>
-                        </span>
-                            <a href="#">
-                                ¿Cómo fidelizar a un cliente?
-                            </a>
-                        </span>
+            <a href="#">
+                ¿Cómo conseguir tu primer pedido?
+            </a>
+            </span>
+            <a href="#">
+                Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
+            </a>
+            </span>
+            <a href="#">
+                ¿Cómo fidelizar a un cliente?
+            </a>
+            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
-
     <!--CAROUSEL LIQUIDACION HOME-->
-    <div class="carrusel_liquidacion" style="display:block;">
+    <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
         </div>
@@ -385,7 +382,6 @@
         </div>
     </div>
     <!--FIN CAROUSEL LIQUIDACION HOME-->
-
     <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
@@ -810,21 +806,21 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Nombres</label>
-                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" />
+                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Apellidos</label>
-                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" />
+                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de casa</label>
-                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono celular</label>
-                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -864,18 +860,18 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" />
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
                     </div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
                     </div>
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1028,11 +1024,11 @@
         </div>
         <div class="contenido_popUp">
             <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
-            <input type="hidden" id="hdn_CorreoMD" value=""/>
-            <input type="hidden" id="hdn_CodigoUsuarioMD" value=""/>
-            <input type="hidden" id="hdn_NombreCompletoMD" value=""/>
-            <input type="hidden" id="hdn_NombreArchivoContratoMD" value=""/>
-            
+            <input type="hidden" id="hdn_CorreoMD" value="" />
+            <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
+            <input type="hidden" id="hdn_NombreCompletoMD" value="" />
+            <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
                     <div class="datos_consultora_img">
@@ -1058,21 +1054,21 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
-                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD"/>
+                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD"/>
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>Tu teléfono:</label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD"/>
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
                     </div>
                     <div>
                         <label>Tu celular:</label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD"/>
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
@@ -1096,17 +1092,17 @@
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
                         <label>Tu contraseña</label>
-                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior"/>
+                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
                         <label>Nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01"/>
+                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
                     </div>
                     <div>
                         <label>Repite la nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02"/>
+                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
@@ -1169,7 +1165,7 @@
                 </p>
                 {{/if_eq}}
 
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                 {{#if_eq EtiquetaID '1'}}
                 <div class="producto_precio">
                     <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
@@ -1458,39 +1454,39 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
 
     <script type="text/javascript">
-    var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
-    var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
-    var viewBagPrimeraVez = '@Model.PrimeraVez';
-    var ViewBagRutaChile = '@Model.rutaChile';
-    var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-    var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
-    var viewBagCambioClave = '@Model.CambioClave';
-    var viewBagPaisID = '@Model.PaisID';
-    var viewBagIndicadorContrato = '@Model.IndicadorContrato';
-    var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
-    var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
-    var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
-    var viewBagCampanaInvitada = '@Model.CampanaInvitada';
-    var viewBagCampaniaActual = '@Model.CampaniaActual';
-    var viewBagNroCampana = '@Model.NroCampana';
-    var viewBagCodigoConsultora = '@Model.CodigoConsultora';
-    var viewBagPrefijoPais = '@Model.PrefijoPais';
-    var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
-    var viewBagRolID = '@ViewBag.Rol';
-    var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
-    var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
-    var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
-    var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
-    var viewBagValidaSegmento = '@Model.ValidaSegmento';
-    var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
-    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-    var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-    var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
-    var contadorFondoPopUp = 0;
-    var sessionIsContrato = '@Session["IsContrato"]';
-    @{ Session["IsContrato"] = 0; }
-    var paisISO = '@ViewBag.CodigoISODL';
-    var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+        var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+        var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+        var viewBagPrimeraVez = '@Model.PrimeraVez';
+        var ViewBagRutaChile = '@Model.rutaChile';
+        var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+        var viewBagCambioClave = '@Model.CambioClave';
+        var viewBagPaisID = '@Model.PaisID';
+        var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+        var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+        var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+        var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
+        var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var viewBagNroCampana = '@Model.NroCampana';
+        var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+        var viewBagPrefijoPais = '@Model.PrefijoPais';
+        var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+        var viewBagRolID = '@ViewBag.Rol';
+        var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+        var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
+        var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
+        var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
+        var viewBagValidaSegmento = '@Model.ValidaSegmento';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+        var contadorFondoPopUp = 0;
+        var sessionIsContrato = '@Session["IsContrato"]';
+        @{ Session["IsContrato"] = 0; }
+        var paisISO = '@ViewBag.CodigoISODL';
+        var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
 }
