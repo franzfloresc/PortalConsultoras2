@@ -202,6 +202,7 @@ $(document).ready(function () {
                                         $(txtCantidad).val(1);
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
                                         CargarResumenCampaniaHeader(true);
+                                        TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         $('#divVistaPrevia').dialog('close');
                                     }
                                     else {
@@ -316,6 +317,7 @@ $(document).ready(function () {
                                         $(txtCantidad).val(1);
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
                                         CargarResumenCampaniaHeader(true);
+                                        TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     }
                                     else {
                                         alert_msg(data.message);

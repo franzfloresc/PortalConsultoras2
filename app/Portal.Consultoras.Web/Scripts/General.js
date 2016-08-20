@@ -250,6 +250,11 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
+    
+    ActualizarGanancia = function (data) {
+        data = data || new Object();
+        $("[data-ganancia]").html(data.MontoGananciaStr || "");
+    }
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -473,10 +478,6 @@ function paginadorAccionGenerico(obj) {
     return rpt;
 }
 //R2116-INICIO
-
-function ActualizarGanancia(data) {
-    $("[data-ganancia]").html(data.MontoGananciaStr || "");
-}
 
 FuncionesGenerales = {
     ValidarSoloNumeros: function(e) {

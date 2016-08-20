@@ -979,7 +979,7 @@
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" id="txtLPCli{{PedidoDetalleID}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico"
-                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -1322,6 +1322,8 @@
         var dataBarra = JSON.parse($("#hdDataBarra").val());
         dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat('@Model.Total', 10);
         var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
+        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
+        $("#hdDataBarra, #hdListaEscala").val("");
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
 
     </script>

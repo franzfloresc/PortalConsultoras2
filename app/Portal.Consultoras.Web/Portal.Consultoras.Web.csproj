@@ -1477,7 +1477,6 @@
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\Esika\catalogo_menu.png" />
-    <Content Include="Content\Images\Esika\catálogos.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1701,7 +1700,6 @@
     <Content Include="Content\Images\Lbel\carrito_resumen.png" />
     <Content Include="Content\Images\Lbel\catalogo.png" />
     <Content Include="Content\Images\Lbel\catalogos.png" />
-    <Content Include="Content\Images\Lbel\catálogos.png" />
     <Content Include="Content\Images\Lbel\celular.png" />
     <Content Include="Content\Images\Lbel\check_liquidacion.png" />
     <Content Include="Content\Images\Lbel\circulo.png" />
@@ -1976,6 +1974,7 @@
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
+    <Content Include="Content\Images\mobile\Lbel\bandera.png" />
     <Content Include="Content\Images\mobile\Lbel\camara.png" />
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
@@ -2223,6 +2222,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -2417,6 +2417,8 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />

@@ -151,5 +151,12 @@ namespace Portal.Consultoras.Common
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
         }
+
+        public class TipoOfertaFinalCatalogoPersonalizado
+        {
+            public const int SinConfiguracion = 0;
+            public const int Arp = 1;
+            public const int Jetlore = 2;
+        }
     }
 }

@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Optimization;
 
-
 namespace Portal.Consultoras.Web
 {
     public class BundleConfig
@@ -32,12 +31,12 @@ namespace Portal.Consultoras.Web
             //ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin
 
             bundles.Add(new ScriptBundle("~/bundles/JQueryJs").Include(
-               "~/Scripts/jquery-*",
-               "~/Scripts/jquery-migrate-*",
-               "~/Scripts/jquery.validate*",
-               "~/Scripts/jquery.validate.unobtrusive*",
-               "~/Scripts/jquery.unobtrusive-ajax*",
-               "~/Scripts/jquery-ui-1.9.2.custom*"));
+               "~/Scripts/jquery-{version}.js",
+               "~/Scripts/jquery-migrate-{version}.js",
+               "~/Scripts/jquery.validate.js",
+               "~/Scripts/jquery.validate.unobtrusive.js",
+               "~/Scripts/jquery.unobtrusive-ajax.js",
+               "~/Scripts/jquery-ui-1.9.2.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
                "~/Scripts/Jqgrid/grid.locale-sp*",
@@ -89,11 +88,11 @@ namespace Portal.Consultoras.Web
             #region Bundles para Web Mobile
 
             bundles.Add(new ScriptBundle("~/Scripts/Mobile").Include(
-                "~/Scripts/jquery-*",
-                "~/Scripts/jquery-ui-*",
-                "~/Scripts/jquery.validate*",
-                "~/Scripts/jquery.validate.unobtrusive*",
-                "~/Scripts/bootstrap.*",
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
                 "~/Scripts/General.js"));
@@ -164,7 +163,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
                 "~/Scripts/modernizr.custom.js",
-                "~/Scripts/respond.min.js",
+                "~/Scripts/respond.js",
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",

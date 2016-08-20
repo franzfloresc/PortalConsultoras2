@@ -183,7 +183,85 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<!--POP UP PRODUCTO SUGERIDO-->
+<div class="pop_sugerido_mobile" id="PopSugerido">
+    <div class="wrapper_resumen_mobile">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopSugerido').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:0px;"></div>
+        <div class="mensaje_alerta">
+            Lo sentimos, se nos agotó este producto. Prueba <b>reemplazarlo</b> con
+            alguno de éstos:
+        </div>
+        <div class="contenedor_carrusel_home">
+            <div class="content_item_home">
+                <div class="producto_img_mobile">
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
+                </div>
+                <div class="etiqueta_producto">
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2016837326_01_iibdrrthwy.png" alt="Etiqueta Producto">
+                </div>
 
+                <div class="producto_nombre_descripcion">
+                    <h6>Cyzone</h6>
+                    <p class="nombre_producto">
+                        Cyzone AMILET FRAG FEMENINA 50 ML
+                    </p>
+                    <div class="producto_precio">
+                        <span><strike>S/.40.00</strike></span>
+                        <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
+                    </div>
+                    
+                    <div class="clear"></div>
+                    <a class="boton_Agregalo_home">
+                        AGRÉGALO
+                    </a>
+                </div>
+            </div>
+            <a class="previous_ofertas_mobile" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"  alt=""></a>
+            <a class="previous_ofertas_mobile" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png"></a>
+
+        </div>
+  </div>
+   
+
+</div>
+<!--FIN-->
+
+<!--+CRITERIOS DE ACEPTACIÓN+-->
+
+<!--POP MENSAJE IMPORTANTE-->
+<div id="MensajeImportante" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeImportante').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">Tu pedido tiene observaciones, por favor revísalo</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+<!--POP MENSAJE LO LOGRASTE-->
+<div id="MensajeLograste" class="MensajeAlertaMobile">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this.ListaEstrategias as |detalle|}}
     <div class="content_item_home" data-item="item">

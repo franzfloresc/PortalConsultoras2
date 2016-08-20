@@ -620,32 +620,20 @@ h4.re3 {
             border-bottom: 1px solid #b3bec6;
         }
 .title-line {
+    font-family:'Lato';
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+    padding-top:10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #35bdb2;
-    color: #35bdb2;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    color: #262626;
+    font-weight:900;
+    text-align:center;
 }
-    .title-line:before {
-        content: "";
-        position: absolute;
-        bottom: -8px;
-        left: 50px;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 7px solid #35bdb2;
-    }
-    .title-line:after {
-        content: "";
-        position: absolute;
-        bottom: -7px;
-        left: 50px;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 7px solid #f9f9f9;
-    }
+    
 .bg-white {
     background: #fff;
 }
@@ -1427,38 +1415,84 @@ h4.re3 {
 .icon-nuevo-cliente-white {
     background-image: url(../../../Images/mobile/img-icon/icon-nuevo-cliente-white.png);
 }
+.list-notificaciones{
+    font-family:'Lato';
+    color:black;
+}
 .list-notificaciones li {
     list-style: none;
     border-bottom: 1px solid #ccc;
     padding: 25px 0;
-    padding-left: 15px;
+    /*padding-left: 15px;*/
     position: relative;
-    line-height: 1.2;
+    line-height: 1.4;
     font-size: 14px;
 }
-.list-notificaciones .no-read:before {
+.noti-detalle{
+    margin-top: 20px;
+    padding: 0px 0 15px 0;
+   
+    border-bottom: 1px solid #979797;
+    color: #262626;
+}
+.sub_titulo_noti span{
+    font-weight:900;
+    color:#e81c36;
+    text-transform:uppercase;
+}
+.firma_notificaciones{
+    font-weight:700;
+    margin-top:15px;
+    color: #262626;
+}
+.consultora_saludo_noti{
+    margin-top:10px;    
+}
+.notificaciones_detalle_mobile{
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+}
+.text-noti span:hover:first-child{
+    cursor:pointer;
+    
+}
+/*.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}
+}*/
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
     top: 20px;
 }
 .list-notificaciones .text-noti {
-    padding-left: 85px;
-    padding-bottom: 10px;
+    /*padding-left: 85px;*/
+    /*padding-bottom: 10px;*/
 }
 .list-notificaciones .btn-more {
     text-decoration: none;
     position: absolute;
     right: 0;
     bottom: -3px;
-    color: #35bdb2;
+     font-weight:bold;
+    color: #e81c36;
+}
+.list-notificaciones .btn-more:hover{
+     text-decoration: none;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    font-weight:bold;
+    color: #e81c36;
+}
+.fecha_notificaciones{
+    margin-top: 5px;
+    display: block;
 }
 .block-noti {
     position: relative;
@@ -4228,6 +4262,7 @@ width:100%;
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
+    
     margin-bottom: 12px;
 }
 .boton_Agregalo_home {
@@ -5070,11 +5105,12 @@ body{
 .video_esika{
     width:98px;
     height:66px;
+    margin-bottom:10px;
     background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;
 }
 .liquidacion_esika{
     width:110px;
-    height:63px;
+    
     margin-top:35px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
@@ -5317,7 +5353,7 @@ body{
     height:50px;
     background:black;
     color:white;
-    font-weight: 700;
+    /*font-weight: 700;*/
     font-size: 16px;
     text-align: center;
     line-height:50px;
@@ -5708,7 +5744,7 @@ input[type="checkbox"]:checked + span:after {
     
 }
 
-* ver mas la fleca abajo => poner solo la clase al contenedor*/
+/* ver mas la fleca abajo => poner solo la clase al contenedor*/
 
 .ver-mas-vertical span.icono{visibility:hidden}
 
@@ -6133,7 +6169,7 @@ input[type="checkbox"]:checked + span:after {
     margin-bottom:8px;
     display:block;
 }
-.detalle_pedido_reservado{
+.detalle_pedido_reservado, .detalle_notificaciones{
     width:100%;
     height:auto;
     padding-top:25px;
@@ -6177,6 +6213,32 @@ input[type="checkbox"]:checked + span:after {
     height:2px;
     margin-top:-1px;
     background:#e81c36;   
+}
+.pop_sugerido_mobile{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    background: white;
+    top: 176px;
+    padding-top:20px;
+    padding-bottom: 36px;
+    z-index: 1000;
+    -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+    box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+}
+.pop_sugerido_mobile:before{
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(3, 3, 3, 0);
+	border-bottom-color: white;
+	border-width: 11px;
+	margin-left: -11px;
 }
 .importe_final{
     font-family:'Lato';

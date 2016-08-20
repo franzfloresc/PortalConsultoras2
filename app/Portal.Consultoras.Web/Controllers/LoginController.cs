@@ -185,6 +185,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return CerrarSesion();
 
+            //Session["UserData"] = null;
+            //Session.Clear();
+            //Session.Abandon();
             //return RedirectToAction("Index", "Login");
         }
 
@@ -477,6 +480,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva; //R20160306
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+                model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
             }
 
             Session["UserData"] = model;
