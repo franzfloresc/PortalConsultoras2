@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool ZonaNuevoProlM { get; set; }
 
-        public int IndicadorFlexiPago { get; set; }        
+        public int IndicadorFlexiPago { get; set; }
 
         public decimal LineaCredito { get; set; }
 
@@ -69,6 +69,39 @@ namespace Portal.Consultoras.Web.Models
             }
         }
 
+        public string FormatoMontoGanancia
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoAhorroCatalogo + MontoAhorroRevista, CodigoIso);
+            }
+        }
+
+        public string FormatoMontoEscala
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoEscala, CodigoIso);
+            }
+        }
+
+        public string FormatoMontoDescuento
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoDescuento, CodigoIso);
+
+            }
+        }
+
+        public string FormatoTotalConDescuento
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(TotalConDescuento, CodigoIso);
+            }
+        }
+
         public string TotalCliente { get; set; }
 
         public string ClienteID_ { get; set; }
@@ -86,24 +119,6 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeGuardarColombia { get; set; }
 
         public string Registros { get; set; }
-
-        public string FormatoMontoDescuento
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(MontoDescuento, CodigoIso); 
-                
-            }
-        }
-
-        public string FormatoTotalConDescuento
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(TotalConDescuento, CodigoIso);
-            }
-        }
-      
 
         public string RegistrosDe { get; set; }
 
@@ -205,7 +220,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal PrecioUnidad { get; set; }
 
-        public string ClienteID { set; get; }        
+        public string ClienteID { set; get; }
 
         #endregion
 
@@ -218,7 +233,7 @@ namespace Portal.Consultoras.Web.Models
         public List<PedidoWebDetalleModel> ListaDetalleModel { get; set; }
 
         public int TotalProductos { get; set; }
-        
+
         public BarraConsultoraModel DataBarra { get; set; }
 
         public bool EsFacturacion { get; set; }

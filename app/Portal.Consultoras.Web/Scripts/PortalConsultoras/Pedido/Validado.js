@@ -28,6 +28,28 @@
             $(this).dialog('close');
         }
     });
+
+
+    $("body").on("click", "[data-paginacion]", function (e) {
+        e.preventDefault();
+        var obj = $(this);
+        var accion = obj.attr("data-paginacion");
+        if (accion === "back" || accion === "next") {
+            CambioPagina(obj);
+        }
+    });
+
+    $("body").on("change", "[data-paginacion]", function (e) {
+        e.preventDefault();
+        var obj = $(this);
+        var accion = obj.attr("data-paginacion");
+        if (accion === "page" || accion === "rows") {
+            CambioPagina(obj);
+        }
+    });
+
+    CargarListado();
+
 });
 
 function MostrarMensaje(message) {
@@ -201,4 +223,66 @@ function ModificarPedido() {
     else
         showDialog("divConfirmValidarPROL");
     return false;
+}
+
+
+function CargarListado(page, rows) {
+
+    $('#divListado').html('<div style="text-align: center;">Cargando Listado<br><img src="' + urlLoad + '" /></div>');
+
+    var obj = {
+        sidx: "",
+        sord: "",
+        page: page || 1,
+        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 10,
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/CargarDetallePedidoValidado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (response) {
+            
+            if (response.success) {
+
+                var data = response.data;
+                console.log("CargarDetallePedidoValidado - OK")
+
+                var html = ArmarListado(data.ListaDetalle);
+                $('#divListado').html(html);
+
+                var htmlPaginador = ArmarListadoPaginador(data);
+                $('#paginadorCab').html(htmlPaginador);
+                //$('#paginadorPie').html(htmlPaginador);
+
+                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+            }
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
+}
+
+function ArmarListado(array) {
+    return SetHandlebars("#producto-template", array);
+}
+
+function ArmarListadoPaginador(data) {
+    return SetHandlebars("#paginador-template", data);
+}
+
+
+function CambioPagina(obj) {
+    var rpt = paginadorAccionGenerico(obj);
+    if (rpt.page == undefined) {
+        return false;
+    }
+
+    CargarListado(rpt.page, rpt.rows);
+    return true;
 }

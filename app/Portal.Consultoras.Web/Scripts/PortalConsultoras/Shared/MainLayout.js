@@ -6,13 +6,13 @@
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
     });
-  HandlebarsRegisterHelper();
-    SetFormatDecimalPais(formatDecimalPaisMain);
-    //CargarCantidadProductosPedidos();
-    CargarCantidadNotificacionesSinLeer();
-    CargarResumenCampaniaHeader();
 
-     $('#alertDialogMensajes').dialog({
+    HandlebarsRegisterHelper();
+    SetFormatDecimalPais(formatDecimalPaisMain);
+    CargarResumenCampaniaHeader();
+    CargarCantidadNotificacionesSinLeer();
+
+    $('#alertDialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -26,7 +26,7 @@
             }
         }
     });
-    
+
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -134,27 +134,89 @@
     MostrarShowRoomBannerLateral();
 });
 
-function CargarCantidadProductosPedidos() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Pedido/GetCantidadProductos",
+function alert_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
+}
+
+function CargarResumenCampaniaHeader(showPopup) {
+    showPopup = showPopup || false;
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'GestionContenido/GetResumenCampania',
         data: '',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
+                if (data.result) {
+                    if (data.montoWebAcumulado == 0) {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            data.montoWebAcumulado = "0";
+                        else
+                            data.montoWebAcumulado = "0.00";
+                    } else {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                        else
+                            data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                    }
 
-                if (data.cantidadProductos > 0) {
-                    $("#pCantidadProductosPedido").html(data.cantidadProductos);
-                    //$("#pCantidadProductosPedido").addClass("notificaciones_existentes");
-                } else {
-                    $("#pCantidadProductosPedido").html(0);
-                    //$("#pCantidadProductosPedido").removeClass("notificaciones_existentes");
+                    if (data.cantidadProductos > 0) {
+                        $("#pCantidadProductosPedido").html(data.cantidadProductos);
+                    } else {
+                        $("#pCantidadProductosPedido").html(0);
+                    }
+
+                    //$("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
+                    //$("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
+                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebAcumulado);
+
+                    var idPais = data.paisID;
+
+                    $.each(data.ultimosTresPedidos, function (index, item) {
+                        if (item.ImporteTotal == 0) {
+                            if (idPais == 4)  //Formato de decimales para Colombia
+                                item.ImporteTotal = "0";
+                            else
+                                item.ImporteTotal = "0.00";
+                        } else {
+                            if (idPais == 4)  //Formato de decimales para Colombia
+                                item.ImporteTotal = SeparadorMiles(item.ImporteTotal.toFixed(0));
+                            else
+                                item.ImporteTotal = item.ImporteTotal.toFixed(2);
+                        }
+                    });
+
+                    if (data.ultimosTresPedidos.length == 0) {
+                        $('#carrito_items').hide();
+                        $('#SinProductos').show();
+                    } else {
+                        $('#carrito_items').show();
+                        $('#SinProductos').hide();
+
+                        $("#carrito_items").html('');
+
+                        var source = $("#resumenCampania-template").html();
+                        var template = Handlebars.compile(source);
+                        var context = data;
+                        var html = template(context);
+
+                        $("#carrito_items").append(html);
+
+                    }
+
+                    if (showPopup == true) {
+                        $popup = $('.info_cam');
+                        $popup.show();
+                        setTimeout(function () { $popup.hide(); }, 5000);
+                    }
                 }
-
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
+                else {
+                    console.error("Ocurrio un error con el Resumen de Campaña.");
                 }
             }
         },
@@ -189,72 +251,6 @@ function CargarCantidadNotificacionesSinLeer() {
                     console.log(data.mensaje);
                 }
             };
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(error);
-            }
-        }
-    });
-};
-function CargarResumenCampaniaHeader() {
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.result) {
-                    var montoWebAcumulado = "0";
-                    var montoTotalPagar = "0";
-
-                    if (data.montoWebAcumulado == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoWebAcumulado = "0";
-                        else
-                            montoWebAcumulado = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                        else
-                            montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    }
-
-                    if (data.montoTotalPagar == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoTotalPagar = "0";
-                        else
-                            montoTotalPagar = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            montoTotalPagar = SeparadorMiles(data.montoTotalPagar.toFixed(0));
-                        else
-                            montoTotalPagar = data.montoTotalPagar.toFixed(2);
-                    }
-
-                    var fecha = data.fechaVencimiento || "";
-                    var dateString = fecha.substr(6);
-                    var currentTime = new Date(parseInt(dateString));
-                    var month = currentTime.getMonth() + 1;
-                    var day = currentTime.getDate();
-                    //var year = currentTime.getFullYear();
-                    var date = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month); //+ "/" + year;
-
-                    if (date == '01/01') date = '--/--';
-
-                    $("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
-                    $("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
-                    $("#spanDeuda").html(data.Simbolo + " " + "<span>" + montoTotalPagar + "</span>");
-                    $("#spanVencimiento").html(date);
-                    $("#spanPedidoIngresado").html("Pedido ingresado: " + data.Simbolo + " " + montoWebAcumulado);
-                }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
-            }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -803,3 +799,53 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 /* Fin Marcaciones */
+
+/* Tracking Jetlore */
+function TrackingJetloreAdd(cantidad, campania, cuv) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.addToCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }       
+}
+
+function TrackingJetloreRemove(cantidad, campania, cuv) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }    
+}
+
+function TrackingJetloreRemoveAll(lista) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart(lista);
+
+    }
+}
+/* Fin Tracking Jetlore */

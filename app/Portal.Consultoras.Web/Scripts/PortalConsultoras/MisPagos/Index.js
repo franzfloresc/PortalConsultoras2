@@ -20,11 +20,7 @@
     });
     $('ul[data-tab="tab"] li a')[0].click();
 
-<<<<<<< HEAD
     $("#spanDeuda").html(ViewBagSimbolo + " " + "<span>" + $("#hdn_MontoPagar").val() + "</span>");
-=======
-    $("#spanDeuda").html('@Model.Simbolo' + " " + "<span>" + $("#hdn_MontoPagar").val() + "</span>");
->>>>>>> R1
     $("#der_fechaVencimiento").html('');
     if ($("#hdn_FechaVencimiento").val() != "") {
         $("#der_fechaVencimiento").html('Vencimiento: ' + $("#hdn_FechaVencimiento").val().substring(0, 5));
@@ -85,7 +81,6 @@ function EventoAnalytics(NombreBanco, nro) {
 }
 
 function Percepcion() {
-<<<<<<< HEAD
     $("html").css({ "overflow": "hidden" });
     $(".contenedor_popup_percepciones").show();
 
@@ -94,38 +89,18 @@ function Percepcion() {
         $(".contenedor_popup_percepciones").hide();
         $("html").css({ "overflow": "auto" });
     });
-=======
-    $(".popup_Percepcion").slideDown(300);
-    $(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
-
-    $(".btn_cerrar_popupPercepcion").click(function () {
-
-        $(".popup_Percepcion").slideUp(300);
-        $(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
-
-    });
-
->>>>>>> R1
 }
 
 /** Estado Cuenta **/
 
 function fnGrilla() {
-<<<<<<< HEAD
-=======
-    waitingDialog({});
->>>>>>> R1
     var obj = {
         sidx: "", sord: "", page: 1, rows: 20, vCampania: ""
     };
 
     jQuery.ajax({
         type: 'POST',
-<<<<<<< HEAD
         url: baseUrl + "MisPagos/ListarEstadoCuenta",
-=======
-        url: baseUrl + "MisPagos/ConsultarEstadoCuenta",
->>>>>>> R1
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
@@ -133,16 +108,9 @@ function fnGrilla() {
         cache: false,
         success: function (data) {
             RenderGrilla(data);
-<<<<<<< HEAD
         },
         error: function (data, error) {
             $("#dellateContenido").html("");
-=======
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
->>>>>>> R1
             if (checkTimeout(data)) {
                 alert_msg(data.message);
             }
@@ -159,32 +127,7 @@ function RenderGrilla(data) {
         return false;
     }
 
-<<<<<<< HEAD
     SetHandlebars("#js-EstadoCuenta", data, "#dellateContenido");
-=======
-    var source = $("#js-EstadoCuenta").html();
-    var template = Handlebars.compile(source);
-    var htmlDiv = template(data);
-    $("#dellateContenido").html(htmlDiv);
-
-    //var detalle = $("#dellateContenido");
-    //var htmlRowI = '<div class="content_datos_mispagos">'
-    //    + '<div class="fecha_pagos">{0}</div>'
-    //    + '<div class="movimientos_pagos">{1}</div>'
-    //    + '<div class="pedidos_pagos">{2}</div>'
-    //    + '<div class="abonos_pagos">{3}</div>'
-    //    + '</div>';
-    //$.each(data.rows, function (ind, row) {
-    //    row.cell = row.cell || new Array();
-    //    if (row.cell.length > 0) {
-    //        var htmlRow = htmlRowI;
-    //        $.each(row.cell, function (indc, rowC) {
-    //            htmlRow = htmlRow.replace("{" + indc + "}", rowC);
-    //        });
-    //        detalle.append(htmlRow);
-    //    }
-    //});
->>>>>>> R1
 }
 
 function fnEnviarCorreo() {
@@ -196,11 +139,7 @@ function fnEnviarCorreo() {
     }
     jQuery.ajax({
         type: 'POST',
-<<<<<<< HEAD
         url: baseUrl + 'MisPagos/EnviarCorreoEstadoCuenta',
-=======
-        url: baseUrl + 'MisPagos/EnviarCorreo',
->>>>>>> R1
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({ correo: jQuery.trim($("#hdn_Correo").val()) }),
@@ -256,11 +195,7 @@ function DownloadAttachExcelEC() {
         return false;
     }
 
-<<<<<<< HEAD
     var content = baseUrl + "MisPagos/ExportarExcelEstadoCuenta";
-=======
-    var content = baseUrl + "MisPagos/ExportarExcel";
->>>>>>> R1
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
     iframe_.setAttribute("src", content);
@@ -296,38 +231,19 @@ function DownloadAttachExcelEC() {
 
 /** Lugar Pago **/
 function getLugarPago() {
-<<<<<<< HEAD
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + "MisPagos/ListarLugaresPago",
-=======
-    waitingDialog();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "MisPagos/Pagos",
->>>>>>> R1
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({}),
         async: true,
         cache: false,
         success: function (data) {
-<<<<<<< HEAD
             SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");
-=======
-            var source = $("#js-LugaresPago").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
-            $("#divContenidoLugarPago").html(htmlDiv);
-
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
->>>>>>> R1
             if (checkTimeout(data)) {
                 alert_msg(data.message);
             }

@@ -2,7 +2,7 @@
 <html lang="es" class="no-js">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
 
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
@@ -13,15 +13,15 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        
+
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
-        
+
         <!--[if IE 8]>
 
             <style type="text/css">
                 /* css para IE 8 */
-            
+
             .ubicacion_web{
                 margin-top: 19px;
             }
@@ -38,19 +38,19 @@
             </style>
 
         <![endif]-->
-        
+
     }
     else
     {
-        
+
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
-        
+
         <!--[if IE 8]>
 
             <style type="text/css">
                 /* css para IE 8 */
-            
+
             .ubicacion_web{
                 margin-top: 19px;
             }
@@ -67,7 +67,7 @@
             </style>
 
         <![endif]-->
-        
+
     }
 
     <script type="text/javascript">
@@ -159,7 +159,7 @@
             }
             <div class="menu_esika_b">
                 <div class="campana user-profile">
-                    <img class="mostrar_perfil @(controllerAction == "BienvenidaIndex" ? "oculto" : "")" region="Superior"  src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
+                    <img class="mostrar_perfil @(controllerAction == "BienvenidaIndex" ? "oculto" : "")" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
                 </div>
 
                 <div class="campana">
@@ -175,7 +175,7 @@
                         <div class="campana_svg"></div>
                         <p class="notificaciones" id="pCantidadProductosPedido" style="width:14px">0</p>
                     </a>
-                    
+
                     <div class="info_cam">
                         <div class="flechita_info"></div>
                         <div class="linea_blanca"></div>
@@ -188,20 +188,20 @@
                         </div>
                         <div id="carrito_items">
                         </div>
-                        
-                        
-                        
+
+
+
                         @*<h1> RESUMEN DE CAMPAÑA</h1>
-                        <p>
-                            PEDIDO WEB ACUMULADO <br />
-                            <b>TOTAL A PAGAR</b>
-                        </p>
-                        <span>
-                            <span id="spPedidoWebAcumulado"></span>
-                            <br />
-                            <span id="spTotalMontoAPagar"></span>
-                        </span>*@
-                       </div>
+                            <p>
+                                PEDIDO WEB ACUMULADO <br />
+                                <b>TOTAL A PAGAR</b>
+                            </p>
+                            <span>
+                                <span id="spPedidoWebAcumulado"></span>
+                                <br />
+                                <span id="spTotalMontoAPagar"></span>
+                            </span>*@
+                    </div>
                 </div>
 
                 <div class="borde_c"></div>
@@ -215,11 +215,11 @@
                     @{
                         if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
                         {
-                            @:ESTÁS EN <br /> <span>-</span>
+                    @:ESTÁS EN <br /> <span>-</span>
                         }
                         else
                         {
-                            @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
+                    @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
                         }
                     }
                 </div>
@@ -245,9 +245,9 @@
 
         @if (ViewBag.TerminoMostrar == 1)
         {
-            <div class="footerTerminos">
-                <a onclick="SetMarcaGoogleAnalyticsTermino();" href="http://comunidad.somosbelcorp.com/t5/D%C3%ADa-del-Padre-Pre-venta-Digital/D%C3%8DA-DEL-PADRE-PRE-VENTA-DIGITAL-EXCLUSIVA/m-p/28917#M2/?utm_source=somosbelcorp.com&utm_medium=referral&utm_content=TerminosyCondiciones&utm_campaign=ShowroomDigital" target="_blank">T&eacute;rminos y condiciones</a>
-            </div>
+        <div class="footerTerminos">
+            <a onclick="SetMarcaGoogleAnalyticsTermino();" href="http://comunidad.somosbelcorp.com/t5/D%C3%ADa-del-Padre-Pre-venta-Digital/D%C3%8DA-DEL-PADRE-PRE-VENTA-DIGITAL-EXCLUSIVA/m-p/28917#M2/?utm_source=somosbelcorp.com&utm_medium=referral&utm_content=TerminosyCondiciones&utm_campaign=ShowroomDigital" target="_blank">T&eacute;rminos y condiciones</a>
+        </div>
         }
         <!-- footer -->
         <hr class="clear" />
@@ -392,11 +392,12 @@
 
     <div id="ctrasHoy" class="caja-traslado" style="display: none;">
         <a href="#" class="mover">
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />
+            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
+            <img id="imgPestaniaShowRoomLateralHoy" alt="imgPestaniaShowRoomLateralHoy" style="max-width: 100% !important;" />
         </a>
         <div class="contenido-ct">
-            <div class="titulo_caja_traslado">
-                SETS DESDE
+            <div style="width: 154px; height: 197px; margin-left: -12px;">
+                <img id="imgVentaTagLateralHoy" alt="" />
             </div>
             <div class="precio_caja_traslado">
                 $ 5,990
@@ -404,6 +405,7 @@
             <div class="imagen_hoy_caja">
                 <img src="@Url.Content("~/Content/Images/showroom/contador_hoy.png")" alt="" />
             </div>
+
             <a href="#" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateralHoy">VER OFERTAS AQUÍ</a>
         </div>
     </div>
@@ -413,6 +415,7 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
     <!--[if lt IE 9]>
@@ -460,33 +463,11 @@
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
 
     </script>
-    @RenderSection("scripts", required: false)
-</body>
-</html>
-            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
-            <img id="imgPestaniaShowRoomLateralHoy" alt="imgPestaniaShowRoomLateralHoy" style="max-width: 100% !important;" />
-        </a>
-        <div class="contenido-ct">
-            <div style="width: 154px; height: 197px; margin-left: -12px;">
-                <img id="imgVentaTagLateralHoy" alt="" />
-            </div>
-            <div class="precio_caja_traslado">
-                $ 5,990
-            </div>
-            <div class="imagen_hoy_caja">
-                <img src="@Url.Content("~/Content/Images/showroom/contador_hoy.png")" alt="" />
-            </div>
-
-            <a href="#" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateralHoy">VER OFERTAS AQUÍ</a>
-        </div>
-    </div>
 
     <!--[if lt IE 9]>
         <script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
         <script src="~/Scripts/IE8.js"></script>
     <![endif]-->
-
-
 
     <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
 
@@ -503,247 +484,5 @@
     </script>
 
     @RenderSection("scripts", required: false)
-
-    <script type='text/javascript'>
-        $(document).ready(function () {
-
-            $('#divFaltantesAnunciadosMain').dialog({
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                width: 625,
-                heigth: 500,
-                draggable: true,
-                //create: function (event) { $(event.target).parent().css('position', 'fixed'); },
-                title: "Productos Faltantes Anunciados"
-            });
-
-            $('#ModalFeDeErratas').dialog({
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                width: 650,
-                heigth: 500,
-                draggable: true,
-                title: "Fe de Erratas"
-            });
-
-            /*Inicio Cambios_Landing_Comunidad*/
-            $('#divRegistroComunidad').dialog({
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                width: 760,
-                heigth: 500,
-                draggable: true,
-                //create: function (event) { $(event.target).parent().css('position', 'fixed'); },
-                title: "Comunidad Somos Belcorp"
-            });
-
-            $('#DialogMensajesCom').dialog({
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                width: 400,
-                draggable: true,
-                title: "Comunidad SomosBelcorp",
-                buttons:
-                {
-                    "Aceptar": function () {
-                        $(this).dialog('close');
-                    }
-                }
-            });
-
-            $(".ValidaAlfanumericoCom").keypress(function (evt) {
-                var charCode = (evt.which) ? evt.which : window.event.keyCode;
-                if (charCode <= 13) {
-                    return true;
-                }
-                else {
-                    var keyChar = String.fromCharCode(charCode);
-                    var re = /[a-zA-Z0-9_-]/;
-                    return re.test(keyChar);
-                }
-            });
-            /*Fin Cambios_Landing_Comunidad*/
-
-            MostrarShowRoomBannerLateral();
-
-
-            /*ShowRoom*/
-            function MostrarShowRoomBannerLateral() {
-                $("#lnkConoceMasShowRoomBannerLateral").click(function () {
-                    AgregarTagManagerShowRoomBannerLateralConocesMas(false);
-                });
-
-                $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
-                    AgregarTagManagerShowRoomBannerLateralConocesMas(true);
-                });
-
-                var togglediv = 0;
-
-                $("#ctras").hover(function () {
-                    if (togglediv == 0) {
-                        $('.caja-traslado').animate({
-                            'right': '0'
-                        }, 800);
-                        togglediv = 1;
-                        AgregarTagManagerShowRoomBannerLateral(false);
-                    }
-                    else if (togglediv == 1) {
-                        $('.caja-traslado').animate({
-                            'right': '-181px'
-                        }, 800);
-                        togglediv = 0;
-                    }
-                });
-
-                $("#ctrasHoy").hover(function () {
-                    if (togglediv == 0) {
-                        $('.caja-traslado').animate({
-                            'right': '0'
-                        }, 800);
-                        togglediv = 1;
-                        AgregarTagManagerShowRoomBannerLateral(true);
-                    }
-                    else if (togglediv == 1) {
-                        $('.caja-traslado').animate({
-                            'right': '-181px'
-                        }, 800);
-                        togglediv = 0;
-                    }
-                });
-
-                var idRol = '@ViewBag.Rol';
-
-                if (idRol == 1) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",
-                        contentType: 'application/json',
-                        success: function (response) {
-                            if (checkTimeout(response)) {
-                                if (response.success) {
-                                    var showroomConsultora = response.data;
-                                    var evento = response.evento;
-
-                                    if (showroomConsultora.EventoConsultoraID != 0) {
-                                        if (response.estaActivoLateral) {
-                                            $("#hdNombreEventoShowRoom").val(evento.Tema);
-                                            $("#hdEventoIDShowRoom").val(evento.EventoID);
-
-                                            if (response.mostrarShowRoomProductos) {
-                                                $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
-
-                                                //Carga de Imagenes
-                                                $("#imgVentaTagLateralHoy").attr("src", evento.ImagenVentaTagLateral);
-                                                $("#imgPestaniaShowRoomLateralHoy").attr("src", evento.ImagenPestaniaShowRoom);
-
-                                                //$("#ctras").hide();
-                                                $("#ctrasHoy").show();
-                                            } else {
-                                                $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
-                                                AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
-
-                                                //Carga de Imagenes
-                                                $("#imgPestaniaShowRoomLateral").attr("src", evento.ImagenPestaniaShowRoom);
-
-                                                //$("#ctrasHoy").hide();
-                                                $("#ctras").show();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        error: function (response, error) {
-                            if (checkTimeout(response)) {
-                                closeWaitingDialog();
-                                console.log("Ocurrió un error en ShowRoom");
-                                //alert("Ocurrió un error en ShowRoom");
-                            }
-                        }
-                    });
-                }
-            }
-
-            if (typeof (Handlebars) != "undefined") {
-
-                Handlebars.registerHelper('if_eq', function (a, b, opts) {
-                    if (a == b) {
-                        return opts.fn(this);
-                    } else {
-                        return opts.inverse(this);
-                    }
-                });
-
-                Handlebars.registerHelper('iff', function (a, operator, b, opts) {
-                    var bool = false;
-                    switch (operator) {
-                        case '==':
-                            bool = a == b;
-                            break;
-                        case '!=':
-                            bool = a != b;
-                            break;
-                        case '>':
-                            bool = a > b;
-                            break;
-                        case '<':
-                            bool = a < b;
-                            break;
-                        case 'Contains':
-                            bool = a.indexOf(b) >= 0;
-                            break;
-                        default:
-                            throw "Unknown operator " + operator;
-                    }
-
-                    return bool ? opts.fn(this) : opts.inverse(this);
-                });
-
-                Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
-                    var bool = false;
-                    operator = operator || '==';
-                    switch (operator) {
-                        case '==':
-                            bool = $.trim(a) == "";
-                            break;
-                        case '!=':
-                            bool = $.trim(a) != "";
-                            break;
-                        default:
-                            throw "Unknown operator " + operator;
-                    }
-
-                    return bool ? opts.fn(this) : opts.inverse(this);
-                });
-
-                Handlebars.registerHelper('Replace', function (cadena, oldValue, newValue, opts) {
-                    cadena = cadena || "";
-                    cadena = cadena.ReplaceAll(oldValue, newValue);
-                    return new Handlebars.SafeString(cadena).string;
-                });
-
-                Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
-                    cadena = cadena || "";
-                    var listCade = cadena.split(separador);
-                    pos = pos || 0;
-                    if (pos >= 0) {
-                        pos = pos >= listCade.length ? listCade.length - 1 : pos < 0 ? 0 : pos;
-                        return new Handlebars.SafeString(listCade[pos]);
-                    }
-                    return new Handlebars.SafeString("");
-                });
-            }
-        });
-
-    </script>
 </body>
 </html>

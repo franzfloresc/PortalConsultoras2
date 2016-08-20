@@ -499,7 +499,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                             $('#hdnPagina').val(), ";",
                             $('#hdnClienteID2_').val());
 
-                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo)
+                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
                         return;
                     }
                 });
@@ -638,7 +638,7 @@ function AgregarProductoDestacado(popup) {
                 jQuery.ajax({
                     type: 'POST',
                     url: baseUrl + 'Pedido/AgregarProductoZE',
-                    dataType: 'html',
+                    dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(param),
                     async: true,
@@ -649,10 +649,13 @@ function AgregarProductoDestacado(popup) {
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
+
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
                             closeWaitingDialog();
                             if (popup) {
                                 HidePopupEstrategiasEspeciales();
-                            };
+                            }
                         }
                     },
                     error: function (data, error) {
@@ -674,7 +677,7 @@ function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
 };
 function HidePopupTonosTallas() {
-    $('.js-contenedor-popup-tonotalla').hide()
+    $('.js-contenedor-popup-tonotalla').hide();
 };
 function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('#CUV').attr("value", $("option:selected", ddlTonoTalla).attr("value"));
@@ -982,6 +985,7 @@ function AgregarProductoLiquidacion(contenedor) {
                                 ActualizarGanancia(data.DataBarra);
                                 InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
                                 CargarResumenCampaniaHeader(true);
+                                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                             }
                             else {
                                 alert_msg_pedido(data.message);
@@ -1181,7 +1185,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
 
-                    ActualizarGanancia(data.DataBarra);
+                    ActualizarGanancia(result.DataBarra);
 
                     CargarResumenCampaniaHeader(true);
 
@@ -1197,6 +1201,8 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                     } else {
                         categoriacad = result.oPedidoDetalle.Categoria;
                     }
+
+                    TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
 
                     dataLayer.push({
                         'event': 'addToCart',

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿var slidetime = 1000;
 var slidedireccion = "left";
 var slidedireccionInversa = "right";
@@ -8,12 +7,6 @@ $(document).ready(function () {
     WidthWindow();
 
     $("[data-accion='detalle']").click(function () {
-=======
-﻿$(document).ready(function () {
-
-    $("[data-accion='detalle']").click(function () {
-        PopupCerrarTodos();
->>>>>>> R1
         $(window).scrollTop(0);
         var btn = $(this);
         var pop = (btn.parents("[data-camp]") || "");
@@ -21,34 +14,22 @@ $(document).ready(function () {
         var campId = pop.attr("data-camp") || "";
         if (campId == "") return false;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> R1
         $("[data-popup='ingresado']").find("[data-selectcamp]").html("");
         $("[data-popup='facturado']").find("[data-selectcamp]").html("");
         $.each($(".content_datos_mispedidos [data-campnro]"), function (ind, tag) {
             var tagCam = $(tag);
-<<<<<<< HEAD
             var estadoCamp = tagCam.parent().attr("data-estado") || "";
             estadoCamp = estadoCamp.toLowerCase();
             estadoCamp = estadoCamp[0];
             estadoCamp = estadoCamp == "i" ? "[data-popup='ingresado']" : estadoCamp == "f" ? "[data-popup='facturado']" : "";
             if (estadoCamp != "") {
                 $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '">C-' + tagCam.attr("data-campnro") + '</option>');
-=======
-            var estadoCamp = tagCam.parent().attr("data-estado")
-            $("[data-popup='ingresado']").find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '">C-' + tagCam.attr("data-campnro") + '</option>');
-            if (estadoCamp == "FACTURADO") {
-                $("[data-popup='facturado']").find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '">C-' + tagCam.attr("data-campnro") + '</option>');
->>>>>>> R1
             }
         });
         $("[data-popup='ingresado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
         $("[data-popup='facturado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
 
         var estado = pop.attr("data-estado") || "";
-<<<<<<< HEAD
         estado = estado.toLowerCase()[0];
         if (estado == "") return false;
         DetalleVisible(false);
@@ -81,23 +62,6 @@ $(document).ready(function () {
         $("#divGrilla").find("select[data-cliente]").val(-1);
         campFormat = campFormat.replace("-", "");
         PopupMostrar("f", campFormat);
-=======
-        estado = estado.toUpperCase();
-        if (estado == "FACTURADO") {
-            $(".popup_pedidosFacturados").slideDown(300);
-            CargarDetalleFacturado(campId);
-        }
-        else if (estado == "INGRESADO") {
-            $(".popup_pedidosIngresados").slideDown(300);
-            
-            CargarDetalleIngresado(campId);
-        }
-        else {
-            return false;
-        }
-        $(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
-
->>>>>>> R1
     });
 
     $('[data-accion="close"]').click(function () {
@@ -107,27 +71,14 @@ $(document).ready(function () {
         
         var estado = pop.attr("data-popup") || "";
         if (estado.toUpperCase() == "FACTURADO" || estado.toUpperCase() == "INGRESADO") {
-<<<<<<< HEAD
             PopupCerrarTodos();
-=======
-            $(pop).slideUp(300);
->>>>>>> R1
         }
         else {
             return false;
         }
-<<<<<<< HEAD
         DetalleVisible(true);
     });
     
-=======
-        $(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
-    });
-    
-    //$(".acordion_titulo").first().addClass("acordion_abierto");
-    //$(".acordion_abierto .titulo_nombreCliente .icono_despliegue_acordion").css({ "background-position": "center bottom" });
-
->>>>>>> R1
     $("body").on("click", ".acordion_titulo > [data-acordion]", function (e) {
         e.preventDefault();
         $(window).scrollTop(0);
@@ -177,34 +128,15 @@ $(document).ready(function () {
     $("body").on("change", "[data-selectcamp]", function (e) {
         e.preventDefault();
         var obj = $(this).find("[value='" + $(this).val() + "']");
-<<<<<<< HEAD
         var campFormat = obj.attr("data-campformat") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat);
-=======
-        //.parents("[data-popup]");
-        var campFormat = obj.attr("data-campformat") || "";
-        //var camp = obj.attr("data-optcamp") || "";
-        if (campFormat == "") return false;
-        campFormat = campFormat.replace("-", "");
-        var popup = obj.parents("[data-popup]").attr("data-popup");
-        popup = popup.toUpperCase();
-        if (popup == "FACTURADO") {
-            $(".popup_pedidosFacturados").slideDown(300);
-            CargarDetalleFacturado(campFormat);
-        }
-        else if (popup == "INGRESADO") {
-            $(".popup_pedidosIngresados").slideDown(300);
-            CargarDetalleIngresado(campFormat);
-        }
->>>>>>> R1
         //if ($(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").length == 1) {
         //    $(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").parent().find('[data-accion="detalle"]').click();
         //}
     });
-<<<<<<< HEAD
     
     $("body").on("change", "select[data-cliente]", function (e) {
         e.preventDefault();
@@ -225,22 +157,12 @@ function WidthWindow() {
 function CambioPagina(obj) {
     var par = obj.parents('[data-paginacion="block"]');
     var camp = par.attr("data-camp");
-=======
-});
-
-function CambioPagina(obj) {
-    var par = obj.parents('[data-paginacion="block"]');
-    var camp = par.attr("data-camp");
-    //var cliente = par.attr("data-cliente");
-    var estado = par.attr("data-estado");
->>>>>>> R1
 
     var rpt = paginadorAccionGenerico(obj);
 
     if (rpt.page == undefined) {
         return false;
     }
-<<<<<<< HEAD
     
     var estado = par.attr("data-estado") || "";
     estado = estado.toLowerCase();
@@ -305,20 +227,6 @@ function DetalleVisible(accion, popup) {
         //$("#contenidoGrilla").hide();
         //$(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
     }
-=======
-
-    if (estado == 'facturado') {
-        CargarDetalleFacturado(camp, rpt.page, rpt.rows);
-    }
-    else if (estado == 'ingresado') {
-        CargarDetalleIngresadoCliente(par, camp, rpt.page, rpt.rows);
-    }
-}
-
-function PopupCerrarTodos() {
-    $('[data-popup]').slideUp(300);
-    $(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
->>>>>>> R1
 }
 
 function PopupDetalleClienteCerrarTodos() {
@@ -326,33 +234,21 @@ function PopupDetalleClienteCerrarTodos() {
     $('#pedidoPorCliente [data-cliente]').removeClass("acordion_abierto");
 }
 
-<<<<<<< HEAD
 function CargarDetalleFacturado(camp, page, rows, tipo) {
     waitingDialog();
     tipo = tipo || "f"
     tipo = tipo[0].toLowerCase();
-=======
-function CargarDetalleFacturado(camp, page, rows) {
-    waitingDialog();
-    $("#divContenidofacturado").empty();
->>>>>>> R1
     var dataAjax = {
         sidx: "",
         sord: "",
         page: page || 1,
         rows: rows || 10,
         CampaniaId: camp,
-<<<<<<< HEAD
         cliente: $("#divGrilla").find("select[data-cliente]").val() || - 1,
         estado: tipo // "f"
     }
     $("#divContenidofacturado").empty();
     $("#pedidoPorCliente").empty();
-=======
-        cliente: -1,
-        estado: "f"
-    }
->>>>>>> R1
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisPedidos/ConsultarPedidoWebDetallePorCamaniaPorCliente',
@@ -366,7 +262,6 @@ function CargarDetalleFacturado(camp, page, rows) {
                 return false;
             }
 
-<<<<<<< HEAD
             var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
             if (tipo == "i") {
                 $('#pedidoPorCliente').attr("data-camp", camp);
@@ -397,23 +292,6 @@ function CargarDetalleFacturado(camp, page, rows) {
             $("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));                   
             $("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
             $("#divGrilla").find("select[data-cliente]").val(cienteId);
-=======
-            var source = $("#html-detalle-facturado").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
-
-            $("#divContenidofacturado").empty().html(htmlDiv);
-            $("#divContenidofacturado").find('[data-paginacion="rows"]').val(data.PageSize);
-            var campania = data.CampaniaId;
-            if ($(".content_mis_pedidos").find("[data-camp='" + campania + "']").length == 1) {
-                var parcial = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-parcial]').attr("data-parcial");
-                var flete = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-flete]').attr("data-flete");
-                var facturado = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-facturado]').attr("data-facturado");
-                $("#divContenidofacturado").find("[data-total]").html(parcial);
-                $("#divContenidofacturado").find("[data-flete]").html(flete);
-                $("#divContenidofacturado").find("[data-facturado]").html(facturado);
-            }
->>>>>>> R1
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -447,17 +325,8 @@ function CargarDetalleIngresado(camp, page, rows) {
                 return false;
             }
 
-<<<<<<< HEAD
             SetHandlebars("#html-detalle-ingresado", data, '#pedidoPorCliente');
             $('#pedidoPorCliente').attr("data-camp", camp);
-=======
-            var source = $("#html-detalle-ingresado").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
-
-            $('#pedidoPorCliente').attr("data-camp", camp);
-            $('#pedidoPorCliente').empty().html(htmlDiv);
->>>>>>> R1
 
             // mostarar el primero
             var primer = $(".acordion_titulo > [data-acordion]")[0];
@@ -479,20 +348,13 @@ function CargarDetalleIngresado(camp, page, rows) {
 }
 
 function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
-<<<<<<< HEAD
-=======
-    $("#pedidoPorCliente [data-contenido='" + cliente + "']").empty();
->>>>>>> R1
 
     var obj = tag.parents(".acordion_titulo");
     var cliente = $(obj).attr("data-cliente");
     if (cliente < 0) return false;
 
-<<<<<<< HEAD
     $("#pedidoPorCliente [data-contenido='" + cliente + "']").empty();
 
-=======
->>>>>>> R1
     var objDet = $(obj).parent().find("[data-contenido='" + cliente + "']");
     if (!objDet) return false;
 
@@ -521,13 +383,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
                 return false;
             }
 
-<<<<<<< HEAD
             var htmlDiv = SetHandlebars("#html-detalle-ingresado-detalle", data);
-=======
-            var source = $("#html-detalle-ingresado-detalle").html();
-            var template = Handlebars.compile(source);
-            var htmlDiv = template(data);
->>>>>>> R1
 
             $("#pedidoPorCliente [data-contenido='" + cliente + "']").empty().html(htmlDiv);
             if (data.RecordCount > 0) {
@@ -669,7 +525,6 @@ function Percepcion() {
     //    }
     //});
 
-<<<<<<< HEAD
     $(".popup_Percepcion").slideDown(slidetime);
     //$(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
 
@@ -677,15 +532,6 @@ function Percepcion() {
 
         $(".popup_Percepcion").slideUp(slidetime);
         //$(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
-=======
-    $(".popup_Percepcion").slideDown(300);
-    $(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
-
-    $(".btn_cerrar_popupPercepcion").click(function () {
-
-        $(".popup_Percepcion").slideUp(300);
-        $(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
->>>>>>> R1
 
     });
 
