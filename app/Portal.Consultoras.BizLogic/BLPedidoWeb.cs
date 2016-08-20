@@ -1339,6 +1339,12 @@ namespace Portal.Consultoras.BizLogic
             DAPedidoWeb.UpdBloqueoPedido(BEPedidoWeb);
         }
 
+        /*GR2089*/
+        public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
+        {
+            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora,PedidoId,Accion, CodigoUsuario);
+        }
+        
         public void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb)
         {
             var DAPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
@@ -1966,14 +1972,14 @@ namespace Portal.Consultoras.BizLogic
         }
     }
 
-    public static class LinqExtensions
-    {
-        public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
-        {
-            foreach (var item in outer)
-            {
-                updator(item);
-            }
-        }
-    }
+    //public static class LinqExtensions
+    //{
+    //    public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
+    //    {
+    //        foreach (var item in outer)
+    //        {
+    //            updator(item);
+    //        }
+    //    }
+    //}
 }

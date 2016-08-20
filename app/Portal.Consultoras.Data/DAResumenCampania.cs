@@ -70,5 +70,24 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, ConsultoraID);
             return Context.ExecuteReader(command);
         }
+
+        public DateTime GetFechaVencimiento(string codigoIso, int campaniaId, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaVencimiento");
+            Context.Database.AddInParameter(command, "@CodigoIso", DbType.String, codigoIso);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            var resultado = Context.ExecuteScalar(command);
+
+            resultado = resultado ?? "";
+
+            DateTime fecha;
+
+            var esFecha = DateTime.TryParse(resultado.ToString(), out fecha);
+
+            return esFecha ? fecha : DateTime.MinValue;            
+        }
+
     }
 }

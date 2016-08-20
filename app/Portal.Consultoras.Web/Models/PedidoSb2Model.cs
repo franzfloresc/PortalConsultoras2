@@ -69,21 +69,23 @@ namespace Portal.Consultoras.Web.Models
             }
         }
 
-        public string FormatoMontoGanancia
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(MontoAhorroCatalogo + MontoAhorroRevista, CodigoIso);
-            }
-        }
+        public string TotalCliente { get; set; }
 
-        public string FormatoMontoEscala
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(MontoEscala, CodigoIso);
-            }
-        }
+        public string ClienteID_ { get; set; }
+
+        public decimal MontoAhorroCatalogo { get; set; }
+
+        public decimal MontoAhorroRevista { get; set; }
+
+        public decimal MontoDescuento { get; set; }
+
+        public decimal MontoEscala { get; set; }
+
+        public string Prol { get; set; }
+
+        public string MensajeGuardarColombia { get; set; }
+
+        public string Registros { get; set; }
 
         public string FormatoMontoDescuento
         {
@@ -101,24 +103,7 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(TotalConDescuento, CodigoIso);
             }
         }
-
-        public string TotalCliente { get; set; }
-
-        public string ClienteID_ { get; set; }
-
-        public decimal MontoAhorroCatalogo { get; set; }
-
-        public decimal MontoAhorroRevista { get; set; }
-
-        public decimal MontoDescuento { get; set; }
-
-        public decimal MontoEscala { get; set; }
-                
-        public string Prol { get; set; }
-
-        public string MensajeGuardarColombia { get; set; }
-
-        public string Registros { get; set; }
+      
 
         public string RegistrosDe { get; set; }
 

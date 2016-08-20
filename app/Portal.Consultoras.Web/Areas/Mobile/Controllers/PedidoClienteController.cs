@@ -31,12 +31,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 foreach (var item in lista3Ultimos)
                 {
-                    model.ListaPedidoCliente.Add(
-                        new PedidoWebMobilModel
-                        {
-                            CampaniaID = item.CampaniaID,
-                            ImporteTotal = item.ImporteTotal
-                        });
+                    model.ListaPedidoCliente.Add(new PedidoWebMobilModel{
+                        CampaniaID = item.CampaniaID,
+                        ImporteTotal = item.ImporteTotal,
+                        Descuento = -item.DescuentoProl
+                    });
                 }
 
                 BEPedidoWebDetalle[] lstPedidoDetalle;
@@ -47,17 +46,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID);
                     }
-
                     foreach (var pedidoDetalle in lstPedidoDetalle)
                     {
-                        pedidoCliente.ListaPedidoWebDetalle.Add(
-                            new PedidoWebClienteMobilModel
-                            {
-                                ClienteID = pedidoDetalle.ClienteID,
-                                Nombre = pedidoDetalle.Nombre,
-                                eMail = pedidoDetalle.eMail,
-                                CampaniaID = pedidoDetalle.CampaniaID
-                            });
+                        pedidoCliente.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel {
+                            ClienteID = pedidoDetalle.ClienteID,
+                            Nombre = pedidoDetalle.Nombre,
+                            eMail = pedidoDetalle.eMail,
+                            CampaniaID = pedidoDetalle.CampaniaID
+                        });
                     }
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
@@ -66,24 +62,47 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
                         }
-
                         foreach (var producto in lstPedidoDetalleProducto)
                         {
-                            pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(
-                                new PedidoWebDetalleMobilModel
-                                {
-                                    ClienteID = producto.ClienteID,
-                                    Nombre = producto.Nombre,
-                                    eMail = producto.eMail,
-                                    CampaniaID = producto.CampaniaID,
-                                    DescripcionProd = producto.DescripcionProd,
-                                    CUV = producto.CUV,
-                                    PrecioUnidad = producto.PrecioUnidad,
-                                    Cantidad = producto.Cantidad,
-                                    ImporteTotal = producto.ImporteTotal
-                                });
+                            pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel {
+                                ClienteID = producto.ClienteID,
+                                Nombre = producto.Nombre,
+                                eMail = producto.eMail,
+                                CampaniaID = producto.CampaniaID,
+                                DescripcionProd = producto.DescripcionProd,
+                                CUV = producto.CUV,
+                                ObservacionPROL = producto.ObservacionPROL,
+                                IndicadorOfertaCUV = producto.IndicadorOfertaCUV,
+                                PrecioUnidad = producto.PrecioUnidad,
+                                Cantidad = producto.Cantidad,
+                                ImporteTotal = producto.ImporteTotal
+                            });
                         }
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
+                    }
+
+                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle => 
+                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => 
+                            string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
+                        )
+                    );
+                    if (pedidoCliente.TieneDescuentoCuv)
+                    {
+                        pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
+                        pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
+                    }
+
+                    if(userData.PaisID == 4)
+                    {
+                        pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                        pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                        pedidoCliente.ImporteTotalString = pedidoCliente.ImporteTotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                    }
+                    else
+                    {
+                        pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                        pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                        pedidoCliente.ImporteTotalString = pedidoCliente.ImporteTotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
                     }
                 }
             }
@@ -247,7 +266,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpPost]
-        public JsonResult EnviarEmailConsultora(string CampaniaId)
+        public JsonResult EnviarEmailConsultora(string campaniaId)
         {
             try
             {
@@ -263,11 +282,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
+                    ServicePedido.BEPedidoWeb pedidoWeb = new ServicePedido.BEPedidoWeb();
+                    using (var sv = new ServicePedido.PedidoServiceClient())
+                    {
+                        pedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID);
+                    }
+
                     List<PedidoWebClienteMobilModel> listaClientes = new List<PedidoWebClienteMobilModel>();
                     List<BEPedidoWebDetalle> lstCabecera = new List<BEPedidoWebDetalle>();
                     using (ClienteServiceClient sv = new ClienteServiceClient())
                     {
-                        lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(CampaniaId), userData.ConsultoraID).ToList();
+                        lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID).ToList();
                     }
                     var objCabecera = lstCabecera;
                     foreach (var dato1 in objCabecera)
@@ -288,7 +313,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         using (ClienteServiceClient sv = new ClienteServiceClient())
                         {
-                            lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), userData.ConsultoraID, item.ClienteID).ToList();
+                            lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID, item.ClienteID).ToList();
                         }
                         var objDetalle = lstDetallesTemp;
                         decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
@@ -305,17 +330,43 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                     CampaniaID = dato2.CampaniaID,
                                     DescripcionProd = dato2.DescripcionProd,
                                     CUV = dato2.CUV,
+                                    ObservacionPROL = dato2.ObservacionPROL,
+                                    IndicadorOfertaCUV = dato2.IndicadorOfertaCUV,
                                     PrecioUnidad = dato2.PrecioUnidad,
                                     Cantidad = dato2.Cantidad,
                                     ImporteTotal = dato2.ImporteTotal,
                                     ImporteTotalPedido = suma,
                                 });
                         }
-                        //agregado el valor total a la primera lista
-                        foreach (var dato3 in listaClientes)
-                        {
-                            dato3.ImporteTotalPedido = suma;
-                        }
+                        item.ImporteTotalPedido = suma;
+                    }
+
+
+                    PedidoWebMobilModel pedidoCliente = new PedidoWebMobilModel();
+                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && listaClientes.Any(pedidoWebDetalle =>
+                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
+                            string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
+                        )
+                    );
+                    if (pedidoCliente.TieneDescuentoCuv)
+                    {
+                        pedidoCliente.Subtotal = pedidoWeb.ImporteTotal;
+                        pedidoCliente.Descuento = -pedidoWeb.DescuentoProl;
+                        pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
+                    }
+                    else pedidoCliente.ImporteTotal = pedidoWeb.ImporteTotal;
+
+                    if (userData.PaisID == 4)
+                    {
+                        pedidoCliente.SubtotalString = string.Format("{0:#,##0}", pedidoCliente.Subtotal).Replace(',', '.');
+                        pedidoCliente.DescuentoString = string.Format("{0:#,##0}", pedidoCliente.Descuento).Replace(',', '.');
+                        pedidoCliente.ImporteTotalString = string.Format("{0:#,##0}", pedidoCliente.ImporteTotal).Replace(',', '.');
+                    }
+                    else
+                    {
+                        pedidoCliente.SubtotalString = string.Format("{0:#,##0.00}", pedidoCliente.Subtotal);
+                        pedidoCliente.DescuentoString = string.Format("{0:#,##0.00}", pedidoCliente.Descuento);
+                        pedidoCliente.ImporteTotalString = string.Format("{0:#,##0.00}", pedidoCliente.ImporteTotal);
                     }
 
                     #region Mensaje a Enviar
@@ -323,7 +374,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var mailBody = string.Empty;
                     mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
+                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + campaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
                     mailBody += "<table border='1' style='width: 80%;'>";
                     mailBody += "<tr style='color: #FFFFFF'>";
                     mailBody += "<td style='font-size:11px; width: 347px; font-weight: bold; text-align: center; background-color: #666699;'>";
@@ -376,10 +427,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             else
                             {
                                 mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                                mailBody += "" + userData.Simbolo + item2.PrecioUnidad.ToString("#0.00") + "";
+                                mailBody += userData.Simbolo + item2.PrecioUnidad.ToString("#0.00");
                                 mailBody += "</td>";
                                 mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                                mailBody += "" + userData.Simbolo + item2.ImporteTotal.ToString("#0.00") + "";
+                                mailBody += userData.Simbolo + item2.ImporteTotal.ToString("#0.00");
                                 mailBody += "</td>";
                             }
                             mailBody += "</tr>";
@@ -390,18 +441,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         mailBody += "Total :";
                         mailBody += "</td>";
                         mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                        if (userData.PaisID == 4)
-                        {
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "";
-                        }
-                        else
-                        {
-                            mailBody += "" + userData.Simbolo + item.ImporteTotalPedido.ToString("#0.00") + "";
-                        }
+
+                        if (userData.PaisID == 4) mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "";
+                        else mailBody += "" + userData.Simbolo + item.ImporteTotalPedido.ToString("#0.00") + "";
                         mailBody += "</td>";
                         mailBody += "</tr>";
                     }
                     mailBody += "</table>";
+
+
+                    mailBody += "<div style='font-size:12px;font-weight:bold;width:80%;text-align:right; margin-top:5px;'>";
+                    if (pedidoCliente.TieneDescuentoCuv)
+                    {
+                        mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.SubtotalString + "</div>";
+                        mailBody += "<div style='float:right;'>SubTotal:</div>";
+                        mailBody += "<div style='clear:both;height:3px;'></div>";
+                        mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.DescuentoString + "</div>";
+                        mailBody += "<div style='float:right;'>Descuento por ofertas con más de un precio:</div>";
+                        mailBody += "<div style='clear:both;height:3px;'></div>";
+                    }
+                    mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.ImporteTotalString + "</div>";
+                    mailBody += "<div style='float:right;'>Total:</div>";
+                    mailBody += "<div style='clear:both;'></div>";
+                    mailBody += "</div>";
+
                     mailBody += "<br /><br />";
                     mailBody += "<div style='font-size:12px;'>Saludos,</div>";
                     mailBody += "<br /><br />";

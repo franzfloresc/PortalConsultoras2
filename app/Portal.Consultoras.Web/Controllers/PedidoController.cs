@@ -2420,7 +2420,7 @@ namespace Portal.Consultoras.Web.Controllers
             return olstPedidoWebDetalleObs;
         }
 
-        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2458,9 +2458,9 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock) //1510
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
             }
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -2471,7 +2471,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2524,10 +2524,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (userData.PROLSinStock) 
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL);
+                if (userData.PROLSinStock)
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
 
             }
             using (SACServiceClient sv = new SACServiceClient())

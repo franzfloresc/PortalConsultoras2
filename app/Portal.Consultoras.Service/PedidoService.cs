@@ -215,9 +215,9 @@ namespace Portal.Consultoras.Service
         #endregion
 
 
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl)
+        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal descuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl, descuentoProl);
         }
 
 
@@ -823,9 +823,9 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora);
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, fecha);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
 
         #endregion
@@ -1142,9 +1142,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
         // 1747 - Fin
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL)
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL, decimal descuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProL);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProL, descuentoProl);
         }
 
         //R2004
@@ -1181,9 +1181,9 @@ namespace Portal.Consultoras.Service
             BLValidacionAutomatica.UpdValidacionMovilPROLLog(oBEValidacionMovil);
         }
 
-        public void UpdValAutoPROLPedidoWeb(int PaisId, int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados)
+        public void UpdValAutoPROLPedidoWeb(int PaisId, int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados, decimal montoTotalProl, decimal descuentoProl)
         {
-            BLValidacionAutomatica.UpdValAutoPROLPedidoWeb(PaisId, CampaniaId, PedidoId, EstadoPedido, ItemsEliminados);
+            BLValidacionAutomatica.UpdValAutoPROLPedidoWeb(PaisId, CampaniaId, PedidoId, EstadoPedido, ItemsEliminados, montoTotalProl, descuentoProl);
         }
 
         public void InsPedidoWebAccionesPROLAuto(int PaisId, BEAccionesPROL oBEAccionesPROL)
@@ -1429,6 +1429,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.UpdOfertaShowRoomStockMasivo(paisID, stockProductos);
         }
 
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        {
+            return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+        }
+
         public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
             return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
@@ -1499,6 +1504,66 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetStockOfertaShowRoom(paisID, CampaniaID, CUV);
         }
 
+        public int DeshabilitarShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
+        {
+            return BLShowRoomEvento.DeshabilitarShowRoomEvento(paisID, beShowRoomEvento);
+        }
+
+        public int EliminarShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
+        {
+            return BLShowRoomEvento.EliminarShowRoomEvento(paisID, beShowRoomEvento);
+        }
+
+        public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion)
+        {
+            return BLShowRoomEvento.GuardarImagenShowRoom(paisID, eventoId, nombreImagenFinal, tipo, usuarioModificacion);
+        }
+
+        public IList<BEShowRoomOfertaDetalle> GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv)
+        {
+            return BLShowRoomEvento.GetProductosShowRoomDetalle(paisID, campaniaId, cuv);
+        }
+
+        public int InsOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
+        {
+            return BLShowRoomEvento.InsOfertaShowRoomDetalle(paisID, entity);
+        }
+
+        public int UpdOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
+        {
+            return BLShowRoomEvento.UpdOfertaShowRoomDetalle(paisID, entity);
+        }
+
+        public int EliminarOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle beShowRoomOfertaDetalle)
+        {
+            return BLShowRoomEvento.EliminarOfertaShowRoomDetalle(paisID, beShowRoomOfertaDetalle);
+        }
+
+        public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv)
+        {
+            return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
+        }
+
+        public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
+        {
+            return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
+        }
+
+        public IList<BEShowRoomPerfilOferta> GetShowRoomPerfilOfertaCuvs(int paisId, BEShowRoomPerfilOferta beShowRoomPerfilOferta)
+        {
+            return BLShowRoomEvento.GetShowRoomPerfilOfertaCuvs(paisId, beShowRoomPerfilOferta);
+        }
+
+        public void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv)
+        {
+            BLShowRoomEvento.GuardarPerfilOfertaShowRoom(paisId, perfilId, eventoId, campaniaId, cadenaCuv);
+        }
+
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        {
+            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
+        }
+
         #endregion
 
         #region Producto SUgerido
@@ -1555,6 +1620,13 @@ namespace Portal.Consultoras.Service
         public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID)
         {
             return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
+        }
+
+
+        /*GR2089*/
+        public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
+        {
+            BLPedidoWeb.InsertarLogPedidoWeb(PaisID, CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
 
         public string PruebaPase()

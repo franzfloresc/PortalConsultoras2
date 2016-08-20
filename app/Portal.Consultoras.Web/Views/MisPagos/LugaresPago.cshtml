@@ -1,0 +1,29 @@
+﻿@model Portal.Consultoras.Web.Models.LugaresPagoModel
+@{
+    ViewBag.Title = "Lugares de Pago";
+}
+
+<div>
+    <div class="titulo_detalle_pago">
+        <div class="titulo_detalle_lugares_img"></div>
+        <div>LUGARES<b> DE PAGO</b></div>
+    </div>
+    <hr class="clear" />
+    <div class="bancos_pagos">Ingresa con un click los lugares de pagos de su preferencia</div>
+        @if (Model.listaLugaresPago != null && Model.listaLugaresPago.Count() > 0)
+        {
+            foreach (var lugarPago in Model.listaLugaresPago)
+            {
+                @Html.Hidden("LugarPagoID", lugarPago.LugarPagoID)
+                <div>    
+                    @*@if (lugarPago.ArchivoInstructivo != "") 
+                        {
+                            <a href="@lugarPago.ArchivoInstructivo" target="_blank">Instrucciones aquí</a>
+                        }*@
+                    <a href="@lugarPago.UrlSitio" class="logos_bancos" target="_blank" onclick="EventoAnalytics('@lugarPago.Nombre', 2)">
+                        <img src='@Url.Content(lugarPago.ArchivoLogo)' alt="Logo Lugar de Pago"/>
+                    </a>
+                </div>                            
+            }
+        }
+</div>

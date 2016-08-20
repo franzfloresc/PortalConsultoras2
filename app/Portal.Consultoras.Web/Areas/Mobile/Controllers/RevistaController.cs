@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.CurrentCampania = currentCampania;
                 ViewBag.NroCampanias = userData.NroCampanias;
                 ViewBag.CodigoISO = userData.CodigoISO;
+                ViewBag.PaisID = userData.PaisID; //EPD-826
+                ViewBag.CodigoZona = userData.CodigoZona; //EPD-826
             }
             catch (FaultException ex)
             {

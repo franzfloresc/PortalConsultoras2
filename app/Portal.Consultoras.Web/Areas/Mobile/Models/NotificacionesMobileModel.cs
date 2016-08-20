@@ -21,5 +21,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public DateTime FechaFacturacion { get; set; }
         public int Campania { get; set; }
         public string Asunto { get; set; }
+        public bool TieneDescuentoCuv { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Descuento { get; set; }
+        public decimal Total { get; set; }
+        public Converter<decimal, string> DecimalToString { get; set; }
     }
 }

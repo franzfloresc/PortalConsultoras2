@@ -40,10 +40,10 @@ namespace Portal.Consultoras.BizLogic
             return DAValidacionMovil.GetValidacionMovilPROLLog(oBEValidacionMovil);
         }
 
-        public void UpdValAutoPROLPedidoWeb(int PaisId, int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados)
+        public void UpdValAutoPROLPedidoWeb(int PaisId, int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados, decimal montoTotalProl, decimal descuentoProl)
         {
             var DAValidacionMovil = new DAValidacionAutomatica(PaisId);
-            DAValidacionMovil.UpdValAutoPROLPedidoWeb(CampaniaId, PedidoId, EstadoPedido, ItemsEliminados);
+            DAValidacionMovil.UpdValAutoPROLPedidoWeb(CampaniaId, PedidoId, EstadoPedido, ItemsEliminados, montoTotalProl, descuentoProl);
         }
 
         public void InsPedidoWebAccionesPROLAuto(int PaisId, BEAccionesPROL oBEAccionesPROL)

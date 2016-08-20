@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Common
     public class AppSettingsKeys
     {
         public const string WSGEO_Url = "WSGEO_Url";
+        public const string WSGEO_CO_Url = "WSGEO_CO_Url";
         public const string WSGEO_PuntosPorDireccion = "WSGEO_PuntosPorDireccion";
         public const string WSGEO_TerritorioPorPunto = "WSGEO_TerritorioPorPunto";
         public const string MandrillURL = "MandrillURL";
@@ -19,6 +20,8 @@ namespace Portal.Consultoras.Common
         public const string UrlSiteSE = "UrlSiteSE";
         public const string NombreBaseDatos = "NombreBaseDatos_XX";
         public const string PaisesHojaIncripcion = "PaisesHojaIncripcion";
+        public const string DocumentosIdentidadStorage = "UrlContenedoraDocumentosIdentidad";
+        public const string DocumentosDomicilioStorage = "UrlContenedoraComprobantesDomicilio";
     }
 
     public class ConnectionStringNames

@@ -45,6 +45,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CurrentCampania = currentCampania;
             ViewBag.NroCampanias = usuarioModel.NroCampanias;
             ViewBag.CodigoISO = usuarioModel.CodigoISO;
+            ViewBag.PaisID = UserData().PaisID; //EPD-826
+            ViewBag.CodigoZona = UserData().CodigoZona; //EPD-826
+            ViewBag.CampaniaActual = UserData().CampaniaID; //EPD-826
             return View();
         }
         public async Task<ActionResult> Insertar(int paisId,string campania,string fileNamePortada)
@@ -385,6 +388,5 @@ namespace Portal.Consultoras.Web.Controllers
             return Content(JsonConvert.SerializeObject(data));
         }
         #endregion
-
     }
 }

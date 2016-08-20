@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal TotalMontoPedidos { get; set; }
         public string Simbolo { get; set; }
         public short Bloqueado { get; set; }
+        public short IndicadorEnviado { get; set; }
 
         public string Fechaddl_val { get; set; }
         public string EstadoPedidoddl_val { get; set; }
@@ -42,5 +43,6 @@ namespace Portal.Consultoras.Web.Models
         public string territoriotxt_ID { get; set; }
         public string CodConsultoratxt_ID { get; set; }
         public string Usuario { get; set; }
+        public string FechaProceso { get; set; }
     }
 }

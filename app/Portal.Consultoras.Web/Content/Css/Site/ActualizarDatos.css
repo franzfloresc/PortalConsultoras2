@@ -210,17 +210,17 @@
 .lblComunicadoV {
     display: block;    
     text-indent: -15px;
-    padding-top: 1em;
+    padding-top: 0.2em;
     font-size: 0.9em;
 }
-.chkComunicadoV {
+.lblComunicadoV .chkComunicadoV {
     width: 13px;
     height: 13px;
     padding: 0;
-    margin-right: 2em;
+    margin-right: 1.7em;
     vertical-align: bottom;
     position: relative;
-    top: -10px;
+    top: -13px;
     float:left;
     *overflow: hidden;
 }

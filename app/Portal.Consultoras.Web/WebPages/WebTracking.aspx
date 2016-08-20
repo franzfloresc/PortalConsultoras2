@@ -324,6 +324,16 @@
                                                         </div>
                                                         <br />
                                                     </asp:Panel>
+
+                                                    <!-- PCABRERA GR-1883 - INICIO -->
+                                                    <asp:Panel ID="pnlSinTracking" runat="server" Visible="false">
+                                                        <div>
+                                                            <asp:Label ID="lblMensajeSinTracking" runat="server" ForeColor="Red"></asp:Label> 
+                                                        </div>
+                                                        <br />
+                                                    </asp:Panel>
+                                                    <!-- PCABRERA GR-1883 - INICIO -->
+
                                                     <asp:GridView ID="gridDatos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
                                                         GridLines="Horizontal" OnRowDataBound="gridDatos_RowDataBound" CellPadding="0" CellSpacing="0" OnRowCommand="gridDatos_RowCommand">
 

@@ -7,6 +7,12 @@ using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 
+/* EPD-665 - INICIO */
+using Portal.Consultoras.Common;
+using System.Configuration;
+/* EPD-665 - FIN */
+
+
 namespace Portal.Consultoras.BizLogic
 {
     public class BLTracking
@@ -29,12 +35,15 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        /* PCABRERA GR-1883 - INICIO */
+        //public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             var pedidos = new List<BETracking>();
             var DATracking = new DATracking(paisID);
 
-            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, fecha))
+            //using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, fecha))
+            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
                 while (reader.Read())
                 {
@@ -46,6 +55,8 @@ namespace Portal.Consultoras.BizLogic
 
             return pedidos;
         }
+        /* PCABRERA GR-1883 - INICIO */
+
         //1793
         public List<BENovedadTracking> GetNovedadesTracking(int paisID, string NumeroPedido)
         {
@@ -74,8 +85,38 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 Result = DATracking.InsConfirmacionEntrega(oBEConfirmacionEntrega);
+
+                /* EPD-665 - INICIO */
+                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) && 
+                    ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
+                {
+                    BELogConfirmacionEntrega oBELogConfirmacionEntrega = new BELogConfirmacionEntrega();
+                    oBELogConfirmacionEntrega.LogTipoReg = 1;
+                    oBELogConfirmacionEntrega.LogResult = Result;
+                    oBELogConfirmacionEntrega.IdentificadorEntrega = oBEConfirmacionEntrega.IdentificadorEntrega;
+                    oBELogConfirmacionEntrega.NumeroPedido = oBEConfirmacionEntrega.NumeroPedido;
+                    oBELogConfirmacionEntrega.CodigoConsultora = oBEConfirmacionEntrega.CodigoConsultora;
+                    oBELogConfirmacionEntrega.Fecha = oBEConfirmacionEntrega.Fecha;
+                    oBELogConfirmacionEntrega.Latitud = oBEConfirmacionEntrega.Latitud;
+                    oBELogConfirmacionEntrega.Longitud = oBEConfirmacionEntrega.Longitud;
+                    oBELogConfirmacionEntrega.TipoEntrega = oBEConfirmacionEntrega.TipoEntrega;
+                    oBELogConfirmacionEntrega.Novedad = oBEConfirmacionEntrega.Novedad;
+                    oBELogConfirmacionEntrega.Observacion = oBEConfirmacionEntrega.Observacion;
+                    oBELogConfirmacionEntrega.CodigoPlataforma = oBEConfirmacionEntrega.CodigoPlataforma;
+                    oBELogConfirmacionEntrega.Foto1 = oBEConfirmacionEntrega.Foto1;
+                    oBELogConfirmacionEntrega.Foto2 = oBEConfirmacionEntrega.Foto2;
+                    oBELogConfirmacionEntrega.Foto3 = oBEConfirmacionEntrega.Foto3;
+                    oBELogConfirmacionEntrega.Firma = oBEConfirmacionEntrega.Firma;
+
+                    DATracking.InsLogConfirmacionEntrega(oBELogConfirmacionEntrega);
+                }
+                /* EPD-665 - FIN */
             }
-            catch { }
+            catch(Exception ex) 
+            {
+                /* EPD-665 */
+                LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
+            }
 
             return Result;
         }
@@ -88,8 +129,29 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 Result = DATracking.UpdConfirmacionEntrega(oBEConfirmacionEntrega);
+
+                /* EPD-665 - INICIO */
+                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) && 
+                    ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
+                {
+                    BELogConfirmacionEntrega oBELogConfirmacionEntrega = new BELogConfirmacionEntrega();
+                    oBELogConfirmacionEntrega.LogTipoReg = 2;
+                    oBELogConfirmacionEntrega.LogResult = Result;
+                    oBELogConfirmacionEntrega.IdentificadorEntrega = oBEConfirmacionEntrega.IdentificadorEntrega;
+                    oBELogConfirmacionEntrega.NumeroPedido = oBEConfirmacionEntrega.NumeroPedido;
+                    oBELogConfirmacionEntrega.Fecha = oBEConfirmacionEntrega.Fecha;
+                    oBELogConfirmacionEntrega.Foto1 = oBEConfirmacionEntrega.Foto1;
+                    oBELogConfirmacionEntrega.Foto2 = oBEConfirmacionEntrega.Foto2;
+
+                    DATracking.InsLogConfirmacionEntrega(oBELogConfirmacionEntrega);
+                }
+                /* EPD-665 - FIN */
             }
-            catch { }
+            catch(Exception ex) 
+            {
+                /* EPD-665 */
+                LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
+            }
 
             return Result;
         }

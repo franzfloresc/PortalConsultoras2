@@ -44,12 +44,25 @@ namespace Portal.Consultoras.Web.LogManager
             if (!Directory.Exists(sPathFile))
                 Directory.CreateDirectory(sPathFile);
 
+            /* PCABRERA GR-2139 - INICIO */
+
+            /*
             StreamWriter oStream = new StreamWriter(sPathFile + "Log_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2, '0').ToString() + "-" + DateTime.Now.Day.ToString().PadLeft(2, '0').ToString() + ".portal", true);
             oStream.WriteLine(":::::::::::::: Seguimiento de Errores ::::::::::::::");
             oStream.WriteLine("País :" + Pais + "==>" + DateTime.Now + "- " + Usuario + " - Error : " + expException.Message + "(" + expException.StackTrace + ").");
             oStream.WriteLine(string.Empty);
             oStream.Flush();
-            oStream.Close();
+            oStream.Close();            
+             * */
+
+            string p = sPathFile + "Log_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2, '0') + "-" + DateTime.Now.Day.ToString().PadLeft(2, '0') + ".portal";
+            using (StreamWriter sw = File.AppendText(p))
+            {
+                sw.WriteLine(":::::::::::::: Seguimiento de Errores ::::::::::::::");
+                sw.WriteLine("País :" + Pais + "==>" + DateTime.Now + "- " + Usuario + " - Error : " + expException.Message + "(" + expException.StackTrace + ").");
+                sw.WriteLine(string.Empty);
+            }
+            /* PCABRERA GR-2139 - FIN */
         }
     }
 }

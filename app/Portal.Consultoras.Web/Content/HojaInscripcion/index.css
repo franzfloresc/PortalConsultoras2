@@ -580,3 +580,11 @@ h2
     box-sizing: border-box;
     display: inline-block;
 }*/
+
+.hidden {
+  display: none!important;
+}
+
+.red {
+  color: #ea2b31;
+}

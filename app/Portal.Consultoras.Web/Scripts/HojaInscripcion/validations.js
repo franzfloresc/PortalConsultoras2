@@ -1,4 +1,107 @@
-﻿function DecimalNumber(e) {
+﻿jQuery.validator.unobtrusive.adapters.add('requiredif', ['otherproperty', 'listvalues'], function (options) {
+    options.rules["requiredif"] = {
+        otherproperty: '#' + options.params.otherproperty,
+        listvalues: options.params.listvalues
+    };
+
+    options.messages['requiredif'] = options.message;
+});
+
+jQuery.validator.unobtrusive.adapters.add('expressionrequiredif', ['otherproperty', 'listvalues', 'expresiones', 'mensajes', 'regexnotmatch'], function (options) {
+    options.rules["expressionrequiredif"] = {
+        otherproperty: '#' + options.params.otherproperty,
+        listvalues: options.params.listvalues,
+        expresiones: options.params.expresiones,
+        mensajes: options.params.mensajes,
+        regexnotmatch: options.params.regexnotmatch
+    };
+
+    options.messages['expressionrequiredif'] = options.message;
+});
+
+jQuery.validator.unobtrusive.adapters.add('requiredifpropertiesnotnull', ['properties', 'condicion', 'listvalues', 'otherproperty'], function (options) {
+    var listaPropiedades = options.params.properties.split(',');
+    var listaSelectoresPropiedades = new Array();
+
+    $.each(listaPropiedades, function (index, item) {
+        listaSelectoresPropiedades.push("#" + item);
+    });
+
+    options.rules["requiredifpropertiesnotnull"] = {
+        selectores: listaSelectoresPropiedades,
+        condicion: options.params.condicion,
+        otherproperty: '#' + options.params.otherproperty,
+        listvalues: options.params.listvalues
+    };
+    options.messages['requiredifpropertiesnotnull'] = options.message;
+});
+
+
+jQuery.validator.addMethod('requiredif', function (value, element, params) {
+    var listaValores = params.listvalues.split(',');
+
+    var existeEnArray = $.inArray($(params.otherproperty).val(), listaValores) !== -1;
+
+    if (existeEnArray && isNullOrEmpty(value))
+        return false;
+
+    return true;
+}, '');
+
+jQuery.validator.addMethod('expressionrequiredif', function (value, element, params) {
+    var listaValores = params.listvalues.split(',');
+    var expresiones = params.expresiones.split('|');
+    var regexnotmatch = params.regexnotmatch;
+
+    console.log(expresiones);
+    console.log(regexnotmatch);
+    console.log(value);
+
+    var existeEnArray = $.inArray($(params.otherproperty).val(), listaValores) !== -1;
+
+    if (existeEnArray) {
+        for (var i = 0; i < expresiones.length; i++) {
+            var regex = new RegExp(expresiones[i]);
+            var resultado = regex.test(value);
+
+            if ((!resultado && regexnotmatch == 0) || (resultado && regexnotmatch == 1))
+                return false;
+        }
+    }
+
+    return true;
+}, '');
+
+jQuery.validator.addMethod('requiredifpropertiesnotnull', function (value, element, params) {
+    if (params.listvalues && params.listvalues.length > 0 && params.otherproperty && params.otherproperty.length > 0) {
+        var listaValores = params.listvalues.split(',');
+        var existeEnArray = $.inArray($(params.otherproperty).val(), listaValores) !== -1;
+
+        if (!existeEnArray)
+            return true;
+    }
+
+    var listaValoresPropiedadesEvaluar = new Array();
+    var condicion = params.condicion;
+
+    $.each(params.selectores, function (index, prop) {
+        var valorPropiedad = $(prop).val();
+        listaValoresPropiedadesEvaluar.push(valorPropiedad);
+    });
+
+    if ((condicion && listaValoresPropiedadesEvaluar.every(isNullOrEmpty)) || (!condicion && listaValoresPropiedadesEvaluar.some(isNullOrEmpty)))
+        return false;
+
+    return true;
+
+}, '');
+
+
+function isNullOrEmpty(element, index, array) {
+    return element == null || element == "";
+}
+
+function DecimalNumber(e) {
 	// Allow: backspace, delete, tab, escape, enter
 	if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
 		// Allow: Ctrl+A
@@ -51,6 +154,8 @@ function IntegerNumber(e) {
 	if ((e.shiftKey || e.altKey || e.ctrlKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
 		e.preventDefault();
 	}
+
+    return true;
 }
 
 /* For tickets, bills and referral guide codes */
@@ -80,11 +185,9 @@ function BillNumber(e) {
 
 function Text(e) {
     // Allow: backspace, delete, tab, escape, enter, dash(2)
-    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 109, 189]) !== -1 ||
+    if ($.inArray(e.keyCode, [ 8, 9, 27, 13, 109, 189]) !== -1 ||
         // Allow: Ctrl+A
-		(e.keyCode == 65 && e.ctrlKey === true) ||
-        // Allow: home, end, left, right
-		(e.keyCode >= 35 && e.keyCode <= 39)) {
+        (e.keyCode == 65 && e.ctrlKey === true)) {
         // let it happen, don't do anything
         return true;
     }

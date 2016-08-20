@@ -79,7 +79,9 @@ namespace Portal.Consultoras.Web.Controllers
                 PaisID = Convert.ToInt32(obj["PaisID"].ToString()),
                 Usuario = obj["Usuario"].ToString(),
                 Bloqueado = Convert.ToInt16(obj["Bloqueado"].ToString()),
-                DescripcionBloqueo = obj["DescripcionBloqueo"].ToString()
+                DescripcionBloqueo = obj["DescripcionBloqueo"].ToString(),
+                IndicadorEnviado = Convert.ToInt16(obj["IndicadorEnviado"].ToString()),
+                FechaProceso = HttpUtility.UrlDecode(obj["FechaProceso"].ToString()).Trim()
             };
             return View(model);
         }
@@ -291,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int paisID, string vRegionID,
                                      string vCampaniaID, string vZonaID, string vTerritorioID, string vEstadoPedido,
-                                     string vConsultoraID, string vBloqueado)
+                                     string vConsultoraID, string vBloqueado, string vFechaProceso)
         {
             if (ModelState.IsValid)
             {
@@ -378,6 +380,8 @@ namespace Portal.Consultoras.Web.Controllers
                                            (UserData().PaisID == 4)? a.SaldoDeuda.ToString("#,##0").Replace(',','.') : a.SaldoDeuda.ToString("0.00"),
                                            a.DescripcionBloqueo,
                                            a.Bloqueado.ToString(),
+                                           a.IndicadorEnviado.ToString(),
+                                           a.FechaProceso.ToString()
                                         }
                            }
                 };
@@ -435,8 +439,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     total = pag.PageCount,
                     page = pag.CurrentPage,
-                    records = pag.RecordCount,                    
-                    totalimporte = (UserData().PaisID == 4)? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',','.') : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
+                    records = pag.RecordCount,
+                    totalimporte = (UserData().PaisID == 4) ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.') : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
                     rows = from a in lst
                            select new
@@ -466,6 +470,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
                     .ForMember(t => t.DescripcionBloqueo, f => f.MapFrom(c => c.DescripcionBloqueo));
 
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
@@ -474,6 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
                     pedido.PaisID = model.PaisID;
                     pedido.CodigoUsuarioModificacion = UserData().CodigoUsuario;
                     sv.UpdBloqueoPedido(pedido);
+                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "BLOQUEO", UserData().CodigoUsuario);
                 }
 
                 return Json(new
@@ -512,6 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
                     .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
 
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
@@ -520,6 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     pedido.PaisID = model.PaisID;
                     pedido.CodigoUsuarioModificacion = UserData().CodigoUsuario;
                     sv.UpdDesbloqueoPedido(pedido);
+                    sv.InsertarLogPedidoWeb(model.PaisID, pedido.CampaniaID, pedido.CodigoConsultora, pedido.PedidoID, "DESBLOQUEO", UserData().CodigoUsuario);
                 }
 
                 return Json(new

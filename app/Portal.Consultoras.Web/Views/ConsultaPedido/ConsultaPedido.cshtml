@@ -174,7 +174,7 @@
         }
     }
 
-    function SendData(campaniaID, CodConsultora, Nombre, Direccion, CodTerritorio, pedidoID, bloqueado) {
+    function SendData(campaniaID, CodConsultora, Nombre, Direccion, CodTerritorio, pedidoID, bloqueado, indicadorenviado, fechaproceso) {
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");
@@ -193,7 +193,9 @@
             PaisID: $("#ddlPais").val(),
             Usuario: $("#hdnUsuario").val(),
             Bloqueado: bloqueado,
-            DescripcionBloqueo: $("#list").jqGrid('getCell', pedidoID, 'DescripcionBloqueo')
+            DescripcionBloqueo: $("#list").jqGrid('getCell', pedidoID, 'DescripcionBloqueo'),
+            IndicadorEnviado: indicadorenviado,
+            FechaProceso: fechaproceso
         }
         data.value = JSON.stringify(json);
         form1.appendChild(data);
@@ -764,7 +766,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Cod. Campania', 'Direccion', 'Cod. Territorio', 'Cod. Pedido', 'Cod. Zona', 'Cod. Consultora', 'Nombre', 'Monto Pedido', 'Saldo Deuda', 'Descripcion', 'Pedido Bloqueado', 'Detalle'],
+            colNames: ['Cod. Campania', 'Direccion', 'Cod. Territorio', 'Cod. Pedido', 'Cod. Zona', 'Cod. Consultora', 'Nombre', 'Monto Pedido', 'Saldo Deuda', 'Descripcion', 'Pedido Bloqueado', 'Detalle', 'IndicadorEnviado', 'FechaProceso'],
             colModel: [
                 {
                     name: 'CampaniaID', index: 'CampaniaID', width: 0, editable: false, align: 'center',
@@ -789,7 +791,9 @@
                 { name: 'SaldoDeuda', index: 'SaldoDeuda', width: 10, editable: true, resizable: false },
                 { name: 'DescripcionBloqueo', index: 'DescripcionBloqueo', width: 0, editable: false, resizable: false, hidden: true },
                 { name: 'chkPedBloq', index: 'chkPedBloq', width: 15, editable: true, resizable: false, sortable: false, align: 'center', formatter: LoadCheckState },
-                { name: 'vDetalle', index: 'vDetalle', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+                { name: 'vDetalle', index: 'vDetalle', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
+                { name: 'IndicadorEnviado', index: 'IndicadorEnviado', width: 0, editable: false, resizable: false, hidden: true },
+                { name: 'FechaProceso', index: 'FechaProceso', width: 0, editable: false, resizable: false, hidden: true }
             ],
             jsonReader:
             {
@@ -830,7 +834,8 @@
 
         function ShowActions(cellvalue, options, rowObject) {
             var href = "#";
-            var Det = "&nbsp;<a href=\"" + href + "\" onclick=\"SendData('" + rowObject[0] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[10] + "');\">" + "<img src='@Url.Content("~/Content/Images/Detail.png")' alt='Detalle Registro' title='Detalle Registro' border='0' /></a>";
+            var fechaproceso = encodeURI(rowObject[12]);
+            var Det = "&nbsp;<a href=\"" + href + "\" onclick=\"SendData('" + rowObject[0] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[3] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + fechaproceso + "');\">" + "<img src='@Url.Content("~/Content/Images/Detail.png")' alt='Detalle Registro' title='Detalle Registro' border='0' /></a>";
             return Det;
         };
 
@@ -1009,7 +1014,6 @@
         }
     }
 </script>
-
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements">
@@ -1022,11 +1026,12 @@
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
                 @*                <div class="titG">Region:</div>
-                <div class="styectH borde_redondeado">
-                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), new { id = "ddlRegion" })
-                </div>*@
+                    <div class="styectH borde_redondeado">
+                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), new { id = "ddlRegion" })
+                    </div>*@
                 <select id="ddlRegion" style="display: none">
-                    <option value="0">-- Seleccionar --
+                    <option value="0">
+                        -- Seleccionar --
                     </option>
                 </select>
                 <div class="titC">Campaña:</div>
@@ -1039,13 +1044,12 @@
                 </div>
             </div>
             <div class="div-3">
-
                 @*<div class="titG">Fecha:</div>
-                <div class="selectP2 borde_redondeado">
-                    <select id="ddlFechas">
-                        <option value="0">-- Todos --</option>
-                    </select>
-                </div>*@
+                    <div class="selectP2 borde_redondeado">
+                        <select id="ddlFechas">
+                            <option value="0">-- Todos --</option>
+                        </select>
+                    </div>*@
                 <div class="titG">Territorio:</div>
                 <div class="selectP2 borde_redondeado">
                     <input id="txtTerritorio" type="text" maxlength="6" />
@@ -1066,7 +1070,6 @@
                 </div>
             </div>
             <div class="div-3">
-
                 <div class="titG">Pedido Bloqueado:</div>
                 <div class="selectP2 borde_redondeado">
                     <select id="ddlBloqueado">
@@ -1089,18 +1092,14 @@
         </div>
     </div>
 </div>
-
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper">
-
             <table id="list"></table>
             <div id="pager"></div>
-
         </div>
     </div>
 </div>
-
 <div class="wrap">
     <div class="container clearfix" style="text-align: center">
         <div class="total_global">Total Pedidos: <span id="spTotalPedidos">0</span></div>

@@ -47,6 +47,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenActualizar { get; set; }
         public string Accion { get; set; }
+        public string TipoPais { get; set; }
+        public string TextoBoton { get; set; }
     }
 
     public class BETipoContenido

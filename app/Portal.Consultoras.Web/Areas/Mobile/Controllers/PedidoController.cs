@@ -1484,7 +1484,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return lstPedidoWebDetalleObs;
         }
 
-        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
         {
             var userData = UserData();
 
@@ -1539,9 +1539,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock)
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL, descuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL, descuentoProl);
             }
             
             using (var sv = new SACServiceClient())
@@ -1553,7 +1553,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
         {
             var userData = UserData();
 
@@ -1590,9 +1590,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock)
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL, descuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL, descuentoProl);
             }
             using (var sv = new SACServiceClient())
             {

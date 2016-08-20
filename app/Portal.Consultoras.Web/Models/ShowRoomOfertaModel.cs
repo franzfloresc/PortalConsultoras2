@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Autofac;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -39,18 +40,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string CategoriaID { get; set; }
 
-        public string DescripcionProducto1 { get; set; }
-
-        public string DescripcionProducto2 { get; set; }
-
-        public string DescripcionProducto3 { get; set; }
-
-        public string ImagenProducto1 { get; set; }
-
-        public string ImagenProducto2 { get; set; }
-
-        public string ImagenProducto3 { get; set; }
-
         public string UsuarioRegistro { get; set; }
 
         public DateTime FechaRegistro { get; set; }
@@ -59,6 +48,7 @@ namespace Portal.Consultoras.Web.Models
 
         public DateTime FechaModificacion { get; set; }
 
+        public string ImagenMini { get; set; }
 
         public int NroOrden { get; set; }
 
@@ -77,5 +67,11 @@ namespace Portal.Consultoras.Web.Models
         public int MarcaID { get; set; }
 
         public string DescripcionMarca { get; set; }
+
+        public string ImagenProductoAnterior { get; set; }
+
+        public string ImagenMiniAnterior { get; set; }
+
+        public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
     }
 }

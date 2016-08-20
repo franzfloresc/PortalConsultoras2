@@ -29,8 +29,9 @@ namespace Portal.Consultoras.Web.WebPages
                     string NumeroComprobanteSerie = data[3].ToString();
                     string FechaEmision = data[4].ToString();
                     string ImportePercepcion = Convert.ToDecimal(data[5]).ToString("0.00");
-                    int PaisID = Convert.ToInt32(data[6].ToString());
-                    string Simbolo = data[7].ToString();
+                    string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
+                    int PaisID = Convert.ToInt32(data[7].ToString());
+                    string Simbolo = data[8].ToString();
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
@@ -42,6 +43,7 @@ namespace Portal.Consultoras.Web.WebPages
                     lblNumeroComprobanteSerie.Text = NumeroComprobanteSerie;
                     lblFechaEmision.Text = FechaEmision;
                     lblImportePercepcion.Text = ImportePercepcion;
+                    lblImportePercepcionTexto.Text = ImportePercepcionTexto;
                     lblDireccion.Text = lista[0].Direccion;
                     lblRUC.Text = lista[0].RUC;
                     lblRazonSocial.Text = lista[0].RazonSocial;
@@ -53,21 +55,27 @@ namespace Portal.Consultoras.Web.WebPages
                         lst = sv.SelectComprobantePercepcionDetalle(PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
                     }
 
-                    var sb = new StringBuilder();
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("<table>");
+                    sb.Append("<thead><tr><th>Tipo</th><th>Nro. Serie</th><th>Nro. Correlativo</th><th>Fecha Emisión documento</th><th>Precio de Venta(S/.)</th><th>Porcentaje de Percepción</th><th>Importe Percepciones(S/.)</th><th>Monto Total Cobrado(S/.)</th></tr></thead>");
+                    sb.Append("<tbody>");
 
                     foreach (var item in lst)
                     {
-                        sb.Append("<div class='content_datos_percepciones'>");
-                        sb.Append("<div class='tipo padding_tabla_percepcion'>" + item.TipoDocumento + "</div>");
-                        sb.Append("<div class='serie padding_tabla_percepcion'>" + item.NumeroDocumentoSerie + "</div>");
-                        sb.Append("<div class='correlativo padding_tabla_percepcion'>" + item.NumeroDocumentoCorrelativo + "</div>");
-                        sb.Append("<div class='fechaEmision padding_tabla_percepcion'>" + item.FechaEmisionDocumento.ToString("dd/MM/yyyy") + "</div>");
-                        sb.Append("<div class='precioVenta padding_tabla_percepcion'>" + item.Monto.ToString("0.00") + "</div>");
-                        sb.Append("<div class='porcentajePercepcion padding_tabla_percepcion'>" + item.PorcentajePercepcion.ToString("0.00") + "</div>");
-                        sb.Append("<div class='importePercepcion padding_tabla_percepcion'>" + item.ImportePercepcion.ToString("0.00") + "</div>");
-                        sb.Append("<div class='montoTotalPercepcion padding_tabla_percepcion'>" + item.MontoTotal.ToString("0.00") + "</div>");
-                        sb.Append("</div>");
-                    }                   
+                        sb.Append("<tr>");
+                        sb.Append("<td>" + item.TipoDocumento + "</td>");
+                        sb.Append("<td>" + item.NumeroDocumentoSerie + "</td>");
+                        sb.Append("<td>" + item.NumeroDocumentoCorrelativo + "</td>");
+                        sb.Append("<td>" + item.FechaEmisionDocumento.ToString("dd/MM/yyyy") + "</td>");
+                        sb.Append("<td>" + item.Monto.ToString("0.00") + "</td>");
+                        sb.Append("<td>" + item.PorcentajePercepcion.ToString("0.00") + "</td>");
+                        sb.Append("<td>" + item.ImportePercepcion.ToString("0.00") + "</td>");
+                        sb.Append("<td>" + item.MontoTotal.ToString("0.00") + "</td>");
+                        sb.Append("</tr>");
+                    }
+
+                    sb.Append("</tbody>");
+                    sb.Append("</table>");
 
                     lTabla.Text = sb.ToString();
                 }

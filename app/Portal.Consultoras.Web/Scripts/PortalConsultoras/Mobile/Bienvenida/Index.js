@@ -1,10 +1,24 @@
 ﻿$(document).ready(function () {
+<<<<<<< HEAD
 
     $(".footer-page").css({ "margin-bottom": "54px" });
 
     CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
+=======
+    CargarResumenCampania();
+    CargarCarouselEstrategias("");
+
+    //Cargando custom helpers handlebars js
+    Handlebars.registerHelper('if_eq', function (a, b, opts) {
+        if (a == b) {
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    });
+>>>>>>> R1
 });
 
 function RedirectPagaEnLineaAnalytics() {
@@ -43,7 +57,15 @@ function CargarCarouselEstrategias(cuv) {
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
 
+<<<<<<< HEAD
     SetHandlebars("#estrategia-template", data, '#divCarouseHorizontalMobile');
+=======
+    var source = $("#estrategia-template").html();
+    var template = Handlebars.compile(source);
+    var context = data;
+    var htmlDiv = template(context);
+    $('#divCarouseHorizontalMobile').empty().html(htmlDiv);
+>>>>>>> R1
 
     if ($.trim($('#divCarouseHorizontalMobile').html()).length == 0) {
         $('.fondo_gris').hide();
@@ -75,11 +97,16 @@ function ArmarCarouselEstrategias(data) {
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
+<<<<<<< HEAD
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
         } else {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
         };
+=======
+        item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+        //item.Precio2 = (viewBagPaisID == '4' ? Number(item.Precio2.toString().replace(',', '.')).toFixed(2) : Number(item.Precio2).toFixed(2));
+>>>>>>> R1
     });
 
     return array;
@@ -324,10 +351,17 @@ function AgregarProductoDestacado() {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             ShowLoading();
+<<<<<<< HEAD
                             ActualizarGanancia(data.DataBarra);
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarCantidadProductosPedidos();
+=======
+                            InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
+                            CargarCarouselEstrategias(cuv);
+                            CargarCantidadProductosPedidos();
+                            CargarResumenCampania();
+>>>>>>> R1
                             CloseLoading();
                         }
                     },
@@ -416,6 +450,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
+<<<<<<< HEAD
 }
 
 // CARGAR POPUPS HOME MOBILE
@@ -534,3 +569,6 @@ function InsertarDemandaAnticipada(tipo) {
         }
     });
 };
+=======
+}
+>>>>>>> R1

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="711c1166-51bf-49eb-9aac-0d385223048b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ValidacionCrediticiaService.xsd" MetadataType="Schema" ID="3a92c4f2-677d-4789-9553-a57a0baf1224" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ValidacionCrediticiaService1.xsd" MetadataType="Schema" ID="da9c6d01-ac3a-442d-a1b4-71b1acf4a13d" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ValidacionCrediticiaService2.xsd" MetadataType="Schema" ID="92d36773-f88b-43f4-9316-25d632c987fb" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ValidacionCrediticiaService3.xsd" MetadataType="Schema" ID="1e07e191-2db9-4edc-aacf-8b63b4f57d04" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ValidacionCrediticiaService.wsdl" MetadataType="Wsdl" ID="561d4917-5bda-4a9a-9188-af1784719828" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?wsdl" />
+    <MetadataFile FileName="ValidacionCrediticiaService4.xsd" MetadataType="Schema" ID="6b0ef685-32b0-45d3-b317-2f8dc8fb79ad" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/FFVVWCF/ValidacionCrediticiaService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

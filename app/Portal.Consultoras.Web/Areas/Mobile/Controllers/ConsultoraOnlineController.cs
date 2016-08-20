@@ -442,6 +442,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetallePedido(int pedidoId)
         {
+            if (Session["objMisPedidos"] == null)
+            {
+                var model = new MisPedidosModel();
+                var userData = UserData();
+                using (var sv = new UsuarioServiceClient())
+                {
+                    model.ListaPedidos = sv.GetNotificacionesConsultoraOnline(userData.PaisID, userData.ConsultoraID).ToList();
+                }
+                Session["objMisPedidos"] = model;
+            }
             var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);

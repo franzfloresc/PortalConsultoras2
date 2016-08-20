@@ -1369,5 +1369,11 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
         #endregion
+
+        protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
+        {
+            if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
+        }
     }
 }

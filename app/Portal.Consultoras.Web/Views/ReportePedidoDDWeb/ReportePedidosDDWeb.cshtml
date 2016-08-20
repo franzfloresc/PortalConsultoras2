@@ -285,7 +285,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['PaisISO', 'N° Registro', 'Fecha/Hora Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Detalle'],
+            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Detalle'],
             colModel: [
                 { name: 'paisISO', index: 'paisISO', width: 0, editable: false, align: 'center', hidden: true },
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
@@ -299,6 +299,7 @@
                 { name: 'ConsultoraNombre', index: 'ConsultoraNombre', width: 15, editable: true, resizable: false },
                 { name: 'PrimeraCampaniaCodigo', index: 'PrimeraCampaniaCodigo', width: 8, editable: true, resizable: false },
                 { name: 'ImporteTotal', index: 'ImporteTotal', width: 8, editable: true, resizable: false },
+                { name: 'ImporteTotalConDescuento', index: 'ImporteTotalConDescuento', width: 8, editable: true, resizable: false },
                 { name: 'ConsultoraSaldo', index: 'ConsultoraSaldo', width: 8, editable: true, resizable: false },
                 { name: 'OrigenNombre', index: 'OrigenNombre', width: 6, editable: true, resizable: false },
                 { name: 'EstadoValidacionNombre', index: 'EstadoValidacionNombre', width: 6, editable: true, resizable: false },
@@ -349,7 +350,7 @@
 
     }
 
-    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, tipoProceso) {
+    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso) {
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");
@@ -367,6 +368,7 @@
             Validado: Validado,
             Saldo: Saldo,
             Importe: Importe,
+            ImporteConDescuento: importeConDescuento,
             Usuario: $("#hdnUsuario").val(),
             TipoProceso: tipoProceso
         }
@@ -383,11 +385,12 @@
                                                                                                                                        rowObject[8] + "','" +
                                                                                                                                        rowObject[9] + "','" +
                                                                                                                                        rowObject[8] + "','" +
-                                                                                                                                       rowObject[13] + "','" +
                                                                                                                                        rowObject[14] + "','" +
-                                                                                                                                       rowObject[12] + "','" +
+                                                                                                                                       rowObject[15] + "','" +
+                                                                                                                                       rowObject[13] + "','" +
                                                                                                                                        rowObject[11] + "','" +
-                                                                                                                                       rowObject[16] + "');\" border='0' /></a>";
+                                                                                                                                       rowObject[12] + "','" +
+                                                                                                                                       rowObject[17] + "');\" border='0' /></a>";
         return Edit;
     }
 

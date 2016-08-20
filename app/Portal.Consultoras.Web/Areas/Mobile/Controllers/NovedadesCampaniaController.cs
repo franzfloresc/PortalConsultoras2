@@ -14,6 +14,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
+            SessionKeys.ClearSessionCantidadProductos();
+
             var userData = UserData();
 
             var model = new List<BEBannerInfo>();
@@ -44,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lstBannerInfo.Count() > 0)
                 {
-                    model.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden));
+                    model.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 1).OrderBy(x => x.Orden));
                     model.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
                 }
             }

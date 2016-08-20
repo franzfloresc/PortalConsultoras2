@@ -77,6 +77,10 @@
       <Project>{ee1e0db1-465b-418c-b02e-146cea9b93e1}</Project>
       <Name>Portal.Consultoras.BizLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
       <Project>{2a3b50df-c243-4d7d-b8c0-e4e6c9c6c8d9}</Project>
       <Name>Portal.Consultoras.Entities</Name>

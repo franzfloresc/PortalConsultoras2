@@ -1,7 +1,10 @@
 ﻿
+<<<<<<< HEAD
 var listaCorreo = new Array();
 var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 
+=======
+>>>>>>> R1
 // js-RenderCatalogo
 jQuery(document).ready(function () {
     ObtenerURLExpofertas();
@@ -15,9 +18,15 @@ jQuery(document).ready(function () {
     linkCat[tagEsika] = "http://www.esika.biz";
     linkCat[tagCyzone] = "http://www.cyzone.com";
 
+<<<<<<< HEAD
     descrCat[tagLbel] = "";
     descrCat[tagEsika] = "";
     descrCat[tagCyzone] = "";
+=======
+    descrCat[tagLbel] = "A MÁS CATÁLOGOS, <b>MÁS GANANCIAS</b>";
+    descrCat[tagEsika] = "COMPARTE TU CATÁLOGO <b>GANADOR</b>";
+    descrCat[tagCyzone] = "COMPARTE Y <b>GANA</b>";
+>>>>>>> R1
 
     ordenCat[0] = isEsika ? tagLbel : tagEsika;
     ordenCat[1] = isEsika ? tagEsika : tagLbel;
@@ -26,6 +35,7 @@ jQuery(document).ready(function () {
 
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
+<<<<<<< HEAD
     CargarTodosCorreo();
 
     $(".mostrar_todos").html($.trim($(".mostrar_todos").html()).replace("##", listaCorreo.length));
@@ -66,6 +76,8 @@ jQuery(document).ready(function () {
         CatalogoEnviarEmail();        
     });
     
+=======
+>>>>>>> R1
 });
 
 function ObtenerURLExpofertas() {
@@ -88,7 +100,11 @@ function ObtenerURLExpofertas() {
                     
                 }
                 else {
+<<<<<<< HEAD
                     MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
+=======
+                    alert('Error al cargar la informacion de Expoferta.');
+>>>>>>> R1
                 }
             }
         }
@@ -131,8 +147,11 @@ function CargarCarruselCatalogo() {
 
         htmlBase = $("#xHtmlItemCatalogo").html();
         htmlBase = htmlBase.replace("{campania}", anio + nro);
+<<<<<<< HEAD
         htmlBase = htmlBase.replace("{campania}", anio + nro);
         htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
+=======
+>>>>>>> R1
         htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
         htmlBase = htmlBase.replace("{tipoCatalogo}", tipo);
         htmlBase = htmlBase.replace("{comp}", tipo);
@@ -149,7 +168,10 @@ function CargarCarruselCatalogo() {
 }
 
 function FinRenderCatalogo() {
+<<<<<<< HEAD
     waitingDialog();
+=======
+>>>>>>> R1
     if (cont >= cantCam * cantCat) {
         campSelect = campSelect || $("#hdCampaniaActual").val().substring(4, 6);
         campSelectI = campSelectI || 1;
@@ -161,7 +183,11 @@ function FinRenderCatalogo() {
 }
 
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
+<<<<<<< HEAD
     waitingDialog();
+=======
+    waitingDialog({});
+>>>>>>> R1
 
     if (!(typeof (accion) === 'undefined')) {
         SetGoogleAnalytics("", accion, label);
@@ -243,6 +269,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var catalogo = tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + nro + "." + anio;
 
+<<<<<<< HEAD
         //defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
         //defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
             var codigoISSUU = '';
@@ -276,6 +303,35 @@ function GetCatalogosLinksByCampania(data, campania) {
     //$.when(defered[tagLbel], defered[tagEsika], defered[tagCyzone]).done(function () {
         FinRenderCatalogo();
     //});
+=======
+        defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
+        defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
+            cont++;
+            if (codigoISSUU == '') {
+                $(idCat).find(elem).find("[data-tipo='img']").attr("href", linkCat[tag]);
+                $(idCat).find(elem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver','" + tag + "')");
+                $(idCat).find(elem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
+            }
+            else {
+                var n = camp.substring(4, 6);
+                var a = camp.substring(0, 4);
+                $(idCat).find(elem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','" + tag + "')");
+                var urlCat = urlISSUU + tag.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?e=1/2";
+                $(idCat).find(elem).find("[data-tipo='img']").attr("href", urlCat);
+                $(idCat).find(elem).find("#txtUrl" + tag).val(urlCat);
+                $(idCat).find(elem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                $(idCat).find(elem).find("[data-accion='face']").attr("title", 'FB-' + tag + ' C' + n + a);
+                $(idCat).find(elem).find("[data-tipo='img']").attr("title", 'Ver-' + tag + ' C' + n + a);
+            }
+
+        });
+    }
+
+    $.when(defered[tagLbel], defered[tagEsika], defered[tagCyzone]).done(function () {
+        FinRenderCatalogo();
+    });
+>>>>>>> R1
 }
 
 function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
@@ -394,6 +450,7 @@ function CompartirFacebook(Catalogo, btn) {
     window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
 }
 
+<<<<<<< HEAD
 // catalogo email
 var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
@@ -539,6 +596,8 @@ function renderItemCliente(event, ui) {
             .appendTo(ul);
     };
 }
+=======
+>>>>>>> R1
 
 // js-Revista
 
@@ -565,6 +624,10 @@ jQuery(document).ready(function () {
     MostrarRevistaCorrecta(rCampSelect);
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> R1
 function RevistaMostrar(accion, btn) {
 
     rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
@@ -634,7 +697,11 @@ function MostrarRevistaCorrecta(campania) {
         $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
         $("#lbPortadaGana").attr("href", urlExterno);
 
+<<<<<<< HEAD
         FinRenderCatalogo();
+=======
+        closeWaitingDialog();
+>>>>>>> R1
     });
 }
 
@@ -655,7 +722,10 @@ function ObtenerImagenRevista(campania, defered) {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response) {
+<<<<<<< HEAD
                     //response = response.startsWith("https") ? response.replace("https://", "http://") : response;
+=======
+>>>>>>> R1
                     src = response;
                 } else {
                     src = defaultImageRevista;
@@ -710,6 +780,7 @@ function SetGoogleAnalytics() {
             'virtualUrl': '/Revista/Proxima-C' + $("#hdrCampaniaActual").val() + '/Vista'
         });
     }
+<<<<<<< HEAD
 }
 
 // mensaje alerta
@@ -724,3 +795,6 @@ function MonstrarAlerta(texto) {
     $("#mensaje_alerta").show();
 }
 
+=======
+}
+>>>>>>> R1

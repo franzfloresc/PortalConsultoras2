@@ -161,13 +161,13 @@
         $(".ui-pg-input").css("background-color", "rgb(230, 230, 230)");
         $(".ui-pg-selbox").css("display", "none");
 
-        ////R20160204//////
-
+        //R20160204 - INICIO
         $("#lnkesika").click(function () {
-		
+            debugger;
             var campania = $('#TextoCampania')[0].innerHTML;
             var paisid = parseInt($('#CaratulaEsika')[0].dataset.paisid);
             var codigozona = $('#CaratulaEsika')[0].dataset.codigozona;
+            var visor = $('#CaratulaEsika')[0].dataset.visor;
 
 
             if (paisid == 3) {
@@ -211,12 +211,210 @@
                 }
 				
             }
+            
+            //EPD-826 - INICIO
+            if (paisid == 11) {
+                
+                if (campania == "C14 - 2016" && visor !="") {
+
+                    if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+                    }
+                }
+                
+                if (campania == "C15 - 2016" && visor != "") {
+
+                    if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+                    }
+                }
+
+            }
+
+            //EPD-826 - FIN
 
 
         });
-		
-		
-        /////End R20160204////
+        //R20160204 - FIN
+
+        //EPD-826 - INICIO
+        $("#lnklbel").click(function () {
+
+            var campania = $('#TextoCampania')[0].innerHTML;
+            var paisid = parseInt($('#CaratulaLbel')[0].dataset.paisid);
+            var codigozona = $('#CaratulaLbel')[0].dataset.codigozona;
+            var visor = $('#CaratulaLbel')[0].dataset.visor;
+
+
+            if (paisid == 11) {
+               
+                if(campania == "C14 - 2016" && visor != "")
+                {
+                    if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                    else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                        $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+                    }
+                }
+                
+                if (campania == "C15 - 2016" && visor != "") {
+                    if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                    else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                        $(this)[0].attributes[0].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+                    }
+                }
+            }
+
+
+        });
+
+        $("#lnkcyzone").click(function () {
+
+            var campania = $('#TextoCampania')[0].innerHTML;
+            var paisid = parseInt($('#CaratulaCyzone')[0].dataset.paisid);
+            var codigozona = $('#CaratulaCyzone')[0].dataset.codigozona;
+            var visor = $('#CaratulaCyzone')[0].dataset.visor;
+
+                if (paisid == 11) {
+                    
+                    if(campania == "C14 - 2016" && visor !="")
+                    {
+                        if (codigozona == "1072" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "1075" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "3035" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "3036" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "5035" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                        else if (codigozona == "5044" && campania == "C14 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+                        }
+                    }
+                    
+                    if (campania == "C15 - 2016" && visor != "") {
+                        if (codigozona == "1081" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3033" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3035" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "3036" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "5035" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                        else if (codigozona == "5044" && campania == "C15 - 2016") {
+
+                            $(this)[0].attributes[0].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+                        }
+                    }
+                }
+        });
+        //EPD-826 - FIN
 		
     });
 
@@ -973,176 +1171,137 @@
         }
         return val;
     }
-
-    function ObtenerCodigoISSUU(catalogo, defered) {
-        var codigoISSUU = "";
-        jQuery.ajax({
-            type: "GET",
-            url: '//search.issuu.com/api/2_0/document?username=somosbelcorp&q=docname:' + catalogo + '&jsonCallback=?',
-            dataType: "json",
-            success: function (result) {
-                if (result.response.docs.length > 0) {
-                    var doc = result.response.docs[result.response.docs.length - 1];
-                    codigoISSUU = doc.documentId;
-                }
-                defered.resolve(codigoISSUU);
-            },
-            error: function (x, xh, xhr) {
-                console.error(xh);
-                codigoISSUU = '';
-                defered.resolve(src);
-            }
-        });
-        return defered.promise();
-    }
-
+    
     function GetCatalogosLinksByCampania(campania) {
         waitingDialog({});
         $.ajaxSetup({ cache: false });
 
-        var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
-        var idPais = $("#hdPaisId").val();
+        jQuery.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCatalogosPublicadosJson", "Catalogo")',
+            dataType: "json",
+            data: {campaniaId: campania},
+            success: function (result) {
+                debugger;
+                var catalogoLbel = null, catalogoCyzone = null, catalogoEsika = null, catalogoFinart = null;
+                $.each(result.Catalogos, function (i, catalogo) {
+                    if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.LBel') catalogoLbel = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Cyzone') catalogoCyzone = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Esika') catalogoEsika = catalogo;
+                    else if (catalogo.IdMarcaCatalogo == '@Portal.Consultoras.Common.Constantes.Marca.Finart') catalogoFinart = catalogo;
+                })
 
-        var deferedLbel = jQuery.Deferred();
-        var deferedEsika = jQuery.Deferred();
-        var deferedCyzone = jQuery.Deferred();
-        var deferedFinart = jQuery.Deferred();
-
-        if (_ColumnaDeshabilitadaLBEL != 1) {
-            var catalogoLbel = "lbel." + ObtenerNombrePais(idPais) + ".c" + campania.substring(4, 6) + "." + campania.substring(0, 4);
-
-            deferedLbel = ObtenerCodigoISSUU(catalogoLbel, deferedLbel);
-            deferedLbel.done(function (codigoISSUU) {
-                if (codigoISSUU == '') {
-                    $("#lnklbel").attr("href", "http://www.lbel.com");
-                    $("#lnklbel").attr("onclick", "SetGoogleAnalytics('','Ver','Lbel')");
-                    $("#imgLBel").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
-                }
-                else {
-                    $("#lnklbel").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','Lbel')");
-                    var urlLbel = urlISSUU + catalogoLbel + "?e=1/2";
-                    $("#lnklbel").attr("href", urlLbel);
-                    $("#txtUrlLbel").val(urlLbel);
-                    $("#imgLBel").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + codigoISSUU + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
-                    document.getElementById('lnkCompartirLbel').title = 'FB-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
-                    document.getElementById('lnklbel').title = 'Ver-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
-                }
-
-                $("#logoLBel").css("visibility", "visible");
-                $("#CaratulaLbel").css("visibility", "visible");
-                $("#imgLBel").css("display", "block");
-                $("#imgCompartirLbel").css("visibility", "visible");
-            });
-        } else {
-            deferedLbel.resolve();
-            $("#logoLBel").css("visibility", "hidden");
-            $("#CaratulaLbel").css("visibility", "hidden");
-            $("#imgLBel").css("display", "none");
-            $("#imgCompartirLbel").css("visibility", "hidden");
-        }
-
-        if (_ColumnaDeshabilitadaCYZONE != 1) {
-            var catalogoCyzone = "cyzone." + ObtenerNombrePais(idPais) + ".c" + campania.substring(4, 6) + "." + campania.substring(0, 4);
-
-            deferedCyzone = ObtenerCodigoISSUU(catalogoCyzone, deferedCyzone);
-            deferedCyzone.done(function (codigoISSUU) {
-                if (codigoISSUU == '') {
-                    $("#lnkcyzone").attr("href", "http://www.cyzone.com");
-                    $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('','Ver','Cyzone')");
-                    $("#imgCyzone").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
-                }
-                else {
-                    $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','Cyzone')");
-                    var urlCyzone = urlISSUU + catalogoCyzone + "?e=1/2";
-                    $("#lnkcyzone").attr("href", urlCyzone);
-                    $("#txtUrlCyzone").val(urlCyzone);
-                    $("#imgCyzone").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + codigoISSUU + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
-                    $('#lnkCompartirCyzone').title = 'FB-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
-                    $('#lnkcyzone').title = 'Ver-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
+                if (_ColumnaDeshabilitadaLBEL != 1) {
+                    if (catalogoLbel == null) {
+                        $('#CaratulaLbel')[0].dataset.visor = ""; //EPD-826
+                        $("#lnklbel").attr("href", "http://www.lbel.com");
+                        $("#lnklbel").attr("onclick", "SetGoogleAnalytics('','Ver','Lbel')");
+                        $("#imgLBel").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaLbel')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnklbel").attr("onclick", "SetGoogleAnalytics('" + catalogoLbel.DocumentID + "','Ver','Lbel')");
+                        $("#lnklbel").attr("href", catalogoLbel.SkinURL);
+                        $("#txtUrlLbel").val(catalogoLbel.SkinURL);
+                        $("#imgLBel").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoLbel.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        document.getElementById('lnkCompartirLbel').title = 'FB-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        document.getElementById('lnklbel').title = 'Ver-Lbel C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoLBel").css("visibility", "visible");
+                    $("#CaratulaLbel").css("visibility", "visible");
+                    $("#imgLBel").css("visibility", "visible");
+                    $("#imgCompartirLbel").css("visibility", "visible");
+                } else {
+                    $("#logoLBel").css("visibility", "hidden");
+                    $("#CaratulaLbel").css("visibility", "hidden");
+                    $("#imgLBel").css("visibility", "hidden");
+                    $("#imgCompartirLbel").css("visibility", "hidden");
                 }
 
-                $("#logoCyzone").css("visibility", "visible");
-                $("#CaratulaCyzone").css("visibility", "visible");
-                $("#imgCyzone").css("display", "block");
-                $("#imgCompartirCyzone").css("visibility", "visible");
-            });
-        } else {
-            deferedCyzone.resolve();
-            $("#logoCyzone").css("visibility", "hidden");
-            $("#CaratulaCyzone").css("visibility", "hidden");
-            $("#imgCyzone").css("display", "none");
-            $("#imgCompartirCyzone").css("visibility", "hidden");
-        }
-
-        if (_ColumnaDeshabilitadaESIKA != 1) {
-            var catalogoEsika = "esika." + ObtenerNombrePais(idPais) + ".c" + campania.substring(4, 6) + "." + campania.substring(0, 4);
-
-            deferedEsika = ObtenerCodigoISSUU(catalogoEsika, deferedEsika);
-            deferedEsika.done(function (codigoISSUU) {
-                if (codigoISSUU == '') {
-                    $("#lnkesika").attr("href", "http://www.esika.biz");
-                    $("#lnkesika").attr("onclick", "SetGoogleAnalytics('','Ver','Esika')");
-                    $("#imgEsika").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
-                }
-                else {
-                    $("#lnkesika").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','Esika')");
-                    var urlEsika = urlISSUU + catalogoEsika + "?e=1/2";
-                    $("#lnkesika").attr("href", urlEsika);
-                    $("#txtUrlEsika").val(urlEsika);
-                    $("#imgEsika").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + codigoISSUU + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
-                    $('#lnkCompartirEsika').title = 'FB-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
-                    $('#lnkesika').title = 'Ver-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
-                }
-				
-                $("#logoEsika").css("visibility", "visible");
-                $("#CaratulaEsika").css("visibility", "visible");
-                $("#imgEsika").css("display", "block");
-                $("#imgCompartirEsika").css("visibility", "visible");
-            });
-        } else {
-            deferedEsika.resolve();
-            $("#logoEsika").css("visibility", "hidden");
-            $("#CaratulaEsika").css("visibility", "hidden");
-            $("#imgEsika").css("display", "none");
-            $("#imgCompartirEsika").css("visibility", "hidden");
-        }
-
-        if (_ColumnaDeshabilitadaFINART != 1) {
-            var catalogoFinart = "finart." + ObtenerNombrePais(idPais) + ".c" + campania.substring(4, 6) + "." + campania.substring(0, 4);
-
-            deferedFinart = ObtenerCodigoISSUU(catalogoFinart, deferedFinart);
-            deferedFinart.done(function (codigoISSUU) {
-                if (codigoISSUU == '') {
-                    $("#lnkfinart").attr("href", "http://www.finartsa.biz");
-                    $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('','Ver','Finart')");
-                    $("#imgFinart").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
-                }
-                else {
-                    $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','Finart')");
-                    var urlFinart = urlISSUU + catalogoFinart + "?e=1/2";
-                    $("#lnkfinart").attr("href", urlFinart);
-                    $("#txtUrlFinart").val(urlFinart);
-                    $("#imgFinart").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + codigoISSUU + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
-                    $('#lnkCompartirFinart').title = 'FB-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
-                    $('#lnkfinart').title = 'Ver-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
+                if (_ColumnaDeshabilitadaCYZONE != 1) {
+                    if (catalogoCyzone == null) {
+                        $('#CaratulaCyzone')[0].dataset.visor = ""; //EPD-826
+                        $("#lnkcyzone").attr("href", "http://www.cyzone.com");
+                        $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('','Ver','Cyzone')");
+                        $("#imgCyzone").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaCyzone')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnkcyzone").attr("onclick", "SetGoogleAnalytics('" + catalogoCyzone.DocumentID + "','Ver','Cyzone')");
+                        $("#lnkcyzone").attr("href", catalogoCyzone.SkinURL);
+                        $("#txtUrlCyzone").val(catalogoCyzone.SkinURL);
+                        $("#imgCyzone").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoCyzone.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirCyzone').title = 'FB-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkcyzone').title = 'Ver-Cyzone C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoCyzone").css("visibility", "visible");
+                    $("#CaratulaCyzone").css("visibility", "visible");
+                    $("#imgCyzone").css("visibility", "visible");
+                    $("#imgCompartirCyzone").css("visibility", "visible");
+                } else {
+                    $("#logoCyzone").css("visibility", "hidden");
+                    $("#CaratulaCyzone").css("visibility", "hidden");
+                    $("#imgCyzone").css("visibility", "hidden");
+                    $("#imgCompartirCyzone").css("visibility", "hidden");
                 }
 
-                $("#logoFinart").css("visibility", "visible");
-                $("#CaratulaFinart").css("visibility", "visible");
-                $("#imgFinart").css("display", "block");
-                $("#imgCompartirFinart").css("visibility", "visible");
-            });
-        } else {
-            deferedFinart.resolve();
-            $("#logoFinart").css("visibility", "hidden");
-            $("#CaratulaFinart").css("visibility", "hidden");
-            $("#imgFinart").css("display", "none");
-            $("#imgCompartirFinart").css("visibility", "hidden");
-        }
+                if (_ColumnaDeshabilitadaESIKA != 1) {
+                    if (catalogoEsika == null) {
+                        $('#CaratulaEsika')[0].dataset.visor = ""; //EPD-826
+                        $("#lnkesika").attr("href", "http://www.esika.biz");
+                        $("#lnkesika").attr("onclick", "SetGoogleAnalytics('','Ver','Esika')");
+                        $("#imgEsika").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $('#CaratulaEsika')[0].dataset.visor = "OK"; //EPD-826
+                        $("#lnkesika").attr("onclick", "SetGoogleAnalytics('" + catalogoEsika.DocumentID + "','Ver','Esika')");
+                        $("#lnkesika").attr("href", catalogoEsika.SkinURL);
+                        $("#txtUrlEsika").val(catalogoEsika.SkinURL);
+                        $("#imgEsika").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoEsika.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirEsika').title = 'FB-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkesika').title = 'Ver-Esika C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoEsika").css("visibility", "visible");
+                    $("#CaratulaEsika").css("visibility", "visible");
+                    $("#imgEsika").css("visibility", "visible");
+                    $("#imgCompartirEsika").css("visibility", "visible");
+                } else {
+                    $("#logoEsika").css("visibility", "hidden");
+                    $("#CaratulaEsika").css("visibility", "hidden");
+                    $("#imgEsika").css("visibility", "hidden");
+                    $("#imgCompartirEsika").css("visibility", "hidden");
+                }
 
-        $.when(deferedLbel, deferedEsika, deferedCyzone, deferedFinart).done(function () {
-            $("#TextoCampania").text("C" + campania.substring(6, 4) + " - " + campania.substring(0, 4));
-            closeWaitingDialog();
+                if (_ColumnaDeshabilitadaFINART != 1) {
+                    if (catalogoFinart == null) {
+                        $("#lnkfinart").attr("href", "http://www.finartsa.biz");
+                        $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('','Ver','Finart')");
+                        $("#imgFinart").attr("src", '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")');
+                    }
+                    else {
+                        $("#lnkfinart").attr("onclick", "SetGoogleAnalytics('" + catalogoFinart.DocumentID + "','Ver','Finart')");
+                        $("#lnkfinart").attr("href", catalogoFinart.SkinURL);
+                        $("#txtUrlFinart").val(catalogoFinart.SkinURL);
+                        $("#imgFinart").attr("src", '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + catalogoFinart.DocumentID + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02');
+                        $('#lnkCompartirFinart').title = 'FB-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
+                        $('#lnkfinart').title = 'Ver-Finart C' + campania.substring(6, 4) + campania.substring(0, 4);
+                    }
+                    $("#logoFinart").css("visibility", "visible");
+                    $("#CaratulaFinart").css("visibility", "visible");
+                    $("#imgFinart").css("visibility", "visible");
+                    $("#imgCompartirFinart").css("visibility", "visible");
+                } else {
+                    $("#logoFinart").css("visibility", "hidden");
+                    $("#CaratulaFinart").css("visibility", "hidden");
+                    $("#imgFinart").css("visibility", "hidden");
+                    $("#imgCompartirFinart").css("visibility", "hidden");
+                }
+            },
+            error: function (x, xh, xhr) { console.error(xh); },
+            complete: function () {
+                $("#TextoCampania").text("C" + campania.substring(6, 4) + " - " + campania.substring(0, 4));
+                closeWaitingDialog();
+            }
         });
     }
 
@@ -1637,21 +1796,21 @@
             </div>
             <div id="gallery">
                 <div class="logo1">
-                    <div id="CaratulaLbel">
+                    <div id="CaratulaLbel" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
                         <a href="#" target="_blank" id="lnklbel" rel="Catalogo - Ver Catalogos">
                             <img id="imgLBel" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 84px" border="0" alt="Catálogo L'Bel" title="Catálogo L'Bel" />
                         </a>
                     </div>
                 </div>
                 <div class="logo2">
-                    <div id="CaratulaEsika" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona">
+                    <div id="CaratulaEsika" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
                         <a href="#" target="_blank" id="lnkesika" rel="Catalogo - Ver Catalogos">
                             <img id="imgEsika" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 84px" border="0" alt="Catálogo Esika" title="Catálogo Esika" />
                         </a>
                     </div>
                 </div>
                 <div class="logo3">
-                    <div id="CaratulaCyzone">
+                    <div id="CaratulaCyzone" data-paisid ="@Model.PaisID" data-codigozona="@Model.CodigoZona" data-visor="">
                         <a href="#" target="_blank" id="lnkcyzone" rel="Catalogo - Ver Catalogos">
                             <img id="imgCyzone" src='@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")' style="height: 100px; width: 70px" border="0" alt="Catálogo Cyzone" title="Catálogo Cyzone" />
                         </a>

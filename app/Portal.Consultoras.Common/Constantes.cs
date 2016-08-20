@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
-        public class TipoLink 
+        public class TipoLink
         {
             public const int Ayuda = 301;
             public const int Capedevi = 302;
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Common
             public const short Procesado = 202;
         }
 
-        public class CodigosISOPais 
+        public class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
@@ -117,6 +117,11 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
         }
 
+        public class ParametrosNames
+        {
+            public const string CorreoRequerido = "CorreoRequerido";
+            public const string TelefonoRequerido = "TelefonoRequerido";
+        }
 
         public class EstadoActividadConsultora
         {
@@ -139,7 +144,6 @@ namespace Portal.Consultoras.Common
             public const int Lanzamiento = 5;
         }
 
-
         public class ConstSession
         {
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
@@ -153,3 +157,4 @@ namespace Portal.Consultoras.Common
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Models;
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Controllers;
 @using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
 @using Portal.Consultoras.Web.HojaInscripcionODS;
@@ -22,7 +23,7 @@
 }))
 {
     @Html.HiddenFor(m => Model.Token)
-    
+
     @Html.Hidden("Paso", 3)
     @Html.HiddenFor(m => Model.CodigoISO)
     @Html.HiddenFor(m => Model.TipoSolicitud)
@@ -58,6 +59,14 @@
     @Html.HiddenFor(m => Model.Latitud)
     @Html.HiddenFor(m => Model.Longitud)
     @Html.HiddenFor(m => Model.DireccionCorrecta)
+    @Html.HiddenFor(m => Model.DptoCasa)
+    @Html.HiddenFor(m => Model.DireccionColombia)
+    @Html.HiddenFor(m => Model.NombreDireccionColombia)
+    @Html.HiddenFor(m => Model.Colonia)
+    @Html.HiddenFor(m => Model.PrefijoCelular)
+    @Html.HiddenFor(m => Model.NombrePrefijoCelular)
+    @Html.HiddenFor(m => Model.NombreColonia)
+    @Html.HiddenFor(m => Model.CodigoPostal)
 
     <div class="field12">
         <h2>Finaliza</h2>
@@ -80,7 +89,8 @@
     <div class="field8 auto-height lastfield">
         @Html.ValidationMessageFor(m => Model.NivelEducativo)
     </div>
-
+    if(Model.CodigoISO != "MX")
+    { 
     <div class="field4 no-margin-bottom"><b>*</b> Nacionalidad</div>
     <div class="field8 no-margin-bottom lastfield">
         @Html.DropDownListFor(m => Model.Nacionalidad, tiposNacionalidad, "-- Seleccionar --", new { @class = "field11" })
@@ -89,15 +99,16 @@
     <div class="field8 auto-height lastfield">
         @Html.ValidationMessageFor(m => Model.Nacionalidad)
     </div>
+    }
 
     <div class="field4 no-margin-bottom"><b>*</b> ¿Vendes otras marcas?</div>
     <div class="field8 no-margin-bottom lastfield">
-        @Html.RadioButtonFor(m => Model.CodigoOtrasMarcas, 1)S&iacute;&nbsp;
-        @Html.RadioButtonFor(m => Model.CodigoOtrasMarcas, 2)No
+        @Html.RadioButtonFor(m => Model.TieneExperiencia, 1)S&iacute;&nbsp;
+        @Html.RadioButtonFor(m => Model.TieneExperiencia, 0)No
     </div>
     <div class="field4 auto-height"></div>
     <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.CodigoOtrasMarcas)
+        @Html.ValidationMessageFor(m => Model.TieneExperiencia)
     </div>
 
     <div class="field4 no-margin-bottom"><b>*</b> ¿Te recomend&oacute; una consultora?</div>
@@ -118,7 +129,7 @@
                 @class = "ignore field11", 
                 @style = "margin-right: 10px;",
                 @placeholder = Html.Raw("Código consultora"),
-                @maxlength = HojaInscripcionUtils.MaxLengthCodigoConsultora[Model.CodigoISO]
+                @maxlength = Dictionaries.MaxLengthCodigoConsultora[Model.CodigoISO]
             })
             <img id="consultora_loader" src="@Url.Content("~/Content/HojaInscripcion/Images/small_loader.GIF")" style="position: absolute; margin-top: -13px; display: none;" />
         </div>

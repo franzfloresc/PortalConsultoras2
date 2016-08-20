@@ -1,6 +1,5 @@
-﻿@using Amazon.SimpleDB.Model
-@using Newtonsoft.Json
-@using Portal.Consultoras.Web.Controllers
+﻿@using Newtonsoft.Json
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     ViewBag.Title = "ShowRoom";
@@ -12,8 +11,8 @@
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 
 <div class="banner_showroom">
-    <img src="@Url.Content("~/Content/Images/showroom/banner_showroom.jpg")" alt="">
-    @*<img src="@Model.Imagen2" alt="">*@
+    @*<img src="@Url.Content("~/Content/Images/showroom/banner_showroom.jpg")" alt="">*@
+    <img src="@Model.ImagenCabeceraProducto" alt="">
 </div>
 <div class="wrapper_showroom">
     <div class="titulo_buscado">
@@ -21,35 +20,39 @@
             <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br />
             Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
         </div>
-        @*<div class="selector_s">
-            <select>
-                <option>ORDENAR POR</option>
-                <option>ORDENAR POR</option>
-                <option>ORDENAR POR</option>
-            </select>
-        </div>*@
-
     </div>
 </div>
 <div class="wrapper_showroom_items">
     @{ var posicion = 1; }
     @foreach (var item in Model.ListaShowRoomOferta)
     {
-        var descripcionProducto1 = item.DescripcionProducto1.Split('|');
-        var descripcionProducto2 = item.DescripcionProducto2.Split('|');
-        var descripcionProducto3 = item.DescripcionProducto3.Split('|');
         var subTitulo = "";
-        if (descripcionProducto1.Length != 0)
+        var contadorDetalle = 1;
+        foreach (var detalle in item.ListaDetalleOfertaShowRoom)
         {
-            subTitulo += descripcionProducto1[0];
+            subTitulo += contadorDetalle == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+            contadorDetalle++;
         }
-        if (descripcionProducto2.Length != 0)
+
+        var formatoPrecioOferta = "";
+        var formatoPrecioCatalogo = "";
+        if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
         {
-            subTitulo += subTitulo != "" && descripcionProducto2[0] != "" ? " + " + descripcionProducto2[0] : descripcionProducto2[0];
+            formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta).Replace(',', '.');
+            formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
         }
-        if (descripcionProducto3.Length != 0)
+        else
         {
-            subTitulo += subTitulo != "" && descripcionProducto3[0] != "" ? " + " + descripcionProducto3[0] : descripcionProducto3[0];
+            if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+            {
+                formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta);
+                formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
+            }
+            else
+            {
+                formatoPrecioOferta = Convert.ToInt32(item.PrecioOferta).ToString();
+                formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();
+            }
         }
 
         <div class="producto_showroom" data-posicion="@posicion">
@@ -61,12 +64,6 @@
             <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
             <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
             <input type="hidden" class="posicionEstrategia" value="@posicion" />
-            <input type="hidden" class="imagenProducto1" value="@item.ImagenProducto1"/>
-            <input type="hidden" class="imagenProducto2" value="@item.ImagenProducto2" />
-            <input type="hidden" class="imagenProducto3" value="@item.ImagenProducto3" />
-            <input type="hidden" class="descripcionProducto1" value="@item.DescripcionProducto1" />
-            <input type="hidden" class="descripcionProducto2" value="@item.DescripcionProducto2" />
-            <input type="hidden" class="descripcionProducto3" value="@item.DescripcionProducto3" />
             
             <div class="divEstaAgotado">
                 @if (item.Stock == 0)
@@ -84,14 +81,13 @@
                  }
                  else
                  {
-                     @*<img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/CL/CL_210065684_2014841463_01_azdmrggnwo.png" alt="" />*@
                      <img src="@item.ImagenProducto" alt="" />
                  }                            
             </a>
 
             <div class="titulo_producto_showroom">@item.Descripcion</div>
             <div class="descripcion_producto_s">@subTitulo</div>
-            <div class="precio_showroom"><span>@Model.Simbolo @Convert.ToInt32(item.PrecioOferta)</span>@Model.Simbolo @Convert.ToInt32(item.PrecioCatalogo)</div>
+            <div class="precio_showroom"><span>@Model.Simbolo @formatoPrecioOferta</span>@Model.Simbolo @formatoPrecioCatalogo</div>
             <div class="stock_showroom">STOCK <span class="claseStock">@item.Stock</span></div>
             <div class="cantidad_showroom_detalle">
                 <div style="margin-top: 5px;margin-right: 10px;float:left;">CANTIDAD</div>
@@ -119,7 +115,7 @@
 </div>
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-    <div class="titulo_producto_agregado">¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu carrito! </div>
+    <div class="titulo_producto_agregado">¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido! </div>
     <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
     <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
 </div>
@@ -137,145 +133,80 @@
     @{ var posicionCarrusel = 1; }
     @foreach (var item2 in Model.ListaShowRoomOferta)
     {
-        item2.DescripcionProducto1 = item2.DescripcionProducto1 == "" ? "|||" : item2.DescripcionProducto1;
-        item2.DescripcionProducto2 = item2.DescripcionProducto2 == "" ? "|||" : item2.DescripcionProducto2;
-        item2.DescripcionProducto3 = item2.DescripcionProducto3 == "" ? "|||" : item2.DescripcionProducto3;
-
-        var descripcionProductoCarrusel1 = item2.DescripcionProducto1.Split('|');
-        var descripcionProductoCarrusel2 = item2.DescripcionProducto2.Split('|');
-        var descripcionProductoCarrusel3 = item2.DescripcionProducto3.Split('|');
-        var descripcionProducto1_1 = descripcionProductoCarrusel1[0] ?? "";
-        var descripcionProducto1_2 = descripcionProductoCarrusel1[1] ?? "";
-        var descripcionProducto1_3 = descripcionProductoCarrusel1[2] ?? "";
-        var descripcionProducto1_4 = descripcionProductoCarrusel1[3] ?? "";
-        var descripcionProducto2_1 = descripcionProductoCarrusel2[0] ?? "";
-        var descripcionProducto2_2 = descripcionProductoCarrusel2[1] ?? "";
-        var descripcionProducto2_3 = descripcionProductoCarrusel2[2] ?? "";
-        var descripcionProducto2_4 = descripcionProductoCarrusel2[3] ?? "";
-        var descripcionProducto3_1 = descripcionProductoCarrusel3[0] ?? "";
-        var descripcionProducto3_2 = descripcionProductoCarrusel3[1] ?? "";
-        var descripcionProducto3_3 = descripcionProductoCarrusel3[2] ?? "";
-        var descripcionProducto3_4 = descripcionProductoCarrusel3[3] ?? "";
         var ganaHasta = Convert.ToInt32(item2.PrecioOferta) - Convert.ToInt32(item2.PrecioCatalogo);
+        var formatoGanaHasta = "";
+        var formatoPrecioCatalogo = "";
+
+        if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
+        {
+            formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta).Replace(',', '.');
+            formatoPrecioCatalogo = string.Format("{0:#,##0}", item2.PrecioCatalogo).Replace(',', '.');
+        }
+        else
+        {
+            if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+            {
+                formatoGanaHasta = string.Format("{0:#,##0}", ganaHasta);
+                formatoPrecioCatalogo = string.Format("{0:#,##0}", item2.PrecioCatalogo);
+            }
+            else
+            {
+                formatoGanaHasta = Convert.ToInt32(ganaHasta).ToString();
+                formatoPrecioCatalogo = Convert.ToInt32(item2.PrecioCatalogo).ToString();
+            }
+        }
+
+
         <div class="contenidoCarrusel" data-carrusel-posicion="@posicionCarrusel" style="display: none;">
             <div class="fondo_detalle_blanco">
                 <div class="titulo_setDetalle"><span>@item2.Descripcion</span></div>
                 <div class="contenedor_descripcion_detalle">
                     <!--LISTA DE ITEM-->
-                    <div style="overflow: hidden; margin-top: 10px;">
-                        <div class="producto_detalle_img">
-                            @if (string.IsNullOrEmpty(item2.ImagenProducto1))
-                            {
-                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
-                            }
-                            else
-                            {
-                                <img src="@item2.ImagenProducto1" alt="" />
-                            }
-                        </div>
-                        <div class="detalle_texto">
-                            <div class="titulo_detalle_texto"><span>@descripcionProducto1_1</span></div>
-                            @if (descripcionProducto1_2 != "")
-                            {
-                                <div class="descripcion_producto_texto">
-                                    @descripcionProducto1_2
-                                </div>
-                            }
-                            @if (descripcionProducto1_3 != "")
-                            {
-                                <div class="descripcion_producto_texto">
-                                    @descripcionProducto1_3
-                                </div>
-                            }
-                            @if (descripcionProducto1_4 != "")
-                            {
-                                <div class="descripcion_producto_texto">
-                                    @descripcionProducto1_4
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    @if (item2.DescripcionProducto2 != "|||")
+                    @foreach (var detalle in item2.ListaDetalleOfertaShowRoom)
                     {
                         <div style="overflow: hidden; margin-top: 10px;">
                             <div class="producto_detalle_img">
-                                @if (string.IsNullOrEmpty(item2.ImagenProducto2))
+                                @if (string.IsNullOrEmpty(detalle.Imagen))
                                 {
                                     <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
                                 }
                                 else
                                 {
-                                    <img src="@item2.ImagenProducto2" alt="" />
+                                    <img src="@detalle.Imagen" alt="" />
                                 }
                             </div>
                             <div class="detalle_texto">
-                                <div class="titulo_detalle_texto"><span>@descripcionProducto2_1</span></div>
-                                @if (descripcionProducto2_2 != "")
+                                <div class="titulo_detalle_texto"><span>@detalle.NombreProducto</span></div>
+                                @if (!string.IsNullOrEmpty(detalle.Descripcion1))
                                 {
                                     <div class="descripcion_producto_texto">
-                                        @descripcionProducto2_2
+                                        @detalle.Descripcion1
                                     </div>
                                 }
-                                @if (descripcionProducto2_3 != "")
+                                @if (!string.IsNullOrEmpty(detalle.Descripcion2))
                                 {
                                     <div class="descripcion_producto_texto">
-                                        @descripcionProducto2_3
+                                        @detalle.Descripcion2
                                     </div>
                                 }
-                                @if (descripcionProducto2_4 != "")
+                                @if (!string.IsNullOrEmpty(detalle.Descripcion3))
                                 {
                                     <div class="descripcion_producto_texto">
-                                        @descripcionProducto2_4
+                                        @detalle.Descripcion3
                                     </div>
                                 }
                             </div>
                         </div>
-                    } 
-                    @if (item2.DescripcionProducto3 != "|||")
-                    {
-                        <div style="overflow: hidden; margin-top: 10px;">
-                            <div class="producto_detalle_img">
-                                @if (string.IsNullOrEmpty(item2.ImagenProducto3))
-                                {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
-                                }
-                                else
-                                {
-                                    <img src="@item2.ImagenProducto3" alt="" />
-                                }
-                            </div>
-                            <div class="detalle_texto">
-                                <div class="titulo_detalle_texto"><span>@descripcionProducto3_1</span></div>
-                                @if (descripcionProducto3_2 != "")
-                                {
-                                    <div class="descripcion_producto_texto">
-                                        @descripcionProducto3_2
-                                    </div>
-                                }
-                                @if (descripcionProducto3_3 != "")
-                                {
-                                    <div class="descripcion_producto_texto">
-                                        @descripcionProducto3_3
-                                    </div>
-                                }
-                                @if (descripcionProducto3_4 != "")
-                                {
-                                    <div class="descripcion_producto_texto">
-                                        @descripcionProducto3_4
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    }                    
+                    }                   
                     <!--FIN-->
                 </div>
                 <div class="set_precio">
                     SET A SOLO<br />
-                    <span id="spnPrecioOfertaShowRoomCarrusel">@Model.Simbolo @Convert.ToInt32(item2.PrecioCatalogo)</span>
+                    <span id="spnPrecioOfertaShowRoomCarrusel">@Model.Simbolo @formatoPrecioCatalogo</span>
                 </div>
                 <div class="set_precio_gana">
                     GANA HASTA
-                    <span id="spnGanaOfertaShowRoomCarrusel">@Model.Simbolo @ganaHasta</span>
+                    <span id="spnGanaOfertaShowRoomCarrusel">@Model.Simbolo @formatoGanaHasta</span>
                 </div>
                 <hr class="clear" />
                 <div class="cantidad_detalle">
@@ -318,10 +249,6 @@
             }
             @foreach (var item3 in Model.ListaShowRoomOferta)
             {
-                var soloNombre = item3.ImagenProducto.Substring(0, item3.ImagenProducto.Length - 4);
-                var extension = item3.ImagenProducto.Substring(item3.ImagenProducto.Length - 4);
-                var imagenProductoCarrusel = soloNombre + "_small" + extension;
-                
                 <div>
                     <div class="divEstaAgotadoCarrusel">
                         @if (item3.Stock == 0)
@@ -332,14 +259,13 @@
                     
                     <a href="javascript:;" class="cambiarProductoCarrusel" data-posicion="@posicion3">
                         <div class="imagen_carrusel">
-                            @if (string.IsNullOrEmpty(item3.ImagenProducto))
+                            @if (string.IsNullOrEmpty(item3.ImagenMini))
                             {
                                 <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
                             }
                             else
                             {
-                                @*<img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />*@
-                                <img src="@imagenProductoCarrusel" alt="@imagenProductoCarrusel" />
+                                <img src="@item3.ImagenMini" alt="@item3.ImagenMini" />
                             }                            
                         </div>
                         <div class="cantidad_productos_carrusel"><span>@posicion3</span>/@total</div>
@@ -519,6 +445,9 @@
         //        alert("2");
         //    }
         //});
+
+        var link = '@Model.RutaShowRoomPopup';
+        $("#linkTerminosCondicionesShowRoom").attr("href", link);
     });
 
     function alert_msg(message) {

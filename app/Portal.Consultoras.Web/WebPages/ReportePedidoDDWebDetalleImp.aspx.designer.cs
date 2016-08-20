@@ -13,6 +13,15 @@ namespace Portal.Consultoras.Web.WebPages {
     public partial class ReportePedidoDDWebDetalleImp {
         
         /// <summary>
+        /// Head1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
+        
+        /// <summary>
         /// form1 control.
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace Portal.Consultoras.Web.WebPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lTabla;
+        
+        /// <summary>
+        /// lblImporteConDescuento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImporteConDescuento;
         
         /// <summary>
         /// lblImporte control.

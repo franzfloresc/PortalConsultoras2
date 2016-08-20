@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Portal.Consultoras.Web.ServiceUnete;
 using System.ComponentModel.DataAnnotations;
+using Portal.Consultoras.Web.Annotations;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -12,6 +13,8 @@ namespace Portal.Consultoras.Web.Models
         public SolicitudPostulanteModel Solicitud { get; set; }
 
         public bool ModoLectura { get; set; }
+
+        public string CodigoISO { get; set; }
     }
 
     public class SolicitudPostulanteModel
@@ -26,7 +29,7 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string ApellidoPaterno { get; set; }
 
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoISO", "CL", ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string ApellidoMaterno { get; set; }
 
@@ -37,7 +40,9 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string SegundoNombre { get; set; }
 
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        //[RequiredIf("CodigoISO", "CL", @"\d{8}\-[a-zA-Z0-9]", ErrorMessage = "Formato incorrecto")]
+        //[RequiredIf("CodigoISO", "CO", @"^\d{4,10}$", ErrorMessage = "Formato incorrecto")]
+        //[Required(ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(10, ErrorMessage = "Máximo 10 caractéres")]
         public string NumeroDocumento { get; set; }
 
@@ -45,10 +50,11 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(1, ErrorMessage = "Máximo 1 caractér")]
         public string Sexo { get; set; }
 
+        //[RequiredIfPropertiesNotNull("Anio,Mes,Dia", false, ErrorMessage = "Este campo es obligatorio")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string FechaNacimiento { get; set; }
 
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+       // [Required(ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(140, ErrorMessage = "Máximo 140 caractéres")]
         public string Direccion { get; set; }
 
@@ -56,6 +62,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Telefono { get; set; }
 
+        //[RequiredIf("CodigoISO", "CO", ErrorMessage = "Este campo es obligatorio")]
         public string Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
@@ -81,6 +88,28 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultoraRecomienda { get; set; }
 
         public string CodigoPais { get; set; }
+        public string CodigoISO { get; set; }
+
+        //Campos Geo Mexico
+
+        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string PrefijoTelefono { get; set; }
+
+        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string PrefijoCelular { get; set; }
+
+        public string NombrePrefijoCelular { get; set; }
+
+        // public SelectList ColoniasMx { get; set; }
+
+
+        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string Colonia { get; set; }
+
+        public string NombreColonia { get; set; }
+
+        //[RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string DireccionMx { get; set; }
 
         public string NumeroDocumentoRegex
         {
@@ -112,7 +141,8 @@ namespace Portal.Consultoras.Web.Models
         public const string LettersAndWhiteSpaceOnly = "/^[a-zA-ZñáéíóúÑÁÉÍÓÚäëïöüÄËÏÖÜ\\s]*$/";
         public const string RUT = "^$|^[0-9]{8}-[a-zA-Z0-9]{1}$";
         public const string DNI = "^$|^[0-9]{8}$";
-        public const string CC = "";
+        public const string CC = "^$|^[0-9]{4,10}$";
+        public const string RFC = "^$|^[0-9][a-zA-Z0-9]{10}$";
 
         /// <summary>
         /// Documento de identidad por código de país
@@ -121,7 +151,7 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", CC },
             { "CL", RUT },
-            { "CO", "" },
+            { "CO", CC },
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
@@ -144,12 +174,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", 0 },
             { "CL", 9 },
-            { "CO", 0 },
+            { "CO", 7 },
             { "CR", 0 },
             { "DO", 0 },
             { "EC", 0 },
             { "GT", 0 },
-            { "MX", 0 },
+            { "MX", 12 },
             { "PA", 0 },
             { "PE", 7 },
             { "PR", 0 },
@@ -164,12 +194,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", 0 },
             { "CL", 8 },
-            { "CO", 0 },
+            { "CO", 13 },
             { "CR", 0 },
             { "DO", 0 },
             { "EC", 0 },
             { "GT", 0 },
-            { "MX", 0 },
+            { "MX", 13 },
             { "PA", 0 },
             { "PE", 9 },
             { "PR", 0 },
@@ -184,12 +214,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", null },
             { "CL", t => t.Replace("-", string.Empty) },
-            { "CO", null },
+            { "CO", t=>t },
             { "CR", null },
             { "DO", null },
             { "EC", null },
             { "GT", null },
-            { "MX", null },
+            { "MX", t=> t},
             { "PA", null },
             { "PE", t => t },
             { "PR", null },
@@ -204,12 +234,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", null },
             { "CL", t => t.Insert(8, "-") },
-            { "CO", null },
+            { "CO", t=> t},
             { "CR", null },
             { "DO", null },
             { "EC", null },
             { "GT", null },
-            { "MX", null },
+            { "MX", t=> t },
             { "PA", null },
             { "PE", t => t },
             { "PR", null },
@@ -224,12 +254,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", "" },
             { "CL", "Ciudad (Región)" },
-            { "CO", "" },
+            { "CO", "Departamento" },
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
             { "GT", "" },
-            { "MX", "" },
+            { "MX", "Estado" },
             { "PA", "" },
             { "PE", "Departamento" },
             { "PR", "" },
@@ -244,12 +274,12 @@ namespace Portal.Consultoras.Web.Models
         {
             { "BO", "" },
             { "CL", "Comuna" },
-            { "CO", "" },
+            { "CO", "Municipio" },
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
             { "GT", "" },
-            { "MX", "" },
+            { "MX", "Municipio" },
             { "PA", "" },
             { "PE", "Distrito" },
             { "PR", "" },

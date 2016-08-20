@@ -56,6 +56,8 @@ namespace Portal.Consultoras.Web.Models
         public string BotonPROL { get; set; }
         public string Simbolo { get; set; }
         public string Total { get; set; }
+        public string SubTotal { get; set; }
+        public string Descuento { get; set; }        
         public string Total_Minimo { get; set; }
         public string Total_Cliente { get; set; }
         public bool EsDiaPROL { get; set; }

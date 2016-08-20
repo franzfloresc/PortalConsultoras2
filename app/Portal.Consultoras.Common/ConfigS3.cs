@@ -128,5 +128,43 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception) { throw; }
         }
+
+        public static string GetUrlFileS3WithAuthentication(string keyRuta)
+        {
+            try
+            {
+                if (keyRuta.Trim() == "")
+                    return keyRuta;
+
+                var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
+                    MY_AWS_ACCESS_KEY_ID,
+                    MY_AWS_SECRET_KEY,
+                    Amazon.RegionEndpoint.USEast1);
+
+                var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client, BUCKET_NAME, keyRuta);
+
+                string url = string.Empty;
+
+                if (s3FileInfo.Exists)
+                {
+                    var expiryUrlRequest = new GetPreSignedUrlRequest
+                    {
+                        BucketName = BUCKET_NAME,
+                        Key = keyRuta,
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+
+                    url = client.GetPreSignedURL(expiryUrlRequest);
+                }
+
+                client.Dispose();
+
+                return url;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

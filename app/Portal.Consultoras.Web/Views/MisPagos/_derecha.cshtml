@@ -1,0 +1,33 @@
+﻿@model Portal.Consultoras.Web.Models.MisPagosModel
+
+<div class="resumen_pagos">
+    <div class="titulo_detalle_pago_img" style="float: none; display: inline-block; vertical-align: middle; margin-left: -11px; "></div>
+    <div style="display:inline-block; vertical-align:middle">MI ESTADO<b> DE CUENTA</b></div>
+    <div class="info_centro">
+        Mi deuda actual es:
+        <div class="deuda_home" id="spanDeuda">S/. <span>@Model.MontoPagar</span></div>
+        <span id="der_fechaVencimiento">Vencimiento: </span>
+    </div>
+
+    @{
+        var href = ViewBag.PaisID == 3 ? "javascript:;" : 
+            ViewBag.PaisID == 4 ? "https://www.zonapagos.com/t_belstar/pagos.asp" : 
+            ViewBag.PaisID == 12 ? Url.Action("Index", "Paypal") : "";
+        var onclick = ViewBag.PaisID == 3 ? "onclick='RedirectPagaEnLineaAnalytics();'" : "";
+
+        if (href != "")
+        {
+            <a class="btn_paga_mispagos" href="@href" @onclick target="_blank">
+                <img src="@Url.Content("~/Content/Images/Esika/tarjeta.png")" />
+                <span>PAGA ONLINE</span>
+            </a>
+        }
+    }
+</div>
+@if (Model.TieneFlexipago > 0 && Model.MontoMinimoFlexipago != "0.00")
+{
+    <div class="flexipago_mispagos">
+        <div class="logo_flexipago"><img src="@Url.Content("~/Content/Images/Esika/flexipago.png")" /> </div>
+        <div class="texto_monto_minimo">Monto mínimo <br />a pagar: <span>@Model.Simbolo @Model.MontoMinimoFlexipago</span></div>
+    </div>
+}

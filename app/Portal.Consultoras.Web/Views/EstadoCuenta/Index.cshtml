@@ -1,0 +1,350 @@
+﻿@model Portal.Consultoras.Web.Models.EstadoCuentaModel
+@{
+    ViewBag.Title = "Estado de Cuenta";
+}
+<script>
+    function fnGrilla() {
+        jQuery("#gvwEstadoCuentaDetalle").jqGrid({
+            url: baseUrl + "EstadoCuenta/ConsultarEstadoCuenta",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                vCampania: function () { return jQuery.trim(""); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Fecha', 'Últimos Movimientos', 'Pedidos', 'Abonos'],
+            colModel: [
+                { name: 'Fecha', index: 'Fecha', width: 20, editable: true, resizable: false },
+                { name: 'Glosa', index: 'Glosa', width: 50, editable: true, resizable: false },
+                { name: 'Cargo', index: 'Cargo', width: 15, editable: true, resizable: false, align: "right" },
+                { name: 'Abono', index: 'Abono', width: 15, editable: true, resizable: false, align: "right" },
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 100,
+            scrollOffset: 0,
+            rowList: [100, 200, 300],
+            sortname: 'Fecha',
+            sortorder: 'desc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'Auto',
+            width: '930',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#gvwEstadoCuentaDetalle").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#gvwEstadoCuentaDetalle").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+    function fnEnviarCorreo() {
+        waitingDialog({});
+        if (jQuery.trim($("#hdn_Correo").val()) == "") {
+            alert("No tiene una cuenta de correo registrada");
+            closeWaitingDialog();
+            return false;
+        }
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'EstadoCuenta/EnviarCorreo',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ correo: jQuery.trim($("#hdn_Correo").val()) }),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    _gaq.push(['_trackEvent', 'Estado-Cuenta', 'Enviar-informacion']);
+                    dataLayer.push({
+                        'event': 'pageview',
+                        'virtualUrl': '/Estado-Cuenta/Enviar-informacion'
+                    });
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                    }
+                    else
+                        alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("ERROR");
+                }
+            }
+        });
+        return false
+    }
+
+    jQuery(document).ready(function () {
+        fnGrilla();
+
+        $("#lblCorreoEnviar").click(function () {
+            fnEnviarCorreo();
+        });
+
+    });
+
+    function ExportExcel() {
+        waitingDialog({});
+        _gaq.push(['_trackEvent', 'Estado-Cuenta', 'Excel']);
+        dataLayer.push({
+            'event': 'pageview',
+            'virtualUrl': '/Estado-Cuenta/Excel'
+        });
+        setTimeout(function () { DownloadAttachExcel() }, 0);
+    }
+
+    function DownloadAttachExcel() {
+        if (checkTimeout()) {
+            var content = baseUrl + "EstadoCuenta/ExportarExcel";
+
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            iframe_.setAttribute("src", content);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+    var CE_SNAPSHOT_NAME = "Estado_Cuenta";
+</script>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/4400.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
+</script>
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-1">
+                <div class="box">
+                    <div class="box-t"></div>
+                    <div class="box-c">
+                        @if(ViewBag.Campania != null)
+                        {
+                            if (ViewBag.Dias == 0)
+                            {
+                                <p class="azul">Hoy es el cierre de <span>@ViewBag.Campania</span></p>
+                            }
+                            else
+                            {
+                                <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
+                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>
+							<!-- R2161 -->
+                            if (ViewBag.TieneFechaPromesa == 1)
+                            { 
+                                //R20151104
+                                    <p>@ViewBag.MensajeFechaPromesa</p>
+                            }
+                        }
+                        else
+                        {
+                            <p>La Zona @ViewBag.CodigoZonaConsultora no se ubica en el cronograma, por favor contacte al Servicio de Atención al Cliente.</p>
+                        }
+                    </div>
+                    <div class="box-b"></div>
+                </div>
+            </div>
+            <div class="div-2">
+                <h1><span>Estado de Cuenta</span></h1>
+                <div class="title">
+                    <div>Se mostrarán los últimos 20 movimientos de tu estado de cuenta.</div>
+                </div>
+                <div style="text-align:right">Para mayor información revisa tu paquete documentario <div style="text-decoration:underline; display:inline">@Html.ActionLink("aquí","Index","PaqueteDocumentario")</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="gvwEstadoCuentaDetalle"></table>
+        </div>
+        <div class="sep"></div>
+        @if (ViewBag.IndicadorFlexiPago == 1 && ViewBag.MontoMinimoFlexipago != "0.00")
+        {
+            <div class="div-3">
+                <div class="total">
+                    <div style="float: left;">
+                        Flexipago - Mínimo Monto a Pagar: <span class="superindice">@Model.Simbolo </span>
+                    </div>
+                    <div style="float: left; display: block; padding-top: 4px; text-align: left; min-width: 70px;">
+                        <span class="num">@ViewBag.MontoMinimoFlexipago</span>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="elements2">
+        	<div class="div-3">
+                @if (ViewBag.CodigoISO.Equals("PE"))
+                    {
+                    <!--ITG 1770-->
+                        <div class="cuenta-mensaje"><span>*Paga a tiempo y evita Gastos Administrativos y de Cobranzas:</span><br>
+                            si pagas entre el 3er y 9no d&iacute;a de la fecha de vencimiento que aqu&iacute;<br />
+                            se indica se cobrar&aacute; S/.5 y a partir de C1214, si pagas desde el<br />
+                            10mo d&iacute;a despu&eacute;s de la fecha de vencimiento se cobrar&aacute; S/.10.<br />
+                            Este importe se sumar&aacute; a tu siguiente pedido.</div>
+                    }
+                <div class="total">
+                    <div style="float:left;">
+                        Total Monto a Pagar: <span class="superindice">@Model.Simbolo</span>
+                    </div>
+                        <div style="float: left; display: block; padding-top: 4px; text-align:left; min-width: 70px;">
+                            <span class="num">@Model.MontoPagar</span>
+                        </div>                    
+                </div>
+                <div style=" width:20px; float: right;">&nbsp</div>
+                <div class="total_white">
+                    <div style="float:left;">
+                        Fecha de vencimiento:
+                    </div>
+                    <span style="width:105px; display:block; float:right;" class="num_white">
+                        @Html.Label((string)Model.FechaVencimiento, (string)Model.FechaVencimiento, new { id = "lblFechaVencimiento" })
+                    </span>
+                </div>
+            </div>
+        </div>
+        <b>
+        Para enviar esta información a tu correo @Model.CorreoConsultora, 
+        @Html.Label("Haz click aquí", new { id = "lblCorreoEnviar", style = "cursor:pointer; text-decoration:underline;" })
+        @Html.Hidden("hdn_Correo", (string)Model.CorreoConsultora)
+        </b>
+        <div class="sep"></div>
+        <div class="div-3">
+            <div class="input_global">
+                <input id="btnExcel" type="button" value="Excel" onclick="ExportExcel();" />
+            </div>
+        </div>
+        @if (ViewBag.IndicadorFlexiPago == 1)
+        {
+
+            List<Portal.Consultoras.Web.Models.OfertaFlexipagoModel> cuotasFlexipago = ViewBag.CuotasCampaniaFlexipago;
+
+            if (cuotasFlexipago != null && cuotasFlexipago.Count > 0)
+            {
+            <div class="flexipago_title">Conoce el detalle de tus cuotas Flexipago de Campañas anteriores</div>
+            <div class="border-wrapper">
+                <div class="tabla_flex">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="12%">Campaña</th>
+                                <th width="18%">Monto Total de la Campaña</th>
+                                <th width="16%">Monto pagado</th>
+                                <th width="18%">Monto a pagar por cuota Flexipago</th>
+                                <th width="14%">Interes Flexipago (por cuota)</th>
+                                <th width="22%" colspan="2" class="th_head">Cuotas pendientes Flexipago (incluye intereses)
+                            <table>
+                                <td width="50%">C @ViewBag.CampaniaActual</td>
+                                <td width="50%">C @ViewBag.CampaniaSig</td>
+                            </table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var flexi in cuotasFlexipago)
+                            {
+                                <tr>
+                                    <td>C-@flexi.CodigoCampania</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.MontoTotal)</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.MontoPagado)</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.MontoPorCuota)</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.InteresePorCuota)</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.CuotaPendCampaniaActual)</td>
+                                    <td>@flexi.Simbolo @string.Format("{0:#,##0.00}", flexi.CuotaPendCampaniaSiguiente)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th width="88%" colspan="5" rowspan="2" align="right">Total a pagar de cuotas + intereses Flexipago de campañas anteriores:
+                                </th>
+                                <th>
+                                    <div class="div_cuota">
+                                        <input type="text" style="font-size:10px" value="@cuotasFlexipago[0].Simbolo @string.Format("{0:#,##0.00}", @cuotasFlexipago.Sum(x => x.CuotaPendCampaniaActual))" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="div_cuota">
+                                        <input type="text" style="font-size:10px" value="@cuotasFlexipago[0].Simbolo @string.Format("{0:#,##0.00}", @cuotasFlexipago.Sum(x => x.CuotaPendCampaniaSiguiente))" />
+                                    </div>
+                                </th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </div>
+            <div class="flexipago_tasa borde_redondeado" style="display: none">
+                <div class="div-3">
+                    <div class="titAuto">Tu Tasa de Costo Efectiva Mensual (TCEM):</div>
+                    <div class="ndias borde_redondeado">
+                        <input type="text" />
+                    </div>
+                    <div class="titAuto">Tu Tasa de Costo Efectiva Anual (TCEA):</div>
+                    <div class="ndias borde_redondeado">
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="flexipago_tasa_texto">
+                <span>* Información a valor factura</span>
+                <span>* Gastos de transporte percepción, gastos administrativos y cobranzas</span>
+            </div>
+            }
+        }
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+
+

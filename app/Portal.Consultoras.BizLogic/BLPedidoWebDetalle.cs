@@ -253,10 +253,10 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl)
+        public void InsPedidoWebDetallePROL(int paisID, int campaniaID, int pedidoID, short estadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int modificaPedido, string codigoUsuario, decimal montoTotalProl, decimal descuentoProl)
         {
-            var DAPedidoWeb = new DAPedidoWeb(PaisID);
-            var DAPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
             TransactionOptions oTransactionOptions = new TransactionOptions();
             oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
 
@@ -264,7 +264,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    DAPedidoWebDetalle.DelPedidoWebDetalleDesglosePedido(CampaniaID, PedidoID);
+                    DAPedidoWebDetalle.DelPedidoWebDetalleDesglosePedido(campaniaID, pedidoID);
                     foreach (var item in olstPedidoWebDetalle)
                     {
                         if (!item.CUVNuevo)
@@ -274,26 +274,26 @@ namespace Portal.Consultoras.BizLogic
                                 case 2:
                                     DAPedidoWebDetalle.UpdPedidoWebDetalle(item);
                                     if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                                        new DAOfertaProducto(PaisID).UpdOfertaProductoStockActualizar(item.TipoOfertaSisID, item.CampaniaID, item.CUV, item.Stock, item.Flag);
+                                        new DAOfertaProducto(paisID).UpdOfertaProductoStockActualizar(item.TipoOfertaSisID, item.CampaniaID, item.CUV, item.Stock, item.Flag);
                                     /* 2108 - Inicio */
                                     if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
-                                        new DAOfertaProducto(PaisID).UpdOfertaProductoStockActualizar(item.TipoOfertaSisID, item.CampaniaID, item.CUV, item.Stock, item.Flag);
+                                        new DAOfertaProducto(paisID).UpdOfertaProductoStockActualizar(item.TipoOfertaSisID, item.CampaniaID, item.CUV, item.Stock, item.Flag);
                                     /* 2108 - Fin */
                                     break;
                                 case 3:
                                     DAPedidoWebDetalle.DelPedidoWebDetalle(item.CampaniaID, item.PedidoID, item.PedidoDetalleID, item.TipoOfertaSisID, string.Empty);
                                     if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                                        new DAOfertaProducto(PaisID).UpdOfertaProductoStockEliminar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
+                                        new DAOfertaProducto(paisID).UpdOfertaProductoStockEliminar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
                                     break;
                                 default:
                                     if (item.CUVPadre == "0")
                                     {
                                         DAPedidoWebDetalle.InsPedidoWebDetallePROL(item);
                                         if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                                            new DAOfertaProducto(PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
+                                            new DAOfertaProducto(paisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
                                         /* 2108 - Inicio */
                                         if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
-                                            new DAOfertaProducto(PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, item.CampaniaID, item.CUV, item.Cantidad);
+                                            new DAOfertaProducto(paisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, item.CampaniaID, item.CUV, item.Cantidad);
                                         /* 2108 - Fin */
                                     }
                                     break;
@@ -305,22 +305,22 @@ namespace Portal.Consultoras.BizLogic
                             {
                                 DAPedidoWebDetalle.InsPedidoWebDetalle(item);
                                 if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                                    new DAOfertaProducto(PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
+                                    new DAOfertaProducto(paisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, item.CampaniaID, item.CUV, item.Cantidad);
                                 /* 2108 - Inicio */
                                 if (item.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
-                                    new DAOfertaProducto(PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, item.CampaniaID, item.CUV, item.Cantidad);
+                                    new DAOfertaProducto(paisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, item.CampaniaID, item.CUV, item.Cantidad);
                                 /* 2108 - Fin */
                             }
                         }
                     }
 
-                    if (ModificaPedido == 0)
-                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl);
+                    if (modificaPedido == 0)
+                        DAPedidoWeb.UpdPedidoWebByEstado(campaniaID, pedidoID, estadoPedido, false, codigoUsuario, montoTotalProl, descuentoProl);
                     else
                     {
-                        int Clientes = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3 && p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
-                        decimal ImporteTotal = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3).Sum(p => p.ImporteTotal);
-                        DAPedidoWeb.UpdPedidoWebByEstadoConTotales(CampaniaID, PedidoID, EstadoPedido, false, Clientes, ImporteTotal, CodigoUsuario);
+                        int clientes = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3 && p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+                        decimal importeTotal = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3).Sum(p => p.ImporteTotal);
+                        DAPedidoWeb.UpdPedidoWebByEstadoConTotales(campaniaID, pedidoID, estadoPedido, false, clientes, importeTotal, codigoUsuario);
                     }
                     oTransactionScope.Complete();
                 }
@@ -329,10 +329,10 @@ namespace Portal.Consultoras.BizLogic
             }
 
         //CCSS_JZ_PROL
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL)
+        public void InsPedidoWebDetallePROLv2(int paisID, int campaniaID, int pedidoID, short estadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool validacionAbierta, string codigoUsuario, decimal montoTotalProl, decimal descuentoProl)
         {
-            var DAPedidoWeb = new DAPedidoWeb(PaisID);
-            var DAPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
             TransactionOptions oTransactionOptions = new TransactionOptions();
             oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
 
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.BizLogic
                             DAPedidoWebDetalle.UpdPedidoWebDetalleObsPROL(item, true);
                         }
                     }
-                    DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProL);
+                    DAPedidoWeb.UpdPedidoWebByEstado(campaniaID, pedidoID, estadoPedido, false, codigoUsuario, montoTotalProl, descuentoProl);
                     oTransactionScope.Complete();
                 }
             }
@@ -380,7 +380,7 @@ namespace Portal.Consultoras.BizLogic
                         //Se reutiliza UpdPedidoWebDesReserva debido a que no actualiza la fecha de reserva. 
                         DAPedidoWeb.UpdPedidoWebDesReserva(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, ValidacionAbierta);
                     else
-                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, 0);
+                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, 0, 0);
                     oTransactionScope.Complete();
                 }
             }

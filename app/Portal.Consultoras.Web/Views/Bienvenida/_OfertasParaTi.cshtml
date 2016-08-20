@@ -1,0 +1,287 @@
+﻿@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
+
+<!-- CARRUSEL DE OFERTAS -->
+@*<div class="previous_ofertas oculto"><img src="@Url.Content("~/Content/Images/Esika/previous_ofertas_home.png")" alt="" /></div>*@
+<div class="content_carrusel_ofertas" id="divCarruselHorizontal">
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_1.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 1</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            @*<div class="liquidacion_rango_home">
+                    <input type="text" id="txtCantidad" maxlength="2" value="9" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>*@
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_2.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 2</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_3.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 3</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" id="txtCantidad" maxlength="2" value="9" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas">
+                        <img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" />
+                    </a>
+                    <a class="menos">
+                        <img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_4.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 4</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_1.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 5</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            @*<div class="liquidacion_rango_home">
+                    <input type="text" id="txtCantidad" maxlength="2" value="9" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>*@
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_2.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 6</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_3.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 7</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" id="txtCantidad" maxlength="2" value="9" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas">
+                        <img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" />
+                    </a>
+                    <a class="menos">
+                        <img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="content_item_carrusel">
+        <div class="producto_img_home">
+            <img src="@Url.Content("~/Content/Images/Esika/ofertasparati_4.png")" />
+        </div>
+        <div class="producto_nombre_descripcion">
+            <h6>ESIKA 8</h6>
+            <p class="nombre_producto">
+                <b>Máscara Mirada Hechizante</b>
+            </p>
+            <p class="producto_gramos_onzas">
+                <b>8 g / .28 oz.</b>
+            </p>
+            <div class="producto_precio">
+                <span class="producto_precio_normal oculto">S/. 47.00</span>
+                <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+            </div>
+            <a href="#" title="ELEGIR TONO" class="boton_Agregalo_home">
+                AGRÉGALO
+            </a>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="9" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+@*<div class="previous_ofertas oculto"><img src="@Url.Content("~/Content/Images/Esika/next.png")" alt="" /></div>*@
+<!-- FIN DEL CARRUSEL-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#divCarruselHorizontal').slick({
+            infinite: true,
+            vertical: false,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            pantallaPedido: false,
+            prevArrow: '<a class="previous_ofertas js-slick-prev"><img src="@Url.Content("~/Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next"><img src="@Url.Content("~/Content/Images/Esika/next.png")" alt="" /></a>'
+        });
+
+        $(".js-slick-prev").insertBefore('#divCarruselHorizontal');
+        $(".js-slick-next").insertAfter('#divCarruselHorizontal');
+    });
+</script>

@@ -1,6 +1,10 @@
 ﻿/// <reference path="loader.js" />
 /// <reference path="jquery-2.1.4.js" />
 
+function isNullOrEmpty(element, index, array) {
+    return element == null || element == "";
+}
+
 function IrAPaso() {
     var action = this.getAttribute('data-form-action');
 

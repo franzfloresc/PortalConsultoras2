@@ -99,24 +99,36 @@
                         <asp:Literal ID="lTabla" runat="server"></asp:Literal>
                     </div>
                 </div>
-                <div class="sep"></div>
+
+                <%--<div class="sep"></div>
                 <div class="elements2">
                     <div class="div-3">
                         <div class="input_modifica">
-
                             <input type="submit" name="" id="btnModificarPedido" value="Modifica tu Pedido" />
-
                         </div>
                         <div class="total">
                             Monto Total: <span id="sSimbolo" class="superindice">
                                 <asp:Label ID="lblSimbolo" runat="server"></asp:Label></span><span id="sTotal" class="num"><asp:Label ID="lblTotal" runat="server"></asp:Label></span>
                         </div>
                     </div>
-                </div>
-
+                </div>--%>
 
                 <div class="sep"></div>
-
+                <div class="div-3">
+                    <div class="input_modifica_pedido" style="width:10px; float: left;">
+                        <div class="tooltip_left">
+                            <input type="button" name="" id="btnModificarPedido" value="Modifica tu Pedido" />
+                        </div>
+                    </div>
+                    
+                    <asp:Literal ID="lDescuentoCuv" runat="server"></asp:Literal>
+                    <div class="total">
+                        Monto Total: <span class="superindice"><asp:Label ID="lblSimbolo" runat="server"></asp:Label></span>
+                        <span id="sTotal" class="num"><asp:Label ID="lblTotal" runat="server"></asp:Label></span>
+                    </div>
+                </div>
+                
+                <div class="sep"></div>
                 <div class="banner-wrapper">
                     <div class="one-fourth" style="display: none">
                         <img src="~/Content/Images/ban-1.png" class="ajust" />

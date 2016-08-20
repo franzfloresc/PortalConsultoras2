@@ -20,14 +20,18 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
+        /* PCABRERA GR-1883 - INICIO */
+        //public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
+        public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigo);
             Context.Database.AddInParameter(command, "@Campana", DbType.String, campana);
-            Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, fecha);
+            //Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, fecha);
+            Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nropedido);
             return Context.ExecuteReader(command);
         }
+        /* PCABRERA GR-1883 - INICIO */
 
         //Inicio ITG 1793 HFMG
         public IDataReader GetNovedadesTracking(string NumeroPedido)
@@ -71,6 +75,33 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
+
+        /* EPD-665 - INICIO */
+        public void InsLogConfirmacionEntrega(BELogConfirmacionEntrega oBELogConfirmacionEntrega)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsLogConfirmacionEntrega");
+            Context.Database.AddInParameter(command, "@LogTipoReg", DbType.Int32, oBELogConfirmacionEntrega.LogTipoReg);
+            Context.Database.AddInParameter(command, "@LogResult", DbType.Int32, oBELogConfirmacionEntrega.LogResult);
+            //Context.Database.AddInParameter(command, "@ConfirmacionEntregaId", DbType.Int32, oBELogConfirmacionEntrega.ConfirmacionEntregaId);
+
+            Context.Database.AddInParameter(command, "@IdentificadorEntrega", DbType.Int32, oBELogConfirmacionEntrega.IdentificadorEntrega);
+            Context.Database.AddInParameter(command, "@NumeroPedido", DbType.AnsiString, oBELogConfirmacionEntrega.NumeroPedido);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, oBELogConfirmacionEntrega.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, oBELogConfirmacionEntrega.Fecha);
+            Context.Database.AddInParameter(command, "@Latitud", DbType.AnsiString, oBELogConfirmacionEntrega.Latitud);
+            Context.Database.AddInParameter(command, "@Longitud", DbType.AnsiString, oBELogConfirmacionEntrega.Longitud);
+            Context.Database.AddInParameter(command, "@TipoEntrega", DbType.AnsiString, oBELogConfirmacionEntrega.TipoEntrega);
+            Context.Database.AddInParameter(command, "@Novedad", DbType.AnsiString, oBELogConfirmacionEntrega.Novedad);
+            Context.Database.AddInParameter(command, "@Observacion", DbType.AnsiString, oBELogConfirmacionEntrega.Observacion);
+            Context.Database.AddInParameter(command, "@CodigoPlataforma", DbType.AnsiString, oBELogConfirmacionEntrega.CodigoPlataforma);
+            Context.Database.AddInParameter(command, "@Foto1", DbType.AnsiString, oBELogConfirmacionEntrega.Foto1);
+            Context.Database.AddInParameter(command, "@Foto2", DbType.AnsiString, oBELogConfirmacionEntrega.Foto2);
+            Context.Database.AddInParameter(command, "@Foto3", DbType.AnsiString, oBELogConfirmacionEntrega.Foto3);
+            Context.Database.AddInParameter(command, "@Firma", DbType.AnsiString, oBELogConfirmacionEntrega.Firma);
+
+            Context.ExecuteNonQuery(command);
+        }
+        /* EPD-665 - FIN */
 
 		//R2004
         public IDataReader GetPedidoRechazadoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha)

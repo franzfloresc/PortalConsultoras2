@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="05818938-a8e1-4584-ae8d-82ce72169307" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ValidacionesUnete.wsdl" MetadataType="Wsdl" ID="2c3d483a-8fb9-49e9-9720-2636b9db97e9" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?wsdl" />
+    <MetadataFile FileName="ValidacionesUnete.xsd" MetadataType="Schema" ID="b490e60a-0e90-40f8-948b-3cba8e299999" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd0" />
+    <MetadataFile FileName="ValidacionesUnete1.xsd" MetadataType="Schema" ID="2f1931d1-96e2-4e79-9d6c-68bd718f61ec" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd1" />
+    <MetadataFile FileName="ValidacionesUnete2.xsd" MetadataType="Schema" ID="ddfa94af-893d-40cd-95c8-c8afc403c4a1" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd2" />
+    <MetadataFile FileName="ValidacionesUnete3.xsd" MetadataType="Schema" ID="7fc54b88-e372-47c0-8ef3-3aae5212e4d0" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd3" />
+    <MetadataFile FileName="ValidacionesUnete4.xsd" MetadataType="Schema" ID="24f74f1e-dca1-45c5-a1b2-9acb8e4fc34a" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/ValidacionesUnete.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

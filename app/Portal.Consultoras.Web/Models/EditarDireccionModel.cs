@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -48,5 +49,26 @@ namespace Portal.Consultoras.Web.Models
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string NombreDireccionEdicion { get; set; }
+
+        public bool ZonaPreferencial { get; set; }
+
+        //Campos Geo Mexico
+
+        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string PrefijoCelular { get; set; }
+
+        public string NombrePrefijoCelular { get; set; }
+
+        // public SelectList ColoniasMx { get; set; }
+
+
+        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string Colonia { get; set; }
+
+        public string NombreColonia { get; set; }
+
+        //[RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
+        public string DireccionMx { get; set; }
+
     }
 }

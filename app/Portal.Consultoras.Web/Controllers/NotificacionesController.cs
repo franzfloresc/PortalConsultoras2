@@ -1,12 +1,12 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.Models;
+using System.Text;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {

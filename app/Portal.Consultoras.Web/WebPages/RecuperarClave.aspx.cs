@@ -11,6 +11,11 @@ using EasyCallback;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Portal.Consultoras.Common;
+using System.Security.Cryptography;
+using System.Text;
+using System.IO;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -24,8 +29,17 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string urlportal = ConfigurationManager.AppSettings["URLSite"];
+
             if (!Page.IsPostBack)
             {
+                string uAg = Request.ServerVariables["HTTP_USER_AGENT"];
+                Regex regEx = new Regex(@"android|iphone|ipad|ipod|blackberry|symbianos|nokia", RegexOptions.IgnoreCase);
+                bool isMobile = regEx.IsMatch(uAg);
+
+                if (isMobile)
+                Response.Redirect(urlportal + "/WebPages/RecuperarClaveMobile.aspx");
+
                 DropDowListPaises();
             }
         }
@@ -173,10 +187,10 @@ namespace Portal.Consultoras.Web.WebPages
                                                             "<td style='padding: 5px 0px 0px 0px; font-size: 11px; color:#6C207F; text-align:right;'>" +
                                                                 "Copyright Belcorp 2013. All rights reserved" +
                                                             "</td>" +
-                                                          //Mejora - Correo
-                                                          //"</tr>" +
-                                                          //"<tr>" +
-                                                          //  "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>Belcorp - " + nomPais + "</td>" +
+                                //Mejora - Correo
+                                //"</tr>" +
+                                //"<tr>" +
+                                //  "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>Belcorp - " + nomPais + "</td>" +
                                                           "</tr>" +
                                                         "</table>" +
                                                     "</td>" +
@@ -184,7 +198,7 @@ namespace Portal.Consultoras.Web.WebPages
                                                 "</table>" +
                                             "</body>";
                             #endregion
-                            Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp", mensaje, true, "Somos Belcorp");                            
+                            Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp", mensaje, true, "Somos Belcorp");
                             return serializer.Serialize(new
                             {
                                 succes = true,
@@ -214,5 +228,6 @@ namespace Portal.Consultoras.Web.WebPages
                 });
             }
         }
+
     }
 }

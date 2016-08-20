@@ -41,6 +41,7 @@
     <div class="col-xs-12">
         <div class="block-white upper text-center" style="margin-top:0px; padding-top: 0px;">
             <h3 style="margin-bottom: 15px">Campaña <span id="spNroCampania">@nroCampania.ToString().Substring(4, 2)</span></h3>
+            <span id="numero_campania" data-paisid="@ViewBag.PaisID" data-codigozona="@ViewBag.CodigoZona" hidden="hidden">@nroCampania</span>
             <div class="row">
                 <div class="col-xs-12">
                     <figure style="margin-bottom:20px;">
@@ -139,12 +140,14 @@
             $("#v1").hide();
             $("#v2").hide();
 
-            $(".revista_botones:first a").on("click", function(e) {
+            $(".revista_botones:first a").on("click", function (e) {
                 e.preventDefault();
+                
                 var campania = $(this).data("campania").toString() || "000000";
 
                 if (campania && campania.length > 4) {
                     $("#spNroCampania").text(campania.substring(4, 6));
+                    $("#numero_campania").text(campania); //EPD-826
                 }
                 $(".revista_botones:first a").removeClass("activado");
                 $(this).addClass("activado");
@@ -176,8 +179,20 @@
                 });
             });
 
-            $("#btnVerRevista").on("click", function(e) {
+            $("#btnVerRevista").on("click", function (e) {
+                
+                var srcPortada = $("#imgPortadaGana").attr("src");
+                if (srcPortada == '@defaultImageRevista') {
+                    var nroCampania = $("#spNroCampania").text();
+                    //alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                    window.messageInfo("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                    return false;
+                }
+
                 var campaniaRevista = $("#spNroCampania").html();
+                var ncampania = parseInt($("#numero_campania")[0].innerHTML); //EPD-826
+                var paisID = parseInt($("#numero_campania")[0].dataset.paisid); //EPD-826
+                var codigozona = $("#numero_campania")[0].dataset.codigozona; //EPD-826
 
                 var prefijoPais = codigoIso.toLowerCase();
                 var numeroCampania = '';
@@ -196,8 +211,73 @@
                     }
                 }
 
-                var url = 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania;
-                
+                //EPD-826 - INICIO
+                if (paisID == 11) {
+
+                    if (ncampania == 201614) {
+
+                        if (codigozona == "1072") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+                        else if (codigozona == "1075") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+                        else if (codigozona == "3035") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+                        else if (codigozona == "3036") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+                        else if (codigozona == "5035") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+                        else if (codigozona == "5044") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/';
+                        }
+
+                    }
+                    else if (ncampania == 201615) {
+
+                        if (codigozona == "1081") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                        else if (codigozona == "3033") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                        else if (codigozona == "3035") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                        else if (codigozona == "3036") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                        else if (codigozona == "5035") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                        else if (codigozona == "5044") {
+
+                            var url = 'http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/';
+                        }
+                    }
+                    else {
+                        var url = 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania;
+                    }
+                }
+                else {
+                    var url = 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania;
+                }
+                //EPD-826 - FIN
+
                 window.open(url, '_blank');
 
                 dataLayer.push({

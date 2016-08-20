@@ -40,6 +40,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Observaciones", DbType.AnsiString, oBEValidacionMovil.Observaciones);
             Context.Database.AddInParameter(command, "@Error", DbType.AnsiString, oBEValidacionMovil.Error);
             Context.Database.AddInParameter(command, "@EsMontoMinimo", DbType.Boolean, oBEValidacionMovil.EsMontoMinimo);
+            Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, oBEValidacionMovil.MontoTotalProl);
+            Context.Database.AddInParameter(command, "@DescuentoProl", DbType.Decimal, oBEValidacionMovil.DescuentoProl);
 
             Context.ExecuteNonQuery(command);
         }
@@ -54,9 +56,9 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
 
-        public void UpdValAutoPROLPedidoWeb(int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados)
+        public void UpdValAutoPROLPedidoWeb(int CampaniaId, int PedidoId, int EstadoPedido, bool ItemsEliminados, decimal montoTotalProl, decimal descuentoProl)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("UpdValAutoPROLPedidoWeb", CampaniaId, PedidoId, EstadoPedido, ItemsEliminados);
+            DbCommand command = Context.Database.GetStoredProcCommand("UpdValAutoPROLPedidoWeb", CampaniaId, PedidoId, EstadoPedido, ItemsEliminados, montoTotalProl, descuentoProl);
             Context.ExecuteNonQuery(command);
         }
 

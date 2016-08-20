@@ -16,8 +16,8 @@
     <ul class="list-table-body">
         @foreach (var item in Model.Detalle)
         {
-            var precioUnitario = Model.CodigoISO == "CO" ? (string.Format("{0:#,##0}", item.PrecioUnidad).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item.PrecioUnidad));
-            var importeTotal = Model.CodigoISO == "CO" ? (string.Format("{0:#,##0}", item.ImporteTotal).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item.ImporteTotal));
+            var precioUnitario = Model.DecimalToString(item.PrecioUnidad);
+            var importeTotal = Model.DecimalToString(item.ImporteTotal);
 
             var descripcionOferta = string.IsNullOrEmpty(item.DescripcionOferta) ? 
                                                 item.DescripcionEstrategia : 

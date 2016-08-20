@@ -95,13 +95,13 @@
 
                                 <!-- Precio Unitario de Producto -->
                                 Precio Unitario :
-                                @ViewBag.Simbolo @string.Format("{0:N2}", item.PrecioUnidad)
+                                @ViewBag.Simbolo @Model.DecimalToString(item.PrecioUnidad)
                                 <br />
 
                                 <!-- Sub Total -->
                                 <div class="upper">
                                     <strong>Subtotal </strong>
-                                    <strong>@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</strong>
+                                    <strong>@ViewBag.Simbolo @Model.DecimalToString(item.ImporteTotal)</strong>
                                 </div>
                             </div>
 
@@ -126,15 +126,48 @@
                                 }
                             </div>
                         }
+                        @if (Model.TieneDescuentoCuv && item.IndicadorOferta == 1)
+                        {
+                            <div class="alert-top-icon text-success">
+                                <div class="text-left">
+                                    El precio total no incluye el descuento para ofertas con más de
+                                    un precio (1x, 2x).
+                                </div>
+                            </div>
+                        }
                     </li>
                 }
             </ul>
         </div>
         <br />
 
-        <div class="text-right text-success upper" style="font-size:1.2em;">
-            <strong>Total Pedido</strong> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))
-        </div>
+
+        <table class="table">
+            <tbody>
+                @if (Model.TieneDescuentoCuv)
+                {
+                    <tr>
+                        <td><strong>Subtotal </strong></td>
+                        <td class="text-right" style="font-size: 1.3em;">
+                            <b>@ViewBag.Simbolo @Model.DecimalToString(Model.SubTotal)</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong class="text-success">Descuento por ofertas con más de un precio </strong></td>
+                        <td class="text-right" style="font-size: 1.3em;">
+                            <b class="text-success">@ViewBag.Simbolo @Model.DecimalToString(Model.Descuento)</b>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td class="upper"><strong class="text-primary">Total Pedido </strong></td>
+                    <td class="text-right" style="font-size: 1.3em;">
+                        <b id="sTotal">@ViewBag.Simbolo @Model.DecimalToString(Model.Total)</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
         <hr class="success" />
         <p>
             <b>
