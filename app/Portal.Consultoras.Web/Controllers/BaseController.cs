@@ -558,6 +558,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
+                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
 
                 return model;
 
@@ -753,6 +755,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
 
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
+                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
 
                 return model;
 
@@ -924,6 +928,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+                model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
             }
             Session["UserData"] = model;
 

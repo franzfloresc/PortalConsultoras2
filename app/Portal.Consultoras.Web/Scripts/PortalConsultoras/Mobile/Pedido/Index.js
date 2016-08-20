@@ -434,6 +434,8 @@ function InsertarProducto() {
 
                 $("#hdCuvEnSession").val("");
 
+                TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+
                 setTimeout(function () {
                     //$("#divMensajeProductoAgregado").fadeOut();
                     $('.toUp').click();
@@ -905,7 +907,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                             $('#hdnPagina').val(), ";",
                             $('#hdnClienteID2_').val());
 
-                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo)
+                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
                         return;
                     }
                 });
@@ -1051,6 +1053,7 @@ function AgregarProductoDestacado() {
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarProductosDestacados(cuv);
                             CargarCantidadProductosPedidos();
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             CloseLoading();
                         }
                     },

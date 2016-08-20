@@ -181,7 +181,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                             $('#hdnPagina').val(), ";",
                             $('#hdnClienteID2_').val());
 
-                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo)
+                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
                         return;
                     }
                 });
@@ -264,6 +264,7 @@ function AgregarProductoDestacado() {
     if ($.trim($("#ddlTallaColor").html()) != "") {
         if ($.trim($("#ddlTallaColor").val()) == "") {
             messageInfo("Por favor, seleccione la Talla/Color del producto.");
+            CloseLoading();
             return false;
         }
     }
@@ -274,18 +275,18 @@ function AgregarProductoDestacado() {
     if (!$.isNumeric(cantidad)) {
         messageInfo("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
     if (parseInt(cantidad) <= 0) {
         messageInfo("La cantidad debe ser mayor a cero.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
         messageInfo("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
 
@@ -328,6 +329,7 @@ function AgregarProductoDestacado() {
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarCantidadProductosPedidos();
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             CloseLoading();
                         }
                     },

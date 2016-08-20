@@ -140,7 +140,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                     return false;
                 }
 
-                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion);
+                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
                 
             },
             error: function (data, error) {
@@ -212,7 +212,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
 
         if (parseInt(data.UnidadesPermitidas) < Cantidad) {
             if (PROL == "1") {
-                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
                 $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
             } else
                 $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -235,7 +235,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
             var CantidadaValidar = CantidadActual - cantidadAnterior;
             if (parseInt(data.Stock) < CantidadaValidar) {
                 if (PROL == "1") {
-                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV);
                     $('#Cantidad_' + PedidoDetalleID).val(CantidadModi);
                 } else
                     $('#Cantidad_' + PedidoDetalleID).val($('#CantidadTemporal_' + PedidoDetalleID).val());
@@ -276,7 +276,7 @@ function UpdateLiquidacionTipoOfertaSis(urls ,CampaniaID, PedidoID, PedidoDetall
 
 }
 
-function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi) {
+function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV) {
 
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
@@ -319,7 +319,8 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: "-1"
+        ClienteID_: "-1",
+        CUV: CUV
     };
     PedidoUpdate(item);
 }
@@ -367,7 +368,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
-            dataType: 'html',
+            dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(param),
             async: true,
@@ -378,6 +379,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 ActualizarCantidadTotalPedido();
                 var descripcionMarca = GetDescripcionMarca(MarcaID);
                 TagManagerClickEliminarProducto(DescripcionProd, CUV, PrecioUnidad, descripcionMarca, DescripcionOferta, Cantidad);
+
+                TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {
@@ -433,6 +436,23 @@ function PedidoDetalleEliminarTodo() {
         CloseLoading();
         return false;
     }
+    
+    var listaDetallePedido = new Array();
+    var campania = $("#hdCampaniaCodigo").val();
+
+    $.each($("#divContenidoDetalle .contenedor_items_pedido"), function (index, value) {
+        var cuv = $(value).find(".cod_prod").html();
+        var cantidad = $(value).find(".ValidaNumeral").val();
+
+        var detalle = {
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        };
+
+        listaDetallePedido.push(detalle);
+    });
+    
     var item = {};
     jQuery.ajax({
         type: 'POST',
@@ -443,6 +463,7 @@ function PedidoDetalleEliminarTodo() {
         async: true,
         success: function (data) {
             ActualizarGanancia({ MontoGananciaStr: DecimalToStringFormat(0) });
+            TrackingJetloreRemoveAll(listaDetallePedido);
             if (checkTimeout(data)) {
                 location.reload();
             }
@@ -532,7 +553,7 @@ function HorarioRestringido(mostrarAlerta) {
 // Fin validaciones
 
 // Actualizar
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion) {
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
@@ -577,13 +598,17 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion) {
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: "-1"
+        ClienteID_: "-1",
+        CUV: CUV
     };
 
     PedidoUpdate(item);
 }
 
 function PedidoUpdate(item, PROL) {
+    var Cantidad = $('#Cantidad_' + item.PedidoDetalleID).val();
+    var CantidadAnti = $('#CantidadTemporal_' + item.PedidoDetalleID).val();
+
     ShowLoading();
     PROL = PROL || "0";
     jQuery.ajax({
@@ -598,12 +623,19 @@ function PedidoUpdate(item, PROL) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
                     ActualizarGanancia(data.DataBarra);
+                    
                     if (PROL == "0")
                         $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
 
                     CalcularTotalPedido(data.TotalFormato, data.Total_Minimo);
                     ActualizarCantidadTotalPedido();
                     CargarPedido();
+                    
+                    var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+                    if (diferenciaCantidades > 0)
+                        TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+                    else if (diferenciaCantidades < 0)
+                        TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
                 }
             }
         },
