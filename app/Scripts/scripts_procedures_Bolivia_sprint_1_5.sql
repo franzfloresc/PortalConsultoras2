@@ -184,156 +184,229 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE dbo.Pais ADD OfertaFinal int
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.Permiso') and SYSCOLUMNS.NAME = N'EsPrincipal') = 0
+	ALTER TABLE dbo.Permiso ADD EsPrincipal bit
+go
+
 /*FIN NUEVOS CAMPOS*/
 
 /*INSERT*/
+update dbo.Permiso set EsPrincipal = 0 where PermisoID<1000
+
+go
 
 CREATE TABLE #tblTemporal (idPermisoTemp int)
 INSERT INTO #tblTemporal(idPermisoTemp) 
-SELECT PermisoID FROM RolPermiso WHERE RolID=1
-DELETE FROM RolPermiso WHERE RolID=1
+SELECT PermisoID FROM RolPermiso WHERE RolID=1 and PermisoID>1000
+DELETE FROM RolPermiso WHERE RolID=1 and PermisoID>1000
 DELETE FROM Permiso WHERE PermisoID IN (SELECT idPermisoTemp FROM #tblTemporal)
 DROP TABLE #tblTemporal
 
+--Antiguo:2
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1001, N'SOCIA EMPRESARIA', 0, 1, N'Lider/Index', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1001, 1, 1)
 
+--Antiguo:3
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (2, N'SOCIA EMPRESARIA', 0, 1, N'Lider/Index', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (3, N'MI NEGOCIO', 0, 2, N'', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (4, N'MI ACADEMIA', 0, 3, N'MiAcademia/Index', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (5, N'MI COMUNIDAD', 0, 4, N'Comunidad/Index', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (6, N'MI ASESOR DE BELLEZA', 0, 5, N'', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1002, N'MI NEGOCIO', 0, 2, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1002, 1, 1)
 
+--Antiguo:4
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (7, N'MIS PEDIDOS', 3, 1, N'', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (8, N'MIS PAGOS', 3, 2, N'', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (9, N'MIS CATÁLOGOS Y REVISTAS', 3, 3, N'', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (10, N'MIS CLIENTES', 3, 4, N'', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (11, N'PROGRAMAS BELCORP', 3, 5, N'', 0, N'Header', NULL, 0, 0, 1)
+VALUES (1003, N'MI ACADEMIA', 0, 3, N'MiAcademia/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1003, 1, 1)
 
+--Antiguo:5
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (12, N'Ingresa tu pedido', 7, 1, N'Pedido/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1004, N'MI COMUNIDAD', 0, 4, N'Comunidad/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1004, 1, 1)
+
+--Antiguo:6
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (13, N'Información de campaña', 7, 2, N'Bienvenida/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1005, N'MI ASESOR DE BELLEZA', 0, 5, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1005, 1, 1)
+
+--Antiguo:7
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (14, N'Seguimiento de pedido', 7, 3, N'Tracking/Index', 0, N'Header', NULL, NULL, 0, 0)
+VALUES (1006, N'MIS PEDIDOS', 1002, 1, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1006, 1, 1)
+
+--Antiguo:8
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (15, N'Paquete documentario', 7, 4, N'PaqueteDocumentario/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1007, N'MIS PAGOS', 1002, 2, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1007, 1, 1)
+
+--Antiguo:9
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (16, N'Mis Pedidos', 7, 5, N'MisPedidos/Index', 0, N'Header', NULL, NULL, 0, 0)
+VALUES (1008, N'MIS CATÁLOGOS Y REVISTAS', 1002, 3, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1008, 1, 1)
+
+--Antiguo:10
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1009, N'MIS CLIENTES', 1002, 4, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1009, 1, 1)
+
+--Antiguo:11
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1010, N'PROGRAMAS BELCORP', 1002, 5, N'', 0, N'Header', NULL, 0, 0, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1010, 1, 1)
+
+--Antiguo:12
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1011, N'Ingresa tu pedido', 1006, 1, N'Pedido/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1011, 1, 1)
+
+--Antiguo:13
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1012, N'Información de campaña', 1006, 2, N'Bienvenida/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1012, 1, 1)
+
+--Antiguo:14
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1013, N'Seguimiento de pedido', 1006, 3, N'Tracking/Index', 0, N'Header', NULL, NULL, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1013, 1, 1)
+
+--Antiguo:15
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1014, N'Paquete documentario', 1006, 4, N'PaqueteDocumentario/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1014, 1, 1)
+
+--Antiguo:16
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1015, N'Mis Pedidos', 1006, 5, N'MisPedidos/Index', 0, N'Header', NULL, NULL, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1015, 1, 1)
+
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (17, N'Pedidos facturados', 7, 6, N'PedidoWebAnteriores/PedidoWebAnteriores', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (18, N'Zona de liquidación', 7, 7, N'OfertaLiquidacion/OfertasLiquidacion', 0, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 17, 1, 1)
 
+--Antiguo:18
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (19, N'Mis Pagos', 8, 1, N'MisPagos/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1017, N'Zona de liquidación', 1006, 7, N'OfertaLiquidacion/OfertasLiquidacion', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1017, 1, 1)
+
+--Antiguo:19
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1018, N'Mis Pagos', 1007, 1, N'MisPagos/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1018, 1, 1)
+
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (20, N'Lugares de pago', 8, 2, N'LugaresPago/Index', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (21, N'Escala de descuentos', 8, 5, N'EscalaDescuentos/Index', 0, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 20, 0, 1)
 
+--Antiguo:21
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (22, N'Mis Catálogos y Revistas', 9, 1, N'MisCatalogosRevistas/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1020, N'Escala de descuentos', 1007, 5, N'EscalaDescuentos/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1020, 1, 1)
+
+--Antiguo:22
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1021, N'Mis Catálogos y Revistas', 1008, 1, N'MisCatalogosRevistas/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1021, 1, 1)
+
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (23, N'Guía de Negocio Ésika', 9, 2, N'RevistaGana/Index', 0, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 23, 1, 1)
 
+--Antiguo:24
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (24, N'Listado de clientes', 10, 1, N'Cliente/Index', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (25, N'Pedidos por cliente', 10, 2, N'PedidoWeb/PedidoWeb', 0, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (26, N'Consultora Online', 10, 3, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1023, N'Listado de clientes', 1009, 1, N'Cliente/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1023, 1, 1)
 
+--Antiguo:25
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (27, N'', 6, 1, N'', 0, N'Header', NULL, 0, 0, 0)
+VALUES (1024, N'Pedidos por cliente', 1009, 2, N'PedidoWeb/PedidoWeb', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1024, 1, 1)
+
+--Antiguo:26
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1025, N'Consultora Online', 1009, 3, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1025, 1, 1)
+
+--Antiguo:27
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1026, N'', 1005, 1, N'', 0, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1026, 1, 1)
 
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (28, N'Familia Protegida', 11, 1, N'http://paralife.helice.co/bolivia/paso1.php?data=EL1D7QQMcdtwJjsdCx5fkjLCZeV7UDOjdba2aNKEz4qWz2rb%2fQtYWq0p3URU%2fK3SntLNtEzp1vJNN%2fRF624k7yzK9OnLCscMwYDWgxkLQXSpdmIZD0f9l6e4ME46KJbd3QLXIqJ%2f3VtWBzolvnxeqc2tOhJXkfbR0QqmRxPliZ4M786JN0P7nSQ6Q7REai00J6ZxveuUY65hdSUzfNOUX%2f%2byKEyMUGRcNf2jpUhmga5mjnEcp1LqS%2bZLUZwzYldn1Ze2XTr715koopKZmE%2fGbLzJmZDWkW0yKCJANDgPOGKF', 1, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 28, 1, 1)
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (29, N'Brillante 2016', 11, 2, N'https://s3.amazonaws.com/somosbelcorp/2016/Folleto+Brillante+2016/Folleto+Brillante+2016+BO.pdf', 1, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 29, 1, 1)
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
 --VALUES (30, N'Programa Nuevas', 11, 3, N'https://s3.amazonaws.com/somosbelcorp/2016/Minisite+Nuevas+Esikizado/BO/index.html', 1, N'Header', NULL, 0, 0, 0)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (31, N'Manicure Virtual', 27, 1, N'http://www.esika.biz/coach-de-belleza/manicure-virtual/', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (32, N'Esika Fashion Blog ', 27, 2, N'http://www.fashionblog.esika.com/', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (33, N'Tips de Belleza ', 27, 3, N'http://www.esika.com/clps-de-belleza/', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (34, N'A la Moda', 27, 4, N'http://www.esika.com/a-la-moda/esika-fashion/', 1, N'Header', NULL, 0, 0, 0)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (35, N'AYUDA', 0, 2, N'', 0, N'Footer', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (36, N'LEGAL', 0, 3, N'', 0, N'Footer', NULL, 0, 0, 0)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (37, N'PREGUNTAS FRECUENTES', 35, 1, N'https://www.somosbelcorp.com/Content/FAQ/Preguntas frecuentes Portal Consultora BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (38, N'CONTÁCTANOS', 35, 2, N'http://belcorpresponde.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (39, N'CONDICIONES DE USO WEB', 36, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (40, N'POLÍTICAS DE PRIVACIDAD', 36, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (51, N'Maquillador Virtual', 27, 1, N'http://www.esika.biz/coach-de-belleza/maquillador-virtual/', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (52, N'Asesor de looks', 27, 3, N'http://www.esika.biz/coach-de-belleza/asesor-de-looks/', 1, N'Header', NULL, 0, 0, 0)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
-VALUES (53, N'Asesor de Fragancias', 27, 4, N'http://www.esika.biz/coach-de-belleza/asesor-de-fragancias-para-ti/', 1, N'Header', NULL, 0, 0, 0)
-
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 2, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 3, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 4, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 5, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 6, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 7, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 8, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 9, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 10, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 11, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 12, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 13, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 14, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 15, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 16, 1, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 17, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 18, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 19, 1, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 20, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 21, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 22, 1, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 23, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 24, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 25, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 26, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 27, 1, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 28, 1, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 29, 1, 1)
 --INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 30, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 31, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 32, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 33, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 34, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 35, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 36, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 37, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 38, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 39, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 40, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 51, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 52, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 53, 1, 1)
+
+--Antiguo:31
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1030, N'Manicure Virtual', 1026, 1, N'http://www.esika.biz/coach-de-belleza/manicure-virtual/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1030, 1, 1)
+
+--Antiguo:32
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1031, N'Esika Fashion Blog ', 1026, 2, N'http://www.fashionblog.esika.com/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1031, 1, 1)
+
+--Antiguo:33
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1032, N'Tips de Belleza ', 1026, 3, N'http://www.esika.com/clps-de-belleza/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1032, 1, 1)
+
+--Antiguo:34
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1033, N'A la Moda', 1026, 4, N'http://www.esika.com/a-la-moda/esika-fashion/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1033, 1, 1)
+
+--Antiguo:35
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1034, N'AYUDA', 0, 2, N'', 0, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1034, 1, 1)
+
+--Antiguo:36
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1035, N'LEGAL', 0, 3, N'', 0, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1035, 1, 1)
+
+--Antiguo:37
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1036, N'PREGUNTAS FRECUENTES', 1034, 1, N'https://www.somosbelcorp.com/Content/FAQ/Preguntas frecuentes Portal Consultora BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1036, 1, 1)
+
+--Antiguo:38
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1037, N'CONTÁCTANOS', 1034, 2, N'http://belcorpresponde.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1037, 1, 1)
+
+--Antiguo:39
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1038, N'CONDICIONES DE USO WEB', 1035, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1038, 1, 1)
+
+--Antiguo:40
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1039, N'POLÍTICAS DE PRIVACIDAD', 1035, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_BO.pdf', 1, N'Footer', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1039, 1, 1)
+
+--Antiguo:51
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1050, N'Maquillador Virtual', 1026, 1, N'http://www.esika.biz/coach-de-belleza/maquillador-virtual/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1050, 1, 1)
+
+--Antiguo:52
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1051, N'Asesor de looks', 1026, 3, N'http://www.esika.biz/coach-de-belleza/asesor-de-looks/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1051, 1, 1)
+
+--Antiguo:53
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+VALUES (1052, N'Asesor de Fragancias', 1026, 4, N'http://www.esika.biz/coach-de-belleza/asesor-de-fragancias-para-ti/', 1, N'Header', NULL, 0, 0, 0)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1052, 1, 1)
+
+GO
+
 GO
 
 IF NOT EXISTS (SELECT TablaLogicaID FROM TablaLogica WHERE TablaLogicaID = 87)
@@ -3406,5 +3479,76 @@ BEGIN
 END
 
 go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPermisosByRol_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetPermisosByRol_SB2
+GO
+
+CREATE PROCEDURE [dbo].GetPermisosByRol_SB2
+(
+	@RolID smallint
+)
+AS
+/*
+GetPermisosByRol_SB2 1
+GetPermisosByRol_SB2 4
+*/
+BEGIN
+	SELECT P.PermisoID,
+			P.Descripcion,
+			P.IdPadre,
+			P.OrdenItem,
+			P.UrlItem,
+			P.PaginaNueva,
+			P.UrlImagen,
+			P.EsSoloImagen,
+			P.EsMenuEspecial,
+			P.EsServicios,
+			RL.RolID,
+			isnull(RL.Mostrar,1) As Mostrar,
+			isnull(Posicion,'')[Posicion]
+	FROM Permiso P
+	INNER JOIN RolPermiso RL
+	ON RL.PermisoID = P.PermisoID
+	WHERE RL.Activo = 1
+		AND RL.RolID = @RolID
+		AND (@RolID != 1 or P.EsPrincipal = 1)	
+END
+
+GO
+
+ALTER PROCEDURE [dbo].[GetPermisosByRol] 
+(
+	@RolID smallint
+)
+AS
+/*
+GetPermisosByRol 1
+GetPermisosByRol 4
+*/
+BEGIN
+	SELECT P.PermisoID,
+			P.Descripcion,
+			P.IdPadre,
+			P.OrdenItem,
+			P.UrlItem,
+			P.PaginaNueva,
+			P.UrlImagen,
+			P.EsSoloImagen,
+			P.EsMenuEspecial,
+			P.EsServicios,
+			RL.RolID,
+			isnull(RL.Mostrar,1) As Mostrar,
+			isnull(Posicion,'')[Posicion]
+	FROM Permiso P
+	INNER JOIN RolPermiso RL
+	ON RL.PermisoID = P.PermisoID
+	WHERE RL.Activo = 1
+		AND RL.RolID = @RolID
+		AND (@RolID != 1 or P.EsPrincipal = 0)
+	ORDER BY P.OrdenItem
+END
+
+GO
 
 /*FIN PROCEDIMIENTOS ALMACENADOS*/
