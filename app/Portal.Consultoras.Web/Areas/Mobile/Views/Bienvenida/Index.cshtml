@@ -212,7 +212,7 @@
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
-               <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>WhatsApp</b></a>
+               <span class="texto_ws">Compártelo por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>WhatsApp</b></a>
             }    
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
@@ -369,6 +369,34 @@
 </div>
 <!-- FIN POPUP DEMANDA ANTICIPADA -->
 
+<!-- VIDEO INTRODUCTORIO HOME -->
+
+<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
+    <div class="popup_video_introductorio" style="display: none;">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                var tag = document.createElement("script");
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                    player = new YT.Player("player", {
+                        width: "100%",
+                        videoId: "7g6h749J02w",
+                    });
+                }
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN VIDEO INTRODUCTORIO HOME    -->
+
 <div class="btn_agregarPedido">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
@@ -382,21 +410,24 @@
                 <img src="{{FotoProducto01}}" />
             </div>
             {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                    {{#if_eq FlagEstrella '1' }}
-                    <div class="etiqueta_producto">
-                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                    </div>
-                    {{/if_eq}}
-                {{/if_eq}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}      <!--SB20-351 -->
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{/iff}}
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+            {{/if_eq}}
             {{/if_eq}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>

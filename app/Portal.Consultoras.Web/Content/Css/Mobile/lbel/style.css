@@ -6030,6 +6030,7 @@ input[type="checkbox"]:checked + span:after {
     height:20px;
     margin-right: 5px;
     background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size:cover;
 }
 
 .texto_notaDemanda{
@@ -6054,6 +6055,111 @@ input[type="checkbox"]:checked + span:after {
     font-size:13px;
     color:#969696;
 }
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.contenedor_fondo_popup{    
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -173.5px auto 0 auto;
+    width: 95%;
+    height:95%;
+    max-width: 600px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 5;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio iframe{
+    display:block;
+    width:100%;
+    height:347px;
+}
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -100px auto 0 auto;
+    width: 89%;
+    max-width: 600px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 1000;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio #player{
+    display:block;
+    width:100%;
+    height:200px;
+}
+
+.btn_cerrar_actualizarMisDatos{
+    display: block;
+    width: 100%;
+    max-width: 25px;
+    height: auto;
+    position: absolute;
+    top: -45px;
+    right: 7px;
+}
+
+.btn_cerrar_actualizarMisDatos img{
+    width:100%;
+    height:auto;
+    border:0px;
+}
+
+.texto_btn_cerrar{
+    font-size: 8px;
+    color: #fff;
+    letter-spacing: .5px;
+    position: relative;
+    left: -4px;
+    top: -3px;
+}
+
+@media screen and (min-width:500px) and (max-width:767px){
+
+    .popup_video_introductorio{
+        margin: -102px auto 0 auto;
+    }
+
+    .contenedor_video_introductorio #player {
+        height: 237px;
+    }
+
+}
+
 /*PEDIDO VALIDADO*/
 .agregados_reservado{
     font-family:'Lato';

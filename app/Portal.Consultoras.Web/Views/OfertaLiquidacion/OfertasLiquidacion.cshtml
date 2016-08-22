@@ -168,7 +168,7 @@
                 <input type="hidden" class="DescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <div class="liquidacion_imagen">
-                    <img src="{{ImagenProducto}}" />
+                    <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
                 <h1 class="liquidacion_titulo_item">{{DescripcionMarca}}</h1>
                 <p class="liquidacion_descripcion">{{Descripcion}}</p>
@@ -200,4 +200,63 @@
 
 @section scripts{
     <script type="text/javascript" src="~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js"></script>
+    <script type="text/javascript">
+
+        // MICROEFECTO AGREGAR PRODUCTOS AL CARRITO DE COMPRA
+
+            // Funcion de animación al agregar productos al carrito
+
+            function agregarProductoAlCarrito(o) {
+                var btnClickeado = $(o);
+                var contenedorItem = btnClickeado.parent();
+                var imagenProducto = $('.imagen_producto', contenedorItem);
+                var carrito = $('.campana');
+
+                $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+                $(".transicion").css({
+                    'height': imagenProducto.css("height"),
+                    'width': imagenProducto.css("width"),
+                    'top': imagenProducto.offset().top,
+                    'left': imagenProducto.offset().left,
+                }).animate({
+                    'top': carrito.offset().top - 30,
+                    'left': carrito.offset().left + 115,
+                    'height': carrito.css("height"),
+                    'width': carrito.css("width"),
+                    'opacity': 0.5
+                }, 300, 'swing', function () {
+                    $(this).animate({
+                        'top': carrito.offset().top,
+                        'opacity': 0,
+                    }, 100, 'swing', function () {
+                        $(".campana .info_cam").fadeIn(200);
+                        $(".campana .info_cam").delay(2500);
+                        $(".campana .info_cam").fadeOut(200);
+                        $(this).remove();
+                    });
+                });
+            }
+
+            $(document).ready(function () {
+
+                // Microefecto al agregar productos al carrito de compras
+
+                $(document).on("click", ".boton_liquidacion", function (e) {
+
+                    e.preventDefault();
+
+                    agregarProductoAlCarrito(this);
+
+                });
+
+                $(".campana.cart_compras").hover(function () {
+                    $(".info_cam").fadeIn(200);
+                }, function () {
+                    $(".info_cam").fadeOut(200);
+                });
+
+            });
+
+    </script>
 }

@@ -109,6 +109,44 @@ header {
     height: 40px;
     /* padding-right: 5px; */
 }
+
+.transicion{
+    position:absolute;
+    z-index:2000;
+}
+
+.flecha_scroll{
+    display:block;
+    position: fixed;
+    top: 90%;
+    right: 2%;
+    width: 35px;
+    height: 35px;
+    z-index: 1000;
+}
+
+.flecha_scroll a{
+    display:block;
+    height:35px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    background:url(../../../Images/flecha_scroll.svg) no-repeat center center;
+    background-size:cover;
+}
+
+.flecha_scroll_arriba{
+    background:url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center!important;
+    background-size:cover;
+}
+
+.flecha_scroll a:hover{
+    opacity:0.5;
+}
+
 .mensaje_header{
      margin-top: 15px;
     float: left;
@@ -125,6 +163,10 @@ header {
     height: 24px;
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
+}
+
+.cart_compras{
+    cursor:pointer;
 }
 
 .mensaje_svg {
@@ -2327,7 +2369,7 @@ header {
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:0.7%;
+    padding-right:1.5%;
 }
 
 .cabecera_producto{
@@ -3148,7 +3190,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /*width:96.5px;*/
     height:200px;
     text-align: center;
-    overflow: hidden;
+    overflow:hidden;
 }
 
 .etiqueta_producto {
@@ -4898,7 +4940,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -300px auto 0 -360.5px;
+    margin: -271px auto 0 -360.5px;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -5179,6 +5221,33 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .campos_cambiarContrasenia{
     display:none;
+}
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -273.5px auto 0 auto;
+    width: 95%;
+    max-width: 1040px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 5;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio iframe{
+    display:block;
+    width:100%;
+    height:547px;
 }
 
 /* ACTUALIZACIÓN PÁGINA MIS PAGOS */
@@ -10970,9 +11039,9 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+/*.campana:hover .info_cam {
     display: block;
-}
+}*/
 
 /*.info_cam h1 {
     font-family: 'lato';
@@ -20484,16 +20553,20 @@ label.checkpop.c_on {
     right: 0px;
 }
 
-.producto_img_home {
-    height: 166px;
-    text-align: center;
-    margin-top: 20px;
+.producto_img_home{
+    height:166px;
+   
+    text-align:center;
+    margin-top:20px;
+   
+    /*background:#ccc;*/
 }
 
-    .producto_img_home img {
-        width: auto;
-        height: 93.5%;
-    }
+.producto_img_home img{
+    width: auto;
+    height: 93.5%;
+}
+
 .content_carrusel_ofertas .slick-track{
     height:385px;
 }
