@@ -321,13 +321,38 @@ namespace Portal.Consultoras.Web.WebPages
                 pnlSeguimientoPedido.Visible = true;
                 pnlSeguimientoPostVenta.Visible = false;
 
+                /* PCABRERA GR-1883 - INICIO */
+                pnlSinTracking.Visible = false;
+                /* PCABRERA GR-1883 - FIN */
+
                 IList<BETracking> tracking = new List<BETracking>();
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
                 BENovedadFacturacion oBENovedadFacturacion = null; //R2004
 
+                /* PCABRERA GR-1883 - INICIO */
+                if (string.IsNullOrEmpty(nropedido))
+                {
+                    lblMensajeSinTracking.Text = ConfigurationManager.AppSettings["MensajeSinTracking"].ToString();
+                    pnlSinTracking.Visible = true;
+
+                    gridDatos.DataSource = null;
+                    gridDatos.DataBind();
+
+                    gvNovedades.DataSource = null;
+                    gvNovedades.DataBind();
+
+                    lblMensaje.Visible = false;
+
+                    return;
+                }
+                /* PCABRERA GR-1883 - FIN */
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, fecha);
+                    /* PCABRERA GR-1883 - INICIO */
+                    //tracking = sv.GetTrackingByPedido(paisID, codigo, campana, fecha);
+                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+                    /* PCABRERA GR-1883 - FIN */
 
                     if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisISO))
                     {

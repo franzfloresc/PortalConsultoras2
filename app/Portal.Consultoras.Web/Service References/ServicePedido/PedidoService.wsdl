@@ -472,12 +472,6 @@
   <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_PruebaPase_InputMessage">
-    <wsdl:part name="parameters" element="tns:PruebaPase" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_PruebaPase_OutputMessage">
-    <wsdl:part name="parameters" element="tns:PruebaPaseResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevas" />
   </wsdl:message>
@@ -489,6 +483,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetMensajeMetaConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajeMetaConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetImagenOfertaPersonalizadaOF_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetImagenOfertaPersonalizadaOF" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetImagenOfertaPersonalizadaOFResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPackOfertasNuevasByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPackOfertasNuevasByCampania" />
@@ -1803,10 +1803,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturado" message="tns:IPedidoService_GetPedidosIngresadoFacturado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturado_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="PruebaPase">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/PruebaPase" message="tns:IPedidoService_PruebaPase_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/PruebaPaseResponse" message="tns:IPedidoService_PruebaPase_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" message="tns:IPedidoService_GetConsultorasProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse" message="tns:IPedidoService_GetConsultorasProgramaNuevas_OutputMessage" />
@@ -1814,6 +1810,10 @@
     <wsdl:operation name="GetMensajeMetaConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" message="tns:IPedidoService_GetMensajeMetaConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultoraResponse" message="tns:IPedidoService_GetMensajeMetaConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPackOfertasNuevasByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampania" message="tns:IPedidoService_GetPackOfertasNuevasByCampania_InputMessage" />
@@ -3155,15 +3155,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PruebaPase">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/PruebaPase" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -3175,6 +3166,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5373,15 +5373,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PruebaPase">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/PruebaPase" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -5393,6 +5384,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMensajeMetaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -197,5 +197,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 		// 1747 - Fin
+
+        public IDataReader GetImagenOfertaPersonalizadaOF(int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }
