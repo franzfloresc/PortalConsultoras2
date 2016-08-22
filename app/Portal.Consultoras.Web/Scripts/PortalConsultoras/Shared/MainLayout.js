@@ -247,6 +247,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $(document).find(".mensajes_home").html("No tienes mensajes.");
                 };
 
+                data.mensaje = data.mensaje || "";
                 if (data.mensaje != '') {
                     console.log(data.mensaje);
                 }

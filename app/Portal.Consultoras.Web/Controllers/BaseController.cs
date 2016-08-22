@@ -1253,8 +1253,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var listProducto = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
-
                 var rtpa = ServicioProl_CalculoMontosProl(false);
                 if (!rtpa.Any())
                     return objR;
@@ -1309,8 +1307,12 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
                 objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
 
+                var listProducto = ObtenerPedidoWebDetalle();
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
+
+                objR.CantidadProductos = listProducto.Sum(p => p.Cantidad);
+                objR.CantidadCuv = listProducto.Count();
 
                 #region listaEscalaDescuento
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();

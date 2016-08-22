@@ -948,6 +948,7 @@
                         $("#spnCantidadProductos").html(data.cantidadProductos);
                         $("#spnDescripcionTotal").html(montoWebAcumulado);
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -975,6 +976,7 @@
                             $("#divNotificacionesSinLeer").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -1008,6 +1010,7 @@
                             $("#divAlertaPedidosOnline").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
