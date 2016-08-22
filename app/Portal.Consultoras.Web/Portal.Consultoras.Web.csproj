@@ -688,6 +688,13 @@
     <Compile Include="WebPages\CambiarClaveComunidad.aspx.designer.cs">
       <DependentUpon>CambiarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.designer.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\CatalogoVirtual.aspx.cs">
       <DependentUpon>CatalogoVirtual.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -729,6 +736,13 @@
     </Compile>
     <Compile Include="WebPages\ConsultaPedidoImp.aspx.designer.cs">
       <DependentUpon>ConsultaPedidoImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.designer.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\DespachosCobranza.aspx.cs">
       <DependentUpon>DespachosCobranza.aspx</DependentUpon>
@@ -779,6 +793,13 @@
     <Compile Include="WebPages\RecuperarClaveComunidad.aspx.designer.cs">
       <DependentUpon>RecuperarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.designer.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\RegistroComunidad.aspx.cs">
       <DependentUpon>RegistroComunidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -792,6 +813,13 @@
     </Compile>
     <Compile Include="WebPages\ReporteActualizacionDatos.aspx.designer.cs">
       <DependentUpon>ReporteActualizacionDatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
@@ -3129,12 +3157,15 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
+    <Content Include="WebPages\AppCatalogoTyC\CatalogoIOS.html" />
+    <Content Include="WebPages\AppCatalogoTyC\CatalogoRedirect.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CO_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\EC_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\MX_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\PE_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\CambiarClaveComunidad.aspx" />
+    <Content Include="WebPages\CambioExitoso.aspx" />
     <Content Include="WebPages\Comunidad.aspx" />
     <Content Include="WebPages\ComunidadLogOut.aspx" />
     <Content Include="WebPages\CambiarUsuarioComunidad.aspx" />
@@ -3167,14 +3198,17 @@
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_8.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_9.html" />
     <Content Include="WebPages\ConfirmacionRegistroComunidad.aspx" />
+    <Content Include="WebPages\CorreoEnviado.aspx" />
     <Content Include="WebPages\DespachosCobranza.aspx" />
     <Content Include="WebPages\DownloadFTP.aspx" />
     <Content Include="WebPages\DownloadPDF.aspx" />
     <Content Include="WebPages\IngresoComunidad.aspx" />
     <Content Include="WebPages\NavidadConsultora.aspx" />
     <Content Include="WebPages\RecuperarClaveComunidad.aspx" />
+    <Content Include="WebPages\RecuperarClaveMobile.aspx" />
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
+    <Content Include="WebPages\RestablecerContrasena.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
@@ -3440,6 +3474,13 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\AdministrarEstrategia\EstrategiasAll.cshtml" />
+    <Content Include="Views\EstadoCuenta\Index.cshtml" />
+    <Content Include="Views\EstadoCuenta\LugaresPago.cshtml" />
+    <Content Include="Views\LugaresPago\LugaresPago.cshtml" />
+    <Content Include="Views\LugaresPago\_Index.cshtml" />
+    <Content Include="Views\Percepciones\Index.cshtml" />
+    <Content Include="Views\Percepciones\PercepcionDetalle.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
