@@ -2512,7 +2512,7 @@ function MostrarMensajeProl(data) {
                     showDialog("divReservaSatisfactoria");
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 4000);
+                    }, 8000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
