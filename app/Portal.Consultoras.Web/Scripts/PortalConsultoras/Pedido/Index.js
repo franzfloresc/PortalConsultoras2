@@ -4161,22 +4161,6 @@ function MostrarBarra(datax) {
 
 // Fin Barra
 
-function ClickPrueba() {
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ClickPrueba',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (response) {
-            alert(response.message);
-        },
-        error: function (error) {
-            alert(error);
-        }
-    });
-}
-
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));

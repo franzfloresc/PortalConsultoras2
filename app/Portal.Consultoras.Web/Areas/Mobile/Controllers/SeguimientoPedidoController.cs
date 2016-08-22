@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         using (var service = new PedidoServiceClient())
                         {
-                            listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.Fecha.Value).ToList();
+                            listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
 
                             var paisIso = Util.GetPaisISO(userData.PaisID);
                             if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisIso))
