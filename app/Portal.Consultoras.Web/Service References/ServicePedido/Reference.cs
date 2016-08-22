@@ -16410,10 +16410,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetPedidosByConsultoraAsync(int paisID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTrackingByPedido", ReplyAction="http://tempuri.org/IPedidoService/GetTrackingByPedidoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, System.DateTime fecha);
+        Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTrackingByPedido", ReplyAction="http://tempuri.org/IPedidoService/GetTrackingByPedidoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, System.DateTime fecha);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, string nropedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoCUVsAutomaticosToInsert", ReplyAction="http://tempuri.org/IPedidoService/GetProductoCUVsAutomaticosToInsertResponse")]
         int GetProductoCUVsAutomaticosToInsert(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidoweb);
@@ -18157,12 +18157,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosByConsultoraAsync(paisID, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, System.DateTime fecha) {
-            return base.Channel.GetTrackingByPedido(paisID, codigo, campana, fecha);
+        public Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido) {
+            return base.Channel.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, System.DateTime fecha) {
-            return base.Channel.GetTrackingByPedidoAsync(paisID, codigo, campana, fecha);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, string nropedido) {
+            return base.Channel.GetTrackingByPedidoAsync(paisID, codigo, campana, nropedido);
         }
         
         public int GetProductoCUVsAutomaticosToInsert(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidoweb) {

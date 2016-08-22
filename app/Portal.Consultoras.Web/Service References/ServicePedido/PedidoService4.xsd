@@ -1769,7 +1769,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codigo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campana" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="nropedido" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

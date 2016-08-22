@@ -823,9 +823,9 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora);
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, fecha);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
 
         #endregion

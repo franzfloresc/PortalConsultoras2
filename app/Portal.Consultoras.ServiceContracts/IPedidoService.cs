@@ -440,7 +440,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora);
 
         [OperationContract]
-        List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha);
+        List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
 
         #endregion
 

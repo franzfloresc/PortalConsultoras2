@@ -29,12 +29,12 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             var pedidos = new List<BETracking>();
             var DATracking = new DATracking(paisID);
 
-            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, fecha))
+            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
                 while (reader.Read())
                 {
