@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
@@ -271,7 +272,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.GananciaFormat = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
-            
+
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
             BEConfiguracionCampania beConfiguracionCampania;
@@ -407,7 +408,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.GananciaFormat = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
-            
+
             model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
 
             return Json(new
@@ -1449,6 +1450,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
+                            /*EDP-796 - JICM - INI*/
+                            string regex = "(\\#.*\\#)";
+                            Observacion = Regex.Replace(Observacion, regex, UserData().MontoMinimo.ToString());
+                            /*EDP-796 - JICM - FIN*/
                         }
 
                         restrictivas = true;
@@ -1543,7 +1548,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                     sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL, descuentoProl);
             }
-            
+
             using (var sv = new SACServiceClient())
             {
                 //Se reutiliza la lista, pues desde el método origen devuelve la información de los productos del pedido de BD.
@@ -1603,7 +1608,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-       private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
+        private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
         {
             List<BEPedidoWebDetalle> result = new List<BEPedidoWebDetalle>();
             List<BEPedidoWebDetalle> padres = listadoPedidos.Where(p => p.PedidoDetalleIDPadre == 0).ToList();
