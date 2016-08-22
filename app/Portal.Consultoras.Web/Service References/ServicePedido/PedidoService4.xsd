@@ -1099,18 +1099,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="PruebaPase">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="PruebaPaseResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PruebaPaseResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetConsultorasProgramaNuevas">
     <xs:complexType>
       <xs:sequence>
@@ -1138,6 +1126,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMensajeMetaConsultoraResult" nillable="true" type="q72:ArrayOfBEMensajeMetaConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenOfertaPersonalizadaOF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenOfertaPersonalizadaOFResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetImagenOfertaPersonalizadaOFResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1769,7 +1772,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codigo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campana" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="nropedido" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
