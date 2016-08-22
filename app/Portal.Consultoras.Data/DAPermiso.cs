@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPermisosByRol(int RolID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisosByRol");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisosByRol_SB2");
             Context.Database.AddInParameter(command, "@RolID", DbType.Int32, RolID);
 
             return Context.ExecuteReader(command);
