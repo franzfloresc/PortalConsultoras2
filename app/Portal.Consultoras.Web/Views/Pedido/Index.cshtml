@@ -1032,11 +1032,9 @@
             </div>
             {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
-                        <div class="etiqueta_producto">
-                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                        </div>
-                    {{/iff}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
                 {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
                 <div class="etiqueta_producto">
                     <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
