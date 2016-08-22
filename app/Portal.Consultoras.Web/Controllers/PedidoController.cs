@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Web.UI;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
@@ -216,6 +217,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
                 model.MontoMinimo = userData.MontoMinimo;
                 model.MontoMaximo = userData.MontoMaximo;
+
+                model.EsConsultoraNueva = VerificarConsultoraNueva();
 
                 #endregion
 
@@ -4422,9 +4425,9 @@ namespace Portal.Consultoras.Web.Controllers
                 listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
             }
 
-            return listaParametriaOfertaFinal;
+            return listaParametriaOfertaFinal;                        
         }
-
+        
         #endregion
 
         public JsonResult ClickPrueba()
@@ -4519,6 +4522,24 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        public bool VerificarConsultoraNueva()
+        {
+            int segmentoId;
+
+            if (userData.CodigoISO == "VE")
+            {
+                segmentoId = userData.SegmentoID;
+            }
+            else
+            {
+                segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+            }
+
+            bool resultado = segmentoId == 1;
+
+            return resultado;
         }
     }
 }
