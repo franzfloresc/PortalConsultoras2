@@ -380,32 +380,37 @@
                         if (data.message == "OK") {
                             $("#txtDescripcion").val(data.descripcion);
                             
-                            //if (data.wsprecio > 0) {
+                            //Inicio EPD-261
+                            if (data.wsprecio > 0) {
 
-                            //    $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            //    $("#txtPrecio2")[0].disabled = true;
-                                
-                            //}
-                            //else if(data.wsprecio == 0)
-                            //{
-                            //    if (data.precio == 0) {
-                            //        $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            //        $("#txtPrecio2")[0].disabled = true;
-                            //    }
-                            //    else {
+                                $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+
+                            }
+                            else if (data.wsprecio == 0) {
+                                if (data.precio == 0) {
+                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                    $("#txtPrecio2")[0].disabled = true;
+                                }
+                                else {
+                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                    $("#txtPrecio2")[0].disabled = true;
+                                }
+
+                            }
+                            else if (data.wsprecio == -1) {
+                                $("#txtPrecio2")[0].disabled = true;
+                                alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                            }
+                            else if (data.wsprecio == -2) {
+                                $("#txtPrecio2")[0].disabled = false;
+                                $("#txtPrecio2").val("");
+                                $("#txtPrecio2").focus();
+
+                            }
+                            //Fín EPD-261
+
                             //$("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            //        $("#txtPrecio2")[0].disabled = true;
-                            //    }
-                                
-                               
-                            //}
-                            //else if (data.wsprecio == -1)
-                            //{
-                            //    $("#txtPrecio2")[0].disabled = true;
-                            //    alert("No se pudo obtener el precio del producto");
-                            //}
-
-                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
 
                             $("#txtPrecio").val("");
                             $("#txtCUV").val("");
