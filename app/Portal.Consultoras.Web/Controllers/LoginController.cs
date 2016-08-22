@@ -15,6 +15,7 @@ using System.Web.Security;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -537,6 +538,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                IP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(IP)[0].ToString();
             }
             catch { }
             return IP;
