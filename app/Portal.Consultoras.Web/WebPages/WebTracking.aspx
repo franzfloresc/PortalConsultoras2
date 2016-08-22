@@ -241,7 +241,7 @@
                                                             </asp:TemplateField>
                                                         </Columns>
 
-                                                        <HeaderStyle Font-Size="11px" Height="30px" BackColor="#B7BDC3" ForeColor="#6c217f" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                        <HeaderStyle Font-Size="11pt" ForeColor="#666565" HorizontalAlign="Center" VerticalAlign="Middle" />
                                                         <RowStyle HorizontalAlign="Center" />
 
                                                     </asp:GridView>

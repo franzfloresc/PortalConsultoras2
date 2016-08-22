@@ -168,7 +168,7 @@ div.menu {
 
 fieldset {
     padding: 1em;
-    border: 1px solid #ccc;
+    border: 0;
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 1em;
@@ -187,7 +187,8 @@ fieldset {
     }
 
 legend {
-    font-size: 1.1em;
+    font-family:'Lato';
+    font-size: 13pt;
     font-weight: 600;
     padding: 2px 4px 8px 4px;
 }
@@ -542,7 +543,12 @@ div.accountInfo {
     }
 
     .tabla2 td, .tabla2 th {
-        border: 1px solid #fff;
+        padding-top: 23px;
+    padding-bottom: 23px;
+    font-weight: normal;
+    border-bottom: 1px solid #ccc;
+    font-family:'Lato';
+    font-weight:300;
     }
 
     .tabla2 thead tr {
@@ -566,7 +572,7 @@ div.accountInfo {
             }
 
     .tabla2 tbody tr {
-        background: #f0f6f8;
+        /*background: #f0f6f8;*/
     }
 
         .tabla2 tbody tr.f1 {
@@ -586,7 +592,7 @@ div.accountInfo {
         }
 
         .tabla2 tbody tr:hover {
-            background: #94ddf5;
+            background: #f0f0f0;
         }
 
     .tabla2 tbody td {
