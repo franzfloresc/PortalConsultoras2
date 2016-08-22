@@ -1,4 +1,16 @@
 ﻿$(document).ready(function () {
+
+    // VIDEO INTRODUCTORIO
+
+    //$("#video_introductorio").delay(200);
+    //$("#video_introductorio").fadeIn(function () {
+
+    //    $(".popup_video_introductorio").fadeIn();
+
+    //});
+
+    // FIN DE VIDEO INTRODUCTORIO
+
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
