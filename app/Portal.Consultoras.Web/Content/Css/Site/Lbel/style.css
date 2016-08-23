@@ -22545,7 +22545,7 @@ body{
     height: 21px;
     text-align: right;
     right: 100%;
-    top: 67%;
+    top: 25%;
 }
 
 .content_datos_pedidosFacturados.padding_area_montosTotales .totalTexto{
@@ -26156,6 +26156,7 @@ position: relative; float: left;
     -moz-box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
     box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
     background:url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+    background-color: #fff;
 
 }
 .info_extra_Validado:hover .monto_resumenValidado{

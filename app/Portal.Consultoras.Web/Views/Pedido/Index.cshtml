@@ -233,10 +233,10 @@
                             <div class="monto_resumenValidado">
                                 <div class="monto_1">Total sin Dscto.</div>
 
-                                <div class="monto_numero" style="opacity:0.6">S/.  412.20 </div>
+                                <div class="monto_numero" style="opacity:0.6" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
                                 <hr class="clear">
                                 <div class="monto_1">Dscto. por niveles </div>
-                                <div class="monto_numero">S/. -206.10</div>
+                                <div class="monto_numero">@Model.Simbolo <span data-montodescuento="">@Model.FormatoMontoDescuento</span></div>
                             </div>
                             <!--FIN-->
                         </div>
@@ -248,7 +248,7 @@
                                 Monto total :
                             </p>
                             
-                            <div id="divMontosEscalaDescuentoTexto" style="display: block;">
+                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
@@ -294,23 +294,23 @@
                             <p class="monto_total">
                                 <b>
                                     @Model.Simbolo
-                                    <span id="sTotal" class="num">
-                                        @Model.FormatoTotal
+                                    <span id="sTotal" class="num" data-pedidototal="">
+                                        @Model.TotalConDescuento
                                     </span>
                                 </b>
                             </p>
                             
-                            <div id="divMontosEscalaDescuento" style="display: block;">
+                            <div id="divMontosEscalaDescuento" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
                                         <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoDescuento">@Model.FormatoMontoDescuento</span>
+                                            @Model.Simbolo <span class="num" id="spnMontoDescuento" data-montodescuento="">@Model.FormatoMontoDescuento</span>
                                         </b>
                                     </p>
                                     <p class="monto_montodescuento">
                                         <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoEscala">@Model.FormatoTotalConDescuento</span>
+                                            @Model.Simbolo <span class="num" id="spnMontoEscala" data-montoescala="">@Model.FormatoTotalConDescuento</span>
                                         </b>
                                     </p>
                                 }

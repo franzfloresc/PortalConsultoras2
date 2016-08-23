@@ -107,6 +107,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoEscala { get; set; }
 
         public string TotalSinDsctoFormato { get; set; }
+        public string TotalConDsctoFormato { get; set; }
 
     }
 
