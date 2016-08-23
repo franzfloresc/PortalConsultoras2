@@ -2694,6 +2694,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MontoTotalPROL = 0;
             }
 
+            PedidoModelo.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido + Math.Abs(ViewBag.Descuento), userData.CodigoISO);
+
             ViewBag.ZonaNuevoPROL = userData.ZonaNuevoPROL;
 
             if (userData.NuevoPROL && userData.ZonaNuevoPROL)
