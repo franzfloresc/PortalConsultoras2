@@ -112,10 +112,10 @@ header {
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
 }
-.campana_svg:hover {    
+/*.campana_svg:hover {    
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
-}
+}*/
 .mensaje_header {
     margin-top: 15px;
     float: left;
@@ -1300,6 +1300,12 @@ header {
     padding-top: 7px;
     
 }
+
+.liquidacion_imagen img{
+    width:auto;
+    height:100%;
+}
+
 .liquidacion_titulo_item {
     font-family:'lato';
     /*font-weight:300 !important;*/
@@ -5133,6 +5139,23 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .campos_cambiarContrasenia{
     display:none;
 }
+
+/* POPUP TUTORIAL HOME */
+
+.popup_tutorial_home{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -319.5px auto 0 auto;
+    width: 100%;
+    max-width: 614px;
+    height: 639px;
+    font-family: 'Lato';
+    z-index: 5;
+    background:url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+}
+
+/* FIN POPUP TUTORIAL HOME */
 
 /* ACTUALIZACIÓN PÁGINA MIS PAGOS */
 
