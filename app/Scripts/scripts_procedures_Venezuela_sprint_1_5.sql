@@ -178,6 +178,11 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE dbo.TipoEstrategia ADD FlagMostrarImg TINYINT NULL 
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.Pais') and SYSCOLUMNS.NAME = N'OfertaFinal') = 0
+	ALTER TABLE dbo.Pais ADD OfertaFinal int
+go
+
 IF (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('dbo.Permiso') and SYSCOLUMNS.NAME = N'EsPrincipal') = 0
 	ALTER TABLE dbo.Permiso ADD EsPrincipal bit
