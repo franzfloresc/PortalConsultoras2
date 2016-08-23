@@ -1852,8 +1852,22 @@ header {
     display: inline-block;
     /* margin-right: 20px;
     margin-top: 27px; */
-    margin-bottom:25px;
+    margin-bottom:0px;
     vertical-align: top;
+}
+
+.caja_montos div.info_extra_Validado{
+    vertical-align:top;
+    float:none;
+    margin-top:9px;
+}
+
+.caja_montos .monto_resumenValidado{
+    display:none;
+}
+
+.caja_montos div.info_extra_Validado:hover .monto_resumenValidado{
+    display:block;
 }
 
 .caja_montos div{
@@ -1866,8 +1880,13 @@ header {
 }
 
 .caja_montos_cantidades .monto_ganancia, .caja_montos_cantidades .monto_total, .monto_descuento, .monto_montodescuento{
-    text-align:right;
-    font-size:16px;
+    text-align: right;
+    font-size: 22px;
+    line-height: 33px;
+}
+
+.caja_montos_cantidades .monto_ganancia{
+    color:#642f80;
 }
 
 /*.caja_montos_textos .monto_total{
@@ -1929,6 +1948,37 @@ header {
     font-family: 'Lato';
     font-size: 12px;
     margin-right: 13px;
+}
+
+.tooltip_importanteGuardarPedido{
+    display: inline-block;
+    vertical-align: middle;
+    width: 213px;
+    height: 107px;
+    padding: 20px 36px 20px 20px;
+    margin-right: 15px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 900;
+    color: #642f80;
+    text-align: center;
+    line-height: 17px;
+    margin-top: 10px;
+}
+
+.tooltip_importanteGuardarPedido span{
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    display: block;
+    margin-top: 5px;
+    line-height: 15px;
 }
 
 .boton_guardarPedido{
@@ -2115,12 +2165,12 @@ header {
     font-family:'Lato';
     width:218px;
     height:44.1px;
-    /*background:#cd2c39;*/
-    background:#FFF;
+    background:#642f80;
+    /*background:#FFF;*/
     border:0px;
-    border:2px solid #642f80;
-    color:#000;
-    /*color:#FFF;*/
+    /*border:2px solid #d02d3a;*/
+    /*color:#000;*/
+    color:#FFF;
     font-size:12.7px;
     line-height: 41.1px;
     text-align:center;
@@ -2182,19 +2232,22 @@ header {
 
 .monto_total{
     margin-top:-3px;
-    font-size:14px;
-    font-weight:500;
+    font-size:16px;
+    font-weight:400;
     /*max-width:302px;
     margin-bottom:2px;*/
     text-align:right;
-    line-height: 24px;
+    line-height: 42px;
+    text-transform:uppercase;
 }
 
 .monto_ganancia{
-    font-size:14px;
-    font-weight:normal;
-    max-width:302px;
-    text-align:right;
+    font-size: 16px;
+    font-weight: normal;
+    max-width: 302px;
+    text-align: right;
+    text-transform: uppercase;
+    color:#642f80;
 }
 
 .tabla_pedidos, .tabla_productos_agotados{
@@ -26086,7 +26139,7 @@ position: relative; float: left;
     padding: 18px;
     padding-right:25px;
     right: 30px;
-    top: -30px;
+    top: -25px;
     -webkit-box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
     -moz-box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
     box-shadow:  -9px 3px 23px -5px  rgba(0,0,0,0.31);
