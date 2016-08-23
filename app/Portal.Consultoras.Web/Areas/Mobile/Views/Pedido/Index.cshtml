@@ -93,13 +93,33 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido">
                     <div class="textos_resumen">
-                        <span>HE AGREGADO :</span>
-                        <span>MONTO TOTAL :</span>
-                        <span>MI GANANCIA :</span>
+                        <span style=" margin-left: 30px;">HE AGREGADO :</span>
+                        <span>
+                            <div class="info_validado">
+                                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                                <!--TOOLTIP-->
+                                <div class="tooltip_validado_importe">
+                                    <div class="left_reservado">
+                                        <div class="datos_Reservado">
+                                            <span>Total sin Dscto. </span>
+                                            <span>Dscto por niveles</span>
+                                        </div>
+                                    </div>
+                                    <div class="right_reservado">
+                                        <div class="datos_Reservado">
+                                            <span>@Model.Simbolo <span data-pedidototal="">@Model.DescripcionTotal</span></span>
+                                            <span>@Model.Simbolo <span data-montodescuento="">@Model.DescuentoStr</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--FIN-->
+                            </div>
+                        MONTO TOTAL :</span>
+                        <span style=" margin-left: 30px;">MI GANANCIA :</span>
                     </div>
                     <div class="montos_resumen">
                         <span><b id="spnCantidadProductos">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
+                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal" data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
