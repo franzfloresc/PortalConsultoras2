@@ -21326,12 +21326,23 @@ body{
 
 }
 .tutoriales_svg{
-        background: url(../../../Images/Esika/tutorial.png) no-repeat;
-        background-position: 0 4px;
+    background: url(../../../Images/Esika/tutorial.png) no-repeat;
+    background-position: 0 4px;
     /* background-size: 100%; */
     width: 22px;
     height: 25px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
+
+.tutoriales_svg:hover{
+    opacity:0.7;
+}
+
  .EstadoCuenta{
       float:left;
        width:69%;
