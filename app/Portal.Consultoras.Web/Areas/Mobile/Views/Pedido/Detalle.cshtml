@@ -122,9 +122,9 @@
             <span>MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{this.CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{GananciaFormat}}</b></span>
+            <span><b class="lblCantidadProducto">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
     <div class="detalle_pedido_ingresado">
@@ -137,7 +137,7 @@
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
-        {{#each this.Detalle as |detalle|}}
+        {{#each this.ListaDetalleModel as |detalle|}}
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
@@ -190,7 +190,6 @@
                 <input type="hidden" id="CUV_{{detalle.PedidoDetalleID}}" name="CUV_{{detalle.PedidoDetalleID}}" value="{{detalle.CUV}}">
 
                 <input type="hidden" id="DescripcionProd_{{detalle.PedidoDetalleID}}" name="DescripcionProd_{{detalle.PedidoDetalleID}}" value="{{Split detalle.DescripcionProd '|' 0}}">
-                <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
                 <input type="hidden" id="MarcaID_{{detalle.PedidoDetalleID}}" name="MarcaID_{{detalle.PedidoDetalleID}}" value="{{detalle.MarcaID}}">
                 <input type="hidden" id="DescripcionOferta_{{detalle.PedidoDetalleID}}" name="DescripcionOferta_{{detalle.PedidoDetalleID}}" value="{{detalle.DescripcionOferta}}">
             </div>
@@ -284,9 +283,9 @@
             <span>MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{GananciaFormat}}</b></span>
+            <span><b class="lblCantidadProducto">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
 
@@ -319,7 +318,7 @@
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = "Mobile"})';
+        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
@@ -336,9 +335,8 @@
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
         var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
         var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
-        var urlActualizarCantidadTotalPedido = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
         
-        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "Mobile" })';
+        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
         

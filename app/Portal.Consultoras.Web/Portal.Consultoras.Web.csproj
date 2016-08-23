@@ -199,8 +199,6 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ProductosDestacadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\RevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
@@ -2278,13 +2276,8 @@
     <Content Include="Areas\Mobile\Views\PedidoCliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\AgregarCliente.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Detalle_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Index_old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListadoPedido.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListaEstrategias.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado.cshtml" />
-    <Content Include="Areas\Mobile\Views\ProductosDestacados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstadoCuenta\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
@@ -2293,9 +2286,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
-    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Revista\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -2417,6 +2408,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
+    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
@@ -2466,7 +2458,6 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Catalogo\Index - Old.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">

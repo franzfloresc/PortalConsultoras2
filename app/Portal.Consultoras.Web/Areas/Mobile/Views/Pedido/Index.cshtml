@@ -263,7 +263,7 @@
 </div>
 <!--FIN-->
 <script id="html-estrategia" type="text/x-handlebars-template">
-    {{#each this.ListaEstrategias as |detalle|}}
+    {{#each this as |detalle|}}
     <div class="content_item_home" data-item="item">
         <input type="hidden" class="valorCuv" value="{{detalle.CUV2}}" />
         <input type="hidden" class="valorPosicion" value="{{detalle.ID}}" />
@@ -344,15 +344,12 @@
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
-        var urlObtenerMarcaEstrategia = '@Url.Action("ObtenerMarcaEstrategia", "Pedido", new {area = "Mobile"})';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlInsertOfertaNueva = '@Url.Action("AgregarProductoZE", "Pedido", new {area = ""})';
         var urlInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
-        var urlRefrescarPedidoOfertaNuevaActual = '@Url.Action("RefrescarPedidoOfertaNuevaActual", "Pedido", new {area = "Mobile"})';
-        var urlCargarListaEstrategia = '@Url.Action("CargarListaEstrategias", "Pedido", new { area = "Mobile" })';
-        var urlCalcularTotal = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
+        var urlCargarListaEstrategia = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
 
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
@@ -362,7 +359,6 @@
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
         var paisIDSesion = '@Model.PaisId';
-        var urlValidarExistenciaOfertaNueva = '@Url.Action("ValidarExistenciaOfertaNuevaAnterior", "Pedido", new {area = "Mobile"})';
 
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
