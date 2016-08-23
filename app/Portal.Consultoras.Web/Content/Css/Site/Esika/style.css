@@ -11039,9 +11039,9 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-/*.campana:hover .info_cam {
+.campana:hover .info_cam {
     display: block;
-}*/
+}
 
 /*.info_cam h1 {
     font-family: 'lato';

@@ -19909,16 +19909,15 @@ label.checkpop.c_on {
     width: 310px;
     /* border: 1.5px solid #e81c36; */
     margin-left: -261px;
-     border:1px solid #ccc;
-     
+    border:1px solid #ccc;
     -webkit-box-shadow:1px 6px 15px -4px rgba(166,164,166,1);
     -moz-box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-/*.campana:hover .info_cam {
+.campana:hover .info_cam {
     display: block;
-}*/
+}
 
 .ver_pedido {
     text-align: center;

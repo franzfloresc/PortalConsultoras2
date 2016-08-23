@@ -134,7 +134,7 @@
             <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
-            <a class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
+            <a class="seguir_pedido ver_video_introductorio" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
             @*@if (Model.PaisID == 10)
                 {
                 <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
@@ -1558,11 +1558,11 @@
 
             });
 
-            $(".campana.cart_compras").hover(function () {
-                $(".info_cam").fadeIn(200);
-            }, function () {
-                $(".info_cam").fadeOut(200);
-            });
+            //$(".campana.cart_compras").hover(function () {
+            //    $(".info_cam").fadeIn(200);
+            //}, function () {
+            //    $(".info_cam").fadeOut(200);
+            //});
 
             // MICROEFECTO FLECHA HOME
 
@@ -1608,7 +1608,7 @@
 
                 $(window).scroll(function () {
 
-                    if ($(window).scrollTop() > 1700) {
+                    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
                         $(".flecha_scroll").animate({
                             opacity: 0
@@ -1617,7 +1617,7 @@
                             $(".flecha_scroll").delay(100);
                             $(".flecha_scroll").animate({
                                 opacity:1
-                            },200,'swing');
+                            },100,'swing');
                         });
 
 
@@ -1634,8 +1634,8 @@
                 $(".flecha_scroll").on('click', function (e) {
 
                     e.preventDefault();
-                    var posicion = $(window).scrollTop();
-                    if (posicion > 1700) {
+
+                    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
                         $('html, body').animate({
                             scrollTop: $('html, body').offset().top
