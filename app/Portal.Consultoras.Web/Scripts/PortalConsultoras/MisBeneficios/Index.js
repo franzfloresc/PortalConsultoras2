@@ -15,6 +15,7 @@ function CargarProgramasBelcorp() {
                 $.each(data.lista,
                     function(i, item) {
                         item.codigoISO = data.codigoISO;
+                        item.DetalleDesripcion = "";
                     });
                 ArmarProgramasBelcorp(data.lista);
             }         
@@ -27,8 +28,39 @@ function CargarProgramasBelcorp() {
 function ArmarProgramasBelcorp(data) {
     data = EstructurarDataProgramasBelcorp(data);
     var htmlDiv = SetHandlebars("#ProgramasBelcorp-template", data);
+    //Se agrega item VER MAS
+    if (htmlDiv.length > 0) {
+        htmlDiv += [
+             '<div class="items_misBeneficios">',
+                    '<div class="contenedor_item_img">',
+                        '<img class="item_img" src="' + imgIncentivos + '" alt="Alternate Text" />',
+                        '<span class="item_titulo">INCENTIVOS</span>',
+                    '</div>',
+                    '<div class="contenedor_item_descripcion">',
+                        '<span>',
+                            'Los premios están más cerca de lo que piensas…',
+                        '</span>',
+                        '<a href="' + urlIncentivos + '" title="DESCÚBRELOS AQUÍ">DESCÚBRELOS AQUÍ</a>',
+                    '</div>',
+             '</div>',
+        ].join("\n");
+    };
+
     $('#contenidoProgramasBelcorp').empty().append(htmlDiv);
 };
 function EstructurarDataProgramasBelcorp(array) {
+    $.each(array, function (i, item) {
+        if (item.Descripcion == "Brillante 2016") {
+            item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento ¡y una gran celebración!";
+        } else if (item.Descripcion == "Familia Protegida") {
+            item.DetalleDesripcion = "Programa de ayuda económica para ti, tus hijos y esposo en caso de hospitalización y fallecimiento.";
+        } else if (item.Descripcion == "Flexipago") {
+            item.DetalleDesripcion = "El crédito de Belcorp que te permitirá pasar pedidos más grandes y poder pagarlos hasta en 3 partes.";
+        } else if (item.Descripcion == "Programa Nuevas") {
+            item.DetalleDesripcion = "Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
+        }
+        item.Descripcion = item.Descripcion.toUpperCase();
+    });
+
     return array;
 };

@@ -106,6 +106,9 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal MontoEscala { get; set; }
 
+        public string DescripcionMarca { get; set; }
+        public int LimiteVenta { get; set; }
+        
         public string TotalSinDsctoFormato { get; set; }
         public string TotalConDsctoFormato { get; set; }
 

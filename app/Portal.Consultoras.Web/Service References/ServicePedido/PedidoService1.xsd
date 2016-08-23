@@ -1110,6 +1110,7 @@
   <xs:element name="BEPostVenta" nillable="true" type="tns:BEPostVenta" />
   <xs:complexType name="BEEtiqueta">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
@@ -1147,6 +1148,7 @@
   <xs:element name="ArrayOfBEOferta" nillable="true" type="tns:ArrayOfBEOferta" />
   <xs:complexType name="BETipoEstrategia">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
@@ -1268,6 +1270,7 @@
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoParametriaOfertaFinal" nillable="true" type="xs:string" />
     </xs:sequence>

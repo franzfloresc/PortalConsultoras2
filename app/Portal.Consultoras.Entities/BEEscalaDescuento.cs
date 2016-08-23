@@ -21,8 +21,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool Seleccionado { get; set; }
 
+        #region Para la tabla OfertaFinalParametria
+
         [DataMember]
         public string TipoParametriaOfertaFinal { get; set; }
+
+        [DataMember]
+        public decimal PrecioMinimo { get; set; }
+
+        #endregion        
 
         public BEEscalaDescuento(){ }
 
@@ -36,6 +43,8 @@ namespace Portal.Consultoras.Entities
                 PorDescuento = Convert.ToInt32(row["PorDescuento"]);
             if (DataRecord.HasColumn(row, "TipoParametriaOfertaFinal") && row["TipoParametriaOfertaFinal"] != DBNull.Value)
                 TipoParametriaOfertaFinal = Convert.ToString(row["TipoParametriaOfertaFinal"]);
+            if (DataRecord.HasColumn(row, "PrecioMinimo") && row["PrecioMinimo"] != DBNull.Value)
+                PrecioMinimo = Convert.ToDecimal(row["PrecioMinimo"]);
         }
     }
 }
