@@ -45,6 +45,57 @@
         };
     });
 
+    $("body").on("click", ".btnAgregarSugerido", function () {
+        ShowLoading();
+
+        var divPadre = $(this).parents("[data-item='producto']").eq(0);
+        var cuv = $(divPadre).find(".hdSugeridoCuv").val();
+        var cantidad = $(divPadre).find(".rango_cantidad_pedido").val();
+        var tipoOfertaSisID = $(divPadre).find(".hdSugeridoTipoOfertaSisID").val();
+        var configuracionOfertaID = $(divPadre).find(".hdSugeridoConfiguracionOfertaID").val();
+        var indicadorMontoMinimo = $(divPadre).find(".hdSugeridoIndicadorMontoMinimo").val();
+        var tipo = $(divPadre).find(".hdSugeridoTipo").val();
+        var marcaID = $(divPadre).find(".hdSugeridoMarcaID").val();
+        var precioUnidad = $(divPadre).find(".hdSugeridoPrecioUnidad").val();
+        var descripcionProd = $(divPadre).find(".hdSugeridoDescripcionProd").val();
+        var pagina = $(divPadre).find(".hdSugeridoPagina").val();
+        var descripcionCategoria = $(divPadre).find(".hdSugeridoDescripcionCategoria").val();
+        var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
+        var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
+
+        if (!isInt(cantidad)) {
+            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
+            $(divPadre).find('.rango_cantidad_pedido').val(1);
+            CloseLoading();
+            //limpiarInputsPedido();
+            return false;
+        }
+        if (cantidad <= 0) {
+            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
+            $(divPadre).find('.rango_cantidad_pedido').val(1);
+            CloseLoading();
+            return false;
+        }
+
+        var model = {
+            TipoOfertaSisID: tipoOfertaSisID,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            MarcaID: marcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: precioUnidad,
+            CUV: cuv,
+            Tipo: tipo,
+            DescripcionProd: descripcionProd,
+            Pagina: pagina,
+            DescripcionCategoria: descripcionCategoria,
+            DescripcionMarca: descripcionMarca,
+            DescripcionEstrategia: descripcionEstrategia,
+            EsSugerido: true
+        };
+        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
+    });
+
     CargarProductosDestacados("");
 
     var CuvEnSession = $("#hdCuvEnSession").val();
@@ -62,6 +113,7 @@ function ValidarPermiso(obj) {
     }
     return true;
 };
+
 function BuscarByCUV(cuv) {
     if (cuv == $('#hdfCUV').val()) {
         $("#divProductoMantenedor").show();
@@ -92,6 +144,7 @@ function BuscarByCUV(cuv) {
                 $('#hdfCUV').val(cuv);
                 $("#divProductoMantenedor").show();
                 CloseLoading();
+                if (item.TieneSugerido != 0) ObtenerProductosSugeridos(cuv);
                 return false;
             }
 
@@ -159,8 +212,7 @@ function ObservacionesProducto(item) {
     }
     if (item.TieneStock === true) {
         if (item.TieneSugerido != 0) {
-            MostrarMensaje("mensajeCUVAgotado");
-            $("#divProductoInformacion").hide();
+            ObtenerProductosSugeridos(item.CUV);
             return false;
         } else {
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
@@ -246,6 +298,116 @@ function ObtenerEstrategiaCoincidente(cuv) {
     });
 
     return estratgiaEncontrada;
+};
+function ObtenerProductosSugeridos(CUV) {
+    $('.js-slick-prev-h').remove();
+    $('.js-slick-next-h').remove();
+    $('#divCarruselSugerido').unslick();
+    $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
+    $("#divProductoInformacion").hide();
+
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlObtenerProductosSugeridos,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ CUV: CUV }),
+        async: true,
+        cache: false,
+        success: function (data) {
+            CloseLoading();
+            if (!checkTimeout(data)) return false;
+
+            var lista = data;
+            if (lista.length <= 0) {
+                MostrarMensaje("mensajeCUVAgotado");
+                return false;
+            }
+
+            $("#divCarruselSugerido").html('');
+            $('#PopSugerido').show();
+            SetHandlebars("#js-CarruselSugerido", lista, '#divCarruselSugerido');
+            //$("#divProductoObservaciones").html("");
+
+            $('#divCarruselSugerido').slick({
+                infinite: true,
+                vertical: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: false,
+                speed: 300,
+                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
+                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
+            });
+            $('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
+            $('#divCarruselSugerido').prepend($(".js-slick-next-h"));
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                if (data.message == "" || data.message === undefined) {
+                    location.href = baseUrl + "SesionExpirada.html";
+                } else {
+                    alert_msg(data.message);
+                }
+            }
+        }
+    });
+}
+function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta) {
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlInsertar,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({
+            MarcaID: marcaID,
+            CUV: cuv,
+            PrecioUnidad: precioUnidad,
+            Descripcion: descripcion,
+            Cantidad: cantidad,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            TipoOferta: tipoOferta
+        }),
+        async: true,
+        cache: false,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                CloseLoading();
+                return false;
+            }
+            ActualizarGanancia(data.DataBarra);
+            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
+            if (existeError == "1") {
+                alert_msg("Ocurrió un error al ejecutar la operación.");
+                CloseLoading();
+                return false;
+            }
+            CloseLoading();
+            //$("#divMensajeProductoAgregado").show();
+            
+            $("#divProductoObservaciones").html("");
+            $("#divProductoMantenedor").hide();
+            $("#divListaEstrategias").show();
+            $("#divResumenPedido").show();
+            $('#PopSugerido').hide();
+
+            CargarProductosDestacados(cuv);
+            //PedidoOnSuccess();
+            CalcularTotal();
+            $("#hdCuvEnSession").val("");
+
+            setTimeout(function () { $('.toUp').click(); }, 2000);
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                alert_msg(data);
+            }
+        }
+    });
 };
 
 /** Insertar Pedido **/
