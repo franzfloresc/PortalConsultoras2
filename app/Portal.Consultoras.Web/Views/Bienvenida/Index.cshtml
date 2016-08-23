@@ -133,8 +133,8 @@
             </div>
             <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
-            <a class="seguir_pedido ver_video_introductorio">VER VIDEO INTRODUCTORIO</a>
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
+            <a class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
             @*@if (Model.PaisID == 10)
                 {
                 <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
@@ -1519,12 +1519,12 @@
                 $(this).animate({
                     'top': carrito.offset().top,
                     'opacity': 0,
-                }, 100, 'swing', function () {
-                    $(".campana .info_cam").fadeIn(200);
-                    $(".campana .info_cam").delay(2500);
-                    $(".campana .info_cam").fadeOut(200);
-                    $(this).remove();
-                });
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+                //    $(this).remove();
+                }, 100, 'swing');
             });
         }
 
@@ -1608,7 +1608,7 @@
 
                 $(window).scroll(function () {
 
-                    if ($(window).scrollTop() > 1900) {
+                    if ($(window).scrollTop() > 1700) {
 
                         $(".flecha_scroll").animate({
                             opacity: 0
@@ -1635,7 +1635,7 @@
 
                     e.preventDefault();
                     var posicion = $(window).scrollTop();
-                    if (posicion > 1900) {
+                    if (posicion > 1700) {
 
                         $('html, body').animate({
                             scrollTop: $('html, body').offset().top

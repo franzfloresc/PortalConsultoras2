@@ -20343,7 +20343,9 @@ label.checkpop.c_on {
     right:0;
 }
 .seguir_pedido{
-    display:block;
+    display: inline-block;
+    vertical-align: top;
+    width: 173px;
     background:url("../../../Images/Lbel/indicador_pedido_negro.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
@@ -20356,9 +20358,9 @@ label.checkpop.c_on {
     font-size: 13px;
 }
 
-.seguir_pedido.ver_video_introductorio{
+/*.seguir_pedido.ver_video_introductorio{
     margin-top: 3px;
-}
+}*/
 
 .seguir_pedido:hover{
     text-decoration:underline;
