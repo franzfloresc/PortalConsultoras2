@@ -1720,6 +1720,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(usuario);
 
             List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            List<BEPedidoWebDetalle> olstPedidoWebDetalle_Temp = null;
             List<ObservacionModel> olstObservaciones = new List<ObservacionModel>();
             bool restrictivas = false, informativas = false, errorProl = false, reservaProl = false;
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
@@ -1727,7 +1728,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                olstPedidoWebDetalle = ObtenerPedidoWebServer();
+                if (usuario.ModificaPedido)
+                {
+                    olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                    olstPedidoWebDetalle_Temp = new List<BEPedidoWebDetalle>(olstPedidoWebDetalle);
+                    olstPedidoWebDetalle = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3).ToList();
+                    ViewBag.olstPedidoWebDetalle = olstPedidoWebDetalle; //R2469 - JICM
+                    ViewBag.PedidoWebDetalle = olstPedidoWebDetalle;
+                }
+                else
+                {
+                    olstPedidoWebDetalle = ObtenerPedidoWebServer();
+                    ViewBag.olstPedidoWebDetalle = olstPedidoWebDetalle;
+                    ViewBag.PedidoWebDetalle = olstPedidoWebDetalle;//R2469 - JICM
+
+                }
+                //olstPedidoWebDetalle = ObtenerPedidoWebServer();
 
                 List<BECUVAutomatico> lst;
                 using (SACServiceClient srv = new SACServiceClient())
@@ -1750,7 +1766,7 @@ namespace Portal.Consultoras.Web.Controllers
                             olstObservaciones = DevolverObservacionesPROLv2(olstPedidoWebDetalle, out restrictivas, out informativas, out errorProl, out reservaProl,
                                 out montoAhorroCatalogo, out montoAhorroRevista, out montoDescuento, out montoEscala, out codigoMensaje);
                         else
-                            olstObservaciones = DevolverObservacionesPROL(olstPedidoWebDetalle,
+                            olstObservaciones = DevolverObservacionesPROL(olstPedidoWebDetalle, olstPedidoWebDetalle_Temp, usuario.ModificaPedido,
                                 out restrictivas, out informativas, out errorProl, out reservaProl,
                                 out montoAhorroCatalogo, out montoAhorroRevista, out montoDescuento, out montoEscala, out codigoMensaje);
                         Session["ObservacionesPROL"] = olstObservaciones;
@@ -1917,7 +1933,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }  
 
         public List<BEPedidoWebDetalle> ObtenerPedidoWebServer()
         {
@@ -1932,7 +1948,7 @@ namespace Portal.Consultoras.Web.Controllers
             return olstPedidoWebDetalle;
         }
 
-        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle, 
+        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle, List<BEPedidoWebDetalle> olstPedidoWebDetalle_Temp, bool ModificaPedido,
             out bool Restrictivas, out bool Informativas, out bool Error, out bool Reserva,
             out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, 
             out decimal montoEscala, out string codigoMensaje)
@@ -2203,9 +2219,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        decimal MontoTotalPROL = 0;
+                        decimal MontoTotalPROL = 0, descuentoPROL = 0;
                         Decimal.TryParse(datos.montototal, out MontoTotalPROL);
-                        EjecutarReservaPortal(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                        Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
+                        if (ModificaPedido)
+                            EjecutarReservaPortal(dtr, olstPedidoWebDetalle_Temp, ModificaPedido, MontoTotalPROL, descuentoPROL);/*R20150701*/
+                        else
+                            EjecutarReservaPortal(dtr, olstPedidoWebDetalle, ModificaPedido, MontoTotalPROL, descuentoPROL);/*R20150701*/
+                        //EjecutarReservaPortal(dtr, olstPedidoWebDetalle, MontoTotalPROL);
                         Reserva = true;
                     }
                 }
@@ -2298,8 +2319,9 @@ namespace Portal.Consultoras.Web.Controllers
                 bool ValidacionPROLMM = false;
                 string CUV_Val = string.Empty;
                 int ValidacionReemplazo = 0;
-                decimal MontoTotalPROL = 0;
+                decimal MontoTotalPROL = 0, descuentoPROL = 0;
                 Decimal.TryParse(datos.montototal, out MontoTotalPROL);
+                Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
 
                 #region Actualizar montos del servicio de prol a Pedido
                 
@@ -2316,7 +2338,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bePedidoWeb.PaisID = userData.PaisID;
                     bePedidoWeb.CampaniaID = userData.CampaniaID;
                     bePedidoWeb.ConsultoraID = userData.ConsultoraID;
-                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;                    
                     bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
                     bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
                     bePedidoWeb.DescuentoProl = montoDescuento;
@@ -2377,7 +2399,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
                         {
-                            EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                            EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL, descuentoPROL);
                             Reserva = true;
                         }
                     }
@@ -2386,7 +2408,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                        EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL, descuentoPROL);
                         Reserva = true;
                     }
                 }
@@ -2445,7 +2467,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
+        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ModificaPedido, decimal MontoTotalProL = 0, decimal descuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2462,7 +2484,13 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.PedidoID = PedidoID;
             }
 
-            List<BEPedidoWebDetalle> olstPedidoReserva = new List<BEPedidoWebDetalle>();
+            List<BEPedidoWebDetalle> olstPedidoReserva = null;
+            if (ModificaPedido)
+                olstPedidoReserva = new List<BEPedidoWebDetalle>(olstPedidoWebDetalle);
+            else
+                olstPedidoReserva = new List<BEPedidoWebDetalle>();
+            //string CUVPadre = string.Empty;
+            //short PedidoDetalleIDPadre = 0;
 
             foreach (DataRow row in dtr.Rows)
             {
@@ -2499,9 +2527,9 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock) //1510
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), Convert.ToInt32(ModificaPedido), userData.CodigoUsuario, MontoTotalProL, descuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL, descuentoProl);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), Convert.ToInt32(ModificaPedido), userData.CodigoUsuario, MontoTotalProL, descuentoProl);
             }
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -3268,7 +3296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<BEPedidoWebDetalle> lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                    EjecutarReservaPortal(datos.data.Tables[0], lstPedidoWebDetalle);
+                    EjecutarReservaPortal(datos.data.Tables[0], lstPedidoWebDetalle, userData.ModificaPedido);
 
                     //Inserta Aceptacion Reemplazos
                     List<BEPedidoWebDetalle> reemplazos = lstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
