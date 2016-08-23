@@ -137,16 +137,16 @@
                                     </a>
                                     if (ViewBag.SegmentoConsultoraMenu == 1)
                                     {
-                                        <a class="menu_imagen no_margin_right">
+                                        <a href="https://s3.amazonaws.com/somosbelcorp/@(DateTime.Now.Year)/Minisite+Nuevas+Esikizado/@(ViewBag.codigoISOMenu)/index.html" class="menu_imagen no_margin_right">
                                             <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_02.png" />
                                             <div class="titulo_imagen">PROGRAMA NUEVAS</div>
                                         </a>
                                     }
                                     else if (ViewBag.SegmentoConsultoraMenu != 1 && ViewBag.codigoISOMenu != "VE")
                                     {
-                                        <a class="menu_imagen no_margin_right">
+                                        <a class="menu_imagen no_margin_right" onclick=" return SetAnalyticsMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
                                             <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_03.png" />
-                                            <div class="titulo_imagen">BRILLANTE 2016</div>
+                                            <div class="titulo_imagen">INCENTIVOS</div>
                                         </a>
                                     }
                                 }
