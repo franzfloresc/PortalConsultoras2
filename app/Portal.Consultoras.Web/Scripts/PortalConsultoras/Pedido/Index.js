@@ -2899,7 +2899,7 @@ function CancelarObsInformativas() {
         AbrirSplash();
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'Pedido/DeshacerReservaPedidoReservado?Tipo=PI',
+            url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PI',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: true,

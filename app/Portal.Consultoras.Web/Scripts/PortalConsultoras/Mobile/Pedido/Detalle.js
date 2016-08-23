@@ -763,8 +763,8 @@ function EjecutarServicioPROL() {
         contentType: 'application/json; charset=utf-8',
         async: true,
         cache: false,
-        success: function (model) {
-
+        success: function (response) {
+            var model = response.data;
             CloseLoading();
 
             if (!model.ValidacionInteractiva) {
