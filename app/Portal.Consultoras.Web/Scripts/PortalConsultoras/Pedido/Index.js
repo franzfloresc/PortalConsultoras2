@@ -179,6 +179,7 @@ $(document).ready(function () {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             CerrarSplash();
+            limpiarInputsPedido();
             return false;
         } else {
             var model = {
