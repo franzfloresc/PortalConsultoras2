@@ -7,9 +7,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
@@ -22,8 +20,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            ValidarSesionCuvProductoDestacado();
-
             var model = new PedidoMobileModel();
 
             Session["ObservacionesPROL"] = null;
@@ -275,21 +271,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult GuardarCuvSession(string cuv)
-        {
-            if (!string.IsNullOrEmpty(cuv))
-            {
-                Session["CUVProductoDesctacado"] = cuv;
-            }
-            return RedirectToAction("index");
-        }
-
-        public ActionResult BorrarCuvSession(string cuv)
-        {
-            Session["CUVProductoDesctacado"] = null;
-            return RedirectToAction("index");
-        }
-
         #endregion
 
         #region Metodos
@@ -345,25 +326,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return result;
         }
-        
-        private void ValidarSesionCuvProductoDestacado()
-        {
-            try
-            {
-                if (Request.UrlReferrer != null)
-                {
-                    if (!Request.UrlReferrer.AbsolutePath.ToLower().Contains("productosdestacados"))
-                    {
-                        Session["CUVProductoDesctacado"] = null;
-                    }
-                }
-            }
-            catch (Exception) { }
-        }
-
-        #endregion
-
-        #region PROL
 
         private bool ValidarPROL(UsuarioModel usuario, out bool mostrarBotonValidar)
         {
@@ -462,6 +424,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #endregion
-
     }
 }

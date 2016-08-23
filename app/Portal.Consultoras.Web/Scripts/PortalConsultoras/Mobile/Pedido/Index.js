@@ -97,7 +97,7 @@ function BuscarByCUV(cuv) {
 
             $("#hdTipoOfertaSisID").val(item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(item.ConfiguracionOfertaID);
-            $("#hdTipoEstrategiaID").val(response.data.TipoEstrategiaID);
+            $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
 
             ObservacionesProducto(item);
             CloseLoading();
