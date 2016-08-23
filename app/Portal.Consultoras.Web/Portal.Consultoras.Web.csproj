@@ -1249,15 +1249,9 @@
     <Content Include="Content\Images\carrusel_p.png" />
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
-    <Content Include="Content\Images\Esika\azteca.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
-    <Content Include="Content\Images\Esika\banamex.png" />
-    <Content Include="Content\Images\Esika\bancomer.png" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
-    <Content Include="Content\Images\Esika\bbva.png" />
-    <Content Include="Content\Images\Esika\bcp.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
-    <Content Include="Content\Images\Esika\carsa.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1499,7 +1493,6 @@
     <Content Include="Content\Images\Esika\expoferta_c09.png" />
     <Content Include="Content\Images\Esika\facebook.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
-    <Content Include="Content\Images\Esika\financiero.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
     <Content Include="Content\Images\Esika\flechita.png" />
     <Content Include="Content\Images\Esika\flechita.svg" />
@@ -1536,7 +1529,6 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
-    <Content Include="Content\Images\Esika\interbank.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1554,8 +1546,6 @@
     <Content Include="Content\Images\Esika\mensajes.png" />
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
-    <Content Include="Content\Images\Esika\multifacil.png" />
-    <Content Include="Content\Images\Esika\nacion.png" />
     <Content Include="Content\Images\Esika\next.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
@@ -1576,8 +1566,6 @@
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
-    <Content Include="Content\Images\Esika\santander.png" />
-    <Content Include="Content\Images\Esika\scotia.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -1595,8 +1583,7 @@
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
     <Content Include="Content\Images\Esika\venta.png" />
-    <Content Include="Content\Images\Esika\ver-mas-liquidaciones.jpg" />
-    <Content Include="Content\Images\Esika\western.png" />
+    <Content Include="Content\Images\Esika\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Esika\youtube.png" />
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
@@ -1683,6 +1670,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
     <Content Include="Content\Images\Lbel\boton_pedido_hover.png" />
@@ -1778,7 +1766,7 @@
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />
-    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones.jpg" />
+    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
     <Content Include="Content\Images\list_add_font.png" />
@@ -3323,7 +3311,6 @@
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
-    <Content Include="Views\Cliente\MisClientes.cshtml" />
     <Content Include="Views\Cliente\Index_old.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />

@@ -1709,8 +1709,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool esMovil = Request.Browser.IsMobileDevice;
 
-            return Json(null);
-
             Session["ObservacionesPROL"] = null;
 
             bool botonValidar;

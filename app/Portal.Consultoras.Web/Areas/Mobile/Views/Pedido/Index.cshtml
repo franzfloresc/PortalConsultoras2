@@ -184,7 +184,7 @@
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <!--POP UP PRODUCTO SUGERIDO-->
-<div class="pop_sugerido_mobile" id="PopSugerido">
+<div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
     <div class="wrapper_resumen_mobile">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopSugerido').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -195,72 +195,15 @@
             Lo sentimos, se nos agotó este producto. Prueba <b>reemplazarlo</b> con
             alguno de éstos:
         </div>
-        <div class="contenedor_carrusel_home">
-            <div class="content_item_home">
-                <div class="producto_img_mobile">
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200070066_2014959420_02_qwmjmtymhu.png">
-                </div>
-                <div class="etiqueta_producto">
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2016837326_01_iibdrrthwy.png" alt="Etiqueta Producto">
-                </div>
-
-                <div class="producto_nombre_descripcion">
-                    <h6>Cyzone</h6>
-                    <p class="nombre_producto">
-                        Cyzone AMILET FRAG FEMENINA 50 ML
-                    </p>
-                    <div class="producto_precio">
-                        <span><strike>S/.40.00</strike></span>
-                        <span class="producto_precio_oferta"><b>S/. 31.90</b></span>
-                    </div>
-                    
-                    <div class="clear"></div>
-                    <a class="boton_Agregalo_home">
-                        AGRÉGALO
-                    </a>
-                </div>
-            </div>
-            <a class="previous_ofertas_mobile" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"  alt=""></a>
-            <a class="previous_ofertas_mobile" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png"></a>
-
+        <div class="contenedor_carrusel_home" id="divCarruselSugerido">
         </div>
-  </div>
-   
+    </div>
+
 
 </div>
 <!--FIN-->
 
 <!--+CRITERIOS DE ACEPTACIÓN+-->
-
-<!--POP MENSAJE IMPORTANTE-->
-<div id="MensajeImportante" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeImportante').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">Tu pedido tiene observaciones, por favor revísalo</div>
-        <a class="btn_ok_mobile">OK</a>
-    </div>
-
-</div>
-<!--FIN-->
-<!--POP MENSAJE LO LOGRASTE-->
-<div id="MensajeLograste" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
-        <a class="btn_ok_mobile">OK</a>
-    </div>
-
-</div>
 <!--FIN-->
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
@@ -319,6 +262,49 @@
     {{/each}}
 </script>
 
+<script id="js-CarruselSugerido" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="sugerido" data-item="producto">
+        <div style="display: none;">
+            <input type="hidden" class="hdSugeridoCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdSugeridoTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdSugeridoConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdSugeridoIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdSugeridoTipo" value="1" />
+            <input type="hidden" class="hdSugeridoMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdSugeridoPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdSugeridoDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdSugeridoPagina" value="0" />
+            <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+
+        <div class="content_item_home">
+            <div class="producto_img_mobile">
+                <img src="{{ImagenProductoSugerido}}">
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">{{Descripcion}}</p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="sugeridos_rango_home">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="text" value="1" size="2" maxlength="2" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarSugerido" href="javascript:;">AGRÉGALO</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
@@ -342,8 +328,10 @@
         var esTipoDrag = 0;
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-
+                
+        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
