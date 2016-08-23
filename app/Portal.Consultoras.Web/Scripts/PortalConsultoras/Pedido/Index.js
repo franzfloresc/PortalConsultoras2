@@ -2512,7 +2512,7 @@ function MostrarMensajeProl(data) {
                     showDialog("divReservaSatisfactoria");
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 4000);
+                    }, 8000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2640,9 +2640,9 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
 
             if (listaProductoOfertaFinal != null) {
                 $.each(listaProductoOfertaFinal, function(index, value) {
-                    if (value.PrecioCatalogo >= montoFaltante) {
+                    if (value.PrecioCatalogo >= montoFaltante && value.PrecioCatalogo > cumpleParametria.precioMinimoOfertaFinal) {
                         productosMostrar.push(value);
-                        return false;
+                        //return false;
                     }
                 });
 
@@ -2671,46 +2671,51 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     var resultado = false;
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
+    var precioMinimoOfertaFinal = 0;
 
     //Escala
     if (tipoPopupMostrar == 1) {
-        if (codigoMensajeProl == "00") {
-            var escalaDescuento = null;
-            var escalaDescuentoSiguiente = null;
-            
-            $.each(listaEscalaDescuento, function(index, value) {
-                if (value.MontoHasta >= monto) {
-                    escalaDescuento = value;
+        var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
+        if (esConsultoraNueva == "False") {
+            if (codigoMensajeProl == "00") {
+                var escalaDescuento = null;
+                var escalaDescuentoSiguiente = null;
 
-                    if (index <= listaEscalaDescuento.length - 1) {
-                        escalaDescuentoSiguiente = listaEscalaDescuento[index + 1];
-                    } else {
-                        escalaDescuentoSiguiente = null;
+                $.each(listaEscalaDescuento, function (index, value) {
+                    if (value.MontoHasta >= monto) {
+                        escalaDescuento = value;
+
+                        if (index <= listaEscalaDescuento.length - 1) {
+                            escalaDescuentoSiguiente = listaEscalaDescuento[index + 1];
+                        } else {
+                            escalaDescuentoSiguiente = null;
+                        }
+
+                        return false;
                     }
-                    
-                    return false;
-                }
-            });
-            
-            if (escalaDescuento == null) {
-                resultado = false;
-            } else {
-                var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
-                var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
-                
-                if (parametriaEd != null && parametriaEd.length != 0) {
-                    if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
-                        montoFaltante = diferenciaMontoEd;
-                        porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
-                        resultado = true;
+                });
+
+                if (escalaDescuento == null) {
+                    resultado = false;
+                } else {
+                    var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
+                    var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
+
+                    if (parametriaEd != null && parametriaEd.length != 0) {
+                        if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
+                            montoFaltante = diferenciaMontoEd;
+                            porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
+                            precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
+                            resultado = true;
+                        } else {
+                            resultado = false;
+                        }
                     } else {
                         resultado = false;
                     }
-                } else {
-                    resultado = false;
                 }
             }
-        }
+        }        
     } else {
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
@@ -2729,6 +2734,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     if (parametria != null && parametria.length != 0) {
                         if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
                             montoFaltante = diferenciaMonto;
+                            precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
                             resultado = true;
                         } else {
                             resultado = false;
@@ -2748,7 +2754,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     return {
         resultado: resultado,
         montoFaltante: montoFaltante,
-        porcentajeDescuento: porcentajeDescuento
+        porcentajeDescuento: porcentajeDescuento,
+        precioMinimoOfertaFinal: precioMinimoOfertaFinal
     };
 }
 
@@ -3687,6 +3694,8 @@ function MostrarBarra(datax) {
     $("#divBarra #divLimite").html("");
     var datax = datax || new Object();
     data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
+    dataBarra = data;
+    ActualizarGanancia(data);
 
     ActualizarGanancia(data);
 
@@ -3801,7 +3810,7 @@ function MostrarBarra(datax) {
         $("#divBarra").hide();
         return false;
     }
-    
+
     var indPuntoLimite = 0;
     // obtener el punto limite actual
     $.each(listaLimite, function (ind, limite) {
@@ -3821,7 +3830,7 @@ function MostrarBarra(datax) {
             }
         }
     });
-    
+
     var wTotal = widthTotal;
     var vLimite = listaLimite[indPuntoLimite].valor;
 
@@ -3852,11 +3861,12 @@ function MostrarBarra(datax) {
 
     if (mx > 0)
         htmlPuntoLimite = htmlPunto;
-    
+
     var wTotalPunto = 0;
     $("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
+        htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
         htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
 
         var wText = ind == 0 ? "130" : "90";
@@ -3880,7 +3890,7 @@ function MostrarBarra(datax) {
             if (vLogro < vLimite) {
                 if (mx <= 0) {
                     wPunto = wmin;
-                }                
+                }
             }
         }
 
@@ -3900,7 +3910,7 @@ function MostrarBarra(datax) {
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
         while (indAux > 1) {
-            if (indAux - 1 < indPuntoLimite - 1) {    
+            if (indAux - 1 < indPuntoLimite - 1) {
                 var wwx = $("#punto_" + (indAux - 1) + " [data-texto]").width();
                 wTotalPunto -= wwx;
                 $("#punto_" + (indAux - 1)).remove();
@@ -3938,17 +3948,33 @@ function MostrarBarra(datax) {
         }
     }
     else {
-        $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
+        if (mn > 0) {
+            $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
+        }
+        else {
+            $("#punto_" + indPuntoLimite).css("margin-right", wAreaMover);
+        }
     }
-    
+
+    if (mn == 0) {
+        wAreaMover += $("#punto_" + 0).width();
+    }
+
     var wPuntosAnterior = 0;
     indAux = indPuntoLimite;
     while (indAux > 0) {
-        wPuntosAnterior += $("#punto_" + (indAux - 1)).width();
+        if (indAux == 1 && mn == 0) {
+            wPuntosAnterior += 0;
+        }
+        else {
+            wPuntosAnterior += $("#punto_" + (indAux - 1)).width();
+        }
         indAux--;
     }
     if (vLogro >= vLimite) {
-        wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+        if (indPuntoLimite > 0 && mn > 0) {
+            wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+        }
     }
 
     var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
@@ -3966,8 +3992,9 @@ function MostrarBarra(datax) {
         }
     }
     else {
-        if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
-            wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
+        var indxx = indPuntoLimite == 0 && mn == 0 ? (indPuntoLimite + 1) : indPuntoLimite;
+        if ($("#punto_" + indxx).find(".bandera_marcador").length == 0) {
+            wLimite += parseInt($("#punto_" + (indxx) + " >  div").width() / 2, 10);
         }
     }
     wAreaMover = wLimite - wLimiteAnterior;
@@ -4070,7 +4097,7 @@ function MostrarBarra(datax) {
                 tipoMensaje = limite.tipoMensaje;
                 valPor = limite.valPor;
             }
-        }        
+        }
     });
 
     //console.log(wLimite, vLogro, indPuntoLimite, mx, listaLimite);
@@ -4087,10 +4114,10 @@ function MostrarBarra(datax) {
         wLogro = vLogro / vm;
         wLogro = parseInt(wmin * wLogro * 100) / 100;
     }
-    
+
     // colocar los puntos de limite
     var w1 = 0;
-    
+
     var wSumLeft = 0, msgLimite = "";
     //$("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
@@ -4136,7 +4163,7 @@ function MostrarBarra(datax) {
     //wLogro = wLogro <= wmin ? wLogro : wLogro > w ? w + 25 : (wLogro + wPrimer);
     wLogro = vLogro < vm ? wLogro : wLogro > w ? w + 25 + wPrimer : vLogro != vm ? (wLogro + wPrimer) : wLogro;
     wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer + (mn == 0 ? wmin : 0));
-    
+
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
 
@@ -4160,22 +4187,6 @@ function MostrarBarra(datax) {
 }
 
 // Fin Barra
-
-function ClickPrueba() {
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ClickPrueba',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (response) {
-            alert(response.message);
-        },
-        error: function (error) {
-            alert(error);
-        }
-    });
-}
 
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {

@@ -1187,7 +1187,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
                     ActualizarGanancia(result.DataBarra);
 
-                    CargarResumenCampaniaHeader(true);
+                    CargarResumenCampaniaHeader();
 
                     alert_unidadesAgregadas(result.message, 1);
 

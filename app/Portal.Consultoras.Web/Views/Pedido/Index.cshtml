@@ -139,7 +139,7 @@
     <div class="caja_pedidos">
         <div id="divBarra">
             <div id="divBarraMensaje">
-                <div id="divBarraMensajeLogrado">
+                <div id="divBarraMensajeLogrado" style="display:none;">
                     <div style="float:right;">
                         <div class="content_BarrMensaje">
                             <div class="mensaje_barra" style="display: inline;"></div>
@@ -179,7 +179,6 @@
             <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Guarda tu pedido para actualizar tu barra.</div>
         </div>
         <div class="clear"></div>
-        @*<input type="button" id="btnPrueba" onclick="ClickPrueba();" value="PRUEBA"/>*@
     
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
@@ -514,6 +513,7 @@
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 <input type="hidden" id="hdMontoMaximo" value="@Model.MontoMaximo" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
+<input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
@@ -1032,11 +1032,9 @@
             </div>
             {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
-                        <div class="etiqueta_producto">
-                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                        </div>
-                    {{/iff}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
                 {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
                 <div class="etiqueta_producto">
                     <img src="{{ImagenURL}}" alt="Etiqueta Producto" />

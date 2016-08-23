@@ -355,18 +355,21 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-                            <a href="#">
-                                ¿Cómo conseguir tu primer pedido?
-                            </a>
-                        </span>
-                            <a href="#">
-                                Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-                            </a>
-                        </span>
-                            <a href="#">
-                                ¿Cómo fidelizar a un cliente?
-                            </a>
-                        </span>
+            <span>
+                <a href="#">
+                    ¿Cómo conseguir tu primer pedido?
+                </a>
+            </span>
+            <span>
+                <a href="#">
+                    Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
+                </a>
+            </span>
+            <span>
+                <a href="#">
+                    ¿Cómo fidelizar a un cliente?
+                </a>
+            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
@@ -1137,24 +1140,22 @@
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-            {{/iff}}
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
 
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-            {{#if_eq FlagEstrella '1' }}
-            <div class="etiqueta_producto">
-                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-            </div>
-            {{/if_eq}}
-            {{/if_eq}}
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                    {{#if_eq FlagEstrella '1' }}
+                    <div class="etiqueta_producto">
+                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                {{/if_eq}}
             {{/if_eq}}
 
             <div class="producto_nombre_descripcion">

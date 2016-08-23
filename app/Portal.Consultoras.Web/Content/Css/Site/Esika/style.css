@@ -21123,6 +21123,14 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+}
+.movimientos_pagos_content{
+    width:38%;
+    padding-left:17px;
+    padding-top:30px;
+    padding-bottom:30px;
+    display:inline-block;
+    vertical-align:middle;
     text-decoration: underline;
 }
 .pedidos_pagos{

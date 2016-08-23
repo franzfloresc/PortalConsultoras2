@@ -29,12 +29,12 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             var pedidos = new List<BETracking>();
             var DATracking = new DATracking(paisID);
 
-            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, fecha))
+            using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
                 while (reader.Read())
                 {
@@ -46,6 +46,7 @@ namespace Portal.Consultoras.BizLogic
 
             return pedidos;
         }
+
         //1793
         public List<BENovedadTracking> GetNovedadesTracking(int paisID, string NumeroPedido)
         {
@@ -94,7 +95,7 @@ namespace Portal.Consultoras.BizLogic
             return Result;
         }
 
-		//R2004
+        //R2004
         public BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha)
         {
             BENovedadFacturacion entidad = null;
@@ -111,7 +112,7 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-		//R2004
+        //R2004
         public BENovedadFacturacion GetPedidoAnuladoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido)
         {
             BENovedadFacturacion entidad = null;

@@ -20,12 +20,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
+        public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigo);
             Context.Database.AddInParameter(command, "@Campana", DbType.String, campana);
-            Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, fecha);
+            Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nropedido);
             return Context.ExecuteReader(command);
         }
 
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Data
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
 
-		//R2004
+        //R2004
         public IDataReader GetPedidoRechazadoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoRechazadoByConsultora");
@@ -81,8 +81,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, Fecha);
             return Context.ExecuteReader(command);
         }
-	
-		//R2004
+
+        //R2004
         public IDataReader GetPedidoAnuladoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoAnuladoByConsultora");
