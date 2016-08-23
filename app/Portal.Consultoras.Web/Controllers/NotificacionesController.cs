@@ -58,6 +58,48 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("ListadoNotificaciones", model);
         }
 
+        public JsonResult ActualizarEstadoNotificacion(long ProcesoId, int TipoOrigen)
+        {
+            try
+            {
+                var PaisId = userData.PaisID;
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    //R2319 - JLCS
+                    if (TipoOrigen == 4)
+                    {
+                        sv.UpdNotificacionSolicitudClienteVisualizacion(PaisId, ProcesoId);
+                    }//R20150802
+                    if (TipoOrigen == 5)
+                    {
+                        sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);// Revisar  debería ir el CodigoConsultora.
+                    }
+                    else
+                    {
+                        sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
+                    }
+                }
+                var data = new
+                {
+                    success = true,
+                    message = "Se actualizo con exito la notificacion"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                var data = new
+                {
+                    success = true,
+                    message = e.Message
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
         //R2319 - JLCS
         public ActionResult ListarDetalleSolicitudCliente(long SolicitudId)
         {
