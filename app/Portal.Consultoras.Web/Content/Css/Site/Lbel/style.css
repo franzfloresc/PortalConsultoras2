@@ -22054,7 +22054,7 @@ body{
     display:block;
     width:100%;
     height:auto;
-    margin-bottom:38px;
+    margin-bottom:21px;
     position:relative;
 }
 
@@ -22530,10 +22530,22 @@ body{
 
 .content_datos_pedidosFacturados.padding_area_montosTotales{
     display: inline-block;
+    position:relative;
     width:18.5%;
     min-width: 99px;
     vertical-align: top;
     border-bottom: 0px;
+}
+
+.content_datos_pedidosFacturados.padding_area_montosTotales .info_extra_Validado {
+    float:none;
+    position: absolute;
+    z-index: 1000;
+    width: 315px;
+    height: 21px;
+    text-align: right;
+    right: 100%;
+    top: 67%;
 }
 
 .content_datos_pedidosFacturados.padding_area_montosTotales .totalTexto{
