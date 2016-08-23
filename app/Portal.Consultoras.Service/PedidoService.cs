@@ -1629,11 +1629,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.InsertarLogPedidoWeb(PaisID, CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
 
-        public string PruebaPase()
-        {
-            return "Hola Mundo";
-        }
-
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entity)
         {
             return BLConsultorasProgramaNuevas.GetConsultorasProgramaNuevas(paisID, entity);
@@ -1642,6 +1637,11 @@ namespace Portal.Consultoras.Service
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entity)
         {
             return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entity);
+        }
+
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID)
+        {
+            return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID);
         }
     }
 }

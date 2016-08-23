@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -13,17 +14,13 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
     {
-
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
     @RenderSection("styles", required: false)
@@ -46,6 +43,7 @@
             'socianivel': '@ViewBag.AnalyticsSociaNivel'
         }];
     </script>
+
     @if (!Html.IsDebug())
     {
         <!-- Google Tag Manager -->
@@ -67,8 +65,26 @@
         <!-- End Google Tag Manager -->
     }
 
-    <!-- Menu icon -->
+    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    {
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+            
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
+    }
+    
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+
+    <!-- Menu icon -->
     <div class="menu">
         <div class="content_close">
             <div class="icon-close">
@@ -85,55 +101,7 @@
         </div>
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        @*<div class="botones">
-                <a class="menu_mobile_belcorp indicador_bel" href="#">INGRESA <b>TU PEDIDO</b></a>
-                <a class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu">Mi Negocio</a>
-                <!--SUBMENU-->
-                <div id="SubMenu" class="panel-collapse collapse submenu_1">
-                    <a class="menu_subHeader">Consultora Online</a>
-                    <a class="menu_subHeader">Zona de Liquidación</a>
-                    <a class="menu_subHeader">Seguimiento a tu Pedido</a>
-                    <a class="menu_subHeader">Estado de cuenta</a>
-                    <a class="menu_subHeader">Pedidos FIC</a>
-                    <a class="menu_subHeader">Pedidos Ingresados </a>
-                    <a class="menu_subHeader">Pedidos Facturados</a>
-                    <a class="menu_subHeader">Mis Clientes</a>
-                    <a class="menu_subHeader">Productos Agotados</a>
-
-                </div>
-                <!--FIN-->
-                <a class="menu_mobile_belcorp" href="#">Catálogos y Revistas</a>
-                <a class="menu_mobile_belcorp" href="#">Mi Asesor de Belleza</a>
-                <a class="menu_mobile_belcorp" href="#">Mi Academia</a>
-                <a class="menu_mobile_belcorp" href="#">Mi Comunidad</a>
-                <a class="menu_mobile_belcorp" href="#">Mis Notificaciones</a>
-            </div>*@
         <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-
-
-        @*<div class="nombre" style="color:#768ea3;">HOLA @ViewBag.NombreConsultora</div>
-            <div class="nombre bg_sky">ESTÁS EN <strong>C-@ViewBag.NumeroCampania</strong></div>
-            <div id="cssmenu">
-                @Html.Partial("_MobileMenuLateral")
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                        <div class="naranja-box">
-                            <a href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
-                               role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido"
-                               class="btn btn-line-hover btn-block"><i class="icon-lg icon-shop-belcorp"></i>INGRESA TU PEDIDO</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="sesion">
-                <a href="@Url.Action("LogOut", "Login", new { area = "" })" role="menu" region="Lateral-inferior" parent="Cerrar sesión" title="Cerrar sesión" id="lnk-lat-cerrar-sesion" class="cerrarsesion">
-                    <figure>
-                        <img src="@Url.Content("~/Content/Images/mobile/img-icon/mobile_icon_cerrar_sesion_plomo.png")" width="45" height="44" alt="-" />
-                    </figure>
-                    <span>Cerrar Sesión</span>
-                </a>
-            </div>*@
     </div>
 
     <!-- alert-top -->
@@ -145,8 +113,8 @@
         </a>
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
-    <!-- end-alert-top -->
-    <!-- Header -->
+
+    <!-- header -->
     <header id="new-header">
         <div class="container-fluid">
             <div class="row">
@@ -154,12 +122,7 @@
                     <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
                 <div class="col-xs-4 text-center">
-                    @*<a class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" role="menu" region="Superior" parent="Inicio" title="Inicio" id="lnk-sup-inicio">
-
-                        </a>*@
-                    <a class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })">
-
-                    </a>
+                    <a class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
@@ -175,7 +138,7 @@
             </div>
         </div>
     </header>
-    <!-- Contenido -->
+
     <div id="divShowRoom" class="ocultarPopup" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
@@ -222,6 +185,7 @@
         </div>
         <div class="sombra_m"></div>
     </div>
+
     <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
@@ -250,6 +214,8 @@
             <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
         </div>
     </div>
+
+    <!-- content -->
     <section style="min-height: 400px;">
 
         <div id="content">
@@ -261,64 +227,13 @@
         </div>
 
     </section>
-    <!-- Pie de Página Antiguo -->
-    @*<footer class="footer-page">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-                            <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="50" height="50" />
-                        </a>
-                    </div>
-                    <div class="col-xs-10 text-right">
-                        @Html.Partial("_MobileMenuFooter")
-                    </div>
-                </div>
-            </div>
-        </footer>*@
-    <!-- Pie de Página -->
 
-
+    <!-- footer -->
     <footer class="footer-page">
-
-        <!--
-        <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-            AYUDA
-        </a>
-        <div id="collapseOne" class="panel-collapse collapse">
-            <a class="menu_subfooter">PREGUNTAS FRECUENTES</a>
-            <a class="menu_subfooter">CONTÁCTANOS</a>
-            <a class="menu_subfooter">TUTORIAL</a>
-
-        </div>
-        <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2">
-            LEGAL
-        </a>
-        <div id="collapseOne2" class="panel-collapse collapse">
-            <a class="menu_subfooter">CONDICIONES DE USO WEB</a>
-            <a class="menu_subfooter">TÉRMINOS Y CONDICIONES</a>
-        </div>
-        <a class="version_escritorio">Ir a la versión escritorio</a>
-        <div class="content_redes">
-            <div class="col-xs-2">
-                <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-                    <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
-                </a>
-            </div>
-            <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
-            <a class="redes_sociales"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
-            <hr class="clear" />
-        </div>
-
-        -->
         @Html.Partial("_MobileMenuFooter")
-
         <hr class="clear" />
     </footer>
-    <!-- BOTÓN AGREGAR PEDIDO -->
-    @*<span class="toUp bg-primary">
-            <i class="icon-angle-up"></i>
-        </span>*@
+
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
@@ -337,6 +252,7 @@
             </div>
         </div>
     </div>
+
     <div id="popupInformacion" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -468,6 +384,7 @@
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         $(function () {
             HandlebarsRegisterHelper();
@@ -479,22 +396,6 @@
                     $obj.addClass('menu_footer').removeClass('menu_footer_menos');
                 }
             });
-            //$('.toUp').hide();
-            //$(window).scroll(function () {
-            //    if ($(this).scrollTop() > 70) {
-            //        $('.toUp').fadeIn();
-            //    } else {
-            //        $('.toUp').fadeOut();
-            //    }
-            //});
-
-            //// scroll body to 0px on click
-            //$('.toUp').click(function () {
-            //    $('body, html').animate({
-            //        scrollTop: 0
-            //    }, 500);
-            //    return false;
-            //});
 
             $(".alert-close").click(function (event) {
                 $(this).parent(".alert-top").slideUp();
@@ -948,6 +849,7 @@
                         $("#spnCantidadProductos").html(data.cantidadProductos);
                         $("#spnDescripcionTotal").html(montoWebAcumulado);
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -975,6 +877,7 @@
                             $("#divNotificacionesSinLeer").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -1008,6 +911,7 @@
                             $("#divAlertaPedidosOnline").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -1166,6 +1070,55 @@
             }, 1000);
         }
 
+        /* Tracking Jetlore */
+        function TrackingJetloreAdd(cantidad, campania, cuv) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.addToCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemove(cantidad, campania, cuv) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemoveAll(lista) {
+            var esJetlore;
+
+            var ofertaFinal = $("#hdTipoOfertaFinal").val();
+            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart(lista);
+
+            }
+        }
+    /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

@@ -195,7 +195,7 @@ namespace Portal.Consultoras.Data
 
         public DataSet GetPedidoWebByFechaFacturacion(DateTime FechaFacturacion, int TipoCronograma, int NroLote)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SB2");
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, FechaFacturacion);
             Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
@@ -239,7 +239,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidoCuvMarquesina(int CampaniaID, long ConsultoraID, string Cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoCUVmarquesina");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoCUVmarquesina_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@CUV", DbType.String, Cuv);
@@ -568,7 +568,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidoWebByCampaniaConsultora(int campaniaID, long consultoraID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByCampaniaConsultora");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByCampaniaConsultora_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             return Context.ExecuteReader(command);
@@ -619,7 +619,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bePedidoWeb.ConsultoraID);
             Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, bePedidoWeb.MontoAhorroCatalogo);
             Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
-            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.MontoDescuento);
+            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
 
             Context.ExecuteNonQuery(command);
@@ -627,7 +627,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosWebByConsultoraCampania(int consultoraID, int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosWebByConsultoraCampania");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosWebByConsultoraCampania_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
 
@@ -636,7 +636,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosFacturados(string codigoConsultora)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturados");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturados_SB2");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
 
             return Context.ExecuteReader(command);

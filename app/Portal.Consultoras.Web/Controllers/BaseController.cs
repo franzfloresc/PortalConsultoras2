@@ -46,6 +46,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Session["UserData"] != null)
                 {
                     ViewBag.Permiso = BuildMenu();
+                    ViewBag.codigoISOMenu = userData.CodigoISO;
+                    if (userData.CodigoISO == "VE")
+                    {
+                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                    }
+                    else
+                    {
+                        ViewBag.SegmentoConsultoraMenu = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    }                    
+
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
                     MenuBelcorpResponde();
@@ -334,22 +344,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SepararItemsMenu(ref temp, menuOriginal, itemMenu.PermisoID);
 
-                if (itemMenu.EsServicios)
-                {
-                    var servicios = BuildMenuService();
+                //if (itemMenu.EsServicios)
+                //{
+                //    var servicios = BuildMenuService();
 
-                    foreach (var progs in servicios)
-                    {
-                        temp.Add(new PermisoModel()
-                        {
-                            Descripcion = progs.Descripcion,
-                            UrlItem = progs.Url,
-                            PaginaNueva = true,
-                            Mostrar = true,
-                            EsDireccionExterior = progs.Url.ToLower().StartsWith("http")
-                        });
-                    }
-                }
+                //    foreach (var progs in servicios)
+                //    {
+                //        temp.Add(new PermisoModel()
+                //        {
+                //            Descripcion = progs.Descripcion,
+                //            UrlItem = progs.Url,
+                //            PaginaNueva = true,
+                //            Mostrar = true,
+                //            EsDireccionExterior = progs.Url.ToLower().StartsWith("http")
+                //        });
+                //    }
+                //}
 
                 itemMenu.SubMenus = temp;
             }
@@ -548,6 +558,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
+                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
 
                 return model;
 
@@ -743,6 +755,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
 
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
+                ViewBag.OfertaFinal = model.OfertaFinal;
+                ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
 
                 return model;
 
@@ -914,6 +928,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+                model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
             }
             Session["UserData"] = model;
 
@@ -1242,6 +1257,12 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
+        protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
+        {
+            if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
+        }
+
         #endregion
         
         #region barra
@@ -1253,8 +1274,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var listProducto = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
-
                 var rtpa = ServicioProl_CalculoMontosProl(false);
                 if (!rtpa.Any())
                     return objR;
@@ -1309,8 +1328,12 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
                 objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
 
+                var listProducto = ObtenerPedidoWebDetalle();
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
+
+                objR.CantidadProductos = listProducto.Sum(p => p.Cantidad);
+                objR.CantidadCuv = listProducto.Count();
 
                 #region listaEscalaDescuento
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
@@ -1369,11 +1392,5 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
         #endregion
-
-        protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
-        {
-            if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
-            return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
-        }
     }
 }

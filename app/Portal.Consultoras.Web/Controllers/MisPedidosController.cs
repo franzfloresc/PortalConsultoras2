@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using sc =  Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
@@ -29,17 +30,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    pedidoActual = sv.GetPedidosWebByConsultoraCampania(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID);
-                    listaPedidoFacturados = sv.GetPedidosFacturados(userData.PaisID, userData.CodigoConsultora).ToList();
+                    //pedidoActual = sv.GetPedidosWebByConsultoraCampania(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID);
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
                 }
+                using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
+                {
+                    model.Clientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                }
+
+                listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
 
                 model.PedidoActual = pedidoActual ?? new BEPedidoWeb();
 
-                if (listaPedidoFacturados != null && listaPedidoFacturados.Count > 0)
+                if (listaPedidoFacturados.Count > 0)
                 {
-                    if (model.PedidoActual.CampaniaID != 0 && listaPedidoFacturados.Count == 4)
-                        listaPedidoFacturados.RemoveAt(3);
-
                     listaPedidoFacturados.Update(x => {
                         x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID);
                         x.ImporteCredito = x.ImporteTotal - x.Flete; 
@@ -51,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePercepcion = userData.CodigoISO == Constantes.CodigosISOPais.Peru;
                 model.Simbolo = userData.Simbolo;
-                model.UserIso = userData.CodigoISO;
+                model.UserIso = userData.CodigoISO;                
             }
             catch (FaultException ex)
             {
@@ -592,9 +596,11 @@ namespace Portal.Consultoras.Web.Controllers
             // Creamos la estructura
             var data = new
             {
+                tipo = estado.ToLower(),
                 ClienteID = cliente,
-                itm.Nombre,
+                Nombre = cliente == -1 ? "" : itm.Nombre,
                 CampaniaId,
+                userData.NombreConsultora,
 
                 pag.PageCount,
                 pag.CurrentPage,
@@ -606,15 +612,18 @@ namespace Portal.Consultoras.Web.Controllers
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
+                OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),
                 ImporteFacturado = ImporteTotal,
                 Rows = items.Select(a => new
                 {
+                    tipo = estado.ToLower(),
                     userData.Simbolo,
                     a.CUV,
                     a.DescripcionProd,
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
-                    ImporteTotal = Util.DecimalToStringFormat(a.ImporteTotal, userData.CodigoISO)
+                    ImporteTotal = Util.DecimalToStringFormat(a.ImporteTotal, userData.CodigoISO),
+                    a.NombreCliente
                 })
             };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -642,7 +651,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora).ToList();
                 }
-                
+                lst.Update(c => c.NombreCliente = c.Nombre);
                 #endregion
             }
 
@@ -680,11 +689,13 @@ namespace Portal.Consultoras.Web.Controllers
                         Cantidad = pedido.Cantidad,
                         PrecioUnidad = pedido.PrecioUnidad,
                         ImporteTotal = pedido.ImporteTotal,
-                        ImporteTotalPedido = pedido.MontoDescuento
+                        ImporteTotalPedido = pedido.MontoDescuento,
+                        NombreCliente = ""
                     });
                 }
                 #endregion
             }
+            
             Session["MisPedidos-DetallePorCampania"] = lst;
             Session["MisPedidos-DetallePorCampania-Campania"] = CampaniaId;
             Session["MisPedidos-DetallePorCampania-Estado"] = estado;

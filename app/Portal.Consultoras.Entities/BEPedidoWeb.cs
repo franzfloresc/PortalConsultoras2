@@ -69,19 +69,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaProceso { get; set; }
         [DataMember]
+        public decimal MontoTotalProl { get; set; }
+
+        [DataMember]
+        public decimal MontoAhorroCatalogo { get; set; }
+
+        [DataMember]
+        public decimal MontoAhorroRevista { get; set; }
+
+        [DataMember]
         public decimal DescuentoProl { get; set; }
-        [DataMember]
-        public decimal MontoTotalProl { get; set; }        
-        [DataMember]
-        public decimal MontoAhorroRevista { get; set; } //R201615081
-        [DataMember]
-        public decimal MontoAhorroCatalogo { get; set; } //R201615081
-        [DataMember]
-        public decimal MontoEscala { get; set; } //R201615081
 
         [DataMember]
-        public decimal MontoDescuento { get; set; }
-
+        public decimal MontoEscala { get; set; }
 
         [DataMember]
         public string CanalIngreso { get; set; }
@@ -146,15 +146,15 @@ namespace Portal.Consultoras.Entities
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
             if (DataRecord.HasColumn(row, "FechaProceso") && row["FechaProceso"] != DBNull.Value)
                 FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
-            if (DataRecord.HasColumn(row, "DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
-                DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);                
             if (DataRecord.HasColumn(row, "MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
                 MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value) //R201615081
+            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
                 MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value) //R201615081
+            if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
                 MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (DataRecord.HasColumn(row, "MontoEscala") && row["MontoEscala"] != DBNull.Value) //R201615081
+            if (DataRecord.HasColumn(row, "DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
+                DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
+            if (DataRecord.HasColumn(row, "MontoEscala") && row["MontoEscala"] != DBNull.Value)
                 MontoEscala = Convert.ToDecimal(row["MontoEscala"]);
             if (DataRecord.HasColumn(row, "CanalIngreso") && row["CanalIngreso"] != DBNull.Value)
                 CanalIngreso = Convert.ToString(row["CanalIngreso"]);

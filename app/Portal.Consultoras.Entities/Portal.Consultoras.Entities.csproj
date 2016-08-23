@@ -84,7 +84,6 @@
     <Compile Include="BEConfiguracionValidacion.cs" />
     <Compile Include="BEConfiguracionValidacionNuevoPROL.cs" />
     <Compile Include="BEConfiguracionValidacionZona.cs" />
-    <Compile Include="BEConsultorasProgramaNuevas.cs" />
     <Compile Include="BELogConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionRecojo.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="BEConsultoraEstadoSAC.cs" />
     <Compile Include="BEConsultoraFicticia.cs" />
     <Compile Include="BEConsultoraSolicitudCliente.cs" />
+    <Compile Include="BEConsultorasProgramaNuevas.cs" />
     <Compile Include="BEConsultoraTop.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -878,13 +878,12 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID);
 
         [OperationContract]
-        string PruebaPase();
-
-        [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
         [OperationContract]
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
 
+        [OperationContract]
+        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID);
     }
 }

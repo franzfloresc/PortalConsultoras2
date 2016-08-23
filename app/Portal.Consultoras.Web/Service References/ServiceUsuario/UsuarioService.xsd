@@ -14,6 +14,7 @@
       <xs:element minOccurs="0" name="CampaniaDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaInicioLider" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CatalogoPersonalizado" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClaveSecreta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />

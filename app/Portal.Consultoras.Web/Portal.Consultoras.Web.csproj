@@ -207,8 +207,6 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ProductosDestacadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\RevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
@@ -256,9 +254,7 @@
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Controllers\ConsultoraDigitalesController.cs" />
-    <Compile Include="Controllers\EstadoCuentaController.cs" />
     <Compile Include="Controllers\HojaInscripcionController.cs" />
-    <Compile Include="Controllers\LugaresPagoController.cs" />
     <Compile Include="Controllers\MiAcademiaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerPedidoController.cs" />
@@ -267,7 +263,6 @@
     </Compile>
     <Compile Include="Controllers\BelcorpNoticiasController.cs" />
     <Compile Include="Controllers\BienvenidaController.cs" />
-    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\ClienteContactaConsultoraController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />
@@ -324,14 +319,12 @@
     <Compile Include="Controllers\PedidoFICController.cs" />
     <Compile Include="Controllers\PedidoWebAnterioresController.cs" />
     <Compile Include="Controllers\PedidoWebController.cs" />
-    <Compile Include="Controllers\PercepcionesController.cs" />
     <Compile Include="Controllers\ProveedorDespachoCobranzaController.cs" />
     <Compile Include="Controllers\PruebasController.cs" />
     <Compile Include="Controllers\ReportePedidoCampaniaController.cs" />
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
-    <Compile Include="Controllers\RevistaGanaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
@@ -1029,7 +1022,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="AppDeCatalogos.html" />
-    <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index_old.cshtml" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
     <Content Include="Content\Banderas\CL.png" />
@@ -1073,6 +1065,7 @@
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
+    <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.svg" />
     <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.svg" />
@@ -1344,15 +1337,9 @@
     <Content Include="Content\Images\carrusel_p.png" />
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
-    <Content Include="Content\Images\Esika\azteca.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
-    <Content Include="Content\Images\Esika\banamex.png" />
-    <Content Include="Content\Images\Esika\bancomer.png" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
-    <Content Include="Content\Images\Esika\bbva.png" />
-    <Content Include="Content\Images\Esika\bcp.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
-    <Content Include="Content\Images\Esika\carsa.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1569,7 +1556,7 @@
     <Content Include="Content\Images\Esika\catalogos.png" />
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
-    <Content Include="Content\Images\Esika\catálogos.png" />
+    <Content Include="Content\Images\Esika\catalogo_menu.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1594,7 +1581,6 @@
     <Content Include="Content\Images\Esika\expoferta_c09.png" />
     <Content Include="Content\Images\Esika\facebook.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
-    <Content Include="Content\Images\Esika\financiero.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
     <Content Include="Content\Images\Esika\flechita.png" />
     <Content Include="Content\Images\Esika\flechita.svg" />
@@ -1631,7 +1617,6 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
-    <Content Include="Content\Images\Esika\interbank.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1649,8 +1634,6 @@
     <Content Include="Content\Images\Esika\mensajes.png" />
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
-    <Content Include="Content\Images\Esika\multifacil.png" />
-    <Content Include="Content\Images\Esika\nacion.png" />
     <Content Include="Content\Images\Esika\next.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
@@ -1665,13 +1648,12 @@
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
+    <Content Include="Content\Images\Esika\pestana_esika.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
-    <Content Include="Content\Images\Esika\santander.png" />
-    <Content Include="Content\Images\Esika\scotia.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -1689,8 +1671,7 @@
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
     <Content Include="Content\Images\Esika\venta.png" />
-    <Content Include="Content\Images\Esika\ver-mas-liquidaciones.jpg" />
-    <Content Include="Content\Images\Esika\western.png" />
+    <Content Include="Content\Images\Esika\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Esika\youtube.png" />
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
@@ -1777,6 +1758,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
     <Content Include="Content\Images\Lbel\boton_pedido_hover.png" />
@@ -1792,7 +1774,6 @@
     <Content Include="Content\Images\Lbel\carrito_resumen.png" />
     <Content Include="Content\Images\Lbel\catalogo.png" />
     <Content Include="Content\Images\Lbel\catalogos.png" />
-    <Content Include="Content\Images\Lbel\catálogos.png" />
     <Content Include="Content\Images\Lbel\celular.png" />
     <Content Include="Content\Images\Lbel\check_liquidacion.png" />
     <Content Include="Content\Images\Lbel\circulo.png" />
@@ -1873,7 +1854,7 @@
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />
-    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones.jpg" />
+    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
     <Content Include="Content\Images\list_add_font.png" />
@@ -2006,6 +1987,7 @@
     <Content Include="Content\Images\login\aniversario.png" />
     <Content Include="Content\Images\login\aniversario01.png" />
     <Content Include="Content\Images\mobile\img-icon\alert-success.png" />
+    <Content Include="Content\Images\mobile\img-icon\bajar-app.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_compartirface.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_whatsapp.png" />
     <Content Include="Content\Images\mobile\img-icon\boton_whatsapp_compartir.png" />
@@ -2018,6 +2000,7 @@
     <Content Include="Content\Images\mobile\img-icon\icon-nuevo-cliente-green.png" />
     <Content Include="Content\Images\mobile\img-icon\icon-nuevo-cliente-white.png" />
     <Content Include="Content\Images\mobile\img-icon\icon-tarjeta.png" />
+    <Content Include="Content\Images\mobile\img-icon\icono-app.jpg" />
     <Content Include="Content\Images\mobile\img-icon\img-next.png" />
     <Content Include="Content\Images\mobile\img-icon\img-prev.png" />
     <Content Include="Content\Images\mobile\img-icon\img-producto-agregado.png" />
@@ -2047,6 +2030,7 @@
     <Content Include="Content\Images\mobile\img-icon\mobile_icon_zona_liquidacion.png" />
     <Content Include="Content\Images\mobile\img-icon\m_ic_cerrar.png" />
     <Content Include="Content\Images\mobile\img-icon\m_ic_ingresa_pedido.png" />
+    <Content Include="Content\Images\mobile\img-icon\whatsapp-50x50.png" />
     <Content Include="Content\Images\mobile\img-showroom\close_mobile.png" />
     <Content Include="Content\Images\mobile\img-showroom\deco_nombre.png" />
     <Content Include="Content\Images\mobile\img-showroom\etiqueta.png" />
@@ -2067,10 +2051,12 @@
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
+    <Content Include="Content\Images\mobile\Lbel\bandera.png" />
     <Content Include="Content\Images\mobile\Lbel\camara.png" />
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
+    <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_exclamacion_lbel.svg" />
@@ -2306,6 +2292,25 @@
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\MultiSelect\css\common.css" />
+    <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-en.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-es.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-fr.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-hu.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-it.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ja.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ru.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui.multiselect.pt-br.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-pack.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\changes.txt" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
+    <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
@@ -2369,13 +2374,10 @@
     <Content Include="Areas\Mobile\Views\PedidoCliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\AgregarCliente.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Detalle_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\ListadoPedido.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\ListaEstrategias.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado.cshtml" />
-    <Content Include="Areas\Mobile\Views\ProductosDestacados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstadoCuenta\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
@@ -2386,7 +2388,6 @@
     <Content Include="Areas\Mobile\Views\Web.config" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Revista\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -2564,10 +2565,8 @@
     <Content Include="Content\Css\Site\Lbel\fonts\slick.eot" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.woff" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Catalogo\Index - Old.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
@@ -3291,7 +3290,6 @@
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
     <Content Include="Views\Incentivo\Incentivo.cshtml" />
-    <Content Include="Views\RevistaGana\AdministrarRevistaGana.cshtml" />
     <Content Include="Views\AdministrarBelcorpResponde\Index.cshtml" />
     <Content Include="Views\AdministrarFeErratas\Index.cshtml" />
     <Content Include="Views\Tracking\Index.cshtml" />
@@ -3440,7 +3438,6 @@
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
     <Content Include="Views\Cliente\MisClientes.cshtml" />
-    <Content Include="Views\Cliente\Index_old.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
@@ -3475,12 +3472,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\AdministrarEstrategia\EstrategiasAll.cshtml" />
-    <Content Include="Views\EstadoCuenta\Index.cshtml" />
-    <Content Include="Views\EstadoCuenta\LugaresPago.cshtml" />
-    <Content Include="Views\LugaresPago\LugaresPago.cshtml" />
-    <Content Include="Views\LugaresPago\_Index.cshtml" />
-    <Content Include="Views\Percepciones\Index.cshtml" />
-    <Content Include="Views\Percepciones\PercepcionDetalle.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3604,7 +3595,6 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
     <Content Include="Views\Pedido\Index_old.cshtml" />
-    <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
@@ -3623,7 +3613,6 @@
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnteriores.cshtml" />
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnterioresDetalle.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalle.cshtml" />
-    <Content Include="Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Views\ConsultoraFicticia\Index.cshtml" />
     <Content Include="Views\Shared\_SACMenu.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado_old.cshtml" />
@@ -3697,7 +3686,6 @@
     <Content Include="Views\BelcorpNoticias\_Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\RevistaGana\Index.cshtml" />
     <Content Include="Views\FamiliaProtegida\Index.cshtml" />
     <None Include="Web References\ServiceOSBBelcorpConsultora\ConsultoraPS.xsd">
       <SubType>Designer</SubType>

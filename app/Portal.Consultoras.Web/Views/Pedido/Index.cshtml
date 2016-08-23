@@ -25,8 +25,10 @@
         }
 
         .campana:hover .info_cam {
-            display: none;
+            display:none;
         }
+
+        
     </style>
 }
 <div class="franja_negra"></div>
@@ -53,8 +55,8 @@
     <input id="hdnHasFlexipago" type="hidden" value="@Model.IndicadorFlexiPago" />
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
     <input id="hdfNomConsultora" type="hidden" value="@Model.NombreConsultora" />
-
-    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
+    
+    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo"/>
 
     <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
     <div class="clear"></div>
@@ -133,11 +135,11 @@
         </form>
     </div>
     <div class="clear"></div>
-
+    
     <div class="caja_pedidos">
         <div id="divBarra">
             <div id="divBarraMensaje">
-                <div id="divBarraMensajeLogrado">
+                <div id="divBarraMensajeLogrado" style="display:none;">
                     <div style="float:right;">
                         <div class="content_BarrMensaje">
                             <div class="mensaje_barra" style="display: inline;"></div>
@@ -146,26 +148,26 @@
                         <hr class="clear" />
                         <div class="flechita_barra"></div>
                     </div>
-                </div>
+                </div>                
             </div>
             <hr class="clear" />
             <div id="divBarraLimite">
                 @*<div class="monto_minimo_barra" style="width: 18%;">25% DSCTO<br/>M. mínimo: S/. 250
-                        <div class="linea_indicador_barra"></div>
-                    </div>
-                    <div class="bandera_marcador"></div>
-                    <div class="monto_minimo_barra">
-                        30% DSCTO<br />S/. 601
-                        <div class="linea_indicador_barra"></div>
-                    </div>
-                    <div class="monto_minimo_barra ml_16">
-                        35% DSCTO <br />S/. 1201
-                        <div class="linea_indicador_barra"></div>
-                    </div>
-                    <div class="monto_minimo_barra ml_6">
-                        40% DSCTO<br />S/. 1901
-                        <div class="linea_indicador_barra"></div>
-                    </div>*@
+                    <div class="linea_indicador_barra"></div>
+                </div>
+                <div class="bandera_marcador"></div>
+                <div class="monto_minimo_barra">
+                    30% DSCTO<br />S/. 601
+                    <div class="linea_indicador_barra"></div>
+                </div>
+                <div class="monto_minimo_barra ml_16">
+                    35% DSCTO <br />S/. 1201
+                    <div class="linea_indicador_barra"></div>
+                </div>
+                <div class="monto_minimo_barra ml_6">
+                    40% DSCTO<br />S/. 1901
+                    <div class="linea_indicador_barra"></div>
+                </div>*@
             </div>
             <hr class="clear" />
             <div id="divBarraPosicion" class="BarraPosicion">
@@ -177,8 +179,7 @@
             <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Guarda tu pedido para actualizar tu barra.</div>
         </div>
         <div class="clear"></div>
-        @*<input type="button" id="btnPrueba" onclick="ClickPrueba();" value="PRUEBA"/>*@
-
+    
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
         <input type="hidden" id="hdfTotal" value="@Model.Total" />
@@ -233,7 +234,7 @@
                             <p class="monto_total">
                                 Monto total :
                             </p>
-
+                            
                             <div id="divMontosEscalaDescuentoTexto" style="display: block;">
                                 @if (Model.MontoDescuento > 0)
                                 {
@@ -246,14 +247,14 @@
                                 }
                             </div>
                             <p class="monto_ganancia">
-                                @{
-                                    string cabezaEscala = null, pieEscala = null;
+                                @{                                                              
+                                    string cabezaEscala=null, pieEscala=null;
                                     if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                                         || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                                     {
                                         cabezaEscala = "Ganancia estimada total*";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                                    }
+                                    }                                   
                                     else if (Model.PaisID == 3) //CHILE
                                     {
                                         cabezaEscala = "Comisión y ahorro total";
@@ -267,8 +268,8 @@
                                     else if (Model.PaisID == 5) //COSTA RICA
                                     {
                                         cabezaEscala = "Oportunidad de ahorro total";
-                                        pieEscala = "";
-                                    }
+                                        pieEscala = "";                
+                                    }                                                                                                        
                                 }
                                 @(cabezaEscala):
                             </p>
@@ -285,7 +286,7 @@
                                     </span>
                                 </b>
                             </p>
-
+                            
                             <div id="divMontosEscalaDescuento" style="display: block;">
                                 @if (Model.MontoDescuento > 0)
                                 {
@@ -300,8 +301,8 @@
                                         </b>
                                     </p>
                                 }
-                            </div>
-
+                            </div>                            
+                            
                             <p class="monto_ganancia">
                                 <b>
                                     @Model.Simbolo <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
@@ -512,6 +513,7 @@
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 <input type="hidden" id="hdMontoMaximo" value="@Model.MontoMaximo" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
+<input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
@@ -756,7 +758,7 @@
     <div class="popup_ofertaFinal">
         <div class="btn_cerrar_ofertaFinal">
             <a href="javascript:;" title="Cerrar" id="lnkCerrarPopupOfertaFinal">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar"/>
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
@@ -1024,29 +1026,27 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="vertical" data-item="producto">
-        <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+        <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;"  onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
             </div>
             {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-            {{/iff}}
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
 
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-            {{#if_eq FlagEstrella '1' }}
-            <div class="etiqueta_producto">
-                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-            </div>
-            {{/if_eq}}
-            {{/if_eq}}
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                    {{#if_eq FlagEstrella '1' }}
+                    <div class="etiqueta_producto">
+                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                {{/if_eq}}
             {{/if_eq}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -1060,17 +1060,17 @@
                 </p>
                 {{/if_eq}}
 
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                {{#if_eq EtiquetaID '1'}}
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{/if_eq}}
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
+                    {{#if_eq EtiquetaID '1'}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{else}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{/if_eq}}
 
                 {{else}}
                 <div class="producto_precio">
@@ -1081,7 +1081,7 @@
                 <div class="contenedor_cantidad_producto">
                     {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
                     <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />
+                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />                        
                     </div>
                     <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                         AGREGAR
@@ -1116,7 +1116,7 @@
                     <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGREGAR
                     </a>
-                    {{/iff}}
+                    {{/iff}}                    
                     <div class="clear"></div>
                 </div>
             </div>

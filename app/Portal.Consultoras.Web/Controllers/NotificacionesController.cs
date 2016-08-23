@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.Models;
-using System.Text;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -56,6 +56,48 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaNotificaciones = olstNotificaciones;
 
             return PartialView("ListadoNotificaciones", model);
+        }
+
+        public JsonResult ActualizarEstadoNotificacion(long ProcesoId, int TipoOrigen)
+        {
+            try
+            {
+                var PaisId = userData.PaisID;
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    //R2319 - JLCS
+                    if (TipoOrigen == 4)
+                    {
+                        sv.UpdNotificacionSolicitudClienteVisualizacion(PaisId, ProcesoId);
+                    }//R20150802
+                    if (TipoOrigen == 5)
+                    {
+                        sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);// Revisar  debería ir el CodigoConsultora.
+                    }
+                    else
+                    {
+                        sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
+                    }
+                }
+                var data = new
+                {
+                    success = true,
+                    message = "Se actualizo con exito la notificacion"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                var data = new
+                {
+                    success = true,
+                    message = e.Message
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         //R2319 - JLCS

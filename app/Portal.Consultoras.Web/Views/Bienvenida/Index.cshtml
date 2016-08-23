@@ -319,6 +319,7 @@
 
     </div>
     <!-- FIN TUTORIALES-->
+
     <!-- SIN TUTORIALES -->
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
@@ -341,6 +342,7 @@
     </div>
 
     <!-- FIN SIN TUTORIALES-->
+
     <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
@@ -353,14 +355,17 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
+            <span>
             <a href="#">
                 ¿Cómo conseguir tu primer pedido?
             </a>
             </span>
+            <span>
             <a href="#">
                 Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
             </a>
             </span>
+            <span>
             <a href="#">
                 ¿Cómo fidelizar a un cliente?
             </a>
@@ -368,6 +373,7 @@
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
+
     <!--CAROUSEL LIQUIDACION HOME-->
     <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
@@ -382,6 +388,7 @@
         </div>
     </div>
     <!--FIN CAROUSEL LIQUIDACION HOME-->
+
     <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
@@ -1134,11 +1141,9 @@
 
             {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
             <div class="etiqueta_producto">
                 <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
             </div>
-            {{/iff}}
             {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
             <div class="etiqueta_producto">
                 <img src="{{ImagenURL}}" alt="Etiqueta Producto" />

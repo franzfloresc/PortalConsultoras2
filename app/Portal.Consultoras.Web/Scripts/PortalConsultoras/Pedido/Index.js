@@ -179,6 +179,7 @@ $(document).ready(function () {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             CerrarSplash();
+            limpiarInputsPedido();
             return false;
         } else {
             var model = {
@@ -2512,7 +2513,7 @@ function MostrarMensajeProl(data) {
                     showDialog("divReservaSatisfactoria");
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 4000);
+                    }, 8000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2640,9 +2641,9 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
 
             if (listaProductoOfertaFinal != null) {
                 $.each(listaProductoOfertaFinal, function(index, value) {
-                    if (value.PrecioCatalogo >= montoFaltante) {
+                    if (value.PrecioCatalogo >= montoFaltante && value.PrecioCatalogo > cumpleParametria.precioMinimoOfertaFinal) {
                         productosMostrar.push(value);
-                        return false;
+                        //return false;
                     }
                 });
 
@@ -2671,9 +2672,12 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     var resultado = false;
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
+    var precioMinimoOfertaFinal = 0;
 
     //Escala
     if (tipoPopupMostrar == 1) {
+        var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
+        if (esConsultoraNueva == "False") {
         if (codigoMensajeProl == "00") {
             var escalaDescuento = null;
             var escalaDescuentoSiguiente = null;
@@ -2702,6 +2706,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                         montoFaltante = diferenciaMontoEd;
                         porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
+                            precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
                         resultado = true;
                     } else {
                         resultado = false;
@@ -2711,6 +2716,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 }
             }
         }
+        }        
     } else {
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
@@ -2729,6 +2735,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     if (parametria != null && parametria.length != 0) {
                         if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
                             montoFaltante = diferenciaMonto;
+                            precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
                             resultado = true;
                         } else {
                             resultado = false;
@@ -2748,7 +2755,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     return {
         resultado: resultado,
         montoFaltante: montoFaltante,
-        porcentajeDescuento: porcentajeDescuento
+        porcentajeDescuento: porcentajeDescuento,
+        precioMinimoOfertaFinal: precioMinimoOfertaFinal
     };
 }
 
@@ -3687,6 +3695,8 @@ function MostrarBarra(datax) {
     $("#divBarra #divLimite").html("");
     var datax = datax || new Object();
     data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
+    dataBarra = data;
+    ActualizarGanancia(data);
 
     ActualizarGanancia(data);
 
@@ -3857,6 +3867,7 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
+        htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
         htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
 
         var wText = ind == 0 ? "130" : "90";
@@ -3938,17 +3949,33 @@ function MostrarBarra(datax) {
         }
     }
     else {
+        if (mn > 0) {
         $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
+    }
+        else {
+            $("#punto_" + indPuntoLimite).css("margin-right", wAreaMover);
+        }
+    }
+
+    if (mn == 0) {
+        wAreaMover += $("#punto_" + 0).width();
     }
     
     var wPuntosAnterior = 0;
     indAux = indPuntoLimite;
     while (indAux > 0) {
+        if (indAux == 1 && mn == 0) {
+            wPuntosAnterior += 0;
+        }
+        else {
         wPuntosAnterior += $("#punto_" + (indAux - 1)).width();
+        }
         indAux--;
     }
     if (vLogro >= vLimite) {
+        if (indPuntoLimite > 0 && mn > 0) {
         wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+    }
     }
 
     var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
@@ -3966,8 +3993,9 @@ function MostrarBarra(datax) {
         }
     }
     else {
-        if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
-            wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
+        var indxx = indPuntoLimite == 0 && mn == 0 ? (indPuntoLimite + 1) : indPuntoLimite;
+        if ($("#punto_" + indxx).find(".bandera_marcador").length == 0) {
+            wLimite += parseInt($("#punto_" + (indxx) + " >  div").width() / 2, 10);
         }
     }
     wAreaMover = wLimite - wLimiteAnterior;
@@ -4160,22 +4188,6 @@ function MostrarBarra(datax) {
 }
 
 // Fin Barra
-
-function ClickPrueba() {
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ClickPrueba',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (response) {
-            alert(response.message);
-        },
-        error: function (error) {
-            alert(error);
-        }
-    });
-}
 
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {

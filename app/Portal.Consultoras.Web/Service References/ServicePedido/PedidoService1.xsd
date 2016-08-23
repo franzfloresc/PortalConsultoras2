@@ -36,7 +36,6 @@
       <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
       <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
@@ -1336,6 +1335,7 @@
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoParametriaOfertaFinal" nillable="true" type="xs:string" />
     </xs:sequence>

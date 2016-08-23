@@ -126,7 +126,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }
-        public bool ModificaPedido { get; set; }
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }
@@ -256,5 +255,7 @@ namespace Portal.Consultoras.Web.Models
         public int OfertaFinal { get; set; }
 
         public bool EsOfertaFinalZonaValida { get; set; }
+
+        public int CatalogoPersonalizado { get; set; }
     }
 }
