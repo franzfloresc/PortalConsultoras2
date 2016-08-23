@@ -20426,6 +20426,11 @@ label.checkpop.c_on {
     font-weight: 500;
     font-size: 13px;
 }
+
+.seguir_pedido.ver_video_introductorio{
+    margin-top: 3px;
+}
+
 .seguir_pedido:hover{
     text-decoration:underline;
 }

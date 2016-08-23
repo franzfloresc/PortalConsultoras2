@@ -134,6 +134,7 @@
             <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
+            <a class="seguir_pedido ver_video_introductorio">VER VIDEO INTRODUCTORIO</a>
             @*@if (Model.PaisID == 10)
                 {
                 <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
@@ -1528,6 +1529,24 @@
         }
 
         $(document).ready(function () {
+
+            // Evento para visualizar video introductorio al hacer click
+
+            $(".ver_video_introductorio").click(function () {
+
+                $('#video_introductorio').fadeIn(function () {
+
+                    $("#video_introductorio").delay(200);
+
+                    $("#video_introductorio").fadeIn(function () {
+
+                        $(".popup_video_introductorio").fadeIn();
+
+                    });
+
+                });
+
+            });
             
             // Microefecto al agregar productos al carrito de compras
 
