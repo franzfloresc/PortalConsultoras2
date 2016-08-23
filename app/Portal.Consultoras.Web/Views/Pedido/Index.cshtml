@@ -246,13 +246,13 @@
                                     </p>
                                 }
                             </div>
-                            <p class="monto_ganancia">
+                            <p class="monto_ganancia" style="color:#e81c36;">
                                 @{                                                              
                                     string cabezaEscala=null, pieEscala=null;
                                     if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                                         || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                                     {
-                                        cabezaEscala = "Ganancia estimada total*";
+                                        cabezaEscala = "GANANCIA";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }                                   
                                     else if (Model.PaisID == 3) //CHILE
@@ -312,12 +312,16 @@
                     </div>
                 </div>
                 <div class="contenedor_btnGuardarPedido">
-                    <div class="mensajes">
+                    @*<div class="mensajes">
                         <div class="mensaje_guardar_pedido">
                             ¡No olvides guardar tu pedido!
                             <span style="font-size:12px;">&#9658;</span>
                         </div>
                         <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
+                    </div>*@
+                    <div class="tooltip_importanteGuardarPedido">
+                        Es importante <br />que guardes tu pedido
+                        <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
                     </div>
                     <div class="boton_guardarPedido">
                         <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />

@@ -109,6 +109,44 @@ header {
     height: 40px;
     /* padding-right: 5px; */
 }
+
+.transicion{
+    position:absolute;
+    z-index:2000;
+}
+
+.flecha_scroll{
+    display:block;
+    position: fixed;
+    top: 90%;
+    right: 2%;
+    width: 35px;
+    height: 35px;
+    z-index: 1000;
+}
+
+.flecha_scroll a{
+    display:block;
+    height:35px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    background:url(../../../Images/flecha_scroll.svg) no-repeat center center;
+    background-size:cover;
+}
+
+.flecha_scroll_arriba{
+    background:url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center!important;
+    background-size:cover;
+}
+
+.flecha_scroll a:hover{
+    opacity:0.5;
+}
+
 .mensaje_header{
      margin-top: 15px;
     float: left;
@@ -125,6 +163,10 @@ header {
     height: 24px;
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
+}
+
+.cart_compras{
+    cursor:pointer;
 }
 
 .mensaje_svg {
@@ -1883,7 +1925,7 @@ header {
     display: inline-block;
     /* margin-right: 20px;
     margin-top: 27px; */
-    margin-bottom:25px;
+    margin-bottom:0px;
     vertical-align: top;
 }
 
@@ -1897,8 +1939,9 @@ header {
 }
 
 .caja_montos_cantidades .monto_ganancia, .caja_montos_cantidades .monto_total, .monto_descuento, .monto_montodescuento{
-    text-align:right;
-    font-size:16px;
+    text-align: right;
+    font-size: 20px;
+    line-height: 33px;
 }
 
 /*.caja_montos_textos .monto_total{
@@ -1960,6 +2003,37 @@ header {
     font-family: 'Lato';
     font-size: 12px;
     margin-right: 13px;
+}
+
+.tooltip_importanteGuardarPedido{
+    display: inline-block;
+    vertical-align: middle;
+    width: 213px;
+    height: 107px;
+    padding: 20px 36px 20px 20px;
+    margin-right: 15px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 900;
+    color: #e81c36;
+    text-align: center;
+    line-height: 17px;
+    margin-top: 10px;
+}
+
+.tooltip_importanteGuardarPedido span{
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    display: block;
+    margin-top: 5px;
+    line-height: 15px;
 }
 
 .boton_guardarPedido{
@@ -2146,12 +2220,12 @@ header {
     font-family:'Lato';
     width:218px;
     height:44.1px;
-    /*background:#cd2c39;*/
-    background:#FFF;
+    background:#e81c36;
+    /*background:#FFF;*/
     border:0px;
-    border:2px solid #d02d3a;
-    color:#000;
-    /*color:#FFF;*/
+    /*border:2px solid #d02d3a;*/
+    /*color:#000;*/
+    color:#FFF;
     font-size:12.7px;
     line-height: 41.1px;
     text-align:center;
@@ -2210,19 +2284,21 @@ header {
 }
 .monto_total{
     margin-top:-3px;
-    font-size:14px;
-    font-weight:500;
+    font-size:16px;
+    font-weight:400;
     /*max-width:302px;
     margin-bottom:2px;*/
     text-align:right;
-    line-height: 24px;
+    line-height: 42px;
+    text-transform:uppercase;
 }
 
 .monto_ganancia{
-    font-size:14px;
-    font-weight:normal;
-    max-width:302px;
-    text-align:right;
+    font-size: 16px;
+    font-weight: normal;
+    max-width: 302px;
+    text-align: right;
+    text-transform: uppercase;
 }
 .monto_descuento, .monto_montodescuento {
     
@@ -2327,7 +2403,7 @@ header {
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:0.7%;
+    padding-right:1.5%;
 }
 
 .cabecera_producto{
@@ -3148,7 +3224,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /*width:96.5px;*/
     height:200px;
     text-align: center;
-    overflow: hidden;
+    overflow:hidden;
 }
 
 .etiqueta_producto {
@@ -4898,7 +4974,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -300px auto 0 -360.5px;
+    margin: -271px auto 0 -360.5px;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -5179,6 +5255,33 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .campos_cambiarContrasenia{
     display:none;
+}
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -273.5px auto 0 auto;
+    width: 95%;
+    max-width: 1040px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 5;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio iframe{
+    display:block;
+    width:100%;
+    height:547px;
 }
 
 /* ACTUALIZACIÓN PÁGINA MIS PAGOS */
@@ -10970,9 +11073,9 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+/*.campana:hover .info_cam {
     display: block;
-}
+}*/
 
 /*.info_cam h1 {
     font-family: 'lato';
@@ -20484,16 +20587,20 @@ label.checkpop.c_on {
     right: 0px;
 }
 
-.producto_img_home {
-    height: 166px;
-    text-align: center;
-    margin-top: 20px;
+.producto_img_home{
+    height:166px;
+   
+    text-align:center;
+    margin-top:20px;
+   
+    /*background:#ccc;*/
 }
 
-    .producto_img_home img {
-        width: auto;
-        height: 93.5%;
-    }
+.producto_img_home img{
+    width: auto;
+    height: 93.5%;
+}
+
 .content_carrusel_ofertas .slick-track{
     height:385px;
 }
