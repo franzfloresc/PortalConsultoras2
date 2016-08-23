@@ -57,6 +57,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int FlagMostrarImg { get; set; }      // SB2-353 
 
+        [DataMember]
+        public int CodigoGeneral { get; set; }
+
         public BETipoEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoEstrategiaID") && row["TipoEstrategiaID"] != DBNull.Value)
@@ -95,6 +98,9 @@ namespace Portal.Consultoras.Entities
             // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
+
+            if (DataRecord.HasColumn(row, "CodigoGeneral") && row["CodigoGeneral"] != DBNull.Value)
+                CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
         }
 
     }
