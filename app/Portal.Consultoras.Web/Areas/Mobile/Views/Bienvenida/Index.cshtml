@@ -19,8 +19,48 @@
             background: #FFF !important;
         }
     </style>
+<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 }
+
+<!--MICHAEL-->
+
+<div class="contenedor-tutorial-lbel">
+    <div class="flexsliderTutorialMobile">
+        <ul class="slides">
+            <li><img src="~/Content/Images/Lbel/tutorial/tuto1.png" /></li>
+            <li><img src="~/Content/Images/Lbel/tutorial/tuto2.png" /></li>
+            <li><img src="~/Content/Images/Lbel/tutorial/tuto3.png" /></li>
+            <li><img src="~/Content/Images/Lbel/tutorial/tuto4.png" /></li>
+            <li><img src="~/Content/Images/Lbel/tutorial/tuto5.png" /></li>
+        </ul>
+    </div>
+
+    <div class="opciones-tutorial">
+        <div class="otromomento">Ver en otro momento</div>
+        <div class="cerrar">Cerrar <span> X</span></div>
+
+    </div>
+
+</div>
+
+<div class="contenedor-tutorial-esika">
+    <div class="flexsliderTutorialMobile">
+        <ul class="slides">
+            <li><img src="~/Content/Images/Esika/tutorial/tuto1.png" /></li>
+            <li><img src="~/Content/Images/Esika/tutorial/tuto2.png" /></li>
+            <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
+            <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
+            <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
+        </ul>
+    </div>
+
+    <div class="opciones-tutorial">
+        <div class="otromomento">Ver en otro momento</div>
+        <div class="cerrar">Cerrar <span> X</span></div>
+
+    </div>
+</div>
 
 <div class="wrapper_resumen_mobile sombra_wrapper">
     <div class="content_320">
@@ -427,6 +467,7 @@
     {{/each}}
 </script>
 @section scripts{
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
@@ -441,4 +482,32 @@
         var contadorFondoPopUp = 0;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+    <!--MICHAEL-->
+    <script type="text/javascript">
+        $('.flexsliderTutorialMobile').flexslider({
+            animation: "slide"
+        });
+
+        $(".contenedor-tutorial-lbel .cerrar").click(function () {
+            $('.contenedor-tutorial-lbel').hide();
+            $('.contenedor-tutorial-esika').hide();
+        });
+
+        $(".contenedor-tutorial-esika .cerrar").click(function () {
+            $('.contenedor-tutorial-lbel').hide();
+            $('.contenedor-tutorial-esika').hide();
+        });
+
+        $(".contenedor-tutorial-lbel .otromomento").click(function () {
+            $('.contenedor-tutorial-lbel').hide();
+            $('.contenedor-tutorial-esika').hide();
+        });
+
+        $(".contenedor-tutorial-esika .otromomento").click(function () {
+            $('.contenedor-tutorial-lbel').hide();
+            $('.contenedor-tutorial-esika').hide();
+        });
+    </script>
+
+
 }
