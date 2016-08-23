@@ -41,7 +41,7 @@
 </div>
 
 <!-- START Popup para Eliminar Item -->
-<div class="modal fade" id="popup-eliminar-item">
+@*<div class="modal fade" id="popup-eliminar-item">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,10 +58,10 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <!-- END Popup para Eliminar Item -->
 <!-- START Popup para Observaciones PROL -->
-<div class="modal fade" id="popup-observaciones-prol">
+@*<div class="modal fade" id="popup-observaciones-prol">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -79,10 +79,37 @@
             </div>
         </div>
     </div>
+</div>*@
+<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
+     <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarObsInformativas();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <h3 class="mensaje_alerta" id="modal-prol-titulo"></h3>
+        <div class="mensaje_alerta" id="modal-prol-contenido"></div>
+        <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
+            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile">ACEPTAR</a>
+        </div>
+    </div>
 </div>
 <!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
-<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
+<div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta" id="mensajeInformacionEliminar"></div>
+    </div>
+</div>
+
+@*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -90,11 +117,25 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <!-- END POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 
 <!-- START Popup para Eliminar Todo Pedido -->
-<div class="modal fade" id="divConfirmEliminarTotal">
+<div id="divConfirmEliminarTotal" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="EliminarPedidoTotalNo();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
+        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile">ACEPTAR</a>
+    </div>
+</div>
+
+
+@*<div class="modal fade" id="divConfirmEliminarTotal">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -109,7 +150,37 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<!--POP MENSAJE IMPORTANTE-->
+<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
+        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile">ACEPTAR</a>
+    </div>
 </div>
+<!--FIN-->
+
+<!--POP MENSAJE LO LOGRASTE-->
+<div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
+        <a class="btn_ok_mobile">OK</a>
+    </div>
+</div>
+<!--FIN-->
 
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />

@@ -353,7 +353,7 @@ function EliminarPedidoEvento(evento) {
 
 function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta) {
 
-    $("#popup-eliminar-item").modal("show");
+    $("#popup-eliminar-item").show();
 
     fnEliminarProducto = function () {
         var param = ({
@@ -401,7 +401,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 }
 
 function ConfirmaEliminarPedido() {
-    $("#popup-eliminar-item").modal("hide");
+    $("#popup-eliminar-item").hide();
 
     if (ReservadoOEnHorarioRestringido())
         return false;
@@ -425,12 +425,12 @@ function messageDelete(message) {
 function PedidoDetalleEliminarTodoConfirmar() {
     var total = parseFloat($('#sTotal').html());
     if (total != 0) {
-        $("#divConfirmEliminarTotal").modal("show");
+        $("#divConfirmEliminarTotal").show();
     }
 }
 
 function EliminarPedidoTotalNo() {
-    $('#divConfirmEliminarTotal').modal("hide");
+    $('#divConfirmEliminarTotal').hide();
 }
 
 function EliminarPedidoTotalSi() {
@@ -473,6 +473,7 @@ function PedidoDetalleEliminarTodo() {
             ActualizarGanancia({ MontoGananciaStr: DecimalToStringFormat(0) });
             TrackingJetloreRemoveAll(listaDetallePedido);
             if (checkTimeout(data)) {
+                messageDelete("Se eliminaron todos productos del pedido.");
                 location.reload();
             }
             CloseLoading();
@@ -855,13 +856,13 @@ function ConstruirObservacionesPROL(model) {
     if (model.ObservacionRestrictiva == false && model.ObservacionInformativa == false) {
 
         if (model.ProlSinStock) {
-            mensajePedido += "¡Lo lograste! Tu pedido fue guardado con éxito.";
+            mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
             $("#modal-prol-contenido").html("");
 
         } else {
-            mensajePedido += "¡Lo lograste! Tu pedido fue guardado con éxito.";
+            mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
             $("#modal-prol-contenido").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
