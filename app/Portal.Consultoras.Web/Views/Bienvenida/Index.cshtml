@@ -7,18 +7,7 @@
 
 @{
     Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
-    if (Model.NombreConsultora != "")
-    {
-        if (nombreConsultora != Model.NombreConsultora)
-        {
-            nombreConsultora += "...";
-        }
-        else
-        {
-            nombreConsultora += "!";
-        }
-    }
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
@@ -133,7 +122,8 @@
             </div>
             <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
+            <a class="seguir_pedido ver_video_introductorio" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
             @*@if (Model.PaisID == 10)
                 {
                 <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
@@ -398,7 +388,11 @@
         <br />
     </div>
 </div>
-
+<div class="flecha_scroll">
+    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+        @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
+    </a>
+</div>
 <!-- POPUP COMUNICADO -->
 @*<div id="divComunicado">
         <div class="terminos_title_2">
@@ -1131,12 +1125,40 @@
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 
-<script id="estrategia-template" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <div>
-        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+<!-- VIDEO INTRODUCTORIO HOME -->
+
+<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
+    <div class="popup_video_introductorio" style="display: none;">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                var tag = document.createElement("script");
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                    player = new YT.Player("player", {
+                        width: "100%",
+                        videoId: "7g6h749J02w",
+                    });
+                }
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN VIDEO INTRODUCTORIO HOME    -->
+
+    <script id="estrategia-template" type="text/x-handlebars-template">
+        {{#each this as |item|}}
+        <div>
+            <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
             <div class="producto_img_home">
-                <img src="{{FotoProducto01}}" />
+                <img src="{{FotoProducto01}}" class="imagen_producto" />
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}
@@ -1170,7 +1192,7 @@
                 </p>
                 {{/if_eq}}
 
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                 {{#if_eq EtiquetaID '1'}}
                 <div class="producto_precio">
                     <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
@@ -1222,7 +1244,7 @@
                 <div class="clear"></div>
             </div>
         </div>
-    </div>
+</div>
     {{/each}}
 </script>
 <script id="liquidacion-template" type="text/x-handlebars-template">
@@ -1239,7 +1261,7 @@
             <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
             <div class="producto_img_home mini">
-                <img src="{{ImagenProducto}}" />
+                <img src="{{ImagenProducto}}" class="imagen_producto" />
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -1457,7 +1479,171 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript">
 
+    // MICROEFECTO AGREGAR PRODUCTOS AL CARRITO DE COMPRA
+
+        // Funcion de animación al agregar productos al carrito
+
+        function agregarProductoAlCarrito(o) {
+            var btnClickeado = $(o);
+            var contenedorItem = btnClickeado.parent().parent();
+            var imagenProducto = $('.imagen_producto', contenedorItem);
+            var carrito = $('.campana');
+
+            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+            $(".transicion").css({
+                'height': imagenProducto.css("height"),
+                'width': imagenProducto.css("width"),
+                'top': imagenProducto.offset().top,
+                'left': imagenProducto.offset().left,
+            }).animate({
+                'top': carrito.offset().top - 40,
+                'left': carrito.offset().left + 100,
+                'height': carrito.css("height"),
+                'width': carrito.css("width"),
+                'opacity': 0.5
+            }, 300, 'swing', function () {
+                $(this).animate({
+                    'top': carrito.offset().top,
+                    'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+                }, 100, 'swing', function () {
+                    $(this).remove();
+                });
+            });
+        }
+
+        $(document).ready(function () {
+
+            // Evento para visualizar video introductorio al hacer click
+
+            $(".ver_video_introductorio").click(function () {
+
+                $('#video_introductorio').fadeIn(function () {
+
+                    $("#video_introductorio").delay(200);
+
+                    $("#video_introductorio").fadeIn(function () {
+
+                        $(".popup_video_introductorio").fadeIn();
+
+                    });
+
+                });
+
+            });
+            
+            // Microefecto al agregar productos al carrito de compras
+
+            $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+                e.preventDefault();
+
+                agregarProductoAlCarrito(this);
+
+            });
+
+            //$(".campana.cart_compras").hover(function () {
+            //    $(".info_cam").fadeIn(200);
+            //}, function () {
+            //    $(".info_cam").fadeOut(200);
+            //});
+
+            // MICROEFECTO FLECHA HOME
+
+                // Función de animación de la flecha scroll 
+
+                //function animacionFlechaScroll() {
+
+                //    $(".flecha_scroll").animate({
+                //        'top': '87%'
+                //    }, 450, 'swing', function () {
+                //        $(this).animate({
+                //            'top': '90%'
+                //        }, 150, 'swing', function () {
+                //            $(this).animate({
+                //                'top': '89.5%'
+                //            }, 100, 'swing', function () {
+                //                $(this).animate({
+                //                    'top': '90.5%'
+                //                }, 450, 'swing');
+                //            });
+                //        });
+                //    });
+
+                //}
+
+                function animacionFlechaScroll() {
+
+                    $(".flecha_scroll").animate({
+                        'top': '87%'
+                    }, 400, 'swing', function () {
+                        $(this).animate({
+                            'top': '90%'
+                        }, 400, 'swing');
+                    });
+
+                }
+
+                // Intervalo Microefecto Flecha Scroll
+
+                setInterval(animacionFlechaScroll, 1000);
+
+                // Funcion para cambiar background según posicion de scroll
+
+                $(window).scroll(function () {
+
+                    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+                        $(".flecha_scroll").animate({
+                            opacity: 0
+                        }, 100, 'swing', function () {
+                            $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                            $(".flecha_scroll").delay(100);
+                            $(".flecha_scroll").animate({
+                                opacity:1
+                            },100,'swing');
+                        });
+
+
+                    } else {
+
+                        $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+
+                    }
+
+                });
+
+                // Evento click que ocurre en la flecha scroll
+
+                $(".flecha_scroll").on('click', function (e) {
+
+                    e.preventDefault();
+                    var posicion = $(window).scrollTop();
+                    if (posicion + $(window).height() == $(document).height()) {
+
+                        $('html, body').animate({
+                            scrollTop: $('html, body').offset().top
+                        }, 1000, 'swing');
+
+                    } else {
+
+                        $('html, body').animate({
+                            scrollTop: posicion + 700
+                        }, 1000, 'swing');
+
+                    }
+
+                });
+
+        });
+
+    </script>
     <script type="text/javascript">
     var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
     var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';

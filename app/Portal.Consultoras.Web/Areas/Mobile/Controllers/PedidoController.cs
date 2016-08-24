@@ -75,6 +75,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, userData.CodigoISO);
+            model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
+            model.DescuentoStr = Util.DecimalToStringFormat(bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
             model.ListaProductos = lstPedidoWebDetalle.ToList();
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
 
