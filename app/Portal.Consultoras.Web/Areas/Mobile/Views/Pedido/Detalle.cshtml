@@ -82,19 +82,23 @@
 </div>*@
 <div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
      <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarObsInformativas();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div id="iconoPopupMobile" class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <h3 class="mensaje_alerta" id="modal-prol-titulo"></h3>
         <div class="mensaje_alerta" id="modal-prol-contenido"></div>
         <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
-            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile">ACEPTAR</a>
+            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile">CANCELAR</a>
         </div>
+         <div id="modal-prol-botoneAceptar">
+            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" id="" class="btn_ok_mobile"><b>OK</b></a>
+         </div>
     </div>
 </div>
+
 <!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
@@ -130,7 +134,7 @@
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
-        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile">ACEPTAR</a>
+        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
 
@@ -162,7 +166,7 @@
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
-        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile">ACEPTAR</a>
+        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
 <!--FIN-->
@@ -177,7 +181,7 @@
         <div class="icono_alerta check_icono_mobile"></div>
         <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
         <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
-        <a class="btn_ok_mobile">OK</a>
+        <a class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
 <!--FIN-->

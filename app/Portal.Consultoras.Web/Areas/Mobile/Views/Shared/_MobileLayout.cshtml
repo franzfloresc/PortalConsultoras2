@@ -263,14 +263,14 @@
                     <div id="mensajeInformacion" class="text-lg"></div>
                     <br />
                     <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar"><b>OK</b></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
+    @*<div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -285,8 +285,19 @@
                 </div>
             </div>
         </div>
+    </div>*@
+    <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
     </div>
-
     <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -365,6 +376,35 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!--POP MENSAJE IMPORTANTE-->
+    <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>ERROR</b></div>
+            <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+    
+    <!--POP MENSAJE LO LOGRASTE-->
+    <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta check_icono_mobile"></div>
+            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div id="mensajeInformacionSB2Bueno" clasS="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
 
@@ -813,12 +853,30 @@
             }
         }
 
+        function messageInfoBueno(message, fnAceptar) {
+            $('#mensajeInformacionSB2Bueno').html(message);
+            $('#popupInformacionSB2Bueno').modal("show");
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
+
+        function messageInfoMalo(message, fnAceptar) {
+            $('#mensajeInformacionSB2_Malo').html(message);            
+            $('#popupInformacionSB2Malo').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
+                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
+            }
+        }
+
         function messageInfoValidado(message, fnAceptar) {
             $('#mensajeInformacionvalidado').html(message);
-            $('#popupInformacionValidado').modal("show");
+            $('#popupInformacionValidado').show();
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn-aceptar').off('click');
-                $('#popupInformacionValidado .btn-aceptar').on('click', fnAceptar);
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
             }
         }
 
