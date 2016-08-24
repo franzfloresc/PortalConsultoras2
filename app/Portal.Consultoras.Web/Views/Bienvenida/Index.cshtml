@@ -7,18 +7,7 @@
 
 @{
     Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
-    if (Model.NombreConsultora != "")
-    {
-        if (nombreConsultora != Model.NombreConsultora)
-        {
-            nombreConsultora += "...";
-        }
-        else
-        {
-            nombreConsultora += "!";
-        }
-    }
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
