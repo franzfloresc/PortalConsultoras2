@@ -4807,20 +4807,66 @@ body{
     width:8%;
     text-align: right;
     margin-top: 11px;
+    cursor:pointer;
 }
 
 .icono_kitNuevas{
+    position:relative;
     width: 8%;
     text-align: right;
     margin-top: 14px;
+    cursor:pointer;
 }
 
 .tooltip_kitNuevas{
-    display:block;
-    width:292px;
-    height:auto;
-    padding:10px;
-    background:#FFF;
+    position: absolute;
+    top: 169%;
+    right: -16%;
+    display: none;
+    text-align: center;
+    width: 292px;
+    height: auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+}
+
+.tooltip_kitNuevas:after, .tooltip_kitNuevas:before {
+	bottom: 100%;
+    left: 95%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.tooltip_kitNuevas:after {
+	border-bottom-color: #FFF;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
+.tooltip_kitNuevas:before {
+	border-bottom-color: #DDD;
+	border-width: 10px;
+	margin-left: -10px;
+}
+
+.texto_tooltipKitNuevas{
+    display: inline-block;
+    vertical-align:top;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 13px;
+    max-width: 213px;
+    text-align: left;
 }
 
 .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos, .precios_item{

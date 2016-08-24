@@ -1,4 +1,10 @@
 ﻿$(document).ready(function () {
+    $('body').on('click', ".icono_kitNuevas a", function (e) {
+        var mostrar = $(this).next();
+        if (mostrar.css("display") == "none") mostrar.fadeIn(200);
+        else mostrar.fadeOut(200);
+    });
+
     ValidarKitNuevas();
 });
 

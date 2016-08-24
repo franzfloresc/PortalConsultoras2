@@ -248,6 +248,18 @@
 
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
+                    <a href="javascript:;" title="Ver Info Kit Nuevas">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
+                    </a>
+                    <div class="tooltip_kitNuevas">
+                        <span class="icono_notaDemanda" style="display:inline-block;"></span>
+                        <span class="texto_tooltipKitNuevas">
+                            Este Kit se agrega automáticamente sólo en tu primer pedido.
+                        </span>
+                    </div>
+                </div>
+
+                @*<div class="icono_kitNuevas">
                     <a href="javascript:;">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Kit Nueva" />
                     </a>
@@ -257,7 +269,7 @@
                     <span class="texto_tooltipKitNuevas">
                         Este Kit se agrega automáticamente sólo en tu primer pedido.
                     </span>
-                </div>
+                </div>*@
                 {{else}}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
@@ -406,39 +418,39 @@
 
 @section Scripts{
 <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        var codigoIsoPais = '@Model.CodigoISO';
-        var mensajeGuardarCO = '@Model.MensajeGuardarCO';
-        var menuNotificaciones = '@ViewBag.MenuNotificaciones';
-        var falgValidacionPedido = '@Model.FlagValidacionPedido';
-        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
-        var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
+    var codigoIsoPais = '@Model.CodigoISO';
+    var mensajeGuardarCO = '@Model.MensajeGuardarCO';
+    var menuNotificaciones = '@ViewBag.MenuNotificaciones';
+    var falgValidacionPedido = '@Model.FlagValidacionPedido';
+    var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+    var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
+    var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
-        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
-        var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+    var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
+    var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
+    var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
-        var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';
-        var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
-        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
-        var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
+    var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';
+    var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
+    var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
+    var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
+    var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+    var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
 
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
-        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
-        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
-        var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+    var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+    var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
+    var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
+    var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
+    var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+    var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         
-        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
-        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var fnEliminarProducto = null;
+    var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
+    var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+    var fnEliminarProducto = null;
         
-    </script>
+</script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
 }
