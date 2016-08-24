@@ -1510,8 +1510,8 @@
                 'top': imagenProducto.offset().top,
                 'left': imagenProducto.offset().left,
             }).animate({
-                'top': carrito.offset().top - 30,
-                'left': carrito.offset().left + 115,
+                'top': carrito.offset().top - 40,
+                'left': carrito.offset().left + 100,
                 'height': carrito.css("height"),
                 'width': carrito.css("width"),
                 'opacity': 0.5
@@ -1523,8 +1523,9 @@
                 //    $(".campana .info_cam").fadeIn(200);
                 //    $(".campana .info_cam").delay(2500);
                 //    $(".campana .info_cam").fadeOut(200);
-                //    $(this).remove();
-                }, 100, 'swing');
+                }, 100, 'swing', function () {
+                    $(this).remove();
+                });
             });
         }
 
