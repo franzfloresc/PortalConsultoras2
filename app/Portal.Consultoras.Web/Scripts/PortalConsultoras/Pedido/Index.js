@@ -3382,12 +3382,12 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     // validar cambio de cliente
 
-    var idPed = $("#divListadoPedido").find("input.classClienteNombre").attr('datapedido');
-    var cliAnt = $("#hdfLPCliIni" + idPed).val();
-    var cliNue = $("#hdfLPCli" + idPed).val();
+    //var idPed = $("#divListadoPedido").find("input.classClienteNombre").attr('datapedido');
+    var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
+    var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
     if (cliAnt == cliNue) {
         //por verificar
-        $("#txtLPCli" + idPed).val($("#hdfLPCliDes" + idPed).val());
+        $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;
     }
 
