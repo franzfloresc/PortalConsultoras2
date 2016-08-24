@@ -215,9 +215,9 @@ namespace Portal.Consultoras.Service
         #endregion
 
 
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl)
+        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
 
@@ -1142,9 +1142,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
         // 1747 - Fin
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL)
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProL);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
         //R2004

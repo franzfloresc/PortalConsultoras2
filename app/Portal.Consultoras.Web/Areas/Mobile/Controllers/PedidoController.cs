@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.PaisID = userData.PaisID;
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
-            model.Detalle = lstPedidoWebDetalle;
+            model.SetDetalleMobileFromDetalleWeb(lstPedidoWebDetalle);
 
             model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV &&
                                           lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
@@ -677,30 +677,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
-            model.Detalle = PedidoJerarquico(lstPedidoWebDetalle);
+            model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+            model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
+            model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));
 
-            model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV &&
-                                          lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
+            model.CantidadProductos = model.Detalle.Sum(item => item.Cantidad);
+            model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV && lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
             if (model.PedidoConDescuentoCuv)
             {
-                decimal importeProl = lstPedidoWebDetalle[0].MontoTotalProl;
-
                 model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
-
-                model.Descuento = importeProl - model.SubTotal;
-                model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
-
-                model.Total = importeProl;
-                model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
+                model.Descuento = -lstPedidoWebDetalle[0].DescuentoProl;
+                model.Total = model.SubTotal + model.Descuento;
             }
-            else
-            {
-                model.Total = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
-            }
+            else model.Total = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
+
+            model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
+            model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
+            model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
 
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
@@ -726,6 +721,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.GananciaEstimada = 0;
                 ViewBag.PedidoProductoMovil = 0;
             }
+            if (ViewBag.GananciaEstimada != null) model.GanaciaEstimada = ViewBag.GananciaEstimada;
+            model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
 
             if (lstPedidoWebDetalle.Count != 0)
             {
@@ -762,21 +759,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(model.Total, userData.PaisID);
             }
-            ViewBag.EscalaDescuento = 0;
-            ViewBag.MontoEscalaDescuento = 0;
-            ViewBag.PorcentajeEscala = 0;
-            if (oBEFactorGanancia != null && esColaborador == 0)
+            if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
-                ViewBag.EscalaDescuento = 1;
-                ViewBag.MontoEscalaDescuento = string.Format("{0:N2}", oBEFactorGanancia.RangoMinimo - model.Total);
-                ViewBag.PorcentajeEscala = string.Format("{0:N0}", oBEFactorGanancia.Porcentaje);
+                model.MostrarEscalaDescuento = true;
+                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
+                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
+                model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
             }
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-
-            ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-
+            model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
             return View(model);
@@ -1307,9 +1300,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        decimal MontoTotalPROL = 0;
-                        Decimal.TryParse(datos.montototal, out MontoTotalPROL);
-                        EjecutarReservaPortal(dtr, lstPedidoWebDetalle, MontoTotalPROL);
+                        decimal montoTotalPROL = 0, descuentoPROL = 0;
+                        Decimal.TryParse(datos.montototal, out montoTotalPROL);
+                        Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
+                        EjecutarReservaPortal(dtr, lstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                         reserva = true;
                     }
                 }
@@ -1405,8 +1399,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 bool ValidacionPROLMM = false;
                 string CUV_Val = string.Empty;
                 int ValidacionReemplazo = 0;
-                decimal MontoTotalPROL = 0;
-                Decimal.TryParse(datos.montototal, out MontoTotalPROL);
+                decimal montoTotalPROL = 0, descuentoPROL = 0;
+                Decimal.TryParse(datos.montototal, out montoTotalPROL);
+                Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
 
                 #region Actualizar montos del servicio de prol a Pedido
 
@@ -1482,7 +1477,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
                         {
-                            EjecutarReservaPortalv2(dtr, lstPedidoWebDetalle, MontoTotalPROL);
+                            EjecutarReservaPortalv2(dtr, lstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                             reserva = true;
                         }
                     }
@@ -1491,7 +1486,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        EjecutarReservaPortalv2(dtr, lstPedidoWebDetalle, MontoTotalPROL);
+                        EjecutarReservaPortalv2(dtr, lstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                         reserva = true;
                     }
                 }
@@ -1499,7 +1494,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return lstPedidoWebDetalleObs;
         }
 
-        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
         {
             var userData = UserData();
 
@@ -1554,9 +1549,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock)
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProl, DescuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, CodigoUsuario, MontoTotalProl, DescuentoProl);
             }
             using (var sv = new SACServiceClient())
             {
@@ -1567,7 +1562,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> lstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
         {
             var userData = UserData();
 
@@ -1604,9 +1599,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock)
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, CodigoUsuario, MontoTotalProl, DescuentoProl);
             }
             using (var sv = new SACServiceClient())
             {
@@ -1764,10 +1759,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 resultado = Util.EnviarMailMobile("no-responder@somosbelcorp.com", userData.EMail, string.Format("({0}) Confirmación pedido Belcorp", userData.CodigoISO), mailBody.ToString(), true, null);
             }
-            catch (Exception ex)
-            {
-                resultado = false;
-            }
+            catch { resultado = false; }
 
             return resultado;
         }

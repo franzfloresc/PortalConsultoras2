@@ -217,6 +217,7 @@
     <Compile Include="Areas\Mobile\Models\OfertaProductoMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PaypalMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
@@ -2214,6 +2215,7 @@
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />

@@ -2293,6 +2293,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionProdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal DescuentoProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2631,6 +2634,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionProdField, value) != true)) {
                     this.DescripcionProdField = value;
                     this.RaisePropertyChanged("DescripcionProd");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal DescuentoProl {
+            get {
+                return this.DescuentoProlField;
+            }
+            set {
+                if ((this.DescuentoProlField.Equals(value) != true)) {
+                    this.DescuentoProlField = value;
+                    this.RaisePropertyChanged("DescuentoProl");
                 }
             }
         }
@@ -16828,16 +16844,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task UpdDesbloqueoPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb BEPedidoWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROL", ReplyAction="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLResponse")]
-        void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl);
+        void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROL", ReplyAction="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLResponse")]
-        System.Threading.Tasks.Task InsPedidoWebDetallePROLAsync(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl);
+        System.Threading.Tasks.Task InsPedidoWebDetallePROLAsync(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLv2", ReplyAction="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLv2Response")]
-        void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl);
+        void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLv2", ReplyAction="http://tempuri.org/IPedidoService/InsPedidoWebDetallePROLv2Response")]
-        System.Threading.Tasks.Task InsPedidoWebDetallePROLv2Async(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl);
+        System.Threading.Tasks.Task InsPedidoWebDetallePROLv2Async(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdPedidoWebByEstado", ReplyAction="http://tempuri.org/IPedidoService/UpdPedidoWebByEstadoResponse")]
         void UpdPedidoWebByEstado(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, bool Eliminar, string CodigoUsuario, bool ValidacionAbierta);
@@ -18701,20 +18717,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdDesbloqueoPedidoAsync(BEPedidoWeb);
         }
         
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl) {
-            base.Channel.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl);
+        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl) {
+            base.Channel.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
         
-        public System.Threading.Tasks.Task InsPedidoWebDetallePROLAsync(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl) {
-            return base.Channel.InsPedidoWebDetallePROLAsync(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl);
+        public System.Threading.Tasks.Task InsPedidoWebDetallePROLAsync(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl) {
+            return base.Channel.InsPedidoWebDetallePROLAsync(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
         
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl) {
-            base.Channel.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl);
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl) {
+            base.Channel.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
         
-        public System.Threading.Tasks.Task InsPedidoWebDetallePROLv2Async(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl) {
-            return base.Channel.InsPedidoWebDetallePROLv2Async(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl);
+        public System.Threading.Tasks.Task InsPedidoWebDetallePROLv2Async(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl) {
+            return base.Channel.InsPedidoWebDetallePROLv2Async(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
         
         public void UpdPedidoWebByEstado(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, bool Eliminar, string CodigoUsuario, bool ValidacionAbierta) {
