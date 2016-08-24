@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);
         }
 
-        public int UpdPedidoWebByEstado(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, string codigoUsuario, decimal MontoTotalProl)
+        public int UpdPedidoWebByEstado(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, string codigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebByEstado");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ModificaPedidoReservado", DbType.Boolean, ModificaPedidoReservado);
             Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, codigoUsuario);
             Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, MontoTotalProl);
+            Context.Database.AddInParameter(command, "@DescuentoProl", DbType.Decimal, DescuentoProl);
             
             int result = Context.ExecuteNonQuery(command);
             return result;
