@@ -9,23 +9,23 @@
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Ecommerce',
-                        'action': 'Modificar pedido',
-                        'label': '(not available)'
-                    });
+                    //dataLayer.push({
+                    //    'event': 'virtualEvent',
+                    //    'category': 'Ecommerce',
+                    //    'action': 'Modificar pedido',
+                    //    'label': '(not available)'
+                    //});
                     location.href = urlIngresarPedido;
                 } else {
                     CloseLoading();
-                    alert_msg(data.message);
+                    messageInfo(data.message);
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                alert_msg("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
+                messageInfo("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
             }
         }
     });

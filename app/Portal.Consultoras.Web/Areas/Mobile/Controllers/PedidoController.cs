@@ -191,27 +191,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
-
-            // se calcula la ganancia estimada
-            ViewBag.GananciaEstimada = 0;
-            ViewBag.PedidoProductoMovil = 0;
-
-            if (lstPedidoWebDetalle.Count > 0)
-            {
-                ViewBag.GananciaEstimada = CalcularGananciaEstimada(userData.PaisID, userData.CampaniaID, lstPedidoWebDetalle[0].PedidoID, model.Total);
-
-                int valorPedidoProductoMovil = 0;
-                foreach (var item in lstPedidoWebDetalle)
-                {
-                    if (item.TipoPedido.ToUpper().Trim() == "PNV")
-                    {
-                        valorPedidoProductoMovil = 1;
-                        break;
-                    }
-                }
-                ViewBag.PedidoProductoMovil = valorPedidoProductoMovil;
-            }
-            if (ViewBag.GananciaEstimada != null) model.GanaciaEstimada = ViewBag.GananciaEstimada;
+            
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
+            model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
+            model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
+            model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
             model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
 
             if (lstPedidoWebDetalle.Count != 0)

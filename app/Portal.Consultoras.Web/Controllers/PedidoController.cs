@@ -3190,10 +3190,8 @@ namespace Portal.Consultoras.Web.Controllers
                         valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
                     }
                 }
-                else
-                {
-                    valida = true;
-                }
+                else valida = true;
+
                 if (valida)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
