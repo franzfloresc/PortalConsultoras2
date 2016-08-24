@@ -202,8 +202,8 @@
                         </div>
                         <div class="right_reservado">
                             <div class="datos_Reservado">
-                                <span>@Model.Simbolo <span data-pedidototal="">{{DescripcionTotal}}</span></span>
-                                <span>@Model.Simbolo <span data-montodescuento="">{{DescripcionDescuento}}</span></span>
+                                <span data-pedidototal="">@Model.Simbolo {{FormatoTotal}}</span>
+                                <span data-montodescuento="">@Model.Simbolo {{FormatoMontoDescuento}}</span>
                             </div>
                         </div>
                     </div>
@@ -213,8 +213,8 @@
             <span style=" margin-left: 30px;">MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal" data-pedidocondescuento="">{{MontoConDsctoStr}}</b></span>
+            <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
@@ -324,7 +324,7 @@
                 </div>
                 <div class="precios_item">
                     <span class="precio_normal_pedido">
-                        <span>{{../Simbolo}} {{detalle.PrecioUnidad}}</span>
+                        <span>{{../Simbolo}} {{detalle.FormatoPrecioUnidad}}</span>
                     </span>
                     <span class="precio_oferta_pedido">
                         <!-- ICONO ADVERTENCIA -->
@@ -334,7 +334,7 @@
                         {{/if}}
                         {{/if}}
                         <!-- FIN ICONO ADVERTENCIA -->
-                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.ImporteTotal}}</label></span>
+                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
             </div>
@@ -383,8 +383,8 @@
                         </div>
                         <div class="right_reservado">
                             <div class="datos_Reservado">
-                                <span>@Model.Simbolo <span data-pedidototal="">{{DescripcionTotal}}</span></span>
-                                <span>@Model.Simbolo <span data-montodescuento="">{{DescripcionDescuento}}</span></span>
+                                <span data-pedidototal="">@Model.Simbolo {{FormatoTotal}}</span>
+                                <span data-montodescuento="">@Model.Simbolo {{FormatoMontoDescuento}}</span>
                             </div>
                         </div>
                     </div>
@@ -395,8 +395,8 @@
             <span style=" margin-left: 30px;">MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal" data-pedidocondescuento="">{{MontoConDsctoStr}}</b></span>
+            <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>

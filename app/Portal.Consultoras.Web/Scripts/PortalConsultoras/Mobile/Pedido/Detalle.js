@@ -470,7 +470,7 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            ActualizarGanancia({ MontoGananciaStr: DecimalToStringFormat(0) });
+            ActualizarGanancia(data.DataBarra);
             TrackingJetloreRemoveAll(listaDetallePedido);
             if (checkTimeout(data)) {
                 messageDelete("Se eliminaron todos productos del pedido.");

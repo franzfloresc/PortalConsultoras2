@@ -386,7 +386,12 @@
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";        
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        var vbSimbolo = '@ViewBag.Simbolo';
+
         $(function () {
+            SetFormatDecimalPais(formatDecimalPaisMain);
+
             HandlebarsRegisterHelper();
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
@@ -460,6 +465,7 @@
 
                 $txtcantidad.val(cantidad);
             });
+
         });
 
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -845,10 +851,7 @@
 
                         $(".num-menu-shop").html(data.cantidadProductos);
                         $(".js-span-pedidoingresado").html(montoWebAcumulado);
-
-                        $("#spnCantidadProductos").html(data.cantidadProductos);
-                        $("#spnDescripcionTotal").html(montoWebAcumulado);
-
+                        
                         data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);

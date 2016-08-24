@@ -4474,6 +4474,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
                 model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
                 model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
+                model.MontoDescuento = bePedidoWebByCampania.DescuentoProl;
+                model.TotalConDescuento = total - bePedidoWebByCampania.DescuentoProl;
 
                 userData.PedidoID = 0;
                 if (model.ListaDetalleModel.Any())
