@@ -1567,9 +1567,9 @@ namespace Portal.Consultoras.Service
             return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entity);
         }
 
-        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID)
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
-            return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID);
+            return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID, cuv);
         }
     }
 }

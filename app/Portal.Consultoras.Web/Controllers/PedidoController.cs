@@ -4570,11 +4570,20 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                         {
-                            var imagen = string.Empty;
+                            string infoEstrategia;
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                imagen = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID);
+                                infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, olstProducto[0].CUV.Trim());
                             }
+
+                            string descripcion = "";
+                            string imagen = "";
+                            if (!string.IsNullOrEmpty(infoEstrategia))
+                            {
+                                descripcion = infoEstrategia.Split('|')[0];
+                                imagen = infoEstrategia.Split('|')[1];   
+                            }                            
+
                             if (!string.IsNullOrEmpty(imagen))
                             {
                                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -4583,7 +4592,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 listaProductoModel.Add(new ProductoModel()
                                 {
                                     CUV = olstProducto[0].CUV.Trim(),
-                                    Descripcion = producto.NombreComercial,
+                                    Descripcion = descripcion,
                                     PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
                                     PrecioCatalogo = olstProducto[0].PrecioCatalogo,
                                     MarcaID = olstProducto[0].MarcaID,
