@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BEConfiguracionPackNuevas> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetConfiguracionPackNuevas(UserData().PaisID, CodigoPrograma);                
+                lst = sv.GetConfiguracionPackNuevas(UserData().PaisID, CodigoPrograma);
             }
             return Json(new { pedidoAsociado = lst }, JsonRequestBehavior.AllowGet);
         }
@@ -565,7 +565,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
                     entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
                     entidad.Zona = Zona;
-                    entidad.Orden = Convert.ToInt32(Orden);
+                    entidad.Orden = string.IsNullOrEmpty(Orden) ? 0 : Convert.ToInt32(Orden);
                     entidad.UsuarioCreacion = UserData().CodigoUsuario;
                     entidad.UsuarioModificacion = UserData().CodigoUsuario;
                     entidad.ColorFondo = ColorFondo;
@@ -579,7 +579,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                    int OrdenEstrategia = Convert.ToInt32(Orden);
+                    int OrdenEstrategia = string.IsNullOrEmpty(Orden) ? 0 : Convert.ToInt32(Orden);
 
                     foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                     {
