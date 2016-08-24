@@ -1,7 +1,24 @@
-﻿
-$(document).ready(function () {
-    CargarPedido();
+﻿$(document).ready(function () {
+    ValidarKitNuevas();
 });
+
+function ValidarKitNuevas() {
+    jQuery.ajax({
+        type: 'POST',
+        url: urlValidarKitNuevas,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
+            else CargarPedido();
+        },
+        error: function (error) {
+            console.log(error);
+            messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
+        }
+    });
+}
 
 function CargarPedido() {
     var obj = {
@@ -43,7 +60,7 @@ function CargarPedido() {
         },
         error: function (error) {
             console.log(error);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
 }
