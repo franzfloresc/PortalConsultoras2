@@ -41,7 +41,7 @@
 </div>
 
 <!-- START Popup para Eliminar Item -->
-<div class="modal fade" id="popup-eliminar-item">
+@*<div class="modal fade" id="popup-eliminar-item">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,10 +58,10 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <!-- END Popup para Eliminar Item -->
 <!-- START Popup para Observaciones PROL -->
-<div class="modal fade" id="popup-observaciones-prol">
+@*<div class="modal fade" id="popup-observaciones-prol">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -79,10 +79,41 @@
             </div>
         </div>
     </div>
+</div>*@
+<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
+     <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div id="iconoPopupMobile" class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta" id="modal-prol-contenido"></div>
+        <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
+            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile">CANCELAR</a>
+        </div>
+         <div id="modal-prol-botoneAceptar">
+            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" id="" class="btn_ok_mobile"><b>OK</b></a>
+         </div>
+    </div>
 </div>
+
 <!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
-<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
+<div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta" id="mensajeInformacionEliminar"></div>
+    </div>
+</div>
+
+@*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -90,11 +121,25 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <!-- END POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 
 <!-- START Popup para Eliminar Todo Pedido -->
-<div class="modal fade" id="divConfirmEliminarTotal">
+<div id="divConfirmEliminarTotal" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="EliminarPedidoTotalNo();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
+        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+
+
+@*<div class="modal fade" id="divConfirmEliminarTotal">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
@@ -109,7 +154,37 @@
             </div>
         </div>
     </div>
+</div>*@
+
+<!--POP MENSAJE IMPORTANTE-->
+<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
+        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
 </div>
+<!--FIN-->
+
+<!--POP MENSAJE LO LOGRASTE-->
+<div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
+        <a class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+<!--FIN-->
 
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
@@ -122,9 +197,9 @@
             <span>MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{this.CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{GananciaFormat}}</b></span>
+            <span><b class="lblCantidadProducto">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
     <div class="detalle_pedido_ingresado">
@@ -137,7 +212,7 @@
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
-        {{#each this.Detalle as |detalle|}}
+        {{#each this.ListaDetalleModel as |detalle|}}
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
@@ -190,7 +265,6 @@
                 <input type="hidden" id="CUV_{{detalle.PedidoDetalleID}}" name="CUV_{{detalle.PedidoDetalleID}}" value="{{detalle.CUV}}">
 
                 <input type="hidden" id="DescripcionProd_{{detalle.PedidoDetalleID}}" name="DescripcionProd_{{detalle.PedidoDetalleID}}" value="{{Split detalle.DescripcionProd '|' 0}}">
-                <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
                 <input type="hidden" id="MarcaID_{{detalle.PedidoDetalleID}}" name="MarcaID_{{detalle.PedidoDetalleID}}" value="{{detalle.MarcaID}}">
                 <input type="hidden" id="DescripcionOferta_{{detalle.PedidoDetalleID}}" name="DescripcionOferta_{{detalle.PedidoDetalleID}}" value="{{detalle.DescripcionOferta}}">
             </div>
@@ -284,9 +358,9 @@
             <span>MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{CantidadProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{DescripcionTotal}}</b></span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{GananciaFormat}}</b></span>
+            <span><b class="lblCantidadProducto">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
 
@@ -319,7 +393,7 @@
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = "Mobile"})';
+        var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
@@ -335,10 +409,9 @@
         var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
         var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
-        var urlDeshacerReservaPedidoReservado = '@Url.Action("DeshacerReservaPedidoReservado", "Pedido", new {area = ""})';
-        var urlActualizarCantidadTotalPedido = '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})';
+        var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         
-        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "Mobile" })';
+        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
         

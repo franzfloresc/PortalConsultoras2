@@ -358,6 +358,7 @@
                             $('#DiagloBotonCancelar').modal('show');
 
                             $.post('@Url.Action("ActualizarLeidoSolicitud", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+                                data.mensaje = data.mensaje || "";
                                 if (data.mensaje != '') {
                                     console.log(data.mensaje);
                                 }

@@ -21024,6 +21024,14 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+}
+.movimientos_pagos_content{
+    width:38%;
+    padding-left:17px;
+    padding-top:30px;
+    padding-bottom:30px;
+    display:inline-block;
+    vertical-align:middle;
     text-decoration: underline;
 }
 .pedidos_pagos{
@@ -22782,7 +22790,7 @@ body{
       margin-top: 47px;
 }
 .background_vermas{
-    background-image: url(../../../Images/Lbel/ver-mas-liquidaciones.jpg);
+    background-image: url(../../../Images/Lbel/ver-mas-liquidaciones-2.jpg);
     background-repeat: no-repeat;
     background-position: center 40px;
 }
@@ -26291,7 +26299,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display:block;
     width:100%;
     height:212px;
-    background:url(../../../Images/Esika/banner_misBeneficios.png) no-repeat center center;
+    background:url(../../../Images/Lbel/banner_misBeneficios.png) no-repeat center center;
     background-size:cover;
     position:relative;
     margin-top:-62px;

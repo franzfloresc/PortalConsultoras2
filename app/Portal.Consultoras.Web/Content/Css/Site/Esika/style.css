@@ -21123,6 +21123,14 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+}
+.movimientos_pagos_content{
+    width:38%;
+    padding-left:17px;
+    padding-top:30px;
+    padding-bottom:30px;
+    display:inline-block;
+    vertical-align:middle;
     text-decoration: underline;
 }
 .pedidos_pagos{
@@ -22864,7 +22872,7 @@ body{
 }
 
 .background_vermas{
-    background-image: url(../../../Images/Esika/ver-mas-liquidaciones.jpg);
+    background-image: url(../../../Images/Esika/ver-mas-liquidaciones-2.jpg);
     background-repeat: no-repeat;
     background-position: center 40px;
 }

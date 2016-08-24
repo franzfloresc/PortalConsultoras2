@@ -139,7 +139,7 @@
     <div class="caja_pedidos">
         <div id="divBarra">
             <div id="divBarraMensaje">
-                <div id="divBarraMensajeLogrado">
+                <div id="divBarraMensajeLogrado" style="display:none;">
                     <div style="float:right;">
                         <div class="content_BarrMensaje">
                             <div class="mensaje_barra" style="display: inline;"></div>
@@ -513,6 +513,7 @@
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 <input type="hidden" id="hdMontoMaximo" value="@Model.MontoMaximo" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
+<input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
@@ -1011,7 +1012,7 @@
         <td colspan="7">
             <div class="mensaje_productoAgotado">
                 {{#iff TipoObservacion '!=' 0}}
-                <p>{{{Replace DescripcionLarga '¿Deseas aceptar el reemplazo?' ''}}}</p>
+                <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
                 {{else}}
                 <p>{{{Mensaje}}}</p>
                 {{/iff}}
