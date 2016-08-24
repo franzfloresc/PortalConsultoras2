@@ -61,6 +61,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal Descuento { get; set; }
 
         public string DescripcionDescuento { get; set; }
+        public string MontoConDsctoStr { get; set; }
         
         public decimal MontoAhorroCatalogo { get; set; }
 

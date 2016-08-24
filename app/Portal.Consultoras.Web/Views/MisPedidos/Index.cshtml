@@ -483,14 +483,24 @@
             <span>PRODUCTOS</span>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
-            <div class="totalTexto">SUBTOTAL:</div>
-            <div class="totalTexto">OFERTAS POR NIVELES:</div>
+            <div class="info_extra_Validado">
+                <img src="/Content/Images/Esika/info-copy.png">
+                <!--MONTOS-->
+                <div class="monto_resumenValidado">
+                    <div class="monto_1">Total sin Dscto.</div>
+                    <div class="monto_numero" style="opacity:0.6">{{Simbolo}} {{ImporteTotal}}</div>
+                    <hr class="clear">
+                    <div class="monto_1">Dscto. por niveles </div>
+                    <div class="monto_numero">{{Simbolo}} {{OfertaNiveles}}</div>
+                </div>
+                <!--FIN-->
+            </div>
             <div class="totalTexto">MONTO TOTAL:</div>
+            <div class="totalTexto">GANANCIA:</div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
-            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteTotal}}</div>
-            <div class="totalNumero texto_bold">{{Simbolo}} {{OfertaNiveles}}</div>
-            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteTotal}}</div>
+            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteFacturado}}</div>
+            <div class="totalNumero texto_bold">{{Simbolo}} {{Ganancia}}</div>
         </div>
     </div>
     {{/iff}}
