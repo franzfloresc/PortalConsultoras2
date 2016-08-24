@@ -2233,6 +2233,63 @@ header {
     margin-bottom:5px;
 }
 
+/*tool tip => info sobre el icono*/
+.info_copy{
+    float:left;
+    margin-right:8px;
+    position:relative;
+}
+.info_copy .tooltip_importe{
+    display:none;
+    width:260px;
+    height:60px;
+    padding:13px;
+    background:white;
+    position:absolute;
+    top: -83px;
+   -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+}
+.info_copy .tooltip_importe:before {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(5, 7, 8, 0);
+    border-top-color: white;
+    border-width: 15px;
+    margin-left: -15px;
+    left: 5%;
+    z-index: 10;
+}
+.info_copy:hover .tooltip_importe{
+    display:block;
+}
+
+.info_copy .left_reservado{
+    float:left;
+    text-align:left;
+}
+.info_copy .right_reservado{
+    float:right;
+    text-align:right;
+}
+.info_copy .datos_Reservado{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    line-height:18px;
+}
+.info_copy .datos_Reservado span{
+    display:block;
+    margin: 0;
+}
+/* fin tool tip => info sobre el icono*/
+
 .boton_guardarPedido input[type="submit"], .boton_guardarPedido input[type="button"]{
     display:block;
     font-family:'Lato';
@@ -26343,6 +26400,7 @@ position: relative; float: left;
     margin-left:4px;
     float:left;
 }
+
 /*CAMBIOS CARRITO DE COMPRAS*/
 .info_productos_carrito {
     font-family: 'Lato';
