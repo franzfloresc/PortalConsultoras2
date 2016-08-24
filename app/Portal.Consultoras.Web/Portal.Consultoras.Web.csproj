@@ -1579,6 +1579,11 @@
     <Content Include="Content\Images\Esika\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Esika\tooltip_validar.png" />
     <Content Include="Content\Images\Esika\tutorial.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto1.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto2.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto3.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto4.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto5.png" />
     <Content Include="Content\Images\Esika\ultima_pagina.png" />
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
@@ -1765,6 +1770,11 @@
     <Content Include="Content\Images\Lbel\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Lbel\tooltip_validar.png" />
     <Content Include="Content\Images\Lbel\tutorial.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto1.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto2.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto3.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto4.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto5.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />
