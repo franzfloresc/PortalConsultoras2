@@ -25,7 +25,8 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <!-- Fin titulo-->
-<div id="cuerpo">
+<div id="cuerpo">    
+
     <div data-div="f">
         <div class="popup_frame" data-popup="facturado">
             <div class="popup_body">
@@ -217,7 +218,7 @@
                             <div class="canal_ingreso">@item.CanalIngreso</div>
                             <div class="cantidad_prod">@item.CantidadProductos</div>
                             <div class="seguimiento">
-                                <a href="javascript:;" title="Seguimiento">
+                                <a title="Seguimiento" href="javascript:;" onclick="javascript: $('#PopSeguimiento').show();">
                                     <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
                                 </a>
                             </div>
@@ -256,6 +257,16 @@
 <div style="display:none;">
     @Html.DropDownListFor(model => model.ClienteId, new SelectList(Model.Clientes, "ClienteID", "Nombre"), new { id = "ddlClientes" })
 </div>
+<!--POP UP SEGUIMIENTO DE PEDIDO-->
+<div class="POPUP_deskptop" id="PopSeguimiento">
+    
+    <div class="wrapper_seguimiento">
+        <a class="btn_regresar" href="javascript:;" onclick="javascript: $('#PopSeguimiento').hide();">REGRESAR</a>
+        <iframe src="@ViewBag.URLWebTracking" width="100%" height="100%"></iframe>
+    </div>
+</div>
+<!--FIN-->
+
 <script id="html-detalle-ingresado" type="text/x-handlebars-template">
     {{#each this.Rows as |detalle|}}
     <div class="acordion_titulo" data-cliente="{{detalle.ClienteID}}">

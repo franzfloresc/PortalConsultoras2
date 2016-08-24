@@ -26430,3 +26430,41 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
 }
+/*POP UP SEGUIMIENTO DE PEDIDO*/
+.POPUP_deskptop{
+    position: fixed;
+    z-index: 2010;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    display: none;
+    top: 0;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+}
+.wrapper_seguimiento{
+    max-width: 1000px;
+    height: 100%;
+    /* height: 0; */
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 30px;    
+}
+.btn_regresar{
+   display: block;
+    position: absolute;
+    height: 41px;
+    line-height: 41px;
+    min-width: 100px;
+    padding-left: 20px;
+    font-family: 'Lato';
+    font-size: 15px;
+    color: white;
+    /* width: 14px; */
+    /* height: 19px; */
+    top: -40px;
+    background: transparent url(../../../Images/Esika/regresar.png) no-repeat left center;
+    text-align: center;
+    right: 0;
+}

@@ -543,11 +543,11 @@ namespace Portal.Consultoras.Web.WebPages
 
                 foreach (GridViewRow row in gvNovedades.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 gvNovedades.SelectedIndex = 0;
-                gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[0]["Longitud"];
@@ -568,12 +568,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 foreach (GridViewRow row in gvNovedades.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedades.SelectedIndex = Index;
-                gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[Index]["Longitud"];
@@ -703,11 +703,11 @@ namespace Portal.Consultoras.Web.WebPages
 
                 foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 gvNovedadesPostVenta.SelectedIndex = 0;
-                gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
@@ -726,12 +726,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedadesPostVenta.SelectedIndex = Index;
-                gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[Index]["Longitud"];
