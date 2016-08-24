@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 
 using Portal.Consultoras.Web.ServiceLMS;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -200,21 +201,20 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
-                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sac = new SACServiceClient())
                 {
-                    ServiceSAC.BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
+                    BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
                     if (comunicado != null)
                         Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    ServiceSAC.BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                    BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
                     if (VisualizaComunicado != null)
                         ComunicadoVisualizado = VisualizaComunicado.Visualizo ? 1 : 0;
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
-
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";     // SB20-255
             }
             catch (FaultException ex)
             {

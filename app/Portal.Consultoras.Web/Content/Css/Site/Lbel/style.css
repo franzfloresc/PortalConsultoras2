@@ -71,7 +71,7 @@ header {
     height: 61px;
     margin: 0 auto;
     max-width: 1189px;
-    overflow: hidden;
+   
 }
 
 .user-profile img {
@@ -97,7 +97,7 @@ header {
 }
 
 .campana {
-    margin-top: 18px;
+    margin-top: 15px;
     float: left;
     width: 46px;
     /* padding-left: 5px; */
@@ -117,12 +117,12 @@ header {
     background-position: 0 4px;
 }
 .mensaje_header {
-    margin-top: 18px;
+    margin-top: 15px;
     float: left;
-    width: 40px;
-    padding-left: 4px;
+    width: 23px;
+    /* padding-left: 4px; */
     height: 40px;
-    padding-right: 7px;
+    margin-right: 12px;
 }
 .mensaje_svg {
     background: url(../../../Images/Esika/mensajes.png) no-repeat;
@@ -172,30 +172,156 @@ header {
     margin-right: 13px;
     margin-left: 12px;
 }
+.new_menu_a {
+        display: inline-block;
+        font-family: 'lato';
+        font-weight: 700;
+        font-size: 10.5px;
+        text-decoration: none;
+        color: black;
+        border-bottom: 2px solid white;
+        letter-spacing: 0.75pt;
+    }
 
+        .new_menu_a:hover {
+            /*border-bottom: 2px solid #623989;*/
+            text-decoration:underline;
+        }
 .new_menu {
     margin-top: 21px;
-    margin-left: 7.5%;
+    margin-left: 4.8%;
     height: 40px;
     float: left;
+    position:relative;
 }
-.flecha_menu {
+
+.flecha_menu{
     width: 0px;
     height: 0px;
-    float: right;
+    float:right;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 4px solid #000;
-    margin-top: 4px;
-    margin-left: 5px;
+    margin-top:4px;
+    margin-left:5px;
 }
+
 .menu_socia_empresaria > .new_menu{
     margin-left: 4.2%;
     margin-top: 21px;
     /*width: 15%;*/
-    text-align: center;
+    
 }
-.menu_socia_empresaria li ul {
+.nav_principal li:hover > ul {
+    display:block;
+}
+.nav_principal li:hover .pestana_esika{
+    display:block;
+}
+.sub_menu_home1{
+    position:absolute;
+    top: 39px;
+    margin-left: -90px;
+    width:918px;
+    height:220px;
+    padding-left:65px;
+    padding-right:60px;
+    display: none;
+    background: rgba(255,255,255,0.95) url(../../../Images/Esika/fondo.png);
+    -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);    
+}
+.sub_menu_home2{
+    position:absolute;
+    left: -365px;
+    display:none;
+    top: 39px;
+    width:615px;
+    height: 188px;
+    padding-left:60px;
+    padding-right:60px;
+    background: rgba(255,255,255,0.95) url(../../../Images/Esika/fondo.png);
+    -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    box-shadow: -4px 4px 11px -5px rgba(120,120,120,1); 
+}
+.linea_menu {
+    width: 100%;
+    height: 1px;
+    background: black;
+}
+.pestana_esika{
+    width: 29px;
+    height: 20px;
+    top: 37px;
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    /* margin-left: 72px; */
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background:url(../../../Images/Lbel/pestana_lbel.png);
+    
+}
+
+.content_left_menu{
+    float:left;
+    margin-right:53px;
+    margin-top:40px;
+    
+}
+.menu_titulo{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.3px;
+    font-weight:700;
+    background: url("../../../Images/Lbel/fle_.png") no-repeat;
+    background-position:0px 5px;
+    padding-left:13px;
+    margin-bottom:10px;
+    margin-left:-15px;
+}
+.menu_enlace{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.3px;
+    margin-bottom:13px;
+
+}
+.menu_imagen{
+    margin-top:40px;
+    margin-right:45px;
+    margin-left:13px;
+    float:left;
+    width:180px;
+    height:143px;
+    position:relative;
+    display:block;
+
+}
+.menu_imagen img{
+    width:100%;
+}
+.titulo_imagen{
+    width:100%;
+    height:30px;
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:900;
+    color:white;
+    text-align:center;
+    letter-spacing:0.5px;
+    line-height:30px;
+    background:black;
+    position:absolute;
+    bottom:0;
+}
+.menu_socia_empresaria .sub_menu_home1{
+    margin-left: -161px;
+}
+/*.menu_socia_empresaria li ul {
     margin-left:-288px !important;}
 .menu_socia_empresaria > .menu_especial ul {
      width: 190px !important;
@@ -211,10 +337,10 @@ header {
 .menu_socia_empresaria .menu_especial .flechita_0 {
     margin-left: 41px !important;
     margin-top: 1px !important;
-}
+}*/
 
 
-.flechita_0 {
+/*.flechita_0 {
    position: absolute;
     z-index: 2000;
     width: 20px;
@@ -222,15 +348,15 @@ header {
     display: none;
     margin-left: 35px;
     margin-top: 10px;
-    /* margin: 0 auto; */
+    margin: 0 auto;
     background: url(../../../Images/Esika/flechita.png) no-repeat;
-}
+}*/
 
 .icon-flechita {
     content: "\e900";
 }
 
-.flechita_1 {
+/*.flechita_1 {
     height: 0;
     left: 0;
     margin-top: -7px;
@@ -238,17 +364,17 @@ header {
     border-top: 10px solid transparent;
     border-left: 15px solid transparent;
     border-bottom: 10px solid blue;
-}
+}*/
 
 
 
-.nav_principal li:hover .flechita_0 {
+/*.nav_principal li:hover .flechita_0 {
     display: block;
-}
+}*/
 
 
 
-.nav_principal li ul {
+/*.nav_principal li ul {
     border-top: 1px solid #ccc;
     margin-left: -178px;
     display: none;
@@ -333,7 +459,7 @@ header {
 .menu_especial ul li {
     margin-top: 0 !important;
     margin-bottom: 10px !important;
-}
+}*/
 
 
 
@@ -1631,7 +1757,7 @@ header {
 }
 
 #divNotiNombre, #divNotiNombre2 {
-    top: -25.1%;
+    top: 25.1%;
 }
 
 .noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
@@ -2963,14 +3089,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     box-shadow: 0px 15px 21px -8px rgba(204,200,204,1)!important;
 }
 
-.producto_img{
-    position:relative;
-    display:block;
-    margin:0 auto;
-    background:#FFF;
+.producto_img {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    background: #FFF;
     /*width:96.5px;*/
     height:200px;
-    text-align:center;
+    text-align: center;
+    overflow: hidden;
 }
 
 .etiqueta_producto {
@@ -2982,12 +3109,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     right: 4.8%;
 }
 
-.producto_img img{
-    position: absolute;
-    top: 50%;
-    margin-top: -83px;
-    left: 50%;
-    margin-left: -83px;
+.producto_img img {
+    width: auto;
+    height: 93.5%;    
 }
 
 .producto_nombre_descripcion{
@@ -4800,6 +4924,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label{
     display:block;
+    cursor: text;
 }
 
 .grupo_input_actualizarMisDatos{
@@ -5719,12 +5844,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-top: -27px;
     margin-right: -9px;
 }*/
-.menu_socia_empresaria .new_menu .flechita_0 {
-    margin-top: 10px;
-}
-.menu_socia_empresaria li:hover > ul {
-    margin-top: 20px;
-}
+
+
 .calendario_svg {
     background: url(../../../Images/Esika/calendario.png) no-repeat;
     background-position: 0 4px;
@@ -19669,21 +19790,7 @@ label.checkpop.c_on {
        
     }
 
-.new_menu a {
-        display: inline-block;
-        font-family: 'lato';
-        font-weight: 700;
-        font-size: 10.5px;
-        text-decoration: none;
-        color: black;
-        border-bottom: 2px solid white;
-        letter-spacing: 0.75pt;
-    }
 
-        .new_menu a:hover {
-            /*border-bottom: 2px solid #623989;*/
-            text-decoration:underline;
-        }
 
      
 
@@ -19729,7 +19836,7 @@ label.checkpop.c_on {
     position: absolute;
     z-index: 150;
     background: white;
-    margin-top: 42px;
+    margin-top: 45px;
     width: 310px;
     /* border: 1.5px solid #e81c36; */
     margin-left: -261px;
@@ -20305,14 +20412,16 @@ label.checkpop.c_on {
 .previous_ofertas.next{
     right: 0px;
 }
-.producto_img_home{
-    height:166px;
-   
-    text-align:center;
-    margin-top:20px;
-   
-    /*background:#ccc;*/
+.producto_img_home {
+    height: 166px;
+    text-align: center;
+    margin-top: 20px;
 }
+
+    .producto_img_home img {
+        width: auto;
+        height: 93.5%;
+    }
 .content_carrusel_ofertas .slick-track{
     height:400px;
 }
@@ -20648,10 +20757,16 @@ label.checkpop.c_on {
 }
 
 .borde_video{
-    padding-bottom:11px;
+    padding-top: 13px;
+    padding-bottom: 11px;
     border-bottom: 1px solid #e7e1e1;
-    margin-bottom:11px;
-    overflow:hidden;
+    margin-bottom: 11px;
+    overflow: hidden;
+    min-height: 57.3px;
+}
+
+.borde_video:last-child{
+    border-bottom:none;
 }
 
 .sin_iniciar{
@@ -20843,6 +20958,7 @@ hr{
     height:auto;
     float:left;
     margin-top:45px;
+    margin-bottom: 45px;
 }
 .titulo_detalle_pago{
     overflow:hidden;
@@ -20908,6 +21024,15 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+}
+.movimientos_pagos_content{
+    width:38%;
+    padding-left:17px;
+    padding-top:30px;
+    padding-bottom:30px;
+    display:inline-block;
+    vertical-align:middle;
+    text-decoration: underline;
 }
 .pedidos_pagos{
     width:25%;
@@ -21246,8 +21371,41 @@ body{
 .content_carrusel_liquidacion .nombre_producto{
     height:40px;
 }
+@media screen and (max-width: 1132px) {
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 3.5%;
+    }
+}
 
 @media screen and (max-width: 1024px) {
+     .linea_blanca{
+        width:52px;
+    }
+    .flechita_info{
+        width:54px;
+    }
+     .mensaje_header{
+        margin-right:8px;
+    }
+    .menu_socia_empresaria .sub_menu_home1 {
+    margin-left: -177px;
+    }
+     .menu_enlace{
+        font-size:11px !important; 
+        margin-bottom: 15px;
+    }
+    .menu_titulo{
+        font-size:11px !important; 
+        margin-bottom: 16px;
+    }
+    .sub_menu_home1{
+        width: 876px;
+        margin-left: -80px;
+    }
+    .sub_menu_home2 {
+      width: 560px;
+        left: -310px;
+    }
     .info_cam {
       margin-left: -265px;
     }
@@ -21285,7 +21443,7 @@ body{
     .menu_socia_empresaria > .new_menu {
         margin-left: 3.2%;
     }
-    .new_menu a {
+    .new_menu_a {
         font-size: 9.5px;
     }
     .menu_esika_b {
@@ -22086,7 +22244,7 @@ body{
     -webkit-transition:height 0.5s ease;*/
 }
 
-.btn_cerrar_popup_pedidosFacturados{
+.btn_cerrar_popup_pedidosFacturados, .btn_cerrar_popup_notificaciones{
     display: block;
     position: relative;
     top: 4%;
@@ -24886,6 +25044,16 @@ div.subir_archivo input {
     position:relative;
     overflow:hidden;
 }
+.aviso_mensajes{
+    font-family:'lato';
+    font-weight:300;
+    font-size:12pt;
+    color:black;
+    float:left;
+    margin-left:10px;
+    margin-top:3px;
+    margin-bottom:20px;
+}
 
 .saludo_aniversario{
     color:#613c87;
@@ -24894,6 +25062,114 @@ div.subir_archivo input {
     margin-top:15px;
     margin-bottom:50px;
     overflow:hidden;
+}
+.PopUpNotificaciones{
+    width: 100%;
+    top: 61px;
+    position: absolute;
+    z-index: 899;
+    background: #fff;
+    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    display:none;
+}
+.fondo_popNoti{
+    width: 100%;
+    height: 130px;
+    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat left bottom;
+
+}
+.content_popNotificaciones{
+    max-width: 1189px;
+    margin:0 auto;
+    position: relative;
+    overflow:hidden;
+    font-family:'Lato';
+}
+.saludo_notificaciones{
+    font-family:'Lato';
+    font-size:13pt;
+    color:white;
+    margin-top:60px;
+}
+.texto_titulo_noti{    
+    font-size:16pt;
+    letter-spacing:0.25px;
+    color:black;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.texto_secundario_noti{
+    font-weight:300;
+    font-size:10pt;
+    margin-bottom:30px;
+}
+.texto_secundario_noti span{
+    text-transform:uppercase;
+    letter-spacing:0.25px;
+}
+.texto_detalle{
+    font-size:10pt;
+    letter-spacing:0.25px;
+    margin-bottom:5px;
+}
+.cantidad_productos_notificaciones {
+    float: left;
+    margin-left: 33%;   
+    margin-bottom: 17px;
+    font-size:10pt;
+}
+.cantidad_productos_notificaciones span{
+    margin-right:20px;
+}
+.content_listado_notificaciones{
+    width:100%;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+}
+.cod_venta_notificaciones{
+    width:15%;
+    display:inline-block;
+    vertical-align:middle;
+    padding-left:15px;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+
+.descripcion_notificaciones{
+    width: 20%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15%;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.cantidad_notificaciones{
+    width:13%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:center;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.unitario_notificaciones{
+    width:17%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:right;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.total_notificaciones{
+    width:18%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:right;
+    padding-top:23px;
+    padding-bottom:23px;
 }
 
 /*CLIENTES*/
@@ -25436,7 +25712,7 @@ input[type="checkbox"]:checked + span:after {
     font-size: 12px;
     font-weight: 900;
     line-height: 1.26;
-    color: #e81c36;
+    color: #613c87;
 }
 .agrega_barra{
     Font-family: 'Lato';
@@ -25471,9 +25747,9 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    margin-left: 31.5%;
+    /*margin-left: 31.5%;*/
     margin-top: 4px;
-    background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
+    background: url("../../../Images/mobile/Lbel/bandera.png") no-repeat;
 }
 .BarraPosicion{
     background: rgba(255,255,255,1);
@@ -25680,7 +25956,7 @@ position: relative; float: left;
     font-size:13px;
 }
 .icono_exclamacion_alerta{
-    background:url(../../../Images/Lbel/icono_exclamacion_esika.svg) no-repeat;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat;
     background-size:cover;
 }
 
@@ -25902,7 +26178,7 @@ position: relative; float: left;
     position:absolute;
     height:5px;
     background:white;
-    width:53px;
+    width:62px;
     right: 0;
     margin-top: -17px;
 }
@@ -25986,6 +26262,35 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .content_listado_notificaciones:hover{
     background:#f0f0f0;
+}
+
+.mensaje_producto_validado{    
+    width: 100%;
+    height: 55px;
+    background: #f0f0f0;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    line-height: 55px;
+    padding-left: 20px;
+    position: relative;
+    margin-top: -1px;
+}
+.mensaje_producto_validado:before{
+    bottom: 99%;
+    left: 20%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(240, 240, 240, 0);
+    border-bottom-color: #f0f0f0;
+    border-width: 12px;
+    margin-left: -12px;
+    z-index: 20;
 }
 
 /* MIS BENEFICIOS */
@@ -26133,4 +26438,3 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
 }
-

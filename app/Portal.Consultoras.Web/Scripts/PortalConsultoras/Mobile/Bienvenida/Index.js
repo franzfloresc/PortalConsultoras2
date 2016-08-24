@@ -4,7 +4,7 @@
 
     CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
-
+    CargarPopupsConsultora();
 });
 
 function RedirectPagaEnLineaAnalytics() {
@@ -181,7 +181,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                             $('#hdnPagina').val(), ";",
                             $('#hdnClienteID2_').val());
 
-                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo)
+                        $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
                         return;
                     }
                 });
@@ -264,6 +264,7 @@ function AgregarProductoDestacado() {
     if ($.trim($("#ddlTallaColor").html()) != "") {
         if ($.trim($("#ddlTallaColor").val()) == "") {
             messageInfo("Por favor, seleccione la Talla/Color del producto.");
+            CloseLoading();
             return false;
         }
     }
@@ -274,18 +275,18 @@ function AgregarProductoDestacado() {
     if (!$.isNumeric(cantidad)) {
         messageInfo("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
     if (parseInt(cantidad) <= 0) {
         messageInfo("La cantidad debe ser mayor a cero.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
         messageInfo("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
-        $("#loadingScreen").dialog('close');
+        CloseLoading();
         return false;
     }
 
@@ -324,9 +325,11 @@ function AgregarProductoDestacado() {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             ShowLoading();
+                            ActualizarGanancia(data.DataBarra);
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarCantidadProductosPedidos();
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             CloseLoading();
                         }
                     },
@@ -416,3 +419,120 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 }
+
+// CARGAR POPUPS HOME MOBILE
+function CargarPopupsConsultora() {
+    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
+    //    AbrirAceptacionContrato();
+    //}
+    //else {
+    //    if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
+    //        if (contadorFondoPopUp == 0) {
+    //            $("#fondoComunPopUp").show();
+    //        }
+    //        $("#popupActualizarMisDatosMexico").show();
+    //        contadorFondoPopUp++;
+    //    } else {
+    //        if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
+    //            if (viewBagPaisID == 11) { //Peru
+    //                $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+    //            } else {
+    //                $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
+    //            }
+    //            if (contadorFondoPopUp == 0) {
+    //                $("#fondoComunPopUp").show();
+    //            }
+    //            $("#popupActualizarMisDatos").show();
+    //            contadorFondoPopUp++;
+    //        }
+    //        else {
+    //            if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
+    //                AbrirAceptacionContrato();
+    //            }
+    //        }
+    //    }
+    //}
+
+    //AbrirPopupFlexipago();
+    //AbrirComunicado();
+
+    //if (viewBagPrefijoPais == "EC") {
+    //    AbrirComunicadoVisualizacion();
+    //};
+
+    MostrarDemandaAnticipada();
+
+    //MostrarShowRoom();
+
+    //if (viewBagValidaSuenioNavidad == 0) {
+    //    showDialog('idSueniosNavidad');
+    //}
+};
+
+function MostrarDemandaAnticipada() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Cronograma/ValidacionConsultoraDA",
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    $('#fechaHasta').text(data.mensajeFechaDA);
+                    $('#fechaLuego').text(data.mensajeFechaDA);
+                    if (contadorFondoPopUp == 0) {
+                        $("#fondoComunPopUp").show();
+                    }
+                    $("#popupDemandaAnticipada").show();
+                    contadorFondoPopUp++;
+                }
+                
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                if (tipo == 1) {
+                    alert("Ocurrió un error al validar demanda anticipada.");
+                } else {
+                    alert("Ocurrió un error al validar la demanda anticipada.");
+                }
+            }
+        }
+    });
+};
+
+function AceptarDemandaAnticipada() {
+    InsertarDemandaAnticipada(1);
+};
+function CancelarDemandaAnticipada() {
+    InsertarDemandaAnticipada(0);
+};
+function InsertarDemandaAnticipada(tipo) {
+    var params = { tipoConfiguracion: tipo };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Cronograma/InsConfiguracionConsultoraDA",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    $("#popupDemandaAnticipada").hide();
+                    if (contadorFondoPopUp == 1) {
+                        $("#fondoComunPopUp").hide();
+                    }
+                    contadorFondoPopUp--;
+                    location.href = baseUrl + 'Login/LoginCargarConfiguracion?paisID=' + data.paisID + '&codigoUsuario=' + data.codigoUsuario;
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                if (tipo == 1) {
+                    alert("Ocurrió un error al aceptar la demanda anticipada.");
+                } else {
+                    alert("Ocurrió un error al cancelar la demanda anticipada.");
+                }
+            }
+        }
+    });
+};

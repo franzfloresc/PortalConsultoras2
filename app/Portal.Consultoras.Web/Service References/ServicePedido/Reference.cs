@@ -14132,6 +14132,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int PorDescuentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioMinimoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool SeleccionadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14182,6 +14185,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PorDescuentoField.Equals(value) != true)) {
                     this.PorDescuentoField = value;
                     this.RaisePropertyChanged("PorDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioMinimo {
+            get {
+                return this.PrecioMinimoField;
+            }
+            set {
+                if ((this.PrecioMinimoField.Equals(value) != true)) {
+                    this.PrecioMinimoField = value;
+                    this.RaisePropertyChanged("PrecioMinimo");
                 }
             }
         }
@@ -16165,12 +16181,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturado", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/PruebaPase", ReplyAction="http://tempuri.org/IPedidoService/PruebaPaseResponse")]
-        string PruebaPase();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/PruebaPase", ReplyAction="http://tempuri.org/IPedidoService/PruebaPaseResponse")]
-        System.Threading.Tasks.Task<string> PruebaPaseAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad);
         
@@ -16182,6 +16192,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora", ReplyAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora[]> GetMensajeMetaConsultoraAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF", ReplyAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse")]
+        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF", ReplyAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse")]
+        System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampaniaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEOfertaNueva[] GetPackOfertasNuevasByCampania(int paisID, int CampaniaID);
@@ -16426,10 +16442,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetPedidosByConsultoraAsync(int paisID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTrackingByPedido", ReplyAction="http://tempuri.org/IPedidoService/GetTrackingByPedidoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, System.DateTime fecha);
+        Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTrackingByPedido", ReplyAction="http://tempuri.org/IPedidoService/GetTrackingByPedidoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, System.DateTime fecha);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, string nropedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoCUVsAutomaticosToInsert", ReplyAction="http://tempuri.org/IPedidoService/GetProductoCUVsAutomaticosToInsertResponse")]
         int GetProductoCUVsAutomaticosToInsert(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidoweb);
@@ -17829,14 +17845,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosIngresadoFacturadoAsync(paisID, consultoraID, campaniaID);
         }
         
-        public string PruebaPase() {
-            return base.Channel.PruebaPase();
-        }
-        
-        public System.Threading.Tasks.Task<string> PruebaPaseAsync() {
-            return base.Channel.PruebaPaseAsync();
-        }
-        
         public Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad) {
             return base.Channel.GetConsultorasProgramaNuevas(paisID, entidad);
         }
@@ -17851,6 +17859,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora[]> GetMensajeMetaConsultoraAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora entidad) {
             return base.Channel.GetMensajeMetaConsultoraAsync(paisID, entidad);
+        }
+        
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID) {
+            return base.Channel.GetImagenOfertaPersonalizadaOF(paisID, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID) {
+            return base.Channel.GetImagenOfertaPersonalizadaOFAsync(paisID, campaniaID);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEOfertaNueva[] GetPackOfertasNuevasByCampania(int paisID, int CampaniaID) {
@@ -18173,12 +18189,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosByConsultoraAsync(paisID, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, System.DateTime fecha) {
-            return base.Channel.GetTrackingByPedido(paisID, codigo, campana, fecha);
+        public Portal.Consultoras.Web.ServicePedido.BETracking[] GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido) {
+            return base.Channel.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, System.DateTime fecha) {
-            return base.Channel.GetTrackingByPedidoAsync(paisID, codigo, campana, fecha);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETracking[]> GetTrackingByPedidoAsync(int paisID, string codigo, string campana, string nropedido) {
+            return base.Channel.GetTrackingByPedidoAsync(paisID, codigo, campana, nropedido);
         }
         
         public int GetProductoCUVsAutomaticosToInsert(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidoweb) {

@@ -1269,6 +1269,7 @@
       <xs:element minOccurs="0" name="MontoDesde" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoHasta" type="xs:decimal" />
       <xs:element minOccurs="0" name="PorDescuento" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Seleccionado" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoParametriaOfertaFinal" nillable="true" type="xs:string" />
     </xs:sequence>

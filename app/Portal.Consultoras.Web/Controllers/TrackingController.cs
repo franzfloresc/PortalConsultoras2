@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (usuario != null)
             {
                 string paisID = usuario.PaisID.ToString();
-                
+
                 //Inicio ITG 1793 HFMG
                 string codigoConsultora;
                 if (UserData().UsuarioPrueba == 1)
@@ -37,10 +37,10 @@ namespace Portal.Consultoras.Web.Controllers
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisISO = UserData().CodigoISO.Trim();
                 string campanhaID = UserData().CampaniaID.ToString();
-                
+
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 
-                ViewBag.URLWebTracking = url;   
+                ViewBag.URLWebTracking = url;
             }
 
             return View();

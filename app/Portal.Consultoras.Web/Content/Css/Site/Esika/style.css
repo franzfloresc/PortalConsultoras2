@@ -69,7 +69,7 @@ header {
     height: 61px;
     margin: 0 auto;
     max-width: 1189px;
-    overflow: hidden;
+   
      
 }
 .user-profile {
@@ -90,6 +90,8 @@ header {
 .menu_new_esika {
     float: left;
     width: 60%;
+    height:60px;
+    position:relative;
 }
 
 .menu_esika_b {
@@ -100,7 +102,7 @@ header {
 }
 
 .campana {
-    margin-top: 18px;
+    margin-top: 15px;
     float: left;
     width: 46px;
     /* padding-left: 5px; */
@@ -108,12 +110,12 @@ header {
     /* padding-right: 5px; */
 }
 .mensaje_header{
-    margin-top: 18px;
+     margin-top: 15px;
     float: left;
-    width: 40px;
-    padding-left: 4px;
+    width: 23px;
+    /* padding-left: 4px; */
     height: 40px;
-    padding-right: 7px;
+    margin-right: 12px;
 
 }
 
@@ -172,11 +174,28 @@ header {
     margin-left: 12px;
 }
 
+.new_menu_a {
+        display: inline-block;
+        font-family: 'lato';
+        font-weight: 700;
+        font-size: 10.5px;
+        text-decoration: none;
+        color: black;
+        border-bottom: 2px solid white;
+        letter-spacing: 0.75pt;
+    }
+
+ .new_menu_a:hover {
+            /*border-bottom: 2px solid #e81c36;*/
+        }
+
+
 .new_menu {
     margin-top: 21px;
-    margin-left: 7.5%;
+    margin-left: 4.8%;
     height: 40px;
     float: left;
+    position:relative;
 }
 
 .flecha_menu{
@@ -194,9 +213,119 @@ header {
     margin-left: 4.2%;
     margin-top: 21px;
     /*width: 15%;*/
-    text-align: center;
+    
 }
-.menu_socia_empresaria li ul {
+.nav_principal li:hover > ul {
+    display:block;
+}
+.nav_principal li:hover .pestana_esika{
+    display:block;
+}
+.sub_menu_home1{
+    position:absolute;
+    top: 39px;
+    margin-left: -90px;
+    width:918px;
+    height:220px;
+    padding-left:65px;
+    padding-right:60px;
+    display: none;
+    background: rgba(255,255,255,0.95) url(../../../Images/Esika/fondo.png);
+    -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);    
+}
+.sub_menu_home2{
+    position:absolute;
+    left: -365px;
+    display:none;
+    top: 39px;
+    width:615px;
+    height: 188px;
+    padding-left:60px;
+    padding-right:60px;
+    background: rgba(255,255,255,0.95) url(../../../Images/Esika/fondo.png);
+    -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    box-shadow: -4px 4px 11px -5px rgba(120,120,120,1); 
+}
+.linea_menu {
+    width: 100%;
+    height: 1px;
+    background: black;
+}
+.pestana_esika{
+    width: 20px;
+    height: 16px;
+    top: 24px;
+    display:none;
+    z-index: 1000;
+    position: absolute;
+    /* margin-left: 72px; */
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    
+    background:url(../../../Images/Esika/pestana_esika.png);
+    background-size:cover;
+}
+
+.content_left_menu{
+    float:left;
+    margin-right:53px;
+    margin-top:40px;
+    
+}
+.menu_titulo{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.3px;
+    font-weight:700;
+    background: url("../../../Images/Esika/fle_.png") no-repeat;
+    background-position:0px 5px;
+    padding-left:13px;
+    margin-bottom:10px;
+    margin-left:-15px;
+}
+.menu_enlace{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.3px;
+    margin-bottom:13px;
+
+}
+.menu_imagen{
+    margin-top:40px;
+    margin-right:45px;
+    margin-left:13px;
+    float:left;
+    width:180px;
+    height:143px;
+    position:relative;
+    display:block;
+
+}
+.menu_imagen img{
+    width:100%;
+}
+.titulo_imagen{
+    width:100%;
+    height:30px;
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:900;
+    color:white;
+    text-align:center;
+    letter-spacing:0.5px;
+    line-height:30px;
+    background:black;
+    position:absolute;
+    bottom:0;
+}
+.menu_socia_empresaria .sub_menu_home1{
+    margin-left: -161px;
+}
+/*.menu_socia_empresaria li ul {
     margin-left:-288px !important;}
 .menu_socia_empresaria > .menu_especial ul {
         width: 190px !important;
@@ -212,7 +341,7 @@ header {
 .menu_socia_empresaria .menu_especial .flechita_0 {
     margin-left: 41px !important;
     margin-top: 1px !important;
-}
+}*/
 /*.menu_socia_empresaria  .new_menu img {
         
     top: 6px;
@@ -221,7 +350,7 @@ header {
     margin-top: 7px;
 }*/
 
-.flechita_0 {
+/*.flechita_0 {
    position: absolute;
     z-index: 2000;
     width: 20px;
@@ -229,15 +358,15 @@ header {
     display: none;
     margin-left: 35px;
     margin-top: 10px;
-    /* margin: 0 auto; */
+   margin: 0 auto;
     background: url(../../../Images/Esika/flechita.png) no-repeat;
-}
+}*/
 
 .icon-flechita {
     content: "\e900";
 }
 
-.flechita_1 {
+/*.flechita_1 {
     height: 0;
     left: 0;
     margin-top: -7px;
@@ -245,12 +374,12 @@ header {
     border-top: 10px solid transparent;
     border-left: 15px solid transparent;
     border-bottom: 10px solid blue;
-}
+}*/
 
 .flechita_info {
     position: absolute;
     z-index: 2001;
-    width: 55px;
+    width: 63px;
     height: 54px;
     right: -1px;
     margin-top: -69px;
@@ -261,14 +390,7 @@ header {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-
-.nav_principal li:hover .flechita_0 {
-    display: block;
-}
-
-
-
-.nav_principal li ul {
+/*.nav_principal li ul {
     border-top: 1px solid #ccc;
     margin-left: -159px;
     display: none;
@@ -333,9 +455,9 @@ header {
     float: right;
   
     
-}
+}*/
 
-.menu_especial ul{
+/*.menu_especial ul{
     width: 204px !important;
     margin-left: -28px !important;
 }
@@ -354,7 +476,7 @@ header {
 .menu_especial ul li {
     margin-top: 0 !important;
     margin-bottom: 10px !important;
-}
+}*/
 
 
 
@@ -3018,14 +3140,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     box-shadow: 0px 15px 21px -8px rgba(204,200,204,1)!important;
 }
 
-.producto_img{
-    position:relative;
-    display:block;
-    margin:0 auto;
-    background:#FFF;
+.producto_img {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    background: #FFF;
     /*width:96.5px;*/
     height:200px;
-    text-align:center;
+    text-align: center;
+    overflow: hidden;
 }
 
 .etiqueta_producto {
@@ -3037,13 +3160,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     right: 4.8%;
 }
 
-.producto_img img{
-    position: absolute;
-    top: 50%;
-    margin-top: -83px;
-    left: 50%;
-    margin-left: -83px;
+.producto_img img {
+    width: auto;
+    height: 93.5%;    
 }
+
 
 .producto_nombre_descripcion{
     width:100%;
@@ -4849,6 +4970,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label{
     display:block;
+    cursor: text;
 }
 
 .grupo_input_actualizarMisDatos{
@@ -5774,18 +5896,12 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .mostrar_perfil{
     display:block;
 }
-.menu_socia_empresaria .new_menu .flechita_0 {
-    margin-top: 10px;
-   
-}
+
 
 .new_menu a:hover{
     text-decoration:underline;
 }
-.menu_socia_empresaria li:hover > ul {
-   
-    margin-top: 20px;
-}
+
 .logo_esika a{
     height:50px;
     background: url(../../../Images/Esika/logo_esika.png) no-repeat;
@@ -10835,21 +10951,6 @@ ol {
 /*	Main Navigation
 	/* -------------------------------------------------- */
 
-.new_menu a {
-        display: inline-block;
-        font-family: 'lato';
-        font-weight: 700;
-        font-size: 10.5px;
-        text-decoration: none;
-        color: black;
-        border-bottom: 2px solid white;
-        letter-spacing: 0.75pt;
-    }
-
-        .new_menu a:hover {
-            /*border-bottom: 2px solid #e81c36;*/
-        }
-
 .info_cam {
     padding-left: 19px;
     padding-right: 19px;
@@ -10859,7 +10960,7 @@ ol {
     position: absolute;
     z-index: 150;
     background: white;
-    margin-top: 42px;
+    margin-top: 45px;
     width: 310px;
     border:1px solid #ccc;
     /* border: 1.5px solid #e81c36; */
@@ -20383,14 +20484,16 @@ label.checkpop.c_on {
     right: 0px;
 }
 
-.producto_img_home{
-    height:166px;
-   
-    text-align:center;
-    margin-top:20px;
-   
-    /*background:#ccc;*/
+.producto_img_home {
+    height: 166px;
+    text-align: center;
+    margin-top: 20px;
 }
+
+    .producto_img_home img {
+        width: auto;
+        height: 93.5%;
+    }
 .content_carrusel_ofertas .slick-track{
     height:385px;
 }
@@ -20726,11 +20829,18 @@ label.checkpop.c_on {
 }
 
 .borde_video{
-    padding-bottom:11px;
+    padding-top: 13px;
+    padding-bottom: 11px;
     border-bottom: 1px solid #e7e1e1;
-    margin-bottom:11px;
-    overflow:hidden;
-    }
+    margin-bottom: 11px;
+    overflow: hidden;
+    min-height: 57.3px;
+}
+
+.borde_video:last-child{
+    border-bottom:none;
+}
+
 .sin_iniciar{
     text-align:center;
     color: #e81c36;
@@ -20938,6 +21048,7 @@ hr{
     height:auto;
     float:left;
     margin-top:45px;
+    margin-bottom: 45px;
 }
 .titulo_detalle_pago{
     overflow:hidden;
@@ -21012,6 +21123,15 @@ hr{
     padding-bottom:30px;
     display:inline-block;
     vertical-align:middle;
+}
+.movimientos_pagos_content{
+    width:38%;
+    padding-left:17px;
+    padding-top:30px;
+    padding-bottom:30px;
+    display:inline-block;
+    vertical-align:middle;
+    text-decoration: underline;
 }
 .pedidos_pagos{
     width:25%;
@@ -21334,7 +21454,41 @@ body{
     height:350px;
     overflow:hidden;
 }
+@media screen and (max-width: 1132px) {
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 3.5%;
+    }
+}
+
 @media screen and (max-width: 1024px) {
+    .linea_blanca{
+        width:52px !important;
+    }
+    .flechita_info{
+        width:54px;
+    }
+    .mensaje_header{
+        margin-right:8px;
+    }
+    .menu_socia_empresaria .sub_menu_home1 {
+    margin-left: -184px;
+    }
+    .menu_enlace{
+        font-size:11px !important; 
+        margin-bottom: 15px;
+    }
+    .menu_titulo{
+        font-size:11px !important; 
+        margin-bottom: 16px;
+    }
+    .sub_menu_home1{
+        width: 876px;
+        margin-left: -95px;
+    }
+    .sub_menu_home2 {
+      width: 560px;
+        left: -310px;
+    }
     .info_cam {
       margin-left: -265px;
 }
@@ -21378,7 +21532,7 @@ body{
     .menu_socia_empresaria > .new_menu {
         margin-left: 3.2%;
     }
-    .new_menu a {
+    .new_menu_a {
         font-size: 9.5px;
     }
     .menu_esika_b {
@@ -25681,7 +25835,7 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    margin-left: 31.5%;
+    /*margin-left: 31.5%;*/
     margin-top: 4px;
     background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
 }
@@ -26111,7 +26265,7 @@ position: relative; float: left;
     position:absolute;
     height:5px;
     background:white;
-    width:53px;
+    width:62px;
     right: 0;
     margin-top: -17px;
 }
@@ -26197,6 +26351,36 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .content_listado_notificaciones:hover{
     background:#f0f0f0;
 }
+
+.mensaje_producto_validado{    
+    width: 100%;
+    height: 55px;
+    background: #f0f0f0;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    line-height: 55px;
+    padding-left: 20px;
+    position: relative;
+    margin-top: -1px;
+}
+.mensaje_producto_validado:before{
+    bottom: 99%;
+    left: 20%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(240, 240, 240, 0);
+    border-bottom-color: #f0f0f0;
+    border-width: 12px;
+    margin-left: -12px;
+    z-index: 20;
+}
+
 
 /* MIS BENEFICIOS */
 

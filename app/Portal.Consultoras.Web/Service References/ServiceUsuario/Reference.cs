@@ -56,6 +56,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CampaniaInicioLiderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CatalogoPersonalizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -543,6 +546,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CampaniaInicioLiderField, value) != true)) {
                     this.CampaniaInicioLiderField = value;
                     this.RaisePropertyChanged("CampaniaInicioLider");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CatalogoPersonalizado {
+            get {
+                return this.CatalogoPersonalizadoField;
+            }
+            set {
+                if ((this.CatalogoPersonalizadoField.Equals(value) != true)) {
+                    this.CatalogoPersonalizadoField = value;
+                    this.RaisePropertyChanged("CatalogoPersonalizado");
                 }
             }
         }

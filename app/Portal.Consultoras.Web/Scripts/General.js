@@ -473,6 +473,24 @@ function paginadorAccionGenerico(obj) {
     return rpt;
 }
 //R2116-INICIO
+
+function ActualizarGanancia(data) {
+    data = data || new Object();
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+
+    data.CantidadProductos = data.CantidadProductos || "";
+    data.TotalPedidoStr = data.TotalPedidoStr || "";
+
+    $("#spnCantidadProductos").html(data.CantidadProductos);
+    $(".num-menu-shop").html(data.CantidadProductos);
+    $("#spnDescripcionTotal").html(data.TotalPedidoStr);
+    $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
+    
+    $(".lblCantidadProducto").html(data.CantidadProductos);
+    $(".lblDescripcionTotal").html(data.TotalPedidoStr);
+    $('#lblDescripcionTotal').html(data.TotalPedidoStr);
+}
+
 FuncionesGenerales = {
     ValidarSoloNumeros: function(e) {
         var tecla = (document.all) ? e.keyCode : e.which;

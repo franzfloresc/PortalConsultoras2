@@ -440,7 +440,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora);
 
         [OperationContract]
-        List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha);
+        List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
 
         #endregion
 
@@ -836,15 +836,14 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID);
-
-        [OperationContract]
-        string PruebaPase();
         
         [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
         [OperationContract]
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
-        
+
+        [OperationContract]
+        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID);
     }
 }

@@ -23,6 +23,18 @@ namespace Portal.Consultoras.Web.Models
         public decimal TotalPedido { get; set; }
         public string TotalPedidoStr { get; set; }
 
+        public int CantidadProductos { get; set; }
+        public int CantidadCuv { get; set; }
+
+        public decimal MontoAhorroCatalogo { get; set; }
+        public string MontoAhorroCatalogoStr { get; set; }
+
+        public decimal MontoAhorroRevista { get; set; }
+        public string MontoAhorroRevistaStr { get; set; }
+        
+        public decimal MontoGanancia { get; set; }
+        public string MontoGananciaStr { get; set; }
+
         public IList<BarraConsultoraEscalaDescuentoModel> ListaEscalaDescuento { get; set; }
         public IList<BEMensajeMetaConsultora> ListaMensajeMeta { get; set; }
     }

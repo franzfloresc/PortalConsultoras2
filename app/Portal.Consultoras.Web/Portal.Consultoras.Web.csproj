@@ -199,8 +199,6 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ProductosDestacadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\RevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
@@ -1477,7 +1475,7 @@
     <Content Include="Content\Images\Esika\catalogos.png" />
     <Content Include="Content\Images\Esika\catalogo_facebook.png" />
     <Content Include="Content\Images\Esika\catalogo_mensaje.png" />
-    <Content Include="Content\Images\Esika\catálogos.png" />
+    <Content Include="Content\Images\Esika\catalogo_menu.png" />
     <Content Include="Content\Images\Esika\celular.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
@@ -1573,6 +1571,7 @@
     <Content Include="Content\Images\Esika\pdf.png" />
     <Content Include="Content\Images\Esika\pedidos_producto.png" />
     <Content Include="Content\Images\Esika\pedido_agregar.png" />
+    <Content Include="Content\Images\Esika\pestana_esika.png" />
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
@@ -1611,6 +1610,8 @@
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
+    <Content Include="Content\Images\flecha_volver_mobile.svg" />
+    <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
     <Content Include="Content\Images\flechita.png" />
     <Content Include="Content\Images\flexipago.png" />
     <Content Include="Content\Images\flexipago_img.jpg" />
@@ -1698,7 +1699,6 @@
     <Content Include="Content\Images\Lbel\carrito_resumen.png" />
     <Content Include="Content\Images\Lbel\catalogo.png" />
     <Content Include="Content\Images\Lbel\catalogos.png" />
-    <Content Include="Content\Images\Lbel\catálogos.png" />
     <Content Include="Content\Images\Lbel\celular.png" />
     <Content Include="Content\Images\Lbel\check_liquidacion.png" />
     <Content Include="Content\Images\Lbel\circulo.png" />
@@ -1973,6 +1973,7 @@
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
+    <Content Include="Content\Images\mobile\Lbel\bandera.png" />
     <Content Include="Content\Images\mobile\Lbel\camara.png" />
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
@@ -2214,12 +2215,14 @@
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -2275,13 +2278,8 @@
     <Content Include="Areas\Mobile\Views\PedidoCliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\AgregarCliente.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Detalle_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Index_old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListadoPedido.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListaEstrategias.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado.cshtml" />
-    <Content Include="Areas\Mobile\Views\ProductosDestacados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstadoCuenta\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
@@ -2290,9 +2288,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
-    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Revista\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -2414,6 +2410,9 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
+    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -2461,7 +2460,6 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Catalogo\Index - Old.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
@@ -3330,13 +3328,13 @@
     <Content Include="Views\Cliente\MisClientes.cshtml" />
     <Content Include="Views\Cliente\Index_old.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
-    <None Include="Web References\ServiceLMS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
+    <Content Include="Web References\ServiceLMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3628,17 +3626,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_ws_server</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://prdelb-webprol-261815517.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaPedidos.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicePROLArchivoReserva\</RelPath>
@@ -3715,6 +3702,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceLMS\</RelPath>
+      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Web_ServiceLMS_ws_server</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

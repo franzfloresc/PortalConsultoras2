@@ -823,9 +823,9 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora);
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, DateTime fecha)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, fecha);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
 
         #endregion
@@ -1557,11 +1557,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
         }
 
-        public string PruebaPase()
-        {
-            return "Hola Mundo";
-        }
-
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entity)
         {
             return BLConsultorasProgramaNuevas.GetConsultorasProgramaNuevas(paisID, entity);
@@ -1570,6 +1565,11 @@ namespace Portal.Consultoras.Service
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entity)
         {
             return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entity);
+        }
+
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID)
+        {
+            return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID);
         }
     }
 }

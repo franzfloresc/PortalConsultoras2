@@ -247,6 +247,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $(document).find(".mensajes_home").html("No tienes mensajes.");
                 };
 
+                data.mensaje = data.mensaje || "";
                 if (data.mensaje != '') {
                     console.log(data.mensaje);
                 }
@@ -799,3 +800,53 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 /* Fin Marcaciones */
+
+/* Tracking Jetlore */
+function TrackingJetloreAdd(cantidad, campania, cuv) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.addToCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }       
+}
+
+function TrackingJetloreRemove(cantidad, campania, cuv) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart({
+            count: cantidad,
+            deal_id: cuv,
+            option_id: campania
+        });
+    }    
+}
+
+function TrackingJetloreRemoveAll(lista) {
+    var esJetlore;
+
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+    if (esJetlore) {
+        JL.tracker.removeFromCart(lista);
+
+    }
+}
+/* Fin Tracking Jetlore */

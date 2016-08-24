@@ -222,7 +222,7 @@
             @(cabezaEscala)
             <div class="deuda_home">
                 @Model.Simbolo
-                <span>
+                <span data-ganancia="">
                     @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.PrefijoPais)
                 </span>
             </div>
@@ -302,7 +302,7 @@
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
-    <div class="content_video_home" style="display:block;" id="divTutoriales">
+    <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -321,7 +321,7 @@
     <!-- FIN TUTORIALES-->
 
     <!-- SIN TUTORIALES -->
-    <div class="content_video_home sinTutoriales" style="display:none;" id="divSinTutoriales">
+    <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
             <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
@@ -355,24 +355,27 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-                            <a href="#">
-                                ¿Cómo conseguir tu primer pedido?
-                            </a>
-                        </span>
-                            <a href="#">
-                                Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-                            </a>
-                        </span>
-                            <a href="#">
-                                ¿Cómo fidelizar a un cliente?
-                            </a>
-                        </span>
+            <span>
+                <a href="#">
+                    ¿Cómo conseguir tu primer pedido?
+                </a>
+            </span>
+            <span>
+                <a href="#">
+                    Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
+                </a>
+            </span>
+            <span>
+                <a href="#">
+                    ¿Cómo fidelizar a un cliente?
+                </a>
+            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
 
     <!--CAROUSEL LIQUIDACION HOME-->
-    <div class="carrusel_liquidacion" style="display:block;">
+    <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
         </div>
@@ -810,21 +813,21 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Nombres</label>
-                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" />
+                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora"/>
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Apellidos</label>
-                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" />
+                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de casa</label>
-                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono"/>
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono celular</label>
-                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -864,18 +867,18 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" />
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto"/>
                     </div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono"/>
                     </div>
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular"/>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1137,24 +1140,22 @@
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-            {{/iff}}
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
 
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-            {{#if_eq FlagEstrella '1' }}
-            <div class="etiqueta_producto">
-                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-            </div>
-            {{/if_eq}}
-            {{/if_eq}}
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                    {{#if_eq FlagEstrella '1' }}
+                    <div class="etiqueta_producto">
+                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                {{/if_eq}}
             {{/if_eq}}
 
             <div class="producto_nombre_descripcion">
@@ -1492,5 +1493,5 @@
     var paisISO = '@ViewBag.CodigoISODL';
     var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida");
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
 }
