@@ -5142,17 +5142,21 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 /* POPUP TUTORIAL HOME */
 
-.popup_tutorial_home{
+#popup_tutorial{
+    overflow:auto;
+}
+
+.popup_tutorial_home {
     display: block;
     position: relative;
-    top: 50%;
-    margin: -319.5px auto 0 auto;
+    /* top: 50%; */
+    margin: 8px auto 8px auto;
     width: 100%;
     max-width: 614px;
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background:url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
 }
 
 /* FIN POPUP TUTORIAL HOME */
