@@ -4212,6 +4212,12 @@ width:100%;
     text-align: center;
     margin-top: 15px;
 }
+
+.producto_img_mobile img{
+    width:auto;
+    height:100%;
+}
+
 .producto_nombre_descripcion {
     width: 100%;
     padding-left: 30px;

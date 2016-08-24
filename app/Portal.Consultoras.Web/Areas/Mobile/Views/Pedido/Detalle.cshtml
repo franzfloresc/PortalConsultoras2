@@ -243,10 +243,21 @@
                     </span>
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                 </div>
-                <div class="icono_eliminar_item_pedido">
+                @*<div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
+                </div>*@
+                <div class="icono_kitNuevas">
+                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Eliminar" />
+                    </a>
+                </div>
+                <div class="tooltip_kitNuevas">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="texto_tooltipKitNuevas">
+                        Este Kit se agrega automáticamente sólo en tu primer pedido.
+                    </span>
                 </div>
             </div>
             <div style="display: none;">

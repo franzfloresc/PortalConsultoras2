@@ -4223,6 +4223,12 @@ width:100%;
     text-align: center;
     margin-top: 15px;
 }
+
+.producto_img_mobile img{
+    width:auto;
+    height:100%;
+}
+
 .producto_nombre_descripcion {
     width: 100%;
     padding-left: 30px;
@@ -4763,13 +4769,13 @@ body{
     margin-bottom:20px;
 }
 
-.descripcion_item_pedido, .icono_eliminar_item_pedido{
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas{
     display:inline-block;
     vertical-align:top;
 }
 
 .descripcion_item_pedido{
-    width:92%;
+    width:90%;
 }
 
 .descripcion_item_pedido span{
@@ -4798,9 +4804,23 @@ body{
 }
 
 .icono_eliminar_item_pedido{
-    width:6%;
+    width:8%;
     text-align: right;
-    padding-top: 6px;
+    margin-top: 11px;
+}
+
+.icono_kitNuevas{
+    width: 8%;
+    text-align: right;
+    margin-top: 14px;
+}
+
+.tooltip_kitNuevas{
+    display:block;
+    width:292px;
+    height:auto;
+    padding:10px;
+    background:#FFF;
 }
 
 .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos, .precios_item{
