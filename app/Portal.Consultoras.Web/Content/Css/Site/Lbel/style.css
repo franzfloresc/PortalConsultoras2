@@ -105,6 +105,43 @@ header {
     /* padding-right: 5px; */
 }
 
+.transicion{
+    position:absolute;
+    z-index:2000;
+}
+
+.flecha_scroll{
+    display:block;
+    position: fixed;
+    top: 90%;
+    right: 2%;
+    width: 35px;
+    height: 35px;
+    z-index: 1000;
+}
+
+.flecha_scroll a{
+    display:block;
+    height:35px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    background:url(../../../Images/flecha_scroll.svg) no-repeat center center;
+    background-size:cover;
+}
+
+.flecha_scroll_arriba{
+    background:url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center!important;
+    background-size:cover;
+}
+
+.flecha_scroll a:hover{
+    opacity:0.5;
+}
+
 .campana_svg {
     float: left;
     width: 20px;
@@ -112,10 +149,10 @@ header {
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
 }
-.campana_svg:hover {    
+/*.campana_svg:hover {    
     background: url(../../../Images/Esika/carrito.png) no-repeat;
     background-position: 0 4px;
-}
+}*/
 .mensaje_header {
     margin-top: 15px;
     float: left;
@@ -124,6 +161,11 @@ header {
     height: 40px;
     margin-right: 12px;
 }
+
+.cart_compras{
+    cursor:pointer;
+}
+
 .mensaje_svg {
     background: url(../../../Images/Esika/mensajes.png) no-repeat;
     background-position: 0 4px;
@@ -2297,7 +2339,7 @@ header {
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:0.7%;
+    padding-right:1.5%;
 }
 
 .cabecera_producto{
@@ -4852,7 +4894,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -300px auto 0 -360.5px;
+    margin: -271px auto 0 -360.5px;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -5132,6 +5174,33 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .campos_cambiarContrasenia{
     display:none;
+}
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -273.5px auto 0 auto;
+    width: 95%;
+    max-width: 1040px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 5;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio iframe{
+    display:block;
+    width:100%;
+    height:547px;
 }
 
 /* ACTUALIZACIÓN PÁGINA MIS PAGOS */
@@ -19840,8 +19909,7 @@ label.checkpop.c_on {
     width: 310px;
     /* border: 1.5px solid #e81c36; */
     margin-left: -261px;
-     border:1px solid #ccc;
-     
+    border:1px solid #ccc;
     -webkit-box-shadow:1px 6px 15px -4px rgba(166,164,166,1);
     -moz-box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
@@ -20274,7 +20342,9 @@ label.checkpop.c_on {
     right:0;
 }
 .seguir_pedido{
-    display:block;
+    display: inline-block;
+    vertical-align: top;
+    width: 173px;
     background:url("../../../Images/Lbel/indicador_pedido_negro.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
@@ -20286,6 +20356,11 @@ label.checkpop.c_on {
     font-weight: 500;
     font-size: 13px;
 }
+
+/*.seguir_pedido.ver_video_introductorio{
+    margin-top: 3px;
+}*/
+
 .seguir_pedido:hover{
     text-decoration:underline;
 }

@@ -14,7 +14,7 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
         <div class="content_320 ingresoPedido">
-            <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar ingresoP" title="Regresar">
+            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar">
                 @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
             </a>
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
