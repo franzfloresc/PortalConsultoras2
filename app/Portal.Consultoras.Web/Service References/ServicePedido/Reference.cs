@@ -1076,6 +1076,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionProdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal DescuentoProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EliminadoTemporalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1116,6 +1119,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ModificaPedidoReservadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoAhorroCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoAhorroRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoEscalaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoTotalProlField;
@@ -1419,6 +1431,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal DescuentoProl {
+            get {
+                return this.DescuentoProlField;
+            }
+            set {
+                if ((this.DescuentoProlField.Equals(value) != true)) {
+                    this.DescuentoProlField = value;
+                    this.RaisePropertyChanged("DescuentoProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EliminadoTemporal {
             get {
                 return this.EliminadoTemporalField;
@@ -1596,6 +1621,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ModificaPedidoReservadoField.Equals(value) != true)) {
                     this.ModificaPedidoReservadoField = value;
                     this.RaisePropertyChanged("ModificaPedidoReservado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoAhorroCatalogo {
+            get {
+                return this.MontoAhorroCatalogoField;
+            }
+            set {
+                if ((this.MontoAhorroCatalogoField.Equals(value) != true)) {
+                    this.MontoAhorroCatalogoField = value;
+                    this.RaisePropertyChanged("MontoAhorroCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoAhorroRevista {
+            get {
+                return this.MontoAhorroRevistaField;
+            }
+            set {
+                if ((this.MontoAhorroRevistaField.Equals(value) != true)) {
+                    this.MontoAhorroRevistaField = value;
+                    this.RaisePropertyChanged("MontoAhorroRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoEscala {
+            get {
+                return this.MontoEscalaField;
+            }
+            set {
+                if ((this.MontoEscalaField.Equals(value) != true)) {
+                    this.MontoEscalaField = value;
+                    this.RaisePropertyChanged("MontoEscala");
                 }
             }
         }
