@@ -62,13 +62,17 @@
                                                     }
                                                     else if (menuNieto.EsDireccionExterior)
                                                     {
-                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                        <a href="javascript:;" class="menu_enlace" 
+                                                           onclick="return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion')" 
+                                                           target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
                                                             @menuNieto.Descripcion
                                                         </a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                        <a href="javascript:;" class="menu_enlace" 
+                                                           onclick="return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion')" 
+                                                           target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
                                                             @menuNieto.Descripcion
                                                         </a>
                                                     }
