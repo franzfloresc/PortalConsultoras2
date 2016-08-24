@@ -203,7 +203,7 @@
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
-                else if (Model.PaisID == 5) //COSTA RICA
+                else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
@@ -786,7 +786,28 @@
 </div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
-<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
+<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
+    <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                var tag = document.createElement("script");
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                    player = new YT.Player("player", {
+                        width: "100%",
+                        videoId: "MkYSBgNZGcs",
+                    });
+                }
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" id="cerrarVideoIntroductorio">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
     <!-- POPUP ACTUALIZACIÓN DATOS -->
     <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -1125,128 +1146,101 @@
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 
-<!-- VIDEO INTRODUCTORIO HOME -->
+<script id="estrategia-template" type="text/x-handlebars-template">
+{{#each this as |item|}}
+<div>
+    <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+    <div class="producto_img_home">
+        <img src="{{FotoProducto01}}" class="imagen_producto" />
+    </div>
 
-<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
-    <div class="popup_video_introductorio" style="display: none;">
-        <div class="contenedor_video_introductorio">
-            <div id="player"></div>
-            <script>
-                var tag = document.createElement("script");
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
-                    player = new YT.Player("player", {
-                        width: "100%",
-                        videoId: "7g6h749J02w",
-                    });
-                }
-            </script>
+    {{#if_eq FlagMostrarImg '1'}}
+        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+        {{/if_eq}}
+    {{/if_eq}}
+
+    <div class="producto_nombre_descripcion">
+        <h6>{{DescripcionMarca}}</h6>
+        {{#if_eq FlagNueva '1'}}
+        <p class="nombre_producto">
+            <b>{{DescripcionCUVSplit}}</b>
+        </p>
+        {{else}}
+        <p class="nombre_producto">
+            <b>{{DescripcionCUV2}}</b>
+        </p>
+        {{/if_eq}}
+
+        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+        {{#if_eq EtiquetaID '1'}}
+        <div class="producto_precio">
+            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
         </div>
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
+        {{else}}
+        <div class="producto_precio">
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
         </div>
+        {{/if_eq}}
+
+        {{else}}
+        <div class="producto_precio">
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+        </div>
+        {{/iff}}
+
+        {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+        <div class="liquidacion_rango_home">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{/iff}}
+
+        <div class="clear"></div>
+    </div>
     </div>
 </div>
-
-<!-- FIN VIDEO INTRODUCTORIO HOME    -->
-
-    <script id="estrategia-template" type="text/x-handlebars-template">
-        {{#each this as |item|}}
-        <div>
-            <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
-            <div class="producto_img_home">
-                <img src="{{FotoProducto01}}" class="imagen_producto" />
-            </div>
-
-            {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                    {{#if_eq FlagEstrella '1' }}
-                    <div class="etiqueta_producto">
-                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                    </div>
-                    {{/if_eq}}
-                {{/if_eq}}
-            {{/if_eq}}
-
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                {{#if_eq FlagNueva '1'}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUVSplit}}</b>
-                </p>
-                {{else}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUV2}}</b>
-                </p>
-                {{/if_eq}}
-
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                {{#if_eq EtiquetaID '1'}}
-                <div class="producto_precio">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{/if_eq}}
-
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{/iff}}
-
-                {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{else}}
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{/iff}}
-
-                <div class="clear"></div>
-            </div>
-        </div>
-</div>
-    {{/each}}
+{{/each}}
 </script>
+
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
@@ -1481,168 +1475,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript">
 
-    // MICROEFECTO AGREGAR PRODUCTOS AL CARRITO DE COMPRA
-
-        // Funcion de animación al agregar productos al carrito
-
-        function agregarProductoAlCarrito(o) {
-            var btnClickeado = $(o);
-            var contenedorItem = btnClickeado.parent().parent();
-            var imagenProducto = $('.imagen_producto', contenedorItem);
-            var carrito = $('.campana');
-
-            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-            $(".transicion").css({
-                'height': imagenProducto.css("height"),
-                'width': imagenProducto.css("width"),
-                'top': imagenProducto.offset().top,
-                'left': imagenProducto.offset().left,
-            }).animate({
-                'top': carrito.offset().top - 40,
-                'left': carrito.offset().left + 100,
-                'height': carrito.css("height"),
-                'width': carrito.css("width"),
-                'opacity': 0.5
-            }, 300, 'swing', function () {
-                $(this).animate({
-                    'top': carrito.offset().top,
-                    'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
-                }, 100, 'swing', function () {
-                    $(this).remove();
-                });
-            });
-        }
-
-        $(document).ready(function () {
-
-            // Evento para visualizar video introductorio al hacer click
-
-            $(".ver_video_introductorio").click(function () {
-
-                $('#video_introductorio').fadeIn(function () {
-
-                    $("#video_introductorio").delay(200);
-
-                    $("#video_introductorio").fadeIn(function () {
-
-                        $(".popup_video_introductorio").fadeIn();
-
-                    });
-
-                });
-
-            });
-            
-            // Microefecto al agregar productos al carrito de compras
-
-            $(document).on("click", ".boton_Agregalo_home", function (e) {
-
-                e.preventDefault();
-
-                agregarProductoAlCarrito(this);
-
-            });
-
-            //$(".campana.cart_compras").hover(function () {
-            //    $(".info_cam").fadeIn(200);
-            //}, function () {
-            //    $(".info_cam").fadeOut(200);
-            //});
-
-            // MICROEFECTO FLECHA HOME
-
-                // Función de animación de la flecha scroll 
-
-                //function animacionFlechaScroll() {
-
-                //    $(".flecha_scroll").animate({
-                //        'top': '87%'
-                //    }, 450, 'swing', function () {
-                //        $(this).animate({
-                //            'top': '90%'
-                //        }, 150, 'swing', function () {
-                //            $(this).animate({
-                //                'top': '89.5%'
-                //            }, 100, 'swing', function () {
-                //                $(this).animate({
-                //                    'top': '90.5%'
-                //                }, 450, 'swing');
-                //            });
-                //        });
-                //    });
-
-                //}
-
-                function animacionFlechaScroll() {
-
-                    $(".flecha_scroll").animate({
-                        'top': '87%'
-                    }, 400, 'swing', function () {
-                        $(this).animate({
-                            'top': '90%'
-                        }, 400, 'swing');
-                    });
-
-                }
-
-                // Intervalo Microefecto Flecha Scroll
-
-                setInterval(animacionFlechaScroll, 1000);
-
-                // Funcion para cambiar background según posicion de scroll
-
-                $(window).scroll(function () {
-
-                    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-
-                        $(".flecha_scroll").animate({
-                            opacity: 0
-                        }, 100, 'swing', function () {
-                            $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                            $(".flecha_scroll").delay(100);
-                            $(".flecha_scroll").animate({
-                                opacity:1
-                            },100,'swing');
-                        });
-
-
-                    } else {
-
-                        $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
-                    }
-
-                });
-
-                // Evento click que ocurre en la flecha scroll
-
-                $(".flecha_scroll").on('click', function (e) {
-
-                    e.preventDefault();
-                    var posicion = $(window).scrollTop();
-                    if (posicion + $(window).height() == $(document).height()) {
-
-                        $('html, body').animate({
-                            scrollTop: $('html, body').offset().top
-                        }, 1000, 'swing');
-
-                    } else {
-
-                        $('html, body').animate({
-                            scrollTop: posicion + 700
-                        }, 1000, 'swing');
-
-                    }
-
-                });
-
-        });
-
     </script>
     <script type="text/javascript">
     var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
@@ -1674,10 +1506,11 @@
     var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
     var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
     var contadorFondoPopUp = 0;
+    var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
     var sessionIsContrato = '@Session["IsContrato"]';
     @{ Session["IsContrato"] = 0; }
     var paisISO = '@ViewBag.CodigoISODL';
     var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
 }

@@ -2140,6 +2140,7 @@
         <xs:element minOccurs="0" name="ModificaPedido" type="xs:int" />
         <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
+        <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2159,6 +2160,7 @@
         <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
         <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
+        <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

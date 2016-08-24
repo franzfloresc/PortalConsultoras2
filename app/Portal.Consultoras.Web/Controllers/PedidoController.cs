@@ -2201,9 +2201,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        decimal MontoTotalPROL = 0;
-                        Decimal.TryParse(datos.montototal, out MontoTotalPROL);
-                        EjecutarReservaPortal(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                        decimal montoTotalPROL = 0, descuentoPROL = 0;
+                        Decimal.TryParse(datos.montototal, out montoTotalPROL);
+                        Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
+                        EjecutarReservaPortal(dtr, olstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                         Reserva = true;
                     }
                 }
@@ -2296,8 +2297,9 @@ namespace Portal.Consultoras.Web.Controllers
                 bool ValidacionPROLMM = false;
                 string CUV_Val = string.Empty;
                 int ValidacionReemplazo = 0;
-                decimal MontoTotalPROL = 0;
-                Decimal.TryParse(datos.montototal, out MontoTotalPROL);
+                decimal montoTotalPROL = 0, descuentoPROL = 0;
+                Decimal.TryParse(datos.montototal, out montoTotalPROL);
+                Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
 
                 #region Actualizar montos del servicio de prol a Pedido
                 
@@ -2375,7 +2377,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
                         {
-                            EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                            EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                             Reserva = true;
                         }
                     }
@@ -2384,7 +2386,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, MontoTotalPROL);
+                        EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                         Reserva = true;
                     }
                 }
@@ -2392,7 +2394,7 @@ namespace Portal.Consultoras.Web.Controllers
             return olstPedidoWebDetalleObs;
         }
 
-        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2430,9 +2432,9 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 if (userData.PROLSinStock) //1510
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProL);
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
             }
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -2443,7 +2445,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProL = 0)
+        private void EjecutarReservaPortal(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2496,11 +2498,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (userData.PROLSinStock) 
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL);
+                if (userData.PROLSinStock)
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
                 else
-                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProL);
-
+                    sv.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), 0, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
             }
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -3188,10 +3189,8 @@ namespace Portal.Consultoras.Web.Controllers
                         valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
                     }
                 }
-                else
-                {
-                    valida = true;
-                }
+                else valida = true;
+
                 if (valida)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
