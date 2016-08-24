@@ -28,8 +28,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
             this.Celular = string.Empty;
-            this.Telefono = string.Empty;
-            this.ModificaPedido = false;
+            this.Telefono = string.Empty;           
             this.DiasAntes = 0;
             this.DiasDuracionCronograma = 1;
             this.HabilitarRestriccionHoraria = false;
@@ -126,8 +125,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
-        public string UrlTerminos { get; set; }
-        public bool ModificaPedido { get; set; }
+        public string UrlTerminos { get; set; }       
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }
