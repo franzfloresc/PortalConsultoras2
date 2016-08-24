@@ -342,7 +342,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
-    MostrarBarra();
+    MostrarBarra();    
 });
 
 function CrearDialogs() {
@@ -1071,6 +1071,8 @@ function CargarCarouselEstrategias(cuv) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             ArmarCarouselEstrategias(data);
+            
+            CargarAutocomplete();
         },
         error: function (error) {
             $('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
