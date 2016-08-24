@@ -220,8 +220,8 @@
                     'top': imagenProducto.offset().top,
                     'left': imagenProducto.offset().left,
                 }).animate({
-                    'top': carrito.offset().top - 30,
-                    'left': carrito.offset().left + 115,
+                    'top': carrito.offset().top - 40,
+                    'left': carrito.offset().left + 100,
                     'height': carrito.css("height"),
                     'width': carrito.css("width"),
                     'opacity': 0.5
@@ -249,12 +249,6 @@
 
                     agregarProductoAlCarrito(this);
 
-                });
-
-                $(".campana.cart_compras").hover(function () {
-                    $(".info_cam").fadeIn(200);
-                }, function () {
-                    $(".info_cam").fadeOut(200);
                 });
 
             });
