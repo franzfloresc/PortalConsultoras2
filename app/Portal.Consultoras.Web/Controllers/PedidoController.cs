@@ -4573,7 +4573,7 @@ namespace Portal.Consultoras.Web.Controllers
                             string infoEstrategia;
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID);
+                                infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, olstProducto[0].CUV.Trim());
                             }
 
                             string descripcion = "";
