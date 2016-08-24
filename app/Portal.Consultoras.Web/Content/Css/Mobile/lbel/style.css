@@ -6505,12 +6505,12 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .contenedor-tutorial-lbel .flex-control-paging li a:hover{
-    background: #e81c36 !important;
+    background: #a76195 !important;
     border: 0px !important;
 }
 
 .contenedor-tutorial-lbel .flex-control-paging li a.flex-active{
-    background: #e81c36 !important;
+    background: #a76195 !important;
     border: 0px !important;
 }
 
@@ -6558,7 +6558,8 @@ input[type="checkbox"]:checked + span:after {
     text-align: center;
     font-size: 13px;
     font-family: 'Lato';
-    font-weight: 900;
+    font-weight: 500;
+    padding-top: 12px;
 }
 
 .contenedor-tutorial-lbel .opciones-tutorial .cerrar span {

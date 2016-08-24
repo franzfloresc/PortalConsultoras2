@@ -6518,7 +6518,6 @@ input[type="checkbox"]:checked + span:after {
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 900;
-
 }
 
 .contenedor-tutorial-esika .opciones-tutorial .cerrar {
@@ -6528,7 +6527,8 @@ input[type="checkbox"]:checked + span:after {
     text-align: center;
     font-size: 13px;
     font-family: 'Lato';
-    font-weight: 900;
+    font-weight: 500;
+    padding-top: 12px;
 }
 
 .contenedor-tutorial-esika .opciones-tutorial .cerrar span {

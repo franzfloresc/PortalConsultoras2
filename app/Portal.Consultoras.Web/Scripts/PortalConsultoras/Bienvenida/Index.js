@@ -1,5 +1,128 @@
 ﻿$(document).ready(function () {
 
+    // Evento para visualizar video introductorio al hacer click
+
+    $(".ver_video_introductorio").click(function () {
+        $('#fondoComunPopUp').show();
+        contadorFondoPopUp++;
+        $('#videoIntroductorio').fadeIn(function () {
+
+            $("#videoIntroductorio").delay(200);
+
+            $("#videoIntroductorio").fadeIn(function () {
+
+                $(".popup_video_introductorio").fadeIn();
+
+            });
+
+        });
+
+    });
+
+    // Microefecto al agregar productos al carrito de compras
+
+    $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+        e.preventDefault();
+
+        agregarProductoAlCarrito(this);
+
+    });
+
+    //$(".campana.cart_compras").hover(function () {
+    //    $(".info_cam").fadeIn(200);
+    //}, function () {
+    //    $(".info_cam").fadeOut(200);
+    //});
+
+    // MICROEFECTO FLECHA HOME
+
+    // Función de animación de la flecha scroll 
+
+    //function animacionFlechaScroll() {
+
+    //    $(".flecha_scroll").animate({
+    //        'top': '87%'
+    //    }, 450, 'swing', function () {
+    //        $(this).animate({
+    //            'top': '90%'
+    //        }, 150, 'swing', function () {
+    //            $(this).animate({
+    //                'top': '89.5%'
+    //            }, 100, 'swing', function () {
+    //                $(this).animate({
+    //                    'top': '90.5%'
+    //                }, 450, 'swing');
+    //            });
+    //        });
+    //    });
+
+    //}
+
+    function animacionFlechaScroll() {
+
+        $(".flecha_scroll").animate({
+            'top': '87%'
+        }, 400, 'swing', function () {
+            $(this).animate({
+                'top': '90%'
+            }, 400, 'swing');
+        });
+
+    }
+
+    // Intervalo Microefecto Flecha Scroll
+
+    setInterval(animacionFlechaScroll, 1000);
+
+    // Funcion para cambiar background según posicion de scroll
+
+    $(window).scroll(function () {
+
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+            $(".flecha_scroll").animate({
+                opacity: 0
+            }, 100, 'swing', function () {
+                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                $(".flecha_scroll").delay(100);
+                $(".flecha_scroll").animate({
+                    opacity: 1
+                }, 100, 'swing');
+            });
+
+
+        } else {
+
+            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+
+        }
+
+    });
+
+    // Evento click que ocurre en la flecha scroll
+
+    $(".flecha_scroll").on('click', function (e) {
+
+        e.preventDefault();
+        var posicion = $(window).scrollTop();
+        if (posicion + $(window).height() == $(document).height()) {
+
+            $('html, body').animate({
+                scrollTop: $('html, body').offset().top
+            }, 1000, 'swing');
+
+        } else {
+
+            $('html, body').animate({
+                scrollTop: posicion + 700
+            }, 1000, 'swing');
+
+        }
+
+    });
+
+
     // VIDEO INTRODUCTORIO
 
     //$("#video_introductorio").delay(200);
@@ -10,7 +133,7 @@
     //});
 
     // FIN DE VIDEO INTRODUCTORIO
-
+    mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
@@ -72,6 +195,15 @@
     });
     $("#btnCerrarActualizarDatosMexico").click(function () {
         CerrarPopupActualizacionDatosMexico();
+        return false;
+    });
+    
+    $("#cerrarVideoIntroductorio").click(function () {
+        $('#videoIntroductorio').hide();
+        if (contadorFondoPopUp == 1) {
+            $("#fondoComunPopUp").hide();
+        }
+        contadorFondoPopUp--;
         return false;
     });
     $("#cerrarAceptacionContrato").click(function () {
@@ -246,6 +378,64 @@
 
     CargarMisCursos();      // SB20-255
 });
+
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent().parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+    var carrito = $('.campana');
+
+    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+    $(".transicion").css({
+        'height': imagenProducto.css("height"),
+        'width': imagenProducto.css("width"),
+        'top': imagenProducto.offset().top,
+        'left': imagenProducto.offset().left,
+    }).animate({
+        'top': carrito.offset().top - 40,
+        'left': carrito.offset().left + 100,
+        'height': carrito.css("height"),
+        'width': carrito.css("width"),
+        'opacity': 0.5
+    }, 300, 'swing', function () {
+        $(this).animate({
+            'top': carrito.offset().top,
+            'opacity': 0,
+            //}, 100, 'swing', function () {
+            //    $(".campana .info_cam").fadeIn(200);
+            //    $(".campana .info_cam").delay(2500);
+            //    $(".campana .info_cam").fadeOut(200);
+        }, 100, 'swing', function () {
+            $(this).remove();
+        });
+    });
+}
+
+function mostrarVideoIntroductorio() {
+    if (viewBagVioVideo == "0") {
+        if (contadorFondoPopUp == 0) {
+            $("#fondoComunPopUp").show();
+        }
+        $("#videoIntroductorio").show();
+        UpdateUsuarioVideo();
+        contadorFondoPopUp++;
+    }
+}
+
+function UpdateUsuarioVideo() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Bienvenida/JSONSetUsuarioVideo',
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+};
 
 function CrearDialogs() {
     $('#DialogMensajes').dialog({

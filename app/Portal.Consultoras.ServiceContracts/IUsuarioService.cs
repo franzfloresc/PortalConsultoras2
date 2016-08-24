@@ -30,6 +30,9 @@ namespace Portal.Consultoras.ServiceContracts
         int DelUsuarioRol(int paisID, string codigoUsuario, int RolID);
 
         [OperationContract]
+        int setUsuarioVideoIntroductorio(int paisID, string codigoUsuario);
+
+        [OperationContract]
         void Insert(BEUsuario usuario);
 
         [OperationContract]

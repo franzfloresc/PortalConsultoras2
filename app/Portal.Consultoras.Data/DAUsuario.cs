@@ -18,6 +18,13 @@ namespace Portal.Consultoras.Data
 
         }
 
+        public int setUsuarioVideoIntroductorio(string CodigoUsuario) {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.setUsuarioVideoIntroductorio_SB2");
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
         public IDataReader GetUsuario(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuario");
