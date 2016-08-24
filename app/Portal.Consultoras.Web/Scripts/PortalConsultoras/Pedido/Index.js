@@ -692,8 +692,8 @@ function MostrarMicroEfecto() {
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
     if (formatoTotal != undefined) {
-        $("#sTotal").html(formatoTotal);
-        $("#spPedidoWebAcumulado").text(vbSimbolo + " " + formatoTotal);
+        //$("#sTotal").html(formatoTotal);
+        //$("#spPedidoWebAcumulado").text(vbSimbolo + " " + formatoTotal);
     }
 
     if (total != undefined)
@@ -1662,14 +1662,14 @@ function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
     var hdfTotal = $('#hdfTotal').val();
-    var paisColombia = "4";
-    if (paisColombia == viewBagPaisID) {
-        hdfTotal = hdfTotal.replace(/\,/g, '');
-        hdfTotal = parseFloat(hdfTotal).toFixed(0);
-        $('#sTotal').html(SeparadorMiles(hdfTotal));
-    } else {
-        $('#sTotal').html(hdfTotal);
-    }
+    //var paisColombia = "4";
+    //if (paisColombia == viewBagPaisID) {
+    //    hdfTotal = hdfTotal.replace(/\,/g, '');
+    //    hdfTotal = parseFloat(hdfTotal).toFixed(0);
+    //    $('#sTotal').html(SeparadorMiles(hdfTotal));
+    //} else {
+    //    $('#sTotal').html(hdfTotal);
+    //}
 
     $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
@@ -3132,7 +3132,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 $("#spnTotalCliente").html(simbolo + monto);
             }
 
-            $('#sTotal').html(data.TotalFormato);
+            //$('#sTotal').html(data.TotalFormato);
             $('#hdfTotal').val(data.Total);
             $("#spPedidoWebAcumulado").text(vbSimbolo + " " + data.TotalFormato);
 

@@ -12,7 +12,7 @@
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                <a href="@Url.Action("Index", "Pedido", new { area = "Mobile" })" class="enlace_regresar detalleP" title="Regresar">
+                <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar">
                     @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile.svg")" alt="Regresar" />*@
                 </a>
                 <h2 class="nombre_campania_pedido">
@@ -192,13 +192,33 @@
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div>
         <div class="textos_resumen">
-            <span>HE AGREGADO :</span>
-            <span>MONTO TOTAL :</span>
-            <span>MI GANANCIA :</span>
+            <span style=" margin-left: 30px;">HE AGREGADO :</span>
+            <span>
+                <div class="info_validado">
+                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                    <!--TOOLTIP-->
+                    <div class="tooltip_validado_importe">
+                        <div class="left_reservado">
+                            <div class="datos_Reservado">
+                                <span>Total sin Dscto. </span>
+                                <span>Dscto por niveles</span>
+                            </div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="datos_Reservado">
+                                <span data-pedidototal="">@Model.Simbolo {{FormatoTotal}}</span>
+                                <span data-montodescuento="">@Model.Simbolo {{FormatoMontoDescuento}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--FIN-->
+                </div>
+            MONTO TOTAL :</span>
+            <span style=" margin-left: 30px;">MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>
@@ -308,7 +328,7 @@
                 </div>
                 <div class="precios_item">
                     <span class="precio_normal_pedido">
-                        <span>{{../Simbolo}} {{detalle.PrecioUnidad}}</span>
+                        <span>{{../Simbolo}} {{detalle.FormatoPrecioUnidad}}</span>
                     </span>
                     <span class="precio_oferta_pedido">
                         <!-- ICONO ADVERTENCIA -->
@@ -318,7 +338,7 @@
                         {{/if}}
                         {{/if}}
                         <!-- FIN ICONO ADVERTENCIA -->
-                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.ImporteTotal}}</label></span>
+                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
             </div>
@@ -353,13 +373,34 @@
     <div class="separador"></div>
     <div>
         <div class="textos_resumen">
-            <span>HE AGREGADO :</span>
-            <span>MONTO TOTAL :</span>
-            <span>MI GANANCIA :</span>
+            <span style=" margin-left: 30px;">HE AGREGADO :</span>
+            <span>
+                <div class="info_validado">
+                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                    <!--TOOLTIP-->
+                    <div class="tooltip_validado_importe">
+                        <div class="left_reservado">
+                            <div class="datos_Reservado">
+                                <span>Total sin Dscto. </span>
+                                <span>Dscto por niveles</span>
+                            </div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="datos_Reservado">
+                                <span data-pedidototal="">@Model.Simbolo {{FormatoTotal}}</span>
+                                <span data-montodescuento="">@Model.Simbolo {{FormatoMontoDescuento}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--FIN-->
+                </div>
+                MONTO TOTAL :
+            </span>
+            <span style=" margin-left: 30px;">MI GANANCIA :</span>
         </div>
         <div class="montos_resumen">
-            <span><b class="lblCantidadProducto">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionTotal">{{FormatoLineaCredito}}</b></span>
+            <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
     </div>

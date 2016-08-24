@@ -36,7 +36,7 @@
     }
 }
 <div class="titulo_mobile">
-    <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar">
         @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS

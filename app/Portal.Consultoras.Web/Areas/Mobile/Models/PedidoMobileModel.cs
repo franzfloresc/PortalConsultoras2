@@ -18,6 +18,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public decimal TotalMinimo { get; set; }
         public string TotalMinimoStr { get; set; }
+        public string DescuentoStr { get; set; }
+        public string MontoConDsctoStr { get; set; }
 
         public string DescripcionTotalMinimo { get; set; }
 
