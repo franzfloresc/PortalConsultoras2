@@ -1149,7 +1149,7 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
 {{#each this as |item|}}
 <div>
-    <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
+    <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
     <div class="producto_img_home">
         <img src="{{FotoProducto01}}" class="imagen_producto" />
     </div>
