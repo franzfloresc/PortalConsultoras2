@@ -1,3 +1,5 @@
+
+
 ALTER PROCEDURE dbo.GetSesionUsuario_SB2
  @CodigoConsultora varchar(25)  
 AS
@@ -148,7 +150,9 @@ BEGIN
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
 			@FechaLimitePago as FechaLimitePago,
-			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado 
+			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado ,
+			ISNULL(u.VioVideo, 0) as VioVideo,
+			ISNULL(u.VioTutorial, 0) as VioTutorial
 		FROM [dbo].[Usuario] u with(nolock)  
 		LEFT JOIN (  
 			select *  
