@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-
+    $('#salvavidaTutorial').show();
     function ocultarAnimacionTutorial() {
 
         $(".circulo-1").fadeOut();

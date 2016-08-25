@@ -12,7 +12,7 @@ var salto = 3;
 var esPedidoValidado = false;
 
 $(document).ready(function () {
-
+    $('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
