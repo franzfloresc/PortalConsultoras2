@@ -5380,6 +5380,19 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;
 }
 
+.popup_tutorial_pedido {
+    display: block;
+    position: relative;
+    /* top: 50%; */
+    margin: 8px auto 8px auto;
+    width: 100%;
+    max-width: 614px;
+    height: 639px;
+    font-family: 'Lato';
+    z-index: 5;
+    background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;
+}
+
 /* FIN POPUP TUTORIAL HOME */
 
 /* POPUP VIDEO INTRODUCTORIO */
