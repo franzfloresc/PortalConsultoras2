@@ -1,4 +1,49 @@
 ﻿$(document).ready(function () {
+
+    setInterval(AnimacionTutorial, 800);
+
+    setTimeout(ocultarAnimacionTutorial,9000);
+
+    function ocultarAnimacionTutorial() {
+
+        $(".circulo-1").fadeOut();
+        $(".tooltip_tutorial").fadeOut();
+
+    }
+
+    function AnimacionTutorial() {
+
+        $(".tooltip_tutorial").animate({
+            'opacity': 1,
+            'top': 47
+        }, 500, 'swing', function () {
+            $(".tooltip_tutorial").animate({
+                'top': 41
+            }, 500, 'swing');
+        });
+
+        $(".circulo-1").animate({
+
+            'width': 45,
+            'height': 45,
+            'opacity': 0,
+            'top': -8,
+            'left': -11.5
+
+        }, 900, 'swing', function () {
+
+            $(".circulo-1").css({
+                'width': '0px',
+                'height': '0px',
+                'opacity': '1',
+                'top': 14,
+                'left': 10
+            });
+
+        });
+
+    }
+
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
