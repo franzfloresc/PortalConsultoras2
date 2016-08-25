@@ -116,7 +116,15 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     //{
                     //    rtpaJson = sv.DownloadString(url);
                     //}
-                    listaCuvMostrar = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+
+                    //ESTA LISTA ES FALSA; SOLO PARA PRUEBAS PORQUE NO HAY INFORMACION DE JETLORE
+                    listaCuvMostrar = tipoProductoMostrar == 1
+                        ? (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                        : (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
+
+                    if (listaCuvMostrar == null || listaCuvMostrar.Count == 0)
+                        listaCuvMostrar = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+
                     #endregion
                 }
             }
