@@ -177,13 +177,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV && lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
-            if (model.PedidoConDescuentoCuv)
-            {
-                model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.Descuento = -lstPedidoWebDetalle[0].DescuentoProl;
-                model.Total = model.SubTotal + model.Descuento;
-            }
-            else model.Total = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
+            model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
+            if (model.PedidoConDescuentoCuv) model.Descuento = -lstPedidoWebDetalle[0].DescuentoProl;
+            model.Total = model.SubTotal + model.Descuento;
 
             model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
             model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
@@ -235,9 +231,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
                 model.MostrarEscalaDescuento = true;
-                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
-                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
                 model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
+
+                string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+                if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo)
+                {
+                    model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
+                }
+                else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala)
+                {
+                    model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - userData.MontoMinimo;
+                }
+                else model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - bePedidoWebByCampania.MontoEscala;
+
+                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
             }
 
             int horaCierre = userData.EsZonaDemAnti;
