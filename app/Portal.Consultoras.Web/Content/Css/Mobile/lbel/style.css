@@ -6569,3 +6569,31 @@ input[type="checkbox"]:checked + span:after {
     color: gray;
     font-family: 'Lato';
 }
+/**/
+.content_BarrMensaje{
+    width:100%;
+     margin-top: 10px;
+    border-bottom: 1px solid black;
+}
+.mensaje_barra{
+    width: 161px;
+    Font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.26;
+    color: #613c87;
+}
+.agrega_barra{
+    Font-family: 'Lato';
+    font-size: 12.5px;
+    color:black;
+    MARGIN-BOTTOM: 5px;
+}
+.flechita_barra{
+    position: relative;
+    margin-left: 21px;
+    margin-top: -1px;
+    width:14px;
+    height:10px;
+    background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
+}
