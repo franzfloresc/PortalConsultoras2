@@ -40,10 +40,10 @@
 
     $(document).on("click", ".boton_Agregalo_home", function (e) {
 
-        e.preventDefault();
-
-        agregarProductoAlCarrito(this);
-
+        if (!$(this).hasClass("no_accionar")) {
+            e.preventDefault();
+            agregarProductoAlCarrito(this);
+        }
     });
 
     //$(".campana.cart_compras").hover(function () {
@@ -366,7 +366,7 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 40,
+        'top': carrito.offset().top - 60,
         'left': carrito.offset().left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
@@ -1038,7 +1038,7 @@ function ArmarCarouselLiquidaciones(data) {
                         '<div class="producto_precio" style="margin-bottom: -8px;">',
                             '<span class="producto_precio_oferta"></span>',
                         '</div>',
-                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home" style="width:100%;">',
+                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
                             'VER MAS',
                         '</a>',
                     '</div>',

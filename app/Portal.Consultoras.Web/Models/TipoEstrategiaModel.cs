@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public string Imagen { get; set; }
         public string Simbolo { get; set; }
         public string CodigoPrograma { get; set; }
-
         public int CodigoGeneral { get; set; }
     }
 }
