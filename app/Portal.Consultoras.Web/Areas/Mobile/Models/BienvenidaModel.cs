@@ -31,5 +31,6 @@
         public string CodigoISO { get; set; }
         public decimal MontoDeuda { get; set; }
         public string FechaVencimiento { get; set; }
+        public int VioTutorial { get; set; }
     }
 }

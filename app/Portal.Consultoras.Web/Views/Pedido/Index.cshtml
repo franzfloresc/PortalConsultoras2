@@ -227,20 +227,20 @@
             <div class="contenedor_guardadoPedido">
                 <div class="bloque_montosPedido">
                     <div class="caja_montos">
-                        <div class="info_extra_Validado">
-                            <img src="/Content/Images/Esika/info-copy.png">
-                            <!--MONTOS-->
-                            <div class="monto_resumenValidado">
-                                <div class="monto_1">Total sin Dscto.</div>
-
-                                <div class="monto_numero" style="opacity:0.6" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
-                                <hr class="clear">
-                                <div class="monto_1">Dscto. por niveles </div>
-                                <div class="monto_numero" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
-                            </div>
-                            <!--FIN-->
-                        </div>
                         <div class="caja_montos_textos">
+                            <div class="info_extra_Validado">
+                                <img src="/Content/Images/Esika/info-copy.png">
+                                <!--MONTOS-->
+                                <div class="monto_resumenValidado">
+                                    <div class="monto_1">Total sin Dscto.</div>
+
+                                    <div class="monto_numero" style="opacity:0.6" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
+                                    <hr class="clear">
+                                    <div class="monto_1">Dscto. por niveles </div>
+                                    <div class="monto_numero" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
+                                </div>
+                                <!--FIN-->
+                            </div>
                             <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                 <span id="spnNombreCliente"></span>
                             </p>

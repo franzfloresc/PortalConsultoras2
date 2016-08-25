@@ -8,7 +8,7 @@
 @{
     Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
-    
+
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
 
@@ -151,7 +151,7 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-               @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+                @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
@@ -183,9 +183,9 @@
             <div>MIS GANANCIAS</div>
             <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
         </div>
-        <hr class="clear"/>
+        <hr class="clear" />
         <div class="info_centro">
-              @{
+            @{
                 string cabezaEscala = null, pieEscala = null;
                 if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                     || Model.PaisID == 13 || Model.PaisID == 12) //PERU
@@ -207,7 +207,7 @@
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
-                }                        
+                }
             }
             @(cabezaEscala)
             <div class="deuda_home">
@@ -309,7 +309,6 @@
 
     </div>
     <!-- FIN TUTORIALES-->
-
     <!-- SIN TUTORIALES -->
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
@@ -320,19 +319,18 @@
             <div class="item_video">
             </div>
         </div>
-        <div class="item_video_right" >
+        <div class="item_video_right">
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
                 <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
                 <a href="@Url.Action("Index", "MiAcademia")" title="Ir a Mi Academia">
                     <span class="icono_arrow">&#9658;</span><span>IR A "MI ACADEMIA"</span>
                 </a>
-            </div>            
+            </div>
         </div>
     </div>
 
     <!-- FIN SIN TUTORIALES-->
-
     <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
@@ -348,7 +346,6 @@
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
-
     <!--CAROUSEL LIQUIDACION HOME-->
     <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
@@ -363,7 +360,6 @@
         </div>
     </div>
     <!--FIN CAROUSEL LIQUIDACION HOME-->
-
     <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
@@ -813,21 +809,21 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Nombres</label>
-                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora"/>
+                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Apellidos</label>
-                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos"/>
+                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de casa</label>
-                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono"/>
+                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono celular</label>
-                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular"/>
+                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -867,18 +863,18 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto"/>
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
                     </div>
                     <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono"/>
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
                     </div>
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular"/>
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1031,11 +1027,11 @@
         </div>
         <div class="contenido_popUp">
             <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
-            <input type="hidden" id="hdn_CorreoMD" value=""/>
-            <input type="hidden" id="hdn_CodigoUsuarioMD" value=""/>
-            <input type="hidden" id="hdn_NombreCompletoMD" value=""/>
-            <input type="hidden" id="hdn_NombreArchivoContratoMD" value=""/>
-            
+            <input type="hidden" id="hdn_CorreoMD" value="" />
+            <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
+            <input type="hidden" id="hdn_NombreCompletoMD" value="" />
+            <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
                     <div class="datos_consultora_img">
@@ -1061,21 +1057,21 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
-                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD"/>
+                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD"/>
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>Tu teléfono:</label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD"/>
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
                     </div>
                     <div>
                         <label>Tu celular:</label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD"/>
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
@@ -1099,17 +1095,17 @@
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
                         <label>Tu contraseña</label>
-                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior"/>
+                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
                         <label>Nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01"/>
+                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
                     </div>
                     <div>
                         <label>Repite la nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02"/>
+                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
@@ -1130,12 +1126,26 @@
     <!-- FIN POPUP MIS DATOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
+<!-- POPUP TUTORIAL -->
 
-<script id="estrategia-template" type="text/x-handlebars-template">
-{{#each this as |item|}}
-<div>
-    <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
-    <div class="producto_img_home">
+<div class="contenedor_fondo_popup" id="popup_tutorial" style="display: none;">
+    <div class="popup_tutorial_home">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP TUTORIAL -->
+
+        <script id="estrategia-template" type="text/x-handlebars-template">
+            {{#each this as |item|}}
+            <div>               
+                <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+                <div class="producto_img_home">
         <img src="{{FotoProducto01}}" class="imagen_producto" />
     </div>
 
@@ -1224,67 +1234,129 @@
     </div>
 </div>
 {{/each}}
-</script>
+    </script>
 
-<script id="liquidacion-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div>
-        <div class="content_item_carrusel">
-            <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
-            <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
-            <input type="hidden" id="CUV" value="{{CUV}}" />
-            <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-            <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
-            <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
-            <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
-            <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
-            <div class="producto_img_home mini">
+    <script id="liquidacion-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div>
+            <div class="content_item_carrusel">
+                <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
+                <input type="hidden" id="CUV" value="{{CUV}}" />
+                <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+                <div class="producto_img_home mini">
                 <img src="{{ImagenProducto}}" class="imagen_producto" />
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                <p class="nombre_producto">
-                    <b>{{Descripcion}}</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
-                {{#if TieneTallaColor}}
-                <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
-                    {{TextoBotonTallaColor}}
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{#if TieneTallaColor}}
+                    <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
+                        {{TextoBotonTallaColor}}
+                    </a>
+                    {{else}}
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                            <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home js-agregar-liquidacion">
+                        AGR&Eacute;GALO
+                    </a>
+                    {{/if}}
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script id="packnuevas-template" type="text/x-handlebars-template">
+        <div class="popup_detalleCarousel packNuevas">
+            <div class="btn_cerrar_detalleCarousel">
+                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
-                {{else}}
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+            <div class="contenido_popUp">
+                <div class="bloque_producto_packNuevas">
+                    <div class="content_item_carrusel">
+                        {{#if_eq FlagMostrarImg '1'}}
+                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{/if_eq}}
+                        {{/if_eq}}
+                        <div class="producto_img_home">
+                            <img src="{{FotoProducto01}}">
+                        </div>
+                        <div class="etiqueta_producto">
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <h6>{{DescripcionMarca}}</h6>
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUVSplit}}</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            <div class="monto_ganancia_producto">
+                                <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
+                            </div>
+                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                                AGRÉGALO
+                            </a>
+
+                            <div class="clear"></div>
+                        </div>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home js-agregar-liquidacion">
-                    AGR&Eacute;GALO
-                </a>
-                {{/if}}
+                <div class="descripcion_set_packNuevas">
+                    <h6>Contenido del Set</h6>
+                    <div class="descripcion_lista">
+                        {{#each ArrayContenidoSet as |item|}}
+                        <span>
+                            {{item}}
+                        </span>
+                        {{/each}}
+                    </div>
+                    {{#if MostrarTextoLibre}}
+                    <div class="mensaje_advertencia_detalleCarousel">
+                        <span class="icono_advertencia_notificacion"></span>
+                        <span>{{TextoLibre}}</span>
+                    </div>
+                    {{/if}}
+                </div>
                 <div class="clear"></div>
             </div>
+            <div class="clear"></div>
         </div>
-    </div>
-    {{/each}}
-</script>
-<script id="packnuevas-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel packNuevas">
-        <div class="btn_cerrar_detalleCarousel">
-            <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_popUp">
-            <div class="bloque_producto_packNuevas">
+    </script>
+    <script id="lanzamiento-template" type="text/x-handlebars-template">
+        <div class="popup_detalleCarousel lanzamiento">
+            <div class="btn_cerrar_detalleCarousel">
+                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
-                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
                     <div class="etiqueta_producto">
                         <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
                     </div>
@@ -1298,204 +1370,142 @@
                     <div class="producto_nombre_descripcion">
                         <h6>{{DescripcionMarca}}</h6>
                         <p class="nombre_producto">
-                            <b>{{DescripcionCUVSplit}}</b>
+                            <b>{{DescripcionCUV2}}</b>
                         </p>
                         <div class="producto_precio">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                            {{/iff}}
                             <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
-                        <div class="monto_ganancia_producto">
-                            <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
+                        <div class="liquidacion_rango_home">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
                         </div>
-                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true); ">
                             AGRÉGALO
                         </a>
 
                         <div class="clear"></div>
                     </div>
+                    {{#if MostrarTextoLibre}}
+                    <div class="mensaje_advertencia_detalleCarousel">
+                        <span class="icono_advertencia_notificacion"></span>
+                        <span>{{TextoLibre}}</span>
+                    </div>
+                    {{/if}}
                 </div>
-            </div>
-            <div class="descripcion_set_packNuevas">
-                <h6>Contenido del Set</h6>
-                <div class="descripcion_lista">
-                    {{#each ArrayContenidoSet as |item|}}
-                    <span>
-                        {{item}}
-                    </span>
-                    {{/each}}
-                </div>
-                {{#if MostrarTextoLibre}}
-                <div class="mensaje_advertencia_detalleCarousel">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span>{{TextoLibre}}</span>
-                </div>
-                {{/if}}
+                <div class="clear"></div>
             </div>
             <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
-</script>
-<script id="lanzamiento-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel lanzamiento">
-        <div class="btn_cerrar_detalleCarousel">
-            <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_popUp">
-            <div class="content_item_carrusel">
-                {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-                {{/if_eq}}
-                {{/if_eq}}
-                <div class="producto_img_home">
-                    <img src="{{FotoProducto01}}">
-                </div>
-                <div class="etiqueta_producto">
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto">
-                        <b>{{DescripcionCUV2}}</b>
-                    </p>
-                    <div class="producto_precio">
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                        {{/iff}}
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true); ">
-                        AGRÉGALO
-                    </a>
+    </script>
 
-                    <div class="clear"></div>
-                </div>
-                {{#if MostrarTextoLibre}}
-                <div class="mensaje_advertencia_detalleCarousel">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span>{{TextoLibre}}</span>
-                </div>
-                {{/if}}
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</script>
-
-<script id="miscursos-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div class="borde_video">
+    <script id="miscursos-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="borde_video">
         <a href="{{url}}" class="titulo_item_video" target="_blank">
-            {{nombre}}
-        </a>
-        <div class="porcentaje_curso">
-            {{#if_eq estado '0'}}
-            <div class="sin_iniciar">
-                SIN INICIAR
+                {{nombre}}
+            </a>
+            <div class="porcentaje_curso">
+                {{#if_eq estado '0'}}
+                <div class="sin_iniciar">
+                    SIN INICIAR
+                </div>
+                {{else if_eq estado '1' }}
+                <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                    <span></span>%
+                </div>
+                {{else if_eq estado '2' }}
+                <div class="sin_iniciar">
+                    FINALIZADO
+                </div>
+                {{/if_eq}}
             </div>
-            {{else if_eq estado '1' }}
-            <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
-                <span></span>%
-            </div>
-            {{else if_eq estado '2' }}
-            <div class="sin_iniciar">
-                FINALIZADO
-            </div>
-            {{/if_eq}}
         </div>
-    </div>
-    {{/each}}
-</script>
+        {{/each}}
+    </script>
 
-<script id="miscursosv-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div class="contenedor_cursos_academia">
-        <div class="curso_img">
-            <img src="{{imagen}}" alt="Imagen Curso" />
-        </div>
-        <div class="curso_descripcion">
-            <div class="curso_titulo">
-                <span>{{nombre}}</span>
+    <script id="miscursosv-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="contenedor_cursos_academia">
+            <div class="curso_img">
+                <img src="{{imagen}}" alt="Imagen Curso" />
             </div>
-            <div class="curso_porcentaje_avance">
-                <div class="porcentaje_curso">
+            <div class="curso_descripcion">
+                <div class="curso_titulo">
+                    <span>{{nombre}}</span>
+                </div>
+                <div class="curso_porcentaje_avance">
+                    <div class="porcentaje_curso">
 
-                    {{#if_eq estado '0'}}
-                    <div class="sin_iniciar">
-                        SIN INICIAR
-                    </div>
-                    {{else if_eq estado '1' }}
-                    <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
-                        <span></span>%
-                    </div>
-                    {{else if_eq estado '2' }}
-                    <div class="sin_iniciar">
-                        FINALIZADO
-                    </div>
-                    {{/if_eq}}
+                        {{#if_eq estado '0'}}
+                        <div class="sin_iniciar">
+                            SIN INICIAR
+                        </div>
+                        {{else if_eq estado '1' }}
+                        <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                            <span></span>%
+                        </div>
+                        {{else if_eq estado '2' }}
+                        <div class="sin_iniciar">
+                            FINALIZADO
+                        </div>
+                        {{/if_eq}}
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {{/each}}
-</script>
+        {{/each}}
+    </script>
 
-@section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    @section scripts{
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript">
 
     </script>
-    <script type="text/javascript">
-    var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
-    var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
-    var viewBagPrimeraVez = '@Model.PrimeraVez';
-    var ViewBagRutaChile = '@Model.rutaChile';
-    var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-    var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
-    var viewBagCambioClave = '@Model.CambioClave';
-    var viewBagPaisID = '@Model.PaisID';
-    var viewBagIndicadorContrato = '@Model.IndicadorContrato';
-    var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
-    var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
-    var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
-    var viewBagCampanaInvitada = '@Model.CampanaInvitada';
-    var viewBagCampaniaActual = '@Model.CampaniaActual';
-    var viewBagNroCampana = '@Model.NroCampana';
-    var viewBagCodigoConsultora = '@Model.CodigoConsultora';
-    var viewBagPrefijoPais = '@Model.PrefijoPais';
-    var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
-    var viewBagRolID = '@ViewBag.Rol';
-    var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
-    var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
-    var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
-    var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
-    var viewBagValidaSegmento = '@Model.ValidaSegmento';
-    var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
-    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-    var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-    var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
-    var contadorFondoPopUp = 0;
+        <script type="text/javascript">
+            var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+            var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+            var viewBagPrimeraVez = '@Model.PrimeraVez';
+            var ViewBagRutaChile = '@Model.rutaChile';
+            var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+            var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+            var viewBagCambioClave = '@Model.CambioClave';
+            var viewBagPaisID = '@Model.PaisID';
+            var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+            var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+            var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+            var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
+            var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+            var viewBagCampaniaActual = '@Model.CampaniaActual';
+            var viewBagNroCampana = '@Model.NroCampana';
+            var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+            var viewBagPrefijoPais = '@Model.PrefijoPais';
+            var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+            var viewBagRolID = '@ViewBag.Rol';
+            var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+            var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
+            var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
+            var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
+            var viewBagValidaSegmento = '@Model.ValidaSegmento';
+            var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+            var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+            var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+            var contadorFondoPopUp = 0;
     var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
-    var sessionIsContrato = '@Session["IsContrato"]';
-    @{ Session["IsContrato"] = 0; }
-    var paisISO = '@ViewBag.CodigoISODL';
-    var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+            var sessionIsContrato = '@Session["IsContrato"]';
+            @{ Session["IsContrato"] = 0; }
+            var paisISO = '@ViewBag.CodigoISODL';
+            var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
 </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-}
+        @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    }
