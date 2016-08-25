@@ -206,7 +206,6 @@ function CargarResumenCampaniaHeader(showPopup) {
                         var html = template(context);
 
                         $("#carrito_items").append(html);
-
                     }
 
                     if (showPopup == true) {

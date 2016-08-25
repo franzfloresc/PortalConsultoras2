@@ -146,7 +146,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var ultimosTresPedidos = pedidoWebDetalle.Count > 0 ?
-                                         //pedidoWebDetalle.Skip(Math.Max(0, pedidoWebDetalle.Count() - 3)).ToList() :
                                          pedidoWebDetalle.Take(3).ToList() :
                                          new List<BEPedidoWebDetalle>();
                 var totalPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
@@ -180,7 +179,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         public BEUsuario GetUserData(int PaisID, string Codigo)
         {
