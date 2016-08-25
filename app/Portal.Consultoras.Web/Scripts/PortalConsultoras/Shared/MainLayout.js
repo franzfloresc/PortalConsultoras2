@@ -210,9 +210,13 @@ function CargarResumenCampaniaHeader(showPopup) {
                     }
 
                     if (showPopup == true) {
-                        $popup = $('.info_cam');
-                        $popup.show();
-                        setTimeout(function () { $popup.hide(); }, 5000);
+                        $('.info_cam').fadeIn(200);
+                        setTimeout(function () {
+                            $('.info_cam').fadeOut(200);
+                            setTimeout(function () {
+                                $('.info_cam').removeAttr("style");
+                            }, 300);
+                        }, 5000);
                     }
                 }
                 else {
