@@ -117,11 +117,19 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
         }
 
+
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
             public const string TelefonoRequerido = "TelefonoRequerido";
         }
+        public class TipoNivelesRiesgo
+        {
+            public const string Bajo = "BAJO";
+            public const string Medio = "MEDIO";
+            public const string Alto = "ALTO";
+        }
+
 
         public class EstadoActividadConsultora
         {

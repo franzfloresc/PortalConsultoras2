@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Common
         public const string PaisesHojaIncripcion = "PaisesHojaIncripcion";
         public const string DocumentosIdentidadStorage = "UrlContenedoraDocumentosIdentidad";
         public const string DocumentosDomicilioStorage = "UrlContenedoraComprobantesDomicilio";
+        public const string DocumentosContratoStorage = "UrlContenedoraComprobantesContrato";
+        public const string DocumentosPagareStorage = "UrlContenedoraComprobantesPagare";
+        public const string DocumentosAvalStorage = "UrlContenedoraComprobantesAval";
     }
 
     public class ConnectionStringNames

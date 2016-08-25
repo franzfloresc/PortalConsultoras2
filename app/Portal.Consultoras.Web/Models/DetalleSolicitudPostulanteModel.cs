@@ -8,9 +8,9 @@ using Portal.Consultoras.Web.Annotations;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class DetalleSolicitudPostulanteModel
+    public class DetalleSolicitudPostulanteModel : SolicitudPostulanteModel
     {
-        public SolicitudPostulanteModel Solicitud { get; set; }
+        //public SolicitudPostulanteModel Solicitud { get; set; }
 
         public bool ModoLectura { get; set; }
 
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string ApellidoPaterno { get; set; }
 
-        [RequiredIf("CodigoISO", "CL", ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "CL,PE", ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string ApellidoMaterno { get; set; }
 
@@ -40,10 +40,12 @@ namespace Portal.Consultoras.Web.Models
         [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string SegundoNombre { get; set; }
 
-        //[RequiredIf("CodigoISO", "CL", @"\d{8}\-[a-zA-Z0-9]", ErrorMessage = "Formato incorrecto")]
-        //[RequiredIf("CodigoISO", "CO", @"^\d{4,10}$", ErrorMessage = "Formato incorrecto")]
-        //[Required(ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(10, ErrorMessage = "Máximo 10 caractéres")]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [ExpressionRequiredIf("CodigoPais", "CL", Expresion = @"\d{8}\-[a-zA-Z0-9]", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^\d{4,10}$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento", "1", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento", "2,3,5", Expresion = @"^(?:[0-9]{12}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento", "4", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
         public string NumeroDocumento { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -60,9 +62,16 @@ namespace Portal.Consultoras.Web.Models
 
         public string Referencia { get; set; }
 
+        [RequiredIfPropertiesNotNull("CodigoPais", "CL,PE", "Telefono,Celular", true, ErrorMessage = "Debe ingresar al menos un teléfono")]
+        [RequiredIf("CodigoPais", "MX", ErrorMessage = "Campo obligatorio")]
+        [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"(\d)\1{5,}", RegexNotMatch = true, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^(?:[0-9]{7}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
-        //[RequiredIf("CodigoISO", "CO", ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "CO,MX", ErrorMessage = "Campo obligatorio")]
+        [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"(\d)\1{5,}", RegexNotMatch = true, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CO", Expresion = @"^(?:(3)[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CL", Expresion = @"^(9)[0-9]{8}$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
@@ -92,24 +101,28 @@ namespace Portal.Consultoras.Web.Models
 
         //Campos Geo Mexico
 
-        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string PrefijoTelefono { get; set; }
-
-        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string PrefijoCelular { get; set; }
-
         public string NombrePrefijoCelular { get; set; }
 
-        // public SelectList ColoniasMx { get; set; }
-
-
-        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string Colonia { get; set; }
-
+      
         public string NombreColonia { get; set; }
 
         //[RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
         public string DireccionMx { get; set; }
+
+        [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
+        public int TipoDocumento { get; set; }
+
+        [RequiredIf("TipoDocumento", "4", ErrorMessage = "Este campo es obligatorio")]
+        [MaxLength(150, ErrorMessage = "Máximo 150 caractéres")]
+        public string RazonSocial { get; set; }
+
+        [RequiredIf("TipoDocumento", "4", ErrorMessage = "Este campo es obligatorio")]
+        public string TipoDocumentoLegal { get; set; }
+
+        [RequiredIf("TipoDocumento", "4", ErrorMessage = "Este campo es obligatorio")]
+        [ExpressionRequiredIf("TipoDocumentoLegal", "1", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumentoLegal", "2,3,5", Expresion = @"^(?:[0-9]{12}|)$", ErrorMessage = "Formato incorrecto")]
+        public string NumeroDocumentoLegal { get; set; }
 
         public string NumeroDocumentoRegex
         {
@@ -143,6 +156,7 @@ namespace Portal.Consultoras.Web.Models
         public const string DNI = "^$|^[0-9]{8}$";
         public const string CC = "^$|^[0-9]{4,10}$";
         public const string RFC = "^$|^[0-9][a-zA-Z0-9]{10}$";
+        public const string RUC = "";
 
         /// <summary>
         /// Documento de identidad por código de país
@@ -281,7 +295,7 @@ namespace Portal.Consultoras.Web.Models
             { "GT", "" },
             { "MX", "Municipio" },
             { "PA", "" },
-            { "PE", "Distrito" },
+            { "PE", "Provincia" },
             { "PR", "" },
             { "SV", "" },
             { "VE", "" }

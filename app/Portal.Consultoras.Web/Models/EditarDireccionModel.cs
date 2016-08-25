@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -13,62 +14,46 @@ namespace Portal.Consultoras.Web.Models
 
         public string CodigoPais { get; set; }
 
-        [MaxLength(6, ErrorMessage = "Máximo 6 caractéres")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string Region { get; set; }
-
-        public string NombreRegionEdicion { get; set; }
-
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string Comuna { get; set; }
-
-        public string NombreComunaEdicion { get; set; }
-
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string CalleOAvenida { get; set; }
 
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        //[Required(ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(8, ErrorMessage = "Máximo 8 caractéres")]
         public string Numero { get; set; }
-
+        [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
         public string Referencia { get; set; }
 
-        //Parámetros para Geo Colombia
-        public string Departamento { get; set; }
-        public string NombreDepartamento { get; set; }
-
-        //[Required(ErrorMessage = MensajeError)]
-        public string Ciudad { get; set; }
-        public string NombreCiudad { get; set; }
-        public string Barrio { get; set; }
-        public string NombreBarrio { get; set; }
-        public string DireccionColombia { get; set; }
-
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        public string NombreDireccionColombia { get; set; }
-
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        //[Required(ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "CO", ErrorMessage = "Este campo es obligatorio")]
         public string NombreDireccionEdicion { get; set; }
 
         public bool ZonaPreferencial { get; set; }
 
         //Campos Geo Mexico
 
-        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string PrefijoCelular { get; set; }
+        //[RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        //public string PrefijoCelular { get; set; }
 
         public string NombrePrefijoCelular { get; set; }
 
-        // public SelectList ColoniasMx { get; set; }
+        [MaxLength(6, ErrorMessage = "Máximo 6 caractéres")]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public string LugarNivel1 { get; set; }
 
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        public string LugarNivel2 { get; set; }
+        [RequiredIf("CodigoPais", "MX,CO,PE", ErrorMessage = "Este campo es obligatorio")]
+        public string LugarNivel3 { get; set; }
+        [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
+        public string LugarNivel4 { get; set; }
 
-        [RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string Colonia { get; set; }
+        public string NombreLugarNivel1 { get; set; }
+        public string NombreLugarNivel2 { get; set; }
+        public string NombreLugarNivel3 { get; set; }
+        public string NombreLugarNivel4 { get; set; }
 
-        public string NombreColonia { get; set; }
-
-        //[RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
-        public string DireccionMx { get; set; }
-
+        public SelectList LugaresNivel1 { get; set; }
+        public SelectList LugaresNivel3 { get; set; }
     }
 }

@@ -255,7 +255,6 @@
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Controllers\ConsultoraDigitalesController.cs" />
-    <Compile Include="Controllers\HojaInscripcionController.cs" />
     <Compile Include="Controllers\MiAcademiaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerPedidoController.cs" />
@@ -344,39 +343,11 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
-    <Compile Include="GestionPasos\Ejecucion3Pasos.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\AsignarValidacionTelefonicaEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\GeoLocalizacionLocalEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\GuardarActualizarEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerDatosAdicionalesEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerDatosConsultoraRecomendadaEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerEnvioCorreoGerenteZonaEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerEstadoPostulanteEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerEvaluacionCrediticiaChileEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerEvaluacionCrediticiaColombiaEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerEvaluacionCrediticiaMexicoEjecucion.cs" />
-    <Compile Include="GestionPasos\Ejecuciones\ObtenerTerritorioEjecucion.cs" />
-    <Compile Include="GestionPasos\EjecucionPaso.cs" />
-    <Compile Include="GestionPasos\IEjecucion.cs" />
-    <Compile Include="GestionPasos\IEjecucionAsync.cs" />
-    <Compile Include="GestionPasos\IValidacionAsync.cs" />
-    <Compile Include="GestionPasos\IValidation.cs" />
-    <Compile Include="GestionPasos\Validaciones\EvaluacionCrediticiaInternaValidation.cs" />
-    <Compile Include="GestionPasos\Validaciones\GeoLocalizacionValidation.cs" />
-    <Compile Include="GestionPasos\Validaciones\MayorDeEdadValidation.cs" />
-    <Compile Include="GestionPasos\Validaciones\SolicitudPendienteValidation.cs" />
-    <Compile Include="GestionPasos\Validaciones\YaEsConsultoraValidation.cs" />
-    <Compile Include="GestionPasos\ValidationFactory.cs" />
-    <Compile Include="GestionPasos\ValidationPaso.cs" />
-    <Compile Include="GestionPasos\ValidationPasoResponse.cs" />
-    <Compile Include="GestionPasos\ValidationResponse.cs" />
-    <Compile Include="GestionPasos\ZonaParameter.cs" />
+    <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
-    <Compile Include="Mappings\AutoMapperConfig.cs" />
-    <Compile Include="Mappings\HojaInscripcionMappings.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
@@ -433,9 +404,6 @@
     <Compile Include="Models\HojaInscripcionMailModel.cs" />
     <Compile Include="Models\HojaInscripcionMailVM.cs" />
     <Compile Include="Models\HojaInscripcionMensajeFinalModel.cs" />
-    <Compile Include="Models\HojaInscripcionPaso1Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso2Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso3Model.cs" />
     <Compile Include="Models\IncentivosModel.cs" />
     <Compile Include="Models\ItemCarruselInicioModel.cs" />
     <Compile Include="Models\LugaresPagoModel.cs" />
@@ -459,6 +427,7 @@
     <Compile Include="Models\MatrizComercialModel.cs" />
     <Compile Include="Models\MisDatosModel.cs" />
     <Compile Include="Models\NavidadConsultoraModel.cs" />
+    <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
     <Compile Include="Models\OfertaFlexipagoModel.cs" />
     <Compile Include="Models\OfertaFICModel.cs" />
@@ -486,6 +455,7 @@
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
+    <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />

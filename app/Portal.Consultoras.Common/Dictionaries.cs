@@ -302,6 +302,41 @@ namespace Portal.Consultoras.Common
             { "MX", "IFE" },
             { "PA", "" },
             { "PE", "" },
+            { "PR", "DNI/RUC" },
+            { "SV", "" },
+            { "VE", "" }
+        };
+
+        public static Dictionary<string, string> TemplateUbigeos = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
+            { "CO", "TemplatesUbigeos/_UbigeoGrupo1"},
+            { "CR", "" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "" },
+            { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
+            { "PA", "" },
+            { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
+            { "PR", "" },
+            { "SV", "" },
+            { "VE", "" }
+        };
+
+        public static Dictionary<string, string> TemplatDatosGenerales = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "CO", "TemplatesDatosGenerales/_DatosGeneralesGrupo2"},
+            { "CR", "" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "" },
+            { "MX", "TemplatesDatosGenerales/_DatosGeneralesGrupo1" },
+            { "PA", "" },
+            { "PE", "TemplatesDatosGenerales/_DatosGeneralesGrupo3" },
+
             { "PR", "" },
             { "SV", "" },
             { "VE", "" }

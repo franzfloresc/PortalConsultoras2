@@ -90,7 +90,9 @@ namespace Portal.Consultoras.Common
             Rechazada = 4,
             YaConCodigo = 5,
             Reactivada = 6,
-            PendienteDobleOptin = 7
+            //PendienteDobleOptin = 7
+            GenerandoCodigo = 7,
+            EnAprobacionSAC = 8
         }
 
         public enum TipoParametro
@@ -101,14 +103,13 @@ namespace Portal.Consultoras.Common
             EstadoGEO = 4,
             LugarNivel1 = 5,
             LugarNivel2 = 6,
-            LugarNivel1CO = 7,
-            LugarNivel2CO = 8,
-            DireccionesCo = 9,
-            LugarNivel1Mx = 10,
-            LugarNivel2Mx = 11,
-            ColoniaMx = 12,
+            LugarNivel3 = 7,
+            LugarNivel4 = 8,
+            LugarNivel5 = 9,          
             PrefijosCelular = 13,
             Validaciones = 14,
+            EstadoTelefonico = 15,
+            MotivoRechazoTelefonico = 16,
             MensajeBuroCrediticio = 17
         }
 
@@ -158,5 +159,45 @@ namespace Portal.Consultoras.Common
             Rechazado = 2,
             Omitido = 3
         }
+        public enum TipoDocumento
+        {
+            Dni = 1,
+            CarnetExtranjeria = 2,
+            Pasaporte = 3,
+            Ruc = 4,
+            Otros = 5
+        }
+
+        public enum TipoSubEstadoPostulanteRechazada
+        {
+            RechazadoEV = 1,
+            RechazadoYaesPostulante = 2,
+            RechazadoYaesConsultora = 3,
+            RechazadoBloqueosInternos = 4,
+            RechazoValidacionTelefonica = 5,
+            RechazoZonaPreferencial = 6,
+            RechazadoGZ = 7,
+            RechazadoSE = 8,
+            RechazadoSAC = 9,
+            RechazadoSEWeb = 10
+
+        }
+
+        public enum TipoSubEstadoPostulanteGenerandoCodigo
+        {
+            PorSE = 1,
+            PorGZ = 2,
+            PorSAC = 3,
+            PorSEWeb = 4
+        }
+
+        public enum TipoNivelesRiesgo
+        {
+            Bajo = 1,
+            Medio = 2,
+            Alto = 3,
+            Otro = 4
+        }
+
     }
 }

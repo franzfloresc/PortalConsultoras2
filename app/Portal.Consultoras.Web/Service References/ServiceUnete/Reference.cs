@@ -3116,6 +3116,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string TipoMetaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4381,6 +4384,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.TipoMetaField, value) != true)) {
                     this.TipoMetaField = value;
                     this.RaisePropertyChanged("TipoMeta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoRechazo {
+            get {
+                return this.TipoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoRechazoField, value) != true)) {
+                    this.TipoRechazoField = value;
+                    this.RaisePropertyChanged("TipoRechazo");
                 }
             }
         }
