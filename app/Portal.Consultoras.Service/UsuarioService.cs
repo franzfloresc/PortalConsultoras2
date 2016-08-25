@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Service
             return BLUsuario.Select(paisID, codigoUsuario);
         }
 
+        
+
         public BEConsultoraDatos GetDatosConsultora(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -46,6 +48,13 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
 
             return BLUsuario.DelUsuarioRol(paisID, codigoUsuario, RolID);
+        }
+
+        public int setUsuarioVideoIntroductorio(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+
+            return BLUsuario.setUsuarioVideoIntroductorio(paisID, codigoUsuario);
         }
 
         public void Insert(BEUsuario usuario)

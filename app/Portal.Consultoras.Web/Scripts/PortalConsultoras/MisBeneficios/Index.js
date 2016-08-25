@@ -36,11 +36,11 @@ function ArmarProgramasBelcorp(data) {
              '<div class="items_misBeneficios">',
                     '<div class="contenedor_item_img">',
                         '<img class="item_img" src="' + imgIncentivos + '" alt="Alternate Text" />',
-                        '<span class="item_titulo">INCENTIVOS</span>',
+                        '<span class="item_titulo"><b>INCENTIVOS</b></span>',
                     '</div>',
                     '<div class="contenedor_item_descripcion">',
                         '<span>',
-                            'Los premios están más cerca de lo que piensas…',
+                            '<b>Los premios están más cerca de lo que piensas…</b>',
                         '</span>',
                         '<a href="' + urlIncentivos + '" title="DESCÚBRELOS AQUÍ">DESCÚBRELOS AQUÍ</a>',
                     '</div>',
@@ -54,7 +54,8 @@ function EstructurarDataProgramasBelcorp(array) {
     $.each(array, function (i, item) {
         if (item.Descripcion == "Brillante 2016") {
             item.urlImgBeneficios = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/MisBeneficios/" + codigoISO_MB + "/brillante.png";
-            item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento ¡y una gran celebración!";
+            item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento <b>¡y una gran celebración!</b>";
+            item.Descripcion = "<b>BRILLANTE</b> " + anioActual;
         } else if (item.Descripcion == "Familia Protegida") {
             item.Descripcion = "";
             item.urlImgBeneficios = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/MisBeneficios/" + codigoISO_MB + "/familiaprotegida.png";
@@ -65,9 +66,9 @@ function EstructurarDataProgramasBelcorp(array) {
             item.DetalleDesripcion = "El crédito de Belcorp que te permitirá pasar pedidos más grandes y poder pagarlos hasta en 3 partes.";
         } else if (item.Descripcion == "Programa Nuevas") {
             item.urlImgBeneficios = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/MisBeneficios/" + codigoISO_MB + "/programanuevas.png";
-            item.DetalleDesripcion = "Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
+            item.DetalleDesripcion = "<b>Gana desde el comienzo</b> con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
+            item.Descripcion = "PROGRAMA <b>NUEVAS</b>"
         }
-        item.Descripcion = item.Descripcion.toUpperCase();
     });
 
     return array;

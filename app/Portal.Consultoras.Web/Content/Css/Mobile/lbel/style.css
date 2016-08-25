@@ -6129,46 +6129,6 @@ input[type="checkbox"]:checked + span:after {
 
 /* POPUP VIDEO INTRODUCTORIO */
 
-.contenedor_fondo_popup{    
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index:1000;
-}
-
-.popup_video_introductorio{
-    display: block;
-    position: relative;
-    top: 50%;
-    margin: -173.5px auto 0 auto;
-    width: 95%;
-    height:95%;
-    max-width: 600px;
-    height:auto;
-    box-sizing: border-box;
-    font-family: 'Lato';
-    z-index: 5;
-}
-
-.contenedor_video_introductorio{
-    display:block;
-    width:100%;
-    height:auto;
-}
-
-.contenedor_video_introductorio iframe{
-    display:block;
-    width:100%;
-    height:347px;
-}
-
-/* POPUP VIDEO INTRODUCTORIO */
-
 .popup_video_introductorio{
     display: block;
     position: relative;
@@ -6505,12 +6465,12 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .contenedor-tutorial-lbel .flex-control-paging li a:hover{
-    background: #e81c36 !important;
+    background: #a76195 !important;
     border: 0px !important;
 }
 
 .contenedor-tutorial-lbel .flex-control-paging li a.flex-active{
-    background: #e81c36 !important;
+    background: #a76195 !important;
     border: 0px !important;
 }
 
@@ -6558,7 +6518,8 @@ input[type="checkbox"]:checked + span:after {
     text-align: center;
     font-size: 13px;
     font-family: 'Lato';
-    font-weight: 900;
+    font-weight: 500;
+    padding-top: 12px;
 }
 
 .contenedor-tutorial-lbel .opciones-tutorial .cerrar span {
@@ -6567,4 +6528,28 @@ input[type="checkbox"]:checked + span:after {
     vertical-align: middle;
     color: gray;
     font-family: 'Lato';
+}
+
+/*MICHAEL*/
+
+@media (min-width: 1024px){
+    .contenedor-tutorial-lbel .opciones-tutorial{
+        width: 26% !important;
+        margin: 0 37% !important;
+    }
+
+    .contenedor-tutorial-lbel .flex-control-nav{
+        width: 100% !important;
+    }
+
+    .flexsliderTutorialMobile {
+        height: auto !important;
+        width: 26% !important;
+        margin: 0 auto !important;
+        margin-top: 2% !important;
+    }
+
+    .contenedor-tutorial-lbel{
+        background-color: black !important;
+    }
 }

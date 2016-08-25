@@ -26538,8 +26538,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .items_misBeneficios{
     display:inline-block;
+    vertical-align:top;
     width:31.035%;
-    max-height:291.9px;
+    height:297px;
     margin-right:3.175%;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
@@ -26569,12 +26570,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .item_titulo{
     display: block;
     position: absolute;
-    top: 6.5%;
-    left: 4%;
+    top: 9%;
+    left: 5%;
+    width:109px;
     font-family: 'Lato';
-    font-size: 23px;
+    font-size: 15.6px;
     font-weight: 300;
-    line-height:28px;
+    line-height:21px;
 }
 
 .item_titulo b{
@@ -26587,7 +26589,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .contenedor_item_descripcion{
     display: block;
-    margin: 4% auto 7.5% auto;
+    margin: 0 auto;
+    padding: 2% 0 0 0;
     text-align: left;
     width: 89%;
     font-family: 'Lato';
@@ -26600,12 +26603,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display:block;
     margin-bottom:3%;
     line-height:19px;
+    height:55px;
 }
 
 .contenedor_item_descripcion a{
     display:block;
-    width:33%;
-    color:#e81c36;
+    min-width:33%;
+    color:#642f80;
     text-transform:uppercase;
     font-weight:700;
 }
