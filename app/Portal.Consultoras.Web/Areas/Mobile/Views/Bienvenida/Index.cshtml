@@ -25,7 +25,7 @@
 
 <!--MICHAEL-->
 
-<div class="contenedor-tutorial-lbel">
+<div class="contenedor-tutorial-lbel" style="display:none;" id="tutorialMobilelbel">
     <div class="flexsliderTutorialMobile">
         <ul class="slides">
             <li><img src="~/Content/Images/Lbel/tutorial/tuto1.png" /></li>
@@ -41,8 +41,7 @@
         <div class="cerrar">Cerrar <img src="~/Content/Images/cerrar_04.png" /></div>
     </div>
 </div>
-
-<div class="contenedor-tutorial-esika">
+<div class="contenedor-tutorial-esika" style="display:none;" id="tutorialMobileesika">
     <div class="flexsliderTutorialMobile">
         <ul class="slides">
             <li><img src="~/Content/Images/Esika/tutorial/tuto1.png" /></li>
@@ -58,6 +57,7 @@
         <div class="cerrar">Cerrar <img src="~/Content/Images/cerrar_04.png" /></div>
     </div>
 </div>
+
 
 <div class="wrapper_resumen_mobile sombra_wrapper">
     <div class="content_320">
@@ -472,44 +472,19 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
-        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
-        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var ViewBagRutaChile = '@Model.RutaChile';
-        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-        var viewBagPaisID = '@Model.PaisID';
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var contadorFondoPopUp = 0;
+    var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+    var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+    var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+    var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+    var ViewBagRutaChile = '@Model.RutaChile';
+    var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+    var viewBagPaisID = '@Model.PaisID';
+    var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    var contadorFondoPopUp = 0;
+    var viewBagVioTutorial = '@Model.VioTutorial';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     <!--MICHAEL-->
-    <script type="text/javascript">
-        $('.flexsliderTutorialMobile').flexslider({
-            animation: "slide"
-        });
-
-        $(".contenedor-tutorial-lbel .cerrar").click(function () {
-            $('.contenedor-tutorial-lbel').hide();
-            $('.contenedor-tutorial-esika').hide();
-        });
-
-        $(".contenedor-tutorial-esika .cerrar").click(function () {
-            $('.contenedor-tutorial-lbel').hide();
-            $('.contenedor-tutorial-esika').hide();
-        });
-
-        $(".contenedor-tutorial-lbel .otromomento").click(function () {
-            $('.contenedor-tutorial-lbel').hide();
-            $('.contenedor-tutorial-esika').hide();
-        });
-
-        $(".contenedor-tutorial-esika .otromomento").click(function () {
-            $('.contenedor-tutorial-lbel').hide();
-            $('.contenedor-tutorial-esika').hide();
-        });
-    </script>
-
-
 }

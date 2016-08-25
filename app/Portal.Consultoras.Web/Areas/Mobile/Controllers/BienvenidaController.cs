@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Lider = userData.Lider;
                 model.PortalLideres = userData.PortalLideres;
                 model.DiaPROL = userData.DiaPROL;
+                model.VioTutorial = userData.VioTutorialModelo;
                 if (userData.CodigoISO == "CL" || userData.CodigoISO == "CO")
                 {
                     var tabla = new List<BETablaLogicaDatos>();
@@ -170,6 +171,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return Json(new { success = validar, mensajeFechaDA = mensajeFechaDA });
+        }
+
+        [HttpGet]
+        public JsonResult JSONSetUsuarioTutorial()
+        {
+            int retorno;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
+            }
+
+            return Json(new
+            {
+                result = retorno
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

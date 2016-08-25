@@ -6429,9 +6429,6 @@ input[type="checkbox"]:checked + span:after {
 }
 
 /*MICHAEL*/
-.contenedor-tutorial-lbel{
-    display: none;
-}
 
 .contenedor-tutorial-esika {
     display: block;
