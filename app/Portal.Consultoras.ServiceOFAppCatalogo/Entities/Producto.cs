@@ -53,6 +53,11 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
         [DataMember]
         public string Imagen { get; set; }
 
+        public Producto()
+        {
+            
+        }
+
         public Producto(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CodigoIso") && datarec["CodigoIso"] != DBNull.Value)

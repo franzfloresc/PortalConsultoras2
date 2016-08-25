@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Data;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.Logic;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.ServicePROLConsultas;
@@ -54,8 +56,11 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 
                     listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
 
-                    var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
-                    listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
+                    if (tipoProductoMostrar == 1)
+                    {
+                        var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
+                        listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));   
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -68,6 +73,12 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                 {
                     #region Obtener Listado de CUV de Jetlore
 
+                    //Datos de Prueba para Jetlore
+
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200067349", Cuv = "00724" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200064582", Cuv = "00777" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077626", Cuv = "00834" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077627", Cuv = "00836" });
 
                     #endregion
                     
@@ -87,6 +98,12 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     }
 
                     listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
+
+                    if (tipoProductoMostrar == 1)
+                    {
+                        var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
+                        listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
+                    }   
                 }
                 catch (Exception ex)
                 {
@@ -176,7 +193,46 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 
             auth.TokenPath = tokenPath;            
 
-            var products = auth.GetResultFromWebService(urlService);
+            var productos = auth.GetResultFromWebService(urlService);
+
+            var listaProductoPcm = new JavaScriptSerializer().Deserialize<ProductoPcm>(productos);
+            string rutaInicialImagenPcm = ConfigurationManager.AppSettings.Get("RutaInicialImagenPcm") ?? "";
+
+            listaProductoPcm.products[0].code = "200067349";
+            listaProductoPcm.products[1].code = "200064582";
+            listaProductoPcm.products[2].code = "210077626";
+            listaProductoPcm.products[3].code = "210077627";
+
+            foreach (var item in listaProductoPcm.products)
+            {
+                var productoMostrar = new Producto();
+
+                productoMostrar.CodigoSap = item.code;
+                string cuv = ObtenerCuv(codigoIso, campaniaId, item.code);
+
+                if (!string.IsNullOrEmpty(cuv))
+                {                  
+                    string rutaImagen = "";
+
+                    foreach (var imagen in item.images)
+                    {
+                        if (imagen.format == "product")
+                        {
+                            rutaImagen = imagen.url;
+                            break;
+                        }                        
+                    }
+
+                    if (!string.IsNullOrEmpty(rutaImagen))
+                    {
+                        productoMostrar.NombreComercial = item.name;
+                        productoMostrar.Cuv = cuv;
+                        productoMostrar.Imagen = rutaInicialImagenPcm + rutaImagen;
+
+                        lista.Add(productoMostrar);   
+                    }                    
+                }                
+            }
 
             #endregion
 
@@ -196,6 +252,17 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             }
 
             return lista;
+        }
+
+        public string ObtenerCuv(string codigoIso, int campaniaId, string codigoSap)
+        {
+            string resultado = "";
+
+            var DAProducto = new DAProducto(codigoIso);
+
+            resultado = DAProducto.ObtenerCuvByCodigoSap(campaniaId, codigoSap);
+
+            return resultado;
         }
     }
 }
