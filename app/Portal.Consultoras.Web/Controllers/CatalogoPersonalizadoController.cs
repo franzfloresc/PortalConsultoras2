@@ -57,6 +57,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lista ?? new List<Producto>();
                 lista = lista.Skip(0).Take(cantidad).ToList();
 
+
+                var listaPedido = ObtenerPedidoWebDetalle();
+
                 var listaProductoModel = new List<ProductoModel>();
                 foreach (var producto in lista)
                 {
@@ -103,6 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (add)
                     {
+                        var tiene = listaPedido.Where(p => p.CUV == olstProducto[0].CUV.Trim());
                         listaProductoModel.Add(new ProductoModel()
                         {
                             CUV = olstProducto[0].CUV.Trim(),
@@ -132,12 +136,12 @@ namespace Portal.Consultoras.Web.Controllers
                             PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                             Simbolo = userData.Simbolo,
                             Sello = producto.Sello,
-                            IsAgregado = false
+                            IsAgregado = tiene.Count() > 0
                         });
 
                     }
                 }
-
+                
                 return Json(new
                 {
                     success = true,

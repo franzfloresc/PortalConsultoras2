@@ -1619,6 +1619,7 @@
     <Content Include="Content\Images\footer_correonueva.gif" />
     <Content Include="Content\Images\foot_login.png" />
     <Content Include="Content\Images\franja_inferior_banner.png" />
+    <Content Include="Content\Images\group.svg" />
     <Content Include="Content\Images\icono-campanias.png" />
     <Content Include="Content\Images\icono-excel.png" />
     <Content Include="Content\Images\icono-pack-documentario.png" />
