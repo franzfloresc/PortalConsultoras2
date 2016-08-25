@@ -513,7 +513,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     // asignar el check al catalogo correspondiente mediante tipoCatalogo
     campaniaEmail = campania;
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-    $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
+    $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);    
     $('#CompartirCorreoMobile').show();
 }
 

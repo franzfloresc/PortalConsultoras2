@@ -8,12 +8,12 @@
     });
 
     function abrir_popup_tutorial(){
-        $('#popup_tutorial').fadeIn();
+        $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
     }
 
     function cerrar_popup_tutorial() {
-        $('#popup_tutorial').fadeOut();
+        $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
     }
 
@@ -366,7 +366,7 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 40,
+        'top': carrito.offset().top - 60,
         'left': carrito.offset().left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
