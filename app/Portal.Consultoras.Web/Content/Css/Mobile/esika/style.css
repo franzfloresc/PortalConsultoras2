@@ -5161,7 +5161,8 @@ body{
 .catalogo_esika{
     width:128px;
     height:76px;
-    background: url("../../../Images/mobile/Esika/catalogo_home.png") no-repeat right bottom;    
+    background: url("../../../Images/mobile/Esika/catalogo_home.png") no-repeat right bottom;
+    margin-bottom: 0px;    
 }
 .celular_esika{
     width:62px;
