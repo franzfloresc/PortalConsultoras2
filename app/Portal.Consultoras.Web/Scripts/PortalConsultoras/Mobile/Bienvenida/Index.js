@@ -5,19 +5,11 @@
     });
 
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
-        if (isEsika) {
-            $('#tutorialMobileesika').hide();
-        } else {
-            $('#tutorialMobilelbel').hide();
-        }
+        $('#tutorialesMobile').hide();
     });
 
     $(".contenedor-tutorial-esika .otromomento").click(function () {
-        if (isEsika) {
-            $('#tutorialMobileesika').hide();
-        } else {
-            $('#tutorialMobilelbel').hide();
-        }
+        $('#tutorialesMobile').hide();
     });
 
     $(".footer-page").css({ "margin-bottom": "54px" });
@@ -26,19 +18,11 @@
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
-        if (isEsika) {
-            $('#tutorialMobileesika').show();
-        } else {
-            $('#tutorialMobilelbel').show();
-        }
+        $('#tutorialesMobile').hide();
     });
 
     $("#tutorialFooterMobile").click(function () {
-        if (isEsika) {
-            $('#tutorialMobileesika').show();
-        } else {
-            $('#tutorialMobilelbel').show();
-        }
+        $('#tutorialesMobile').show();
     });
 
     CargarCantidadProductosPedidos();
@@ -49,11 +33,7 @@
 
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
-        if (isEsika) {
-            $('#tutorialMobileesika').show();
-        } else {
-            $('#tutorialMobilelbel').show();
-        }
+        $('#tutorialesMobile').show();
     }
 };
 

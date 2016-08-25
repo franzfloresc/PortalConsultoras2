@@ -6429,7 +6429,9 @@ input[type="checkbox"]:checked + span:after {
 }
 
 /*MICHAEL*/
-
+.contenedor-tutorial-lbel{
+    display: none;
+}
 .contenedor-tutorial-esika {
     display: block;
     position: fixed;
@@ -6534,6 +6536,19 @@ input[type="checkbox"]:checked + span:after {
     vertical-align: middle;
     color: gray;
     font-family: 'Lato';
+}
+
+.icono_cerrar_tutorial{
+    display: inline-block;
+    width: 19px;
+    margin-left: 4px;
+    position: relative;
+    top: -2px;
+}
+
+.icono_cerrar_tutorial img{
+    width:100%;
+    height:auto;
 }
 
 /*MICHAEL*/

@@ -366,7 +366,7 @@ VALUES (25, 'Ayuda', 0, 3, '', '', 0, 'Footer', 'Completa')
 
 INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
 VALUES (26,'Preguntas Frecuentes', 25, 1, 'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082', '', 0, 'Footer', 'Completa'),
-(27, 'Contactanos', 25, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 0, 'Footer', 'Completa'),
+(27, 'Contáctanos', 25, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 1, 'Footer', 'Mobile'),
 (28, 'Tutorial', 25, 3, '', '', 0, 'Footer', 'Completa')
 
 INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
