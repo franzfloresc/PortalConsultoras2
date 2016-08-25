@@ -26746,8 +26746,24 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 0px 24px;
     float: left;
     position: relative;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
+.content-favclientes .agregado {
+  height: 12px;
+  font-family: Lato;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #a18328;
+}
+.content-favclientes .agregado .icono{
+   width: 11px;
+  height: 7.8px;
+  border: solid 1.6px #a18328;
+}
 
 .pestania {
     padding-top: 15px;
@@ -26784,6 +26800,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
  .content-favclientes.catper{

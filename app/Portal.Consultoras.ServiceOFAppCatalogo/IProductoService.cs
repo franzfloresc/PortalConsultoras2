@@ -15,5 +15,9 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
         [OperationContract]
         List<Producto> ObtenerProductos(int tipoOfertaFinal, string codigoIso, int campaniaId, string codigoConsultora,
             int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar);
+
+        [OperationContract]
+        List<Producto> ObtenerTodosProductos(int lugar, string codigoIso, int campaniaId, string codigoConsultora,
+            int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte = 100);
     }
 }
