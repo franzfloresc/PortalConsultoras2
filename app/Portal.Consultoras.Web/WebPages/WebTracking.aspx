@@ -191,12 +191,10 @@
                     <asp:View ID="vTracking" runat="server">
                         <table style="width: 100%;">
                             <tr>
-                                <td>
-                                    
+                                <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
-                                            <td class="width_50" style="vertical-align: top; text-align: left">
-                                               
+                                            <td id="cellPedidos" runat="server" class="width_50" style="vertical-align: top; text-align: left">                                               
                                                 <asp:Panel ID="pFiltros" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>pedidos</b>"
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">

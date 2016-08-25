@@ -6,6 +6,11 @@ $(document).ready(function () {
     
     WidthWindow();
 
+    $('#PopSeguimiento iframe').on('load', function () {
+        $('#PopSeguimiento').show();
+        closeWaitingDialog();
+    });
+
     $("[data-accion='detalle']").click(function () {
         $(window).scrollTop(0);
         var btn = $(this);
@@ -148,6 +153,12 @@ $(document).ready(function () {
         PopupMostrar(popup, campFormat);
     });
 });
+
+function CargarFramePedido(campania)
+{
+    waitingDialog({});
+    $('#PopSeguimiento iframe').attr('src', urlPedidos + "&campania=" + campania);
+}
 
 function WidthWindow() {
     //$("#cuerpo").css("width", window.innerWidth * 3 + "px");

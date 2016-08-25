@@ -218,7 +218,7 @@
                             <div class="canal_ingreso">@item.CanalIngreso</div>
                             <div class="cantidad_prod">@item.CantidadProductos</div>
                             <div class="seguimiento">
-                                <a title="Seguimiento" href="javascript:;" onclick="javascript: $('#PopSeguimiento').show();">
+                                <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID);">
                                     <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
                                 </a>
                             </div>
@@ -262,7 +262,7 @@
     
     <div class="wrapper_seguimiento">
         <a class="btn_regresar" href="javascript:;" onclick="javascript: $('#PopSeguimiento').hide();">REGRESAR</a>
-        <iframe src="@ViewBag.URLWebTracking" width="100%" height="100%"></iframe>
+        <iframe src="" width="100%" height="100%"></iframe>
     </div>
 </div>
 <!--FIN-->
@@ -518,5 +518,9 @@
     <div class="clear"></div>
 </script>
 @section scripts{
+    <script>
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPedidos = '@ViewBag.URLWebTracking';
+    </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
 }
