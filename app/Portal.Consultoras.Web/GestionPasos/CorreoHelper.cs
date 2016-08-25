@@ -33,14 +33,23 @@ namespace Portal.Consultoras.Web.GestionPasos
 
         public static void EnviarCorreoGz(string codigoIso, ServiceUnete.SolicitudPostulante entidad, out ZonaBE zona)
         {
+            var consultora = default(HojaInscripcionODS.ConsultoraBE);
             using (var ods = new ODSServiceClient())
             {
                 zona = ods.ObtenerZona(codigoIso, entidad.CodigoZona);
+
+                if (zona == null)
+                    return;
+
                 var seccion = ods.ObtenerSeccion(codigoIso, zona.ZonaID, entidad.CodigoSeccion);
                 var consultoraLider = ods.ObtenerConsultoraLiderPorZonaySeccion(codigoIso, zona.Codigo,
                     seccion.Codigo);
-                var consultora = ods.ObtenerConsultoraPorZonaYSeccionUnete(codigoIso,
-                    consultoraLider.ConsultoraID.ToInt());
+
+                if (consultoraLider != null)
+                {
+                    consultora = ods.ObtenerConsultoraPorZonaYSeccionUnete(codigoIso,
+                        consultoraLider.ConsultoraID.ToInt());
+                }
 
                 var tieneExperiencia = entidad.TieneExperiencia.HasValue ? entidad.TieneExperiencia.Value : 0;
 
@@ -81,7 +90,6 @@ namespace Portal.Consultoras.Web.GestionPasos
                    !string.IsNullOrEmpty(solicitudPostulante.Telefono)
                        ? solicitudPostulante.Telefono
                        : solicitudPostulante.Celular,
-                    CorreoElectronico = consultora.Email,
                     Edad =
                    ((new DateTime(1, 1, 1) + (DateTime.Now - solicitudPostulante.FechaNacimiento.Value)).Year - 1)
                        .ToString(),
@@ -92,7 +100,6 @@ namespace Portal.Consultoras.Web.GestionPasos
                        : mensajeBuroCrediticio.FirstOrDefault(x => x.Valor == 2).Nombre,
                     ContactoUnete = viaWeb,
                     CodigoSeccion = solicitudPostulante.CodigoSeccion,
-                    NombreDestinatario = string.Format("{0} {1}", consultora.PrimerNombre, consultora.PrimerApellido),
                     CorreoElectronicoPostulante = solicitudPostulante.CorreoElectronico,
                     UrlSite =
                    ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteSE) &&
@@ -101,17 +108,27 @@ namespace Portal.Consultoras.Web.GestionPasos
                        : "#"
                 };
 
-                sv.EnviarEmail(parametro);
+                if (consultora != null)
+                {
+                    parametro.CorreoElectronico = consultora.Email;
+                    parametro.NombreDestinatario = string.Format("{0} {1}", consultora.PrimerNombre,
+                        consultora.PrimerApellido);
 
-                parametro.TipoEmail = EnumsTipoEmail.NotificacionGz;
-                parametro.CorreoElectronico = zona.GZEmail;
-                parametro.NombreDestinatario = zona.GerenteZona;
-                parametro.UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteFFVV) &&
-                                    ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] != null
-                    ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV]
-                    : "#";
+                    sv.EnviarEmail(parametro);
+                }
 
-                sv.EnviarEmail(parametro);
+                if (!string.IsNullOrEmpty(zona.GZEmail))
+                {
+                    parametro.TipoEmail = EnumsTipoEmail.NotificacionGz;
+                    parametro.CorreoElectronico = zona.GZEmail;
+                    parametro.NombreDestinatario = zona.GerenteZona;
+                    parametro.UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteFFVV) &&
+                                        ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] != null
+                        ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV]
+                        : "#";
+
+                    sv.EnviarEmail(parametro);
+                }
             }
         }
     }

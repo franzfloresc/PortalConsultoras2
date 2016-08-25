@@ -75,61 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return BaseUtilities.ConsumirServicio<dynamic>(dataJson, urlBase, metodo) as JObject;
         }
-
-        public void CargarCombosPaso1(Paso1CoreVm viewModel, string month, string year)
-        {
-            var monthsNames = new CultureInfo("es-PE").DateTimeFormat.MonthNames;
-            var _month = !string.IsNullOrEmpty(month) ? month.ToInt() : 0;
-            var _year = !string.IsNullOrEmpty(year) ? year.ToInt() : 0;
-            int minYear = DateTime.Now.Year - 110;
-
-            var years = Enumerable.Range(minYear, DateTime.Now.Year - minYear + 1).OrderByDescending(x => x).Select(x => new { Value = x, Text = x }).ToList();
-            var months = Enumerable.Range(1, 12).Select(x => new { Value = x, Text = monthsNames[x - 1] }).ToList();
-            var days = Enumerable.Range(1, _month == 0 || _year == 0 ? 31 : DateTime.DaysInMonth(_year, _month)).Select(x => new { Value = x, Text = x }).ToList();
-
-            viewModel.Anios = new SelectList(years, "Value", "Text");
-            viewModel.Meses = new SelectList(months, "Value", "Text");
-            viewModel.Dias = new SelectList(days, "Value", "Text");
-
-            var generos = new Dictionary<string, string>
-            {
-                { "M", "Hombre" },
-                { "F", "Mujer" }
-            };
-
-            viewModel.Generos = new SelectList(generos, "Key", "Value");
-        }
-
-        public void CargarCombosPaso2(Paso2CoreVm viewModel)
-        {
-            using (var sv = new BelcorpPaisServiceClient())
-            {
-                if (viewModel.CodigoISO == "CL")
-                {
-                    var lugaresPadre = sv.ObtenerParametrosUnete(viewModel.CodigoISO, Enumeradores.TipoParametro.LugarNivel1.ToInt(), 0);
-                    viewModel.LugaresPadre = new SelectList(lugaresPadre, "IdParametroUnete", "Nombre");
-                }
-
-                else if (viewModel.CodigoISO == "CO")
-                {
-                    var lugaresPadre = sv.ObtenerParametrosUnete(viewModel.CodigoISO, Enumeradores.TipoParametro.LugarNivel1CO.ToInt(), 0);
-                    viewModel.LugaresPadre = new SelectList(lugaresPadre, "IdParametroUnete", "Nombre");
-
-                    var direccionesCo = sv.ObtenerParametrosUnete(viewModel.CodigoISO, Enumeradores.TipoParametro.DireccionesCo.ToInt(), 0);
-                    viewModel.DireccionesCo = new SelectList(direccionesCo, "IdParametroUnete", "Nombre");
-                }
-
-                if (!string.IsNullOrWhiteSpace(viewModel.Comuna))
-                {
-                    var lugaresHijo = sv.ObtenerParametrosUnete(viewModel.CodigoISO, Enumeradores.TipoParametro.LugarNivel2.ToInt(), viewModel.Region.ToInt());
-                    viewModel.LugaresHijo = new SelectList(lugaresHijo, "IdParametroUnete", "Nombre");
-                }
-                else
-                {
-                    viewModel.LugaresHijo = new SelectList(new ParametroUneteCollection(), "IdParametroUnete", "Nombre");
-                }
-            }
-        }
+     
 
         public bool CodigoISOActivo(string codigoISO)
         {

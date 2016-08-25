@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Annotations
@@ -128,8 +127,8 @@ namespace Portal.Consultoras.Web.Annotations
             var listaValores = OtherPropertyValue.ToString().Split(',');
 
             // check if this value is actually required and validate it
-            if (!this.IsInverted && listaValores.Contains(otherValue) ||
-                this.IsInverted && !listaValores.Contains(otherValue))
+            if (!this.IsInverted && listaValores.Contains(otherValue != null ? otherValue.ToString() : default(string)) ||
+                this.IsInverted && !listaValores.Contains(otherValue != null ? otherValue.ToString() : default(string)))
             {
                 if (value == null)
                 {

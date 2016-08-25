@@ -17,8 +17,15 @@ namespace Portal.Consultoras.Web.Annotations
         public object OtherPropertyValue { get; private set; }
         public bool IsInverted { get; set; }
         public bool RegexNotMatch { get; set; }
-        public string[] Expresiones { get; set; }
-        public string[] Mensajes { get; set; }
+        public string Expresion { get; set; }
+
+        public override object TypeId
+        {
+            get { return new object(); }
+        }
+
+        //To avoid multiple rules with same name
+        public static Dictionary<string, int> CountPerField = null;
 
         public ExpressionRequiredIfAttribute(string otherProperty, object otherPropertyValue)
             : base("'{0}' is required because '{1}' has a value {3}'{2}'.")
@@ -55,17 +62,14 @@ namespace Portal.Consultoras.Web.Annotations
             if (!this.IsInverted && listaValores.Contains(otherValue) ||
                 this.IsInverted && !listaValores.Contains(otherValue))
             {
-                for (int i = 0; i < Expresiones.Length; i++)
+                var expresionActual = Expresion;
+                var mensajeErrorActual = ErrorMessage;
+
+                var responseMatch = Regex.IsMatch((string)value ?? string.Empty, expresionActual);
+
+                if ((!responseMatch && !RegexNotMatch) || (responseMatch && RegexNotMatch))
                 {
-                    var expresionActual = Expresiones[i];
-                    var mensajeErrorActual = Mensajes != null && Mensajes.Length > i ? Mensajes[i] : ErrorMessage;
-
-                    var responseMatch = Regex.IsMatch((string) value ?? string.Empty, expresionActual);
-
-                    if ((!responseMatch && !RegexNotMatch) || (responseMatch && RegexNotMatch))
-                    {
-                        return new ValidationResult(mensajeErrorActual);
-                    }
+                    return new ValidationResult(mensajeErrorActual);
                 }
             }
 
@@ -74,15 +78,29 @@ namespace Portal.Consultoras.Web.Annotations
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
+            string key = metadata.ContainerType.FullName + "." + metadata.GetDisplayName();
+
+            int count = 0;
+            if (CountPerField == null)
+                CountPerField = new Dictionary<string, int>();
+
+            if (CountPerField.ContainsKey(key))
+            {
+                count = ++CountPerField[key];
+            }
+            else
+                CountPerField.Add(key, count);
+
             var rule = new ModelClientValidationRule();
+            string tmp = count == 0 ? "" : char.ConvertFromUtf32(96 + count);
+
             rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
             rule.ValidationParameters.Add("listvalues", OtherPropertyValue);
             rule.ValidationParameters.Add("otherproperty", OtherProperty);
-            rule.ValidationParameters.Add("expresiones", string.Join("|", Expresiones ?? new string[] { }));
-            rule.ValidationParameters.Add("mensajes", string.Join("|", Mensajes ?? new string[] {}));
+            rule.ValidationParameters.Add("expresion", Expresion);
             rule.ValidationParameters.Add("regexnotmatch", RegexNotMatch ? 1 : 0);
 
-            rule.ValidationType = "expressionrequiredif";
+            rule.ValidationType = "expressionrequiredif" + tmp;
             yield return rule;
         }
     }
