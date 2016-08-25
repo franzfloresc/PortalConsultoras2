@@ -6529,3 +6529,27 @@ input[type="checkbox"]:checked + span:after {
     color: gray;
     font-family: 'Lato';
 }
+
+/*MICHAEL*/
+
+@media (min-width: 1024px){
+    .contenedor-tutorial-lbel .opciones-tutorial{
+        width: 26% !important;
+        margin: 0 37% !important;
+    }
+
+    .contenedor-tutorial-lbel .flex-control-nav{
+        width: 100% !important;
+    }
+
+    .flexsliderTutorialMobile {
+        height: auto !important;
+        width: 26% !important;
+        margin: 0 auto !important;
+        margin-top: 2% !important;
+    }
+
+    .contenedor-tutorial-lbel{
+        background-color: black !important;
+    }
+}
