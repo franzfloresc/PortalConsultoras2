@@ -4,41 +4,38 @@
 }
 @System.Web.Optimization.Styles.Render("~/bundles/CSSFuzemodal")
 @System.Web.Optimization.Scripts.Render("~/bundles/JSFuzemodal")
-
 @if (!Model.Afiliado && !Model.EmailActivo && !Model.Email.Equals(""))
 {
     <div class="field100_co margin_bottom_20 margin_top_20">
         <div class="con_notificacion">
             <img class="position_relative" src="/Content/Images/ConsultoraOnline/ic_no_valido.png" width="44" height="51" alt="" />
             <p class="text_notificacion">
-                Todavía no has confirmado tu correo, si quieres que te volvamos a enviar el correo de confirmación 
+                Todavía no has confirmado tu correo, si quieres que te volvamos a enviar el correo de confirmación
                 @Html.ActionLink("haz clic aquí. ", "EnviaCorreo", "ConsultoraOnline", null, new { @class = "link_notificacion" })
             </p>
         </div>
     </div>
 }
-
 <div id="slides_activate">
-    <div id="activate_banner"><img src="~/Content/Images/ConsultoraOnline/CCC-Banner-fondo.jpg" width="1280" height="454" alt=""/></div>
-    <img id="activate_computer" src="~/Content/Images/ConsultoraOnline/CCC_GIF_HIGH_computadora.gif" width="540" height="350" alt=""/>
+    <div id="activate_banner"><img src="~/Content/Images/ConsultoraOnline/CCC-Banner-fondo.jpg" width="1280" height="454" alt="" /></div>
+    <img id="activate_computer" src="~/Content/Images/ConsultoraOnline/CCC_GIF_HIGH_computadora.gif" width="540" height="350" alt="" />
     <div class="cont_activate">
         <h2 class="margin_bottom_20">CONSULTORA <strong>ONLINE</strong></h2>
         @*gr-1250-1*@
         Esta es la herramienta que te permitirá recibir pedidos de clientes nuevos y actuales por el App de Catálogos y las páginas web de las marcas.
         @if (!Model.Afiliado)
         {
-            <a class="boton_morado margin_top_20" href="/ConsultoraOnline/Inscripcion">ACTÍVATE AQUÍ</a>@*@Html.ActionLink("ACTÍVATE AQUÍ", "Inscripcion", "ConsultoraOnline")*@   
+            <a class="boton_morado margin_top_20" href="/ConsultoraOnline/Inscripcion">ACTÍVATE AQUÍ</a>@*@Html.ActionLink("ACTÍVATE AQUÍ", "Inscripcion", "ConsultoraOnline")*@
         }
     </div>
 </div>
 
-
 <div id="wrap_ver_mas" class="field100_co">
-    <a href="#" class="boton_turquesa">VER MÁS<br />
-        <img src="~/Content/Images/ConsultoraOnline/ic_ver_mas.png" width="21" height="11" alt="" /></a>
-
+    <a href="#" class="boton_turquesa">
+        VER MÁS<br />
+        <img src="~/Content/Images/ConsultoraOnline/ic_ver_mas.png" width="21" height="11" alt="" />
+    </a>
 </div>
-
 
 <div class="cont_como_funciona">
     <h2 class="text_align_center">¿CÓMO FUNCIONA?</h2>
@@ -50,14 +47,13 @@
             <p class="field90_co margin_left_14">Tu nombre estará disponible en el App de Catálogos de Ésika, L’Bel y Cyzone y en las páginas web de las marcas cuando clientes de tu zona quieran comprar un producto.</p>
         </div>
     </div>
-
     <div class="field50_co">
         <div class="cont_pasos float_left">
             <img class="img_size_340" src="/Content/Images/ConsultoraOnline/img_funciona_2.png" alt="" />
             <div class="text_azul">2. RECIBE EL PEDIDO Y CONTACTA  AL CLIENTE</div>
             <p class="field90_co margin_left_14">
                 @*gr-1250 2-2*@
-               Apenas un cliente te escoja, te llegará un correo o una notificación en tu bandeja de Consultora Online informándote que tienes un pedido nuevo, 
+                Apenas un cliente te escoja, te llegará un correo o una notificación en tu bandeja de Consultora Online informándote que tienes un pedido nuevo,
                 junto con los datos de tu cliente. Llámalo, cuéntale quién eres y confirma su pedido.
             </p>
         </div>
@@ -74,19 +70,20 @@
             <img class="img_size_340" src="/Content/Images/ConsultoraOnline/img_funciona_4.png" alt="" />
             <div class="text_turquesa">4. COMIENZA UNA NUEVA RELACIÓN </div>
             @*gr-1250 2-3*@
-            <p class="field90_co margin_left_14">Ahora que estás en contacto con un nuevo cliente, ¡la relación depende de ti! Aprovecha este primer acercamiento para ganar un cliente frecuente. 
-            Agrégalo a Whatsapp, mantenlo informado de las siguientes campañas, compártele tus catálogos por la web o invítalos a descargarse el App de Catálogos, y envíale las novedades de nuestras redes sociales.
+            <p class="field90_co margin_left_14">
+                Ahora que estás en contacto con un nuevo cliente, ¡la relación depende de ti! Aprovecha este primer acercamiento para ganar un cliente frecuente.
+                Agrégalo a Whatsapp, mantenlo informado de las siguientes campañas, compártele tus catálogos por la web o invítalos a descargarse el App de Catálogos, y envíale las novedades de nuestras redes sociales.
             </p>
         </div>
     </div>
     @if (!Model.Afiliado)
-    {    
+    {
         <div class="field100_co text_align_center margin_top_72">
             <button class="boton_morado margin_top_20" id="btnInscripcion" onclick="location.href='/ConsultoraOnline/Inscripcion';">ACTIVATE AQUI</button>
         </div>
         @*<div class="field100_co text_align_center">
-            <a class="boton_morado margin_top_20" href="/consultoraonline/inscripcion">actívate aquí</a><!-- @html.actionlink("actívate aquí", "inscripcion", "consultoraonline") -->
-        </div>*@
+                <a class="boton_morado margin_top_20" href="/consultoraonline/inscripcion">actívate aquí</a><!-- @html.actionlink("actívate aquí", "inscripcion", "consultoraonline") -->
+            </div>*@
     }
 </div>
 <div class="cont_mas_preguntas">
@@ -95,7 +92,7 @@
         <div class="cont_pregunta">
             @*gr-1250 3-1*@
             <h3>¿Qué debo hacer si el precio que el cliente vio en el App de Catálogos o en la página web es diferente al de la campaña actual? </h3>
-             @*gr-1250 3-2*@
+            @*gr-1250 3-2*@
             <p>El precio que aparece en la web y en el App de Catálogos es el precio regular (precio sin descuento). Ofrece a tus clientes el precio catálogo de tu campaña vigente y así obtendrá un precio más bajo sin que esto afecte tu ganancia. Cuéntale siempre a tus nuevos clientes online del descuento especial que obtiene comprándole a una Consultora.</p>
         </div>
         <div class="cont_pregunta">
@@ -105,20 +102,18 @@
         <div class="cont_pregunta">
             <h3>¿Qué pasa si rechazo el pedido de mi cliente? </h3>
             <p>Puedes ACEPTAR o RECHAZAR el pedido de tu cliente desde la sección MIS PEDIDOS. De esta forma el pedido será asignado a otra Consultora Online.</p>
-
         </div>
         <div class="cont_pregunta">
             <h3>¿Necesito tener el producto solicitado en stock?</h3>
             <p>
-                Esto dependerá del cliente y de cuándo quiere recibir su pedido. Pregúntale si necesita su pedido con urgencia o si podría esperar 
-        a que sus productos lleguen junto con el pedido que realizas cada campaña.
-        Si deseas, también puedes adquirir los productos en uno de nuestros <span id="btnBelcenters" class="link">Belcenters</span>.
+                Esto dependerá del cliente y de cuándo quiere recibir su pedido. Pregúntale si necesita su pedido con urgencia o si podría esperar
+                a que sus productos lleguen junto con el pedido que realizas cada campaña.
+                Si deseas, también puedes adquirir los productos en uno de nuestros <span id="btnBelcenters" class="link">Belcenters</span>.
             </p>
         </div>
     </div>
 </div>
 @Html.Partial("_Belcenters")
-
 <script>
     $(document).ready(function () {
         $(".container_landing").css("height", "100%");
@@ -129,5 +124,3 @@
 
 
 </script>
-
-

@@ -1,8 +1,6 @@
 ﻿@*model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel*@
 @using Portal.Consultoras.Web.CustomHelpers;
 @System.Web.Optimization.Styles.Render("~/bundles/CSSFuzemodal")
-@System.Web.Optimization.Scripts.Render("~/bundles/JSFuzemodal")
-
 <!--[if IE]>
 
 <script type="text/javascript">
@@ -76,47 +74,3 @@ $(function() {
         
     </div>
 </div>
-
-<script>
-
-    $(document).ready(function () {
-
-        //*************************************MODALS*******************************//
-        $("#modal_desactivar_consultora").fuzemodal({ buttonIdOrClass: '#btnDesactivar', speed: 450 });
-    });
-
-    function desa()
-    {
-        var opc = $('input[name=checkbox]:checked', '#frmDesafiliacion').val();
-        var params = {
-            ConsultoraID:@ViewBag.ConsultoraID,
-            OpcionDesafiliacion: opc
-            };
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "ConsultoraOnline/Desafiliar", 
-            contentType: 'application/json',
-            data: JSON.stringify(params),
-            success: function (data) {
-                if (checkTimeout(data)) {
-
-                    if (data.success == true) {
-                        $('#modal_desactivar_consultora').fuzemodal('close');
-                        location.href = baseUrl + "ConsultoraOnline/Informacion";
-                    }
-                    else {
-                        alert_msg(data.message);
-                    }
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
-                }
-            }
-        });
-        
-    }
-
-</script>
