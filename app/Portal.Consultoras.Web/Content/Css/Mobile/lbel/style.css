@@ -6420,7 +6420,9 @@ input[type="checkbox"]:checked + span:after {
 }
 
 /*MICHAEL*/
-
+.contenedor-tutorial-esika{
+    display: none;
+}
 .contenedor-tutorial-lbel {
     display: block;
     position: fixed;
