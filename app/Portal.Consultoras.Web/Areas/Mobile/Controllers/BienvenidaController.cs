@@ -180,8 +180,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
+                userData.VioTutorialModelo = retorno;
             }
-
+            SetUserData(userData);
             return Json(new
             {
                 result = retorno
