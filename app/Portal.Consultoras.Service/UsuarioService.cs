@@ -17,8 +17,6 @@ namespace Portal.Consultoras.Service
             return BLUsuario.Select(paisID, codigoUsuario);
         }
 
-        
-
         public BEConsultoraDatos GetDatosConsultora(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();

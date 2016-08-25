@@ -3350,7 +3350,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             Descripcion: 0,
             Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
             IndicadorMontoMinimo: 0,
-            TipoOferta: 1
+            TipoOferta: 0
         });
 
         jQuery.ajax({

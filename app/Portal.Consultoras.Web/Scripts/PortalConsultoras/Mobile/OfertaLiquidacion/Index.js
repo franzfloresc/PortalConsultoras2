@@ -1,7 +1,4 @@
-﻿var cantidadItemPagina = 10;
-var cantidadItemMostrarInicio = 10;
-var posicionFinalMostrada = 0;
-var cantidadRegistros = 10;
+﻿var cantidadRegistros = 8;
 var offset = 0;
 var puedeCargar = true;
 $(document).ready(function () {

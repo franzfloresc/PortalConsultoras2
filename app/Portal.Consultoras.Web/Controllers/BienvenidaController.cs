@@ -14,7 +14,6 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Net;
 
@@ -44,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 
-                model.VioVideoBienvenidaModel = userData.VioVideoModelo; // SB20-344
+                model.VioVideoBienvenidaModel = userData.VioVideoModelo;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
