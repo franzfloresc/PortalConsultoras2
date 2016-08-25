@@ -20,12 +20,6 @@
     });
     $('ul[data-tab="tab"] li a')[0].click();
 
-    $("#spanDeuda").html(ViewBagSimbolo + " " + "<span>" + $("#hdn_MontoPagar").val() + "</span>");
-    $("#der_fechaVencimiento").html('');
-    if ($("#hdn_FechaVencimiento").val() != "") {
-        $("#der_fechaVencimiento").html('Vencimiento: ' + $("#hdn_FechaVencimiento").val().substring(0, 5));
-    }
-
     $("#lblCorreoEnviar").click(function () {
         fnEnviarCorreo();
     });

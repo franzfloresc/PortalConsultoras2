@@ -298,7 +298,7 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
-<div class="content_belcorp">
+<div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
@@ -319,7 +319,6 @@
 
     </div>
     <!-- FIN TUTORIALES-->
-
     <!-- SIN TUTORIALES -->
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
@@ -340,9 +339,7 @@
             </div>
         </div>
     </div>
-
     <!-- FIN SIN TUTORIALES-->
-
     <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
@@ -355,25 +352,9 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-            <span>
-            <a href="#">
-                ¿Cómo conseguir tu primer pedido?
-            </a>
-            </span>
-            <span>
-            <a href="#">
-                Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-            </a>
-            </span>
-            <span>
-            <a href="#">
-                ¿Cómo fidelizar a un cliente?
-            </a>
-            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
-
     <!--CAROUSEL LIQUIDACION HOME-->
     <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
@@ -388,7 +369,6 @@
         </div>
     </div>
     <!--FIN CAROUSEL LIQUIDACION HOME-->
-
     <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
@@ -1396,7 +1376,7 @@
 <script id="miscursos-template" type="text/x-handlebars-template">
     {{#each this}}
     <div class="borde_video">
-        <a class="titulo_item_video">
+        <a href="{{url}}" class="titulo_item_video" target="_blank">
             {{nombre}}
         </a>
         <div class="porcentaje_curso">
@@ -1430,7 +1410,6 @@
             </div>
             <div class="curso_porcentaje_avance">
                 <div class="porcentaje_curso">
-
                     {{#if_eq estado '0'}}
                     <div class="sin_iniciar">
                         SIN INICIAR
@@ -1444,7 +1423,6 @@
                         FINALIZADO
                     </div>
                     {{/if_eq}}
-
                 </div>
             </div>
         </div>

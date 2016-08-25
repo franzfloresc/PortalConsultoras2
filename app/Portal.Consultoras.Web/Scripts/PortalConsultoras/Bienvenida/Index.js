@@ -3,46 +3,9 @@
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
     CargarPopupsConsultora();
-    
-    $(window).scroll(function () {
-
-        var $this = $(this);
-
-        if ($this.scrollTop() > 870) {
-
-            $(".porcentaje_curso").addClass("mostrarPorcentajes");
-            porcentajesCursos();
-
-        } else {
-
-            $(".porcentaje_curso").removeClass("mostrarPorcentajes");
-
-        }
-
-    });
-
-    // Función para animación y características de carga circular de Cursos Academia
-    function porcentajesCursos() {
-
-        $('.porcentaje_cursosAcademia').easyPieChart({
-            barColor: isEsika == true ? '#e81c36' : '#642f80',
-            trackColor: '#f0f0f0',
-            scaleColor: 'transparent',
-            animate: 1000,
-            size: 55,
-            lineWidth: 3,
-            onStep: function (value) {
-                this.$el.find('span').text(Math.round(value));
-            },
-            onStop: function (value, to) {
-                this.$el.find('span').text(Math.round(to));
-            }
-        });
-
-    }
-    
+    CargarMisCursos();
     CargarBanners();
-    CrearDialogs();
+
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {
@@ -188,6 +151,7 @@
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
+
     $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
         var contenedor = $(this).parents(".content_item_carrusel");
 
@@ -225,14 +189,7 @@
 
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
-    })
-
-    // SB20-255
-    if (UrlImgMiAcademia != null) {
-        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
-    }
-
-    CargarMisCursos();      // SB20-255
+    });
 });
 
 function CrearDialogs() {
@@ -1567,6 +1524,15 @@ function DownloadAttachContratoActualizarDatos() {
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
 
+    $(window).scroll(function () {
+        if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
+            porcentajesCursos();
+        }
+    });
+
+    if (UrlImgMiAcademia != null) {
+        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
+    }
     $('#divSinTutoriales').hide();
     $('#divTutorialesV').hide();
 
@@ -1603,9 +1569,27 @@ function CargarMisCursos() {
         }
     });
 };
-
 function ArmarDivMisCursos(data) {
     SetHandlebars("#miscursos-template", data, "#divMisCursos");
+};
+function porcentajesCursos() {
+    // Función para animación y características de carga circular de Cursos Academia
+    $(".porcentaje_curso").addClass("mostrarPorcentajes");
+
+    $('.porcentaje_cursosAcademia').easyPieChart({
+        barColor: isEsika == true ? '#e81c36' : '#642f80',
+        trackColor: '#f0f0f0',
+        scaleColor: 'transparent',
+        animate: 1000,
+        size: 55,
+        lineWidth: 3,
+        onStep: function (value) {
+            this.$el.find('span').text(Math.round(value));
+        },
+        onStop: function (value, to) {
+            this.$el.find('span').text(Math.round(to));
+        }
+    });
 };
 
 // Métodos ActualizarDatos
