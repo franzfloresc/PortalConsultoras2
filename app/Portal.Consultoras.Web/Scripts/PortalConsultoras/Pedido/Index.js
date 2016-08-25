@@ -12,6 +12,7 @@ var salto = 3;
 var esPedidoValidado = false;
 
 $(document).ready(function () {
+
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -569,8 +570,11 @@ function MostrarInformacionCliente(clienteId) {
 
     $(".pMontoCliente").css("display", "none");
 
+    $(".caja_montos div.info_extra_Validado").css({ 'top': '0%', 'right': '99%' });
+
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
+        $(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
         $("#spnNombreCliente").html(nomCli + " :");
         $("#spnTotalCliente").html(simbolo + monto);
     }
@@ -693,8 +697,8 @@ function MostrarMicroEfecto() {
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
     if (formatoTotal != undefined) {
-        $("#sTotal").html(formatoTotal);
-        $("#spPedidoWebAcumulado").text(vbSimbolo + " " + formatoTotal);
+        //$("#sTotal").html(formatoTotal);
+        //$("#spPedidoWebAcumulado").text(vbSimbolo + " " + formatoTotal);
     }
 
     if (total != undefined)
@@ -1071,8 +1075,6 @@ function CargarCarouselEstrategias(cuv) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             ArmarCarouselEstrategias(data);
-            
-            CargarAutocomplete();
         },
         error: function (error) {
             $('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
@@ -1664,14 +1666,14 @@ function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
     var hdfTotal = $('#hdfTotal').val();
-    var paisColombia = "4";
-    if (paisColombia == viewBagPaisID) {
-        hdfTotal = hdfTotal.replace(/\,/g, '');
-        hdfTotal = parseFloat(hdfTotal).toFixed(0);
-        $('#sTotal').html(SeparadorMiles(hdfTotal));
-    } else {
-        $('#sTotal').html(hdfTotal);
-    }
+    //var paisColombia = "4";
+    //if (paisColombia == viewBagPaisID) {
+    //    hdfTotal = hdfTotal.replace(/\,/g, '');
+    //    hdfTotal = parseFloat(hdfTotal).toFixed(0);
+    //    $('#sTotal').html(SeparadorMiles(hdfTotal));
+    //} else {
+    //    $('#sTotal').html(hdfTotal);
+    //}
 
     $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
@@ -2901,7 +2903,7 @@ function CancelarObsInformativas() {
         AbrirSplash();
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'Pedido/DeshacerReservaPedidoReservado?Tipo=PI',
+            url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PI',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: true,
@@ -3134,7 +3136,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 $("#spnTotalCliente").html(simbolo + monto);
             }
 
-            $('#sTotal').html(data.TotalFormato);
+            //$('#sTotal').html(data.TotalFormato);
             $('#hdfTotal').val(data.Total);
             $("#spPedidoWebAcumulado").text(vbSimbolo + " " + data.TotalFormato);
 

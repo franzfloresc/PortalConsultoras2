@@ -226,11 +226,6 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Pedido", "PedidoReservadoEnviarCorreo");
             providerSession.Add("Pedido", "PedidoReservadoDeshacerReserva");
             providerSession.Add("Pedido", "InsertarDesglose");
-            providerSession.Add("Pedido", "DeshacerReservaPedidoReservado");
-            providerSession.Add("Pedido", "Select");
-            providerSession.Add("Pedido", "ExportarPDF");
-            providerSession.Add("Pedido", "EnviarCorreo");
-            providerSession.Add("Pedido", "ModificarPedidoReservado");
 
             providerSession.Add("PedidoWebAnteriores", "PedidoWebAnteriores");
             providerSession.Add("PedidoWebAnteriores", "ConsultarPedidoWebAnteriores");

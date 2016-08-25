@@ -5,8 +5,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoDetalleMobileModel
     {
-        public List<BEPedidoWebDetalle> Detalle { get; set; }
-
+        public List<PedidoDetalleMobileDetalleModel> Detalle { get; set; }
         public decimal Total { get; set; }
 
         public string DescripcionTotal { get; set; }
@@ -14,6 +13,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal TotalMinimo { get; set; }
 
         public string DescripcionTotalMinimo { get; set; }
+        
+        public decimal GanaciaEstimada { get; set; }
+        public string DescripcionGanaciaEstimada { get; set; }
+
+        public bool MostrarEscalaDescuento { get; set; }
+        public decimal MontoEscalaDescuento { get; set; }
+        public string DescripcionMontoEscalaDescuento { get; set; }
+        public int PorcentajeEscala { get; set; }
         
         public string Simbolo { get; set; }
 
@@ -61,6 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal Descuento { get; set; }
 
         public string DescripcionDescuento { get; set; }
+        public string MontoConDsctoStr { get; set; }
         
         public decimal MontoAhorroCatalogo { get; set; }
 
@@ -71,5 +79,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string MensajeCierreCampania { get; set; }
 
         public string FechaFacturacionPedido { get; set; }
+
+        public string HoraCierre { get; set; }
+
+        public void SetDetalleMobileFromDetalleWeb(List<BEPedidoWebDetalle> listDetalleWeb)
+        {
+            this.Detalle = new List<PedidoDetalleMobileDetalleModel>();
+            foreach(var detalleWeb in listDetalleWeb)
+            {
+                this.Detalle.Add(new PedidoDetalleMobileDetalleModel {
+                    PedidoDetalleID = detalleWeb.PedidoDetalleID,
+                    MarcaID = detalleWeb.MarcaID,
+                    Cantidad = detalleWeb.Cantidad,
+                    PrecioUnidad = detalleWeb.PrecioUnidad,
+                    ImporteTotal = detalleWeb.ImporteTotal,
+                    Nombre = detalleWeb.Nombre,
+                    Mensaje = detalleWeb.Mensaje,
+                    DescripcionProd = detalleWeb.DescripcionProd,
+                    CUV = detalleWeb.CUV,
+                    IndicadorMontoMinimo = detalleWeb.IndicadorMontoMinimo,
+                    TipoPedido = detalleWeb.TipoPedido,
+                    ConfiguracionOfertaID = detalleWeb.ConfiguracionOfertaID,
+                    IndicadorOfertaCUV = detalleWeb.IndicadorOfertaCUV,
+                    TipoObservacion = detalleWeb.TipoObservacion
+                });
+            }
+        }
     }
 }

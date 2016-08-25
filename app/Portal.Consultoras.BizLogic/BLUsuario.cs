@@ -156,6 +156,18 @@ namespace Portal.Consultoras.BizLogic
             return Activado;
         }
 
+        public int setUsuarioVideoIntroductorio(int paisID, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.setUsuarioVideoIntroductorio(CodigoUsuario);
+        }
+
+        public int setUsuarioVerTutorial(int paisID, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.setUsuarioVerTutorial(CodigoUsuario);
+        }
+
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             BEUsuario usuario = null;

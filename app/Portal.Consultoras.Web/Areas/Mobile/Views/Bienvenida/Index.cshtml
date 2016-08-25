@@ -19,8 +19,52 @@
             background: #FFF !important;
         }
     </style>
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 }
+
+<div id="tutorialesMobile" style="display:none;">
+    <div class="contenedor-tutorial-lbel">
+        <div class="flexsliderTutorialMobile">
+            <ul class="slides">
+                <li><img src="~/Content/Images/Lbel/tutorial/tuto1.png" /></li>
+                <li><img src="~/Content/Images/Lbel/tutorial/tuto2.png" /></li>
+                <li><img src="~/Content/Images/Lbel/tutorial/tuto3.png" /></li>
+                <li><img src="~/Content/Images/Lbel/tutorial/tuto4.png" /></li>
+                <li><img src="~/Content/Images/Lbel/tutorial/tuto5.png" /></li>
+            </ul>
+        </div>
+
+        <div class="opciones-tutorial">
+            <div class="otromomento">Ver en otro momento</div>
+        <div class="cerrar">
+            Cerrar 
+            <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
+        </div>
+        </div>
+    </div>
+    <div class="contenedor-tutorial-esika">
+        <div class="flexsliderTutorialMobile">
+            <ul class="slides">
+                <li><img src="~/Content/Images/Esika/tutorial/tuto1.png" /></li>
+                <li><img src="~/Content/Images/Esika/tutorial/tuto2.png" /></li>
+                <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
+                <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
+                <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
+            </ul>
+        </div>
+
+        <div class="opciones-tutorial">
+            <div class="otromomento">Ver en otro momento</div>
+        <div class="cerrar">
+            Cerrar
+            <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="wrapper_resumen_mobile sombra_wrapper">
     <div class="content_320">
@@ -80,6 +124,8 @@
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
     <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+    <br />
+    <a class="btn_seguirp_mobile ver_video_introductorio" href="https://www.youtube.com/watch?v=7g6h749J02w" title="Mira el Video de Bienvenida" target="_blank">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -430,6 +476,7 @@
     {{/each}}
 </script>
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
@@ -440,8 +487,10 @@
         var ViewBagRutaChile = '@Model.RutaChile';
         var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
         var viewBagPaisID = '@Model.PaisID';
+        var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var contadorFondoPopUp = 0;
+        var viewBagVioTutorial = '@Model.VioTutorial';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
 }

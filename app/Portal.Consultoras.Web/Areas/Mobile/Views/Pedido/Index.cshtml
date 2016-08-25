@@ -14,9 +14,7 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
         <div class="content_320 ingresoPedido">
-            <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar ingresoP" title="Regresar">
-                @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
-            </a>
+            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar"></a>
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
                 <input type="text" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" />
@@ -93,13 +91,33 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido">
                     <div class="textos_resumen">
-                        <span>HE AGREGADO :</span>
-                        <span>MONTO TOTAL :</span>
-                        <span>MI GANANCIA :</span>
+                        <span style=" margin-left: 30px;">HE AGREGADO :</span>
+                        <span>
+                            <div class="info_validado">
+                                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                                <!--TOOLTIP-->
+                                <div class="tooltip_validado_importe">
+                                    <div class="left_reservado">
+                                        <div class="datos_Reservado">
+                                            <span>Total sin Dscto. </span>
+                                            <span>Dscto por niveles</span>
+                                        </div>
+                                    </div>
+                                    <div class="right_reservado">
+                                        <div class="datos_Reservado">
+                                            <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
+                                            <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--FIN-->
+                            </div>
+                        MONTO TOTAL :</span>
+                        <span style=" margin-left: 30px;">MI GANANCIA :</span>
                     </div>
                     <div class="montos_resumen">
-                        <span><b id="spnCantidadProductos">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b id="spnDescripcionTotal">@Model.DescripcionTotal</b></span>
+                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
+                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
@@ -192,7 +210,7 @@
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:0px;"></div>
         <div class="mensaje_alerta">
-            Lo sentimos, se nos agotó este producto. Prueba <b>reemplazarlo</b> con
+            Lo sentimos, este producto está agotado. Prueba <b>reemplazarlo</b> con
             alguno de éstos:
         </div>
         <div class="contenedor_carrusel_home" id="divCarruselSugerido">
@@ -204,36 +222,6 @@
 <!--FIN-->
 
 <!--+CRITERIOS DE ACEPTACIÓN+-->
-
-<!--POP MENSAJE IMPORTANTE-->
-<div id="MensajeImportante" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeImportante').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">Tu pedido tiene observaciones, por favor revísalo</div>
-        <a class="btn_ok_mobile">OK</a>
-    </div>
-
-</div>
-<!--FIN-->
-<!--POP MENSAJE LO LOGRASTE-->
-<div id="MensajeLograste" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-        <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
-        <a class="btn_ok_mobile">OK</a>
-    </div>
-
-</div>
 <!--FIN-->
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
@@ -342,7 +330,7 @@
 
         //Mensajes CUV
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
-        var mensajeCUVAgotado = "Lo sentimos, se nos agotó este producto.";
+        var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
         if (isEsika) {
             var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
         } else {
@@ -385,6 +373,7 @@
         var esShowRoom = '@Session["EsShowRoom"]';
         var simbolo = '@Model.Simbolo';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var vbSimbolo = simbolo;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 }

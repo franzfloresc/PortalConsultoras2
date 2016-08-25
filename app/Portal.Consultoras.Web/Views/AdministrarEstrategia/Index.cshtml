@@ -78,8 +78,10 @@
             $("#linkAlcance").click();
             $(".checksPedidosAsociados").html('');
 
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+
             /* SB20-312 - INICIO */
-            if ($('#ddlTipoEstrategia').val() == 3009) {
+            if (aux1 == "4") {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
 
@@ -97,16 +99,16 @@
             $("#ddlEtiqueta1").children('option').show();
             $("#ddlEtiqueta2").children('option').show();
 
-            if ($('#ddlTipoEstrategia').val() == 1009) {
+            if (aux1 == "2") {
                 $("#ddlEtiqueta1").children('option').hide();
-                $("#ddlEtiqueta1").children("option[value='3003']").show();
+                $("#ddlEtiqueta1").children("option[data-id='4']").show();
             }
-            else if ($('#ddlTipoEstrategia').val() == 3009 || $('#ddlTipoEstrategia').val() == 3011) {
+            else if (aux1 == "4" || aux1 == "5") {
                 $("#ddlEtiqueta1").children('option').hide();
-                $("#ddlEtiqueta1").children("option[value='1']").show();
+                $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
                 $("#ddlEtiqueta2").children('option').hide();
-                $("#ddlEtiqueta2").children("option[value='3']").show();
+                $("#ddlEtiqueta2").children("option[data-id='3']").show();
             }
             
             /* SB20-312 - FIN */
@@ -380,37 +382,32 @@
                         if (data.message == "OK") {
                             $("#txtDescripcion").val(data.descripcion);
                             
-                            //Inicio EPD-261
-                            if (data.wsprecio > 0) {
+                            //if (data.wsprecio > 0) {
 
-                                $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                            //    $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            //    $("#txtPrecio2")[0].disabled = true;
 
-                            }
-                            else if (data.wsprecio == 0) {
-                                if (data.precio == 0) {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-                                else {
-                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                    $("#txtPrecio2")[0].disabled = true;
-                                }
-
-                            }
-                            else if (data.wsprecio == -1) {
-                                $("#txtPrecio2")[0].disabled = true;
-                                alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
-                            }
-                            else if (data.wsprecio == -2) {
-                                $("#txtPrecio2")[0].disabled = false;
-                                $("#txtPrecio2").val("");
-                                $("#txtPrecio2").focus();
-
-                            }
-                            //Fín EPD-261
-
+                            //}
+                            //else if(data.wsprecio == 0)
+                            //{
+                            //    if (data.precio == 0) {
+                            //        $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            //        $("#txtPrecio2")[0].disabled = true;
+                            //    }
+                            //    else {
                             //$("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            //        $("#txtPrecio2")[0].disabled = true;
+                            //    }
+
+
+                            //}
+                            //else if (data.wsprecio == -1)
+                            //{
+                            //    $("#txtPrecio2")[0].disabled = true;
+                            //    alert("No se pudo obtener el precio del producto");
+                            //}
+
+                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
 
                             $("#txtPrecio").val("");
                             $("#txtCUV").val("");
@@ -1128,7 +1125,8 @@
                     }
 
                     /* SB20-312 - INICIO */
-                    if ($('#ddlTipoEstrategia').val() != 3009) {
+                    var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
+                    if (aux2 != "4") {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -1549,8 +1547,9 @@
                             $("#chkSeleccionar").attr("checked", false);
                         }
 
+                        var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
                         /* SB20-312 - INICIO */
-                        if ($('#ddlTipoEstrategia').val() == 3009) {
+                        if (aux1 == "4") {
                             $("#txtOrden").val("");
                             $('#div-orden').hide();
 
@@ -1565,12 +1564,12 @@
                             $('#txt2-estrella').show();
                         }
 
-                        if ($('#ddlTipoEstrategia').val() == 3009 || $('#ddlTipoEstrategia').val() == 3011) {
+                        if (aux1 == "4" || aux1 == "5") {
                             $("#ddlEtiqueta1").children('option').hide();
-                            $("#ddlEtiqueta1").children("option[value='1']").show();
+                            $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
                             $("#ddlEtiqueta2").children('option').hide();
-                            $("#ddlEtiqueta2").children("option[value='3']").show();
+                            $("#ddlEtiqueta2").children("option[data-id='3']").show();
                         }
                         else {
                             $("#ddlEtiqueta1").children('option').show();
@@ -1670,7 +1669,8 @@
                                     flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
                                         codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
                                     imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID">
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
                                     @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                                 </option>
                             }
@@ -1758,7 +1758,14 @@
             </div>
             <div class="titE">Etiqueta:</div>
             <div class="titD">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })
+                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta1" })*@
+                <select name="CampaniaID" id="ddlEtiqueta1">
+                    <option value="">-- Seleccionar --</option>
+                    @foreach (var x in Model.ListaEtiquetas)
+                    {
+                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
+                    }
+                </select>
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
@@ -1778,7 +1785,14 @@
             <div class="titA"></div>
             <div class="titE">Etiqueta:</div>
             <div class="titD">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })
+                @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaEtiquetas, "EtiquetaID", "Descripcion"), "-- Seleccionar --", new { id = "ddlEtiqueta2" })*@
+                <select name="CampaniaID" id="ddlEtiqueta2">
+                    <option value="">-- Seleccionar --</option>
+                    @foreach (var x in Model.ListaEtiquetas)
+                    {
+                        <option value="@x.EtiquetaID" data-id="@x.CodigoGeneral">@x.Descripcion</option>
+                    }
+                </select>
             </div>
             <div class="titE">Precio:</div>
             <div class="titB">
