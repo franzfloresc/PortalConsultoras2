@@ -16375,10 +16375,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora[]> GetMensajeMetaConsultoraAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF", ReplyAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse")]
-        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID);
+        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF", ReplyAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse")]
-        System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID);
+        System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetSegmentoPlaneamiento", ReplyAction="http://tempuri.org/IPedidoService/GetSegmentoPlaneamientoResponse")]
         Portal.Consultoras.Web.ServicePedido.BESegmentoPlaneamiento[] GetSegmentoPlaneamiento(int PaisID, int campaniaId);
@@ -17984,12 +17984,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetMensajeMetaConsultoraAsync(paisID, entidad);
         }
         
-        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID) {
-            return base.Channel.GetImagenOfertaPersonalizadaOF(paisID, campaniaID);
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv) {
+            return base.Channel.GetImagenOfertaPersonalizadaOF(paisID, campaniaID, cuv);
         }
         
-        public System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID) {
-            return base.Channel.GetImagenOfertaPersonalizadaOFAsync(paisID, campaniaID);
+        public System.Threading.Tasks.Task<string> GetImagenOfertaPersonalizadaOFAsync(int paisID, int campaniaID, string cuv) {
+            return base.Channel.GetImagenOfertaPersonalizadaOFAsync(paisID, campaniaID, cuv);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BESegmentoPlaneamiento[] GetSegmentoPlaneamiento(int PaisID, int campaniaId) {

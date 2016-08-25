@@ -136,14 +136,13 @@
 
         </div>
         <div class="montos_pedidoValidado">
-            <div class="monto_totalValidado">MONTO TOTAL: <span>@Model.Simbolo @Model.Total</span></div>
+            <div class="monto_totalValidado">MONTO TOTAL: <span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
             <div class="info_extra_Validado">
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")">
                 <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
-                    @{ decimal msd =  (Convert.ToDecimal(Model.Total) + (Math.Abs(ViewBag.Descuento)) ) ; }
-                    <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @msd </div>
+                    <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @Model.TotalSinDsctoFormato</div>
                     <hr class="clear" />
                     <div class="monto_1">Dscto. por niveles </div>
                     <div class="monto_numero">@Model.Simbolo @ViewBag.Descuento</div>
@@ -154,10 +153,12 @@
             <hr class="clear" />
             <div class="monto_gananciaValidado">MI GANANCIA: <span>@Model.Simbolo @ViewBag.GananciaEstimada</span></div>
             <hr class="clear" />
+            <div>
             <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
             <div class="info_modificarvalidado">
-                Es importante <br />que guardes tu pedido
                 <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+            </div>
+            <hr class="clear" />
             </div>
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>

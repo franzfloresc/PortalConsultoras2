@@ -884,6 +884,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
 
         [OperationContract]
-        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID);
+        string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv);
     }
 }

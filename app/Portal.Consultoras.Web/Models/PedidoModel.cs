@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoDetalleModel
     {
-
         public int CampaniaID { set; get; }
         public int PedidoID { set; get; }
         public Int16 PedidoDetalleID { set; get; }
@@ -56,8 +55,6 @@ namespace Portal.Consultoras.Web.Models
         public string BotonPROL { get; set; }
         public string Simbolo { get; set; }
         public string Total { get; set; }
-        public string SubTotal { get; set; }
-        public string Descuento { get; set; }        
         public string Total_Minimo { get; set; }
         public string Total_Cliente { get; set; }
         public bool EsDiaPROL { get; set; }
@@ -111,6 +108,10 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionMarca { get; set; }
         public int LimiteVenta { get; set; }
+        
+        public string TotalSinDsctoFormato { get; set; }
+        public string TotalConDsctoFormato { get; set; }
+
     }
 
     public class ProductoModel
