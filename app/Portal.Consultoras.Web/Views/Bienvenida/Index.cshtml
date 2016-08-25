@@ -1498,11 +1498,12 @@
             var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
             var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
             var contadorFondoPopUp = 0;
-    var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+            var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
             var sessionIsContrato = '@Session["IsContrato"]';
             @{ Session["IsContrato"] = 0; }
             var paisISO = '@ViewBag.CodigoISODL';
             var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+            var primeraVezVideo = true;
 </script>
         @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     }

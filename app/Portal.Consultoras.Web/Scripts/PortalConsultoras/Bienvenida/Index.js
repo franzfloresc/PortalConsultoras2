@@ -1,8 +1,5 @@
 ﻿$(document).ready(function () {
 
-    setInterval(AnimacionTutorial, 800);
-
-    setTimeout(ocultarAnimacionTutorial,9000);
 
     function ocultarAnimacionTutorial() {
 
@@ -225,6 +222,10 @@
     
     $("#cerrarVideoIntroductorio").click(function () {
         $('#videoIntroductorio').hide();
+        if (primeraVezVideo) {
+            setInterval(AnimacionTutorial, 800);
+            setTimeout(ocultarAnimacionTutorial, 9000);
+        }
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
@@ -438,6 +439,8 @@ function mostrarVideoIntroductorio() {
         $("#videoIntroductorio").show();
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
+    } else {
+        primeraVezVideo = false;
     }
 }
 
