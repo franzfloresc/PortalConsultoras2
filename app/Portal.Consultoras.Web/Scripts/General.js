@@ -153,7 +153,9 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                operator = operator || '==';
+                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                operator = opts == undefined ? '==' : (operator || '==');
+                opts = optsx;
                 switch (operator) {
                     case '==':
                         bool = $.trim(a) == "";

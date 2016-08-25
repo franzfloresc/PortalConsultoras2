@@ -26876,3 +26876,90 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
 }
+
+/*MICHAEL*/
+.content-favclientes {
+    max-width: 1189px;
+    margin: 0 auto;
+    min-height: 405px;
+    position: relative;
+    font-family: 'Lato';
+}
+
+.content-favclientes .contiene-productos {
+    background-color: white;
+    margin: 0px 24px;
+    float: left;
+    position: relative;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.content-favclientes .agregado {
+  height: 12px;
+  font-family: Lato;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #a18328;
+}
+.content-favclientes .agregado .icono{
+   width: 11px;
+  height: 7.8px;
+  border: solid 1.6px #a18328;
+}
+
+.pestania {
+    padding-top: 15px;
+    background-color: black;
+    width: 45%;
+    height: 50px;
+    padding-left: 21px;
+    float: left;
+    background-image: url('../../../Images/Esika/titulo_interiores.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.pestania * {
+    color: white;
+    font-size: 20px;
+    font-family: Lato;
+}
+
+.ver_mas_favoritos{
+        float: right;
+    width: 55%;
+    text-align: right;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 300;
+    border-bottom: 1px solid black;
+    height: 50px;
+    padding-top: 15px;
+}
+
+/*catalogo personalizado*/
+.content-favclientes.catper .contiene-productos {
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+ .content-favclientes.catper{
+     padding-top: 15px;
+     padding-bottom: 10px;
+ }
+
+ .pestana_lbel.new .boton_Agregalo_home{
+    font-style: normal;
+    color: black;
+    text-decoration: none;
+}
+
+.pestana_lbel.new .boton_Agregalo_home:hover{
+    color: white;
+}
