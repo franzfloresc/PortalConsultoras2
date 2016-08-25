@@ -288,7 +288,7 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
-<div class="content_belcorp">
+<div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
@@ -343,21 +343,6 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-            <span>
-                <a href="#">
-                    ¿Cómo conseguir tu primer pedido?
-                </a>
-            </span>
-            <span>
-                <a href="#">
-                    Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-                </a>
-            </span>
-            <span>
-                <a href="#">
-                    ¿Cómo fidelizar a un cliente?
-                </a>
-            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
@@ -1156,13 +1141,13 @@
 
 <!-- FIN POPUP TUTORIAL -->
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
-            {{#each this as |item|}}
-            <div>               
-                <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
-                <div class="producto_img_home">
-        <img src="{{FotoProducto01}}" class="imagen_producto" />
-    </div>
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div>               
+        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+        <div class="producto_img_home">
+            <img src="{{FotoProducto01}}" class="imagen_producto" />
+        </div>
 
     {{#if_eq FlagMostrarImg '1'}}
         {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
@@ -1265,7 +1250,7 @@
                 <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
                 <div class="producto_img_home mini">
-                <img src="{{ImagenProducto}}" class="imagen_producto" />
+                    <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
@@ -1422,7 +1407,7 @@
     <script id="miscursos-template" type="text/x-handlebars-template">
         {{#each this}}
         <div class="borde_video">
-            <a class="titulo_item_video">
+        <a href="{{url}}" class="titulo_item_video" target="_blank">
                 {{nombre}}
             </a>
             <div class="porcentaje_curso">

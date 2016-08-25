@@ -2411,7 +2411,6 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
-    <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
