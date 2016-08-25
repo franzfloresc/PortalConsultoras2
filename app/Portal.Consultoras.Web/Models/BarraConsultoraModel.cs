@@ -22,7 +22,10 @@ namespace Portal.Consultoras.Web.Models
         
         public decimal TotalPedido { get; set; }
         public string TotalPedidoStr { get; set; }
-        
+
+        public int CantidadProductos { get; set; }
+        public int CantidadCuv { get; set; }
+
         public decimal MontoAhorroCatalogo { get; set; }
         public string MontoAhorroCatalogoStr { get; set; }
 

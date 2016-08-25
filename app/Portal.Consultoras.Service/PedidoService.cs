@@ -215,9 +215,9 @@ namespace Portal.Consultoras.Service
         #endregion
 
 
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl)
+        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROL(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ModificaPedido, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
 
@@ -1142,9 +1142,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
         // 1747 - Fin
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL)
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProL);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
         //R2004
@@ -1557,11 +1557,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID);
         }
 
-        public string PruebaPase()
-        {
-            return "Hola Mundo";
-        }
-
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entity)
         {
             return BLConsultorasProgramaNuevas.GetConsultorasProgramaNuevas(paisID, entity);
@@ -1570,6 +1565,11 @@ namespace Portal.Consultoras.Service
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entity)
         {
             return BLMensajeMetaConsultora.GetMensajeMetaConsultora(paisID, entity);
+        }
+
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
+        {
+            return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID, cuv);
         }
     }
 }

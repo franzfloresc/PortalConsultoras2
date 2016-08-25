@@ -70,6 +70,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string FechaVencimiento { get; set; }
 
+        public int VioVideoBienvenidaModel { get; set; }
+
         public decimal MontoPedido { get; set; }
     }
 }

@@ -250,11 +250,6 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
-    
-    ActualizarGanancia = function (data) {
-        data = data || new Object();
-        $("[data-ganancia]").html(data.MontoGananciaStr || "");
-    }
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -478,6 +473,22 @@ function paginadorAccionGenerico(obj) {
     return rpt;
 }
 //R2116-INICIO
+
+function ActualizarGanancia(data) {
+    data = data || new Object();
+    data.CantidadProductos = data.CantidadProductos || "";
+    data.TotalPedidoStr = data.TotalPedidoStr || "";
+
+    // Los Montos resumen de pedido
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+    $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
+    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.TotalPedidoStr);
+
+    $(".num-menu-shop").html(data.CantidadProductos);
+    $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
+}
 
 FuncionesGenerales = {
     ValidarSoloNumeros: function(e) {

@@ -247,7 +247,7 @@
                 success: function (result) {
                     if (checkTimeout(result)) {
                         if (result.success == true) {
-                            ActualizarCantidadTotalPedido();
+                            ActualizarGanancia(data.DataBarra);
 
                             if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") { variantcad = "Estándar"; } else { variantcad = result.oPedidoDetalle.DescripcionEstrategia; }
                             if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") { categoriacad = "Sin Categoría"; } else { categoriacad = result.oPedidoDetalle.Categoria; }
@@ -288,28 +288,6 @@
                     if (checkTimeout(data)) {
                         CloseLoading();
                         console.log(data);
-                    }
-                }
-            });
-        }
-
-        function ActualizarCantidadTotalPedido() {
-            jQuery.ajax({
-                type: 'POST',
-                url: '@Url.Action("CalcularTotal", "Pedido", new {area = "Mobile"})',
-                dataType: 'json',
-                async: true,
-                success: function (response) {
-                    if (checkTimeout(response)) {
-                        if (response.success) {
-                            var data = response.data;
-                            $(".num-menu-shop").html(data.CantidadProductos);
-                        }
-                    }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.error(response);
                     }
                 }
             });

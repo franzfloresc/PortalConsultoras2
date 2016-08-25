@@ -26,21 +26,25 @@
     {{#each this}}
         <div class="items_misBeneficios">
             <div class="contenedor_item_img">
-                <img class="item_img" src="@Url.Content("~/Content/Images/Esika/programaNuevas_img.png")" alt="Alternate Text" />
-                <span class="item_titulo">{{Descripcion}}</span>
+                <img class="item_img" src="{{urlImgBeneficios}}" alt="Alternate Text" />
+                <span class="item_titulo">{{{Descripcion}}}</span>
             </div>
             <div class="contenedor_item_descripcion">
                 <span>
-                    Un programa para que empieces a ganar desde el principio.
+                    {{{ DetalleDesripcion }}}
                 </span>
-                <a href="{{Url}}" title="Entérate más" target="_blank">Entérate Más</a>
+                <a href="{{Url}}" title="Entérate más" target="_blank">ENTÉRATE MÁS</a>
             </div>
         </div>
     {{/each}}
 </script>
 @section scripts{
     <script type="text/javascript">
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';     
+        var urlIncentivos = '@Url.Action("Index","Incentivos")';
+        var codigoISO_MB = '@ViewBag.CodigoISODL';
+        var anioActual = '@DateTime.Now.Year';
+        console.log(codigoISO_MB);
     </script>
 
     <script type="text/javascript" src="~/Scripts/PortalConsultoras/MisBeneficios/Index.js"></script>

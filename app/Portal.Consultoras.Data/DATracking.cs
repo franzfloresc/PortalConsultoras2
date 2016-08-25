@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Data
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
 
-		//R2004
+        //R2004
         public IDataReader GetPedidoRechazadoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoRechazadoByConsultora");
@@ -81,8 +81,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, Fecha);
             return Context.ExecuteReader(command);
         }
-	
-		//R2004
+
+        //R2004
         public IDataReader GetPedidoAnuladoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoAnuladoByConsultora");

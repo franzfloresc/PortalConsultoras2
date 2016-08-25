@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoDetalleModel
     {
-
         public int CampaniaID { set; get; }
         public int PedidoID { set; get; }
         public Int16 PedidoDetalleID { set; get; }
@@ -106,6 +105,13 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDescuento { get; set; }
 
         public decimal MontoEscala { get; set; }
+
+        public string DescripcionMarca { get; set; }
+        public int LimiteVenta { get; set; }
+        
+        public string TotalSinDsctoFormato { get; set; }
+        public string TotalConDsctoFormato { get; set; }
+
     }
 
     public class ProductoModel

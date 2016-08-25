@@ -191,6 +191,8 @@ namespace Portal.Consultoras.Entities
                 FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
             if (DataRecord.HasColumn(row, "FechaLimitePago") && row["FechaLimitePago"] != DBNull.Value)
                 FechaLimPago = Convert.ToDateTime(row["FechaLimitePago"]);
+            if (DataRecord.HasColumn(row, "VioVideo") && row["VioVideo"] != DBNull.Value) // SB20-344
+                VioVideo = Convert.ToInt32(row["VioVideo"]);
             if (DataRecord.HasColumn(row, "Nivel") && row["Nivel"] != DBNull.Value)
                 Nivel = Convert.ToString(row["Nivel"]);
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
@@ -356,10 +358,10 @@ namespace Portal.Consultoras.Entities
         public int SegmentoID { get; set; }
         [DataMember]
         public DateTime FechaNacimiento { get; set; }
-
         [DataMember]
         public DateTime FechaLimPago { get; set; }
-
+        [DataMember]
+        public int VioVideo { get; set; }
         [DataMember]
         public String Nivel { get; set; }
         [DataMember]
