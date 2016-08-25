@@ -763,24 +763,6 @@ function RedirectIngresaTuPedido() {
     });
     location.href = baseUrl + 'Pedido/Index';
 };
-function SetMarcaGoogleAnalytics(Marca, Url) {
-    _gaq.push(['_trackEvent', 'Link', Marca, 'Site']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Link/' + Marca + '/Site'
-    });
-    window.open(Url, '_blank');
-    return false;
-};
-function SetSiguenosGoogleAnalytics(RedSocial, Url) {
-    _gaq.push(['_trackEvent', 'Follow', RedSocial]);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Follow/' + RedSocial
-    });
-    window.open(Url, '_blank');
-    return false;
-};
 function CerrarSesion() {
     _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);
     dataLayer.push({
