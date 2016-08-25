@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceLMS;
+using System;
 using System.Configuration;
+using System.Data;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-//using Portal.Consultoras.Web.ServiceLMS;
-using System.ServiceModel;
-using System.Data;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.Net;
-using Portal.Consultoras.Web.ServiceLMS;
-//using Portal.Consultoras.Web.ServiceLMS;
-
-using System.Web.Script.Serialization;
-using Newtonsoft.Json;
-using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiAcademiaController : BaseController
     {
-
         public ActionResult Index()
         {
 
@@ -75,7 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
 
         }
-
    
         public ActionResult Cursos(int idcurso)
         {
@@ -150,16 +143,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //string key = ConfigurationManager.AppSettings["secret_key"];
-                //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
                 string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
                 string token = ConfigurationManager.AppSettings["TokenMisCursos"];
+                string urlCurso = ConfigurationManager.AppSettings["UrlCursoMiAcademia"];
                 string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
-                //string IsoUsuario = "CL-0562942";
-                urlMC = String.Format(urlMC, IsoUsuario);
                 int max = 4;
                 if (ViewBag.CodigoISODL == "VE") max = 3;
-                
+                urlMC = String.Format(urlMC, IsoUsuario);
+
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("Content-Type", "application/json");
@@ -171,6 +162,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
 
                         var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+
+                        lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 
                         return Json(new
                         {
@@ -197,8 +190,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
         /* SB20-255 - FIN */
-
     }
 }

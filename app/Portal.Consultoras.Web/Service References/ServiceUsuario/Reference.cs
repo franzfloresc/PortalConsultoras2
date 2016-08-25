@@ -356,6 +356,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool ValidacionInteractivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VioTutorialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1849,6 +1852,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ValidacionInteractivaField.Equals(value) != true)) {
                     this.ValidacionInteractivaField = value;
                     this.RaisePropertyChanged("ValidacionInteractiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VioTutorial {
+            get {
+                return this.VioTutorialField;
+            }
+            set {
+                if ((this.VioTutorialField.Equals(value) != true)) {
+                    this.VioTutorialField = value;
+                    this.RaisePropertyChanged("VioTutorial");
                 }
             }
         }
@@ -4789,6 +4805,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorio", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorioResponse")]
         System.Threading.Tasks.Task<int> setUsuarioVideoIntroductorioAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
+        int setUsuarioVerTutorial(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
+        System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Insert", ReplyAction="http://tempuri.org/IUsuarioService/InsertResponse")]
         void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
@@ -5249,6 +5271,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> setUsuarioVideoIntroductorioAsync(int paisID, string codigoUsuario) {
             return base.Channel.setUsuarioVideoIntroductorioAsync(paisID, codigoUsuario);
+        }
+        
+        public int setUsuarioVerTutorial(int paisID, string codigoUsuario) {
+            return base.Channel.setUsuarioVerTutorial(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario) {
+            return base.Channel.setUsuarioVerTutorialAsync(paisID, codigoUsuario);
         }
         
         public void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {

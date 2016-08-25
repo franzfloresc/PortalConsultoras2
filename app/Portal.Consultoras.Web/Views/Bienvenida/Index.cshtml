@@ -288,7 +288,7 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
-<div class="content_belcorp">
+<div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora"></div>
 
     <!--TUTORIALES-->
@@ -343,21 +343,6 @@
         </div>
         <div class="item_video_right">
             <div id="divMisCursosV"></div>
-            <span>
-                <a href="#">
-                    ¿Cómo conseguir tu primer pedido?
-                </a>
-            </span>
-            <span>
-                <a href="#">
-                    Maquillaje Ésika Pro, línea creada con la asesoría de Claudia Betancur, celebrity make up artist
-                </a>
-            </span>
-            <span>
-                <a href="#">
-                    ¿Cómo fidelizar a un cliente?
-                </a>
-            </span>
         </div>
     </div>
     <!-- FIN TUTORIALES PARA VENEZUELA -->
@@ -1422,7 +1407,7 @@
     <script id="miscursos-template" type="text/x-handlebars-template">
         {{#each this}}
         <div class="borde_video">
-            <a class="titulo_item_video">
+        <a href="{{url}}" class="titulo_item_video" target="_blank">
                 {{nombre}}
             </a>
             <div class="porcentaje_curso">
