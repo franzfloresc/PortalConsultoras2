@@ -1679,28 +1679,28 @@ function ActualizarDatos() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                if (data.success == true) {
-                    Result = true;
-
-                }
-                else {
-                    Result = false;
-                }
+                Result = data.success;
 
                 if (data.message && data.message != "" && data.message != null) {
-                    if (!Result) {
-                        var aMensaje = data.message.split("-");
-                        var mensajeHtml = "";
-                        $.each(aMensaje, function (i, v) {
-                            mensajeHtml += v + "<br/>"
-                        });
-                    }
+                    var mensajeHtml = "";
+                    $.each(data.message.split("-"), function (i, v) {
+                        mensajeHtml += v + "<br/>"
+                    });
+
                     $('#popupActualizarMisDatos').hide();
                     if (contadorFondoPopUp == 1) {
                         $("#fondoComunPopUp").hide();
                     }
                     contadorFondoPopUp--;
-                    alert(mensajeHtml);
+                    alert_msg_pedido(mensajeHtml);
+                }
+                if (data.success) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Formulario',
+                        'action': 'Actualizar datos',
+                        'label': data.message
+                    });
                 }
             }
         },
@@ -1884,7 +1884,7 @@ function ActualizarDatosMexico() {
     }
 
     if (m_email != '') {
-        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        var emailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
         if (emailReg.test(m_email) == false) {
             $('#m_txtEMail').css({ 'border': '1px solid red' });
             m_mensaje += '<font color=red>* Formato  de correo electrónico No Válido</font><br />';
@@ -1917,13 +1917,18 @@ function ActualizarDatosMexico() {
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
-                    if (data.success == true) {
-                        Result = true;
-                        alert(data.message)
-                        CerrarPopupActualizacionDatos();
+                    Result = data.success;
+                    if (data.success) {
+                        alert_msg_pedido(data.message)
+                        CerrarPopupActualizacionDatosMexico();
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Formulario',
+                            'action': 'Actualizar datos',
+                            'label': data.message
+                        });
                     }
                     else {
-                        Result = false;
                         $('#aviso').html(data.message);
                     }
                 }
