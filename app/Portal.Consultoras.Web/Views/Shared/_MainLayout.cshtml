@@ -407,7 +407,7 @@
         {{/each}}
         <!--FIN-->
         <div class="pago_pedido_carrito">
-            <div class="info_copy" style="display: none;">
+            <div class="info_copy">
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
                 <!--TOOLTIP-->
                 <div class="tooltip_importe">
@@ -420,14 +420,14 @@
                     <div class="right_reservado">
                         <div class="datos_Reservado">
                             <span data-pedidototal="">{{Simbolo}} {{montoWebAcumulado}}</span>
-                            <span data-montodescuento="">{{Simbolo}} </span>
+                            <span data-montodescuento="">{{Simbolo}} {{DescuentoProlStr}}</span>
                         </div>
                     </div>
                 </div>
                 <!--FIN-->
             </div>
         PEDIDO TOTAL 
-        <span>{{Simbolo}} <span>{{montoWebAcumulado}}</span></span></div>
+        <span>{{Simbolo}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span></div>
         <hr class="clear" />
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
 

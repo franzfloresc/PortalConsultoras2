@@ -21,6 +21,7 @@
       <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Sello" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Volumen" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
