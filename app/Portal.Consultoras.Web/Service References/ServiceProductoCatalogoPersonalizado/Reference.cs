@@ -63,6 +63,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private decimal PrecioValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SelloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string VolumenField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -245,6 +248,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Sello {
+            get {
+                return this.SelloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SelloField, value) != true)) {
+                    this.SelloField = value;
+                    this.RaisePropertyChanged("Sello");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Volumen {
             get {
                 return this.VolumenField;
@@ -276,6 +292,12 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductos", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAsync(int tipoOfertaFinal, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerTodosProductos", ReplyAction="http://tempuri.org/IProductoService/ObtenerTodosProductosResponse")]
+        Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerTodosProductos(int lugar, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerTodosProductos", ReplyAction="http://tempuri.org/IProductoService/ObtenerTodosProductosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerTodosProductosAsync(int lugar, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -311,6 +333,14 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAsync(int tipoOfertaFinal, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar) {
             return base.Channel.ObtenerProductosAsync(tipoOfertaFinal, codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona, tipoProductoMostrar);
+        }
+        
+        public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[] ObtenerTodosProductos(int lugar, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte) {
+            return base.Channel.ObtenerTodosProductos(lugar, codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona, tipoProductoMostrar, limimte);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerTodosProductosAsync(int lugar, string codigoIso, int campaniaId, string codigoConsultora, int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte) {
+            return base.Channel.ObtenerTodosProductosAsync(lugar, codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona, tipoProductoMostrar, limimte);
         }
     }
 }
