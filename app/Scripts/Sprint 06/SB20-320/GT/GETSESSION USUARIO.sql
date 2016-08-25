@@ -1,10 +1,8 @@
-
-
-ALTER PROCEDURE dbo.GetSesionUsuario_SB2
- @CodigoConsultora varchar(25)  
+ALTER PROCEDURE dbo.GetSesionUsuario_SB2  
+@CodigoConsultora varchar(25)  
 AS
 /*
-GetSesionUsuario_SB2 '1197190'  
+GetSesionUsuario_SB2 '009746900'
 */
 BEGIN
 	DECLARE @PasePedidoWeb int  
@@ -29,25 +27,9 @@ BEGIN
 		@CodConsultora = CodigoConsultora  
 	from usuario with(nolock)  
 	where codigousuario = @CodigoConsultora  
-	select @ZonaID = IsNull(ZonaID,0),  
-		@RegionID = IsNull(RegionID,0),  
-		@ConsultoraID = IsNull(ConsultoraID,0)  
-	from ods.consultora with(nolock)  
-	where codigo = @CodConsultora  
-	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)  
-	declare @IndicadorOfertaFIC int  
-	declare @ImagenUrlOfertaFIC varchar(500)  
-	SET @IndicadorOfertaFIC = (SELECT dbo.GetIndicadorOfertaFIC(@CampaniaID))  
-	if @IndicadorOfertaFIC>=1  
-	begin  
-		SET @ImagenUrlOfertaFIC = (SELECT dbo.GetImagenOfertaFIC(@CampaniaID))  
-	end  
-	else  
-	begin  
-		SET @ImagenUrlOfertaFIC = ''  
-	end  
+    
 	declare @CountCodigoNivel bigint  
-	
+  
 	/*Oferta Final*/	
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @CodigoZona varchar(4) = ''
@@ -68,17 +50,38 @@ BEGIN
 	/*Fin Oferta Final*/
 
 	IF @UsuarioPrueba = 0   
-	BEGIN   
+	BEGIN  
+		select @ZonaID = IsNull(ZonaID,0),  
+			@RegionID = IsNull(RegionID,0),  
+			@ConsultoraID = IsNull(ConsultoraID,0)  
+		from ods.consultora with(nolock)  
+		where codigo = @CodConsultora  
+		select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)  
 		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))  
 		SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))  
-		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID)) 
+		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1) 
+		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)  
 		SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))  
 		SET @IndicadorPermiso = (Select dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
+  
+		--SSAP CGI(Id Solicitud=1402)  
+		--begin  
+		declare @IndicadorOfertaFIC int  
+		declare @ImagenUrlOfertaFIC varchar(500)  
+		SET @IndicadorOfertaFIC = (SELECT dbo.GetIndicadorOfertaFIC(@CampaniaID))  
+		if @IndicadorOfertaFIC>=1  
+		begin  
+			SET @ImagenUrlOfertaFIC = (SELECT dbo.GetImagenOfertaFIC(@CampaniaID))  
+		end  
+		else  
+		begin  
+			SET @ImagenUrlOfertaFIC = ''  
+		end  
+		--end  
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID        
   
-		SELECT	   
+		SELECT   
 			u.PaisID,  
 			p.CodigoISO,  
 			c.RegionID,  
@@ -90,7 +93,7 @@ BEGIN
 			u.CodigoConsultora,  
 			u.Nombre AS NombreCompleto,  
 			ISNULL(ur.RolID,0) AS RolID,  
-			isnull(u.EMail,'') as EMail,  
+			u.EMail,  
 			p.Simbolo,  
 			c.TerritorioID,  
 			t.Codigo AS CodigoTerritorio,  
@@ -145,21 +148,20 @@ BEGIN
 			isnull(nl.DescripcionNivel,null) DescripcionNivel,  --2469  
 			case When cl.ConsultoraID is null then 0  
 			else 1 end esConsultoraLider,  
-			u.EMailActivo, --2532  
+			u.EMailActivo, --2532   
 			si.SegmentoInternoId,
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
 			@FechaLimitePago as FechaLimitePago,
-			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado ,
+			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial
 		FROM [dbo].[Usuario] u with(nolock)  
 		LEFT JOIN (  
-			select *  
-			from ods.consultora with(nolock)  
-			where ConsultoraId = @ConsultoraID  
-		) c ON 
-			u.CodigoConsultora = c.Codigo  
+		select *  
+		from ods.consultora with(nolock)  
+		where ConsultoraId = @ConsultoraID  
+		) c ON u.CodigoConsultora = c.Codigo  
 		--LEFT JOIN [ods].[Consultora] c with(nolock) ON u.CodigoConsultora = c.Codigo  
 		LEFT JOIN [dbo].[UsuarioRol] ur with(nolock) ON u.CodigoUsuario = ur.CodigoUsuario  
 		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID  
@@ -183,7 +185,7 @@ BEGIN
 	BEGIN  
 		SET @CodigoFicticio = (SELECT TOP 1 CodigoConsultoraAsociada FROM UsuarioPrueba with(nolock) WHERE CodigoFicticio = @CodConsultora)  
 		SET @IndicadorPermiso = (SELECT dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
-       
+  
 		SELECT   
 			u.PaisID,  
 			p.CodigoISO,  
@@ -196,7 +198,7 @@ BEGIN
 			u.CodigoConsultora,  
 			u.Nombre AS NombreCompleto,  
 			ISNULL(ur.RolID,0) AS RolID,  
-			isnull(u.EMail,'') as EMail,  
+			u.EMail,  
 			p.Simbolo,  
 			c.TerritorioID,  
 			t.Codigo AS CodigoTerritorio,  
@@ -238,12 +240,12 @@ BEGIN
 			(select top 1 isnull(NroCampanias,0) from pais where CodigoISO=p.CodigoISO) NroCampanias,  
 			(case     
 				when ISNULL(cl.ConsultoraID,0) =0 then 0  --1589  
-				when ISNULL(cl.ConsultoraID,0)>0 then 1 End) Lider,--1589   
+				when ISNULL(cl.ConsultoraID,0)>0 then 1 End) Lider,--1589      
 			isnull(cl.CampaniaInicioLider,null) CampaniaInicioLider,--1589  
 			isnull(cl.SeccionGestionLider,null) SeccionGestionLider,--1589  
 			isnull(cl.CodigoNivelLider,0) NivelLider,--1589  
 			isnull(p.PortalLideres,0) PortalLideres,--1589  
-			isnull(p.LogoLideres,null) LogoLideres, --1589    
+			isnull(p.LogoLideres,null) LogoLideres, --1589  
 			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada, --1688  
 			u.EMailActivo, --2532  
 			isnull(p.OfertaFinal,0) as OfertaFinal,
@@ -256,12 +258,12 @@ BEGIN
 		LEFT JOIn [ods].[Region] r (nolock) ON c.RegionID = r.RegionID  
 		LEFT JOIN [ods].[Zona] z (nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID  
 		LEFT JOIN [ods].[Territorio] t (nolock) ON c.TerritorioID = t.TerritorioID  
-            AND c.SeccionID = t.SeccionID  
+			AND c.SeccionID = t.SeccionID  
             AND c.ZonaID = t.ZonaID  
             AND c.RegionID = t.RegionID  
 		left join ods.segmento  s (nolock) ON c.segmentoid = s.segmentoid  
 		left join usuarioprueba up (nolock) on u.CodigoUsuario = up.CodigoUsuario  
-		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada=cl.CodigoConsultora  
+		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora  
 		WHERE 
 			ro.Sistema = 1 
 			and u.CodigoUsuario = @CodigoConsultora  
