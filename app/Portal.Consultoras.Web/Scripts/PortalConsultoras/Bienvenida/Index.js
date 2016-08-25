@@ -8,12 +8,12 @@
     });
 
     function abrir_popup_tutorial(){
-        $('#popup_tutorial').fadeIn();
+        $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
     }
 
     function cerrar_popup_tutorial() {
-        $('#popup_tutorial').fadeOut();
+        $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
     }
 
