@@ -139,7 +139,6 @@ namespace Portal.Consultoras.Common
             public const int Lanzamiento = 5;
         }
 
-
         public class ConstSession
         {
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";

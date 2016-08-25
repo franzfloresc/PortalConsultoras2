@@ -1,4 +1,46 @@
 ﻿$(document).ready(function () {
+
+    $('#salvavidaTutorial').show();
+    function ocultarAnimacionTutorial() {
+
+        $(".circulo-1").fadeOut();
+        $(".tooltip_tutorial").fadeOut();
+
+    }
+
+    function AnimacionTutorial() {
+
+        $(".tooltip_tutorial").animate({
+            'opacity': 1,
+            'top': 47
+        }, 500, 'swing', function () {
+            $(".tooltip_tutorial").animate({
+                'top': 41
+            }, 500, 'swing');
+        });
+
+        $(".circulo-1").animate({
+
+            'width': 45,
+            'height': 45,
+            'opacity': 0,
+            'top': -8,
+            'left': -11.5
+
+        }, 900, 'swing', function () {
+
+            $(".circulo-1").css({
+                'width': '0px',
+                'height': '0px',
+                'opacity': '1',
+                'top': 14,
+                'left': 10
+            });
+
+        });
+
+    }
+
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -40,10 +82,10 @@
 
     $(document).on("click", ".boton_Agregalo_home", function (e) {
 
-        e.preventDefault();
-
-        agregarProductoAlCarrito(this);
-
+        if (!$(this).hasClass("no_accionar")) {
+            e.preventDefault();
+            agregarProductoAlCarrito(this);
+        }
     });
 
     //$(".campana.cart_compras").hover(function () {
@@ -180,6 +222,10 @@
     
     $("#cerrarVideoIntroductorio").click(function () {
         $('#videoIntroductorio').hide();
+        if (primeraVezVideo) {
+            setInterval(AnimacionTutorial, 800);
+            setTimeout(ocultarAnimacionTutorial, 9000);
+        }
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
@@ -366,7 +412,7 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 40,
+        'top': carrito.offset().top - 60,
         'left': carrito.offset().left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
@@ -393,6 +439,8 @@ function mostrarVideoIntroductorio() {
         $("#videoIntroductorio").show();
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
+    } else {
+        primeraVezVideo = false;
     }
 }
 
@@ -1038,7 +1086,7 @@ function ArmarCarouselLiquidaciones(data) {
                         '<div class="producto_precio" style="margin-bottom: -8px;">',
                             '<span class="producto_precio_oferta"></span>',
                         '</div>',
-                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home" style="width:100%;">',
+                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
                             'VER MAS',
                         '</a>',
                     '</div>',

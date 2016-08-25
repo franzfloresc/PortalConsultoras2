@@ -74,14 +74,14 @@ INSERT INTO MenuMobile (MenuMobileID
 						,Posicion
 						,[Version])
 				VALUES (103
-						,'Contactanos'
+						,'Contáctanos'
 						,100
 						,2
-						,'http://www.belcorpresponde.com/'
+						,'http://belcorprespondeqa.somosbelcorp.com/'
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Mobile')
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
