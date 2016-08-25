@@ -98,7 +98,7 @@ header {
     height: 60px;
     float: left;
     width: 30%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .campana {
@@ -21567,6 +21567,74 @@ body{
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     -webkit-transition:all 0.3s ease;
+    position:relative;
+}
+
+.circulo-1{
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    top: 12px;
+    left: 9px;
+    width: 0px;
+    height: 0px;
+    background: #e81c36;
+}
+
+.tooltip_tutorial{
+    display: block;
+    background: #FFF;
+    width: 188px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    top: 41px;
+    left: -83px;
+    border-radius: 5px;
+    border:1px solid #DDD;
+    z-index: 1000;
+    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    opacity:0;
+}
+
+.tooltip_tutorial span{
+    display: block;
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    color: #e81c36;
+    text-align: center;
+}
+
+.tooltip_tutorial:after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-bottom-color: #FFF;
+	border-width: 9px;
+    margin-left: -9px;
+}
+
+.tooltip_tutorial:before{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-bottom-color: #DDD;
+	border-width: 10px;
+    margin-left: -10px;
 }
 
 .tutoriales_svg:hover{
