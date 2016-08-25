@@ -22,17 +22,21 @@
             {
                 var target = subitem.PaginaNueva ? "_blank" : "_self";
                 var url = subitem.Version == "Completa"
-                ? subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
-                : subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+                    ? subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
+                    : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
                 if (subitem.Descripcion == "Tutorial")
                 {
                     <a class="menu_subfooter" href="#" id="tutorialFooterMobile">@subitem.Descripcion.ToUpper()</a>
                 }
                 else
                 {
+                    if (subitem.Descripcion.Trim().ToLower() == "contáctanos")
+                    {
+                        url += "?" + ViewBag.QSBR;
+                    }
+                    
                     <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
                 }
-
             }
         </div>
     }

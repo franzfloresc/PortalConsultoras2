@@ -5,13 +5,9 @@
     permisoList = permisoList != null
         ? permisoList.Where(x => x.Posicion.ToLower().Equals("footer") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
-
-    var mp = permisoList.Where(x => x.Descripcion.ToLower() == "ayuda").First();
-    var mh = mp.SubMenus.Where(x => x.Descripcion.ToLower() == "contáctanos").First();
-    var urlbr = mh.UrlItem += "?" + ViewBag.QSBR;
 }
 <div class="footer_wrapper">
-    <a href="@urlbr" class="footer_responde" target="_blank">
+    <a id="aBelcorpResponde" href="#" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" /><br />
         @if (ViewBag.CodigoISODL == "CO")
         {
@@ -62,11 +58,15 @@
 
             @foreach (var menuHijo in menuPadre.SubMenus)
             {
-                if (menuHijo.Descripcion.ToLower() == "contáctanos")       // SB20-246
+                if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
                 {
                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
+
+                    <script type="text/javascript">
+                        document.getElementById("aBelcorpResponde").href = "@menuHijo.UrlItem";
+                    </script>
                 }
-                
+
                 var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
 
                 if (string.IsNullOrEmpty(menuHijo.UrlItem))
