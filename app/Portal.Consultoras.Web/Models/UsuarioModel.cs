@@ -105,6 +105,10 @@ namespace Portal.Consultoras.Web.Models
 
         public DateTime FechaLimPago { get; set; }
 
+        public int VioVideoModelo { get; set; }
+
+        public int VioTutorialModelo { get; set; }
+
         public int PedidoID { get; set; }
         public string CodigorRegion { get; set; }
         public string CodigoZona { get; set; }

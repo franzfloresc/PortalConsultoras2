@@ -241,7 +241,7 @@ function AgregarOfertaProducto(article) {
                                     }
 
                                     InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
-                                    CargarCantidadProductosPedidos();
+                                    ActualizarCantidadTotalPedido();
 
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
 

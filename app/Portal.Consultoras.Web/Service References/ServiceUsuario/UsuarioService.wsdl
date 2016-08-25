@@ -69,6 +69,18 @@
   <wsdl:message name="IUsuarioService_DelUsuarioRol_OutputMessage">
     <wsdl:part name="parameters" element="tns:DelUsuarioRolResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_setUsuarioVideoIntroductorio_InputMessage">
+    <wsdl:part name="parameters" element="tns:setUsuarioVideoIntroductorio" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_setUsuarioVideoIntroductorio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:setUsuarioVideoIntroductorioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_setUsuarioVerTutorial_InputMessage">
+    <wsdl:part name="parameters" element="tns:setUsuarioVerTutorial" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_setUsuarioVerTutorial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:setUsuarioVerTutorialResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Insert_InputMessage">
     <wsdl:part name="parameters" element="tns:Insert" />
   </wsdl:message>
@@ -460,6 +472,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/DelUsuarioRol" message="tns:IUsuarioService_DelUsuarioRol_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/DelUsuarioRolResponse" message="tns:IUsuarioService_DelUsuarioRol_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="setUsuarioVideoIntroductorio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorio" message="tns:IUsuarioService_setUsuarioVideoIntroductorio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorioResponse" message="tns:IUsuarioService_setUsuarioVideoIntroductorio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="setUsuarioVerTutorial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" message="tns:IUsuarioService_setUsuarioVerTutorial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse" message="tns:IUsuarioService_setUsuarioVerTutorial_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Insert" message="tns:IUsuarioService_Insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertResponse" message="tns:IUsuarioService_Insert_OutputMessage" />
@@ -754,6 +774,24 @@
     </wsdl:operation>
     <wsdl:operation name="DelUsuarioRol">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelUsuarioRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUsuarioVideoIntroductorio">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUsuarioVerTutorial">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1361,6 +1399,24 @@
     </wsdl:operation>
     <wsdl:operation name="DelUsuarioRol">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/DelUsuarioRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUsuarioVideoIntroductorio">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVideoIntroductorio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUsuarioVerTutorial">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

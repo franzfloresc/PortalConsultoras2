@@ -560,6 +560,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 
@@ -757,6 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 

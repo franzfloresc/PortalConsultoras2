@@ -12,15 +12,14 @@
         }
     </style>
 }
-
-<div class="row">
-    <div class="col-xs-12">
-        <ol class="breadcrumb-next upper">
-            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
-            <li>|</li>
-            <li>Mis Notificaciones</li>
-        </ol>
+<div class="titulo_mobile">
+    <a href="#" class="enlace_regresar catalogosR" title="Regresar">
+        @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
     </div>
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     
     @if (Model.ListaNotificaciones.Count == 0)
     {
@@ -42,14 +41,7 @@
                     var estilo = item.Visualizado ? "" : "no-read";
 
                     <li class="@estilo">
-                        @if (item.Proceso == "BUSCACONS")
-                        {
-                            <span class="icon-noti icon-nuevo-cliente-green"></span>
-                        }
-                        else
-                        {
-                            <span class="icon-noti icon-noti-green"></span>
-                        }
+                       
                         <div class="text-noti">
                             <div class="upper">
                                 <strong>
@@ -62,7 +54,7 @@
                                         <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
                                     }
                                 </strong>
-                                <br />
+                                
                                 <b>
                                     CAMPAÑA
                                     @if (item.CampaniaId > 0)
@@ -71,18 +63,18 @@
                                     }
                                 </b>
                             </div>
-                            <span>
+                            <span class="fecha_notificaciones">
                                 @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
                             </span>
                         </div>
-                        <a href="javascript:;" class="btn btn-link btn-more" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">Ver más <i class="icon-angle-next-belcorp"></i></a>
+                        
                     </li>
                 }
             </ul>
             <br />
         </div>
     }
-</div>
+
 
 @section scripts{
 
@@ -108,6 +100,8 @@
 
             if (Visualizado == "False") {
                 $.post('@Url.Action("ActualizarLeidoSolicitud", "Notificaciones", new { area = "Mobile" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+
+                    data.mensaje = data.mensaje || "";
                     if (data.mensaje != '') {
                         console.log(data.mensaje);
                     }

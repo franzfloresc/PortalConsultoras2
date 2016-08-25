@@ -476,19 +476,18 @@ function paginadorAccionGenerico(obj) {
 
 function ActualizarGanancia(data) {
     data = data || new Object();
-    $("[data-ganancia]").html(data.MontoGananciaStr || "");
-
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
-    $("#spnCantidadProductos").html(data.CantidadProductos);
+    // Los Montos resumen de pedido
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+    $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
+    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.TotalPedidoStr);
+
     $(".num-menu-shop").html(data.CantidadProductos);
-    $("#spnDescripcionTotal").html(data.TotalPedidoStr);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
-    
-    $(".lblCantidadProducto").html(data.CantidadProductos);
-    $(".lblDescripcionTotal").html(data.TotalPedidoStr);
-    $('#lblDescripcionTotal').html(data.TotalPedidoStr);
 }
 
 FuncionesGenerales = {

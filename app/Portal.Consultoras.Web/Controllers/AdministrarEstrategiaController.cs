@@ -452,16 +452,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string mensaje = "", descripcion = "", precio = "", imagen1 = "", imagen2 = "", imagen3 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                string wsprecio = ""; //EPD-261
+                //string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
                 {
-                    if (tipo != 1)
-                    {
                         if (resultado == 0)
                         {
                             if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
+                            if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
                             return Json(new
                             {
                                 success = true,
@@ -474,25 +472,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 extra = ""
                             }, JsonRequestBehavior.AllowGet);
                         }
-                    }
 
                     mensaje = "OK";
 
-                    //Incio EPD-261
+                    //decimal wspreciopack = 0;
 
-                    decimal wspreciopack = 0;
+                    //using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                    //{
+                    //    svs.Url = ConfigurarUrlServiceProl();
+                    //    wspreciopack = svs.wsObtenerPrecioPack(CUV2, UserData().CodigoISO, CampaniaID);
+                    //}
 
-                    using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
-                    {
-                        svs.Url = ConfigurarUrlServiceProl();
-                        wspreciopack = svs.wsObtenerPrecioPack(CUV2, UserData().CodigoISO, CampaniaID);
-                    }
-
-                    //End EPD-261
+                    ///end GR-1060
 
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
-                    wsprecio = wspreciopack.ToString(); //EPD-261
+                    //wsprecio = wspreciopack.ToString();
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
@@ -504,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = mensaje,
                     descripcion = descripcion,
                     precio = precio,
-                    wsprecio = wsprecio, //EPD-261
+                    //wsprecio = wsprecio,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
@@ -565,7 +560,8 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
                     entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
                     entidad.Zona = Zona;
-                    entidad.Orden = string.IsNullOrEmpty(Orden) ? 0 : Convert.ToInt32(Orden);
+                    //entidad.Orden = Convert.ToInt32(Orden);
+                    entidad.Orden = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
                     entidad.UsuarioCreacion = UserData().CodigoUsuario;
                     entidad.UsuarioModificacion = UserData().CodigoUsuario;
                     entidad.ColorFondo = ColorFondo;
@@ -579,7 +575,8 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                    int OrdenEstrategia = string.IsNullOrEmpty(Orden) ? 0 : Convert.ToInt32(Orden);
+                    //int OrdenEstrategia = Convert.ToInt32(Orden);
+                    int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
 
                     foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                     {
@@ -816,9 +813,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "Lbel";
+                case 1: result = "L'Bel";
                     break;
-                case 2: result = "Esika";
+                case 2: result = "Ésika";
                     break;
                 case 3: result = "Cyzone";
                     break;
@@ -917,7 +914,10 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.InsPedidoWebDetalleOferta(entidad);
+
                 }
+
+                UpdPedidoWebMontosPROL();
 
                 JSONdata = new
                 {

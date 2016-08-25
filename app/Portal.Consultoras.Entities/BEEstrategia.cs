@@ -270,6 +270,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TieneStockProl") && row["TieneStockProl"] != DBNull.Value)
                 TieneStockProl = Convert.ToBoolean(row["TieneStockProl"].ToString());
+
             // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);                

@@ -585,13 +585,16 @@ namespace Portal.Consultoras.Web.Controllers
             BEGrid grid = SetGrid(sidx, sord, page, rows);
             
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado);
+            var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
             List<BEPedidoWebDetalle> itemCliente = lst.Where(p => p.ClienteID == cliente || cliente == -1).ToList();
 
             BEPager pag = Util.PaginadorGenerico(grid, itemCliente);
 
             List<BEPedidoWebDetalle> items = itemCliente.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
-            var ImporteTotal = Util.DecimalToStringFormat(itemCliente.Sum(p => p.ImporteTotal), userData.CodigoISO);
+            var totalpedido = itemCliente.Sum(p => p.ImporteTotal);
+            var ImporteTotal = Util.DecimalToStringFormat(totalpedido, userData.CodigoISO);
+            var montoConDescto = Util.DecimalToStringFormat(totalpedido - pedidoWeb.DescuentoProl, userData.CodigoISO);
             var itm = items.FirstOrDefault() ?? new BEPedidoWebDetalle();
             // Creamos la estructura
             var data = new
@@ -612,8 +615,9 @@ namespace Portal.Consultoras.Web.Controllers
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
-                OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),
-                ImporteFacturado = ImporteTotal,
+                OfertaNiveles = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
+                ImporteFacturado = montoConDescto,
+                Ganancia = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO),
                 Rows = items.Select(a => new
                 {
                     tipo = estado.ToLower(),
