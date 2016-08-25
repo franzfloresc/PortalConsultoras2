@@ -26761,8 +26761,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .content-favclientes .agregado .icono{
    width: 11px;
-  height: 7.8px;
-  border: solid 1.6px #a18328;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") no-repeat center center;
 }
 
 .pestania {
