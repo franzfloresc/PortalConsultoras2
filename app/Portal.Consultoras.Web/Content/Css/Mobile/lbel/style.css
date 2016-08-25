@@ -1845,37 +1845,33 @@ h4.re3 {
 }
 .block-seguimiento {
     text-transform: uppercase;
-    background: #00abdf;
-    padding: 30px 15px;
-    color: #eee;
+   
+    
+    border-bottom:1px solid #979797;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
     position: relative;
 }
-    .block-seguimiento:before {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 60px;
-        border-top: 10px solid #00abdf;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-    }
+  
     .block-seguimiento strong {
-        color: #fff;
+        color: black;
     }
     .block-seguimiento .title-seg {
         position: absolute;
-        left: 15px;
+        font-family:'Lato';
         top: 50%;
         margin-top: -15px;
-        font-size: 1.7em;
+        font-size: 1.5em;
         line-height: 1;
     }
         .block-seguimiento .title-seg .num-camp-seg {
             font-size: 1.35em;
         }
     .block-seguimiento .info-seg {
-        font-size: 13px;
+        font-size: 12.5px;
         text-align: right;
+        font-family:'Lato';
     }
         .block-seguimiento .info-seg .inline {
             display: inline-block;
@@ -1897,9 +1893,10 @@ h4.re3 {
             color: #a4b5c4;
             margin: 0;
             text-transform: uppercase;
-            height: 35px;
-            font-size: 0.85em;
+            height: 38px;
+            font-size: 0.8em;
             font-weight: 600;
+            font-family:'Lato';
         }
         .block-seguimiento-content .seg-item .seg-icon {
             padding: 25px 0;
@@ -1916,6 +1913,7 @@ h4.re3 {
             }
         .block-seguimiento-content .seg-item .seg-hora-fecha {
             height: 42px;
+            font-size:12.5px;
         }
         .block-seguimiento-content .seg-item .seg-fecha {
             color: #a4b5c4;
@@ -1932,18 +1930,17 @@ h4.re3 {
         right: -25px;
     }
     .block-seguimiento-content .seg-current .seg-title {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-        color: #fff !important;
-        background: #00abdf !important;
-        border: 1px solid #00abdf !important;
+       color: #b75d9f;
+       border: 1px solid #b75d9f !important;
     }
     .block-seguimiento-content .seg-current .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
     .block-seguimiento-content .seg-active .seg-title {
         color: #00abdf;
@@ -5156,6 +5153,7 @@ body{
 .catalogo_esika{
     width:128px;
     height:76px;
+    margin-bottom:0px;
     background: url("../../../Images/mobile/Lbel/catalogo_home.png") no-repeat right bottom;    
 }
 .celular_esika{
