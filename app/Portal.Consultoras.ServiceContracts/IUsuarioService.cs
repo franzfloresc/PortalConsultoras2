@@ -33,6 +33,9 @@ namespace Portal.Consultoras.ServiceContracts
         int setUsuarioVideoIntroductorio(int paisID, string codigoUsuario);
 
         [OperationContract]
+        int setUsuarioVerTutorial(int paisID, string codigoUsuario);
+        
+        [OperationContract]
         void Insert(BEUsuario usuario);
 
         [OperationContract]

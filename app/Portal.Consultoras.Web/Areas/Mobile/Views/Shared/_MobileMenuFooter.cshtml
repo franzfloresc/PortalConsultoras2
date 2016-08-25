@@ -41,8 +41,15 @@
                 var url = subitem.Version == "Completa"
                 ? subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subitem.UrlItem)
                 : subitem.UrlItem.StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
+                if (subitem.Descripcion == "Tutorial")
+                {
+                    <a class="menu_subfooter" href="#" id="tutorialFooterMobile">@subitem.Descripcion.ToUpper()</a>
+                }
+                else
+                {
+                    <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+                }
 
-                <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
             }
         </div>
     }
