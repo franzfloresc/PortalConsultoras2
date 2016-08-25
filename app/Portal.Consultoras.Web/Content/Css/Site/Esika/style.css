@@ -26793,7 +26793,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .contenedor_item_img{
     display:block;
-    height:auto;
+    height:187px;
     overflow:hidden;
     position:relative;
 }
