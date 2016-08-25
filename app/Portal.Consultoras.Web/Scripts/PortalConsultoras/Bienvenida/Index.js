@@ -1,4 +1,21 @@
 ﻿$(document).ready(function () {
+    $(".abrir_tutorial").click(function () {
+        abrir_popup_tutorial();
+    });
+
+    $(".cerrar_tutorial").click(function () {
+        cerrar_popup_tutorial();
+    });
+
+    function abrir_popup_tutorial(){
+        $('#popup_tutorial').fadeIn();
+        $('html').css({ 'overflow-y': 'hidden' });
+    }
+
+    function cerrar_popup_tutorial() {
+        $('#popup_tutorial').fadeOut();
+        $('html').css({ 'overflow-y': 'auto' });
+    }
 
     // Evento para visualizar video introductorio al hacer click
 
