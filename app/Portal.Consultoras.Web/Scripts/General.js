@@ -492,7 +492,17 @@ function ActualizarGanancia(data) {
 }
 
 FuncionesGenerales = {
-    ValidarSoloNumeros: function(e) {
+    containsObject(obj, array) {
+        var i;
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === obj) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+    ValidarSoloNumeros: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9]/;
@@ -500,7 +510,7 @@ FuncionesGenerales = {
         return patron.test(te);
     },
 
-    ValidarSoloNumerosAndSpecialCharater: function(e) {
+    ValidarSoloNumerosAndSpecialCharater: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;

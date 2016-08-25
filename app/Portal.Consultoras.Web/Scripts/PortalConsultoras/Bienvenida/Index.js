@@ -1,9 +1,12 @@
-﻿$(document).ready(function () {
+﻿var vpromotions = [];
+var vpromotionsTagged = [];
+
+$(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
     CargarPopupsConsultora();
-    
+
     $(window).scroll(function () {
 
         var $this = $(this);
@@ -40,7 +43,7 @@
         });
 
     }
-    
+
     CargarBanners();
     CrearDialogs();
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
@@ -49,7 +52,7 @@
         ActualizarDatos();
         return false;
     });
-    
+
     $("#btnCerrarActualizarDatos").click(function () {
         CerrarPopupActualizacionDatos();
         return false;
@@ -107,13 +110,13 @@
         waitingDialog({});
         DownloadAttachContratoCO();
     });
-    $("#btnCancelarMD").click(function() {
+    $("#btnCancelarMD").click(function () {
         $(".campos_cambiarContrasenia").fadeOut(200);
         $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
         $(".campos_actualizarDatos").delay(200);
         $(".campos_actualizarDatos").fadeIn(200);
     });
-    
+
     $("#lnkCambiarContrasena").click(function () {
         if ($("#divCambiarContrasena").is(":visible")) {
             $(".grupo_input_password").slideUp(200);
@@ -834,7 +837,7 @@ function CargarCarouselLiquidaciones() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertaLiquidacion/JsonGetOfertasLiquidacion',
-        data: { offset: 0, cantidadregistros: cantProdCarouselLiquidaciones, origen : 'Home' },
+        data: { offset: 0, cantidadregistros: cantProdCarouselLiquidaciones, origen: 'Home' },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -1070,7 +1073,6 @@ function CargarBanners() {
                     var TipoAccion = 0;
                     var Creative = "";
                     var fileName = "";
-                    var vpromotions = new Array();
 
                     $('#bannerBajos').empty();
                     $('#sliderHomeLoading').empty();
@@ -1122,25 +1124,38 @@ function CargarBanners() {
 
                     $('#bannerBajos').find("a.enlaces_home:last-child").addClass("no_margin_right");
 
+                    /* Slides para la seccion principal */
                     if (count > 0) {
-                        dataLayer.push({
-                            'event': 'promotionView',
-                            'ecommerce': {
-                                'promoView': {
-                                    'promotions': vpromotions
+                        $('.flexslider').flexslider({
+                            animation: "fade",
+                            slideshowSpeed: (delayPrincipal * 1000),
+                            after: function (slider) {
+                                if (FuncionesGenerales.containsObject(vpromotions[slider.currentSlide], vpromotionsTagged) == false) {
+                                    dataLayer.push({
+                                        'event': 'promotionView',
+                                        'ecommerce': {
+                                            'promoView': {
+                                                'promotions': vpromotions[slider.currentSlide]
+                                            }
+                                        }
+                                    });
+                                    vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                                 }
+                            },
+                            start: function (slider) {
+                                $('body').removeClass('loading');
+                                dataLayer.push({
+                                    'event': 'promotionView',
+                                    'ecommerce': {
+                                        'promoView': {
+                                            'promotions': vpromotions[slider.currentSlide]
+                                        }
+                                    }
+                                });
+                                vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                             }
                         });
                     }
-
-                    /* Slides para la seccion principal */
-                    $('.flexslider').flexslider({
-                        animation: "fade",
-                        slideshowSpeed: (delayPrincipal * 1000),
-                        start: function (slider) {
-                            $('body').removeClass('loading');
-                        }
-                    });
                 }
                 else {
                     alert('Error al cargar el Banner.');
@@ -1412,7 +1427,7 @@ function CambiarContrasenia() {
                         if (data.message == "0") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');                            
+                            $("#txtNuevaContrasenia02").val('');
                             alert("La contraseña anterior ingresada es inválida");
                         } else if (data.message == "1") {
                             $("#txtContraseniaAnterior").val('');
@@ -1436,7 +1451,7 @@ function CambiarContrasenia() {
             error: function (data, error) {
                 //debugger;
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();                    
+                    closeWaitingDialog();
                     alert("Error en el Cambio de Contraseña");
                 }
             }
@@ -1461,8 +1476,7 @@ function ActualizarMD() {
         return false;
     }
 
-    if (!$('#chkAceptoContratoMD').is(':checked'))
-    {
+    if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
         return false;
     }
@@ -1503,7 +1517,7 @@ function ActualizarMD() {
                     }
                     contadorFondoPopUp--;
                     alert(data.message);
-                }                    
+                }
             }
         },
         error: function (data, error) {
@@ -2612,8 +2626,8 @@ function AgregarSuenio() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 alert_msgPedidoBanner("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
-        async: false,
-                closeWaitingDialog();
+                async: false,
+                        closeWaitingDialog();
             }
         }
     });
