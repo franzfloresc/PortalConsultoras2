@@ -561,8 +561,14 @@ function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divCarruselHorizontal').unslick();
-    $('#divCarruselHorizontal').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
-
+    if (isEsika) {
+        $('#divCarruselHorizontal').html(
+            '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-esika" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
+        );
+    } else {
+        $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
+    }
+    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/JsonConsultarEstrategias?cuv=' + cuv,

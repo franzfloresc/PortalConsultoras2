@@ -5407,7 +5407,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:auto;
     box-sizing: border-box;
     font-family: 'Lato';
-    z-index: 5;
+    z-index: 7;
 }
 
 .contenedor_video_introductorio{
@@ -20589,7 +20589,7 @@ label.checkpop.c_on {
     display: inline-block;
     vertical-align: top;
     width: 173px;
-    background:url("../../../Images/Esika/indicador_pedido_negro.png") no-repeat;
+    background:url("../../../Images/Esika/indicador_pedido.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
     font-size:13px;
@@ -26875,4 +26875,97 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         width:42%;
     }
 
+}
+
+/* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */
+
+.precarga {
+  position: relative;
+  margin: 0 auto 15px auto;
+  width: 80px;
+}
+.precarga:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  -webkit-animation: rotate 2s linear infinite;
+          animation: rotate 2s linear infinite;
+  height: 100%;
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path-esika {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite;
+  stroke:#e81c36;
+  stroke-linecap: round;
+}
+
+.texto_precarga{
+    display:block;
+    text-align:center;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:400;
+    color:#000;
+}
+
+.texto_precarga b{
+    font-weight:700;
+    color:#e81c36;
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
 }
