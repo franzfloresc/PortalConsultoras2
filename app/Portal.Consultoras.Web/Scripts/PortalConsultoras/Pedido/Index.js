@@ -4050,6 +4050,10 @@ function MostrarBarra(datax) {
     //console.log(widthTotal, wTotalPunto, wAreaMover, wLimite, indPuntoLimite, vLogro, vLimite, wLimiteAnterior);
 
     // mensaje
+    if (mn == 0 && vLogro == 0) {
+        $("#divBarra #divBarraMensajeLogrado").hide();
+        return false;
+    }
     var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
     tipoMensaje += vLogro >= vLimite ? "Supero" : "";
 
