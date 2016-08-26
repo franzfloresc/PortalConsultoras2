@@ -11,7 +11,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Portal.Consultoras.Web.Controllers;
 using System.Configuration;
-
+using Portal.Consultoras.Web.Models.AutoMapper;
 //using System.IdentityModel;
 //using System.IdentityModel.Services;
 //using System.IdentityModel.Services.Configuration;
@@ -384,6 +384,7 @@ namespace Portal.Consultoras.Web
             
             FilterProviders.Providers.Add(providerSession);
 
+            AutoMapperConfiguration.Configure();
         }
 
 
