@@ -202,7 +202,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior"><a href="@Url.Action("Index","Pedido")">Pedido ingresado</a>: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
+            <div class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado</a>: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
             <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
         </div>
         <!-- FIN ITEM 1-->
