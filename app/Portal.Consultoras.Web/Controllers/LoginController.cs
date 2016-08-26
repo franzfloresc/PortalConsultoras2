@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult LogOut()
         {
             return CerrarSesion();
-            
+
             //Session["UserData"] = null;
             //Session.Clear();
             //Session.Abandon();

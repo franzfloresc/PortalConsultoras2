@@ -8,6 +8,7 @@
 @{
     Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
+    var nombreConsultoraSin = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
 
     var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
@@ -122,11 +123,11 @@
             </div>
             <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SIGUE TU PEDIDO</a>
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
             <a class="seguir_pedido ver_video_introductorio" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
             @*@if (Model.PaisID == 10)
                 {
-                <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">REGISTRA TUS CLIENTES</a>
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">SEGUIMIENTO A TU PEDIDO</a>
                 }*@
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
@@ -1050,7 +1051,7 @@
                 ACEPTACIÓN DE<b>&nbsp;CONTRATO</b>
             </h1>
             <span class="mensaje_popUp_aceptacionContrato">
-                Querida @(nombreConsultora), al dar click en el botón aceptas los términos y condiciones de la Solicitud de Crédito.
+                Querida @(nombreConsultoraSin), al dar click en el botón aceptas los términos y condiciones de la Solicitud de Crédito.
             </span>
             <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleContrato" title="Conoce el detalle aquí">Conoce el detalle aquí</a>
             <button type="button" name="btn_aceptarContrato" class="btn_aceptarContrato" onclick="return AceptarContrato();">

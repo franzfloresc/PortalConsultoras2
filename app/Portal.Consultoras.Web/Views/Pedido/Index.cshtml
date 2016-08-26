@@ -137,6 +137,7 @@
     <div class="clear"></div>
     
     <div class="caja_pedidos">
+        <!-- DIV BARRA -->
         <div id="divBarra">
             <div id="divBarraMensaje">
                 <div id="divBarraMensajeLogrado" style="display:none;">
@@ -152,22 +153,6 @@
             </div>
             <hr class="clear" />
             <div id="divBarraLimite">
-                @*<div class="monto_minimo_barra" style="width: 18%;">25% DSCTO<br/>M. mínimo: S/. 250
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="bandera_marcador"></div>
-                <div class="monto_minimo_barra">
-                    30% DSCTO<br />S/. 601
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="monto_minimo_barra ml_16">
-                    35% DSCTO <br />S/. 1201
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="monto_minimo_barra ml_6">
-                    40% DSCTO<br />S/. 1901
-                    <div class="linea_indicador_barra"></div>
-                </div>*@
             </div>
             <hr class="clear" />
             <div id="divBarraPosicion" class="BarraPosicion">
@@ -179,6 +164,7 @@
             <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Guarda tu pedido para actualizar tu barra.</div>
         </div>
         <div class="clear"></div>
+        <!-- FIN DIV BARRA -->
     
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
@@ -228,25 +214,25 @@
                 <div class="bloque_montosPedido">
                     <div class="caja_montos">
                         <div class="caja_montos_textos">
+                             <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                <span id="spnNombreCliente"></span>
+                            </p>
+                            <div class="monto_total">
                             <div class="info_extra_Validado">
                                 <img src="/Content/Images/Esika/info-copy.png">
                                 <!--MONTOS-->
-                                <div class="monto_resumenValidado">
-                                    <div class="monto_1">Total sin Dscto.</div>
+                                    <div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
+                                        <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
 
-                                    <div class="monto_numero" style="opacity:0.6" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
+                                        <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
                                     <hr class="clear">
-                                    <div class="monto_1">Dscto. por niveles </div>
-                                    <div class="monto_numero" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
+                                        <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
+                                        <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
                                 </div>
                                 <!--FIN-->
                             </div>
-                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
-                                <span id="spnNombreCliente"></span>
-                            </p>
-                            <p class="monto_total">
-                                Monto total :
-                            </p>
+                                <span>Monto total :</span>
+                            </div>
                             
                             <div id="divMontosEscalaDescuentoTexto" style="display: none;">
                                 @if (Model.MontoDescuento > 0)

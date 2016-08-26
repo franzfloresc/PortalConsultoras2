@@ -1908,7 +1908,7 @@ header {
     vertical-align: top;
     position: absolute;
     float: none;
-    margin-top: 9px;
+    margin-top: 7px;
     right: 99%;
     top: 0%;
     z-index: 50;
@@ -2361,6 +2361,7 @@ header {
     text-align:right;
     line-height: 42px;
     text-transform:uppercase;
+    position:relative;
 }
 
 .monto_ganancia{
@@ -20077,7 +20078,7 @@ label.checkpop.c_on {
     padding-bottom:15px;
     display: none;
     position: absolute;
-    z-index: 150;
+    z-index: 1001;
     background: white;
     margin-top: 45px;
     width: 310px;
@@ -20089,7 +20090,7 @@ label.checkpop.c_on {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+.cart_compras:hover .info_cam {
     display: block;
 }
 
@@ -21109,7 +21110,7 @@ label.checkpop.c_on {
 }
 .titulo_interiores span{
     font-weight:700;
-    font-size:13.5pt;
+    font-size:13pt;
 }
 /*.fondo_negro_lateral{
     height: 50px;
@@ -26175,7 +26176,7 @@ position: relative; float: left;
  }
 /*PEDIDO VALIDADO*/
 .cod_venta_listado{
-    width:13%;
+    width:10%;
     display:inline-block;
     vertical-align:middle;
     padding-left:15px;
@@ -26184,14 +26185,14 @@ position: relative; float: left;
 }
 
 .descripcion_listado{
-    width: 22%;
+    width: 25%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
     padding-bottom:23px;
 }
 .cantidad_listado{
-    width:11%;
+    width:10%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26199,7 +26200,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .unitario_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26207,7 +26208,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .total_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26215,11 +26216,12 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .cliente_listado{
-    width:19%;
+    width:25%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
     padding-top:23px;
+    padding-left:1%;
     padding-bottom:23px;
 }
 
@@ -26886,6 +26888,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-family: 'Lato';
 }
 
+.catalogoPersonalizadoBloque{
+    background:#FFF;
+}
+
+.pantallaCatalogoPersonalizado {
+    margin:0px auto 0 auto!important;
+}
+
 .content-favclientes .contiene-productos {
     background-color: white;
     margin: 0px 24px;
@@ -26972,13 +26982,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .pestana_lbel.new {
-    background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
-    width: 100%;
+    width: 30px;
     height: 20px;
     position: relative;
-    margin-bottom: 9px;
-    margin-left: 0px;
-    background-position-x: 128px;
+    margin-bottom: 8px;
+    margin-left: 64px;
+    z-index: 21;
 }
 
 .titulo_interiores {

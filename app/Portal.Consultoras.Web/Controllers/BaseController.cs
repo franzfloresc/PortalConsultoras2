@@ -42,6 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
+                ViewBag.UrlRaizS3 = ConfigurationManager.AppSettings["URL_S3"].ToString() + "/" + ConfigurationManager.AppSettings["BUCKET_NAME"].ToString() + "/" + ConfigurationManager.AppSettings["ROOT_DIRECTORY"] + "/";
 
                 if (Session["UserData"] != null)
                 {
@@ -362,7 +363,6 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
 
                 itemMenu.SubMenus = temp;
-
                 itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
         }
