@@ -573,6 +573,8 @@ function CargarDetallePedido(page, rows) {
             mostrarSimplificacionCUV();
             //if (tieneMicroefecto)
             //MostrarMicroEfecto();
+
+            MostrarBarra(response);
         },
         error: function (error) {
             //alert(error);
