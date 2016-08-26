@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.WebPages
                     HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
                     row1.Style.Add("display", "none");
 
-                    CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.Value, bETracking.NumeroPedido, paisISO, bETracking.Estado);
+                    CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
                 }
             }
             else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
