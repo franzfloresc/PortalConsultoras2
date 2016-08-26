@@ -7308,10 +7308,10 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .microefecto_color {
-    -webkit-animation: cambio-color 5000ms linear 1000ms 1 normal;
-    -moz-animation: cambio-color 5000ms linear 1000ms 1 normal;
-    -ms-animation: cambio-color 5000ms linear 1000ms 1 normal;
-    animation: cambio-color 5000ms linear 1000ms 1 normal;
+    -webkit-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -moz-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -ms-animation: cambio-color 4000ms linear 0ms 1 normal;
+    animation: cambio-color 4000ms linear 0ms 1 normal;
 }
 
 @keyframes cambio-color {
