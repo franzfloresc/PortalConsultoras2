@@ -2763,17 +2763,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //BEConfiguracionCampania oBEConfiguracionCampania = null;
-                //using (PedidoServiceClient sv = new PedidoServiceClient())
-                //{
-                //    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-                //}
-                //if (oBEConfiguracionCampania != null)
-                //{
-                //    if (oBEConfiguracionCampania.CampaniaID > userData.CampaniaID)
-                //        return RedirectToAction("Index");
-                //}
-
                 List<BEPedidoWebDetalle> lstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -2790,125 +2779,8 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoModelo.Total = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
                 PedidoModelo.Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO);
 
-                //ViewBag.Simbolo = PedidoModelo.Simbolo;
-                //ViewBag.Total = PedidoModelo.Total;
-                //ViewBag.Total_Minimo = PedidoModelo.Total_Minimo;
-                //ViewBag.CodigoISOPais = userData.CodigoISO;
-
-                // se calcula la ganancia estimada
-                //if (lstPedidoWebDetalle.Count > 0)
-                //{
-                //    //int paisId, int campaniaId, int pedidoId, decimal totalPedido
-                //    ViewBag.GananciaEstimada = Util.DecimalToStringFormat(CalcularGananciaEstimada(userData.PaisID, userData.CampaniaID, lstPedidoWebDetalle[0].PedidoID, totalPedido), userData.CodigoISO);
-
-                //    int valorPedidoProductoMovil = 0;
-                //    foreach (var item in lstPedidoWebDetalle)
-                //    {
-                //        if (item.TipoPedido.ToUpper().Trim() == "PNV")
-                //        {
-                //            valorPedidoProductoMovil = 1;
-                //            break;
-                //        }
-                //    }
-                //    ViewBag.PedidoProductoMovil = valorPedidoProductoMovil;
-
-                //    if (userData.PedidoID == 0)
-                //    {
-                //        UsuarioModel usuario = userData;
-                //        usuario.PedidoID = lstPedidoWebDetalle[0].PedidoID;
-                //        SetUserData(usuario);
-                //    }
-                //}
-                //else
-                //{
-                //    ViewBag.GananciaEstimada = 0;
-                //    ViewBag.PedidoProductoMovil = 0;
-                //}
-                //----------------------------------------------------
-
-
-                //List<BEKitNueva> KitNueva = new List<BEKitNueva>();
-                //int EsColaborador = 0;
-                //using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                //{
-                //    KitNueva = sv.GetValidarConsultoraNueva(userData.PaisID, userData.CodigoConsultora).ToList();
-                //    EsColaborador = sv.GetValidarColaboradorZona(userData.PaisID, userData.CodigoZona);
-                //}
-                //int EsKitNueva = 0;
-                //decimal MontoKitNueva = 0;
-                ////Valida de que la consultora tenga estado registrada y de que el proceso de kit de nueva este activo
-                //if (KitNueva[0].Estado == 1 && KitNueva[0].EstadoProceso == 1 && EsColaborador == 0)
-                //{
-                //    EsKitNueva = 1;
-                //    MontoKitNueva = userData.MontoMinimo - KitNueva[0].Monto;
-                //}
-                //ViewBag.MontoKitNueva = Util.DecimalToStringFormat(MontoKitNueva, userData.CodigoISO);
-                //ViewBag.EsKitNueva = EsKitNueva;
-                ////----------------------------------------------------
-
-                //BEFactorGanancia beFactorGanancia = null;
-                //using (SACServiceClient sv = new SACServiceClient())
-                //{
-                //    beFactorGanancia = sv.GetFactorGananciaSiguienteEscala(totalPedido, userData.PaisID);
-                //}
-                //ViewBag.EscalaDescuento = 0;
-                //ViewBag.MontoEscalaDescuento = 0;
-                //ViewBag.PorcentajeEscala = 0;
-                //if (beFactorGanancia != null && EsColaborador == 0)
-                //{
-                //    ViewBag.EscalaDescuento = 1;
-                //    ViewBag.MontoEscalaDescuento = Util.DecimalToStringFormat(beFactorGanancia.RangoMinimo - totalPedido, userData.CodigoISO);
-                //    ViewBag.PorcentajeEscala = Util.DecimalToStringFormat(beFactorGanancia.Porcentaje, userData.CodigoISO);
-                //}
-                ////----------------------------------------------------
-
-                //int HoraCierre = userData.EsZonaDemAnti;
-                //TimeSpan sp;
-                //if (HoraCierre == 0)
-                //    sp = userData.HoraCierreZonaNormal;
-                //else
-                //    sp = userData.HoraCierreZonaDemAnti;
-                //ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-                ////----------------------------------------------------
-
-                //ViewBag.EstadoSimplificacionCUV = userData.EstadoSimplificacionCUV;
-                //ViewBag.SubTotal = PedidoModelo.Total;
-
-                //if (lstPedidoWebDetalle.Count != 0)
-                //{
-                //    ViewBag.Descuento = lstPedidoWebDetalle[0].MontoTotalProl - Convert.ToDecimal(PedidoModelo.Total);
-                //    ViewBag.MontoTotalPROL = lstPedidoWebDetalle[0].MontoTotalProl;
-                //    if (beFactorGanancia != null)
-                //    {
-                //        ViewBag.MontoEscalaDescuento = Util.DecimalToStringFormat(beFactorGanancia.RangoMinimo - lstPedidoWebDetalle[0].MontoTotalProl, userData.CodigoISO);
-                //    }
-                //}
-                //else
-                //{
-                //    ViewBag.Descuento = 0;
-                //    ViewBag.MontoTotalPROL = 0;
-                //}
-
-                //ViewBag.ZonaNuevoPROL = userData.ZonaNuevoPROL;
-
-                //if (userData.NuevoPROL && userData.ZonaNuevoPROL)
-                //    PedidoModelo.ModificacionPedidoProl = 0;
-                //else
-                //    PedidoModelo.ModificacionPedidoProl = 1;
-                //----------------------------------------------------
-
-                //if (PedidoModelo.ListaDetalle.Count > 0)
                 if (PedidoModelo.ListaDetalle.Any())
                 {
-                    //PedidoModelo.Registros = "1";
-                    //PedidoModelo.RegistrosDe = PedidoModelo.ListaDetalle.Count.ToString();
-                    //PedidoModelo.RegistrosTotal = lstPedidoWebDetalle.Count.ToString();
-                    //PedidoModelo.Pagina = "1";
-                    //PedidoModelo.PaginaDe = (lstPedidoWebDetalle.Count() % 100 == 0) ? (lstPedidoWebDetalle.Count() / 100).ToString() : ((int)(lstPedidoWebDetalle.Count() / 100) + 1).ToString();
-
-                    //userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    //SetUserData(userData);
-
                     BEGrid grid = SetGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, PedidoModelo.ListaDetalle);
 
@@ -2923,8 +2795,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    //PedidoModelo.Registros = "0";
-                    //PedidoModelo.RegistrosDe = "0";
                     PedidoModelo.RegistrosTotal = "0";
                     PedidoModelo.Pagina = "0";
                     PedidoModelo.PaginaDe = "0";
@@ -2935,7 +2805,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
-                    data = PedidoModelo
+                    data = PedidoModelo,
+                    dataBarra = GetDataBarra(true, true)
                 });
             }
             catch (Exception ex)
@@ -2945,7 +2816,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    data = ""
+                    data = "",
+                    dataBarra = new BarraConsultoraModel()
                 });
             }
             
@@ -4487,7 +4359,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "OK",
-                    data = model
+                    data = model,
+                    dataBarra = GetDataBarra(true, true)
                 });
             }
             catch (Exception ex)
@@ -4497,7 +4370,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    data = ""
+                    data = "",
+                    dataBarra = new BarraConsultoraModel()
                 });
             }
         }
