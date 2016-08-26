@@ -242,6 +242,7 @@
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
+    <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
@@ -1565,6 +1566,7 @@
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
+    <Content Include="Content\Images\Esika\regresar.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
@@ -1586,6 +1588,7 @@
     <Content Include="Content\Images\Esika\Tutorial\tuto3.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto4.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto5.png" />
+    <Content Include="Content\Images\Esika\tutorial_esika_pedido.jpg" />
     <Content Include="Content\Images\Esika\ultima_pagina.png" />
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
@@ -1617,6 +1620,7 @@
     <Content Include="Content\Images\footer_correonueva.gif" />
     <Content Include="Content\Images\foot_login.png" />
     <Content Include="Content\Images\franja_inferior_banner.png" />
+    <Content Include="Content\Images\group.svg" />
     <Content Include="Content\Images\icono-campanias.png" />
     <Content Include="Content\Images\icono-excel.png" />
     <Content Include="Content\Images\icono-pack-documentario.png" />
@@ -1778,6 +1782,7 @@
     <Content Include="Content\Images\Lbel\tutorial\tuto3.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto4.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto5.png" />
+    <Content Include="Content\Images\Lbel\tutorial_lbel_pedido.jpg" />
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />
@@ -2160,6 +2165,7 @@
     <Content Include="Content\Images\webtracking\home.png" />
     <Content Include="Content\Images\webtracking\Icono_factura.png" />
     <Content Include="Content\Images\webtracking\Icono_foto.png" />
+    <Content Include="Content\Images\webtracking\icono_lupa.png" />
     <Content Include="Content\Images\webtracking\Icono_mapa.png" />
     <Content Include="Content\Images\webtracking\maps.png" />
     <Content Include="Content\Images\webtracking\marker.png" />
@@ -2171,6 +2177,7 @@
     <Content Include="Content\Images\webtracking\procesoFlecha.png" />
     <Content Include="Content\Images\webtracking\procesos.png" />
     <Content Include="Content\Images\webtracking\proesoFecha2.png" />
+    <Content Include="Content\Images\webtracking\regresar.png" />
     <Content Include="Content\Images\webtracking\settings.png" />
     <Content Include="Content\Images\webtracking\si.png" />
     <Content Include="Content\Images\zona_.png" />
@@ -2216,6 +2223,7 @@
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
@@ -3334,6 +3342,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

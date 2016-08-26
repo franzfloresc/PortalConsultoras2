@@ -362,6 +362,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
 
                 itemMenu.SubMenus = temp;
+                itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
         }
 
@@ -425,7 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region  Session["UserData"] != null
 
                 model = (UsuarioModel)Session["UserData"];
-                this.CargarEntidadesShowRoom(model);
+                if (model != null)  this.CargarEntidadesShowRoom(model);
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;

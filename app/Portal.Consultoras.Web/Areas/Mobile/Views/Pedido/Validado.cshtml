@@ -6,23 +6,23 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
-<div class="titulo_mobile">MI PEDIDOS RESERVADO</div>
+<div class="titulo_mobile">MI PEDIDO RESERVADO</div>
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 
-<div id="ResumenPedidoReservado"> 
+<div id="ResumenPedidoReservado">
     <div class="wrapper_resumen_mobile">
         <!--RESUMEN PEDIDO RESERVADO-->
         @if (Model.MostrarEscalaDescuento)
         {       <div>
-                    <div class="content_BarrMensaje">
-                        <div class="mensaje_barra" style="display: inline;">¡TÚ PUEDES! </div>
-                        <div class="agrega_barra"><span>Te faltan @Model.Simbolo @Model.DescripcionMontoEscalaDescuento para llegar a tu siguiente escala de descuento de @Model.PorcentajeEscala%. </span></div>
-                    </div>
-                    <hr class="clear">
-                    <div class="flechita_barra"></div>
-                </div>
-           
+            <div class="content_BarrMensaje">
+                <div class="mensaje_barra" style="display: inline;">¡TÚ PUEDES! </div>
+                <div class="agrega_barra"><span>Te faltan @Model.Simbolo @Model.DescripcionMontoEscalaDescuento para llegar a tu siguiente escala de descuento de @Model.PorcentajeEscala%. </span></div>
+            </div>
+            <hr class="clear">
+            <div class="flechita_barra"></div>
+        </div>
+
         }
         <hr class="clear" />
         <div class="left_reservado">
@@ -36,7 +36,7 @@
             <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
         </div>
         <hr class="clear" />
-       
+
         <div id="PedidoReservado" class="panel-collapse collapse">
 
             <div class="linea_gris" style="margin-top:10px;"></div>
@@ -57,16 +57,16 @@
                         <div class="texto_reservado">CANT</div>
                         <div class="datos_Reservado"><b>@item.Cantidad</b></div>
                     </div>
-                    <hr class="clear" /><br />                    
+                    <hr class="clear" /><br />
                     <div class="left_reservado">
                         <div class="texto_reservado">
-                            <span>Precio Unitario</span>                            
+                            <span>Precio Unitario</span>
                         </div>
                         <div class="importe_reservado">SUBTOTAL</div>
                     </div>
                     <div class="right_reservado">
                         <div class="texto_reservado">
-                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>                            
+                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
                         </div>
                         <div class="importe_reservado">
                             @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
@@ -82,16 +82,20 @@
                         <hr class="clear" /><br />
                         <div class="notificacion_productoAgotado">
                             <small>
-                                @if (item.TipoObservacion == 0) { @Html.Raw(item.Mensaje); }
-                                else { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", "")); }
+                                @if (item.TipoObservacion == 0)
+                                { @Html.Raw(item.Mensaje);
+                                }
+                                else
+                                { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
+                                }
                             </small>
                         </div>
                     }
                 </div>
             }
-               
+
             <div class="left_reservado">
-                <div class="importe_final">                        
+                <div class="importe_final">
                     <div class="info_validado">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
                         <!--TOOLTIP-->
@@ -99,8 +103,8 @@
                             <div class="left_reservado">
                                 <div class="datos_Reservado">
                                     <span>Total sin Dscto. </span>
-                                    <span class="icono_advertencia_notificacion"></span>Dscto por niveles
-                                </div>                                   
+                                    <span>Dscto por niveles</span>
+                                </div>
                             </div>
                             <div class="right_reservado">
                                 <div class="datos_Reservado">
@@ -110,12 +114,12 @@
                             </div>
                         </div>
                         <!--FIN-->
-                    </div> 
+                    </div>
                     <b>MONTO TOTAL</b>
                 </div>
                 <div class="ganancia_Pedidovalidado" style="margin-top:7px">GANANCIA</div>
             </div>
-            <div class="right_reservado">                    
+            <div class="right_reservado">
                 <div class="importe_final" style="font-size:15px"><b>@Model.Simbolo @Model.DescripcionTotal</b></div>
                 <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
             </div>
@@ -132,7 +136,7 @@
             <div class="info_tooltip">Puedes editar tu pedido hasta las <b>@Model.HoraCierre horas</b>, luego se enviará a Belcorp</div>
         </div>
     </div>
-    <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">EDITAR MI PEDIDO</a> 
+    <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">EDITAR MI PEDIDO</a>
 </div>
 
 <div class="modal fade" id="divConfirmModificarPedido">

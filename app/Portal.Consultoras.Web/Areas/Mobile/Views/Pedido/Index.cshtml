@@ -91,8 +91,8 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido">
                     <div class="textos_resumen">
-                        <span style=" margin-left: 30px;">HE AGREGADO :</span>
-                        <span>
+                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+                        <span id="lblTotalResumen">
                             <div class="info_validado">
                                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
                                 <!--TOOLTIP-->
@@ -113,12 +113,12 @@
                                 <!--FIN-->
                             </div>
                         MONTO TOTAL :</span>
-                        <span style=" margin-left: 30px;">MI GANANCIA :</span>
+                        <span class="mi_ganancia" style=" margin-left: 30px;">MI GANANCIA :</span>
                     </div>
                     <div class="montos_resumen">
                         <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
+                        <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido">

@@ -100,6 +100,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal MontoTotalProl { get; set; }
         [DataMember]
+        public decimal DescuentoProl { get; set; }
+        [DataMember]
         public decimal ImporteTotalPedido { get; set; }
         //F 20151127
         public BENotificacionesDetallePedido(IDataRecord row)
@@ -113,6 +115,7 @@ namespace Portal.Consultoras.Entities
             //I R20151127
             this.IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
             this.MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
+            this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             this.ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
             //F R20151127
         }

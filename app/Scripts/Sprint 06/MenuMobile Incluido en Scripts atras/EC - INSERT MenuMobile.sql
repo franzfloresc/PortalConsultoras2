@@ -74,14 +74,14 @@ INSERT INTO MenuMobile (MenuMobileID
 						,Posicion
 						,[Version])
 				VALUES (103
-						,'Contactanos'
+						,'Contáctanos'
 						,100
 						,2
-						,'http://www.belcorpresponde.com/'
+						,'http://belcorprespondeqa.somosbelcorp.com/'
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Mobile')
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -114,25 +114,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,'Términos y Condiciones'
 						,101
 						,1
-						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_CO.aspx'
-						,''
-						,1
-						,'Footer'
-						,'Completa')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (106
-						,'Protección de datos personales'
-						,101
-						,2
-						,'https://www.somosbelcorp.com/Content/FAQ/Politica_DATOS_PERSONALES_CO.pdf'
+						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_EC.aspx'
 						,''
 						,1
 						,'Footer'

@@ -74,14 +74,14 @@ INSERT INTO MenuMobile (MenuMobileID
 						,Posicion
 						,[Version])
 				VALUES (103
-						,'Contactanos'
+						,'Contáctanos'
 						,100
 						,2
-						,'http://www.belcorpresponde.com/'
+						,'http://belcorprespondeqa.somosbelcorp.com/'
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Mobile')
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -111,10 +111,46 @@ INSERT INTO MenuMobile (MenuMobileID
 						,Posicion
 						,[Version])
 				VALUES (105
-						,'Términos y Condiciones'
+						,'Política de privacidad'
 						,101
 						,1
-						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_PR.aspx'
+						,'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_PE.pdf'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (106
+						,'Condiciones de uso web'
+						,101
+						,2
+						,'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (107
+						,'Procedimiento y formulario para el ejercicio de derechos arco'
+						,101
+						,3
+						,'https://www.somosbelcorp.com/Content/FAQ/PROCEDIMIENTO_Y_FORMULARIO_PARA_EL_EJERCICIO_DE_DERECHOS_ARCO_PE.pdf'
 						,''
 						,1
 						,'Footer'
