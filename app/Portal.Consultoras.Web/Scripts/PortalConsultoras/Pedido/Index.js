@@ -588,11 +588,11 @@ function MostrarInformacionCliente(clienteId) {
 
     $(".pMontoCliente").css("display", "none");
 
-    $(".caja_montos div.info_extra_Validado").css({ 'top': '0%', 'right': '99%' });
+    //$(".caja_montos div.info_extra_Validado").css({ 'top': '0%', 'right': '99%' });
 
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
-        $(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
+        //$(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
         $("#spnNombreCliente").html(nomCli + " :");
         $("#spnTotalCliente").html(simbolo + monto);
     }
