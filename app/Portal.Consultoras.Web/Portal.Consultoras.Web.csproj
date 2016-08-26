@@ -936,7 +936,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index_old.cshtml" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
     <Content Include="Content\Banderas\CL.png" />
@@ -2422,8 +2421,6 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -2468,7 +2465,6 @@
     <Content Include="Content\Css\Site\Lbel\fonts\slick.eot" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.woff" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3230,7 +3226,6 @@
     <Content Include="Views\AdministrarTipoEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_ListadoEstrategias.cshtml" />
-    <Content Include="Views\Notificaciones\Index_old.cshtml" />
     <Content Include="Views\Notificaciones\ListadoNotificaciones.cshtml" />
     <Content Include="Views\Notificaciones\ListadoObservaciones.cshtml" />
     <Content Include="Views\Paypal\ProcesoDescarga.cshtml" />
@@ -3336,7 +3331,6 @@
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
-    <Content Include="Views\Cliente\Index_old.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
@@ -3454,19 +3448,16 @@
     </Content>
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\Shared\_MainLayout_old.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
-    <Content Include="Views\Pedido\Index_old.cshtml" />
     <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
-    <Content Include="Views\Pedido\ListadoPedido_old.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
@@ -3481,11 +3472,8 @@
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnteriores.cshtml" />
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnterioresDetalle.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalle.cshtml" />
-    <Content Include="Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Views\ConsultoraFicticia\Index.cshtml" />
     <Content Include="Views\Shared\_SACMenu.cshtml" />
-    <Content Include="Views\Pedido\PedidoValidado_old.cshtml" />
-    <Content Include="Views\Pedido\ObservacionesPROL_old.cshtml" />
     <Content Include="Views\Rol\Rol.cshtml" />
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
@@ -3526,7 +3514,6 @@
     <Content Include="Views\OfertaWeb\AdministrarOfertas.cshtml" />
     <Content Include="Views\OfertaLiquidacion\AdministrarOfertasLiquidacion.cshtml" />
     <Content Include="Views\OfertaWeb\OfertasWeb.cshtml" />
-    <Content Include="Views\OfertaLiquidacion\OfertasLiquidacion_old.cshtml" />
     <Content Include="Views\MatrizComercial\AdministrarMatrizComercial.cshtml" />
     <Content Include="Views\Servicios\AdministrarServicios.cshtml" />
     <Content Include="Views\Servicios\MantenimientoServicios.cshtml" />
