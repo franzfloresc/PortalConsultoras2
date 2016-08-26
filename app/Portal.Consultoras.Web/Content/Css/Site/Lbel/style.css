@@ -26880,7 +26880,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
     min-height: 405px;
     position: relative;
     font-family: 'Lato';
