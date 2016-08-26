@@ -1938,7 +1938,7 @@ header {
     vertical-align: top;
     position: absolute;
     float: none;
-    margin-top: 9px;
+    margin-top: 7px;
     right: 99%;
     top: 0%;
     z-index: 50;
@@ -2388,6 +2388,7 @@ header {
     text-align:right;
     line-height: 42px;
     text-transform:uppercase;
+    position:relative;
 }
 
 .monto_ganancia{
@@ -11200,7 +11201,7 @@ ol {
     padding-bottom:15px;
     display: none;
     position: absolute;
-    z-index: 150;
+    z-index: 1001;
     background: white;
     margin-top: 45px;
     width: 310px;
@@ -11212,7 +11213,7 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+.cart_compras:hover .info_cam {
     display: block;
 }
 
@@ -20265,7 +20266,7 @@ label.checkpop.c_on {
     color: #1d1d26;
 }
 .info_cam_belcorp span{
-    color:#cca11e;
+    color:#a18328;
     font-size:26px;
     font-family:'lato';
     margin-top:-6px;
@@ -20286,7 +20287,7 @@ label.checkpop.c_on {
     
 }
 .info_cam_belcorp2 span{
-    color:#cca11e;
+    color:#a18328;
     font-size:26px;
     font-family:'lato';
     margin-top:-6px;
@@ -21203,7 +21204,7 @@ label.checkpop.c_on {
 }
 .titulo_interiores span{
     font-weight:700;
-    font-size:13.5pt;
+    font-size:13pt;
 }
 .fondo_negro_lateral{
     height: 50px;
@@ -25630,7 +25631,7 @@ div.subir_archivo input {
     font-family: 'Lato';
     margin-top: 35px;
     margin-bottom:40px;
-    background:#c6404d;
+    background:#e81c36;
     font-weight:700;
     font-size:11pt;
     letter-spacing:0.25px;
@@ -26268,7 +26269,7 @@ position: relative; float: left;
 
 /*PEDIDO VALIDADO*/
 .cod_venta_listado{
-    width:13%;
+    width:10%;
     display:inline-block;
     vertical-align:middle;
     padding-left:15px;
@@ -26277,14 +26278,14 @@ position: relative; float: left;
 }
 
 .descripcion_listado{
-    width: 22%;
+    width: 25%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
     padding-bottom:23px;
 }
 .cantidad_listado{
-    width:11%;
+    width:10%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26292,7 +26293,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .unitario_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26300,7 +26301,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .total_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26308,11 +26309,12 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .cliente_listado{
-    width:19%;
+    width:25%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
     padding-top:23px;
+    padding-left:1%;
     padding-bottom:23px;
 }
 /*MENSAJES DE ALERTA*/
@@ -26881,97 +26883,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 0 auto;
-    min-height: 405px;
-    position: relative;
-    font-family: 'Lato';
-}
-
-.content-favclientes .contiene-productos {
-    background-color: white;
-    margin: 0px 24px;
-    float: left;
-    position: relative;
-    margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-.content-favclientes .agregado {
-  height: 12px;
-  font-family: Lato;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  text-align: center;
-  color: #a18328;
-}
-.content-favclientes .agregado .icono{
-   width: 11px;
-  height: 7.8px;
-  border: solid 1.6px #a18328;
-}
-
-.pestania {
-    padding-top: 15px;
-    background-color: black;
-    width: 45%;
-    height: 50px;
-    padding-left: 21px;
-    float: left;
-    background-image: url('../../../Images/Esika/titulo_interiores.png');
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
-.pestania * {
-    color: white;
-    font-size: 20px;
-    font-family: Lato;
-}
-
-.ver_mas_favoritos{
-        float: right;
-    width: 55%;
-    text-align: right;
-    font-size: 13px;
-    text-transform: uppercase;
-    font-weight: 300;
-    border-bottom: 1px solid black;
-    height: 50px;
-    padding-top: 15px;
-}
-
-/*catalogo personalizado*/
-.content-favclientes.catper .contiene-productos {
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    margin-bottom: 15px;
-    margin-top: 15px;
-}
-
- .content-favclientes.catper{
-     padding-top: 15px;
-     padding-bottom: 10px;
- }
-
- .pestana_lbel.new .boton_Agregalo_home{
-    font-style: normal;
-    color: black;
-    text-decoration: none;
-}
-
-.pestana_lbel.new .boton_Agregalo_home:hover{
-    color: white;
-}
-
-/*MICHAEL*/
-.content-favclientes {
-    max-width: 1189px;
     margin: 25px auto 0 auto;
     min-height: 405px;
     position: relative;
     font-family: 'Lato';
+}
+
+.pantallaCatalogoPersonalizado {
+    margin:0px auto 0 auto!important;
+}
+
+.catalogoPersonalizadoBloque{
+    background:#f6f6f6;
 }
 
 .content-favclientes .contiene-productos {

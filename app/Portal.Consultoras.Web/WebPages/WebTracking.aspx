@@ -11,6 +11,7 @@
     <script src="../Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         var secuenciaAyuda = 1;
 
@@ -510,7 +511,7 @@
                                     <asp:Label ID="lblNovEstado" runat="server"></asp:Label></td>
                                 <td>
                                     <div class="input_search">
-                                        <asp:Button ID="btnRegresar" runat="server" Text="Regresar" OnClick="btnRegresar_Click" />
+                                        <asp:Button ID="btnRegresar" runat="server" Text="Regresar al detalle" OnClick="btnRegresar_Click" />
                                     </div>
                                 </td>
                             </tr>

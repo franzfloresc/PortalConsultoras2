@@ -425,7 +425,7 @@ function agregarProductoAlCarrito(o) {
         'height': carrito.css("height"),
         'width': carrito.css("width"),
         'opacity': 0.5
-    }, 300, 'swing', function () {
+        }, 450, 'swing', function () {
         $(this).animate({
             'top': carrito.offset().top,
             'opacity': 0,
@@ -433,7 +433,7 @@ function agregarProductoAlCarrito(o) {
             //    $(".campana .info_cam").fadeIn(200);
             //    $(".campana .info_cam").delay(2500);
             //    $(".campana .info_cam").fadeOut(200);
-        }, 100, 'swing', function () {
+            }, 150, 'swing', function () {
             $(this).remove();
         });
     });
@@ -1591,6 +1591,7 @@ function CargarMisDatos() {
             $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
             $('#codigoUsurioMD').html(temp.CodigoUsuario);
             $('#nombresUsuarioMD').html(temp.NombreCompleto);
+            $('#txtSobrenombreMD').html(temp.Sobrenombre);
             $('#txtEMailMD').val(temp.EMail);
             $('#txtTelefonoMD').val(temp.Telefono);
             $('#txtCelularMD').val(temp.Celular);

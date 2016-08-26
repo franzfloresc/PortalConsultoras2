@@ -249,10 +249,9 @@ function CargarListado(page, rows) {
             if (response.success) {
 
                 var data = response.data;
-                console.log("CargarDetallePedidoValidado - OK")
 
                 var html = ArmarListado(data.ListaDetalle);
-                $('#divListado').html(html);
+                $('#divListadoPedido').html(html);
 
                 var htmlPaginador = ArmarListadoPaginador(data);
                 $('#paginadorCab').html(htmlPaginador);
@@ -260,6 +259,8 @@ function CargarListado(page, rows) {
 
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                 //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+
+                MostrarBarra(response);
             }
         },
         error: function (error) {
