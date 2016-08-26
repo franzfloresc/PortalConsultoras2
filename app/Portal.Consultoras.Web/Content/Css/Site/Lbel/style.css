@@ -4217,6 +4217,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:100%;
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
+    overflow:auto;
 }
 
 .btn_cerrar_invitacionFlexipago{
@@ -5344,7 +5345,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    background: url(../../../Images/Lbel/tutorial_lbel_pedido.jpg) no-repeat center center;
 }
 
 /* FIN POPUP TUTORIAL HOME */
@@ -26921,6 +26922,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-bottom: 1px solid black;
     height: 50px;
     padding-top: 15px;
+}
+
+.favoritosClientes{
+    width:39%;
+}
+
+.liquidacionRangoClientes{
+    margin-top:-3px;
 }
 
 /*catalogo personalizado*/

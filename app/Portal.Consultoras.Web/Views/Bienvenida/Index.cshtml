@@ -1628,7 +1628,7 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             </div>
             <div class="producto_img_home mini">
-                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#IsNullOrEmpty item.Sello '!='}}
             <div class="etiqueta_producto nuevofavorito">
@@ -1654,7 +1654,7 @@
                     AGRÉGALO
                 </a>
                 <div class="clear"></div>
-                <div style="height: 15px;">
+                <div style="padding-top:9px; height: 15px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO
                         <div class="icono"></div>

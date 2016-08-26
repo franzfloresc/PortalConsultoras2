@@ -1646,6 +1646,7 @@
     <Content Include="Content\Images\Esika\Tutorial\tuto4.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto5.png" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
+    <Content Include="Content\Images\Esika\tutorial_esika_pedido.jpg" />
     <Content Include="Content\Images\Esika\ultima_pagina.png" />
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
@@ -1839,6 +1840,7 @@
     <Content Include="Content\Images\Lbel\tutorial\tuto3.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto4.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto5.png" />
+    <Content Include="Content\Images\Lbel\tutorial_lbel_pedido.jpg" />
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />

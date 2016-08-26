@@ -5,7 +5,7 @@
 <div class="fondo_f9f9f9">
     <div class="content_belcorp content_belcorp_misPedidos">
         <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>
+        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>
     </div>
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
@@ -370,7 +370,7 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             </div>
             <div class="producto_img_home mini">
-                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#IsNullOrEmpty item.Sello '!='}}
             <div class="etiqueta_producto nuevofavorito">
@@ -385,7 +385,7 @@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
-                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <div class="liquidacion_rango_home liquidacionRangoClientes" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
