@@ -20,6 +20,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidoByConsultoraAndCampania(string codigoConsultora, int campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoByConsultoraAndCampania");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");

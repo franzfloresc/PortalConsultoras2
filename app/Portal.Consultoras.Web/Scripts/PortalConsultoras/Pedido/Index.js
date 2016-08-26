@@ -12,7 +12,7 @@ var salto = 3;
 var esPedidoValidado = false;
 
 $(document).ready(function () {
-
+    $('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -3368,7 +3368,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             Descripcion: 0,
             Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
             IndicadorMontoMinimo: 0,
-            TipoOferta: 1
+            TipoOferta: 0
         });
 
         jQuery.ajax({

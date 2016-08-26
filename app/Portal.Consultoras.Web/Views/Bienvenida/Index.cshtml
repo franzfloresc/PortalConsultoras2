@@ -288,6 +288,122 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
+<!--CATALOGO PERSONALIZADO-->
+<div class="content-favclientes" id="divMainCatalogoPersonalizado">
+
+    <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+    <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+    <div id="divCatalogoPersonalizado"></div>
+    @*<div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>ÉSIKA</h6>
+                <p class="nombre_producto">
+                    <b>Fragancia Leyenda</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Acondicionador berrylicious yummy yogurt</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>perfume #true</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>*@
+
+</div>
+<!--FIN CATALOGO PERSONALIZADO-->
+
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora"></div>
 
@@ -374,248 +490,249 @@
         @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
     </a>
 </div>
-<!-- POPUP COMUNICADO -->
-@*<div id="divComunicado">
-        <div class="terminos_title_2">
-            Mensaje IMPORTANTE ¡V Retiro de producto
-        </div>
-        @if (ViewBag.NombrePais != "Ecuador")
-        {
-            if (ViewBag.NombrePais == "Colombia")
+<div>
+    <!-- POPUP COMUNICADO -->
+    @*<div id="divComunicado">
+            <div class="terminos_title_2">
+                Mensaje IMPORTANTE ¡V Retiro de producto
+            </div>
+            @if (ViewBag.NombrePais != "Ecuador")
             {
-                <div class="border-wrapper">
-                    <p>
-                        Querida Consultora,
-                    </p>
-                    <p align="justify">
-                        Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
-                    </p>
-                    <p align="justify">
-                        Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la crema depilatoria Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
-                    </p>
-                    <p align="justify">
-                        Por eso te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona lo antes posible.
-                    </p>
-                    <p align="justify">
-                        El reembolso del dinero (precio cat&aacute;logo) de las unidades solicitadas por ti se abon&oacute; en t&uacute; cuenta el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
-                    </p>
-                    <p align="justify">
-                        <u>Importante:</u> todas las consultoras que entreguen los productos lo antes posible, recibir&aacute;n una fragancia de Obsequio que ser&aacute; entregado por tu gerente de Zona.
-                    </p>
-                    <p align="justify">
-                        Qu&eacute; decir a tus clientes cuando pidas el producto?: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
-                    </p>
-                    <p align="justify">
-                        En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
-                    </p>
-                    <p align="justify">
-                        <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques a Belcorp al tel&eacute;fono 5948060 en Bogot&aacute; &oacute; 01 8000 937452 en el resto del pa&iacute;s o a trav&eacute;s del chat en la p&aacute;gina www.somosbelcorp.com ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
-                    </p>
-                    <p align="justify">
-                        Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes y te presentamos disculpas y estamos comprometidos con el servicio, por eso continuaremos trabajando para evitar estos inconvenientes.
-                    </p>
-                    <p align="justify">
-                        Nota: En caso de no haber entregado el producto a tu Gerente de Zona, lo puedes llevar a la Conferencia de cierre de C13 o entregar al transportador cuando recibas el pedido de C13.
-                    </p>
-                    <p>
-                        Atentamente,
-                    </p>
-                    <p>
-                        Servicio al Cliente Belcorp
-                    </p>
-                </div>
+                if (ViewBag.NombrePais == "Colombia")
+                {
+                    <div class="border-wrapper">
+                        <p>
+                            Querida Consultora,
+                        </p>
+                        <p align="justify">
+                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                        </p>
+                        <p align="justify">
+                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la crema depilatoria Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                        </p>
+                        <p align="justify">
+                            Por eso te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona lo antes posible.
+                        </p>
+                        <p align="justify">
+                            El reembolso del dinero (precio cat&aacute;logo) de las unidades solicitadas por ti se abon&oacute; en t&uacute; cuenta el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                        </p>
+                        <p align="justify">
+                            <u>Importante:</u> todas las consultoras que entreguen los productos lo antes posible, recibir&aacute;n una fragancia de Obsequio que ser&aacute; entregado por tu gerente de Zona.
+                        </p>
+                        <p align="justify">
+                            Qu&eacute; decir a tus clientes cuando pidas el producto?: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                        </p>
+                        <p align="justify">
+                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                        </p>
+                        <p align="justify">
+                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques a Belcorp al tel&eacute;fono 5948060 en Bogot&aacute; &oacute; 01 8000 937452 en el resto del pa&iacute;s o a trav&eacute;s del chat en la p&aacute;gina www.somosbelcorp.com ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                        </p>
+                        <p align="justify">
+                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes y te presentamos disculpas y estamos comprometidos con el servicio, por eso continuaremos trabajando para evitar estos inconvenientes.
+                        </p>
+                        <p align="justify">
+                            Nota: En caso de no haber entregado el producto a tu Gerente de Zona, lo puedes llevar a la Conferencia de cierre de C13 o entregar al transportador cuando recibas el pedido de C13.
+                        </p>
+                        <p>
+                            Atentamente,
+                        </p>
+                        <p>
+                            Servicio al Cliente Belcorp
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="border-wrapper">
+                        <p>
+                            Querida Consultora,
+                        </p>
+                        <p align="justify">
+                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n  Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                        </p>
+                        <p align="justify">
+                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la Crema Depilatoria para rostro, axilas y bikini con extracto de Cal&eacute;ndula x 50 g Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                        </p>
+                        <p align="justify">
+                            Por eso <strong>te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona antes del 1 de Agosto.</strong>
+                        </p>
+                        <p align="justify">
+                            El reembolso del dinero (precio de cat&aacute;logo) de las unidades colocadas por ti se  abon&oacute; en t&uacute; cuenta Belcorp el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                        </p>
+                        <p align="justify">
+                            <u>Importante:</u> todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por tu gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                        </p>
+                        <p align="justify">
+                            Qu&eacute; decir a tus clientes cuando pidas el producto: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                        </p>
+                        <p align="justify">
+                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                        </p>
+                        <p align="justify">
+                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques con la l&iacute;nea de atenci&oacute;n al cliente de Belcorp y marques opci&oacute;n 1 ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                        </p>
+                        <p align="justify">
+                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes.
+                        </p>
+                        <p>
+                            Atentamente,
+                        </p>
+                        <p>
+                            Servicio al Cliente Belcorp
+                        </p>
+                        <p align="justify">
+                            <u><strong>NOTA: Comunicado para uso exclusivo de la consultora Belcorp. No compartir este documento a trav&eacute;s de copias o redes sociales (Facebook, correo electr&oacute;nico, etc).</strong></u>
+                        </p>
+                    </div>
+                }
             }
             else
             {
                 <div class="border-wrapper">
                     <p>
-                        Querida Consultora,
+                        Querida Consultora Belcorp:
                     </p>
                     <p align="justify">
-                        Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n  Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                        A trav&eacute;s de la presente queremos informarte que, por pol&iacute;tica interna de la compañ&iacute;a, hemos decidido que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone adquirido en la C-10 y C-11 de 2014, sea retirado del mercado.
                     </p>
                     <p align="justify">
-                        Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la Crema Depilatoria para rostro, axilas y bikini con extracto de Cal&eacute;ndula x 50 g Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                        Por eso te solicitamos que nos apoyes recogiendo, a la brevedad posible el producto Xpress Your Body de Cyzone a tus clientes y se  lo  entregues directamente a la  Gerente de tu Zona hasta  1 de Agosto de 2014.
                     </p>
                     <p align="justify">
-                        Por eso <strong>te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona antes del 1 de Agosto.</strong>
+                        El reembolso del dinero de las unidades adquiriste, ha sido abonado en t&uacute; cuenta Belcorp a precio de cat&aacute;logo (7.99 USD por unidad)  el d&iacute;a 24 de Julio, para que en el momento del recojo  puedas reembolsar  el valor del producto a tu cliente.
                     </p>
                     <p align="justify">
-                        El reembolso del dinero (precio de cat&aacute;logo) de las unidades colocadas por ti se  abon&oacute; en t&uacute; cuenta Belcorp el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                        Todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por la  Gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
                     </p>
                     <p align="justify">
-                        <u>Importante:</u> todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por tu gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                        En caso de recibir comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos les indiques que sean  remitidos al <strong>Call Center Belcorp 1800-766672 o  al buz&oacute;n callcenterec@belcorp.biz "</strong>, a fin de que Servicio al Cliente brinde una soluci&oacute;n inmediata
                     </p>
                     <p align="justify">
-                        Qu&eacute; decir a tus clientes cuando pidas el producto: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                        Queremos agradecerte por el apoyo, comprensi&oacute;n  y compromiso para recoger cuanto antes este  producto  a  tus clientes.
                     </p>
                     <p align="justify">
-                        En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
-                    </p>
-                    <p align="justify">
-                        <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques con la l&iacute;nea de atenci&oacute;n al cliente de Belcorp y marques opci&oacute;n 1 ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
-                    </p>
-                    <p align="justify">
-                        Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes.
-                    </p>
-                    <p>
                         Atentamente,
                     </p>
                     <p>
-                        Servicio al Cliente Belcorp
-                    </p>
-                    <p align="justify">
-                        <u><strong>NOTA: Comunicado para uso exclusivo de la consultora Belcorp. No compartir este documento a trav&eacute;s de copias o redes sociales (Facebook, correo electr&oacute;nico, etc).</strong></u>
+                        Servicio al Cliente<br />
+                        Belcorp-Ecuador
                     </p>
                 </div>
             }
-        }
-        else
-        {
-            <div class="border-wrapper">
-                <p>
-                    Querida Consultora Belcorp:
-                </p>
-                <p align="justify">
-                    A trav&eacute;s de la presente queremos informarte que, por pol&iacute;tica interna de la compañ&iacute;a, hemos decidido que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone adquirido en la C-10 y C-11 de 2014, sea retirado del mercado.
-                </p>
-                <p align="justify">
-                    Por eso te solicitamos que nos apoyes recogiendo, a la brevedad posible el producto Xpress Your Body de Cyzone a tus clientes y se  lo  entregues directamente a la  Gerente de tu Zona hasta  1 de Agosto de 2014.
-                </p>
-                <p align="justify">
-                    El reembolso del dinero de las unidades adquiriste, ha sido abonado en t&uacute; cuenta Belcorp a precio de cat&aacute;logo (7.99 USD por unidad)  el d&iacute;a 24 de Julio, para que en el momento del recojo  puedas reembolsar  el valor del producto a tu cliente.
-                </p>
-                <p align="justify">
-                    Todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por la  Gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
-                </p>
-                <p align="justify">
-                    En caso de recibir comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos les indiques que sean  remitidos al <strong>Call Center Belcorp 1800-766672 o  al buz&oacute;n callcenterec@belcorp.biz "</strong>, a fin de que Servicio al Cliente brinde una soluci&oacute;n inmediata
-                </p>
-                <p align="justify">
-                    Queremos agradecerte por el apoyo, comprensi&oacute;n  y compromiso para recoger cuanto antes este  producto  a  tus clientes.
-                </p>
-                <p align="justify">
-                    Atentamente,
-                </p>
-                <p>
-                    Servicio al Cliente<br />
-                    Belcorp-Ecuador
-                </p>
+        </div>*@
+    <!-- FIN POPUP COMUNICADO -->
+    <!-- POPUP COMUNICADO VISUALIZACION -->
+    @*<div id="divComunicadoVisualizacion">
+            <div class="tituloC">
+                &nbsp;
+                <div id="btnCerrarComunicado" class="btnCerrar"></div>
             </div>
-        }
-    </div>*@
-<!-- FIN POPUP COMUNICADO -->
-<!-- POPUP COMUNICADO VISUALIZACION -->
-@*<div id="divComunicadoVisualizacion">
-        <div class="tituloC">
-            &nbsp;
-            <div id="btnCerrarComunicado" class="btnCerrar"></div>
-        </div>
-        <a href="https://www.facebook.com/SomosBelcorpOficial/posts/1084375931585422:0" target="_blank">
-            <img src="~/Content/Images/ComunicadoEC.jpg" />
-        </a>
-        <div>
+            <a href="https://www.facebook.com/SomosBelcorpOficial/posts/1084375931585422:0" target="_blank">
+                <img src="~/Content/Images/ComunicadoEC.jpg" />
+            </a>
             <div>
-                <label class="lblComunicadoV">
-                    <input type="checkbox" id="chkMostrarComunicado" class="chkComunicadoV" />
-                    No volver a mostrar
-                </label>
-            </div>
-        </div>
-    </div>*@
-<!-- FIN POPUP COMUNICADO VISUALIZACION -->
-<!-- POPUP SUEÑOS NAVIDAD -->
-@*<div id="idSueniosNavidad">
-        <img id="imgSuenioNavidad" onclick="MostrarCajaSuenioNavidad()" src="@Url.Content("~/Content/Images/Pop_Up_Navidad_2_01.png")" />
-        <img id="imgSuenioNavidad2" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-02.png")" />
-        <div id="registroSuenioNavidad">
-            <div class="textoSuenio">
-                <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-05.png")" />
-            </div>
-            <div style="text-align: center">
-                <textarea maxlength="500" id="txtSuenioNavidad"></textarea>
-            </div>
-            <div style="float: right">
-                <a href="javascript:void(0)" onclick="AgregarSuenio()">
-                    <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-06.png")" />
-                </a>
-            </div>
-        </div>
-        <a href="javascript:void(0)" onclick="cerrarSueniosNavidad();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
-    </div>
-    <div id="divSuenioConfirmacion">
-        <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
-        <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
-    </div>*@
-<!-- FIN POPUP SUEÑOS NAVIDAD -->
-<!-- POP UP SHOWROOM HTML-->
-@*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
-        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
-        <div class="pestana_pop">
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-        </div>
-        <div class="pestana_preventa">
-            <div class="datos_pop_up">
-                <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
-                <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
-                <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                <div class="titulo_preventa">PRE &middot; VENTA</div>
-                <div class="titulo_digital">DIGITAL</div>
-                <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
-                <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
-                <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
-                <div class="btn_conoce_mas_aqui">
-                    <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
+                <div>
+                    <label class="lblComunicadoV">
+                        <input type="checkbox" id="chkMostrarComunicado" class="chkComunicadoV" />
+                        No volver a mostrar
+                    </label>
                 </div>
             </div>
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-        </div>
-        <div class="content_show_right">
-            <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
-            <div class="slider_pop_up">
-                <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
-                <img src="" alt="" id="imgShowRoomGif"/>
+        </div>*@
+    <!-- FIN POPUP COMUNICADO VISUALIZACION -->
+    <!-- POPUP SUEÑOS NAVIDAD -->
+    @*<div id="idSueniosNavidad">
+            <img id="imgSuenioNavidad" onclick="MostrarCajaSuenioNavidad()" src="@Url.Content("~/Content/Images/Pop_Up_Navidad_2_01.png")" />
+            <img id="imgSuenioNavidad2" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-02.png")" />
+            <div id="registroSuenioNavidad">
+                <div class="textoSuenio">
+                    <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-05.png")" />
+                </div>
+                <div style="text-align: center">
+                    <textarea maxlength="500" id="txtSuenioNavidad"></textarea>
+                </div>
+                <div style="float: right">
+                    <a href="javascript:void(0)" onclick="AgregarSuenio()">
+                        <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-06.png")" />
+                    </a>
+                </div>
             </div>
-            <div class="borde_inferior">
-                <div class="check_01">
+            <a href="javascript:void(0)" onclick="cerrarSueniosNavidad();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
+        </div>
+        <div id="divSuenioConfirmacion">
+            <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
+            <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
+        </div>*@
+    <!-- FIN POPUP SUEÑOS NAVIDAD -->
+    <!-- POP UP SHOWROOM HTML-->
+    @*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
+            <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
+            <div class="pestana_pop">
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+            </div>
+            <div class="pestana_preventa">
+                <div class="datos_pop_up">
+                    <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
+                    <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                    <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
+                    <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                    <div class="titulo_preventa">PRE &middot; VENTA</div>
+                    <div class="titulo_digital">DIGITAL</div>
+                    <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                    <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                    <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                    <div class="btn_conoce_mas_aqui">
+                        <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
+                    </div>
+                </div>
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+            </div>
+            <div class="content_show_right">
+                <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
+                <div class="slider_pop_up">
+                    <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
+                    <img src="" alt="" id="imgShowRoomGif"/>
+                </div>
+                <div class="borde_inferior">
+                    <div class="check_01">
+                        <label class="checkpop">
+                            <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                            No quiero volver a ver &eacute;ste comunicado
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    @*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
+            <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
+            <div class="pestana_pop">
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+            </div>
+            <div class="pestana_preventa2">
+                <div class="datos_pop_up">
+                    <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
+                    <div class="titulo_preventa">PRE &middot; VENTA</div>
+                    <div class="titulo_digital">DIGITAL</div>
+                    <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+                    <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
+                    <div class="set_desde">SETS DESDE <span>$5,990</span></div>
+                    <hr class="clear" />
+                    <div class="btn_hoy">
+                        <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
+                    </div>
+                </div>
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+                <div class="check_hoy">
                     <label class="checkpop">
-                        <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                        <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
                         No quiero volver a ver &eacute;ste comunicado
                     </label>
                 </div>
             </div>
-        </div>
-    </div>*@
-
-@*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
-        <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
-        <div class="pestana_pop">
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-        </div>
-        <div class="pestana_preventa2">
-            <div class="datos_pop_up">
-                <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
-                <div class="titulo_preventa">PRE &middot; VENTA</div>
-                <div class="titulo_digital">DIGITAL</div>
-                <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
-                <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
-                <div class="set_desde">SETS DESDE <span>$5,990</span></div>
-                <hr class="clear" />
-                <div class="btn_hoy">
-                    <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
-                </div>
-            </div>
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-            <div class="check_hoy">
-                <label class="checkpop">
-                    <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
-                    No quiero volver a ver &eacute;ste comunicado
-                </label>
-            </div>
-        </div>
-    </div>*@
-
+        </div>*@
+</div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
@@ -1126,6 +1243,35 @@
     <!-- FIN POPUP MIS DATOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
+
+<!-- VIDEO INTRODUCTORIO HOME -->
+
+<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
+    <div class="popup_video_introductorio" style="display: none;">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                //var tag = document.createElement("script");
+                //tag.src = "https://www.youtube.com/iframe_api";
+                //var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                //    player = new YT.Player("player", {
+                //        width: "100%",
+                //        videoId: "7g6h749J02w",
+                //    });
+                //}
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN VIDEO INTRODUCTORIO HOME    -->
+
 <!-- POPUP TUTORIAL HOME-->
 
 <div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
@@ -1463,14 +1609,67 @@
 
         {{/each}}
     </script>
-
+<script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="">
+        {{#each this as |item|}}
+        <div class="contiene-productos" data-item="catalogopersonalizado">
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            </div>
+            <div class="producto_img_home mini">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;">
+            </div>
+            {{#IsNullOrEmpty item.Sello '!='}}
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            {{/IsNullOrEmpty}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="clear"></div>
+    </div>
+</script>
     @section scripts{
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
-    <script type="text/javascript">
-
-    </script>
         <script type="text/javascript">
             var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
             var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
@@ -1501,11 +1700,12 @@
             var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
             var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
             var contadorFondoPopUp = 0;
-    var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+            var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
             var sessionIsContrato = '@Session["IsContrato"]';
             @{ Session["IsContrato"] = 0; }
             var paisISO = '@ViewBag.CodigoISODL';
             var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+            var primeraVezVideo = true;
 </script>
         @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     }
