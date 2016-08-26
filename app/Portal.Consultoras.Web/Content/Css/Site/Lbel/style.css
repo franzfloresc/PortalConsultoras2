@@ -26200,7 +26200,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .unitario_listado{
-    width:16%;
+    width:14%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26208,7 +26208,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .total_listado{
-    width:16%;
+    width:15%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26216,11 +26216,12 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .cliente_listado{
-    width:19%;
+    width:23%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
     padding-top:23px;
+    padding-left:1%;
     padding-bottom:23px;
 }
 
