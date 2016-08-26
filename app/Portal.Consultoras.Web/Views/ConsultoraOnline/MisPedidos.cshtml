@@ -248,9 +248,44 @@
             $("#modal_rechazar_pedido").fuzemodal({ buttonIdOrClass: '.btnRechaza', speed: 450 });
             $("#modal_cancelar_pedido").fuzemodal({ buttonIdOrClass: '.btnCancela', speed: 450 });
 
+            $("#modal_desactivar_consultora").fuzemodal({ buttonIdOrClass: '#btnDesactivar', speed: 450 });
 
         });
 
+        /**/
+        function desa()
+        {
+            var opc = $('input[name=checkbox]:checked', '#frmDesafiliacion').val();
+            var params = {
+                ConsultoraID:@ViewBag.ConsultoraID,
+                OpcionDesafiliacion: opc
+            };
+            $.ajax({
+                type: "POST",
+                url: baseUrl + "ConsultoraOnline/Desafiliar", 
+                contentType: 'application/json',
+                data: JSON.stringify(params),
+                success: function (data) {
+                    if (checkTimeout(data)) {
+
+                        if (data.success == true) {
+                            $('#modal_desactivar_consultora').fuzemodal('close');
+                            location.href = baseUrl + "ConsultoraOnline/Informacion";
+                        }
+                        else {
+                            alert_msg(data.message);
+                        }
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
+                    }
+                }
+            });        
+        }
+        /**/
 
         /**Logica _ListaPedidos*/
         $('#PedidosPendientes').html('@ViewBag.CantidadPedidos');
