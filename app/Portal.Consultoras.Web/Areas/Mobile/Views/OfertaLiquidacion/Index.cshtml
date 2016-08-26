@@ -19,9 +19,7 @@
 <div class="wrapper_resumen_mobile sin_padding">
 
     <div class="encabezado_liquidacion">
-        <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar">
-            @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
-        </a>
+        <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
         <span>LIQUIDACIÓN WEB</span>
     </div>
 
@@ -42,10 +40,12 @@
         <div style="text-align:center" class="liquidacion_productos2">
             <img style="display:none;" id="loader" src="@Url.Content("~/Content/Images/loading_spinner.gif" )" alt="" width="30" height="31" />
             <div class="clear"></div>
+            <br />
             <div id="boton_vermas" class="ver-mas-vertical" style="display:none;">
                 <span class="text">VER MÁS</span>
                 <span class="icono"></span>
             </div>
+            <br />
         </div>
     </div>
 </div>

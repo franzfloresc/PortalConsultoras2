@@ -27,11 +27,11 @@
         <div class="items_misBeneficios">
             <div class="contenedor_item_img">
                 <img class="item_img" src="{{urlImgBeneficios}}" alt="Alternate Text" />
-                <span class="item_titulo">{{Descripcion}}</span>
+                <span class="item_titulo">{{{Descripcion}}}</span>
             </div>
             <div class="contenedor_item_descripcion">
                 <span>
-                    {{DetalleDesripcion}}
+                    {{{ DetalleDesripcion }}}
                 </span>
                 <a href="{{Url}}" title="Entérate más" target="_blank">ENTÉRATE MÁS</a>
             </div>
@@ -43,6 +43,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';     
         var urlIncentivos = '@Url.Action("Index","Incentivos")';
         var codigoISO_MB = '@ViewBag.CodigoISODL';
+        var anioActual = '@DateTime.Now.Year';
         console.log(codigoISO_MB);
     </script>
 

@@ -1,11 +1,55 @@
 ﻿$(document).ready(function () {
 
+    $('.flexsliderTutorialMobile').flexslider({
+        animation: "slide"
+    });
+
+    $(".contenedor-tutorial-lbel .otromomento").click(function () {
+        $('#tutorialesMobile').hide();
+    });
+
+    $(".contenedor-tutorial-esika .otromomento").click(function () {
+        $('#tutorialesMobile').hide();
+    });
+
     $(".footer-page").css({ "margin-bottom": "54px" });
+
+    mostrarTutorialMobile();
+
+    $(".cerrar").click(function () {
+        UpdateUsuarioTutorialMobile();
+        $('#tutorialesMobile').hide();
+    });
+
+    $("#tutorialFooterMobile").click(function () {
+        $('#tutorialesMobile').show();
+    });
 
     CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
+
 });
+
+function mostrarTutorialMobile() {
+    if (viewBagVioTutorial == "0") {
+        $('#tutorialesMobile').show();
+    }
+};
+
+function UpdateUsuarioTutorialMobile() {
+    $.ajax({
+        type: 'GET',
+        url: urlJSONSetUsuarioTutorial,
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+};
 
 function RedirectPagaEnLineaAnalytics() {
     _gaq.push(['_trackEvent', 'Menu-Lateral', 'Paga-en-linea']);
@@ -418,7 +462,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-}
+};
 
 // CARGAR POPUPS HOME MOBILE
 function CargarPopupsConsultora() {
@@ -506,6 +550,7 @@ function AceptarDemandaAnticipada() {
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
 };
+
 function InsertarDemandaAnticipada(tipo) {
     var params = { tipoConfiguracion: tipo };
     $.ajax({

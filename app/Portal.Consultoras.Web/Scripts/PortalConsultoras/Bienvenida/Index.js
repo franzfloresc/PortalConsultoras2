@@ -1,4 +1,21 @@
 ﻿$(document).ready(function () {
+    $(".abrir_tutorial").click(function () {
+        abrir_popup_tutorial();
+    });
+
+    $(".cerrar_tutorial").click(function () {
+        cerrar_popup_tutorial();
+    });
+
+    function abrir_popup_tutorial(){
+        $('#popup_tutorial_home').fadeIn();
+        $('html').css({ 'overflow-y': 'hidden' });
+    }
+
+    function cerrar_popup_tutorial() {
+        $('#popup_tutorial_home').fadeOut();
+        $('html').css({ 'overflow-y': 'auto' });
+    }
 
     // Evento para visualizar video introductorio al hacer click
 
@@ -138,46 +155,9 @@
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
     CargarPopupsConsultora();
-    
-    $(window).scroll(function () {
-
-        var $this = $(this);
-
-        if ($this.scrollTop() > 870) {
-
-            $(".porcentaje_curso").addClass("mostrarPorcentajes");
-            porcentajesCursos();
-
-        } else {
-
-            $(".porcentaje_curso").removeClass("mostrarPorcentajes");
-
-        }
-
-    });
-
-    // Función para animación y características de carga circular de Cursos Academia
-    function porcentajesCursos() {
-
-        $('.porcentaje_cursosAcademia').easyPieChart({
-            barColor: isEsika == true ? '#e81c36' : '#642f80',
-            trackColor: '#f0f0f0',
-            scaleColor: 'transparent',
-            animate: 1000,
-            size: 55,
-            lineWidth: 3,
-            onStep: function (value) {
-                this.$el.find('span').text(Math.round(value));
-            },
-            onStop: function (value, to) {
-                this.$el.find('span').text(Math.round(to));
-            }
-        });
-
-    }
-    
+    CargarMisCursos();
     CargarBanners();
-    CrearDialogs();
+	
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {
@@ -369,14 +349,7 @@
 
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
-    })
-
-    // SB20-255
-    if (UrlImgMiAcademia != null) {
-        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
-    }
-
-    CargarMisCursos();      // SB20-255
+    });
 });
 
 function agregarProductoAlCarrito(o) {
@@ -393,7 +366,7 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 40,
+        'top': carrito.offset().top - 60,
         'left': carrito.offset().left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
@@ -1769,6 +1742,15 @@ function DownloadAttachContratoActualizarDatos() {
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
 
+    $(window).scroll(function () {
+        if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
+            porcentajesCursos();
+        }
+    });
+
+    if (UrlImgMiAcademia != null) {
+        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
+    }
     $('#divSinTutoriales').hide();
     $('#divTutorialesV').hide();
 
@@ -1805,9 +1787,27 @@ function CargarMisCursos() {
         }
     });
 };
-
 function ArmarDivMisCursos(data) {
     SetHandlebars("#miscursos-template", data, "#divMisCursos");
+};
+function porcentajesCursos() {
+    // Función para animación y características de carga circular de Cursos Academia
+    $(".porcentaje_curso").addClass("mostrarPorcentajes");
+
+    $('.porcentaje_cursosAcademia').easyPieChart({
+        barColor: isEsika == true ? '#e81c36' : '#642f80',
+        trackColor: '#f0f0f0',
+        scaleColor: 'transparent',
+        animate: 1000,
+        size: 55,
+        lineWidth: 3,
+        onStep: function (value) {
+            this.$el.find('span').text(Math.round(value));
+        },
+        onStop: function (value, to) {
+            this.$el.find('span').text(Math.round(to));
+        }
+    });
 };
 
 // Métodos ActualizarDatos

@@ -12,9 +12,7 @@
 
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar">
-                    @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile.svg")" alt="Regresar" />*@
-                </a>
+                <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
@@ -265,17 +263,15 @@
                         {{/iff}}
                         <span id="DescripcionProducto_{{detalle.PedidoDetalleID}}">{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
+                    {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
+                    {{/iff}}
                 </div>
-                <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
-                        <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
-                    </a>
-                </div>
-                <!-- ICONO KIT NUEVAS QUE DESPLIEGA TOOLTIP -->
-                @*<div class="icono_kitNuevas">
-                    <a href="#" title="Ver Info Kit Nuevas">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Eliminar" />
+
+                {{#if detalle.EsKitNueva}}
+                <div class="icono_kitNuevas">
+                    <a href="javascript:;" title="Ver Info Kit Nuevas">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
                     </a>
                     <div class="tooltip_kitNuevas">
                         <span class="icono_notaDemanda" style="display:inline-block;"></span>
@@ -283,8 +279,26 @@
                             Este Kit se agrega automáticamente sólo en tu primer pedido.
                         </span>
                     </div>
+                </div>
+
+                @*<div class="icono_kitNuevas">
+                    <a href="javascript:;">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Kit Nueva" />
+                    </a>
+                </div>
+                <div class="tooltip_kitNuevas">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="texto_tooltipKitNuevas">
+                        Este Kit se agrega automáticamente sólo en tu primer pedido.
+                    </span>
                 </div>*@
-                <!-- FIN KIT NUEVAS QUE DESPLIEGA TOOLTIP -->
+                {{else}}
+                <div class="icono_eliminar_item_pedido">
+                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
+                        <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
+                    </a>
+                </div>
+                {{/if}}
             </div>
             <div style="display: none;">
                 <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
@@ -308,7 +322,17 @@
                             <img src="/Content/Images/Mobile/Esika/menos.png">
                         </span>*@
                         <div class="campo_cantidadProductos">
-                            {{#iff detalle.TipoEstrategiaID '==' 1}}
+                            {{#iff detalle.EsKitNueva '==' true}}
+                            <input type="text"
+                                   class="ValidaNumeral"
+                                   id="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly">
+                            {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="text"
                                    class="ValidaNumeral"
                                    id="Cantidad_{{detalle.PedidoDetalleID}}"
@@ -466,6 +490,7 @@
     var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         
     var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
+    var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
     var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
     var fnEliminarProducto = null;
         

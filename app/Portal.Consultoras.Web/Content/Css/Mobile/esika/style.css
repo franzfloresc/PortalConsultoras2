@@ -6432,7 +6432,6 @@ input[type="checkbox"]:checked + span:after {
 .contenedor-tutorial-lbel{
     display: none;
 }
-
 .contenedor-tutorial-esika {
     display: block;
     position: fixed;
@@ -6537,6 +6536,43 @@ input[type="checkbox"]:checked + span:after {
     vertical-align: middle;
     color: gray;
     font-family: 'Lato';
+}
+
+.icono_cerrar_tutorial{
+    display: inline-block;
+    width: 19px;
+    margin-left: 4px;
+    position: relative;
+    top: -2px;
+}
+
+.icono_cerrar_tutorial img{
+    width:100%;
+    height:auto;
+}
+
+/*MICHAEL*/
+
+@media (min-width: 1024px){
+    .contenedor-tutorial-esika .opciones-tutorial{
+        width: 26% !important;
+        margin: 0 37% !important;
+    }
+
+    .contenedor-tutorial-esika .flex-control-nav{
+        width: 100% !important;
+    }
+
+    .flexsliderTutorialMobile {
+        height: auto !important;
+        width: 26% !important;
+        margin: 0 auto !important;
+        margin-top: 2% !important;
+    }
+
+    .contenedor-tutorial-esika{
+        background-color: black !important;
+    }
 }
 /**/
 .content_BarrMensaje{

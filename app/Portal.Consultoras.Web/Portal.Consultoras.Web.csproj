@@ -1580,6 +1580,7 @@
     <Content Include="Content\Images\Esika\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Esika\tooltip_validar.png" />
     <Content Include="Content\Images\Esika\tutorial.png" />
+    <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\Tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto2.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto3.png" />
@@ -1771,6 +1772,7 @@
     <Content Include="Content\Images\Lbel\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Lbel\tooltip_validar.png" />
     <Content Include="Content\Images\Lbel\tutorial.png" />
+    <Content Include="Content\Images\Lbel\tutorial_lbel.jpg" />
     <Content Include="Content\Images\Lbel\tutorial\tuto1.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto2.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto3.png" />
@@ -2409,7 +2411,6 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
-    <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />

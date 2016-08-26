@@ -517,12 +517,13 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONSetUsuarioVideo()
         {
-            int retorno;
+            int retorno;           
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
+                userData.VioVideoModelo = retorno;
             }
-
+            SetUserData(userData);
             return Json(new
             {
                 result = retorno

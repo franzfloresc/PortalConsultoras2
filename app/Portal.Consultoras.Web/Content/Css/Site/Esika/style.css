@@ -1330,6 +1330,11 @@ header {
   
 }
 
+.liquidacion_imagen img{
+    width:auto;
+    height:100%;
+}
+
 .liquidacion_titulo_item {
     font-family:'lato';
     /*font-weight:300 !important;*/
@@ -1743,10 +1748,10 @@ header {
     position: absolute;
     width: 100%;
     height: 206px;
-    top: 9%;
+    /*top: 9%;*/
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat left bottom;
+    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
     /*background-size:cover;*/
 }
 
@@ -1930,9 +1935,13 @@ header {
 }
 
 .caja_montos div.info_extra_Validado{
-    vertical-align:top;
-    float:none;
-    margin-top:9px;
+    vertical-align: top;
+    position: absolute;
+    float: none;
+    margin-top: 9px;
+    right: 99%;
+    top: 0%;
+    z-index: 50;
 }
 
 .caja_montos .monto_resumenValidado{
@@ -1950,6 +1959,11 @@ header {
 
 .caja_montos_textos{
     margin-right:15px;
+    position:relative;
+}
+
+.caja_montos_textos .pMontoCliente{
+    font-size:16px!important;
 }
 
 .caja_montos_cantidades .monto_ganancia, .caja_montos_cantidades .monto_total, .monto_descuento, .monto_montodescuento{
@@ -1960,6 +1974,13 @@ header {
 
 .caja_montos_cantidades .monto_ganancia{
     color:#e81c36;
+}
+
+.caja_montos_cantidades .monto_con_descuento{
+    color:#e81c36;
+    font-size:22px;
+    font-weight:700;
+    text-align:right;
 }
 
 /*.caja_montos_textos .monto_total{
@@ -2059,6 +2080,7 @@ header {
     /*float:left;
     top:27px;*/
     display:inline-block;
+    vertical-align:middle;
     position:relative;
     transition:opacity 0.3s ease;
     -moz-transition:opacity 0.3s ease;
@@ -2383,7 +2405,7 @@ header {
     font-family:'Lato';
     font-weight:normal;
     color:#1a1a1a;
-    margin-top:38px;
+    margin-top:12px;
 }
 
 .tabla_pedidos table, .tabla_productos_agotados table{
@@ -2404,11 +2426,16 @@ header {
     vertical-align: middle;
 }
 
-.tabla_productos_agotados td{
+.tabla_productos_agotados td, .tabla_productos_agotados th{
     border-bottom: 1px solid #CCC;
     padding-top: 17px;
     padding-bottom: 17px;
     vertical-align: middle;
+}
+
+.tabla_productos_agotados th{
+    padding-bottom:12px;
+    font-weight:900!important;
 }
 
 .tabla_pedidos tr.fila_mensajeProductoAgotado td{
@@ -3762,20 +3789,18 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_productosAgotados{
-    display:block;
-    position:relative;
-    top:50%;
-    left:50%;
-    right:0%;
-    bottom:0%;
-    margin-top:-304px;
-    margin-left:-273.5px;
-    background:#FFF;
-    width:100%;
-    max-width:547px;
-    height:auto;
-    padding-top:56px;
-    box-sizing:border-box;
+    display: block;
+    position: relative;
+    top: 50%;
+    right: 0%;
+    bottom: 0%;
+    margin: -294.5px auto 0 auto;
+    background: #fff;
+    width: 100%;
+    max-width: 547px;
+    height: auto;
+    padding-top: 56px;
+    box-sizing: border-box;
 }
 
 .popup_productosAgotados .contenedor_lista_productosAgotados{
@@ -3786,7 +3811,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .popup_productosAgotados .contenedor_lista_productosAgotados h6{
     display:block;
-    margin:0 0 30px 0;
+    margin:0;
     padding:0;
     font-family:'Lato';
     font-size:20px;
@@ -3795,10 +3820,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     text-align:left;
 }
 
+.popup_productosAgotados .contenedor_lista_productosAgotados h6 b{
+    font-weight:900;
+}
+
 .tabla_productos_agotados{
     font-family:'Lato';
     font-size:14px;
-    margin-top:28px!important;
     overflow-x:hidden;
     overflow-y:auto;
     height: 100%;
@@ -3808,8 +3836,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .tabla_productos_agotados .codigo_productoAgotado, .tabla_productos_agotados .producto_productoAgotado{
-    font-weight:bold;
     text-align:left;
+    font-weight:400;
 }
 
 .tabla_productos_agotados .codigo_productoAgotado{
@@ -5332,6 +5360,40 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .campos_cambiarContrasenia{
     display:none;
 }
+
+/* POPUP TUTORIAL HOME */
+
+#popup_tutorial{
+    overflow:auto;
+}
+
+.popup_tutorial_home {
+    display: block;
+    position: relative;
+    /* top: 50%; */
+    margin: 8px auto 8px auto;
+    width: 100%;
+    max-width: 614px;
+    height: 639px;
+    font-family: 'Lato';
+    z-index: 5;
+    background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;
+}
+
+.popup_tutorial_pedido {
+    display: block;
+    position: relative;
+    /* top: 50%; */
+    margin: 8px auto 8px auto;
+    width: 100%;
+    max-width: 614px;
+    height: 639px;
+    font-family: 'Lato';
+    z-index: 5;
+    background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;
+}
+
+/* FIN POPUP TUTORIAL HOME */
 
 /* POPUP VIDEO INTRODUCTORIO */
 
@@ -11149,9 +11211,9 @@ ol {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-/*.campana:hover .info_cam {
+.campana:hover .info_cam {
     display: block;
-}*/
+}
 
 /*.info_cam h1 {
     font-family: 'lato';
@@ -20954,12 +21016,12 @@ label.checkpop.c_on {
     height:307px;
     background:black;
     margin-bottom:14px;
-    background:url("../../../Images/Esika/home-video.png") no-repeat center center;
+    /*background:url("../../../Images/Esika/home-video.png") no-repeat center center;*/
     -webkit-background-size: cover!important;
     -moz-background-size: cover!important;
     -o-background-size: cover!important;
     background-size: cover!important;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/home-video.png',sizingMethod='scale');
+    /*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/home-video.png',sizingMethod='scale');*/
     -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");
 }
 .item_video_right{
@@ -21494,12 +21556,23 @@ body{
 
 }
 .tutoriales_svg{
-        background: url(../../../Images/Esika/tutorial.png) no-repeat;
-        background-position: 0 4px;
+    background: url(../../../Images/Esika/tutorial.png) no-repeat;
+    background-position: 0 4px;
     /* background-size: 100%; */
     width: 22px;
     height: 25px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
+
+.tutoriales_svg:hover{
+    opacity:0.7;
+}
+
  .EstadoCuenta{
       float:left;
        width:69%;
@@ -26633,8 +26706,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .items_misBeneficios{
     display:inline-block;
+    vertical-align:top;
     width:31.035%;
-    max-height:291.9px;
+    height:297px;
     margin-right:3.175%;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
@@ -26664,12 +26738,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .item_titulo{
     display: block;
     position: absolute;
-    top: 6.5%;
-    left: 4%;
+    top: 9%;
+    left: 5%;
+    width:109px;
     font-family: 'Lato';
-    font-size: 23px;
+    font-size: 15.6px;
     font-weight: 300;
-    line-height:28px;
+    line-height:21px;
 }
 
 .item_titulo b{
@@ -26682,7 +26757,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .contenedor_item_descripcion{
     display: block;
-    margin: 4% auto 7.5% auto;
+    margin: 0 auto;
+    padding: 2% 0 0 0;
     text-align: left;
     width: 89%;
     font-family: 'Lato';
@@ -26695,11 +26771,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display:block;
     margin-bottom:3%;
     line-height:19px;
+    height:55px;
 }
 
 .contenedor_item_descripcion a{
     display:block;
-    width:33%;
+    min-width:33%;
     color:#e81c36;
     text-transform:uppercase;
     font-weight:700;
