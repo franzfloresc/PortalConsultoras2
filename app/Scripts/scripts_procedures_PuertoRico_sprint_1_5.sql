@@ -337,7 +337,7 @@ GO
 
 DELETE FROM MenuMobile WHERE Posicion='Menu'
 
-INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, [Version])
 VALUES
 (1, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile'),
 (2, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile'),
@@ -346,36 +346,139 @@ VALUES
 (5, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile'),
 (6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
 
+(9, 'Seguimiento a tu pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
+(11, 'Pedido FIC', 1, 2, '#', '', 0, 'Menu', 'Mobile'),
+(12, 'Pedidos ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(13, 'Pedidos facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(10, 'Estado de cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
+(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile'),
 (7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
-(8, 'Zona de Liquidación', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
-(9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
-(10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
---(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
-(12, 'Pedidos Ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(13, 'Pedidos Facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(14, 'Mis Clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
-(15, 'Productos Agotados', 1, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile'),
-(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
-
+(14, 'Mis clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
+(8, 'Liquidación web', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(15, 'Productos Agotados', 1, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile')
 GO
 
-DELETE FROM MenuMobile WHERE Posicion='Footer'
+ALTER TABLE MenuMobile
+ALTER COLUMN Descripcion VARCHAR(70) NOT NULL
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (26, 'Ayuda', 0, 3, '', '', 0, 'Footer', 'Completa')
+--SELECT * FROM MenuMobile
+DELETE MenuMobile
+WHERE Posicion = 'Footer'
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (27,'Preguntas Frecuentes', 26, 1, 'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082', '', 0, 'Footer', 'Completa'),
-(28, 'Contáctanos', 26, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 1, 'Footer', 'Mobile'),
-(29, 'Tutorial', 26, 3, '', '', 0, 'Footer', 'Completa')
+--PADRES
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (30, 'Legal', 0, 4, '', '', 0, 'Footer', 'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (100
+						,'Ayuda'
+						,0
+						,3
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (101
+						,'Legal'
+						,0
+						,4
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (31, 'Condiciones de uso Web', 30, 1, 'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf', '', 0, 'Footer', 'Completa'),
-(32, 'Terminos y Condiciones', 30, 2, '', '', 0, 'Footer', 'Completa')
+--HIJOS
 
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (102
+						,'Preguntas Frecuentes'
+						,100
+						,1
+						,'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (103
+						,'Contáctanos'
+						,100
+						,2
+						,'http://belcorprespondeqa.somosbelcorp.com/'
+						,''
+						,1
+						,'Footer'
+						,'Mobile')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (104
+						,'Tutorial'
+						,100
+						,3
+						,''
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (105
+						,'Términos y Condiciones'
+						,101
+						,1
+						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_PR.aspx'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
 GO
 
 if not exists(select 1 from Permiso where Descripcion = 'Carga de Reemplazos Sugeridos')

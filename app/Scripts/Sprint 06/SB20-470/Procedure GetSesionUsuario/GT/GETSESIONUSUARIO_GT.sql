@@ -61,7 +61,7 @@ BEGIN
 		SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))  
 		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)  
+		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)  
 		SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))  
 		SET @IndicadorPermiso = (Select dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
   
@@ -153,7 +153,9 @@ BEGIN
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
 			@FechaLimitePago as FechaLimitePago,
-			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado 
+						ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
+			ISNULL(u.VioVideo, 0) as VioVideo,
+			ISNULL(u.VioTutorial, 0) as VioTutorial
 		FROM [dbo].[Usuario] u with(nolock)  
 		LEFT JOIN (  
 		select *  

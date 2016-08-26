@@ -29,7 +29,7 @@
         }, 50);
     });
 
-    CargarCantidadProductosPedidos();
+    //CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
 
@@ -376,10 +376,9 @@ function AgregarProductoDestacado() {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             ShowLoading();
-                            ActualizarGanancia(data.DataBarra);
+                            ActualizarGanancia(JSON.parse(data).DataBarra);
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
-                            CargarCantidadProductosPedidos();
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             CloseLoading();
                         }

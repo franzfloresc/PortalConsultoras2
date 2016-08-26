@@ -2742,23 +2742,27 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     } else {
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
-            var tipoError = listaObservacionesProl[0].Caso;
+            if (listaObservacionesProl.length == 1) {
+                var tipoError = listaObservacionesProl[0].Caso;
 
-            if (tipoError == 95) {
-                //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
-                var mensajeCUV = listaObservacionesProl[0].CUV;
+                if (tipoError == 95) {
+                    //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                    var mensajeCUV = listaObservacionesProl[0].CUV;
 
-                if (mensajeCUV == "XXXXX") {
-                    var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                    var diferenciaMonto = montoMinimo - monto;
+                    if (mensajeCUV == "XXXXX") {
+                        var montoMinimo = parseFloat($("#hdMontoMinimo").val());
+                        var diferenciaMonto = montoMinimo - monto;
 
-                    var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
+                        var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
-                    if (parametria != null && parametria.length != 0) {
-                        if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
-                            montoFaltante = diferenciaMonto;
-                            precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
-                            resultado = true;
+                        if (parametria != null && parametria.length != 0) {
+                            if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
+                                montoFaltante = diferenciaMonto;
+                                precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
+                                resultado = true;
+                            } else {
+                                resultado = false;
+                            }
                         } else {
                             resultado = false;
                         }
@@ -2768,7 +2772,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 } else {
                     resultado = false;
                 }
-            } else {
+            }
+            else {
                 resultado = false;
             }
         }
