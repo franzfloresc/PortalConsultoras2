@@ -47,8 +47,7 @@ $(document).ready(function () {
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
             'source': listaCorreo,
-            'create': renderItemCliente,
-            'appendTo': $("#tagParent")
+            'create': renderItemCliente
         }
     });
 
