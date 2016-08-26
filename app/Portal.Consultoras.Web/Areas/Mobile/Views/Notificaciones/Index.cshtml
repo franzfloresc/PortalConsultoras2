@@ -13,14 +13,11 @@
     </style>
 }
 <div class="titulo_mobile">
-    <a href="#" class="enlace_regresar catalogosR" title="Regresar">
-        @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
-    </a>
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-       
     @if (Model.ListaNotificaciones.Count == 0)
     {
         <div class="row">

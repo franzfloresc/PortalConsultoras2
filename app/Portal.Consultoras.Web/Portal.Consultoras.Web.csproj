@@ -1548,6 +1548,7 @@
     <Content Include="Content\Images\Esika\expoferta.png" />
     <Content Include="Content\Images\Esika\expofertas.png" />
     <Content Include="Content\Images\Esika\expoferta_c09.png" />
+    <Content Include="Content\Images\Esika\expoferta_c13.png" />
     <Content Include="Content\Images\Esika\facebook.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
@@ -2307,6 +2308,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
@@ -3315,7 +3317,6 @@
     <Content Include="Views\AdministrarTipoEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_ListadoEstrategias.cshtml" />
-    <Content Include="Views\Notificaciones\Index_old.cshtml" />
     <Content Include="Views\Notificaciones\ListadoNotificaciones.cshtml" />
     <Content Include="Views\Notificaciones\ListadoObservaciones.cshtml" />
     <Content Include="Views\Paypal\ProcesoDescarga.cshtml" />
@@ -3571,18 +3572,15 @@
     </Content>
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\Shared\_MainLayout_old.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
-    <Content Include="Views\Pedido\Index_old.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
-    <Content Include="Views\Pedido\ListadoPedido_old.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
@@ -3599,8 +3597,6 @@
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalle.cshtml" />
     <Content Include="Views\ConsultoraFicticia\Index.cshtml" />
     <Content Include="Views\Shared\_SACMenu.cshtml" />
-    <Content Include="Views\Pedido\PedidoValidado_old.cshtml" />
-    <Content Include="Views\Pedido\ObservacionesPROL_old.cshtml" />
     <Content Include="Views\Rol\Rol.cshtml" />
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
@@ -3641,7 +3637,6 @@
     <Content Include="Views\OfertaWeb\AdministrarOfertas.cshtml" />
     <Content Include="Views\OfertaLiquidacion\AdministrarOfertasLiquidacion.cshtml" />
     <Content Include="Views\OfertaWeb\OfertasWeb.cshtml" />
-    <Content Include="Views\OfertaLiquidacion\OfertasLiquidacion_old.cshtml" />
     <Content Include="Views\MatrizComercial\AdministrarMatrizComercial.cshtml" />
     <Content Include="Views\Servicios\AdministrarServicios.cshtml" />
     <Content Include="Views\Servicios\MantenimientoServicios.cshtml" />

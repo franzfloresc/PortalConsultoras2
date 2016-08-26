@@ -12,37 +12,28 @@
         }
     </style>
 }
+
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar">
-        @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
-    </a>
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-
-
-
             <div class="col-xs-12">
                 <ul class="list-notificaciones noti-detalle">
                     <li>
-                        
                         <div class="text-noti">
                             <div class="sub_titulo_noti">
                                 <span>@Model.Asunto</span>
                                 <span>CAMPAÑA @Model.Campania.ToString().Substring(4) @Model.Campania.ToString().Substring(0, 4)</span>
-
                             </div>
                             <span>@Model.FechaFacturacion</span>
                         </div>
                     </li>
                 </ul>
             </div>
-
-
 <br />
-
 
     <div class="col-xs-12 notificaciones_detalle_mobile">
         <p class="consultora_saludo_noti"><b>Hola  @Model.NombreConsultora</b></p>

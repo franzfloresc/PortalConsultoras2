@@ -183,7 +183,8 @@
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                }else if (Model.PaisID == 13)//DOMINICANA
+                }
+                else if (Model.PaisID == 13)//DOMINICANA
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
@@ -202,7 +203,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior"><a href="@Url.Action("Index","Pedido")">Pedido ingresado</a>: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></div>
+            <div class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
             <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
         </div>
         <!-- FIN ITEM 1-->
@@ -259,7 +260,7 @@
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
-               <span class="texto_ws">Compártelo por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>WhatsApp</b></a>
+                <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
             }    
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
