@@ -3,13 +3,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -36,13 +36,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -76,13 +76,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -116,13 +116,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -156,13 +156,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -196,13 +196,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -236,13 +236,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -276,13 +276,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -316,13 +316,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
@@ -356,13 +356,13 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
 	@CodigoConsultora VARCHAR(20),
 	@Campania INT
 AS
