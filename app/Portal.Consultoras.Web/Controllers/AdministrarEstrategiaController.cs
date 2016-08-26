@@ -459,7 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (resultado == 0)
                         {
                             if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                            if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
+                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
                             return Json(new
                             {
                                 success = true,
