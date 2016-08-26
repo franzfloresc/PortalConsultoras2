@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private JsonResult ObtenerProductos(int cantidad)
         {
-            if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp 
+            if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
             {
                 return Json(new
@@ -72,6 +72,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (olstProducto.Count == 0)
                         continue;
 
+                    string descripcion = "", imagenUrl = "";
+                    bool add = false;
+
                     if (userData.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
                         string infoEstrategia;
@@ -103,6 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (add)
                     {
+                        var tiene = listaPedido.Where(p => p.CUV == olstProducto[0].CUV.Trim());
                         listaProductoModel.Add(new ProductoModel()
                         {
                             CUV = olstProducto[0].CUV.Trim(),
@@ -132,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
                             PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                             Simbolo = userData.Simbolo,
                             Sello = producto.Sello,
-                            IsAgregado = false
+                            IsAgregado = tiene.Count() > 0
                         });
 
                     }
@@ -154,10 +158,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     data = ""
                 });
-            }
-        }
-    }
-}
             }
         }
     }
