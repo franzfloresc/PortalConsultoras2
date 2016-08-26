@@ -362,6 +362,8 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
 
                 itemMenu.SubMenus = temp;
+
+                itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
         }
 

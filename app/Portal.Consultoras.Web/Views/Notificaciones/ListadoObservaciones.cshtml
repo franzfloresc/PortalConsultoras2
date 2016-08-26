@@ -1,5 +1,11 @@
 ﻿@model Portal.Consultoras.Web.Models.NotificacionesModel
 
+    @{decimal totalPRol = 0;
+      decimal totalPedido = 0;
+      decimal descuento = 0;
+      bool IndicadorOferta = false;
+      }
+
 @if (Model.Origen != 3)
 {
     <div style='font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #333333; margin: 0; padding: 0; background-color: #F0F0F0;'>
@@ -63,96 +69,122 @@
                                                 </tr>
                                                 <tr>
                                                     <td style='padding: 0px 0px 15px 0px; text-align: center;'>
-                                                    @if (Model.ListaNotificacionesDetallePedido.Count != 0)
-                                                    {                                                            
-                                                        <table style='border: 1px solid #8064A2; width: 100%;' cellspacing='0'>
-                                                            <tr>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cód. Venta</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Descripción</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cantidad</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Unit.</td>
-                                                                <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Total</td>
-                                                            </tr>
-                                                            @foreach (var item in Model.ListaNotificacionesDetallePedido)
-                                                            {                                                           
-                                                                if (string.IsNullOrEmpty(item.ObservacionPROL))
+                                                        @if (Model.ListaNotificacionesDetallePedido.Count != 0)
+                                                        {
+                                                            <table style='border: 1px solid #8064A2; width: 100%;' cellspacing='0'>
+                                                                <tr>
+                                                                    <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cód. Venta</td>
+                                                                    <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Descripción</td>
+                                                                    <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Cantidad</td>
+                                                                    <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Unit.</td>
+                                                                    <td style='font-weight: bold; text-align: center; color: #FFFFFF; background-color: #8064A2;'>Precio Total</td>
+                                                                </tr>
+                                                                @foreach (var item in Model.ListaNotificacionesDetallePedido)
                                                                 {
+                                                                    totalPRol = item.MontoTotalProl;
+                                                                    totalPedido = item.ImporteTotalPedido;
+                                                                                                                                        
+                                                                    if (string.IsNullOrEmpty(item.ObservacionPROL))
+                                                                    {
                                                                     <tr>
                                                                         <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@item.CUV</td>
                                                                         <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2; text-align: left'>@item.Descripcion</td>
                                                                         <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@item.Cantidad</td>
-                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@Model.DecimalToString(item.PrecioUnidad)</td>
-                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@Model.DecimalToString(item.ImporteTotal)
+                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@string.Format("{0:N2}", item.PrecioUnidad)</td>
+                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'>@string.Format("{0:N2}", item.ImporteTotal)
                                                                             @if (item.IndicadorOferta == 1){
+                                                                                IndicadorOferta = true;
+                                                                                <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
                                                                                 <img id="IndicadorOfercarCUVImage" src="@Url.Content("~/Content/Images/indicador.png")" style="vertical-align:middle;" />
                                                                             }
                                                                         </td>
                                                                     </tr>
-                                                                }
-                                                                else
-                                                                {
+                                                                    }
+                                                                    else
+                                                                    {
                                                                     <tr>
                                                                         <td>@item.CUV</td>
                                                                         <td style='text-align: left'>@item.Descripcion</td>
                                                                         <td>@item.Cantidad</td>
-                                                                        <td>@Model.DecimalToString(item.PrecioUnidad)</td>
-                                                                        <td>@Model.DecimalToString(item.ImporteTotal)</td>
+                                                                        <td>@string.Format("{0:N2}", item.PrecioUnidad)</td>
+                                                                        <td>@string.Format("{0:N2}", item.ImporteTotal)</td>
                                                                     </tr>
-                                                                
-                                                                    string[] obser = item.ObservacionPROL.Split('|');
-                                                                    if (obser != null)
-                                                                    {
-                                                                        int total = obser.Length - 1;
-                                                                        int count = 1;
-                                                                        foreach (string ob in obser)
+                                                                        string[] obser = item.ObservacionPROL.Split('|');
+                                                                        if (obser != null)
                                                                         {
-                                                                            if (!string.IsNullOrEmpty(ob))
+                                                                            int total = obser.Length - 1;
+                                                                            int count = 1;
+                                                                            foreach (string ob in obser)
                                                                             {
-                                                                                if (total == count)
+                                                                                if (!string.IsNullOrEmpty(ob))
                                                                                 {
-                                                                                    <tr>
-                                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'></td>
-                                                                                        <td colspan='4' style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2; text-align: left'>@ob</td>
-                                                                                    </tr>
+                                                                                    if (total == count)
+                                                                                    {
+                                                                    <tr>
+                                                                        <td style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2'></td>
+                                                                        <td colspan='4' style='border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8064A2; text-align: left'>@ob</td>
+                                                                    </tr>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td colspan='4' style='text-align: left'>@ob</td>
+                                                                    </tr>
+                                                                                    }
                                                                                 }
-                                                                                else
-                                                                                {
-                                                                                    <tr>
-                                                                                        <td></td>
-                                                                                        <td colspan='4' style='text-align: left'>@ob</td>
-                                                                                    </tr>
-                                                                                }
+                                                                                count++;
                                                                             }
-                                                                            count++;
                                                                         }
                                                                     }
                                                                 }
-                                                            }
-
-                                                            @if (Model.TieneDescuentoCuv)
-                                                            {
                                                                 <tr>
                                                                     <td colspan="3">
-                                                                        <div id="leyendaIndicadorPROLMensaje" class="leyendaIndicadorPROLMensaje">
+                                                                        <div id="leyendaIndicadorPROLMensaje"  class="leyendaIndicadorPROLMensaje">
                                                                             * Descuento para ofertas con mas de un precio
-                                                                        </div>
+                                                                        </div> 
                                                                     </td>
-                                                                    <td><b>SUBTOTAL:</b></td>
-                                                                    <td><b>@Model.DecimalToString(Model.SubTotal)</b></td>
+
+                                                                     @if (IndicadorOferta == true)
+                                                                     {
+                                                                        <td><b>SUBTOTAL:</b></td>
+                                                                        <td><b>@string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))</b></td>                                                                         
+                                                                        // <td><b>@string.Format("{0:N2}", totalPedido)</b></td>
+                                                                     }else{
+                                                                        <td><b>TOTAL:</b></td>
+                                                                        <td><b>@string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))</b></td>                                                                         
+                                                                     }
                                                                 </tr>
                                                                 <tr>
-                                                                    <td colspan="3"></td>
-                                                                    <td><b>DESCUENTO*:</b></td>
-                                                                    <td><b>@Model.DecimalToString(Model.Descuento)</b></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                     @if (IndicadorOferta == true)
+                                                                     {                                                                    
+                                                                        <td><b>DESCUENTO*:</b></td>
+                                                                        <td><b>@string.Format("{0:N2}", totalPRol-Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))</b></td>
+                                                                     }else{
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                     }
                                                                 </tr>
-                                                            }
-                                                            <tr>
-                                                                <td colspan="3"></td>
-                                                                <td><b>TOTAL:</b></td>
-                                                                <td><b>@Model.DecimalToString(Model.Total)</b></td>
-                                                            </tr>
-                                                        </table>
-                                                    }
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                     @if (IndicadorOferta == true)
+                                                                     {                                                                     
+                                                                        <td><b>TOTAL:</b></td>
+                                                                        <td><b>@string.Format("{0:N2}", totalPRol)</b></td>
+                                                                     }
+                                                                     else
+                                                                     {
+                                                                        <td></td>
+                                                                        <td></td>                                                                     
+                                                                     } 
+                                                                </tr>
+                                                            </table>
+                                                        }
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -259,3 +291,11 @@ else
         </table>
     </div>
 }
+        <script>
+            var existeOfertaCUV = $('input[name=ExisteIndicadorOfertaCUV]').val();
+            //R20151127$("#leyendaIndicadorPROLMensaje").hide();
+            $("#leyendaIndicadorPROLMensaje").hide()
+            if (existeOfertaCUV == "true") {
+                $("#leyendaIndicadorPROLMensaje").show();
+            }            
+        </script>

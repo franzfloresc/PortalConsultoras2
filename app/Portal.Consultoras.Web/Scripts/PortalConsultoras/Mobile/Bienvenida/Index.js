@@ -29,34 +29,11 @@
         }, 50);
     });
 
-    CargarCantidadProductosPedidos();
+    //CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
 
 });
-
-function mostrarTutorialMobile() {
-    if (viewBagVioTutorial == "0") {
-        $('#tutorialesMobile').show();
-        setTimeout(function () {
-            $(window).resize();
-        }, 300);
-    }
-};
-
-function UpdateUsuarioTutorialMobile() {
-    $.ajax({
-        type: 'GET',
-        url: urlJSONSetUsuarioTutorial,
-        data: '',
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        },
-        error: function (data) {
-        }
-    });
-};
 
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
@@ -399,10 +376,9 @@ function AgregarProductoDestacado() {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             ShowLoading();
-                            ActualizarGanancia(data.DataBarra);
+                            ActualizarGanancia(JSON.parse(data).DataBarra);
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
-                            CargarCantidadProductosPedidos();
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             CloseLoading();
                         }

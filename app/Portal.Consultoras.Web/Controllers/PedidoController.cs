@@ -2579,12 +2579,8 @@ namespace Portal.Consultoras.Web.Controllers
                     SetUserData(userData);
                 }
             }
-            else
-            {
-                ViewBag.GananciaEstimada = Util.DecimalToStringFormat(0, userData.CodigoISO);
-                ViewBag.PedidoProductoMovil = 0;
-            }
-            //----------------------------------------------------
+
+            #region kitNueva
 
             List<BEKitNueva> KitNueva = new List<BEKitNueva>();
             int EsColaborador = 0;
@@ -3532,7 +3528,7 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-       
+        #endregion
 
         public ServicePROL.TransferirDatos Devolver()
         {

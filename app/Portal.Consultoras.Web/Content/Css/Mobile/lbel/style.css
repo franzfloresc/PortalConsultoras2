@@ -6600,4 +6600,32 @@ input[type="checkbox"]:checked + span:after {
     height:10px;
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 }
-\ No newline at end of file
+
+#new-header .menu-shop .num-menu-shop {
+    transition: color 0.8s linear 0.2s;
+}
+
+.microefecto_color {
+    -webkit-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -moz-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -ms-animation: cambio-color 4000ms linear 0ms 1 normal;
+    animation: cambio-color 4000ms linear 0ms 1 normal;
+}
+
+@keyframes cambio-color {
+    0% {
+        color: black;
+    }
+    30% {
+        color: #613c87;
+    }
+    50% {
+        color: #613c87;
+    }
+    80% {
+        color: black;
+    }
+    100% {
+        color: black;
+    }
+}

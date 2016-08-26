@@ -2742,6 +2742,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
     } else {
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
+            if (listaObservacionesProl.length == 1) {
             var tipoError = listaObservacionesProl[0].Caso;
 
             if (tipoError == 95) {
@@ -2769,6 +2770,10 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     resultado = false;
                 }
             } else {
+                resultado = false;
+            }
+        }
+            else {
                 resultado = false;
             }
         }

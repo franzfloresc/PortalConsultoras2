@@ -84,7 +84,7 @@
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
 
-        <script type="text/javascript">
+    <!-- Menu icon -->
     <div class="menu">
         <div class="content_close">
             <div class="icon-close">
@@ -446,7 +446,7 @@
                 $(this).parent(".alert-top").slideUp();
             });
 
-            CargarCantidadProductosPedidos();
+            CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
             //CargarCantidadPedidosConsultoraOnline();
 
@@ -886,7 +886,9 @@
             }
         }
 
-        function CargarCantidadProductosPedidos() {
+        function CargarCantidadProductosPedidos(noMostrarEfecto) {
+            noMostrarEfecto = noMostrarEfecto || false;
+
             jQuery.ajax({
                 type: 'POST',
                 url: urlGetCantidadProductos,
@@ -909,6 +911,10 @@
 
                         $(".num-menu-shop").html(data.cantidadProductos);
                         $(".js-span-pedidoingresado").html(montoWebAcumulado);
+                        if (!noMostrarEfecto) {
+                            $('.num-menu-shop').removeClass('microefecto_color');
+                            setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
+                        }
                         
                         data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {

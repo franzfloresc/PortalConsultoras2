@@ -486,10 +486,25 @@ function ActualizarGanancia(data) {
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
-    $("[data-cantidadproducto]").html(data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.CantidadProductos);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
+
+    setTimeout(function () {
+        $('.num-menu-shop').addClass('microefecto_color');
+        $('[data-cantidadproducto]').parent().addClass('microefecto_color');
+        $('[data-pedidocondescuento]').parent().addClass('microefecto_color');
+        $('#lblProductosResumen').addClass('microefecto_color');
+        $('#lblTotalResumen').addClass('microefecto_color');
+        setTimeout(function () {
+            $('.num-menu-shop').removeClass('microefecto_color');
+            $('[data-cantidadproducto]').parent().removeClass('microefecto_color');
+            $('[data-pedidocondescuento]').parent().removeClass('microefecto_color');
+            $('#lblProductosResumen').removeClass('microefecto_color');
+            $('#lblTotalResumen').removeClass('microefecto_color');
+        }, 5000);
+    }, 500);
 }
 
 FuncionesGenerales = {
