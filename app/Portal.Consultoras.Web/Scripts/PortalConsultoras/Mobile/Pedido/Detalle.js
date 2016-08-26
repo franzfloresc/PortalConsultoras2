@@ -778,7 +778,7 @@ function EjecutarPROL() {
         }
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('<h3 class="text-primary">No existen productos en su Pedido.</h3>');
+        messageInfoMalo('<h3>No existen productos en su Pedido.</h3>');
     }
 }
 
@@ -820,12 +820,12 @@ function EjecutarServicioPROL() {
             if (model.ZonaValida == true) {
                 if (model.ObservacionInformativa == false) {
                     if (model.ProlSinStock == true) {
-                        messageInfoBueno('<h3 class="text-primary">Tu pedido se guardó con éxito</h3>');
+                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                         return true;
                     }
 
-                    messageInfoBueno('<h3 class="text-primary">Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
                     window.setTimeout(function () {
                             location.href = urlPedidoValidado;
                         }, 2000);                    
@@ -842,14 +842,14 @@ function EjecutarServicioPROL() {
 
             var msg = ""
             if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
                 msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
                 msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
             } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
                 msg += '<p>' + mensajeGuardarCO + '</p>';
             } else {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
             }
             messageInfoBueno(msg);
             CargarPedido();
@@ -862,7 +862,7 @@ function EjecutarServicioPROL() {
                 if (data.mensaje != undefined || data.mensaje != null) {
                     mensaje_ = data.mensaje;
                 }
-                messageInfoMalo('<h3 class="text-primary">' + mensaje_ + '</h3>')
+                messageInfoMalo('<h3>' + mensaje_ + '</h3>')
                 console.error(data);
             }
         }
@@ -962,7 +962,7 @@ function AceptarObsInformativas() {
                 if (data.success == true) {
                     if ($('#hdfPROLSinStock').val() == 1) {
                         $('#popup-observaciones-prol').hide();
-                        messageInfoBueno('<h3 class="text-primary">Tu pedido se guardó con éxito</h3>');
+                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                     } else
                         location.href = urlPedidoValidado;
