@@ -225,27 +225,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MontoKitNueva = Util.DecimalToStringFormat(montoKitNueva, model.CodigoISO);
             ViewBag.EsKitNueva = esKitNueva;
 
+            decimal montoLogro = 0;
+            string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+            if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo) montoLogro = model.Total;
+            else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala) montoLogro = userData.MontoMinimo;
+            else montoLogro = bePedidoWebByCampania.MontoEscala;
+
             BEFactorGanancia oBEFactorGanancia = null;
             using (var sv = new SACServiceClient())
             {
-                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(model.Total, userData.PaisID);
+                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(montoLogro, userData.PaisID);
             }
             if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
                 model.MostrarEscalaDescuento = true;
                 model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
-
-                string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
-                if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo)
-                {
-                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
-                }
-                else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala)
-                {
-                    model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - userData.MontoMinimo;
-                }
-                else model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - bePedidoWebByCampania.MontoEscala;
-
+                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - montoLogro;
                 model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
             }
 
