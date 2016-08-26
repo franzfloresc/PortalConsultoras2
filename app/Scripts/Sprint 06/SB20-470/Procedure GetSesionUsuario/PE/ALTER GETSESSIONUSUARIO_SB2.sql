@@ -64,7 +64,7 @@ BEGIN
 			SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))    
 			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
 			SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-			SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)    
+			SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)    
 			select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
     
 		SELECT     
