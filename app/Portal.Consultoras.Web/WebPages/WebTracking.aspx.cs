@@ -322,7 +322,7 @@ namespace Portal.Consultoras.Web.WebPages
                 pnlSeguimientoPostVenta.Visible = false;
 
                 /* PCABRERA GR-1883 - INICIO */
-                pnlSinTracking.Visible = false;
+                pnlSinTracking .Visible = false;
                 /* PCABRERA GR-1883 - FIN */
 
                 IList<BETracking> tracking = new List<BETracking>();

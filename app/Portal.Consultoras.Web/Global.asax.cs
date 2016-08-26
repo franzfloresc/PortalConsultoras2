@@ -12,6 +12,7 @@ using System.Web.Routing;
 using Portal.Consultoras.Web.Controllers;
 using System.Configuration;
 using Portal.Consultoras.Web.Models.AutoMapper;
+
 //using System.IdentityModel;
 //using System.IdentityModel.Services;
 //using System.IdentityModel.Services.Configuration;
@@ -220,6 +221,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Pedido", "FindByCUV");
             providerSession.Add("Pedido", "Update");
             providerSession.Add("Pedido", "RegistrarCliente");
+            providerSession.Add("Pedido", "Select");
             providerSession.Add("Pedido", "PedidoReservado");
             providerSession.Add("Pedido", "PedidoReservadoExportarPdf");
             providerSession.Add("Pedido", "PedidoReservadoEnviarCorreo");
@@ -380,10 +382,10 @@ namespace Portal.Consultoras.Web
 
             /*ShowRoom*/
             providerSession.Add("ShowRoom", "AdministrarShowRoom");
-
+            
             FilterProviders.Providers.Add(providerSession);
-
             AutoMapperConfiguration.Configure();
+
         }
 
 

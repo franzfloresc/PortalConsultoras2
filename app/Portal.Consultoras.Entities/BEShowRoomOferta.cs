@@ -39,7 +39,6 @@ namespace Portal.Consultoras.Entities
         public string Descripcion { get; set; }
 
         [DataMember]
-        [ViewProperty]
         public decimal PrecioOferta { get; set; }        
 
         [DataMember]
@@ -72,31 +71,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [ViewProperty]
-        public string CategoriaID { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string DescripcionProducto1 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string DescripcionProducto2 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string DescripcionProducto3 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string ImagenProducto1 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string ImagenProducto2 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
-        public string ImagenProducto3 { get; set; }
+        public string CategoriaID { get; set; }     
 
         [DataMember]
         [ViewProperty]
@@ -114,6 +89,9 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public DateTime FechaModificacion { get; set; }
 
+        [DataMember]
+        [ViewProperty]
+        public string ImagenMini { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -176,19 +154,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DescripcionLegal") && row["DescripcionLegal"] != DBNull.Value)
                 DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
             if (DataRecord.HasColumn(row, "CategoriaID") && row["CategoriaID"] != DBNull.Value)
-                CategoriaID = Convert.ToString(row["CategoriaID"]);
-            if (DataRecord.HasColumn(row, "DescripcionProducto1") && row["DescripcionProducto1"] != DBNull.Value)
-                DescripcionProducto1 = Convert.ToString(row["DescripcionProducto1"]);
-            if (DataRecord.HasColumn(row, "DescripcionProducto2") && row["DescripcionProducto2"] != DBNull.Value)
-                DescripcionProducto2 = Convert.ToString(row["DescripcionProducto2"]);
-            if (DataRecord.HasColumn(row, "DescripcionProducto3") && row["DescripcionProducto3"] != DBNull.Value)
-                DescripcionProducto3 = Convert.ToString(row["DescripcionProducto3"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto1") && row["ImagenProducto1"] != DBNull.Value)
-                ImagenProducto1 = Convert.ToString(row["ImagenProducto1"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto2") && row["ImagenProducto2"] != DBNull.Value)
-                ImagenProducto2 = Convert.ToString(row["ImagenProducto2"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto3") && row["ImagenProducto3"] != DBNull.Value)
-                ImagenProducto3 = Convert.ToString(row["ImagenProducto3"]);
+                CategoriaID = Convert.ToString(row["CategoriaID"]);            
             if (DataRecord.HasColumn(row, "UsuarioRegistro") && row["UsuarioRegistro"] != DBNull.Value)
                 UsuarioRegistro = Convert.ToString(row["UsuarioRegistro"]);
             if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
@@ -197,6 +163,8 @@ namespace Portal.Consultoras.Entities
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+            if (DataRecord.HasColumn(row, "ImagenMini") && row["ImagenMini"] != DBNull.Value)
+                ImagenMini = Convert.ToString(row["ImagenMini"]);
 
             if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
                 NroOrden = Convert.ToInt32(row["NroOrden"]);

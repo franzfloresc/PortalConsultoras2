@@ -19,12 +19,11 @@
             background: #FFF !important;
         }
     </style>
-<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 }
 
-<!--MICHAEL-->
-<div id="tutorialesMobile" style="display: none">
+<div id="tutorialesMobile" style="display:none;">
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
@@ -64,6 +63,7 @@
         </div>
     </div>
 </div>
+
 
 
 
@@ -477,7 +477,7 @@
     {{/each}}
 </script>
 @section scripts{
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
     var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
@@ -488,7 +488,7 @@
     var ViewBagRutaChile = '@Model.RutaChile';
     var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
     var viewBagPaisID = '@Model.PaisID';
-    var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+        var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
     var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     var contadorFondoPopUp = 0;
     var viewBagVioTutorial = '@Model.VioTutorial';

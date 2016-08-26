@@ -6,7 +6,7 @@
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage">
@@ -45,41 +45,23 @@
   <wsdl:message name="IBelcorpPaisService_ObtenerParametroUnetePorTipo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerParametroUnetePorTipoResponse" />
   </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_AgregarSolicitudPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulante" />
+  <wsdl:message name="IBelcorpPaisService_ObtenerParametroUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroUnete" />
   </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_AgregarSolicitudPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulanteResponse" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_AgregarSolicitudPostulanteList_InputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulanteList" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_AgregarSolicitudPostulanteList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulanteListResponse" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ActualizarSolicitudPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulante" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ActualizarSolicitudPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteResponse" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ObtenerSolicitudPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulante" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ObtenerSolicitudPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteResponse" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ObtenerSolicitudPostulantePorId_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulantePorId" />
-  </wsdl:message>
-  <wsdl:message name="IBelcorpPaisService_ObtenerSolicitudPostulantePorId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulantePorIdResponse" />
+  <wsdl:message name="IBelcorpPaisService_ObtenerParametroUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametroUneteResponse" />
   </wsdl:message>
   <wsdl:message name="IBelcorpPaisService_ObtenerConsultoraPorCodigo_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerConsultoraPorCodigo" />
   </wsdl:message>
   <wsdl:message name="IBelcorpPaisService_ObtenerConsultoraPorCodigo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerConsultoraPorCodigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerConsultoraPorDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConsultoraPorDocumento" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerConsultoraPorDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConsultoraPorDocumentoResponse" />
   </wsdl:message>
   <wsdl:message name="IBelcorpPaisService_ObtenerTelefonosDeBelcorpResponde_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerTelefonosDeBelcorpResponde" />
@@ -92,6 +74,24 @@
   </wsdl:message>
   <wsdl:message name="IBelcorpPaisService_ObtenerTiposBloqueo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerTiposBloqueoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ActualizarParametroUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarParametroUnete" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ActualizarParametroUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarParametroUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ActualizarValidacionesUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarValidacionesUnete" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ActualizarValidacionesUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarValidacionesUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerParametrosUnetePorNombre_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUnetePorNombre" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerParametrosUnetePorNombre_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUnetePorNombreResponse" />
   </wsdl:message>
   <wsdl:portType name="IBelcorpPaisService">
     <wsdl:operation name="ObtenerIdCampaniaActiva">
@@ -118,29 +118,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametroUnetePorTipo" message="tns:IBelcorpPaisService_ObtenerParametroUnetePorTipo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametroUnetePorTipoResponse" message="tns:IBelcorpPaisService_ObtenerParametroUnetePorTipo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="AgregarSolicitudPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulante" message="tns:IBelcorpPaisService_AgregarSolicitudPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulanteResponse" message="tns:IBelcorpPaisService_AgregarSolicitudPostulante_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="AgregarSolicitudPostulanteList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulanteList" message="tns:IBelcorpPaisService_AgregarSolicitudPostulanteList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulanteListResponse" message="tns:IBelcorpPaisService_AgregarSolicitudPostulanteList_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarSolicitudPostulante" message="tns:IBelcorpPaisService_ActualizarSolicitudPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarSolicitudPostulanteResponse" message="tns:IBelcorpPaisService_ActualizarSolicitudPostulante_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulante" message="tns:IBelcorpPaisService_ObtenerSolicitudPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulanteResponse" message="tns:IBelcorpPaisService_ObtenerSolicitudPostulante_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulantePorId">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulantePorId" message="tns:IBelcorpPaisService_ObtenerSolicitudPostulantePorId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulantePorIdResponse" message="tns:IBelcorpPaisService_ObtenerSolicitudPostulantePorId_OutputMessage" />
+    <wsdl:operation name="ObtenerParametroUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametroUnete" message="tns:IBelcorpPaisService_ObtenerParametroUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametroUneteResponse" message="tns:IBelcorpPaisService_ObtenerParametroUnete_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerConsultoraPorCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorCodigo" message="tns:IBelcorpPaisService_ObtenerConsultoraPorCodigo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorCodigoResponse" message="tns:IBelcorpPaisService_ObtenerConsultoraPorCodigo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConsultoraPorDocumento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorDocumento" message="tns:IBelcorpPaisService_ObtenerConsultoraPorDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorDocumentoResponse" message="tns:IBelcorpPaisService_ObtenerConsultoraPorDocumento_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerTelefonosDeBelcorpResponde">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerTelefonosDeBelcorpResponde" message="tns:IBelcorpPaisService_ObtenerTelefonosDeBelcorpResponde_InputMessage" />
@@ -149,6 +137,18 @@
     <wsdl:operation name="ObtenerTiposBloqueo">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerTiposBloqueo" message="tns:IBelcorpPaisService_ObtenerTiposBloqueo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerTiposBloqueoResponse" message="tns:IBelcorpPaisService_ObtenerTiposBloqueo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarParametroUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarParametroUnete" message="tns:IBelcorpPaisService_ActualizarParametroUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarParametroUneteResponse" message="tns:IBelcorpPaisService_ActualizarParametroUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarValidacionesUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarValidacionesUnete" message="tns:IBelcorpPaisService_ActualizarValidacionesUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ActualizarValidacionesUneteResponse" message="tns:IBelcorpPaisService_ActualizarValidacionesUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUnetePorNombre">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombre" message="tns:IBelcorpPaisService_ObtenerParametrosUnetePorNombre_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombreResponse" message="tns:IBelcorpPaisService_ObtenerParametrosUnetePorNombre_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBelcorpPaisService" type="tns:IBelcorpPaisService">
@@ -207,44 +207,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AgregarSolicitudPostulante">
-      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarSolicitudPostulanteList">
-      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/AgregarSolicitudPostulanteList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulante">
-      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ActualizarSolicitudPostulante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulante">
-      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulantePorId">
-      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerSolicitudPostulantePorId" style="document" />
+    <wsdl:operation name="ObtenerParametroUnete">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerParametroUnete" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -254,6 +218,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerConsultoraPorCodigo">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConsultoraPorDocumento">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerConsultoraPorDocumento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -272,6 +245,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerTiposBloqueo">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerTiposBloqueo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarParametroUnete">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ActualizarParametroUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarValidacionesUnete">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ActualizarValidacionesUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUnetePorNombre">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombre" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

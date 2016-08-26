@@ -10,6 +10,7 @@
   <xs:element name="PaisBE" nillable="true" type="tns:PaisBE" />
   <xs:complexType name="ParametroUneteBE">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdParametroUnete" type="xs:int" />
       <xs:element minOccurs="0" name="IdParametroUnetePadre" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
@@ -37,6 +38,7 @@
   <xs:element name="ConsultoraBE" nillable="true" type="tns:ConsultoraBE" />
   <xs:complexType name="BelcorpRespondeBE">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono2" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -48,4 +50,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TipoBloqueoBE" nillable="true" type="tns:TipoBloqueoBE" />
+  <xs:complexType name="GestionValidacionesParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ListaZonasTelefonicasActivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+      <xs:element minOccurs="0" name="ListaZonasTelefonicasInactivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+      <xs:element minOccurs="0" name="ParametroCorreo" nillable="true" type="tns:ParametroUneteBE" />
+      <xs:element minOccurs="0" name="ParametroTelefono" nillable="true" type="tns:ParametroUneteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GestionValidacionesParameter" nillable="true" type="tns:GestionValidacionesParameter" />
+  <xs:complexType name="ArrayOfParametroUneteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParametroUneteBE" nillable="true" type="tns:ParametroUneteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParametroUneteBE" nillable="true" type="tns:ArrayOfParametroUneteBE" />
 </xs:schema>

@@ -58,6 +58,26 @@ function UpdateUsuarioTutorialMobile() {
     });
 };
 
+function mostrarTutorialMobile() {
+    if (viewBagVioTutorial == "0") {
+        $('#tutorialesMobile').show();
+    }
+};
+
+function UpdateUsuarioTutorialMobile() {
+    $.ajax({
+        type: 'GET',
+        url: urlJSONSetUsuarioTutorial,
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+};
+
 function RedirectPagaEnLineaAnalytics() {
     _gaq.push(['_trackEvent', 'Menu-Lateral', 'Paga-en-linea']);
     dataLayer.push({

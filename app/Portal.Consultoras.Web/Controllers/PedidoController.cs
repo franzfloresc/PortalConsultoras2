@@ -1915,7 +1915,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }  
 
         public List<BEPedidoWebDetalle> ObtenerPedidoWebServer()
         {
@@ -1930,7 +1930,7 @@ namespace Portal.Consultoras.Web.Controllers
             return olstPedidoWebDetalle;
         }
 
-        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle, 
+        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle,
             out bool Restrictivas, out bool Informativas, out bool Error, out bool Reserva,
             out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, 
             out decimal montoEscala, out string codigoMensaje)
@@ -2316,7 +2316,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bePedidoWeb.PaisID = userData.PaisID;
                     bePedidoWeb.CampaniaID = userData.CampaniaID;
                     bePedidoWeb.ConsultoraID = userData.ConsultoraID;
-                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;                    
                     bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
                     bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
                     bePedidoWeb.DescuentoProl = montoDescuento;

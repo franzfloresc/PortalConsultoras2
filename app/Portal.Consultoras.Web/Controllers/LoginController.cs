@@ -15,6 +15,7 @@ using System.Web.Security;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -22,13 +23,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            return Login();
+            //return Login();
 
-            //var LoginModel = new LoginModel()
-            //{
-            //    listaPaises = DropDowListPaises()
-            //};
-            //return View(LoginModel);
+            var LoginModel = new LoginModel()
+            {
+                listaPaises = DropDowListPaises()
+            };
+            return View(LoginModel);
         }
 
         private ActionResult Login()
@@ -183,12 +184,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            return CerrarSesion();
+            //return CerrarSesion();
 
-            //Session["UserData"] = null;
-            //Session.Clear();
-            //Session.Abandon();
-            //return RedirectToAction("Index", "Login");
+            Session["UserData"] = null;
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -541,6 +542,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                IP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(IP)[0].ToString();
             }
             catch { }
             return IP;

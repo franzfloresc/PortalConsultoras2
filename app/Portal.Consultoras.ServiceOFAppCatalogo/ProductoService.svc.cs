@@ -240,11 +240,9 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             auth.ClientSecret = clientSecret;
 
             auth.AuthorizationPath = urlAuthorizationPath;
-
             const string formatoTokenPath = "{0}/token?client_id={1}&client_secret={2}&grant_type={3}";
             //string formatoTokenPath = "/authorizationserver/oauth/token?client_id=ws_pe_lbel&client_secret=peru1234&grant_type=client_credentials";
             string tokenPath = string.Format(formatoTokenPath, urlAuthorizationPath, clientId, clientSecret, grantType);
-
             auth.TokenPath = tokenPath;            
 
             var productos = auth.GetResultFromWebService(urlService);
@@ -258,7 +256,6 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             listaProductoPcm.products[3].code = "210077627";
 
             foreach (var item in listaProductoPcm.products)
-            {
                 var productoMostrar = new Producto();
 
                 productoMostrar.CodigoSap = item.code;
@@ -286,7 +283,6 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                         lista.Add(productoMostrar);   
                     }                    
                 }                
-            }
 
             #endregion
 

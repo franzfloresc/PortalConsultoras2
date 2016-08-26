@@ -1243,6 +1243,20 @@
     <!-- FIN POPUP MIS DATOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
+<!-- POPUP TUTORIAL -->
+
+<div class="contenedor_fondo_popup" id="popup_tutorial" style="display: none;">
+    <div class="popup_tutorial_home">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP TUTORIAL -->
 
 <!-- VIDEO INTRODUCTORIO HOME -->
 
@@ -1396,7 +1410,7 @@
                 <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
                 <div class="producto_img_home mini">
-                    <img src="{{ImagenProducto}}" class="imagen_producto" />
+                <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>

@@ -1952,6 +1952,24 @@ header {
     display:block;
 }
 
+.caja_montos div.info_extra_Validado{
+    vertical-align: top;
+    position: absolute;
+    float: none;
+    margin-top: 9px;
+    right: 99%;
+    top: 0%;
+    z-index: 50;
+}
+
+.caja_montos .monto_resumenValidado{
+    display:none;
+}
+
+.caja_montos div.info_extra_Validado:hover .monto_resumenValidado{
+    display:block;
+}
+
 .caja_montos div{
     display:inline-block;
     /*vertical-align:middle;*/
@@ -20732,11 +20750,11 @@ label.checkpop.c_on {
     right: 0px;
 }
 
-.producto_img_home{
-    height:166px;
+.producto_img_home {
+    height: 166px;
    
-    text-align:center;
-    margin-top:20px;
+    text-align: center;
+    margin-top: 20px;
    
     /*background:#ccc;*/
 }

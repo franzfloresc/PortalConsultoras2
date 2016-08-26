@@ -600,9 +600,6 @@ function ObtenerUrlRevista(campania) {
 function SetGoogleAnalytics() {
     campania = $("#spNroCampania").text();
     if (campania == $("#hdrCampaniaActual").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + $("#hdrCampaniaActual").val(), 'Vista']);
-
-        /*RQ 2505*/
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Revista',
@@ -612,14 +609,12 @@ function SetGoogleAnalytics() {
 
     }
     if (campania == $("#hdrCampaniaAnterior").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + $("#hdrCampaniaAnterior").val(), 'Vista']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Revista/Anterior-C' + $("#hdrCampaniaActual").val() + '/Vista'
         });
     }
     if (campania == $("#hdrCampaniaSiguiente").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + $("#hdrCampaniaSiguiente").val(), 'Vista']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Revista/Proxima-C' + $("#hdrCampaniaActual").val() + '/Vista'

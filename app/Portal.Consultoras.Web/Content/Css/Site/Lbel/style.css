@@ -166,6 +166,10 @@ header {
     cursor:pointer;
 }
 
+.cart_compras{
+    cursor:pointer;
+}
+
 .mensaje_svg {
     background: url(../../../Images/Esika/mensajes.png) no-repeat;
     background-position: 0 4px;
@@ -1902,6 +1906,24 @@ header {
     margin-top: 27px; */
     margin-bottom:0px;
     vertical-align: top;
+}
+
+.caja_montos div.info_extra_Validado{
+    vertical-align: top;
+    position: absolute;
+    float: none;
+    margin-top: 9px;
+    right: 99%;
+    top: 0%;
+    z-index: 50;
+}
+
+.caja_montos .monto_resumenValidado{
+    display:none;
+}
+
+.caja_montos div.info_extra_Validado:hover .monto_resumenValidado{
+    display:block;
 }
 
 .caja_montos div.info_extra_Validado{

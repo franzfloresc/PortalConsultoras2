@@ -13,7 +13,7 @@
     </style>
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar">
+    <a href="#" class="enlace_regresar catalogosR" title="Regresar">
         @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
@@ -22,8 +22,8 @@
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
 
-   
-        
+
+
             <div class="col-xs-12">
                 <ul class="list-notificaciones noti-detalle">
                     <li>
@@ -38,7 +38,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>       
+            </div>
 
 
 <br />
@@ -69,64 +69,44 @@
         }
         <span id="sMensajeFacturacion"></span>
         <h3 class="title-line">Detalle</h3>
-        @foreach (var item in Model.ListaNotificacionesDetallePedido)
-        {
-            <div class="detalle_notificaciones">
-                <div class="left_reservado" style="width:235px;">
-                    <div class="datos_Reservado">
-                        <span> @item.CUV </span>
-                        <span>@item.Descripcion</span>
-                    </div>
-                </div>
-                <div class="right_reservado">
-                    <div class="texto_reservado">CANT</div>
-                    <div class="datos_Reservado"><b>@item.Cantidad</b></div>
-                </div>
-                <hr class="clear" /><br />
-                <div class="left_reservado">
-                    <div class="texto_reservado">
-                        <span>Precio Unitario</span>
-                    </div>
-                    <div class="importe_reservado">SUBTOTAL</div>
-                </div>
-                <div class="right_reservado">
-                    <div class="texto_reservado">
-                        <span>@ViewBag.Simbolo @string.Format("{0:N2}", item.PrecioUnidad)</span>
-                    </div>
-                    <div class="importe_reservado">@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</div>
-                </div>
-                @*@if (!string.IsNullOrEmpty(item.ObservacionPROL))
-                    {
-                        <div>
-                            @{string[] obser = item.ObservacionPROL.Split('|');}
-                            @if (obser != null)
-                            {
-                                foreach (string ob in obser)
-                                {
-                                    if (!string.IsNullOrEmpty(ob))
-                                    {
-                                        <span>@ob</span>
-                                    }
-                                }
-                            }
+        <div class="detalle_notificaciones">
+            <div class="left_reservado" style="width:235px;">
+                <div class="datos_Reservado">
+                    <span> 00411 </span>
+                    <span>CY BERRYLICIOUS  SHAMPOO ROJO 375 ML</span>
+                                </div>
+                                </div>
+            <div class="right_reservado">
+                <div class="texto_reservado">CANT</div>
+                <div class="datos_Reservado"><b>1</b></div>
+                            </div>
+            <hr class="clear" /><br />
+            <div class="left_reservado">
+                <div class="texto_reservado">
+                    <span>Precio Unitario</span>
+                            </div>
+                <div class="importe_reservado">SUBTOTAL</div>
                         </div>
-                    }*@
-            </div>
-        }
-
+            <div class="right_reservado">
+                <div class="texto_reservado">
+                    <span>S/. 14.90</span>
+                            </div>
+                <div class="importe_reservado">S/. 14.90</div>
+                                </div>
+                            </div>
         <hr class="clear" />
         <div class="left_reservado">
             <div class="importe_final">                
                 <b>MONTO TOTAL</b>
-            </div>
-            
+        </div>
+
         </div>
         <div class="right_reservado">
-            <div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @string.Format("{0:N2}", Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal))</b></div>            
+            <div class="importe_final" style="font-size:15px"><b>S/.  313.000.00</b></div>            
         </div>
         <hr class="clear" />
         <p class="firma_notificaciones">
-            
+
                 Gracias,
                 <br />
                 Equipo de Belcorp.
@@ -197,6 +177,7 @@
                 var Mes = Meses[MesFact];
                 Result = "el día " + DiaFact + " de " + Mes;
             }
+
             return Result;
         }
     </script>

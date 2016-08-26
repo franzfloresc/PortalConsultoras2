@@ -43,11 +43,23 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        public void InsertComunicadoByConsultoraVisualizacion(string CodigoConsultora)
+        public void InsertarComunicadoVisualizado(string CodigoConsultora, int ComunicadoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertComunicadoByConsultoraVisualizacion");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ComunicadoId", DbType.Int32, ComunicadoID);
             Context.ExecuteNonQuery(command);
+        }
+
+        public void InsertarDonacionConsultora(string CodigoIso, string CodigoConsultora, string Campania, string IPUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarDonacionConsultora");
+            Context.Database.AddInParameter(command, "@CodigoISO", DbType.AnsiString, CodigoIso);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.AnsiString, Campania);
+            Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, IPUsuario);
+            Context.ExecuteNonQuery(command);
+
         }
 
     }

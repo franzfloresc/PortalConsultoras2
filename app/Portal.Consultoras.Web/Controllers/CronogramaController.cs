@@ -850,29 +850,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool validar = false;
             string mensajeFechaDA = null; 
-            if (userData.EsquemaDAConsultora == true){ //SI EXISTE EL ESQUEMA EN PAIS
+            if (UserData().EsquemaDAConsultora == true){ //SI EXISTE EL ESQUEMA EN PAIS
 
-                if (userData.EsZonaDemAnti == 1)
+                if (UserData().EsZonaDemAnti == 1)
                 {
+
                     int consultoraDA = 0;
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                        configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
-                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
-                        configuracionConsultoraDA.ZonaID = userData.ZonaID;
 
-                        consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
+                        BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
+                        configuracionConsultoraDA.CampaniaID = Convert.ToString(UserData().CampaniaID);
+                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(UserData().ConsultoraID);
+                        configuracionConsultoraDA.ZonaID = UserData().ZonaID;
+
+                        consultoraDA = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
                        
                         if (consultoraDA == 0)
                         {
                             BECronograma cronograma;
-                            cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
+                            cronograma = sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID, UserData().ZonaID, 2).FirstOrDefault();
                             DateTime fechaDA = (DateTime)cronograma.FechaInicioWeb;
 
                             //R20151123 Inicio
                             TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
-                            var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " horas";
+                            var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
                             var diasemana = "";
                             var dia = fechaDA.DayOfWeek.ToString();
 

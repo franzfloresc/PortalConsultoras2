@@ -361,7 +361,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
-    MostrarBarra();
+    MostrarBarra();    
 });
 
 function CrearDialogs() {
@@ -4140,7 +4140,7 @@ function MostrarBarra(datax) {
 
     // colocar los puntos de limite
     var w1 = 0;
-
+    
     var wSumLeft = 0, msgLimite = "";
     //$("#divBarra #divBarraLimite").html("");
     $.each(listaLimite, function (ind, limite) {
