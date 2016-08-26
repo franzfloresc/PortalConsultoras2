@@ -36,4 +36,9 @@ $(document).ready(function () {
         if (modificacionPedidoProl == "0") ConfirmarModificarPedido();
         else $("#divConfirmModificarPedido").modal("show");
     })
+
+    $('.btn_ver_pedido_reservado').on('click', function () {
+        $('.btn_ver_pedido_reservado').hide();
+        $('.tooltip_validado').hide();
+    })
 });

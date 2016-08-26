@@ -168,6 +168,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
 
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -179,13 +180,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV && lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
-            if (model.PedidoConDescuentoCuv)
-            {
                 model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.Descuento = -lstPedidoWebDetalle[0].DescuentoProl;
+            if (model.PedidoConDescuentoCuv) model.Descuento = -bePedidoWebByCampania.DescuentoProl;
                 model.Total = model.SubTotal + model.Descuento;
-            }
-            else model.Total = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
 
             model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
             model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
@@ -194,7 +191,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
             
-            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
             model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
             model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
@@ -210,6 +206,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
+            #region kitNueva
             BEKitNueva[] kitNueva;
             int esColaborador = 0;
             using (var sv = new UsuarioServiceClient())
@@ -228,19 +225,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             ViewBag.MontoKitNueva = Util.DecimalToStringFormat(montoKitNueva, model.CodigoISO);
             ViewBag.EsKitNueva = esKitNueva;
+            #endregion 
+
+            #region mensaje monto logro para la meta
+            decimal montoLogro = 0;
+            string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+            if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo) montoLogro = model.Total;
+            else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala) montoLogro = userData.MontoMinimo;
+            else montoLogro = bePedidoWebByCampania.MontoEscala;
 
             BEFactorGanancia oBEFactorGanancia = null;
             using (var sv = new SACServiceClient())
             {
-                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(model.Total, userData.PaisID);
+                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(montoLogro, userData.PaisID);
             }
             if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
                 model.MostrarEscalaDescuento = true;
-                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
-                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
                 model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
+                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - montoLogro;
+                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
             }
+            #endregion
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;

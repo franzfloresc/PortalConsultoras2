@@ -23,13 +23,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            //return Login();
+            return Login();
 
-            var LoginModel = new LoginModel()
-            {
-                listaPaises = DropDowListPaises()
-            };
-            return View(LoginModel);
+            //var LoginModel = new LoginModel()
+            //{
+            //    listaPaises = DropDowListPaises()
+            //};
+            //return View(LoginModel);
         }
 
         private ActionResult Login()
@@ -184,12 +184,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            //return CerrarSesion();
-
-            Session["UserData"] = null;
-            Session.Clear();
-            Session.Abandon();
-            return RedirectToAction("Index", "Login");
+            return CerrarSesion();
+            
+            //Session["UserData"] = null;
+            //Session.Clear();
+            //Session.Abandon();
+            //return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()
@@ -346,6 +346,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Nivel = oBEUsuario.Nivel;
                 model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
                 model.FechaLimPago = oBEUsuario.FechaLimPago;
+                model.VioVideoModelo = oBEUsuario.VioVideo;
+                model.VioTutorialModelo = oBEUsuario.VioTutorial;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;

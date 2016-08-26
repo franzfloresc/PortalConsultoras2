@@ -256,6 +256,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             listaProductoPcm.products[3].code = "210077627";
 
             foreach (var item in listaProductoPcm.products)
+            {
                 var productoMostrar = new Producto();
 
                 productoMostrar.CodigoSap = item.code;
@@ -283,6 +284,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                         lista.Add(productoMostrar);   
                     }                    
                 }                
+            }
 
             #endregion
 

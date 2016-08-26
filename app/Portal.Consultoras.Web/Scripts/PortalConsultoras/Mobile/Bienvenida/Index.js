@@ -61,6 +61,9 @@ function UpdateUsuarioTutorialMobile() {
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
         $('#tutorialesMobile').show();
+        setTimeout(function () {
+            $(window).resize();
+        }, 300);
     }
 };
 

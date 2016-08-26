@@ -1,4 +1,46 @@
 ﻿$(document).ready(function () {
+
+    $('#salvavidaTutorial').show();
+    function ocultarAnimacionTutorial() {
+
+        $(".circulo-1").fadeOut();
+        $(".tooltip_tutorial").fadeOut();
+
+    }
+
+    function AnimacionTutorial() {
+
+        $(".tooltip_tutorial").animate({
+            'opacity': 1,
+            'top': 47
+        }, 500, 'swing', function () {
+            $(".tooltip_tutorial").animate({
+                'top': 41
+            }, 500, 'swing');
+        });
+
+        $(".circulo-1").animate({
+
+            'width': 45,
+            'height': 45,
+            'opacity': 0,
+            'top': -8,
+            'left': -11.5
+
+        }, 900, 'swing', function () {
+
+            $(".circulo-1").css({
+                'width': '0px',
+                'height': '0px',
+                'opacity': '1',
+                'top': 14,
+                'left': 10
+            });
+
+        });
+
+    }
+
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -8,16 +50,17 @@
     });
 
     function abrir_popup_tutorial(){
-        $('#popup_tutorial').fadeIn();
+        $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
     }
 
     function cerrar_popup_tutorial() {
-        $('#popup_tutorial').fadeOut();
+        $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
     }
 
     // Evento para visualizar video introductorio al hacer click
+
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
@@ -156,6 +199,7 @@
     CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
+    CargarCatalogoPersonalizado();
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
@@ -179,6 +223,10 @@
     
     $("#cerrarVideoIntroductorio").click(function () {
         $('#videoIntroductorio').hide();
+        if (primeraVezVideo) {
+            setInterval(AnimacionTutorial, 800);
+            setTimeout(ocultarAnimacionTutorial, 9000);
+        }
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
@@ -349,12 +397,19 @@
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
     });
+    
+    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
+        var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
+        AgregarProductoCatalogoPersonalizado(contenedor);
+    });
 });
 
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
+
+    if (imagenProducto.length > 0) {
     var carrito = $('.campana');
 
     $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
@@ -365,7 +420,7 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 40,
+            'top': carrito.offset().top - 60,
         'left': carrito.offset().left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
@@ -383,6 +438,7 @@ function agregarProductoAlCarrito(o) {
         });
     });
 }
+}
 
 function mostrarVideoIntroductorio() {
     if (viewBagVioVideo == "0") {
@@ -392,6 +448,8 @@ function mostrarVideoIntroductorio() {
         $("#videoIntroductorio").show();
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
+    } else {
+        primeraVezVideo = false;
     }
 }
 
@@ -512,7 +570,13 @@ function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divCarruselHorizontal').unslick();
-    $('#divCarruselHorizontal').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
+    if (isEsika) {
+        $('#divCarruselHorizontal').html(
+            '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-esika" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
+        );
+    } else {
+        $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
+    }
 
     $.ajax({
         type: 'GET',
@@ -2811,6 +2875,131 @@ function AgregarSuenio() {
         async: false,
                 closeWaitingDialog();
             }
+        }
+    });
+}
+
+// Catalogo Personalizado
+function CargarCatalogoPersonalizado() {
+    var cataPer = $("#hdTipoCatalogoPersonalizado").val();
+    if (cataPer != "1" && cataPer != "2") {
+        $("#divMainCatalogoPersonalizado").remove();
+        return false;
+    }
+
+    $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (data.success) {
+                $("#divCatalogoPersonalizado").html("");
+                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+            }
+            else {
+                $("#divMainCatalogoPersonalizado").remove();
+            }
+            
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
+function AgregarProductoCatalogoPersonalizado(item) {
+    waitingDialog();
+
+    var divPadre = item;
+    var attItem = $(item).attr("data-item") || "";
+    if (attItem == "") {
+        divPadre = $(item).parents("[data-item]").eq(0);
+    }
+    
+    var cuv = $(divPadre).find(".hdItemCuv").val();
+    var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+    var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
+    var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
+    var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
+    var tipo = $(divPadre).find(".hdItemTipo").val();
+    var marcaID = $(divPadre).find(".hdItemMarcaID").val();
+    var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
+    var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
+    var pagina = $(divPadre).find(".hdItemPagina").val();
+    var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
+    var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
+    var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var model = {
+        TipoOfertaSisID: tipoOfertaSisID,
+        ConfiguracionOfertaID: configuracionOfertaID,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        MarcaID: marcaID,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidad,
+        CUV: cuv,
+        Tipo: tipo,
+        DescripcionProd: descripcionProd,
+        Pagina: pagina,
+        DescripcionCategoria: descripcionCategoria,
+        DescripcionMarca: descripcionMarca,
+        DescripcionEstrategia: descripcionEstrategia,
+        EsSugerido: false
+    };
+
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    
+}
+
+// Fin Catalogo Personalizado
+
+function AgregarProducto(url, item, otraFunct) {
+    waitingDialog();
+
+    tieneMicroefecto = true;
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/' + url,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            if (data.success == true) {
+                ActualizarGanancia(data.DataBarra);
+                InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
+                CargarResumenCampaniaHeader(true);
+                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+
+                if (typeof (otraFunct) == 'function') {
+                    setTimeout(otraFunct, 50);
+                }
+                else if (typeof (otraFunct) == 'string') {
+                    setTimeout(otraFunct, 50);
+                }
+            }
+            else {
+                alert_msg_pedido(data.message);
+            }
+            closeWaitingDialog();
+        },
+        error: function (data, error) {
+            tieneMicroefecto = false;
+            AjaxError(data, error);
         }
     });
 }

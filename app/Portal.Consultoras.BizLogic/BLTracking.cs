@@ -35,6 +35,23 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
              
+        public BETracking GetPedidoByConsultoraAndCampania(int paisID,string codigoConsultora, int campania)
+        {
+            var pedido = new BETracking();
+            var DATracking = new DATracking(paisID);
+
+            using (IDataReader reader = DATracking.GetPedidoByConsultoraAndCampania(codigoConsultora, campania))
+            {
+                if (reader.Read())
+                {
+                    pedido = new BETracking(reader);
+                    pedido.PaisID = paisID;
+                }
+            }
+
+            return pedido;
+        }
+
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             var pedidos = new List<BETracking>();

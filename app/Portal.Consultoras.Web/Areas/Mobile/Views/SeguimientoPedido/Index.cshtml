@@ -11,22 +11,20 @@
         }
     </style>
 }
+<div class="titulo_mobile">
+    <a class="enlace_regresar catalogosR" title="Regresar">
 
-<div class="row">
-    <div class="col-xs-12">
-        <ol class="breadcrumb-next upper">
-            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a></li>
-            <li>|</li>
-            <li>Seguimiento de Pedido</li>
-        </ol>
-    </div>
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;SEGUIMIENTO DE PEDIDO
 </div>
-
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
+<div class="wrapper_resumen_mobile">
 @if (ViewBag.MensajeError == null)
 {
     if (Model.ListaEstadoSeguimiento.Count == 0)
     {
-        <div class="row">
+
             <div class="col-xs-12">
                 <div class="simple-alert text-danger">
                     <span class="alert-icon"><i class="icon-exclamation-circle"></i></span>
@@ -35,7 +33,7 @@
                     </small>
                 </div>
             </div>
-        </div>
+
     }
     else
     {
@@ -50,7 +48,7 @@
         var estado06Entregado = Model.ListaEstadoSeguimiento.FirstOrDefault(p => p.Etapa == 7);
         var contador = 0;
 
-        <div class="row">
+
             <div class="block-seguimiento">
                 <div class="title-seg"><span class="num-camp-seg"><strong> C-@mesCampania </strong></span></div>
                 <div class="text-right info-seg">
@@ -59,9 +57,9 @@
                     Pedido recibido <strong>@fecha</strong>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
+
+
             <div class="block-seguimiento-content">
                 <div class="col-xs-12" style="padding-left: 0px; padding-right: 0px">
                     @if (estado01Recibido != null)
@@ -244,12 +242,12 @@
                     }
                 </div>
             </div>
-        </div>
+
     }
 }
 else
 {
-    <div class="row">
+
         <div class="col-xs-12">
             <div class="simple-alert text-danger">
                 <span class="alert-icon"><i class="icon-exclamation-circle"></i></span>
@@ -258,5 +256,8 @@ else
                 </small>
             </div>
         </div>
+
+    }
+
     </div>
-}
+

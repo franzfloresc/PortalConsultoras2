@@ -57,6 +57,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lista ?? new List<Producto>();
                 lista = lista.Skip(0).Take(cantidad).ToList();
 
+
+                var listaPedido = ObtenerPedidoWebDetalle();
+
                 var listaProductoModel = new List<ProductoModel>();
                 foreach (var producto in lista)
                 {
@@ -68,9 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (olstProducto.Count == 0)
                         continue;
-
-                    string descripcion = "", imagenUrl = "";
-                    bool add = false;
 
                     if (userData.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
@@ -154,6 +154,10 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     data = ""
                 });
+            }
+        }
+    }
+}
             }
         }
     }
