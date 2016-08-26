@@ -15,6 +15,7 @@ using System.Web.Security;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -184,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult LogOut()
         {
             return CerrarSesion();
-
+            
             //Session["UserData"] = null;
             //Session.Clear();
             //Session.Abandon();
@@ -345,6 +346,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Nivel = oBEUsuario.Nivel;
                 model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
                 model.FechaLimPago = oBEUsuario.FechaLimPago;
+                model.VioVideoModelo = oBEUsuario.VioVideo;
+                model.VioTutorialModelo = oBEUsuario.VioTutorial;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
@@ -541,6 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                IP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(IP)[0].ToString();
             }
             catch { }
             return IP;

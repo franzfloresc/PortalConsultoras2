@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
             IList<BEConfiguracionPackNuevas> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetConfiguracionPackNuevas(UserData().PaisID, CodigoPrograma);                
+                lst = sv.GetConfiguracionPackNuevas(UserData().PaisID, CodigoPrograma);
             }
             return Json(new { pedidoAsociado = lst }, JsonRequestBehavior.AllowGet);
         }
@@ -456,22 +456,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count > 0)
                 {
-                    if (resultado == 0)
-                    {
-                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                        if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
-                        return Json(new
+                        if (resultado == 0)
                         {
-                            success = true,
-                            message = mensaje,
-                            descripcion = descripcion,
-                            precio = precio,
-                            imagen1 = imagen1,
-                            imagen2 = imagen2,
-                            imagen3 = imagen3,
-                            extra = ""
-                        }, JsonRequestBehavior.AllowGet);
-                    }
+                            if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                            if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
+                            return Json(new
+                            {
+                                success = true,
+                                message = mensaje,
+                                descripcion = descripcion,
+                                precio = precio,
+                                imagen1 = imagen1,
+                                imagen2 = imagen2,
+                                imagen3 = imagen3,
+                                extra = ""
+                            }, JsonRequestBehavior.AllowGet);
+                        }
 
                     mensaje = "OK";
 
@@ -536,41 +536,41 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(NumeroPedido))
                 {
                     BEEstrategia entidad = new BEEstrategia();
-                entidad.PaisID = UserData().PaisID;
-                entidad.EstrategiaID = (EstrategiaID != "") ? Convert.ToInt32(EstrategiaID) : 0;
-                entidad.TipoEstrategiaID = (TipoEstrategiaID != "") ? Convert.ToInt32(TipoEstrategiaID) : 0;
-                entidad.CampaniaID = (CampaniaID != "") ? Convert.ToInt32(CampaniaID) : 0;
-                entidad.CampaniaIDFin = (CampaniaIDFin != "") ? Convert.ToInt32(CampaniaIDFin) : 0;
-                entidad.NumeroPedido = (NumeroPedido != "") ? Convert.ToInt32(NumeroPedido) : 0;
-                entidad.Activo = Convert.ToInt32(Activo);
-                entidad.ImagenURL = ImagenURL;
-                entidad.LimiteVenta = (LimiteVenta != "") ? Convert.ToInt32(LimiteVenta) : 0;
-                entidad.DescripcionCUV2 = DescripcionCUV2;
-                entidad.FlagDescripcion = Convert.ToInt32(FlagDescripcion);
-                entidad.CUV1 = CUV;
-                entidad.EtiquetaID = (EtiquetaID != "") ? Convert.ToInt32(EtiquetaID) : 0;
-                entidad.Precio = (Precio != "") ? Convert.ToDecimal(Precio) : 0;
-                entidad.FlagCEP = Convert.ToInt32(FlagCEP);
-                entidad.CUV2 = CUV2;
-                entidad.EtiquetaID2 = (EtiquetaID2 != "") ? Convert.ToInt32(EtiquetaID2) : 0;
-                entidad.Precio2 = (Precio2 != "") ? Convert.ToDecimal(Precio2) : 0;
-                entidad.FlagCEP2 = Convert.ToInt32(FlagCEP2);
-                entidad.TextoLibre = TextoLibre;
-                entidad.FlagTextoLibre = Convert.ToInt32(FlagTextoLibre);
-                entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
-                entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
-                entidad.Zona = Zona;
-                //entidad.Orden = Convert.ToInt32(Orden);
-                entidad.Orden = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
-                entidad.UsuarioCreacion = UserData().CodigoUsuario;
-                entidad.UsuarioModificacion = UserData().CodigoUsuario;
-                entidad.ColorFondo = ColorFondo;
-                entidad.FlagEstrella = (FlagEstrella != "") ? Convert.ToInt32(FlagEstrella) : 0;
+                    entidad.PaisID = UserData().PaisID;
+                    entidad.EstrategiaID = (EstrategiaID != "") ? Convert.ToInt32(EstrategiaID) : 0;
+                    entidad.TipoEstrategiaID = (TipoEstrategiaID != "") ? Convert.ToInt32(TipoEstrategiaID) : 0;
+                    entidad.CampaniaID = (CampaniaID != "") ? Convert.ToInt32(CampaniaID) : 0;
+                    entidad.CampaniaIDFin = (CampaniaIDFin != "") ? Convert.ToInt32(CampaniaIDFin) : 0;
+                    entidad.NumeroPedido = (NumeroPedido != "") ? Convert.ToInt32(NumeroPedido) : 0;
+                    entidad.Activo = Convert.ToInt32(Activo);
+                    entidad.ImagenURL = ImagenURL;
+                    entidad.LimiteVenta = (LimiteVenta != "") ? Convert.ToInt32(LimiteVenta) : 0;
+                    entidad.DescripcionCUV2 = DescripcionCUV2;
+                    entidad.FlagDescripcion = Convert.ToInt32(FlagDescripcion);
+                    entidad.CUV1 = CUV;
+                    entidad.EtiquetaID = (EtiquetaID != "") ? Convert.ToInt32(EtiquetaID) : 0;
+                    entidad.Precio = (Precio != "") ? Convert.ToDecimal(Precio) : 0;
+                    entidad.FlagCEP = Convert.ToInt32(FlagCEP);
+                    entidad.CUV2 = CUV2;
+                    entidad.EtiquetaID2 = (EtiquetaID2 != "") ? Convert.ToInt32(EtiquetaID2) : 0;
+                    entidad.Precio2 = (Precio2 != "") ? Convert.ToDecimal(Precio2) : 0;
+                    entidad.FlagCEP2 = Convert.ToInt32(FlagCEP2);
+                    entidad.TextoLibre = TextoLibre;
+                    entidad.FlagTextoLibre = Convert.ToInt32(FlagTextoLibre);
+                    entidad.Cantidad = (Cantidad != "") ? Convert.ToInt32(Cantidad) : 0;
+                    entidad.FlagCantidad = Convert.ToInt32(FlagCantidad);
+                    entidad.Zona = Zona;
+                    //entidad.Orden = Convert.ToInt32(Orden);
+                    entidad.Orden = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
+                    entidad.UsuarioCreacion = UserData().CodigoUsuario;
+                    entidad.UsuarioModificacion = UserData().CodigoUsuario;
+                    entidad.ColorFondo = ColorFondo;
+                    entidad.FlagEstrella = (FlagEstrella != "") ? Convert.ToInt32(FlagEstrella) : 0;
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    resultado = sv.InsertarEstrategia(entidad);
-                }
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        resultado = sv.InsertarEstrategia(entidad);
+                    }
                 }
                 else
                 {
@@ -615,7 +615,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             resultado = sv.InsertarEstrategia(entidad);
                         }
-                       // OrdenEstrategia++;
+                        // OrdenEstrategia++;
                     }
                 }
                 return Json(new

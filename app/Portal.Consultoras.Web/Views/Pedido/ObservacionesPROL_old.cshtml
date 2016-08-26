@@ -10,6 +10,9 @@
 @Html.Hidden("hdfZonaValida", Model.ZonaValida)
 @Html.Hidden("hdfPROLSinStock", Model.PROLSinStock)@*1510*@
 
+@* PCABRERA GR-385 - INICIO *@
+<input type="hidden" id="hdeTipoPROL" value="@ViewBag.TipoPROL" />
+@* PCABRERA GR-385 - FIN *@
 
 @if (!Model.ErrorPROL)
 {

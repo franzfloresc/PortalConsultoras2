@@ -33,27 +33,33 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /**GR 1209 Obtener comunicado configurable en la tabla */
-        public BEComunicado ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora)
         {
-
-            BEComunicado oBEComunicado = null;
+            List<BEComunicado> oBEComunicados = new List<BEComunicado>();
             var DAComunicado = new DAComunicado(paisID);
 
             using (IDataReader reader = DAComunicado.ObtenerComunicadoPorConsultora(CodigoConsultora))
-                if (reader.Read())
+                while (reader.Read())
                 {
-                    oBEComunicado = new BEComunicado(reader);
+                    oBEComunicados.Add(new BEComunicado(reader));
                 }
 
-            return oBEComunicado;
+            return oBEComunicados;
         }
 
 
-        public void InsertComunicadoByConsultoraVisualizacion(int PaisID, string CodigoConsultora)
+        public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-            var DAComunicado = new DAComunicado(PaisID);
-            DAComunicado.InsertComunicadoByConsultoraVisualizacion(CodigoConsultora);
+            DAComunicado DAComunicado = new DAComunicado(PaisID);
+            DAComunicado.InsertarComunicadoVisualizado(CodigoConsultora, ComunicadoID);
 
         }
+
+        public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
+        {
+            DAComunicado DAComunicado = new DAComunicado(PaisId);
+            DAComunicado.InsertarDonacionConsultora(CodigoISO, CodigoConsultora, Campania, IPUsuario);
+        }
+
     }
 }

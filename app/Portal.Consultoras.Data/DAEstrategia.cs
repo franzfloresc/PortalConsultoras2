@@ -198,12 +198,13 @@ namespace Portal.Consultoras.Data
         }
 		// 1747 - Fin
 
-        public IDataReader GetImagenOfertaPersonalizadaOF(int campaniaID)
+        public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
-            return Context.ExecuteReader(command);
+            return Context.ExecuteScalar(command).ToString();
         }
     }
 }

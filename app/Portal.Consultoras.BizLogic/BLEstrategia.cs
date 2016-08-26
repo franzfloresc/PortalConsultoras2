@@ -201,17 +201,12 @@ namespace Portal.Consultoras.BizLogic
         }
 		// 1747 - Fin
 
-        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID)
+        public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
             var imagen = string.Empty;
             var DAEstrategia = new DAEstrategia(paisID);
 
-            using (IDataReader reader = DAEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID))
-                while (reader.Read())
-                {
-                    imagen = reader.IsDBNull(reader.GetOrdinal("ImagenURL")) ? "" : Convert.ToString(reader.GetOrdinal("ImagenURL"));
-                }
-            return imagen;
+            return DAEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
     }
 }

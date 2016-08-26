@@ -48,6 +48,20 @@ namespace Portal.Consultoras.Service
             return BLUsuario.DelUsuarioRol(paisID, codigoUsuario, RolID);
         }
 
+        public int setUsuarioVideoIntroductorio(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+
+            return BLUsuario.setUsuarioVideoIntroductorio(paisID, codigoUsuario);
+        }
+
+        public int setUsuarioVerTutorial(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+
+            return BLUsuario.setUsuarioVerTutorial(paisID, codigoUsuario);
+        }
+
         public void Insert(BEUsuario usuario)
         {
             var BLUsuario = new BLUsuario();

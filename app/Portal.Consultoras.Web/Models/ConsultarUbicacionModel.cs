@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Web.Models
         public string Zona { get; set; }
         public string Seccion { get; set; }
         public string Territorio { get; set; }
+        public bool ZonaPreferencial { get; set; }
+        public string DireccionCadena { get; set; }
 
         public ConsultarUbicacionModel()
         {

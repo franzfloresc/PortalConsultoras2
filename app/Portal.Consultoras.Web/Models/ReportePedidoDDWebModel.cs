@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Web.Models
         public string lblValidado { set; get; }
         public string lblSaldo { set; get; }
         public string lblImporte { set; get; }
+        public string lblImporteConDescuento { set; get; }
         public string hdnpaisISO { set; get; }
         public string Usuario { get; set; }
         public string TipoProceso { get; set; }

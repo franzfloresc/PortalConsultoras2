@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
@@ -27,8 +28,29 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsertShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
         {
-            var DAShowRoomEvento = new DAShowRoomEvento(paisID);
-            return DAShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
+            try
+            {
+                var DAShowRoomEvento = new DAShowRoomEvento(paisID);
+                int resultado;
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    resultado = DAShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
+
+                    string formatoPerfiles = Util.GetPaisISO(paisID) + "_" + beShowRoomEvento.CampaniaID + "_Perfil";
+                    DAShowRoomEvento.InsertarShowRoomPerfil(beShowRoomEvento.NumeroPerfiles, formatoPerfiles, resultado);
+
+                    oTransactionScope.Complete();
+                }
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }            
         }
 
         public void UpdateShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
@@ -47,6 +69,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdOfertaShowRoomStockMasivo(stockProductos);
+        }
+
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
         }
 
         public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
@@ -162,6 +190,129 @@ namespace Portal.Consultoras.BizLogic
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.GetStockOfertaShowRoom(CampaniaID, CUV);
+        }
+
+        public int DeshabilitarShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.DeshabilitarShowRoomEvento(beShowRoomEvento);
+        }
+
+        public int EliminarShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
+        {
+            try
+            {
+                var dataAccess = new DAShowRoomEvento(paisID);
+                int resultado;
+                TransactionOptions oTransactionOptions = new TransactionOptions();
+                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    resultado = dataAccess.EliminarShowRoomEvento(beShowRoomEvento);
+                    dataAccess.EliminarShowRoomPerfiles(beShowRoomEvento.EventoID);
+
+                    oTransactionScope.Complete();
+                }
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }               
+        }
+
+        public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.GuardarImagenShowRoom(eventoId, nombreImagenFinal, tipo, usuarioModificacion);
+        }
+
+        public IList<BEShowRoomOfertaDetalle> GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv)
+        {
+            var lst = new List<BEShowRoomOfertaDetalle>();
+            var dataAccess = new DAShowRoomEvento(paisID);
+
+            using (IDataReader reader = dataAccess.GetProductosShowRoomDetalle(campaniaId, cuv))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomOfertaDetalle(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public int InsOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.InsOfertaShowRoomDetalle(entity);
+        }
+
+        public int UpdOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.UpdOfertaShowRoomDetalle(entity);
+        }
+
+        public int EliminarOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle beShowRoomOfertaDetalle)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.EliminarOfertaShowRoomDetalle(beShowRoomOfertaDetalle);
+        }
+
+        public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.EliminarOfertaShowRoomDetalleAll(campaniaID, cuv);
+        }
+
+        public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
+        {
+            var lst = new List<BEShowRoomPerfil>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomPerfiles(eventoId))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomPerfil(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEShowRoomPerfilOferta> GetShowRoomPerfilOfertaCuvs(int paisId, BEShowRoomPerfilOferta beShowRoomPerfilOferta)
+        {
+            var lst = new List<BEShowRoomPerfilOferta>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomPerfilOfertaCuvs(beShowRoomPerfilOferta))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomPerfilOferta(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            dataAccess.GuardarPerfilOfertaShowRoom(perfilId, eventoId, campaniaId, cadenaCuv);
+        }
+
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        {
+            var lst = new List<BEShowRoomOferta>();
+            var dataAccess = new DAShowRoomEvento(paisID);
+
+            using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomOferta(reader);
+                    lst.Add(entity);
+                }
+            return lst;
         }
     }
 }
