@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Web.WebPages {
         protected global::System.Web.UI.WebControls.Label lblNovedadFacturacion;
         
         /// <summary>
-        /// Control gridDatos.
+        /// Control pnlSinTracking.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.

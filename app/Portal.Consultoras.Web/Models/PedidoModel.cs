@@ -157,6 +157,9 @@ namespace Portal.Consultoras.Web.Models
         public string PrecioValorizadoString { get; set; }
 
         public string Simbolo { get; set; }
+
+        public string Sello { get; set; }
+        public bool IsAgregado { get; set; }
     }
 
     public class ObservacionModel

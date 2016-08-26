@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetPedidosWebByConsultoraCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultoraCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosWebByConsultoraCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultoraCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosFacturados_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosFacturados" />
   </wsdl:message>
@@ -63,6 +69,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetImagenOfertaPersonalizadaOFResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarTallaColorCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarTallaColorCUV" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarTallaColorCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarTallaColorCUVResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetOfertaByCUV_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertaByCUV" />
@@ -568,12 +580,6 @@
   <wsdl:message name="IPedidoService_UpdateMontosPedidoWeb_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontosPedidoWebResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidosWebByConsultoraCampania_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultoraCampania" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidosWebByConsultoraCampania_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidosWebByConsultoraCampaniaResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPackOfertasNuevasByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPackOfertasNuevasByCampania" />
   </wsdl:message>
@@ -813,6 +819,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosByConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoByConsultoraAndCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoByConsultoraAndCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoByConsultoraAndCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoByConsultoraAndCampaniaResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetTrackingByPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTrackingByPedido" />
@@ -1077,12 +1089,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetTallaColor_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTallaColorResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarTallaColorCUV_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarTallaColorCUV" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarTallaColorCUV_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarTallaColorCUVResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosReporteLiderIndicador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosReporteLiderIndicador" />
@@ -1595,6 +1601,10 @@
     <wsdl:part name="parameters" element="tns:GetOfertasNuevasByCampaniaResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" message="tns:IPedidoService_GetPedidosWebByConsultoraCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampaniaResponse" message="tns:IPedidoService_GetPedidosWebByConsultoraCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturados">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturados" message="tns:IPedidoService_GetPedidosFacturados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosFacturadosResponse" message="tns:IPedidoService_GetPedidosFacturados_OutputMessage" />
@@ -1614,6 +1624,10 @@
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTallaColorCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" message="tns:IPedidoService_InsertarTallaColorCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTallaColorCUVResponse" message="tns:IPedidoService_InsertarTallaColorCUV_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetOfertaByCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertaByCUV" message="tns:IPedidoService_GetOfertaByCUV_InputMessage" />
@@ -1951,10 +1965,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" message="tns:IPedidoService_UpdateMontosPedidoWeb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWebResponse" message="tns:IPedidoService_UpdateMontosPedidoWeb_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" message="tns:IPedidoService_GetPedidosWebByConsultoraCampania_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampaniaResponse" message="tns:IPedidoService_GetPedidosWebByConsultoraCampania_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetPackOfertasNuevasByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampania" message="tns:IPedidoService_GetPackOfertasNuevasByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampaniaResponse" message="tns:IPedidoService_GetPackOfertasNuevasByCampania_OutputMessage" />
@@ -2114,6 +2124,10 @@
     <wsdl:operation name="GetPedidosByConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosByConsultora" message="tns:IPedidoService_GetPedidosByConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosByConsultoraResponse" message="tns:IPedidoService_GetPedidosByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoByConsultoraAndCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoByConsultoraAndCampania" message="tns:IPedidoService_GetPedidoByConsultoraAndCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoByConsultoraAndCampaniaResponse" message="tns:IPedidoService_GetPedidoByConsultoraAndCampania_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTrackingByPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTrackingByPedido" message="tns:IPedidoService_GetTrackingByPedido_InputMessage" />
@@ -2290,10 +2304,6 @@
     <wsdl:operation name="GetTallaColor">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTallaColor" message="tns:IPedidoService_GetTallaColor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTallaColorResponse" message="tns:IPedidoService_GetTallaColor_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarTallaColorCUV">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" message="tns:IPedidoService_InsertarTallaColorCUV_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarTallaColorCUVResponse" message="tns:IPedidoService_InsertarTallaColorCUV_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_InputMessage" />
@@ -2638,6 +2648,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturados" style="document" />
       <wsdl:input>
@@ -2676,6 +2695,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTallaColorCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3439,15 +3467,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPackOfertasNuevasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampania" style="document" />
       <wsdl:input>
@@ -3801,6 +3820,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosByConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoByConsultoraAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoByConsultoraAndCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4197,15 +4225,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTallaColor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTallaColor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarTallaColorCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4982,6 +5001,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosFacturados" style="document" />
       <wsdl:input>
@@ -5020,6 +5048,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarTallaColorCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5783,15 +5820,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidosWebByConsultoraCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosWebByConsultoraCampania" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPackOfertasNuevasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPackOfertasNuevasByCampania" style="document" />
       <wsdl:input>
@@ -6145,6 +6173,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidosByConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoByConsultoraAndCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoByConsultoraAndCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6541,15 +6578,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTallaColor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTallaColor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarTallaColorCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarTallaColorCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

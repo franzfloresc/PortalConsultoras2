@@ -63,7 +63,7 @@
                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
 
                     <script type="text/javascript">
-                        document.getElementById("aBelcorpResponde").href = "@menuHijo.UrlItem";
+                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
                     </script>
                 }
                 

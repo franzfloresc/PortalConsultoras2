@@ -12,6 +12,24 @@ var salto = 3;
 var esPedidoValidado = false;
 
 $(document).ready(function () {
+    $('#salvavidaTutorial').show();
+    $(".abrir_tutorial").click(function () {
+        abrir_popup_tutorial();
+    });
+
+    $(".cerrar_tutorial").click(function () {
+        cerrar_popup_tutorial();
+    });
+
+    function abrir_popup_tutorial() {
+        $('#popup_tutorial_pedido').fadeIn();
+        $('html').css({ 'overflow-y': 'hidden' });
+    }
+
+    function cerrar_popup_tutorial() {
+        $('#popup_tutorial_pedido').fadeOut();
+        $('html').css({ 'overflow-y': 'auto' });
+    }
 
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",

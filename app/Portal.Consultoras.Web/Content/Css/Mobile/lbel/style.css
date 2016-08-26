@@ -1845,37 +1845,33 @@ h4.re3 {
 }
 .block-seguimiento {
     text-transform: uppercase;
-    background: #00abdf;
-    padding: 30px 15px;
-    color: #eee;
+   
+    
+    border-bottom:1px solid #979797;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
     position: relative;
 }
-    .block-seguimiento:before {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 60px;
-        border-top: 10px solid #00abdf;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-    }
+  
     .block-seguimiento strong {
-        color: #fff;
+        color: black;
     }
     .block-seguimiento .title-seg {
         position: absolute;
-        left: 15px;
+        font-family:'Lato';
         top: 50%;
         margin-top: -15px;
-        font-size: 1.7em;
+        font-size: 1.5em;
         line-height: 1;
     }
         .block-seguimiento .title-seg .num-camp-seg {
             font-size: 1.35em;
         }
     .block-seguimiento .info-seg {
-        font-size: 13px;
+        font-size: 12.5px;
         text-align: right;
+        font-family:'Lato';
     }
         .block-seguimiento .info-seg .inline {
             display: inline-block;
@@ -1897,9 +1893,10 @@ h4.re3 {
             color: #a4b5c4;
             margin: 0;
             text-transform: uppercase;
-            height: 35px;
-            font-size: 0.85em;
+            height: 38px;
+            font-size: 0.8em;
             font-weight: 600;
+            font-family:'Lato';
         }
         .block-seguimiento-content .seg-item .seg-icon {
             padding: 25px 0;
@@ -1916,6 +1913,7 @@ h4.re3 {
             }
         .block-seguimiento-content .seg-item .seg-hora-fecha {
             height: 42px;
+            font-size:12.5px;
         }
         .block-seguimiento-content .seg-item .seg-fecha {
             color: #a4b5c4;
@@ -1932,18 +1930,17 @@ h4.re3 {
         right: -25px;
     }
     .block-seguimiento-content .seg-current .seg-title {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-        color: #fff !important;
-        background: #00abdf !important;
-        border: 1px solid #00abdf !important;
+       color: #b75d9f;
+       border: 1px solid #b75d9f !important;
     }
     .block-seguimiento-content .seg-current .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
     .block-seguimiento-content .seg-active .seg-title {
         color: #00abdf;
@@ -4599,6 +4596,11 @@ body{
     text-align:right;
 }
 
+.mi_ganancia {
+    color:#642f80;
+    font-weight:700;
+}
+
 .textos_resumen span, .montos_resumen span{
     display:block;
     margin-bottom:2px;
@@ -5151,6 +5153,7 @@ body{
 .catalogo_esika{
     width:128px;
     height:76px;
+    margin-bottom:0px;
     background: url("../../../Images/mobile/Lbel/catalogo_home.png") no-repeat right bottom;    
 }
 .celular_esika{
@@ -6321,6 +6324,7 @@ input[type="checkbox"]:checked + span:after {
 }
 .datos_Reservado span{
     display:block;
+    padding-bottom:0px!important;
 }
 .texto_reservado{
     font-family:'Lato';
@@ -6391,12 +6395,15 @@ input[type="checkbox"]:checked + span:after {
 }
 .tooltip_validado_importe{
     display:none;
-    width:292px;
+    width: 265px;
     height:60px;
-    padding:13px;
+    padding:11px 13px 13px 13px;
     background:white;
     position:absolute;
-    top: -83px;
+    top: -79px;
+    left: -12px;
+    z-index: 1000;
+    border-radius: 7px;
    -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
@@ -6411,8 +6418,8 @@ input[type="checkbox"]:checked + span:after {
     width: 0;
     border-color: rgba(5, 7, 8, 0);
     border-top-color: white;
-    border-width: 15px;
-    margin-left: -15px;
+    border-width: 11px;
+    margin-left: -3px;
     left: 5%;
 }
 .info_validado:hover .tooltip_validado_importe{
@@ -6565,3 +6572,32 @@ input[type="checkbox"]:checked + span:after {
         background-color: black !important;
     }
 }
+/**/
+.content_BarrMensaje{
+    width:100%;
+     margin-top: 10px;
+    border-bottom: 1px solid black;
+}
+.mensaje_barra{
+    width: 161px;
+    Font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.26;
+    color: #613c87;
+}
+.agrega_barra{
+    Font-family: 'Lato';
+    font-size: 12.5px;
+    color:black;
+    MARGIN-BOTTOM: 5px;
+}
+.flechita_barra{
+    position: relative;
+    margin-left: 21px;
+    margin-top: -1px;
+    width:14px;
+    height:10px;
+    background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
+}
+\ No newline at end of file

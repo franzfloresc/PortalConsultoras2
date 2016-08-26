@@ -37,5 +37,15 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Data
 
             return Context.ExecuteReader(command);
         }        
+
+        public string ObtenerCuvByCodigoSap(int campaniaId, string codigoSap)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvByCodigoSap_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, codigoSap);
+
+            return Context.ExecuteScalar(command).ToString();
+        }
+        
     }
 }

@@ -40,5 +40,13 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
 
             return listaProducto;
         }        
+
+        public string ObtenerCuvByCodigoSap(string codigoIso, int campaniaId, string codigoSap)
+        {
+            var DAProducto = new DAProducto(codigoIso);
+
+            return DAProducto.ObtenerCuvByCodigoSap(campaniaId, codigoSap);
+        }
+        
     }
 }

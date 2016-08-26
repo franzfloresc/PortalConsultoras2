@@ -288,6 +288,122 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
+<!--CATALOGO PERSONALIZADO-->
+<div class="content-favclientes" id="divMainCatalogoPersonalizado">
+
+    <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+    <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+    <div id="divCatalogoPersonalizado"></div>
+    @*<div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>ÉSIKA</h6>
+                <p class="nombre_producto">
+                    <b>Fragancia Leyenda</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Acondicionador berrylicious yummy yogurt</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>perfume #true</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>*@
+
+</div>
+<!--FIN CATALOGO PERSONALIZADO-->
+
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora"></div>
 
@@ -374,6 +490,7 @@
         @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
     </a>
 </div>
+<div>
 <!-- POPUP COMUNICADO -->
 @*<div id="divComunicado">
         <div class="terminos_title_2">
@@ -615,7 +732,7 @@
             </div>
         </div>
     </div>*@
-
+</div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
@@ -1126,9 +1243,38 @@
     <!-- FIN POPUP MIS DATOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
-<!-- POPUP TUTORIAL -->
 
-<div class="contenedor_fondo_popup" id="popup_tutorial" style="display: none;">
+<!-- VIDEO INTRODUCTORIO HOME -->
+
+<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
+    <div class="popup_video_introductorio" style="display: none;">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                //var tag = document.createElement("script");
+                //tag.src = "https://www.youtube.com/iframe_api";
+                //var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                //    player = new YT.Player("player", {
+                //        width: "100%",
+                //        videoId: "7g6h749J02w",
+                //    });
+                //}
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN VIDEO INTRODUCTORIO HOME    -->
+
+<!-- POPUP TUTORIAL HOME-->
+
+<div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
     <div class="popup_tutorial_home">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="#" title="Cerrar" class="cerrar_tutorial">
@@ -1463,7 +1609,63 @@
 
     {{/each}}
 </script>
-
+<script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="">
+        {{#each this as |item|}}
+        <div class="contiene-productos" data-item="catalogopersonalizado">
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            </div>
+            <div class="producto_img_home mini">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;">
+            </div>
+            {{#IsNullOrEmpty item.Sello '!='}}
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            {{/IsNullOrEmpty}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="clear"></div>
+    </div>
+</script>
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
@@ -1503,6 +1705,7 @@
         @{ Session["IsContrato"] = 0; }
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+        var primeraVezVideo = true;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
 }

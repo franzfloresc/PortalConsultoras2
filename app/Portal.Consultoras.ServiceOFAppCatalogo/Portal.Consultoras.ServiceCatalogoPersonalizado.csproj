@@ -172,6 +172,7 @@
     <Compile Include="Data\DAProducto.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Entities\Producto.cs" />
+    <Compile Include="Entities\ProductoPcm.cs" />
     <Compile Include="IProductoService.cs" />
     <Compile Include="Logic\BLProducto.cs" />
     <Compile Include="Logic\CacheManager.cs" />

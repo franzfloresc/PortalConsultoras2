@@ -54,7 +54,7 @@ function EstructurarDataProgramasBelcorp(array) {
     $.each(array, function (i, item) {
         if (item.Descripcion == "Brillante 2016") {
             item.urlImgBeneficios = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/MisBeneficios/" + codigoISO_MB + "/brillante.png";
-            item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento <b>¡y una gran celebración!</b>";
+            item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento </br><b>¡y una gran celebración!</b>";
             item.Descripcion = "<b>BRILLANTE</b> " + anioActual;
         } else if (item.Descripcion == "Familia Protegida") {
             item.Descripcion = "";

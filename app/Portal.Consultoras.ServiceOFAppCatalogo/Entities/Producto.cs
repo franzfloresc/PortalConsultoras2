@@ -53,6 +53,14 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
         [DataMember]
         public string Imagen { get; set; }
 
+        [DataMember]
+        public string Sello { get; set; }
+
+        public Producto()
+        {
+            
+        }
+
         public Producto(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CodigoIso") && datarec["CodigoIso"] != DBNull.Value)
@@ -96,6 +104,9 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
 
             if (DataRecord.HasColumn(datarec, "Imagen") && datarec["Imagen"] != DBNull.Value)
                 Imagen = Convert.ToString(datarec["Imagen"]);                            
+
+            if (DataRecord.HasColumn(datarec, "Sello") && datarec["Sello"] != DBNull.Value)
+                Sello = Convert.ToString(datarec["Sello"]);
         }
     }
 }

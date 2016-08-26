@@ -23,6 +23,10 @@
 
     $("#tutorialFooterMobile").click(function () {
         $('#tutorialesMobile').show();
+        setTimeout(function ()
+        {
+            $(window).resize();
+        }, 50);
     });
 
     CargarCantidadProductosPedidos();
@@ -34,6 +38,9 @@
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
         $('#tutorialesMobile').show();
+        setTimeout(function () {
+            $(window).resize();
+        }, 300);
     }
 };
 
