@@ -25,7 +25,7 @@
         $('#tutorialesMobile').show();
     });
 
-    CargarCantidadProductosPedidos();
+    //CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
 
