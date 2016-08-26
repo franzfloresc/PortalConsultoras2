@@ -26176,7 +26176,7 @@ position: relative; float: left;
  }
 /*PEDIDO VALIDADO*/
 .cod_venta_listado{
-    width:13%;
+    width:10%;
     display:inline-block;
     vertical-align:middle;
     padding-left:15px;
@@ -26185,14 +26185,14 @@ position: relative; float: left;
 }
 
 .descripcion_listado{
-    width: 22%;
+    width: 25%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
     padding-bottom:23px;
 }
 .cantidad_listado{
-    width:11%;
+    width:10%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26200,7 +26200,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .unitario_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26208,7 +26208,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .total_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26216,7 +26216,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .cliente_listado{
-    width:19%;
+    width:25%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
