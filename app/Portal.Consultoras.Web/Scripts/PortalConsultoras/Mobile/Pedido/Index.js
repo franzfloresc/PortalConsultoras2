@@ -1123,7 +1123,7 @@ function AgregarProductoDestacado() {
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
-                            ActualizarGanancia(data.DataBarra);
+                            ActualizarGanancia(JSON.parse(data).DataBarra);
                             ShowLoading();
                             InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarProductosDestacados(cuv);

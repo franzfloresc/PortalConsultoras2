@@ -1908,7 +1908,7 @@ header {
     vertical-align: top;
     position: absolute;
     float: none;
-    margin-top: 9px;
+    margin-top: 7px;
     right: 99%;
     top: 0%;
     z-index: 50;
@@ -2361,6 +2361,7 @@ header {
     text-align:right;
     line-height: 42px;
     text-transform:uppercase;
+    position:relative;
 }
 
 .monto_ganancia{
@@ -4217,6 +4218,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:100%;
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
+    overflow:auto;
 }
 
 .btn_cerrar_invitacionFlexipago{
@@ -5344,7 +5346,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    background: url(../../../Images/Lbel/tutorial_lbel_pedido.jpg) no-repeat center center;
 }
 
 /* FIN POPUP TUTORIAL HOME */
@@ -26879,10 +26881,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
     min-height: 405px;
     position: relative;
     font-family: 'Lato';
+}
+
+.catalogoPersonalizadoBloque{
+    background:#FFF;
+}
+
+.pantallaCatalogoPersonalizado {
+    margin:0px auto 0 auto!important;
 }
 
 .content-favclientes .contiene-productos {
@@ -26921,6 +26931,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-bottom: 1px solid black;
     height: 50px;
     padding-top: 15px;
+}
+
+.favoritosClientes{
+    width:39%;
+}
+
+.liquidacionRangoClientes{
+    margin-top:-3px;
 }
 
 /*catalogo personalizado*/
@@ -26963,13 +26981,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .pestana_lbel.new {
-    background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
-    width: 100%;
+    width: 30px;
     height: 20px;
     position: relative;
-    margin-bottom: 9px;
-    margin-left: 0px;
-    background-position-x: 128px;
+    margin-bottom: 8px;
+    margin-left: 64px;
+    z-index: 21;
 }
 
 .titulo_interiores {

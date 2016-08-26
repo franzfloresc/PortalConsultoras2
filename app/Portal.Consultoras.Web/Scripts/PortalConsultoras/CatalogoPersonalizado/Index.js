@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
 
+    // Microefecto al agregar productos al carrito de compras
+
+    $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+        if (!$(this).hasClass("no_accionar")) {
+            e.preventDefault();
+            agregarProductoAlCarrito(this);
+        }
+    });
+
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
@@ -14,7 +24,7 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
-    $('#divCatalogoPersonalizado').html('<div style="text-align: center;">Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    $('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizado',
@@ -122,4 +132,40 @@ function AgregarProducto(url, item, otraFunct) {
             AjaxError(data, error);
         }
     });
+}
+
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent().parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 300, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+            }, 100, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
 }

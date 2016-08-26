@@ -486,10 +486,25 @@ function ActualizarGanancia(data) {
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
-    $("[data-cantidadproducto]").html(data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.CantidadProductos);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
+
+    setTimeout(function () {
+        $('.num-menu-shop').addClass('microefecto_color');
+        $('[data-cantidadproducto]').parent().addClass('microefecto_color');
+        $('[data-pedidocondescuento]').parent().addClass('microefecto_color');
+        $('#lblProductosResumen').addClass('microefecto_color');
+        $('#lblTotalResumen').addClass('microefecto_color');
+        setTimeout(function () {
+            $('.num-menu-shop').removeClass('microefecto_color');
+            $('[data-cantidadproducto]').parent().removeClass('microefecto_color');
+            $('[data-pedidocondescuento]').parent().removeClass('microefecto_color');
+            $('#lblProductosResumen').removeClass('microefecto_color');
+            $('#lblTotalResumen').removeClass('microefecto_color');
+        }, 5000);
+    }, 500);
 }
 
 FuncionesGenerales = {
@@ -499,16 +514,16 @@ FuncionesGenerales = {
         var patron = /[0-9]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-    },
+        },
 
-    ValidarSoloNumerosAndSpecialCharater: function(e) {
-        var tecla = (document.all) ? e.keyCode : e.which;
+            ValidarSoloNumerosAndSpecialCharater: function(e) {
+                var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-    },
-    GetDataForm: function(form) {
+        },
+            GetDataForm: function(form) {
         var that = $(form);
         var url = that.attr('action');
         var type = that.attr('method');
@@ -523,19 +538,19 @@ FuncionesGenerales = {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
-                    }
-                }
             }
+                }
+                }
             if (that.attr('type') == 'checkbox') {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
-                    }
+                }
                 }
             } else {
                 if (data[name] == null) {
                     data[name] = value;
-                }
+        }
             }
         });
 
