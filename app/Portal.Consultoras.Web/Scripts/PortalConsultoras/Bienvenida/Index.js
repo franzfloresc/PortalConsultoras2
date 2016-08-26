@@ -2887,7 +2887,7 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
-    $('#divCatalogoPersonalizado').html('<div style="text-align: center;">Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
