@@ -20734,11 +20734,11 @@ label.checkpop.c_on {
     right: 0px;
 }
 
-.producto_img_home {
-    height: 166px;
+.producto_img_home{
+    height:166px;
    
-    text-align: center;
-    margin-top: 20px;
+    text-align:center;
+    margin-top:20px;
    
     /*background:#ccc;*/
 }

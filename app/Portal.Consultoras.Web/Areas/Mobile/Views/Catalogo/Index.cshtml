@@ -6,7 +6,7 @@
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
+    var textApp = userAgent.Contains("iphone;") ? "Grátis en App Store" : "Grátis en Play Store";
 }
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
