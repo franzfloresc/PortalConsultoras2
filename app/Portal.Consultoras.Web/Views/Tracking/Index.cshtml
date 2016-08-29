@@ -1,8 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Tracking";
+    ViewBag.Title = "Seguimiento de tus pedidos";
 }
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"> SEGUIMIENTO DE TUS<span> PEDIDOS</span></div>
+    </div>
+    <hr class="clear">
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
 <div class="wrap_cab">
-    <div class="filtros">
+        @*<div class="filtros">
         <div class="elements">
             <div class="div-1">
                 <div class="box">
@@ -19,7 +29,7 @@
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
                             }
                             <p>@ViewBag.MensajeCierreCampania</p>
-							<!-- R2161 -->
+                                 R2161
                             //R20151104
                             if (ViewBag.TieneFechaPromesa == 1)
                             { 
@@ -34,19 +44,18 @@
                     <div class="box-b"></div>
                 </div>
             </div>
-            <div class="div-2">
-                <h1><span>Seguimiento de tus Pedidos</span></h1>
-            </div>
+
         </div>
+        </div>*@
     </div>
+    <iframe src="@ViewBag.URLWebTracking" width="100%" height="850"></iframe>
 </div>
 
-<div class="wrap">
+
+    @*<div class="wrap">
     <section class="container clearfix">
         <div class="border-wrapper">
-            <iframe src="@ViewBag.URLWebTracking" width="900" height="700">
 
-            </iframe>
         </div>
     </section>
-</div>
+    </div>*@

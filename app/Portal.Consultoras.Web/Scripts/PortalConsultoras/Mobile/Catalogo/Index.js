@@ -47,7 +47,8 @@ $(document).ready(function () {
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
             'source': listaCorreo,
-            'create': renderItemCliente
+            'create': renderItemCliente,
+            'appendTo': $("#tagParent")
         }
     });
 
@@ -64,8 +65,11 @@ $(document).ready(function () {
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
         var tipo = obj.attr("data-cat");
-        //obj.find("[type='checkbox']").attr('checked', "checked");
-        obj.find("[type='checkbox']").Checked();
+        if (obj.find("[type='checkbox']").is(":checked")) {
+            obj.find("[type='checkbox']").prop("checked", false);
+        } else {
+            obj.find("[type='checkbox']").prop("checked", true);
+        }
     });
 
     $("#btnEnviarCorreo").on("click", function () {
@@ -510,7 +514,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     // asignar el check al catalogo correspondiente mediante tipoCatalogo
     campaniaEmail = campania;
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-    $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
+    $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);    
     $('#CompartirCorreoMobile').show();
 }
 
@@ -597,7 +601,7 @@ function ObtenerUrlRevista(campania) {
 function SetGoogleAnalytics() {
     campania = $("#spNroCampania").text();
     if (campania == $("#hdrCampaniaActual").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + $("#hdrCampaniaActual").val(), 'Vista']);
+        //_gaq.push(['_trackEvent', 'Revista', 'Actual-C' + $("#hdrCampaniaActual").val(), 'Vista']);
 
         /*RQ 2505*/
         dataLayer.push({
@@ -609,14 +613,14 @@ function SetGoogleAnalytics() {
 
     }
     if (campania == $("#hdrCampaniaAnterior").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + $("#hdrCampaniaAnterior").val(), 'Vista']);
+        //_gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + $("#hdrCampaniaAnterior").val(), 'Vista']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Revista/Anterior-C' + $("#hdrCampaniaActual").val() + '/Vista'
         });
     }
     if (campania == $("#hdrCampaniaSiguiente").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + $("#hdrCampaniaSiguiente").val(), 'Vista']);
+        //_gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + $("#hdrCampaniaSiguiente").val(), 'Vista']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Revista/Proxima-C' + $("#hdrCampaniaActual").val() + '/Vista'

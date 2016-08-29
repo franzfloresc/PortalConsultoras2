@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Data;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.Logic;
 using Portal.Consultoras.ServiceCatalogoPersonalizado.ServicePROLConsultas;
@@ -7,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Utils;
 
 namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 {
@@ -26,7 +30,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             //tipoProductoMostrar: 1 -> App Catalogo; 2 -> PCM
 
             var listaCuvMostrar = new List<Producto>();
-            var listaCuvMostrarConStock = new List<Producto>();
+            
             var listaFinal = new List<Producto>();
 
             if (tipoOfertaFinal == 1)
@@ -35,26 +39,8 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                 {
                     var blProducto = new BLProducto();
                     listaCuvMostrar = blProducto.ObtenerProductosMostrar(codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona);
-
-                    listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
-
-                    List<Producto> listaProductosHistorial = tipoProductoMostrar == 1 
-                        ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
-                        : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
-
-                    if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
-                    {
-                        listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
-                        if (tipoProductoMostrar == 1)
-                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
-                        else
-                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);                        
-                    }
-
-                    listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
-
-                    var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
-                    listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
+                    
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);                 
                 }
                 catch (Exception ex)
                 {
@@ -67,31 +53,117 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                 {
                     #region Obtener Listado de CUV de Jetlore
 
+                    //Datos de Prueba para Jetlore
+
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200067349", Cuv = "00724" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200064582", Cuv = "00777" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077626", Cuv = "00834" });
+                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077627", Cuv = "00836" });
 
                     #endregion
                     
-                    listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
-
-                    List<Producto> listaProductosHistorial = tipoProductoMostrar == 1
-                        ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
-                        : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
-
-                    if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
-                    {
-                        listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
-                        if (tipoProductoMostrar == 1)
-                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
-                        else
-                            CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
-                    }
-
-                    listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);
                 }
                 catch (Exception ex)
                 {
                     listaFinal = new List<Producto>();
                 }                          
             }
+
+            return listaFinal;
+        }
+
+        public List<Producto> ObtenerTodosProductos(int tipoOfertaFinal, string codigoIso, int campaniaId, string codigoConsultora, int zonaId,
+            string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte = 100)
+        {
+            //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
+            //codigoIso: PE,CL,CO, etc.
+            //campaniaId: 201612,201613, etc.
+            //codigoConsultora: 000758833
+            //tipoProductoMostrar: 1 -> App Catalogo; 2 -> PCM
+
+            var listaCuvMostrar = new List<Producto>();
+            var listaCuvMostrarConStock = new List<Producto>();
+            var listaFinal = new List<Producto>();
+
+            try
+            {
+                if (tipoOfertaFinal == 1)
+                {
+                    #region Obtener Listado de CUV de ARP
+
+                    //var blProducto = new BLProducto();
+                    //listaCuvMostrar = blProducto.ObtenerProductosMostrar(codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona);
+
+                    #endregion
+                }
+                else
+                {
+                    #region Obtener Listado de CUV de Jetlore
+
+                    var url = ConfigurationManager.AppSettings["jetlore_CatalogoPersonalizado_url"] ?? "";
+                    var bpais = "BELCORP_" + codigoIso;
+                    var hash = ConfigurationManager.AppSettings["jetlore_CLIENT_HASH"] ?? "";
+
+                    url += "?cid=" + hash;
+                    url += "&id=" + codigoConsultora;
+                    url += "&limit=" + limimte;
+                    url += "&feed=" + bpais;
+                    url += "&div=" + campaniaId;
+
+                    //dynamic rtpaJson;
+                    //using (WebClient sv = new WebClient())
+                    //{
+                    //    rtpaJson = sv.DownloadString(url);
+                    //}
+
+                    //ESTA LISTA ES FALSA; SOLO PARA PRUEBAS PORQUE NO HAY INFORMACION DE JETLORE
+                    listaCuvMostrar = tipoProductoMostrar == 1
+                        ? (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                        : (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
+
+                    if (listaCuvMostrar == null || listaCuvMostrar.Count == 0)
+                        listaCuvMostrar = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                listaFinal = new List<Producto>();
+            }            
+            
+            listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);
+
+            return listaFinal;
+        }
+
+        private List<Producto> GetListaFinal(string codigoIso, List<Producto> listaCuvMostrar, int tipoProductoMostrar, int campaniaId)
+        {
+            var listaFinal = new List<Producto>();
+
+            var listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
+
+            List<Producto> listaProductosHistorial = tipoProductoMostrar == 1
+                ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
+
+            if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
+            {
+                listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                if (tipoProductoMostrar == 1)
+                    CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
+                else
+                    CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
+            }
+
+            listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
+
+            if (tipoProductoMostrar == 1)
+            {
+                var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
+                listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
+            }   
 
             return listaFinal;
         }
@@ -158,42 +230,60 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             string clientId = "ws_pe_lbel";
             string clientSecret = "peru1234";
             string grantType = "client_credentials";
-            string urlAuth = "https://10.12.6.218:9002/authorizationserver/oauth";
+            string urlAuthorizationServer = "https://10.12.6.218:9002";
+            string urlAuthorizationPath = "/authorizationserver/oauth";
             string urlService = "https://10.12.6.218:9002/belcorpstorewebservices/v1/belcorpsitePE/belcorpstore/products/export/full";
 
-            string responseStringToken = string.Empty;
-            string responseStringService = string.Empty;
- 
-            List<KeyValuePair<string, string>> postData = new List<KeyValuePair<string, string>>();
-            postData.Add(new KeyValuePair<string, string>("client_id", clientId));
-            postData.Add(new KeyValuePair<string, string>("client_secret", clientSecret));
-            postData.Add(new KeyValuePair<string, string>("grant_type", grantType));
+            var auth = new AuthConnection();
+            auth.UrlAuthorizationServer = urlAuthorizationServer;
+            auth.ClientId = clientId;
+            auth.ClientSecret = clientSecret;
 
-            HttpContent content = new FormUrlEncodedContent(postData);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            auth.AuthorizationPath = urlAuthorizationPath;
+            const string formatoTokenPath = "{0}/token?client_id={1}&client_secret={2}&grant_type={3}";
+            //string formatoTokenPath = "/authorizationserver/oauth/token?client_id=ws_pe_lbel&client_secret=peru1234&grant_type=client_credentials";
+            string tokenPath = string.Format(formatoTokenPath, urlAuthorizationPath, clientId, clientSecret, grantType);
+            auth.TokenPath = tokenPath;            
 
-            using (HttpClient client = new HttpClient())
+            var productos = auth.GetResultFromWebService(urlService);
+
+            var listaProductoPcm = new JavaScriptSerializer().Deserialize<ProductoPcm>(productos);
+            string rutaInicialImagenPcm = ConfigurationManager.AppSettings.Get("RutaInicialImagenPcm") ?? "";
+
+            listaProductoPcm.products[0].code = "200067349";
+            listaProductoPcm.products[1].code = "200064582";
+            listaProductoPcm.products[2].code = "210077626";
+            listaProductoPcm.products[3].code = "210077627";
+
+            foreach (var item in listaProductoPcm.products)
             {
-                //Obtener el Token
-                HttpResponseMessage responseResultToeken = client.PostAsync(urlAuth, content).Result;
-                string result = responseResultToeken.Content.ReadAsStringAsync().Result;
-                JObject obj = JObject.Parse(result);
-                
-                responseStringToken = (string)obj["access_token"];
-            }
+                var productoMostrar = new Producto();
 
-            using (HttpClient client = new HttpClient())
-            {
-                //Consumir el Servicio
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseStringToken);
+                productoMostrar.CodigoSap = item.code;
+                string cuv = ObtenerCuv(codigoIso, campaniaId, item.code);
 
-                HttpResponseMessage responseResultService = client.GetAsync(urlService).Result;
-                string result = responseResultService.Content.ReadAsStringAsync().Result;
-                JObject obj = JObject.Parse(result);
+                if (!string.IsNullOrEmpty(cuv))
+                {                  
+                    string rutaImagen = "";
 
-                responseStringService = (string)obj["products"];
+                    foreach (var imagen in item.images)
+                    {
+                        if (imagen.format == "product")
+                        {
+                            rutaImagen = imagen.url;
+                            break;
+                        }                        
+                    }
+
+                    if (!string.IsNullOrEmpty(rutaImagen))
+                    {
+                        productoMostrar.NombreComercial = item.name;
+                        productoMostrar.Cuv = cuv;
+                        productoMostrar.Imagen = rutaInicialImagenPcm + rutaImagen;
+
+                        lista.Add(productoMostrar);   
+                    }                    
+                }                
             }
 
             #endregion
@@ -214,6 +304,17 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             }
 
             return lista;
+        }
+
+        public string ObtenerCuv(string codigoIso, int campaniaId, string codigoSap)
+        {
+            string resultado = "";
+
+            var BLProducto = new BLProducto();
+
+            resultado = BLProducto.ObtenerCuvByCodigoSap(codigoIso, campaniaId, codigoSap);
+
+            return resultado;
         }
     }
 }

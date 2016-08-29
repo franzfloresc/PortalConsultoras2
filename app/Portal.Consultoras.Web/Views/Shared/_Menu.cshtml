@@ -132,21 +132,21 @@
                                 if (addImgen)
                                 {
                                     <a href="javascript:;" class="menu_imagen" onclick=" return SetAnalyticsMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" id="lnk-pri-miscatalogosrevistas">
-                                        <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_01.png" />
+                                        <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
                                         <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
                                     </a>
                                     if (ViewBag.SegmentoConsultoraMenu == 1)
                                     {
-                                        <a class="menu_imagen no_margin_right">
-                                            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_02.png" />
+                                        <a href="@(ViewBag.UrlRaizS3)@(DateTime.Now.Year)/Minisite+Nuevas+Esikizado/@(ViewBag.codigoISOMenu)/index.html" class="menu_imagen no_margin_right">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" />
                                             <div class="titulo_imagen">PROGRAMA NUEVAS</div>
                                         </a>
                                     }
                                     else if (ViewBag.SegmentoConsultoraMenu != 1 && ViewBag.codigoISOMenu != "VE")
                                     {
-                                        <a class="menu_imagen no_margin_right">
-                                            <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/@(ViewBag.codigoISOMenu)/imagen_03.png" />
-                                            <div class="titulo_imagen">BRILLANTE 2016</div>
+                                        <a class="menu_imagen no_margin_right" onclick=" return SetAnalyticsMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" />
+                                            <div class="titulo_imagen">INCENTIVOS</div>
                                         </a>
                                     }
                                 }
@@ -165,7 +165,7 @@
                         if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
                         {
                             <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>

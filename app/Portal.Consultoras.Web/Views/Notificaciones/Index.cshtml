@@ -4,6 +4,23 @@
     var sinLeer = Model.ListaNotificaciones.Where(x => x.Visualizado == false).Count();
 }
 
+<style type="text/css">
+    .Content_modal_home {
+        background: #FFF;
+        padding: 20px 10px 10px 10px;
+        min-height: 350px;
+        overflow: auto;
+        border: 1px solid #D0D0D0;
+        position: relative;
+        width: 60%;
+        top: -674px;
+        margin: 0 auto;
+        max-height: none;
+    }
+    .no_leido{
+        font-weight:900;
+    }
+</style>
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
@@ -46,15 +63,15 @@
             {
                 <div class="content_datos_mispagos">
                     <div class="fecha_pagos">SOMOSBELCORP</div>
-                    <a class="movimientos_pagos">@item.Asunto</a>
+                    <a class="movimientos_pagos_content @(item.Visualizado ? "" : "no_leido")" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso','@item.EsMontoMinimo.ToString()', this)">@item.Asunto</a>
                     <div class="pedidos_pagos">@Html.DisplayTextFor(modelItem => item.FechaHoraValidación)</div>
                     <div class="abonos_pagos">
                         @if (item.CampaniaId != 0)
                         {
                             @Html.DisplayTextFor(modelItem => item.CampaniaId)
                         }
+                    </div>
                 </div>
-            </div>
             }
             <!--FIN CONTENIDO TABLAS-->
             <div class="linea_separadora" style="height:2px"></div>
@@ -150,8 +167,23 @@
         <div class="texto_monto_pago">Total Monto a pagar: </div>
     </div>
 </div>
+<div id="divNotificacionCatalogo" class="wrap" style="display:none;max-height: 1100px;">
+    <div class="Content_modal_home">
+        <a onclick="$('#divNotificacionCatalogo').hide();">CERRAR X</a>
+        <div id="divDetalleNotificacionCatalogo">
+        </div>
+    </div>
+</div>
+<div id="divObservaciones" class="wrap" style="display:none;max-height: 1100px;">
+    <div class="Content_modal_home">
+        <a onclick="$('#divObservaciones').hide();">CERRAR X</a>
+        <div id="divListadoObservaciones">
+        </div>
+    </div>
+</div>
 
 @section scripts{
+    <script src="~/Scripts/PortalConsultoras/Notificaciones/Index.js"></script>
     <script type="text/javascript">
         // POPUP NOTIFICACIONES //
         $(document).ready(function () {

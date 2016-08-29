@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Linq;
 using System.Configuration;
+using System.Web.UI.HtmlControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -17,15 +18,33 @@ namespace Portal.Consultoras.Web.WebPages
             if (IsPostBack) return;
 
             var dataQueryString = Request.QueryString["data"];
-
             if (dataQueryString != null)
             {
                 CargarSessionConsultora(dataQueryString);
+
+                var campania = Request.QueryString["campania"];
+                if (campania != null)
+                {
+                    int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                    string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
+                    string paisISO = Convert.ToString(ViewState["PAISISO"]);
+
+                    BETracking bETracking = new BETracking();
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        bETracking = sv.GetPedidoByConsultoraAndCampania(paisID, codigoConsultora, Convert.ToInt32(campania));
+                    }
+                    
+                    pnlNovedadesEntrega.Visible = true;
+                    pnlNovedadesPostVenta.Visible = false;
+                    HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
+                    row1.Style.Add("display", "none");
+
+                    CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
             }
-            else
-            {
-                Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
             }
+            else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
+
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -320,14 +339,31 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 pnlSeguimientoPedido.Visible = true;
                 pnlSeguimientoPostVenta.Visible = false;
+                pnlSinTracking .Visible = false;
 
                 IList<BETracking> tracking = new List<BETracking>();
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
                 BENovedadFacturacion oBENovedadFacturacion = null; //R2004
 
+                if (string.IsNullOrEmpty(nropedido))
+                {
+                    lblMensajeSinTracking.Text = ConfigurationManager.AppSettings["MensajeSinTracking"].ToString();
+                    pnlSinTracking.Visible = true;
+
+                    gridDatos.DataSource = null;
+                    gridDatos.DataBind();
+
+                    gvNovedades.DataSource = null;
+                    gvNovedades.DataBind();
+
+                    lblMensaje.Visible = false;
+
+                    return;
+                }
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, fecha);
+                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido);
 
                     if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisISO))
                     {
@@ -526,11 +562,11 @@ namespace Portal.Consultoras.Web.WebPages
 
                 foreach (GridViewRow row in gvNovedades.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 gvNovedades.SelectedIndex = 0;
-                gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[0]["Longitud"];
@@ -551,12 +587,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 foreach (GridViewRow row in gvNovedades.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedades.SelectedIndex = Index;
-                gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[Index]["Longitud"];
@@ -686,11 +722,11 @@ namespace Portal.Consultoras.Web.WebPages
 
                 foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 gvNovedadesPostVenta.SelectedIndex = 0;
-                gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
@@ -709,12 +745,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
                 {
-                    row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
                 }
 
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedadesPostVenta.SelectedIndex = Index;
-                gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[Index]["Longitud"];

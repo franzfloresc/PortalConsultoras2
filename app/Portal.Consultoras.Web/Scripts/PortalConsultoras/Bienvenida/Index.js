@@ -1,48 +1,206 @@
 ﻿$(document).ready(function () {
-    CrearDialogs();
-    CargarCarouselEstrategias("");
-    CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
-    
+
+    $('#salvavidaTutorial').show();
+    function ocultarAnimacionTutorial() {
+
+        $(".circulo-1").fadeOut();
+        $(".tooltip_tutorial").fadeOut();
+
+    }
+
+    function AnimacionTutorial() {
+
+        $(".tooltip_tutorial").animate({
+            'opacity': 1,
+            'top': 47
+        }, 500, 'swing', function () {
+            $(".tooltip_tutorial").animate({
+                'top': 41
+            }, 500, 'swing');
+        });
+
+        $(".circulo-1").animate({
+
+            'width': 45,
+            'height': 45,
+            'opacity': 0,
+            'top': -8,
+            'left': -11.5
+
+        }, 900, 'swing', function () {
+
+            $(".circulo-1").css({
+                'width': '0px',
+                'height': '0px',
+                'opacity': '1',
+                'top': 14,
+                'left': 10
+            });
+
+        });
+
+    }
+
+    $(".abrir_tutorial").click(function () {
+        abrir_popup_tutorial();
+    });
+
+    $(".cerrar_tutorial").click(function () {
+        cerrar_popup_tutorial();
+    });
+
+    function abrir_popup_tutorial(){
+        $('#popup_tutorial_home').fadeIn();
+        $('html').css({ 'overflow-y': 'hidden' });
+    }
+
+    function cerrar_popup_tutorial() {
+        $('#popup_tutorial_home').fadeOut();
+        $('html').css({ 'overflow-y': 'auto' });
+    }
+
+    // Evento para visualizar video introductorio al hacer click
+
+    $(".ver_video_introductorio").click(function () {
+        $('#fondoComunPopUp').show();
+        contadorFondoPopUp++;
+        $('#videoIntroductorio').fadeIn(function () {
+
+            $("#videoIntroductorio").delay(200);
+
+            $("#videoIntroductorio").fadeIn(function () {
+
+                $(".popup_video_introductorio").fadeIn();
+
+            });
+
+        });
+
+    });
+
+    // Microefecto al agregar productos al carrito de compras
+
+    $(document).on("click", ".boton_Agregalo_home", function (e) {
+
+        if (!$(this).hasClass("no_accionar")) {
+            e.preventDefault();
+            agregarProductoAlCarrito(this);
+        }
+    });
+
+    //$(".campana.cart_compras").hover(function () {
+    //    $(".info_cam").fadeIn(200);
+    //}, function () {
+    //    $(".info_cam").fadeOut(200);
+    //});
+
+    // MICROEFECTO FLECHA HOME
+
+    // Función de animación de la flecha scroll 
+
+    //function animacionFlechaScroll() {
+
+    //    $(".flecha_scroll").animate({
+    //        'top': '87%'
+    //    }, 450, 'swing', function () {
+    //        $(this).animate({
+    //            'top': '90%'
+    //        }, 150, 'swing', function () {
+    //            $(this).animate({
+    //                'top': '89.5%'
+    //            }, 100, 'swing', function () {
+    //                $(this).animate({
+    //                    'top': '90.5%'
+    //                }, 450, 'swing');
+    //            });
+    //        });
+    //    });
+
+    //}
+
+    function animacionFlechaScroll() {
+
+        $(".flecha_scroll").animate({
+            'top': '87%'
+        }, 400, 'swing', function () {
+            $(this).animate({
+                'top': '90%'
+            }, 400, 'swing');
+        });
+
+    }
+
+    // Intervalo Microefecto Flecha Scroll
+
+    setInterval(animacionFlechaScroll, 1000);
+
+    // Funcion para cambiar background según posicion de scroll
+
     $(window).scroll(function () {
 
-        var $this = $(this);
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
-        if ($this.scrollTop() > 870) {
+            $(".flecha_scroll").animate({
+                opacity: 0
+            }, 100, 'swing', function () {
+                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                $(".flecha_scroll").delay(100);
+                $(".flecha_scroll").animate({
+                    opacity: 1
+                }, 100, 'swing');
+            });
 
-            $(".porcentaje_curso").addClass("mostrarPorcentajes");
-            porcentajesCursos();
 
         } else {
 
-            $(".porcentaje_curso").removeClass("mostrarPorcentajes");
+            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
 
         }
 
     });
 
-    // Función para animación y características de carga circular de Cursos Academia
-    function porcentajesCursos() {
+    // Evento click que ocurre en la flecha scroll
 
-        $('.porcentaje_cursosAcademia').easyPieChart({
-            barColor: isEsika == true ? '#e81c36' : '#642f80',
-            trackColor: '#f0f0f0',
-            scaleColor: 'transparent',
-            animate: 1000,
-            size: 55,
-            lineWidth: 3,
-            onStep: function (value) {
-                this.$el.find('span').text(Math.round(value));
-            },
-            onStop: function (value, to) {
-                this.$el.find('span').text(Math.round(to));
-            }
-        });
+    $(".flecha_scroll").on('click', function (e) {
 
-    }
-    
-    CargarBanners();
+        e.preventDefault();
+        var posicion = $(window).scrollTop();
+        if (posicion + $(window).height() == $(document).height()) {
+
+            $('html, body').animate({
+                scrollTop: $('html, body').offset().top
+            }, 1000, 'swing');
+
+        } else {
+
+            $('html, body').animate({
+                scrollTop: posicion + 700
+            }, 1000, 'swing');
+
+        }
+
+    });
+
+
+    // VIDEO INTRODUCTORIO
+
+    //$("#video_introductorio").delay(200);
+    //$("#video_introductorio").fadeIn(function () {
+
+    //    $(".popup_video_introductorio").fadeIn();
+
+    //});
+
+    // FIN DE VIDEO INTRODUCTORIO
+    mostrarVideoIntroductorio();
     CrearDialogs();
+    CargarCarouselEstrategias("");
+    CargarCarouselLiquidaciones();
+    CargarPopupsConsultora();
+    CargarMisCursos();
+    CargarBanners();
+    CargarCatalogoPersonalizado();
+
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {
@@ -60,6 +218,19 @@
     });
     $("#btnCerrarActualizarDatosMexico").click(function () {
         CerrarPopupActualizacionDatosMexico();
+        return false;
+    });
+    
+    $("#cerrarVideoIntroductorio").click(function () {
+        $('#videoIntroductorio').hide();
+        if (primeraVezVideo) {
+            setInterval(AnimacionTutorial, 800);
+            setTimeout(ocultarAnimacionTutorial, 9000);
+        }
+        if (contadorFondoPopUp == 1) {
+            $("#fondoComunPopUp").hide();
+        }
+        contadorFondoPopUp--;
         return false;
     });
     $("#cerrarAceptacionContrato").click(function () {
@@ -225,15 +396,76 @@
 
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
-    })
-
-    // SB20-255
-    if (UrlImgMiAcademia != null) {
-        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
-    }
-
-    CargarMisCursos();      // SB20-255
+    });
+    
+    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
+        var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
+        AgregarProductoCatalogoPersonalizado(contenedor);
+    });
 });
+
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent().parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+
+    if (imagenProducto.length > 0) {
+    var carrito = $('.campana');
+
+    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+    $(".transicion").css({
+        'height': imagenProducto.css("height"),
+        'width': imagenProducto.css("width"),
+        'top': imagenProducto.offset().top,
+        'left': imagenProducto.offset().left,
+    }).animate({
+            'top': carrito.offset().top - 60,
+        'left': carrito.offset().left + 100,
+        'height': carrito.css("height"),
+        'width': carrito.css("width"),
+        'opacity': 0.5
+        }, 450, 'swing', function () {
+        $(this).animate({
+            'top': carrito.offset().top,
+            'opacity': 0,
+            //}, 100, 'swing', function () {
+            //    $(".campana .info_cam").fadeIn(200);
+            //    $(".campana .info_cam").delay(2500);
+            //    $(".campana .info_cam").fadeOut(200);
+            }, 150, 'swing', function () {
+            $(this).remove();
+        });
+    });
+}
+}
+
+function mostrarVideoIntroductorio() {
+    if (viewBagVioVideo == "0") {
+        if (contadorFondoPopUp == 0) {
+            $("#fondoComunPopUp").show();
+        }
+        $("#videoIntroductorio").show();
+        UpdateUsuarioVideo();
+        contadorFondoPopUp++;
+    } else {
+        primeraVezVideo = false;
+    }
+}
+
+function UpdateUsuarioVideo() {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Bienvenida/JSONSetUsuarioVideo',
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+};
 
 function CrearDialogs() {
     $('#DialogMensajes').dialog({
@@ -338,7 +570,13 @@ function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divCarruselHorizontal').unslick();
-    $('#divCarruselHorizontal').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
+    if (isEsika) {
+        $('#divCarruselHorizontal').html(
+            '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-esika" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
+        );
+    } else {
+        $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
+    }
 
     $.ajax({
         type: 'GET',
@@ -863,7 +1101,7 @@ function ArmarCarouselLiquidaciones(data) {
                         '<div class="producto_precio" style="margin-bottom: -8px;">',
                             '<span class="producto_precio_oferta"></span>',
                         '</div>',
-                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home" style="width:100%;">',
+                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
                             'VER MAS',
                         '</a>',
                     '</div>',
@@ -1187,7 +1425,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
                     ActualizarGanancia(result.DataBarra);
 
-                    CargarResumenCampaniaHeader(true);
+                    CargarResumenCampaniaHeader();
 
                     alert_unidadesAgregadas(result.message, 1);
 
@@ -1353,6 +1591,7 @@ function CargarMisDatos() {
             $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
             $('#codigoUsurioMD').html(temp.CodigoUsuario);
             $('#nombresUsuarioMD').html(temp.NombreCompleto);
+            $('#txtSobrenombreMD').html(temp.Sobrenombre);
             $('#txtEMailMD').val(temp.EMail);
             $('#txtTelefonoMD').val(temp.Telefono);
             $('#txtCelularMD').val(temp.Celular);
@@ -1567,6 +1806,15 @@ function DownloadAttachContratoActualizarDatos() {
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
 
+    $(window).scroll(function () {
+        if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
+            porcentajesCursos();
+        }
+    });
+
+    if (UrlImgMiAcademia != null) {
+        $('.item_video_left').find('.item_video').css('background', 'url(' + UrlImgMiAcademia + ' ) no-repeat center center');
+    }
     $('#divSinTutoriales').hide();
     $('#divTutorialesV').hide();
 
@@ -1603,9 +1851,27 @@ function CargarMisCursos() {
         }
     });
 };
-
 function ArmarDivMisCursos(data) {
     SetHandlebars("#miscursos-template", data, "#divMisCursos");
+};
+function porcentajesCursos() {
+    // Función para animación y características de carga circular de Cursos Academia
+    $(".porcentaje_curso").addClass("mostrarPorcentajes");
+
+    $('.porcentaje_cursosAcademia').easyPieChart({
+        barColor: isEsika == true ? '#e81c36' : '#642f80',
+        trackColor: '#f0f0f0',
+        scaleColor: 'transparent',
+        animate: 1000,
+        size: 55,
+        lineWidth: 3,
+        onStep: function (value) {
+            this.$el.find('span').text(Math.round(value));
+        },
+        onStop: function (value, to) {
+            this.$el.find('span').text(Math.round(to));
+        }
+    });
 };
 
 // Métodos ActualizarDatos
@@ -2610,6 +2876,131 @@ function AgregarSuenio() {
         async: false,
                 closeWaitingDialog();
             }
+        }
+    });
+}
+
+// Catalogo Personalizado
+function CargarCatalogoPersonalizado() {
+    var cataPer = $("#hdTipoCatalogoPersonalizado").val();
+    if (cataPer != "1" && cataPer != "2") {
+        $("#divMainCatalogoPersonalizado").remove();
+        return false;
+    }
+
+    $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (data.success) {
+                $("#divCatalogoPersonalizado").html("");
+                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+            }
+            else {
+                $("#divMainCatalogoPersonalizado").remove();
+            }
+            
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
+function AgregarProductoCatalogoPersonalizado(item) {
+    waitingDialog();
+
+    var divPadre = item;
+    var attItem = $(item).attr("data-item") || "";
+    if (attItem == "") {
+        divPadre = $(item).parents("[data-item]").eq(0);
+    }
+    
+    var cuv = $(divPadre).find(".hdItemCuv").val();
+    var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+    var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
+    var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
+    var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
+    var tipo = $(divPadre).find(".hdItemTipo").val();
+    var marcaID = $(divPadre).find(".hdItemMarcaID").val();
+    var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
+    var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
+    var pagina = $(divPadre).find(".hdItemPagina").val();
+    var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
+    var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
+    var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var model = {
+        TipoOfertaSisID: tipoOfertaSisID,
+        ConfiguracionOfertaID: configuracionOfertaID,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        MarcaID: marcaID,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidad,
+        CUV: cuv,
+        Tipo: tipo,
+        DescripcionProd: descripcionProd,
+        Pagina: pagina,
+        DescripcionCategoria: descripcionCategoria,
+        DescripcionMarca: descripcionMarca,
+        DescripcionEstrategia: descripcionEstrategia,
+        EsSugerido: false
+    };
+
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    
+}
+
+// Fin Catalogo Personalizado
+
+function AgregarProducto(url, item, otraFunct) {
+    waitingDialog();
+
+    tieneMicroefecto = true;
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/' + url,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            if (data.success == true) {
+                ActualizarGanancia(data.DataBarra);
+                InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
+                CargarResumenCampaniaHeader(true);
+                TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+
+                if (typeof (otraFunct) == 'function') {
+                    setTimeout(otraFunct, 50);
+                }
+                else if (typeof (otraFunct) == 'string') {
+                    setTimeout(otraFunct, 50);
+                }
+            }
+            else {
+                alert_msg_pedido(data.message);
+            }
+            closeWaitingDialog();
+        },
+        error: function (data, error) {
+            tieneMicroefecto = false;
+            AjaxError(data, error);
         }
     });
 }

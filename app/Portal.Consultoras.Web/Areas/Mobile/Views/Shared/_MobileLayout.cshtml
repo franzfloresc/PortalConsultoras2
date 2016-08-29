@@ -9,18 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SomosBelcorp Web Mobile" />
     <title>Somos Belcorp</title>
-
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
-
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+    <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+    @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
     {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+    <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+    @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
     @RenderSection("styles", required: false)
@@ -43,47 +41,44 @@
             'socianivel': '@ViewBag.AnalyticsSociaNivel'
         }];
     </script>
-
     @if (!Html.IsDebug())
     {
-        <!-- Google Tag Manager -->
-        <noscript>
-            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-        </noscript>
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
-        </script>
-        <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
+    </script>
+    <!-- End Google Tag Manager -->
     }
-    
+
     @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+    <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+    <script type="text/javascript">
+        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
 
-        <script type="text/javascript">
-            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-            
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
+        JL.tracking({
+            cid: trackingJetloreAccessToken,
+            user_id: '@ViewBag.CodigoConsultoraDL',
+            feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+        });
+    </script>
     }
-    
+
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-
     <!-- Menu icon -->
     <div class="menu">
         <div class="content_close">
@@ -103,7 +98,6 @@
         @Html.Partial("_MobileMenuLateral")
         <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
-
     <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
@@ -113,7 +107,6 @@
         </a>
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
-
     <!-- header -->
     <header id="new-header">
         <div class="container-fluid">
@@ -138,7 +131,6 @@
             </div>
         </div>
     </header>
-
     <div id="divShowRoom" class="ocultarPopup" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
@@ -180,12 +172,10 @@
                         <a href="javascript:;" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="sombra_m"></div>
     </div>
-
     <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
@@ -214,26 +204,23 @@
             <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
         </div>
     </div>
-
     <!-- content -->
     <section style="min-height: 400px;">
-
-        <div id="content">
-            @RenderBody()
+        <div class="container-fluid">
+            <div id="content">
+                @RenderBody()
+            </div>
+            <div class="clear">
+                <br />
+                <br />
+            </div>
         </div>
-        <div class="clear">
-            <br />
-            <br />
-        </div>
-
     </section>
-
     <!-- footer -->
     <footer class="footer-page">
         @Html.Partial("_MobileMenuFooter")
         <hr class="clear" />
     </footer>
-
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
             <div class="w-ball-wrapper ball-1">
@@ -252,7 +239,6 @@
             </div>
         </div>
     </div>
-
     <div id="popupInformacion" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -263,35 +249,44 @@
                     <div id="mensajeInformacion" class="text-lg"></div>
                     <br />
                     <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar"><b>OK</b></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="mensajeInformacionvalidado" class="text-lg"></div>
-                    <br />
-                    <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
-                    </div>
-                </div>
-            </div>
+    @*<div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
+    <div class="modal-dialog modal-alert ">
+    <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+    <div id="mensajeInformacionvalidado" class="text-lg"></div>
+    <br />
+    <div>
+    <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>*@
+    <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
-
     <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
                 <div class="modal-body">
-
                     <div class="row text-left">
                         <div class="col-xs-12">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
@@ -302,9 +297,7 @@
                             </ol>
                         </div>
                     </div>
-
                     <div class="row text-left">
-
                         <div class="form-controls-grey">
                             <div class="col-xs-12">
                                 <div class="form-group">
@@ -314,49 +307,39 @@
                                 <div class="form-group">
                                     <input id="txtNombreConCom" class="form-control" placeholder="" value="@ViewBag.NombreC" type="text" readonly="readonly" />
                                 </div>
-
                                 <div class="form-group">
                                     <input id="txtApellidoConCom" class="form-control" placeholder="" value="@ViewBag.ApellidoC" type="text" readonly="readonly" />
                                 </div>
-
                                 <div class="form-group">
                                     <input id="txtUsuarioComunidad" class="form-control" placeholder="Tu apodo en la Comunidad" maxlength="25" type="text" onblur="if (this.value != '') { ValidarUsuarioIngresado(this.value); }" />
                                     <div id="ErrorUsuario" style="font-size: 11px; color: red; display: none;">Debe ingresar un apodo.</div>
                                     <div id="ValUsuario" style="font-size: 11px; display: none;"></div>
                                 </div>
-
                                 <div class="form-group">
                                     <input id="txtNuevoCorreoComunidad" class="form-control" placeholder="Correo Electronico" onblur="if (this.value != '') { ValidarCorreoIngresado(this.value); }" />
                                     <div id="ErrorCorreo" style="font-size: 11px; color: red; display: none;"></div>
                                     <div id="ValCorreo" style="font-size: 11px; display: none;"></div>
                                 </div>
-
                                 <div class="block-center text-center">
                                     <a id="btnRegistrarUsuarioComunidad" onclick="return ValidarCorreoComunidad(2)" class=" btn btn-line-action btn-round">Crea tu cuenta</a>
                                 </div>
                             </div>
                         </div>
-
                         <div class="clear">
                         </div>
-
                         <div class="col-xs-12">
                             <hr style="border-top: 1px solid #CCC;" />
                         </div>
                         <div class="form-controls-grey">
-
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     Si ya eres miembro de la Comunidad Somos Belcorp, ingresa tu correo aquí:
                                 </div>
                                 <div class="form-group">
-
                                     <input id="txtCorreoComunidad" class="form-control" placeholder="Correo Electronico" />
                                     <div id="ErrorCorreoC" style="font-size: 11px; color: red; display: none;"></div>
                                     <div id="ES_CorreoC" style="height: 10px; display: none;"></div>
-
                                 </div>
-
                                 <div class="block-center text-center">
                                     <a id="btnValidarCorreo" class="btn btn-line-action btn-round" onclick="return ValidarCorreoComunidad(1)">Ingresar</a>
                                 </div>
@@ -367,11 +350,36 @@
             </div>
         </div>
     </div>
-
+    <!--POP MENSAJE IMPORTANTE-->
+    <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>ERROR</b></div>
+            <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+    <!--POP MENSAJE LO LOGRASTE-->
+    <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta check_icono_mobile"></div>
+            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
     @Scripts.Render("~/Scripts/Mobile")
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-
     <script type="text/javascript">
 
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -383,10 +391,15 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";        
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        var vbSimbolo = '@ViewBag.Simbolo';
+
         $(function () {
+            SetFormatDecimalPais(formatDecimalPaisMain);
+
             HandlebarsRegisterHelper();
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
@@ -401,7 +414,7 @@
                 $(this).parent(".alert-top").slideUp();
             });
 
-            CargarCantidadProductosPedidos();
+            CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
             //CargarCantidadPedidosConsultoraOnline();
 
@@ -460,6 +473,7 @@
 
                 $txtcantidad.val(cantidad);
             });
+
         });
 
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -813,16 +827,36 @@
             }
         }
 
-        function messageInfoValidado(message, fnAceptar) {
-            $('#mensajeInformacionvalidado').html(message);
-            $('#popupInformacionValidado').modal("show");
+        function messageInfoBueno(message, fnAceptar) {
+            $('#mensajeInformacionSB2Bueno').html(message);
+            $('#popupInformacionSB2Bueno').modal("show");
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn-aceptar').off('click');
-                $('#popupInformacionValidado .btn-aceptar').on('click', fnAceptar);
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
             }
         }
 
-        function CargarCantidadProductosPedidos() {
+        function messageInfoMalo(message, fnAceptar) {
+            $('#mensajeInformacionSB2_Malo').html(message);
+            $('#popupInformacionSB2Malo').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
+                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
+            }
+        }
+
+        function messageInfoValidado(message, fnAceptar) {
+            $('#mensajeInformacionvalidado').html(message);
+            $('#popupInformacionValidado').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
+
+        function CargarCantidadProductosPedidos(noMostrarEfecto) {
+            noMostrarEfecto = noMostrarEfecto || false;
+
             jQuery.ajax({
                 type: 'POST',
                 url: urlGetCantidadProductos,
@@ -845,10 +879,12 @@
 
                         $(".num-menu-shop").html(data.cantidadProductos);
                         $(".js-span-pedidoingresado").html(montoWebAcumulado);
+                        if (!noMostrarEfecto) {
+                            $('.num-menu-shop').removeClass('microefecto_color');
+                            setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
+                        }
 
-                        $("#spnCantidadProductos").html(data.cantidadProductos);
-                        $("#spnDescripcionTotal").html(montoWebAcumulado);
-
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -876,6 +912,7 @@
                             $("#divNotificacionesSinLeer").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -909,6 +946,7 @@
                             $("#divAlertaPedidosOnline").show();
                         }
 
+                        data.mensaje = data.mensaje || "";
                         if (data.mensaje != '') {
                             console.log(data.mensaje);
                         }
@@ -1115,7 +1153,7 @@
 
             }
         }
-    /* Fin Tracking Jetlore */
+        /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

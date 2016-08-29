@@ -255,6 +255,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
             model.NombreConsultora = userData.NombreConsultora;
             model.Origen = TipoOrigen;
+            model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaNotificacionesDetallePedido != null &&
+                model.ListaNotificacionesDetallePedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOferta == 1);
+
+            if (model.TieneDescuentoCuv)
+            {
+                model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+                model.Descuento = -model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                model.Total = model.SubTotal + model.Descuento;
+            }
+            else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+            model.DecimalToString = this.CreateConverterDecimalToString(userData.PaisID);
+
             ViewBag.Simbolo = userData.Simbolo;
 
             return View("ListadoObservaciones", model);

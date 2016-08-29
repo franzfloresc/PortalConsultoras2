@@ -58,6 +58,15 @@ namespace Portal.Consultoras.Web.WebPages {
         protected global::System.Web.UI.WebControls.View vTracking;
         
         /// <summary>
+        /// Control cellPedidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell cellPedidos;
+        
+        /// <summary>
         /// Control pFiltros.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,24 @@ namespace Portal.Consultoras.Web.WebPages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNovedadFacturacion;
+        
+        /// <summary>
+        /// Control pnlSinTracking.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSinTracking;
+        
+        /// <summary>
+        /// Control lblMensajeSinTracking.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeSinTracking;
         
         /// <summary>
         /// Control gridDatos.

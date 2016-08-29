@@ -114,6 +114,8 @@
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="UsuarioPrueba" type="xs:int" />
       <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VioTutorial" type="xs:int" />
+      <xs:element minOccurs="0" name="VioVideo" type="xs:int" />
       <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
@@ -329,6 +331,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="IndicadorOferta" type="xs:int" />
@@ -355,6 +358,8 @@
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaSolicitud" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagConsultora" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagMedio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Leido" type="xs:int" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeDelCliente" nillable="true" type="xs:string" />
@@ -375,6 +380,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
       <xs:element minOccurs="0" name="PrecioTotal" type="xs:double" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:double" />

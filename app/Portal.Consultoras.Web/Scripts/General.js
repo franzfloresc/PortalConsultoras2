@@ -153,7 +153,9 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                operator = operator || '==';
+                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                operator = opts == undefined ? '==' : (operator || '==');
+                opts = optsx;
                 switch (operator) {
                     case '==':
                         bool = $.trim(a) == "";
@@ -249,11 +251,6 @@ jQuery(document).ready(function () {
         } while (pEntera.length > 0);
 
         return pEnteraFinal + pDecimal;
-    }
-    
-    ActualizarGanancia = function (data) {
-        data = data || new Object();
-        $("[data-ganancia]").html(data.MontoGananciaStr || "");
     }
 })(jQuery);
 
@@ -478,6 +475,37 @@ function paginadorAccionGenerico(obj) {
     return rpt;
 }
 //R2116-INICIO
+
+function ActualizarGanancia(data) {
+    data = data || new Object();
+    data.CantidadProductos = data.CantidadProductos || "";
+    data.TotalPedidoStr = data.TotalPedidoStr || "";
+
+    // Los Montos resumen de pedido
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+    $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
+    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.CantidadProductos);
+
+    $(".num-menu-shop").html(data.CantidadProductos);
+    $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
+
+    setTimeout(function () {
+        $('.num-menu-shop').addClass('microefecto_color');
+        $('[data-cantidadproducto]').parent().addClass('microefecto_color');
+        $('[data-pedidocondescuento]').parent().addClass('microefecto_color');
+        $('#lblProductosResumen').addClass('microefecto_color');
+        $('#lblTotalResumen').addClass('microefecto_color');
+        setTimeout(function () {
+            $('.num-menu-shop').removeClass('microefecto_color');
+            $('[data-cantidadproducto]').parent().removeClass('microefecto_color');
+            $('[data-pedidocondescuento]').parent().removeClass('microefecto_color');
+            $('#lblProductosResumen').removeClass('microefecto_color');
+            $('#lblTotalResumen').removeClass('microefecto_color');
+        }, 5000);
+    }, 500);
+}
 
 FuncionesGenerales = {
     ValidarSoloNumeros: function(e) {

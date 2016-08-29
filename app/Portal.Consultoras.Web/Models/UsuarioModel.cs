@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
             this.Celular = string.Empty;
-            this.Telefono = string.Empty;
+            this.Telefono = string.Empty;           
             this.DiasAntes = 0;
             this.DiasDuracionCronograma = 1;
             this.HabilitarRestriccionHoraria = false;
@@ -105,6 +105,10 @@ namespace Portal.Consultoras.Web.Models
 
         public DateTime FechaLimPago { get; set; }
 
+        public int VioVideoModelo { get; set; }
+
+        public int VioTutorialModelo { get; set; }
+
         public int PedidoID { get; set; }
         public string CodigorRegion { get; set; }
         public string CodigoZona { get; set; }
@@ -125,7 +129,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
-        public string UrlTerminos { get; set; }
+        public string UrlTerminos { get; set; }       
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }

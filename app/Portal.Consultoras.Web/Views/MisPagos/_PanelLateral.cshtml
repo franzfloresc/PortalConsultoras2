@@ -5,8 +5,8 @@
     <div style="display:inline-block; vertical-align:middle">MI ESTADO<b> DE CUENTA</b></div>
     <div class="info_centro">
         Mi deuda actual es:
-        <div class="deuda_home" id="spanDeuda">S/. <span>@Model.MontoPagar</span></div>
-        <span id="der_fechaVencimiento">Vencimiento: </span>
+        <div class="deuda_home" id="spanDeuda">@Model.Simbolo <span>@Model.MontoPagar</span></div>
+        <span id="der_fechaVencimiento">Vencimiento: @Model.FechaVencimiento</span>
     </div>
 
     @{

@@ -26,7 +26,7 @@
             <div class="content_320">
                 <div class="content_app">
                     DESCARGA TU<br />
-                    APP DE CATÁLOGOS <br />
+                    APP DE CATÁLOGOS<br />
                     <span>@textApp</span>
                 </div>
                 <a class="btn_obtener_app" href="@urlApp">OBTENER</a>
@@ -36,9 +36,7 @@
     }
 }
 <div class="titulo_mobile">
-    <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosR" title="Regresar">
-        @*<img src="@Url.Content("~/Content/images/flecha_volver_mobile_blanca.svg")" alt="Regresar" />*@
-    </a>
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS
 </div>
 <div class="fondo_f2f2f2">
@@ -109,8 +107,7 @@
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
-        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola,
-Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola, Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
         </textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
@@ -146,7 +143,7 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
 </div>
 <!--FIN-->
 <!--MENSAJE DE ALERTA 1-->
-<div id="MensajeAlertaMobile" class="MensajeAlertaMobile">
+<div id="MensajeAlertaMobile" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile').hide();">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
@@ -161,15 +158,15 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
 </div>
 <!--FIN-->
 <!--MENSAJE DE ALERTA 2-->
-<div id="MensajeAlertaMobile2" class="MensajeAlertaMobile">
+<div id="MensajeAlertaMobile2" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile2').hide();">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
         </a>
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir">LO <b>SENTIMOS</b>!</div>
-        <div class="mensaje_alerta">Debe seleccionar al menos <br/>un Catálogo</div>
+        <div class="titulo_compartir">¡LO <b>SENTIMOS</b>!</div>
+        <div class="mensaje_alerta">Debe seleccionar al menos <br />un Catálogo</div>
         <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile2').hide();">OK</a>
     </div>
 
@@ -201,7 +198,7 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Revista", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
@@ -209,8 +206,8 @@ Revisa los catálogos de esta campaña y comunícate conmigo si estás interesad
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-autcomplete.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Catalogo/Index.js")"></script>
-    <script src="~/Scripts/Tag/jquery.tag-editor.js"></script>
-    <script src="~/Scripts/Tag/jquery.caret.min.js"></script>
-    <script src="~/Scripts/Tag/jquery.tag-autcomplete.js"></script>
 }

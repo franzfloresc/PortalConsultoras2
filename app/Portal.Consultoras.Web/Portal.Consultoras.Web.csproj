@@ -102,6 +102,9 @@
       <HintPath>..\Binaries\LithiumSSOClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -179,6 +182,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
+    <Compile Include="Annotations\RequiredIfAttribute.cs" />
+    <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs">
@@ -199,8 +205,6 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ProductosDestacadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\RevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
@@ -217,6 +221,7 @@
     <Compile Include="Areas\Mobile\Models\OfertaProductoMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PaypalMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
@@ -243,11 +248,12 @@
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
+    <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Controllers\ConsultoraDigitalesController.cs" />
-    <Compile Include="Controllers\HojaInscripcionController.cs" />
     <Compile Include="Controllers\MiAcademiaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerPedidoController.cs" />
@@ -256,7 +262,6 @@
     </Compile>
     <Compile Include="Controllers\BelcorpNoticiasController.cs" />
     <Compile Include="Controllers\BienvenidaController.cs" />
-    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\ClienteContactaConsultoraController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />
@@ -319,7 +324,6 @@
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
-    <Compile Include="Controllers\RevistaGanaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
@@ -337,15 +341,22 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
+    <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
+    <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
+    <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
     <Compile Include="Models\ActualizarDatosModel.cs" />
     <Compile Include="Models\AdministracionOfertaProductoModel.cs" />
@@ -392,9 +403,6 @@
     <Compile Include="Models\HojaInscripcionMailModel.cs" />
     <Compile Include="Models\HojaInscripcionMailVM.cs" />
     <Compile Include="Models\HojaInscripcionMensajeFinalModel.cs" />
-    <Compile Include="Models\HojaInscripcionPaso1Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso2Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso3Model.cs" />
     <Compile Include="Models\IncentivosModel.cs" />
     <Compile Include="Models\ItemCarruselInicioModel.cs" />
     <Compile Include="Models\LugaresPagoModel.cs" />
@@ -418,6 +426,7 @@
     <Compile Include="Models\MatrizComercialModel.cs" />
     <Compile Include="Models\MisDatosModel.cs" />
     <Compile Include="Models\NavidadConsultoraModel.cs" />
+    <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
     <Compile Include="Models\OfertaFlexipagoModel.cs" />
     <Compile Include="Models\OfertaFICModel.cs" />
@@ -425,11 +434,15 @@
     <Compile Include="Models\OfertaMatrizModel.cs" />
     <Compile Include="Models\OfertaNuevaModel.cs" />
     <Compile Include="Models\OfertaProductoModel.cs" />
+    <Compile Include="Models\PaginacionModel.cs" />
     <Compile Include="Models\PaisModel.cs" />
     <Compile Include="Models\ParametrizarCUVModel.cs" />
     <Compile Include="Models\ParametroDiasCargaPedidoModel.cs" />
     <Compile Include="Models\ParametroModel.cs" />
     <Compile Include="Models\ParticipantesDemandaAnticipadaModel.cs" />
+    <Compile Include="Models\Paso1CoreVm.cs" />
+    <Compile Include="Models\Paso2CoreVm.cs" />
+    <Compile Include="Models\Paso3CoreVm.cs" />
     <Compile Include="Models\PedidoActualizaModel.cs" />
     <Compile Include="Models\PedidoAsociadoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
@@ -441,10 +454,12 @@
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
+    <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
     <Compile Include="Models\RootMiCurso.cs" />
@@ -453,6 +468,7 @@
     <Compile Include="Models\ServicioCampaniaModel.cs" />
     <Compile Include="Models\ServicioModel.cs" />
     <Compile Include="Models\ShowRoomEventoModel.cs" />
+    <Compile Include="Models\ShowRoomOfertaDetalleModel.cs" />
     <Compile Include="Models\ShowRoomOfertaModel.cs" />
     <Compile Include="Models\SolicitudClienteConsultoraModel.cs" />
     <Compile Include="Models\SolicitudClienteModel.cs" />
@@ -466,6 +482,7 @@
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
+    <Compile Include="Models\ValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings1.Designer.cs">
@@ -548,6 +565,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ValidacionCrediticia\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ValidacionesUnete\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WsFuncionesSoap2\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -624,6 +651,13 @@
     <Compile Include="WebPages\CambiarClaveComunidad.aspx.designer.cs">
       <DependentUpon>CambiarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.designer.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\CatalogoVirtual.aspx.cs">
       <DependentUpon>CatalogoVirtual.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -665,6 +699,13 @@
     </Compile>
     <Compile Include="WebPages\ConsultaPedidoImp.aspx.designer.cs">
       <DependentUpon>ConsultaPedidoImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.designer.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\DespachosCobranza.aspx.cs">
       <DependentUpon>DespachosCobranza.aspx</DependentUpon>
@@ -715,6 +756,13 @@
     <Compile Include="WebPages\RecuperarClaveComunidad.aspx.designer.cs">
       <DependentUpon>RecuperarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.designer.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\RegistroComunidad.aspx.cs">
       <DependentUpon>RegistroComunidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -728,6 +776,13 @@
     </Compile>
     <Compile Include="WebPages\ReporteActualizacionDatos.aspx.designer.cs">
       <DependentUpon>ReporteActualizacionDatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
@@ -936,7 +991,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index_old.cshtml" />
+    <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
     <Content Include="Content\Banderas\CL.png" />
@@ -1251,15 +1306,9 @@
     <Content Include="Content\Images\carrusel_p.png" />
     <Content Include="Content\Images\catalogos.png" />
     <Content Include="Content\Images\cerrar_04.png" />
-    <Content Include="Content\Images\Esika\azteca.png" />
     <Content Include="Content\Images\Esika\background_pedido.png" />
-    <Content Include="Content\Images\Esika\banamex.png" />
-    <Content Include="Content\Images\Esika\bancomer.png" />
     <Content Include="Content\Images\Esika\banner_misBeneficios.png" />
-    <Content Include="Content\Images\Esika\bbva.png" />
-    <Content Include="Content\Images\Esika\bcp.png" />
     <Content Include="Content\Images\Esika\brillante2016_img.png" />
-    <Content Include="Content\Images\Esika\carsa.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow.png" />
     <Content Include="Content\Images\Esika\catalogos_arrow2.png" />
     <Content Include="Content\Images\Esika\catalogos_new.png" />
@@ -1499,9 +1548,9 @@
     <Content Include="Content\Images\Esika\expoferta.png" />
     <Content Include="Content\Images\Esika\expofertas.png" />
     <Content Include="Content\Images\Esika\expoferta_c09.png" />
+    <Content Include="Content\Images\Esika\expoferta_c13.png" />
     <Content Include="Content\Images\Esika\facebook.png" />
     <Content Include="Content\Images\Esika\facturacion_electronica.png" />
-    <Content Include="Content\Images\Esika\financiero.png" />
     <Content Include="Content\Images\Esika\flecha_abajo.png" />
     <Content Include="Content\Images\Esika\flechita.png" />
     <Content Include="Content\Images\Esika\flechita.svg" />
@@ -1538,7 +1587,6 @@
     <Content Include="Content\Images\Esika\indicador_pedido.png" />
     <Content Include="Content\Images\Esika\indicador_pedido_negro.png" />
     <Content Include="Content\Images\Esika\info-copy.png" />
-    <Content Include="Content\Images\Esika\interbank.png" />
     <Content Include="Content\Images\Esika\lapiz.png" />
     <Content Include="Content\Images\Esika\lbel_revista.png" />
     <Content Include="Content\Images\Esika\liquidacionhome.png" />
@@ -1556,8 +1604,6 @@
     <Content Include="Content\Images\Esika\mensajes.png" />
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
-    <Content Include="Content\Images\Esika\multifacil.png" />
-    <Content Include="Content\Images\Esika\nacion.png" />
     <Content Include="Content\Images\Esika\next.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
@@ -1576,10 +1622,9 @@
     <Content Include="Content\Images\Esika\pop_liquidacion.png" />
     <Content Include="Content\Images\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\Esika\programaNuevas_img.png" />
+    <Content Include="Content\Images\Esika\regresar.png" />
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
-    <Content Include="Content\Images\Esika\santander.png" />
-    <Content Include="Content\Images\Esika\scotia.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -1593,12 +1638,18 @@
     <Content Include="Content\Images\Esika\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Esika\tooltip_validar.png" />
     <Content Include="Content\Images\Esika\tutorial.png" />
+    <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto1.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto2.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto3.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto4.png" />
+    <Content Include="Content\Images\Esika\Tutorial\tuto5.png" />
+    <Content Include="Content\Images\Esika\tutorial_esika_pedido.jpg" />
     <Content Include="Content\Images\Esika\ultima_pagina.png" />
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
     <Content Include="Content\Images\Esika\venta.png" />
-    <Content Include="Content\Images\Esika\ver-mas-liquidaciones.jpg" />
-    <Content Include="Content\Images\Esika\western.png" />
+    <Content Include="Content\Images\Esika\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Esika\youtube.png" />
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
@@ -1610,6 +1661,8 @@
     <Content Include="Content\Images\flag_peru.png" />
     <Content Include="Content\Images\flecha-left.png" />
     <Content Include="Content\Images\flecha-right.png" />
+    <Content Include="Content\Images\flecha_scroll.svg" />
+    <Content Include="Content\Images\flecha_scroll_arriba.svg" />
     <Content Include="Content\Images\flecha_volver_mobile.JPG" />
     <Content Include="Content\Images\flecha_volver_mobile.svg" />
     <Content Include="Content\Images\flecha_volver_mobile_blanca.svg" />
@@ -1623,6 +1676,7 @@
     <Content Include="Content\Images\footer_correonueva.gif" />
     <Content Include="Content\Images\foot_login.png" />
     <Content Include="Content\Images\franja_inferior_banner.png" />
+    <Content Include="Content\Images\group.svg" />
     <Content Include="Content\Images\icono-campanias.png" />
     <Content Include="Content\Images\icono-excel.png" />
     <Content Include="Content\Images\icono-pack-documentario.png" />
@@ -1685,6 +1739,7 @@
     <Content Include="Content\Images\Lbel\banamex.png" />
     <Content Include="Content\Images\Lbel\bancomer.png" />
     <Content Include="Content\Images\Lbel\banner.png" />
+    <Content Include="Content\Images\Lbel\banner_misBeneficios.png" />
     <Content Include="Content\Images\Lbel\belcorp.png" />
     <Content Include="Content\Images\Lbel\boton_pedido.png" />
     <Content Include="Content\Images\Lbel\boton_pedido_hover.png" />
@@ -1777,10 +1832,16 @@
     <Content Include="Content\Images\Lbel\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Lbel\tooltip_validar.png" />
     <Content Include="Content\Images\Lbel\tutorial.png" />
+    <Content Include="Content\Images\Lbel\tutorial_lbel.jpg" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto1.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto2.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto3.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto4.png" />
+    <Content Include="Content\Images\Lbel\tutorial\tuto5.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />
-    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones.jpg" />
+    <Content Include="Content\Images\Lbel\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
     <Content Include="Content\Images\list_add_font.png" />
@@ -2159,6 +2220,7 @@
     <Content Include="Content\Images\webtracking\home.png" />
     <Content Include="Content\Images\webtracking\Icono_factura.png" />
     <Content Include="Content\Images\webtracking\Icono_foto.png" />
+    <Content Include="Content\Images\webtracking\icono_lupa.png" />
     <Content Include="Content\Images\webtracking\Icono_mapa.png" />
     <Content Include="Content\Images\webtracking\maps.png" />
     <Content Include="Content\Images\webtracking\marker.png" />
@@ -2170,6 +2232,7 @@
     <Content Include="Content\Images\webtracking\procesoFlecha.png" />
     <Content Include="Content\Images\webtracking\procesos.png" />
     <Content Include="Content\Images\webtracking\proesoFecha2.png" />
+    <Content Include="Content\Images\webtracking\regresar.png" />
     <Content Include="Content\Images\webtracking\settings.png" />
     <Content Include="Content\Images\webtracking\si.png" />
     <Content Include="Content\Images\zona_.png" />
@@ -2206,6 +2269,7 @@
     <Content Include="Scripts\handlebars.min.js" />
     <Content Include="Scripts\HojaInscripcion\index.js" />
     <Content Include="Scripts\HojaInscripcion\loader.js" />
+    <Content Include="Scripts\HojaInscripcion\utilsCommon.js" />
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
@@ -2215,13 +2279,36 @@
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\MultiSelect\css\common.css" />
+    <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-en.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-es.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-fr.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-hu.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-it.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ja.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ru.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui.multiselect.pt-br.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-pack.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\changes.txt" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
+    <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
+    <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
@@ -2278,13 +2365,8 @@
     <Content Include="Areas\Mobile\Views\PedidoCliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\AgregarCliente.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Detalle_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\Index_old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListadoPedido.cshtml" />
-    <Content Include="Areas\Mobile\Views\Pedido\ListaEstrategias.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Validado.cshtml" />
-    <Content Include="Areas\Mobile\Views\ProductosDestacados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstadoCuenta\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidosFacturados\Detalle.cshtml" />
@@ -2293,9 +2375,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
-    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Revista\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -2416,13 +2496,23 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
-    <Content Include="Areas\Mobile\Views\Pedido\Validado - Old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Notificaciones\Index - Old.cshtml" />
-    <Content Include="Areas\Mobile\Views\Notificaciones\ListadoObservaciones - OLD.cshtml" />
+    <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
+    <None Include="Service References\ValidacionCrediticia\configuration.svcinfo" />
+    <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ValidacionesUnete\configuration91.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\configuration.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -2463,10 +2553,8 @@
     <Content Include="Content\Css\Site\Lbel\fonts\slick.eot" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\Lbel\fonts\slick.woff" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Catalogo\Index - Old.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
@@ -3062,6 +3150,7 @@
     <Content Include="WebPages\AppCatalogoTyC\MX_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\PE_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\CambiarClaveComunidad.aspx" />
+    <Content Include="WebPages\CambioExitoso.aspx" />
     <Content Include="WebPages\Comunidad.aspx" />
     <Content Include="WebPages\ComunidadLogOut.aspx" />
     <Content Include="WebPages\CambiarUsuarioComunidad.aspx" />
@@ -3094,14 +3183,17 @@
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_8.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_9.html" />
     <Content Include="WebPages\ConfirmacionRegistroComunidad.aspx" />
+    <Content Include="WebPages\CorreoEnviado.aspx" />
     <Content Include="WebPages\DespachosCobranza.aspx" />
     <Content Include="WebPages\DownloadFTP.aspx" />
     <Content Include="WebPages\DownloadPDF.aspx" />
     <Content Include="WebPages\IngresoComunidad.aspx" />
     <Content Include="WebPages\NavidadConsultora.aspx" />
     <Content Include="WebPages\RecuperarClaveComunidad.aspx" />
+    <Content Include="WebPages\RecuperarClaveMobile.aspx" />
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
+    <Content Include="WebPages\RestablecerContrasena.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
@@ -3184,7 +3276,6 @@
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
     <Content Include="Views\Incentivo\Incentivo.cshtml" />
-    <Content Include="Views\RevistaGana\AdministrarRevistaGana.cshtml" />
     <Content Include="Views\AdministrarBelcorpResponde\Index.cshtml" />
     <Content Include="Views\AdministrarFeErratas\Index.cshtml" />
     <Content Include="Views\Tracking\Index.cshtml" />
@@ -3226,7 +3317,6 @@
     <Content Include="Views\AdministrarTipoEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\Index.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_ListadoEstrategias.cshtml" />
-    <Content Include="Views\Notificaciones\Index_old.cshtml" />
     <Content Include="Views\Notificaciones\ListadoNotificaciones.cshtml" />
     <Content Include="Views\Notificaciones\ListadoObservaciones.cshtml" />
     <Content Include="Views\Paypal\ProcesoDescarga.cshtml" />
@@ -3332,8 +3422,6 @@
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
-    <Content Include="Views\Cliente\MisClientes.cshtml" />
-    <Content Include="Views\Cliente\Index_old.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
@@ -3341,6 +3429,40 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3450,19 +3572,15 @@
     </Content>
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\Shared\_MainLayout_old.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
-    <Content Include="Views\Pedido\Index_old.cshtml" />
-    <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
-    <Content Include="Views\Pedido\ListadoPedido_old.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
@@ -3477,11 +3595,8 @@
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnteriores.cshtml" />
     <Content Include="Views\PedidoWebAnteriores\PedidoWebAnterioresDetalle.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalle.cshtml" />
-    <Content Include="Views\Bienvenida\Index_old.cshtml" />
     <Content Include="Views\ConsultoraFicticia\Index.cshtml" />
     <Content Include="Views\Shared\_SACMenu.cshtml" />
-    <Content Include="Views\Pedido\PedidoValidado_old.cshtml" />
-    <Content Include="Views\Pedido\ObservacionesPROL_old.cshtml" />
     <Content Include="Views\Rol\Rol.cshtml" />
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
@@ -3522,7 +3637,6 @@
     <Content Include="Views\OfertaWeb\AdministrarOfertas.cshtml" />
     <Content Include="Views\OfertaLiquidacion\AdministrarOfertasLiquidacion.cshtml" />
     <Content Include="Views\OfertaWeb\OfertasWeb.cshtml" />
-    <Content Include="Views\OfertaLiquidacion\OfertasLiquidacion_old.cshtml" />
     <Content Include="Views\MatrizComercial\AdministrarMatrizComercial.cshtml" />
     <Content Include="Views\Servicios\AdministrarServicios.cshtml" />
     <Content Include="Views\Servicios\MantenimientoServicios.cshtml" />
@@ -3551,7 +3665,6 @@
     <Content Include="Views\BelcorpNoticias\_Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\RevistaGana\Index.cshtml" />
     <Content Include="Views\FamiliaProtegida\Index.cshtml" />
     <None Include="Web References\ServiceOSBBelcorpConsultora\ConsultoraPS.xsd">
       <SubType>Designer</SubType>
@@ -3738,6 +3851,8 @@
     <WCFMetadataStorage Include="Service References\ServiceUsuario\" />
     <WCFMetadataStorage Include="Service References\ServiceZonificacion\" />
     <WCFMetadataStorage Include="Service References\ServicioGenerarLideres\" />
+    <WCFMetadataStorage Include="Service References\ValidacionCrediticia\" />
+    <WCFMetadataStorage Include="Service References\ValidacionesUnete\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap2\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap\" />
   </ItemGroup>

@@ -1845,37 +1845,33 @@ h4.re3 {
 }
 .block-seguimiento {
     text-transform: uppercase;
-    background: #00abdf;
-    padding: 30px 15px;
-    color: #eee;
+   
+    
+    border-bottom:1px solid #979797;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
     position: relative;
 }
-    .block-seguimiento:before {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 60px;
-        border-top: 10px solid #00abdf;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-    }
+  
     .block-seguimiento strong {
-        color: #fff;
+        color: black;
     }
     .block-seguimiento .title-seg {
         position: absolute;
-        left: 15px;
+        font-family:'Lato';
         top: 50%;
         margin-top: -15px;
-        font-size: 1.7em;
+        font-size: 1.5em;
         line-height: 1;
     }
         .block-seguimiento .title-seg .num-camp-seg {
             font-size: 1.35em;
         }
     .block-seguimiento .info-seg {
-        font-size: 13px;
+        font-size: 12.5px;
         text-align: right;
+        font-family:'Lato';
     }
         .block-seguimiento .info-seg .inline {
             display: inline-block;
@@ -1897,9 +1893,10 @@ h4.re3 {
             color: #a4b5c4;
             margin: 0;
             text-transform: uppercase;
-            height: 35px;
-            font-size: 0.85em;
+            height: 38px;
+            font-size: 0.8em;
             font-weight: 600;
+            font-family:'Lato';
         }
         .block-seguimiento-content .seg-item .seg-icon {
             padding: 25px 0;
@@ -1916,6 +1913,7 @@ h4.re3 {
             }
         .block-seguimiento-content .seg-item .seg-hora-fecha {
             height: 42px;
+            font-size:12.5px;
         }
         .block-seguimiento-content .seg-item .seg-fecha {
             color: #a4b5c4;
@@ -1932,18 +1930,17 @@ h4.re3 {
         right: -25px;
     }
     .block-seguimiento-content .seg-current .seg-title {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-        color: #fff !important;
-        background: #00abdf !important;
-        border: 1px solid #00abdf !important;
+       color: #b75d9f;
+       border: 1px solid #b75d9f !important;
     }
     .block-seguimiento-content .seg-current .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-current .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
     .block-seguimiento-content .seg-active .seg-title {
         color: #00abdf;
@@ -4044,6 +4041,12 @@ width:100%;
     background: url("../../../Images/mobile/Lbel/indicador_pedido.png") no-repeat;
     background-position:0 4px;
 }
+
+.btn_seguirp_mobile.ver_video_introductorio{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .linea_separadora_mobile{
     width:100%;
     height:1px;
@@ -4212,6 +4215,12 @@ width:100%;
     text-align: center;
     margin-top: 15px;
 }
+
+.producto_img_mobile img{
+    width:auto;
+    height:100%;
+}
+
 .producto_nombre_descripcion {
     width: 100%;
     padding-left: 30px;
@@ -4322,6 +4331,20 @@ width:100%;
     padding-bottom:8px;    
     display:block;    
     background: url("../../../Images/mobile/Esika/mas_footer.png") no-repeat right center;
+}
+.menu_footer_menos{
+    padding-left:15px;
+    /*border-top:1px solid white;*/
+    border-bottom:1px solid #9e9e9f;
+    font-family:'Lato';
+    color:black;
+    font-size:12px;
+    width:100%;
+    cursor:pointer;
+    padding-top:8px;
+    padding-bottom:8px;    
+    display:block;    
+    background: url("../../../Images/mobile/Esika/menos_footer.png") no-repeat right center;
 }
 .menu_footer:hover{
     color:black;
@@ -4573,6 +4596,11 @@ body{
     text-align:right;
 }
 
+.mi_ganancia {
+    color:#642f80;
+    font-weight:700;
+}
+
 .textos_resumen span, .montos_resumen span{
     display:block;
     margin-bottom:2px;
@@ -4740,13 +4768,13 @@ body{
     margin-bottom:20px;
 }
 
-.descripcion_item_pedido, .icono_eliminar_item_pedido{
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas{
     display:inline-block;
     vertical-align:top;
 }
 
 .descripcion_item_pedido{
-    width:92%;
+    width:90%;
 }
 
 .descripcion_item_pedido span{
@@ -4778,6 +4806,66 @@ body{
     width:6%;
     text-align: right;
     padding-top: 6px;
+    cursor:pointer;
+}
+
+.icono_kitNuevas{
+    position:relative;
+    width: 8%;
+    text-align: right;
+    margin-top: 14px;
+    cursor:pointer;
+}
+
+.tooltip_kitNuevas{
+    position: absolute;
+    top: 169%;
+    right: -16%;
+    display: none;
+    text-align: center;
+    width: 292px;
+    height: auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+}
+
+.tooltip_kitNuevas:after, .tooltip_kitNuevas:before {
+	bottom: 100%;
+    left: 95%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.tooltip_kitNuevas:after {
+	border-bottom-color: #FFF;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
+.tooltip_kitNuevas:before {
+	border-bottom-color: #DDD;
+	border-width: 10px;
+	margin-left: -10px;
+}
+
+.texto_tooltipKitNuevas{
+    display: inline-block;
+    vertical-align:top;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 13px;
+    max-width: 213px;
+    text-align: left;
 }
 
 .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos, .precios_item{
@@ -5065,6 +5153,7 @@ body{
 .catalogo_esika{
     width:128px;
     height:76px;
+    margin-bottom:0px;
     background: url("../../../Images/mobile/Lbel/catalogo_home.png") no-repeat right bottom;    
 }
 .celular_esika{
@@ -5670,7 +5759,6 @@ input[type="checkbox"]:checked + span:after {
     width:100%;
     height:100%;
     padding:15px;
-    display:none;
     top:0;
     background:rgba(0,0,0,0.5)
 }
@@ -5697,6 +5785,7 @@ input[type="checkbox"]:checked + span:after {
 .exclamacion_icono_mobile{
     background: url("../../../Images/Lbel/icono_exclamacion_lbel.svg") no-repeat;
     background-size: cover;
+   
 }
 .icono_alerta img{
     width:100%;
@@ -6015,7 +6104,8 @@ input[type="checkbox"]:checked + span:after {
     width:20px;
     height:20px;
     margin-right: 5px;
-    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background:url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat center center;
+    background-size:cover;
 }
 
 .texto_notaDemanda{
@@ -6040,6 +6130,71 @@ input[type="checkbox"]:checked + span:after {
     font-size:13px;
     color:#969696;
 }
+
+/* POPUP VIDEO INTRODUCTORIO */
+
+.popup_video_introductorio{
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -100px auto 0 auto;
+    width: 89%;
+    max-width: 600px;
+    height:auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 1000;
+}
+
+.contenedor_video_introductorio{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.contenedor_video_introductorio #player{
+    display:block;
+    width:100%;
+    height:200px;
+}
+
+.btn_cerrar_actualizarMisDatos{
+    display: block;
+    width: 100%;
+    max-width: 25px;
+    height: auto;
+    position: absolute;
+    top: -45px;
+    right: 7px;
+}
+
+.btn_cerrar_actualizarMisDatos img{
+    width:100%;
+    height:auto;
+    border:0px;
+}
+
+.texto_btn_cerrar{
+    font-size: 8px;
+    color: #fff;
+    letter-spacing: .5px;
+    position: relative;
+    left: -4px;
+    top: -3px;
+}
+
+@media screen and (min-width:500px) and (max-width:767px){
+
+    .popup_video_introductorio{
+        margin: -102px auto 0 auto;
+    }
+
+    .contenedor_video_introductorio #player {
+        height: 237px;
+    }
+
+}
+
 /*PEDIDO VALIDADO*/
 .agregados_reservado{
     font-family:'Lato';
@@ -6170,6 +6325,7 @@ input[type="checkbox"]:checked + span:after {
 }
 .datos_Reservado span{
     display:block;
+    padding-bottom:0px!important;
 }
 .texto_reservado{
     font-family:'Lato';
@@ -6198,7 +6354,7 @@ input[type="checkbox"]:checked + span:after {
     position: absolute;
     background: white;
     top: 176px;
-    padding-top:20px;
+    padding-top:10px;
     padding-bottom: 36px;
     z-index: 1000;
     -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
@@ -6239,13 +6395,16 @@ input[type="checkbox"]:checked + span:after {
     position:relative;
 }
 .tooltip_validado_importe{
-    display:none;
-    width:292px;
-    height:60px;
-    padding:13px;
-    background:white;
-    position:absolute;
-    top: -83px;
+    display: none;
+    width: 265px;
+    height: 60px;
+    padding:11px 13px 13px 13px;
+    background: white;
+    position: absolute;
+    top: -79px;
+    left: -12px;
+    z-index: 1000;
+    border-radius: 7px;
    -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
@@ -6260,10 +6419,214 @@ input[type="checkbox"]:checked + span:after {
     width: 0;
     border-color: rgba(5, 7, 8, 0);
     border-top-color: white;
-    border-width: 15px;
-    margin-left: -15px;
+    border-width: 11px;
+    margin-left: -3px;
     left: 5%;
 }
 .info_validado:hover .tooltip_validado_importe{
     display:block;
+}
+
+/*MICHAEL*/
+.contenedor-tutorial-esika{
+    display: none;
+}
+.contenedor-tutorial-lbel {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+}
+
+.flexsliderTutorialMobile{
+    width: 100%;
+    height: 100%;
+}
+
+.flexsliderTutorialMobile .flex-viewport{
+    width: 100%;
+    height: 100%;
+}
+
+.flexsliderTutorialMobile .flex-viewport .slides{
+    height: 100%;
+    width: 100%;
+}
+
+.flexsliderTutorialMobile .flex-viewport .slides li{
+    height: 100%;
+}
+
+.flexsliderTutorialMobile .flex-viewport .slides li img{
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor-tutorial-lbel .flex-control-paging li a{
+    border: 0px !important;
+    font-size: 12px;
+}
+
+.contenedor-tutorial-lbel .flex-control-paging li a:hover{
+    background: #a76195 !important;
+    border: 0px !important;
+}
+
+.contenedor-tutorial-lbel .flex-control-paging li a.flex-active{
+    background: #a76195 !important;
+    border: 0px !important;
+}
+
+.contenedor-tutorial-lbel .flex-control-nav {
+    width: 100%;
+    right: 0;
+    position: absolute;
+    bottom: 10.5%;
+    z-index: 20;
+    text-align: center;
+}
+
+.contenedor-tutorial-lbel .opciones-tutorial{
+    background-color: white;
+        position: absolute;
+    bottom: 0;
+    z-index: 1001;
+    background-color: white;
+    width: 100%;
+}
+
+.contenedor-tutorial-lbel .opciones-tutorial div{
+    font-weight; bold;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.contenedor-tutorial-lbel .opciones-tutorial .otromomento {
+    width: 70%;
+    padding: 12px;
+    float: left;
+    border-right: 1px solid gray;
+    color: black;
+    text-align: left;
+    font-size: 13px;
+    font-family: 'Lato';
+    font-weight: 900;
+
+}
+
+.contenedor-tutorial-lbel .opciones-tutorial .cerrar {
+    width: 30%;
+    float: right;
+    color: black;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'Lato';
+    font-weight: 500;
+    padding-top: 12px;
+}
+
+.contenedor-tutorial-lbel .opciones-tutorial .cerrar span {
+    font-size: 29px;
+    font-weight: 300;
+    vertical-align: middle;
+    color: gray;
+    font-family: 'Lato';
+}
+
+.icono_cerrar_tutorial{
+    display: inline-block;
+    width: 19px;
+    margin-left: 4px;
+    position: relative;
+    top: -2px;
+}
+
+.icono_cerrar_tutorial img{
+    width:100%;
+    height:auto;
+}
+
+/*MICHAEL*/
+
+@media (min-width: 1024px){
+    .contenedor-tutorial-lbel .opciones-tutorial{
+        width: 26% !important;
+        margin: 0 37% !important;
+    }
+
+    .contenedor-tutorial-lbel .flex-control-nav{
+        width: 100% !important;
+    }
+
+    .flexsliderTutorialMobile {
+        height: auto !important;
+        width: 26% !important;
+        margin: 0 auto !important;
+        margin-top: 2% !important;
+    }
+
+    .contenedor-tutorial-lbel{
+        background-color: black !important;
+    }
+}
+/**/
+.content_BarrMensaje{
+    width:100%;
+     margin-top: 10px;
+    border-bottom: 1px solid black;
+}
+.mensaje_barra{
+    width: 161px;
+    Font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.26;
+    color: #613c87;
+}
+.agrega_barra{
+    Font-family: 'Lato';
+    font-size: 12.5px;
+    color:black;
+    MARGIN-BOTTOM: 5px;
+}
+.flechita_barra{
+    position: relative;
+    margin-left: 21px;
+    margin-top: -1px;
+    width:14px;
+    height:10px;
+    background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
+}
+
+#new-header .menu-shop .num-menu-shop {
+    transition: color 0.8s linear 0.2s;
+}
+
+.microefecto_color {
+    -webkit-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -moz-animation: cambio-color 4000ms linear 0ms 1 normal;
+    -ms-animation: cambio-color 4000ms linear 0ms 1 normal;
+    animation: cambio-color 4000ms linear 0ms 1 normal;
+}
+
+@keyframes cambio-color {
+    0% {
+        color: black;
+    }
+    30% {
+        color: #613c87;
+    }
+    50% {
+        color: #613c87;
+    }
+    80% {
+        color: black;
+    }
+    100% {
+        color: black;
+    }
 }

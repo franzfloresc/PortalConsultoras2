@@ -42,6 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
+                ViewBag.UrlRaizS3 = ConfigurationManager.AppSettings["URL_S3"].ToString() + "/" + ConfigurationManager.AppSettings["BUCKET_NAME"].ToString() + "/" + ConfigurationManager.AppSettings["ROOT_DIRECTORY"] + "/";
 
                 if (Session["UserData"] != null)
                 {
@@ -362,6 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
 
                 itemMenu.SubMenus = temp;
+                itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
         }
 
@@ -425,7 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region  Session["UserData"] != null
 
                 model = (UsuarioModel)Session["UserData"];
-                this.CargarEntidadesShowRoom(model);
+                if (model != null)  this.CargarEntidadesShowRoom(model);
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
@@ -560,6 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 
@@ -757,6 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 
@@ -1257,6 +1261,12 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
+        protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
+        {
+            if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
+        }
+
         #endregion
         
         #region barra
@@ -1268,8 +1278,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var listProducto = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
-
                 var rtpa = ServicioProl_CalculoMontosProl(false);
                 if (!rtpa.Any())
                     return objR;
@@ -1324,8 +1332,12 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
                 objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
 
+                var listProducto = ObtenerPedidoWebDetalle();
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
+
+                objR.CantidadProductos = listProducto.Sum(p => p.Cantidad);
+                objR.CantidadCuv = listProducto.Count();
 
                 #region listaEscalaDescuento
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
