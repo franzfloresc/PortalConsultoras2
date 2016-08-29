@@ -190,6 +190,11 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.MenuMobile') and SYSCOLUMNS.NAME = N'EsSB2') = 0
+	ALTER TABLE dbo.MenuMobile ADD EsSB2 bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 where sysobjects.id = object_id('dbo.Pais') and SYSCOLUMNS.NAME = N'CatalogoPersonalizado') = 0
 	ALTER TABLE dbo.Pais ADD CatalogoPersonalizado int
 go
@@ -359,27 +364,29 @@ END
 
 GO
 
-DELETE FROM MenuMobile WHERE Posicion='Menu'
-
-INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+DELETE FROM MenuMobile WHERE Posicion='Menu' AND MENUMOBILEID>=1000
+UPDATE MENUMOBILE 
+SET EsSB2 = 0
+WHERE MenuMobileID<1000
+INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, esSB2)
 VALUES
-(1, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile'),
-(2, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile'),
-(3, 'Mi Asesor de Belleza', 0, 3, '', '', 0, 'Menu', 'Mobile'),
-(4, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile'),
-(5, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile'),
-(6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
+(1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile', 1),
+(1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
+(1003, 'Mi Asesor de Belleza', 0, 3, '', '', 0, 'Menu', 'Mobile',1),
+(1004, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
+(1005, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
+(1006, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
 
-(7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
-(8, 'Liquidación web', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
-(9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
-(10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
---(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
-(12, 'Pedidos Ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(13, 'Pedidos Facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(14, 'Mis Clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
-(15, 'Productos Agotados', 1, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile')
---(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
+(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
+(1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
+(1009, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
+(1010, 'Estado de Cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
+--(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
+(1012, 'Pedidos Ingresados', 1001, 3, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
+(1013, 'Pedidos Facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile',1),
+(1014, 'Mis Clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile',1),
+(1015, 'Productos Agotados', 1001, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile',1)
+--(1016, 'Pago en Línea', 1001, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile',1)
 GO
 
 ALTER TABLE MenuMobile
@@ -399,8 +406,9 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (100
+						,[Version]
+						,esSB2)
+				VALUES (1017
 						,'Ayuda'
 						,0
 						,3
@@ -408,7 +416,8 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,0
 						,'Footer'
-						,'Completa')
+						,'Completa'
+						,1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -417,8 +426,9 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (101
+						,[Version]
+						,esSB2)
+				VALUES (1018
 						,'Legal'
 						,0
 						,4
@@ -426,7 +436,8 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,0
 						,'Footer'
-						,'Completa')
+						,'Completa'
+						,1)
 
 --HIJOS
 
@@ -438,16 +449,18 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (102
+						,[Version]
+						,esSB2)
+				VALUES (1019
 						,'Preguntas Frecuentes'
-						,100
+						,1017
 						,1
 						,'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082'
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Completa'
+						,1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -456,16 +469,18 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (103
-						,'Cont?ctanos'
-						,100
+						,[Version]
+						,esSB2)
+				VALUES (1020
+						,'Contáctanos'
+						,1017
 						,2
 						,'http://belcorprespondeqa.somosbelcorp.com/'
 						,''
 						,1
 						,'Footer'
-						,'Mobile')
+						,'Mobile'
+						,1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -474,16 +489,18 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (104
+						,[Version]
+						,esSB2)
+				VALUES (1021
 						,'Tutorial'
-						,100
+						,1017
 						,3
 						,''
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Completa'
+						,1)
 
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
@@ -493,16 +510,18 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version])
-				VALUES (105
-						,'T?rminos y Condiciones'
-						,101
+						,[Version]
+						,esSB2)
+				VALUES (1022
+						,'Términos y Condiciones'
+						,1018
 						,1
 						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_BO.aspx'
 						,''
 						,1
 						,'Footer'
-						,'Completa')
+						,'Completa'
+						,1)
 GO
 
 if not exists(select 1 from Permiso where Descripcion = 'Carga de Reemplazos Sugeridos')
@@ -3757,5 +3776,47 @@ BEGIN
 END
 
 GO
+
+ALTER PROCEDURE [dbo].[GetMenuMobile]
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+SELECT 
+MenuMobileID
+,Descripcion
+,MenuPadreID
+,OrdenItem
+,UrlItem
+,UrlImagen
+,PaginaNueva
+,Posicion
+,[Version]
+FROM dbo.MenuMobile
+WHERE EsSB2=0
+END
+GO
+
+--EXEC GetMenuMobile_SB2
+CREATE PROCEDURE [dbo].[GetMenuMobile_SB2]
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+SELECT 
+MenuMobileID
+,Descripcion
+,MenuPadreID
+,OrdenItem
+,UrlItem
+,UrlImagen
+,PaginaNueva
+,Posicion
+,[Version]
+FROM dbo.MenuMobile
+WHERE EsSB2=1
+END
 
 /*FIN PROCEDIMIENTOS ALMACENADOS*/

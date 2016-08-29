@@ -1577,6 +1577,7 @@
     <Content Include="Content\Images\Esika\tacho-copy.png" />
     <Content Include="Content\Images\Esika\tarjeta.png" />
     <Content Include="Content\Images\Esika\titulo_interiores.png" />
+    <Content Include="Content\Images\Esika\titulo_interiores_2.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar_BO.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar_FIC.png" />

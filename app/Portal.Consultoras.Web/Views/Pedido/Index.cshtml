@@ -179,27 +179,25 @@
                 <div id="paginadorCab">
                 </div>
             </div>
+            <div class="clear"></div>
+            <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+                <div class="encabezado_ingresoPedido">
+                    <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
+                    <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                    <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
+                    <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                    <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
+                        <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                        <span>Subtotal</span>
+                    </div>
+                    <div class="texto_encabezado_pedidos cabecera_cliente">
+                        <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                    </div>
+                    <div class="texto_encabezado_pedidos acciones"></div>
+                </div>
 
-            <table data-tag="table" id="tbListaPedido">
-                <thead>
-                    <tr>
-                        <th class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</th>
-                        <th class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</th>
-                        <th class="texto_encabezado_pedidos cabecera_unidades">Unidades</th>
-                        <th class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</th>
-                        <th class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                            <span class="mostrarPrecioUnitario">Precio Unitario</span>
-                            <span>Subtotal</span>
-                        </th>
-                        <th class="texto_encabezado_pedidos cabecera_cliente">
-                            <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
-                        </th>
-                        <th class="texto_encabezado_pedidos acciones"></th>
-                    </tr>
-                </thead>
-
-                <tbody id="tbobyDetallePedido"></tbody>
-            </table>
+                <div id="tbobyDetallePedido"></div>
+            </div>
 
             <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
                 <div id="paginadorPie">
@@ -397,7 +395,7 @@
                     </li>
                 }
                 <li>
-                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
+                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
                         <img src="@Model.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>
@@ -437,7 +435,7 @@
         <div class="contenedor_carousel">
             <h1>
                 OFERTAS
-                <b>PARA TÍ</b>
+                <b>PARA TI</b>
                 <b class="">@Model.SobreNombre</b>
             </h1>
             <div class="texto_exclusivo_web">
@@ -911,26 +909,33 @@
 
         <div class="clear"></div>
     </ul>
+    <div class="clear"></div>
 </script>
 
 <script id="producto-template" type="text/x-handlebars-template">
     {{#each this}}
     {{#if EliminadoTemporal}}
     {{else}}
-    <tr class="mouse_encima" data-cuv="{{CUV}}">
-        <td class="texto_pedidos celda_codigo">{{CUV}}</td>
-        <td class="texto_pedidos">
+    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
+        <div class="texto_pedidos celda_codigo">{{CUV}}</div>
+        <div class="texto_pedidos celda_producto">
+            
+            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
-                {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
                 <label>OFERTA LIQUIDACIÓN</label>
-                {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-                <label>OFERTA FLEXIPLAGO</label>
-                {{else}}
-                {{#IsNullOrEmpty DescripcionOferta '!='}}
-                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
-                {{/IsNullOrEmpty}}
-                {{/if_eq}}
             </span>
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else}}
+            {{#IsNullOrEmpty DescripcionOferta '!='}}
+            <span class="texto_pedidos_ofertas">
+                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
+            </span>
+            {{/IsNullOrEmpty}}
+            {{/if_eq}}
+                    
 
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
@@ -951,8 +956,8 @@
             <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" />
             <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" />
             <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" />
-
-        <td class="celda_cantidad_pedidos">
+        </div>
+        <div class="celda_cantidad_pedidos">
             {{#if EsKitNueva}}
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else}}
@@ -967,12 +972,12 @@
                 </div>
             </div>
             {{/if}}
-        </td>
-        <td class="texto_pedidos precioUnitario">
+        </div>
+        <div class="texto_pedidos precioUnitario">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" id="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad" />
             {{Simbolo}} {{FormatoPrecioUnidad}}
-        </td>
-        <td class="texto_pedidos subtotal">
+        </div>
+        <div class="texto_pedidos subtotal">
             <span class="precio">
                 {{Simbolo}} {{FormatoPrecioUnidad}}
             </span>
@@ -987,8 +992,8 @@
                 {{/if}}
 
             </span>
-        </td>
-        <td class="texto_pedidos clientePedido">
+        </div>
+        <div class="texto_pedidos clientePedido">
             {{#if EsKitNueva}}
             @*<div style="padding: 0 10px; text-align: center;">{{Nombre}}</div>*@
             {{else}}
@@ -1005,8 +1010,8 @@
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
-        </td>
-        <td class="texto_pedidos celda_iconos_acciones">
+        </div>
+        <div class="texto_pedidos celda_iconos_acciones">
             {{#if EsKitNueva}}
             <div>
                 <input type="hidden" data-kit="true" />
@@ -1025,13 +1030,13 @@
             <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
                id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
-        </td>
-    </tr>
+        </div>
+    </div>
     {{/if}}
 
     {{#IsNullOrEmpty Mensaje '!='}}
-    <tr class="fila_mensajeProductoAgotado">
-        <td colspan="7">
+    <div class="fila_mensajeProductoAgotado">
+        <div style="width:100%;">
             <div class="mensaje_productoAgotado">
                 {{#iff TipoObservacion '!=' 0}}
                 <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
@@ -1039,8 +1044,8 @@
                 <p>{{{Mensaje}}}</p>
                 {{/iff}}
             </div>
-        </td>
-    </tr>
+        </div>
+    </div>
     {{/IsNullOrEmpty}}
     {{/each}}
 </script>
