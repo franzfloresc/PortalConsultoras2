@@ -371,7 +371,7 @@ VALUES
 (6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
 
 (7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
-(8, 'Zona de Liquidación', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(8, 'Liquidación web', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
 (9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
 (10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
 --(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
@@ -383,22 +383,127 @@ VALUES
 
 GO
 
-DELETE FROM MenuMobile WHERE Posicion='Footer'
+ALTER TABLE MenuMobile
+ALTER COLUMN Descripcion VARCHAR(70) NOT NULL
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (26, 'Ayuda', 0, 3, '', '', 0, 'Footer', 'Completa')
+--SELECT * FROM MenuMobile
+DELETE MenuMobile
+WHERE Posicion = 'Footer'
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (27,'Preguntas Frecuentes', 26, 1, 'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082', '', 0, 'Footer', 'Completa'),
-(28, 'Contáctanos', 26, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 1, 'Footer', 'Mobile'),
-(29, 'Tutorial', 26, 3, '', '', 0, 'Footer', 'Completa')
+--PADRES
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (30, 'Legal', 0, 4, '', '', 0, 'Footer', 'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (100
+						,'Ayuda'
+						,0
+						,3
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (101
+						,'Legal'
+						,0
+						,4
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (31, 'Condiciones de uso Web', 30, 1, 'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf', '', 0, 'Footer', 'Completa'),
-(32, 'Terminos y Condiciones', 30, 2, '', '', 0, 'Footer', 'Completa')
+--HIJOS
+
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (102
+						,'Preguntas Frecuentes'
+						,100
+						,1
+						,'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (103
+						,'Cont?ctanos'
+						,100
+						,2
+						,'http://belcorprespondeqa.somosbelcorp.com/'
+						,''
+						,1
+						,'Footer'
+						,'Mobile')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (104
+						,'Tutorial'
+						,100
+						,3
+						,''
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (105
+						,'T?rminos y Condiciones'
+						,101
+						,1
+						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_PR.aspx'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
 
 GO
 
@@ -1393,7 +1498,7 @@ CREATE PROCEDURE [dbo].GetPedidoWebDetalleByCampania_SB2
  @ConsultoraID BIGINT    
 AS    
 /*    
- GetPedidoWebDetalleByCampania 201611, 49627031    
+ GetPedidoWebDetalleByCampania_SB2 201611, 49627031    
 */    
 BEGIN    
  SET NOCOUNT ON    
@@ -1478,7 +1583,13 @@ BEGIN
 		END  
 		ELSE 0 END  AS TipoEstrategiaID, -- R2621 -- R2621  
  PC.IndicadorOferta AS IndicadorOfertaCUV  /*R20150701LR*/   
+
+ , PW.DescuentoProl
+ , PW.MontoEscala
+ , PW.MontoAhorroCatalogo
+ , PW.MontoAhorroRevista
  FROM dbo.PedidoWebDetalle pwd    
+	 INNER JOIN dbo.PedidoWeb PW ON PW.PedidoID = pwd.PedidoID
 	 JOIN ods.ProductoComercial pc ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV    
 	 LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID    
 	 LEFT JOIN dbo.ProductoDescripcion pd ON pwd.CampaniaID = pd.CampaniaID AND pwd.CUV = pd.CUV      
