@@ -1761,6 +1761,19 @@ header {
     border-bottom: 1px solid #ccc;
 }
 
+.contenido_ingresoPedido.mouse_encima{
+    background:#FFF;
+    transition:background 0.3s ease;
+    -moz-transition:background 0.3s ease;
+    -o-transition:background 0.3s ease;
+    -ms-transition:background 0.3s ease;
+    -webkit-transition:background 0.3s ease;
+}
+
+.contenido_ingresoPedido.mouse_encima:hover{
+    background:#f0f0f0;
+}
+
 div.texto_encabezado_pedidos{
     display:inline-block;
     padding-bottom: 10px;
