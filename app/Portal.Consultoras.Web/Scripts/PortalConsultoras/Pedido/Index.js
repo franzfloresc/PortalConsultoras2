@@ -499,7 +499,7 @@ function CrearDialogs() {
 function CargarDetallePedido(page, rows) {
     $(".pMontoCliente").css("display", "none");
 
-    $('#tbobyDetallePedido').html('<tr><td colspan="7"><div style="text-align: center;">Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></td></tr>');
+    $('#tbobyDetallePedido').html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
 
     var clienteId = $("#ddlClientes").val() || -1;
     var obj = {
