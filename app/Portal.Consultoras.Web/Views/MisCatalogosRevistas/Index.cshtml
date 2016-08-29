@@ -36,9 +36,9 @@
             <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
             <hr class="clear" />
         </div>
-
+        
         <div id="xHtmlItemCatalogo" style="display: none;">
-            <div data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+            <div class="tipoClase" data-codigozona="@Model.CodigoZona" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
                 <div class="item1_catalogo" data-tipo="content">
                     <a class="revista" data-tipo="img" target="_blank" href="">
                         <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
@@ -67,6 +67,7 @@
         <!-- FIN REVISTA -->
 
         <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+        <div class="titulo_central" id="numero_campania" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID" hidden="hidden">@Model.CampaniaActual</div>
 
         @if (!ViewBag.EsConsultoraNueva)
         {
