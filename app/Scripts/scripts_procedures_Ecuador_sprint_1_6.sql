@@ -370,7 +370,7 @@ VALUES
 (6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
 
 (7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
-(8, 'Zona de Liquidación', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(8, 'Liquidación web', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
 (9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
 (10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
 --(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
@@ -382,23 +382,127 @@ VALUES
 
 GO
 
-DELETE FROM MenuMobile WHERE Posicion='Footer'
+ALTER TABLE MenuMobile
+ALTER COLUMN Descripcion VARCHAR(70) NOT NULL
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (25, 'Ayuda', 0, 3, '', '', 0, 'Footer', 'Completa')
+--SELECT * FROM MenuMobile
+DELETE MenuMobile
+WHERE Posicion = 'Footer'
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (26,'Preguntas Frecuentes', 25, 1, 'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082', '', 0, 'Footer', 'Completa'),
-(27, 'Contáctanos', 25, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 0, 'Footer', 'Mobile'),
-(28, 'Tutorial', 25, 3, '', '', 0, 'Footer', 'Completa')
+--PADRES
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (29, 'Legal', 0, 4, '', '', 0, 'Footer', 'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (100
+						,'Ayuda'
+						,0
+						,3
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (101
+						,'Legal'
+						,0
+						,4
+						,''
+						,''
+						,0
+						,'Footer'
+						,'Completa')
 
-INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
-VALUES (30, 'Condiciones de uso Web', 29, 1, 'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf', '', 0, 'Footer', 'Completa'),
-(31, 'Terminos y Condiciones', 29, 2, '', '', 0, 'Footer', 'Completa')
+--HIJOS
 
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (102
+						,'Preguntas Frecuentes'
+						,100
+						,1
+						,'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (103
+						,'Cont?ctanos'
+						,100
+						,2
+						,'http://belcorprespondeqa.somosbelcorp.com/'
+						,''
+						,1
+						,'Footer'
+						,'Mobile')
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (104
+						,'Tutorial'
+						,100
+						,3
+						,''
+						,''
+						,1
+						,'Footer'
+						,'Completa')
+
+INSERT INTO MenuMobile (MenuMobileID
+						,Descripcion
+						,MenuPadreId
+						,OrdenItem
+						,UrlItem
+						,UrlImagen
+						,PaginaNueva
+						,Posicion
+						,[Version])
+				VALUES (105
+						,'T?rminos y Condiciones'
+						,101
+						,1
+						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_EC.aspx'
+						,''
+						,1
+						,'Footer'
+						,'Completa')
 GO
 
 if not exists(select 1 from Permiso where Descripcion = 'Carga de Reemplazos Sugeridos')
