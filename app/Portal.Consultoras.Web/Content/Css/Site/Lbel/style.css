@@ -1743,6 +1743,80 @@ header {
     height:129px;
 }
 
+.grilla_pedidos {
+    display:block;
+    width:100%;
+    font-family:'Lato';
+}
+
+.grilla_pedidos label{
+    cursor:default;
+}
+
+.encabezado_ingresoPedido {
+    border-bottom:2px solid #000;
+}
+
+.contenido_ingresoPedido{
+    border-bottom: 1px solid #ccc;
+}
+
+div.texto_encabezado_pedidos{
+    display:inline-block;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    color: #797979;
+}
+
+div.texto_pedidos, div.celda_cantidad_pedidos{
+    display:inline-block;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    vertical-align: middle;
+}
+
+div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo{
+    width:11%;
+}
+
+div.texto_encabezado_pedidos.cabecera_producto, div.texto_pedidos.celda_producto{
+    width:25.41%;
+}
+
+div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos{
+    width:12%;
+    text-align:center;
+}
+
+div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input{
+    font-size:12px!important;
+    background:#FFF;
+    padding-left: 0px!important;
+}
+
+div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input[value] {
+    vertical-align:middle;
+}
+
+.grilla_pedidos div.fila_mensajeProductoAgotado div{
+    padding-top: 0px;
+    padding-bottom: 0px!important;
+    border:0px;
+}
+
+div.texto_encabezado_pedidos.cabecera_precioUnitario, div.texto_pedidos.precioUnitario{
+    width:11%;
+}
+
+div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal{
+    width:15%;
+}
+
+div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
+    width:20%;
+    text-align:center;
+}
+
 .escalaDescuento_texto{
     display:block;
     margin-top:70px;
