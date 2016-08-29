@@ -2840,7 +2840,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .paginador_pedidos{
     display:block;
     width:100%;
-    height:30px;
+    height:auto;
     margin-top:25px;
     margin-bottom:100px;
 }
@@ -3606,27 +3606,27 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     }
 
     .texto_encabezado_pedidos.cabecera_codigo{
-        width:11%;
+        width:11%!important;
     }
 
     .texto_encabezado_pedidos.acciones{
-        width:5%;
+        width:5%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_subtotal{
-        width:17%;
+    .texto_encabezado_pedidos.cabecera_subtotal, .texto_pedidos.subtotal{
+        width:18%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_producto{
-        width:20%;
+    .texto_encabezado_pedidos.cabecera_producto, .texto_pedidos.celda_producto{
+        width:28%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_cliente{
-        width:22%;
+    .texto_encabezado_pedidos.cabecera_cliente, .texto_pedidos.clientePedido{
+        width:24%!important;
     }
 
     .flexiPago_belcorp, .caja_carousel_productos{
-        width:30.9%;
+        width:30.9%!important;
     }
 
     .productos_ingresados_movil span.icon-mobile{
@@ -3665,6 +3665,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
     .precio_total_sinDescuento span.icon-advertencia{
         margin-bottom:32px;
+    }
+
+    .paginador_pedidos{
+        margin-bottom:36px!important;
+    }
+
+    .titulo_mis_pedidos{
+        display: block;
+        width: 100%;
+        float: none;
+        margin-bottom:25px;
     }
 
 }
@@ -20213,7 +20224,7 @@ label.checkpop.c_on {
     text-align: center;
     float: left;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 14px;
     padding-left: 10px;
     padding-right: 10px;
     background: #a18328;
