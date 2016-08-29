@@ -223,6 +223,8 @@
     
     $("#cerrarVideoIntroductorio").click(function () {
         $('#videoIntroductorio').hide();
+        player.stopVideo();
+
         if (primeraVezVideo) {
             setInterval(AnimacionTutorial, 800);
             setTimeout(ocultarAnimacionTutorial, 9000);
