@@ -1841,7 +1841,6 @@ function CargarMisCursos() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (response.success) {
-                //ArmarDivMisCursos(response.data);
                 if (paisISO == 'VE') {
                     SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
                     $('#divTutoriales').hide();
@@ -1864,9 +1863,6 @@ function CargarMisCursos() {
             $('#divSinTutoriales').show();
         }
     });
-};
-function ArmarDivMisCursos(data) {
-    SetHandlebars("#miscursos-template", data, "#divMisCursos");
 };
 function porcentajesCursos() {
     // Función para animación y características de carga circular de Cursos Academia
@@ -2788,55 +2784,13 @@ function AgregarTagManagerShowRoomCheckBox() {
 };
 
 // Métodos de marcaciones
-function RedirectTusDatosGoogleAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Datos']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Datos'
-    });
-    location.href = baseUrl + 'MisDatos/Index';
-};
-function RedirectIngresaTuPedidoAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Pedido']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Pedido'
-    });
-    location.href = baseUrl + 'Pedido/Index';
-};
 function RedirectPagaEnLineaAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Paga-en-linea']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Paga-en-linea'
-    });
-
     if (ViewBagRutaChile != "") {
         window.open(ViewBagRutaChile + viewBagUrlChileEncriptada, "_blank");
     }
     else {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + viewBagUrlChileEncriptada, "_blank");
     }
-};
-function RedirectCatalogoAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Catalogo']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Catalogo'
-    });
-    location.href = baseUrl + 'Catalogo/Index';
-};
-function RedirectBotonBienvenida(url, etiquetaGa) {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', etiquetaGa]);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/' + etiquetaGa
-    });
-    location.href = url;
-};
-function RedirectPedidoFicAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'PedidoFIC']);
-    location.href = baseUrl + 'PedidoFIC/Index';
 };
 
 // Métodos Suenios Navidad

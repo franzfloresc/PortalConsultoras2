@@ -7,7 +7,7 @@
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
 }
 <div class="footer_wrapper">
-    <a href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde" target="_blank">
+    <a id="aBelcorpResponde" href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" /><br />
         @if (ViewBag.CodigoISODL == "CO")
         {
@@ -18,6 +18,7 @@
             <text>BELCORP RESPONDE</text>
         }
         <br />
+        <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
     </a>
     <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
