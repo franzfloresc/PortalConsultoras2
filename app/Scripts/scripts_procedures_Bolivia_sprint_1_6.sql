@@ -1496,7 +1496,7 @@ CREATE PROCEDURE [dbo].GetPedidoWebDetalleByCampania_SB2
  @ConsultoraID BIGINT    
 AS    
 /*    
- GetPedidoWebDetalleByCampania 201611, 49627031    
+ GetPedidoWebDetalleByCampania_SB2 201611, 49627031    
 */    
 BEGIN    
  SET NOCOUNT ON    
@@ -1580,8 +1580,14 @@ BEGIN
 		CASE WHEN @ProgramaNuevoActivado > 0 THEN 1   
 		END  
 		ELSE 0 END  AS TipoEstrategiaID, -- R2621 -- R2621  
- PC.IndicadorOferta AS IndicadorOfertaCUV  /*R20150701LR*/   
- FROM dbo.PedidoWebDetalle pwd    
+ PC.IndicadorOferta AS IndicadorOfertaCUV  /*R20150701LR*/  
+
+ , PW.DescuentoProl
+ , PW.MontoEscala
+ , PW.MontoAhorroCatalogo
+ , PW.MontoAhorroRevista
+ FROM dbo.PedidoWebDetalle pwd   
+	 INNER JOIN dbo.PedidoWeb PW ON PW.PedidoID = pwd.PedidoID 
 	 JOIN ods.ProductoComercial pc ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV    
 	 LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID    
 	 LEFT JOIN dbo.ProductoDescripcion pd ON pwd.CampaniaID = pd.CampaniaID AND pwd.CUV = pd.CUV      
