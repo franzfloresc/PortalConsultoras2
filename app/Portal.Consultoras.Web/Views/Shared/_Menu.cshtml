@@ -132,20 +132,20 @@
                                 if (addImgen)
                                 {
                                     <a href="javascript:;" class="menu_imagen" onclick=" return SetAnalyticsMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" id="lnk-pri-miscatalogosrevistas">
-                                        <img role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
+                                        <img role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
                                         <div role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
                                     </a>
                                     if (ViewBag.SegmentoConsultoraMenu == 1)
                                     {
-                                        <a href="https://s3.amazonaws.com/somosbelcorp/@(DateTime.Now.Year)/Minisite+Nuevas+Esikizado/@(ViewBag.codigoISOMenu)/index.html" role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" class="menu_imagen no_margin_right">
-                                            <img role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" />
+                                        <a href="@(ViewBag.UrlRaizS3)@(DateTime.Now.Year)/Minisite+Nuevas+Esikizado/@(ViewBag.codigoISOMenu)/index.html" role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" class="menu_imagen no_margin_right">
+                                            <img role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" />
                                             <div role="menu" region="Principal" parent="MI NEGOCIO" title="Programa Nuevas" class="titulo_imagen">PROGRAMA NUEVAS</div>
                                         </a>
                                     }
                                     else if (ViewBag.SegmentoConsultoraMenu != 1 && ViewBag.codigoISOMenu != "VE")
                                     {
                                         <a class="menu_imagen no_margin_right" onclick=" return SetAnalyticsMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
-                                            <img role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" />
+                                            <img role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" />
                                             <div role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" class="titulo_imagen">INCENTIVOS</div>
                                         </a>
                                     }
@@ -165,7 +165,7 @@
                         if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
                         {
                             <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>

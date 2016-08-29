@@ -146,10 +146,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var ultimosTresPedidos = pedidoWebDetalle.Count > 0 ?
-                                         //pedidoWebDetalle.Skip(Math.Max(0, pedidoWebDetalle.Count() - 3)).ToList() :
                                          pedidoWebDetalle.Take(3).ToList() :
                                          new List<BEPedidoWebDetalle>();
-
+                var totalPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 return Json(new
                 {
                     result = true,
@@ -157,7 +156,9 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadProductos = pedidoWebDetalle.Sum(p => p.Cantidad),
                     ultimosTresPedidos = ultimosTresPedidos,
                     Simbolo = userData.Simbolo,
-                    paisID = PaisID
+                    paisID = PaisID,
+                    montoWebConDescuentoStr = Util.DecimalToStringFormat(totalPedido - pedidoWeb.DescuentoProl, userData.CodigoISO),
+                    DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -178,7 +179,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         public BEUsuario GetUserData(int PaisID, string Codigo)
         {

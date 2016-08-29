@@ -14,7 +14,6 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Net;
 
@@ -44,6 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 
+                model.VioVideoBienvenidaModel = userData.VioVideoModelo;
+
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
@@ -511,6 +512,23 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = model
             }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult JSONSetUsuarioVideo()
+        {
+            int retorno;           
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
+                userData.VioVideoModelo = retorno;
+            }
+            SetUserData(userData);
+            return Json(new
+            {
+                result = retorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult ValidarCorreoComunidad(string correo)

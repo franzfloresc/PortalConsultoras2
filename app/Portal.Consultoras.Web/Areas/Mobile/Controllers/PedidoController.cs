@@ -75,6 +75,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, userData.CodigoISO);
+            model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
+            model.DescuentoStr = Util.DecimalToStringFormat(bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
             model.ListaProductos = lstPedidoWebDetalle.ToList();
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
 
@@ -166,56 +168,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
 
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
-            model.Detalle = PedidoJerarquico(lstPedidoWebDetalle);
+            model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+            model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
+            model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));
 
-            model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV &&
-                                          lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
+            model.CantidadProductos = model.Detalle.Sum(item => item.Cantidad);
+            model.PedidoConDescuentoCuv = userData.EstadoSimplificacionCUV && lstPedidoWebDetalle.Any(p => p.IndicadorOfertaCUV);
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
-            if (model.PedidoConDescuentoCuv)
-            {
-                decimal importeProl = lstPedidoWebDetalle[0].MontoTotalProl;
+            model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
+            if (model.PedidoConDescuentoCuv) model.Descuento = -bePedidoWebByCampania.DescuentoProl;
+            model.Total = model.SubTotal + model.Descuento;
 
-                model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
-
-                model.Descuento = importeProl - model.SubTotal;
-                model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
-
-                model.Total = importeProl;
-                model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
-            }
-            else
-            {
-                model.Total = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
-            }
+            model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
+            model.DescripcionDescuento = Util.DecimalToStringFormat(model.Descuento, model.CodigoISO);
+            model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, model.CodigoISO);
 
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
-
-            // se calcula la ganancia estimada
-            ViewBag.GananciaEstimada = 0;
-            ViewBag.PedidoProductoMovil = 0;
-
-            if (lstPedidoWebDetalle.Count > 0)
-            {
-                ViewBag.GananciaEstimada = CalcularGananciaEstimada(userData.PaisID, userData.CampaniaID, lstPedidoWebDetalle[0].PedidoID, model.Total);
-
-                int valorPedidoProductoMovil = 0;
-                foreach (var item in lstPedidoWebDetalle)
-                {
-                    if (item.TipoPedido.ToUpper().Trim() == "PNV")
-                    {
-                        valorPedidoProductoMovil = 1;
-                        break;
-                    }
-                }
-                ViewBag.PedidoProductoMovil = valorPedidoProductoMovil;
-            }
+            
+            model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
+            model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
+            model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
+            model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
 
             if (lstPedidoWebDetalle.Count != 0)
             {
@@ -227,6 +206,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
+            #region kitNueva
             BEKitNueva[] kitNueva;
             int esColaborador = 0;
             using (var sv = new UsuarioServiceClient())
@@ -245,27 +225,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             ViewBag.MontoKitNueva = Util.DecimalToStringFormat(montoKitNueva, model.CodigoISO);
             ViewBag.EsKitNueva = esKitNueva;
+            #endregion 
+
+            #region mensaje monto logro para la meta
+            decimal montoLogro = 0;
+            string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+            if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo) montoLogro = model.Total;
+            else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala) montoLogro = userData.MontoMinimo;
+            else montoLogro = bePedidoWebByCampania.MontoEscala;
 
             BEFactorGanancia oBEFactorGanancia = null;
             using (var sv = new SACServiceClient())
             {
-                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(model.Total, userData.PaisID);
+                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(montoLogro, userData.PaisID);
             }
-            ViewBag.EscalaDescuento = 0;
-            ViewBag.MontoEscalaDescuento = Util.DecimalToStringFormat(0, model.CodigoISO);
-            ViewBag.PorcentajeEscala = 0;
-            if (oBEFactorGanancia != null && esColaborador == 0)
+            if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
-                ViewBag.EscalaDescuento = 1;
-                ViewBag.MontoEscalaDescuento = Util.DecimalToStringFormat(oBEFactorGanancia.RangoMinimo - model.Total, model.CodigoISO);
-                ViewBag.PorcentajeEscala = Util.DecimalToStringFormat(oBEFactorGanancia.Porcentaje, model.CodigoISO);
+                model.MostrarEscalaDescuento = true;
+                model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
+                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - montoLogro;
+                model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
             }
+            #endregion
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-
-            ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-
+            model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
             return View(model);

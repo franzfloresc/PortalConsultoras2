@@ -56,6 +56,9 @@ namespace Portal.Consultoras.Entities
             set { paisID = value; }
         }
 
+        [DataMember]
+        public int CodigoGeneral { get; set; }
+
         public BEEtiqueta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "EtiquetaID") && row["EtiquetaID"] != DBNull.Value)
@@ -66,6 +69,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
                 Estado = Convert.ToInt32(row["Estado"]);
+
+            if (DataRecord.HasColumn(row, "CodigoGeneral") && row["CodigoGeneral"] != DBNull.Value)
+                this.CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
         }
     }
 

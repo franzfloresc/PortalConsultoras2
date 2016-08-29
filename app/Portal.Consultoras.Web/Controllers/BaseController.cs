@@ -42,6 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
+                ViewBag.UrlRaizS3 = ConfigurationManager.AppSettings["URL_S3"].ToString() + "/" + ConfigurationManager.AppSettings["BUCKET_NAME"].ToString() + "/" + ConfigurationManager.AppSettings["ROOT_DIRECTORY"] + "/";
 
                 if (Session["UserData"] != null)
                 {
@@ -57,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }                    
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
                     MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -362,6 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
 
                 itemMenu.SubMenus = temp;
+                itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
             }
         }
 
@@ -425,7 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region  Session["UserData"] != null
 
                 model = (UsuarioModel)Session["UserData"];
-                this.CargarEntidadesShowRoom(model);
+                if (model != null)  this.CargarEntidadesShowRoom(model);
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
@@ -561,6 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 
@@ -758,6 +761,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
+                ViewBag.Simbolo = model.Simbolo;
 
                 return model;
 

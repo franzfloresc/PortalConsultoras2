@@ -6,70 +6,56 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
-<div class="titulo_mobile">MI PEDIDOS RESERVADO</div>
+<div class="titulo_mobile">MI PEDIDO RESERVADO</div>
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 
-   
-    <div id="ResumenPedidoReservado"> 
-        <div class="wrapper_resumen_mobile">
-            <!--RESUMEN PEDIDO RESERVADO-->
-            <div class="left_reservado">
-                <div class="agregados_reservado">Productos agregados</div>
-                <div class="monto_reservado_mobile">MONTO TOTAL</div>
-                <div class="ganancia_reservado">GANANCIA</div>
+<div id="ResumenPedidoReservado">
+    <div class="wrapper_resumen_mobile">
+        <!--RESUMEN PEDIDO RESERVADO-->
+        @if (Model.MostrarEscalaDescuento)
+        {       <div>
+            <div class="content_BarrMensaje">
+                <div class="mensaje_barra" style="display: inline;">¡TÚ PUEDES! </div>
+                <div class="agrega_barra"><span>Te faltan @Model.Simbolo @Model.DescripcionMontoEscalaDescuento para llegar a tu siguiente escala de descuento de @Model.PorcentajeEscala%. </span></div>
             </div>
-            <div class="right_reservado">
-                <div class="agregados_reservado">23</div>
-                <div class="monto_reservado_mobile">S/. 313.000.00</div>
-                <div class="ganancia_reservado">S/.   90.000.00</div>
-            </div>
-            <hr class="clear" />
-            <div id="PedidoReservado" class="panel-collapse collapse">
+            <hr class="clear">
+            <div class="flechita_barra"></div>
+        </div>
 
-                <div class="linea_gris" style="margin-top:10px;"></div>
-                <span class="detalle_reservado">DETALLE</span>
-                <div class="linea_gris"></div>
-                <!--LISTADO PEDIDO RESERVADO-->
-                <!--ITEM 1-->
+        }
+        <hr class="clear" />
+        <div class="left_reservado">
+            <div class="agregados_reservado">Productos agregados</div>
+            <div class="monto_reservado_mobile">MONTO TOTAL</div>
+            <div class="ganancia_reservado">GANANCIA</div>
+        </div>
+        <div class="right_reservado">
+            <div class="agregados_reservado">@Model.CantidadProductos</div>
+            <div class="monto_reservado_mobile">@Model.Simbolo @Model.DescripcionTotal</div>
+            <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
+        </div>
+        <hr class="clear" />
+
+        <div id="PedidoReservado" class="panel-collapse collapse">
+
+            <div class="linea_gris" style="margin-top:10px;"></div>
+            <span class="detalle_reservado">DETALLE</span>
+            <div class="linea_gris"></div>
+            <!--LISTADO PEDIDO RESERVADO-->
+            @foreach (var item in Model.Detalle)
+            {
                 <div class="detalle_pedido_reservado">
                     <div class="left_reservado" style="width:235px;">
                         <div class="datos_Reservado">
-                            <span> 00411 </span>
-                            <span>CY BERRYLICIOUS  SHAMPOO ROJO 375 ML</span>
+                            <span> @item.CUV </span>
+                            <span>@item.DescripcionProd</span>
                         </div>
-                        <div class="texto_reservado">Cliente: María Elena Álvarez</div>
+                        <div class="texto_reservado">Cliente: @item.Nombre</div>
                     </div>
                     <div class="right_reservado">
                         <div class="texto_reservado">CANT</div>
-                        <div class="datos_Reservado"><b>1</b></div>
-                    </div>
-                    <hr class="clear" /><br />                    
-                    <div class="left_reservado">
-                        <div class="texto_reservado">
-                            <span>Precio Unitario</span>                            
-                        </div>
-                        <div class="importe_reservado">SUBTOTAL</div>
-                    </div>
-                    <div class="right_reservado">
-                        <div class="texto_reservado">
-                            <span>S/. 14.90</span>                            
-                        </div>
-                        <div class="importe_reservado">S/. 14.90</div>
-                    </div>                    
-                </div>
-                <!--ITEM 2-->
-                <div class="detalle_pedido_reservado">
-                    <div class="left_reservado" style="width:235px;">
-                        <div class="datos_Reservado">
-                            <span> 00411 </span>
-                            <span>CY BERRYLICIOUS  SHAMPOO ROJO 375 ML</span>
-                        </div>
-                        <div class="texto_reservado">Cliente: María Elena Álvarez</div>
-                    </div>
-                    <div class="right_reservado">
-                        <div class="texto_reservado">CANT</div>
-                        <div class="datos_Reservado"><b>1</b></div>
+                        <div class="datos_Reservado"><b>@item.Cantidad</b></div>
                     </div>
                     <hr class="clear" /><br />
                     <div class="left_reservado">
@@ -80,55 +66,102 @@
                     </div>
                     <div class="right_reservado">
                         <div class="texto_reservado">
-                            <span>S/. 14.90</span>
+                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
                         </div>
-                        <div class="importe_reservado">S/. 14.90</div>
+                        <div class="importe_reservado">
+                            @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
+                            {
+                                <span class="icono_advertencia_notificacion"></span>
+                            }
+                            @Model.Simbolo @item.DescripcionImporteTotal
+                        </div>
                     </div>
+
+                    @if (!string.IsNullOrEmpty(item.Mensaje))
+                    {
+                        <hr class="clear" /><br />
+                        <div class="notificacion_productoAgotado">
+                            <small>
+                                @if (item.TipoObservacion == 0)
+                                { @Html.Raw(item.Mensaje);
+                                }
+                                else
+                                { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
+                                }
+                            </small>
+                        </div>
+                    }
                 </div>
-               
-                <div class="left_reservado">
-                    <div class="importe_final">                        
-                        <div class="info_validado">
-                            <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-                            <!--TOOLTIP-->
-                            <div class="tooltip_validado_importe">
-                                <div class="left_reservado">
-                                    <div class="datos_Reservado">
-                                        <span>Total sin Dscto. </span>
-                                        <span>Dscto por niveles</span>
-                                    </div>                                   
-                                </div>
-                                <div class="right_reservado">
-                                    <div class="datos_Reservado">
-                                        <span> S/. 304.000.00 </span>
-                                        <span>S/.     9.000.00L</span>
-                                    </div>
+            }
+
+            <div class="left_reservado">
+                <div class="importe_final">
+                    <div class="info_validado">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                        <!--TOOLTIP-->
+                        <div class="tooltip_validado_importe">
+                            <div class="left_reservado">
+                                <div class="datos_Reservado">
+                                    <span>Total sin Dscto. </span>
+                                    <span>Dscto por niveles</span>
                                 </div>
                             </div>
-                            <!--FIN-->
-                        </div> 
-                        <b>MONTO TOTAL</b>
+                            <div class="right_reservado">
+                                <div class="datos_Reservado">
+                                    <span>@Model.Simbolo @Model.DescripcionSubTotal</span>
+                                    <span>@Model.Simbolo @Model.DescripcionDescuento</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN-->
                     </div>
-                    <div class="ganancia_Pedidovalidado" style="margin-top:7px">GANANCIA</div>
+                    <b>MONTO TOTAL</b>
                 </div>
-                <div class="right_reservado">                    
-                    <div class="importe_final" style="font-size:15px"><b>S/.  313.000.00</b></div>
-                    <div class="ganancia_Pedidovalidado" style="font-size:15px">S/.  90.000.00</div>
-                </div>
-                <hr class="clear" />
-                <!--FIN LISTADO-->
-
-
+                <div class="ganancia_Pedidovalidado" style="margin-top:7px">GANANCIA</div>
             </div>
+            <div class="right_reservado">
+                <div class="importe_final" style="font-size:15px"><b>@Model.Simbolo @Model.DescripcionTotal</b></div>
+                <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
+            </div>
+            <hr class="clear" />
+            <!--FIN LISTADO-->
 
-            <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
-            <!--TOOLTIP-->
-            <div class="tooltip_validado">
-                <div class="icono_tooltip_validado"></div>
-                <div class="info_tooltip">Puedes editar tu pedido hasta las <b>22:00 horas</b>, luego se enviará a Belcorp</div>
+
+        </div>
+
+        <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
+        <!--TOOLTIP-->
+        <div class="tooltip_validado">
+            <div class="icono_tooltip_validado"></div>
+            <div class="info_tooltip">Puedes editar tu pedido hasta las <b>@Model.HoraCierre horas</b>, luego se enviará a Belcorp</div>
+        </div>
+    </div>
+    <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">EDITAR MI PEDIDO</a>
+</div>
+
+<div class="modal fade" id="divConfirmModificarPedido">
+    <div class="modal-dialog modal-alert ">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3 id="modal-prol-titulo" class="text-primary text-lg">IMPORTANTE</h3>
+                <div id="modal-prol-contenido">Al hacer clic en "Continuar" se perderá la reserva de tus productos. Recuerda que si lo modificas debes volver a validar.</div>
+                <br />
+                <div id="modal-prol-botonesAceptarCancelar">
+                    <a href="javascript:;" class="btn btn-line btn-aceptar" data-dismiss="modal">CANCELAR</a>
+                    <a href="javascript:;" style="padding: 5px;"></a>
+                    <a href="javascript:;" class="btn btn-line btn-aceptar" data-dismiss="modal" onclick="ConfirmarModificarPedido();">CONTINUAR</a>
+                </div>
             </div>
         </div>
-        <a class="btn_editar_pedido" href="#">EDITAR MI PEDIDO</a> 
     </div>
-    
+</div>
 
+@section Scripts{
+    <script type="text/javascript">
+        var modificacionPedidoProl = '@Model.ModificacionPedidoProl';
+
+        var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlIngresarPedido = '@Url.Action("Index", "Pedido", new {area = "Mobile"})';
+    </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Validado.js")"></script>
+}

@@ -24,9 +24,9 @@
             display: none;
         }
 
-        .campana:hover .info_cam {
+        /*.campana:hover .info_cam {
             display:none;
-        }
+        }*/
 
         
     </style>
@@ -137,6 +137,7 @@
     <div class="clear"></div>
     
     <div class="caja_pedidos">
+        <!-- DIV BARRA -->
         <div id="divBarra">
             <div id="divBarraMensaje">
                 <div id="divBarraMensajeLogrado" style="display:none;">
@@ -152,22 +153,6 @@
             </div>
             <hr class="clear" />
             <div id="divBarraLimite">
-                @*<div class="monto_minimo_barra" style="width: 18%;">25% DSCTO<br/>M. mínimo: S/. 250
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="bandera_marcador"></div>
-                <div class="monto_minimo_barra">
-                    30% DSCTO<br />S/. 601
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="monto_minimo_barra ml_16">
-                    35% DSCTO <br />S/. 1201
-                    <div class="linea_indicador_barra"></div>
-                </div>
-                <div class="monto_minimo_barra ml_6">
-                    40% DSCTO<br />S/. 1901
-                    <div class="linea_indicador_barra"></div>
-                </div>*@
             </div>
             <hr class="clear" />
             <div id="divBarraPosicion" class="BarraPosicion">
@@ -179,6 +164,7 @@
             <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Guarda tu pedido para actualizar tu barra.</div>
         </div>
         <div class="clear"></div>
+        <!-- FIN DIV BARRA -->
     
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
@@ -228,14 +214,27 @@
                 <div class="bloque_montosPedido">
                     <div class="caja_montos">
                         <div class="caja_montos_textos">
-                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                             <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                 <span id="spnNombreCliente"></span>
                             </p>
-                            <p class="monto_total">
-                                Monto total :
-                            </p>
+                            <div class="monto_total">
+                                <div class="info_extra_Validado">
+                                    <img src="/Content/Images/Esika/info-copy.png">
+                                    <!--MONTOS-->
+                                    <div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
+                                        <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
+
+                                        <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
+                                        <hr class="clear">
+                                        <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
+                                        <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
+                                    </div>
+                                    <!--FIN-->
+                                </div>
+                                <span>Monto total :</span>
+                            </div>
                             
-                            <div id="divMontosEscalaDescuentoTexto" style="display: block;">
+                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
@@ -252,7 +251,7 @@
                                     if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                                         || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                                     {
-                                        cabezaEscala = "Ganancia estimada total*";
+                                        cabezaEscala = "GANANCIA";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }                                   
                                     else if (Model.PaisID == 3) //CHILE
@@ -262,10 +261,10 @@
                                     }
                                     else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
                                     {
-                                        cabezaEscala = "Ganancia estimada total*";
+                                        cabezaEscala = "GANANCIA";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                                     }
-                                    else if (Model.PaisID == 5) //COSTA RICA
+                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
                                     {
                                         cabezaEscala = "Oportunidad de ahorro total";
                                         pieEscala = "";                
@@ -281,23 +280,23 @@
                             <p class="monto_total">
                                 <b>
                                     @Model.Simbolo
-                                    <span id="sTotal" class="num">
-                                        @Model.FormatoTotal
+                                    <span id="sTotal" class="num" data-pedidocondescuento="">
+                                        @Model.TotalConDescuento
                                     </span>
                                 </b>
                             </p>
                             
-                            <div id="divMontosEscalaDescuento" style="display: block;">
+                            <div id="divMontosEscalaDescuento" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
                                         <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoDescuento">@Model.FormatoMontoDescuento</span>
+                                            @Model.Simbolo <span class="num" id="spnMontoDescuento" data-montodescuento="">@Model.FormatoMontoDescuento</span>
                                         </b>
                                     </p>
                                     <p class="monto_montodescuento">
                                         <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoEscala">@Model.FormatoTotalConDescuento</span>
+                                            @Model.Simbolo <span class="num" id="spnMontoEscala" data-montoescala="">@Model.FormatoTotalConDescuento</span>
                                         </b>
                                     </p>
                                 }
@@ -312,12 +311,16 @@
                     </div>
                 </div>
                 <div class="contenedor_btnGuardarPedido">
-                    <div class="mensajes">
+                    @*<div class="mensajes">
                         <div class="mensaje_guardar_pedido">
                             ¡No olvides guardar tu pedido!
                             <span style="font-size:12px;">&#9658;</span>
                         </div>
                         <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
+                    </div>*@
+                    <div class="tooltip_importanteGuardarPedido">
+                        Es importante <br />que guardes tu pedido
+                        <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
                     </div>
                     <div class="boton_guardarPedido">
                         <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
@@ -470,6 +473,21 @@
         </form>
     </div>
 </div>
+
+<!-- POPUP TUTORIAL INGRESO DE PEDIDO -->
+
+<div class="contenedor_fondo_popup" id="popup_tutorial_pedido" style="display: none;">
+    <div class="popup_tutorial_pedido">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP TUTORIAL INGRESO DE PEDIDO -->
 
 <div id="DialogMensajes" style="display: none;">
     <div class="terminos_title_2">
@@ -689,6 +707,8 @@
     </div>
 </div>
 
+<!-- POPUP PRODUCTOS AGOTADOS -->
+
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
         <div class="btn_cerrar_agregarUnidades">
@@ -715,6 +735,8 @@
         <div class="clear"></div>
     </div>
 </div>
+
+<!-- FIN PRODUCTOS AGOTADOS -->
 
 <!-- POPUP PRODUCTOS SUGERIDOS -->
 <div class="contenedor_popup_productosSugeridos1" id="divProductoAgotadoFinal" style="display:none;">
@@ -1012,7 +1034,7 @@
         <td colspan="7">
             <div class="mensaje_productoAgotado">
                 {{#iff TipoObservacion '!=' 0}}
-                <p>{{{Replace DescripcionLarga '¿Deseas aceptar el reemplazo?' ''}}}</p>
+                <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
                 {{else}}
                 <p>{{{Mensaje}}}</p>
                 {{/iff}}

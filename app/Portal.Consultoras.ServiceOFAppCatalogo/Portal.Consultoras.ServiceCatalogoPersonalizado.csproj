@@ -39,6 +39,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\DotNetOpenAuth.OAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.Client, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\DotNetOpenAuth.OAuth2.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.ClientAuthorization, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\DotNetOpenAuth.OAuth2.ClientAuthorization.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,6 +98,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Librerias\DotNetOpenAuth.Core.dll" />
+    <Content Include="Librerias\DotNetOpenAuth.Core.xml" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.Client.dll" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.Client.xml" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.ClientAuthorization.dll" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.ClientAuthorization.xml" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.dll" />
+    <Content Include="Librerias\DotNetOpenAuth.OAuth2.xml" />
     <Content Include="Librerias\Microsoft.Practices.ServiceLocation.dll" />
     <Content Include="Librerias\Microsoft.Practices.Unity.dll" />
     <Content Include="Librerias\Microsoft.Practices.Unity.Interception.dll" />
@@ -148,6 +172,7 @@
     <Compile Include="Data\DAProducto.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Entities\Producto.cs" />
+    <Compile Include="Entities\ProductoPcm.cs" />
     <Compile Include="IProductoService.cs" />
     <Compile Include="Logic\BLProducto.cs" />
     <Compile Include="Logic\CacheManager.cs" />
@@ -160,6 +185,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AuthConnection.cs" />
     <Compile Include="Web References\ServicePROLConsultas\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

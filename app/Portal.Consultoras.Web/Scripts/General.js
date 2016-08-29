@@ -153,7 +153,9 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                operator = operator || '==';
+                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                operator = opts == undefined ? '==' : (operator || '==');
+                opts = optsx;
                 switch (operator) {
                     case '==':
                         bool = $.trim(a) == "";
@@ -476,19 +478,33 @@ function paginadorAccionGenerico(obj) {
 
 function ActualizarGanancia(data) {
     data = data || new Object();
-    $("[data-ganancia]").html(data.MontoGananciaStr || "");
-
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
-    $("#spnCantidadProductos").html(data.CantidadProductos);
+    // Los Montos resumen de pedido
+    $("[data-ganancia]").html(data.MontoGananciaStr || "");
+    $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
+    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-cantidadproducto]").html(data.CantidadProductos);
+
     $(".num-menu-shop").html(data.CantidadProductos);
-    $("#spnDescripcionTotal").html(data.TotalPedidoStr);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
-    
-    $(".lblCantidadProducto").html(data.CantidadProductos);
-    $(".lblDescripcionTotal").html(data.TotalPedidoStr);
-    $('#lblDescripcionTotal').html(data.TotalPedidoStr);
+
+    setTimeout(function () {
+        $('.num-menu-shop').addClass('microefecto_color');
+        $('[data-cantidadproducto]').parent().addClass('microefecto_color');
+        $('[data-pedidocondescuento]').parent().addClass('microefecto_color');
+        $('#lblProductosResumen').addClass('microefecto_color');
+        $('#lblTotalResumen').addClass('microefecto_color');
+        setTimeout(function () {
+            $('.num-menu-shop').removeClass('microefecto_color');
+            $('[data-cantidadproducto]').parent().removeClass('microefecto_color');
+            $('[data-pedidocondescuento]').parent().removeClass('microefecto_color');
+            $('#lblProductosResumen').removeClass('microefecto_color');
+            $('#lblTotalResumen').removeClass('microefecto_color');
+        }, 5000);
+    }, 500);
 }
 
 FuncionesGenerales = {
@@ -508,16 +524,16 @@ FuncionesGenerales = {
         var patron = /[0-9]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-    },
+        },
 
     ValidarSoloNumerosAndSpecialCharater: function (e) {
-        var tecla = (document.all) ? e.keyCode : e.which;
+                var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-    },
-    GetDataForm: function(form) {
+        },
+            GetDataForm: function(form) {
         var that = $(form);
         var url = that.attr('action');
         var type = that.attr('method');
@@ -532,19 +548,19 @@ FuncionesGenerales = {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
-                    }
-                }
             }
+                }
+                }
             if (that.attr('type') == 'checkbox') {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
-                    }
+                }
                 }
             } else {
                 if (data[name] == null) {
                     data[name] = value;
-                }
+        }
             }
         });
 

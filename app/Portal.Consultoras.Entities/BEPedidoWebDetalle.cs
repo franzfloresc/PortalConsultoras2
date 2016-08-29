@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
         [DataMember]
         public decimal MontoTotalProl { get; set; }   /*R20150701*/
-
+        
         [DataMember]
         public string NombreCliente { get; set; } //R2584
 
@@ -119,6 +119,15 @@ namespace Portal.Consultoras.Entities
         
         [DataMember]
         public int OrdenPedidoWD { get; set; }
+
+        [DataMember]
+        public decimal DescuentoProl { get; set; }
+        [DataMember]
+        public decimal MontoEscala { get; set; }
+        [DataMember]
+        public decimal MontoAhorroCatalogo { get; set; }
+        [DataMember]
+        public decimal MontoAhorroRevista { get; set; } 
 
         public BEPedidoWebDetalle()
         { }
@@ -190,6 +199,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
+            
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
@@ -202,6 +212,15 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrdenPedidoWD"))
                 OrdenPedidoWD = row["OrdenPedidoWD"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrdenPedidoWD"]);
+
+            if (DataRecord.HasColumn(row, "DescuentoProl"))
+                DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
+            if (DataRecord.HasColumn(row, "MontoEscala"))
+                MontoEscala = row["MontoEscala"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoEscala"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
+                MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
+                MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -283,6 +302,7 @@ namespace Portal.Consultoras.Entities
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
+            
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
@@ -295,6 +315,15 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrdenPedidoWD"))
                 OrdenPedidoWD = row["OrdenPedidoWD"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrdenPedidoWD"]);
+
+            if (DataRecord.HasColumn(row, "DescuentoProl"))
+                DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
+            if (DataRecord.HasColumn(row, "MontoEscala"))
+                MontoEscala = row["MontoEscala"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoEscala"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
+                MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
+                MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
         }
     }
 }

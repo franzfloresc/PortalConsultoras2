@@ -9,8 +9,15 @@
 <div class="footer_wrapper">
     <a href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" /><br />
-        BELCORP RESPONDE <br />
-        <span role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE">Escríbenos o llámanos a través de nuestra Central Telefónica</span>
+        @if (ViewBag.CodigoISODL == "CO")
+        {
+            <text>ESIKA RESPONDE</text>
+        }
+        else
+        {
+            <text>BELCORP RESPONDE</text>
+        }
+        <br />
     </a>
     <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
         <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
@@ -50,11 +57,15 @@
 
             @foreach (var menuHijo in menuPadre.SubMenus)
             {
-                if (menuHijo.Posicion.ToLower() == "footer" && menuHijo.Descripcion.ToLower() == "contáctanos")       // SB20-246
+                if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
                 {
                     menuHijo.UrlItem += "?" + ViewBag.QSBR;
+
+                    <script type="text/javascript">
+                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
+                    </script>
                 }
-                
+
                 var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
 
                 if (string.IsNullOrEmpty(menuHijo.UrlItem))

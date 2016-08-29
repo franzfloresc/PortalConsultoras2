@@ -14,5 +14,6 @@ namespace Portal.Consultoras.Web.Models
         public int Estado { set; get; }
         public int PaisID { set; get; }
         public IEnumerable<PaisModel> listaPaises { set; get; }
+        public int CodigoGeneral { get; set; }
     }
 }

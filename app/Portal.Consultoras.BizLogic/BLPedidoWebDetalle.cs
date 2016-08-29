@@ -253,7 +253,7 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl)
+        public void InsPedidoWebDetallePROL(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, int ModificaPedido, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
             var DAPedidoWeb = new DAPedidoWeb(PaisID);
             var DAPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
@@ -315,7 +315,7 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     if (ModificaPedido == 0)
-                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl);
+                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                     else
                     {
                         int Clientes = olstPedidoWebDetalle.Where(p => p.EstadoItem != 3 && p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
@@ -329,7 +329,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
         //CCSS_JZ_PROL
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProL)
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
             var DAPedidoWeb = new DAPedidoWeb(PaisID);
             var DAPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.BizLogic
                             DAPedidoWebDetalle.UpdPedidoWebDetalleObsPROL(item, true);
                         }
                     }
-                    DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProL);
+                    DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                     oTransactionScope.Complete();
                 }
             }
@@ -379,8 +379,7 @@ namespace Portal.Consultoras.BizLogic
                     else if (ModificaPedidoReservado)
                         //Se reutiliza UpdPedidoWebDesReserva debido a que no actualiza la fecha de reserva. 
                         DAPedidoWeb.UpdPedidoWebDesReserva(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, ValidacionAbierta);
-                    else
-                        DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, 0);
+                    else DAPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, ModificaPedidoReservado, CodigoUsuario, 0, 0);
                     oTransactionScope.Complete();
                 }
             }

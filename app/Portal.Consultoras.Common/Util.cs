@@ -2812,10 +2812,10 @@ namespace Portal.Consultoras.Common
             return montoval;
         }
 
-        public static string SubStrCortarNombre(string cadena, int cant = -100)
+        public static string SubStrCortarNombre(string cadena, int cant, string strFin = "")
         {
             var str = SubStr(cadena, 0, cant);
-            str = str == cadena && cadena != "" ? str : (str + "...");
+            str = str == cadena && cadena != "" ? str + strFin : (str + "...");
             return str;
         }
     }

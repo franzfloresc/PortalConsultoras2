@@ -20,31 +20,42 @@
         <h1 class="titulo_principal_interiores pedido_left">PEDIDO <strong>VALIDADO CON ÉXITO</strong></h1>
     }
     <div class="clear"></div>
+    <div style="height: 70px;"></div>
     <div class="caja_pedidos pedidoReservado">
 
         @Html.Hidden("hdfCorreo", (string)Model.eMail)
 
-        <div class="escalaDescuento_texto" style="margin-bottom: 20px;">
-
-            @if (ViewBag.EscalaDescuento != 0)
-            {
-                <div style="float:left;">
-                    <div class="content_BarrMensaje">
-                        <div class="mensaje_barra" style="display: inline;">¡YA LLEGAS AL @ViewBag.PorcentajeEscala% DSCTO!</div>
-                        <div class="agrega_barra">Solo agrega @ViewBag.Simbolo @ViewBag.MontoEscalaDescuento más.</div>
+        <!-- DIV BARRA -->
+        <div id="divBarra" style="display: none;">
+            <div id="divBarraMensaje">
+                <div id="divBarraMensajeLogrado" style="display:none;">
+                    <div style="float:right;">
+                        <div class="content_BarrMensaje">
+                            <div class="mensaje_barra" style="display: inline;"></div>
+                            <div class="agrega_barra"></div>
+                        </div>
+                        <hr class="clear" />
+                        <div class="flechita_barra"></div>
                     </div>
-                    <hr class="clear">
-                    <div class="flechita_barra"></div>
                 </div>
-            }
+            </div>
+            <hr class="clear" />
+            <div id="divBarraLimite">
+            </div>
+            <hr class="clear" />
+            <div id="divBarraPosicion" class="BarraPosicion">
+                @*<span id="divBarraMinimo" class="BarraMinimo"></span>*@
+                <span id="divBarraEspacioLimite" class="BarraLimite">
+                    <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                </span>
+            </div>
+            <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock.</div>
+        </div>
+        <div class="clear"></div>
+        <!-- FIN DIV BARRA -->
 
-            @*@if (ViewBag.EscalaDescuento != 0)
-            {
-                <div class="mensaje_escalaDescuento">¡Tú puedes! Te faltan <strong>&nbsp;@ViewBag.Simbolo @ViewBag.MontoEscalaDescuento</strong> para llegar a tu siguiente escala de descuento de <strong>&nbsp; @ViewBag.PorcentajeEscala%.</strong></div>
-            }*@
-
+        <div class="escalaDescuento_texto" style="margin-bottom: 20px; margin-top: 5px;">
             <div class="iconos_acciones">
-
                 <div class="icono_email">
                     <a href="javascript:;" title="Enviar por Correo">
                         <img src="@Url.Content("~/Content/Images/Esika/imprimir.png")" alt="Enviar por correo" onclick="EnviarCorreo();" />
@@ -104,46 +115,16 @@
                 <div class="cliente_listado texto_gris">Cliente</div>
             </div>
             <div class="linea_separadora"></div>
-
             <div id="divListado"></div>
-            <!--
-            <div class="linea_separadora" style="margin-top:-1px;"></div>
-            <div class="content_listado_notificaciones">
-                <div class="cod_venta_listado">00059</div>
-                <div class="descripcion_listado">CY ESMALTE NAILS IN CITRUS IN</div>
-                <div class="cantidad_listado">1</div>
-                <div class="unitario_listado">S/. 14.90</div>
-                <div class="total_listado">S/. 14.90</div>
-                <div class="cliente_listado">usuariopruebape</div>
-            </div>
-            <div class="content_listado_notificaciones">
-                <div class="cod_venta_listado">00059</div>
-                <div class="descripcion_listado">CY ESMALTE NAILS IN CITRUS IN</div>
-                <div class="cantidad_listado">1</div>
-                <div class="unitario_listado">S/. 14.90</div>
-                <div class="total_listado">S/. 14.90</div>
-                <div class="cliente_listado">usuariopruebape</div>
-            </div>
-            <div class="content_listado_notificaciones">
-                <div class="cod_venta_listado">00059</div>
-                <div class="descripcion_listado">CY ESMALTE NAILS IN CITRUS IN</div>
-                <div class="cantidad_listado">1</div>
-                <div class="unitario_listado">S/. 14.90</div>
-                <div class="total_listado">S/. 14.90</div>
-                <div class="cliente_listado">usuariopruebape</div>
-            </div>
-                -->
-
         </div>
         <div class="montos_pedidoValidado">
-            <div class="monto_totalValidado">MONTO TOTAL: <span>@Model.Simbolo @Model.Total</span></div>
+            <div class="monto_totalValidado">MONTO TOTAL: <span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
             <div class="info_extra_Validado">
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")">
                 <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
-                    @{ decimal msd =  (Convert.ToDecimal(Model.Total) + (Math.Abs(ViewBag.Descuento)) ) ; }
-                    <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @msd </div>
+                    <div class="monto_numero" style="opacity:0.6">@Model.Simbolo  @Model.TotalSinDsctoFormato</div>
                     <hr class="clear" />
                     <div class="monto_1">Dscto. por niveles </div>
                     <div class="monto_numero">@Model.Simbolo @ViewBag.Descuento</div>
@@ -154,10 +135,12 @@
             <hr class="clear" />
             <div class="monto_gananciaValidado">MI GANANCIA: <span>@Model.Simbolo @ViewBag.GananciaEstimada</span></div>
             <hr class="clear" />
-            <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
-            <div class="info_modificarvalidado">
-                Es importante <br />que guardes tu pedido
-                <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+            <div>
+                <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
+                <div class="info_modificarvalidado">
+                    <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+                </div>
+                <hr class="clear" />
             </div>
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>
@@ -169,86 +152,7 @@
 
 
         </div>
-        <!--CAJA GUARDAR PEDIDO-->
-        @*<div class="caja_guardar_pedido">
-                <div class="contenedor_guardadoPedido">
-                    <div class="bloque_montosPedido">
-                        <div class="caja_montos">
-
-                            @if (ViewBag.EstadoSimplificacionCUV != null && ViewBag.EstadoSimplificacionCUV)
-                            {
-
-                                <div class="caja_montos_textos">
-                                    <p class="monto_total">
-                                        SUB TOTAL :
-                                    </p>
-                                    <p class="monto_total">
-                                        <img src="@Url.Content("~/Content/Images/indicador.png")" /> DESCUENTO POR OFERTAS CON MÁS DE UN PRECIO :
-                                    </p>
-                                    <p class="monto_total">
-                                        MONTO TOTAL :
-                                    </p>
-                                </div>
-                                <div class="caja_montos_cantidades">
-                                    <p class="monto_total">
-                                        <b>
-                                            @Model.Simbolo
-                                            @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.SubTotal).ToString("#,##0").Replace(',', '.') : ViewBag.SubTotal)
-                                        </b>
-                                    </p>
-                                    <p class="monto_total">
-                                        <b>
-                                            @ViewBag.Simbolo @String.Format("{0:N2}", ViewBag.Descuento)
-                                        </b>
-                                    </p>
-                                    <p class="monto_total">
-                                        <b>
-                                            @Model.Simbolo
-                                            @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.Total).ToString("#,##0").Replace(',', '.') : ViewBag.Total)
-                                        </b>
-                                    </p>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="caja_montos_textos">
-                                    <p class="monto_total" style="line-height:29px;">
-                                        MONTO TOTAL :
-                                    </p>
-                                    <p class="monto_ganancia">
-                                        MI GANANCIA :
-                                    </p>
-                                </div>
-                                <div class="caja_montos_cantidades">
-                                    <p class="monto_total">
-                                        <b>
-                                            @Model.Simbolo
-                                            @(ViewBag.Pais_ISO == "CO" ? Convert.ToDecimal(ViewBag.Total).ToString("#,##0").Replace(',', '.') : ViewBag.Total)
-                                        </b>
-                                    </p>
-                                    <p class="monto_ganancia">
-                                        <b>
-                                            @Model.Simbolo
-                                            @String.Format("{0:N2}", ViewBag.GananciaEstimada)
-                                        </b>
-                                    </p>
-                                </div>
-                            }
-                        </div>
-                    </div>
-
-                    <div class="contenedor_btnGuardarPedido">
-                        <div class="mensajes"></div>
-                        <div class="boton_guardarPedido">
-                            <input type="button" id="btnModificarPedido" value="Modifica tu Pedido" style="text-transform: uppercase;" class="info_copy" onclick="ModificarPedido();" />
-                            <div class="mensaje_fecha_limite_cambios">Para agregar o eliminar productos dar click.</div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="clear"></div>
-            </div>*@
-
+        
         <div class="contenedor_eliminacion_pedido">
             @if (ViewBag.EsKitNueva == 1)
             {
@@ -339,9 +243,10 @@
 
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
-        <div class="btn_cerrar_productosAgotados">
+        <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="javascript: $('#divProductoAgotado').hide()">
-                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenedor_lista_productosAgotados">
@@ -376,6 +281,16 @@
 
 
 <script id="producto-template" type="text/x-handlebars-template">
+    <div class="linea_separadora" style="height:2px;"></div>
+    <div class="content_listado_notificaciones">
+        <div class="cod_venta_listado texto_gris">Código</div>
+        <div class="descripcion_listado texto_gris">Producto</div>
+        <div class="cantidad_listado texto_gris">Cantidad</div>
+        <div class="unitario_listado texto_gris">Precio Unitario</div>
+        <div class="total_listado texto_gris">Precio Total</div>
+        <div class="cliente_listado texto_gris">Cliente</div>
+    </div>
+    <div class="linea_separadora"></div>
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
@@ -427,5 +342,6 @@
         var correoElectronico = 'paul.cabrera@hundred.com.pe';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
 }
