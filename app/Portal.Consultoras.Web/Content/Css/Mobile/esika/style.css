@@ -1776,8 +1776,8 @@ h4.re3 {
 
     .list-table ul li {
         list-style: none;
-        padding: 10px 0;
-        border-bottom: 1px solid #ccc;
+        padding: 8px 0;
+      
         position: relative;
     }
 
