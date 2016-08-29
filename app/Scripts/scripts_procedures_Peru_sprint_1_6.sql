@@ -188,10 +188,35 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE dbo.Permiso ADD EsPrincipal bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+where sysobjects.id = object_id('dbo.Pais') and SYSCOLUMNS.NAME = N'CatalogoPersonalizado') = 0
+	ALTER TABLE dbo.Pais ADD CatalogoPersonalizado int
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.Usuario') and SYSCOLUMNS.NAME = N'VioTutorial') = 0
+	ALTER TABLE dbo.Usuario ADD VioTutorial bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.Usuario') and SYSCOLUMNS.NAME = N'VioVideo') = 0
+	ALTER TABLE dbo.Usuario ADD VioVideo bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.OfertaFinalParametria') and SYSCOLUMNS.NAME = N'PrecioMinimo') = 0
+	ALTER TABLE dbo.OfertaFinalParametria ADD PrecioMinimo decimal(18,2)
+go
+
 /*FIN NUEVOS CAMPOS*/
 
 /*INSERT*/
 UPDATE dbo.Permiso set EsPrincipal = 0 WHERE PermisoID<1000
+
+UPDATE MensajeMetaConsultora
+SET Mensaje = 'Ya alcanzaste el #porcentaje% de descuento.'
+WHERE TipoMensaje = 'EscalaDescuentoSupero'
+
 go
 
 CREATE TABLE #tblTemporal (idPermisoTemp int)
@@ -358,7 +383,7 @@ GO
 
 DELETE FROM MenuMobile WHERE Posicion='Menu'
 
-INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, [Version])
+INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
 VALUES
 (1, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile'),
 (2, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile'),
@@ -367,180 +392,37 @@ VALUES
 (5, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile'),
 (6, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile'),
 
-(9, 'Seguimiento a tu pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
---(11, 'Pedido FIC', 1, 2, '#', '', 0, 'Menu', 'Mobile'),
-(12, 'Pedidos ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(13, 'Pedidos facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
-(10, 'Estado de cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
---(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
 (7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile'),
-(14, 'Mis clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
-(8, 'Liquidación web', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(8, 'Zona de Liquidación', 1, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile'),
+(9, 'Seguimiento  a tu Pedido', 1, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile'),
+(10, 'Estado de Cuenta', 1, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile'),
+--(11, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
+(12, 'Pedidos Ingresados', 1, 3, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(13, 'Pedidos Facturados', 1, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile'),
+(14, 'Mis Clientes', 1, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile'),
 (15, 'Productos Agotados', 1, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile')
+--(16, 'Pago en Línea', 1, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
 
 GO
 
 DELETE FROM MenuMobile WHERE Posicion='Footer'
-ALTER TABLE MenuMobile
-ALTER COLUMN Descripcion VARCHAR(70) NOT NULL
 
---SELECT * FROM MenuMobile
-DELETE MenuMobile
-WHERE Posicion = 'Footer'
+INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+VALUES (25, 'Ayuda', 0, 3, '', '', 0, 'Footer', 'Completa')
 
---PADRES
+INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+VALUES (26,'Preguntas Frecuentes', 25, 1, 'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082', '', 0, 'Footer', 'Completa'),
+(27, 'Contáctanos', 25, 2, ' http://belcorprespondeqa.somosbelcorp.com/', '', 0, 'Footer', 'Mobile'),
+(28, 'Tutorial', 25, 3, '', '', 0, 'Footer', 'Completa')
 
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (100
-						,'Ayuda'
-						,0
-						,3
-						,''
-						,''
-						,0
-						,'Footer'
-						,'Completa')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (101
-						,'Legal'
-						,0
-						,4
-						,''
-						,''
-						,0
-						,'Footer'
-						,'Completa')
+INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+VALUES (29, 'Legal', 0, 4, '', '', 0, 'Footer', 'Completa')
 
---HIJOS
-
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (102
-						,'Preguntas Frecuentes'
-						,100
-						,1
-						,'http://comunidad.somosbelcorp.com/t5/Blog-editorial/RESUELVE-TUS-DUDAS-O-ADQUIERE-TUS-PRODUCTOS-FAVORITOS/ba-p/9082'
-						,''
-						,1
-						,'Footer'
-						,'Completa')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (103
-						,'Contáctanos'
-						,100
-						,2
-						,'http://belcorprespondeqa.somosbelcorp.com/'
-						,''
-						,1
-						,'Footer'
-						,'Mobile')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (104
-						,'Tutorial'
-						,100
-						,3
-						,''
-						,''
-						,1
-						,'Footer'
-						,'Completa')
-
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (105
-						,'Política de privacidad'
-						,101
-						,1
-						,'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_PE.pdf'
-						,''
-						,1
-						,'Footer'
-						,'Completa')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (106
-						,'Condiciones de uso web'
-						,101
-						,2
-						,'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf'
-						,''
-						,1
-						,'Footer'
-						,'Completa')
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version])
-				VALUES (107
-						,'Procedimiento y formulario para el ejercicio de derechos arco'
-						,101
-						,3
-						,'https://www.somosbelcorp.com/Content/FAQ/PROCEDIMIENTO_Y_FORMULARIO_PARA_EL_EJERCICIO_DE_DERECHOS_ARCO_PE.pdf'
-						,''
-						,1
-						,'Footer'
-						,'Completa')
+INSERT INTO dbo.MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version)
+VALUES (30, 'Condiciones de uso Web', 29, 1, 'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf', '', 0, 'Footer', 'Completa'),
+(31, 'Terminos y Condiciones', 29, 2, '', '', 0, 'Footer', 'Completa')
 
 GO
- --- UNION MENUMOBILE FOOTER Y SB20-500
 
 if not exists(select 1 from Permiso where Descripcion = 'Carga de Reemplazos Sugeridos')
 begin
@@ -2795,7 +2677,7 @@ CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]
 AS  
 BEGIN  
 /*  
- EXEC ListarTipoEstrategia 0  
+ EXEC ListarTipoEstrategia_SB2 0  
 */  
  SET NOCOUNT ON  
   SELECT   
@@ -2809,8 +2691,16 @@ BEGIN
    ImagenEstrategia,  
    FlagNueva,  
    FlagRecoPerfil,  
-   FlagRecoProduc  
+   FlagRecoProduc
    , ISNULL(FlagMostrarImg,0) AS FlagMostrarImg 		/* SB20-353 */
+   , case TipoEstrategiaID
+	when 10 then 1
+	when 1009 then 2
+	when 2009 then 3
+	when 3009 then 4
+	when 3011 then 5
+	when 3012 then 6
+   end as CodigoGeneral
   FROM   
    TipoEstrategia  
   WHERE  
@@ -3337,7 +3227,8 @@ begin
 select
 Tipo as TipoParametriaOfertaFinal,
 GapMinimo as MontoDesde,
-GapMaximo as MontoHasta
+GapMaximo as MontoHasta,
+PrecioMinimo
 from OfertaFinalParametria
 
 end
@@ -3424,6 +3315,9 @@ BEGIN
 	DECLARE @CompraOfertaEspecial int    
 	DECLARE @IndicadorMeta int    
     
+	DECLARE @FechaLimitePago SMALLDATETIME
+	DECLARE @ODSCampaniaID INT
+
 	declare @PaisID int    
 	declare @UsuarioPrueba bit    
 	declare @CodConsultora varchar(20)    
@@ -3473,7 +3367,9 @@ BEGIN
 			SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))    
 			SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))    
 			SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))    
-			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))    
+			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
+			SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
+			SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)    
 			select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
     
 		SELECT     
@@ -3543,7 +3439,11 @@ BEGIN
 			u.EMailActivo,
 			si.SegmentoInternoId,
 			isnull(p.OfertaFinal,0) as OfertaFinal,
-			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida
+			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
+			@FechaLimitePago as FechaLimitePago,
+			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
+			ISNULL(u.VioVideo, 0) as VioVideo,
+			ISNULL(u.VioTutorial, 0) as VioTutorial
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (    
 			select *    
@@ -3689,6 +3589,133 @@ END
 
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[setUsuarioVerTutorial_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].setUsuarioVerTutorial_SB2
+GO
+
+CREATE PROCEDURE setUsuarioVerTutorial_SB2
+@codigoUsuario VARCHAR(25)
+AS
+BEGIN
+	UPDATE Usuario
+	SET VioTutorial = 1
+	WHERE CodigoUsuario = @codigoUsuario
+	SELECT 1
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[setUsuarioVideoIntroductorio_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].setUsuarioVideoIntroductorio_SB2
+GO
+
+CREATE PROCEDURE setUsuarioVideoIntroductorio_SB2
+@codigoUsuario VARCHAR(25)
+AS
+BEGIN
+	UPDATE Usuario
+	SET VioVideo = 1
+	WHERE CodigoUsuario = @codigoUsuario
+	SELECT 1
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetImagenOfertaPersonalizadaOF_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetImagenOfertaPersonalizadaOF_SB2
+GO
+
+CREATE PROCEDURE dbo.GetImagenOfertaPersonalizadaOF_SB2 
+(
+	@CampaniaID int,
+	@CUV varchar(20)
+)
+AS
+/*
+GetImagenOfertaPersonalizadaOF_SB2 201613,'00724'
+*/
+BEGIN
+
+SET NOCOUNT ON;
+
+declare @resultado varchar(200) = ''
+
+SELECT top 1
+@resultado = isnull(DescripcionCUV2,'') + '|' + isnull(ImagenURL,'')
+FROM dbo.Estrategia e 
+INNER JOIN ods.OfertasPersonalizadas op ON e.CUV2 = op.CUV AND e.CampaniaID = op.AnioCampanaVenta and op.TipoPersonalizacion = 'OF'
+WHERE e.CampaniaID = @CampaniaID AND e.CUV2 = @CUV
+
+
+select @resultado as DescripcionImagenURL
+
+END
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCuvByCodigoSap_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetCuvByCodigoSap_SB2
+GO
+
+create procedure GetCuvByCodigoSap_SB2
+@CampaniaID int,
+@CodigoSap varchar(20)
+as
+/*
+GetCuvByCodigoSap_SB2 201613,'200067349'
+GetCuvByCodigoSap_SB2 201613,'107702'
+*/
+begin
+
+declare @resultado varchar(5) = ''
+
+select top 1 @resultado = p.CUV from ods.ProductoComercial p
+inner join ods.Campania c on
+	p.CampaniaID = c.CampaniaID
+where c.Codigo = @CampaniaID
+and CodigoProducto = @CodigoSap
+
+select @resultado as CUV
+
+end
+
+go
+
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
+END
+GO
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
+	@CodigoConsultora VARCHAR(20),
+	@Campania INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	select top 1
+		VPT.Consultora,
+		VPT.NroPedido AS NumeroPedido,
+		VPT.Campana,
+		case
+			when pfr.Periodo is null then VPT.Estado
+			else 'ANULADO' end
+		AS Estado,
+		VPT.Fecha
+	FROM vwPedidosTracking VPT
+	left join ods.PedidoFacturadoRechazado pfr with(nolock) on
+		VPT.Campana = pfr.Periodo and
+		pfr.CodigoConsultora = @CodigoConsultora and
+		VPT.NroPedido = pfr.NumeroPedido
+	WHERE
+		VPT.Consultora = @CodigoConsultora
+		AND
+		VPT.Campana = @Campania;
+END
+GO
+
 ALTER PROCEDURE [dbo].[GetPermisosByRol] 
 (
 	@RolID smallint
@@ -3719,6 +3746,26 @@ BEGIN
 		AND RL.RolID = @RolID
 		AND (@RolID != 1 or P.EsPrincipal = 0)
 	ORDER BY P.OrdenItem
+END
+
+GO
+
+ALTER PROCEDURE ListarEtiquetas
+	@Estado INT
+AS
+BEGIN
+	SET NOCOUNT ON
+		SELECT EtiquetaID, Descripcion, Estado
+		,case EtiquetaID
+			when 1 then 1
+			when 2 then 2
+			when 3 then 3
+			when 3003 then 4
+		end as CodigoGeneral
+		FROM Etiqueta
+		WHERE (Estado = @Estado OR -1 = @Estado)
+		ORDER BY Descripcion ASC
+	SET NOCOUNT OFF
 END
 
 GO

@@ -3532,6 +3532,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal DescuentoProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal ImporteTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3594,6 +3597,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal DescuentoProl {
+            get {
+                return this.DescuentoProlField;
+            }
+            set {
+                if ((this.DescuentoProlField.Equals(value) != true)) {
+                    this.DescuentoProlField = value;
+                    this.RaisePropertyChanged("DescuentoProl");
                 }
             }
         }

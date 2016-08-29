@@ -204,11 +204,11 @@
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
     <div class="wrapper_resumen_mobile">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopSugerido').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear" />
-        <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:0px;"></div>
+        <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:-5px;"></div>
         <div class="mensaje_alerta">
             Lo sentimos, este producto está agotado. Prueba <b>reemplazarlo</b> con
             alguno de éstos:
@@ -374,6 +374,8 @@
         var simbolo = '@Model.Simbolo';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var vbSimbolo = simbolo;
+        var productoSugerido = false
+        var productoAgotado = false;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 }

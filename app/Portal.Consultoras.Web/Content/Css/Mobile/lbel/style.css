@@ -5785,6 +5785,7 @@ input[type="checkbox"]:checked + span:after {
 .exclamacion_icono_mobile{
     background: url("../../../Images/Lbel/icono_exclamacion_lbel.svg") no-repeat;
     background-size: cover;
+   
 }
 .icono_alerta img{
     width:100%;
@@ -6353,7 +6354,7 @@ input[type="checkbox"]:checked + span:after {
     position: absolute;
     background: white;
     top: 176px;
-    padding-top:20px;
+    padding-top:10px;
     padding-bottom: 36px;
     z-index: 1000;
     -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
@@ -6600,7 +6601,6 @@ input[type="checkbox"]:checked + span:after {
     height:10px;
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 }
-\ No newline at end of file
 
 #new-header .menu-shop .num-menu-shop {
     transition: color 0.8s linear 0.2s;

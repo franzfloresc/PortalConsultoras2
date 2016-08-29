@@ -511,7 +511,7 @@
                                     <asp:Label ID="lblNovEstado" runat="server"></asp:Label></td>
                                 <td>
                                     <div class="input_search">
-                                        <asp:Button ID="btnRegresar" runat="server" Text="Regresar" OnClick="btnRegresar_Click" />
+                                        <asp:Button ID="btnRegresar" runat="server" Text="Regresar al detalle" OnClick="btnRegresar_Click" />
                                     </div>
                                 </td>
                             </tr>
