@@ -1,5 +1,0 @@
-
-      <setting name="Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles"
-        serializeAs="String">
-        <value>http://awnts104/WsServicesWebValidaciones/ServicesCalculosPROL.asmx</value>
-      </setting>

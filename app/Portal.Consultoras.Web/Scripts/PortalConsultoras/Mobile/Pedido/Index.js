@@ -11,6 +11,7 @@
         $("#divProductoMantenedor").hide();
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
+        $('#PopSugerido').hide();
 
         if (codigo == "") {
             $("#divListaEstrategias").show();
@@ -116,11 +117,19 @@ function ValidarPermiso(obj) {
 
 function BuscarByCUV(cuv) {
     if (cuv == $('#hdfCUV').val()) {
+        if (productoSugerido) {
+            if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
+            else $('#PopSugerido').show();
+        }
+        else {
         $("#divProductoMantenedor").show();
+            $("#btnAgregarProducto").show();
+        }
         return false;
     }
 
     $("#divProductoObservaciones").html('');
+    productoSugerido = false;
 
     ShowLoading();
     jQuery.ajax({
@@ -152,8 +161,8 @@ function BuscarByCUV(cuv) {
             $("#hdConfiguracionOfertaID").val(item.ConfiguracionOfertaID);
             $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
 
-            ObservacionesProducto(item);
             CloseLoading();
+            ObservacionesProducto(item);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -229,7 +238,6 @@ function ObservacionesProducto(item) {
     $("#btnAgregarProducto").removeAttr("disabled");
     $("#divProductoInformacion").show();
     $("#divProductoMantenedor").show();
-    CloseLoading();
 };
 function IngresoFAD(producto) {
     var item = {
@@ -288,14 +296,18 @@ function ObtenerProductosSugeridos(CUV) {
         async: true,
         cache: false,
         success: function (data) {
-            CloseLoading();
             if (!checkTimeout(data)) return false;
+            $('#hdfCUV').val(CUV);
+            productoSugerido = true;
 
             var lista = data;
             if (lista.length <= 0) {
+                productoAgotado = true;
                 MostrarMensaje("mensajeCUVAgotado");
+                CloseLoading();
                 return false;
             }
+            productoAgotado = false;
 
             $("#divCarruselSugerido").html('');
             $('#PopSugerido').show();
@@ -314,6 +326,7 @@ function ObtenerProductosSugeridos(CUV) {
             });
             $('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
             $('#divCarruselSugerido').prepend($(".js-slick-next-h"));
+            CloseLoading();
         },
         error: function (data, error) {
             CloseLoading();
@@ -327,8 +340,17 @@ function ObtenerProductosSugeridos(CUV) {
         }
     });
 }
+function CancelarProductosSugeridos() {
+    $("#txtCodigoProducto").val('');
+    $("#txtCodigoProducto").trigger("keyup")
+}
 function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta) {
     ShowLoading();
+    if (ReservadoOEnHorarioRestringido()) {
+        CloseLoading();
+        return false;
+    }
+
     jQuery.ajax({
         type: 'POST',
         url: urlInsertar,
@@ -361,13 +383,14 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             //$("#divMensajeProductoAgregado").show();
             
             $("#divProductoObservaciones").html("");
-            $("#divProductoMantenedor").hide();
             $("#divListaEstrategias").show();
             $("#divResumenPedido").show();
+            $("footer").show();
+            $(".footer-page").css({ "margin-bottom": "0px" });
             $('#PopSugerido').hide();
 
             CargarProductosDestacados(cuv);
-            //PedidoOnSuccess();
+            $("#txtCodigoProducto").val("");
             CalcularTotal();
             $("#hdCuvEnSession").val("");
 
@@ -550,8 +573,11 @@ function InsertarProducto() {
 
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
+            $("#btnAgregarProducto").hide();
             $("#divListaEstrategias").show();
             $("#divResumenPedido").show();
+            $("footer").show();
+            $(".footer-page").css({ "margin-bottom": "0px" });
 
             var cuv = $("#hdfCUV").val();
             CargarProductosDestacados(cuv);

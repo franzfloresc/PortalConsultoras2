@@ -204,7 +204,7 @@
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
     <div class="wrapper_resumen_mobile">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PopSugerido').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear" />
@@ -374,6 +374,8 @@
         var simbolo = '@Model.Simbolo';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var vbSimbolo = simbolo;
+        var productoSugerido = false
+        var productoAgotado = false;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 }
