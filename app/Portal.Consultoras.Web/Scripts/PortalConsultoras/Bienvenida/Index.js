@@ -2241,36 +2241,18 @@ function AceptarContrato() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-
-                if (data.success == true) {
-                    $('#divContrato').dialog('close');
-                    if (viewBagCambioClave == 0) {
-                        $("#popupActualizarMisDatos").show();
-                        contadorFondoPopUp++;
-                        $('#popupAceptacionContrato').hide();
-
-                        if (contadorFondoPopUp == 1) {
-                            $("#fondoComunPopUp").hide();
-                        }
-                        contadorFondoPopUp--;
-                    }
-                }
-                else {
+                if (!data.success) {
                     alert(data.message);
-                    if (data.extra == "nocorreo") {
-                        $('#divContrato').dialog('close');
-                        if (viewBagCambioClave == 0) {
-                            $("#popupActualizarMisDatos").show();
-                            contadorFondoPopUp++;
-                            $('#popupAceptacionContrato').hide();
-
-                            if (contadorFondoPopUp == 1) {
-                                $("#fondoComunPopUp").hide();
-                            }
-                            contadorFondoPopUp--;
-                        }
-                    }
+                    if (data.extra != "nocorreo") return;
                 }
+
+                $('#popupAceptacionContrato').hide();
+                contadorFondoPopUp--;
+                if (viewBagCambioClave == 0) {
+                    $("#popupActualizarMisDatos").show();
+                    contadorFondoPopUp++;
+                }
+                if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
             }
         },
         error: function (data, error) {
