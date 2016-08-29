@@ -357,24 +357,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                @if (Model.CodigoIso == Constantes.CodigosISOPais.Peru || Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-                {
-                    <li>
-                        <a href="javascript:;" title="Catálogo Personalizado">
-                            <img src="@Model.UrlBanner01" alt="Catálogo Personalizado" />
-                            <div>CATÁLOGO PERSONALIZADO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "MisCatalogosRevistas")" title="Mi Catálogo Web">
-                            <img src="@Model.UrlBanner01" alt="Mi Catálogo Web" />
-                            <div>MIS CATÁLOGOS Y REVISTAS</div>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuos" target="_blank">
+                        <img src="@Model.UrlBanner01" alt="Productos Descontinuos" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
 
                 @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                 {
