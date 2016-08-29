@@ -134,12 +134,12 @@ header {
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     -webkit-transition:all 0.3s ease;
-    background:url(../../../Images/flecha_scroll.svg) no-repeat center center;
+    background:url(../../../Images/flecha_scroll.svg) center center no-repeat;
     background-size:cover;
 }
 
 .flecha_scroll_arriba{
-    background:url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center!important;
+    background:url(../../../Images/flecha_scroll_arriba.svg) center center no-repeat!important;
     background-size:cover;
 }
 
@@ -1776,6 +1776,7 @@ header {
     display:block;
     width:100%;
     font-family:'Lato';
+    overflow:hidden;
 }
 
 .grilla_pedidos label{
@@ -1788,6 +1789,7 @@ header {
 
 .contenido_ingresoPedido{
     border-bottom: 1px solid #ccc;
+    position:relative;
 }
 
 .contenido_ingresoPedido.mouse_encima{
@@ -1962,7 +1964,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     height:20px;
     top: 1px;
     margin-right: 7px;
-    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
 }
 
 .caja_guardar_pedido{
@@ -4595,7 +4597,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .icono_check{
-    background: url(../../../Images/icono_check.svg) no-repeat center center;
+    background: url(../../../Images/icono_check.svg) center center no-repeat;
     width: 12px;
     height: 8px;
     margin-right: 10px;
@@ -4650,7 +4652,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:20px;
     height:20px;
     margin-right: 5px;
-    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
 }
 
 .texto_notaDemanda{
@@ -4718,7 +4720,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:60px;
     height:60px;
     margin:0 auto;
-    background:url(../../../Images/Esika/icono_check_esika.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_check_esika.svg) center center no-repeat;
     margin-bottom:18px;
     background-size:cover;
 }
@@ -4728,7 +4730,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:60px;
     height:60px;
     margin:0 auto;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
     margin-bottom:18px;
     background-size:cover;
 }
@@ -4819,7 +4821,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     display:block;
     width:60px;
     height:60px;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
     margin:0 auto 18px auto;
     background-size:cover;
 }
@@ -22044,7 +22046,7 @@ body{
     vertical-align:middle;
     width: 26px;
     height: 26px;
-    background: url("../../../Images/Esika/icono-campanias.svg") no-repeat center center;
+    background: url("../../../Images/Esika/icono-campanias.svg") center center no-repeat;
     margin-right:5px;
 }
 
@@ -25976,7 +25978,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat center center;
+    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
     margin:0 auto 13px auto;
     background-size:cover;
 }
@@ -26454,7 +26456,7 @@ position: relative; float: left;
     margin:0 auto;
 }
 .icono_check_alerta{
-    background:url(../../../Images/Esika/icono_check_esika.svg) no-repeat;
+    background:url(../../../Images/Esika/icono_check_esika.svg) center center no-repeat;
     background-size:cover;
 }
 .texto_mensaje_alerta {
@@ -26488,8 +26490,7 @@ position: relative; float: left;
     font-size:13px;
 }
 .icono_exclamacion_alerta{
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat;
-    background-size:cover;
+    background:url(../../../Images/Esika/icono_exclamacion_esika.png) no-repeat center center;
 }
 
 /* POPUP LAYOUT */
@@ -26557,7 +26558,7 @@ position: relative; float: left;
 .popup_frame .popup_btn_cerrar_top .icono_regresar .img {
     width: 14px;
     height: 19px;
-    background:transparent url(../../../Images/btn_regresar.svg) no-repeat;
+    background:transparent url(../../../Images/btn_regresar.svg) center center no-repeat;
 }
 .popup_frame .popup_btn_cerrar_top .texto_btn_regresar {
     font-family: 'Lato';
@@ -27017,7 +27018,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
    width: 11px;
   height: 11px;
   display: inline-block;
-    background: url("../../../Images/group.svg") no-repeat center center;
+    background: url("../../../Images/group.svg") center center no-repeat;
 }
 
 .pestania {
