@@ -3563,6 +3563,36 @@ end
 
 go
 
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetPedidoByConsultoraAndCampania_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
+END
+GO
+CREATE PROCEDURE dbo.GetPedidoByConsultoraAndCampania_SB2
+	@CodigoConsultora VARCHAR(20),
+	@Campania INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	select top 1
+		VPT.Consultora,
+		VPT.NroPedido AS NumeroPedido,
+		VPT.Campana,
+		VPT.Estado AS Estado,
+		VPT.Fecha
+	FROM vwPedidosTracking VPT
+	WHERE
+		VPT.Consultora = @CodigoConsultora
+		AND
+		VPT.Campana = @Campania;
+END
+GO
+
 ALTER PROCEDURE [dbo].[GetPermisosByRol] 
 (
 	@RolID smallint
