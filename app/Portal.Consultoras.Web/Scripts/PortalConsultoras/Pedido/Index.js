@@ -575,6 +575,7 @@ function CargarDetallePedido(page, rows) {
             //MostrarMicroEfecto();
 
             MostrarBarra(response);
+            CargarAutocomplete();
         },
         error: function (error) {
             //alert(error);
