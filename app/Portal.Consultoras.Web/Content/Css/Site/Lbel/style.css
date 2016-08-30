@@ -1747,6 +1747,7 @@ header {
     display:block;
     width:100%;
     font-family:'Lato';
+    overflow:hidden;
 }
 
 .grilla_pedidos label{
@@ -1759,6 +1760,7 @@ header {
 
 .contenido_ingresoPedido{
     border-bottom: 1px solid #ccc;
+    position:relative;
 }
 
 .contenido_ingresoPedido.mouse_encima{
@@ -26399,8 +26401,7 @@ position: relative; float: left;
     font-size:13px;
 }
 .icono_exclamacion_alerta{
-    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat;
-    background-size:cover;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.png) no-repeat center center;
 }
 
 /* POPUP LAYOUT */
@@ -26468,7 +26469,7 @@ position: relative; float: left;
 .popup_frame .popup_btn_cerrar_top .icono_regresar .img {
     width: 14px;
     height: 19px;
-    background:transparent url(../../../Images/btn_regresar.svg) no-repeat;
+    background:transparent url(../../../Images/btn_regresar.svg) no-repeat center center;
 }
 .popup_frame .popup_btn_cerrar_top .texto_btn_regresar {
     font-family: 'Lato';

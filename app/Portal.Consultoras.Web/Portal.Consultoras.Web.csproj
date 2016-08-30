@@ -1515,6 +1515,7 @@
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\Esika\icono_exclamacion.png" />
+    <Content Include="Content\Images\Esika\icono_exclamacion_esika.png" />
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.svg" />
     <Content Include="Content\Images\Esika\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Esika\icono_percepciones.png" />
@@ -1731,6 +1732,7 @@
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_exclamacion.png" />
+    <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.png" />
     <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Lbel\icono_percepciones.png" />
