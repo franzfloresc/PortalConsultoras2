@@ -99,85 +99,48 @@
 
             <h3 class="title-line bold"> Detalle del pedido</h3>
             <p class="consultora_saludo_noti">Productos que el cliente desea comprar y el precio máximo que espera pagar. Contáctalo y cuéntale el precio del catálogo de la campaña vigente.</p>
-            <div class="detalle_notificaciones">
+            
+                @foreach (var item in Model.DetallePedido)
+                {
+                    var textoTono = @item.Tono == "" ? "" : "Tono: " + item.Tono + "<br/>";
+                    <div class="detalle_notificaciones">
+                        <div class="left_reservado" style="width:235px;">
+                            <div class="datos_Reservado">
+                                <span> @item.Marca </span>
+                                <span>@item.Producto</span>
+                                <span>@Html.Raw(textoTono)  </span>
+                            </div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="texto_reservado">CANT</div>
+                            <div class="datos_Reservado"><b>@item.Cantidad</b></div>
+                        </div>
+                        <hr class="clear"><br>
+                        <div class="left_reservado">
+                            <div class="texto_reservado">
+                                <span>Precio sin descuento</span>
+                            </div>
 
-                <div class="left_reservado" style="width:235px;">
-                    <div class="datos_Reservado">
-                        <span> 95200 </span>
-                        <span>ES LL CFX DUO TATTOO 2016 PimientaCaliente</span>
+                            <div class="importe_reservado">SUBTOTAL</div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="texto_reservado">
+                                <span>@ViewBag.Simbolo @item.PrecioUnitario.ToString("N2")</span>
+                            </div>
+
+                            <div class="importe_reservado">@ViewBag.Simbolo @item.PrecioTotal.ToString("N2")</div>
+                        </div>
                     </div>
-                </div>
-                <div class="right_reservado">
-                    <div class="texto_reservado">CANT</div>
-                    <div class="datos_Reservado"><b>1</b></div>
-                </div>
-                <hr class="clear"><br>
-                <div class="left_reservado">
-                    <div class="texto_reservado">
-                        <span>Precio sin descuento</span>
-                    </div>
-
-                    <div class="importe_reservado">SUBTOTAL</div>
-                </div>
-                <div class="right_reservado">
-                    <div class="texto_reservado">
-                        <span>S/. 17.90</span>
-                    </div>
-
-                    <div class="importe_reservado">S/. 17.90</div>
-                </div>
-
-            </div>
+                }
             <hr class="clear" />
             <div class="left_reservado">
                 <div class="importe_final">
                     <b>MONTO TOTAL</b>
                 </div>
-
             </div>
             <div class="right_reservado">
-                <div class="importe_final" style="font-size:15px"><b> S/. 17.90</b></div>
+                <div class="importe_final" style="font-size:15px"><b> @ViewBag.Simbolo @Model.DetallePedido.Sum(p => p.PrecioTotal).ToString("N2")</b></div>
             </div>
-            <hr class="clear" />
-            <p class="firma_notificaciones">
-
-                Gracias,
-                <br>
-                Equipo de Belcorp.
-
-            </p>
-            <br>
-            @*<div class="list-table-new">
-                <ul class="list-table-title upper">
-                    <li>Productos <span class="table-title-right">Cant</span></li>
-                </ul>
-                <ul class="list-table-body">
-                    @foreach (var item in Model.DetallePedido)
-                    {
-                        var textoTono = @item.Tono == "" ? "" : "Tono: " + item.Tono + "<br/>";
-
-                        <li>
-                            <div class="posr">
-                                <div class="table-width">
-                                    <div class="mb-10">
-                                        <strong class="upper">@item.Producto</strong>
-                                    </div>
-                                    @Html.Raw(textoTono)
-                                    @item.Marca <br />
-                                    Precio sin descuento  @ViewBag.Simbolo @item.PrecioUnitario.ToString("N2") <br>
-                                    <div class="upper"><strong>Total </strong><b>@ViewBag.Simbolo @item.PrecioTotal.ToString("N2")</b></div>
-                                </div>
-                                <span class="cantidad-numero"> @item.Cantidad </span>
-                            </div>
-                        </li>
-                    }
-                </ul>
-            </div>*@
-
-            @*<div class="text-right text-success upper mt-20" style="font-size:17px;">
-                <strong style="margin-right:20px;">Total Estimado</strong> @ViewBag.Simbolo @Model.DetallePedido.Sum(p => p.PrecioTotal).ToString("N2")
-            </div>
-            <hr class="success">
 
             @if (string.IsNullOrEmpty(Model.Estado))
             {
@@ -205,9 +168,16 @@
                         </p>
                     }
                 }
-            }*@
+            }
+            <hr class="clear" />
+            <p class="firma_notificaciones">
 
-            @*<div class="mt-20 mb-30"><b>Gracias, <br> Equipo de Belcorp</b></div><br>*@
+                Gracias,
+                <br>
+                Equipo de Belcorp.
+
+            </p>
+            <br>
         </div>
 
     </div>
