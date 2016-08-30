@@ -1144,7 +1144,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Result = "Agosto";
                     break;
                 case 9:
-                    Result = "Setiembre";
+                    Result = "Septiembre";
                     break;
                 case 10:
                     Result = "Octubre";
