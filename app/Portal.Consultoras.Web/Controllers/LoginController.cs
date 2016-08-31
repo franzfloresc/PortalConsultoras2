@@ -40,13 +40,20 @@ namespace Portal.Consultoras.Web.Controllers
             string paisLog = "";
             try
             {
+                pasoLog = "Se empezará a leer los Claims";
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+                pasoLog = "Se obtuvo claimsPrincipal";
                 Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+                if (FederationClaimName == null)
+                {
+                    pasoLog = "FederationClaimName es null";
+                }
                 string claimUser = FederationClaimName.Value.ToUpper();
+                pasoLog = "FederationClaimName.Value: " + FederationClaimName.Value;
                 string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+                pasoLog = "DomConsultora: " + DomConsultora;
                 string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
-
-                pasoLog = "Se leyó los Claims";
+                pasoLog = "DomBelcorp: " + DomBelcorp;
 
                 string UserPortal = string.Empty;
                 bool UsuarioSAC = false;
