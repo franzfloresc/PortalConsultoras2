@@ -41,14 +41,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                pasoLog = "Se leyó los Claims 1";
-                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                pasoLog = "Se leyó los Claims 2";
-                string claimUser = FederationClaimName.Value.ToUpper();
-                pasoLog = "Se leyó los Claims 3";
-                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-                pasoLog = "Se leyó los Claims 4";
-                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
+                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+                string claimUser = FederationClaimName.Value.ToUpper();
+                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
 
                 pasoLog = "Se leyó los Claims";
 
@@ -139,31 +135,28 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            //string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                            //return Redirect(Url);
+                            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                            return Redirect(Url);
                         }
                     }
                     else
                     {
-                        //string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                        //return Redirect(Url);
+                        string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                        return Redirect(Url);
                     }
                 }
                 else
                 {
-                    //string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                    //return Redirect(Url);
+                    string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                    return Redirect(Url);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
-                //string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                throw;
-                //return Redirect(Url);
+                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
+                return Redirect(Url);
             }
-            string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-            return Redirect(Url);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
