@@ -402,6 +402,7 @@
     <Compile Include="Models\CrossSellingProductoModel.cs" />
     <Compile Include="Models\MailOptInModel.cs" />
     <Compile Include="Models\MailVM.cs" />
+    <Compile Include="Models\MisPedidosDetalleModel.cs" />
     <Compile Include="Models\MisPedidosModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
@@ -2220,6 +2221,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />

@@ -253,6 +253,12 @@ namespace Portal.Consultoras.BizLogic
             DASolicitudCliente.UpdSolicitudCliente(entidadSolicitud.SolicitudClienteID, entidadSolicitud.Estado, entidadSolicitud.MensajeaCliente, entidadSolicitud.UsuarioModificacion);
         }
 
+        public void UpdSolicitudClienteDetalle(int paisID, BESolicitudClienteDetalle entidadSolicitudDet)
+        {
+            var DASolicitudCliente = new DASolicitudCliente(paisID);
+            DASolicitudCliente.UpdSolicitudClienteDetalle(entidadSolicitudDet.SolicitudClienteDetalleID, entidadSolicitudDet.TipoAtencion, entidadSolicitudDet.PedidoWebID, entidadSolicitudDet.PedidoWebDetalleID);
+        }
+
         public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             var DASolicitudCliente = new DASolicitudCliente(paisID);

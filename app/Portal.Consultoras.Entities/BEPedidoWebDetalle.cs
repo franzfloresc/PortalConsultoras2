@@ -120,6 +120,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int OrdenPedidoWD { get; set; }
 
+        [DataMember]
+        public bool FlagConsultoraOnline { get; set; }
+
         public BEPedidoWebDetalle()
         { }
 
@@ -202,6 +205,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrdenPedidoWD"))
                 OrdenPedidoWD = row["OrdenPedidoWD"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrdenPedidoWD"]);
+
+            if (DataRecord.HasColumn(row, "FlagConsultoraOnline"))
+                FlagConsultoraOnline = Convert.ToBoolean(row["FlagConsultoraOnline"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -295,6 +301,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "OrdenPedidoWD"))
                 OrdenPedidoWD = row["OrdenPedidoWD"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrdenPedidoWD"]);
+
+            if (DataRecord.HasColumn(row, "FlagConsultoraOnline"))
+                FlagConsultoraOnline = Convert.ToBoolean(row["FlagConsultoraOnline"]);
         }
     }
 }

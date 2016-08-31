@@ -407,7 +407,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (var sv = new UsuarioServiceClient())
             {
-                model.ListaPedidos = sv.GetNotificacionesConsultoraOnline(userData.PaisID, userData.ConsultoraID).ToList();
+                model.ListaPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
             }
 
             Session["objMisPedidos"] = model;

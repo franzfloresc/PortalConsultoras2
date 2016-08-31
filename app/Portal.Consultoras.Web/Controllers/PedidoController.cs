@@ -225,6 +225,11 @@ namespace Portal.Consultoras.Web.Controllers
                     AgregarKidNuevas();  
 
                 #endregion
+
+                #region Pedidos Pendientes
+                ViewBag.MostrarPedidosPendientes = System.Configuration.ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                #endregion
+
             }
             catch (FaultException ex)
             {

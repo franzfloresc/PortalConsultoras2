@@ -589,6 +589,9 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud);
 
         [OperationContract]
+        void UpdSolicitudClienteDetalle(int paisID, BESolicitudClienteDetalle entidadSolicitudDetalle);
+
+        [OperationContract]
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]

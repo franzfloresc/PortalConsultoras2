@@ -1218,6 +1218,11 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.UpdSolicitudCliente(paisID, entidadSolicitud);
         }
 
+        public void UpdSolicitudClienteDetalle(int paisID, BESolicitudClienteDetalle entidadSolicitudDetalle)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalle(paisID, entidadSolicitudDetalle);
+        }
+
         public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             BLSolicitudCliente.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);

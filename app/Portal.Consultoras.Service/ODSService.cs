@@ -195,6 +195,12 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetProductoSugeridoByCUV(paisID, campaniaID, consultoraID, cuv, regionID, zonaID, codigoRegion, codigoZona);
         }
 
+        public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
+        {
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
+        }
+
         #endregion
     }
 }
