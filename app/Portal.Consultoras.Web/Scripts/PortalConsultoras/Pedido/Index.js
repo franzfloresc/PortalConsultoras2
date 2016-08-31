@@ -369,7 +369,7 @@ $(document).ready(function () {
     CargarDetallePedido();
     CargarCarouselEstrategias("");
     CargarAutocomplete();
-    MostrarBarra();
+    MostrarBarra();    
 });
 
 function CrearDialogs() {

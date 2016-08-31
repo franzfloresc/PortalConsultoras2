@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "GestionContenido/Index"))
                     return RedirectToAction("Index", "Bienvenida");
             }
-            catch (FaultException ex)
+            catch (FaultException ex) 
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Entidad = entidad
             }, JsonRequestBehavior.AllowGet);
-
+              
         }
 
         public ActionResult FondoLogin()

@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.WebPages
                         sb.Append("<div class='importePercepcion padding_tabla_percepcion'>" + item.ImportePercepcion.ToString("0.00") + "</div>");
                         sb.Append("<div class='montoTotalPercepcion padding_tabla_percepcion'>" + item.MontoTotal.ToString("0.00") + "</div>");
                         sb.Append("</div>");
-                    }                   
+                    }
 
                     lTabla.Text = sb.ToString();
                 }

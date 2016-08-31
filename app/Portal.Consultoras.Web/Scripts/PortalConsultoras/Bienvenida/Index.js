@@ -200,7 +200,7 @@
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
-	
+
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {

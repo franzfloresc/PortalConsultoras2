@@ -6,7 +6,7 @@
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-    var textApp = userAgent.Contains("iphone;") ? "Grátis en App Store" : "Grátis en Play Store";
+    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
@@ -64,7 +64,7 @@
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-09</div>
-        <div class="content_carrusel_catalogo" id="divCatalogo">
+        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
             <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
             <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
         </div>
@@ -166,7 +166,7 @@
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir">¡LO <b>SENTIMOS</b>!</div>
-        <div class="mensaje_alerta">Debe seleccionar al menos <br/>un Catálogo</div>
+        <div class="mensaje_alerta">Debe seleccionar al menos <br />un Catálogo</div>
         <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile2').hide();">OK</a>
     </div>
 
@@ -206,8 +206,8 @@
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-autcomplete.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Catalogo/Index.js")"></script>
-    <script src="~/Scripts/Tag/jquery.tag-editor.js"></script>
-    <script src="~/Scripts/Tag/jquery.caret.min.js"></script>
-    <script src="~/Scripts/Tag/jquery.tag-autcomplete.js"></script>
 }

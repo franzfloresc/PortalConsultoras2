@@ -66,7 +66,8 @@ namespace Portal.Consultoras.Entities
         public string CodigoUsuarioCreacion { get; set; }
         [DataMember]
         public string CodigoUsuarioModificacion { get; set; }
-
+        [DataMember]
+        public DateTime FechaProceso { get; set; }
         [DataMember]
         public decimal MontoTotalProl { get; set; }
 
@@ -143,6 +144,8 @@ namespace Portal.Consultoras.Entities
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+            if (DataRecord.HasColumn(row, "FechaProceso") && row["FechaProceso"] != DBNull.Value)
+                FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
                 MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
             if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)

@@ -516,14 +516,14 @@ FuncionesGenerales = {
         return patron.test(te);
         },
 
-            ValidarSoloNumerosAndSpecialCharater: function(e) {
-                var tecla = (document.all) ? e.keyCode : e.which;
+    ValidarSoloNumerosAndSpecialCharater: function(e) {
+        var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-        },
-            GetDataForm: function(form) {
+    },
+    GetDataForm: function(form) {
         var that = $(form);
         var url = that.attr('action');
         var type = that.attr('method');
@@ -538,19 +538,19 @@ FuncionesGenerales = {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
+                    }
+                }
             }
-                }
-                }
             if (that.attr('type') == 'checkbox') {
                 if (that.is(':checked')) {
                     if (data[name] == null) {
                         data[name] = value;
-                }
+                    }
                 }
             } else {
                 if (data[name] == null) {
                     data[name] = value;
-        }
+                }
             }
         });
 
