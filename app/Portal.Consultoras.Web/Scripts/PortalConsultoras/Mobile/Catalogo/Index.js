@@ -558,7 +558,7 @@ function CatalogoEnviarEmail() {
         CloseLoading();
         return false;
     }
-    var catalogoEnviar = $("#divCheckbox").find("[type='checkbox'][checked]") || new Array();
+    var catalogoEnviar = $('#divCheckbox input:checked').length || new Array();
     if (catalogoEnviar.length <= 0) {
         $('#MensajeAlertaMobile2 .mensaje_alerta').html('No se ha seleccionado ningún catálogo');
         $('#MensajeAlertaMobile2').show();
