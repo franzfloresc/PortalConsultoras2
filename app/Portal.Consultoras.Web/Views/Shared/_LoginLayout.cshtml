@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>.: Portal de Consultoras :.</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript">var baseUrl = "@Url.Content("~")"; </script>
+    @*ITG - 1869 Empaquetado y minificacion de archivos css y js - Inicio*@
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssLogin")
+    @* ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin*@
+</head>
+<body class="body_login">
+    @*<h1>Login</h1>*@
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+            </div>
+        </div>
+    </footer>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+    
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsLogin")
+
+    <script type="text/javascript">
+        var showUser = false;
+        $(document).ready(function () {
+            $(".detalle").hide();
+
+            $("#btn1").click(function () {
+                var detalle = $(this).parent().find(".detalle");
+
+                if (detalle.is(":visible")) {
+                    detalle.slideUp();
+                    show = false;
+                }
+                else {
+                    $(detalle).slideDown();
+                    show = true;
+                }
+                if ($("#det2").is(":visible"))
+                    $("#det2").slideUp();
+            });
+
+            $("#btn2").click(function () {
+                var detalle = $(this).parent().find(".detalle");
+
+                if (detalle.is(":visible")) {
+                    detalle.slideUp();
+                    show = false;
+                }
+                else {
+                    $(detalle).slideDown();
+                    show = true;
+                }
+                if ($("#det1").is(":visible"))
+                    $("#det1").slideUp();
+            });
+
+
+            $(document).click(function () {
+                if ($("#det1").is(":visible") && !show)
+                    $("#det1").slideUp();
+                if ($("#det2").is(":visible") && !show)
+                    $("#det2").slideUp();
+                show = false;
+            })
+        })
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

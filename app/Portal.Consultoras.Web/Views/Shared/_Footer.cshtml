@@ -1,0 +1,109 @@
+﻿@{
+    // Asignar permisosList con los elementos solo del Pie de página
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("footer") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+<div class="footer_wrapper">
+    <a id="aBelcorpResponde" href="#" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" /><br />
+        @if (ViewBag.CodigoISODL == "CO")
+        {
+            <text>ESIKA RESPONDE</text>
+        }
+        else
+        {
+            <text>BELCORP RESPONDE</text>
+        }
+        <br />
+        <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
+    </a>
+    <a href="http://comunidad.somosbelcorp.com/" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" /><br />
+        COMUNIDAD VIRTUAL <br />
+        <span>Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
+    </a>
+    <a href="@Url.Action("Index", "Catalogo")" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_catalogo.png")" /><br />
+        CATÁLOGOS <br />
+        <span>Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</span>
+    </a>
+    <a href="http://comunidad.somosbelcorp.com/" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_noticias.png")" /><br />
+        NOTICIAS <br />
+        <span>Entérate de las noticias de Belcorp.</span>
+    </a>
+</div>
+<hr class="clear" />
+<div class="linea_superior"></div>
+<div class="footer_wrapper">
+    <div class="logo_footer_e">
+        <img src="@Url.Content("~/Content/Images/Esika/belcorp.png")" />
+    </div>
+    <div class="sub_footer" style="text-align:left !important">
+        <h1>NUESTRAS MARCAS</h1>
+        <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('LBel','http://www.lbel.com');" role="outbound-link" region="Outbound Link" parent="L’bel" id="lnk-out-lbel" title="LBEL">L'BEL</a>
+        @if (ViewBag.PaisAnalytics != "PA")
+        {
+            <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('Esika','http://www.esika.biz');" role="outbound-link" region="Outbound Link" parent="Ésika" id="lnk-out-esika" title="ESIKA">ÉSIKA</a>
+        }
+        <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('Cyzone','http://www.cyzone.com');" role="outbound-link" region="Outbound Link" parent="Cyzone" id="lnk-out-cyzone" title="CYZONE">CYZONE</a>
+    </div>
+    @foreach (var menuPadre in permisoList)
+    {
+        <div class="sub_footer" style="text-align:left !important">
+            <h1>@menuPadre.Descripcion</h1>
+
+            @foreach (var menuHijo in menuPadre.SubMenus)
+            {
+                if (menuHijo.Descripcion.Trim().ToLower() == "contáctanos")
+                {
+                    menuHijo.UrlItem += "?" + ViewBag.QSBR;
+
+                    <script type="text/javascript">
+                        document.getElementById("aBelcorpResponde").href = "@Html.Raw(menuHijo.UrlItem)";
+                    </script>
+                }
+
+                var pageTarget = menuHijo.PaginaNueva ? "_blank" : "_self";
+
+                if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                {
+                    <a href="javascript:;">@menuHijo.Descripcion</a>
+                }
+                else
+                {
+                    if (menuHijo.EsDireccionExterior)
+                    {
+                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@menuHijo.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@menuHijo.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                            @menuHijo.Descripcion
+                        </a>
+                    }
+                }
+            }
+        </div>
+    }
+    <div class="sub_footer" style="text-align:left !important">
+        <h1>SÍGUENOS</h1>
+        <a href="javascript:;" onclick="return SetSiguenosGoogleAnalytics('Facebook', 'https://www.facebook.com/SomosBelcorpOficial?fref=ts');" target="_blank" role="outbound-link" region="Outbound Link" parent="Facebook" id="lnk-out-facebook" title="Facebook Belcorp">
+            FACEBOOK<img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
+        </a>
+        <a href="javascript:;" onclick="return SetSiguenosGoogleAnalytics('Youtube', 'https://www.youtube.com/user/somosbelcorp');" target="_blank" role="outbound-link" region="Outbound Link" parent="Facebook" id="lnk-out-facebook" title="Facebook Belcorp">
+            YOUTUBE <img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/youtube.png")" />
+        </a>
+    </div>
+</div>
+<hr class="clear" />
+<div class="footer_wrapper">
+    <div class="linea_superior"></div>
+    <div class="pedido_pais"><img src="@Url.Content(string.Format("~/Content/Banderas/{0}.png", ViewBag.CodigoISODL))" /><span>@ViewBag.NombrePais</span></div>
+    <div class="unete_2016"> Copyright Belcorp 2016. All rigths reserved.</div>
+</div>

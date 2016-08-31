@@ -1,0 +1,214 @@
+﻿@{
+    // Asignar permisosList con los elementos solo de la cabecera
+    var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
+
+    permisoList = permisoList != null
+        ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
+        : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+}
+
+@if (permisoList.Count > 0)
+{
+    <ul id="ulNavPrincipal" class="nav_principal">
+        <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->       
+        @foreach (var menuPadre in permisoList)
+        {
+            var pageTarget = menuPadre.PaginaNueva ? "_blank" : "_self";
+            var claseSubMenu = menuPadre.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+            if (menuPadre.SubMenus.Count > 0)
+            {
+                //Menu padre con hijos
+                <li class="new_menu">
+                    <a href="javascript:;" class="new_menu_a" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                        @menuPadre.Descripcion
+                        <div class="flecha_menu"></div>
+                        <div class="pestana_esika"></div>
+                    </a>
+                    <ul class="@(claseSubMenu)">
+                        <li>
+                            <div class="linea_menu"> </div>
+                            @{
+                                var margin = "";
+                                var contador = 0;
+                                var contadorRe = 0;
+                                var addIngPedido = false;
+                                var divHtmlF = "";
+                                var addImgen = false;
+                                var final = false;
+                                foreach (var menuHijo in menuPadre.SubMenus)
+                                {
+                                    var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
+                                    
+                                    //SI TIENE NIETOS
+                                    if (menuHijo.SubMenus.Count > 0)
+                                    {
+                                        margin = contador > 5 ? "no_margin_right" : "";
+                                        <div class="content_left_menu @(margin)">
+                                            @if (!string.IsNullOrEmpty(menuHijo.Descripcion))
+                                            {
+                                                <a class="menu_enlace" href="#">
+                                                    <b>@menuHijo.Descripcion</b>
+                                                </a>
+
+                                                foreach (var menuNieto in menuHijo.SubMenus)
+                                                {
+                                                    var pageTargetNieto = menuNieto.PaginaNueva ? "_blank" : "_self";
+
+                                                    if (string.IsNullOrEmpty(menuNieto.UrlItem))
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else if (menuNieto.EsDireccionExterior)
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                            @menuNieto.Descripcion
+                                                        </a>
+                                                    }
+                                                    contador++;
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        addImgen = true;
+                                        var divHtml = "";
+                                        if (contadorRe%5 == 0)
+                                        {
+                                            divHtml = "<div class='content_left_menu'>";
+                                            divHtmlF = "</div>";
+                                        }
+
+                                        if (divHtml != "")
+                                        {
+                                            @Html.Raw(divHtml)
+                                        }
+                                        if (contadorRe == 0 && !addIngPedido)
+                                        {
+                                            contadorRe++;
+                                            <a href="javascript:;" class="menu_titulo" onclick=" return SetAnalyticsMenu('Index', 'Pedido', 0, 'Pedido')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
+                                                INGRESA TU PEDIDO
+                                            </a>
+                                            addIngPedido = true;
+                                        }
+                                        if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                                        {
+                                            <a href="javascript:;" class="menu_enlace">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else if (menuHijo.EsDireccionExterior)
+                                        {
+                                            <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:;" class="menu_enlace" onclick=" return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                                @menuHijo.Descripcion
+                                            </a>
+                                        }
+
+                                        contadorRe++;
+                                        if (contadorRe == 5 || (final && contadorRe == menuPadre.SubMenus.Count()-4))
+                                        {
+                                            @Html.Raw(divHtmlF)
+                                            divHtmlF = "";
+                                            contadorRe = 0;
+                                            final = true;
+                                        }
+                                    }
+                                }
+
+                                if (addImgen)
+                                {
+                                    <a href="javascript:;" class="menu_imagen" onclick=" return SetAnalyticsMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Catalogos y Revistas" id="lnk-pri-miscatalogosrevistas">
+                                        <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
+                                        <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
+                                    </a>
+                                    if (ViewBag.SegmentoConsultoraMenu == 1)
+                                    {
+                                        <a href="@(ViewBag.UrlRaizS3)@(DateTime.Now.Year)/Minisite+Nuevas+Esikizado/@(ViewBag.codigoISOMenu)/index.html" class="menu_imagen no_margin_right">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_02.png" />
+                                            <div class="titulo_imagen">PROGRAMA NUEVAS</div>
+                                        </a>
+                                    }
+                                    else if (ViewBag.SegmentoConsultoraMenu != 1 && ViewBag.codigoISOMenu != "VE")
+                                    {
+                                        <a class="menu_imagen no_margin_right" onclick=" return SetAnalyticsMenu('Index', 'Incentivos', 0, 'Incentivos')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Incentivos" id="lnk-pri-Incentivos">
+                                            <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_03.png" />
+                                            <div class="titulo_imagen">INCENTIVOS</div>
+                                        </a>
+                                    }
+                                }
+
+                            }
+                         </li>
+                    </ul>
+                </li>
+            }
+            else
+            {
+                //Menu padre sin hijos
+                switch (menuPadre.Descripcion.ToUpperInvariant())
+                {
+                    case "SOCIA EMPRESARIA":
+                        if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        break;
+                    case "MI COMUNIDAD":
+                        if (ViewBag.EsUsuarioComunidad == 0)
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        break;
+                    default:
+                        if (string.IsNullOrEmpty(menuPadre.UrlItem))
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="new_menu">
+                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        break;
+                }
+            }
+        }
+    </ul>
+}

@@ -1,0 +1,99 @@
+﻿@model Portal.Consultoras.Web.Models.PedidoDetalleModel
+
+@Html.ValidationMessage("CustomError")
+@Html.ValidationSummary(true)
+
+<div class="ofertas_title_content">
+    <div class="ofertas_title">Oferta<span>Web</span></div>
+</div>
+<div class="ofertas_detalle">
+    Estos productos solo pueden ser pedidos por web, suman a tu monto minimo y te dan puntaje.
+</div>
+
+<table id="tbListadoFaltantes">
+    @{
+        int Cols = 0;
+        var Funcion = string.Empty;
+        var Imagen = string.Empty;
+        var ImagenMarca = string.Empty;
+    }
+    @for (var i = 0; i < Model.MatrizOW; i++)
+    {
+        <tr>
+            @for (var j = 0; j < Model.MatrizOW; j++)
+            { 
+                <td>
+                    <div class="modulo_ofertas">
+                        @if (Model.ListaOfertaWeb.Count > j + Cols)
+                        {
+                            
+                            <div class="ofertas_producto">
+                                <div style="display: none;">
+                                    @Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].StockActual)
+                                </div>
+                                <div class="ofertas_producto_left">
+                                    <div>
+                                        @{
+                                            Imagen = string.IsNullOrEmpty(Model.ListaOfertaWeb[j + Cols].URL) ? "~/Content/Images/NoImage.png" : Model.ListaOfertaWeb[j + Cols].URL;
+                                        }
+                                        <img alt="Imagen Producto" src='@Url.Content(Imagen)'/>
+                                    </div>
+                                </div>
+                                <div class="ofertas_producto_right">
+                                    <div class="ofertas_logo">
+                                        @{
+                                            switch (Model.ListaOfertaWeb[j + Cols].MarcaID)
+                                            {
+                                                case 1: ImagenMarca = "~/Content/Images/lbel_logo.png";
+                                                    break;
+                                                case 2: ImagenMarca = "~/Content/Images/esika_logo.png";
+                                                    break;
+                                                case 3: ImagenMarca = "~/Content/Images/cyzone_logo.png";
+                                                    break;
+                                            }
+                                        }
+                                        <img alt="Logo Marca" src='@Url.Content(ImagenMarca)'/>
+                                    </div>
+                                    <div class="ofertas_add" style="display:none;">
+                                        <span>Se agregó @Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].CantidadPedido) productos.</span>
+                                    </div>
+                                    <div class="ofertas_delete" style="display: none;">
+                                        <span>@Ajax.ActionLink("Deshacer Aquí", "DeleteOfertaWeb", new { CampaniaID = Model.ListaOfertaWeb[j + Cols].CampaniaID, CUV = Model.ListaOfertaWeb[j + Cols].CUV }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "divListadoOfertasWeb", Confirm = "Esta seguro que desea deshacer el pedido de este producto?", OnSuccess = "CargarPedido()" }, new { style = " color:red;" })</span>
+                                    </div>                                    
+                                    <div class="ofertas_detail">
+                                        @Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].Descripcion)
+                                    </div>
+                                    <div class="ofertas_codigo">Código @Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].CUV)</div>
+                                    <div class="ofertas_precio_normal" style=" display:none;">
+                                        Precio Normal: @Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].PrecioCatalogo)
+                                    </div>
+                                    <div class="ofertas_precio">
+                                        Precio Oferta: <span>@Html.DisplayFor(modelItem => Model.ListaOfertaWeb[j + Cols].PrecioOferta)</span>
+                                    </div>
+                                </div>
+                            </div> 
+                            
+                            <div class="ofertas_foot">
+                                <div class="ofertas_cantidad">
+                                    <span>Cantidad</span>
+                                    @Html.TextBoxFor(modelItem => Model.ListaOfertaWeb[j + Cols].Cantidad, new { id = "hdfOWCantidad" + Model.ListaOfertaWeb[j + Cols].CUV, @class="ValidaNumeralOferta", style = "width: 30px;", maxlength="2" })
+                                </div>
+
+                                <div class="ofertas_agregar">
+                                    @{
+                                        Funcion = "AgregarOfertaWeb('" + Model.ListaOfertaWeb[j + Cols].CUV + "'," + Model.ListaOfertaWeb[j + Cols].MarcaID + "," + Model.ListaOfertaWeb[j + Cols].PrecioOferta + ",'"+  Model.ListaOfertaWeb[j + Cols].Descripcion + "')";
+                                    }
+                                    <input id="btnAgregarOfertaWeb" value="Agregar" type="button" onclick="@Funcion" />
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </td>
+            }
+        </tr>
+            Cols += Model.MatrizOW;
+    }
+
+
+</table>

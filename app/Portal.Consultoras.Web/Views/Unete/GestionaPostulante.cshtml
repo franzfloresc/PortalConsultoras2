@@ -1,0 +1,715 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.GestionaPostulanteModel
+
+@{
+    ViewBag.Title = "GestionaPostulante";
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
+
+    var estadoPostulantes = ViewBag.EstadoPostulantes as SelectList;
+}
+<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>
+
+<style>
+    .ui-widget-content.ui-dialog {
+        behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important;
+    }
+</style>
+
+<style>
+    .ui-jqgrid .ui-jqgrid-htable {
+        table-layout: fixed;
+        margin: 0em;
+    }
+
+    .ui-jqgrid .ui-jqgrid-btable {
+        table-layout: fixed;
+        margin: 0em;
+        outline-style: none;
+    }
+
+    .ui-jqgrid .ui-jqgrid-ftable {
+        table-layout: fixed;
+        margin-bottom: 0em;
+    }
+
+    .ui-datepicker-trigger {
+        cursor: pointer;
+    }
+
+    .ui-widget-header {
+        height: 20px !important;
+    }
+
+    .modal_base {
+        padding-left: 0 !important;
+    }
+
+        .modal_base .content {
+            box-sizing: border-box;
+            behavior: url('/Content/Css/Pie/PIE.htc)');
+            z-index: 1000000;
+        }
+
+            .modal_base .content h2 {
+                padding: 0 30px;
+            }
+
+            .modal_base .content .elements {
+                width: 95% !important;
+                padding-top: 25px !important;
+            }
+
+    .div-3 .titC {
+        width: 140px !important;
+    }
+
+    .width_150 {
+        width: 150px;
+    }
+
+    #Estado {
+        width: 100%;
+    }
+</style>
+@Html.HiddenFor(m => Model.PrefijoISOPais)
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Herramienta de Gesti&oacute;n</h1>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Fecha Desde:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.FechaDesde)
+                </div>
+                <div class="titC width_150">Fecha hasta:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.FechaHasta)
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Nombre:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.Nombre, new { @style = "text-transform: uppercase;" })
+                </div>
+                <div class="titC width_150">Estado:</div>
+                <div class="selectP2 borde_redondeado" style="width:280px;">
+                    @Html.DropDownListFor(m => Model.Estado, estadoPostulantes)
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150">Cedula Identidad:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.DocumentoIdentidad, new { @style = "text-transform: uppercase;" })
+                </div>
+                <div class="titC width_150">Zona:</div>
+                <div class="selectP2 borde_redondeado calendar">
+                    @Html.TextBoxFor(m => Model.CodigoZona, new { @style = "text-transform: uppercase;", @id = "CodigoZonaFiltro" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC width_150"></div>
+                <div class="input_search">
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap" id="data">
+    <div class="container clearfix" style="margin-left: 1200px">
+        <div class="input_global">
+            <img src="@Url.Content("~/Content/HojaInscripcion/images/excel-xls-icon.png")" onclick="ExportExcel();" style="cursor: pointer; width: 64px; height: 64px"/>
+          
+        </div>
+    </div>
+    <div class="container clearfix" style="width: 1300px;">
+        <div class="border-wrapper" id="tablaSolicitudPostulantes" style="overflow-x: hidden">
+            <table id="gvwSolicitudesPostulante"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+<div id="modal_general" class="modal_base" style="display:none;">
+    <div class="content" id="modal_content">
+    </div>
+</div>
+
+<div id="modal_opcion" class="modal_base" style="display:none;">
+    <div class="content" id="modal_opcion_content">
+    </div>
+</div>
+
+<div id="modal_enviado" class="modal_base" style="display:none; overflow:hidden;">
+    <div class="content" id="modal_env">
+        <div class="wrap_cab">
+            <div class="filtros2">
+                <div class="div-2" style="text-align:center;">
+                    <h2>
+                        ¡ENVIADO!
+                        <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="elements">
+            <div class="div-3" style="text-align:center;">
+                El correo fue enviado con éxito
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="input_search">
+        <input type="button" id="btnExport" value="Exportar"  onclick="ExportExcel()"/>
+
+    </div>*@
+
+<script>
+    //Nueva funcionalidad
+    var colNames = [
+        'ID',
+        'Fecha Registro',
+        'Tipo',
+        'Fuente',
+        'Nombre',
+        'Documento Identidad',
+        'Zona',
+        'Sección',
+        'Territorio',
+        'Dirección',
+        'Codigo de Consultora',
+        'Fecha Ingreso',
+        'Ubicación',
+        'Evaluación Crediticia',
+        'Evaluación Telefonica',
+        'Estado',
+        'Modificar',
+        'Ver',
+        '',
+        'Reactivar',
+        ' ',
+        '@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]',
+        'Comprobante Domicilio'
+    ];
+
+    function fnGrilla() {
+
+        jQuery("#gvwSolicitudesPostulante").jqGrid({
+            url: '@Url.Action("ConsultarSolicitudesPostulante", "Unete")',
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PrefijoISOPais: function () { return $("#PrefijoISOPais").val(); },
+                FechaDesde: function () { return $("#FechaDesde").val(); },
+                FechaHasta: function () { return $("#FechaHasta").val(); },
+                Nombre: function () { return $('#Nombre').val(); },
+                Estado: function () { return $("#Estado").val(); },
+                DocumentoIdentidad: function () { return $("#DocumentoIdentidad").val(); },
+                CodigoZona: function () { return $("#CodigoZonaFiltro").val(); }
+            }),
+            mtype: 'POST',
+            contentType: "application/json; charset=utf-8",
+            colNames: colNames,
+            colModel: [
+                { name: 'SolicitudPostulanteID', index: 'SolicitudPostulanteID', width: 3, editable: false, align: 'center', hidden: true },
+                { name: 'FechaCreacion', index: 'FechaCreacion', width: 9, editable: true, resizable: false, align: 'center' },
+                { name: 'FuenteIngreso', index: 'FuenteIngreso', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'Tipo', index: 'Tipo', width: 11, editable: true, resizable: false, align: 'center' },
+                { name: 'NombreCompleto', index: 'NombreCompleto', width: 15, editable: true, resizable: false },
+                { name: 'NumeroDocumento', index: 'NumeroDocumento', width: 14, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoZona', index: 'CodigoZona', width: 6, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoSeccion', index: 'CodigoSeccion', width: 6, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoTerritorio', index: 'CodigoTerritorio', width: 8, editable: true, resizable: false, align: 'center' },
+                { name: 'Direccion', index: 'Direccion', width: 20, editable: true, resizable: false },
+                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 8, editable: true, resizable: false, align: 'center', hidden: true },
+                { name: 'FechaIngreso', index: 'FechaIngreso', width: 9, editable: true, resizable: false, align: 'center', hidden: true },
+                {
+                    name: 'Ubicacion', index: 'Ubicacion', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[12] == '2' ?
+                            '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-check.png")" onclick="consultarUbicacion(' + rowObject[0] + ');" /></a>' :
+                            '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarUbicacion(' + rowObject[0] + ');" /></a>';
+                    }
+                },
+                {
+                    name: 'EvaluacionCrediticia', index: 'EvaluacionCrediticia', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[13] == '2' ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
+                            rowObject[13] == '3' ? '<img src="@Url.Content("~/Content/Images/icons/sign-error.png")" />' :
+                            '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarEvaluacionCrediticia(' + rowObject[0] + ');" /></a>';
+                    }
+
+                },
+                {
+                    name: 'EvaluacionTelefonica', index: 'EvaluacionTelefonica', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[14] == '1' ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
+                           rowObject[14] == '0' || rowObject[12].length <= 0 ? '<img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" />' :
+                           rowObject[14] == '2' ? '<img src="@Url.Content("~/Content/Images/icons/sign-error.png")" />' : '';
+                    }
+
+                },
+               {
+                   name: 'Estado', index: 'Estado', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                       return rowObject[19].toUpperCase() == 'FALSE' && rowObject[15].toUpperCase() != 'RECHAZADA' ? 'PENDIENTE DE CONFIRMAR CORREO' : rowObject[15].toUpperCase();
+                   }
+               },
+                {
+                    name: 'Modificar', index: 'Modificar', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Edit.png")" onclick="modificar(' + rowObject[0] + ')" /></a>';
+                    }
+                },
+                {
+                    name: 'Ver', index: 'Ver', width: 4, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="ver(' + rowObject[0] + ')" /></a>';
+                    }
+                }
+                ,
+                 {
+                     name: 'Pendiente de Confirmación', index: 'Pendiente de Confirmación', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                         return rowObject[19].toUpperCase() == 'FALSE' ? '<button onclick="reenviar(' + rowObject[0] + ')" style="padding:0;text-align:center;color:#A1A1A1;">Reenviar<br/>Correo</button>' : '';
+
+                     }
+                 },
+                {
+                    name: 'Reactivar', index: 'Reactivar', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[15].toUpperCase() == 'RECHAZADA' ? '<input type="button" value="Reactivar" onclick="reactivar(' + rowObject[0] + ')" style="padding:0;" />' : '';
+                    }
+                }
+                ,
+                {
+                    name: 'Enviar a FFVV', index: 'Enviar a FFVV', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[19].toUpperCase() == 'FALSE' && rowObject[12] == 2 && rowObject[13] == 2 && rowObject[14] == '1' ? '<button value="Enviar" onclick="enviarFFVV(' + rowObject[0] + ')" style="padding:0;text-align:center;color:#A1A1A1;">Enviar a<br/>FFVV</button>' : '';
+                    }
+                }
+                ,
+                {
+                    name: 'RFC', index: 'RFC', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[21].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[21] + '\', 1)" /></a>' : '';
+                    }
+                },
+                {
+                    name: 'ComprobanteDomicilio', index: 'ComprobanteDomicilio', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
+                    }
+                }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'FechaCreacion',
+            sortorder: 'desc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 1300,
+            shrinkToFit: true,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+
+            },
+            gridComplete: function () {
+
+                var option = $('#Estado').val();
+
+                if ('@Model.CodigoIso' == 'MX') {
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'EvaluacionCrediticia');
+                } else {
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'EvaluacionTelefonica');
+                }
+
+                if (typeof option != 'undefined' && option != null) {
+
+                    switch (option) {
+                        case "0":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            break;
+                        case "2":
+                        case "3":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            break;
+                        case "4":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            break;
+                        case "5":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Modificar');
+                            break;
+                        case "7":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Modificar');
+                            break;
+                        case "9":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            break;
+                    }
+                }
+            }
+        });
+
+        jQuery("#gvwSolicitudesPostulante").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#gvwSolicitudesPostulante").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    //Exportar a Excel
+
+    function ExportExcel() {
+        var m = true;
+        if ($("#gvwSolicitudesPostulante").getGridParam("reccount") == 0) {
+            m = confirm('La grilla se encuentra vacía.\n¿ Está seguro(a) que desea continuar con la operación ?');
+        }
+        if (!m) {
+            return;
+        }
+        var PrefijoISOPais = $("#PrefijoISOPais").val();
+        var FechaDesde = $("#FechaDesde").val();
+        var FechaHasta = $("#FechaHasta").val();
+        var Nombre = $('#Nombre').val();
+        var Estado = $("#Estado").val();
+        var DocumentoIdentidad = $("#DocumentoIdentidad").val();
+        var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
+
+        //var vmessage = "";
+        //if (Estado == "")
+        //    vmessage += "Debe seleccionar un Estado. \n";
+        ////if (vCampaniaID == "")
+        ////    vmessage += "Debe seleccionar la Campaña \n";
+
+        waitingDialog({});
+
+        setTimeout(function () {
+            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro);
+        }, 0);
+    }
+
+    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro) {
+        var content = baseUrl +
+            "Unete/ExportarExcel?" +
+            "PrefijoISOPais=" +
+            PrefijoISOPais +
+            "&FechaDesde=" +
+            FechaDesde +
+            "&FechaHasta=" +
+            FechaHasta +
+            "&Nombre=" +
+            Nombre +
+            "&Estado=" +
+            Estado +
+            "&DocumentoIdentidad=" +
+            DocumentoIdentidad +
+            "&CodigoZona=" +
+            codigoZonaFiltro;
+
+        var iframe_ = document.createElement("iframe");
+        iframe_.style.display = "none";
+        iframe_.setAttribute("src", content);
+
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+            iframe_.onreadystatechange = function () {
+                switch (this.readyState) {
+                    case "loading":
+                        waitingDialog({});
+                        break;
+                    case "complete":
+                    case "interactive":
+                    case "uninitialized":
+                        closeWaitingDialog();
+                        break;
+                    default:
+                        closeWaitingDialog();
+                        break;
+                }
+            };
+        }
+        else {
+            // Si es Firefox o Chrome
+            $(iframe_).ready(function () {
+                closeWaitingDialog();
+            });
+        }
+        document.body.appendChild(iframe_);
+    }
+
+    function consultarUbicacion(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1050);
+        modal.dialog("option", "height", 590);
+
+        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function verAdjunto(nombreArchivo, tipo) {
+        waitingDialog({});
+        modal.dialog("option", "width", 500);
+        modal.dialog("option", "height", 450);
+
+        $.get('@Url.Action("ConsultarAdjunto", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function consultarEvaluacionCrediticia(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 650);
+        modal.dialog("option", "height", 325);
+
+        $.get('@Url.Action("ConsultarEstadoCrediticia", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function reactivar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("ReactivarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function reenviar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("ReEnviarCorreoNotificacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            modalEnviado.dialog('open');
+
+        }).done(function () {
+            closeWaitingDialog({});
+
+        });
+    }
+
+    function enviarFFVV(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 220);
+
+        $.get('@Url.Action("EnviarAFFVV", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            //modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+            fnGrilla();
+        });
+    }
+
+    function modificar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1230);
+        modal.dialog("option", "height", 700);
+
+        $.get('@Url.Action("Detalle", "Unete")', { id: solicitudPostulanteID, modoLectura: false }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function ver(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 1230);
+        modal.dialog("option", "height", 570);
+
+        $.get('@Url.Action("Detalle", "Unete")', { id: solicitudPostulanteID, modoLectura: true }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function IntegerNumber(e) {
+        // Allow: backspace, delete, tab, escape, enter
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return true;
+        }
+
+        // Allow copy, cut and don't allow paste
+        var ctrlDown = e.ctrlKey || e.metaKey; // Mac support
+        if (ctrlDown && e.altKey) return true;
+        else if (ctrlDown && e.keyCode == 67) return true; // c
+        else if (ctrlDown && e.keyCode == 86) return false; // v
+        else if (ctrlDown && e.keyCode == 88) return true; // x
+
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || e.altKey || e.ctrlKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    }
+
+    function Text(e) {
+        var key = e.keyCode;
+
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            return true;
+        } else {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                return false;
+            } else {
+                var RegExpression = /^[a-zA-ZñáéíóúÑÁÉÍÓÚäëïöüÄËÏÖÜ\s]*$/;
+                return RegExpression.test(String.fromCharCode(key));
+            }
+        }
+    }
+
+    $('#imgCerrar').click(function () {
+        modalEnviado.dialog('close');
+    });
+
+    var modal, modalOpcion, modalEnviado;
+
+    $(function () {
+
+        $('#Estado').val(parseInt('@Convert.ToInt32(Portal.Consultoras.Web.ServiceUnete.EnumsEstadoPostulante.EnGestionServicioAlCliente)'));
+
+        $('#btnBuscar').click(function(e) {
+            fnGrilla();
+            e.preventDefault();
+            console.info(e.target);
+        });
+
+        $("#FechaDesde, #FechaHasta").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+
+        fnGrilla();
+
+        modal = $("#modal_general").dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: true,
+            draggable: true,
+            width: 350,
+            minHeight: 50,
+            height: 100,
+            modal: true,
+            buttons: {},
+            resizable: false,
+            open: function () {
+                $('body').css('overflow', 'hidden');
+            },
+            close: function () {
+                $('body').css('overflow', 'auto');
+            }
+        });
+
+        modalOpcion = $("#modal_opcion").dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: true,
+            draggable: true,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false,
+            open: function () {
+                $('body').css('overflow', 'hidden');
+            },
+            close: function () {
+                $('body').css('overflow', 'auto');
+            }
+        });
+
+        modalEnviado = $("#modal_enviado").dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: true,
+            draggable: true,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false,
+            open: function () {
+                $('body').css('overflow', 'hidden');
+            },
+            close: function () {
+                $('body').css('overflow', 'auto');
+            }
+        });
+    });
+</script>

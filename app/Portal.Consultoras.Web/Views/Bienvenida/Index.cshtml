@@ -1,0 +1,1715 @@
+﻿@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+}
+
+@{
+    Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
+    var nombreConsultoraSin = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
+
+    var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
+}
+
+<input type="hidden" id="hdTipoEstrategiaID" value="0" />
+
+<div class="envolvente_pop_up">
+    <div class="pop_liquidacion_home" id="pop_liquidacion" style="display: none;">
+        <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
+        <div class="titulo_liquidacion">
+            ¡PRODUCTO AGREGADO SATISFACTORIAMENTE!
+        </div>
+        <hr class="clear" />
+        <div id="contenedorProductoAgregado" class="imagen_pop_l"><img id="imgProductoAgregado" src="" alt="" /></div>
+        <div class="info_pop_liquidacion">
+            <h1 id="nombreProductoAgregado"></h1>
+            <h2><span id="cantidadProductoAgregado"></span> unidades</h2>
+            <p>@ViewBag.Simbolo <span id="totalProductoAgregado"></span></p>
+        </div>
+        <hr class="clear" />
+        <a href="javascript:;" onclick="javascript: $('#pop_liquidacion').hide();" class="boton_pop_up">CERRAR</a>
+    </div>
+</div>
+
+<div class="content_slider_home">
+    <div id="sliderHomeLoading" class="center">
+        <br />
+        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        <br />
+    </div>
+    <div class="flexslider">
+        <ul class="slides"></ul>
+    </div>
+</div>
+
+<div class="content_belcorp">
+    <div class="content_datos">
+        <a class="subir_foto"></a>
+        <div class="foto_perfil_home">
+            <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+        </div>
+        <div class="resumen_belcorp_cam">
+            @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡Feliz Aniversario</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            else
+            {
+                <div class="nombre_consultora">
+                    <span style="margin-top: -0.5px!important;">¡Hola</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
+            <a class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            <hr class="clear" />
+            <div class="info_cam_belcorp">
+                EST&Aacute;S EN
+                @{
+                    if (nroCampania == "")
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <span>C@(nroCampania)</span>
+                    }
+                }
+            </div>
+            @if (ViewBag.Dias == 0)
+            {
+                <div class="info_cam_belcorp2">
+                    EL CIERRE ES
+                    <span>Hoy</span>
+                </div>
+            }
+            else
+            {
+                <div class="info_cam_belcorp2">
+                    EL CIERRE ES EN
+                    <span>@ViewBag.Dias d&iacute;as</span>
+                </div>
+            }
+        </div>
+        <div class="pedido_resumen_home">
+            <div class="mensaje_cierre_fechapromesa">
+                @(Html.Raw(ViewBag.MensajeCierreCampania))
+            </div>
+            <a class="boton_home_guardar" onclick="RedirectIngresaTuPedidoAnalytics();">INGRESA TU PEDIDO</a>
+        </div>
+        <div class="socia_negocio_home">
+            <div class="notificaciones_resumen">
+                <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor: default!important;">
+                    <img src="@Url.Content("~/Content/Images/Esika/notificaciones.png")" alt="" />
+                    <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
+                </a>
+            </div>
+            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
+            <hr class="clear" />
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
+            <a class="seguir_pedido ver_video_introductorio" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
+            @*@if (Model.PaisID == 10)
+                {
+            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">SEGUIMIENTO A TU PEDIDO</a>
+                }*@
+            @if (ViewBag.IndicadorPermisoFIC == 1)
+            {
+                <a class="seguir_pedido" onclick="RedirectPedidoFicAnalytics();" href="#">INGRESA TU PEDIDO FIC</a>
+            }
+        </div>
+    </div>
+    <hr class="clear" />
+    <div class="items_belcorp">
+        @{
+            string verUltmPagos = Model.PaisID == 3 || Model.PaisID == 4 || Model.PaisID == 12 || Model.PaisID == 6 || Model.PaisID == 11 ? "0" : "1";
+            string ultPg, vermas;
+            if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
+        }
+        <div class="titulo_home_img"></div>
+        <div class="titulo_home_belcorp">
+            <div>MI ESTADO DE CUENTA</div>
+            <a class="btn_ver_mas" style="@vermas" href="@Url.Action("Index", "MisPagos")">VER M&Aacute;S +</a>
+        </div>
+        <hr class="clear" />
+        <div class="info_centro">
+            <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
+            Mi deuda actual es:
+            <div class="deuda_home" id="spanDeuda">
+                @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+            </div>
+            <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
+        </div>
+
+        <a class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
+
+        @if (Model.PaisID == 3) //Chile
+        {
+            <a class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 4) //Colombia
+        {
+            <a class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 12) //Puerto Rico
+        {
+            <a class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+        }
+        else if (Model.PaisID == 6 || Model.PaisID == 11)
+        {
+            <a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+        }
+        <hr class="clear" />
+
+    </div>
+    <div class="items_belcorp">
+        <div class="titulo_home_img mis_ganancias_img"></div>
+        <div class="titulo_home_belcorp">
+            <div>MIS GANANCIAS</div>
+            <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
+        </div>
+        <hr class="clear" />
+        <div class="info_centro">
+            @{
+                string cabezaEscala = null, pieEscala = null;
+                if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
+                    || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 3) //CHILE
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                }
+                else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";
+                }
+            }
+            @(cabezaEscala)
+            <div class="deuda_home">
+                @Model.Simbolo
+                <span data-ganancia="">
+                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.PrefijoPais)
+                </span>
+            </div>
+            <span>Pedido ingresado: <span id="spanPedidoIngresado">@Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoPedido, Model.PrefijoPais)</span></span>
+        </div>
+        <!--ESCALA DE DESCUENTO-->
+        <div class="content_escala">
+            @{
+                string padding = "eg_padding_inactivo";
+                if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
+                {
+                    padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
+
+                    foreach (var item in Model.ListaEscalaDescuento)
+                    {
+                        int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
+                        string clase = (item.Seleccionado ? "escala_select" : "") +
+                                       (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
+
+                        <div class="escala_ganancia @(clase) @(padding)">
+
+                            @if (item.Seleccionado)
+                            {
+                                <div class="indicador_escala"></div>
+                            }
+
+                            <div style="overflow:hidden">
+                                <div class="home_porcentaje">@item.PorDescuento</div>
+                                <div class="texto_dscto">%<span>DSCTO</span></div>
+                            </div>
+                            @if (item.Seleccionado)
+                            {
+                                if (index == Model.ListaEscalaDescuento.Count)
+                                {
+                                    <div class="precio_ganancia">De @Model.Simbolo@Convert.ToInt32(item.MontoDesde) a más.</div>
+                                }
+                                else
+                                {
+                                    <div class="precio_ganancia">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
+                                }
+                            }
+
+                        </div>
+                    }
+                }
+            }
+            <div style="font-size: 9px; color: #777; font-weight: 300; line-height: 7.9px; margin-top: 7px;">@(pieEscala)</div>
+        </div>
+        <!--FIN ESCALA DE DESCUENTO-->
+    </div>
+    <div class="item_catalogo">
+        <img src="@Model.UrlImagenCompartirCatalogo" style="max-width: 100%!important;" />
+        <a href="@Url.Action("Index", "MisCatalogosRevistas")" class="btn_comparte">COMPARTE TUS CAT&Aacute;LOGOS </a>
+    </div>
+    <hr class="clear" />
+</div>
+
+<!--CAROUSEL OFERTAS PARA TI-->
+<div class="fondo_gris">
+    <div class="content_belcorp" style="text-align:center;">
+        <div class="titulo_ofertas_home">
+            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+            <div class="texto_exclusivo">
+                EXCLUSIVAS S&Oacute;LO POR WEB
+            </div>
+        </div>
+        <div class="linea_titulo_absoluto"></div>
+
+        <hr class="clear" />
+        <div class="content_carrusel_ofertas" id="divCarruselHorizontal">
+        </div>
+    </div>
+</div>
+<!--FIN CAROUSEL OFERTAS PARA TI-->
+
+<!--CATALOGO PERSONALIZADO-->
+<div class="content-favclientes" id="divMainCatalogoPersonalizado">
+
+    <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+    <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+    <div id="divCatalogoPersonalizado"></div>
+    @*<div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>ÉSIKA</h6>
+                <p class="nombre_producto">
+                    <b>Fragancia Leyenda</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Acondicionador berrylicious yummy yogurt</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>perfume #true</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini">
+                <img src="">
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <h6>CYZONE</h6>
+                <p class="nombre_producto">
+                    <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                </div>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>*@
+
+</div>
+<!--FIN CATALOGO PERSONALIZADO-->
+
+<div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
+    <div class="linea_separadora"></div>
+
+    <!--TUTORIALES-->
+    <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
+        <div class="titulo_video">
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+        </div>
+        <div class="item_video_left">
+            <div class="item_video">
+            </div>
+            @*CONVI&Eacute;RTETE EN UNA VERDADERA COACH DE BELLEZA*@
+        </div>
+
+        <div class="item_video_right">
+            <div id="divMisCursos"></div>
+        </div>
+
+    </div>
+    <!-- FIN TUTORIALES-->
+    <!-- SIN TUTORIALES -->
+    <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
+        <div class="titulo_video">
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+        </div>
+        <div class="item_video_left">
+            <div class="item_video">
+            </div>
+        </div>
+        <div class="item_video_right">
+            <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
+            <div class="contenedor_ir_miAcademia">
+                <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
+                <a href="@Url.Action("Index", "MiAcademia")" title="Ir a Mi Academia">
+                    <span class="icono_arrow">&#9658;</span><span>IR A "MI ACADEMIA"</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN SIN TUTORIALES-->
+    <!-- TUTORIALES PARA VENEZUELA -->
+    <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
+        <div class="titulo_video">
+            <div>MI ACADEMIA</div>
+            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+        </div>
+        <div class="item_video_left">
+            <div class="item_video">
+            </div>
+        </div>
+        <div class="item_video_right">
+            <div id="divMisCursosV"></div>
+        </div>
+    </div>
+    <!-- FIN TUTORIALES PARA VENEZUELA -->
+    <!--CAROUSEL LIQUIDACION HOME-->
+    <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
+        <div class="titulo_carrusel_liquidacion">
+            LIQUIDACIONES WEB
+        </div>
+        <a class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
+        <hr class="clear" />
+        <div class="pestana_lbel"></div>
+        <div class="content_1_carrusel">
+            <div class="content_carrusel_liquidacion" id="divCarruselLiquidaciones">
+            </div>
+        </div>
+    </div>
+    <!--FIN CAROUSEL LIQUIDACION HOME-->
+    <!--ENLACES-->
+    <hr class="clear" />
+    <div id="bannerBajos" class="center">
+        <br />
+        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        <br />
+        <br />
+    </div>
+</div>
+<div class="flecha_scroll">
+    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+        @*<img src="@Url.Content("~/Content/Images/flecha_scroll.svg")" alt="Flecha Scroll" />*@
+    </a>
+</div>
+<div>
+    <!-- POPUP COMUNICADO -->
+    @*<div id="divComunicado">
+            <div class="terminos_title_2">
+                Mensaje IMPORTANTE ¡V Retiro de producto
+            </div>
+            @if (ViewBag.NombrePais != "Ecuador")
+            {
+                if (ViewBag.NombrePais == "Colombia")
+                {
+                    <div class="border-wrapper">
+                        <p>
+                            Querida Consultora,
+                        </p>
+                        <p align="justify">
+                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                        </p>
+                        <p align="justify">
+                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la crema depilatoria Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                        </p>
+                        <p align="justify">
+                            Por eso te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona lo antes posible.
+                        </p>
+                        <p align="justify">
+                            El reembolso del dinero (precio cat&aacute;logo) de las unidades solicitadas por ti se abon&oacute; en t&uacute; cuenta el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                        </p>
+                        <p align="justify">
+                            <u>Importante:</u> todas las consultoras que entreguen los productos lo antes posible, recibir&aacute;n una fragancia de Obsequio que ser&aacute; entregado por tu gerente de Zona.
+                        </p>
+                        <p align="justify">
+                            Qu&eacute; decir a tus clientes cuando pidas el producto?: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                        </p>
+                        <p align="justify">
+                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                        </p>
+                        <p align="justify">
+                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques a Belcorp al tel&eacute;fono 5948060 en Bogot&aacute; &oacute; 01 8000 937452 en el resto del pa&iacute;s o a trav&eacute;s del chat en la p&aacute;gina www.somosbelcorp.com ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                        </p>
+                        <p align="justify">
+                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes y te presentamos disculpas y estamos comprometidos con el servicio, por eso continuaremos trabajando para evitar estos inconvenientes.
+                        </p>
+                        <p align="justify">
+                            Nota: En caso de no haber entregado el producto a tu Gerente de Zona, lo puedes llevar a la Conferencia de cierre de C13 o entregar al transportador cuando recibas el pedido de C13.
+                        </p>
+                        <p>
+                            Atentamente,
+                        </p>
+                        <p>
+                            Servicio al Cliente Belcorp
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="border-wrapper">
+                        <p>
+                            Querida Consultora,
+                        </p>
+                        <p align="justify">
+                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n  Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
+                        </p>
+                        <p align="justify">
+                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la Crema Depilatoria para rostro, axilas y bikini con extracto de Cal&eacute;ndula x 50 g Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
+                        </p>
+                        <p align="justify">
+                            Por eso <strong>te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona antes del 1 de Agosto.</strong>
+                        </p>
+                        <p align="justify">
+                            El reembolso del dinero (precio de cat&aacute;logo) de las unidades colocadas por ti se  abon&oacute; en t&uacute; cuenta Belcorp el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
+                        </p>
+                        <p align="justify">
+                            <u>Importante:</u> todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por tu gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                        </p>
+                        <p align="justify">
+                            Qu&eacute; decir a tus clientes cuando pidas el producto: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
+                        </p>
+                        <p align="justify">
+                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
+                        </p>
+                        <p align="justify">
+                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques con la l&iacute;nea de atenci&oacute;n al cliente de Belcorp y marques opci&oacute;n 1 ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
+                        </p>
+                        <p align="justify">
+                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes.
+                        </p>
+                        <p>
+                            Atentamente,
+                        </p>
+                        <p>
+                            Servicio al Cliente Belcorp
+                        </p>
+                        <p align="justify">
+                            <u><strong>NOTA: Comunicado para uso exclusivo de la consultora Belcorp. No compartir este documento a trav&eacute;s de copias o redes sociales (Facebook, correo electr&oacute;nico, etc).</strong></u>
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="border-wrapper">
+                    <p>
+                        Querida Consultora Belcorp:
+                    </p>
+                    <p align="justify">
+                        A trav&eacute;s de la presente queremos informarte que, por pol&iacute;tica interna de la compañ&iacute;a, hemos decidido que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone adquirido en la C-10 y C-11 de 2014, sea retirado del mercado.
+                    </p>
+                    <p align="justify">
+                        Por eso te solicitamos que nos apoyes recogiendo, a la brevedad posible el producto Xpress Your Body de Cyzone a tus clientes y se  lo  entregues directamente a la  Gerente de tu Zona hasta  1 de Agosto de 2014.
+                    </p>
+                    <p align="justify">
+                        El reembolso del dinero de las unidades adquiriste, ha sido abonado en t&uacute; cuenta Belcorp a precio de cat&aacute;logo (7.99 USD por unidad)  el d&iacute;a 24 de Julio, para que en el momento del recojo  puedas reembolsar  el valor del producto a tu cliente.
+                    </p>
+                    <p align="justify">
+                        Todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por la  Gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
+                    </p>
+                    <p align="justify">
+                        En caso de recibir comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos les indiques que sean  remitidos al <strong>Call Center Belcorp 1800-766672 o  al buz&oacute;n callcenterec@belcorp.biz "</strong>, a fin de que Servicio al Cliente brinde una soluci&oacute;n inmediata
+                    </p>
+                    <p align="justify">
+                        Queremos agradecerte por el apoyo, comprensi&oacute;n  y compromiso para recoger cuanto antes este  producto  a  tus clientes.
+                    </p>
+                    <p align="justify">
+                        Atentamente,
+                    </p>
+                    <p>
+                        Servicio al Cliente<br />
+                        Belcorp-Ecuador
+                    </p>
+                </div>
+            }
+        </div>*@
+    <!-- FIN POPUP COMUNICADO -->
+    <!-- POPUP COMUNICADO VISUALIZACION -->
+    @*<div id="divComunicadoVisualizacion">
+            <div class="tituloC">
+                &nbsp;
+                <div id="btnCerrarComunicado" class="btnCerrar"></div>
+            </div>
+            <a href="https://www.facebook.com/SomosBelcorpOficial/posts/1084375931585422:0" target="_blank">
+                <img src="~/Content/Images/ComunicadoEC.jpg" />
+            </a>
+            <div>
+                <div>
+                    <label class="lblComunicadoV">
+                        <input type="checkbox" id="chkMostrarComunicado" class="chkComunicadoV" />
+                        No volver a mostrar
+                    </label>
+                </div>
+            </div>
+        </div>*@
+    <!-- FIN POPUP COMUNICADO VISUALIZACION -->
+    <!-- POPUP SUEÑOS NAVIDAD -->
+    @*<div id="idSueniosNavidad">
+            <img id="imgSuenioNavidad" onclick="MostrarCajaSuenioNavidad()" src="@Url.Content("~/Content/Images/Pop_Up_Navidad_2_01.png")" />
+            <img id="imgSuenioNavidad2" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-02.png")" />
+            <div id="registroSuenioNavidad">
+                <div class="textoSuenio">
+                    <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-05.png")" />
+                </div>
+                <div style="text-align: center">
+                    <textarea maxlength="500" id="txtSuenioNavidad"></textarea>
+                </div>
+                <div style="float: right">
+                    <a href="javascript:void(0)" onclick="AgregarSuenio()">
+                        <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-06.png")" />
+                    </a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" onclick="cerrarSueniosNavidad();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
+        </div>
+        <div id="divSuenioConfirmacion">
+            <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
+            <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
+        </div>*@
+    <!-- FIN POPUP SUEÑOS NAVIDAD -->
+    <!-- POP UP SHOWROOM HTML-->
+    @*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
+            <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
+            <div class="pestana_pop">
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+            </div>
+            <div class="pestana_preventa">
+                <div class="datos_pop_up">
+                    <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
+                    <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                    <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
+                    <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                    <div class="titulo_preventa">PRE &middot; VENTA</div>
+                    <div class="titulo_digital">DIGITAL</div>
+                    <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                    <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                    <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                    <div class="btn_conoce_mas_aqui">
+                        <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
+                    </div>
+                </div>
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+            </div>
+            <div class="content_show_right">
+                <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
+                <div class="slider_pop_up">
+                    <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
+                    <img src="" alt="" id="imgShowRoomGif"/>
+                </div>
+                <div class="borde_inferior">
+                    <div class="check_01">
+                        <label class="checkpop">
+                            <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                            No quiero volver a ver &eacute;ste comunicado
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    @*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
+            <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
+            <div class="pestana_pop">
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
+            </div>
+            <div class="pestana_preventa2">
+                <div class="datos_pop_up">
+                    <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
+                    <div class="titulo_preventa">PRE &middot; VENTA</div>
+                    <div class="titulo_digital">DIGITAL</div>
+                    <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+                    <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
+                    <div class="set_desde">SETS DESDE <span>$5,990</span></div>
+                    <hr class="clear" />
+                    <div class="btn_hoy">
+                        <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
+                    </div>
+                </div>
+                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
+                <div class="check_hoy">
+                    <label class="checkpop">
+                        <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
+                        No quiero volver a ver &eacute;ste comunicado
+                    </label>
+                </div>
+            </div>
+        </div>*@
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
+    <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOfertaEdit" style="float: left;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrellaEdit" style="float:left; margin-top:10px; width:23px; height:23px; margin-left:10px" src="">
+        </div>
+        <img id="imgZonaEstrategiaEdit" style="height: 200px; margin: 5px;" src="" alt="Imagen Producto" />
+    </div>
+    <br />
+    <div class="zona0Edit pedidos_datos_titulo"></div>
+    <div class="zona1Edit pedidos_datos_info texto-centrado" style="width:100%"></div>
+    <div class="zona2Edit texto-centrado"></div>
+    <div class="zona3Edit_1 pedidos_para_ti texto-centrado"></div>
+    <div class="zona3Edit_2 liquidacion_precio texto-centrado"></div>
+    <br />
+    <ul id="OfertasResultados" class="listaOfertas"></ul>
+    <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
+    <div class="zonaCantidad texto-centrado">
+        <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
+                <td>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadZE" id="txtCantidadZE" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="" alt="" /></a>
+                            <a class="menos"><img src="" alt="" /></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tallaColor">
+                <td style="vertical-align: middle;">Talla/Color: &nbsp;&nbsp;</td>
+                <td>
+                    <select id="ddlTallaColor" style="width: 130px; height: 30px; border: 1px solid #cccccc;"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<!-- POPUP MENSAJE -->
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
+<!-- FIN POPUP MENSAJE -->
+<!-- POPUP ESCOGER TONO -->
+<div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
+    <div class="popup_escogerTono" id="divTonosTallas">
+        <input type="hidden" id="MarcaID" value="">
+        <input type="hidden" id="PrecioOferta" value="">
+        <input type="hidden" id="CUV" value="">
+        <input type="hidden" id="ConfiguracionOfertaID" value="">
+        <input type="hidden" id="DescripcionProd" value="">
+        <input type="hidden" id="DescripcionMarca" value="">
+        <input type="hidden" id="DescripcionCategoria" value="">
+        <input type="hidden" id="DescripcionEstrategia" value="">
+        <input type="hidden" id="ImagenProducto" value="">
+        <div class="btn_cerrar_escogerTono btn_cerrar_agregarUnidades">
+            <a href="javascript:$('#divTonosTallas').dialog('close');">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_producto_escogerTono">
+            <h5>ESCOGER <span><b>TONO</b></span></h5>
+            <div class="contenedor_producto">
+                <div class="producto_carousel">
+                    <div class="producto_img">
+                        <img id="imgPopupTonoTalla" src="/Content/Images/Esika/img_producto.png" alt="Alternate Text" />
+                    </div>
+                    @*<div class="oferta_web"></div>
+                        <div class="reco_star"></div>*@
+                    <div class="producto_nombre_descripcion">
+                        <h6 id="marcaPopupTonoTalla">ÉSIKA</h6>
+                        <p class="nombre_producto">
+                            <b>Máscara Mirada Hechizante 8 g / .28 oz.</b>
+                        </p>
+                        <div class="producto_precio">
+                            @*<span class="producto_precio_normal">S/. 47.00</span>*@
+                            <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
+                        </div>
+                        <div class="producto_talla_color">
+                            <select id="ddlTallaColorLiq">
+                                <option value="0">Talla/Color</option>
+                            </select>
+                        </div>
+                        <div class="contenedor_cantidad_producto">
+                            <div class="liquidacion_rango_wrapper_pedido">
+                                <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas">
+                                        <img src="/Content/Images/Esika/mas.png" alt="">
+                                    </a>
+                                    <a class="menos">
+                                        <img src="/Content/Images/Esika/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <a title="Agregar" class="boton_elegirAgregar js-agregar-popup-liquidacion">
+                                AGREGAR
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- FIN POPUP ESCOGER TONO -->
+<!-- POPUP AGREGASTE UNIDADES -->
+<div class="contenedor_popup_agregarUnidades" id="dialog_AgregasteUnidades" style="display: none;">
+    <div class="popup_agregarUnidades">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="return $('#dialog_AgregasteUnidades').hide();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="icono_aprobacion" id="apro_o_excla"></div>
+            <h1 class="titulo_agregarUnidades"></h1>
+            <span class="mensaje_agregarUnidades">
+
+            </span>
+            <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_AgregasteUnidades').hide();">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+<!-- FIN AGREGASTE UNIDADES -->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento">
+</div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
+</div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+<!-- POPUPs HOME -->
+<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
+    <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                var tag = document.createElement("script");
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName("script")[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                var player;
+                function onYouTubeIframeAPIReady() {
+                    player = new YT.Player("player", {
+                        width: "100%",
+                        videoId: "MkYSBgNZGcs",
+                    });
+                }
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" id="cerrarVideoIntroductorio">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+    <!-- POPUP ACTUALIZACIÓN DATOS -->
+    <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" id="btnCerrarActualizarDatosMexico">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_actualizarMisDatos" style="margin-bottom: 25px;">
+                Actualiza tus datos <span style="font-size: 15pt;">y recibe un regalo sorpresa junto con tu próximo pedido</span>
+            </h1>
+            <p>
+                Querida consultora para enterarte de las novedades de Belcorp, de la información de tu pedido y poder afiliarte al beneficio de
+                Cliente Contacta Consultora es necesario que actualices tus datos.
+            </p>
+            <form class="formulario_actualizar_datos">
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Nombres</label>
+                        <input type="text" name="m_txtNombre" id="m_txtNombre" maxlength="50" class="requerido" value="@Model.NombreConsultora" />
+                    </div>
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Apellidos</label>
+                        <input type="text" name="m_Apellidos" id="m_Apellidos" maxlength="50" class="requerido" value="@Model.m_Apellidos" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono de casa</label>
+                        <input type="text" name="m_txtTelefonoCasa" id="m_txtTelefonoCasa" class="requerido" maxlength="10" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Telefono" />
+                    </div>
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Teléfono celular</label>
+                        <input type="text" name="m_txtTelefonoCelular" id="m_txtTelefonoCelular" class="requerido" placeholder="Número incluye lada (10 dígitos)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" value="@Model.Celular" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
+                        <input type="email" name="email" id="m_txtEMail" class="requerido" />
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <label id="aviso"></label>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div class="datos_obligatorios">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                    </div>
+                    <div class="contenedor_boton_actualizar">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarDatosMexico">
+                            ACTUALIZAR
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="popup_actualizarMisDatos" id="popupActualizarMisDatos" style="display: none;">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" id="btnCerrarActualizarDatos">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_actualizarMisDatos" id="tituloActualizarDatos"></h1>
+            <form class="formulario_actualizar_datos">
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label>Nombres</label>
+                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                    </div>
+                    <a href="javascript:;" class="cambiar_contrasenia" id="lnkCambiarContrasena">CAMBIAR CONTRASEÑA</a>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
+                    </div>
+                    <div>
+                        <label>Celular</label>
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Correo electrónico</label>
+                        <input type="email" name="email" id="txtEMail" />
+                    </div>
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Confirmar correo electrónico</label>
+                        <input type="email" name="email" id="txtConfirmarEMail" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos grupo_input_password" style="display: none;" id="divCambiarContrasena">
+                    <div>
+                        <label>Nueva contraseña</label>
+                        <input type="password" name="password" id="txtActualizarClaveSecreta" />
+                    </div>
+                    <div>
+                        <label>Confirmar nueva contraseña</label>
+                        <input type="password" name="password" id="txtConfirmarClaveSecreta" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div class="checkbox_condiciones">
+                        <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
+                        <label for="chkAceptoContrato" class="texto_terminosCondiciones">
+                            Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.
+                        </label>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos">
+                    <div class="datos_obligatorios">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                    </div>
+                    <div class="contenedor_boton_actualizar">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarDatos">
+                            ACTUALIZAR
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FIN POPUP ACTUALIZACIÓN DATOS -->
+    <!-- POPUP ACEPTACIÓN DE CONTRATO -->
+    <div class="popup_aceptacionContrato" id="popupAceptacionContrato" style="display: none;">
+        <div class="btn_cerrar_aceptacionContrato">
+            <a href="javascript:;" id="cerrarAceptacionContrato" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="icono_exclamacion"></div>
+            <h1 class="titulo_aceptacionContrato">
+                ACEPTACIÓN DE<b>&nbsp;CONTRATO</b>
+            </h1>
+            <span class="mensaje_popUp_aceptacionContrato">
+                Querida @(nombreConsultoraSin), al dar click en el botón aceptas los términos y condiciones de la Solicitud de Crédito.
+            </span>
+            <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleContrato" title="Conoce el detalle aquí">Conoce el detalle aquí</a>
+            <button type="button" name="btn_aceptarContrato" class="btn_aceptarContrato" onclick="return AceptarContrato();">
+                ACEPTAR
+            </button>
+        </div>
+    </div>
+    <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
+    <!-- POPUP DEMANDA ANTICIPADA -->
+    <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
+        <div class="contenido_popUp">
+            <h1 class="titulo_demandaAnticipada">
+                ¡PASA TU PEDIDO POR<b>&nbsp;DEMANDA</b>
+                <b>ANTICIPADA&nbsp;</b><br />Y RECIBE ESTOS BENEFICIOS
+            </h1>
+            <span class="mensaje_productoRegalo">1 Producto de regalo* + Flete Gratis</span>
+            <div class="contenedor_condicionesDemanda">
+                <div class="foto_referencial">
+                    <span class="ver_belcorpNoticias">* Ver regalos en Belcorpnoticias</span>
+                </div>
+                <div class="descripcion_condiciones">
+                    <h6><b>Condiciones:</b></h6>
+                    <div>
+                        <span class="icono_check"></span>
+                        <span class="texto_descripcionCondiciones">
+                            Cumplir con el monto mínimo (no cuenta expoferta) y máximo (nuevas)
+                        </span>
+                    </div>
+                    <div>
+                        <span class="icono_check"></span>
+                        <span class="texto_descripcionCondiciones">
+                            Pasar tu pedido hasta el <span id="fechaHasta" style="display: inline;"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <button type="button" name="btn_participaAhora" class="btn_participaAhora" onclick="return AceptarDemandaAnticipada();">
+                            PARTICIPA AHORA
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_noGracias">
+                <a href="javascript:;" onclick="return CancelarDemandaAnticipada();"><span>NO, GRACIAS</span></a>
+            </div>
+            <div class="contenedor_notasDemanda">
+                <div class="descripcion_notaDemanda">
+                    <span class="icono_notaDemanda">
+                    </span>
+                    <span class="texto_notaDemanda">
+                        Si aceptas participar no podrás modificar tu pedido luego del <span id="fechaLuego"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP DEMANDA ANTICIPADA -->
+    <!-- POPUP INVITACIÓN A FLEXIPAGO -->
+    <div class="popup_invitacionFlexiPago" id="popupInvitaionFlexipago" style="display: none;">
+        <div class="btn_cerrar_invitacionFlexipago">
+            <a href="javascript:;" id="cerrarInvitacionFlexipago" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_invitacionFlexipago">HAZ CRECER<b>&nbsp;TU NEGOCIO</b></h1>
+            <span class="mensaje_popUp_invitacionFlexipago">Felicitaciones, has sido invitada a</span>
+            <span class="area_logoFlexiPago">
+                <img src="@Url.Content("~/Content/Images/flexipago.png")" alt="Logo Flexipago" />
+            </span>
+            <div class="btn_grupo_invitacionFlexiPago">
+                <button type="button" name="btn_conoceMas" class="btn_conoceMas" onclick="return ConoceFlex();">
+                    CONOCE MÁS
+                </button>
+                <button type="button" name="btn_inscribeteAhora" class="btn_inscribeteAhora" onclick="return InscribeteFlex();">
+                    INSCRÍBETE AHORA
+                </button>
+                <a href="javascript:;" onclick="return RechazarInvitacionFlex();" title="No deseo inscribirme" class="btn_noInscripcion">No deseo inscribirme</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- FIN POPUP INVITACIÓN A FLEXIPAGO -->
+    <!-- POPUP MIS DATOS -->
+    <div class="popup_actualizarMisDatos" id="popupMisDatos" style="display: none;">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void();" id="cerrarPopupMisDatos" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
+            <input type="hidden" id="hdn_CorreoMD" value="" />
+            <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
+            <input type="hidden" id="hdn_NombreCompletoMD" value="" />
+            <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+
+            <form class="formulario_actualizar_datos">
+                <div class="datos_consultora">
+                    <div class="datos_consultora_img">
+                        <a class="subir_foto"></a>
+                        <div class="foto_perfil_home">
+                            <img src="/Content/Images/Esika/user.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="datos_consultora_textos">
+                        <div class="datos_cod_usuario">
+                            <span>Tu Código de usuario:</span>
+                            <span id="codigoUsurioMD"></span>
+                        </div>
+                        <div class="datos_nombre_usuario">
+                            <span>Tu Nombre completo:</span>
+                            <span id="nombresUsuarioMD"></span>
+                        </div>
+                        <div class="enlace_cambiarContraseniachkAceptoContratoMD">
+                            <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
+                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                    </div>
+                    <div>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label>Tu teléfono:</label>
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
+                    </div>
+                    <div>
+                        <label>Tu celular:</label>
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div class="checkbox_condiciones">
+                        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                            Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                        </label>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div class="datos_obligatorios">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                    </div>
+                    <div class="contenedor_boton_actualizar">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                            ACTUALIZAR
+                        </button>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Tu contraseña</label>
+                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+                    </div>
+                    <div>
+                        <label>Repite la nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div class="contenedor_boton_cancelar misDatos">
+                        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+                            CANCELAR
+                        </button>
+                    </div>
+                    <div class="contenedor_boton_actualizar misDatos">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+                            GUARDAR
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FIN POPUP MIS DATOS -->
+</div>
+<!-- FIN POPUP POPUPs HOME -->
+
+<!-- VIDEO INTRODUCTORIO HOME -->
+
+<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
+    <div class="popup_video_introductorio" style="display: none;">
+        <div class="contenedor_video_introductorio">
+            <div id="player"></div>
+            <script>
+                //var tag = document.createElement("script");
+                //tag.src = "https://www.youtube.com/iframe_api";
+                //var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
+                //    player = new YT.Player("player", {
+                //        width: "100%",
+                //        videoId: "7g6h749J02w",
+                //    });
+                //}
+            </script>
+        </div>
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN VIDEO INTRODUCTORIO HOME    -->
+
+<!-- POPUP TUTORIAL HOME-->
+
+<div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
+    <div class="popup_tutorial_home">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP TUTORIAL -->
+
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div>               
+        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+        <div class="producto_img_home">
+            <img src="{{FotoProducto01}}" class="imagen_producto" />
+        </div>
+
+    {{#if_eq FlagMostrarImg '1'}}
+        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+        {{/if_eq}}
+    {{/if_eq}}
+
+    <div class="producto_nombre_descripcion">
+        <h6>{{DescripcionMarca}}</h6>
+        {{#if_eq FlagNueva '1'}}
+        <p class="nombre_producto">
+            <b>{{DescripcionCUVSplit}}</b>
+        </p>
+        {{else}}
+        <p class="nombre_producto">
+            <b>{{DescripcionCUV2}}</b>
+        </p>
+        {{/if_eq}}
+
+        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+        {{#if_eq EtiquetaID '1'}}
+        <div class="producto_precio">
+            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+        </div>
+        {{else}}
+        <div class="producto_precio">
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+        </div>
+        {{/if_eq}}
+
+        {{else}}
+        <div class="producto_precio">
+            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+        </div>
+        {{/iff}}
+
+        {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+        <div class="liquidacion_rango_home">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{/iff}}
+
+        <div class="clear"></div>
+    </div>
+    </div>
+</div>
+{{/each}}
+    </script>
+
+    <script id="liquidacion-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div>
+            <div class="content_item_carrusel">
+                <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
+                <input type="hidden" id="CUV" value="{{CUV}}" />
+                <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+                <div class="producto_img_home mini">
+                <img src="{{ImagenProducto}}" class="imagen_producto" />
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{#if TieneTallaColor}}
+                    <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
+                        {{TextoBotonTallaColor}}
+                    </a>
+                    {{else}}
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                            <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home js-agregar-liquidacion">
+                        AGR&Eacute;GALO
+                    </a>
+                    {{/if}}
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script id="packnuevas-template" type="text/x-handlebars-template">
+        <div class="popup_detalleCarousel packNuevas">
+            <div class="btn_cerrar_detalleCarousel">
+                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <div class="bloque_producto_packNuevas">
+                    <div class="content_item_carrusel">
+                        {{#if_eq FlagMostrarImg '1'}}
+                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{/if_eq}}
+                        {{/if_eq}}
+                        <div class="producto_img_home">
+                            <img src="{{FotoProducto01}}">
+                        </div>
+                        <div class="etiqueta_producto">
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <h6>{{DescripcionMarca}}</h6>
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUVSplit}}</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            <div class="monto_ganancia_producto">
+                                <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
+                            </div>
+                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                                AGRÉGALO
+                            </a>
+
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descripcion_set_packNuevas">
+                    <h6>Contenido del Set</h6>
+                    <div class="descripcion_lista">
+                        {{#each ArrayContenidoSet as |item|}}
+                        <span>
+                            {{item}}
+                        </span>
+                        {{/each}}
+                    </div>
+                    {{#if MostrarTextoLibre}}
+                    <div class="mensaje_advertencia_detalleCarousel">
+                        <span class="icono_advertencia_notificacion"></span>
+                        <span>{{TextoLibre}}</span>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </script>
+    <script id="lanzamiento-template" type="text/x-handlebars-template">
+        <div class="popup_detalleCarousel lanzamiento">
+            <div class="btn_cerrar_detalleCarousel">
+                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <div class="content_item_carrusel">
+                    {{#if_eq FlagMostrarImg '1'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                    {{/if_eq}}
+                    <div class="producto_img_home">
+                        <img src="{{FotoProducto01}}">
+                    </div>
+                    <div class="etiqueta_producto">
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>{{DescripcionMarca}}</h6>
+                        <p class="nombre_producto">
+                            <b>{{DescripcionCUV2}}</b>
+                        </p>
+                        <div class="producto_precio">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                            {{/iff}}
+                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        </div>
+                        <div class="liquidacion_rango_home">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true); ">
+                            AGRÉGALO
+                        </a>
+
+                        <div class="clear"></div>
+                    </div>
+                    {{#if MostrarTextoLibre}}
+                    <div class="mensaje_advertencia_detalleCarousel">
+                        <span class="icono_advertencia_notificacion"></span>
+                        <span>{{TextoLibre}}</span>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </script>
+
+    <script id="miscursos-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="borde_video">
+        <a href="{{url}}" class="titulo_item_video" target="_blank">
+                {{nombre}}
+            </a>
+            <div class="porcentaje_curso">
+                {{#if_eq estado '0'}}
+                <div class="sin_iniciar">
+                    SIN INICIAR
+                </div>
+                {{else if_eq estado '1' }}
+                <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                    <span></span>%
+                </div>
+                {{else if_eq estado '2' }}
+                <div class="sin_iniciar">
+                    FINALIZADO
+                </div>
+                {{/if_eq}}
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <script id="miscursosv-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="contenedor_cursos_academia">
+            <div class="curso_img">
+                <img src="{{imagen}}" alt="Imagen Curso" />
+            </div>
+            <div class="curso_descripcion">
+                <div class="curso_titulo">
+                    <span>{{nombre}}</span>
+                </div>
+                <div class="curso_porcentaje_avance">
+                    <div class="porcentaje_curso">
+
+                        {{#if_eq estado '0'}}
+                        <div class="sin_iniciar">
+                            SIN INICIAR
+                        </div>
+                        {{else if_eq estado '1' }}
+                        <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                            <span></span>%
+                        </div>
+                        {{else if_eq estado '2' }}
+                        <div class="sin_iniciar">
+                            FINALIZADO
+                        </div>
+                        {{/if_eq}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+    </script>
+<script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="">
+        {{#each this as |item|}}
+        <div class="contiene-productos" data-item="catalogopersonalizado">
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            </div>
+            <div class="producto_img_home mini">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+            </div>
+            {{#IsNullOrEmpty item.Sello '!='}}
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            {{/IsNullOrEmpty}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="clear"></div>
+    </div>
+</script>
+    @section scripts{
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+        <script type="text/javascript">
+            var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+            var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+            var viewBagPrimeraVez = '@Model.PrimeraVez';
+            var ViewBagRutaChile = '@Model.rutaChile';
+            var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+            var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+            var viewBagCambioClave = '@Model.CambioClave';
+            var viewBagPaisID = '@Model.PaisID';
+            var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+            var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+            var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+            var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
+            var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+            var viewBagCampaniaActual = '@Model.CampaniaActual';
+            var viewBagNroCampana = '@Model.NroCampana';
+            var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+            var viewBagPrefijoPais = '@Model.PrefijoPais';
+            var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+            var viewBagRolID = '@ViewBag.Rol';
+            var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+            var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
+            var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
+            var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
+            var viewBagValidaSegmento = '@Model.ValidaSegmento';
+            var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+            var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+            var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+            var contadorFondoPopUp = 0;
+            var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+            var sessionIsContrato = '@Session["IsContrato"]';
+            @{ Session["IsContrato"] = 0; }
+            var paisISO = '@ViewBag.CodigoISODL';
+            var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+            var primeraVezVideo = true;
+</script>
+        @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    }

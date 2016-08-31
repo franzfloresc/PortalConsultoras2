@@ -1,0 +1,13 @@
+version: 0.0
+os: windows
+files:
+  - source: /Publish
+    destination: C:\inetpub\wwwroot\SB2WCF
+hooks:
+  BeforeInstall:
+    - location: /scripts/stoppool_ws.bat
+      timeout: 300
+  AfterInstall:
+    - location: /scripts/startpool_ws.bat
+    - location: /scripts/configuracion_ws.bat
+      timeout: 900

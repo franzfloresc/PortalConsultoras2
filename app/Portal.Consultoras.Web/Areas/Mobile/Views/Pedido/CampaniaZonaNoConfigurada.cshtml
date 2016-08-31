@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <ol class="breadcrumb-next upper">
+            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
+            <li>|</li>
+            <li>MI PEDIDO</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="block-white text-center">
+            <div class="simple-alert text-success">
+                <span class="alert-icon"><i class="icon-info"></i></span>
+                <div>Estimada Consultora en estos momentos no se encuentra activa la @ViewBag.MensajeCampaniaZona para su país.</div>
+            </div>
+        </div>
+    </div>
+</div>

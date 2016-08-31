@@ -1,0 +1,418 @@
+﻿@{
+    ViewBag.Title = "Catálogo personalizado";
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp content_belcorp_misPedidos">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top: -1px; position: relative; z-index: 20;"></div>
+</div>
+<div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
+    <div data-div="d">
+        <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
+                <div class="pestana_lbel new"></div>
+                <div id="divCatalogoPersonalizado"></div>
+                @*<div class="content-favclientes catper">
+
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>ÉSIKA</h6>
+                            <p class="nombre_producto">
+                                <b>Fragancia Leyenda</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+                        <div class="etiqueta_producto nuevofavorito">
+                            <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Acondicionador berrylicious yummy yogurt</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>perfume #true</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="content-favclientes catper">
+
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>ÉSIKA</h6>
+                            <p class="nombre_producto">
+                                <b>Fragancia Leyenda</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+                        <div class="etiqueta_producto nuevofavorito">
+                            <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Acondicionador berrylicious yummy yogurt</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>perfume #true</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="content-favclientes catper">
+
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>ÉSIKA</h6>
+                            <p class="nombre_producto">
+                                <b>Fragancia Leyenda</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+                        <div class="etiqueta_producto nuevofavorito">
+                            <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Acondicionador berrylicious yummy yogurt</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>perfume #true</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contiene-productos">
+                        <div class="producto_img_home mini">
+                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png">
+                        </div>
+
+                        <div class="producto_nombre_descripcion">
+                            <h6>CYZONE</h6>
+                            <p class="nombre_producto">
+                                <b>Esmalte de uñas cyº nails in! finish sugar</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
+                            </div>
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                </div>*@
+            
+            </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+
+        </div>
+    </div>
+</div>
+<script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="content-favclientes catper pantallaCatalogoPersonalizado">
+        {{#each this as |item|}}
+        <div class="contiene-productos" data-item="catalogopersonalizado">
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            </div>
+            <div class="producto_img_home mini">
+                <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+            </div>
+            {{#IsNullOrEmpty item.Sello '!='}}
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+            </div>
+            {{/IsNullOrEmpty}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="height: 15px;">
+                    <div class="agregado product-add" style="padding-top: 7px; text-align: right; display:;{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="clear"></div>
+    </div>
+</script>
+@section scripts{
+
+<script type="text/javascript">
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    var vbSimbolo = vbSimbolo || "";
+</script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/index.js")"></script>
+}

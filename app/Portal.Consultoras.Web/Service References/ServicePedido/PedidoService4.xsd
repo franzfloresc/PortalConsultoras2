@@ -1,0 +1,3986 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="GetPedidosWebByConsultoraCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebByConsultoraCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosWebByConsultoraCampaniaResult" nillable="true" type="q1:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosFacturados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosFacturadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosFacturadosResult" nillable="true" type="q2:ArrayOfBEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosIngresadoFacturado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosIngresadoFacturadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosIngresadoFacturadoResult" nillable="true" type="q3:ArrayOfBEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConsultorasProgramaNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q4:BEConsultorasProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConsultorasProgramaNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConsultorasProgramaNuevasResult" nillable="true" type="q5:BEConsultorasProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMensajeMetaConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q6:BEMensajeMetaConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMensajeMetaConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMensajeMetaConsultoraResult" nillable="true" type="q7:ArrayOfBEMensajeMetaConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenOfertaPersonalizadaOF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenOfertaPersonalizadaOFResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetImagenOfertaPersonalizadaOFResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTallaColorCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q8:BETallaColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTallaColorCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarTallaColorCUVResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaByCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q9:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaByCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaByCUVResult" nillable="true" type="q10:ArrayOfBEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q11:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarEstrategiaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltrarEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q12:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltrarEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaResult" nillable="true" type="q13:ArrayOfBEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeshabilitarEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q14:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeshabilitarEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeshabilitarEstrategiaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTallaColor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q15:BETallaColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTallaColorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarTallaColorResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCUVsRecomendados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q16:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCUVsRecomendadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCUVsRecomendadosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategiasPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q17:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategiasPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasPedidoResult" nillable="true" type="q18:ArrayOfBEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltrarEstrategiaPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q19:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FiltrarEstrategiaPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaPedidoResult" nillable="true" type="q20:ArrayOfBEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarStockEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q21:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarStockEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarStockEstrategiaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q22:BEOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteOfertaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRegionZonaZE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+        <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRegionZonaZEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRegionZonaZEResult" nillable="true" type="q23:ArrayOfBEConfiguracionValidacionZE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoRechazadoByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoRechazadoByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoRechazadoByConsultoraResult" nillable="true" type="q24:BENovedadFacturacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoAnuladoByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoAnuladoByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoAnuladoByConsultoraResult" nillable="true" type="q25:BENovedadFacturacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoProcesoPROLAuto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoProcesoPROLAutoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetEstadoProcesoPROLAutoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoProcesoPROLAutoDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoProcesoPROLAutoDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstadoProcesoPROLAutoDetalleResult" nillable="true" type="q26:ArrayOfBEValidacionAutomatica" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsValidacionMovilPROLLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q27:BEValidacionMovil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsValidacionMovilPROLLogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsValidacionMovilPROLLogResult" nillable="true" type="q28:BEValidacionMovil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdValidacionMovilPROLLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q29:BEValidacionMovil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdValidacionMovilPROLLogResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdValAutoPROLPedidoWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+        <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
+        <xs:element minOccurs="0" name="ItemsEliminados" type="xs:boolean" />
+        <xs:element minOccurs="0" name="montoTotalProl" type="xs:decimal" />
+        <xs:element minOccurs="0" name="descuentoProl" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdValAutoPROLPedidoWebResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebAccionesPROLAuto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEAccionesPROL" nillable="true" type="q30:BEAccionesPROL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebAccionesPROLAutoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalleValAuto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+        <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+        <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalleValAutoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetValidacionMovilPROLLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q31:BEValidacionMovil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetValidacionMovilPROLLogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetValidacionMovilPROLLogResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleObsPROL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:int" />
+        <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Tipo" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleObsPROLResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebDetalleValidacionPROL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebDetalleValidacionPROLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoWebDetalleValidacionPROLResult" nillable="true" type="q32:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebCorreoPROL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
+        <xs:element minOccurs="0" name="ValAutomaticaPROLLogId" type="xs:long" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebCorreoPROLResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarSuenioNavidad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q33:BESuenioNavidad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarSuenioNavidadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListarSuenioNavidadResult" nillable="true" type="q34:ArrayOfBESuenioNavidad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarSuenioNavidad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q35:BESuenioNavidad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarSuenioNavidadResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarSuenioNavidad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q36:BESuenioNavidad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarSuenioNavidadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarSuenioNavidadResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUnidadesPermitidasEnPedidoZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnidadesPermitidasByCuvZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerMaximoItemsaMostrarZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarItemsMostrarZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatosAdmStockMinimoCorreosZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatosAdmStockMinimoCorreosZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDatosAdmStockMinimoCorreosZAResult" nillable="true" type="q37:ArrayOfBEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsAdministracionStockMinimoZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q38:BEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsAdministracionStockMinimoZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsAdministracionStockMinimoZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdAdministracionStockMinimoZA">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q39:BEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdAdministracionStockMinimoZAResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdAdministracionStockMinimoZAResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTallaColorLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q40:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTallaColorLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorLiquidacionResult" nillable="true" type="q41:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTallaColorLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q42:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTallaColorLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarTallaColorLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTallaColorLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q43:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTallaColorLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarTallaColorLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarLiquidacionByCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q44:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarLiquidacionByCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ConsultarLiquidacionByCUVResult" nillable="true" type="q45:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CantidadPedidoByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q46:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CantidadPedidoByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CantidadPedidoByConsultoraResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarDesactivaRevistaGana">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarDesactivaRevistaGanaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarDesactivaRevistaGanaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCUVCreditoPorCUVRegular">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCUVCreditoPorCUVRegularResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ValidarCUVCreditoPorCUVRegularResult" nillable="true" type="q47:BECUVCredito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsLogEnvioCorreoPedidoValidado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beLogCabeceraEnvioCorreo" nillable="true" type="q48:BELogCabeceraEnvioCorreo" />
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listLogDetalleEnvioCorreo" nillable="true" type="q49:ArrayOfBELogDetalleEnvioCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsLogEnvioCorreoPedidoValidadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsLogEnvioCorreoPedidoValidadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoverOfertaLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q50:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoverOfertaLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoverOfertaLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitudCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="prefijoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q51:BEEntradaSolicitudCliente" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitudClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteResult" nillable="true" type="q52:BEResultadoSolicitud" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitudClienteAppCatalogo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="prefijoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q53:BESolicitudClienteAppCatalogo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitudClienteAppCatalogoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteAppCatalogoResult" nillable="true" type="q54:BEResultadoSolicitud" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomEventoByCampaniaID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomEventoByCampaniaIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomEventoByCampaniaIDResult" nillable="true" type="q55:BEShowRoomEvento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertShowRoomEvento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q56:BEShowRoomEvento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertShowRoomEventoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertShowRoomEventoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateShowRoomEvento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q57:BEShowRoomEvento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateShowRoomEventoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargarMasivaConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listaConsultora" nillable="true" type="q58:ArrayOfBEShowRoomEventoConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargarMasivaConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CargarMasivaConsultoraResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoomStockMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="stockProductos" nillable="true" type="q59:ArrayOfBEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoomStockMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaShowRoomStockMasivoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargarMasivaDescripcionSets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="usuarioCreacion" nillable="true" type="xs:string" />
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listaShowRoomOfertaDetalle" nillable="true" type="q60:ArrayOfBEShowRoomOfertaDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CargarMasivaDescripcionSetsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CargarMasivaDescripcionSetsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomConsultoraResult" nillable="true" type="q61:BEShowRoomEventoConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateShowRoomConsultoraMostrarPopup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="mostrarPopup" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateShowRoomConsultoraMostrarPopupResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="tipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoOferta" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosShowRoomResult" nillable="true" type="q62:ArrayOfBEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrdenPriorizacionShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrdenPriorizacionShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOrdenPriorizacionShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarPriorizacionShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarPriorizacionShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarPriorizacionShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q63:BEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsOfertaShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q64:BEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q65:BEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelOfertaShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoverOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q66:BEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoverOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoverOfertaShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomOfertas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomOfertasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomOfertasResult" nillable="true" type="q67:ArrayOfBEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnidadesPermitidasByCuvShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUnidadesPermitidasEnPedidoShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CantidadPedidoByConsultoraShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q68:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CantidadPedidoByConsultoraShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CantidadPedidoByConsultoraShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStockOfertaShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeshabilitarShowRoomEvento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q69:BEShowRoomEvento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeshabilitarShowRoomEventoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeshabilitarShowRoomEventoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarShowRoomEvento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q70:BEShowRoomEvento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarShowRoomEventoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarShowRoomEventoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarImagenShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="eventoId" type="xs:int" />
+        <xs:element minOccurs="0" name="nombreImagenFinal" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipo" type="xs:int" />
+        <xs:element minOccurs="0" name="usuarioModificacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarImagenShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GuardarImagenShowRoomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosShowRoomDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosShowRoomDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosShowRoomDetalleResult" nillable="true" type="q71:ArrayOfBEShowRoomOfertaDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaShowRoomDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q72:BEShowRoomOfertaDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaShowRoomDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsOfertaShowRoomDetalleResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoomDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q73:BEShowRoomOfertaDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaShowRoomDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaShowRoomDetalleResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarOfertaShowRoomDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomOfertaDetalle" nillable="true" type="q74:BEShowRoomOfertaDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarOfertaShowRoomDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarOfertaShowRoomDetalleResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarOfertaShowRoomDetalleAll">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarOfertaShowRoomDetalleAllResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarOfertaShowRoomDetalleAllResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPerfiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="eventoId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPerfilesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomPerfilesResult" nillable="true" type="q75:ArrayOfBEShowRoomPerfil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPerfilOfertaCuvs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beShowRoomPerfilOferta" nillable="true" type="q76:BEShowRoomPerfilOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPerfilOfertaCuvsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomPerfilOfertaCuvsResult" nillable="true" type="q77:ArrayOfBEShowRoomPerfilOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPerfilOfertaShowRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="perfilId" type="xs:int" />
+        <xs:element minOccurs="0" name="eventoId" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="cadenaCuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarPerfilOfertaShowRoomResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomOfertasConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomOfertasConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetShowRoomOfertasConsultoraResult" nillable="true" type="q78:ArrayOfBEShowRoomOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaginateProductoSugerido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUVAgotado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CUVSugerido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaginateProductoSugeridoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPaginateProductoSugeridoResult" nillable="true" type="q79:ArrayOfBEProductoSugerido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenesByCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenesByCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetImagenesByCUVResult" nillable="true" type="q80:ArrayOfBEMatrizComercial" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsProductoSugerido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q81:BEProductoSugerido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsProductoSugeridoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsProductoSugeridoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdProductoSugerido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q82:BEProductoSugerido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdProductoSugeridoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdProductoSugeridoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelProductoSugerido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q83:BEProductoSugerido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelProductoSugeridoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelProductoSugeridoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionProgramaNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q84:BEConfiguracionProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionProgramaNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionProgramaNuevasResult" nillable="true" type="q85:BEConfiguracionProgramaNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMontosPedidoWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoWeb" nillable="true" type="q86:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMontosPedidoWebResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPackOfertasNuevasByCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPackOfertasNuevasByCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPackOfertasNuevasByCampaniaResult" nillable="true" type="q87:ArrayOfBEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosOfertaConsultoraNueva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosOfertaConsultoraNuevaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosOfertaConsultoraNuevaResult" nillable="true" type="q88:ArrayOfBEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDescripcionPackByCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaCodigo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDescripcionPackByCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDescripcionPackByCUVResult" nillable="true" type="q89:BEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBe" nillable="true" type="q90:BEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBe" nillable="true" type="q91:BEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUnidadesPermitidasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEstadoPacksOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEstadoPacksOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerEstadoPacksOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEstadoPacksOfertasNueva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="idconsultora" type="xs:int" />
+        <xs:element minOccurs="0" name="campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerEstadoPacksOfertasNuevaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerEstadoPacksOfertasNuevaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdEstadoPacksOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CambioEstado" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdEstadoPacksOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdEstadoPacksOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBe" nillable="true" type="q92:BEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBe" nillable="true" type="q93:BEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertasNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBe" nillable="true" type="q94:BEOfertaNueva" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertasNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelOfertasNuevasResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdEstadoPacksOfertasNueva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="idconsultora" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdEstadoPacksOfertasNuevaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdEstadoPacksOfertasNuevaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosByOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosByOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosByOfertaFlexipagoResult" nillable="true" type="q95:ArrayOfBEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarLinksOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q96:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GuardarLinksOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLinksOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLinksOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetLinksOfertaFlexipagoResult" nillable="true" type="q97:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaFlexipagoStockMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="stockProductos" nillable="true" type="q98:ArrayOfBEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaFlexipagoStockMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaFlexipagoStockMasivoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCategoriaConsultoraMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="stockProductos" nillable="true" type="q99:ArrayOfBEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCategoriaConsultoraMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdCategoriaConsultoraMasivoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoriaByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategoriaByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCategoriaByConsultoraResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q100:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsOfertaFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q101:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q102:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelOfertaFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnidadesPermitidasByCuvFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUnidadesPermitidasEnPedidoFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaProductoFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaProductoFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStockOfertaProductoFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerMaximoItemsaMostrarFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarItemsMostrarFlexipagoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortalFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortalFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaProductosPortalFlexipagoResult" nillable="true" type="q103:ArrayOfBEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCuotasAnterioresFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCuotasAnterioresFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCuotasAnterioresFlexipagoResult" nillable="true" type="q104:ArrayOfBEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineaCreditoFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineaCreditoFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetLineaCreditoFlexipagoResult" nillable="true" type="q105:BEOfertaFlexipago" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPermisoFlexipago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPermisoFlexipagoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPermisoFlexipagoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectFICByCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectFICByCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectFICByCampaniaResult" nillable="true" type="q106:ArrayOfBEPedidoFICDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertFIC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidoficdetalle" nillable="true" type="q107:BEPedidoFICDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertFICResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertFICResult" nillable="true" type="q108:BEPedidoFICDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoFICDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidoficdetalle" nillable="true" type="q109:BEPedidoFICDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoFICDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoFICDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidoficdetalle" nillable="true" type="q110:BEPedidoFICDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoFICDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoFICDetalleMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoFICDetalleMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelPedidoFICDetalleMasivoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsTempServiceProl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ServicePROL" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsTempServiceProlResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReportePedidoFIC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReportePedidoFICResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReportePedidoFICResult" nillable="true" type="q111:ArrayOfBEServicePROLFIC" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosFIC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaFacturacion" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="tipoCronograma" type="xs:int" />
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosFICResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q112="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DescargaPedidosFICResult" nillable="true" type="q112:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFechaNoHabilFacturacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFechaNoHabilFacturacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetFechaNoHabilFacturacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosByConsultoraResult" nillable="true" type="q113:ArrayOfBETracking" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoByConsultoraAndCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoByConsultoraAndCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoByConsultoraAndCampaniaResult" nillable="true" type="q114:BETracking" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTrackingByPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campana" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nropedido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTrackingByPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTrackingByPedidoResult" nillable="true" type="q115:ArrayOfBETracking" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductoCUVsAutomaticosToInsert">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidoweb" nillable="true" type="q116:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductoCUVsAutomaticosToInsertResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetProductoCUVsAutomaticosToInsertResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaFICToInsert">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidoweb" nillable="true" type="q117:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaFICToInsertResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOfertaFICToInsertResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSegmentoPlaneamiento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSegmentoPlaneamientoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetSegmentoPlaneamientoResult" nillable="true" type="q118:ArrayOfBESegmentoPlaneamiento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoDDDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="paisISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="IndicadorActivo" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoDDDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoDDDetalleResult" nillable="true" type="q119:ArrayOfBEPedidoDDWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebByCampaniaConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebByCampaniaConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoWebByCampaniaConsultoraResult" nillable="true" type="q120:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnularPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="pedidoID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnularPedidoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoDDByCampaniaConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoDDByCampaniaConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoDDByCampaniaConsultoraResult" nillable="true" type="q121:BEPedidoDD" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoDD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoDD" nillable="true" type="q122:BEPedidoDD" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoDDResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoDD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoDD" nillable="true" type="q123:BEPedidoDD" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoDDResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabiliatPedidoIndividual">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="usuarioDigitador" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="indicadoEnviado" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabiliatPedidoIndividualResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsLogPedidoDDInvalido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beLogPedidoDDInvalido" nillable="true" type="q124:BELogPedidoDDInvalido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsLogPedidoDDInvalidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsLogPedidoDDInvalidoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectLogPedidosInvalidos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaRegistro" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectLogPedidosInvalidosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectLogPedidosInvalidosResult" nillable="true" type="q125:ArrayOfBELogPedidoDDInvalido" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdLogPedidoInvalido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaRegistro" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdLogPedidoInvalidoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarLogPedidoWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+        <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarLogPedidoWebResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosIngresados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaIngreso" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="indicadorActivo" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosIngresadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosIngresadosResult" nillable="true" type="q126:ArrayOfBEPedidoDD" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoDDDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoDDDetalle" nillable="true" type="q127:BEPedidoDDDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoDDDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoDDDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="bePedidoDDDetalle" nillable="true" type="q128:BEPedidoDDDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoDDDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCampaniaActualByZona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCampaniaActualByZonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCampaniaActualByZonaResult" nillable="true" type="q129:BEConfiguracionCampania" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionCampaniaZona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="zonaID" type="xs:int" />
+        <xs:element minOccurs="0" name="regionID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionCampaniaZonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionCampaniaZonaResult" nillable="true" type="q130:BEConfiguracionCampania" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebAccionesPROL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="olstBEPedidoWebDetalle" nillable="true" type="q131:ArrayOfBEPedidoWebDetalle" />
+        <xs:element minOccurs="0" name="Tipo" type="xs:int" />
+        <xs:element minOccurs="0" name="Accion" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebAccionesPROLResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerificarAsistenciaCompartamos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerificarAsistenciaCompartamosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="VerificarAsistenciaCompartamosResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarAsistenciaCompartamos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beAsistenciaCompartamos" nillable="true" type="q132:BEAsistenciaCompartamos" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistrarAsistenciaCompartamosResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdVisualizacionPopupProRecom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="consultoraid" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaid" type="xs:int" />
+        <xs:element minOccurs="0" name="paisid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdVisualizacionPopupProRecomResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdVisualizacionPopupProRecomResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabilitaPedidoMultiple">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q133="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="infoConsultoras" nillable="true" type="q133:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabilitaPedidoMultipleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HabilitaPedidoMultipleResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabilitaPedidoMultipleInformacionConsultoras">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q134="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="listaConsultoras" nillable="true" type="q134:ArrayOfKeyValueOfstringstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HabilitaPedidoMultipleInformacionConsultorasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q135="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HabilitaPedidoMultipleInformacionConsultorasResult" nillable="true" type="q135:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReporteIntegradoWebDD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaIDInicio" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReporteIntegradoWebDDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteIntegradoWebDDResult" nillable="true" type="q136:BEInformacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNovedadesTracking">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNovedadesTrackingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetNovedadesTrackingResult" nillable="true" type="q137:ArrayOfBENovedadTracking" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfirmacionEntrega">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEConfirmacionEntrega" nillable="true" type="q138:BEConfirmacionEntrega" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfirmacionEntregaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsConfirmacionEntregaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdConfirmacionEntrega">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEConfirmacionEntrega" nillable="true" type="q139:BEConfirmacionEntrega" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdConfirmacionEntregaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdConfirmacionEntregaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfirmacionRecojo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEConfirmacionRecojo" nillable="true" type="q140:BEConfirmacionRecojo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfirmacionRecojoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsConfirmacionRecojoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMisPostVentaByConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMisPostVentaByConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMisPostVentaByConsultoraResult" nillable="true" type="q141:ArrayOfBEPostVenta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSeguimientoPostVenta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroRecojo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="estadoId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSeguimientoPostVentaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetSeguimientoPostVentaResult" nillable="true" type="q142:ArrayOfBEPostVenta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNovedadPostVenta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="numeroRecojo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNovedadPostVentaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetNovedadPostVentaResult" nillable="true" type="q143:ArrayOfBEPostVenta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarEtiqueta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q144:BEEtiqueta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarEtiquetaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarEtiquetaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEtiquetas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q145="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q145:BEEtiqueta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEtiquetasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEtiquetasResult" nillable="true" type="q146:ArrayOfBEEtiqueta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionPackNuevas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionPackNuevasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionPackNuevasResult" nillable="true" type="q147:ArrayOfBEConfiguracionPackNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q148:BEOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarOfertaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q149:BEOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasResult" nillable="true" type="q150:ArrayOfBEOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTipoEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q151="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q151:BETipoEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarTipoEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarTipoEstrategiaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTipoEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q152="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q152:BETipoEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarTipoEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarTipoEstrategiaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoEstrategias">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q153="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q153:BETipoEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoEstrategiasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q154="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTipoEstrategiasResult" nillable="true" type="q154:ArrayOfBETipoEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategias">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q155="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q155:BEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstrategiasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q156="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasResult" nillable="true" type="q156:ArrayOfBEEstrategia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTallaColor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q157="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q157:BETallaColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTallaColorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q158="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorResult" nillable="true" type="q158:ArrayOfBETallaColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderIndicador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraLiderID" type="xs:long" />
+        <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampaniaActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderIndicadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q159="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosReporteLiderIndicadorResult" nillable="true" type="q159:BEPedidoReporteLiderIndicador" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosValidados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraLiderID" type="xs:long" />
+        <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampaniaActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosValidadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q160="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosReporteLiderPedidosValidadosResult" nillable="true" type="q160:ArrayOfBEPedidoReporteLiderListado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosNoValidados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraLiderID" type="xs:long" />
+        <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampaniaActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosNoValidadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q161="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosReporteLiderPedidosNoValidadosResult" nillable="true" type="q161:ArrayOfBEPedidoReporteLiderListado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosRechazados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraLiderID" type="xs:long" />
+        <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampaniaActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosRechazadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q162="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosReporteLiderPedidosRechazadosResult" nillable="true" type="q162:ArrayOfBEPedidoReporteLiderListado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosFacturados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraLiderID" type="xs:long" />
+        <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoCampaniaActual" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosReporteLiderPedidosFacturadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q163="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosReporteLiderPedidosFacturadosResult" nillable="true" type="q163:ArrayOfBEPedidoReporteLiderListado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Insert">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q164="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q164:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q165="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertResult" nillable="true" type="q165:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q166="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q166:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q167="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectByCampaniaResult" nillable="true" type="q167:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosDDWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q168="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoDDWeb" nillable="true" type="q168:BEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosDDWebResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q169="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectPedidosDDWebResult" nillable="true" type="q169:ArrayOfBEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosDDWebDetalleByCampaniaPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosDDWebDetalleByCampaniaPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q170="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectPedidosDDWebDetalleByCampaniaPedidoResult" nillable="true" type="q170:ArrayOfBEPedidoDDWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByOfertaWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByOfertaWebResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q171="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectByOfertaWebResult" nillable="true" type="q171:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCargadePedidos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoCronograma" type="xs:int" />
+        <xs:element minOccurs="0" name="MarcaPedido" type="xs:int" />
+        <xs:element minOccurs="0" name="FechaFactura" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCargadePedidosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCargadePedidosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosWeb">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaFacturacion" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="tipoCronograma" type="xs:int" />
+        <xs:element minOccurs="0" name="marcarPedido" type="xs:boolean" />
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosWebResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q172="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DescargaPedidosWebResult" nillable="true" type="q172:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosDD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="fechaFacturacion" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="tipoCronograma" type="xs:int" />
+        <xs:element minOccurs="0" name="marcarPedido" type="xs:boolean" />
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargaPedidosDDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q173="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DescargaPedidosDDResult" nillable="true" type="q173:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCuvDescargado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="anioCampania" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoVenta" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCuvDescargadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCuvDescargadoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+        <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEstadoPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q174="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstadoPedidoResult" nillable="true" type="q174:BEConfiguracionCampania" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEscalaDescuento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEscalaDescuentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q175="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEscalaDescuentoResult" nillable="true" type="q175:ArrayOfBEEscalaDescuento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetParametriaOfertaFinal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetParametriaOfertaFinalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q176="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetParametriaOfertaFinalResult" nillable="true" type="q176:ArrayOfBEEscalaDescuento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCuvProgramaNueva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCuvProgramaNuevaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q177="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCuvProgramaNuevaResult" nillable="true" type="q177:ArrayOfBECuvProgramaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosWebByFilter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q178="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoWeb" nillable="true" type="q178:BEPedidoWeb" />
+        <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RegionID" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="TerritorioID" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPedidosWebByFilterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q179="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectPedidosWebByFilterResult" nillable="true" type="q179:ArrayOfBEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectDetalleBloqueoPedidoByPedidoId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectDetalleBloqueoPedidoByPedidoIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q180="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectDetalleBloqueoPedidoByPedidoIdResult" nillable="true" type="q180:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdBloqueoPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q181="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoWeb" nillable="true" type="q181:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdBloqueoPedidoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdDesbloqueoPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q182="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoWeb" nillable="true" type="q182:BEPedidoWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdDesbloqueoPedidoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetallePROL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
+        <xs:element xmlns:q183="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="olstPedidoWebDetalle" nillable="true" type="q183:ArrayOfBEPedidoWebDetalle" />
+        <xs:element minOccurs="0" name="ModificaPedido" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
+        <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetallePROLResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetallePROLv2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
+        <xs:element xmlns:q184="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="olstPedidoWebDetalle" nillable="true" type="q184:ArrayOfBEPedidoWebDetalle" />
+        <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
+        <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetallePROLv2Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebByEstado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
+        <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
+        <xs:element minOccurs="0" name="Eliminar" type="xs:boolean" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebByEstadoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q185="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q185:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q186="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q186:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdPedidoWebDetalleMasivoResult" type="xs:short" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByPedidoValidado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectByPedidoValidadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q187="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="SelectByPedidoValidadoResult" nillable="true" type="q187:ArrayOfBEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDNoFacturados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q188="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoDDWeb" nillable="true" type="q188:BEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDNoFacturadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q189="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosWebDDNoFacturadosResult" nillable="true" type="q189:ArrayOfBEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDNoFacturadosDetalle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="paisISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDNoFacturadosDetalleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q190="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosWebDDNoFacturadosDetalleResult" nillable="true" type="q190:ArrayOfBEPedidoDDWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDDetalleConsultora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q191="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="BEPedidoDDWeb" nillable="true" type="q191:BEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidosWebDDDetalleConsultoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q192="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidosWebDDDetalleConsultoraResult" nillable="true" type="q192:ArrayOfBEPedidoDDWeb" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCuvMarquesina">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CampaniaID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" type="xs:int" />
+        <xs:element minOccurs="0" name="IdPais" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCuvMarquesinaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCuvMarquesinaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoCuvMarquesina">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoCuvMarquesinaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q193="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoCuvMarquesinaResult" nillable="true" type="q193:ArrayOfBEPedidoWebService" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoOfertasAdministracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoOfertasAdministracionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q194="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTipoOfertasAdministracionResult" nillable="true" type="q194:ArrayOfBEConfiguracionOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosByTipoOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosByTipoOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q195="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosByTipoOfertaResult" nillable="true" type="q195:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosOfertaByCUVCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosOfertaByCUVCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q196="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosOfertaByCUVCampaniaResult" nillable="true" type="q196:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q197="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q197:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsOfertaProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsOfertaProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q198="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q198:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q199="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q199:BEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelOfertaProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelOfertaProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsAdministracionStockMinimo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q200="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q200:BEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsAdministracionStockMinimoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsAdministracionStockMinimoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdAdministracionStockMinimo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q201="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q201:BEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdAdministracionStockMinimoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdAdministracionStockMinimoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaProductoStockMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q202="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="stockProductos" nillable="true" type="q202:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdOfertaProductoStockMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdOfertaProductoStockMasivoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatosAdmStockMinimoCorreos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatosAdmStockMinimoCorreosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q203="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDatosAdmStockMinimoCorreosResult" nillable="true" type="q203:ArrayOfBEAdministracionOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsStockCargaLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q204="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q204:BEStockCargaLog" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsStockCargaLogResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsStockCargaLogResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrdenPriorizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrdenPriorizacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOrdenPriorizacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarPriorizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarPriorizacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarPriorizacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsMatrizComercial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q205="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q205:BEMatrizComercial" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsMatrizComercialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsMatrizComercialResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdMatrizComercial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q206="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q206:BEMatrizComercial" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdMatrizComercialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdMatrizComercialResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMatrizComercialByCodigoSAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSAP" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMatrizComercialByCodigoSAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q207="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMatrizComercialByCodigoSAPResult" nillable="true" type="q207:ArrayOfBEMatrizComercial" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenesByCodigoSAP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSAP" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetImagenesByCodigoSAPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q208="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetImagenesByCodigoSAPResult" nillable="true" type="q208:ArrayOfBEMatrizComercial" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdMatrizComercialDescripcionMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q209="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lstmatriz" nillable="true" type="q209:ArrayOfBEMatrizComercial" />
+        <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdMatrizComercialDescripcionMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdMatrizComercialDescripcionMasivoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="DuplaConsultora" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoCampania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q210="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaProductosPortalResult" nillable="true" type="q210:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortal2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+        <xs:element minOccurs="0" name="DuplaConsultora" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoCampania" type="xs:int" />
+        <xs:element minOccurs="0" name="Offset" type="xs:int" />
+        <xs:element minOccurs="0" name="CantidadRegistros" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertaProductosPortal2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q211="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaProductosPortal2Result" nillable="true" type="q211:ArrayOfBEOfertaProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetalleOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q212="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q212:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsPedidoWebDetalleOfertaResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q213="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q213:BEPedidoWebDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdPedidoWebDetalleOfertaResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaProductoLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockOfertaProductoLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStockOfertaProductoLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuv">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnidadesPermitidasByCuvResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnidadesPermitidasByCuvResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfiguracionOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q214="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q214:BEConfiguracionOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfiguracionOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsConfiguracionOfertaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdConfiguracionOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q215="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q215:BEConfiguracionOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdConfiguracionOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdConfiguracionOfertaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelConfiguracionOferta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelConfiguracionOfertaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelConfiguracionOfertaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionOfertaAdministracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionOfertaAdministracionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q216="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionOfertaAdministracionResult" nillable="true" type="q216:ArrayOfBEConfiguracionOferta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCodigoOfertaAdministracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCodigoOfertaAdministracionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCodigoOfertaAdministracionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarItemsMostrarLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarItemsMostrarLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarLiquidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerMaximoItemsaMostrarLiquidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerMaximoItemsaMostrarLiquidacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarUnidadesPermitidasEnPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarUnidadesPermitidasEnPedidoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfiguracionCrossSelling">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q217="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q217:BEConfiguracionCrossSelling" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsConfiguracionCrossSellingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsConfiguracionCrossSellingResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionCampaniasPorPais">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConfiguracionCampaniasPorPaisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q218="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionCampaniasPorPaisResult" nillable="true" type="q218:ArrayOfBEConfiguracionCrossSelling" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsCrossSellingProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q219="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q219:BECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsCrossSellingProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsCrossSellingProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCrossSellingProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q220="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q220:BECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCrossSellingProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdCrossSellingProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q221="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q221:BECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelCrossSellingProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCrossSellingProductosAdministracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCrossSellingProductosAdministracionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q222="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCrossSellingProductosAdministracionResult" nillable="true" type="q222:ArrayOfBECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCrossSellingAsociacionListado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCrossSellingAsociacionListadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q223="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCrossSellingAsociacionListadoResult" nillable="true" type="q223:ArrayOfBECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCUVAsociadoByFilter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoSegmento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCUVAsociadoByFilterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q224="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetCUVAsociadoByFilterResult" nillable="true" type="q224:ArrayOfBECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalleMasivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelPedidoWebDetalleMasivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelPedidoWebDetalleMasivoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDescripcionProductoByCUV">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDescripcionProductoByCUVResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q225="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDescripcionProductoByCUVResult" nillable="true" type="q225:ArrayOfBECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsCrossSellingAsociacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q226="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q226:BECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsCrossSellingAsociacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsCrossSellingAsociacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCrossSellingAsociacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q227="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q227:BECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdCrossSellingAsociacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdCrossSellingAsociacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingAsociacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q228="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q228:BECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingAsociacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelCrossSellingAsociacionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingAsociacion_Perfil">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q229="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q229:BECrossSellingAsociacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelCrossSellingAsociacion_PerfilResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DelCrossSellingAsociacion_PerfilResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosRecomendadosByCUVCampaniaPortal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosRecomendadosByCUVCampaniaPortalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q230="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosRecomendadosByCUVCampaniaPortalResult" nillable="true" type="q230:ArrayOfBECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarConfiguracionCrossSelling">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarConfiguracionCrossSellingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarConfiguracionCrossSellingResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPedidoWebIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPedidoWebIDResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosRecomendadosHabilitados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="tipo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosRecomendadosHabilitadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q231="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetProductosRecomendadosHabilitadosResult" nillable="true" type="q231:ArrayOfBECrossSellingProducto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertasNuevasByCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfertasNuevasByCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q232="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasNuevasByCampaniaResult" nillable="true" type="q232:ArrayOfBEOfertaNueva" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

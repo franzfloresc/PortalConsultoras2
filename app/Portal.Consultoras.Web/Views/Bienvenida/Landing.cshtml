@@ -1,0 +1,1278 @@
+﻿@model Portal.Consultoras.Web.Models.BienvenidosModel
+@{
+    ViewBag.Title = "Bienvenidos";
+}
+
+<link href="@Url.Content("~/Content/Css/Site/ActualizarDatos.css")" rel="stylesheet" type="text/css" /> @*R2639*@
+
+<style>
+    .hide-close .ui-dialog-titlebar-close {
+        display: none;
+    }
+
+    .posicion-close .ui-dialog-titlebar-close {
+        margin: -62px -10px 0px 34px;
+    }
+
+    .margen {
+        margin: 2px 0px -16px 75px;
+    }
+
+    /*.posboton .ui-dialog .ui-dialog-buttonpane {
+        cursor: pointer;
+        margin: 0.5em 2.9em 0.5em 0;
+        width: 145px;
+    }*/
+    .colorboton .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+        background: #e570e7; /* Old browsers */
+        background: -moz-linear-gradient(top, #e570e7 0%, #c85ec7 30%, #a849a3 51%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e570e7), color-stop(30%,#c85ec7), color-stop(51%,#a849a3)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* IE10+ */
+        background: linear-gradient(to bottom, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 ); /* IE6-9 */
+        border: 1px solid #d3d3d3;
+        color: white;
+    }
+
+    .Content_modalActualizar_Superior {
+        border-top: 2px solid #D0D0D0;
+        margin-top: -1px;
+    }
+
+    .borde_redondeado_superior {
+        margin-top: 1px;
+    }
+
+    .colorhead .ui-widget-header {
+        background: none repeat scroll 0 0 #6c207f;
+    }
+
+    .divcolor {
+        background: none repeat scroll 0 0 #ebebeb;
+        height: 90px;
+        margin-left: -14px;
+        margin-top: -21px;
+        width: 518px;
+    }
+
+    .simple {
+        font-weight: 200;
+    }
+
+    .checkTextalignLeft {
+        cursor: pointer;
+        text-decoration: underline;
+        text-align: left;
+        width: 96%;
+        float: left;
+    }
+
+    .textoMensajeDA {
+        color: #993399;
+        font-family: Arial,Verdana,sans-serif;
+        font-size: 13px;
+        text-align: left;
+        font-weight: bold;
+        padding-left: 25px;
+    }
+
+    .botonesConfirmacion {
+        width: 300px;
+        height: 46px;
+        border: 0;
+        padding-top: 20px;
+        padding-left: 40px;
+    }
+
+        .botonesConfirmacion input {
+            width: 138px;
+            height: 46px;
+            background: url("/Content/Images/btn_validar.png") no-repeat;
+            cursor: pointer;
+            line-height: 22px;
+            color: #fff;
+            font-size: 12px;
+            border: 0;
+        }
+</style>
+<div class="owl-carousel">
+    @{
+        int countBanner = 0;
+
+    }
+    @foreach (var item in Model.ItemsCarruselInicio)
+    {
+        countBanner++;
+        <div class="owl_item_wrap" data-ordenbanner="@countBanner">
+            <div class="field46_5 centrarvert texto_contenido">
+                <div class="headcont">
+                    <img src="@item.UrlImagenTitulo" alt="SomosBelcorp" />
+                </div>
+                <div id="datos_izq">
+                    <input type="hidden" id="name_izq" value="'@item.UrlImagenTitulo'" />
+                </div>
+                @if (!string.IsNullOrEmpty(item.TextoDescripcion))
+                {
+                    <div class="parrafocont">
+                        @Html.Raw(item.TextoDescripcion)
+                    </div>
+                }
+                <div class="callcont">
+                    @if (!string.IsNullOrEmpty(item.TextoLink))
+                    {
+                        if (item.UrlLink != "/Comunidad")
+                        {
+                            var link = item.UrlLink.ToLower().StartsWith("http") ? item.UrlLink
+                            : item.UrlLink.Split('/').Length > 1 ? Url.Action(item.UrlLink.Split('/')[0], item.UrlLink.Split('/')[1])
+                            : "#";
+                            <a href='@link' onclick="OnPromoClick((@Json.Encode(item)), 'pos-izquierda')">
+                                <img src="@item.TextoLink" />
+                            </a>
+                        }
+                        else
+                        {
+                            if (ViewBag.EsUsuarioComunidad == 0)
+                            {
+                                <a href="javascript:;" onclick="AbrirModalRegistroComunidad();OnPromoClick((@Json.Encode(item)), 'pos-izquierda')">
+                                    <img src="@item.TextoLink" />
+                                </a>
+                            }
+                            else
+                            {
+                                var link = item.UrlLink.ToLower().StartsWith("http") ? item.UrlLink
+                                : item.UrlLink.Split('/').Length > 1 ? Url.Action(item.UrlLink.Split('/')[0], item.UrlLink.Split('/')[1])
+                                : "#";
+                                <a href='@link' onclick="OnPromoClick((@Json.Encode(item)), 'pos-izquierda')">
+                                    <img src="@item.TextoLink" />
+                                </a>
+                            }
+                        }
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(item.TextoDescripcion2))
+                {
+                    <div class="parrafocont2">
+                        @Html.Raw(item.TextoDescripcion2)
+                    </div>
+                }
+            </div>
+            <div class="field53_5">
+                <div id="datos_der">
+                    <input type="hidden" id="name_der" value="'@item.NombreItem'" />
+                    <input type="hidden" id="id_der" value="'@item.ItemCarruselInicioID'" />
+                    <input type="hidden" id="pos_der" value="'@item.Orden'" />
+                </div>
+                @if (item.EsVideo)
+                {
+                    <a href="javascript:;" onclick="CargarVideo('@item.UrlLinkPrincipal')">
+                        <img class="banner_imagen" src="@item.UrlImagenPrincipal" alt="SomosBelcorp" height="575" />
+                    </a>
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(item.UrlLinkPrincipal))
+                    {
+                        if (item.UrlLinkPrincipalExterno)
+                        {
+                            <a href="@item.UrlLinkPrincipal" onclick="OnPromoClick((@Json.Encode(item)), 'pos-derecha')" target="_blank">
+                                <img src="@item.UrlImagenPrincipal" alt="SomosBelcorp" height="575" />
+                            </a>
+                        }
+                        else
+                        {
+                            if (item.UrlLink != "/Comunidad")
+                            {
+                                var link = item.UrlLinkPrincipal.ToLower().StartsWith("http") ? item.UrlLinkPrincipal
+                                : item.UrlLinkPrincipal.Split('/').Length > 1 ? Url.Action(item.UrlLinkPrincipal.Split('/')[0], item.UrlLinkPrincipal.Split('/')[1])
+                                : "#";
+                                <a href="@link" onclick="OnPromoClick((@Json.Encode(item)), 'pos-derecha')" target="_self">
+                                    <img class="banner_imagen" src="@item.UrlImagenPrincipal" alt="SomosBelcorp" height="575" />
+                                </a>
+
+                            }
+                            else
+                            {
+                                if (ViewBag.EsUsuarioComunidad == 0)
+                                {
+                                    <a href="javascript:;" onclick="AbrirModalRegistroComunidad();OnPromoClick((@Json.Encode(item)), 'pos-derecha')">
+                                        <img src="@item.UrlImagenPrincipal" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    var link = item.UrlLinkPrincipal.ToLower().StartsWith("http") ? item.UrlLinkPrincipal
+                                    : item.UrlLinkPrincipal.Split('/').Length > 1 ? Url.Action(item.UrlLinkPrincipal.Split('/')[0], item.UrlLinkPrincipal.Split('/')[1])
+                                    : "#";
+                                    <a href="@link" onclick="OnPromoClick((@Json.Encode(item)), 'pos-derecha')" target="_self">
+                                        <img class="banner_imagen" src="@item.UrlImagenPrincipal" alt="SomosBelcorp" height="575" />
+                                    </a>
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <img class="banner_imagen" src="@item.UrlImagenPrincipal" alt="SomosBelcorp" height="575" />
+                    }
+                }
+            </div>
+            <div style="display: none">
+                <input type="hidden" value="@countBanner" class="OrdenBannerCls" />
+                <div class="nameIzqcls">@item.UrlLink</div>
+                <div class="nameDercls">@item.NombreItem</div>
+                <div class="idDercls">@item.ItemCarruselInicioID</div>
+                <div class="posDercls">@item.Orden</div>
+            </div>
+        </div>
+
+    }
+
+
+</div>
+
+<input type="hidden" value="@countBanner" id="countBanner" />
+
+<div id="loadingScreen"></div>
+<div id="divVideo" class="wrap">
+    <div class="Content_modal_Com">
+        <div id="video_intro" style="text-align: center;">
+        </div>
+    </div>
+    &nbsp
+</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function (e) {
+
+        if ($(window).width() > 960) {
+            if ($(window).height() > 760) {
+                $("#cont_contenido, .container_landing").css({ 'width': $(window).width(), 'height': $(window).height() - 160, 'max-height': $(window).height() - 160 });
+                $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': $(window).width(), 'height': $(window).height() - 160, 'max-height': 575 });
+            }
+            else {
+                $("#cont_contenido, .container_landing").css({ 'width': $(window).width(), 'height': $(window).height() - 90, 'max-height': $(window).height() - 90 });
+                $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': $(window).width(), 'height': $(window).height() - 90, 'max-height': 575 });
+            }
+        }
+        else {
+            $("#cont_contenido, .container_landing").css({ 'width': 960, 'height': $(window).height() - 90, 'max-height': $(window).height() - 90 });
+            $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': 960, 'height': $(window).height() - 90, 'max-height': 575 });
+        }
+
+        var top_contenedor = ($(".container_landing").height() - 600) / 2;
+        if (top_contenedor < 0)
+            $(".owl-carousel").css({ 'top': 0 });
+        else
+            $(".owl-carousel").css({ 'top': top_contenedor });
+
+        $(".container_landing div:not(.owl-controls *)").css('background-color', 'white');
+
+        $(".field52_5, .field52_5 img").css({ 'height': 575 });
+
+
+        //Inicio:Cambio CGI(GOT)
+        var owl = $('.owl-carousel');
+
+        //RQ - 2507 (EGL)
+        owl.on('initialized.owl.carousel translated.owl.carousel', function (e) {
+
+            var contenedor_owl = $($('.owl-carousel').find('.owl-stage-outer').find('.owl-stage').find('.owl-item.active'));
+
+            var urlLink = contenedor_owl.find('.nameIzqcls').text();
+            var nombreItem = contenedor_owl.find('.nameDercls').text();
+            var itemCarruselInicioID = contenedor_owl.find('.idDercls').text();
+            var orden = parseInt(contenedor_owl.find('.posDercls').text());
+
+            MarcarBannerCarrusel(itemCarruselInicioID, nombreItem, orden, urlLink);
+        })
+
+
+        //RQ - 2507 (EGL)
+        function MarcarBannerCarrusel(itemidder, itemnameder, itemposder, itemnameizq) {
+            SendPushBanner(itemidder, itemnameder, itemposder, itemnameizq);
+
+        }
+
+
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            autoplay: true,
+            responsive: true,
+            loop: true,
+            dots: true,
+            dotsEach: true,
+            autoplayHoverPause: true,
+            autoplaySpeed: 1000,
+            navSpeed: 3000,
+            callbacks: true
+        });
+
+
+
+        $('#divVideo').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 700,
+            minHeight: 570,
+            heigth: 570,
+            draggable: true,
+            close: function (event, ui) { CerrarVideo(); },
+            title: "Somos Belcorp"
+        });
+
+        //$(".banner_imagen").fuzescale('fill', { 'hAlignment': 'center' });
+    });
+
+    $(window).resize(function (e) {
+
+        if ($(window).width() > 960) {
+            if ($(window).height() > 760) {
+                $("#cont_contenido, .container_landing").css({ 'width': $(window).width(), 'height': $(window).height() - 160, 'max-height': $(window).height() - 160 });
+                $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': $(window).width(), 'height': $(window).height() - 160, 'max-height': 575 });
+            }
+            else {
+                $("#cont_contenido, .container_landing").css({ 'width': $(window).width(), 'height': $(window).height() - 90, 'max-height': $(window).height() - 90 });
+                $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': $(window).width(), 'height': $(window).height() - 90, 'max-height': 575 });
+            }
+        }
+        else {
+            $("#cont_contenido, .container_landing").css({ 'width': 960, 'height': $(window).height() - 90, 'max-height': $(window).height() - 90 });
+            $(".owl_item_wrap, .owl-item, .owl-stage, .owl-stage-outer, .owl-carousel").css({ 'width': 960, 'height': $(window).height() - 90, 'max-height': 575 });
+        }
+
+        var top_contenedor = ($(".container_landing").height() - 600) / 2;
+        if (top_contenedor < 0)
+            $(".owl-carousel").css({ 'top': 0 });
+        else
+            $(".owl-carousel").css({ 'top': top_contenedor });
+
+        $(".container_landing div:not(.owl-controls *)").css('background-color', 'white');
+        $(".owl-stage").css({ 'transform': 'none' });
+
+        $(".field52_5, .field52_5 img").css({ 'height': 575 });
+
+
+    });
+
+    function CargarVideo(video) {
+
+        //RQ - 2507 (RSA)
+        videoYoutube = video;
+        $('#divVideo').data('videoUrl', video);
+        $('#divVideo').data('videoMarcado', '0');
+        $('#divVideo').dialog('open');
+
+        if (!isReady) {
+            window.setTimeout(function () {
+                player.loadVideoByUrl(video);
+            }, 3000);
+        } else {
+            player.loadVideoByUrl(video);
+        }
+
+    }
+
+    function CerrarVideo() {
+        //RQ - 2507 (RSA)
+        player.stopVideo();
+        $('#divVideo').dialog('close');
+        $('#video_intro').html('');
+    }
+
+    //Inicio: Cambio CGI(GOT)
+    function OnPromoClick(item, creative) {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                     {
+                         'id': item.ItemCarruselInicioID,              // Name or ID is required.
+                         'name': item.NombreItem,
+                         'creative': creative,
+                         'position': item.Orden
+                     }]
+                }
+            }
+        });
+
+
+    }
+
+    //RQ - 2507 (EGL)
+    function SendPushBanner(idDer, nameDer, posDer, nameIzq) {
+        var lstNombreBanner = nameIzq.split('/');
+        var nombreBanner = lstNombreBanner[lstNombreBanner.length - 1].split('.')[0].toLowerCase().latinize().replace(new RegExp("\\ ", "gm"), "-");
+
+        var nombreIzq = nameIzq.replace(new RegExp("\\/", "gm"), "");
+        var idIzq = nombreIzq.toLowerCase().latinize().replace(new RegExp("\\ ", "gm"), "-");
+
+        var datosDataLayer = {
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                     {
+                         'id': idIzq + '-' + posDer,
+                         'name': nombreIzq,
+                         'creative': 'pos-derecha',
+                         'position': posDer
+                     }, {
+                         'id': idDer,
+                         'name': nameDer,
+                         'creative': 'pos-izquierda',
+                         'position': posDer
+                     }]
+                }
+            }
+        };
+        dataLayer.push(datosDataLayer);
+        // console.log(datosDataLayer.ecommerce.promoView.promotions[0].name + ' - ' + datosDataLayer.ecommerce.promoView.promotions[1].name);
+    }
+
+    function OnClickVideo(video, tituloPag) {
+        dataLayer.push({
+            'event': 'virtualPage',
+            'pageUrl': /video/ + video,
+            'pageTitle': 'Video -' + tituloPag
+        });
+    }
+    //Fin: Cambio CGI(GOT)
+</script>
+
+<script>
+    //RQ - 2507 (RSA)
+
+    var Latinise = {}; Latinise.latin_map = { "Á": "A", "A": "A", "?": "A", "?": "A", "?": "A", "?": "A", "?": "A", "A": "A", "Â": "A", "?": "A", "?": "A", "?": "A", "?": "A", "?": "A", "Ä": "A", "A": "A", "?": "A", "?": "A", "?": "A", "?": "A", "À": "A", "?": "A", "?": "A", "A": "A", "A": "A", "Å": "A", "?": "A", "?": "A", "?": "A", "Ã": "A", "?": "AA", "Æ": "AE", "?": "AE", "?": "AE", "?": "AO", "?": "AU", "?": "AV", "?": "AV", "?": "AY", "?": "B", "?": "B", "?": "B", "?": "B", "?": "B", "?": "B", "C": "C", "C": "C", "Ç": "C", "?": "C", "C": "C", "C": "C", "?": "C", "?": "C", "D": "D", "?": "D", "?": "D", "?": "D", "?": "D", "?": "D", "?": "D", "?": "D", "?": "D", "Ð": "D", "?": "D", "?": "DZ", "?": "DZ", "É": "E", "E": "E", "E": "E", "?": "E", "?": "E", "Ê": "E", "?": "E", "?": "E", "?": "E", "?": "E", "?": "E", "?": "E", "Ë": "E", "E": "E", "?": "E", "?": "E", "È": "E", "?": "E", "?": "E", "E": "E", "?": "E", "?": "E", "E": "E", "?": "E", "?": "E", "?": "E", "?": "ET", "?": "F", "ƒ": "F", "?": "G", "G": "G", "G": "G", "G": "G", "G": "G", "G": "G", "?": "G", "?": "G", "G": "G", "?": "H", "?": "H", "?": "H", "H": "H", "?": "H", "?": "H", "?": "H", "?": "H", "H": "H", "Í": "I", "I": "I", "I": "I", "Î": "I", "Ï": "I", "?": "I", "I": "I", "?": "I", "?": "I", "Ì": "I", "?": "I", "?": "I", "I": "I", "I": "I", "I": "I", "I": "I", "?": "I", "?": "D", "?": "F", "?": "G", "?": "R", "?": "S", "?": "T", "?": "IS", "J": "J", "?": "J", "?": "K", "K": "K", "K": "K", "?": "K", "?": "K", "?": "K", "?": "K", "?": "K", "?": "K", "?": "K", "L": "L", "?": "L", "L": "L", "L": "L", "?": "L", "?": "L", "?": "L", "?": "L", "?": "L", "?": "L", "?": "L", "?": "L", "?": "L", "L": "L", "?": "LJ", "?": "M", "?": "M", "?": "M", "?": "M", "N": "N", "N": "N", "N": "N", "?": "N", "?": "N", "?": "N", "?": "N", "?": "N", "?": "N", "?": "N", "?": "N", "Ñ": "N", "?": "NJ", "Ó": "O", "O": "O", "O": "O", "Ô": "O", "?": "O", "?": "O", "?": "O", "?": "O", "?": "O", "Ö": "O", "?": "O", "?": "O", "?": "O", "?": "O", "O": "O", "?": "O", "Ò": "O", "?": "O", "O": "O", "?": "O", "?": "O", "?": "O", "?": "O", "?": "O", "?": "O", "?": "O", "?": "O", "O": "O", "?": "O", "?": "O", "O": "O", "O": "O", "O": "O", "Ø": "O", "?": "O", "Õ": "O", "?": "O", "?": "O", "?": "O", "?": "OI", "?": "OO", "?": "E", "?": "O", "?": "OU", "?": "P", "?": "P", "?": "P", "?": "P", "?": "P", "?": "P", "?": "P", "?": "Q", "?": "Q", "R": "R", "R": "R", "R": "R", "?": "R", "?": "R", "?": "R", "?": "R", "?": "R", "?": "R", "?": "R", "?": "R", "?": "C", "?": "E", "S": "S", "?": "S", "Š": "S", "?": "S", "S": "S", "S": "S", "?": "S", "?": "S", "?": "S", "?": "S", "T": "T", "T": "T", "?": "T", "?": "T", "?": "T", "?": "T", "?": "T", "?": "T", "?": "T", "T": "T", "T": "T", "?": "A", "?": "L", "?": "M", "?": "V", "?": "TZ", "Ú": "U", "U": "U", "U": "U", "Û": "U", "?": "U", "Ü": "U", "U": "U", "U": "U", "U": "U", "U": "U", "?": "U", "?": "U", "U": "U", "?": "U", "Ù": "U", "?": "U", "U": "U", "?": "U", "?": "U", "?": "U", "?": "U", "?": "U", "?": "U", "U": "U", "?": "U", "U": "U", "U": "U", "U": "U", "?": "U", "?": "U", "?": "V", "?": "V", "?": "V", "?": "V", "?": "VY", "?": "W", "W": "W", "?": "W", "?": "W", "?": "W", "?": "W", "?": "W", "?": "X", "?": "X", "Ý": "Y", "Y": "Y", "Ÿ": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "?": "Y", "Z": "Z", "Ž": "Z", "?": "Z", "?": "Z", "Z": "Z", "?": "Z", "?": "Z", "?": "Z", "?": "Z", "?": "IJ", "Œ": "OE", "?": "A", "?": "AE", "?": "B", "?": "B", "?": "C", "?": "D", "?": "E", "?": "F", "?": "G", "?": "G", "?": "H", "?": "I", "?": "R", "?": "J", "?": "K", "?": "L", "?": "L", "?": "M", "?": "N", "?": "O", "?": "OE", "?": "O", "?": "OU", "?": "P", "?": "R", "?": "N", "?": "R", "?": "S", "?": "T", "?": "E", "?": "R", "?": "U", "?": "V", "?": "W", "?": "Y", "?": "Z", "á": "a", "a": "a", "?": "a", "?": "a", "?": "a", "?": "a", "?": "a", "a": "a", "â": "a", "?": "a", "?": "a", "?": "a", "?": "a", "?": "a", "ä": "a", "a": "a", "?": "a", "?": "a", "?": "a", "?": "a", "à": "a", "?": "a", "?": "a", "a": "a", "a": "a", "?": "a", "?": "a", "å": "a", "?": "a", "?": "a", "?": "a", "ã": "a", "?": "aa", "æ": "ae", "?": "ae", "?": "ae", "?": "ao", "?": "au", "?": "av", "?": "av", "?": "ay", "?": "b", "?": "b", "?": "b", "?": "b", "?": "b", "?": "b", "b": "b", "?": "b", "?": "o", "c": "c", "c": "c", "ç": "c", "?": "c", "c": "c", "?": "c", "c": "c", "?": "c", "?": "c", "d": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "?": "d", "d": "d", "?": "d", "?": "d", "i": "i", "?": "j", "?": "j", "?": "j", "?": "dz", "?": "dz", "é": "e", "e": "e", "e": "e", "?": "e", "?": "e", "ê": "e", "?": "e", "?": "e", "?": "e", "?": "e", "?": "e", "?": "e", "ë": "e", "e": "e", "?": "e", "?": "e", "è": "e", "?": "e", "?": "e", "e": "e", "?": "e", "?": "e", "?": "e", "e": "e", "?": "e", "?": "e", "?": "e", "?": "e", "?": "et", "?": "f", "ƒ": "f", "?": "f", "?": "f", "?": "g", "g": "g", "g": "g", "g": "g", "g": "g", "g": "g", "?": "g", "?": "g", "?": "g", "g": "g", "?": "h", "?": "h", "?": "h", "h": "h", "?": "h", "?": "h", "?": "h", "?": "h", "?": "h", "?": "h", "h": "h", "?": "hv", "í": "i", "i": "i", "i": "i", "î": "i", "ï": "i", "?": "i", "?": "i", "?": "i", "ì": "i", "?": "i", "?": "i", "i": "i", "i": "i", "?": "i", "?": "i", "i": "i", "?": "i", "?": "d", "?": "f", "?": "g", "?": "r", "?": "s", "?": "t", "?": "is", "j": "j", "j": "j", "?": "j", "?": "j", "?": "k", "k": "k", "k": "k", "?": "k", "?": "k", "?": "k", "?": "k", "?": "k", "?": "k", "?": "k", "?": "k", "l": "l", "l": "l", "?": "l", "l": "l", "l": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "?": "l", "l": "l", "?": "lj", "?": "s", "?": "s", "?": "s", "?": "s", "?": "m", "?": "m", "?": "m", "?": "m", "?": "m", "?": "m", "n": "n", "n": "n", "n": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "?": "n", "ñ": "n", "?": "nj", "ó": "o", "o": "o", "o": "o", "ô": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "ö": "o", "?": "o", "?": "o", "?": "o", "?": "o", "o": "o", "?": "o", "ò": "o", "?": "o", "o": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "?": "o", "o": "o", "?": "o", "?": "o", "o": "o", "o": "o", "ø": "o", "?": "o", "õ": "o", "?": "o", "?": "o", "?": "o", "?": "oi", "?": "oo", "?": "e", "?": "e", "?": "o", "?": "o", "?": "ou", "?": "p", "?": "p", "?": "p", "?": "p", "?": "p", "?": "p", "?": "p", "?": "p", "?": "p", "?": "q", "?": "q", "?": "q", "?": "q", "r": "r", "r": "r", "r": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "r", "?": "c", "?": "c", "?": "e", "?": "r", "s": "s", "?": "s", "š": "s", "?": "s", "s": "s", "s": "s", "?": "s", "?": "s", "?": "s", "?": "s", "?": "s", "?": "s", "?": "s", "?": "s", "g": "g", "?": "o", "?": "o", "?": "u", "t": "t", "t": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "?": "t", "t": "t", "?": "t", "t": "t", "?": "th", "?": "a", "?": "ae", "?": "e", "?": "g", "?": "h", "?": "h", "?": "h", "?": "i", "?": "k", "?": "l", "?": "m", "?": "m", "?": "oe", "?": "r", "?": "r", "?": "r", "?": "r", "?": "t", "?": "v", "?": "w", "?": "y", "?": "tz", "ú": "u", "u": "u", "u": "u", "û": "u", "?": "u", "ü": "u", "u": "u", "u": "u", "u": "u", "u": "u", "?": "u", "?": "u", "u": "u", "?": "u", "ù": "u", "?": "u", "u": "u", "?": "u", "?": "u", "?": "u", "?": "u", "?": "u", "?": "u", "u": "u", "?": "u", "u": "u", "?": "u", "u": "u", "u": "u", "?": "u", "?": "u", "?": "ue", "?": "um", "?": "v", "?": "v", "?": "v", "?": "v", "?": "v", "?": "v", "?": "v", "?": "vy", "?": "w", "w": "w", "?": "w", "?": "w", "?": "w", "?": "w", "?": "w", "?": "w", "?": "x", "?": "x", "?": "x", "ý": "y", "y": "y", "ÿ": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "?": "y", "z": "z", "ž": "z", "?": "z", "?": "z", "?": "z", "z": "z", "?": "z", "?": "z", "?": "z", "?": "z", "?": "z", "?": "z", "z": "z", "?": "z", "?": "ff", "?": "ffi", "?": "ffl", "?": "fi", "?": "fl", "?": "ij", "œ": "oe", "?": "st", "?": "a", "?": "e", "?": "i", "?": "j", "?": "o", "?": "r", "?": "u", "?": "v", "?": "x" };
+    String.prototype.latinise = function () { return this.replace(/[^A-Za-z0-9\[\] ]/g, function (a) { return Latinise.latin_map[a] || a }) };
+    String.prototype.latinize = String.prototype.latinise;
+    String.prototype.isLatin = function () { return this == this.latinise() }
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    var isReady = false;
+
+    window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player('video_intro', {
+            height: '480',
+            width: '640',
+            events: { 'onStateChange': onPlayerStateChange, 'onReady': onPlayerReady }
+        });
+    }
+
+    function onPlayerStateChange(event) {
+        /*
+        -1 YT.PlayerState.UNSTARTED
+        0  YT.PlayerState.ENDED
+        1  YT.PlayerState.PLAYING
+        2  YT.PlayerState.PAUSED
+        3  YT.PlayerState.BUFFERING
+        4  YT.PlayerState.CUED
+        */
+        var videoMarcado = $('#divVideo').data('videoMarcado');
+
+        if (event.data == YT.PlayerState.PLAYING && videoMarcado == 0) {
+            player.stopVideo();
+            $('#divVideo').data('videoMarcado', '1');
+
+            //marcacion
+            var titleVideo = player.getVideoData().title;
+
+            var urlVideo = "/video/" + titleVideo.toLowerCase().latinize().replace(new RegExp("\\ ", "gm"), "-");
+            var tituloVideo = "Video - " + titleVideo;
+
+            dataLayer.push({ 'event': 'virtualPage', 'pageUrl': urlVideo, 'pageTitle': tituloVideo });
+        }
+    }
+
+    function onPlayerReady(event) {
+        isReady = true;
+    }
+
+    //Demanda anticipada R20151108
+
+    function AceptarDemandaAnticipada() {
+        InsertarDemandaAnticipada(1);
+    }
+
+    function CancelarDemandaAnticipada() {
+
+        InsertarDemandaAnticipada(0);
+    }
+    
+    function InsertarDemandaAnticipada(tipo) {
+        waitingDialog({});
+
+        var params = { tipoConfiguracion: tipo };
+        //params.checkAceptar = 1;
+
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Cronograma/InsConfiguracionConsultoraDA",
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        $('#divDemandaAnticipada').dialog('close');
+                        //location.href = '@Url.Action("LoginCargarConfiguracion", "Login")?paisID=' + data.paisID + '&codigoUsuario=' + data.codigoUsuario; // comentar para que se queda en el landing
+                    }
+                    closeWaitingDialog();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (tipo == 1) {
+                        alert("Ocurrió un error al aceptar la demanda anticipada.");
+                    } else {
+                        alert("Ocurrió un error al cancelar la demanda anticipada.");
+                    }
+                }
+            }
+        });
+    }
+
+    function MostrarDemandaAnticipada() {
+        waitingDialog({});
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Cronograma/ValidacionConsultoraDA",
+            contentType: 'application/json',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        $('.textFechaDA').each(function () {
+                            $(this).before($('<span>').text(data.mensajeFechaDA));
+                        });
+
+                        $("#divDemandaAnticipada").dialog('open');
+                    }
+                    closeWaitingDialog();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (tipo == 1) {
+                        alert("Ocurrió un error al validar demanda anticipada.");
+                    } else {
+                        alert("Ocurrió un error al validar la demanda anticipada.");
+                    }
+                }
+            },
+            complete: function(){ ObtenerComunicadosPopUps(); }
+        });
+
+    }
+    ///Fín Demanda anticipada R20151108
+        
+    //GR-1125 PopUps a demanda.
+    var dialogTemplate = $.template("<div id='${id}'><div class=tituloC>&nbsp;<div id='btnCerrarComunicado' class='btnCerrarComunicado btnCerrar' data-comunicado=${idComunicado} data-id=${id} ></div></div><div class=marginBottom><a href=${hrefUrl} ${target} class=imgComunicado data-comunicadoID=${idComunicado} data-comunicadodescripcion=${comunicadoDescripcion}><img src=${urlImg} /></a></div><div class='alignleft'><label class=lblComunicadoV><input type=checkbox id=chkMostrarComunicado${idComunicado} class=chkComunicadoV />No volver a mostrar</label></div><div style='float: right;${display}'><label class=lblComunicadoV><input type=checkbox id=chkTerminos${idComunicado} class=chkComunicadoV />Acepto <a href='https://s3.amazonaws.com/somosbelcorp/2016/Comunicados/C10/EC_TERMINOS_Y_CONDICIONES-CAMPANA_SOLIDARIA-RECONSTRUIR_TIENE_UNA_E.pdf' target='_blank'>Términos y Condiciones</a></label></div></div>");
+
+    function ObtenerComunicadosPopUps() {
+        waitingDialog({});
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Bienvenida/ObtenerComunicadosPopUps",
+            contentType: 'application/json',
+            success: function (response) {
+
+                var target = '';
+                var dialogComunicadoID = '';
+                var displayTerminos = 'display:none;';
+                var urlAccion = '';
+
+                $.each(response.data, function (id, item) {
+
+                    dialogComunicadoID = item.CodigoConsultora + item.ComunicadoId;
+                    var nombreEvento = encodeURI(item.Descripcion);
+
+                    if (item.Accion == "CUV") {
+                        displayTerminos = 'display:none;';
+                        urlAccion = 'javascript:InsertarPedidoCuvBanner(' + item.DescripcionAccion + ',1);';
+                    }
+                    else if (item.Accion == "URL") {
+                        urlAccion = item.DescripcionAccion;
+                        if (urlAccion > 0) {
+                            var id = urlAccion;
+                            urlAccion = "@Url.Action("Cursos", "MiAcademia", new { idcurso="idcurso_"})";
+                            urlAccion = urlAccion.replace("idcurso_", id);
+                        }
+
+                        displayTerminos = 'display:none;';
+                        target = 'target=_blank';
+                    }
+                    else if (item.Accion == "DON") {
+                        displayTerminos = '';
+                        urlAccion = 'javascript:realizarDonacion(' + dialogComunicadoID + ',' + item.ComunicadoId + ',"' + response.codigoISO + '",' + response.codigoConsultora + ',' + response.codigoCampania + ',"' + nombreEvento + '");';
+                    }
+
+                    var comunicado = MostrarComunicado({
+                        data: {
+                            id: dialogComunicadoID,
+                            hrefUrl: urlAccion,
+                            target: target,
+                            urlImg: item.UrlImagen,
+                            idComunicado: item.ComunicadoId,
+                            display: displayTerminos,
+                            comunicadoDescripcion: nombreEvento
+                        },
+                        dialog: {
+                            myDialog: "options"
+                        }
+                    });
+                    $("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
+                    $("#" + dialogComunicadoID + " img").load(function () { comunicado.dialog('option', 'position', 'center'); });
+                    comunicado.dialog('open');
+
+                    // Push a promotionView cuando carga el comunicado.
+                    dataLayer.push({
+                        'event': 'promotionView',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': [
+                                    {
+                                        'id': item.ComunicadoId,
+                                        'name': nombreEvento,
+                                        'position': 'Home pop-up – 1',
+                                        'creative': 'Banner'
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                    $("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
+                });
+            },
+            complete: function () { closeWaitingDialog(); }
+        });
+    }
+
+    function MostrarComunicado(options) {
+        if (options && options.data && options.dialog) {
+            var dialogOptions = $.extend({}, {
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: false,
+                width: 'auto',
+                closeOnEscape: true
+            }, options.dialog);
+
+            return $.tmpl(dialogTemplate, options.data).dialog(dialogOptions);
+        }
+    }
+</script>
+
+
+<div id="divActualizarDatos" style="display:none;">
+    <div class="Content_Actualizar">
+        <div class="titulo">
+            @if (ViewBag.CodigoISODL == "PE")
+            { <text> Actualización y autorización de uso de datos personales </text>  }
+            else
+            { <text> Actualizar Datos </text>  }
+
+            <div id="btnCerrarActualizarDatos" class="btnCerrar"></div>
+        </div>
+        <div class="mensaje_Consultora">
+            Querida consultora actualiza tus datos para enterarte de las últimas novedades de Belcorp
+            y de la información de tu pedido.
+        </div>
+        @* <div class="div-3">*@
+        <div class="mensaje_CampoObligatorio">
+            *Campos obligatorios
+        </div>
+        @*</div>*@
+        <div class="div-3">
+            <div class="titZ">Nombre</div>
+            <div class="TextBox borde">
+                @Html.TextBoxFor(model => model.ActualizarDatos.NombreCompleto, new { id = "txtNombre", maxlength = "50", @class = "inputTextBox" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titZ">Teléfono</div>
+            <div class="TextBox borde">
+                @Html.TextBoxFor(model => model.ActualizarDatos.Telefono, new { id = "txtTelefono", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);", onkeypress = "return FuncionesGenerales.ValidarSoloNumerosAndSpecialCharater(event);", @class = "inputTextBox" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titZ">Celular</div>
+            <div class="TextBox borde">
+                @Html.TextBoxFor(model => model.ActualizarDatos.Celular, new { id = "txtCelular", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);", onkeypress = "return FuncionesGenerales.ValidarSoloNumerosAndSpecialCharater(event);", @class = "inputTextBox" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titZ">Correo electrónico</div><div class="asteriscos">*</div>
+            <div class="TextBox borde">
+                @Html.TextBoxFor(model => model.ActualizarDatos.EMail, new { id = "txtEMail", maxlength = "50", @class = "inputTextBox" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titZ" style="padding-top: 0px">
+                Confirma tu<br />
+                correo electrónico
+            </div><div class="asteriscos" style="margin-top:0px;">*</div>
+            <div class="TextBox borde">
+                @Html.TextBoxFor(model => model.ActualizarDatos.EMail, new { id = "txtConfirmarEMail", maxlength = "50", @class = "inputTextBox" })
+            </div>
+        </div>
+        <div class="">
+            <div class="cambiarContrasena">
+                <a href="#" id="lnkCambiarContrasena" style="color: #993399; font-size: 12px; font-family: Arial; font-weight: bold; text-decoration:none;">CAMBIAR CONTRASEÑA </a>
+            </div>
+        </div>
+        <div id="divCambiarContrasena" class="ocultarCambiarContrasena">
+            <div class="div-3">
+                <div class="titZ">Nueva contraseña</div>
+                <div class="TextBox borde">
+                    <input id="txtActualizarClaveSecreta" type="password" class="inputTextBox" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titZ" style="padding-top: 0px">Confirma tu<br /> nueva contraseña</div>
+                <div class="TextBox borde">
+                    <input id="txtConfirmarClaveSecreta" type="password" class="inputTextBox" />
+                </div>
+            </div>
+        </div>
+        <div style="padding-left:28px; padding-top:28px; ">
+            <div class="" style="width: auto">
+                <input type="checkbox" id="chkAceptoContrato" class="checkBox" @if (ViewBag.CodigoISODL == "PE") { <text> checked="checked" </text>      } />
+            </div>
+            <div class="terminosContrato">
+                Declaro que he leído los <a id="hrefTerminos" class="" style="color: #993399 ; cursor:pointer; ">términos y condiciones </a>
+                sobre Protección de Datos Personales y que me <br /> encuentro de acuerdo con los mismos.
+            </div>
+        </div>
+        <div class="contentActualizar">
+            <div id="btnActualizarDatos" class="btnActualizar">
+            </div>
+        </div>
+    </div>
+    <div id="loadingScreen"></div>
+    @Html.Hidden("hdn_Correo", (string)Model.ActualizarDatos.EMail)
+</div>
+
+@*R2639 EGL*@
+<div id="divMensajeConfirmacion" style="display:none;">
+    <div class="tituloMensajeConfirmacion">
+        Actualizar Datos
+        <div id="btnCerrarMensajeConfirmacion" class="btnCerrarMensajeConfirmacion">
+        </div>
+    </div>
+    <div class="">
+        <div id="idMensajeActualizacionDatos" class="textoMensajeConfirmacion">
+
+            <div class="checkImage">
+                Listo, los datos se actualizaron correctamente.
+            </div>
+            <br />
+            Ahora, revisa tu correo y haz clic en el enlace para terminar el proceso.
+        </div>
+        <div id="idObservacionesActualizacionDatos" class="textoMensajeConfirmacion" style="padding-top: 0px; padding-bottom: 15px;">
+        </div>
+    </div>
+</div>
+
+
+<div id="DialogMensaje">
+    <div class="Content_modal">
+        <div class="message_text">
+            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+        </div>
+    </div>
+</div>
+
+<div id="divDemandaAnticipada">
+    <div class="textoMensajeDA">
+        ¡Pasa tu pedido por demanda anticipada y recibe <br />
+        estos beneficios! <br />
+        - Un producto de regalo (Ver belcorpnoticias) <br />
+        - Flete gratis <br /> <br />
+        Las condiciones para pasar tu pedido en demanda <br />
+        anticipada son: <br />
+        - Cumplir con el monto mínimo (no cuenta <br />
+        expoferta) y máximo (nuevas) <br />
+        - Pasar tu pedido hasta el <span class="textFechaDA">
+            .<br /><br />
+            Recuerda que si aceptas participar no podrás<br />
+            modificar tu pedido luego del <span class="textFechaDA">.<br />
+
+    </div>
+    <div class="botonesConfirmacion">
+        <input id="btnAcepto" type="button" value="Acepto participar" onclick="javascript: AceptarDemandaAnticipada();" />
+        <input id="btnNoAcepto" type="button" value="No deseo participar" onclick="javascript: CancelarDemandaAnticipada();" />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#divActualizarDatos').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 610, //R2639 EGL
+            draggable: true,
+            close: function (event, ui) { Cancelar(); }
+        });
+        
+        //GR-1649
+        window.realizarDonacion = function realizarDonacion (dialogComunicadoID, comunicadoId, codigoISO, codigoConsultora, codigoCampania, nombreEvento) {
+            if ($('#chkTerminos' + comunicadoId).is(':checked')) {
+                var params = {
+                    CodigoISO: codigoISO,
+                    CodigoConsultora: codigoConsultora,
+                    Campania: codigoCampania,
+                    ComunicadoID: comunicadoId
+                };
+                waitingDialog({});
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + "Bienvenida/RegistrarDonacionConsultora",
+                    data: JSON.stringify(params),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            if (data.success == true) {
+                                // Cerrar el comuncicado al mostrar el aviso de donación.
+                                $("#" + dialogComunicadoID + "").dialog('close');
+                                alert_msgComunicado(data.message);
+                                closeWaitingDialog();
+                            }
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Ocurrió un error al aceptar el comunicado.");
+                        }
+                    }
+                });
+            } else {
+                alert_msgComunicado('Debes aceptar los Términos y Condiciones para poder Donar.');
+                closeWaitingDialog();
+            }
+        }
+
+        $(document).on('click', '.btnCerrarComunicado', function () {
+
+            var comunicadoID = this.getAttribute('data-comunicado');
+            var dialogComunicadoID = this.getAttribute('data-id');
+
+            AceptarComunicadoVisualizacion(comunicadoID, dialogComunicadoID);
+        });
+
+        $(document).on('click', '.imgComunicado', function () {
+            var comunicadoID = this.getAttribute('data-comunicadoid');
+            var comunicadoDescripcion = this.getAttribute('data-comunicadodescripcion');
+            dataLayer.push({
+                'event': 'promotionClick',
+                'ecommerce': {
+                    'promoClick': {
+                        'promotions': [
+                         {
+                             'id': comunicadoID,
+                             'name': comunicadoDescripcion,
+                             'position': 'Home pop-up - 1',
+                             'creative': 'Banner'
+                         }]
+                    }
+                }
+            });
+
+        });
+
+        function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
+
+            if ($('#chkMostrarComunicado' + ID + '').is(':checked')) {
+                var params = { ComunicadoID: ID };
+
+                waitingDialog({});
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+                    data: JSON.stringify(params),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            $('#divComunicadoVisualizacion').dialog('close');
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Ocurrió un error al aceptar el comunicado.");
+                        }
+                    }
+                });
+            }
+            $("#" + dialogComunicadoID + "").dialog('close');
+        }
+        //*/
+        //R2639 EGL
+        $("#divActualizarDatos").parent().find(".ui-dialog-titlebar").hide();
+        $("#divActualizarDatos").parent().css({ 'border-radius': 0, '-webkit-border-radius': 0 });
+        $("#divActualizarDatos").parent().css("border-color", "rgb(206,202,197)");
+
+        //R2639 INICIO EGL
+        $('#divMensajeConfirmacion').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 680,
+            draggable: true,
+            //close: function (event, ui) { Cancelar(); }
+        });
+        $("#divMensajeConfirmacion").parent().find(".ui-dialog-titlebar").hide();
+        $("#divMensajeConfirmacion").parent().css({ 'border-radius': 0, '-webkit-border-radius': 0 });
+        $("#divMensajeConfirmacion").parent().css("border-color", "rgb(206,202,197)");
+        //R2639 FIN EGL
+
+        $('#hrefTerminos').click(function () {
+            waitingDialog({});
+            DownloadAttachPDFTerminos();
+        });
+
+        //R2639 INICIO EGL
+        $("#btnActualizarDatos").click(function () {
+            ActualizarDatos();
+            return false;
+        });
+
+        $("#btnCerrarActualizarDatos").click(function () {
+            $("#divActualizarDatos").dialog('close');
+        });
+
+        $("#lnkCambiarContrasena").click(function () {
+            if ($("#divCambiarContrasena").is(":visible")) {
+                $(".cambiarContrasena").css("padding-top", "0px");
+                $("#divCambiarContrasena").hide();
+            } else {
+                $(".cambiarContrasena").css("padding-top", "15px");
+                $("#divCambiarContrasena").show();
+
+                //var width = $("divActualizarDatos").dialog("option", "width");
+                //$("#divActualizarDatos").dialog("option", "width", 600);
+            }
+        });
+
+        $("#btnCerrarMensajeConfirmacion").click(function () {
+            $("#divMensajeConfirmacion").dialog('close');
+        });
+        //R2639 FIN EGL
+
+        function alert_msgComunicado(message) {
+            $('#DialogMensaje .message_text').html(message);
+            $('#DialogMensaje').dialog('open')
+        }
+        function DownloadAttachPDFTerminos() {
+
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            var requestedFile = '/Content/FAQ/@ViewBag.ContratoActualizarDatos' + '.pdf';
+            iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        }
+
+
+        function ActualizarDatos() {
+            var Result = false;
+            var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
+            var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
+            var telefono = $('#txtTelefono').val();
+            var celular = $('#txtCelular').val();
+            var correoElectronico = $('#txtEMail').val();
+            var confirmacionCorreoElectronico = $('#txtConfirmarEMail').val(); //RQ2639 EGL
+
+            if ((telefono == '' || telefono == null) &&
+                 celular == '' || celular == null) {
+                alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+                return false;
+            }
+            if (correoElectronico == '') {
+                alert('Debe ingresar el Correo Electrónico');
+                return false;
+            }
+
+            //RQ2639 INICIO EGL
+            if (confirmacionCorreoElectronico == '') {
+                alert('Debe ingresar la Confirmación Correo Electrónico');
+                return false;
+            }
+
+            if (correoElectronico != confirmacionCorreoElectronico) {
+                alert('Los correos electrónicos ingresados no coinciden');
+                return false;
+            }
+            //RQ2639 FIN EGL
+
+            if (!validateEmail(jQuery.trim($('#txtEMail').val()))) {
+                $('#txtEMail').focus();
+                alert('El formato del correo electrónico ingresado no es correcto.');
+                return false;
+            }
+
+            if (ClaveSecreta.length > 0 && ClaveSecreta.length <= 6) {
+                alert('Las clave debe tener mas de 6 caracteres.');
+                return false;
+            }
+            if (ClaveSecreta != ConfirmarClaveSecreta) {
+                alert('Las claves ingresadas no coinciden');
+                return false;
+            }
+
+            if ($('#chkAceptoContrato').is(':checked') == false) {
+                alert('Debe aceptar los términos y condiciones');
+                return false;
+            }
+
+            var item = {
+                Telefono: jQuery('#txtTelefono').val(),
+                Celular: jQuery('#txtCelular').val(),
+                Email: $.trim(jQuery('#txtEMail').val()),
+                ActualizarClave: ClaveSecreta,
+                ConfirmarClave: ConfirmarClaveSecreta,
+                CorreoAnterior: jQuery('#hdn_Correo').val(),
+                AceptoContrato: $('#chkAceptoContrato').is(':checked')
+            };
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'ActualizarDatos/Registrar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    $("#idMensajeActualizacionDatos").css({ "display": "none" });
+                    $("#idObservacionesActualizacionDatos").css({ "display": "none" });
+
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            Result = true;
+                            $("#idMensajeActualizacionDatos").css({ "display": "block" });
+                        }
+                        else {
+                            Result = false;
+                            //alert(data.message);
+                        }
+
+                        if (data.message && data.message != "" && data.message != null) {
+                            if (!Result) {
+                                var aMensaje = data.message.split("-");
+                                var mensajeHtml = "";
+                                $.each(aMensaje, function (i, v) {
+                                    mensajeHtml += v + "<br/>"
+                                });
+                            }
+
+                            $("#idObservacionesActualizacionDatos").css({ "display": "block" });
+                            $("#idObservacionesActualizacionDatos").html(mensajeHtml);
+
+                            $('#divActualizarDatos').dialog('close');
+                            $("#divMensajeConfirmacion").dialog('open');//R2639
+                        }
+
+                    }
+                },
+                error: function (data, error) {
+                    $("#idMensajeActualizacionDatos").css({ "display": "none" });
+                    $("#idObservacionesActualizacionDatos").css({ "display": "none" });
+                    if (checkTimeout(data)) {
+                        Result = false;
+                        closeWaitingDialog();
+                        if (data.message && data.message != "" && data.message != null) {
+                            var aMensaje = data.message.split("-");
+                            var mensajeHtml = "";
+                            $.each(aMensaje, function (i, v) {
+                                mensajeHtml += v + "<br/>"
+                            });
+
+                            $("#idObservacionesActualizacionDatos").css({ "display": "block" });
+                            $("#idObservacionesActualizacionDatos").html(mensajeHtml);
+                        }
+                        $('#divActualizarDatos').dialog('close');
+                    }
+                }
+            });
+
+            return Result;
+        }
+
+        function Cancelar() {
+            var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
+            var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
+
+            if (ClaveSecreta != ConfirmarClaveSecreta) {
+                alert('Las claves ingresadas no coinciden');
+                return false;
+            }
+            var item = {
+                Telefono: jQuery('#txtTelefono').val(),
+                Celular: jQuery('#txtCelular').val(),
+                Email: jQuery('#txtEMail').val(),
+                ActualizarClave: ClaveSecreta,
+                ConfirmarClave: ConfirmarClaveSecreta,
+                CorreoAnterior: jQuery('#hdn_Correo').val(),
+            };
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'ActualizarDatos/Cancelar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        //if (data.success == true) {
+                        //    alert(data.message);
+                        //}
+                        //else {
+                        //    alert(data.message);
+                        //}
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+
+        function ValidateOnlyNums(id) {
+            return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
+        }
+
+
+        $("#txtTelefono").keypress(function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[0-9+ *#-]/;
+                return re.test(keyChar);
+            }
+        });
+        $("#txtCelular").keypress(function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[0-9+ *#-]/;
+                return re.test(keyChar);
+            }
+        });
+
+
+        waitingDialog({});
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + 'GestionContenido/GetResumenCampania',
+            data: '',
+            cache: false,
+            dataType: 'Json',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.result) {
+                        if (data.PrimeraVez == "0") {
+                            $("#divActualizarDatos").dialog('open');
+                        }
+                        closeWaitingDialog();
+
+                        MostrarDemandaAnticipada(); //Mostrar el Landing
+                    }
+                }
+            },
+            error: function () { alert('error') }
+        });
+
+        ///Popup Demanda Anticipada
+
+        $('#divDemandaAnticipada').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: false,
+            width: 400,
+            //height: 380,
+            draggable: true,
+            title: ""
+            //open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); },
+            //close: function (event, ui) {
+            //    $(this).dialog('close');
+            //}
+        });
+
+        $('#divDemandaAnticipada').dialog("widget").find('.ui-dialog-titlebar-close').remove()
+        //$("#divDemandaAnticipada").siblings('div.ui-dialog-titlebar').remove();
+
+        $('#DialogMensaje').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            draggable: true,
+            title: "",
+            buttons:
+            {
+                "Cerrar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        ///Fin Demanda Anticipada
+
+    });
+
+</script>

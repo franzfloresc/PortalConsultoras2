@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5a23fe81-db99-43a1-a925-80d96ee92491" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PortalService66.xsd" MetadataType="Schema" ID="11ac828a-3e49-4d9d-8196-8730c502a6c1" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" />
+    <MetadataFile FileName="PortalService67.xsd" MetadataType="Schema" ID="b678dece-ddc0-4069-a14d-a72cf90b826c" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" />
+    <MetadataFile FileName="PortalService.xsd" MetadataType="Schema" ID="198ea6d9-3458-45a7-a110-6d8af16bcf7a" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PortalService1.xsd" MetadataType="Schema" ID="84c064e7-9bcd-4d05-8eae-7f427553e5c5" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PortalService2.xsd" MetadataType="Schema" ID="17078b26-bd90-4433-8f74-df0730af8635" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PortalService3.xsd" MetadataType="Schema" ID="d26ae36d-a6d9-4d05-8934-657b4c0bb351" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PortalService.wsdl" MetadataType="Wsdl" ID="8a70acab-4d7a-464b-b828-b09202861434" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?wsdl" />
+    <MetadataFile FileName="PortalService4.xsd" MetadataType="Schema" ID="75d323c5-8498-4988-a795-bed1d63fa50f" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" />
+    <MetadataFile FileName="PortalService5.xsd" MetadataType="Schema" ID="c9260837-aedd-4e2e-b2f3-d6eac2ddc772" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
