@@ -11895,7 +11895,7 @@ float: right;
     margin-left: 20px;
     width: 450px;
     /* float: left; */
-    margin-top: 17px;
+    /*margin-top: 17px;*/
   
 }
 .content_show_right {
@@ -11911,7 +11911,7 @@ float: right;
 .borde_inferior {
     padding-top:10px;
     width:344px;
-    height:60px;
+    /*height:60px;*/
      background: url(../../Images/showroom/borde_inferior.png) no-repeat;
     }
 .borde_inferior p{
@@ -12068,7 +12068,23 @@ html {
     background: white;
     /* height: 100px; */
     padding-left: 40px;
-        padding-bottom: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 40px;
+}
+
+.datos_pop_up_hoy {
+    margin-top: 60px;
+    width: 183px;
+    min-height: 280px;
+    margin-left: 89px;
+    position: absolute;
+    z-index: 2000;
+    background: white;
+    /* height: 100px; */
+    padding-left: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     padding-right: 40px;
 }
 
@@ -12115,7 +12131,7 @@ html {
     text-align: justify;
 }
 .titulo_padre_s {
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -12125,8 +12141,10 @@ html {
     background: black;
     color: white;
     letter-spacing: 0.3px;
-    margin-top:6px;
-    }
+    margin-top: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .fecha_promocion_s {
     width: 100%;
     margin-top: 6px;
@@ -12200,14 +12218,13 @@ html {
 }
 .check_hoy {
     position:absolute;
-    bottom: 20px;
+    bottom: -20px;
     right: 42px;
 }
 .pestana_preventa2 {
     position: absolute;
-    margin-left: 100px;
-    width: 525px;
-        margin-top: -18px;
+    margin-left: 42px;
+    width: 500px;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -12219,6 +12236,14 @@ html {
     margin-left:-9px;
     
 }
+
+.evento_tema_hoy {
+    width: 192px;
+    height: 76px;
+    margin-top: 23px;
+    margin-left: -6px;
+}
+
 .precio_caja_traslado {
     font-family: 'lato';
     font-weight: 400;
@@ -12241,8 +12266,10 @@ html {
 /*FIN*/
 
 .nombre_separado {
-    font-weight:bold; width:100%; text-align:center;
-     font-family: 'lato';
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-family: 'lato';
     font-size: 11pt;
     /* font-weight: 300; */
     text-transform: uppercase;
@@ -12850,3 +12877,21 @@ label.checkpop.c_on {
 
 .imagen_showroom img { width: 100%; }
 
+.marginBottom {
+   margin-bottom: 1.5em; 
+}
+
+/*EPD-367 - Mensaje en Modulo "Pagos en Linea" - Puerto Rico*/
+.mensajePagoLineadesktop
+{
+    padding: 0;
+    color: #3737c5;
+    font-size: 14px;
+    margin-bottom: -10px;
+    font-style: italic;
+    font-family: museo-sans, sans-serif;
+}
+
+#tdTotalPrecio {
+margin-left:25px;
+}

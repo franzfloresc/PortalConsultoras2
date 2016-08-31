@@ -3,6 +3,7 @@
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
 @{
     var lugaresNivel1 = ViewBag.LugaresNivel1 != null ? ViewBag.LugaresNivel1 as SelectList : new SelectList(new List<SelectListItem>());
+    var direccionesCo = ViewBag.DireccionesCo != null ? ViewBag.DireccionesCo as SelectList : new SelectList(new List<SelectListItem>());
 }
 
 <style>
@@ -23,27 +24,27 @@
 
     .field_20 {
         color: #702789;
-        float:left;
-        width:20%;
+        float: left;
+        width: 20%;
     }
 
     .field_80 {
-        float:left;
-        width:80%;
+        float: left;
+        width: 80%;
     }
 
     .field_100 {
-        float:left;
-        width:100%;
+        float: left;
+        width: 100%;
     }
 
     .field_85 {
-        float:left;
-        width:85%;
+        float: left;
+        width: 85%;
     }
 
     .clear {
-        height : 1px;
+        height: 1px;
     }
 
     .field-validation-error {
@@ -55,7 +56,6 @@
         height: 10px;
         float: left;
     }
-
 </style>
 
 @using (Ajax.BeginForm("EditarDireccion", "Unete", null, new AjaxOptions()
@@ -71,7 +71,8 @@
     @Html.HiddenFor(m => Model.CodigoPais)
     @Html.HiddenFor(m => Model.NombreComunaEdicion)
     @Html.HiddenFor(m => Model.NombreRegionEdicion)
-    
+    @Html.HiddenFor(m => Model.NombreDireccionColombia)
+     @Html.HiddenFor(m => Model.NombreColonia)
     <div class="wrap_cab">
         <div class="filtros2">
             <h2>
@@ -106,34 +107,96 @@
                 </div>
             </div>
 
-            <div class="div-3">
-                <div class="titC">Calle &oacute; avenida</div>
-                <div class="selectP2 borde_redondeado">
+                @if (Model.CodigoPais == "CL")
+                {
+                    <div class="div-3">
+                    <div class="titC">Calle &oacute; avenida</div>
+                    <div class="selectP2 borde_redondeado">
                     @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => Model.CalleOAvenida)
-                </div>
-            </div>
+                    </div>
+                    </div>
+                    <div class="div-3">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+                    </div>
+                    </div>
+                    
+                }
+                else if (Model.CodigoPais == "CO")
+                {
+                    <div class="div-3">
+                    <div class="titC">Barrio</div>
+                    <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
+                    </div>
+                    </div>
+                }
+                else if (Model.CodigoPais == "MX")
+                {
+                    <div class="div-3">
+                    <div class="titC">Colonia</div>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(m => Model.Colonia, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+                    </div>
+                    </div>
+                }
+                
+                @if (Model.CodigoPais == "CO")
+                {
+                    <div class="div-3">
+                        <div class="titC">Dirección</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.DropDownListFor(m => Model.DireccionColombia, direccionesCo, "-- Seleccionar --", new { @class = "field_85" })
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="validation_clear"></div>
+                        <div class="validation">
+                            @Html.ValidationMessageFor(m => Model.DireccionColombia)
+                        </div>
+                    </div>
+                    <div class="div-3">
 
-            @*<div class="div-3">
-                <div class="titC">Nro.</div>
-                <div class="selectP2 borde_redondeado">
-                    @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => Model.Numero)
-                </div>
-            </div>*@
-            
+                        <div class="titC"></div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85", @placeholder = "Ejm: 97B 35 2" })
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="validation_clear"></div>
+                        <div class="validation">
+                            @Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)
+                        </div>
+                    </div>
+                }
+
+                @if (Model.CodigoPais == "MX")
+                {
+                   <div class="div-3">
+                    <div class="titC">Dirección</div>
+                    <div class="selectP2 borde_redondeado">
+                    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
+                    </div>
+                    </div>
+                    
+                     <div class="div-3">
+                        <div class="titC">Nro.</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100" })
+                        </div>
+                    </div>
+                        <div class="div-3">
+                        <div class="validation_clear"></div>
+                        <div class="validation">
+                            @Html.ValidationMessageFor(m => Model.Numero)
+                        </div>
+                    </div>
+                    
+                }
+
         </div>
-        <div class="elements" style="width:95% !important; padding:10px !important;">
+        <div class="elements" style="width:100% !important; padding:10px !important;">
             <div class="div-3">
                 <div class="input_search" style="text-align:center;">
                     <input type="submit" style="float:initial !important;margin-right:20px;" id="btnGuardar" value="Aceptar" />
@@ -152,19 +215,7 @@
     $(function () {
         $('.numero').keydown(IntegerNumber);
 
-        @*$('#btnGuardar').click(function () {
-            modalOpcion.dialog('close');
-            var solicitudPostulanteID = $('#SolicitudPostulanteID').val();
-            waitingDialog({});
-
-            $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
-                $('#modal_content').html(html);
-            }).done(function () {
-                closeWaitingDialog({});
-            });
-        });*@
-
-        $('#Region').change(function () {
+        $('body').on('change', '#Region', function () {
             var region = $(this);
             var comuna = $('#Comuna');
             comuna.attr('disabled', 'disabled');
@@ -186,10 +237,39 @@
         });
 
         $('#Comuna').change(function () {
+            var comuna = $(this);
+            var colonia = $('#Colonia');
+            colonia.attr('disabled', 'disabled');
+
+            $('#NombreComuna').val(comuna.find('option:selected').text());
+
+            $.getJSON('@Url.Action("ObtenerLugaresTercerNivel")', { id: this.value, codigoPais: '@Model.CodigoPais' }, function (data) {
+                $('#Colonia').html(defaultOption);
+
+                $.map(data, function (e, i) {
+                    $('#Colonia').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                });
+            }).complete(function () {
+                colonia.attr('disabled', false);
+                if (comuna.val() == '') {
+                    colonia.html(defaultOption);
+                }
+            });
+        });
+
+        $('#Comuna').change(function () {
             var nombre = $(this).find('option:selected').text();
             $('#NombreComunaEdicion').val(nombre);
         });
 
+        $('#DireccionColombia').change(function () {
+            var nombre = $(this).find('option:selected').text();
+            $('#NombreDireccionColombia').val(nombre);
+        });
+
+        $('#Colonia').change(function () {
+            $('#NombreColonia').val($(this).find('option:selected').text());
+        });
         $('#imgCerrarOpcion,#btnCancelar').click(function () {
             modalOpcion.dialog('close');
         });

@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarEscalaDescuento { get; set; }
         public decimal MontoEscalaDescuento { get; set; }
         public string DescripcionMontoEscalaDescuento { get; set; }
-        public int PorcentajeEscala { get; set; }
+        public int PorcentajeEscala { get; set; }      
         
         public string Simbolo { get; set; }
 

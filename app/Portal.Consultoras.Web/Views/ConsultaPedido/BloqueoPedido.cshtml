@@ -78,76 +78,91 @@
     function BloquearPedido() {
 
         var IsBlock = $("#hdnBloqueado").val();
-        var msg;
-        if (IsBlock == 0) {
-            msg = confirm('¿Está seguro(a) que desea bloquear el pedido?');
-            if (msg) {
-                var item = {
-                    DescripcionBloqueo: jQuery.trim($("#txtObservacion").val()),
-                    PedidoID: $("#hdpedidoID").val(),
-                    CampaniaID: $("#hdCampaniaID").val(),
-                    PaisID: $("#hdn_vPaisID").val()
-                };
+        var IndicadorEnviado = $("#hdnIndicadorEnviado").val();
+        var FechaProceso = $("#hdnFechaProceso").val();
 
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'ConsultaPedido/BloquearPedido',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    async: true,
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            if (data.success == true) {
-                                alert(data.message);
-                                location.href = '@Url.Action("ConsultaPedido", "ConsultaPedido")';
+        var msg;
+
+        if (IsBlock == 0) {
+            if (IndicadorEnviado == 0) {
+
+                msg = confirm('¿Está seguro(a) que desea bloquear el pedido?');
+                if (msg) {
+                    var item = {
+                        DescripcionBloqueo: jQuery.trim($("#txtObservacion").val()),
+                        PedidoID: $("#hdpedidoID").val(),
+                        CampaniaID: $("#hdCampaniaID").val(),
+                        PaisID: $("#hdn_vPaisID").val(),
+                        CodigoConsultora: $('#hdn_vCodigoConsultora').val()
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'ConsultaPedido/BloquearPedido',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(item),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    alert(data.message);
+                                    location.href = '@Url.Action("ConsultaPedido", "ConsultaPedido")';
+                                }
+                                else {
+                                    alert(data.message);
+                                }
                             }
-                            else {
-                                alert(data.message);
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                alert("Se produjo un error al tratar de bloquear el pedido. Consulte con su administrador del sistema para mayor información");
                             }
                         }
-                    },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) {
-                            alert("Se produjo un error al tratar de bloquear el pedido. Consulte con su administrador del sistema para mayor información");
-                        }
-                    }
-                });
+                    });
+                }
+            } else {
+                alert("El pedido no se puede bloquear porque ya fue descargado de Somos Belcorp el día " + FechaProceso);
             }
         }
         else {
-            msg = confirm('¿Está seguro(a) que desea desbloquear el pedido?');
-            if (msg) {
-                var item = {
-                    PedidoID: $("#hdpedidoID").val(),
-                    CampaniaID: $("#hdCampaniaID").val(),
-                    PaisID: $("#hdn_vPaisID").val()
-                };
+            if (IndicadorEnviado == 0) {
+                msg = confirm('¿Está seguro(a) que desea desbloquear el pedido?');
+                if (msg) {
+                    var item = {
+                        PedidoID: $("#hdpedidoID").val(),
+                        CampaniaID: $("#hdCampaniaID").val(),
+                        PaisID: $("#hdn_vPaisID").val(),
+                        CodigoConsultora: $('#hdn_vCodigoConsultora').val()
+                    };
 
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'ConsultaPedido/DesbloquearPedido',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    async: true,
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            if (data.success == true) {
-                                alert(data.message);
-                                location.href = '@Url.Action("ConsultaPedido", "ConsultaPedido")';
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: baseUrl + 'ConsultaPedido/DesbloquearPedido',
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(item),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    alert(data.message);
+                                    location.href = '@Url.Action("ConsultaPedido", "ConsultaPedido")';
+                                }
+                                else {
+                                    alert(data.message);
+                                }
                             }
-                            else {
-                                alert(data.message);
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                alert("Se produjo un error al tratar de desbloquear el pedido. Consulte con su administrador del sistema para mayor información");
                             }
                         }
-                    },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) {
-                            alert("Se produjo un error al tratar de desbloquear el pedido. Consulte con su administrador del sistema para mayor información");
-                        }
-                    }
-                });
+                    });
+                }
+            } else {
+                alert("El pedido no se puede desbloquear porque ya fue descargado de Somos Belcorp el día " + FechaProceso);
             }
         }
     }
@@ -173,7 +188,7 @@
                 vCampaniaID, vpage, vsortname, vsortorder, vrowNum, vpaisID, vUsuario, vTotalImporte)
         }, 0);
     }
-    
+
     function DownloadAttachPDF(vCodigoConsultora, vNombres, vDireccion, vCodigoTerritorio, vPedidoID,
                 vCampaniaID, vpage, vsortname, vsortorder, vrowNum, vpaisID, vUsuario, vTotalImporte) {
         if (checkTimeout()) {
@@ -227,7 +242,7 @@
         waitingDialog({});
         pedidoID = $("#hdpedidoID").val();
         paisID = $("#hdn_vPaisID").val();
-        
+
         setTimeout(function () { DownloadAttachExcel(pedidoID, paisID) }, 0);
     }
 
@@ -278,11 +293,9 @@
     </div>
 </div>
 
-
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper_reg">
-
             <table class="Edit_reg" style="text-align: left; width: 100%">
                 <tr>
                     <td>
@@ -315,11 +328,9 @@
     </div>
 </div>
 
-
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper">
-
             <div style="float: left;">
                 @Html.TextArea("txtObservacion", new
             {
@@ -327,22 +338,21 @@
                 style = "width: 905px; height: 100px"
             })
             </div>
-            <input id="hdnBloqueado"  type="hidden" value="@Model.Bloqueado" />
-            <input id="hdnDescripcion"  type="hidden" value="@Model.DescripcionBloqueo" />
+            <input id="hdnBloqueado" type="hidden" value="@Model.Bloqueado" />
+            <input id="hdnIndicadorEnviado" type="hidden" value="@Model.IndicadorEnviado" />
+            <input id="hdnFechaProceso" type="hidden" value="@Convert.ToDateTime(Model.FechaProceso).ToShortDateString()" />
+            <input id="hdnDescripcion" type="hidden" value="@Model.DescripcionBloqueo" />
             <div class="input_global">
                 <input id="btnBloquear" type="button" value="Bloquear" onclick="BloquearPedido();" />
             </div>
-
         </div>
     </div>
 </div>
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper">
-
             <table id="list"></table>
             <div id="pager"></div>
-
         </div>
     </div>
 </div>
@@ -361,7 +371,6 @@
     </div>
 </div>
 <div id="loadingScreen"></div>
-
 @Html.Hidden("hdn_vCodigoConsultora", (string)Model.CodigoConsultora)
 @Html.Hidden("hdn_vNombres", (string)Model.Nombres)
 @Html.Hidden("hdn_vDireccion", (string)Model.Direccion)

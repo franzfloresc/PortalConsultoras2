@@ -42,6 +42,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime? FechaModificacion { get; set; } 
         [DataMember]
+        public string FlagMedio { get; set; } // GR-1385
+        [DataMember]
+        public bool FlagConsultora { get; set; } // GR-1385
+        [DataMember]
         public List<BEMisPedidosDetalle> DetallePedido  { get; set; }
 
         public BEMisPedidos(IDataRecord row)
@@ -61,6 +65,11 @@ namespace Portal.Consultoras.Entities
             this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+            if (DataRecord.HasColumn(row, "FlagMedio") && row["FlagMedio"] != DBNull.Value)
+                this.FlagMedio = Convert.ToString(row["FlagMedio"]); //GR-1385
+            if (DataRecord.HasColumn(row, "FlagConsultora") && row["FlagConsultora"] != DBNull.Value)
+                this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]); //GR-1385
+            
             this.DetallePedido = new List<BEMisPedidosDetalle>();
         }
     }
@@ -83,8 +92,10 @@ namespace Portal.Consultoras.Entities
         //[DataMember]
         public double PrecioUnitario { get; set; }
         //[DataMember]
-        public double PrecioTotal { get; set; }        
-        
+        public double PrecioTotal { get; set; }
+
+        public string MedioContacto { get; set; }
+
         //[DataMember]
         //public int Estado;
         public BEMisPedidosDetalle()
@@ -101,6 +112,10 @@ namespace Portal.Consultoras.Entities
             this.Cantidad = Convert.ToInt32(row["Cantidad"]);
             this.PrecioTotal = this.PrecioUnitario * this.Cantidad;
             //this.Estado = Convert.ToInt32(row["Estado"]);
+            
+            //gr-1012
+            if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
+                this.MedioContacto = Convert.ToString(row["MContacto"]);
         }
     }
 }

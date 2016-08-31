@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
-                
+
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
                         model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                     else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;                  
+                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -210,9 +210,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (comunicado != null)
                         Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null)
-                        ComunicadoVisualizado = VisualizaComunicado.Visualizo ? 1 : 0;
+                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
@@ -352,13 +352,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion()
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
         {
             try
             {
                 using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                 {
-                    sac.InsertComunicadoByConsultoraVisualizacion(userData.PaisID, userData.CodigoConsultora);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
                 }
                 return Json(new
                 {
@@ -528,7 +528,6 @@ namespace Portal.Consultoras.Web.Controllers
                 result = retorno
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult ValidarCorreoComunidad(string correo)
@@ -1409,6 +1408,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-       
+
     }
 }

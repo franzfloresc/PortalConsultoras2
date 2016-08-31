@@ -361,7 +361,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
-    MostrarBarra();
+    MostrarBarra();    
 });
 
 function CrearDialogs() {
