@@ -325,8 +325,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();                
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();                
+                #region validar cuv de inicio obligatorio
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
+                    || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
+                {
+                    var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
+
+                    if (detCuv.CUV != "")
+                    {
+                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                        oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                        if (oBEConfiguracionProgramaNuevas.IndProgObli == "1")
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Ocurrió un error al ejecutar la operación.",
+                                errorInsertarProducto = "1"
+                            });
+                        }
+                    }
+                }
+
+                #endregion
+
+                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
