@@ -84,6 +84,7 @@
     <Compile Include="BEConfiguracionValidacion.cs" />
     <Compile Include="BEConfiguracionValidacionNuevoPROL.cs" />
     <Compile Include="BEConfiguracionValidacionZona.cs" />
+    <Compile Include="BELogConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionEntrega.cs" />
     <Compile Include="BEConfirmacionRecojo.cs" />
     <Compile Include="BEConsultora.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="BEInformacion.cs" />
     <Compile Include="BEItemCarruselInicio.cs" />
     <Compile Include="BEKitNueva.cs" />
+    <Compile Include="BEListaConsultoraCatalogo.cs" />
     <Compile Include="BELogActualizacionFacturacion.cs" />
     <Compile Include="BELogCabeceraEnvioCorreo.cs" />
     <Compile Include="BELogDetalleEnvioCorreo.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="BEShowRoomOfertaDetalle.cs" />
     <Compile Include="BEShowRoomOferta.cs" />
     <Compile Include="BEOfertaWeb.cs" />
     <Compile Include="BEPaging.cs" />
@@ -199,6 +202,8 @@
     <Compile Include="BEServicioSegmentoZona.cs" />
     <Compile Include="BEShowRoomEvento.cs" />
     <Compile Include="BEShowRoomEventoConsultora.cs" />
+    <Compile Include="BEShowRoomPerfil.cs" />
+    <Compile Include="BEShowRoomPerfilOferta.cs" />
     <Compile Include="BESolicitudClienteDetalleAppCatalogo.cs" />
     <Compile Include="BESolicitudClienteAppCatalogo.cs" />
     <Compile Include="BESolicitudCliente.cs" />

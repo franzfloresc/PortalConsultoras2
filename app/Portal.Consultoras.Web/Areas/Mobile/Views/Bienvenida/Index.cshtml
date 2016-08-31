@@ -6,11 +6,7 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
-    if (Model.NombreConsultora != "")
-    {
-        nombreConsultora += nombreConsultora != Model.NombreConsultora ? "..." : "!";
-    }
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
 }
 
 @section styles{
@@ -23,8 +19,7 @@
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 }
 
-<!--MICHAEL-->
-<div id="tutorialesMobile" style="display: none">
+<div id="tutorialesMobile" style="display:none;">
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
@@ -64,8 +59,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="wrapper_resumen_mobile sombra_wrapper">
     <div class="content_320">

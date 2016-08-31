@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Web.Models
         public string urlBanner_02 { get; set; }
         public string urlBanner_03 { get; set; }
 
+        public string accionBanner_01 { get; set; }
+
         [Required(ErrorMessage = "Debe ingresar la Cantidad del Producto")]
         [Range(1, 99, ErrorMessage = "Debe ingresar un valor entre 1 y 99")]
         public string Cantidad { get; set; }

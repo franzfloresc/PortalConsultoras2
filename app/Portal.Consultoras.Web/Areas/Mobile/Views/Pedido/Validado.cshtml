@@ -37,7 +37,7 @@
         </div>
         <hr class="clear" />
 
-        <div id="PedidoReservado" class="panel-collapse collapse">
+    <div id="PedidoReservado" class="panel-collapse collapse">
 
             <div class="linea_gris" style="margin-top:10px;"></div>
             <span class="detalle_reservado">DETALLE</span>
@@ -45,37 +45,37 @@
             <!--LISTADO PEDIDO RESERVADO-->
             @foreach (var item in Model.Detalle)
             {
-                <div class="detalle_pedido_reservado">
-                    <div class="left_reservado" style="width:235px;">
-                        <div class="datos_Reservado">
+            <div class="detalle_pedido_reservado">
+                <div class="left_reservado" style="width:235px;">
+                    <div class="datos_Reservado">
                             <span> @item.CUV </span>
                             <span>@item.DescripcionProd</span>
-                        </div>
+                    </div>                    
                         <div class="texto_reservado">Cliente: @item.Nombre</div>
-                    </div>
-                    <div class="right_reservado">
-                        <div class="texto_reservado">CANT</div>
+                </div>
+                <div class="right_reservado">
+                    <div class="texto_reservado">CANT</div>
                         <div class="datos_Reservado"><b>@item.Cantidad</b></div>
-                    </div>
-                    <hr class="clear" /><br />
-                    <div class="left_reservado">
-                        <div class="texto_reservado">
-                            <span>Precio Unitario</span>
-                        </div>
+                </div>
+                <hr class="clear" /><br /> 
+                <div class="left_reservado">                    
+                    <div class="texto_reservado">
+                       <span>Precio Unitario</span>
+                    </div>  
                         <div class="importe_reservado">SUBTOTAL</div>
-                    </div>
-                    <div class="right_reservado">
-                        <div class="texto_reservado">
+                </div>   
+                <div class="right_reservado">
+                    <div class="texto_reservado">
                             <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
-                        </div>
+                    </div>
                         <div class="importe_reservado">
                             @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
                             {
                                 <span class="icono_advertencia_notificacion"></span>
                             }
                             @Model.Simbolo @item.DescripcionImporteTotal
-                        </div>
-                    </div>
+                </div> 
+            </div>
 
                     @if (!string.IsNullOrEmpty(item.Mensaje))
                     {
@@ -89,7 +89,7 @@
                                 { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
                                 }
                             </small>
-                        </div>
+                    </div>
                     }
                 </div>
             }

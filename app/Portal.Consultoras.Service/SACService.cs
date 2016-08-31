@@ -1101,9 +1101,9 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public BEComunicado ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora)
         {
-            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora);
+            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
         }
 
         //R2004
@@ -1112,11 +1112,16 @@ namespace Portal.Consultoras.Service
             BLComunicado.UpdComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public void InsertComunicadoByConsultoraVisualizacion(int PaisID, string CodigoConsultora) {
+        public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
+        {
 
-            BLComunicado.InsertComunicadoByConsultoraVisualizacion(PaisID, CodigoConsultora);
+            BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
         }
 
+        public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
+        {
+            BLComunicado.InsertarDonacionConsultora(PaisId, CodigoISO, CodigoConsultora, Campania, IPUsuario);
+        }
 
         // R2073 - Inicio
         public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, string CodigoConsultora)

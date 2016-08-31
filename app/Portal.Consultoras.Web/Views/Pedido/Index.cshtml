@@ -179,7 +179,7 @@
                 <div id="paginadorCab">
                 </div>
             </div>
-
+            <div class="clear"></div>
             <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
                 <div class="encabezado_ingresoPedido">
                     <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
@@ -357,24 +357,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                @if (Model.CodigoIso == Constantes.CodigosISOPais.Peru || Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-                {
-                    <li>
-                        <a href="javascript:;" title="Catálogo Personalizado">
-                            <img src="@Model.UrlBanner01" alt="Catálogo Personalizado" />
-                            <div>CATÁLOGO PERSONALIZADO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "MisCatalogosRevistas")" title="Mi Catálogo Web">
-                            <img src="@Model.UrlBanner01" alt="Mi Catálogo Web" />
-                            <div>MIS CATÁLOGOS Y REVISTAS</div>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                        <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
 
                 @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -909,6 +897,7 @@
 
         <div class="clear"></div>
     </ul>
+    <div class="clear"></div>
 </script>
 
 <script id="producto-template" type="text/x-handlebars-template">
@@ -1014,7 +1003,7 @@
             {{#if EsKitNueva}}
             <div>
                 <input type="hidden" data-kit="true" />
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
                 <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
                     <div class="tooltip_flecha"></div>
                     <h6>Kit de Inicio</h6>

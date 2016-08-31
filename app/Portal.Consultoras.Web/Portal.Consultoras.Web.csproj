@@ -102,6 +102,9 @@
       <HintPath>..\Binaries\LithiumSSOClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RazorEngine">
+      <HintPath>..\packages\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -179,6 +182,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
+    <Compile Include="Annotations\RequiredIfAttribute.cs" />
+    <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IoCConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs">
@@ -186,6 +192,7 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -242,12 +249,12 @@
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
+    <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
     <Compile Include="Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Controllers\ConsultoraDigitalesController.cs" />
-    <Compile Include="Controllers\HojaInscripcionController.cs" />
     <Compile Include="Controllers\MiAcademiaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BannerPedidoController.cs" />
@@ -256,7 +263,6 @@
     </Compile>
     <Compile Include="Controllers\BelcorpNoticiasController.cs" />
     <Compile Include="Controllers\BienvenidaController.cs" />
-    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\ClienteContactaConsultoraController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />
@@ -319,7 +325,6 @@
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
-    <Compile Include="Controllers\RevistaGanaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
@@ -337,15 +342,22 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
+    <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
+    <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
+    <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
     <Compile Include="Models\ActualizarDatosModel.cs" />
     <Compile Include="Models\AdministracionOfertaProductoModel.cs" />
@@ -392,9 +404,6 @@
     <Compile Include="Models\HojaInscripcionMailModel.cs" />
     <Compile Include="Models\HojaInscripcionMailVM.cs" />
     <Compile Include="Models\HojaInscripcionMensajeFinalModel.cs" />
-    <Compile Include="Models\HojaInscripcionPaso1Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso2Model.cs" />
-    <Compile Include="Models\HojaInscripcionPaso3Model.cs" />
     <Compile Include="Models\IncentivosModel.cs" />
     <Compile Include="Models\ItemCarruselInicioModel.cs" />
     <Compile Include="Models\LugaresPagoModel.cs" />
@@ -418,6 +427,7 @@
     <Compile Include="Models\MatrizComercialModel.cs" />
     <Compile Include="Models\MisDatosModel.cs" />
     <Compile Include="Models\NavidadConsultoraModel.cs" />
+    <Compile Include="Models\NivelesRiesgoModel.cs" />
     <Compile Include="Models\NotificacionesModel.cs" />
     <Compile Include="Models\OfertaFlexipagoModel.cs" />
     <Compile Include="Models\OfertaFICModel.cs" />
@@ -425,11 +435,15 @@
     <Compile Include="Models\OfertaMatrizModel.cs" />
     <Compile Include="Models\OfertaNuevaModel.cs" />
     <Compile Include="Models\OfertaProductoModel.cs" />
+    <Compile Include="Models\PaginacionModel.cs" />
     <Compile Include="Models\PaisModel.cs" />
     <Compile Include="Models\ParametrizarCUVModel.cs" />
     <Compile Include="Models\ParametroDiasCargaPedidoModel.cs" />
     <Compile Include="Models\ParametroModel.cs" />
     <Compile Include="Models\ParticipantesDemandaAnticipadaModel.cs" />
+    <Compile Include="Models\Paso1CoreVm.cs" />
+    <Compile Include="Models\Paso2CoreVm.cs" />
+    <Compile Include="Models\Paso3CoreVm.cs" />
     <Compile Include="Models\PedidoActualizaModel.cs" />
     <Compile Include="Models\PedidoAsociadoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
@@ -441,10 +455,12 @@
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
+    <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RolModel.cs" />
     <Compile Include="Models\RootMiCurso.cs" />
@@ -453,6 +469,7 @@
     <Compile Include="Models\ServicioCampaniaModel.cs" />
     <Compile Include="Models\ServicioModel.cs" />
     <Compile Include="Models\ShowRoomEventoModel.cs" />
+    <Compile Include="Models\ShowRoomOfertaDetalleModel.cs" />
     <Compile Include="Models\ShowRoomOfertaModel.cs" />
     <Compile Include="Models\SolicitudClienteConsultoraModel.cs" />
     <Compile Include="Models\SolicitudClienteModel.cs" />
@@ -466,6 +483,7 @@
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
+    <Compile Include="Models\ValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings1.Designer.cs">
@@ -548,6 +566,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ValidacionCrediticia\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ValidacionesUnete\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\WsFuncionesSoap2\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -624,6 +652,13 @@
     <Compile Include="WebPages\CambiarClaveComunidad.aspx.designer.cs">
       <DependentUpon>CambiarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CambioExitoso.aspx.designer.cs">
+      <DependentUpon>CambioExitoso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\CatalogoVirtual.aspx.cs">
       <DependentUpon>CatalogoVirtual.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -665,6 +700,13 @@
     </Compile>
     <Compile Include="WebPages\ConsultaPedidoImp.aspx.designer.cs">
       <DependentUpon>ConsultaPedidoImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\CorreoEnviado.aspx.designer.cs">
+      <DependentUpon>CorreoEnviado.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\DespachosCobranza.aspx.cs">
       <DependentUpon>DespachosCobranza.aspx</DependentUpon>
@@ -715,6 +757,13 @@
     <Compile Include="WebPages\RecuperarClaveComunidad.aspx.designer.cs">
       <DependentUpon>RecuperarClaveComunidad.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RecuperarClaveMobile.aspx.designer.cs">
+      <DependentUpon>RecuperarClaveMobile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\RegistroComunidad.aspx.cs">
       <DependentUpon>RegistroComunidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -728,6 +777,13 @@
     </Compile>
     <Compile Include="WebPages\ReporteActualizacionDatos.aspx.designer.cs">
       <DependentUpon>ReporteActualizacionDatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\RestablecerContrasena.aspx.designer.cs">
+      <DependentUpon>RestablecerContrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\TerminosyReferencias_CO.aspx.cs">
       <DependentUpon>TerminosyReferencias_CO.aspx</DependentUpon>
@@ -936,6 +992,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
     <Content Include="Content\Banderas\CL.png" />
@@ -979,32 +1036,23 @@
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
+    <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
-    <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\icomoon.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-bold.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-light.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-medium.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-regular.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-thin.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\oldstandard-italic.svg" />
-    <Content Include="Content\Css\Site\Esika\fonts\slick.svg" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
+    <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
+    <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Css\Site\fonts\icomoon.svg" />
+    <Content Include="Content\Css\Site\fonts\lato-bold.svg" />
+    <Content Include="Content\Css\Site\fonts\lato-light.svg" />
+    <Content Include="Content\Css\Site\fonts\lato-medium.svg" />
+    <Content Include="Content\Css\Site\fonts\lato-regular.svg" />
+    <Content Include="Content\Css\Site\fonts\lato-thin.svg" />
+    <Content Include="Content\Css\Site\fonts\oldstandard-italic.svg" />
+    <Content Include="Content\Css\Site\fonts\slick.svg" />
     <Content Include="Content\Css\Site\hover.css" />
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
-    <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\icomoon.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-bold.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-light.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-medium.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-regular.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-thin.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\oldstandard-italic.svg" />
-    <Content Include="Content\Css\Site\Lbel\fonts\slick.svg" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
     <Content Include="Content\Css\Site\Lbel\style.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
@@ -1515,6 +1563,7 @@
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\Esika\icono_exclamacion.png" />
+    <Content Include="Content\Images\Esika\icono_exclamacion_esika.png" />
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.svg" />
     <Content Include="Content\Images\Esika\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Esika\icono_percepciones.png" />
@@ -1731,6 +1780,7 @@
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_exclamacion.png" />
+    <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.png" />
     <Content Include="Content\Images\Lbel\icono_exclamacion_lbel.svg" />
     <Content Include="Content\Images\Lbel\icono_pedidos_facturados.png" />
     <Content Include="Content\Images\Lbel\icono_percepciones.png" />
@@ -2215,6 +2265,7 @@
     <Content Include="Scripts\handlebars.min.js" />
     <Content Include="Scripts\HojaInscripcion\index.js" />
     <Content Include="Scripts\HojaInscripcion\loader.js" />
+    <Content Include="Scripts\HojaInscripcion\utilsCommon.js" />
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
@@ -2224,6 +2275,26 @@
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery.betterTooltip.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\MultiSelect\css\common.css" />
+    <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-en.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-es.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-fr.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-hu.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-it.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ja.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-ru.js" />
+    <Content Include="Scripts\MultiSelect\js\locale\ui.multiselect.pt-br.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation-pack.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\localisation\jquery.localisation.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\changes.txt" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo-min.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\jquery.scrollTo.js" />
+    <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
+    <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
@@ -2357,43 +2428,6 @@
     <Content Include="Content\FAQ\Preguntas frecuentes Portal Consultora SV.pdf" />
     <Content Include="Content\FAQ\Preguntas frecuentes Portal Consultora VZ.pdf" />
     <Content Include="Content\FAQ\PROCEDIMIENTO_Y_FORMULARIO_PARA_EL_EJERCICIO_DE_DERECHOS_ARCO_PE.pdf" />
-    <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\flexslider-icon.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\icomoon.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\icomoon.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\icomoon.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-bold.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-bold.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-bold.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-bold.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-light.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-light.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-light.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-light.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-medium.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-medium.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-medium.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-medium.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-regular.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-regular.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-regular.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-regular.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-thin.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-thin.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-thin.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\lato-thin.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\oldstandard-italic.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\OldStandard-Italic.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\oldstandard-italic.woff" />
-    <Content Include="Content\Css\Site\Esika\fonts\oldstandard-italic.woff2" />
-    <Content Include="Content\Css\Site\Esika\fonts\slick.eot" />
-    <Content Include="Content\Css\Site\Esika\fonts\slick.ttf" />
-    <Content Include="Content\Css\Site\Esika\fonts\slick.woff" />
     <Content Include="Content\fonts\lato\lato-bold.eot" />
     <Content Include="Content\fonts\lato\lato-bold.ttf" />
     <Content Include="Content\fonts\lato\lato-bold.woff" />
@@ -2420,8 +2454,45 @@
     <Content Include="Content\fonts\arialMT\arialmt.woff2" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
-    <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.eot" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\MiAsesorBelleza\Index.cshtml" />
+    <Content Include="Content\Css\Site\fonts\flexslider-icon.eot" />
+    <Content Include="Content\Css\Site\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\Css\Site\fonts\flexslider-icon.woff" />
+    <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Css\Site\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\Css\Site\fonts\icomoon.eot" />
+    <Content Include="Content\Css\Site\fonts\icomoon.ttf" />
+    <Content Include="Content\Css\Site\fonts\icomoon.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-bold.eot" />
+    <Content Include="Content\Css\Site\fonts\lato-bold.ttf" />
+    <Content Include="Content\Css\Site\fonts\lato-bold.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-bold.woff2" />
+    <Content Include="Content\Css\Site\fonts\lato-light.eot" />
+    <Content Include="Content\Css\Site\fonts\lato-light.ttf" />
+    <Content Include="Content\Css\Site\fonts\lato-light.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-light.woff2" />
+    <Content Include="Content\Css\Site\fonts\lato-medium.eot" />
+    <Content Include="Content\Css\Site\fonts\lato-medium.ttf" />
+    <Content Include="Content\Css\Site\fonts\lato-medium.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-medium.woff2" />
+    <Content Include="Content\Css\Site\fonts\lato-regular.eot" />
+    <Content Include="Content\Css\Site\fonts\lato-regular.ttf" />
+    <Content Include="Content\Css\Site\fonts\lato-regular.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-regular.woff2" />
+    <Content Include="Content\Css\Site\fonts\lato-thin.eot" />
+    <Content Include="Content\Css\Site\fonts\lato-thin.ttf" />
+    <Content Include="Content\Css\Site\fonts\lato-thin.woff" />
+    <Content Include="Content\Css\Site\fonts\lato-thin.woff2" />
+    <Content Include="Content\Css\Site\fonts\oldstandard-italic.eot" />
+    <Content Include="Content\Css\Site\fonts\OldStandard-Italic.ttf" />
+    <Content Include="Content\Css\Site\fonts\oldstandard-italic.woff" />
+    <Content Include="Content\Css\Site\fonts\oldstandard-italic.woff2" />
+    <Content Include="Content\Css\Site\fonts\slick.eot" />
+    <Content Include="Content\Css\Site\fonts\slick.ttf" />
+    <Content Include="Content\Css\Site\fonts\slick.woff" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -2429,43 +2500,19 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
+    <None Include="Service References\ValidacionCrediticia\configuration.svcinfo" />
+    <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ValidacionesUnete\configuration91.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\configuration.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
-    <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\flexslider-icon.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\icomoon.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\icomoon.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\icomoon.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-bold.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-bold.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-bold.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-bold.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-light.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-light.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-light.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-light.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-medium.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-medium.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-medium.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-medium.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-regular.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-regular.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-regular.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-regular.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-thin.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-thin.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-thin.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\lato-thin.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\oldstandard-italic.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\OldStandard-Italic.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\oldstandard-italic.woff" />
-    <Content Include="Content\Css\Site\Lbel\fonts\oldstandard-italic.woff2" />
-    <Content Include="Content\Css\Site\Lbel\fonts\slick.eot" />
-    <Content Include="Content\Css\Site\Lbel\fonts\slick.ttf" />
-    <Content Include="Content\Css\Site\Lbel\fonts\slick.woff" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3063,6 +3110,7 @@
     <Content Include="WebPages\AppCatalogoTyC\MX_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\AppCatalogoTyC\PE_AppCatalogoTyC.HTML" />
     <Content Include="WebPages\CambiarClaveComunidad.aspx" />
+    <Content Include="WebPages\CambioExitoso.aspx" />
     <Content Include="WebPages\Comunidad.aspx" />
     <Content Include="WebPages\ComunidadLogOut.aspx" />
     <Content Include="WebPages\CambiarUsuarioComunidad.aspx" />
@@ -3095,14 +3143,17 @@
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_8.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_9.html" />
     <Content Include="WebPages\ConfirmacionRegistroComunidad.aspx" />
+    <Content Include="WebPages\CorreoEnviado.aspx" />
     <Content Include="WebPages\DespachosCobranza.aspx" />
     <Content Include="WebPages\DownloadFTP.aspx" />
     <Content Include="WebPages\DownloadPDF.aspx" />
     <Content Include="WebPages\IngresoComunidad.aspx" />
     <Content Include="WebPages\NavidadConsultora.aspx" />
     <Content Include="WebPages\RecuperarClaveComunidad.aspx" />
+    <Content Include="WebPages\RecuperarClaveMobile.aspx" />
     <Content Include="WebPages\RegistroComunidad.aspx" />
     <Content Include="WebPages\ReporteActualizacionDatos.aspx" />
+    <Content Include="WebPages\RestablecerContrasena.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
     <None Include="Service References\ServiceCliente\ClienteService.wsdl" />
@@ -3185,7 +3236,6 @@
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
     <Content Include="Views\Incentivo\Incentivo.cshtml" />
-    <Content Include="Views\RevistaGana\AdministrarRevistaGana.cshtml" />
     <Content Include="Views\AdministrarBelcorpResponde\Index.cshtml" />
     <Content Include="Views\AdministrarFeErratas\Index.cshtml" />
     <Content Include="Views\Tracking\Index.cshtml" />
@@ -3340,6 +3390,39 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3455,7 +3538,6 @@
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
-    <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
@@ -3543,7 +3625,6 @@
     <Content Include="Views\BelcorpNoticias\_Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\RevistaGana\Index.cshtml" />
     <Content Include="Views\FamiliaProtegida\Index.cshtml" />
     <None Include="Web References\ServiceOSBBelcorpConsultora\ConsultoraPS.xsd">
       <SubType>Designer</SubType>
@@ -3730,6 +3811,8 @@
     <WCFMetadataStorage Include="Service References\ServiceUsuario\" />
     <WCFMetadataStorage Include="Service References\ServiceZonificacion\" />
     <WCFMetadataStorage Include="Service References\ServicioGenerarLideres\" />
+    <WCFMetadataStorage Include="Service References\ValidacionCrediticia\" />
+    <WCFMetadataStorage Include="Service References\ValidacionesUnete\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap2\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap\" />
   </ItemGroup>

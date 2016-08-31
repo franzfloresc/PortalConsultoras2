@@ -45,45 +45,24 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="LugarNivel1CO">
+      <xs:enumeration value="LugarNivel3">
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="LugarNivel2CO">
+      <xs:enumeration value="LugarNivel4">
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="DireccionesCo">
+      <xs:enumeration value="LugarNivel5">
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel1Mx">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="LugarNivel2Mx">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ColoniaMx">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
@@ -119,6 +98,41 @@
         <xs:annotation>
           <xs:appinfo>
             <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TipoRechazo">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TipoRechazoSociaEmpresaria">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TipoDocumento">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TipoRechazoSAC">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TipoNivelesRiesgo">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
@@ -193,15 +207,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enums.TablaLogicaID" nillable="true" type="tns:Enums.TablaLogicaID" />
-  <xs:simpleType name="Enums.EstadoPostulanteEnPortalGZ">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="SinEstado" />
-      <xs:enumeration value="Aprobada" />
-      <xs:enumeration value="RechazadaGz" />
-      <xs:enumeration value="RechazadaSe" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enums.EstadoPostulanteEnPortalGZ" nillable="true" type="tns:Enums.EstadoPostulanteEnPortalGZ" />
   <xs:simpleType name="Enums.Aplicacion">
     <xs:restriction base="xs:string">
       <xs:enumeration value="PortalGZ" />
@@ -266,10 +271,44 @@
       <xs:enumeration value="Rechazada" />
       <xs:enumeration value="YaConCodigo" />
       <xs:enumeration value="Reactivada" />
-      <xs:enumeration value="PendienteDobleOptin" />
+      <xs:enumeration value="GenerandoCodigo" />
+      <xs:enumeration value="EnAprobacionSAC" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enums.EstadoPostulante" nillable="true" type="tns:Enums.EstadoPostulante" />
+  <xs:simpleType name="Enums.GrupoEstadoPostulante">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EnEvaluacion">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PreAprobada">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Aprobada">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Rechazada">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enums.GrupoEstadoPostulante" nillable="true" type="tns:Enums.GrupoEstadoPostulante" />
   <xs:simpleType name="Enums.TipoEstadoTelefonico">
     <xs:restriction base="xs:string">
       <xs:enumeration value="SinAsignar" />

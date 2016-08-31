@@ -165,13 +165,13 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? UserData().NombreConsultora : model.ClienteDescripcion;
 
             bool ErrorServer;
-            olstPedidoFICDetalle = AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
+                olstPedidoFICDetalle = AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
 
             PedidoModelo.ListaDetalle = olstPedidoFICDetalle;
             PedidoModelo.Simbolo = UserData().Simbolo;
 
-            PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
-            PedidoModelo.Total_Minimo = string.Format("{0:N2}", olstPedidoFICDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal));
+                PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
+                PedidoModelo.Total_Minimo = string.Format("{0:N2}", olstPedidoFICDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal));
 
             if (!ErrorServer)
             {
@@ -215,7 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? UserData().NombreConsultora : model.ClienteDescripcion;
             bool ErrorServer;
 
-            AdministradorPedido(oBEPedidoFICDetalle, "U", false, out ErrorServer);
+                AdministradorPedido(oBEPedidoFICDetalle, "U", false, out ErrorServer);
 
             message = ErrorServer ? "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente." : "El registro ha sido actualizado de manera exitosa.";
 
@@ -266,12 +266,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return PartialView("ListadoPedido", PedidoModelo);
             }
 
-            olstPedidoFICDetalle = AdministradorPedido(obe, "D", false, out ErrorServer);
+                olstPedidoFICDetalle = AdministradorPedido(obe, "D", false, out ErrorServer);
 
             PedidoModelo.ListaDetalle = olstPedidoFICDetalle;
             PedidoModelo.Simbolo = UserData().Simbolo;
-            PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
-            PedidoModelo.Total_Minimo = string.Format("{0:N2}", olstPedidoFICDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal));
+                PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
+                PedidoModelo.Total_Minimo = string.Format("{0:N2}", olstPedidoFICDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal));
 
             if (!ErrorServer)
             {
@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             bool ErrorServer;
-            AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
+                AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
 
             if (ErrorServer)
             {

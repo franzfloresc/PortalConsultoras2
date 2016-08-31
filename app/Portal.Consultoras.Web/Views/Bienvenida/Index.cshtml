@@ -223,6 +223,7 @@
         <div class="content_escala">
             @{
                 string padding = "eg_padding_inactivo";
+                string numerosGrandes = "";
                 if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
                 {
                     padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
@@ -232,7 +233,7 @@
                         int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
                         string clase = (item.Seleccionado ? "escala_select" : "") +
                                        (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-
+                        numerosGrandes = item.MontoHasta >= 100000 ? "font-size: 7px; transform: scaleY(1.2);" : "";
                         <div class="escala_ganancia @(clase) @(padding)">
 
                             @if (item.Seleccionado)
@@ -248,11 +249,11 @@
                             {
                                 if (index == Model.ListaEscalaDescuento.Count)
                                 {
-                                    <div class="precio_ganancia">De @Model.Simbolo@Convert.ToInt32(item.MontoDesde) a más.</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) a más.</div>
                                 }
                                 else
                                 {
-                                    <div class="precio_ganancia">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
                                 }
                             }
 
@@ -1400,7 +1401,7 @@
                 <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
                 <div class="producto_img_home mini">
-                    <img src="{{ImagenProducto}}" class="imagen_producto" />
+                <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>

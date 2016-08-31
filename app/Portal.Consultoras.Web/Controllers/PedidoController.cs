@@ -173,6 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Banners
 
                 string urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
+                string urlProdDesc = WebConfigurationManager.AppSettings["ProdDesc"] + "/" + userData.CodigoISO; 
                 string banner01 = WebConfigurationManager.AppSettings["banner_01"];
                 string banner02 = WebConfigurationManager.AppSettings["banner_02"];
                 string banner03 = WebConfigurationManager.AppSettings["banner_03"];
@@ -180,6 +181,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
                 model.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
                 model.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+
+                model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID+".pdf", String.Empty);
 
                 #endregion
 
@@ -325,8 +328,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();                
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();                
+                #region validar cuv de inicio obligatorio
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
+                    || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
+                {
+                    var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
+
+                    if (detCuv.CUV != "")
+                    {
+                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                        oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                        if (oBEConfiguracionProgramaNuevas.IndProgObli == "1" && oBEConfiguracionProgramaNuevas.CUVKit == model.CUV)
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Ocurrió un error al ejecutar la operación.",
+                                errorInsertarProducto = "1"
+                            });
+                        }
+                    }
+                }
+
+                #endregion
+
+                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
@@ -1915,7 +1942,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }  
 
         public List<BEPedidoWebDetalle> ObtenerPedidoWebServer()
         {
@@ -1930,7 +1957,7 @@ namespace Portal.Consultoras.Web.Controllers
             return olstPedidoWebDetalle;
         }
 
-        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle, 
+        private List<ObservacionModel> DevolverObservacionesPROL(List<BEPedidoWebDetalle> olstPedidoWebDetalle,
             out bool Restrictivas, out bool Informativas, out bool Error, out bool Reserva,
             out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, 
             out decimal montoEscala, out string codigoMensaje)
@@ -2316,7 +2343,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bePedidoWeb.PaisID = userData.PaisID;
                     bePedidoWeb.CampaniaID = userData.CampaniaID;
                     bePedidoWeb.ConsultoraID = userData.ConsultoraID;
-                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;                    
                     bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
                     bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
                     bePedidoWeb.DescuentoProl = montoDescuento;
@@ -2358,7 +2385,7 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
                             string regex = "(\\#.*\\#)";
-                            Observacion = Regex.Replace(Observacion, regex, userData.MontoMinimo.ToString());
+                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                         }
 
                         Restrictivas = true;
@@ -2644,7 +2671,6 @@ namespace Portal.Consultoras.Web.Controllers
             int HoraCierre = userData.EsZonaDemAnti;
             TimeSpan sp = HoraCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 

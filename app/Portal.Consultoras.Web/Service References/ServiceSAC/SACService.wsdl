@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_GetProveedorDespachoCobranzaMnto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaMnto" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetProveedorDespachoCobranzaMnto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaMntoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetProveedorDespachoCobranzaBYiD_InputMessage">
     <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaBYiD" />
   </wsdl:message>
@@ -220,11 +226,17 @@
   <wsdl:message name="ISACService_UpdComunicadoByConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdComunicadoByConsultoraResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_InsertComunicadoByConsultoraVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertComunicadoByConsultoraVisualizacion" />
+  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizado" />
   </wsdl:message>
-  <wsdl:message name="ISACService_InsertComunicadoByConsultoraVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertComunicadoByConsultoraVisualizacionResponse" />
+  <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertarDonacionConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDonacionConsultoraResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetEstadoCuentaConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstadoCuentaConsultora" />
@@ -543,12 +555,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_MntoCampoProveedorDespachoCobranza_OutputMessage">
     <wsdl:part name="parameters" element="tns:MntoCampoProveedorDespachoCobranzaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProveedorDespachoCobranzaMnto_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaMnto" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetProveedorDespachoCobranzaMnto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProveedorDespachoCobranzaMntoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1061,6 +1067,10 @@
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" message="tns:ISACService_GetProveedorDespachoCobranzaMnto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMntoResponse" message="tns:ISACService_GetProveedorDespachoCobranzaMnto_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiDResponse" message="tns:ISACService_GetProveedorDespachoCobranzaBYiD_OutputMessage" />
@@ -1185,9 +1195,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultora" message="tns:ISACService_UpdComunicadoByConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdComunicadoByConsultoraResponse" message="tns:ISACService_UpdComunicadoByConsultora_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertComunicadoByConsultoraVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertComunicadoByConsultoraVisualizacion" message="tns:ISACService_InsertComunicadoByConsultoraVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertComunicadoByConsultoraVisualizacionResponse" message="tns:ISACService_InsertComunicadoByConsultoraVisualizacion_OutputMessage" />
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultoraResponse" message="tns:ISACService_InsertarDonacionConsultora_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEstadoCuentaConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora" message="tns:ISACService_GetEstadoCuentaConsultora_InputMessage" />
@@ -1400,10 +1414,6 @@
     <wsdl:operation name="MntoCampoProveedorDespachoCobranza">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza" message="tns:ISACService_MntoCampoProveedorDespachoCobranza_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse" message="tns:ISACService_MntoCampoProveedorDespachoCobranza_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" message="tns:ISACService_GetProveedorDespachoCobranzaMnto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMntoResponse" message="tns:ISACService_GetProveedorDespachoCobranzaMnto_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1748,6 +1758,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
       <wsdl:input>
@@ -2027,8 +2046,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertComunicadoByConsultoraVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertComunicadoByConsultoraVisualizacion" style="document" />
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2506,15 +2534,6 @@
     </wsdl:operation>
     <wsdl:operation name="MntoCampoProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3291,6 +3310,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetProveedorDespachoCobranzaBYiD">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD" style="document" />
       <wsdl:input>
@@ -3570,8 +3598,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertComunicadoByConsultoraVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertComunicadoByConsultoraVisualizacion" style="document" />
+    <wsdl:operation name="InsertarComunicadoVisualizado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDonacionConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4049,15 +4086,6 @@
     </wsdl:operation>
     <wsdl:operation name="MntoCampoProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProveedorDespachoCobranzaMnto">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
