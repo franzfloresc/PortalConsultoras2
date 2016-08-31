@@ -1,6 +1,7 @@
 ﻿
 var listaCorreo = new Array();
 var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+var nombreCat = new Object();
 
 // js-RenderCatalogo
 jQuery(document).ready(function () {
@@ -10,6 +11,10 @@ jQuery(document).ready(function () {
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
     aCam.push($("#hdCampaniaSiguiente").val());
+    
+    nombreCat[tagLbel] = "L'Bel";
+    nombreCat[tagEsika] = "Ésika";
+    nombreCat[tagCyzone] = "Cyzone";
 
     linkCat[tagLbel] = "http://www.lbel.com";
     linkCat[tagEsika] = "http://www.esika.biz";
@@ -154,6 +159,9 @@ function CargarCarruselCatalogo() {
 
     $("#divCatalogo").html("");
 
+    var objCheckCata = $("#divCheckbox > div")[0];
+    $("#divCheckbox").html("");
+
     for (var i = 0; i < totalItem; i++) {
         var nro = "";
         var anio = "";
@@ -191,6 +199,13 @@ function CargarCarruselCatalogo() {
         htmlBase = htmlBase.replace("{estado}", "0");
 
         $("#divCatalogo").append(htmlBase);
+
+        if (i < 3) {
+            $(objCheckCata).attr("data-cat", tipo);
+            $(objCheckCata).find(".check_label").html(nombreCat[tipo]);
+            var objxx = $("<div></div>").append(objCheckCata);
+            $("#divCheckbox").append(objxx.html());
+        }
     }
 
     $("#divCatalogo").append("<div class='clear'></div>");
@@ -471,6 +486,13 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
     $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
     $('#CompartirCorreo').show();
+
+    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+    $("#divCheckbox [data-cat]").hide();
+    for (var i = 0; i < cata.length; i++) {
+        var cat = $(cata[i]).attr("data-cat");
+        $("#divCheckbox [data-cat='" + cat + "']").show();
+    }
 }
 
 function CargarTodosCorreo() {
