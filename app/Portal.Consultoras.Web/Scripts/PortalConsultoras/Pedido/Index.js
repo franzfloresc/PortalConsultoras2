@@ -361,6 +361,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
+    CargarAutocomplete();
     MostrarBarra();
 });
 
