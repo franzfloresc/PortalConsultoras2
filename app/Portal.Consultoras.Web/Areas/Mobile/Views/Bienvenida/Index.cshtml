@@ -6,11 +6,7 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0, 10);
-    if (Model.NombreConsultora != "")
-    {
-        nombreConsultora += nombreConsultora != Model.NombreConsultora ? "..." : "!";
-    }
+    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
 }
 
 @section styles{
