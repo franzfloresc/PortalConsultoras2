@@ -558,7 +558,7 @@ function CatalogoEnviarEmail() {
         CloseLoading();
         return false;
     }
-    var catalogoEnviar = $('#divCheckbox input:checked').length || new Array();
+    var catalogoEnviar = $('#divCheckbox input:checked') || new Array();
     if (catalogoEnviar.length <= 0) {
         $('#MensajeAlertaMobile2 .mensaje_alerta').html('No se ha seleccionado ningún catálogo');
         $('#MensajeAlertaMobile2').show();
@@ -582,10 +582,10 @@ function CatalogoEnviarEmail() {
             Esika: "0",
             Cyzone: "0",
             Finart: "0"
-        }
-        for (var c = 0; c < catalogoEnviar.length; c++) {
+        }       
+        for (var c = 0; c < catalogoEnviar.length; c++) {            
             var chk = catalogoEnviar[c];
-            var checkCat = $(chk).parents("[data-cat]").attr("data-cat").toLowerCase();
+            var checkCat = $(chk).parents("[data-cat]").attr("data-cat").toLowerCase();           
             objCorreo.LBel = checkCat == "lbel" ? "1" : objCorreo.LBel;
             objCorreo.Esika = checkCat == "esika" ? "1" : objCorreo.Esika;
             objCorreo.Cyzone = checkCat == "cyzone" ? "1" : objCorreo.Cyzone;
