@@ -1,5 +1,7 @@
 ﻿var vpromotions = [];
 var vpromotionsTagged = [];
+var arrayOfertasParaTi = [];
+var arrayLiquidaciones = [];
 
 $(document).ready(function () {
 
@@ -384,7 +386,8 @@ $(document).ready(function () {
             DescripcionMarca: $(contenedor).find('#DescripcionMarca').val(),
             DescripcionCategoria: $(contenedor).find('#DescripcionCategoria').val(),
             DescripcionEstrategia: $(contenedor).find('#DescripcionEstrategia').val(),
-            ImagenProducto: $(contenedor).find(".producto_img_home img").attr("src")
+            ImagenProducto: $(contenedor).find(".producto_img_home img").attr("src"),
+            Posicion: $(contenedor).find("#Posicion").val()
         };
 
         CargarProductoLiquidacionPopup(objProducto, objHidden);
@@ -598,6 +601,7 @@ function CargarCarouselEstrategias(cuv) {
 };
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
+    arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
 
@@ -610,8 +614,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a onclick="javascript:TagManagerCarruselPrevia();" class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a onclick="javascript:TagManagerCarruselSiguiente();" class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1024,
@@ -621,10 +625,12 @@ function ArmarCarouselEstrategias(data) {
                 }
             ]
         });
+        TagManagerCarruselInicio(data);
     }
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
+        item.DescripcionCompleta = item.DescripcionCUV2;
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
@@ -632,6 +638,7 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
         };
 
+        item.Posicion = i+1;
         item.MostrarTextoLibre = item.TextoLibre.length > 0;
     });
     return array;
@@ -889,12 +896,10 @@ function AgregarProductoDestacado(popup) {
                         if (checkTimeout(data)) {
                             waitingDialog({});
                             ActualizarGanancia(data.DataBarra);
-                            InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
-
+                            TagManagerClickAgregarProducto();
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-
                             closeWaitingDialog();
                             if (popup) {
                                 HidePopupEstrategiasEspeciales();
@@ -1090,6 +1095,7 @@ function CargarCarouselLiquidaciones() {
 };
 function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data.lista);
+    arrayLiquidaciones = data;
 
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
 
@@ -1126,15 +1132,18 @@ function ArmarCarouselLiquidaciones(data) {
         prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     });
+    TagManagerCarruselLiquidacionesInicio(data);
 
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones');
     $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     $.each(array, function (i, item) {
+        item.DescripcionCompleta = item.Descripcion;
         item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
         //item.PrecioOferta = (viewBagPaisID == '4' ? Number(item.PrecioOferta.toString().replace(',', '.')).toFixed(2) : Number(item.PrecioOferta).toFixed(2));
         item.Simbolo = viewBagSimbolo;
+        item.Posicion = i+1;
 
         if (item.TallaColor.length > 1 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
@@ -1166,11 +1175,6 @@ function AgregarProductoLiquidacion(contenedor) {
 
     waitingDialog({});
 
-    _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Agregar-Liquidacion']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
-    });
     var item = {
         Cantidad: $(contenedor).find("#txtCantidad").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
@@ -1181,7 +1185,8 @@ function AgregarProductoLiquidacion(contenedor) {
         descripcionCategoria: $(contenedor).find("#DescripcionCategoria").val(),
         descripcionMarca: $(contenedor).find("#DescripcionMarca").val(),
         descripcionEstrategia: $(contenedor).find("#DescripcionEstrategia").val(),
-        imagenProducto: $(contenedor).find("#ImagenProducto").val()
+        imagenProducto: $(contenedor).find("#ImagenProducto").val(),
+        Posicion: $(contenedor).find("#Posicion").val()
     };
     $.ajaxSetup({
         cache: false
@@ -1226,9 +1231,9 @@ function AgregarProductoLiquidacion(contenedor) {
                         success: function (data) {
                             if (data.success == true) {
                                 ActualizarGanancia(data.DataBarra);
-                                InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
                                 CargarResumenCampaniaHeader(true);
                                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
+                                TagManagerClickAgregarProductoLiquidacion(item);
                             }
                             else {
                                 alert_msg_pedido(data.message);
@@ -1288,6 +1293,7 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     $(divTonosTallas).find('#DescripcionCategoria').val(objHidden.DescripcionCategoria);
     $(divTonosTallas).find('#DescripcionEstrategia').val(objHidden.DescripcionEstrategia);
     $(divTonosTallas).find('#ImagenProducto').val(objHidden.ImagenProducto);
+    $(divTonosTallas).find('#Posicion').val(objHidden.Posicion);
 
     $(divTonosTallas).find('#txtCantidad').val(1);
 
@@ -2958,6 +2964,178 @@ function AgregarProducto(url, item, otraFunct) {
         error: function (data, error) {
             tieneMicroefecto = false;
             AjaxError(data, error);
+        }
+    });
+}
+
+//Google Analytics
+function TagManagerCarruselInicio(arrayItems) {
+    var cantidadRecomendados = $('#divCarruselHorizontal').find(".slick-active").length;
+
+    var arrayEstrategia = [];
+    for (var i = 0; i < cantidadRecomendados; i++) {
+        var recomendado = arrayItems[i];
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV2,
+            'price': recomendado.Precio2.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': recomendado.DescripcionEstrategia,
+            'list': 'Ofertas para ti – Home',
+            'position': recomendado.Posicion
+        };
+
+        arrayEstrategia.push(impresionRecomendado);
+    }
+
+    if (arrayEstrategia.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
+    }
+}
+function TagManagerClickAgregarProducto() {
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'products': [
+                    {
+                        'name': $("#txtCantidadZE").attr("est-descripcion"),
+                        'price': $("#txtCantidadZE").attr("est-precio2"),
+                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
+                        'id': $("#txtCantidadZE").attr("est-cuv2"),
+                        'category': 'NO DISPONIBLE',
+                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia"),
+                        'quantity': parseInt($("#txtCantidadZE").val()),
+                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
+                    }
+                ]
+            }
+        }
+    });
+}
+function TagManagerCarruselPrevia() {
+    debugger;
+    var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('#PosicionEstrategia').val();
+    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    var arrayEstrategia = new Array();
+
+
+    var impresionRecomendado = {
+        'name': recomendado.DescripcionCUV2,
+        'id': recomendado.CUV2,
+        'price': recomendado.Precio2.toString(),
+        'brand': recomendado.DescripcionMarca,
+        'category': 'NO DISPONIBLE',
+        'variant': recomendado.DescripcionEstrategia,
+        'list': 'Productos destacados – Pedido',
+        'position': recomendado.Posicion
+    };
+
+    arrayEstrategia.push(impresionRecomendado);
+
+    dataLayer.push({
+        'event': 'productImpression',
+        'ecommerce': {
+            'impressions': arrayEstrategia
+        }
+    });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': 'Ofertas para ti',
+        'label': 'Ver anterior'
+    });
+}
+function TagManagerCarruselSiguiente() {
+    debugger;
+    var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('#PosicionEstrategia').val();
+    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    var arrayEstrategia = new Array();
+
+    var impresionRecomendado = {
+        'name': recomendado.DescripcionCUV2,
+        'id': recomendado.CUV2,
+        'price': recomendado.Precio2.toString(),
+        'brand': recomendado.DescripcionMarca,
+        'category': 'NO DISPONIBLE',
+        'variant': recomendado.DescripcionEstrategia,
+        'list': 'Productos destacados – Pedido',
+        'position': recomendado.Posicion
+    };
+
+    arrayEstrategia.push(impresionRecomendado);
+
+    dataLayer.push({
+        'event': 'productImpression',
+        'ecommerce': {
+            'impressions': arrayEstrategia
+        }
+    });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': 'Ofertas para ti',
+        'label': 'Ver siguiente'
+    });
+}
+
+function TagManagerCarruselLiquidacionesInicio(arrayItems) {
+    var cantidadRecomendados = $('#divCarruselLiquidaciones').find(".slick-active").length;
+
+    var arrayEstrategia = [];
+    for (var i = 0; i < cantidadRecomendados; i++) {
+        var recomendado = arrayItems[i];
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV,
+            'price': recomendado.PrecioOferta.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': recomendado.DescripcionEstrategia,
+            'list': 'Liquidación Web – Home',
+            'position': recomendado.Posicion
+        };
+
+        arrayEstrategia.push(impresionRecomendado);
+    }
+
+    if (arrayEstrategia.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
+    }
+}
+function TagManagerClickAgregarProductoLiquidacion(item) {
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Liquidación Web – Home' },
+                'products': [
+                    {
+                        'name': item.descripcionProd,
+                        'price': item.PrecioUnidad,
+                        'brand': item.descripcionMarca,
+                        'id': item.CUV,
+                        'category': 'NO DISPONIBLE',
+                        'variant': item.descripcionEstrategia,
+                        'quantity': parseInt(item.Cantidad),
+                        'position': parseInt(item.Posicion)
+                    }
+                ]
+            }
         }
     });
 }

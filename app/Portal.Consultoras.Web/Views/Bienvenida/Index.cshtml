@@ -796,6 +796,7 @@
         <input type="hidden" id="DescripcionCategoria" value="">
         <input type="hidden" id="DescripcionEstrategia" value="">
         <input type="hidden" id="ImagenProducto" value="">
+        <input type="hidden" id="Posicion" value="">
         <div class="btn_cerrar_escogerTono btn_cerrar_agregarUnidades">
             <a href="javascript:$('#divTonosTallas').dialog('close');">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1289,8 +1290,9 @@
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div>               
-        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+    <div>  
+        <input type="hidden" id="PosicionEstrategia" value="{{Posicion}}"/>             
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
         <div class="producto_img_home">
             <img src="{{FotoProducto01}}" class="imagen_producto" />
         </div>
@@ -1348,7 +1350,7 @@
         <div class="liquidacion_rango_home">
             <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
             AGR&Eacute;GALO
         </a>
         {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
@@ -1359,7 +1361,7 @@
                 <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
             </div>
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
             AGR&Eacute;GALO
         </a>
         {{else}}
@@ -1370,7 +1372,7 @@
                 <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
             </div>
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
             AGR&Eacute;GALO
         </a>
         {{/iff}}
@@ -1390,11 +1392,12 @@
                 <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
                 <input type="hidden" id="CUV" value="{{CUV}}" />
                 <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" id="DescripcionProd" value="{{DescripcionCompleta}}" />
                 <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+                <input type="hidden" id="Posicion" value="{{Posicion}}" />
                 <div class="producto_img_home mini">
                     <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
@@ -1462,7 +1465,7 @@
                             <div class="monto_ganancia_producto">
                                 <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
                             </div>
-                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                                 AGRÉGALO
                             </a>
 
@@ -1531,7 +1534,7 @@
                                 <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
-                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true); ">
+                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">
                             AGRÉGALO
                         </a>
 
