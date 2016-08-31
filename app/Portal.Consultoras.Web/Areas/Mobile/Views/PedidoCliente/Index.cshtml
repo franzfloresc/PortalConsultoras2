@@ -90,6 +90,16 @@
                                                             </div>
                                                         </div>
                                                         <span class="cantidad-numero"> @Html.DisplayTextFor(modelItem => @item3.Cantidad) </span>
+
+                                                        @if(Model.ListaPedidoCliente[i].TieneDescuentoCuv && item3.IndicadorOfertaCUV)
+                                                        {
+                                                            <div class="alert-top-icon text-success">
+                                                                <div class="text-left">
+                                                                    El precio total no incluye el descuento para ofertas con más de
+                                                                    un precio (1x, 2x).
+                                                                </div>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </li>
                                             }
@@ -120,19 +130,20 @@
                 }
             </div>
 
-            <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;">
-                MONTO TOTAL DE MI PEDIDO
-                <br />
-                <div class="text-lg">
-                    @if (Model.PaisID == 4)//CO
-                    {
-                        @Model.Simbolo   @(string.Format("{0:#,##0}", Model.ListaPedidoCliente[i].ImporteTotal).Replace(',', '.'))
-                    }
-                    else
-                    {
-                        @Model.Simbolo   @(string.Format("{0:#,##0.00}", Model.ListaPedidoCliente[i].ImporteTotal))
-                    }
+            if(Model.ListaPedidoCliente[i].TieneDescuentoCuv)
+            {
+                <div id="parteSubTotal_@i" class="block-info text-center" style="margin-top: -10px;">
+                    SUBTOTAL<br />
+                    <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].SubtotalString</div>
                 </div>
+                <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;">
+                    DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
+                    <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
+                </div>
+            }
+            <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;">
+                TOTAL PEDIDO <br />
+                <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].ImporteTotalString</div>
             </div>
         }
         <br />
@@ -172,9 +183,9 @@
             $("#tabcontenido_0").show();
             $("#tabcontenido_1").hide();
             $("#tabcontenido_2").hide();
-            $("#parteFinal_0").show();
-            $("#parteFinal_1").hide();
-            $("#parteFinal_2").hide();
+            $("#parteSubTotal_0,#parteDescuento_0,#parteFinal_0").show();
+            $("#parteSubTotal_1,#parteDescuento_1,#parteFinal_1").hide();
+            $("#parteSubTotal_2,#parteDescuento_2,#parteFinal_2").hide();
 
             $(".mytab").click(function () {
                 var id = $(this).attr("id");
@@ -192,9 +203,9 @@
                     $("#tabcontenido_0").fadeIn();
                     $("#tabcontenido_1").hide();
                     $("#tabcontenido_2").hide();
-                    $("#parteFinal_0").fadeIn();
-                    $("#parteFinal_1").hide();
-                    $("#parteFinal_2").hide();
+                    $("#parteSubTotal_0,#parteDescuento_0,#parteFinal_0").fadeIn();
+                    $("#parteSubTotal_1,#parteDescuento_1,#parteFinal_1").hide();
+                    $("#parteSubTotal_2,#parteDescuento_2,#parteFinal_2").hide();
                 }
                 if (id == "tab_1") {
                     $("#" + id).addClass("active");
@@ -203,9 +214,9 @@
                     $("#tabcontenido_0").hide();
                     $("#tabcontenido_1").fadeIn();
                     $("#tabcontenido_2").hide();
-                    $("#parteFinal_0").hide();
-                    $("#parteFinal_1").fadeIn();
-                    $("#parteFinal_2").hide();
+                    $("#parteSubTotal_0,#parteDescuento_0,#parteFinal_0").hide();
+                    $("#parteSubTotal_1,#parteDescuento_1,#parteFinal_1").fadeIn();
+                    $("#parteSubTotal_2,#parteDescuento_2,#parteFinal_2").hide();
                 }
                 if (id == "tab_2") {
                     $("#" + id).addClass("active");
@@ -214,9 +225,9 @@
                     $("#tabcontenido_0").hide();
                     $("#tabcontenido_1").hide();
                     $("#tabcontenido_2").fadeIn();
-                    $("#parteFinal_0").hide();
-                    $("#parteFinal_1").hide();
-                    $("#parteFinal_2").fadeIn();
+                    $("#parteSubTotal_0,#parteDescuento_0,#parteFinal_0").hide();
+                    $("#parteSubTotal_1,#parteDescuento_1,#parteFinal_1").hide();
+                    $("#parteSubTotal_2,#parteDescuento_2,#parteFinal_2").fadeIn();
                 }
             });
         });

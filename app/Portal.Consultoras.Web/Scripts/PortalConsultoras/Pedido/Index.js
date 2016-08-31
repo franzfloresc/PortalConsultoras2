@@ -21,6 +21,13 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
+    // MICROEFECTO AL AGREGAR UN PEDIDO
+
+    //$("#tbobyDetallePedido").prepend('<div class="contenido_ingresoPedido mouse_encima filaIngresoPedidoOculto"><div class="texto_pedidos celda_codigo">04184</div><div class="texto_pedidos celda_producto">ES LAPIZ LABIAL COLOR HD MELON INTENSE 4G</div><div class="celda_cantidad_pedidos"><div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus"><input type="hidden" name="txtLPTempCant42" id="txtLPTempCant42" value="2"><input type="text" value="2" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant42" data-pedido="42" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion("201613", "3798298", "42", "1700", "03289", "1", "2")"><div class="liquidacion_rango_right_pedido"><a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a><a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a></div></div></div><div class="texto_pedidos precioUnitario">S/. 159.20</div><div class="texto_pedidos subtotal"><span class="precio">S/. 19.90</span><span>S/. 58.00</span></div><div class="texto_pedidos clientePedido"><input type="text" name="MARIA DEL PILAR CABALLERO GAVILAN" value="MARIA DEL PILAR CABALLERO GAVILAN" id="txtLPCli35" maxlength="50" class="classClienteNombre" style="width: 90%; padding: 4px;"></div><div class="texto_pedidos celda_iconos_acciones"><a style="background-image: url("/Content/Images/Esika/tacho-copy.png"); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a></div></div>');
+    //$("#tbobyDetallePedido div:first-child").slideDown(function () {
+    //    $(this).animate({ 'left': '0%','opacity':'1' }, 400, 'swing');
+    //});
+
     function abrir_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
@@ -362,7 +369,7 @@ $(document).ready(function () {
     CargarDetallePedido();
     CargarCarouselEstrategias("");
     CargarAutocomplete();
-    MostrarBarra();
+    MostrarBarra();    
 });
 
 function CrearDialogs() {
