@@ -2885,8 +2885,7 @@ function CargarCatalogoPersonalizado() {
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
-            }
-            
+            }            
         },
         error: function (data, error) {
             closeWaitingDialog();

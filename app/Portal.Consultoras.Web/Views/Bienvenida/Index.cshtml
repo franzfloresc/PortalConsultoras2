@@ -283,14 +283,14 @@
         <div class="linea_titulo_absoluto"></div>
 
         <hr class="clear" />
-        <div class="content_carrusel_ofertas" id="divCarruselHorizontal">
+        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divCarruselHorizontal">
         </div>
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
 <!--CATALOGO PERSONALIZADO-->
-<div class="content-favclientes" id="divMainCatalogoPersonalizado">
+<div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
 
     <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
     <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
@@ -1380,6 +1380,12 @@
         {{/iff}}
 
         <div class="clear"></div>
+        <div style="padding-top:9px; height: 15px;">
+            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                AGREGADO
+                <div class="icono"></div>
+            </div>
+        </div>
     </div>
     </div>
 </div>
@@ -1614,7 +1620,7 @@
         {{/each}}
     </script>
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
-    <div class="">
+    <div class="">  
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">

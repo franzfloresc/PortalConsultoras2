@@ -278,7 +278,7 @@
             EXCLUSIVO SÓLO POR WEB
         </div>
     </div>
-    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">
+    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divCarouseHorizontalMobile">
         <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
@@ -472,6 +472,12 @@
                 <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGR&Eacute;GALO
                 </a>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

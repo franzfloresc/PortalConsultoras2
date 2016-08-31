@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -70,6 +71,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PedidoDetalleModel, ServiceCliente.BECliente>()
                     .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
+
+            Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>();
         }
     }
 }

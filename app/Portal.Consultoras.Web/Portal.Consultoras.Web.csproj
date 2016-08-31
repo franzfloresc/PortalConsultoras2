@@ -346,6 +346,7 @@
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
     <Compile Include="Models\ActualizarDatosModel.cs" />
     <Compile Include="Models\AdministracionOfertaProductoModel.cs" />
