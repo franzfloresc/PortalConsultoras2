@@ -173,18 +173,16 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Banners
 
                 string urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
-                string urlProdDesc = WebConfigurationManager.AppSettings["ProdDesc"] + "/" + userData.CodigoISO + "/" + userData.CampaniaID; 
+                string urlProdDesc = WebConfigurationManager.AppSettings["ProdDesc"] + "/" + userData.CodigoISO; 
                 string banner01 = WebConfigurationManager.AppSettings["banner_01"];
                 string banner02 = WebConfigurationManager.AppSettings["banner_02"];
                 string banner03 = WebConfigurationManager.AppSettings["banner_03"];
-
-                string accion_banner01 = WebConfigurationManager.AppSettings["accion_banner_01"];
 
                 model.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
                 model.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
                 model.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
 
-                model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, accion_banner01, String.Empty);
+                model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID+".pdf", String.Empty);
 
                 #endregion
 
