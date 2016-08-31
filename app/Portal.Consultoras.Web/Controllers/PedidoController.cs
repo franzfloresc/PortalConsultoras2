@@ -2385,7 +2385,7 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
                             string regex = "(\\#.*\\#)";
-                            Observacion = Regex.Replace(Observacion, regex, userData.MontoMinimo.ToString());
+                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                         }
 
                         Restrictivas = true;

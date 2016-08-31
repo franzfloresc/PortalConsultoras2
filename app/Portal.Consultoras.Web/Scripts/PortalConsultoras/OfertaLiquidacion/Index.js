@@ -379,7 +379,7 @@ function ArmarCarouselLiquidaciones(data) {
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
-        item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
+        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0,159) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
                
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
