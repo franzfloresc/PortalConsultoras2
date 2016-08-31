@@ -7471,3 +7471,27 @@ input[type="checkbox"]:checked + span:after {
     width:100%;
     height:auto;
 }
+
+@media screen and (min-width:418px) and (max-width:577px){
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 0 0!important;
+    }
+
+}
+
+@media screen and (orientation:landscape) {
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 -124px 0;
+    }
+
+    .asesor_belleza_contenido{
+        margin-right:26px;
+    }
+
+    .asesor_belleza_texto{
+        width:auto;
+    }
+
+}
