@@ -41,11 +41,13 @@ jQuery(document).ready(function () {
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
             'source': listaCorreo,
-            'create': renderItemCliente
+            'create': renderItemCliente,
+            'appendTo': $("#tagParent")
         }
     });
 
     $(".mostrar_todos").on("click", function () {
+        
         CargarTodosCorreo();
         $.each(listaCorreo, function (ind, item) {
             item.email = $.trim(item.email);
@@ -63,8 +65,57 @@ jQuery(document).ready(function () {
     });
 
     $("#btnEnviarCorreo").on("click", function () {
+        
         CatalogoEnviarEmail();        
     });
+
+    //EPD-826 INICIO
+    $(".tipoClase").on("click", function () {
+       
+        var idPais = $("#hdPaisId").val();
+        var Campania_ = $(this)[0].dataset.cam;
+        var Categoria = $(this)[0].dataset.cat;
+        var codigozona = $(this)[0].dataset.codigozona;
+
+        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
+        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
+
+        //Campaña 14
+        if (Campania_ == "201614" && idPais == 11 && (arrC201614.indexOf(codigozona) > -1)) {
+
+            if (Categoria == "Lbel") {
+
+                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/";
+            }
+            else if (Categoria == "Esika") {
+
+                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/";
+            }
+            else if (Categoria == "Cyzone") {
+
+                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
+            }
+        }
+        //Campaña 15
+        else if (Campania_ == "201615" && idPais == 11 && (arrC201615.indexOf(codigozona) > -1)) {
+
+            if (Categoria == "Lbel") {
+
+                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/";
+            }
+            else if (Categoria == "Esika") {
+
+                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/";
+            }
+            else if (Categoria == "Cyzone") {
+
+                $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
+            }
+        }
+    });
+    
+    //EPD-826 - FIN
+
     
 });
 
@@ -149,6 +200,7 @@ function CargarCarruselCatalogo() {
 }
 
 function FinRenderCatalogo() {
+   
     waitingDialog();
     if (cont >= cantCam * cantCat) {
         campSelect = campSelect || $("#hdCampaniaActual").val().substring(4, 6);
@@ -161,6 +213,7 @@ function FinRenderCatalogo() {
 }
 
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
+   
     waitingDialog();
 
     if (!(typeof (accion) === 'undefined')) {
@@ -206,6 +259,7 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 
 function GetCatalogosLinksByCampania(data, campania) {
+    
     waitingDialog();
 
     $.ajaxSetup({ cache: false });
@@ -408,6 +462,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
 }
 
 function CargarTodosCorreo() {
+    
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -432,6 +487,7 @@ function CargarTodosCorreo() {
 }
 
 function CatalogoEnviarEmail() {
+    
     waitingDialog();
 
     var correoEnviar = $('#tagCorreo').exportTag() || new Array();
@@ -552,6 +608,13 @@ jQuery(document).ready(function () {
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
 
     $("#lbPortadaGana").on("click", function () {
+        
+        var paisid = parseInt($('#numero_campania')[0].dataset.paisid);
+        var codigozona = $('#numero_campania')[0].dataset.codigozona;
+        var numero_campania_ = parseInt($("#numero_campania")[0].innerHTML);
+        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
+        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
+
         SetGoogleAnalytics();
         var srcPortada = $("#imgPortadaGana").attr("src");
         if (srcPortada == defaultImageRevista) {
@@ -559,6 +622,34 @@ jQuery(document).ready(function () {
             alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
             return false;
         }
+
+        if (paisid == 11) {
+            if (numero_campania_ == 201614 && (arrC201614.indexOf(codigozona) > -1 )) {
+                $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
+            }
+            else if (numero_campania_ == 201615 && (arrC201615.indexOf(codigozona) > -1)) {
+                $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+               
+            } 
+            else {
+                var srcPortada = $("#imgPortadaGana").attr("src");
+                if (srcPortada == defaultImageRevista) {
+                    var nroCampania = $("#spNroCampania").text();
+                    alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                    return false;
+                }
+            }
+        }
+        else {
+            var srcPortada = $("#imgPortadaGana").attr("src");
+            if (srcPortada == defaultImageRevista) {
+                var nroCampania = $("#spNroCampania").text();
+                alert("La portada de la campaña " + nroCampania + " aun no está disponible.");
+                return false;
+            }
+        }
+
+
     });
 
     waitingDialog({ title: "Cargando Imagen" });
@@ -566,11 +657,13 @@ jQuery(document).ready(function () {
 });
 
 function RevistaMostrar(accion, btn) {
-
+   
     rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
     rCampSelectI = rCampSelectI <= 0 ? 0 : rCampSelectI >= cantCamRev - 1 ? cantCamRev - 1 : rCampSelectI;
 
     rCampSelect = aCamRev[rCampSelectI] || "";
+
+    $("#numero_campania").text(rCampSelect); //EMP
 
     var campania = rCampSelect || "";
 
@@ -620,6 +713,7 @@ function RevistaMostrar(accion, btn) {
 }
 
 function MostrarRevistaCorrecta(campania) {
+    
     var urlImagen = "";
     var defered = jQuery.Deferred();
     defered = ObtenerImagenRevista(campania, defered);
