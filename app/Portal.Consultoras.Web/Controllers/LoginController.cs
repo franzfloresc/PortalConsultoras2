@@ -41,10 +41,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
-                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
-                string claimUser = FederationClaimName.Value.ToUpper();
-                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
-                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
+                pasoLog = "Se leyó los Claims 1";
+                Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+                pasoLog = "Se leyó los Claims 2";
+                string claimUser = FederationClaimName.Value.ToUpper();
+                pasoLog = "Se leyó los Claims 3";
+                string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+                pasoLog = "Se leyó los Claims 4";
+                string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
 
                 pasoLog = "Se leyó los Claims";
 
