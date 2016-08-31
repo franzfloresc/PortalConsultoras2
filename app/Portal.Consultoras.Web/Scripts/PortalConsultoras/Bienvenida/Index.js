@@ -223,6 +223,8 @@
     
     $("#cerrarVideoIntroductorio").click(function () {
         $('#videoIntroductorio').hide();
+        player.stopVideo();
+
         if (primeraVezVideo) {
             setInterval(AnimacionTutorial, 800);
             setTimeout(ocultarAnimacionTutorial, 9000);
@@ -1591,7 +1593,7 @@ function CargarMisDatos() {
             $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
             $('#codigoUsurioMD').html(temp.CodigoUsuario);
             $('#nombresUsuarioMD').html(temp.NombreCompleto);
-            $('#txtSobrenombreMD').html(temp.Sobrenombre);
+            $('#txtSobrenombreMD').val(temp.Sobrenombre);
             $('#txtEMailMD').val(temp.EMail);
             $('#txtTelefonoMD').val(temp.Telefono);
             $('#txtCelularMD').val(temp.Celular);
@@ -2239,36 +2241,18 @@ function AceptarContrato() {
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-
-                if (data.success == true) {
-                    $('#divContrato').dialog('close');
-                    if (viewBagCambioClave == 0) {
-                        $("#popupActualizarMisDatos").show();
-                        contadorFondoPopUp++;
-                        $('#popupAceptacionContrato').hide();
-
-                        if (contadorFondoPopUp == 1) {
-                            $("#fondoComunPopUp").hide();
-                        }
-                        contadorFondoPopUp--;
-                    }
-                }
-                else {
+                if (!data.success) {
                     alert(data.message);
-                    if (data.extra == "nocorreo") {
-                        $('#divContrato').dialog('close');
+                    if (data.extra != "nocorreo") return;
+                }
+
+                        $('#popupAceptacionContrato').hide();
+                        contadorFondoPopUp--;
                         if (viewBagCambioClave == 0) {
                             $("#popupActualizarMisDatos").show();
                             contadorFondoPopUp++;
-                            $('#popupAceptacionContrato').hide();
-
-                            if (contadorFondoPopUp == 1) {
-                                $("#fondoComunPopUp").hide();
-                            }
-                            contadorFondoPopUp--;
-                        }
-                    }
                 }
+                if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
             }
         },
         error: function (data, error) {

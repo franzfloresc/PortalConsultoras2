@@ -173,6 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Banners
 
                 string urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
+                string urlProdDesc = WebConfigurationManager.AppSettings["ProdDesc"] + "/" + userData.CodigoISO; 
                 string banner01 = WebConfigurationManager.AppSettings["banner_01"];
                 string banner02 = WebConfigurationManager.AppSettings["banner_02"];
                 string banner03 = WebConfigurationManager.AppSettings["banner_03"];
@@ -180,6 +181,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
                 model.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
                 model.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+
+                model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID+".pdf", String.Empty);
 
                 #endregion
 
@@ -325,8 +328,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                #region validar cuv de inicio obligatorio
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
+                    || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
+                {
+                    var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
+
+                    if (detCuv.CUV != "")
+                    {
+                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
+                        oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                        if (oBEConfiguracionProgramaNuevas.IndProgObli == "1")
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Ocurrió un error al ejecutar la operación.",
+                                errorInsertarProducto = "1"
+                            });
+                        }
+                    }
+                }
+
+                #endregion
+
                 PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();                
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();                
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;

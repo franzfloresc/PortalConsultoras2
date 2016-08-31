@@ -1616,7 +1616,7 @@ h4.re3 {
         list-style: none;
         border-bottom: 1px solid #ccc;
         padding: 25px 0;
-        padding-left: 15px;
+        /*padding-left: 15px;*/
         position: relative;
         line-height: 1.4;
         font-size: 14px;
@@ -1642,7 +1642,8 @@ h4.re3 {
 }
 
 .consultora_saludo_noti {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom:0;
 }
 
 .notificaciones_detalle_mobile {
@@ -1654,14 +1655,14 @@ h4.re3 {
 .text-noti span:hover:first-child {
     cursor: pointer;
 }
-.list-notificaciones .no-read:before {
+/*.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}
+}*/
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
@@ -1669,8 +1670,8 @@ h4.re3 {
 }
 
 .list-notificaciones .text-noti {
-    padding-left: 85px;
-    padding-bottom: 10px;
+    /*padding-left: 85px;*/
+    /*padding-bottom: 10px;*/
 }
 
 .list-notificaciones .btn-more {
@@ -1776,8 +1777,8 @@ h4.re3 {
 
     .list-table ul li {
         list-style: none;
-        padding: 10px 0;
-        border-bottom: 1px solid #ccc;
+        padding: 8px 0;
+      
         position: relative;
     }
 
@@ -3184,6 +3185,8 @@ table > thead > tr > th {
 
 .fz-14 {
     font-size: 14px;
+    color:black;
+    font-family:'Lato';
 }
 
 .tnormal {
@@ -3228,16 +3231,7 @@ table > thead > tr > th {
     background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png);
 }
 
-.list-info-cliente {
-    margin-top: -10px;
-    margin-bottom: 40px;
-}
 
-    .list-info-cliente li {
-        list-style: none;
-        padding: 8px 0;
-        border-bottom: 1px solid #d7d7d7;
-    }
 
 .btn-align {
     width: 220px;
@@ -3256,14 +3250,14 @@ table > thead > tr > th {
 }
 
 .list-info-cliente {
-    margin-top: -10px;
-    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-bottom: -10px;
 }
 
     .list-info-cliente li {
         list-style: none;
         padding: 8px 0;
-        border-bottom: 1px solid #d7d7d7;
+        
     }
 
 .perfil-content .title-perfil {
