@@ -230,6 +230,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string UrlBanner03 { get; set; }
 
+        public string accionBanner_01 { get; set; }
+
         public List<PedidoWebDetalleModel> ListaDetalleModel { get; set; }
 
         public int TotalProductos { get; set; }

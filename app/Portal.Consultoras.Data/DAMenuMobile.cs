@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetItems()
         {
-            var command = Context.Database.GetStoredProcCommand("dbo.GetMenuMobile");
+            var command = Context.Database.GetStoredProcCommand("dbo.GetMenuMobile_SB2");
             return Context.ExecuteReader(command);
         }
     }

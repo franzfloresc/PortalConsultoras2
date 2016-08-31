@@ -1642,7 +1642,8 @@ h4.re3 {
 }
 
 .consultora_saludo_noti {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom:0;
 }
 
 .notificaciones_detalle_mobile {
@@ -1776,8 +1777,8 @@ h4.re3 {
 
     .list-table ul li {
         list-style: none;
-        padding: 10px 0;
-        border-bottom: 1px solid #ccc;
+        padding: 8px 0;
+      
         position: relative;
     }
 
@@ -3184,6 +3185,8 @@ table > thead > tr > th {
 
 .fz-14 {
     font-size: 14px;
+    color:black;
+    font-family:'Lato';
 }
 
 .tnormal {
@@ -3228,16 +3231,7 @@ table > thead > tr > th {
     background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png);
 }
 
-.list-info-cliente {
-    margin-top: -10px;
-    margin-bottom: 40px;
-}
 
-    .list-info-cliente li {
-        list-style: none;
-        padding: 8px 0;
-        border-bottom: 1px solid #d7d7d7;
-    }
 
 .btn-align {
     width: 220px;
@@ -3256,14 +3250,14 @@ table > thead > tr > th {
 }
 
 .list-info-cliente {
-    margin-top: -10px;
-    margin-bottom: 40px;
+    margin-top: 10px;
+    margin-bottom: -10px;
 }
 
     .list-info-cliente li {
         list-style: none;
         padding: 8px 0;
-        border-bottom: 1px solid #d7d7d7;
+        
     }
 
 .perfil-content .title-perfil {
