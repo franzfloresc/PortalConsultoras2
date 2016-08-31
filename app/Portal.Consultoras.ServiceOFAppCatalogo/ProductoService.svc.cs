@@ -55,10 +55,30 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 
                     //Datos de Prueba para Jetlore
 
-                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200067349", Cuv = "00724" });
-                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200064582", Cuv = "00777" });
-                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077626", Cuv = "00834" });
-                    listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077627", Cuv = "00836" });
+                    //listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200067349", Cuv = "00724" });
+                    //listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "200064582", Cuv = "00777" });
+                    //listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077626", Cuv = "00834" });
+                    //listaCuvMostrar.Add(new Producto { CampaniaId = 201613, CodigoIso = "PE", CodigoSap = "210077627", Cuv = "00836" });
+
+                    var url = ConfigurationManager.AppSettings.Get("RutaProductosJetlore") ?? "";
+                    var bpais = "BELCORP_" + codigoIso;
+                    var hash = ConfigurationManager.AppSettings.Get("ClientHashJetlore") ?? "";
+
+                    var limiteProductos = ConfigurationManager.AppSettings.Get("LimiteProductosJetlore") ?? "";
+
+                    url += "?cid=" + hash;
+                    url += "&id=" + codigoConsultora;
+                    url += "&limit=" + limiteProductos;
+                    url += "&feed=" + bpais;
+                    url += "&div=" + campaniaId;
+
+                    string rtpaJson;
+                    using (WebClient sv = new WebClient())
+                    {
+                        rtpaJson = sv.DownloadString(url);
+                    }
+
+                    var listaProductosJetlore = new JavaScriptSerializer().Deserialize<ProductoJetlore>(rtpaJson);
 
                     #endregion
                     
