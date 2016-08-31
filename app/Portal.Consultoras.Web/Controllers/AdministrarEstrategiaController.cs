@@ -452,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string mensaje = "", descripcion = "", precio = "", imagen1 = "", imagen2 = "", imagen3 = "";
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                //string wsprecio = ""; ///GR-1060
+                string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
                 {
@@ -477,19 +477,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     mensaje = "OK";
 
-                    //decimal wspreciopack = 0;
+                    decimal wspreciopack = 0;
 
-                    //using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
-                    //{
-                    //    svs.Url = ConfigurarUrlServiceProl();
-                    //    wspreciopack = svs.wsObtenerPrecioPack(CUV2, UserData().CodigoISO, CampaniaID);
-                    //}
+                    using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                    {
+                        svs.Url = ConfigurarUrlServiceProl();
+                        wspreciopack = svs.wsObtenerPrecioPack(CUV2, UserData().CodigoISO, CampaniaID);
+                    }
 
                     ///end GR-1060
 
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
-                    //wsprecio = wspreciopack.ToString();
+                    wsprecio = wspreciopack.ToString();
                     imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = mensaje,
                     descripcion = descripcion,
                     precio = precio,
-                    //wsprecio = wsprecio,
+                    wsprecio = wsprecio,
                     imagen1 = imagen1,
                     imagen2 = imagen2,
                     imagen3 = imagen3,
