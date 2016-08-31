@@ -21296,7 +21296,8 @@ label.checkpop.c_on {
 }
 /* PAGINA MIS PAGOS*/
 .titulo_interiores{
-    width:30%;
+    /*width:30%;*/
+    padding-right:50px;
     float:left;
     background:black url("../../../Images/Esika/titulo_interiores.png") no-repeat;
     background-position:right;
@@ -27219,4 +27220,34 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124px;
   }
+}
+/*INCENTIVOS*/
+.content_incentivos{
+    max-width:1189px;
+    margin:0 auto;    
+    margin-top:40px;
+    padding-bottom:30px;
+}
+.item_incentivos {
+    width: 23%;
+    margin-left: 1%;
+    margin-right: 1%;
+    height: auto;
+   
+    float:left;
+}
+.content_img_incetivos{
+    width:100%;
+    min-height:250px;
+
+}
+.content_img_incetivos img{
+    width:100%;
+}
+.titulo_item_incentivo{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    text-align:center;
+    margin-top:10px;
 }
