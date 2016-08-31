@@ -6597,6 +6597,22 @@ input[type="checkbox"]:checked + span:after {
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 }
 
+.content_carrusel_agregado .agregado {
+  height: 12px;
+  font-family: Lato;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #a18328;
+}
+.content_carrusel_agregado .agregado .icono{
+   width: 11px;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") no-repeat center center;
+}
+
 #new-header .menu-shop .num-menu-shop {
     transition: color 0.8s linear 0.2s;
 }
