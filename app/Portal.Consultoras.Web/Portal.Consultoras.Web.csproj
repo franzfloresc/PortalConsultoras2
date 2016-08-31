@@ -1852,6 +1852,7 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
+    <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
@@ -1866,6 +1867,8 @@
     <Content Include="Content\Images\mobile\Esika\lbel_revista.png" />
     <Content Include="Content\Images\mobile\Esika\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Esika\logo_esika.png" />
+    <Content Include="Content\Images\mobile\Esika\manicure_virtual_esika.png" />
+    <Content Include="Content\Images\mobile\Esika\maquillador_virtual_esika.png" />
     <Content Include="Content\Images\mobile\Esika\mas.png" />
     <Content Include="Content\Images\mobile\Esika\mas_footer.png" />
     <Content Include="Content\Images\mobile\Esika\menos.png" />
@@ -1984,10 +1987,13 @@
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
+    <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\bandera.png" />
+    <Content Include="Content\Images\mobile\Lbel\belleza_medida_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\camara.png" />
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
+    <Content Include="Content\Images\mobile\Lbel\diagnostico_piel_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
@@ -2003,6 +2009,9 @@
     <Content Include="Content\Images\mobile\LogoHeader.png" />
     <Content Include="Content\Images\mobile\LogoLideres.png" />
     <Content Include="Content\Images\mobile\LogoSocias.png" />
+    <Content Include="Content\Images\mobile\lookbook_cyzone.png" />
+    <Content Include="Content\Images\mobile\manicure_virtual_cyzone.png" />
+    <Content Include="Content\Images\mobile\maquillador_virtual_cyzone.png" />
     <Content Include="Content\Images\mobile\m_ic_cerrar.png" />
     <Content Include="Content\Images\mobile\m_ic_cerrar_sesion.png" />
     <Content Include="Content\Images\mobile\m_ic_comparte_catalogo.png" />
@@ -2231,6 +2240,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
