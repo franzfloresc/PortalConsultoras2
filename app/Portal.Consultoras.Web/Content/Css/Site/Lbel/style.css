@@ -1750,6 +1750,12 @@ header {
     overflow:hidden;
 }
 
+.filaIngresoPedidoOculto{
+    display:none;
+    left:100%;
+    opacity:0;
+}
+
 .grilla_pedidos label{
     cursor:default;
 }

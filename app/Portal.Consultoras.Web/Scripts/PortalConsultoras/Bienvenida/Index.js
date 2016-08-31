@@ -1614,7 +1614,7 @@ function CargarMisDatos() {
             $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
             $('#codigoUsurioMD').html(temp.CodigoUsuario);
             $('#nombresUsuarioMD').html(temp.NombreCompleto);
-            $('#txtSobrenombreMD').html(temp.Sobrenombre);
+            $('#txtSobrenombreMD').val(temp.Sobrenombre);
             $('#txtEMailMD').val(temp.EMail);
             $('#txtTelefonoMD').val(temp.Telefono);
             $('#txtCelularMD').val(temp.Celular);
@@ -3052,7 +3052,8 @@ function TagManagerCarruselPrevia() {
         'category': 'Home',
         'action': 'Ofertas para ti',
         'label': 'Ver anterior'
-    });
+    });
+
 }
 function TagManagerCarruselSiguiente() {
     debugger;
@@ -3085,7 +3086,8 @@ function TagManagerCarruselSiguiente() {
         'category': 'Home',
         'action': 'Ofertas para ti',
         'label': 'Ver siguiente'
-    });
+    });
+
 }
 
 function TagManagerCarruselLiquidacionesInicio(arrayItems) {
