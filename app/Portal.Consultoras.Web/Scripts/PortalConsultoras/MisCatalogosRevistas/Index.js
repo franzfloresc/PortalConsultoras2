@@ -97,7 +97,7 @@ function ObtenerURLExpofertas() {
 };
 
 function CargarCarruselCatalogo() {
-    waitingDialog({});
+    waitingDialog();
 
     var htmlBase = "";
     var totalItem = cantCat * cantCam;
@@ -203,7 +203,6 @@ function ObtenerEstadoCatalogo(campana, defered) {
         }
     });
     return defered.promise();
-
 }
 
 function GetCatalogosLinksByCampania(data, campania) {
@@ -213,7 +212,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     var idPais = $("#hdPaisId").val();
 
-    var defered = new Object();
+    //var defered = new Object();
 
     var anio = campania.substring(0, 4);
     var nro = campania.substring(4, 6);
@@ -236,7 +235,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         : i == 2 && data.estadoEsika != 1 ? "1"
         : "0";
 
-        defered[tagCat] = jQuery.Deferred();
+        //defered[tagCat] = jQuery.Deferred();
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
@@ -372,6 +371,19 @@ function CatalogoMostrar(accion, btn) {
             $(btn).hide();
         }
     }
+
+    // Centrar segun cantidad de catalgos
+    var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
+    if (cata.length < 3) {
+        var wUnit = 24.7;//%
+        var wTotalRender = wUnit * cata.length;
+        var wVacio = 100 - wTotalRender;
+        var wVacioUnit = wVacio / cata.length;
+        cata.removeClass("no_margin_right");
+        cata.css("margin-right", (wVacioUnit / 2) + "%");
+        cata.css("margin-left", (wVacioUnit / 2) + "%");
+    }
+
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
