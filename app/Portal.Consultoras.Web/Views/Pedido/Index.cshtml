@@ -13,9 +13,6 @@
         .btn_animado {
             display: none;
             position: absolute;
-            /*width: 70px;
-            height: 30px;
-            background: red;*/
             z-index: 1000;
             text-align: center;
         }
@@ -23,12 +20,6 @@
         .no_mostrar {
             display: none;
         }
-
-        /*.campana:hover .info_cam {
-            display:none;
-        }*/
-
-        
     </style>
 }
 <div class="franja_negra"></div>
@@ -1042,6 +1033,7 @@
     {{#each this as |item|}}
     <div class="vertical" data-item="producto">
         <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;"  onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" /> 
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
             </div>
@@ -1098,7 +1090,7 @@
                     <div class="liquidacion_rango_wrapper_pedido">
                         <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />                        
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                         AGREGAR
                     </a>
                     {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
@@ -1113,7 +1105,7 @@
                             </a>
                         </div>
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGREGAR
                     </a>
                     {{else}}
@@ -1128,7 +1120,7 @@
                             </a>
                         </div>
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGREGAR
                     </a>
                     {{/iff}}                    
