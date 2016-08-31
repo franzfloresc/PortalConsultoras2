@@ -6,7 +6,7 @@
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-    var textApp = userAgent.Contains("iphone;") ? "Grátis en App Store" : "Grátis en Play Store";
+    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
@@ -64,7 +64,7 @@
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-09</div>
-        <div class="content_carrusel_catalogo" id="divCatalogo">
+        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
             <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
             <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
         </div>

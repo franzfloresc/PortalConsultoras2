@@ -456,6 +456,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count > 0)
                 {
+                    if (tipo != 1)
+                    {
                         if (resultado == 0)
                         {
                             if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
@@ -472,7 +474,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 extra = ""
                             }, JsonRequestBehavior.AllowGet);
                         }
-
+                    }
                     mensaje = "OK";
 
                     //decimal wspreciopack = 0;
