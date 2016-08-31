@@ -4360,7 +4360,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "OK",
                     data = model,
-                    dataBarra = GetDataBarra(true, true)
+                    dataBarra = GetDataBarra()
                 });
             }
             catch (Exception ex)

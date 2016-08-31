@@ -1371,7 +1371,7 @@ namespace Portal.Consultoras.Web.Controllers
             return objR;
         }
 
-        private List<BEEscalaDescuento> GetListaEscalaDescuento()
+        public List<BEEscalaDescuento> GetListaEscalaDescuento()
         {
             List<BEEscalaDescuento> listaEscalaDescuento;
 
