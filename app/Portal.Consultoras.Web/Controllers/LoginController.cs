@@ -155,8 +155,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
                 string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                return Redirect(Url);
+                throw;
+                //return Redirect(Url);
             }
+            return Redirect(Url);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
