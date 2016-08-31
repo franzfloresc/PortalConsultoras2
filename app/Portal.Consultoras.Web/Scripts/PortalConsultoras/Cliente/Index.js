@@ -395,6 +395,7 @@ function MantenerCliente(opt) {
                 }
                 else {
                     alert(data.message);
+                    CerrarSplash();
                 }
             }
         },
