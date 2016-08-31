@@ -3021,21 +3021,20 @@ function TagManagerClickAgregarProducto() {
     });
 }
 function TagManagerCarruselPrevia() {
-    debugger;
-    var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('#PosicionEstrategia').val();
-    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+    var posicionPrimerActivo = $($('#divCarruselHorizontal').find(".slick-active")[0]).find('#PosicionEstrategia').val();
+    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length -1 : posicionPrimerActivo - 2;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
 
 
     var impresionRecomendado = {
-        'name': recomendado.DescripcionCUV2,
+        'name': recomendado.DescripcionCompleta,
         'id': recomendado.CUV2,
         'price': recomendado.Precio2.toString(),
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Productos destacados – Pedido',
+        'list': 'Ofertas para ti – Home',
         'position': recomendado.Posicion
     };
 
@@ -3056,20 +3055,19 @@ function TagManagerCarruselPrevia() {
 
 }
 function TagManagerCarruselSiguiente() {
-    debugger;
     var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('#PosicionEstrategia').val();
     var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
 
     var impresionRecomendado = {
-        'name': recomendado.DescripcionCUV2,
+        'name': recomendado.DescripcionCompleta,
         'id': recomendado.CUV2,
         'price': recomendado.Precio2.toString(),
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Productos destacados – Pedido',
+        'list': 'Ofertas para ti – Home',
         'position': recomendado.Posicion
     };
 
