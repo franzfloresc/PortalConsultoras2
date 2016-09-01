@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.ServiceContracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
 
 namespace Portal.Consultoras.Service
 {
@@ -505,6 +503,14 @@ namespace Portal.Consultoras.Service
         {
             BLConsultoraOnline BLConsultoraOnline = new BLConsultoraOnline();
             return BLConsultoraOnline.GetCantidadPedidosConsultoraOnline(PaisID, ConsultoraId);
+        }
+
+        public void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia)
+        {
+            int paisID = GetPaisID(paisISO);
+
+            BLUsuario BLUsuario = new BLUsuario();
+            BLUsuario.GuardarContrasenia(paisID, codigoUsuario, contrasenia);
         }
     }
 }

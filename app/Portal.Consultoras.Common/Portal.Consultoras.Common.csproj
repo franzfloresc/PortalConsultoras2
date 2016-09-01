@@ -91,6 +91,7 @@
     <Compile Include="ConfigS3.cs" />
     <Compile Include="Constantes.cs" />
     <Compile Include="Crypto.cs" />
+    <Compile Include="Cryptography\AESAlgorithm.cs" />
     <Compile Include="Dictionaries.cs" />
     <Compile Include="Enumeradores.cs" />
     <Compile Include="ErrorUtilities.cs" />
