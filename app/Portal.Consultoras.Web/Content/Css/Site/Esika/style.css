@@ -21314,6 +21314,8 @@ label.checkpop.c_on {
     color:white;
     line-height:50px;
     letter-spacing:0.5px;
+    position:relative;
+    z-index:5;
 }
 .titulo_interiores span{
     font-weight:700;
@@ -21322,7 +21324,7 @@ label.checkpop.c_on {
 .fondo_negro_lateral{
     height: 50px;
     position: absolute;
-    left: -50%;
+    left: -45%;
     background: black;
     z-index: -0;
     width: 50%;
