@@ -7553,8 +7553,9 @@ input[type="checkbox"]:checked + span:after {
 .tabs_asesoresBelleza li {
     display: inline-block;
     text-align: center;
-    width:32.5%;
 }
+.tabs_asesoresBelleza.contenedor3 li{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 li{ width:49.5%; }
 
 .tabs_asesoresBelleza li a {
     display: block;
@@ -7573,27 +7574,34 @@ input[type="checkbox"]:checked + span:after {
     letter-spacing: 0.25px;
 }
 
-.tabs_asesoresBelleza .one:hover ~ hr {
+.tabs_asesoresBelleza.contenedor3 .one:hover ~ hr {
     margin-left: 0%;
 }
-
-.tabs_asesoresBelleza .two:hover ~ hr {
+.tabs_asesoresBelleza.contenedor3 .two:hover ~ hr {
     margin-left: 33.6%;
 }
-
-.tabs_asesoresBelleza .three:hover ~ hr {
+.tabs_asesoresBelleza.contenedor3 .three:hover ~ hr {
     margin-left: 67.35%;
 }
+
+.tabs_asesoresBelleza.contenedor2 .one:hover ~ hr {
+    margin-left: 0%;
+}
+.tabs_asesoresBelleza.contenedor2 .two:hover ~ hr {
+    margin-left: 50.5%;
+}
+
 
 .tabs_asesoresBelleza hr {
     height: 4px;
     /* width: 30%; */
-    width: 32.5%;
     margin: 0;
     background: #e81c36;
     border: none;
     transition: .3s ease-in-out;
 }
+.tabs_asesoresBelleza.contenedor3 hr{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 hr{ width:49.5%; }
 
 .tab_contenido_asesorBelleza{
     display:block;
