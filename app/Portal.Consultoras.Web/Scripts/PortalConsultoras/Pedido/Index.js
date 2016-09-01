@@ -992,7 +992,6 @@ function ValidarRegistroCliente() {
 
     GuardarCliente();
 }
-
 function GuardarCliente() {
     var item = {
         Nombre: $('#Nombres').val(),
@@ -1014,7 +1013,12 @@ function GuardarCliente() {
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
                     $('#Nombres').val("");
                     $('#Correo').val("");
-                    //HideDialog("divClientes");
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Clientes',
+                        'action': 'Agregar',
+                        'label': 'Satisfactorio'
+                    });
                     $("#divClientes").hide();
                 }
                 alert_msg(data.message);
