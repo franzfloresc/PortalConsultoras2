@@ -40,7 +40,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     var blProducto = new BLProducto();
                     listaCuvMostrar = blProducto.ObtenerProductosMostrar(codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona);
                     
-                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);                 
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);                 
                 }
                 catch (Exception ex)
                 {
@@ -88,14 +88,15 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                             productoMostrar.Cuv = producto.id;
                             productoMostrar.NombreComercial = producto.title;
                             productoMostrar.Imagen = producto.img;
+                            productoMostrar.CodigoSap = ObtenerSap(codigoIso, campaniaId, productoMostrar.Cuv);
 
                             listaCuvMostrar.Add(productoMostrar);
                         }
                     }
 
                     #endregion
-                    
-                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);
+
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);
                 }
                 catch (Exception ex)
                 {
@@ -134,29 +135,41 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                 {
                     #region Obtener Listado de CUV de Jetlore
 
-                    var url = ConfigurationManager.AppSettings["jetlore_CatalogoPersonalizado_url"] ?? "";
+                    var url = ConfigurationManager.AppSettings.Get("RutaProductosJetlore") ?? "";
                     var bpais = "BELCORP_" + codigoIso;
-                    var hash = ConfigurationManager.AppSettings["jetlore_CLIENT_HASH"] ?? "";
+                    var hash = ConfigurationManager.AppSettings.Get("ClientHashJetlore") ?? "";
+
+                    var limiteProductos = ConfigurationManager.AppSettings.Get("LimiteProductosJetlore") ?? "";
 
                     url += "?cid=" + hash;
                     url += "&id=" + codigoConsultora;
-                    url += "&limit=" + limimte;
+                    url += "&limit=" + limiteProductos;
                     url += "&feed=" + bpais;
-                    url += "&div=" + campaniaId;
+                    url += "&campaign=" + campaniaId;
 
-                    //dynamic rtpaJson;
-                    //using (WebClient sv = new WebClient())
-                    //{
-                    //    rtpaJson = sv.DownloadString(url);
-                    //}
+                    string rtpaJson;
+                    using (WebClient sv = new WebClient())
+                    {
+                        rtpaJson = sv.DownloadString(url);
+                    }
 
-                    //ESTA LISTA ES FALSA; SOLO PARA PRUEBAS PORQUE NO HAY INFORMACION DE JETLORE
-                    listaCuvMostrar = tipoProductoMostrar == 1
-                        ? (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
-                        : (List<Producto>) CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
+                    var listaProductosJetlore = new JavaScriptSerializer().Deserialize<ProductoJetlore>(rtpaJson);
 
-                    if (listaCuvMostrar == null || listaCuvMostrar.Count == 0)
-                        listaCuvMostrar = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                    foreach (var producto in listaProductosJetlore.deals)
+                    {
+                        if (!string.IsNullOrEmpty(producto.id))
+                        {
+                            var productoMostrar = new Producto();
+                            productoMostrar.Cuv = producto.id;
+                            productoMostrar.NombreComercial = producto.title;
+                            productoMostrar.Imagen = producto.img;
+                            productoMostrar.CodigoSap = ObtenerSap(codigoIso, campaniaId, productoMostrar.Cuv);
+
+                            listaCuvMostrar.Add(productoMostrar);
+                        }
+                    }
+
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);
 
                     #endregion
                 }
@@ -165,13 +178,11 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             {
                 listaFinal = new List<Producto>();
             }            
-            
-            listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId);
 
             return listaFinal;
         }
 
-        private List<Producto> GetListaFinal(string codigoIso, List<Producto> listaCuvMostrar, int tipoProductoMostrar, int campaniaId)
+        private List<Producto> GetListaFinal(string codigoIso, List<Producto> listaCuvMostrar, int tipoProductoMostrar, int campaniaId, string codigoConsultora, int tipoOfertaFinal)
         {
             var listaFinal = new List<Producto>();
 
@@ -189,6 +200,10 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                 else
                     CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
             }
+
+            //Jetlore
+            if (tipoOfertaFinal == 2)
+                listaCuvMostrarConStock = ObtenerProductosMostrarSinPedido(codigoIso, listaCuvMostrarConStock, campaniaId, codigoConsultora);
 
             listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
 
@@ -230,6 +245,27 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             }
 
             return listaCuvMostrarConStock;
+        }
+
+        public List<Producto> ObtenerProductosMostrarSinPedido(string codigoIso, List<Producto> listaCuvMostrar, int campaniaId, string codigoConsultora)
+        {
+            var listaCuvMostrarSinPedido = new List<Producto>();
+            var listaCuvPedido = new List<Producto>();
+            var blProducto = new BLProducto();
+
+            listaCuvPedido = blProducto.ObtenerProductosPedido(codigoIso, campaniaId, codigoConsultora);
+
+            foreach (var producto in listaCuvMostrar)
+            {
+                var item = listaCuvPedido.FirstOrDefault(p => p.Cuv == producto.Cuv);
+
+                if (item == null)
+                {
+                    listaCuvMostrarSinPedido.Add(producto);
+                }
+            }
+
+            return listaCuvMostrarSinPedido;
         }
 
         public List<Producto> ObtenerProductosHistorial(int tipoProductoMostrar, string codigoIso, int campaniaId)
@@ -346,6 +382,17 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             var BLProducto = new BLProducto();
 
             resultado = BLProducto.ObtenerCuvByCodigoSap(codigoIso, campaniaId, codigoSap);
+
+            return resultado;
+        }
+
+        public string ObtenerSap(string codigoIso, int campaniaId, string cuv)
+        {
+            string resultado = "";
+
+            var BLProducto = new BLProducto();
+
+            resultado = BLProducto.ObtenerSapByCuv(codigoIso, campaniaId, cuv);
 
             return resultado;
         }
