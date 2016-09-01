@@ -3520,7 +3520,11 @@ BEGIN
 			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada, --1688
 			u.EMailActivo, --2532
 			isnull(p.OfertaFinal,0) as OfertaFinal,
-			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida 
+			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
+			@FechaLimitePago as FechaLimitePago,
+			ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
+			ISNULL(u.VioVideo, 0) as VioVideo,
+			ISNULL(u.VioTutorial, 0) as VioTutorial 			
 		FROM [dbo].[Usuario] u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
