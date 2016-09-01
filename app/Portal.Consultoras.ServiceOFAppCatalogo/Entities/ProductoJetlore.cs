@@ -10,37 +10,6 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
         public List<Deal> deals { get; set; }
     }
 
-    public class NumericFields
-    {
-    }
-
-    public class BooleanFields
-    {
-    }
-
-    public class TextFields
-    {
-        public string brand { get; set; }
-        public string promotion_code { get; set; }
-    }
-
-    public class ListFields
-    {
-    }
-
-    public class DateFields
-    {
-    }
-
-    public class AddInfo
-    {
-        public NumericFields numericFields { get; set; }
-        public BooleanFields booleanFields { get; set; }
-        public TextFields textFields { get; set; }
-        public ListFields listFields { get; set; }
-        public DateFields dateFields { get; set; }
-    }
-
     public class Deal
     {
         public string id { get; set; }
@@ -49,6 +18,6 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Entities
         public string img { get; set; }
         public int original_price { get; set; }
         public int current_price { get; set; }
-        public AddInfo add_info { get; set; }
+        public object add_info { get; set; }
     }
 }

@@ -67,10 +67,10 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     var limiteProductos = ConfigurationManager.AppSettings.Get("LimiteProductosJetlore") ?? "";
 
                     url += "?cid=" + hash;
+                    url += "&id=" + codigoConsultora;
                     url += "&limit=" + limiteProductos;
-                    url += "&FEED_ID=" + bpais;
-                    url += "&id=" + codigoConsultora;                                        
-                    url += "&div=" + campaniaId;
+                    url += "&feed=" + bpais;
+                    url += "&campaign=" + campaniaId;
 
                     string rtpaJson;
                     using (WebClient sv = new WebClient())
@@ -79,6 +79,19 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     }
 
                     var listaProductosJetlore = new JavaScriptSerializer().Deserialize<ProductoJetlore>(rtpaJson);
+
+                    foreach (var producto in listaProductosJetlore.deals)
+                    {
+                        if (!string.IsNullOrEmpty(producto.id))
+                        {
+                            var productoMostrar = new Producto();
+                            productoMostrar.Cuv = producto.id;
+                            productoMostrar.NombreComercial = producto.title;
+                            productoMostrar.Imagen = producto.img;
+
+                            listaCuvMostrar.Add(productoMostrar);
+                        }
+                    }
 
                     #endregion
                     
