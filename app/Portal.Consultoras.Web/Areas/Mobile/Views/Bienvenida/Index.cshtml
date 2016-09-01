@@ -410,43 +410,6 @@
 </div>
 <!-- FIN POPUP DEMANDA ANTICIPADA -->
 
-<!-- POPUP AGREGAR CLIENTE -->
-
-<div class="contenedor_popup_clientes" id="divAgregarCliente">
-    <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="$('#divAgregarCliente').hide();">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <h6>AGREGAR <b>CLIENTE</b></h6>
-        <form action="" method="post">
-            <input type="text" name="nombre" value="" placeholder="Ingresa su nombre" maxlength="50" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        Por favor ingresa un nombre válido.
-                    </span>
-                </div>
-            </div>
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b><br />Por favor ingresa un correo válido.
-                    </span>
-                </div>
-            </div>
-            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="AGREGAR" />
-        </form>
-    </div>
-</div>
-
-<!-- FIN POPUP AGREGAR CLIENTE -->
-
 <div class="btn_agregarPedido">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />

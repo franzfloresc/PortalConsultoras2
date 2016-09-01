@@ -6649,7 +6649,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .contenedor_popup_clientes{
-    display:block;
+    display:none;
     position:fixed;
     top:0;
     left:0;
@@ -6672,7 +6672,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .popup_agregarCliente{
-    display: none;
+    /*display: none;*/
     position: relative;
     top: 14%;
     margin: 0 auto;
@@ -6786,6 +6786,6 @@ input[type="checkbox"]:checked + span:after {
     font-family: 'Lato';
     font-weight: 400;
     color:#000;
-    width:197px;
+    width:250px;
     font-size:14px;
 }

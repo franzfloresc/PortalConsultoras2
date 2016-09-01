@@ -42,6 +42,7 @@ jQuery(document).ready(function () {
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
+        'validate': /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*([\.]\w{2,4})+$/,
         classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
