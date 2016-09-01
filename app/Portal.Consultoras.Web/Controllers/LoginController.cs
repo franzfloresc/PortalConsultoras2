@@ -27,11 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Login();
 
-            //var LoginModel = new LoginModel()
-            //{
-            //    listaPaises = DropDowListPaises()
-            //};
-            //return View(LoginModel);
+            //return View(new LoginModel(){listaPaises = DropDowListPaises()});
         }
 
         private ActionResult Login()
