@@ -20171,7 +20171,7 @@ label.checkpop.c_on {
 .flechita_info {
     position: absolute;
     z-index: 2001;
-    width: 55px;
+    width: 63px;
     height: 54px;
     right: -1px;
     margin-top: -69px;
@@ -27163,4 +27163,81 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background: transparent url(../../../Images/Esika/regresar.png) no-repeat left center;
     text-align: center;
     right: 0;
+}
+/*PEDIDO FIC*/
+.codigo_fic {
+    width: 8%;
+    padding-left:1%;
+}
+.producto_fic{
+    width: 45%;
+}
+.unidades_fic{
+    width: 9% !important;
+    text-align: center !important;
+}
+.precioUnitario_fic{
+    width: 9%;
+    text-align:right;
+}
+.subtotal_fic{
+    width: 11%;
+    text-align:right;
+}
+.clienteFic{
+        width: 13%;
+    text-align: center;
+}
+.clienteFic input{
+     max-width: 107px;
+    text-align: left;
+    height: 32px;
+    font-family: 'Lato';
+    color: #1a1a1a;
+    
+    border: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 32px;
+    font-size: 14.5px;
+}
+.titulo_pedidos_fic{
+    float:left;
+        text-align: left;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #000;
+    font-family: 'Lato';
+}
+.content_paginador{
+    float:right;
+    margin-top:10px;
+}
+.mensaje_fic{
+    font-family:'Lato';
+    font-size:16px;
+    color:#613c87;
+    letter-spacing:0.3px;
+}
+@media screen and (max-width: 1092px){
+    .subtotal_fic span:nth-child(2) {
+    font-size: 16.5px;
+    color: #000;
+    font-weight: bold;
+    }
+    .oculto_1092{
+        display:none !important;
+    }
+    .clienteFic{
+        width:16%;
+    }
+    .subtotal_fic {
+        width: 13%;
+    }
+    .unidades_fic{
+        width: 11% !important;
+    }
+    .clienteFic {
+        width: 18%;
+    }
 }

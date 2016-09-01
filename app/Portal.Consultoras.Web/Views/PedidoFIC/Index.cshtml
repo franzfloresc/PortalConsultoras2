@@ -20,22 +20,29 @@
         .no_mostrar {
             display: none;
         }
+        .texto_pedidos{
+            font-size:14px;
+            font-weight:400;
+        }
 
         /*.campana:hover .info_cam {
             display:none;
         }*/
+
+        
     </style>
 }
 
 <div class="franja_negra"></div>
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
-<div class="wrapper_general2">
-    
+<div class="wrapper_general2">   
 
     <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 
-    <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
+    <h1 class="titulo_principal_interiores pedido_left" style="margin-top: -10px;">
+        INGRESA <strong>TU PEDIDO FIC - C08 antes de 8 de Marzo</strong>
+    </h1>
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
@@ -90,8 +97,309 @@
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
-    <div class="clear"></div>
+    <div class="clear"></div> 
+    <div class="PedidoFic">
+        <div class="mensaje_fic"><b>Recuerda:</b> este pedido NO te será facturado. Solo nos estas ayudando a conocer tus preferencias y las de tus clientes</div>
+        <div class="paginador_pedidos mostrarPaginadorPedidos">
+            <div class="titulo_pedidos_fic">
+                MIS <b>PEDIDOS</b>
+            </div>
+            <!--PAGINADOR-->
+            <div id="paginadorCab" class="content_paginador">
+                <ul class="paginador_notificaciones" data-paginacion="block">
+
+                    <li class="productos_agregados_usuario">
+                        He agregado
+                        <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion="recordCount">7</b></span>
+                        &nbsp;producto(s)
+                    </li>
+                    <li class="seleccion_pagina">
+                        <select data-paginacion="rows" style="height: 24px;" data-val="">
+                            <option value="10">ver 10 filas</option>
+                            <option value="20">ver 20 filas</option>
+                            <option value="30">ver 30 filas</option>
+                            <option value="40">ver 40 filas</option>
+                            <option value="50">ver 50 filas</option>
+                        </select>
+                    </li>
+                    <li class="texto_pagina">Página</li>
+                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
+                    <li style="margin-right: 6px;">
+                        <span class="paginas_pedidos">
+                            <span class="pagina_actual">
+                                <input type="text" name="paginaactual" data-paginacion="page" value="1" class="ValidaNumeral" id="paginaactual" data-val="1">
+                            </span> de
+                            <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">1</span>
+                        </span>
+                    </li>
+                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+                    <hr class="clear"/>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <!--FIN-->
+        </div>
+        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+            <div class="encabezado_ingresoPedido">
+                <div class="texto_encabezado_pedidos codigo_fic" align="left">Código</div>
+                <div class="texto_encabezado_pedidos producto_fic" align="left">Producto</div>
+                <div class="texto_encabezado_pedidos unidades_fic">Unidades</div>
+                <div class="texto_encabezado_pedidos precioUnitario precioUnitario_fic">Precio Unitario</div>
+                <div class="texto_encabezado_pedidos subtotal subtotal_fic">
+                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                    <span>Subtotal</span>
+                </div>
+                <div class="texto_encabezado_pedidos clienteFic">
+                    <select id="ddlClientes" onchange="CambiarCliente(this)"><option value="-1">Cliente</option><option value="2">KRISTELL ALMAZAN HERNANDEZ</option><option value="0">JULIA HERNANDEZ BASTIDA</option></select>
+                </div>
+                <div class="texto_encabezado_pedidos acciones_fic"></div>
+            </div>
+            <!--LISTADO 1-->
+            <div id="tbobyDetallePedido">
+                <div class="contenido_ingresoPedido mouse_encima">
+                    <div class="texto_pedidos codigo_fic">00006</div>
+                    <div class="texto_pedidos producto_fic">
+                        <span style="position:relative">
+                            <label for="LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML" id="lblLPDesProd1">LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML</label>
+                        </span>
+
+                    </div>
+                    <div class="celda_cantidad_pedidos unidades_fic">
+                        <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
+                            <input type="hidden" name="txtLPTempCant1" id="txtLPTempCant1" value="9">
+                            <input type="text" value="9" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant1" data-pedido="1" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion('201613', '2902554', '1', '0', '00006', '1', '9')">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="texto_pedidos precioUnitario_fic oculto_1092">
+                        <input type="hidden" name="hdfLPPrecioU1" id="hdfLPPrecioU1" value="149" class="classPrecioUnidad">
+                        $ 149.00
+                    </div>
+                    <div class="texto_pedidos subtotal_fic">
+                        <span class="precio">
+                            $ 149.00
+                        </span>
+                        <span>
+                            $
+                            <label for="item_ImporteTotal" id="lblLPImpTotal1" class="classImporteTotal">1,341.00</label>
+
+                        </span>
+                    </div>
+                    <div class="texto_pedidos clienteFic">
+                        <input type="text" value="Ana María" />
+                     </div>
+                    <div class="texto_pedidos celda_iconos_acciones">
+                        <a onclick="DeletePedido('201613', '2902554', '1', '0', '00006', '9', '2', '');" id="btnLPDelete1" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                    </div>
+                </div>
+
+            </div>
+            <!--LISTADO 2-->
+            <div id="tbobyDetallePedido">
+                <div class="contenido_ingresoPedido mouse_encima">
+                    <div class="texto_pedidos codigo_fic">00006</div>
+                    <div class="texto_pedidos producto_fic">
+                        <span style="position:relative">
+                            <label for="LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML" id="lblLPDesProd1">LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML</label>
+                        </span>
+
+                    </div>
+                    <div class="celda_cantidad_pedidos unidades_fic">
+                        <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
+                            <input type="hidden" name="txtLPTempCant1" id="txtLPTempCant1" value="9">
+                            <input type="text" value="9" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant1" data-pedido="1" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion('201613', '2902554', '1', '0', '00006', '1', '9')">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="texto_pedidos precioUnitario_fic oculto_1092">
+                        <input type="hidden" name="hdfLPPrecioU1" id="hdfLPPrecioU1" value="149" class="classPrecioUnidad">
+                        $ 149.00
+                    </div>
+                    <div class="texto_pedidos subtotal_fic">
+                        <span class="precio">
+                            $ 149.00
+                        </span>
+                        <span>
+                            $
+                            <label for="item_ImporteTotal" id="lblLPImpTotal1" class="classImporteTotal">1,341.00</label>
+
+                        </span>
+                    </div>
+                    <div class="texto_pedidos clienteFic">
+                        <input type="text" value="Ana María" />
+                    </div>
+                    <div class="texto_pedidos celda_iconos_acciones">
+                        <a onclick="DeletePedido('201613', '2902554', '1', '0', '00006', '9', '2', '');" id="btnLPDelete1" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--PAGINADOR INFERIOR-->
+        <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+            <div id="paginadorPie">
+                <ul class="paginador_notificaciones" data-paginacion="block">
+
+                    <li class="productos_agregados_usuario">
+                        He agregado
+                        <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion="recordCount">1</b></span>
+                        &nbsp;producto(s)
+                    </li>
+                    <li class="seleccion_pagina">
+                        <select data-paginacion="rows" style="height: 24px;" data-val="">
+                            <option value="10">ver 10 filas</option>
+                            <option value="20">ver 20 filas</option>
+                            <option value="30">ver 30 filas</option>
+                            <option value="40">ver 40 filas</option>
+                            <option value="50">ver 50 filas</option>
+                        </select>
+                    </li>
+                    <li class="texto_pagina">Página</li>
+                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
+                    <li style="margin-right: 6px;">
+                        <span class="paginas_pedidos">
+                            <span class="pagina_actual">
+                                <input type="text" name="paginaactual" data-paginacion="page" value="1" class="ValidaNumeral" id="paginaactual" data-val="1">
+                            </span> de
+                            <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">1</span>
+                        </span>
+                    </li>
+                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+
+                    <div class="clear"></div>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--FIN-->
+        <!--MONTOS-->
+        <div class="caja_guardar_pedido">
+            <div class="contenedor_guardadoPedido">
+                <div class="bloque_montosPedido">
+                    <div class="caja_montos">
+                        <div class="caja_montos_textos">
+                            <p class="monto_con_descuento pMontoCliente" style="display: block;">
+                                <span id="spnNombreCliente">KRISTELL ALMAZAN HERNANDEZ :</span>
+                            </p>
+                            <div class="monto_total">
+                                <div class="info_extra_Validado">
+                                    <img src="/Content/Images/Esika/info-copy.png">
+                                    <!--MONTOS-->
+                                    <div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
+                                        <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
+
+                                        <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">$ 3,439.00</div>
+                                        <hr class="clear">
+                                        <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
+                                        <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">$ 0.00</div>
+                                    </div>
+                                    <!--FIN-->
+                                </div>
+                                <span>Monto total :</span>
+                            </div>
+
+                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
+                            </div>
+                            <p class="monto_ganancia">
+
+                                GANANCIA:
+                            </p>
+                        </div>
+                        <div class="caja_montos_cantidades">
+                            <p class="monto_con_descuento pMontoCliente" style="display: block;">
+                                <span id="spnTotalCliente">$1,341.00</span>
+                            </p>
+                            <p class="monto_total">
+                                <b class="">
+                                    $
+                                    <span id="sTotal" class="num" data-pedidocondescuento="">3,439.00</span>
+                                </b>
+                            </p>
+
+                            <div id="divMontosEscalaDescuento" style="display: none;">
+                            </div>
+
+                            <p class="monto_ganancia">
+                                <b>
+                                    $ <span id="spnMontoGanancia" data-ganancia="">696.47</span>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor_btnGuardarPedido">
+
+                    <div class="tooltip_importanteGuardarPedido">
+                        Es importante <br>que guardes tu pedido
+                        <span>Puedes realizar cambios hasta el 12 de Septiembre</span>
+                    </div>
+                    <div class="boton_guardarPedido">
+                        <input type="button" id="btnValidarPROL" value="Guarda tu pedido" style="text-transform: uppercase;" class="info_copy">
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+
+            <div class="clear"></div>
+
+            <div id="divContendorPrincipal">
+            </div>
+        </div>
+        <!--FIN-->
+        <div class="contenedor_eliminacion_pedido">
+            <div class="datos_simplificacionCUV" style="display: none;">
+                <p class="precio_total_sinDescuento">
+                    <span class="icon-advertencia"></span>
+                    <span>
+                        El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br>
+                        Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
+                    </span>
+                </p>
+            </div>
+
+            <p class="texto_eliminar_pedido">
+                <span class="texto_pedido_completo">
+                    Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                </span>
+            </p>
+            <div class="clear"></div>
+        </div>
+        <!--BANNERS-->
+        <div class="contenedor_banners" style="width:72%;">
+            <ul>
+                <li>
+                    <a href="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/ProductosDescontinuados/MX/201613.pdf" title="Productos Descontinuados" target="_blank">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_01.png" alt="Productos Descontinuados">
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/OfertaLiquidacion/OfertasLiquidacion" title="Liquidaciones Web">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_02.png" alt="Liquidaciones Web">
+                        <div>LIQUIDACIONES WEB</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_03.png" alt="Productos Agotados">
+                        <div>PRODUCTOS AGOTADOS</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <!--FIN-->
     </div>
+</div>
 
 
 
