@@ -8239,6 +8239,7 @@ ul.tabs {
         font-weight:700;
         margin-bottom: 10px;
         text-align: center;
+        margin-bottom:20px !important;
         margin: 0px auto;
         text-transform:uppercase;
         font-size: 10pt !Important;
@@ -9933,15 +9934,15 @@ border: 0;
     text-transform: uppercase;
     margin-top: 5px;
     width: 140px;
-    height: 35px;
-    letter-spacing: 1.5px;
+    height: 45px;
+    letter-spacing: 0.5px;
     padding: 0;
-    background: #642f80;
+    background: #613c87;
     color: white;
     font-family: 'lato';
-    font-size: 10.5px;
+    font-size: 13px;
     border: 0;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 .div-3 .ganancia {

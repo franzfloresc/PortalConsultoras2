@@ -8294,6 +8294,7 @@ ul.tabs {
         font-weight:700;
         margin-bottom: 10px;
         text-align: center;
+        margin-top:20px !important;
         margin: 0px auto;
         text-transform:uppercase;
         font-size: 10pt !Important;
@@ -9988,15 +9989,15 @@ border: 0;
     text-transform: uppercase;
     margin-top: 5px;
     width: 140px;
-    height: 35px;
-    letter-spacing: 1.5px;
+    height: 45px;
+    letter-spacing: 0.5px;
     padding: 0;
-    background: #e81c36;
+    background: #df3d3d;
     color: white;
     font-family: 'lato';
-    font-size: 10.5px;
+    font-size: 13px;
     border: 0;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 .div-3 .ganancia {
@@ -26462,7 +26463,7 @@ position: relative; float: left;
     margin:0 auto;
 }
 .icono_check_alerta{
-    background:url(../../../Images/Esika/icono_check_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_check_esika.png) center center no-repeat;
     background-size:cover;
 }
 .texto_mensaje_alerta {
