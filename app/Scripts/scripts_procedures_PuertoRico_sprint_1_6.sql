@@ -367,7 +367,7 @@ GO
 
 
 
-DELETE FROM MenuMobile WHERE Posicion='Menu'
+DELETE FROM MenuMobile WHERE Posicion='Menu' and MenuMobileID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, EsSB2)
 VALUES

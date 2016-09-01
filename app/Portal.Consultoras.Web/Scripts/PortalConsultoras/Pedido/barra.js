@@ -357,10 +357,12 @@ function MostrarBarra(datax) {
     var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    objMsg.Mensaje = objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto);
+    //objMsg.Mensaje += objMsg.Mensaje + objMsg.Mensaje + objMsg.Mensaje;
+    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje);
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto + 25);
 
     return false;
 

@@ -364,6 +364,12 @@ $(document).ready(function () {
             MostrarMensajeProl(data);
         }
     });
+
+    $(document).on('click', '#idImagenCerrar', function (e) {
+        $(this).parent().remove();
+    });
+
+   
     
     CrearDialogs();
     CargarDetallePedido();
@@ -2148,6 +2154,7 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
+    
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2169,6 +2176,18 @@ function EjecutarServicioPROL() {
             var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
+
+                if (!response.data.ValidacionInteractiva) {
+
+                    html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
+                    html +='<img src="/Content/Images/icons/warning.png">';
+                    html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
+                    html +='<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
+                    html += '</div>';
+                    $("#divContendorPrincipal").after(html);
+                    return false;
+                }
+
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
                     mensajePedido += "Tu pedido se guardó con éxito";
 

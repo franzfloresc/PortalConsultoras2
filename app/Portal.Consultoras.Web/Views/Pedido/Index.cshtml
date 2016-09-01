@@ -326,8 +326,13 @@
                 </div>
 
                 <div class="clear"></div>
+                
             </div>
+            
             <div class="clear"></div>
+            
+            <div id="divContendorPrincipal">
+            </div>
         </div>
 
         <div class="contenedor_eliminacion_pedido">
@@ -431,8 +436,7 @@
             </div>
             <div class="contenedor_productos">
                 <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div id="divListadoEstrategia" class="contenedor_carousel_productos slider center">
-
+                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
                 </div>
             </div>
         </div>
@@ -479,7 +483,7 @@
     <div class="terminos_title_2">
         MENSAJE
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div class="pop_pedido_mensaje">
     </div>
 </div>
@@ -488,7 +492,7 @@
     <div class="terminos_title_2">
         IMPORTANTE
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div class="pop_pedido_mensaje">
         ¿Deseas eliminar el pedido completo?.
     </div>
@@ -520,9 +524,12 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
+    <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divObservacionesPROL').hide();"><img src="/Content/Images/cerrar_04.png"></a>
+    <hr class="clear" />
+    <div class="icono_mensaje_alerta icono_check_alerta"></div>
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div id="divMensajeObservacionesPROL" class="pop_pedido_mensaje_prol">
     </div>
     <div class="div-3" style="text-align: center;">
@@ -1003,7 +1010,7 @@
             {{#if EsKitNueva}}
             <div>
                 <input type="hidden" data-kit="true" />
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
                 <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
                     <div class="tooltip_flecha"></div>
                     <h6>Kit de Inicio</h6>
@@ -1133,6 +1140,12 @@
                     </a>
                     {{/iff}}                    
                     <div class="clear"></div>
+                    <div style="padding-top:9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
