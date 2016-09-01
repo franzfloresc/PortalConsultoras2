@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Common
             { "GT", "" },
             { "MX", "IFE" },
             { "PA", "" },
-            { "PE", "" },
+            { "PE", "DNI/RUC" },
             { "PR", "DNI/RUC" },
             { "SV", "" },
             { "VE", "" }
@@ -312,15 +312,15 @@ namespace Portal.Consultoras.Common
             { "BO", "" },
             { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
             { "CO", "TemplatesUbigeos/_UbigeoGrupo1"},
-            { "CR", "" },
+            { "CR", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
-            { "PA", "" },
+            { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
             { "PR", "" },
-            { "SV", "" },
+            { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "VE", "" }
         };
 
@@ -329,16 +329,15 @@ namespace Portal.Consultoras.Common
             { "BO", "" },
             { "CL", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "CO", "TemplatesDatosGenerales/_DatosGeneralesGrupo2"},
-            { "CR", "" },
+            { "CR", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "MX", "TemplatesDatosGenerales/_DatosGeneralesGrupo1" },
-            { "PA", "" },
+            { "PA", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "PE", "TemplatesDatosGenerales/_DatosGeneralesGrupo3" },
-
             { "PR", "" },
-            { "SV", "" },
+            { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
     }
