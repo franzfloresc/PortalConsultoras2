@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
+                    model.AccionBoton = "guardar";
                     model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}" ,ViewBag.FechaFacturacionPedido);
@@ -138,18 +139,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else // Periodo de facturacion
                 {
+                    model.AccionBoton = "guardar";
                     model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
                     if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                     {
+                        model.AccionBoton = "validar";
                         model.Prol = "Reservar tu pedido";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                         model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
                     }
                     else // PROL 1
                     {
+                        model.AccionBoton = "validar";
                         model.Prol = "Valida tu pedido";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
                         model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));

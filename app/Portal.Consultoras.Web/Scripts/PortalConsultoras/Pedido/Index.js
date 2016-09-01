@@ -2485,6 +2485,7 @@ function EjecutarServicioPROL() {
                             $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                         }
 
+                        //cambiar para analytics
                         _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
                         dataLayer.push({
                             'event': 'pageview',
@@ -2543,7 +2544,6 @@ function EjecutarServicioPROL() {
         }
     });
 }
-
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
     jQuery.ajax({
@@ -2600,6 +2600,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
 
+                            //Cambiar para analytics
                             _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
                             dataLayer.push({
                                 'event': 'pageview',
