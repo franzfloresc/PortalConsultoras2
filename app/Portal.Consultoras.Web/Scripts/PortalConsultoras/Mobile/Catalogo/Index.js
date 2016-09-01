@@ -582,10 +582,10 @@ function CatalogoEnviarEmail() {
             Esika: "0",
             Cyzone: "0",
             Finart: "0"
-        }
-        for (var c = 0; c < catalogoEnviar.length; c++) {
+        }       
+        for (var c = 0; c < catalogoEnviar.length; c++) {            
             var chk = catalogoEnviar[c];
-            var checkCat = $(chk).parents("[data-cat]").attr("data-cat").toLowerCase();
+            var checkCat = $(chk).parents("[data-cat]").attr("data-cat").toLowerCase();           
             objCorreo.LBel = checkCat == "lbel" ? "1" : objCorreo.LBel;
             objCorreo.Esika = checkCat == "esika" ? "1" : objCorreo.Esika;
             objCorreo.Cyzone = checkCat == "cyzone" ? "1" : objCorreo.Cyzone;

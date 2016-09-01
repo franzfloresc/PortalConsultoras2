@@ -356,6 +356,7 @@
     <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
@@ -1561,6 +1562,7 @@
     <Content Include="Content\Images\Esika\icono_advertencia.png" />
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.svg" />
+    <Content Include="Content\Images\Esika\icono_check_esika.png" />
     <Content Include="Content\Images\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\Esika\icono_exclamacion.png" />
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.png" />
@@ -3310,7 +3312,6 @@
     <Content Include="Views\Notificaciones\ListadoDetalleSolicitud.cshtml" />
     <Content Include="Views\SolicitudCliente\Detalle.cshtml" />
     <Content Include="Views\SolicitudCliente\Index.cshtml" />
-    <Content Include="Views\Bienvenida\Landing.cshtml" />
     <Content Include="Service References\ServicioGenerarLideres\WS_GenerarLideres.wsdl" />
     <Content Include="Views\ConfiguracionValidacionNuevoPROL\Index.cshtml" />
     <Content Include="Views\AdministrarConfiguracionPortal\Index.cshtml" />
@@ -3422,6 +3423,7 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

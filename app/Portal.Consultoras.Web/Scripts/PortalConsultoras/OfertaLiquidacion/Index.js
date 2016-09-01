@@ -318,6 +318,7 @@ $(document).ready(function () {
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
                                         CargarResumenCampaniaHeader(true);
                                         TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                        ActualizarGanancia(data.DataBarra);
                                     }
                                     else {
                                         alert_msg(data.message);
