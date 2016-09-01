@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
                 {
                     var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
-
+                    detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
                     if (detCuv.CUV != "")
                     {
                         BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
