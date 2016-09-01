@@ -49,6 +49,42 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal OfertaEstrategia { get; set; }
 
+        [DataMember]
+        public string Tema { get; set; }
+
+        [DataMember]
+        public int DiasAntes { get; set; }
+
+        [DataMember]
+        public int DiasDespues { get; set; }
+
+        [DataMember]
+        public int NumeroPerfiles { get; set; }
+
+        [DataMember]
+        public string ImagenCabeceraProducto { get; set; }
+
+        [DataMember]
+        public string ImagenVentaSetPopup { get; set; }
+
+        [DataMember]
+        public string ImagenVentaTagLateral { get; set; }
+
+        [DataMember]
+        public string ImagenPestaniaShowRoom { get; set; }
+
+        [DataMember]
+        public string ImagenPreventaDigital { get; set; }
+
+        [DataMember]
+        public string RutaShowRoomPopup { get; set; }
+
+        [DataMember]
+        public string RutaShowRoomBannerLateral { get; set; }
+
+        [DataMember]
+        public int Estado { get; set; }
+
         public BEShowRoomEvento(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "EventoID") && datarec["EventoID"] != DBNull.Value)
@@ -75,6 +111,30 @@ namespace Portal.Consultoras.Entities
                 TextoEstrategia = DbConvert.ToString(datarec["TextoEstrategia"]);
             if (DataRecord.HasColumn(datarec, "OfertaEstrategia") && datarec["OfertaEstrategia"] != DBNull.Value)
                 OfertaEstrategia = DbConvert.ToDecimal(datarec["OfertaEstrategia"]);
+            if (DataRecord.HasColumn(datarec, "Tema") && datarec["Tema"] != DBNull.Value)
+                Tema = DbConvert.ToString(datarec["Tema"]);
+            if (DataRecord.HasColumn(datarec, "DiasAntes") && datarec["DiasAntes"] != DBNull.Value)
+                DiasAntes = DbConvert.ToInt32(datarec["DiasAntes"]);
+            if (DataRecord.HasColumn(datarec, "DiasDespues") && datarec["DiasDespues"] != DBNull.Value)
+                DiasDespues = DbConvert.ToInt32(datarec["DiasDespues"]);
+            if (DataRecord.HasColumn(datarec, "NumeroPerfiles") && datarec["NumeroPerfiles"] != DBNull.Value)
+                NumeroPerfiles = DbConvert.ToInt32(datarec["NumeroPerfiles"]);
+            if (DataRecord.HasColumn(datarec, "ImagenCabeceraProducto") && datarec["ImagenCabeceraProducto"] != DBNull.Value)
+                ImagenCabeceraProducto = DbConvert.ToString(datarec["ImagenCabeceraProducto"]);
+            if (DataRecord.HasColumn(datarec, "ImagenVentaSetPopup") && datarec["ImagenVentaSetPopup"] != DBNull.Value)
+                ImagenVentaSetPopup = DbConvert.ToString(datarec["ImagenVentaSetPopup"]);
+            if (DataRecord.HasColumn(datarec, "ImagenVentaTagLateral") && datarec["ImagenVentaTagLateral"] != DBNull.Value)
+                ImagenVentaTagLateral = DbConvert.ToString(datarec["ImagenVentaTagLateral"]);
+            if (DataRecord.HasColumn(datarec, "ImagenPestaniaShowRoom") && datarec["ImagenPestaniaShowRoom"] != DBNull.Value)
+                ImagenPestaniaShowRoom = DbConvert.ToString(datarec["ImagenPestaniaShowRoom"]);
+            if (DataRecord.HasColumn(datarec, "ImagenPreventaDigital") && datarec["ImagenPreventaDigital"] != DBNull.Value)
+                ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);
+            if (DataRecord.HasColumn(datarec, "RutaShowRoomPopup") && datarec["RutaShowRoomPopup"] != DBNull.Value)
+                RutaShowRoomPopup = DbConvert.ToString(datarec["RutaShowRoomPopup"]);
+            if (DataRecord.HasColumn(datarec, "RutaShowRoomBannerLateral") && datarec["RutaShowRoomBannerLateral"] != DBNull.Value)
+                RutaShowRoomBannerLateral = DbConvert.ToString(datarec["RutaShowRoomBannerLateral"]);
+            if (DataRecord.HasColumn(datarec, "Estado") && datarec["Estado"] != DBNull.Value)
+                Estado = DbConvert.ToInt32(datarec["Estado"]);
         }
     }
 }

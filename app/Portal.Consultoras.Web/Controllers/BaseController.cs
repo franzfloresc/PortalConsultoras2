@@ -1261,6 +1261,12 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
+        protected Converter<decimal, string> CreateConverterDecimalToString(int paisID)
+        {
+            if (paisID == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
+        }
+
         #endregion
         
         #region barra
@@ -1371,7 +1377,7 @@ namespace Portal.Consultoras.Web.Controllers
             return objR;
         }
 
-        private List<BEEscalaDescuento> GetListaEscalaDescuento()
+        public List<BEEscalaDescuento> GetListaEscalaDescuento()
         {
             List<BEEscalaDescuento> listaEscalaDescuento;
 

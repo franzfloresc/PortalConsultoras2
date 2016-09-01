@@ -32,10 +32,36 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal OfertaEstrategia { get; set; }
 
+        public string Tema { get; set; }
+
+        public int DiasAntes { get; set; }
+
+        public int DiasDespues { get; set; }
+
+        public int NumeroPerfiles { get; set; }
+
+        public string ImagenCabeceraProducto { get; set; }
+
+        public string ImagenVentaSetPopup { get; set; }
+
+        public string ImagenVentaTagLateral { get; set; }
+
+        public string ImagenPestaniaShowRoom { get; set; }
+
+        public string ImagenPreventaDigital { get; set; }
+
+        public string RutaShowRoomPopup { get; set; }
+
+        public string RutaShowRoomBannerLateral { get; set; }
+
+        public int Estado { get; set; }
+
         public string Simbolo { get; set; }
 
         public List<ShowRoomOfertaModel> ListaShowRoomOferta { get; set; }
 
         public int PosicionCarrusel { get; set; }
+
+        public string CodigoIso { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
-                
+
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -50,15 +50,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
                         model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                     else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;                  
-                }
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    model.ListaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
+                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                 }
 
                 #region Rangos de Escala de Descuento
+
+                model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
 
                 var pos = -1;
                 int nro = 4;
@@ -68,38 +65,39 @@ namespace Portal.Consultoras.Web.Controllers
 
                 for (int i = 0; i < tamano; i++)
                 {
-                    model.ListaEscalaDescuento[i].MontoDesde = i == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
-
                     var objEscala = model.ListaEscalaDescuento[i];
+                    if (userData.MontoMinimo > objEscala.MontoHasta)
+                    {
+                        continue;
+                    }
+
+                    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
+
                     if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
                     {
-                        model.ListaEscalaDescuento[i].Seleccionado = true;
+                        objEscala.Seleccionado = true;
                         pos = i;
                     }
 
-                    if (i < nro)
-                    {
-                        listaEscala.Add(model.ListaEscalaDescuento[i]);
-                    }
+                    //if (i < nro)
+                    //{
+                        listaEscala.Add(objEscala);
+                    //}
                 }
 
-                if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) <= 1)
+                model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
+                if (listaEscala.Any())
                 {
-                    if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) == 1)
+                    int posMin, posMax, tamX = tamano - 1;
+                    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+                    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+                    posMin = pos < 0 ? 0 : posMin;
+                    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
+                    for (int i = posMin; i <= posMax; i++)
                     {
-                        listaEscala = new List<BEEscalaDescuento>();
-
-                        int posMin, posMax, tamX = tamano - 1;
-                        posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                        posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-
-                        for (int i = posMin; i <= posMax; i++)
-                        {
-                            listaEscala.Add(model.ListaEscalaDescuento[i]);
-                        }
+                        model.ListaEscalaDescuento.Add(listaEscala[i]);
                     }
                 }
-                model.ListaEscalaDescuento = listaEscala;
 
                 #endregion Rangos de Escala de Descuento
 
@@ -210,9 +208,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (comunicado != null)
                         Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null)
-                        ComunicadoVisualizado = VisualizaComunicado.Visualizo ? 1 : 0;
+                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
@@ -352,13 +350,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion()
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
         {
             try
             {
                 using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                 {
-                    sac.InsertComunicadoByConsultoraVisualizacion(userData.PaisID, userData.CodigoConsultora);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
                 }
                 return Json(new
                 {
@@ -528,7 +526,6 @@ namespace Portal.Consultoras.Web.Controllers
                 result = retorno
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult ValidarCorreoComunidad(string correo)
@@ -1409,6 +1406,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-       
+
     }
 }

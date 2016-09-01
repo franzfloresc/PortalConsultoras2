@@ -64,6 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.lblValidado = data["Validado"].ToString();
             model.lblSaldo = data["Saldo"].ToString();
             model.lblImporte = data["Importe"].ToString();
+            model.lblImporteConDescuento = data["ImporteConDescuento"].ToString();
             model.hdnpaisISO = data["paisISO"].ToString();
             model.Usuario = Convert.ToString(data["Usuario"]);
             model.TipoProceso = data["TipoProceso"].ToString();
@@ -198,6 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsultoraCodigo = item.ConsultoraCodigo,
                             ConsultoraNombre = item.ConsultoraNombre,
                             ImporteTotal = item.ImporteTotal,
+                            ImporteTotalConDescuento = item.ImporteTotalConDescuento,
                             UsuarioResponsable = item.UsuarioResponsable,
                             ConsultoraSaldo = item.ConsultoraSaldo,
                             OrigenNombre = item.OrigenNombre,
@@ -247,6 +249,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case "ImporteTotal":
                             items = lst.OrderBy(x => x.ImporteTotal);
                             break;
+                        case "ImporteTotalConDescuento":
+                            items = lst.OrderBy(x => x.ImporteTotalConDescuento);
+                            break;
                         case "ConsultoraNombre":
                             items = lst.OrderBy(x => x.ConsultoraNombre);
                             break;
@@ -285,6 +290,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "ImporteTotal":
                             items = lst.OrderByDescending(x => x.ImporteTotal);
+                            break;
+                        case "ImporteTotalConDescuento":
+                            items = lst.OrderByDescending(x => x.ImporteTotalConDescuento);
                             break;
                         case "ConsultoraNombre":
                             items = lst.OrderByDescending(x => x.ConsultoraNombre);
@@ -336,6 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.ConsultoraNombre.ToString(),
                                    a.PrimeraCampaniaCodigo,
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")), // Validación país colombia req. 1478
+                                   UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")), // GR-846
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")), // Validación país colombia req. 1478
                                    a.OrigenNombre.ToString(),
                                    a.EstadoValidacionNombre.ToString(),               
@@ -698,6 +707,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ConsultoraNombre = item.ConsultoraNombre,
                         PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,  // 1630
                         ImporteTotal = item.ImporteTotal,
+                        ImporteTotalConDescuento = item.ImporteTotalConDescuento,
                         UsuarioResponsable = item.UsuarioResponsable,
                         ConsultoraSaldo = item.ConsultoraSaldo,
                         OrigenNombre = item.OrigenNombre,
@@ -730,6 +740,7 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
             }
             dic.Add("ImporteTotal", "Monto Total Pedido,");
+            dic.Add("ImporteTotalConDescuento", "Monto Total Pedido con Descuento,");
             dic.Add("ConsultoraSaldo", "Saldo,");
             dic.Add("OrigenNombre", "Origen,");
             dic.Add("EstadoValidacionNombre", "Validado,");
@@ -748,7 +759,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.ConsultoraCodigo,
                             a.ConsultoraNombre,
                             a.PrimeraCampaniaCodigo,
-                            ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")),
+                            ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotal.ToString("#,##0").Replace(',', '.') : a.ImporteTotal.ToString("0.00")),
+                            ImporteTotalConDescuento = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',', '.') : a.ImporteTotalConDescuento.ToString("0.00")),
                             ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")),
                             a.OrigenNombre,
                             a.EstadoValidacionNombre,
@@ -1072,18 +1084,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ExportarPDF(string vPaisISO, string vCampaniaCod, string vConsultoraCod, string vConsultoraNombre,
-                                        string vUsuarioNombre, string vOrigen, string vValidado, string vSaldo, string vImporte,
+                                        string vUsuarioNombre, string vOrigen, string vValidado, string vSaldo, string vImporte, string vImporteConDescuento,
                                         string vpage, string vsortname, string vsortorder, string vrowNum, string vUsuario, string vTipoProceso)
         {
-            string[] lista = new string[19];
+            string[] lista = new string[20];
 
             Session["PaisID"] = UserData().PaisID;
 
             lista[0] = vPaisISO; lista[1] = vCampaniaCod; lista[2] = vConsultoraCod; lista[3] = vConsultoraNombre;
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
-            lista[8] = vImporte; lista[9] = vpage; lista[10] = vsortname; lista[11] = vsortorder;
-            lista[12] = vrowNum; lista[13] = vUsuario; lista[14] = UserData().Simbolo; lista[15] = UserData().BanderaImagen;
-            lista[16] = UserData().NombrePais; lista[17] = vTipoProceso; lista[18] = UserData().PaisID.ToString();
+            lista[8] = vImporte; lista[9] = vImporteConDescuento; lista[10] = vpage; lista[11] = vsortname; lista[12] = vsortorder;
+            lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = UserData().Simbolo; lista[16] = UserData().BanderaImagen;
+            lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString();
 
             //Util.ExportToPdf(this, "PedidosPDF.pdf", "ReportePedidosDDWebDetalleImp", Util.EncriptarQueryString(lista));
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));

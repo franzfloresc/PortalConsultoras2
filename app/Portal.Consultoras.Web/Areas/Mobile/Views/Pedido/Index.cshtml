@@ -139,7 +139,7 @@
         </div>
         <div class="contenedor_carrusel_home">
             <!--CONTENEDOR ITEM CARRUSEL-->
-            <div id="divContenidoEstrategias">
+            <div id="divContenidoEstrategias" class="content_carrusel_agregado">
                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
             </div>
         </div>
@@ -275,6 +275,13 @@
             <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                 AGRÉGALO
             </a>
+            <div class="clear"></div>
+            <div style="padding-top:9px; height: 15px;">
+                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>
     </div>
     {{/each}}

@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool ZonaNuevoProlM { get; set; }
 
-        public int IndicadorFlexiPago { get; set; }        
+        public int IndicadorFlexiPago { get; set; }
 
         public decimal LineaCredito { get; set; }
 
@@ -89,8 +89,8 @@ namespace Portal.Consultoras.Web.Models
         {
             get
             {
-                return Util.DecimalToStringFormat(MontoDescuento, CodigoIso); 
-                
+                return Util.DecimalToStringFormat(MontoDescuento, CodigoIso);
+
             }
         }
 
@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDescuento { get; set; }
 
         public decimal MontoEscala { get; set; }
-                
+
         public string Prol { get; set; }
 
         public string ProlTooltip { get; set; } /* SB20-287 */
@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal PrecioUnidad { get; set; }
 
-        public string ClienteID { set; get; }        
+        public string ClienteID { set; get; }
 
         #endregion
 
@@ -237,7 +237,7 @@ namespace Portal.Consultoras.Web.Models
         public List<PedidoWebDetalleModel> ListaDetalleModel { get; set; }
 
         public int TotalProductos { get; set; }
-        
+
         public BarraConsultoraModel DataBarra { get; set; }
 
         public bool EsFacturacion { get; set; }

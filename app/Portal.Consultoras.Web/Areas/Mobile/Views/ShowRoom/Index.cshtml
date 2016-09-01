@@ -4,7 +4,7 @@
 }
 
 @using Newtonsoft.Json
-@using Portal.Consultoras.Web.Controllers
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 
 @section styles{
@@ -24,43 +24,46 @@
     Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
 </div>
 
-
 <div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="http://comunidad.somosbelcorp.com/t5/D%C3%ADa-del-Padre-Pre-venta-Digital/D%C3%8DA-DEL-PADRE-PRE-VENTA-DIGITAL-EXCLUSIVA/m-p/28917#M2/?utm_source=somosbelcorp.com&utm_medium=referral&utm_content=TerminosyCondiciones&utm_campaign=ShowroomDigital" target="_blank">T&eacute;rminos y condiciones de la preventa digital <br />D&iacute;a del Padre</a>
+    <a onclick="SetMarcaGoogleAnalyticsTermino();" 
+       href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre <br />@Model.Tema</a>
 </div>
 
-</br>
-
-
-@*<div class="selector_s_mobile">
-        <select>
-            <option>ORDENAR POR</option>
-            <option>ORDENAR POR</option>
-            <option>ORDENAR POR</option>
-        </select>
-    </div>*@
+<br />
 
 @{ var posicion = 1; }
 @foreach (var item in Model.ListaShowRoomOferta)
 {
-    var descripcionProducto1 = item.DescripcionProducto1.Split('|');
-    var descripcionProducto2 = item.DescripcionProducto2.Split('|');
-    var descripcionProducto3 = item.DescripcionProducto3.Split('|');
     var subTitulo = "";
-    if (descripcionProducto1.Length != 0)
+    var contadorDetalle = 1;
+    foreach (var detalle in item.ListaDetalleOfertaShowRoom)
     {
-        subTitulo += descripcionProducto1[0];
-    }
-    if (descripcionProducto2.Length != 0)
-    {
-        subTitulo += subTitulo != "" && descripcionProducto2[0] != "" ? " + " + descripcionProducto2[0] : descripcionProducto2[0];
-    }
-    if (descripcionProducto3.Length != 0)
-    {
-        subTitulo += subTitulo != "" && descripcionProducto3[0] != "" ? " + " + descripcionProducto3[0] : descripcionProducto3[0];
+        subTitulo += contadorDetalle == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+        contadorDetalle++;
     }
     var inhabilitar = item.Stock == 0;
-
+    var formatoPrecioOferta = "";
+    var formatoPrecioCatalogo = "";
+    if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
+    {
+        formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta).Replace(',', '.');
+        formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
+    }
+    else
+    {
+        if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+        {
+            formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta);
+            formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
+        }
+        else
+        {
+            formatoPrecioOferta = Convert.ToInt32(item.PrecioOferta).ToString();
+            formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();  
+        }
+          
+    }
+    
     <div class="listado_item" data-posicion="@posicion">
         <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
         <input type="hidden" class="valorCuv" value="@item.CUV" />
@@ -70,12 +73,7 @@
         <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
         <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
         <input type="hidden" class="posicionEstrategia" value="@posicion" />
-        <input type="hidden" class="imagenProducto1" value="@item.ImagenProducto1" />
-        <input type="hidden" class="imagenProducto2" value="@item.ImagenProducto2" />
-        <input type="hidden" class="imagenProducto3" value="@item.ImagenProducto3" />
-        <input type="hidden" class="descripcionProducto1" value="@item.DescripcionProducto1" />
-        <input type="hidden" class="descripcionProducto2" value="@item.DescripcionProducto2" />
-        <input type="hidden" class="descripcionProducto3" value="@item.DescripcionProducto3" />
+
         <div class="listado_imagen">
             <div class="divEstaAgotado">
                 @if (inhabilitar)
@@ -101,7 +99,7 @@
         <div class="stock_producto_m">STOCK <span class="claseStock">@item.Stock</span></div>
         <hr class="clear" />
         <div class="descripcion_set_m">@subTitulo</div>
-        <div class="precio_showroom_mobile"><span>@Model.Simbolo @Convert.ToInt32(item.PrecioOferta)</span>@Model.Simbolo @Convert.ToInt32(item.PrecioCatalogo)</div>
+        <div class="precio_showroom_mobile"><span>@Model.Simbolo @formatoPrecioOferta</span>@Model.Simbolo @formatoPrecioCatalogo</div>
         <a class="showroom_menos_mobile resta">-</a>
         <input type="tel" class="showroom_cantidad_mobile txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
         <a class="showroom_mas_mobile suma">+</a>
@@ -127,7 +125,7 @@
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="texto_pedido_m">¡Has agregado el <span id="spnNombreOfertaShowRoom">Hola</span> a tu carrito!</div>
+                <div class="texto_pedido_m">¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!</div>
                 <a id="btnCerrarPedido" class="boton_volver_set">VOLVER A SETS</a>
                 <a id="btnIrMipedido" class="boton_ver_pedido" href="@Url.Action("Index", "Pedido", new { area = "Mobile" })">VER MI PEDIDO</a>
             </div>

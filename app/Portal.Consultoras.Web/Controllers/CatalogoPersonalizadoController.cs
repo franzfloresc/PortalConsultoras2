@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private JsonResult ObtenerProductos(int cantidad)
         {
-            if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp 
+            if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
             {
                 return Json(new
