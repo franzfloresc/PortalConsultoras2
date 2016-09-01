@@ -2852,7 +2852,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .paginador_pedidos{
     display:block;
     width:100%;
-    height:auto;
+    height:30px;
     margin-top:25px;
     margin-bottom:100px;
 }
