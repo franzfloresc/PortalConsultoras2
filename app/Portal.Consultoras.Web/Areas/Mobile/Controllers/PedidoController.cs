@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
-                    model.Prol = "Reservar tu pedido";
+                    model.Prol = "Reserva tu pedido";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
                 }
