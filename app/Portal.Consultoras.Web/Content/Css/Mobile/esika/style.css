@@ -2224,9 +2224,8 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-       color: #e81c36;
-    
-    border: 1px solid #e81c36 !important;
+        color: #e81c36;
+        border: 1px solid #e81c36 !important;
     }
 
     .block-seguimiento-content .seg-current .seg-fecha {
@@ -2238,14 +2237,14 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-active .seg-title {
-        color: #00abdf;
+        color: black;
     }
 
     .block-seguimiento-content .seg-active .seg-icon:before {
         font-family: "icomoon";
         font-size: 1.3em;
         content: "\e619";
-        color: #00abdf;
+        color: #E81C36;
         position: absolute;
         top: 36px;
         right: -9px;
@@ -2254,16 +2253,16 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-active .seg-icon .icon-seg {
-        color: #00abdf !important;
-        border: 1px solid #00abdf !important;
+        color: #E81C36 !important;
+        border: 1px solid #E81C36 !important;
     }
 
     .block-seguimiento-content .seg-active .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
 
     .block-seguimiento-content .seg-active .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
 
 .alert .close {
