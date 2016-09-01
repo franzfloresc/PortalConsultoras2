@@ -198,10 +198,12 @@
                         var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + base1.NombreMes(item.FechaRegistro.Month);
 
                         var estiloSinRuta = "ingresado";
+                        var targetPaqueteDocumentario = "";
                         var rutaPaqueteDocumentario = "javascript:;";
                         if (!string.IsNullOrEmpty(item.RutaPaqueteDocumentario))
                         {
                             rutaPaqueteDocumentario = item.RutaPaqueteDocumentario;
+                            targetPaqueteDocumentario = "_blank";
                             estiloSinRuta = "";
                         }
                         var claseEstado = item.EstadoPedidoDesc.ToUpper() == "INGRESADO" ? "estado_detalleIngresado" : "estado_detalleFacturado";
@@ -223,7 +225,7 @@
                                 </a>
                             </div>
                             <div class="pack_documentario @estiloSinRuta">
-                                <a href="@rutaPaqueteDocumentario" target="_blank" title="Pack Documentario">
+                                <a href="@rutaPaqueteDocumentario" target="@targetPaqueteDocumentario" title="Pack Documentario">
                                     <img src="@Url.Content("~/Content/Images/paquete_documentario.svg")" alt="Pack Documentario" />
                                 </a>
                             </div>
