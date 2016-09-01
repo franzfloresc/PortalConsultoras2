@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    string contenedorClass = "contenedor" + Model.OrdenMaximo.ToString();
     string liClass, classOculto, dataTag = "", marcaNombre = "";
 }
 
@@ -15,7 +16,7 @@
 <div class="fondo_f2f2f2">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-    <ul class="tabs_asesoresBelleza" data-tab="tab" style="margin-bottom:0">
+    <ul class="tabs_asesoresBelleza @contenedorClass" data-tab="tab" style="margin-bottom:0">
         @for(int i = 1; i <= Model.OrdenMaximo; i++)
         {
             liClass = i == 1 ? "one" : (i == 2 ? "two" : "three");
