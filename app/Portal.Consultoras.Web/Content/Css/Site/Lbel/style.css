@@ -20158,6 +20158,8 @@ label.checkpop.c_on {
     font-size:10pt;
     margin-top: 83px;
     margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
 }
 .ubicacion_web span {
     color:#878787 !important;    
@@ -26757,6 +26759,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-size:cover;
     position:relative;
     margin-top:-62px;
+    z-index: 1;
 }
 
 .titulo_banner{
