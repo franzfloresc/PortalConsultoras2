@@ -67,9 +67,9 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     var limiteProductos = ConfigurationManager.AppSettings.Get("LimiteProductosJetlore") ?? "";
 
                     url += "?cid=" + hash;
-                    url += "&id=" + codigoConsultora;
                     url += "&limit=" + limiteProductos;
-                    url += "&feed=" + bpais;
+                    url += "&FEED_ID=" + bpais;
+                    url += "&id=" + codigoConsultora;                                        
                     url += "&div=" + campaniaId;
 
                     string rtpaJson;
