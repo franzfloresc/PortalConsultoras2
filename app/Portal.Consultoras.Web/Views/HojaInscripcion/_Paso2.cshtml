@@ -1,11 +1,10 @@
-﻿@using Portal.Consultoras.Web.Models;
-@using Portal.Consultoras.Web.Controllers;
-@using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
-
-@model HojaInscripcionPaso2Model
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.HojaInscripcionBelcorpPais
+@model Portal.Consultoras.Web.Models.HojaInscripcionPaso2Model
 @{
     var lugaresNivel1 = ViewBag.LugaresNivel1 != null ? ViewBag.LugaresNivel1 as SelectList : new SelectList(new List<ParametroUneteBE>());
     var DireccionesCo = ViewBag.DireccionesCo != null ? ViewBag.DireccionesCo as SelectList : new SelectList(new List<ParametroUneteBE>());
+    var PrefijosCelular = ViewBag.PrefijosCelular != null ? ViewBag.PrefijosCelular as SelectList : new SelectList(new List<ParametroUneteBE>());
 }
 
 @using (Ajax.BeginForm("Paso2", new AjaxOptions
@@ -18,7 +17,7 @@
 }))
 {
     @Html.HiddenFor(m => Model.Token)
-    
+
     @Html.Hidden("Paso", 2)
     @Html.HiddenFor(m => Model.CodigoISO)
     @Html.HiddenFor(m => Model.FuenteIngreso)
@@ -47,38 +46,75 @@
     @Html.HiddenFor(m => Model.Longitud)
     @Html.HiddenFor(m => Model.DireccionCorrecta)
     @Html.HiddenFor(m => Model.ConsultoServicioGEO)
-     @Html.HiddenFor(m => Model.NombreDireccionColombia)
-    
+    @Html.HiddenFor(m => Model.NombreDireccionColombia)
+    @Html.HiddenFor(m => Model.NombreColonia)
+    @Html.HiddenFor(m => Model.NombrePrefijoCelular)
 
     <div class="field12">
         <h2>Datos de contacto</h2>
     </div>
-    <div class="field4 no-margin-bottom"><b>*</b> Tel&eacute;fono Celular</div>
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.TextBox("pref1", HojaInscripcionUtils.PrefijoTelefonoCelular[Model.CodigoISO], new { @class = "field2 input-prefijo", @readonly = "readonly", @tabindex = -1 })
-        @Html.TextBoxFor(m => Model.Celular, new { @class = "numero field9", @placeholder = "Telf. Celular", @maxlength = (HojaInscripcionUtils.LengthTelefonoCelular.ContainsKey(Model.CodigoISO) ? HojaInscripcionUtils.LengthTelefonoCelular[Model.CodigoISO] : 15) })
-    </div>
-    <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.Celular)
-    </div>
 
-    if (Model.CodigoISO == "CL") { 
-    <div class="field4 no-margin-bottom"><b>*</b> Tel&eacute;fono Fijo</div>}
-    else if (Model.CodigoISO == "CO") {
-    <div class="field4 no-margin-bottom">Tel&eacute;fono Fijo</div>
-    }                                                                        
-    
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.TextBox("pref2", HojaInscripcionUtils.PrefijoTelefonoFijo[Model.CodigoISO], new { @class = "field2 input-prefijo", @readonly = "readonly", @tabindex = -1 })
-        @Html.TextBoxFor(m => Model.Telefono, new { @class = "numero field9", @placeholder = "Telf. Fijo", @maxlength = (HojaInscripcionUtils.LengthTelefonoFijo.ContainsKey(Model.CodigoISO) ? HojaInscripcionUtils.LengthTelefonoFijo[Model.CodigoISO] : 15) })
-    </div>
-    <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.Telefono)
-    </div>
+    if (Model.CodigoISO == "CL")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBox("pref1", Dictionaries.PrefijoTelefonoCelular[Model.CodigoISO], new { @class = "field2 input-prefijo", @readonly = "readonly", @tabindex = -1 })
+            @Html.TextBoxFor(m => Model.Celular, new { @class = "numero field9", @placeholder = "Telf. Celular", @maxlength = (Dictionaries.LengthTelefonoCelular.ContainsKey(Model.CodigoISO) ? Dictionaries.LengthTelefonoCelular[Model.CodigoISO] : 15) })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Celular)
+        </div>
+    }
+    else if (Model.CodigoISO == "CO")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.Celular, new { @class = "numero field11", @placeholder = "Telf. Celular", @maxlength = (Dictionaries.LengthTelefonoCelular.ContainsKey(Model.CodigoISO) ? Dictionaries.LengthTelefonoCelular[Model.CodigoISO] : 15) })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Celular)
+        </div>
+    }
+    else if (Model.CodigoISO == "MX")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.DropDownListFor(m => Model.PrefijoCelular, PrefijosCelular, new { @class = "field2" })
+            @Html.TextBoxFor(m => Model.Celular, new { @class = "numero field9", @placeholder = "Telf. Celular", @maxlength = (Dictionaries.LengthTelefonoCelular.ContainsKey(Model.CodigoISO) ? Dictionaries.LengthTelefonoCelular[Model.CodigoISO] : 15) })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Celular)
+        </div>
+    }
 
-    <div class="field4 no-margin-bottom"><b>*</b> Correo electr&oacute;nico</div>
+    if (Model.CodigoISO == "CL" || Model.CodigoISO == "MX")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Fijo</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBox("pref2", Dictionaries.PrefijoTelefonoFijo[Model.CodigoISO], new { @class = "field2 input-prefijo", @readonly = "readonly", @tabindex = -1 })
+            @Html.TextBoxFor(m => Model.Telefono, new { @class = "numero field9", @placeholder = "Telf. Fijo", @maxlength = (Dictionaries.LengthTelefonoFijo.ContainsKey(Model.CodigoISO) ? Dictionaries.LengthTelefonoFijo[Model.CodigoISO] : 15) })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Telefono)
+        </div>
+    }
+    else if (Model.CodigoISO == "CO")
+    {
+        <div class="field4 no-margin-bottom">Tel&eacute;fono Fijo</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.Telefono, new { @class = "numero field11", @placeholder = "Telf. Fijo", @maxlength = (Dictionaries.LengthTelefonoFijo.ContainsKey(Model.CodigoISO) ? Dictionaries.LengthTelefonoFijo[Model.CodigoISO] : 15) })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Telefono)
+        </div>
+    }
+
+    <div class="field4 no-margin-bottom"><b>*</b>Correo electr&oacute;nico</div>
     <div class="field8 no-margin-bottom lastfield">
         @Html.TextBoxFor(m => Model.CorreoElectronico, new { @class = "field11", @placeholder = Html.Raw("Correo electrónico") })
     </div>
@@ -91,39 +127,61 @@
         <h2>Dirección del solicitante</h2>
     </div>
 
-    <div class="field4 no-margin-bottom"><b>*</b> @HojaInscripcionUtils.LabelLugar1[Model.CodigoISO]</div>
+    <div class="field4 no-margin-bottom"><b>*</b>@Dictionaries.LabelLugar1[Model.CodigoISO]</div>
     <div class="field8 no-margin-bottom lastfield">
-        @Html.DropDownListFor(m => Model.Region, lugaresNivel1, "-- Seleccionar --", new { @class = "ignore field11" })
+        @Html.DropDownListFor(m => Model.Region, lugaresNivel1, "-- Seleccionar --", new { @class = "field11" })
     </div>
     <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.Region)
-    </div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Region)
+        </div>
 
-    <div class="field4 no-margin-bottom"><b>*</b> @HojaInscripcionUtils.LabelLugar2[Model.CodigoISO]</div>
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.DropDownListFor(m => Model.Comuna, new SelectList(new List<ParametroUneteBE>()), "-- Seleccionar --", new { @class = "field11", @disabled = "disabled" })
-    </div>
-    <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.Comuna)
-    </div>
+        <div class="field4 no-margin-bottom"><b>*</b>@Dictionaries.LabelLugar2[Model.CodigoISO]</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.DropDownListFor(m => Model.Comuna, new SelectList(new List<ParametroUneteBE>()), "-- Seleccionar --", new { @class = "field11", @disabled = "disabled" })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Comuna)
+        </div>
 
- if(Model.CodigoISO == "CL"){
-    <div class="field4 no-margin-bottom"><b>*</b>Calle &oacute; avenida</div>
+    if (Model.CodigoISO == "CL")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Calle &oacute; avenida</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field11", @placeholder = "Ejm: Av. Castellana" })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+        </div>
     }
-    else if(Model.CodigoISO == "CO"){
-    <div class="field4 no-margin-bottom"><b>*</b>Barrio</div>
+    else if (Model.CodigoISO == "CO")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Barrio</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field11", @placeholder = "Ejm: Av. Castellana" })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+        </div>
     }
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field11", @placeholder = "Ejm: Av. Castellana" })
-    </div>
-    <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
-    </div>
-   
-    if(Model.CodigoISO == "CL"){
+
+    else if (Model.CodigoISO == "MX")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Colonia</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.DropDownListFor(m => Model.Colonia, new SelectList(new List<ParametroUneteBE>()), "-- Seleccionar --", new { @class = "field11", @disabled = "disabled" })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.Colonia)
+        </div>
+    }
+
+    if (Model.CodigoISO == "CL")
+    {
         <div class="field4 no-margin-bottom"><b>*</b>Nro.</div>
         <div class="field8 no-margin-bottom lastfield">
             @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field11", @placeholder = "Ejm: 100", @maxlength = 5 })
@@ -133,66 +191,94 @@
             @Html.ValidationMessageFor(m => Model.Numero)
         </div>
     }
-    else if (Model.CodigoISO == "CO") { 
+    else if (Model.CodigoISO == "CO")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Dirección</div>
+        <div class="field8 no-margin-bottom lastfield" style="width:25%;margin-bottom:0px;">
+            @Html.DropDownListFor(m => Model.DireccionColombia, DireccionesCo, "Seleccionar", new { @class = "field11" })
+        </div>
+        <div class="field8 no-margin-bottom lastfield" style="width:39%;margin:0px;">
+            @Html.TextBoxFor(m => Model.DptoCasa, new { @class = "field11", @placeholder = "EJ. 93B 17-52", @maxlength = 40 })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 no-margin-bottom lastfield" style="width: 25%; height: 20px; margin-bottom: 0px;">
+            @Html.ValidationMessageFor(m => Model.DireccionColombia)
+        </div>
+        <div class="field8 no-margin-bottom lastfield" style="width:39%;height: 20px;margin:0px;">
+            @Html.ValidationMessageFor(m => Model.DptoCasa)
+        </div>
+    }
+    else if (Model.CodigoISO == "MX")
+    {
         <div class="field4 no-margin-bottom"><b>*</b>Dirección</div>
         <div class="field8 no-margin-bottom lastfield">
-            @Html.DropDownListFor(m => Model.DireccionColombia, DireccionesCo, "-- Seleccionar --", new { @class = "ignore field11" })
-            @Html.ValidationMessageFor(m => Model.DireccionColombia)
+            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field11", @placeholder = "Ejm: Av. Castellana" })
         </div>
         <div class="field4 auto-height"></div>
         <div class="field8 auto-height lastfield">
-            @Html.HiddenFor(m => Model.Numero, new
-                {
-                    @class = "input-number form-control",
-                    @maxlength = "5",
-                    @Value = 0
-                })
-        </div>      
+            @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+        </div>
     }
-    if(Model.CodigoISO == "CL"){
-    <div class="field4 no-margin-bottom">Referencia</div>
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.TextBoxFor(m => Model.DptoCasa, new { @class = "field11", @placeholder = "Referencia", @maxlength = 40 })
-    </div>
-    <div class="field4 auto-height"></div>
+   
+
+    if (Model.CodigoISO == "CL")
+    {
+        <div class="field4 no-margin-bottom">Referencia</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.DptoCasa, new { @class = "field11", @placeholder = "Referencia", @maxlength = 40 })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.DptoCasa)
+        </div>
     }
-    else if (Model.CodigoISO == "CO") { 
-        <div class="field4 no-margin-bottom"></div>
-    <div class="field8 no-margin-bottom lastfield">
-        @Html.TextBoxFor(m => Model.DptoCasa, new { @class = "field11", @placeholder = "Ejm: 97b 17 45", @maxlength = 40 })
-    </div>
-    <div class="field4 auto-height"></div>
-    <div class="field8 auto-height lastfield">
-        @Html.ValidationMessageFor(m => Model.DptoCasa)
-    </div>
+    else if (Model.CodigoISO == "MX")
+    {
+        <div class="field4 no-margin-bottom"><B>*</B>Referencia</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.DptoCasa, new { @class = "field11", @placeholder = "Ej. entre calle 1 y calle 3", @maxlength = 40 })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.DptoCasa)
+        </div>
     }
 
+    if (Model.CodigoISO == "MX")
+    {
+        <div class="field4 no-margin-bottom"><b>*</b>Código Postal</div>
+        <div class="field8 no-margin-bottom lastfield">
+            @Html.TextBoxFor(m => Model.CodigoPostal, new { @class = "numero field11", @placeholder = "Ejm: 100", @maxlength = 5 })
+        </div>
+        <div class="field4 auto-height"></div>
+        <div class="field8 auto-height lastfield">
+            @Html.ValidationMessageFor(m => Model.CodigoPostal)
+        </div>
+    }
+
+    <br />
     <div class="field12 text_align_center">
         <button type="submit" class="button_purple clear" id="btnEnviar">CONTINUAR</button>
     </div>
 }
 
+<script type="text/javascript" src="~/Scripts/jquery.maskedinput.min.js"></script>
 <script>
     $.validator.setDefaults({
         ignore: '.ignore'
     });
 
-    $.validator.addMethod('TelefonoSeleccionado', function (value, element) {
-    return !($('#Telefono').val().trim().length == 0 && $('#Celular').val().trim().length == 0);
-    }, 'Debe ingresar al menos un teléfono');
-
-    //$.validator.addMethod('DptoCasa', function (value, element) {
-    //    return !($('#DptoCasa').val().trim().length == 0);
-    //}, 'Debe ingresar una dirección');
-
     $.validator.addMethod('LengthTelefonoFijo', function (value, element) {
-        return value.length == parseInt('@HojaInscripcionUtils.LengthTelefonoFijo[Model.CodigoISO]') || value.length == 0;
-    }, 'El teléfono fijo debe ser de ' + '@HojaInscripcionUtils.LengthTelefonoFijo[Model.CodigoISO]' + ' números');
+        return value.length == parseInt('@Dictionaries.LengthTelefonoFijo[Model.CodigoISO]') || value.length == 0;
+    }, 'El teléfono fijo debe ser de ' + '@Dictionaries.LengthTelefonoFijo[Model.CodigoISO]' + ' números');
 
     $.validator.addMethod('LengthTelefonoCelular', function (value, element) {
-        return value.length == parseInt('@HojaInscripcionUtils.LengthTelefonoCelular[Model.CodigoISO]') || value.length == 0;
-    }, 'El teléfono celular debe ser de ' + '@HojaInscripcionUtils.LengthTelefonoCelular[Model.CodigoISO]' + ' números');
+        return value.length == parseInt('@Dictionaries.LengthTelefonoCelular[Model.CodigoISO]') || value.length == 0;
+    }, 'El teléfono celular debe ser de ' + '@Dictionaries.LengthTelefonoCelular[Model.CodigoISO]' + ' números');
 
+    $.validator.addMethod('LengthCodigoPostal', function (value, element) {
+        return value.length == parseInt('@Dictionaries.LengthCodigoPostal[Model.CodigoISO]') || value.length == 0;
+    }, 'El códgio postal debe ser de ' + '@Dictionaries.LengthCodigoPostal[Model.CodigoISO]' + ' números');
 
     $('div[data-paso="1"]').click(IrAPaso);
     $('div[data-paso="2"]').unbind('click');
@@ -201,10 +287,17 @@
 
     var defaultOption = '<option value="" >-- Seleccionar --</option>';
     var regionOnChangeCallback;
+    var comunaOnChangeCallback;
     var radioChecked;
     var cargando = true;
 
     $(function () {
+
+        $("body").on("change", "#PrefijoCelular", function () {
+            $('#NombrePrefijoCelular').val($(this).find('option:selected').text());
+        });
+
+        $('#PrefijoCelular').change();
 
         $('#Region, #Comuna, #CalleOAvenida, #Numero').change(function () {
             if (!cargando) {
@@ -238,6 +331,30 @@
             });
         });
 
+        $('#Comuna').change(function () {
+            var comuna = $(this);
+            var colonia = $('#Colonia');
+            colonia.attr('disabled', 'disabled');
+
+            $('#NombreComuna').val(comuna.find('option:selected').text());
+
+            $.getJSON('@Url.Action("ObtenerLugaresTercerNivel")', { id: this.value, codigoISO: $('#CodigoISO').val() }, function (data) {
+                $('#Colonia').html(defaultOption);
+
+                $.map(data, function (e, i) {
+                    $('#Colonia').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                });
+            }).done(function () {
+                if (comunaOnChangeCallback) {
+                    comunaOnChangeCallback();
+                }
+            }).complete(function () {
+                colonia.attr('disabled', false);
+                if (comuna.val() == '') {
+                    colonia.html(defaultOption);
+                }
+            });
+        });
 
         $('#Comuna').change(function () {
             var nombre = $(this).find('option:selected').text();
@@ -248,34 +365,48 @@
             $('#NombreDireccionColombia').val($(this).find('option:selected').text());
         });
 
+        $('#Colonia').change(function () {
+            $('#NombreColonia').val($(this).find('option:selected').text());
+        });
+
         if ($('#Region').val() != '') {
             regionOnChangeCallback = function () {
                 $('#Comuna').val('@Model.Comuna');
                 $('#Comuna').change();
                 regionOnChangeCallback = null;
             }
+
+            comunaOnChangeCallback = function () {
+                $('#Colonia').val('@Model.Colonia');
+                $('#Colonia').change();
+                comunaOnChangeCallback = null;
+            };
+
             $('#Region').change();
         }
 
         $('.numero').keydown(IntegerNumber);
 
+        if ($("#CodigoISO").val() == "CO")
+            $("#Celular").mask("3-999-999-999");
+
         $.validator.unobtrusive.parse('form');
         $('input[name="Celular"]').rules('add', 'LengthTelefonoCelular');
         $('input[name="Telefono"]').rules('add', 'LengthTelefonoFijo');
-
-        $('input[name="Telefono"]').rules('add', 'TelefonoSeleccionado');
-
         $('#contenedor_pais').hide();
-        //$('#ComboPais1, #ComboPais2').attr('disabled', true);
+
+        if ('@Model.CodigoISO' == "MX") {
+            $('input[name="CodigoPostal"]').rules('add', 'LengthCodigoPostal');
+        }
 
         $('#Latitud, #Longitud').val(0);
         $('#DireccionCorrecta').val(null);
-    })
+    });
 
 </script>
 
 
 @if (Model.ConsultoServicioGEO)
 {
-    Html.RenderPartial("_ModalMapa", Model.Puntos);
+    Html.RenderPartial("_ModalMapa", Model);
 }

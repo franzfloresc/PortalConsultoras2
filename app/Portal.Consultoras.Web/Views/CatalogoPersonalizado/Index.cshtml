@@ -16,7 +16,6 @@
                 <div class="pestana_lbel new"></div>
                 <div id="divCatalogoPersonalizado"></div>
                 @*<div class="content-favclientes catper">
-
                         <div class="contiene-productos">
                             <div class="producto_img_home mini">
                                 <img src=">
@@ -347,10 +346,9 @@
                     </div>*@
 
             </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
-
-        </div>
     </div>
 </div>
+
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="content-favclientes catper pantallaCatalogoPersonalizado">
         {{#each this as |item|}}
@@ -397,7 +395,7 @@
                 </a>
                 <div class="clear"></div>
                 <div style="height: 15px;">
-                    <div class="agregado product-add" style="padding-top: 7px; text-align: right; display:;{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                    <div class="agregado product-add" style="padding-top: 7px; text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO
                         <div class="icono"></div>
                     </div>

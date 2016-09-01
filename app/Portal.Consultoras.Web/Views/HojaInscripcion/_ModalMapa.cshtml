@@ -1,4 +1,4 @@
-﻿@model List<Tuple<decimal, decimal, string>>
+﻿@model  Portal.Consultoras.Web.Models.HojaInscripcionPaso2Model
 @{
     var nro = 0;
 }
@@ -6,15 +6,24 @@
     <div class="modal-panel">
         <div class="modal-header">
             <h2 id="modal_title"></h2>
-            <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" />
+            <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")"/>
+            @*<span id="txtMensaje" class="hidden red">Querida "nombre", lamentablemente  no puedes ser registrada ya que en tu zona no tenemos cobertura</span>*@
         </div>
         <div class="modal-content">
-            @if (Model.Count == 0)
+            @if (Model.ZonaPreferencial)
             {
-                <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
+                <div style="position: relative; float: left; width: 90%; height: 100%; padding: 20px 40px;">
+                    <h3 style="font-size: 12pt;">
+                        Lamentablemente la consultora no puede ser registrada ya que en esa zona no tenemos cobertura
+                    </h3>
+                </div>
+            }
+            else if (Model.Puntos.Count == 0)
+            {
+                <div style="position: relative; float: left; width: 90%; height: 100%; padding: 20px 40px;">
                     <h3 style="font-size: 12pt;">
                         La direcci&oacute;n <span style="font-weight: bold; color: #722789;">@(ViewData["Direccion"])</span> no se pudo localizar.
-                        <br /> <br />
+                        <br/> <br/>
                         Verifica que sea la direcci&oacute;n correcta o en todo caso podr&aacute;s georeferenciar m&aacute;s adelante.
                     </h3>
                 </div>
@@ -22,7 +31,7 @@
             else
             {
                 <div class="modal-lado-izq">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Puntos)
                     {
                         <div class="fila-direccion" data-latitud="@item.Item1" data-longitud="@item.Item2" data-nro="@nro">
                             <table cellpadding="0" cellspacing="0">
@@ -54,35 +63,56 @@
     $('#modal').fadeIn(400, cargarMapa);
 
     @{
-        var textoNingunaDireccion = Model.Count > 1 ? "Ninguna dirección coincide, pero deseo continuar" : (Model.Count > 0 ? "La dirección no coincide, pero deseo continuar" : "No figura dirección, pero deseo continuar");
-        var titulo = Model.Count > 1 ? "Elige la dirección correcta" : (Model.Count > 0 ? "Confirma si es la dirección correcta" : "No se ha encontrado tu ubicación en el mapa");
+        var textoNingunaDireccion = Model.Puntos.Count > 1 ? "Ninguna dirección coincide, pero deseo continuar" : (Model.Puntos.Count > 0 ? "La dirección no coincide, pero deseo continuar" : "No figura dirección, pero deseo continuar");
+        var titulo = Model.Puntos.Count > 1 ? "Elige la dirección correcta" : (Model.Puntos.Count > 0 ? "Confirma si es la dirección correcta" : "No se ha encontrado tu ubicación en el mapa");
     }
 
     $('#modal_title').html('@Html.Raw(titulo)');
 
     $('#btnNingunaDireccion').text('@Html.Raw(textoNingunaDireccion)');
 
-    @if (Model.Count == 0)
+    if (@(Model.ZonaPreferencial ? 1 : 0) == 1) {
+        $('#btnNingunaDireccion').attr('disabled', true);
+    }
+
+    @if (Model.Puntos.Count == 0)
     {
         <text>$('#btnAceptar').hide();</text>
     }
 
     $('body').css('overflow', 'hidden');
-    $('#btnAceptar, #btnEditarDireccion, #btnNingunaDireccion, #imgCerrar').click(function () {
+    $('#btnEditarDireccion, #imgCerrar').click(function() {
         $('#modal').fadeOut();
         $('body').css('overflow', 'auto');
-    })
+    });
 
-
-    $('#btnAceptar, #btnNingunaDireccion').click(function () {
-        if (map) {
-            var center = map.center;
-            $('#Latitud').val(parseFloat(center.lat()));
-            $('#Longitud').val(parseFloat(center.lng()));
-        }
+    $('#btnNingunaDireccion').click(function() {
+        $('#Latitud').val('');
+        $('#Longitud').val('');
         $('#DireccionCorrecta').val($(this).attr('data-direccion-correcta'));
         $('#btnEnviar').click();
-    })
+        $('#modal').fadeOut();
+        $('body').css('overflow', 'auto');
+    });
+
+    $('#btnAceptar').click(function () {
+        var latitud = null;
+        var longitud = null;
+
+        if (map) {
+            var center = map.center;
+            latitud = parseFloat(center.lat());
+            longitud = parseFloat(center.lng());
+
+            $('#Latitud').val(latitud);
+            $('#Longitud').val(longitud);        
+        }
+
+        $('#DireccionCorrecta').val($(this).attr('data-direccion-correcta'));
+        $('#btnEnviar').click();
+        $('#modal').fadeOut();
+        $('body').css('overflow', 'auto');
+    });
 
     $('.fila-direccion').click(function () {
         $('#btnAceptar').attr('disabled', false);
@@ -106,13 +136,13 @@
 
     function cargarMapa() {
 
-        @if (Model.Count > 0)
+        @if (Model.Puntos.Count > 0)
 	    {
 		    <text>
                 if (google && google.maps) {
                     var markerBounds = new google.maps.LatLngBounds();
                     var mapOptions = {
-                        center: new google.maps.LatLng(parseFloat('@Model[0].Item1'.replace(",", ".")), parseFloat('@Model[0].Item2'.replace(",", "."))),
+                        center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", "."))),
                         zoom: 15,
                         mapTypeId: google.maps.MapTypeId.DROP,
                         animation: google.maps.Animation.DROP
@@ -120,9 +150,9 @@
                     map = new google.maps.Map(document.getElementById("mapa"),
                          mapOptions);
                     // Markers
-                     @if (Model.Count == 1)
+                     @if (Model.Puntos.Count == 1)
                     {
-                        var punto = Model[0];
+                        var punto = Model.Puntos[0];
                         <text>
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(parseFloat('@punto.Item1'.replace(",", ".")), parseFloat('@punto.Item2'.replace(",", "."))),
@@ -134,9 +164,9 @@
                     }
 
                     else {
-                    for (var i = 0; i < Model.Count; i++)
+                    for (var i = 0; i < Model.Puntos.Count; i++)
                     {
-                        var punto = Model[i];
+                        var punto = Model.Puntos[i];
                         <text>
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(parseFloat('@punto.Item1'.replace(",", ".")), parseFloat('@punto.Item2'.replace(",", "."))),
@@ -153,7 +183,7 @@
         }
         </text>
         }
-        @if (Model.Count == 1)
+        @if (Model.Puntos.Count == 1)
         {
              <text>
         $('.fila-direccion').addClass('selected');

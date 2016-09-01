@@ -1323,7 +1323,7 @@ img {
 }
 
 .menu_consultora {
-    width: 35%;
+    width: 30%;
     height: 200px;
     position: relative;
     float: left;
@@ -2447,3 +2447,50 @@ div.subir_archivo {
     behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
 }
 /**************************************************/
+
+
+/*EPD-713*/
+.tsm tbody tr td #tdTotalPrecio {
+    margin-left:25px;
+}
+
+#idTablaListaPedido {
+    margin-top: 34px;
+}
+
+    #idTablaListaPedido tbody tr td {
+        border-bottom: 1px solid #bac6d2 !important;
+        padding: 10px 0px;
+        box-sizing: border-box;
+        vertical-align: top;
+        text-align: center;
+    }
+
+.ClaseMontoTotal {
+    margin: 0; 
+    float: right; 
+    padding-right: 54px;
+}
+
+.mostrarShow {
+    display:block;
+}
+
+.ocultarHide {
+    display:none;
+}
+
+@media (min-width: 768px) and (max-width: 1366px) {
+
+        .ClaseMontoTotal {
+
+            margin: 0;
+            float: right;
+            padding-right: 26px;
+        }
+
+
+    }
+
+
+/*FIN EPD-713*/
