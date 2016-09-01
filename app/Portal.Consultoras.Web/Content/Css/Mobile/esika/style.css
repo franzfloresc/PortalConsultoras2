@@ -7373,3 +7373,150 @@ input[type="checkbox"]:checked + span:after {
     background: url("../../../Images/group.svg") no-repeat center center;
 }
 
+/* POPUP AGREGAR CLIENTE */
+
+#divAgregarCliente{
+    display:block;
+}
+
+.contenedor_popup_clientes{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_agregarCliente .btn_cerrar_agregarUnidades{
+    top: -44px;
+    right: -10px;
+}
+
+.popup_agregarCliente .texto_btn_cerrar{
+    left: -6px;
+    top: -3px;
+}
+
+.popup_agregarCliente{
+    display: none;
+    position: relative;
+    top: 14%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    padding: 30px 20px 30px 20px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+.popup_agregarCliente h6{
+    display:block;
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    font-weight: 300;
+    margin-bottom:20px;
+}
+
+.popup_agregarCliente form{
+    display:block;
+    margin:0;
+    padding:0;
+}
+
+.popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"]{
+    display:block;
+    margin:0 0 9px 0;
+    padding-left:13px;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    border:1px solid #b0b0b0;
+    background:#FFF;
+    color:#000;
+    font-size:13px;
+    font-weight:normal;
+}
+
+.popup_agregarCliente input[type="button"]{
+    display:block;
+    margin:20px 0 0 0;
+    padding:0;
+    width:100%;
+    height:45px;
+    background:#e81c36;
+    line-height:45px;
+    color:#FFF;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste{
+    display: none;
+    position: relative;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    background: #FFF;
+    height: auto;
+    padding: 12px 13px 14px 13px;
+    box-shadow: 0px 2px 16px 0px #999;
+    -moz-box-shadow: 0px 2px 16px 0px #999;
+    -o-box-shadow: 0px 2px 16px 0px #999;
+    -ms-box-shadow: 0px 2px 16px 0px #999;
+    -webkit-box-shadow: 0px 2px 16px 0px #999;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-bottom-color: #DDD;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-bottom-color: #FFF;
+	border-width: 9px;
+    margin-left: -9px;
+}
+
+.popup_agregarCliente .icono_advertencia_notificacion{
+    display:inline-block;
+    vertical-align:middle;
+    width:20px;
+    height:20px;
+    top: 1px;
+    margin-right: 7px;
+    float:none;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
+}
+
+.popup_agregarCliente .descripcion_mensaje{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:18px;
+    font-family: 'Lato';
+    font-weight: 400;
+    color:#000;
+    width:197px;
+    font-size:14px;
+}
