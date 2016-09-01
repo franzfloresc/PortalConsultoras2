@@ -39,6 +39,14 @@ $(document).ready(function () {
         $('html').css({ 'overflow-y': 'auto' });
     }
 
+    $(document).on('change', '.seleccion_pagina select', function () {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ingresa tu pedido',
+            'action': 'Ver lista de productos',
+            'label': $(this).find('option:selected').text()
+        });
+    });
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -3780,6 +3788,15 @@ function CambioPagina(obj) {
         return false;
     }
 
+    var accion = obj.attr("data-paginacion");
+    if (accion === "back" || accion === "next") {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ingresa tu pedido',
+            'action': 'Ir a página',
+            'label': 'Pág. ' + rpt.page
+        });
+    }
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
