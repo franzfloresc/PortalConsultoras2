@@ -1,5 +1,5 @@
-﻿$(function() {
-    var expressionrequiredifFunction = function(value, element, params) {
+﻿$(function () {
+    var expressionrequiredifFunction = function (value, element, params) {
         var listaValores = params.listvalues.split(',');
         var expresion = params.expresion;
         var regexnotmatch = params.regexnotmatch;
@@ -19,7 +19,7 @@
 
     jQuery.validator.unobtrusive.adapters.add('requiredif',
         ['otherproperty', 'listvalues'],
-        function(options) {
+        function (options) {
             options.rules["requiredif"] = {
                 otherproperty: '#' + options.params.otherproperty,
                 listvalues: options.params.listvalues
@@ -30,7 +30,7 @@
 
     jQuery.validator.unobtrusive.adapters.add('expressionrequiredif',
         ['otherproperty', 'listvalues', 'expresion', 'regexnotmatch'],
-        function(options) {
+        function (options) {
             options.rules["expressionrequiredif"] = {
                 otherproperty: options.params.otherproperty,
                 listvalues: options.params.listvalues,
@@ -43,7 +43,7 @@
 
     jQuery.validator.unobtrusive.adapters.add("expressionrequiredifmultiple",
         ["listvalues", "otherproperty", "expresion", "regexnotmatch"],
-        function(options) {
+        function (options) {
             options.rules['expressionrequiredifmultiple'] = {
                 listvalues: options.params.listvalues,
                 otherproperty: options.params.otherproperty,
@@ -56,12 +56,12 @@
 
     jQuery.validator.unobtrusive.adapters.add('requiredifpropertiesnotnull',
         ['properties', 'condicion', 'listvalues', 'otherproperty'],
-        function(options) {
+        function (options) {
             var listaPropiedades = options.params.properties.split(',');
             var listaSelectoresPropiedades = new Array();
 
             $.each(listaPropiedades,
-                function(index, item) {
+                function (index, item) {
                     listaSelectoresPropiedades.push("#" + item);
                 });
 
@@ -75,7 +75,7 @@
         });
 
     jQuery.validator.addMethod('requiredif',
-        function(value, element, params) {
+        function (value, element, params) {
             console.log("Test");
             var listaValores = params.listvalues.split(',');
 
@@ -90,7 +90,7 @@
 
     jQuery.validator.addMethod('expressionrequiredif', expressionrequiredifFunction, '');
     jQuery.validator.addMethod("expressionrequiredifmultiple",
-        function(value, element, params) {
+        function (value, element, params) {
             var listvalues = params.listvalues.split('!');
             var otherproperty = params.otherproperty.split('!');
             var expresion = params.expresion.split('!');
@@ -100,7 +100,7 @@
 
             var response;
             $.each(listvalues,
-                function(index, val) {
+                function (index, val) {
                     var myParams = {
                         "listvalues": val,
                         "otherproperty": otherproperty[index],
@@ -128,7 +128,7 @@
         });
 
     jQuery.validator.addMethod('requiredifpropertiesnotnull',
-        function(value, element, params) {
+        function (value, element, params) {
             if (params.listvalues &&
                 params.listvalues.length > 0 &&
                 params.otherproperty &&
@@ -144,7 +144,7 @@
             var condicion = params.condicion;
 
             $.each(params.selectores,
-                function(index, prop) {
+                function (index, prop) {
                     var valorPropiedad = $(prop).val();
                     listaValoresPropiedadesEvaluar.push(valorPropiedad);
                 });
@@ -221,7 +221,7 @@
         return true;
     }
 
-/* For tickets, bills and referral guide codes */
+    /* For tickets, bills and referral guide codes */
     function BillNumber(e) {
         // Allow: backspace, delete, tab, escape, enter, dash(2)
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 109, 189]) !== -1 ||

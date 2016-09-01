@@ -10,9 +10,9 @@ namespace Portal.Consultoras.Web.Models
     public class RechazoModel
     {
         public string CodigoISO { get; set; }
-        [RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
+        //[RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
         public string TipoRechazo { get; set; }
-        [RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
+        //[RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
         public string MotivoRechazo { get; set; }
         public int SolicitudPostulanteID { get; set; }
     }

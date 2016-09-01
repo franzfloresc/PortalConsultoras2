@@ -2500,6 +2500,31 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\configuration.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
@@ -2512,6 +2537,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
@@ -2964,26 +2990,7 @@
     </None>
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService6.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3000,12 +3007,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\Reference.svcmap">
@@ -3423,6 +3424,18 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
+    <Content Include="Views\Unete\GestionParametros.cshtml" />
+    <Content Include="Views\Unete\_ConsultarValidacionTelefonica.cshtml" />
+    <Content Include="Views\Unete\ValidacionTelefonica.cshtml" />
+    <Content Include="Views\Unete\_ConsultarAdjunto.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo1.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo2.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo3.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo4.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo1.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo2.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
