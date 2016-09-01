@@ -416,6 +416,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
+                    pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
+                    pedidoWebDetalleModel.DescripcionOferta = bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim();
                 }                
 
                 return Json(new

@@ -82,7 +82,7 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-                <input type="text" name="CUV" id="txtCUV" onblur="ValidarCUV();" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
@@ -122,6 +122,7 @@
                 </a>
             </div>
             <input type="hidden" id="hdFlagNueva" />
+            <input type="hidden" id="hdMetodoBusqueda" />
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
