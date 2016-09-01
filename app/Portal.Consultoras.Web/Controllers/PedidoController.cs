@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Kit Nuevas
 
                 if (Session["ConfiguracionProgramaNuevas"] == null)
-                    AgregarKidNuevas();  
+                    AgregarKitNuevas();  
 
                 #endregion
             }
@@ -4224,7 +4224,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session["ConfiguracionProgramaNuevas"] == null) this.AgregarKidNuevas();
+                if (Session["ConfiguracionProgramaNuevas"] == null) this.AgregarKitNuevas();
             }
             catch (Exception ex)
             {
@@ -4255,7 +4255,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        public void AgregarKidNuevas()
+        public void AgregarKitNuevas()
         {
             if (Session["ConfiguracionProgramaNuevas"] != null)
             {
