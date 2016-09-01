@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
 
+    //MICROEFECTO RESALTAR ICONO TUTORIAL
+
+    //$(".fondo_oscuro").delay(500);
+    //$(".fondo_oscuro").fadeIn(300, function () {
+    //    $(".mensaje_header").addClass("opcionTutorial");
+    //});
+
     $('#salvavidaTutorial').show();
     function ocultarAnimacionTutorial() {
 
