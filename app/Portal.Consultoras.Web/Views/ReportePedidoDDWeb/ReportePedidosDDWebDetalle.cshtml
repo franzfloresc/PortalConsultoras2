@@ -27,6 +27,7 @@
             var vValidado = $('#hdn_Validado').val();
             var vSaldo = $('#hdn_Saldo').val();
             var vImporte = $('#hdn_Importe').val();
+            var vImporteConDescuento = $('#hdn_ImporteConDescuento').val();
             var vUsuario = $('#hdn_vUsuario').val();
             var vTipoProceso = $("#hdn_vTipoProceso").val();
             var vpage = "";
@@ -36,7 +37,7 @@
 
             setTimeout(function () {
                 DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso)
+                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso)
             }, 0);
         });
         $("#btnRegresar").click(function () {
@@ -45,7 +46,7 @@
     });
 
     function DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso) {
+                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso) {
         // TODO: probar las repercusiones de este if
         if (checkTimeout()) {
             var content = baseUrl + "ReportePedidoDDWeb/ExportarPDF?" +
@@ -58,6 +59,7 @@
                     "&vValidado=" + vValidado +
                     "&vSaldo=" + vSaldo +
                     "&vImporte=" + vImporte +
+                    "&vImporteConDescuento=" + vImporteConDescuento +
                     "&vpage=" + vpage +
                     "&vsortname=" + vsortname +
                     "&vsortorder=" + vsortorder +
@@ -309,6 +311,7 @@
 
 <div class="wrap">
     <div class="container clearfix" style="text-align: center">
+        <div class="total_global">Total Pedido con descuento*: @Model.lblImporteConDescuento </div>
         <div class="total_global">Total Pedido: @Model.lblImporte </div>
         <div class="input_global">
             <input id="btnExcel" type="button" value="Excel" />
@@ -320,6 +323,11 @@
             <input id="btnRegresar" type="button" value="Regresar" />
         </div>
     </div>
+    <br />
+    <div class="container clearfix">
+        <p>* Descuento por ofertas con más de un precio</p>
+    </div>
+    
 </div>
 
 <div id="loadingScreen"></div>
@@ -333,5 +341,6 @@
 @Html.Hidden("hdn_Validado", (string)Model.lblValidado)
 @Html.Hidden("hdn_Saldo", (string)Model.lblSaldo)
 @Html.Hidden("hdn_Importe", (string)Model.lblImporte)
+@Html.Hidden("hdn_ImporteConDescuento", (string)Model.lblImporteConDescuento)
 @Html.Hidden("hdn_vUsuario", Model.Usuario)
 @Html.Hidden("hdn_vTipoProceso", Model.TipoProceso)

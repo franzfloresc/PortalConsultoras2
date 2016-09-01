@@ -3739,6 +3739,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FlagMedioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LeidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3884,6 +3890,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagConsultora {
+            get {
+                return this.FlagConsultoraField;
+            }
+            set {
+                if ((this.FlagConsultoraField.Equals(value) != true)) {
+                    this.FlagConsultoraField = value;
+                    this.RaisePropertyChanged("FlagConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FlagMedio {
+            get {
+                return this.FlagMedioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlagMedioField, value) != true)) {
+                    this.FlagMedioField = value;
+                    this.RaisePropertyChanged("FlagMedio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Leido {
             get {
                 return this.LeidoField;
@@ -3990,6 +4022,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MedioContactoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long PedidoIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4049,6 +4084,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
                     this.MarcaField = value;
                     this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MedioContacto {
+            get {
+                return this.MedioContactoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MedioContactoField, value) != true)) {
+                    this.MedioContactoField = value;
+                    this.RaisePropertyChanged("MedioContacto");
                 }
             }
         }

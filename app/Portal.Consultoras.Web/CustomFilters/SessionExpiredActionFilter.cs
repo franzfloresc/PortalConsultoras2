@@ -23,18 +23,24 @@ namespace Portal.Consultoras.Web.CustomFilters
                     var sessionCookie = filterContext.HttpContext.Request.Headers["Cookie"];
                     if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
                     {
-                        // loggear datos de variable de sesion clave
-                        UsuarioModel usuario = (UsuarioModel)filterContext.HttpContext.Session["UserData"];
-                        if (usuario != null)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
-                        }
-                        else
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
-                        }
-                        // loggear datos de variable de sesion clave
 
+                        /* PCABRERA EPD-180 - INICIO */
+                        // if exists UserData in Session
+                        if (filterContext.HttpContext.Session["UserData"] != null)
+                        {
+                            // loggear datos de variable de sesion clave
+                            UsuarioModel usuario = (UsuarioModel)filterContext.HttpContext.Session["UserData"];
+                            if (usuario != null)
+                            {
+                                LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("Si existe Session[UserData]"), usuario.CodigoConsultora, usuario.CodigoISO);
+                            }
+                            else
+                            {
+                                LogManager.LogManager.LogErrorWebServicesBus(new ApplicationException("No existe Session[UserData]"), string.Empty, string.Empty);
+                            }
+                            // loggear datos de variable de sesion clave
+                        }
+                        /* PCABRERA EPD-180 - FIN */
                         CerrarSesion(filterContext);
 
                         // version 2

@@ -30,6 +30,9 @@ namespace Portal.Consultoras.Entities
         public string ConsultoraNombre { get; set; }
         [DataMember]
         public decimal ImporteTotal { get; set; }
+        public decimal DescuentoProl { get; set; }
+        [DataMember]
+        public decimal ImporteTotalConDescuento { get; set; }
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
         [DataMember]
@@ -128,6 +131,11 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Region") && row["Region"] != DBNull.Value)
                 Region = Convert.ToString(row["Region"]);
             // 2446 - Fin
+
+            if (DataRecord.HasColumn(row, "DescuentoProl"))
+                this.DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
+
+            this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;
         }
     }
 }

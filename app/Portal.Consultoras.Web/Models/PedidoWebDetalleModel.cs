@@ -8,6 +8,14 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoWebDetalleModel
     {
+        public string CodigoConsultora { set; get; }
+        public string NombreConsultora { set; get; }
+        public string Direccion { set; get; }
+        public string CodigoZona { set; get; }
+        public bool TieneDescuentoCuv { set; get; }
+        public string SubTotalString { set; get; }
+        public string DescuentoString { set; get; }
+        public string TotalString { set; get; }
         public string IPUsuario { get; set; }
 
         public int CampaniaID { get; set; }

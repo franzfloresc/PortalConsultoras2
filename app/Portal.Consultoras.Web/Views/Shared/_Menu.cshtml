@@ -5,11 +5,12 @@
     permisoList = permisoList != null
         ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
+    var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
 }
 
 @if (permisoList.Count > 0)
 {
-    <ul id="ulNavPrincipal" class="nav_principal">
+    <ul id="ulNavPrincipal" class="nav_principal @(claseSociaEmpresaria)">
         <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->       
         @foreach (var menuPadre in permisoList)
         {
@@ -46,9 +47,9 @@
                                         <div class="content_left_menu @(margin)">
                                             @if (!string.IsNullOrEmpty(menuHijo.Descripcion))
                                             {
-                                                <a class="menu_enlace" href="#">
+                                                <p class="menu_enlace">
                                                     <b>@menuHijo.Descripcion</b>
-                                                </a>
+                                                </p>
 
                                                 foreach (var menuNieto in menuHijo.SubMenus)
                                                 {

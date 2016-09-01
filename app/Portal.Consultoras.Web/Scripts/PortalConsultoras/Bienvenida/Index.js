@@ -205,7 +205,7 @@ $(document).ready(function () {
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
-	
+
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
     $("#btnActualizarMD").click(function () { ActualizarMD(); });
     $("#btnActualizarDatos").click(function () {
@@ -2865,8 +2865,7 @@ function CargarCatalogoPersonalizado() {
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
-            }
-            
+            }            
         },
         error: function (data, error) {
             closeWaitingDialog();

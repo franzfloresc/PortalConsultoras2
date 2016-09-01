@@ -554,7 +554,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 		
-		[HttpPost]
+        [HttpPost]
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
             var url = string.Empty;
