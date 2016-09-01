@@ -1,11 +1,15 @@
-﻿@model Portal.Consultoras.Web.Models.DetalleSolicitudPostulanteModel
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.GestionPasos
+@model Portal.Consultoras.Web.Models.DetalleSolicitudPostulanteModel
 
 @{
-    var Solicitud = Model.Solicitud;
+    var Solicitud = Model;
     var estadosCiviles = ViewBag.EstadosCiviles as SelectList;
     var nivelesEducativos = ViewBag.NivelesEducativos as SelectList;
     var tiposNacionalidad = ViewBag.TiposNacionalidad as SelectList;
     var tiposContacto = ViewBag.TiposContacto as SelectList;
+    var tiposDocumentos = ViewBag.TiposDocumentos as SelectList;
+    var validacionTipoRucEmpresa = false;
 }
 
 <style>
@@ -69,13 +73,14 @@
     @id = "frmDetalleSolicitud"
 }))
 {
-    @Html.HiddenFor(m => Solicitud.EstadoPostulante)
-    @Html.HiddenFor(m => Solicitud.CodigoConsultora)
+    @Html.HiddenFor(m => m.EstadoPostulante)
+    @Html.HiddenFor(m => m.CodigoConsultora)
 
-    @Html.HiddenFor(m => Solicitud.SolicitudPostulanteID)
-    @Html.HiddenFor(m => Solicitud.CodigoPais)
-    @Html.HiddenFor(m => Model.ModoLectura)
-    @Html.HiddenFor(m => Model.CodigoISO)
+    @Html.HiddenFor(m => m.SolicitudPostulanteID)
+    @Html.HiddenFor(m => m.CodigoPais)
+    @Html.HiddenFor(m => m.ModoLectura)
+    @Html.HiddenFor(m => m.CodigoISO)
+    @Html.HiddenFor(m => m.TipoDocumento)
 
     <div class="wrap_cab">
         <div class="filtros2">
@@ -86,211 +91,66 @@
                 </h2>
             </div>
             <h4>Datos del Postulante</h4>
-            <div class="elements border_modal" style="padding-top: 15px !important">
-                <div class="div-3 div_3_fix">
-                    <div class="titC">Primer nombre:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.PrimerNombre, new { @class = "texto rfcSearch" })
-                    </div>
-                    <div class="titC">Apellido Paterno:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.ApellidoPaterno, new { @class = "texto rfcSearch" })
-                    </div>
-                    <div class="titC">Sexo:</div>
-                    <div class="selectP2 borde_redondeado" style="display: flex; align-items: center; font-size: 11px; ">
-                        @Html.RadioButtonFor(m => Solicitud.Sexo, 'F', new { @style = "float:none;width:auto" }) &nbsp; Femenino&nbsp; <br />
-                        @Html.RadioButtonFor(m => Solicitud.Sexo, 'M', new { @style = "float:none;width:auto" }) &nbsp; Masculino
-                    </div>
-                </div>
-                <div class="div-3 div_3_fix">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.PrimerNombre)
-                    </div>
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.ApellidoPaterno)
-                    </div>
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.Sexo)
-                    </div>
-                </div>
-                <div class="div-3 div_3_fix">
-                    <div class="titC">Segundo nombre:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.SegundoNombre, new { @class = "texto rfcSearch" })
-                    </div>
 
-                    <div class="titC">Apellido Materno:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.ApellidoMaterno, new { @class = "texto rfcSearch" })
-                    </div>
-                    <div class="titC">Fecha Nacimiento:</div>
-                    <div class="selectP2 borde_redondeado calendar">
-                        @Html.TextBoxFor(m => Solicitud.FechaNacimiento, new { @class = "texto rfcSearch" })
-                    </div>
-                </div>
-                <div class="div-3 div_3_fix">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.SegundoNombre)
-                    </div>
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.ApellidoMaterno)
-                    </div>
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.FechaNacimiento)
-                    </div>
-                </div>
-                <div class="div-3 div_3_fix">
-                    <div class="titC">Telf. Fijo:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.Telefono, new { @class = "numero" })
-                    </div>
+            @Html.Partial(Dictionaries.TemplatDatosGenerales[Model.CodigoPais], Model)
 
-                    <div class="titC">Celular:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.TextBoxFor(m => Solicitud.Celular, new { @class = "numero" })
-                    </div>
-                    @if (Solicitud.CodigoPais != "MX")
-                    {
-                        <div class="titC">Numero Documento:</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.NumeroDocumento, new { @readOnly = true })
-                        </div>
-                    }
-                    else if (Solicitud.CodigoPais == "MX")
-                    {
-                        <div class="titC">Correo Electr&oacute;nico:</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.CorreoElectronico)
-                        </div>
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Solicitud.CorreoElectronico)
-                        </div>
-                    }
-                </div>
-                <div class="div-3 div_3_fix">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.Telefono)
-                    </div>
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.Celular)
-                    </div>
-                    @if (Solicitud.CodigoPais != "MX")
-                    {
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Solicitud.NumeroDocumento)
-                        </div>
-                    }
-                    @if (Solicitud.CodigoPais == "MX")
-                    {
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Solicitud.CorreoElectronico)
-                        </div>
-                    }
-                </div>
-
-                @if (Solicitud.CodigoPais != "MX")
-                {
-                    <div class="div-3 div_3_fix">
-                        <div class="titC">Correo Electr&oacute;nico:</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.CorreoElectronico)
-                        </div>
-                    </div>
-                    <div class="div-3 div_3_fix">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Solicitud.CorreoElectronico)
-                        </div>
-                    </div>
-                }
-                else if (Solicitud.CodigoPais == "MX")
-                {
-                    <div class="div-3 div_3_fix">
-                        <div class="titC">RFC:</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.NumeroDocumento, new { @readOnly = true })
-                        </div>
-                        @*<div class="input_search">
-                                <button type="button" id="btnGenerarRfc" style ="background-color:#702789;background-image: url(../../Content/Images/bg_input4.png) 0 0 n-repeat; color: #fff; font-size: 14px; border: 0; " data-url="@Url.Action("GenerarRfc", "Unete", new {area = ""})">Generar RFC</button>
-                            </div>*@
-                    </div>
-                    <div class="div-3 div_3_fix">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Solicitud.NumeroDocumento)
-                        </div>
-                    </div>
-                }
-
-            </div>
             <h4>Informaci&oacute;n adicional del Postulante</h4>
             <div class="elements border_modal" style="padding-top: 15px !important">
                 <div class="div-3 div_3_fix">
                     <div class="titC">Estado civil:</div>
                     <div class="selectP2 borde_redondeado">
-                        @Html.DropDownListFor(m => Solicitud.EstadoCivil, estadosCiviles, "Seleccione")
+                        @Html.DropDownListFor(m => m.EstadoCivil, estadosCiviles, "Seleccione")
                     </div>
                     <div class="titC">Nivel educativo:</div>
                     <div class="selectP2 borde_redondeado">
-                        @Html.DropDownListFor(m => Solicitud.NivelEducativo, nivelesEducativos, "Seleccione")
+                        @Html.DropDownListFor(m => m.NivelEducativo, nivelesEducativos, "Seleccione")
                     </div>
-                    @if (Model.Solicitud.CodigoPais != "MX")
+                    @if (Model.CodigoPais != "MX")
                     {
                         <div class="titC">Nacionalidad:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.DropDownListFor(m => Solicitud.TipoNacionalidad, tiposNacionalidad, "Seleccione")
+                            @Html.DropDownListFor(m => m.TipoNacionalidad, tiposNacionalidad, "Seleccione")
                         </div>
                     }
                     else
                     {
                         <div class="titC">Como llego a nosotros:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.DropDownListFor(m => Solicitud.TipoContacto, tiposContacto, "Seleccione")
+                            @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Seleccione")
                         </div>
                     }
                 </div>
                 <div class="div-3 div_3_fix">
                     <div class="validation_clear"></div>
                     <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.EstadoCivil)
+                        @Html.ValidationMessageFor(m => m.EstadoCivil)
                     </div>
                     <div class="validation_clear"></div>
                     <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.NivelEducativo)
+                        @Html.ValidationMessageFor(m => m.NivelEducativo)
                     </div>
                     <div class="validation_clear"></div>
                     <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.TipoNacionalidad)
+                        @Html.ValidationMessageFor(m => m.TipoNacionalidad)
                     </div>
                 </div>
                 <div class="div-3 div_3_fix">
-                    @if (Model.Solicitud.CodigoPais != "MX")
+                    @if (Model.CodigoPais != "MX")
                     {
                         <div class="titC">Como llego a nosotros:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.DropDownListFor(m => Solicitud.TipoContacto, tiposContacto, "Seleccione")
+                            @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Seleccione")
                         </div>
                         <div class="titC">C&oacute;digo Consultora que recomienda:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.CodigoConsultoraRecomienda, new { @class = "numero" })
+                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero" })
                         </div>
                     }
                     else
                     {
                         <div class="titC">C&oacute;digo Consultora que recomienda:</div>
                         <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Solicitud.CodigoConsultoraRecomienda, new { @class = "numero" })
+                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero" })
                         </div>
                     }
 
@@ -298,11 +158,11 @@
                 <div class="div-3 div_3_fix">
                     <div class="validation_clear"></div>
                     <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.TipoContacto)
+                        @Html.ValidationMessageFor(m => m.TipoContacto)
                     </div>
                     <div class="validation_clear"></div>
                     <div class="validation">
-                        @Html.ValidationMessageFor(m => Solicitud.CodigoConsultoraRecomienda)
+                        @Html.ValidationMessageFor(m => m.CodigoConsultoraRecomienda)
                     </div>
                 </div>
             </div>
@@ -320,8 +180,6 @@
     </div>
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
 <script type="text/javascript" src="~/Scripts/jquery.maskedinput.min.js"></script>
 <script src="~/Scripts/HojaInscripcion/utilsCommon.js"></script>
 <script>
@@ -346,13 +204,10 @@
     });
 
     $(function () {
+
         $.validator.unobtrusive.parse('form');
 
-        $('input[name="Solicitud.NumeroDocumento"]').rules('add', 'DocumentoValido');
-        $('input[name="Solicitud.Celular"]').rules('add', 'LengthTelefonoCelular');
-        $('input[name="Solicitud.Telefono"]').rules('add', 'LengthTelefonoFijo');
-
-        $("#Solicitud_FechaNacimiento").datepicker({
+        $("#FechaNacimiento").datepicker({
             showOn: "button",
             buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
             buttonImageOnly: true,
@@ -375,19 +230,19 @@
         $('.numero').keydown(IntegerNumber);
         $('.texto').keydown(Text);
 
-        if ($("#Solicitud_CodigoPais").val() == "CO")
-            $("#Solicitud_Celular").mask("3-999-999-999");
+        //if ($("#CodigoPais").val() == "CO")
+        //    $("#Celular").mask("3-999-999-999");
 
-        if ($("#Solicitud_CodigoPais").val() == "MX") {
+        if ($("#CodigoPais").val() == "MX") {
             $("body").on("change", ".rfcSearch", function (evt) {
+                var primerNombre = $("#PrimerNombre").val();
+                var segundoNombre = $("#SegundoNombre").val();
+                var apellidoPaterno = $("#ApellidoPaterno").val();
+                var apellidoMaterno = $("#ApellidoMaterno").val();
+                var diaNacimiento = $("#FechaNacimiento").val().substr(0, 2);
+                var mesNacimiento = $("#FechaNacimiento").val().substr(3, 2);
+                var anioNacimiento = $("#FechaNacimiento").val().substr(6, 4);
 
-                var primerNombre = $("#Solicitud_PrimerNombre").val();
-                var segundoNombre = $("#Solicitud_SegundoNombre").val();
-                var apellidoPaterno = $("#Solicitud_ApellidoPaterno").val();
-                var apellidoMaterno = $("#Solicitud_ApellidoMaterno").val();
-                var diaNacimiento = $("#Solicitud_FechaNacimiento").val().substr(0, 2);
-                var mesNacimiento = $("#Solicitud_FechaNacimiento").val().substr(3, 2);
-                var anioNacimiento = $("#Solicitud_FechaNacimiento").val().substr(6, 4);
 
                 if (primerNombre && apellidoPaterno && diaNacimiento && mesNacimiento && anioNacimiento) {
                     Utils.Ajax({
@@ -401,7 +256,7 @@
                             AnioNacimiento: anioNacimiento
                         }
                     }, function (response) {
-                        $("#Solicitud_NumeroDocumento").val(response.Rfc);
+                        $("#NumeroDocumento").val(response.Rfc);
                     });
                 }
             });

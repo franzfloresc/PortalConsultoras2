@@ -1,4 +1,4 @@
-Ôªøbody {
+body {
     background: #f3f3f3;
     font-weight: 400;
     font-size: 15px;
@@ -1934,8 +1934,8 @@ h4.re3 {
         color: black;
     }
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-       color: #b75d9f;
-       border: 1px solid #b75d9f !important;
+       color: #642F80;
+       border: 1px solid #642F80 !important;
     }
     .block-seguimiento-content .seg-current .seg-fecha {
         color: black;
@@ -1944,13 +1944,13 @@ h4.re3 {
         color: black;
     }
     .block-seguimiento-content .seg-active .seg-title {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-active .seg-icon:before {
         font-family: "icomoon";
         font-size: 1.3em;
         content: "\e619";
-        color: #00abdf;
+        color: #642F80;
         position: absolute;
         top: 36px;
         right: -9px;
@@ -1958,14 +1958,14 @@ h4.re3 {
         background: #fff;
     }
     .block-seguimiento-content .seg-active .seg-icon .icon-seg {
-        color: #00abdf !important;
-        border: 1px solid #00abdf !important;
+        color: #642F80 !important;
+        border: 1px solid #642F80 !important;
     }
     .block-seguimiento-content .seg-active .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
     .block-seguimiento-content .seg-active .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
 .alert .close {
     color: #fff;
@@ -4394,7 +4394,7 @@ width:100%;
 
 /*ESTILOS GIOVANNI*/
 
-/* PANTALLA INGRESO DE PEDIDO VERSI√ìN MOBILE */
+/* PANTALLA INGRESO DE PEDIDO VERSI”N MOBILE */
 
 body{
     background:#FFF;
@@ -5377,7 +5377,7 @@ body{
     text-decoration:line-through;
 }
 
-/*CAT√ÅLOGOS*/
+/*CAT¡LOGOS*/
 .content_app{
     float:left;
     padding-left:50px;
@@ -5701,8 +5701,8 @@ body{
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "‚ñ†"; /* el valor de la propiedad content tambi√©n puede ser cualquier imagen, s√≥lo tendr√≠amos que pasarle la ruta de la imagen*/
-    content: "‚ñ†";
+    content: "¶"; /* el valor de la propiedad content tambiÈn puede ser cualquier imagen, sÛlo tendrÌamos que pasarle la ruta de la imagen*/
+    content: "¶";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -5746,7 +5746,7 @@ input[type="checkbox"]:checked + span:after {
     width:100%;
 }
 
-/*MENSAJES DE ALERTA CAT√ÅLOGOS*/
+/*MENSAJES DE ALERTA CAT¡LOGOS*/
 .MensajeAlertaMobile{
     position:fixed;
     z-index:2010;
@@ -6640,4 +6640,310 @@ input[type="checkbox"]:checked + span:after {
     100% {
         color: black;
     }
+}
+
+/* POPUP AGREGAR CLIENTE */
+
+#divAgregarCliente{
+    display:block;
+}
+
+.contenedor_popup_clientes{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_agregarCliente .btn_cerrar_agregarUnidades{
+    top: -44px;
+    right: -10px;
+}
+
+.popup_agregarCliente .texto_btn_cerrar{
+    left: -6px;
+    top: -3px;
+}
+
+.popup_agregarCliente{
+    /*display: none;*/
+    position: relative;
+    top: 14%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    padding: 30px 20px 30px 20px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+.popup_agregarCliente h6{
+    display:block;
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    font-weight: 300;
+    margin-bottom:20px;
+}
+
+.popup_agregarCliente form{
+    display:block;
+    margin:0;
+    padding:0;
+}
+
+.popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"]{
+    display:block;
+    margin:0 0 9px 0;
+    padding-left:13px;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    border:1px solid #b0b0b0;
+    background:#FFF;
+    color:#000;
+    font-size:13px;
+    font-weight:normal;
+}
+
+.popup_agregarCliente input[type="button"]{
+    display:block;
+    margin:20px 0 0 0;
+    padding:0;
+    width:100%;
+    height:45px;
+    background:#642f80;
+    line-height:45px;
+    color:#FFF;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste{
+    display: none;
+    position: relative;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    background: #FFF;
+    height: auto;
+    padding: 12px 13px 14px 13px;
+    box-shadow: 0px 2px 16px 0px #999;
+    -moz-box-shadow: 0px 2px 16px 0px #999;
+    -o-box-shadow: 0px 2px 16px 0px #999;
+    -ms-box-shadow: 0px 2px 16px 0px #999;
+    -webkit-box-shadow: 0px 2px 16px 0px #999;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-bottom-color: #DDD;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-bottom-color: #FFF;
+	border-width: 9px;
+    margin-left: -9px;
+}
+
+.popup_agregarCliente .icono_advertencia_notificacion{
+    display:inline-block;
+    vertical-align:middle;
+    width:20px;
+    height:20px;
+    top: 1px;
+    margin-right: 7px;
+    float:none;
+    background:url(../../../Images/Lbel/icono_advertencia_notificacion.svg) center center no-repeat;
+}
+
+.popup_agregarCliente .descripcion_mensaje{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:18px;
+    font-family: 'Lato';
+    font-weight: 400;
+    color:#000;
+    width:250px;
+    font-size:14px;
+}
+
+/* PANTALLA MI ASESOR DE BELLEZA */
+
+.titulo_asesorBelleza{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
+
+.tabs_asesoresBelleza{
+    display:block;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+}
+
+.tabs_asesoresBelleza li {
+    display: inline-block;
+    text-align: center;
+}
+.tabs_asesoresBelleza.contenedor3 li{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 li{ width:49.5%; }
+
+.tabs_asesoresBelleza li a {
+    display: block;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 11px;
+    line-height: 22px;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'lato';
+    font-size: 14px;
+    color: black;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 0.25px;
+}
+
+.tabs_asesoresBelleza.contenedor3 .one:hover ~ hr {
+    margin-left: 0%;
+}
+.tabs_asesoresBelleza.contenedor3 .two:hover ~ hr {
+    margin-left: 33.6%;
+}
+.tabs_asesoresBelleza.contenedor3 .three:hover ~ hr {
+    margin-left: 67.35%;
+}
+
+.tabs_asesoresBelleza.contenedor2 .one:hover ~ hr {
+    margin-left: 0%;
+}
+.tabs_asesoresBelleza.contenedor2 .two:hover ~ hr {
+    margin-left: 50.5%;
+}
+
+.tabs_asesoresBelleza hr {
+    height: 4px;
+    /* width: 30%; */
+    margin: 0;
+    background: #642f80;
+    border: none;
+    transition: .3s ease-in-out;
+}
+.tabs_asesoresBelleza.contenedor3 hr{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 hr{ width:49.5%; }
+
+.tab_contenido_asesorBelleza{
+    display:block;
+    margin-top:50px;
+    width:100%;
+    text-align:center;
+}
+
+.asesor_belleza_contenido{
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle;
+    margin-bottom:31px;
+}
+
+.asesor_belleza_img, .asesor_belleza_texto{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.asesor_belleza_img{
+    border-radius:100%;
+    width:71px;
+    height:auto;
+    margin-right:18px;
+}
+
+.asesor_belleza_texto{
+    width:100px;
+    height:auto;
+}
+
+.asesor_belleza_texto span{
+    display:block;
+    font-size:15px;
+    font-family:'Lato';
+    color:#000;
+    text-align:left;
+    line-height:20.8px;
+}
+
+.asesor_belleza_texto span:first-child{
+    font-weight:bold;
+}
+
+.asesor_belleza_texto span:last-child, .asesor_belleza_texto span.lookbook{
+    font-weight:300;
+}
+
+.asesor_belleza_img img{
+    width:100%;
+    height:auto;
+}
+
+@media screen and (min-width:418px) and (max-width:577px){
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 0 0!important;
+    }
+
+}
+
+@media screen and (orientation:landscape) {
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 -124px 0;
+    }
+
+    .asesor_belleza_contenido{
+        margin-right:26px;
+    }
+
+    .asesor_belleza_texto{
+        width:auto;
+    }
+
+}
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-top:13px;
+    margin-bottom:13px;
+    color:#929292;
+    padding-left:15px;
+    padding-right:15px;
 }

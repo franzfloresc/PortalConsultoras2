@@ -150,7 +150,7 @@ header {
 .mensaje_header{
      margin-top: 15px;
     float: left;
-    width: 23px;
+    width: 27px;
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
@@ -5474,6 +5474,31 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /* POPUP TUTORIAL HOME */
+
+.fondo_oscuro{
+    background:rgba(0,0,0,0.8);
+    display:none;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:899;
+    top:0%;
+    left:0%;
+}
+
+.opcionTutorial{
+    position: relative;
+    height:27px;
+    z-index: 1000;
+    background: #FFF;
+    border-radius: 100%;
+}
+
+/*.opcionTutorial .tutoriales_svg{
+    width: 24px;
+    height: 25px;
+    background-position: 2px 3px;
+}*/
 
 #popup_tutorial{
     overflow:auto;
@@ -20262,6 +20287,8 @@ label.checkpop.c_on {
     color:#767676;
     margin-top: 83px;
     margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
 }
 .ubicacion_web span {
     color:#878787 !important;    
@@ -20908,7 +20935,7 @@ label.checkpop.c_on {
     margin-top: 7px;
     display:inline-block;
     vertical-align:middle;
-    margin-right:4px;
+    margin-right:3px;
     overflow: hidden;
     height: 45px;
 }
@@ -21255,7 +21282,7 @@ label.checkpop.c_on {
     float: left;
     margin-right: 3.5%;
     margin-top:45px;
-    margin-bottom:70px;
+    margin-bottom:35px;
     background:gray;
     position:relative;
     overflow:hidden;
@@ -21312,6 +21339,8 @@ label.checkpop.c_on {
     color:white;
     line-height:50px;
     letter-spacing:0.5px;
+    position:relative;
+    z-index:5;
 }
 .titulo_interiores span{
     font-weight:700;
@@ -21320,7 +21349,7 @@ label.checkpop.c_on {
 .fondo_negro_lateral{
     height: 50px;
     position: absolute;
-    left: -50%;
+    left: -45%;
     background: black;
     z-index: -0;
     width: 50%;
@@ -21670,9 +21699,9 @@ body{
 }
 .tutoriales_svg{
     background: url(../../../Images/Esika/tutorial.png) no-repeat;
-    background-position: 0 4px;
+    background-position: 2px 3px;
     /* background-size: 100%; */
-    width: 22px;
+    width: 24px;
     height: 25px;
     opacity:1;
     transition:all 0.3s ease;
@@ -21695,14 +21724,13 @@ body{
 }
 
 .tooltip_tutorial{
-    display: block;
+    display: none;
     background: #FFF;
-    width: 188px;
-    height: 40px;
-    line-height: 40px;
+    width: 245px;
+    height: auto;
     position: absolute;
     top: 41px;
-    left: -83px;
+    left: -110px;
     border-radius: 5px;
     border:1px solid #DDD;
     z-index: 1000;
@@ -21717,10 +21745,12 @@ body{
 .tooltip_tutorial span{
     display: block;
     width: 100%;
+    padding:11px 9px 10px 9px;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight: 700;
-    color: #e81c36;
+    line-height: 17px;
+    font-weight: 400;
+    color: #000;
     text-align: center;
 }
 
@@ -25989,7 +26019,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_exclamacion.png) center center no-repeat;
     margin:0 auto 13px auto;
     background-size:cover;
 }
@@ -26850,6 +26880,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-size:cover;
     position:relative;
     margin-top:-62px;
+    z-index: 1;
 }
 
 .titulo_banner{
@@ -26890,7 +26921,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     vertical-align:top;
     width:31.035%;
     height:297px;
-    margin-right:3.175%;
+    margin-right:37px;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
     box-shadow:0px 15px 28px -8px rgba(204,200,204,1);
@@ -27224,4 +27255,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124px;
   }
+}
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-bottom:20px;
+    color:#929292;
 }

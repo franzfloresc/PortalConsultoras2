@@ -67,6 +67,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PortalLideres = userData.PortalLideres;
                 model.DiaPROL = userData.DiaPROL;
                 model.VioTutorial = userData.VioTutorialModelo;
+                model.UrlEnterateMas = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png", String.Empty);
+
                 if (userData.CodigoISO == "CL" || userData.CodigoISO == "CO")
                 {
                     var tabla = new List<BETablaLogicaDatos>();

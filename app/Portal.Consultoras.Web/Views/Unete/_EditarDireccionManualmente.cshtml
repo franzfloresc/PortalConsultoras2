@@ -148,14 +148,15 @@
     </div>
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
 <script>
     var defaultOption = '<option value="" >Seleccione</option>';
 
     $(function () {
 
         $(document).ready(function () {
+
+            $.validator.unobtrusive.parse('form');
+
             $('.numero').keydown(IntegerNumber);
 
             $('#btnCancelar, #imgCerrarOpcion').click(function () {
