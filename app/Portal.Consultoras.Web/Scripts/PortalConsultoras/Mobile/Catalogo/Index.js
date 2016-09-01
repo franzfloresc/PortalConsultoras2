@@ -52,12 +52,20 @@ $(document).ready(function () {
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
+        'validate': /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*([\.]\w{2,4})+$/,
         classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
             'source': listaCorreo,
             'create': renderItemCliente,
             'appendTo': $("#tagParent")
+        }
+    });
+
+
+    $("#tagParent #tagCorreo_tag").on("keypress", function (e) {
+        if (e.keyCode == 13) {
+            $("#tagParent > ul").hide();
         }
     });
 

@@ -1,0 +1,60 @@
+﻿@model int
+
+@Html.Hidden("SolicitudPostulanteID", Model)
+
+
+<style>
+    .boton_celeste { behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important; }
+</style>
+<style>
+    .boton_celeste {
+        width: auto !important;
+        background-color: #009EE4 !important;
+        color: white;
+        border: none;
+        outline: none;
+        border-radius: 15px;
+        box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        -moz-box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        -webkit-box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        padding: 0 10px;
+    }
+</style>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="div-2">
+            <h2>
+                Solicitud Postulante
+                <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+            </h2>
+        </div>
+    </div>
+</div>
+<div class="elements">
+    <div class="div-3">
+        ¿Est&aacute; seguro de aprobar a esta postulante?
+    </div>
+</div>
+<div class="elements">
+    <div class="div-2" style="text-align:center">
+        <div class="input_search" style="text-align: center;">
+            <input type="submit" class="boton_celeste" id="btnAceptar" value="Aceptar" />
+            <input type="submit" class="boton_celeste" id="btnCancelar" value="Cancelar" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#imgCerrar, #btnCancelar').click(function () {
+        modal.dialog('close');
+    });
+    $('#btnAceptar').click(function () {
+        $.post('@Url.Action("AprobarPostulante", "Unete")', { id: $('#SolicitudPostulanteID').val().toString() }, function (reactivada) {
+            if (reactivada) {
+                modal.dialog('close');
+                fnGrilla();
+            }
+        });
+    });
+</script>

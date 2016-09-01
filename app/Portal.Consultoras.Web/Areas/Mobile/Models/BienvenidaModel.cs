@@ -32,5 +32,6 @@
         public decimal MontoDeuda { get; set; }
         public string FechaVencimiento { get; set; }
         public int VioTutorial { get; set; }
+        public string UrlEnterateMas { get; set; }
     }
 }

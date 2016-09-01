@@ -6,4 +6,139 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="titulo_mobile titulo_asesorBelleza">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;MI ASESOR DE BELLEZA
+</div>
+<div class="fondo_f2f2f2">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <ul class="tabs_asesoresBelleza" data-tab="tab" style="margin-bottom:0">
+        <li class="one">
+            <a href="#" data-tag="Esika">
+                Ésika
+                <div class="marcador_tab"></div>
+            </a>
+        </li>
+        <li class="two">
+            <a href="#" data-tag="Lbel">
+                L'bel
+                <div class="marcador_tab oculto"></div>
+            </a>
+        </li>
+
+        <li class="three">
+            <a href="#" data-tag="Cyzone">
+                Cyzone
+                <div class="marcador_tab oculto"></div>
+            </a>
+        </li>
+
+        <hr id="barCursor">
+    </ul>
+</div>
+
+<div class="wrapper_resumen_mobile">
+
+    <!-- TAB ESIKA -->
+    <div class="tab_contenido_asesorBelleza" data-tag-html="Esika">
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/maquillador_virtual_esika.png")" alt="Maquillador Virtual" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Maquillador</span>
+                <span>Virtual</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/manicure_virtual_esika.png")" alt="Manicure Virtual" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Manicure</span>
+                <span>Virtual</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Esika/esika_blog.png")" alt="Esika Blog" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Ésika</span>
+                <span>Blog</span>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TAB ESIKA -->
+
+    <!-- TAB LBEL -->
+    <div class="tab_contenido_asesorBelleza" data-tag-html="Lbel" style="display:none;">
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Lbel/asesor_basePolvos_lbel.png")" alt="Maquillador Virtual" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Asesor de</span>
+                <span>bases y polvos</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Lbel/diagnostico_piel_lbel.png")" alt="Diagnóstico de piel" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Diagnóstico</span>
+                <span>de piel</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/Lbel/belleza_medida_lbel.png")" alt="Belleza a tu medida" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Belleza a</span>
+                <span>tu medida</span>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TAB LBEL -->
+
+    <!-- TAB CYZONE -->
+    <div class="tab_contenido_asesorBelleza" data-tag-html="Cyzone" style="display:none;">
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/maquillador_virtual_cyzone.png")" alt="Maquillador Virtual" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Maquillador</span>
+                <span>Virtual</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/manicure_virtual_cyzone.png")" alt="Manicure Virtual" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span>Manicure</span>
+                <span>Virtual</span>
+            </div>
+        </div>
+        <div class="asesor_belleza_contenido">
+            <div class="asesor_belleza_img">
+                <img src="@Url.Content("~/Content/Images/mobile/lookbook_cyzone.png")" alt="Lookbook" />
+            </div>
+            <div class="asesor_belleza_texto">
+                <span class="lookbook">Look<b>book</b></span>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TAB CYZONE -->
+
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MiAsesorBelleza/Index.js")"></script>
+}
+
+
