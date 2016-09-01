@@ -122,7 +122,7 @@ function BuscarByCUV(cuv) {
             else $('#PopSugerido').show();
         }
         else {
-        $("#divProductoMantenedor").show();
+            $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
         }
         return false;

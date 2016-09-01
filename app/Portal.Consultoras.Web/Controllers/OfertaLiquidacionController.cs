@@ -23,8 +23,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "OfertaLiquidacion/OfertasLiquidacion"))
-                    return RedirectToAction("Index", "Bienvenida");
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
                 ViewBag.ISO = userData.CodigoISO.ToString();
                 ViewBag.Simbolo = userData.Simbolo.ToString().Trim();

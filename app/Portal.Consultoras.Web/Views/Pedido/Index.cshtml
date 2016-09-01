@@ -187,11 +187,11 @@
                     <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
                     <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
                     <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                            <span class="mostrarPrecioUnitario">Precio Unitario</span>
-                            <span>Subtotal</span>
+                        <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                        <span>Subtotal</span>
                     </div>
                     <div class="texto_encabezado_pedidos cabecera_cliente">
-                            <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                        <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
                     </div>
                     <div class="texto_encabezado_pedidos acciones"></div>
                 </div>
@@ -216,19 +216,19 @@
                                 <span id="spnNombreCliente"></span>
                             </p>
                             <div class="monto_total">
-                            <div class="info_extra_Validado">
-                                <img src="/Content/Images/Esika/info-copy.png">
-                                <!--MONTOS-->
+                                <div class="info_extra_Validado">
+                                    <img src="/Content/Images/Esika/info-copy.png">
+                                    <!--MONTOS-->
                                     <div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
                                         <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
 
                                         <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
-                                    <hr class="clear">
+                                        <hr class="clear">
                                         <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
                                         <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
+                                    </div>
+                                    <!--FIN-->
                                 </div>
-                                <!--FIN-->
-                            </div>
                                 <span>Monto total :</span>
                             </div>
                             
@@ -357,12 +357,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                    <li>
-                    <a href="@Model.accionBanner_01" title="Productos Descontinuos" target="_blank">
-                        <img src="@Model.UrlBanner01" alt="Productos Descontinuos" />
+                <li>
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                        <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
                         <div>PRODUCTOS DESCONTINUADOS</div>
-                        </a>
-                    </li>
+                    </a>
+                </li>
 
                 @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -431,8 +431,7 @@
             </div>
             <div class="contenedor_productos">
                 <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div id="divListadoEstrategia" class="contenedor_carousel_productos slider center">
-
+                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
                 </div>
             </div>
         </div>
@@ -479,7 +478,7 @@
     <div class="terminos_title_2">
         MENSAJE
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div class="pop_pedido_mensaje">
     </div>
 </div>
@@ -488,7 +487,7 @@
     <div class="terminos_title_2">
         IMPORTANTE
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div class="pop_pedido_mensaje">
         ¿Deseas eliminar el pedido completo?.
     </div>
@@ -520,9 +519,12 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
+    <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divObservacionesPROL').hide();"><img src="/Content/Images/cerrar_04.png"></a>
+    <hr class="clear" />
+    <div class="icono_mensaje_alerta icono_check_alerta"></div>
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
     </div>
-    <div class="linea_superior margin_10"></div>
+   
     <div id="divMensajeObservacionesPROL" class="pop_pedido_mensaje_prol">
     </div>
     <div class="div-3" style="text-align: center;">
@@ -912,17 +914,17 @@
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
             </span>
-                {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
             </span>
-                {{else}}
-                {{#IsNullOrEmpty DescripcionOferta '!='}}
+            {{else}}
+            {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
             </span>
-                {{/IsNullOrEmpty}}
-                {{/if_eq}}
+            {{/IsNullOrEmpty}}
+            {{/if_eq}}
                     
 
             {{#if_eq TipoPedido 'M'}}
@@ -1003,7 +1005,7 @@
             {{#if EsKitNueva}}
             <div>
                 <input type="hidden" data-kit="true" />
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
                 <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
                     <div class="tooltip_flecha"></div>
                     <h6>Kit de Inicio</h6>
@@ -1133,6 +1135,12 @@
                     </a>
                     {{/iff}}                    
                     <div class="clear"></div>
+                    <div style="padding-top:9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

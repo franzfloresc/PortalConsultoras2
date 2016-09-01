@@ -339,7 +339,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
                         oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-                        if (oBEConfiguracionProgramaNuevas.IndProgObli == "1")
+                        if (oBEConfiguracionProgramaNuevas.IndProgObli == "1" && oBEConfiguracionProgramaNuevas.CUVKit == model.CUV)
                         {
                             return Json(new
                             {
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();                
+                PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
@@ -1179,6 +1179,14 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
+                var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
+                var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
+                if (estrategia.TipoEstrategiaImagenMostrar == @Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi)
+                {
+                    olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
+                    return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                }
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     beConsultoraCUV = sv.ValidarCUVCreditoPorCUVRegular(oUsuarioModel.PaisID, oUsuarioModel.CodigoConsultora, model.CUV, oUsuarioModel.CampaniaID);
@@ -1209,9 +1217,6 @@ namespace Portal.Consultoras.Web.Controllers
                         + " tienes el beneficio de pagar en 2 partes el valor de este SET de productos. Si lo deseas ingresa este código al pedir el set: "
                         + beConsultoraCUV.CuvCredito
                     : "";
-
-                var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
-                var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == strCUV) ?? new BEEstrategia();
                 
                 olstProductoModel.Add(new ProductoModel()
                 {
@@ -2385,7 +2390,7 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionPROLMM = true;
                             CUV_Val = CUV;
                             string regex = "(\\#.*\\#)";
-                            Observacion = Regex.Replace(Observacion, regex, userData.MontoMinimo.ToString());
+                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                         }
 
                         Restrictivas = true;
@@ -2584,7 +2589,7 @@ namespace Portal.Consultoras.Web.Controllers
             PedidoDetalleModel model = new PedidoDetalleModel();
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle);
-
+            
             model.eMail = userData.EMail;
             ViewBag.Simbolo = model.Simbolo;
             ViewBag.Total_Minimo = model.Total_Minimo;
@@ -2595,7 +2600,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PedidoProductoMovil = 0;
             if (lstPedidoWebDetalle.Count > 0)
             {
-                //int paisId, int campaniaId, int pedidoId, decimal totalPedido
+                //int paisId, int campaniaId, int pedidoId, decimal totalPedido                
                 ViewBag.PedidoProductoMovil = lstPedidoWebDetalle
                     .Where(p=>p.TipoPedido.ToUpper().Trim() == "PNV")
                     .ToList().Count() > 0 ? 1 : 0;
@@ -2651,7 +2656,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(montoMaximoStr) || SubTotal < userData.MontoMinimo) montoLogro = total;
             else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala) montoLogro = userData.MontoMinimo;
             else montoLogro = bePedidoWebByCampania.MontoEscala;
-
+            
             BEFactorGanancia beFactorGanancia = null;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -2671,7 +2676,6 @@ namespace Portal.Consultoras.Web.Controllers
             int HoraCierre = userData.EsZonaDemAnti;
             TimeSpan sp = HoraCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 
@@ -2692,7 +2696,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
 
             #endregion
-
+            
             return View(model);
         }
 
@@ -3791,7 +3795,12 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult JsonConsultarEstrategias(string cuv)
         {
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
-            return Json(lst, JsonRequestBehavior.AllowGet);
+            var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            listModel.Update(estrategia => estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim()));
+
+            return Json(listModel, JsonRequestBehavior.AllowGet);
         }
 
         private List<BEEstrategia> ConsultarEstrategias(string cuv)

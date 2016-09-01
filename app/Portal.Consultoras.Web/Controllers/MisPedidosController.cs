@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TienePercepcion = userData.CodigoISO == Constantes.CodigosISOPais.Peru;
                 model.Simbolo = userData.Simbolo;
-                model.UserIso = userData.CodigoISO;                
+                model.UserIso = userData.CodigoISO;
 
 
                 BEUsuario usuario;

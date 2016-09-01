@@ -33,10 +33,10 @@
 
         <div class="opciones-tutorial">
             <div class="otromomento">Ver en otro momento</div>
-        <div class="cerrar">
-            Cerrar 
-            <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
-        </div>
+            <div class="cerrar">
+                Cerrar
+                <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
+            </div>
         </div>
     </div>
     <div class="contenedor-tutorial-esika">
@@ -52,10 +52,10 @@
 
         <div class="opciones-tutorial">
             <div class="otromomento">Ver en otro momento</div>
-        <div class="cerrar">
-            Cerrar
-            <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
-        </div>
+            <div class="cerrar">
+                Cerrar
+                <div class="icono_cerrar_tutorial"><img src="~/Content/Images/cerrar_04.png" /></div>
+            </div>
         </div>
     </div>
 </div>
@@ -72,21 +72,21 @@
         <div class="content_resumen_dato_mobile">
             <div class="saludo_mobile">¡Hola&nbsp;</div>
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
-            
+
             @if (Model.PortalLideres && Model.Lider == 1)
             {
                 <a href="@Url.Action("Index", "Lider", new {area = ""})" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
-                @if (Model.NombrePais == "Venezuela")
-                {
-                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-                }
-                else
-                {
-                    <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-                }
+                    @if (Model.NombrePais == "Venezuela")
+                    {
+                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                    }
+                    else
+                    {
+                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                    }
                 </a>
             }
-            
+
             <hr class="clear" />
             <div class="info_cam_mobile">
                 ESTÁS EN
@@ -126,8 +126,8 @@
         <!--ITEM 1-->
         <div class="item1_mobile">
             @{
-                string cabezaEscala=null, pieEscala=null;
-                if(Model.PaisID == 11) //PERU
+                string cabezaEscala = null, pieEscala = null;
+                if (Model.PaisID == 11) //PERU
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
@@ -160,7 +160,7 @@
                 else if (Model.PaisID == 5) //COSTA RICA
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
-                    pieEscala = "";                
+                    pieEscala = "";
                 }
                 else if (Model.PaisID == 8)//GUATEMALA
                 {
@@ -249,19 +249,19 @@
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');                   
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
-            }    
+            }
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
         <!--FIN APP CATÁLOGOS-->
     }
-    
+
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris">
@@ -271,7 +271,7 @@
             EXCLUSIVO SÓLO POR WEB
         </div>
     </div>
-    <div class="contenedor_carrusel_home" id="divCarouseHorizontalMobile">
+    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divCarouseHorizontalMobile">
         <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
@@ -465,6 +465,12 @@
                 <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGR&Eacute;GALO
                 </a>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -474,18 +480,18 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
-    var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
-    var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
-    var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-    var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-    var ViewBagRutaChile = '@Model.RutaChile';
-    var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-    var viewBagPaisID = '@Model.PaisID';
+        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var ViewBagRutaChile = '@Model.RutaChile';
+        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagPaisID = '@Model.PaisID';
         var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
-    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-    var contadorFondoPopUp = 0;
-    var viewBagVioTutorial = '@Model.VioTutorial';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var contadorFondoPopUp = 0;
+        var viewBagVioTutorial = '@Model.VioTutorial';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     <!--MICHAEL-->

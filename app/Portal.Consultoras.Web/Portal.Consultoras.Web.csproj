@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -355,6 +356,7 @@
     <Compile Include="Models\CatalogoIssuModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
@@ -1560,6 +1562,7 @@
     <Content Include="Content\Images\Esika\icono_advertencia.png" />
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Esika\icono_advertencia_notificacion.svg" />
+    <Content Include="Content\Images\Esika\icono_check_esika.png" />
     <Content Include="Content\Images\Esika\icono_check_esika.svg" />
     <Content Include="Content\Images\Esika\icono_exclamacion.png" />
     <Content Include="Content\Images\Esika\icono_exclamacion_esika.png" />
@@ -2454,6 +2457,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\ListadoProductoShowRoom.cshtml" />
     <Content Include="Areas\Mobile\Views\ProductosAgotados\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\MiAsesorBelleza\Index.cshtml" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.eot" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.ttf" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.woff" />

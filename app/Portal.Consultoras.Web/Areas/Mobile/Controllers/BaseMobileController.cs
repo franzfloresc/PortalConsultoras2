@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (Session["UserData"] == null) return;
 
             var userData = UserData();
-
+            ViewBag.CodigoCampania = userData.CampaniaID.ToString();
             try
             {
                 BuildMenuMobile(userData);

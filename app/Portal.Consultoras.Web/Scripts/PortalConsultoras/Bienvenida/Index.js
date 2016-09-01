@@ -412,34 +412,34 @@ function agregarProductoAlCarrito(o) {
     var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
-    var carrito = $('.campana');
+        var carrito = $('.campana');
 
-    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
-    $(".transicion").css({
-        'height': imagenProducto.css("height"),
-        'width': imagenProducto.css("width"),
-        'top': imagenProducto.offset().top,
-        'left': imagenProducto.offset().left,
-    }).animate({
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
             'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
-        'height': carrito.css("height"),
-        'width': carrito.css("width"),
-        'opacity': 0.5
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
         }, 450, 'swing', function () {
-        $(this).animate({
-            'top': carrito.offset().top,
-            'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
             }, 150, 'swing', function () {
-            $(this).remove();
+                $(this).remove();
+            });
         });
-    });
-}
+    }    
 }
 
 function mostrarVideoIntroductorio() {
@@ -579,7 +579,7 @@ function CargarCarouselEstrategias(cuv) {
     } else {
         $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
     }
-
+    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/JsonConsultarEstrategias?cuv=' + cuv,
@@ -2246,11 +2246,11 @@ function AceptarContrato() {
                     if (data.extra != "nocorreo") return;
                 }
 
-                        $('#popupAceptacionContrato').hide();
-                        contadorFondoPopUp--;
-                        if (viewBagCambioClave == 0) {
-                            $("#popupActualizarMisDatos").show();
-                            contadorFondoPopUp++;
+                $('#popupAceptacionContrato').hide();
+                contadorFondoPopUp--;
+                if (viewBagCambioClave == 0) {
+                    $("#popupActualizarMisDatos").show();
+                    contadorFondoPopUp++;
                 }
                 if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
             }
@@ -2885,8 +2885,7 @@ function CargarCatalogoPersonalizado() {
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
-            }
-            
+            }            
         },
         error: function (data, error) {
             closeWaitingDialog();

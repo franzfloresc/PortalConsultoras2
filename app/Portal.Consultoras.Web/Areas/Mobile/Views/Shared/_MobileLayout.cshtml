@@ -14,13 +14,13 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-    <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
     {
-    <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
     @RenderSection("styles", required: false)
@@ -46,38 +46,38 @@
 
     @if (!Html.IsDebug())
     {
-    <!-- Google Tag Manager -->
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
-    </script>
-    <!-- End Google Tag Manager -->
+        <!-- Google Tag Manager -->
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+        </noscript>
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
+        </script>
+        <!-- End Google Tag Manager -->
     }
 
     @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
-    <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
-    <script type="text/javascript">
-        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
-        JL.tracking({
-            cid: trackingJetloreAccessToken,
-            user_id: '@ViewBag.CodigoConsultoraDL',
-            feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-        });
-    </script>
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+            
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
     }
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
@@ -218,13 +218,13 @@
     <!-- content -->
     <section style="min-height: 400px;">
 
-            <div id="content">
-                @RenderBody()
-            </div>
-            <div class="clear">
-                <br />
-                <br />
-            </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
 
     </section>
 
@@ -271,20 +271,20 @@
     </div>
 
     @*<div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-    <div class="modal-dialog modal-alert ">
-    <div class="modal-content">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    </div>
-    <div class="modal-body">
-    <div id="mensajeInformacionvalidado" class="text-lg"></div>
-    <br />
-    <div>
-    <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
-    </div>
-    </div>
-    </div>
-    </div>
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="mensajeInformacionvalidado" class="text-lg"></div>
+                    <br />
+                    <div>
+                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>*@
     <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
