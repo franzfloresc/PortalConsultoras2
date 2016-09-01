@@ -316,9 +316,14 @@
                         </div>
                         <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
                     </div>*@
+
+                    @{ string[] tooltips = Model.ProlTooltip.Split('|');
+                       string tooltip1 = tooltips[0];
+                       string tooltip2 = tooltips[1];
+                    }
                     <div class="tooltip_importanteGuardarPedido">
-                        Es importante <br />que guardes tu pedido
-                        <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+                        <text>@tooltip1</text>
+                        <span>@tooltip2</span>
                     </div>
                     <div class="boton_guardarPedido">
                         <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
