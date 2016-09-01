@@ -3025,6 +3025,12 @@ function EliminarPedido() {
                 location.href = baseUrl + 'Pedido/Index';
                 MostrarBarra(data);
                 TrackingJetloreRemoveAll(listaDetallePedido);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Ingresa tu pedido',
+                    'action': 'Eliminar pedido completo',
+                    'label': '(not available)'
+                });
                 CerrarSplash();
             }
         },
