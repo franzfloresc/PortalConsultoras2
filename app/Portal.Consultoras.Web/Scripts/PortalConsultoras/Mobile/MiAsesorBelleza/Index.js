@@ -1,8 +1,4 @@
-﻿
-// MI ASESOR DE BELLEZA MOBILE
-
-$(document).ready(function () {
-
+﻿$(document).ready(function () {
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         e.preventDefault();
         // mostrar el tab correcto
@@ -23,5 +19,4 @@ $(document).ready(function () {
     }).mouseout(function () {
         $("#barCursor").css("opacity", "0");
     });
-
 });
