@@ -197,7 +197,7 @@
                 </span>
             </div>
             <div class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
-            <div class="texto_inferior text-10px" style="font-weight: 300; line-height: 8.9px; margin-top: 12px; text-align: justify;">@(pieEscala)</div>
+           
         </div>
         <!-- FIN ITEM 1-->
     </div>
@@ -241,7 +241,7 @@
         <div class="comartir_home_mobile">
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
-            <a class="btn_compartelos" href="#">ENTÉRATE MÁS</a>
+            <a class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -354,6 +354,7 @@
         <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/CatalogoPersonalizado/@(Model.CodigoISO)/catalogo.png" alt="-" />
     </div>
 }
+<div class="disclaimer_b">@(pieEscala)</div>
 
 <!-- POPUP DEMANDA ANTICIPADA -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
