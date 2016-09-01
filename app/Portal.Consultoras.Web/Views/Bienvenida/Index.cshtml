@@ -223,6 +223,7 @@
         <div class="content_escala">
             @{
                 string padding = "eg_padding_inactivo";
+                string numerosGrandes = "";
                 if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
                 {
                     padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
@@ -232,7 +233,7 @@
                         int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
                         string clase = (item.Seleccionado ? "escala_select" : "") +
                                        (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-
+                        numerosGrandes = item.MontoHasta >= 100000 ? "font-size: 7px; transform: scaleY(1.2);" : "";
                         <div class="escala_ganancia @(clase) @(padding)">
 
                             @if (item.Seleccionado)
@@ -248,11 +249,11 @@
                             {
                                 if (index == Model.ListaEscalaDescuento.Count)
                                 {
-                                    <div class="precio_ganancia">De @Model.Simbolo@Convert.ToInt32(item.MontoDesde) a más.</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) a más.</div>
                                 }
                                 else
                                 {
-                                    <div class="precio_ganancia">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
                                 }
                             }
 
@@ -283,14 +284,14 @@
         <div class="linea_titulo_absoluto"></div>
 
         <hr class="clear" />
-        <div class="content_carrusel_ofertas" id="divCarruselHorizontal">
+        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divCarruselHorizontal">
         </div>
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
 <!--CATALOGO PERSONALIZADO-->
-<div class="content-favclientes" id="divMainCatalogoPersonalizado">
+<div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
 
     <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
     <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
@@ -1380,6 +1381,12 @@
         {{/iff}}
 
         <div class="clear"></div>
+        <div style="padding-top:9px; height: 15px;">
+            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                AGREGADO
+                <div class="icono"></div>
+            </div>
+        </div>
     </div>
     </div>
 </div>
@@ -1614,7 +1621,7 @@
         {{/each}}
     </script>
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
-    <div class="">
+    <div class="">  
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
