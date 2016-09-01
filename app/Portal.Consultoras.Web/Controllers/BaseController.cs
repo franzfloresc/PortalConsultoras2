@@ -771,7 +771,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ObtenerSemanaAnalytics()
         {
-            return "Semana 1";
+            return "No Disponible";
         }
 
         private string GetFormatDecimalPais(string isoPais)

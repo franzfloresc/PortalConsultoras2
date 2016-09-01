@@ -3022,8 +3022,6 @@ function EliminarPedido() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                location.href = baseUrl + 'Pedido/Index';
-                MostrarBarra(data);
                 TrackingJetloreRemoveAll(listaDetallePedido);
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -3031,7 +3029,9 @@ function EliminarPedido() {
                     'action': 'Eliminar pedido completo',
                     'label': '(not available)'
                 });
+                MostrarBarra(data);                
                 CerrarSplash();
+                location.href = baseUrl + 'Pedido/Index';
             }
         },
         error: function (data, error) {
