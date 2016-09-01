@@ -360,8 +360,8 @@
 
         <div class="contenedor_banners">
             <ul>
-                <li>
-                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
+                    <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
                         <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
                         <div>PRODUCTOS DESCONTINUADOS</div>
                     </a>
@@ -369,8 +369,8 @@
 
                 @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                 {
-                    <li>
-                        <a href="javascript:;" title="Monto Mínimo">
+                    <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                        <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
                             <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
                             <div>MONTO MÍNIMO</div>
                         </a>
@@ -378,15 +378,15 @@
                 }
                 else
                 {
-                    <li>
-                        <a href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                    <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                        <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
                             <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
                             <div>LIQUIDACIONES WEB</div>
                         </a>
                     </li>
                 }
-                <li>
-                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
+                <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
+                    <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' })" href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
                         <img src="@Model.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>

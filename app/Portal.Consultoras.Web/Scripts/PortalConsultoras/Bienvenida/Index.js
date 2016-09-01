@@ -1320,6 +1320,8 @@ function CargarBanners() {
                     var TipoAccion = 0;
                     var Creative = "";
                     var fileName = "";
+                    var countBajos = 1;
+                    var promotionsBajos = [];
 
                     $('#bannerBajos').empty();
                     $('#sliderHomeLoading').empty();
@@ -1346,10 +1348,16 @@ function CargarBanners() {
                             case -5: // Seccion Baja 1 SB2.0 
                                 var trackingText = dataResult.data[count].TituloComentario;
                                 var trackingDesc = dataResult.data[count].TextoComentario;
-                                var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
+                                var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
                                 $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                                 delaySBaja1 = dataResult.data[count].TiempoRotacion;
+                                promotionsBajos.push({
+                                    id: dataResult.data[count].BannerID,
+                                    name: dataResult.data[count].Titulo,
+                                    position: 'pedido-inferior-' +  countBajos
+                                });
+                                countBajos++;                                
                                 break;
                         }
                         count++;
@@ -1367,6 +1375,17 @@ function CargarBanners() {
                             'position': Posicion,
                             'creative': Creative
                         });
+                    }
+                    if (promotionsBajos.length > 0) {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce': {
+                                'promoView': {
+                                    'promotions': promotionsBajos
+                                }
+                            }
+                        });
+
                     }
 
                     $('#bannerBajos').find("a.enlaces_home:last-child").addClass("no_margin_right");
@@ -1563,7 +1582,7 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
                  {
                      'id': Id,
                      'name': Titulo,
-                     'position': Posicion
+                     'position': 'home-inferior-'+Posicion
                  }]
             }
         }

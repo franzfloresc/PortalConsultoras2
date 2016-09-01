@@ -13,6 +13,7 @@ var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
@@ -3934,3 +3935,40 @@ function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
 };
+
+function AnalyticsBannersInferiores(obj) {
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                {
+                    'id': obj.id,
+                    'name': obj.name,
+                    'position': obj.position
+                }]
+            }
+        }
+    });
+}
+function AnalyticsBannersInferioresImpression() {
+    var promotionsBajos = [];
+    $('.contenedor_banners li').each(function (index) {
+        var $this = $(this);
+        promotionsBajos.push({
+            id: $this.attr('data-id'),
+            name: $this.attr('data-name'),
+            position: $this.attr('data-position')
+        });
+    });
+    if (promotionsBajos.length > 0) {
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': promotionsBajos
+                }
+            }
+        });
+    }
+}
