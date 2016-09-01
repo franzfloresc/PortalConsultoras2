@@ -7357,6 +7357,17 @@ input[type="checkbox"]:checked + span:after {
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 }
 
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-top:13px;
+    margin-bottom:13px;
+    color:#929292;
+    padding-left:15px;
+    padding-right:15px;
+}
+
 .content_carrusel_agregado .agregado {
   height: 12px;
   font-family: Lato;
