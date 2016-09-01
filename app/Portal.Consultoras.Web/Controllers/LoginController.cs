@@ -120,15 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         Session["PrimeraVezSession"] = 0;
                                     }
-
-                                    if (usuario.CambioClave == 0)
-                                    {
-                                        return RedirectToAction("Landing", "Bienvenida");
-                                    }
-                                    else
-                                    {
-                                        return RedirectToAction("Index", "Bienvenida");
-                                    }
+                                    return RedirectToAction("Index", "Bienvenida");
                                 }
                             }
                             else
@@ -362,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
-                    model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre; 
+                    model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes))
                     {
@@ -445,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.LogoLideres = oBEUsuario.LogoLideres;
                     model.IndicadorContrato = oBEUsuario.IndicadorContrato;
                     model.FechaFinFIC = oBEUsuario.FechaFinFIC;
-                    model.MenuNotificaciones = 1; 
+                    model.MenuNotificaciones = 1;
                     if (model.MenuNotificaciones == 1)
                     {
                         pasoLog = "Obtener si tiene notificaciones";
@@ -478,13 +470,13 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
                     model.DescripcionNivel = oBEUsuario.DescripcionNivel;
                     model.esConsultoraLider = oBEUsuario.esConsultoraLider;
-                    model.EMailActivo = oBEUsuario.EMailActivo; 
+                    model.EMailActivo = oBEUsuario.EMailActivo;
                     model.EMail = oBEUsuario.EMail;
                     model.SegmentoInternoID = oBEUsuario.SegmentoInternoID;
                     model.EstadoSimplificacionCUV = oBEUsuario.EstadoSimplificacionCUV;
                     model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
-                    model.ValidacionInteractiva = oBEUsuario.ValidacionInteractiva; 
-                    model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva; 
+                    model.ValidacionInteractiva = oBEUsuario.ValidacionInteractiva;
+                    model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva;
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;

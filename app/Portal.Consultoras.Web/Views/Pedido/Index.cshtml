@@ -232,17 +232,6 @@
                                 <span>Monto total :</span>
                             </div>
                             
-                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
-                                @if (Model.MontoDescuento > 0)
-                                {
-                                    <p class="monto_descuento">
-                                        <span class="display: inline-block;">Descuento</span><span class="icon-advertencia"></span>:
-                                    </p>
-                                    <p class="monto_montodescuento">
-                                        Monto Descuento :
-                                    </p>
-                                }
-                            </div>
                             <p class="monto_ganancia">
                                 @{                                                              
                                     string cabezaEscala=null, pieEscala=null;
@@ -284,22 +273,6 @@
                                 </b>
                             </p>
                             
-                            <div id="divMontosEscalaDescuento" style="display: none;">
-                                @if (Model.MontoDescuento > 0)
-                                {
-                                    <p class="monto_descuento">
-                                        <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoDescuento" data-montodescuento="">@Model.FormatoMontoDescuento</span>
-                                        </b>
-                                    </p>
-                                    <p class="monto_montodescuento">
-                                        <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoEscala" data-montoescala="">@Model.FormatoTotalConDescuento</span>
-                                        </b>
-                                    </p>
-                                }
-                            </div>                            
-                            
                             <p class="monto_ganancia">
                                 <b>
                                     @Model.Simbolo <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
@@ -316,9 +289,14 @@
                         </div>
                         <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
                     </div>*@
+
+                    @{ string[] tooltips = Model.ProlTooltip.Split('|');
+                       string tooltip1 = tooltips[0];
+                       string tooltip2 = tooltips[1];
+                    }
                     <div class="tooltip_importanteGuardarPedido">
-                        Es importante <br />que guardes tu pedido
-                        <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+                        <text>@tooltip1</text>
+                        <span>@tooltip2</span>
                     </div>
                     <div class="boton_guardarPedido">
                         <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />

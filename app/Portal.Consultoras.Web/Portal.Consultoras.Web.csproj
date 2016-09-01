@@ -3312,7 +3312,6 @@
     <Content Include="Views\Notificaciones\ListadoDetalleSolicitud.cshtml" />
     <Content Include="Views\SolicitudCliente\Detalle.cshtml" />
     <Content Include="Views\SolicitudCliente\Index.cshtml" />
-    <Content Include="Views\Bienvenida\Landing.cshtml" />
     <Content Include="Service References\ServicioGenerarLideres\WS_GenerarLideres.wsdl" />
     <Content Include="Views\ConfiguracionValidacionNuevoPROL\Index.cshtml" />
     <Content Include="Views\AdministrarConfiguracionPortal\Index.cshtml" />

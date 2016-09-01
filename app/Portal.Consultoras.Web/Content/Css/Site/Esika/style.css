@@ -20262,6 +20262,8 @@ label.checkpop.c_on {
     color:#767676;
     margin-top: 83px;
     margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
 }
 .ubicacion_web span {
     color:#878787 !important;    
@@ -25989,7 +25991,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Esika/icono_exclamacion_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_exclamacion.png) center center no-repeat;
     margin:0 auto 13px auto;
     background-size:cover;
 }
@@ -26850,6 +26852,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-size:cover;
     position:relative;
     margin-top:-62px;
+    z-index: 1;
 }
 
 .titulo_banner{
