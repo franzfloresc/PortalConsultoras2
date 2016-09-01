@@ -228,7 +228,7 @@
 <div class="contenedor_popup_clientes" id="divAgregarClientePedido">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="$('#divAgregarClientePedido').hide();">
+            <a href="javascript:;" onclick="CerrarMantenerCliente();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -254,7 +254,7 @@
                     </span>
                 </div>
             </div>
-            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarMantenerCliente();" />
+            @*<input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarMantenerCliente();" />*@
             <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
         </form>
     </div>
