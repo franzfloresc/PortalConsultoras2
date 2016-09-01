@@ -290,6 +290,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
                     $("#divContenidofacturado").find("[data-total]").html(parcial);
                     $("#divContenidofacturado").find("[data-flete]").html(flete);
                     $("#divContenidofacturado").find("[data-facturado]").html(facturado);
+                    $("#divContenidofacturado").find("[data-facturadoCabecera]").html(facturado);
                 }
                 $("#divGrilla").find(".content_datos_pedidosIngresados").removeClass("content_datos_pedidosIngresados").addClass("content_datos_pedidosFacturados");
             }

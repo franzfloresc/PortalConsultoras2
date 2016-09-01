@@ -391,7 +391,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
 
             CargarProductosDestacados(cuv);
             $("#txtCodigoProducto").val("");
-            CalcularTotal();
             $("#hdCuvEnSession").val("");
 
             setTimeout(function () { $('.toUp').click(); }, 2000);

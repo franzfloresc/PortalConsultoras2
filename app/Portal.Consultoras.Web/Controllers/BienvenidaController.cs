@@ -415,53 +415,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Redirect(urlRedirect);
         }
 
-        public ActionResult Landing()
-        {
-            string nombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + UserData().CodigoISO].ToString(); //2532 EGL
-            ViewBag.ContratoActualizarDatos = nombreArchivoContrato; //2532 EGL
-
-            var newModel = new BienvenidosModel();
-
-            var lst = new List<ServiceContenido.BEItemCarruselInicio>();
-            var paisID = UserData().PaisID;
-            using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-            {
-                lst = sv.GetItemCarruselInicio(paisID).ToList();
-            }
-
-            Mapper.CreateMap<ServiceContenido.BEItemCarruselInicio, ItemCarruselInicioModel>();
-            newModel.ItemsCarruselInicio = Mapper.Map<List<ItemCarruselInicioModel>>(lst);
-
-            BEUsuario beusuario = new BEUsuario();
-            var actualizarDatos = new ActualizarDatosModel();
-            try
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    beusuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
-                }
-
-                if (beusuario != null)
-                {
-                    actualizarDatos.NombreCompleto = beusuario.Nombre;
-                    actualizarDatos.EMail = beusuario.EMail;
-                    actualizarDatos.Telefono = beusuario.Telefono;
-                    actualizarDatos.Celular = beusuario.Celular;
-                    newModel.ActualizarDatos = actualizarDatos;
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-
-            return View(newModel);
-        }
-
         [HttpGet]
         public JsonResult JSONGetMisDatos()
         {

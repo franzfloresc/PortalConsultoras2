@@ -232,17 +232,6 @@
                                 <span>Monto total :</span>
                             </div>
                             
-                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
-                                @if (Model.MontoDescuento > 0)
-                                {
-                                    <p class="monto_descuento">
-                                        <span class="display: inline-block;">Descuento</span><span class="icon-advertencia"></span>:
-                                    </p>
-                                    <p class="monto_montodescuento">
-                                        Monto Descuento :
-                                    </p>
-                                }
-                            </div>
                             <p class="monto_ganancia">
                                 @{                                                              
                                     string cabezaEscala=null, pieEscala=null;
@@ -283,22 +272,6 @@
                                     </span>
                                 </b>
                             </p>
-                            
-                            <div id="divMontosEscalaDescuento" style="display: none;">
-                                @if (Model.MontoDescuento > 0)
-                                {
-                                    <p class="monto_descuento">
-                                        <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoDescuento" data-montodescuento="">@Model.FormatoMontoDescuento</span>
-                                        </b>
-                                    </p>
-                                    <p class="monto_montodescuento">
-                                        <b>
-                                            @Model.Simbolo <span class="num" id="spnMontoEscala" data-montoescala="">@Model.FormatoTotalConDescuento</span>
-                                        </b>
-                                    </p>
-                                }
-                            </div>                            
                             
                             <p class="monto_ganancia">
                                 <b>
