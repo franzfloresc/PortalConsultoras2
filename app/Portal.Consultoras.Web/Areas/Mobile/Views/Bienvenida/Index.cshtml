@@ -250,7 +250,7 @@
                 {
                     var request = HttpContext.Current.Request;
                     var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');
-                    ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "Catalogo", new { area = "" });
+                    ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "MisCatalogosRevistas", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
