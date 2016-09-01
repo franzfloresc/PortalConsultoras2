@@ -156,7 +156,7 @@ header {
 .mensaje_header {
     margin-top: 15px;
     float: left;
-    width: 23px;
+    width: 27px;
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
@@ -5429,6 +5429,31 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /* POPUP TUTORIAL HOME */
+
+.fondo_oscuro{
+    background:rgba(0,0,0,0.8);
+    display:none;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:899;
+    top:0%;
+    left:0%;
+}
+
+.opcionTutorial{
+    position: relative;
+    height:27px;
+    z-index: 1000;
+    background: #FFF;
+    border-radius: 100%;
+}
+
+/*.opcionTutorial .tutoriales_svg{
+    width: 24px;
+    height: 25px;
+    background-position: 2px 3px;
+}*/
 
 #popup_tutorial{
     overflow:auto;
@@ -21581,9 +21606,9 @@ body{
 
 .tutoriales_svg{
     background: url(../../../Images/Lbel/tutorial.png) no-repeat;
-    background-position: 0 4px;
+    background-position: 2px 3px;
     /* background-size: 100%; */
-    width: 22px;
+    width: 24px;
     height: 25px;
     opacity:1;
     transition:all 0.3s ease;
@@ -26797,7 +26822,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     vertical-align:top;
     width:31.035%;
     height:297px;
-    margin-right:3.175%;
+    margin-right:37px;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
     box-shadow:0px 15px 28px -8px rgba(204,200,204,1);

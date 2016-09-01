@@ -6641,3 +6641,144 @@ input[type="checkbox"]:checked + span:after {
         color: black;
     }
 }
+
+/* PANTALLA MI ASESOR DE BELLEZA */
+
+.titulo_asesorBelleza{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
+
+.tabs_asesoresBelleza{
+    display:block;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+}
+
+.tabs_asesoresBelleza li {
+    display: inline-block;
+    text-align: center;
+    width:32.5%;
+}
+
+.tabs_asesoresBelleza li a {
+    display: block;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 11px;
+    line-height: 22px;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'lato';
+    font-size: 14px;
+    color: black;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 0.25px;
+}
+
+.tabs_asesoresBelleza .one:hover ~ hr {
+    margin-left: 0%;
+}
+
+.tabs_asesoresBelleza .two:hover ~ hr {
+    margin-left: 33.6%;
+}
+
+.tabs_asesoresBelleza .three:hover ~ hr {
+    margin-left: 67.35%;
+}
+
+.tabs_asesoresBelleza hr {
+    height: 4px;
+    /* width: 30%; */
+    width: 32.5%;
+    margin: 0;
+    background: #642f80;
+    border: none;
+    transition: .3s ease-in-out;
+}
+
+.tab_contenido_asesorBelleza{
+    display:block;
+    margin-top:50px;
+    width:100%;
+    text-align:center;
+}
+
+.asesor_belleza_contenido{
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle;
+    margin-bottom:31px;
+}
+
+.asesor_belleza_img, .asesor_belleza_texto{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.asesor_belleza_img{
+    border-radius:100%;
+    width:71px;
+    height:auto;
+    margin-right:18px;
+}
+
+.asesor_belleza_texto{
+    width:100px;
+    height:auto;
+}
+
+.asesor_belleza_texto span{
+    display:block;
+    font-size:15px;
+    font-family:'Lato';
+    color:#000;
+    text-align:left;
+    line-height:20.8px;
+}
+
+.asesor_belleza_texto span:first-child{
+    font-weight:bold;
+}
+
+.asesor_belleza_texto span:last-child, .asesor_belleza_texto span.lookbook{
+    font-weight:300;
+}
+
+.asesor_belleza_img img{
+    width:100%;
+    height:auto;
+}
+
+@media screen and (min-width:418px) and (max-width:577px){
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 0 0!important;
+    }
+
+}
+
+@media screen and (orientation:landscape) {
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 -124px 0;
+    }
+
+    .asesor_belleza_contenido{
+        margin-right:26px;
+    }
+
+    .asesor_belleza_texto{
+        width:auto;
+    }
+
+}
