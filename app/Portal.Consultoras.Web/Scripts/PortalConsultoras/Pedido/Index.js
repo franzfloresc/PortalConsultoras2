@@ -2173,6 +2173,22 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
                 MostrarBarra(response);
                 TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                dataLayer.push({
+                    'event': 'removeFromCart',
+                    'ecommerce': {
+                        'remove': {
+                            'products': [{
+                                'name': response.data.DescripcionProducto,
+                                'id': response.data.CUV,
+                                'price': response.data.Precio,
+                                'brand': response.data.DescripcionMarca,
+                                'category': 'NO DISPONIBLE',
+                                'variant': response.data.DescripcionOferta,
+                                'quantity': cantidad
+                            }]
+                        }
+                    }
+                });
                 CerrarSplash();
             } else {
                 CerrarSplash();

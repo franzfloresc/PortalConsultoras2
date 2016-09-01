@@ -703,6 +703,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = new PedidoSb2Model();
+                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                BEPedidoWebDetalle PedidoEliminado = ListaPedidoWebDetalle.First(x => x.CUV == CUV);
                 model.Simbolo = userData.Simbolo;
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
                 BEPedidoWebDetalle obe = new BEPedidoWebDetalle();
@@ -772,7 +774,15 @@ namespace Portal.Consultoras.Web.Controllers
                     total,
                     formatoTotalCliente,
                     listaCliente,
-                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel()
+                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    data = new
+                    {
+                        DescripcionProducto = PedidoEliminado.DescripcionProd,
+                        CUV = PedidoEliminado.CUV,
+                        Precio = PedidoEliminado.PrecioUnidad.ToString("F"),
+                        DescripcionMarca = PedidoEliminado.DescripcionLarga,
+                        DescripcionOferta = PedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
+                    }
                 });
             }
             catch (Exception ex)
