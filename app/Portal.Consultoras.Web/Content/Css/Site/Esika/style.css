@@ -3406,7 +3406,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     padding:31px 0 23px 0;
     width:240px;
     /*height:auto;*/
-    height:404px;
+    height:425px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;
@@ -8298,6 +8298,7 @@ ul.tabs {
         font-weight:700;
         margin-bottom: 10px;
         text-align: center;
+        margin-top:20px !important;
         margin: 0px auto;
         text-transform:uppercase;
         font-size: 10pt !Important;
@@ -9992,15 +9993,15 @@ border: 0;
     text-transform: uppercase;
     margin-top: 5px;
     width: 140px;
-    height: 35px;
-    letter-spacing: 1.5px;
+    height: 45px;
+    letter-spacing: 0.5px;
     padding: 0;
-    background: #e81c36;
+    background: #df3d3d;
     color: white;
     font-family: 'lato';
-    font-size: 10.5px;
+    font-size: 13px;
     border: 0;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 .div-3 .ganancia {
@@ -20821,7 +20822,7 @@ label.checkpop.c_on {
     float: left;
     width:248px !important;
     margin-right:25px;
-    height: 357px;
+    height: 372px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -26466,7 +26467,7 @@ position: relative; float: left;
     margin:0 auto;
 }
 .icono_check_alerta{
-    background:url(../../../Images/Esika/icono_check_esika.svg) center center no-repeat;
+    background:url(../../../Images/Esika/icono_check_esika.png) center center no-repeat;
     background-size:cover;
 }
 .texto_mensaje_alerta {
@@ -27015,7 +27016,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top: 15px;
 }
 
-.content-favclientes .agregado {
+.content_carrusel_agregado .agregado {
   height: 12px;
   font-family: Lato;
   font-size: 10px;
@@ -27024,7 +27025,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   text-align: center;
   color: #a18328;
 }
-.content-favclientes .agregado .icono{
+.content_carrusel_agregado .agregado .icono{
    width: 11px;
   height: 11px;
   display: inline-block;
