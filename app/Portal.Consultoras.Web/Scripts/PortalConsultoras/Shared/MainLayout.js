@@ -153,19 +153,7 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    //if (data.montoWebAcumulado == 0) {
-                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
-                    //        data.montoWebAcumulado = "0";
-                    //    else
-                    //        data.montoWebAcumulado = "0.00";
-                    //} else {
-                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
-                    //        data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                    //    else
-                    //        data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    //}
-
-                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebConDescuentoStr);
 
                     if (data.cantidadProductos > 0) {
                         $("#pCantidadProductosPedido").html(data.cantidadProductos);
@@ -173,9 +161,7 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $("#pCantidadProductosPedido").html(0);
                     }
 
-                    //$("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
-                    //$("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
-                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebAcumulado);
+                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
                     var idPais = data.paisID;
 
@@ -249,7 +235,7 @@ function CargarCantidadNotificacionesSinLeer() {
                 } else {
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
-                    $(document).find(".mensajes_home").html("No tienes mensajes.");
+                    $(document).find("#mensajeNotificaciones").html("No tienes mensajes. ");
                 };
 
                 data.mensaje = data.mensaje || "";
@@ -767,24 +753,6 @@ function RedirectIngresaTuPedido() {
         'virtualUrl': '/Mapa-Site/Pedido'
     });
     location.href = baseUrl + 'Pedido/Index';
-};
-function SetMarcaGoogleAnalytics(Marca, Url) {
-    _gaq.push(['_trackEvent', 'Link', Marca, 'Site']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Link/' + Marca + '/Site'
-    });
-    window.open(Url, '_blank');
-    return false;
-};
-function SetSiguenosGoogleAnalytics(RedSocial, Url) {
-    _gaq.push(['_trackEvent', 'Follow', RedSocial]);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Follow/' + RedSocial
-    });
-    window.open(Url, '_blank');
-    return false;
 };
 function CerrarSesion() {
     _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);

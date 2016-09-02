@@ -257,5 +257,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
 
         public bool EsConsultoraNueva { get; set; }
+
+        public string AccionBoton { get; set; }
     }
 }

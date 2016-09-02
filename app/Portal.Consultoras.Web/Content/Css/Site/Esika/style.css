@@ -1780,7 +1780,7 @@ header {
     display:block;
     width:100%;
     font-family:'Lato';
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 
 .filaIngresoPedidoOculto{
@@ -1827,6 +1827,7 @@ div.texto_pedidos, div.celda_cantidad_pedidos{
     padding-top: 25px;
     padding-bottom: 25px;
     vertical-align: middle;
+    position:relative;
 }
 
 div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo{
@@ -2278,7 +2279,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     display: none;
     width:271px;
     min-height: 158px;
-    height:100%;
+    height:auto;
     position: absolute;
     z-index: 50;
     top: 50%;

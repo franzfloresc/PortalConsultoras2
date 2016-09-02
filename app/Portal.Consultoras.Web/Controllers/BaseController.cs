@@ -497,7 +497,8 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
                 ViewBag.FechaActualPais = fechaHoy.ToShortDateString();
                 ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
-                ViewBag.PeriodoAnalitycs = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
 
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
@@ -766,6 +767,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
             }
+        }
+
+        private string ObtenerSemanaAnalytics()
+        {
+            return "No Disponible";
         }
 
         private string GetFormatDecimalPais(string isoPais)
