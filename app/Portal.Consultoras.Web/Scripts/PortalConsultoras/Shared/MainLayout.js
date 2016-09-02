@@ -148,7 +148,7 @@ function microefectoPedidoGuardado() {
         'opacity': 0,
         'top': -13,
         'left': -11.5
-    }, 900, 'swing').css({
+    }, 900, 'swing').animate({
         'width': '0px',
         'height': '0px',
         'opacity': '1',
