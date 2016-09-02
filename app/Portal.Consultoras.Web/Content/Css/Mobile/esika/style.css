@@ -7679,3 +7679,54 @@ input[type="checkbox"]:checked + span:after {
     }
 
 }
+
+/*VIDEO INTRODUCTORIO*/
+.content_video_introductorio{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+    
+}
+.cerrar_video{
+    position:absolute;
+    width:20px;
+    height:20px;
+    z-index:2005;
+    right:-30px;
+}
+.cerrar_video img{
+    width:100%;
+}
+
+/*.content_video_introductorio {
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}*/
+
+.content_video_introductorio iframe,
+.content_video_introductorio object,
+.content_video_introductorio embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .content_video_introductorio{
+    width: 85%;
+    height: 50%;
+    top: 25%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+       
+    }
+    
+}
+
+/*FIN*/
