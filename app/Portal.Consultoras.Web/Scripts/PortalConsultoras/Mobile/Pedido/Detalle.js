@@ -807,6 +807,9 @@ function EjecutarServicioPROL() {
             var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
 
             $('#btnGuardarPedido').text(model.Prol);
+            var tooltips = model.ProlTooltip.split('|');
+            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
 
             if (model.Reserva != true) {
                 $('#modal-prol-botonesAceptarCancelar').hide();

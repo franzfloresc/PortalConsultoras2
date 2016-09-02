@@ -163,6 +163,7 @@
 
         <div class="wrap">
             <div class="container clearfix" style="text-align: center">
+                <div class="total_global">Total Pedido con Descuento*: <asp:Label ID="lblImporteConDescuento" runat="server" Text=""></asp:Label> </div>
                 <div class="total_global">Total Pedido: <asp:Label ID="lblImporte" runat="server" Text=""></asp:Label> </div>
                 <div class="input_global">
                     <input id="btnExcel" type="button" value="Excel" />
@@ -173,6 +174,10 @@
                 <div class="input_global">
                     <input id="btnRegresar" type="button" value="Regresar" />
                 </div>
+            </div>
+            <br />
+            <div class="container clearfix">
+                <p>* Descuento por ofertas con más de un precio</p>
             </div>
         </div>
 

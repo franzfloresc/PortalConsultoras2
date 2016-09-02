@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string PrecioString { get; set; }
         [DataMember]
-        public string PrecioTachado { get; set; }
+        public string PrecioTachado { get; set; }        
         [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
@@ -125,10 +125,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool TieneStockProl { get; set; }
-
+        
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353
-
+        public int FlagMostrarImg { get; set; }      // SB2-353        
+        
         public BEEstrategia(IDataRecord row)
         {
             if(DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Entities
 
             // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
-                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
+                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);                
         }
     }
 	// 1747 - Inicio

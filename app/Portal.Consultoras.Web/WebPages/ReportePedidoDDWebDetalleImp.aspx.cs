@@ -27,14 +27,15 @@ namespace Portal.Consultoras.Web.WebPages
             string Validado = lst[6];
             string Saldo = lst[7];
             string Importe = lst[8];
-            string page = lst[9];
-            string sortname = lst[10];
-            string sortorder = lst[11];
-            string rowNum = lst[12];
-            string usuario = lst[13];
-            string simbolo = lst[14];
-            string TipoProceso = lst[17];
-            int PaisID = Convert.ToInt32(lst[18]);
+            string ImporteConDescuento = lst[9];
+            string page = lst[10];
+            string sortname = lst[11];
+            string sortorder = lst[12];
+            string rowNum = lst[13];
+            string usuario = lst[14];
+            string simbolo = lst[15];
+            string TipoProceso = lst[18];
+            int PaisID = Convert.ToInt32(lst[19]);
 
             Usuario.Text = usuario;
             lblCampaniaCod.Text = CampaniaCod;
@@ -44,16 +45,13 @@ namespace Portal.Consultoras.Web.WebPages
             lblOrigen.Text = Origen;
             lblValidado.Text = Validado;
             lblSaldo.Text = Saldo;
-            if (PaisID == 4)
-            //{
-            //    lblImporte.Text = Convert.ToDecimal(Importe).ToString("#,##0").Replace(',', '.');
-            //}
-            //else
-            //{
-            //    lblImporte.Text = Importe;
-            //}
 
+            /* Los importes ya vienen formateados */
             lblImporte.Text = Importe;
+            lblImporteConDescuento.Text = ImporteConDescuento;
+            /* Los importes ya vienen formateados */
+
+            //lblImporte.Text = Importe;
             //if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
             //if (vConsultora == "") vConsultora = "0";
 

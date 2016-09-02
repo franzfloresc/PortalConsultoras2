@@ -71,7 +71,8 @@
         document.getElementById('EXPDATE').value = mes + anho;
         document.getElementById('CARDNUM').value = card;
         document.getElementById('AMOUNT').value = mont;
-    }
+    }
+
 
     function RegristarDatosPago() {
         var resultado = false;
@@ -129,9 +130,18 @@
                     <div class="titAuto">@ViewBag.CodigoTerritorio</div>
                 </div>
             </div>
+            @if(ViewBag.PaisID == 12)
+            {
+                <div>
+                    <p class="mensajePagoLineadesktop"><b>Importante:</b> Los pagos en línea se reflejan en su cuenta en un tiempo de 24 horas.</p>
+                </div>
+            }
         </div>
+        
     </div>
 </div>
+
+        
 <form id="frmPago" method="post">
     <input id="ORDERFORM" type="hidden" value="False" name="ORDERFORM">
     <input id="SHOWCONFIRM" type="hidden" value="False" name="SHOWCONFIRM">

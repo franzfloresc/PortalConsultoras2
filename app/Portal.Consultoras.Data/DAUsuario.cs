@@ -496,5 +496,13 @@ namespace Portal.Consultoras.Data
         }
 
         /*R2520 - JICM - LIDERES - FIN*/
+
+        public void GuardarContrasenia(string codigoUsuario, string contrasenia)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioContrasenia");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.String, contrasenia);
+            Context.ExecuteNonQuery(command);
+        }
     }
 }

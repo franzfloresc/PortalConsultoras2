@@ -148,88 +148,90 @@
     </div>
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
 <script>
     var defaultOption = '<option value="" >Seleccione</option>';
 
     $(function () {
-        $('.numero').keydown(IntegerNumber);
 
-        $('#btnCancelar, #imgCerrarOpcion').click(function () {
-            modalOpcion.dialog('close');
-        });        
+        $(document).ready(function () {
 
-        $('#Region').change(function () {
+            $.validator.unobtrusive.parse('form');
 
-            $('#Zona,#Seccion,#Territorio').attr('disabled', true);
+            $('.numero').keydown(IntegerNumber);
 
-            if (this.value == '') {
-                $('#Zona,#Seccion,#Territorio').html(defaultOption);
-                return;
-            }
-
-
-            $.getJSON('@Url.Action("ObtenerZonas")', { regionID: this.value }, function (data) {
-                $('#Zona,#Seccion,#Territorio').html(defaultOption);
-                $.map(data, function (e, i) {
-                    $('#Zona').append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                });
-            }).complete(function () {
-                $('#Zona').attr('disabled', false);
+            $('#btnCancelar, #imgCerrarOpcion').click(function () {
+                modalOpcion.dialog('close');
             });
-        });
 
-        $('#Zona').change(function () {
-            $('#Seccion,#Territorio').attr('disabled', true);
+            $('select#Region').change(function () {
+                $('select#Zona,select#Seccion,select#Territorio').attr('disabled', true);
 
-            if (this.value == '') {
-                $('#Seccion,#Territorio').html(defaultOption);
-                $('#CodigoZona').val('');
-                return;
-            }
+                if (this.value == '') {
+                    $('select#Zona,select#Seccion,select#Territorio').html(defaultOption);
+                    return;
+                }
 
-            $('#CodigoZona').val($(this).find('option:selected').text());
-
-            $.getJSON('@Url.Action("ObtenerSecciones")', { regionID: $('#Region').val(), zonaID: this.value }, function (data) {
-                $('#Seccion,#Territorio').html(defaultOption);
-                $.map(data, function (e, i) {
-                    $('#Seccion').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                $.getJSON('@Url.Action("ObtenerZonas")', { regionID: this.value }, function (data) {
+                    $('select#Zona,select#Seccion,select#Territorio').html(defaultOption);
+                    $.map(data, function (e, i) {
+                        $('select#Zona').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                    });
+                }).complete(function () {
+                    $('select#Zona').attr('disabled', false);
                 });
-            }).complete(function () {
-                $('#Seccion').attr('disabled', false);
             });
-        });
 
-        $('#Seccion').change(function () {
-            $('#Territorio').attr('disabled', true);
+            $('select#Zona').change(function () {
+                $('select#Seccion,select#Territorio').attr('disabled', true);
 
-            if (this.value == '') {
-                $('#Territorio').html(defaultOption);
-                $('#CodigoSeccion').val('');
-                return;
-            }
+                if (this.value == '') {
+                    $('select#Seccion,select#Territorio').html(defaultOption);
+                    $('#CodigoZona').val('');
+                    return;
+                }
 
-            $('#CodigoSeccion').val($(this).find('option:selected').text());
+                $('#CodigoZona').val($(this).find('option:selected').text());
 
-            $.getJSON('@Url.Action("ObtenerTerritorios")', { regionID: $('#Region').val(), zonaID: $('#Zona').val(), seccionID: this.value }, function (data) {
-                $('#Territorio').html(defaultOption);
-                $.map(data, function (e, i) {
-                    $('#Territorio').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                $.getJSON('@Url.Action("ObtenerSecciones")', { regionID: $('select#Region').val(), zonaID: this.value }, function (data) {
+                    $('select#Seccion,select#Territorio').html(defaultOption);
+                    $.map(data, function (e, i) {
+                        $('select#Seccion').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                    });
+                }).complete(function () {
+                    $('select#Seccion').attr('disabled', false);
                 });
-            }).complete(function () {
-                $('#Territorio').attr('disabled', false);
             });
-        });
 
-        $('#Territorio').change(function () {
-           
-            if (this.value == '') {
-                $('#CodigoTerritorio').val('');
-                return;
-            }
+            $('select#Seccion').change(function () {
+                $('select#Territorio').attr('disabled', true);
 
-            $('#CodigoTerritorio').val($(this).find('option:selected').text());
+                if (this.value == '') {
+                    $('select#Territorio').html(defaultOption);
+                    $('#CodigoSeccion').val('');
+                    return;
+                }
+
+                $('#CodigoSeccion').val($(this).find('option:selected').text());
+
+                $.getJSON('@Url.Action("ObtenerTerritorios")', { regionID: $('select#Region').val(), zonaID: $('select#Zona').val(), seccionID: this.value }, function (data) {
+                    $('select#Territorio').html(defaultOption);
+                    $.map(data, function (e, i) {
+                        $('select#Territorio').append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                    });
+                }).complete(function () {
+                    $('select#Territorio').attr('disabled', false);
+                });
+            });
+
+            $('select#Territorio').change(function () {
+
+                if (this.value == '') {
+                    $('#CodigoTerritorio').val('');
+                    return;
+                }
+
+                $('#CodigoTerritorio').val($(this).find('option:selected').text());
+            });
         });
     });
 

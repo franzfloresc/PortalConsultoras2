@@ -1,6 +1,7 @@
 ﻿var listaEscalaDescuento = listaEscalaDescuento || new Array();
 var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
+
 function MostrarBarra(datax) {
     //$("#divBarra").hide();
     //return false;
@@ -12,18 +13,24 @@ function MostrarBarra(datax) {
     dataBarra = data;
     ActualizarGanancia(data);
 
-    listaEscalaDescuento = dataBarra.ListaEscalaDescuento || listaEscalaDescuento;
-    listaMensajeMeta = dataBarra.ListaMensajeMeta || listaMensajeMeta;
-
-    //data.MontoMinimo = 100;
-    //data.MontoMinimoStr = "100.00";
-    //data.TippingPoint = 150.99;
-    //data.TippingPointStr = "150.99";
-    //data.MontoMaximo = 200.99;
-    //data.MontoMaximoStr = "200.99";
-    //data.MontoEscala = 2900.99;
-    //data.MontoEscalaStr = "2900.99";
-
+    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
+    if (dataBarra.ListaEscalaDescuento.length > 0) {
+        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
+    }
+    dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
+    if (dataBarra.ListaMensajeMeta.length > 0) {
+        listaMensajeMeta = dataBarra.ListaMensajeMeta;
+    }
+    /*
+    dataBarra.MontoMinimo = 100;
+    dataBarra.MontoMinimoStr = "100.00";
+    dataBarra.TippingPoint = 150.99;
+    dataBarra.TippingPointStr = "150.99";
+    dataBarra.MontoMaximo = 200.99;
+    dataBarra.MontoMaximoStr = "200.99";
+    dataBarra.MontoEscala = 2900.99;
+    dataBarra.MontoEscalaStr = "2900.99";
+    */
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
     var mx = data.MontoMaximo;
@@ -87,37 +94,71 @@ function MostrarBarra(datax) {
 
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
+        var listaEscala = new Array();
         $.each(listaEscalaDescuento, function (ind, monto) {
-            if (ind == 0) {
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
-                    msgLimite: "!VAMOS, ADELANTE!",
-                    msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-                    width: wPrimer,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: data.MontoMinimo,
-                    valorStr: data.MontoMinimoStr,
-                    tipo: 'min'
-                });
-            }
-            else {
-                var montox = listaEscalaDescuento[ind - 1];
-                if (me > montox.MontoHasta && me <= monto.MontoHasta) {
-                }
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
-                    msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
-                    msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
-                    widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: montox.MontoHasta,
-                    valorStr: montox.MontoHastaStr,
-                    tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
-                });
+            if (mn < monto.MontoHasta) {
+                listaEscala.push(monto);
             }
         });
+
+        $.each(listaEscala, function (ind, monto) {
+            var montox = ind == 0 ? monto : listaEscala[ind - 1];
+            listaLimite.push({
+                nombre: textoPunto
+                    .replace("{titulo}", monto.PorDescuento + "% DSCTO")
+                    .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + vbSimbolo + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
+                msgLimite: ind == 0 ? "!VAMOS, ADELANTE!" : ("¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!"),
+                msgFalta: ind == 0 ? "Te faltan " + vbSimbolo + " {falta} para pasar pedido." : ("Solo agrega " + vbSimbolo + " {falta}"),
+                width: ind == 0 ? wPrimer : null,
+                widthR: ind == listaEscala.length - 1 ? wmin : null,
+                tipoMensaje: 'EscalaDescuento',
+                valPor: monto.PorDescuento,
+                valor: ind == 0 ? data.MontoMinimo : montox.MontoHasta,
+                valorStr: ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr,
+                tipo: ind == 0 ? 'min' : ind == listaEscala.length - 1 ? 'max' : 'int'
+            });
+            
+
+            //if (ind == 0) {
+            //    listaLimite.push({
+            //        nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
+            //        msgLimite: "!VAMOS, ADELANTE!",
+            //        msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+            //        width: wPrimer,
+            //        tipoMensaje: 'EscalaDescuento',
+            //        valPor: monto.PorDescuento,
+            //        valor: data.MontoMinimo,
+            //        valorStr: data.MontoMinimoStr,
+            //        tipo: 'min'
+            //    });
+            //}
+            //else {
+            //    var montox = listaEscalaDescuento[ind - 1];
+            //    listaLimite.push({
+            //        nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
+            //        msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
+            //        msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
+            //        widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
+            //        tipoMensaje: 'EscalaDescuento',
+            //        valPor: monto.PorDescuento,
+            //        valor: montox.MontoHasta,
+            //        valorStr: montox.MontoHastaStr,
+            //        tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
+            //    });
+            //}
+        });
+
+        if (listaLimite.length == 0 && mn > 0) {
+            listaLimite.push({
+                nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
+                msgLimite: "!VAMOS, ADELANTE!",
+                msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+                tipoMensaje: 'MontoMinimo',
+                width: wPrimer,
+                valor: data.MontoMinimo,
+                valorStr: data.MontoMinimoStr
+            });
+        }
     }
 
     // validar si hay algun limite
@@ -357,10 +398,12 @@ function MostrarBarra(datax) {
     var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    objMsg.Mensaje = objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto);
+    //objMsg.Mensaje += objMsg.Mensaje + objMsg.Mensaje + objMsg.Mensaje;
+    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje);
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto + 25);
 
     return false;
 

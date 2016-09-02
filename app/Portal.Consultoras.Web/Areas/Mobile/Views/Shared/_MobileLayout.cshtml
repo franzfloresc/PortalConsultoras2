@@ -64,7 +64,7 @@
         </script>
         <!-- End Google Tag Manager -->
     }
-    
+
     @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -79,7 +79,7 @@
             });
         </script>
     }
-    
+
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
@@ -221,10 +221,10 @@
         <div id="content">
             @RenderBody()
         </div>
-        <div class="clear">
+        @*<div class="clear">
             <br />
             <br />
-        </div>
+        </div>*@
 
     </section>
 
@@ -387,7 +387,7 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>ERROR</b></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
             <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -403,7 +403,7 @@
             <hr class="clear">
             <div class="icono_alerta check_icono_mobile"></div>
             <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-            <div id="mensajeInformacionSB2Bueno" clasS="mensaje_alerta"></div>
+            <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
@@ -423,7 +423,7 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";        
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -869,7 +869,7 @@
         }
 
         function messageInfoMalo(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Malo').html(message);            
+            $('#mensajeInformacionSB2_Malo').html(message);
             $('#popupInformacionSB2Malo').show();
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionSB2Malo .btn-aceptar').off('click');
@@ -1185,7 +1185,7 @@
 
             }
         }
-    /* Fin Tracking Jetlore */
+        /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

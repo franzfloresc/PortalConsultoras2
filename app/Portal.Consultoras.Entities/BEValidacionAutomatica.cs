@@ -87,6 +87,10 @@ namespace Portal.Consultoras.Entities
         public int PaisId { get; set; }
         [DataMember]
         public bool EsMontoMinimo { get; set; }
+        [DataMember]
+        public decimal MontoTotalProl { get; set; }
+        [DataMember]
+        public decimal DescuentoProl { get; set; }
 
         public BEValidacionMovil()
         { }
@@ -96,7 +100,7 @@ namespace Portal.Consultoras.Entities
             ValidacionMovilPROLLogId = Convert.ToInt64(row["ValidacionMovilPROLLogId"]);
             CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             MontoMaximoPedido = Convert.ToDecimal(row["MontoMaximoPedido"]);
-            MontoMinimoPedido = Convert.ToDecimal(row["MontoMinimoPedido"]);
+            MontoMinimoPedido = row.IsDBNull(row.GetOrdinal("MontoMinimoPedido")) ? 0 : Convert.ToDecimal(row["MontoMinimoPedido"]);
             EstadoActividad = Convert.ToInt32(row["EstadoActividad"]);
             CodigoZona = Convert.ToString(row["CodigoZona"]);
         }

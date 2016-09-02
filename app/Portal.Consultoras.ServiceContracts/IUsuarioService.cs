@@ -221,5 +221,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId);
+
+        [OperationContract]
+        void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia);
     }
 }

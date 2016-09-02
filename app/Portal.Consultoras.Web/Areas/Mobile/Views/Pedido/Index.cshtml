@@ -80,7 +80,7 @@
                     </div>
                     <div class="contenedor_seleccionCliente">
                         @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                        <a href="#" class="btn_agregarCliente" id="linkAgregarCliente">
+                        <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
                         </a>
                     </div>
@@ -139,7 +139,7 @@
         </div>
         <div class="contenedor_carrusel_home">
             <!--CONTENEDOR ITEM CARRUSEL-->
-            <div id="divContenidoEstrategias">
+            <div id="divContenidoEstrategias" class="content_carrusel_agregado">
                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
             </div>
         </div>
@@ -223,6 +223,44 @@
 
 <!--+CRITERIOS DE ACEPTACIÓN+-->
 <!--FIN-->
+
+<!-- POPUP AGREGAR CLIENTE -->
+<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarMantenerCliente();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+        <form action="" method="post">
+            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        Por favor ingresa un nombre válido.
+                    </span>
+                </div>
+            </div>
+            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        El correo ingresado <b>no existe.</b><br />
+                        Por favor ingresa un correo válido.
+                    </span>
+                </div>
+            </div>
+            @*<input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarMantenerCliente();" />*@
+            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
+        </form>
+    </div>
+</div>
+<!-- FIN POPUP AGREGAR CLIENTE -->
+
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
     <div class="content_item_home" data-item="item">
@@ -275,6 +313,13 @@
             <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                 AGRÉGALO
             </a>
+            <div class="clear"></div>
+            <div style="padding-top:9px; height: 15px;">
+                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>
     </div>
     {{/each}}
