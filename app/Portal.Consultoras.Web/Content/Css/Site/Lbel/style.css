@@ -1750,7 +1750,7 @@ header {
     display:block;
     width:100%;
     font-family:'Lato';
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 
 .filaIngresoPedidoOculto{
@@ -1797,6 +1797,7 @@ div.texto_pedidos, div.celda_cantidad_pedidos{
     padding-top: 25px;
     padding-bottom: 25px;
     vertical-align: middle;
+    position:relative;
 }
 
 div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo{
@@ -2247,10 +2248,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     display: none;
     width:271px;
     min-height: 158px;
-    height:100%;
+    height:auto;
     position: absolute;
     z-index: 50;
-    top: 50%;
+    top: 58%;
     left: 153%;
     margin-top:-84px;
     box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
@@ -21622,16 +21623,56 @@ body{
     position:relative;
 }
 
-.circulo-1{
-    display: block;
+.circulo-1, .circulo-2, .circulo-3{
+    display: none;
     border-radius: 100%;
     position: absolute;
-    top: 12px;
-    left: 9px;
-    width: 0px;
-    height: 0px;
     background: #642f80;
     z-index:500;
+}
+
+@keyframes circulo {
+
+    0%{
+        top: 12px;
+        left: 7px;
+        opacity:0.8;
+        width: 0px;
+        height: 0px;
+    }
+
+    100%{
+        opacity:0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+
+}
+
+.circulo-1.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.3s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-2.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.6s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-3.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.9s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
 }
 
 .tooltip_tutorial{
@@ -22999,6 +23040,7 @@ body{
     border:0 !important;
     box-shadow: none !important;
 }
+
 .sugerido .producto_imagen{
     height: 200px;
     width: 155px;
@@ -23007,9 +23049,10 @@ body{
     vertical-align:middle;
 }
 
-/*.sugerido .producto_imagen img {
-    margin-left:-25px;
-}*/
+.sugerido .producto_imagen img {
+    width: auto;
+    height: 82.8%;
+}
 
 .sugerido .producto_nombre_descripcion {
     width: 139px;
@@ -25926,7 +25969,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Lbel/icono_exclamacion.png) no-repeat center center;
+    background:url(../../../Images/Lbel/icono_advertencia.png) no-repeat center center;
     margin:0 auto 13px auto;
     background-size:cover;
 }
