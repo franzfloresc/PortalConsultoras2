@@ -311,6 +311,7 @@
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
 {
+    <input type="hidden" id="flagCatalogoPersonalizado"/>
     <div class="banner_inferior_mobile oculto_lbel">
         <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/CatalogoPersonalizado/@(Model.CodigoISO)/catalogo.png" alt="-" />
     </div>

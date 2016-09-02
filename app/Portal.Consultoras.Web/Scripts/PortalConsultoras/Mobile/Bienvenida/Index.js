@@ -3,24 +3,18 @@
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
-
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
         $('#tutorialesMobile').hide();
     });
-
     $(".contenedor-tutorial-esika .otromomento").click(function () {
         $('#tutorialesMobile').hide();
     });
-
     $(".footer-page").css({ "margin-bottom": "54px" });
-
     mostrarTutorialMobile();
-
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
     });
-
     $("#tutorialFooterMobile").click(function () {
         $('#tutorialesMobile').show();
         setTimeout(function ()
@@ -32,7 +26,22 @@
     //CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
-
+    TagManagerCatalogosPersonalizados();
+    $(document).on('click', '.banner_inferior_mobile', function () {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '1',
+                        'name': 'Favoritos',
+                        'position': 'Home-inferior-1'
+                    }]
+                }
+            }
+        });
+    });
 });
 
 function mostrarTutorialMobile() {
@@ -586,4 +595,21 @@ function InsertarDemandaAnticipada(tipo) {
             }
         }
     });
+};
+function TagManagerCatalogosPersonalizados() {
+    if (!!document.getElementById("flagCatalogoPersonalizado")) {
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                    {
+                        'id': '1',
+                        'name': 'Favoritos',
+                        'position': 'Home-inferior-1'
+                    }]
+                }
+            }
+        });
+    }
 };
