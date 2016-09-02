@@ -591,6 +591,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.DelPedidoWebDetalleMasivo(PaisID, CampaniaID, PedidoID, CodigoUsuario);
         }
 
+        public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)
+        {
+            return BLPedidoWebDetalle.DelPedidoWebDetallePackNueva(PaisID, ConsultoraID, PedidoID);
+        }
+
         public int GetPedidoWebID(int paisID, int campaniaID, long consultoraID)
         {
             return BLPedidoWeb.GetPedidoWebID(paisID, campaniaID, consultoraID);

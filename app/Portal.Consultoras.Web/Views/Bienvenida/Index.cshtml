@@ -121,7 +121,7 @@
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
+            <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO A TU PEDIDO</a>
             <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
@@ -187,7 +187,7 @@
                 if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
                     || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                 {
-                    cabezaEscala = "Ganancia estimada total*";
+                    cabezaEscala = "Ganancia estimada total";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
                 else if (Model.PaisID == 3) //CHILE
@@ -197,7 +197,7 @@
                 }
                 else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
                 {
-                    cabezaEscala = "Ganancia estimada total*";
+                    cabezaEscala = "Ganancia estimada total";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
                 else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
@@ -229,7 +229,7 @@
                         int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
                         string clase = (item.Seleccionado ? "escala_select" : "") +
                                        (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 6.29px; transform: scaleY(1.8);" : "";
+                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 5.9px; transform: scaleY(1.8);" : "";
                         <div class="escala_ganancia @(clase) @(padding)">
 
                             @if (item.Seleccionado)

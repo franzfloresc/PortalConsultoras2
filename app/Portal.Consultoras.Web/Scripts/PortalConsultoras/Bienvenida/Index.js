@@ -50,23 +50,19 @@ $(document).ready(function () {
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
-
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
     }
-
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
     }
 
     // Evento para visualizar video introductorio al hacer click
-
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
@@ -85,7 +81,6 @@ $(document).ready(function () {
     });
 
     // Microefecto al agregar productos al carrito de compras
-
     $(document).on("click", ".boton_Agregalo_home", function (e) {
 
         if (!$(this).hasClass("no_accionar")) {
@@ -137,11 +132,9 @@ $(document).ready(function () {
     }
 
     // Intervalo Microefecto Flecha Scroll
-
     setInterval(animacionFlechaScroll, 1000);
 
     // Funcion para cambiar background según posicion de scroll
-
     $(window).scroll(function () {
 
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -166,7 +159,6 @@ $(document).ready(function () {
     });
 
     // Evento click que ocurre en la flecha scroll
-
     $(".flecha_scroll").on('click', function (e) {
 
         e.preventDefault();
@@ -394,20 +386,16 @@ $(document).ready(function () {
 
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
-
     $(document).on('click', '.js-agregar-popup-liquidacion', function () {
         var contenedor = $(this).parents('#divTonosTallas');
         AgregarProductoLiquidacion(contenedor);
     });
-
     $(document).on('click', '.btn_cerrar_escogerTono', function () {
         HidePopupTonosTallas();
     });
-
     $(document).on('change', '#ddlTallaColorLiq', function () {
         CambiarTonoTalla($(this));
-    });
-    
+    });    
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
@@ -2222,7 +2210,7 @@ function ActualizarDatosMexico() {
     }
 
     if (m_email != '') {
-        var emailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+        var emailReg = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
         if (emailReg.test(m_email) == false) {
             $('#m_txtEMail').css({ 'border': '1px solid red' });
             m_mensaje += '<font color=red>* Formato  de correo electrónico No Válido</font><br />';
