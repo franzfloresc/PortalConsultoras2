@@ -3183,6 +3183,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                Session["ProductosOfertaFinal"] = null;
+
                 return Json(new
                 {
                     success = true,
