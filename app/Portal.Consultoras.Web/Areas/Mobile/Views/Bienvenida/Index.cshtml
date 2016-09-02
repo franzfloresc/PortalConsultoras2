@@ -117,7 +117,8 @@
     <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
-    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" 
+       class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
     <a class="btn_seguirp_mobile ver_video_introductorio" href="https://www.youtube.com/watch?v=MkYSBgNZGcs" title="Mira el Video de Bienvenida" target="_blank">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
@@ -190,7 +191,8 @@
     <!--COMPARTIR CATÁLOGOS-->
     <div class="comartir_home_mobile">
         TUS CATÁLOGOS C@(Model.NumeroCampania)
-        <a class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
     </div>
     <div class="imagen_catalogo catalogo_esika"></div>
     <hr class="clear" />
@@ -202,7 +204,8 @@
         <div class="comartir_home_mobile">
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
-            <a class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
+            <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
+               class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -214,7 +217,8 @@
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "MisCatalogosRevistas", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
-                <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
+                <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
+                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
             }
         </div>
         <div class="imagen_catalogo celular_esika"><img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/AppCatalogo/@(Model.CodigoISO)/app.png" alt="-" /></div>
@@ -243,7 +247,8 @@
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
         APRENDE A VENDER MÁS
-        <a class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" 
+           class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
     </div>
     <div class="imagen_catalogo video_esika"></div>
     <hr class="clear" />
@@ -254,7 +259,8 @@
     {
         <div class="comartir_home_mobile">
             LIQUIDACIÓN WEB
-            <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos" 
+               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <img src="https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Mobile/Liquidaciones/@(Model.CodigoISO)/liquidaciones.png" alt="Alternate Text" />
