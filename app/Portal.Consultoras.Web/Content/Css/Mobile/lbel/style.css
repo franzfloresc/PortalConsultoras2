@@ -1422,7 +1422,7 @@ h4.re3 {
     list-style: none;
     border-bottom: 1px solid #ccc;
     padding: 25px 0;
-    /*padding-left: 15px;*/
+    padding-left: 15px;
     position: relative;
     line-height: 1.4;
     font-size: 14px;
@@ -1461,22 +1461,22 @@ h4.re3 {
     cursor:pointer;
     
 }
-/*.list-notificaciones .no-read:before {
+.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}*/
+}
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
     top: 20px;
 }
 .list-notificaciones .text-noti {
-    /*padding-left: 85px;*/
-    /*padding-bottom: 10px;*/
+    padding-left: 85px;
+    padding-bottom: 10px;
 }
 .list-notificaciones .btn-more {
     text-decoration: none;
