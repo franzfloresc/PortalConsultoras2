@@ -167,6 +167,7 @@ header {
 
 .cart_compras{
     cursor:pointer;
+    position:relative;
 }
 
 .mensaje_svg {
@@ -21721,6 +21722,7 @@ body{
     width: 0px;
     height: 0px;
     background: #e81c36;
+    z-index:500;
 }
 
 .tooltip_tutorial{
