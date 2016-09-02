@@ -842,98 +842,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        #region Packs Ofertas para Nuevas
-
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult GuardarOfertaNueva(string vMarcaID, string vPrecioUnidad, string vCUV, string vIndicadorMontoMinimo, string vDescripcionProd, string vCantidad)
-        {
-
-            var pedidoModel = new PedidoSb2Model()
-            {
-                ClienteID = string.Empty,
-                IndicadorMontoMinimo = vIndicadorMontoMinimo,
-                Tipo = 1,
-                MarcaID = Convert.ToByte(vMarcaID),
-                Cantidad = vCantidad,//1487
-                PrecioUnidad = Convert.ToDecimal(vPrecioUnidad),
-                CUV = vCUV,
-                DescripcionProd = vDescripcionProd,
-                ConfiguracionOfertaID = Constantes.TipoOferta.Nueva,
-                TipoOfertaSisID = Constantes.ConfiguracionOferta.Nueva,
-                OfertaWeb = true
-
-            };
-            Insert(pedidoModel);
-
-            return null;
-        }
-
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        private List<OfertaNuevaModel> ObtenerPackOfertasNuevasPorCampania(int vCampaniaID)//1487//1731
-        {
-            int result = 0;
-            //int estado = -1;
-            List<OfertaNuevaModel> lstresult = null;
-
-            List<BEOfertaNueva> lista;
-            int vPaisID = userData.PaisID;
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                result = svc.ObtenerEstadoPacksOfertasNueva(vPaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID);
-
-                // if (result >= 0 && result < 2)
-                if (result >= 0)
-                {
-                    string simbolo = userData.Simbolo;
-                    //lista = svc.GetPackOfertasNuevasByCampania(vPaisID, vCampaniaID).ToList();
-                    lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID)).ToList();
-
-                    if (lista.Count > 0)
-                    {
-                        if (Session["isPedido"] == null)
-                        {
-                            UpdEstadoPacksOfertasNueva();
-                        }
-                        Session["isPedido"] = "1";
-                    }
-
-                    lstresult = Mapper.Map<IList<BEOfertaNueva>, List<OfertaNuevaModel>>(lista);
-                    lstresult.Each(p => p.Simbolo = simbolo);
-                }
-            }
-
-            ViewBag.EstadoOfertaNueva = -1;
-
-
-            if (lstresult != null && lstresult.Count >= 1)
-            {
-                lstresult.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                ViewBag.EstadoOfertaNueva = lstresult.Count;
-
-                var list = from t in lstresult
-                           where t.IndicadorPedido.Equals(0)
-                           select t;
-
-                ViewBag.EstadoOfertaSinComprar = list.Count();
-                if (list.Count() == 0)
-                {
-                    ViewBag.EstadoOfertaNueva = -1;
-                    lstresult = null;
-                }
-            }
-            else
-            {
-                lstresult = null;
-            }
-
-
-
-            return lstresult;
-        }
-
-        #endregion
-
+        
         #region Ofertas Flexipago
 
         public string CargarLinkPaisFlexipago()
@@ -1124,8 +1033,45 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            ValidarInsertarPackNueva(pedidoModel);
+
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
+        }
+        #endregion
+
+        #region Pack Nueva Validar Insertar
+        private bool ValidarInsertarPackNueva(PedidoSb2Model model)
+        {
+            try
+            {
+                var listaEstrategia = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                listaEstrategia = listaEstrategia ?? new List<BEEstrategia>();
+                var existe = listaEstrategia.Where(e => e.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas);
+                if (!existe.Any())
+                    return false;
+
+                if (!existe.Where(e => e.CUV2 == model.CUV).ToList().Any())
+                    return false;
+
+                var delete = false;
+                Session["PedidoWebDetalle"] = null;
+                var listaPedido = ObtenerPedidoWebDetalle();
+                foreach (var item in listaPedido)
+                {
+                    if (existe.Where(e => e.CUV2 == item.CUV).ToList().Any())
+                    {
+                        delete = true;
+                        DeletePedido(item);
+                    }
+                }
+
+                return !delete;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         #endregion
 
