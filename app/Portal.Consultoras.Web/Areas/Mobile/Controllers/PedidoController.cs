@@ -168,6 +168,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
             ViewBag.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
             ViewBag.MontoDescuento = pedidoWeb.DescuentoProl;
+            ViewBag.GananciaEstimada = Util.DecimalToStringFormat(ViewBag.MontoAhorroCatalogo + ViewBag.MontoAhorroRevista, userData.CodigoISO);
             /* SB20-483 - FIN */
 
             model.PaisID = userData.PaisID;
