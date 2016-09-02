@@ -182,7 +182,7 @@
         <div class="titulo_home_img mis_ganancias_img"></div>
         <div class="titulo_home_belcorp">
             <div>MIS GANANCIAS</div>
-            <a class="btn_ver_mas" href="@Url.Action("Index", "Bienvenida")">VER M&Aacute;S +</a>
+            <a class="btn_ver_mas" href="@Url.Action("Index", "EscalaDescuentos")">VER M&Aacute;S +</a>
         </div>
         <hr class="clear" />
         <div class="info_centro">
@@ -214,10 +214,10 @@
             <div class="deuda_home">
                 @Model.Simbolo
                 <span data-ganancia="">
-                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.PrefijoPais)
+                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, Model.PrefijoPais)
                 </span>
             </div>
-            <span>Pedido ingresado: <span id="spanPedidoIngresado">@Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoPedido, Model.PrefijoPais)</span></span>
+            <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
         <!--ESCALA DE DESCUENTO-->
         <div class="content_escala">
@@ -233,7 +233,7 @@
                         int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
                         string clase = (item.Seleccionado ? "escala_select" : "") +
                                        (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 100000 ? "font-size: 7px; transform: scaleY(1.2);" : "";
+                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 6.29px; transform: scaleY(1.8);" : "";
                         <div class="escala_ganancia @(clase) @(padding)">
 
                             @if (item.Seleccionado)
