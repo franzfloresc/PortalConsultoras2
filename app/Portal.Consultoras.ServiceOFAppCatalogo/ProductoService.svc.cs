@@ -40,7 +40,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                     var blProducto = new BLProducto();
                     listaCuvMostrar = blProducto.ObtenerProductosMostrar(codigoIso, campaniaId, codigoConsultora, zonaId, codigoRegion, codigoZona);
                     
-                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);                 
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal, true);                 
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
 
                     #endregion
 
-                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal, true);
                 }
                 catch (Exception ex)
                 {
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
                         }
                     }
 
-                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal);
+                    listaFinal = GetListaFinal(codigoIso, listaCuvMostrar, tipoProductoMostrar, campaniaId, codigoConsultora, tipoOfertaFinal, false);
 
                     #endregion
                 }
@@ -182,8 +182,17 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             return listaFinal;
         }
 
-        private List<Producto> GetListaFinal(string codigoIso, List<Producto> listaCuvMostrar, int tipoProductoMostrar, int campaniaId, string codigoConsultora, int tipoOfertaFinal)
+        private List<Producto> GetListaFinal(string codigoIso, List<Producto> listaCuvMostrar, int tipoProductoMostrar, int campaniaId, 
+            string codigoConsultora, int tipoOfertaFinal, bool tieneValidacionPedido)
         {
+            //codigoIso: PE,CL,CO, etc.
+            //listaCuvMostrar: lista de cuv disponibles para mostrar
+            //tipoProductoMostrar: 1 -> App Catalogo; 2 -> PCM
+            //campaniaId: 201612,201613, etc.
+            //codigoConsultora: 000758833
+            //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore  
+            //tieneValidacionPedido: true->valida que no exista en pedido; false: no valida con pedido                             
+
             var listaFinal = new List<Producto>();
 
             var listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
@@ -202,7 +211,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             }
 
             //Jetlore
-            if (tipoOfertaFinal == 2)
+            if (tieneValidacionPedido && tipoOfertaFinal == 2)
                 listaCuvMostrarConStock = ObtenerProductosMostrarSinPedido(codigoIso, listaCuvMostrarConStock, campaniaId, codigoConsultora);
 
             listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
