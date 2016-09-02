@@ -249,7 +249,7 @@ function CargarCantidadNotificacionesSinLeer() {
                 } else {
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
-                    $(document).find(".mensajes_home").html("No tienes mensajes.");
+                    $(document).find("#mensajeNotificaciones").html("No tienes mensajes. ");
                 };
 
                 data.mensaje = data.mensaje || "";

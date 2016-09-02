@@ -121,7 +121,7 @@
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
+            <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO A TU PEDIDO</a>
             <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
