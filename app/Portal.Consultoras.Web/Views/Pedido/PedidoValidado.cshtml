@@ -183,24 +183,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Peru || ViewBag.Pais_ISO == Constantes.CodigosISOPais.Chile)
-                {
-                    <li>
-                        <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Catálogo Personalizado">
-                            <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
-                            <div>CATÁLOGO PERSONALIZADO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "MisCatalogosRevistas")" title="Mis Catálogos y Revistas">
-                            <img src="@ViewBag.UrlBanner01" alt="Mis Catálogos y Revistas" />
-                            <div>MIS CATÁLOGOS Y REVISTAS</div>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Productos Descontinuados">
+                        <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
 
                 @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -214,14 +202,14 @@
                 else
                 {
                     <li>
-                        <a href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
+                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
                             <img src="@ViewBag.UrlBanner02" alt="Liquidaciones Web" />
                             <div>LIQUIDACIONES WEB</div>
                         </a>
                     </li>
                 }
                 <li>
-                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
+                    <a href="javascript:;" title="Productos Agregados" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');">
                         <img src="@ViewBag.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>
