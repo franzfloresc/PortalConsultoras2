@@ -7,13 +7,12 @@
     var itemsFooter = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("footer")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
 }
-
 @foreach (var item in itemsFooter)
 {
-    <a class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.MenuMobileID">
+    <a role="link" region="Footer" parent="@item.Descripcion" title="@item.Descripcion" 
+       class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.MenuMobileID">
         @item.Descripcion.ToUpper()
     </a>
-
     if (item.SubMenu.Count > 0)
     {
         <div id="collapse_@item.MenuMobileID" class="panel-collapse collapse">
@@ -26,7 +25,8 @@
                     : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
                 if (subitem.Descripcion == "Tutorial")
                 {
-                    <a class="menu_subfooter" href="#" id="tutorialFooterMobile">@subitem.Descripcion.ToUpper()</a>
+                    <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
+                       class="menu_subfooter" href="#" id="tutorialFooterMobile">@subitem.Descripcion.ToUpper()</a>
                 }
                 else
                 {
@@ -35,22 +35,26 @@
                         url += "?" + ViewBag.QSBR;
                     }
                     
-                    <a class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+                    <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
+                       class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
                 }
             }
         </div>
     }
 }
-<a class="version_escritorio" href="@Url.Action("Index","Bienvenida", new { area = ""})">Ir a la versión escritorio</a>
+<a role="link" region="Footer" parent="Ir a la versión escritorio" title="Ir a la versión escritorio" 
+   class="version_escritorio" href="@Url.Action("Index","Bienvenida", new { area = ""})">Ir a la versión escritorio</a>
 <div class="content_redes">
     <div class="col-xs-2">
-        <a href="http://www.belcorp.biz/" role="menu" region="Footer" parent="Belcorp" title="Belcorp" id="lnk-foo-belcorp" target="_blank">
-            <img src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
+        <a role="link" region="Footer" parent="Belcorp" title="Belcorp" 
+           href="http://www.belcorp.biz/" id="lnk-foo-belcorp" target="_blank">
+            <img role="link" region="Footer" parent="Belcorp" title="Belcorp" src="@Url.Content("~/Content/Images/mobile/LogoFooter.png")" alt="Belcorp" width="40" height="40" />
         </a>
     </div>
-    <a class="redes_sociales" target="_blank" href="https://www.youtube.com/user/somosbelcorp"><img src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
-    <a class="redes_sociales" target="_blank" href="https://www.facebook.com/SomosBelcorpOficial/?fref=ts"><img src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
+    <a role="link" region="Footer" parent="Redes Sociales" title="Facebook Belcorp" 
+       class="redes_sociales" target="_blank" href="https://www.youtube.com/user/somosbelcorp"><img role="link" region="Footer" parent="Redes Sociales" title="Youtube Belcorp" src="@Url.Content("~/Content/Images/mobile/Esika/youtube.png")" /></a>
+    <a role="link" region="Footer" parent="Redes Sociales" title="Youtube Belcorp" 
+       class="redes_sociales" target="_blank" href="https://www.facebook.com/SomosBelcorpOficial/?fref=ts"><img role="link" region="Footer" parent="Redes Sociales" title="Facebook Belcorp" src="@Url.Content("~/Content/Images/mobile/Esika/facebook.png")" /></a>
     <hr class="clear" />
 </div>
-
 <hr class="clear" />
