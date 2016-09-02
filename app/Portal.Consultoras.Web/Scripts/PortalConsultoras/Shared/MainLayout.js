@@ -153,7 +153,7 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebConDescuentoStr);
 
                     if (data.cantidadProductos > 0) {
                         $("#pCantidadProductosPedido").html(data.cantidadProductos);
