@@ -236,9 +236,9 @@
                                 @{                                                              
                                     string cabezaEscala=null, pieEscala=null;
                                     if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
-                                        || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                                        || Model.PaisID == 13 || Model.PaisID == 12) //PE - CO - EC - BO - GT - SV - DO - PR
                                     {
-                                        cabezaEscala = "GANANCIA";
+                                        cabezaEscala = "Ganancia estimada total";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }                                   
                                     else if (Model.PaisID == 3) //CHILE
@@ -246,12 +246,12 @@
                                         cabezaEscala = "Comisión y ahorro total";
                                         pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }
-                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MX - PA
                                     {
-                                        cabezaEscala = "GANANCIA";
+                                        cabezaEscala = "Ganancia estimada total";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                                     }
-                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //CR - VE
                                     {
                                         cabezaEscala = "Oportunidad de ahorro total";
                                         pieEscala = "";                
