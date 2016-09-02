@@ -247,7 +247,7 @@
                 success: function (result) {
                     if (checkTimeout(result)) {
                         if (result.success == true) {
-                            ActualizarGanancia(data.DataBarra);
+                            ActualizarGanancia(result.DataBarra);
 
                             if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") { variantcad = "Estándar"; } else { variantcad = result.oPedidoDetalle.DescripcionEstrategia; }
                             if (result.oPedidoDetalle.Categoria == null || result.oPedidoDetalle.Categoria == "") { categoriacad = "Sin Categoría"; } else { categoriacad = result.oPedidoDetalle.Categoria; }

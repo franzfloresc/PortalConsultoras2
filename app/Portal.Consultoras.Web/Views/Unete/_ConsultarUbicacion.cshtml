@@ -253,7 +253,7 @@
             $('#modal_opcion').html(html);
             modalOpcion.dialog('open');
         }).complete(function () {
-            closeWaitingDialog({});
+            closeWaitingDialog({});     
         });
     });
 
@@ -386,7 +386,7 @@
     function cargarMapa() {
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
-            
+            modalOpcion.dialog('close');
 
             @if (Model.Puntos.Count > 0)
 	        {

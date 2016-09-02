@@ -368,7 +368,7 @@ DELETE FROM MenuMobile WHERE Posicion='Menu' AND MENUMOBILEID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, EsSB2)
 VALUES
-(1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile',1),
+(1001, 'Mi Negocio', 0, 1, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
 (1003, 'Mi Asesor de Belleza', 0, 3, '', '', 0, 'Menu', 'Mobile',1),
 (1004, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
@@ -377,12 +377,12 @@ VALUES
 
 --(7, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
-(1009, 'Seguimiento  a tu Pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
-(1010, 'Estado de Cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
---(11, 'Pedidos FIC', 1001, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
-(1012, 'Pedidos Ingresados', 1001, 3, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
-(1013, 'Pedidos Facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile',1),
-(1014, 'Mis Clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile',1),
+(1009, 'Seguimiento a tu pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
+(1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
+(1011, 'Pedidos FIC', 1001, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
+(1012, 'Pedidos ingresados', 1001, 3, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
+(1013, 'Pedidos facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile',1),
+(1014, 'Mis clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile',1),
 (1015, 'Productos Agotados', 1001, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile',1)
 --(16, 'Pago en Línea', 1001, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile',1)
 
@@ -3557,7 +3557,11 @@ BEGIN
 			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada, --1688   
 			u.EMailActivo, --2532  
 			isnull(p.OfertaFinal,0) as OfertaFinal,
-			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida
+			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
+			@FechaLimitePago as FechaLimitePago,
+			ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
+			ISNULL(u.VioVideo, 0) as VioVideo,
+			ISNULL(u.VioTutorial, 0) as VioTutorial 
 		FROM [dbo].[Usuario] u (nolock)  
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo  
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario  

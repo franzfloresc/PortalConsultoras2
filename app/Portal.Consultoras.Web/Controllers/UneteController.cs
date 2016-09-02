@@ -96,11 +96,10 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = model.sidx,
                 SortOrder = model.sord
             };
-            SelectList lstSelect; //= new SelectList(tipoRechazosSAC, "Valor", "Nombre");
+            ServiceUnete.ParametroUneteCollection lstSelect;
             using (var sv = new PortalServiceClient())
             {
-                var tipoRechazosSAC = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
-                //lstSelect = 
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
             }
             IEnumerable<SolicitudPostulanteBE> items = solicitudes;
             SolicitudPostulanteBE obj = new SolicitudPostulanteBE();
@@ -275,7 +274,9 @@ namespace Portal.Consultoras.Web.Controllers
                         string.IsNullOrWhiteSpace(i.ImagenPagare) ? string.Empty : i.ImagenPagare.ToString(),//24
                         string.IsNullOrWhiteSpace(i.ImagenDniAval) ? string.Empty : i.ImagenDniAval.ToString(),//25
                         string.IsNullOrWhiteSpace(i.MotivoRechazo) ? string.Empty : i.MotivoRechazo.ToString(),//26
-                        string.IsNullOrWhiteSpace(i.TipoRechazo) ? string.Empty :  i.TipoRechazo.ToString()//27
+                        string.IsNullOrWhiteSpace(i.TipoRechazo) ? string.Empty :  lstSelect.Where(x => x.Valor == i.TipoRechazo.ToInt()).FirstOrDefault() != null
+                                                                 ? lstSelect.Where(x => x.Valor == i.TipoRechazo.ToInt()).FirstOrDefault().Nombre
+                                                                 : string.Empty //27
                     }
                 })
             };
@@ -864,9 +865,9 @@ namespace Portal.Consultoras.Web.Controllers
             bool resultado;
             using (var sv = new BelcorpPaisServiceClient())
             {
-                //model.ListaZonasTelefonicasActivas = model.ListaZonasTelefonicasActivas ?? new List<ParametroUneteBE>();
-                //model.ListaZonasTelefonicasInactivas = model.ListaZonasTelefonicasInactivas ??
-                //                                       new List<ParametroUneteBE>();
+                model.ListaZonasTelefonicasActivas = model.ListaZonasTelefonicasActivas ?? new List<ParametroUneteBE>();
+                model.ListaZonasTelefonicasInactivas = model.ListaZonasTelefonicasInactivas ??
+                                                       new List<ParametroUneteBE>();
 
                 resultado = sv.ActualizarValidacionesUnete(CodigoISO, model);
             }
@@ -934,6 +935,108 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult NivelesRiesgo()
         {
             return View(new NivelesRiesgoModel { CodigoISO = "PE" });
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarNivelesRiesgo(NivelesRiesgoModel model)
+        {
+            var grid = new BEGrid
+            {
+                PageSize = model.rows,
+                CurrentPage = model.page,
+                SortColumn = model.sidx,
+                SortOrder = model.sord
+            };
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoNivelesRiesgo, 0);
+            }
+            List<NivelesRiesgoModel> items = new List<NivelesRiesgoModel>();
+            NivelesRiesgoModel objNivel;
+            foreach (var item in lstSelect)
+            {
+                objNivel = new NivelesRiesgoModel();
+                objNivel.NivelRiesgo = item.Descripcion;
+                objNivel.ZonaSeccion = item.Nombre;
+                items.Add(objNivel);
+            }
+            ParametroUneteBE obj = new ParametroUneteBE();
+
+            #region Sort Section
+            if (model.sord == "asc")
+            {
+                #region ascendente
+                switch (model.sidx)
+                {
+                    case "NivelRiesgo":
+                        items = items.AsEnumerable<NivelesRiesgoModel>().ToList().OrderBy(x => x.NivelRiesgo).ToList();
+                        break;
+                    case "ZonaSeccion":
+                        items = items.AsEnumerable<NivelesRiesgoModel>().ToList().OrderBy(x => x.ZonaSeccion).ToList();
+                        break;
+                }
+                #endregion
+            }
+            else
+            {
+                #region descendente
+                switch (model.sidx)
+                {
+                    case "NivelRiesgo":
+                        items = items.AsEnumerable<NivelesRiesgoModel>().ToList().OrderByDescending(x => x.NivelRiesgo).ToList();
+                        break;
+                    case "ZonaSeccion":
+                        items = items.AsEnumerable<NivelesRiesgoModel>().ToList().OrderByDescending(x => x.ZonaSeccion).ToList();
+                        break;
+                }
+                #endregion
+            }
+            #endregion
+
+            items = items.AsEnumerable<NivelesRiesgoModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();            
+
+            var pag = Paginador(grid, lstSelect);
+
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = items.Select(i => new
+                {
+                    cell = new string[]
+                    {
+                        string.IsNullOrWhiteSpace(i.ZonaSeccion) ? string.Empty : i.ZonaSeccion.ToUpper(),//0
+                        string.IsNullOrWhiteSpace(i.NivelRiesgo) ? string.Empty : i.NivelRiesgo.ToUpper()//1                    
+                    }
+                })
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ExportarExcelNivelRiesgo()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoNivelesRiesgo, 0);
+            }
+            List<NivelesRiesgoModel> items = new List<NivelesRiesgoModel>();
+            NivelesRiesgoModel objNivel;
+            foreach (var item in lstSelect)
+            {
+                objNivel = new NivelesRiesgoModel();
+                objNivel.NivelRiesgo = item.Descripcion;
+                objNivel.ZonaSeccion = item.Nombre;
+                items.Add(objNivel);
+            }
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("ZonaSeccion", "ZonaSeccion");
+            dic.Add("NivelRiesgo", "NivelRiesgo");
+            Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
+            return View();
         }
 
         [HttpPost]
@@ -1043,7 +1146,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                   , model.MotivoRechazo);
                 }
             }
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(ModelState.IsValid, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -1240,7 +1343,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Direccion = model.CodigoPais == "CL"
                     ? model.CalleOAvenida + "|" + model.Numero
                     : model.CodigoPais == "CO"
-                        ? model.CalleOAvenida + "|" + model.NombreLugarNivel3
+                        ? model.CalleOAvenida + "|" + model.NombreLugarNivel3 + "|" + model.NombreDireccionEdicion
                         : model.CodigoPais == "MX"
                             ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
                             : model.CodigoPais == "PE"
@@ -1430,9 +1533,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     solicitudPostulante.LugarPadre = model.NombreLugarNivel1;
                     solicitudPostulante.LugarHijo = model.NombreLugarNivel2;
-                    solicitudPostulante.Direccion = model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" +
-                        model.CalleOAvenida;
+                    solicitudPostulante.Direccion = consultarUbicacionModel.Direccion;
                     solicitudPostulante.Referencia = model.Referencia;
+                    solicitudPostulante.CodigoPostal = model.Numero;
 
                     sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
                 }
