@@ -379,23 +379,20 @@
 </div>
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div>
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <div class="content_item_home">
             <div class="producto_img_mobile">
                 <img src="{{FotoProducto01}}" />
             </div>
             {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            {{#iff EtiquetaID 'ContainsArray' '[1,2,3]'}}      <!--SB20-351 -->
             <div class="etiqueta_producto">
                 <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
             </div>
-            {{/iff}}
             {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
             <div class="etiqueta_producto">
                 <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
             </div>
-
             {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
             {{#if_eq FlagEstrella '1' }}
             <div class="etiqueta_producto">
