@@ -421,7 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.NombreRegion = solicitudPostulante.LugarPadre;
                     model.NombreComuna = solicitudPostulante.LugarHijo;
 
-                    if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE")
+                    if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" || CodigoISO == "GT")
                     {
                         try
                         {
@@ -994,7 +994,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            items = items.AsEnumerable<NivelesRiesgoModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();            
+            items = items.AsEnumerable<NivelesRiesgoModel>().ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
             var pag = Paginador(grid, lstSelect);
 
@@ -1334,7 +1334,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Numero = default(string);
                 model.NombreDireccionEdicion = default(string);
             }
-
+            else if (CodigoISO == "GT")
+            {
+                direccion = string.Format("{0} {1} {2} {3}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.NombreLugarNivel5, model.CalleOAvenida);
+                model.Numero = default(string);
+                model.NombreDireccionEdicion = default(string);
+            }
             var consultarUbicacionModel = new ConsultarUbicacionModel
             {
                 SolicitudPostulanteID = model.SolicitudPostulanteID,
@@ -1348,14 +1353,17 @@ namespace Portal.Consultoras.Web.Controllers
                             ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
                             : model.CodigoPais == "PE"
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida + "|" + model.Referencia
+                             : model.CodigoPais == "GT"
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
                             : model.CalleOAvenida + "|" + model.Numero,
+
                 NombreRegion = CodigoISO == "PE" ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
                 NombreComuna = CodigoISO == "PE" ? model.NombreLugarNivel3 : model.NombreLugarNivel2
             };
 
             if (ModelState.IsValid)
             {
-                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE")
+                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" || CodigoISO == "GT")
                 {
                     try
                     {
