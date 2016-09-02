@@ -181,6 +181,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/Notificaciones.js").Include(
+                "~/Scripts/PortalConsultoras/Notificaciones/Index.js"
+                ));
+
             #endregion
 
 #if DEBUG

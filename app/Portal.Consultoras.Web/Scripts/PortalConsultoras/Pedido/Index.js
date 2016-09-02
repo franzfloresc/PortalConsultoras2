@@ -2326,6 +2326,8 @@ function EjecutarServicioPROL() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
+            $("#divMensajeObservacionesPROL").html("");
+
             var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
@@ -2577,7 +2579,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
-            var mensajePedido = "";            
+            $("#divMensajeObservacionesPROL").html("");
+
+            var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
