@@ -214,7 +214,7 @@ function EnviarCorreo() {
             }
         }
     });
-    return false
+    return false;
 }
 
 function ModificarPedido() {

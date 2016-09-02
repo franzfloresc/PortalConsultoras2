@@ -46,6 +46,23 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
-        
+
+        public string ObtenerSapByCuv(int campaniaId, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodigoSapByCuv_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+
+            return Context.ExecuteScalar(command).ToString();
+        }
+
+        public IDataReader ObtenerProductosPedido(int campaniaId, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvProductoPedido_SB2");            
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

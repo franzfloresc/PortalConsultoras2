@@ -1,4 +1,4 @@
-USE BelcorpPanama_SB2
+USE BelcorpPanama
 go
 
 /*TABLAS*/
@@ -370,7 +370,7 @@ INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlIte
 VALUES
 (1001, 'Mi Negocio', 0, 1, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
-(1003, 'Mi Asesor de Belleza', 0, 3, '', '', 0, 'Menu', 'Mobile',1),
+(1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
 (1004, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
 (1005, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
 (1006, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
