@@ -1235,3 +1235,13 @@ function MostrarMensaje(tipoMensaje, message) {
             break;
     };
 };
+
+function MostrarDetalleGanancia() {
+
+    $('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    $('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    $('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    $('#pieGanancia').text($('#hdePieEscala').val());
+
+    $('#popupDetalleGanancia').show();
+}

@@ -212,11 +212,24 @@
                 <div class="bloque_montosPedido">
                     <div class="caja_montos">
                         <div class="caja_montos_textos">
-                             <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                 <span id="spnNombreCliente"></span>
                             </p>
+
+                            <!--SB20-483 - INICIO -->
+                            <p class="monto_totalsindscto">
+                                <span>Total sin dscto. :</span>
+                            </p>
+
+                            <p class="monto_ofertasxnivel">
+                                <span>Dscto. ofertas por niveles :</span>
+                            </p>
+
+                            <hr />
+                            <!--SB20-483 - FIN -->
+
                             <div class="monto_total">
-                                <div class="info_extra_Validado">
+                                @*<div class="info_extra_Validado">
                                     <img src="/Content/Images/Esika/info-copy.png">
                                     <!--MONTOS-->
                                     <div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
@@ -228,11 +241,11 @@
                                         <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
                                     </div>
                                     <!--FIN-->
-                                </div>
+                                </div>*@
                                 <span>Monto total :</span>
                             </div>
                             
-                            <div id="divMontosEscalaDescuentoTexto" style="display: none;">
+                            @*<div id="divMontosEscalaDescuentoTexto" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
@@ -242,39 +255,91 @@
                                         Monto Descuento :
                                     </p>
                                 }
-                            </div>
+                            </div>*@
                             <p class="monto_ganancia">
                                 @{                                                              
-                                    string cabezaEscala=null, pieEscala=null;
-                                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
-                                        || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                                    string cabezaEscala = null, pieEscala = null;
+                                    string lbl1DetaGanancia = null, lbl2DetaGanancia = null;
+                                    
+                                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 7 || Model.PaisID == 8
+                                        || Model.PaisID == 12 || Model.PaisID == 13) //PE,CO,EC,GT.SV,PR,DO
                                     {
-                                        cabezaEscala = "GANANCIA";
-                                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                                    }                                   
-                                    else if (Model.PaisID == 3) //CHILE
+                                        cabezaEscala = "Ganancia estimada total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1DetaGanancia = "Mis descuentos";
+                                        lbl2DetaGanancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                    }
+                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //PA,MX
+                                    {
+                                        cabezaEscala = "Ganancia estimada total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1DetaGanancia = "Mis descuentos";
+                                        lbl2DetaGanancia = "Ganancia estimada *(Revista y otros)";
+                                    }                               
+                                    else if (Model.PaisID == 3) //CH
                                     {
                                         cabezaEscala = "Comisión y ahorro total";
-                                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                                        pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1DetaGanancia = "Mis descuentos (-)10% retencion comisión liquida";
+                                        lbl2DetaGanancia = "Ahorro estimado *(Guia de negocio y otros)";
                                     }
-                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
-                                    {
-                                        cabezaEscala = "GANANCIA";
-                                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                                    }
-                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                                    else if (Model.PaisID == 14) //VE
                                     {
                                         cabezaEscala = "Oportunidad de ahorro total";
-                                        pieEscala = "";                
-                                    }                                                                                                        
+                                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1DetaGanancia = "Por tus compras de productos de catalogo";
+                                        lbl2DetaGanancia = "Por tus comprar de productos de revista";
+                                    }
+                                    else if (Model.PaisID == 2) //BO
+                                    {
+                                        cabezaEscala = "Ganancia total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1DetaGanancia = "Mis descuentos";
+                                        lbl2DetaGanancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                    }
+                                    //else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                                    //{
+                                    //    cabezaEscala = "GANANCIA";
+                                    //    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                                    //}
+                                    else if (Model.PaisID == 5) //CR
+                                    {
+                                        cabezaEscala = "Oportunidad de ahorro total";
+                                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1DetaGanancia = "Mis descuentos";
+                                        lbl2DetaGanancia = "Oportunidad de ahorro *(Revista y otros)";
+                                    }                                                                                                       
                                 }
+                                <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                 @(cabezaEscala):
+
+                                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                <input type="hidden" id="hdeLbl1DetaGanancia" value="@lbl1DetaGanancia" />
+                                <input type="hidden" id="hdeLbl2DetaGanancia" value="@lbl2DetaGanancia" />
                             </p>
                         </div>
                         <div class="caja_montos_cantidades">
                             <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                 <span id="spnTotalCliente"></span>
                             </p>
+
+                            <!--SB20-483 - INICIO -->
+                            <p class="monto_totalsindscto">
+                                <b>
+                                    @Model.Simbolo 
+                                    <span id="spnMontoTotalsindscto" data-xxx="">@Model.FormatoTotal</span>
+                                </b>
+                            </p>
+
+                            <p class="monto_ofertaxnivel">
+                                <b>
+                                    @Model.Simbolo 
+                                    <span id="spnMontoOfertaxnivel" data-xxx="">@Model.MontoDescuento</span>
+                                </b>
+                            </p>
+                            <!--SB20-483 - FIN -->
+
                             <p class="monto_total">
                                 <b>
                                     @Model.Simbolo
@@ -284,7 +349,8 @@
                                 </b>
                             </p>
                             
-                            <div id="divMontosEscalaDescuento" style="display: none;">
+                            <!--SB20-483 - INICIO -->
+                            @*<div id="divMontosEscalaDescuento" style="display: none;">
                                 @if (Model.MontoDescuento > 0)
                                 {
                                     <p class="monto_descuento">
@@ -298,11 +364,13 @@
                                         </b>
                                     </p>
                                 }
-                            </div>                            
+                            </div>*@         
+                            <!--SB20-483 - FIN -->                   
                             
                             <p class="monto_ganancia">
                                 <b>
-                                    @Model.Simbolo <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+                                    @Model.Simbolo 
+                                    <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
                                 </b>
                             </p>
                         </div>
@@ -317,9 +385,10 @@
                         <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
                     </div>*@
 
-                    @{ string[] tooltips = Model.ProlTooltip.Split('|');
-                       string tooltip1 = tooltips[0];
-                       string tooltip2 = tooltips[1];
+                    @{ 
+                        string[] tooltips = Model.ProlTooltip.Split('|');
+                        string tooltip1 = tooltips[0];
+                        string tooltip2 = tooltips[1];
                     }
                     <div class="tooltip_importanteGuardarPedido">
                         <text>@tooltip1</text>
@@ -468,6 +537,44 @@
         </form>
     </div>
 </div>
+
+<!--SB20-483 - INICIO -->
+<div class="contenedor_popup_agregarCliente" id="popupDetalleGanancia" style="display:none;">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="javascript: $('#popupDetalleGanancia').hide();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h4 id="tituloGanancia"></h4>
+        <table>
+            <tr>
+                <td><span id="lbl1DetaGanancia"></span></td>
+                <td>@Model.Simbolo @Model.MontoAhorroCatalogo</td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="lbl2DetaGanancia"></span>
+                </td>
+                <td>
+                    @Model.Simbolo @Model.MontoAhorroRevista
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Model.Simbolo @Model.FormatoMontoGanancia</td>
+            </tr>
+        </table>
+
+        <span id="pieGanancia"></span>
+    </div>
+</div>
+<!--SB20-483 - FIN -->
+
 
 <!-- POPUP TUTORIAL INGRESO DE PEDIDO -->
 

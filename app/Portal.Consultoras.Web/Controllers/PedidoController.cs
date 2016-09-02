@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                     {
-                        model.Prol = "Reservar tu pedido";
+                        model.Prol = "Reserva tu pedido";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                         model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
                     }
@@ -2722,6 +2722,53 @@ namespace Portal.Consultoras.Web.Controllers
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
             //----------------------------------------------------
 
+            /* SB20-483 - INICIO */
+            var pedidoWeb = ObtenerPedidoWeb();
+            ViewBag.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            ViewBag.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
+            ViewBag.MontoDescuento = pedidoWeb.DescuentoProl;
+            /* SB20-483 - FIN */
+
+            /* SB20-287 - INICIO */
+            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+
+            if (!userData.DiaPROL)  // Periodo de venta
+            {
+                //ViewBag.Prol = "Guarda tu pedido";
+                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.CodigoISO == "BO")
+                {
+                    ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                    ViewBag.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                }
+            }
+            else // Periodo de facturacion
+            {
+                //ViewBag.Prol = "Guarda tu pedido";
+                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+                {
+                    //ViewBag.Prol = "Modifica tu pedido";
+                    ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+                    ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                }
+                else // PROL 1
+                {
+                    //ViewBag.Prol = "Valida tu pedido";
+                    ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
+                    ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                }
+            }
+            /* SB20-287 - FIN */
+
+            model.PaisID = userData.PaisID;
+
+
             #region Banners
 
             string urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -4402,6 +4449,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
                 model.MontoDescuento = bePedidoWebByCampania.DescuentoProl;
                 model.TotalConDescuento = total - bePedidoWebByCampania.DescuentoProl;
+
+                ViewBag.GananciaEstimada = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
 
                 userData.PedidoID = 0;
                 if (model.ListaDetalleModel.Any())

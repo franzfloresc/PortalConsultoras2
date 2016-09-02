@@ -161,6 +161,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             /* SB20-287 - FIN */
+
+            /* SB20-483 - INICIO */
+            var pedidoWeb = ObtenerPedidoWeb();
+
+            ViewBag.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            ViewBag.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
+            ViewBag.MontoDescuento = pedidoWeb.DescuentoProl;
+            /* SB20-483 - FIN */
+
+            model.PaisID = userData.PaisID;
             
             //Se desactiva dado que el mensaje de Guardar por MM no va en países SICC
             if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
