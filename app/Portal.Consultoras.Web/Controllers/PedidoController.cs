@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
+                    model.AccionBoton = "guardar";
                     model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}" ,ViewBag.FechaFacturacionPedido);
@@ -138,18 +139,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else // Periodo de facturacion
                 {
+                    model.AccionBoton = "guardar";
                     model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
                     if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                     {
-                        model.Prol = "Reserva tu pedido";
+                        model.AccionBoton = "validar";
+                        model.Prol = "Reservar tu pedido";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                         model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
                     }
                     else // PROL 1
                     {
+                        model.AccionBoton = "validar";
                         model.Prol = "Valida tu pedido";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
                         model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
@@ -454,6 +458,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
+                    pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
+                    pedidoWebDetalleModel.DescripcionOferta = bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim();
                 }                
 
                 return Json(new
@@ -701,6 +707,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = new PedidoSb2Model();
+                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                BEPedidoWebDetalle PedidoEliminado = ListaPedidoWebDetalle.First(x => x.CUV == CUV);
                 model.Simbolo = userData.Simbolo;
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
                 BEPedidoWebDetalle obe = new BEPedidoWebDetalle();
@@ -770,7 +778,15 @@ namespace Portal.Consultoras.Web.Controllers
                     total,
                     formatoTotalCliente,
                     listaCliente,
-                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel()
+                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    data = new
+                    {
+                        DescripcionProducto = PedidoEliminado.DescripcionProd,
+                        CUV = PedidoEliminado.CUV,
+                        Precio = PedidoEliminado.PrecioUnidad.ToString("F"),
+                        DescripcionMarca = PedidoEliminado.DescripcionLarga,
+                        DescripcionOferta = PedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
+                    }
                 });
             }
             catch (Exception ex)

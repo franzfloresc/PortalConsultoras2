@@ -78,7 +78,7 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
-            <a class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -112,7 +112,7 @@
             <div class="mensaje_cierre_fechapromesa">
                 @(Html.Raw(ViewBag.MensajeCierreCampania))
             </div>
-            <a class="boton_home_guardar" onclick="RedirectIngresaTuPedidoAnalytics();">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index","Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -121,17 +121,13 @@
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a onclick="Notificaciones();">ABRIR</a></div>
+            <div class="mensajes_home">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. <a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))', '@ViewBag.BotonAnalytics');">SEGUIMIENTO A TU PEDIDO</a>
-            <a class="seguir_pedido ver_video_introductorio" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
-            @*@if (Model.PaisID == 10)
-            {
-            <a class="seguir_pedido" onclick="RedirectBotonBienvenida('/Cliente', 'MisClientes');" href="#">SEGUIMIENTO A TU PEDIDO</a>
-            }*@
+            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO A TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
-                <a class="seguir_pedido" onclick="RedirectPedidoFicAnalytics();" href="#">INGRESA TU PEDIDO FIC</a>
+                <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
             }
         </div>
     </div>
@@ -145,7 +141,7 @@
         <div class="titulo_home_img"></div>
         <div class="titulo_home_belcorp">
             <div>MI ESTADO DE CUENTA</div>
-            <a class="btn_ver_mas" style="@vermas" href="@Url.Action("Index", "MisPagos")">VER M&Aacute;S +</a>
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver más" class="btn_ver_mas" style="@vermas" href="@Url.Action("Index", "MisPagos")">VER M&Aacute;S +</a>
         </div>
         <hr class="clear" />
         <div class="info_centro">
@@ -157,23 +153,23 @@
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
 
-        <a class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
+        <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
 
         @if (Model.PaisID == 3) //Chile
         {
-            <a class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 4) //Colombia
         {
-            <a class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 12) //Puerto Rico
         {
-            <a class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
         else if (Model.PaisID == 6 || Model.PaisID == 11)
         {
-            <a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
         }
         <hr class="clear" />
 
@@ -267,7 +263,7 @@
     </div>
     <div class="item_catalogo">
         <img src="@Model.UrlImagenCompartirCatalogo" style="max-width: 100%!important;" />
-        <a href="@Url.Action("Index", "MisCatalogosRevistas")" class="btn_comparte">COMPARTE TUS CAT&Aacute;LOGOS </a>
+        <a role="link" region="Cuerpo" parent="Comparte tus catálogos" title="Comparte tus catálogos" href="@Url.Action("Index", "MisCatalogosRevistas")" class="btn_comparte">COMPARTE TUS CAT&Aacute;LOGOS </a>
     </div>
     <hr class="clear" />
 </div>
@@ -413,7 +409,7 @@
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
-            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+            <a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
         </div>
         <div class="item_video_left">
             <div class="item_video">
@@ -431,7 +427,7 @@
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
-            <a href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+            <a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
         </div>
         <div class="item_video_left">
             <div class="item_video">
@@ -441,8 +437,8 @@
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
                 <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
-                <a href="@Url.Action("Index", "MiAcademia")" title="Ir a Mi Academia">
-                    <span class="icono_arrow">&#9658;</span><span>IR A "MI ACADEMIA"</span>
+                <a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
+                    <span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" class="icono_arrow">&#9658;</span><span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia">IR A "MI ACADEMIA"</span>
                 </a>
             </div>
         </div>
@@ -469,7 +465,7 @@
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
         </div>
-        <a class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
+        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
         <hr class="clear" />
         <div class="pestana_lbel"></div>
         <div class="content_1_carrusel">
@@ -803,6 +799,7 @@
         <input type="hidden" id="DescripcionCategoria" value="">
         <input type="hidden" id="DescripcionEstrategia" value="">
         <input type="hidden" id="ImagenProducto" value="">
+        <input type="hidden" id="Posicion" value="">
         <div class="btn_cerrar_escogerTono btn_cerrar_agregarUnidades">
             <a href="javascript:$('#divTonosTallas').dialog('close');">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1296,8 +1293,9 @@
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div>               
-        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+    <div>  
+        <input type="hidden" id="PosicionEstrategia" value="{{Posicion}}"/>             
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
         <div class="producto_img_home">
             <img src="{{FotoProducto01}}" class="imagen_producto" />
         </div>
@@ -1355,7 +1353,7 @@
         <div class="liquidacion_rango_home">
             <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
             AGR&Eacute;GALO
         </a>
         {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
@@ -1366,7 +1364,7 @@
                 <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
             </div>
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
             AGR&Eacute;GALO
         </a>
         {{else}}
@@ -1377,7 +1375,7 @@
                 <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
             </div>
         </div>
-        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
             AGR&Eacute;GALO
         </a>
         {{/iff}}
@@ -1403,11 +1401,12 @@
                 <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
                 <input type="hidden" id="CUV" value="{{CUV}}" />
                 <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                <input type="hidden" id="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" id="DescripcionProd" value="{{DescripcionCompleta}}" />
                 <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+                <input type="hidden" id="Posicion" value="{{Posicion}}" />
                 <div class="producto_img_home mini">
                 <img src="{{ImagenProducto}}" class="imagen_producto" />
                 </div>
@@ -1475,7 +1474,7 @@
                             <div class="monto_ganancia_producto">
                                 <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
                             </div>
-                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                                 AGRÉGALO
                             </a>
 
@@ -1544,7 +1543,7 @@
                                 <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
-                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true); ">
+                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">
                             AGRÉGALO
                         </a>
 
@@ -1566,7 +1565,7 @@
     <script id="miscursos-template" type="text/x-handlebars-template">
         {{#each this}}
         <div class="borde_video">
-        <a href="{{url}}" class="titulo_item_video" target="_blank">
+        <a role="link" region="Cuerpo" parent="Mi Academia" title="{{nombre}}" href="{{url}}" class="titulo_item_video" target="_blank">
                 {{nombre}}
             </a>
             <div class="porcentaje_curso">
@@ -1622,6 +1621,7 @@
 
         {{/each}}
     </script>
+
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="">  
         {{#each this as |item|}}
@@ -1681,7 +1681,7 @@
 </script>
     @section scripts{
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>     
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
         <script type="text/javascript">
             var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
