@@ -2210,7 +2210,7 @@ function ActualizarDatosMexico() {
     }
 
     if (m_email != '') {
-        var emailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+        var emailReg = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
         if (emailReg.test(m_email) == false) {
             $('#m_txtEMail').css({ 'border': '1px solid red' });
             m_mensaje += '<font color=red>* Formato  de correo electrónico No Válido</font><br />';
