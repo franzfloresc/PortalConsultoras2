@@ -21623,8 +21623,14 @@ body{
     position:relative;
 }
 
+.contenedor_circulos{
+    display:none;
+    position: absolute;
+    z-index:500;
+}
+
 .circulo-1, .circulo-2, .circulo-3{
-    display: none;
+    display: block;
     border-radius: 100%;
     position: absolute;
     background: #642f80;

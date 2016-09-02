@@ -143,9 +143,7 @@ function alert_msg(message, titulo) {
 }
 
 function microefectoPedidoGuardado() {
-    $(".circulo-1").fadeIn();
-    $(".circulo-2").fadeIn();
-    $(".circulo-3").fadeIn();
+    $(".contenedor_circulos").fadeIn();
 }
 
 function CargarResumenCampaniaHeader(showPopup) {
@@ -226,11 +224,9 @@ function CargarResumenCampaniaHeader(showPopup) {
                         //    }, 300);
                         //}, 5000);
                         microefectoPedidoGuardado();
-                        setTimeout(function () {
-                            $(".circulo-1").fadeOut();
-                            $(".circulo-2").fadeOut();
-                            $(".circulo-3").fadeOut();
-                        }, 2000);
+                        setTimeout(function(){
+                            $(".contenedor_circulos").fadeOut();
+                        }, 4500);
                     }
                 }
                 else {
