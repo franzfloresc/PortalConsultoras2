@@ -35,7 +35,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
 
     //R2319 - JLCS
     if (TipoOrigen == 4) {
-        location.href = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
+        location.href = urlMisPedidos; //GR-723
     }
     else if (TipoOrigen == 5) {
         $.ajaxSetup({ cache: false });
