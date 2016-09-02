@@ -3349,8 +3349,27 @@ BEGIN
 		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))  
 		SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)  
-		SET @IndicadorPermiso = (Select dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
+		
+			-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
+			declare @CampaniaFacturada int = 0
+		
+			 select top 1 @CampaniaFacturada = p.CampaniaID
+			FROM ods.Pedido(NOLOCK) P 
+				INNER JOIN ods.Consultora(NOLOCK) CO ON 
+					P.ConsultoraID=CO.ConsultoraID
+				WHERE 
+					co.ConsultoraID=@ConsultoraID
+					and	P.CampaniaID <> @ODSCampaniaID
+					and	CO.RegionID=@RegionID
+					and	CO.ZonaID=@ZonaID
+			order by PedidoID desc
+
+			SET @FechaLimitePago = (
+				SELECT FECHALIMITEPAGO 
+				FROM ODS.Cronograma 
+				WHERE CampaniaID=@CampaniaFacturada AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
+			)
+			SET @IndicadorPermiso = (Select dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
   
 		--SSAP CGI(Id Solicitud=1402)  
 		--begin  
