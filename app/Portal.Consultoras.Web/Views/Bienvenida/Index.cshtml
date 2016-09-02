@@ -229,7 +229,7 @@
                         int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
                         string clase = (item.Seleccionado ? "escala_select" : "") +
                                        (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 6.29px; transform: scaleY(1.8);" : "";
+                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 5.9px; transform: scaleY(1.8);" : "";
                         <div class="escala_ganancia @(clase) @(padding)">
 
                             @if (item.Seleccionado)
