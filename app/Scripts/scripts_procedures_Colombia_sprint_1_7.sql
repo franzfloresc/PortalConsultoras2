@@ -1,4 +1,4 @@
-USE BelcorpColombia_SB2
+USE BelcorpColombia
 go
 
 /*ESQUEMAS*/
@@ -579,6 +579,7 @@ DELETE FROM MenuMobile WHERE Posicion='Menu' AND MenuMobileID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, EsSB2)
 VALUES
+(1030, 'Inicio', 1001, 0, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
 (1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile',1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
 (1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
