@@ -339,7 +339,12 @@ $(document).ready(function () {
             });
         }
     });
-    
+
+    // Microefecto al agregar productos al carrito de compras
+    $(document).on("click", ".boton_liquidacion", function (e) {
+        e.preventDefault();
+        agregarProductoAlCarrito(this);
+    });
 });
 
 function CargarOfertasLiquidacion() {
@@ -595,3 +600,37 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
 function CerrarProductoAgregado() {
     $('#pop_liquidacion').hide();
 };
+
+// Funcion de animación al agregar productos al carrito
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+    var carrito = $('.campana');
+
+    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+    $(".transicion").css({
+        'height': imagenProducto.css("height"),
+        'width': imagenProducto.css("width"),
+        'top': imagenProducto.offset().top,
+        'left': imagenProducto.offset().left,
+    }).animate({
+        'top': carrito.offset().top - 60,
+        'left': carrito.offset().left + 100,
+        'height': carrito.css("height"),
+        'width': carrito.css("width"),
+        'opacity': 0.5
+    }, 450, 'swing', function () {
+        $(this).animate({
+            'top': carrito.offset().top,
+            'opacity': 0,
+            //}, 100, 'swing', function () {
+            //    $(".campana .info_cam").fadeIn(200);
+            //    $(".campana .info_cam").delay(2500);
+            //    $(".campana .info_cam").fadeOut(200);
+        }, 150, 'swing', function () {
+            $(this).remove();
+        });
+    });
+}
