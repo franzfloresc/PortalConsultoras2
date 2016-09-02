@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using PE = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraPeru;
-using CL = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraChile;
-using EC = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraEcuador;
-using System.Configuration;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -54,30 +46,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string sEmail = string.Empty;
-                string sTelefono = string.Empty;
-                string sCelular = string.Empty;
+                var sEmail = "";
+                var sTelefono = "";
+                var sCelular = "";
 
                 if (model.ActualizarClave == null) model.ActualizarClave = "";
                 if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                if (model.Email != null)
-                    sEmail = model.Email;
-                if (model.Telefono != null)
-                    sTelefono = model.Telefono;
-                if (model.Celular != null)
-                    sCelular = model.Celular;
+                if (model.Email != null) sEmail = model.Email;
+                if (model.Telefono != null) sTelefono = model.Telefono;
+                if (model.Celular != null) sCelular = model.Celular;
 
-                int result;
-                bool cambio;
-                string resultado = string.Empty;
-
-                if (model.Email != string.Empty)
+                if (model.Email != "")
                 {
-                    int cantidad = 0;
                     using (UsuarioServiceClient svr = new UsuarioServiceClient())
                     {
-                        cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
-
+                        var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
                         if (cantidad > 0)
                         {
                             return Json(new
@@ -92,97 +75,57 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, model.Celular, model.CorreoAnterior, model.AceptoContrato);
+                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, model.Celular, model.CorreoAnterior, model.AceptoContrato);
 
                     if (result == 0)
                     {
                         return Json(new
                         {
                             success = false,
-                            message = "Error al actualizar datos, intentelo mas tarde",
+                            message = "Error al actualizar datos, intentelo mas tarde.",
                             extra = ""
                         });
                     }
                     else
                     {
-                        string message = string.Empty;
-
+                        var message = "";
                         if (model.ActualizarClave != "")
                         {
-                            cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
+                            var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", EAplicacionOrigen.BienvenidaConsultora);
 
                             if (cambio)
                             {
-                                message = "- Los datos han sido actualizados correctamente.\n ";
+                                message = "Los datos han sido actualizados correctamente.";
                             }
                             else
                             {
-                                message = "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
+                                message = "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
                             }
-
                         }
                         else
                         {
-                            message = "- Los datos han sido actualizados correctamente.\n ";
+                            message = "Los datos han sido actualizados correctamente.";
                         }
+
                         if (!string.IsNullOrEmpty(model.Email))
                         {
-                            //try
-                            //{
-                            //    resultado = Convert.ToString(sv.UpdActualizarDatos(UserData().PaisID, UserData().CodigoConsultora, model.Email, model.Celular, model.Telefono));
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                            //    resultado = "0";
-                            //}
-                            resultado = "1";
-                            if (resultado == "1")
+                            try
                             {
-                                try
-                                {
-                                    //UsuarioModel UsuarioModelSession = UserData();
-                                    //UsuarioModelSession.EMail = model.Email;
-                                    //if (model.Celular == null)
-                                    //    UsuarioModelSession.Celular = model.Celular;
-                                    //if (model.Telefono == null)
-                                    //    UsuarioModelSession.Telefono = model.Telefono;
-                                    //SetUserData(UsuarioModelSession);
+                                var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
-                                    string param_querystring = Util.EncriptarQueryString(parametros);
-                                    //Mejora-Correo
-                                    //string nomPais = Util.ObtenerNombrePaisPorISO(userData.CodigoISO);
-                                    HttpRequestBase request = this.HttpContext.Request;
+                                var cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
+                                                  "<br /> <a href='" + Util.GetUrlHost(this.HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";
 
-                                    string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                                      "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//R2442
-                                    //Mejora-Correo
-                                    //string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                    //                  "<a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a>" +
-                                    //                  "<div style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>Belcorp - " + nomPais + "</div>";
-
-                                    //Mejora-Correo
-                                    //Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "Confimación de Correo", cadena, true, string.Format("{0} - Confirmacion de correo", Util.SinAcentosCaracteres(nomPais.ToUpper())));
-                                    Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
-                                    message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
-                                }
-                                catch (Exception ex)
-                                {
-                                    message += ex.Message;//"- Ha ocurrido un error en el envío del correo de verificación.";
-                                }
+                                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                                message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                return Json(new
-                                {
-                                    Cantidad = 0,
-                                    success = true,
-                                    message = "- El servicio de actualización de datos no se encuentra disponible en estos momentos. Por favor, inténtelo más tarde.",
-                                    extra = ""
-                                });
+                                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                                message += "-Hubo un problema al tratar de enviar el correo electronico de verificacion.";
                             }
                         }
+
                         userData.CambioClave = 1;
                         userData.EMail = sEmail;
                         userData.Telefono = sTelefono;
@@ -218,11 +161,11 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        //1796 
+
+        //1796
         [HttpPost]
         public JsonResult RechazarInvitacionFlexipago()
         {
-
             try
             {
                 int result = 0;
@@ -268,9 +211,8 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-
-
         }
+
         //1796
         [HttpPost]
         public JsonResult Cancelar(ConsultoraFicticiaModel model)
@@ -281,7 +223,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-
                     result = sv.UpdUsuarioDatosPrimeraVezEstado(userData.PaisID, userData.CodigoUsuario);
 
                     if (result == 0)
@@ -327,21 +268,20 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-    
 
         //R2116 INICIO
         public JsonResult RegistrarMexico(ConsultoraFicticiaModel model)
         {
             try
             {
-                string sEmail = string.Empty;
-                string sTelefono = string.Empty;
-                string sCelular = string.Empty;
-                string sNombre = string.Empty;
-                string sApellidos = string.Empty;
+                var sEmail = "";
+                var sTelefono = "";
+                var sCelular = "";
+                var sNombre = "";
+                var sApellidos = "";
                 long sConsultorioID = 0;
-                string sCodigoConsultora = string.Empty;
-                string sEmailAnterior = string.Empty;
+                var sCodigoConsultora = "";
+                var sEmailAnterior = "";
                 int campaniaID = 0;
                 int campaniaUltimo = 0;
                 int result;
@@ -353,13 +293,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Email != null) sEmail = model.Email;
                 if (model.Telefono != null) sTelefono = model.Telefono;
                 if (model.Celular != null) sCelular = model.Celular;
-                sConsultorioID = model.ConsultoraID;
                 if (model.CodigoConsultora != null) sCodigoConsultora = model.CodigoConsultora;
+
+                sConsultorioID = model.ConsultoraID;
                 campaniaID = userData.CampaniaID;
                 regionID = userData.RegionID;
                 zonaID = userData.ZonaID;
-                
-                if (model.Email != string.Empty)
+
+                if (model.Email != "")
                 {
                     int cantidad = 0;
                     using (UsuarioServiceClient svr = new UsuarioServiceClient())
@@ -380,8 +321,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-
-
                     result = sv.UpdateDatosPrimeraVezMexico(userData.PaisID, userData.CodigoUsuario, sNombre, sApellidos, sTelefono, sCelular, sEmail, sConsultorioID, sCodigoConsultora, campaniaID, campaniaUltimo, regionID, zonaID, sEmailAnterior);
 
                     if (result == 0)
@@ -395,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        string message = string.Empty;
+                        var message = "";
 
                         message = "Gracias por actualizar tus datos.</br> Junto con tu próximo pedido recibirás un </br> regalo sorpresa";
                         userData.NombreConsultora = sNombre + ' ' + sApellidos;
@@ -433,6 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         //R2116 FIN
     }
 }

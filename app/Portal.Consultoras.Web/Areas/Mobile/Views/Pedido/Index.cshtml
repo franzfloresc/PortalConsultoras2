@@ -35,7 +35,6 @@
 
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
-
             <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
             <div id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
@@ -113,7 +112,31 @@
                                 <!--FIN-->
                             </div>
                         MONTO TOTAL :</span>
-                        <span class="mi_ganancia" style=" margin-left: 30px;">MI GANANCIA :</span>
+                        @{                                                              
+                            string cabezaEscala=null, pieEscala=null;
+                            if (Model.PaisId == 11 || Model.PaisId == 4 || Model.PaisId == 6 || Model.PaisId == 2 || Model.PaisId == 8 || Model.PaisId == 7
+                                || Model.PaisId == 13 || Model.PaisId == 12) //PE - CO - EC - BO - GT - SV - DO - PR
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                            }                                   
+                            else if (Model.PaisId == 3) //CHILE
+                            {
+                                cabezaEscala = "Comisión y ahorro total";
+                                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                            }
+                            else if (Model.PaisId == 9 || Model.PaisId == 10) //MX - PA
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                            }
+                            else if (Model.PaisId == 5 || Model.PaisId == 14) //CR - VE
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "";                
+                            }                                                                                                        
+                        }
+                        <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
                     </div>
                     <div class="montos_resumen">
                         <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>

@@ -13,9 +13,6 @@
         .btn_animado {
             display: none;
             position: absolute;
-            /*width: 70px;
-            height: 30px;
-            background: red;*/
             z-index: 1000;
             text-align: center;
         }
@@ -23,12 +20,6 @@
         .no_mostrar {
             display: none;
         }
-
-        /*.campana:hover .info_cam {
-            display:none;
-        }*/
-
-        
     </style>
 }
 <div class="franja_negra"></div>
@@ -51,6 +42,7 @@
 </div>
 <div class="wrapper_general2">
     <input id="hdTipoEstrategiaID" type="hidden" value="0" />
+    <input id="hdAccionBotonProl" type="hidden" value="@Model.AccionBoton" />
     <input id="hdCuvRecomendado" type="hidden" />
     <input id="hdnHasFlexipago" type="hidden" value="@Model.IndicadorFlexiPago" />
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
@@ -91,7 +83,7 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-                <input type="text" name="CUV" id="txtCUV" onblur="ValidarCUV();" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
@@ -131,6 +123,7 @@
                 </a>
             </div>
             <input type="hidden" id="hdFlagNueva" />
+            <input type="hidden" id="hdMetodoBusqueda" />
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
@@ -236,9 +229,9 @@
                                 @{                                                              
                                     string cabezaEscala=null, pieEscala=null;
                                     if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
-                                        || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                                        || Model.PaisID == 13 || Model.PaisID == 12) //PE - CO - EC - BO - GT - SV - DO - PR
                                     {
-                                        cabezaEscala = "GANANCIA";
+                                        cabezaEscala = "Ganancia estimada total";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }                                   
                                     else if (Model.PaisID == 3) //CHILE
@@ -246,12 +239,12 @@
                                         cabezaEscala = "Comisión y ahorro total";
                                         pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                                     }
-                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                                    else if (Model.PaisID == 9 || Model.PaisID == 10) //MX - PA
                                     {
-                                        cabezaEscala = "GANANCIA";
+                                        cabezaEscala = "Ganancia estimada total";
                                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                                     }
-                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                                    else if (Model.PaisID == 5 || Model.PaisID == 14) //CR - VE
                                     {
                                         cabezaEscala = "Oportunidad de ahorro total";
                                         pieEscala = "";                
@@ -340,8 +333,8 @@
 
         <div class="contenedor_banners">
             <ul>
-                <li>
-                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
+                    <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
                         <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
                         <div>PRODUCTOS DESCONTINUADOS</div>
                     </a>
@@ -349,8 +342,8 @@
 
                 @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                 {
-                    <li>
-                        <a href="javascript:;" title="Monto Mínimo">
+                    <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                        <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
                             <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
                             <div>MONTO MÍNIMO</div>
                         </a>
@@ -358,15 +351,15 @@
                 }
                 else
                 {
-                    <li>
-                        <a href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                    <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                        <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
                             <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
                             <div>LIQUIDACIONES WEB</div>
                         </a>
                     </li>
                 }
-                <li>
-                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
+                <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
+                    <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' })" href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
                         <img src="@Model.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>
@@ -501,10 +494,8 @@
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
-<div id="divObservacionesPROL" style="display: none;">
-    <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#divObservacionesPROL').hide();"><img src="/Content/Images/cerrar_04.png"></a>
-    <hr class="clear" />
-    <div class="icono_mensaje_alerta icono_check_alerta"></div>
+<div id="divObservacionesPROL" style="display: none;">  
+    
     <div id="divTituloObservacionesPROL" class="terminos_title_2">
     </div>
    
@@ -1027,6 +1018,7 @@
     {{#each this as |item|}}
     <div class="vertical" data-item="producto">
         <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;"  onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" /> 
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
             </div>
@@ -1083,7 +1075,7 @@
                     <div class="liquidacion_rango_wrapper_pedido">
                         <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />                        
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                         AGREGAR
                     </a>
                     {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
@@ -1098,7 +1090,7 @@
                             </a>
                         </div>
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGREGAR
                     </a>
                     {{else}}
@@ -1113,7 +1105,7 @@
                             </a>
                         </div>
                     </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGREGAR
                     </a>
                     {{/iff}}                    

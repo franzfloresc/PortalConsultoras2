@@ -8272,7 +8272,7 @@ ul.tabs {
         font-size: 10pt !Important;
         font-family: 'lato';
         color: black;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
         }
 
 .terminos_title_Contrato {
@@ -9960,16 +9960,16 @@ border: 0;
 .input_modifica_horizontal {
     text-transform: uppercase;
     margin-top: 5px;
-    width: 140px;
-    height: 45px;
+    width: 100px;
+    height: 40px;
     letter-spacing: 0.5px;
     padding: 0;
     background: #613c87;
     color: white;
     font-family: 'lato';
-    font-size: 13px;
+    font-size: 12px;
     border: 0;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .div-3 .ganancia {

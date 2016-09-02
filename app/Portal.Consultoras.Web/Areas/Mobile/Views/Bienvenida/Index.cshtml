@@ -127,17 +127,8 @@
         <div class="item1_mobile">
             @{
                 string cabezaEscala = null, pieEscala = null;
-                if (Model.PaisID == 11) //PERU
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 4) //COLOMBIA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 6) //ECUADOR
+                if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
+                    || Model.PaisID == 13 || Model.PaisID == 12) //PERU
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
@@ -147,45 +138,15 @@
                     cabezaEscala = "Comisión y ahorro total";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 2) //BOLIVIA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 9) //MEXICO
+                else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
-                else if (Model.PaisID == 5) //COSTA RICA
+                else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
-                }
-                else if (Model.PaisID == 8)//GUATEMALA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 7)//EL SALVADOR
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 10)//PANAMA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                }
-                else if (Model.PaisID == 13)//DOMINICANA
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                }
-                else if (Model.PaisID == 12)//PUERTO RICO
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
             }
             <div class="icono_item"></div>
