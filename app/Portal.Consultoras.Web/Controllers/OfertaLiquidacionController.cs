@@ -1,17 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
-using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using System.IO;
-using System.Configuration;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,9 +24,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
                 ViewBag.ISO = userData.CodigoISO.ToString();
                 ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
-                //var lista = GetListadoOfertasLiquidacion();
-                //if (lista != null && lista.Count > 0)
-                //    lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                 BEConfiguracionCampania oBEConfiguracionCampania = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -36,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (oBEConfiguracionCampania != null)
                     ValidarStatusCampania(oBEConfiguracionCampania);
-                //ViewBag.ListaOfertasLiquidacion = lista;
             }
             catch (FaultException ex)
             {
@@ -148,59 +142,6 @@ namespace Portal.Consultoras.Web.Controllers
                 verMas = estado 
             }, JsonRequestBehavior.AllowGet);           
         }
-
-        //[HttpGet]
-        //public PartialViewResult GetListadoOfertasLiquidacionPaginado(int offset, int cantidadregistros)
-        //{
-        //    int dobleCantidadRegistros = cantidadregistros * 2;
-        //    var lst = new List<BEOfertaProducto>();
-        //    OfertaLiquidacionModel modelo = new OfertaLiquidacionModel()
-        //    {
-        //        MostrarVerMas = false
-        //    };
-        //    using (PedidoServiceClient sv = new PedidoServiceClient())
-        //    {
-        //        lst = sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, dobleCantidadRegistros).ToList();
-        //    }
-
-        //    ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
-        //    Mapper.CreateMap<BEOfertaProducto, OfertaProductoModel>()
-        //          .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-        //          .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-        //          .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-        //          .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-        //          .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
-        //          .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-        //          .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-        //          .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-        //          .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-        //          .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-        //          .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-        //          .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-        //          .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
-        //          .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-        //          .ForMember(t => t.TallaColor, f => f.MapFrom(c => c.TallaColor))
-        //          .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
-        //          .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
-        //          .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
-
-        //    if (lst != null && lst.Count > 0)
-        //    {
-        //        if (lst.Count > cantidadregistros)
-        //        {
-        //            modelo.MostrarVerMas = true;
-        //        }
-
-        //        lst = lst.Take(cantidadregistros).ToList();
-        //        var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;               
-        //        lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-        //        lst.Update(x => x.ImagenProducto = x.ImagenProducto.Equals(string.Empty) ? "~/Content/Matriz/Producto_Sin_Imagen.png" : x.ImagenProducto);
-        //        lst.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));               
-        //    }
-
-        //    modelo.ListaProductos = Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
-        //    return PartialView("_ListadoOfertasLiquidacion", modelo);
-        //}
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
