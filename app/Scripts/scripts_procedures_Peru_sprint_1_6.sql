@@ -1,4 +1,4 @@
-USE BelcorpPeru_SB2
+USE BelcorpPeru
 go
 
 /*TABLAS*/
