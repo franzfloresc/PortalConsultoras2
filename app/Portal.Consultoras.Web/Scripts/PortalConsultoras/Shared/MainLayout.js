@@ -153,17 +153,19 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    if (data.montoWebAcumulado == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            data.montoWebAcumulado = "0";
-                        else
-                            data.montoWebAcumulado = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                        else
-                            data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    }
+                    //if (data.montoWebAcumulado == 0) {
+                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
+                    //        data.montoWebAcumulado = "0";
+                    //    else
+                    //        data.montoWebAcumulado = "0.00";
+                    //} else {
+                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
+                    //        data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                    //    else
+                    //        data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
+                    //}
+
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
 
                     if (data.cantidadProductos > 0) {
                         $("#pCantidadProductosPedido").html(data.cantidadProductos);
