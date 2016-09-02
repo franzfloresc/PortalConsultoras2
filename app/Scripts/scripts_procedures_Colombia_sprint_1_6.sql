@@ -793,7 +793,7 @@ WHILE @@FETCH_STATUS = 0
 BEGIN         
 
 	   insert into @tablaCUV
-	   exec dbo.GetProductoComercialByCampaniaBySearchRegionZona @CampaniaID,1,1,@CUV,@RegionID,@ZonaID,@CodigoRegion,@CodigoZona	   
+	   exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2 @CampaniaID,1,1,@CUV,@RegionID,@ZonaID,@CodigoRegion,@CodigoZona	   
 	   
 	   FETCH NEXT FROM cursorSugerido INTO @CUV 
 END
