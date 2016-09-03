@@ -1,6 +1,4 @@
-﻿var existeCarouselSugerido = false;
-var existeCarouselEstrategias = false;
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
@@ -296,10 +294,7 @@ function ObtenerEstrategiaCoincidente(cuv) {
 function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    if (existeCarouselSugerido)
-        $('#divCarruselSugerido').unslick();
-    else
-        existeCarouselSugerido = true;
+    $('#divCarruselSugerido.slick-initialized').slick('unslick');
     
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     $("#divProductoInformacion").hide();
@@ -410,8 +405,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             CargarProductosDestacados(cuv);
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
-
-            setTimeout(function () { $('.toUp').click(); }, 2000);
         },
         error: function (data, error) {
             CloseLoading();
@@ -589,7 +582,6 @@ function InsertarProducto() {
             }
 
             CloseLoading();
-            //$("#divMensajeProductoAgregado").show();
             $('#divMensajeCUV').hide();
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
@@ -609,8 +601,7 @@ function InsertarProducto() {
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 
             setTimeout(function () {
-                //$("#divMensajeProductoAgregado").fadeOut();
-                $('.toUp').click();
+                //$("#divMensajeProductoAgregado").show();
             }, 2000);
         },
         error: function (data, error) {
@@ -758,10 +749,7 @@ function AgregarProductoCarrusel(data) {
 
     $('#slick-prev').remove();
     $('#slick-next').remove();
-    if (existeCarouselEstrategias)
-        $('#divContenidoEstrategias').unslick();
-    else
-        existeCarouselEstrategias = true;
+    $('#divContenidoEstrategias.slick-initialized').slick('unslick');
     
     $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
 

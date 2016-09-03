@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Login();
 
-            //return View(new LoginModel(){listaPaises = DropDowListPaises()});
+            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
         private ActionResult Login()
@@ -355,6 +355,11 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+
+                    if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
+                        model.DiaPROLMensajeCierreCampania = false;
+                    else
+                        model.DiaPROLMensajeCierreCampania = true;
 
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes))
                     {

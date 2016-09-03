@@ -2,8 +2,6 @@
 var vpromotionsTagged = [];
 var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
-var existeCarouselEstrategias = false;
-var existeCarouselLiquidacion = false;
 
 $(document).ready(function () {
 
@@ -598,11 +596,8 @@ function CargarPopupsConsultora() {
 function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    if (existeCarouselEstrategias)
-        $('#divCarruselHorizontal').unslick();
-    else
-        existeCarouselEstrategias = true;
-    
+    $('#divCarruselHorizontal.slick-initialized').slick('unslick');    
+
     if (isEsika) {
         $('#divCarruselHorizontal').html(
             '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-esika" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
@@ -633,7 +628,7 @@ function ArmarCarouselEstrategias(data) {
     if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
         $('.fondo_gris').hide();
     } else {
-        $('#divCarruselHorizontal').slick({
+        $('#divCarruselHorizontal').not('.slick-initialized').slick({
             infinite: true,
             vertical: false,
             slidesToShow: 4,
@@ -1174,10 +1169,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 function CargarCarouselLiquidaciones() {
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
-    if (existeCarouselLiquidacion)
-        $('#divCarruselLiquidaciones').unslick()
-    else
-        existeCarouselLiquidacion = true;
+    $('#divCarruselLiquidaciones.slick-initialized').slick('unslick');
     
     $('#divCarruselLiquidaciones').html('<div style="text-align: center;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
 
