@@ -1,5 +1,4 @@
-﻿var existeCarouselEstrategias = false;
-var arrayOfertasParaTi = [];
+﻿var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
 
@@ -86,10 +85,7 @@ function RedirectPagaEnLineaAnalytics() {
 function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    if (existeCarouselEstrategias)
-        $('#divCarouseHorizontalMobile').unslick();
-    else
-        existeCarouselEstrategias = true;
+    $('#divCarouseHorizontalMobile.slick-initialized').slick('unslick');
    
     $('#divCarouseHorizontalMobile').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
 
