@@ -11,6 +11,9 @@ var salto = 3;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
+var existeCarouselEstrategias = false;
+var existeCarouselSugerido = false;
+var existeCarouselOfertaFinal = false;
 
 $(document).ready(function () {
     AnalyticsBannersInferioresImpression();
@@ -1117,7 +1120,11 @@ function PedidoOnSuccess() {
 function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    $('#divListadoEstrategia').unslick();
+    if (existeCarouselEstrategias)
+        $('#divListadoEstrategia').unslick();
+    else
+        existeCarouselEstrategias = true;
+
     $('#divListadoEstrategia').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
     $.ajax({
@@ -1150,10 +1157,11 @@ function ArmarCarouselEstrategias(data) {
             infinite: true,
             vertical: true,
             centerMode: true,
-            centerPadding: '50px',
+            centerPadding: '0px',
             slidesToShow: cant,
             slidesToScroll: 1,
             autoplay: false,
+            speed: 270,
             pantallaPedido: false,
             prevArrow: '<button onclick="javascript:TagManagerCarruselPrevia();" type="button" data-role="none" class="slick-next"></button>',
             nextArrow: '<button onclick="javascript:TagManagerCarruselSiguiente();" type="button" data-role="none" class="slick-prev"></button>'
@@ -1439,7 +1447,11 @@ function ObtenerProductosSugeridos(CUV) {
 
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    $('#divCarruselSugerido').unslick();
+    if (existeCarouselSugerido)
+        $('#divCarruselSugerido').unslick();
+    else
+        existeCarouselSugerido = true;
+    
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
 
     AbrirSplash();
@@ -2790,7 +2802,11 @@ function MostrarMensajeProl(data) {
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-prev-of').remove();
     $('.js-slick-next-of').remove();
-    $('#divCarruselOfertaFinal').unslick();
+    if (existeCarouselOfertaFinal)
+        $('#divCarruselOfertaFinal').unslick();
+    else
+        existeCarouselOfertaFinal = true;
+
     $('#divCarruselOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divCarruselOfertaFinal");
