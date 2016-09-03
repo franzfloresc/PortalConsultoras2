@@ -35,7 +35,7 @@ jQuery(document).ready(function () {
         }
     };
     $.fn.Checked = function (val) {
-        val = val || $(this).is(":checked");        
+        val = val || $(this).is(":checked");
         if (val) {
             $(this).removeAttr('checked');
         }
@@ -101,9 +101,9 @@ jQuery(document).ready(function () {
         else
             return String(str).substring(0, n);
     };
-    
+
     Array.prototype.Find = function (campo, valor) {
-        var array = new Array();        
+        var array = new Array();
         $.each(this, function (index, item) {
             if (item[campo] == valor) {
                 try {
@@ -190,7 +190,7 @@ jQuery(document).ready(function () {
                 }
                 return new Handlebars.SafeString("");
             });
-            
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -198,24 +198,24 @@ jQuery(document).ready(function () {
     }
 
     SetHandlebars = function (idTemplate, data, idHtml) {
-        if (!Handlebars.helpers.iff) 
+        if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
         idHtml = $.trim(idHtml);
-        if (idHtml == "")  return htmlDiv;
+        if (idHtml == "") return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
-    
+
     SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
         if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
             var listaDatos = miles.split("|");
             if (listaDatos.length < 2)
                 return new Object();
-            
+
             miles = listaDatos.length > 0 ? listaDatos[0] : "";
             decimal = listaDatos.length > 1 ? listaDatos[1] : "";
             decimalCantidad = listaDatos.length > 2 ? listaDatos[2] : "";
@@ -236,7 +236,7 @@ jQuery(document).ready(function () {
 
         monto = monto || 0;
         var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
-        
+
         decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
@@ -317,8 +317,8 @@ function waitingDialog(waiting) {
     try {
         $("#loadingScreen").dialog("open");
     }
-    catch(err) {
-    
+    catch (err) {
+
     }
 }
 function closeWaitingDialog() {
@@ -328,7 +328,7 @@ function closeWaitingDialog() {
     catch (err) {
 
     }
-    
+
 }
 
 function compare_dates(fecha, fecha2) {
@@ -378,22 +378,19 @@ function isInt(n) {
     var isn = patron.test(n);
     return isn;
     //return +n === n && !(n % 1);
-}   
+}
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     //debugger;
     var thereIsStillTime = true;
 
-    if (data)
-    {
-        if (data.responseText)
-        {
+    if (data) {
+        if (data.responseText) {
             if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
-        else
-        {
+        else {
             if (data == "_Logon_")
                 thereIsStillTime = false;
         }
@@ -404,8 +401,7 @@ function checkTimeout(data) {
             window.location.href = "/SesionExpirada.html";
         }
     }
-    else
-    {
+    else {
         //debugger;
         $.ajax({
             url: "/Dummy/",
@@ -468,7 +464,7 @@ function paginadorAccionGenerico(obj) {
         //    }
         //}
         paginaActual = 1;
-    }    
+    }
 
     paginaActual = paginaActual > pageCount ? pageCount : paginaActual;
 
@@ -591,22 +587,22 @@ FuncionesGenerales = {
         var patron = /[0-9]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-        },
+    },
 
-    ValidarSoloNumerosAndSpecialCharater: function(e) {
+    ValidarSoloNumerosAndSpecialCharater: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
-    GetDataForm: function(form) {
+    GetDataForm: function (form) {
         var that = $(form);
         var url = that.attr('action');
         var type = that.attr('method');
         var data = {};
 
-        that.find('[name]').each(function(index, value) {
+        that.find('[name]').each(function (index, value) {
             var that = $(this);
             var name = that.attr('name');
             var value = that.val();
