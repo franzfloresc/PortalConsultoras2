@@ -1161,6 +1161,7 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: cant,
             slidesToScroll: 1,
             autoplay: false,
+            speed: 270,
             pantallaPedido: false,
             prevArrow: '<button onclick="javascript:TagManagerCarruselPrevia();" type="button" data-role="none" class="slick-next"></button>',
             nextArrow: '<button onclick="javascript:TagManagerCarruselSiguiente();" type="button" data-role="none" class="slick-prev"></button>'
