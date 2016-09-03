@@ -185,8 +185,7 @@
 
 @section scripts{
     <script type="text/javascript">
-        // POPUP NOTIFICACIONES //
         var urlMisPedidos = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Notificaciones.js")
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Notificaciones/Index.js")"></script>
 }
