@@ -1,4 +1,4 @@
-USE BelcorpGuatemala_SB2
+USE BelcorpGuatemala
 go
 
 /*ESQUEMAS*/
@@ -220,6 +220,18 @@ GO
 /*FIN TABLAS*/
 
 /*TYPES*/
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+
 IF TYPE_ID('interfaces.JetloreProductFeedType') IS NOT NULL
 	DROP TYPE interfaces.JetloreProductFeedType
 GO
@@ -583,6 +595,7 @@ DELETE FROM MenuMobile WHERE Posicion='Menu' AND MENUMOBILEID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version,EsSB2)
 VALUES
+(1030, 'Inicio', 1001, 0, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
 (1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile',1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
 (1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
@@ -4182,6 +4195,8 @@ BEGIN
 		AND (@RolID != 1 or P.EsPrincipal = 0)
 	ORDER BY P.OrdenItem
 END
+
+GO
 
 ALTER PROCEDURE ListarEtiquetas
 	@Estado INT

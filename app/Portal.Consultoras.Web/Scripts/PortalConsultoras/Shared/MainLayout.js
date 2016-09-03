@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     waitingDialog({});
     closeWaitingDialog();
 
@@ -141,6 +142,10 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes').dialog('open');
 }
 
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+}
+
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
     $.ajax({
@@ -197,13 +202,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     }
 
                     if (showPopup == true) {
-                        $('.info_cam').fadeIn(200);
-                        setTimeout(function () {
-                            $('.info_cam').fadeOut(200);
-                            setTimeout(function () {
-                                $('.info_cam').removeAttr("style");
-                            }, 300);
-                        }, 5000);
+                        //$('.info_cam').fadeIn(200);
+                        //setTimeout(function () {
+                        //    $('.info_cam').fadeOut(200);
+                        //    setTimeout(function () {
+                        //        $('.info_cam').removeAttr("style");
+                        //    }, 300);
+                        //}, 5000);
+                        microefectoPedidoGuardado();
+                        setTimeout(function(){
+                            $(".contenedor_circulos").fadeOut();
+                        }, 4500);
                     }
                 }
                 else {

@@ -1,4 +1,4 @@
-USE BelcorpBolivia_SB2
+USE BelcorpBolivia
 go
 
 /*ESQUEMAS*/
@@ -220,6 +220,18 @@ GO
 /*FIN TABLAS*/
 
 /*TYPES*/
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+
 IF TYPE_ID('interfaces.JetloreProductFeedType') IS NOT NULL
 	DROP TYPE interfaces.JetloreProductFeedType
 GO
@@ -583,6 +595,7 @@ SET EsSB2 = 0
 WHERE MenuMobileID<1000
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, esSB2)
 VALUES
+(1030, 'Inicio', 1001, 0, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
 (1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile', 1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
 (1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
@@ -4202,6 +4215,10 @@ MenuMobileID
 FROM dbo.MenuMobile
 WHERE EsSB2=0
 END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetMenuMobile_SB2
 GO
 
 --EXEC GetMenuMobile_SB2
