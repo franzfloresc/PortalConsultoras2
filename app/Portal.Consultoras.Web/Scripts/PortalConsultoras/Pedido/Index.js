@@ -3264,12 +3264,12 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
     var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
     if (CliDes.length == 0) {
-        CliID = 0
+        CliID = 0;
     }
 
     var Cantidad = CantidadModi;
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-    var Total = parseFloat(Cantidad * Unidad).toFixed(2);
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     var ClienteID_ = $('#ddlClientes').val();
     $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
@@ -3352,7 +3352,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     }
 
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-    var Total = parseFloat(Cantidad * Unidad).toFixed(2)
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     $('#lblLPImpTotal' + PedidoDetalleID).html(DecimalToStringFormat(Total));
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
     var item = {
@@ -3531,7 +3531,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                     } else {
                         var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
                         var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-                        var Total = parseFloat(Cantidad * Unidad).toFixed(2);
+                        var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
                         $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
                         var ClienteID_ = $('#ddlClientes').val();
                         var item = {
