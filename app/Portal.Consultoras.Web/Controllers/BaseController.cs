@@ -506,7 +506,12 @@ namespace Portal.Consultoras.Web.Controllers
                 string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
-                string TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
+                string TextoNuevoProl = "";                
+
+                if (("BO CL VE").Contains(model.CodigoISO))                
+                    TextoNuevoProl  = "";                
+                else                
+                    TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";                               
 
                 if (model.TipoCasoPromesa != "0")
                 {
@@ -521,7 +526,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!model.DiaPROL)
+                if (!model.DiaPROLMensajeCierreCampania)
                 {
                     ViewBag.MensajeCierreCampania = "<p>Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + displayTiempo;
                     if (model.ZonaValida)
@@ -701,7 +706,12 @@ namespace Portal.Consultoras.Web.Controllers
                 string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
-                string TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
+                string TextoNuevoProl = "";
+
+                if (("BO CL VE").Contains(model.CodigoISO))
+                    TextoNuevoProl = "";
+                else
+                    TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
 
                 if (model.TipoCasoPromesa != "0")
                 {
@@ -716,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!model.DiaPROL)
+                if (!model.DiaPROLMensajeCierreCampania)
                 {
                     ViewBag.MensajeCierreCampania = "<p>Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + displayTiempo;
                     if (model.ZonaValida)
