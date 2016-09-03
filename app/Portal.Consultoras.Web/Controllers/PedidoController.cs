@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
                 PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
@@ -458,9 +458,9 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
-                    pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
+                    //pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
                     pedidoWebDetalleModel.DescripcionOferta = bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim();
-                }                
+                }
 
                 return Json(new
                 {
@@ -1037,21 +1037,28 @@ namespace Portal.Consultoras.Web.Controllers
                 OfertaWeb = false
             };
 
+            EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
+            Session["ListadoEstrategiaPedido"] = null;
+            return Insert(pedidoModel);
+        }
+        #endregion
+
+        #region Eliminar Detalle Pack Nueva
+        private void EliminarDetallePackNueva(PedidoSb2Model entidad, int tipoEstrategiaImagen)
+        {
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                
-                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1);
+
+                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
 
                 foreach (var item in packNuevas)
                 {
                     DeletePedido(item);
                 }
+
                 Session["PedidoWebDetalle"] = null;
             }
-
-            Session["ListadoEstrategiaPedido"] = null;
-            return Insert(pedidoModel);
         }
         #endregion
 
