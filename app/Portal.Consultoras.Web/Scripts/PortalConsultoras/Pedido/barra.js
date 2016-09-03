@@ -91,7 +91,8 @@ function MostrarBarra(datax) {
         if (mt < mn)
             vLogro = mt - md;
         else
-            vLogro = me < mn ? mn : me;
+            //vLogro = me < mn ? mn : me;
+            vLogro = me;
 
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
@@ -331,7 +332,7 @@ function MostrarBarra(datax) {
     }
     if (vLogro >= vLimite) {
         if (indPuntoLimite > 0 && mn > 0) {
-            wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+            wPuntosAnterior += $("#punto_" + indPuntoLimite).width();
         }
     }
 
