@@ -5825,7 +5825,7 @@ body {
     width: 98px;
     height: 66px;
     margin-bottom: 10px;
-    background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;*/
 }
 
 .liquidacion_esika {
@@ -7529,8 +7529,8 @@ input[type="checkbox"]:checked + span:after {
     font-family: 'Lato';
     font-weight: 400;
     color:#000;
-    width:250px;
-    font-size:14px;
+    width:auto;
+    font-size:13px;
 }
 
 /* PANTALLA MI ASESOR DE BELLEZA */
