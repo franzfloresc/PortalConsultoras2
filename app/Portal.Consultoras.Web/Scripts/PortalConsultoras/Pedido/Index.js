@@ -76,6 +76,7 @@ $(document).ready(function () {
     };
     $('#txtDescripcionProd').keyup(function (evt) {
         $("#divObservaciones").html("");
+        $("#txtCantidad").removeAttr("disabled");
     });
     $('#txtDescripcionProd').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoDescripcion",
@@ -103,6 +104,7 @@ $(document).ready(function () {
             .appendTo(ul);
     };
     $("#txtCUV").keyup(function (evt) {
+        $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
         $("#hdfDescripcionProd").val("");
         $("#txtDescripcionProd").val("");
@@ -275,10 +277,12 @@ $(document).ready(function () {
         var validarEstrategia = ValidarStockEstrategia();
 
         if (validarEstrategia.success) {
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
+
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 InsertarProducto(form);
             } else {
-                AgregarProductoZonaEstrategia($("#hdFlagNueva").val());
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -866,11 +870,12 @@ function AgregarProductoListado() {
                 alert_msg(datos.message);
                 return false;
             }
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 //CerrarSplash();
                 $('form#frmInsertPedido').submit();
             } else {
-                AgregarProductoZonaEstrategia($("#hdFlagNueva").val());
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -1397,7 +1402,7 @@ function BuscarByCUV(CUV) {
                 }
 
                 $("#divObservaciones").html("");
-
+                
                 if (data[0].MarcaID != 0) {
                     $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
                     $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
@@ -1705,7 +1710,9 @@ function ObservacionesProducto(item) {
     $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#OfertaTipoNuevo").val("");
 
+    $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
+        $("#txtCantidad").attr("disabled", "disabled");
         var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
 
         pedidosData.each(function (indice, valor) {

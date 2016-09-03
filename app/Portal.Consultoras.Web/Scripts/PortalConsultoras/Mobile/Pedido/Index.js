@@ -8,6 +8,7 @@
         posicion = -1;
         var codigo = $("#txtCodigoProducto").val();
 
+        $("#txtCantidad").removeAttr("disabled");
         $("#divProductoMantenedor").hide();
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
@@ -152,6 +153,7 @@ function BuscarByCUV(cuv) {
                 return false;
             }
 
+            $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
@@ -185,6 +187,9 @@ function BuscarByCUV(cuv) {
 };
 function ObservacionesProducto(item) {
     $("#hdfValorFlagNueva").val(item.FlagNueva);
+    if (item.FlagNueva == 1) {
+        $("#txtCantidad").attr("disabled", "disabled");
+    }
 
     if (item.TipoOfertaSisID == "1707") {
         if (esShowRoom == "1") {
@@ -548,7 +553,7 @@ function InsertarProducto() {
             Cantidad: $("#txtCantidad").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: $("#hdfValorFlagNueva").val() || 0
+            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
         };
     }
 
