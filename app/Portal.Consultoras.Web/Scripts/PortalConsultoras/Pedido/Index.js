@@ -11,9 +11,6 @@ var salto = 3;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
-var existeCarouselEstrategias = false;
-var existeCarouselSugerido = false;
-var existeCarouselOfertaFinal = false;
 
 $(document).ready(function () {
     AnalyticsBannersInferioresImpression();
@@ -1120,10 +1117,7 @@ function PedidoOnSuccess() {
 function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    if (existeCarouselEstrategias)
-        $('#divListadoEstrategia').unslick();
-    else
-        existeCarouselEstrategias = true;
+    $('#divListadoEstrategia.slick-initialized').slick('unslick');
 
     $('#divListadoEstrategia').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
@@ -1447,10 +1441,7 @@ function ObtenerProductosSugeridos(CUV) {
 
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    if (existeCarouselSugerido)
-        $('#divCarruselSugerido').unslick();
-    else
-        existeCarouselSugerido = true;
+    $('#divCarruselSugerido.slick-initialized').slick('unslick');
     
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
 
@@ -2802,10 +2793,7 @@ function MostrarMensajeProl(data) {
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-prev-of').remove();
     $('.js-slick-next-of').remove();
-    if (existeCarouselOfertaFinal)
-        $('#divCarruselOfertaFinal').unslick();
-    else
-        existeCarouselOfertaFinal = true;
+    $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
     $('#divCarruselOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
