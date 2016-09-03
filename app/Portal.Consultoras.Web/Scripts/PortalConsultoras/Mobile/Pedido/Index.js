@@ -590,7 +590,7 @@ function InsertarProducto() {
 
             CloseLoading();
             //$("#divMensajeProductoAgregado").show();
-
+            $('#divMensajeCUV').hide();
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
             $("#btnAgregarProducto").hide();
