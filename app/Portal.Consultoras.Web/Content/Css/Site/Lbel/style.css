@@ -2555,13 +2555,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .mensaje_productoAgotado p{
-    font-family:'Lato';
-    font-size:14px;
-    padding-left:21.5px;
-    text-align:left;
-    color:#000;
-    height:55px;
-    line-height:55px;
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-left: 21.5px;
+    padding-top: 7px;
+    text-align: left;
+    color: #d20000;
+    height: auto;
+    line-height: 20px;
 }
 
 .cabecera_codigo{
