@@ -299,14 +299,6 @@ GO
 CREATE SYNONYM [ods].[EscalaDescuento] FOR [ODS_EC].[dbo].[EscalaDescuento]
 GO
 
-IF  EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[INT_SOA_COBRA_DEUDA_SECCI]') AND (type = N'SN') )
-	DROP SYNONYM [ods].[INT_SOA_COBRA_DEUDA_SECCI]
-GO
-
-CREATE SYNONYM [ods].[INT_SOA_COBRA_DEUDA_SECCI] FOR [ODS_EC].[ffvv].[INT_SOA_COBRA_DEUDA_SECCI]
-
-GO
-
 IF OBJECT_ID('ods.SAP_SUBCATEGORIA') IS NULL
 BEGIN
 	CREATE SYNONYM ods.SAP_SUBCATEGORIA
@@ -2473,29 +2465,6 @@ ORDER BY
 SET NOCOUNT OFF
 
 END
-
-go
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetFechaVencimiento_SB2]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].GetFechaVencimiento_SB2
-GO
-
-create procedure dbo.GetFechaVencimiento_SB2
-@CodigoIso varchar(2),
-@CampaniaID int,
-@CodigoConsultora varchar(20)
-as
-/*
-dbo.GetFechaVencimiento_SB2 'PE',201611,'000758833'
-*/
-begin
-
-select top 1
-	FEC_VENC
-from ods.INT_SOA_COBRA_DEUDA_SECCI
-where COD_PAIS = @CodigoIso and COD_PERI = @CampaniaID and COD_CLIE = @CodigoConsultora
-
-end
 
 go
 
