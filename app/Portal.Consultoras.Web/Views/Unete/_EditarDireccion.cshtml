@@ -1,10 +1,7 @@
-﻿@using Portal.Consultoras.Web.Models;
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models;
 
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
-@{
-    var lugaresNivel1 = ViewBag.LugaresNivel1 != null ? ViewBag.LugaresNivel1 as SelectList : new SelectList(new List<SelectListItem>());
-    var direccionesCo = ViewBag.DireccionesCo != null ? ViewBag.DireccionesCo as SelectList : new SelectList(new List<SelectListItem>());
-}
 
 <style>
     .validation {
@@ -63,16 +60,18 @@
     HttpMethod = "POST",
     InsertionMode = InsertionMode.Replace,
     OnSuccess = "OnSuccess",
-    OnBegin = "modalOpcion.dialog('close');waitingDialog({});",
+    OnBegin = "waitingDialog({});",
     OnComplete = "closeWaitingDialog({});"
 }, null))
 {
     @Html.HiddenFor(m => Model.SolicitudPostulanteID)
     @Html.HiddenFor(m => Model.CodigoPais)
-    @Html.HiddenFor(m => Model.NombreComunaEdicion)
-    @Html.HiddenFor(m => Model.NombreRegionEdicion)
-    @Html.HiddenFor(m => Model.NombreDireccionColombia)
-     @Html.HiddenFor(m => Model.NombreColonia)
+    @Html.HiddenFor(m => Model.NombreLugarNivel1)
+    @Html.HiddenFor(m => Model.NombreLugarNivel2)
+    @Html.HiddenFor(m => Model.NombreLugarNivel3)
+    @Html.HiddenFor(m => Model.NombreLugarNivel4)
+    @Html.HiddenFor(m => Model.NombreLugarNivel5)
+    @Html.HiddenFor(m => Model.ContaValorNivel3)
     <div class="wrap_cab">
         <div class="filtros2">
             <h2>
@@ -81,120 +80,7 @@
             </h2>
         </div>
         <div class="elements" style="width:95% !important;padding-top:10px !important;">
-            <div class="div-3">
-                <div class="titC">@DictionariesUnete.LabelLugar1[Model.CodigoPais]</div>
-                <div class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(m => Model.Region, lugaresNivel1, "-- Seleccionar --", new { @class = "field_85" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => Model.Region)
-                </div>
-            </div>
-
-            <div class="div-3">
-                <div class="titC">@DictionariesUnete.LabelLugar2[Model.CodigoPais]</div>
-                <div class="selectP2 borde_redondeado">
-                    @Html.DropDownListFor(m => Model.Comuna, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => Model.Comuna)
-                </div>
-            </div>
-
-                @if (Model.CodigoPais == "CL")
-                {
-                    <div class="div-3">
-                    <div class="titC">Calle &oacute; avenida</div>
-                    <div class="selectP2 borde_redondeado">
-                    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
-                    </div>
-                    </div>
-                    <div class="div-3">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
-                    </div>
-                    </div>
-                    
-                }
-                else if (Model.CodigoPais == "CO")
-                {
-                    <div class="div-3">
-                    <div class="titC">Barrio</div>
-                    <div class="selectP2 borde_redondeado">
-                    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
-                    </div>
-                    </div>
-                }
-                else if (Model.CodigoPais == "MX")
-                {
-                    <div class="div-3">
-                    <div class="titC">Colonia</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.DropDownListFor(m => Model.Colonia, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
-                    </div>
-                    </div>
-                }
-                
-                @if (Model.CodigoPais == "CO")
-                {
-                    <div class="div-3">
-                        <div class="titC">Dirección</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.DropDownListFor(m => Model.DireccionColombia, direccionesCo, "-- Seleccionar --", new { @class = "field_85" })
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Model.DireccionColombia)
-                        </div>
-                    </div>
-                    <div class="div-3">
-
-                        <div class="titC"></div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85", @placeholder = "Ejm: 97B 35 2" })
-                        </div>
-                    </div>
-                    <div class="div-3">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)
-                        </div>
-                    </div>
-                }
-
-                @if (Model.CodigoPais == "MX")
-                {
-                   <div class="div-3">
-                    <div class="titC">Dirección</div>
-                    <div class="selectP2 borde_redondeado">
-                    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ejm: Av. Castellana 100" })
-                    </div>
-                    </div>
-                    
-                     <div class="div-3">
-                        <div class="titC">Nro.</div>
-                        <div class="selectP2 borde_redondeado">
-                            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100" })
-                        </div>
-                    </div>
-                        <div class="div-3">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
-                            @Html.ValidationMessageFor(m => Model.Numero)
-                        </div>
-                    </div>
-                    
-                }
-
+            @Html.Partial(Dictionaries.TemplateUbigeos[Model.CodigoPais], Model)
         </div>
         <div class="elements" style="width:100% !important; padding:10px !important;">
             <div class="div-3">
@@ -207,69 +93,144 @@
     </div>
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
 <script>
     var defaultOption = '<option value="" >-- Seleccionar --</option>';
 
     $(function () {
+
+        $.validator.unobtrusive.parse('form');
+
         $('.numero').keydown(IntegerNumber);
 
-        $('body').on('change', '#Region', function () {
-            var region = $(this);
-            var comuna = $('#Comuna');
-            comuna.attr('disabled', 'disabled');
+        $('#LugarNivel1')
+           .change(function () {
+               debugger;
+               var nivel1 = $(this);
+               var nivel2 = $('#LugarNivel2');
+               nivel2.attr('disabled', 'disabled');
 
-            $('#NombreRegionEdicion').val(region.find('option:selected').text());
+               $('#NombreLugarNivel1').val(nivel1.find('option:selected').text());
+               $.getJSON('@Url.Action("ObtenerNivelN")',
+                       { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel2.ToInt()' },
+                       function (data) {
+                           nivel2.html(defaultOption);
 
-            $.getJSON('@Url.Action("ObtenerLugaresSegundoNivel")', { id: this.value, codigoPais: '@Model.CodigoPais' }, function (data) {
-                $('#Comuna').html(defaultOption);
+                           $.map(data,
+                               function (e, i) {
+                                   nivel2.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                               });
+                       })
+                   .complete(function () {
+                       nivel2.attr('disabled', false);
+                       if (nivel1.val() == '') {
+                           nivel2.html(defaultOption);
+                       }
+                   });
+           });
 
-                $.map(data, function (e, i) {
-                    $('#Comuna').append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                });
-            }).complete(function () {
-                comuna.attr('disabled', false);
-                if (region.val() == '') {
-                    comuna.html(defaultOption);
-                }
+        $('#LugarNivel2')
+            .change(function () {
+                debugger;
+                var nivel2 = $(this);
+                $('#NombreLugarNivel2').val(nivel2.find('option:selected').text());
+
+                if ("@Model.CodigoPais" == "CO")
+                    return;
+
+                var nivel3 = $('#LugarNivel3');
+                nivel3.attr('disabled', 'disabled');
+
+                $.getJSON('@Url.Action("ObtenerNivelN")',
+                        { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel3.ToInt()' },
+                        function (data) {
+                            nivel3.html(defaultOption);
+
+                            $.map(data,
+                                function (e, i) {
+                                    nivel3.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                });
+                        })
+                    .complete(function () {
+                        nivel3.attr('disabled', false);
+                        if (nivel2.val() == '') {
+                            nivel3.html(defaultOption);
+                        }
+                    });
             });
-        });
 
-        $('#Comuna').change(function () {
-            var comuna = $(this);
-            var colonia = $('#Colonia');
-            colonia.attr('disabled', 'disabled');
+        $('#LugarNivel3')
+            .change(function () {
+                debugger;
+                var nivel3 = $(this);
 
-            $('#NombreComuna').val(comuna.find('option:selected').text());
+                $('#NombreLugarNivel3').val($(this).find('option:selected').text());
 
-            $.getJSON('@Url.Action("ObtenerLugaresTercerNivel")', { id: this.value, codigoPais: '@Model.CodigoPais' }, function (data) {
-                $('#Colonia').html(defaultOption);
+                var nivel4 = $('#LugarNivel4');
+                if (nivel4.length == 0) return;
+                var div = $('#centroPoblado');
+                nivel4.attr('disabled', 'disabled');
 
-                $.map(data, function (e, i) {
-                    $('#Colonia').append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                });
-            }).complete(function () {
-                colonia.attr('disabled', false);
-                if (comuna.val() == '') {
-                    colonia.html(defaultOption);
-                }
+                $.getJSON('@Url.Action("ObtenerNivelN")',
+                        { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
+                        function (data) {
+                            nivel4.html(defaultOption);
+                            if (data.length == 0) {
+                                $('#ContaValorNivel3').val('0');
+                                nivel4.val('');
+                                div.hide();
+                            }
+                            else {
+                                $('#ContaValorNivel3').val('1');
+                                div.show();
+                            }
+                            $.map(data,
+                                function (e, i) {
+                                    nivel4.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                });
+                        })
+                    .complete(function () {
+                        nivel4.attr('disabled', false);
+                        if (nivel3.val() == '') {
+                            nivel4.html(defaultOption);
+
+                        }
+                    });
             });
+
+        $('#LugarNivel4').change(function () {
+            //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
+            debugger;
+            var nivel3 = $(this);
+
+            $('#NombreLugarNivel4').val($(this).find('option:selected').text());
+
+            var nivel5 = $('#LugarNivel5');
+            if (nivel5.length == 0) return;
+            nivel5.attr('disabled', 'disabled');
+
+            $.getJSON('@Url.Action("ObtenerNivelN")',
+                    { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel5.ToInt()' },
+                    function (data) {
+                        nivel5.html(defaultOption);
+                      
+                        $.map(data,
+                            function (e, i) {
+                                nivel5.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                            });
+                    })
+                .complete(function () {
+                    nivel5.attr('disabled', false);
+                    if (nivel3.val() == '') {
+                        nivel5.html(defaultOption);
+
+                    }
+                });
         });
 
-        $('#Comuna').change(function () {
-            var nombre = $(this).find('option:selected').text();
-            $('#NombreComunaEdicion').val(nombre);
+        $('#LugarNivel5').change(function () {
+            $('#NombreLugarNivel5').val($(this).find('option:selected').text());
         });
 
-        $('#DireccionColombia').change(function () {
-            var nombre = $(this).find('option:selected').text();
-            $('#NombreDireccionColombia').val(nombre);
-        });
-
-        $('#Colonia').change(function () {
-            $('#NombreColonia').val($(this).find('option:selected').text());
-        });
         $('#imgCerrarOpcion,#btnCancelar').click(function () {
             modalOpcion.dialog('close');
         });

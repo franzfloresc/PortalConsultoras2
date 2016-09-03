@@ -213,6 +213,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoClienteModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\ClienteMobileModel.cs" />
@@ -1901,6 +1902,7 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
+    <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
@@ -1915,6 +1917,8 @@
     <Content Include="Content\Images\mobile\Esika\lbel_revista.png" />
     <Content Include="Content\Images\mobile\Esika\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Esika\logo_esika.png" />
+    <Content Include="Content\Images\mobile\Esika\manicure_virtual_esika.png" />
+    <Content Include="Content\Images\mobile\Esika\maquillador_virtual_esika.png" />
     <Content Include="Content\Images\mobile\Esika\mas.png" />
     <Content Include="Content\Images\mobile\Esika\mas_footer.png" />
     <Content Include="Content\Images\mobile\Esika\menos.png" />
@@ -2033,10 +2037,13 @@
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
+    <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\bandera.png" />
+    <Content Include="Content\Images\mobile\Lbel\belleza_medida_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\camara.png" />
     <Content Include="Content\Images\mobile\Lbel\carpeta.png" />
     <Content Include="Content\Images\mobile\Lbel\catalogo_home.png" />
+    <Content Include="Content\Images\mobile\Lbel\diagnostico_piel_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\ganancia.png" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_b75d9f.svg" />
     <Content Include="Content\Images\mobile\Lbel\icono_advertencia_notificacion.svg" />
@@ -2052,6 +2059,9 @@
     <Content Include="Content\Images\mobile\LogoHeader.png" />
     <Content Include="Content\Images\mobile\LogoLideres.png" />
     <Content Include="Content\Images\mobile\LogoSocias.png" />
+    <Content Include="Content\Images\mobile\lookbook_cyzone.png" />
+    <Content Include="Content\Images\mobile\manicure_virtual_cyzone.png" />
+    <Content Include="Content\Images\mobile\maquillador_virtual_cyzone.png" />
     <Content Include="Content\Images\mobile\m_ic_cerrar.png" />
     <Content Include="Content\Images\mobile\m_ic_cerrar_sesion.png" />
     <Content Include="Content\Images\mobile\m_ic_comparte_catalogo.png" />
@@ -2301,6 +2311,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
@@ -2504,6 +2515,31 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\configuration.svcinfo" />
     <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
@@ -2516,6 +2552,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
@@ -2968,26 +3005,7 @@
     </None>
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService6.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3004,12 +3022,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\Reference.svcmap">
@@ -3314,7 +3326,6 @@
     <Content Include="Views\Notificaciones\ListadoDetalleSolicitud.cshtml" />
     <Content Include="Views\SolicitudCliente\Detalle.cshtml" />
     <Content Include="Views\SolicitudCliente\Index.cshtml" />
-    <Content Include="Views\Bienvenida\Landing.cshtml" />
     <Content Include="Service References\ServicioGenerarLideres\WS_GenerarLideres.wsdl" />
     <Content Include="Views\ConfiguracionValidacionNuevoPROL\Index.cshtml" />
     <Content Include="Views\AdministrarConfiguracionPortal\Index.cshtml" />
@@ -3427,6 +3438,18 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
+    <Content Include="Views\Unete\GestionParametros.cshtml" />
+    <Content Include="Views\Unete\_ConsultarValidacionTelefonica.cshtml" />
+    <Content Include="Views\Unete\ValidacionTelefonica.cshtml" />
+    <Content Include="Views\Unete\_ConsultarAdjunto.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo1.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo2.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo3.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosGenerales\_DatosGeneralesGrupo4.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo1.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo2.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

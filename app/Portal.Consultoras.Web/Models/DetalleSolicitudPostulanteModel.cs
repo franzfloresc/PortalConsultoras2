@@ -101,9 +101,20 @@ namespace Portal.Consultoras.Web.Models
 
         //Campos Geo Mexico
 
+        //[RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        //public string PrefijoTelefono { get; set; }
+
+        //[RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        //public string PrefijoCelular { get; set; }
+
         public string NombrePrefijoCelular { get; set; }
 
-      
+        // public SelectList ColoniasMx { get; set; }
+
+
+        //[RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        //public string Colonia { get; set; }
+
         public string NombreColonia { get; set; }
 
         //[RequiredIf("CodigoISO", "MX", ErrorMessage = "Campo obligatorio")]
@@ -272,12 +283,12 @@ namespace Portal.Consultoras.Web.Models
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "Departamento" },
             { "MX", "Estado" },
             { "PA", "" },
             { "PE", "Departamento" },
             { "PR", "" },
-            { "SV", "" },
+            { "SV", "Departamento" },
             { "VE", "" }
         };
 
@@ -292,10 +303,70 @@ namespace Portal.Consultoras.Web.Models
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "Municipio" },
             { "MX", "Municipio" },
             { "PA", "" },
             { "PE", "Provincia" },
+            { "PR", "" },
+            { "SV", "Municipio" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar3 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
+            { "CR", "" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Centro Poblado" },
+            { "MX", "" },
+            { "PA", "" },
+            { "PE", "Distrito" },
+            { "PR", "" },
+            { "SV", "Canton" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar4 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
+            { "CR", "Barrio/Referencia" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Zona" },
+            { "MX", "" },
+            { "PA", "Barrio/Colonia" },
+            { "PE", "Centro Poblado" },
+            { "PR", "" },
+            { "SV", "Barrio/Colonia" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar5 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
+            { "CR", "" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Barrio/Colonia" },
+            { "MX", "" },
+            { "PA", "" },
+            { "PE", "" },
             { "PR", "" },
             { "SV", "" },
             { "VE", "" }

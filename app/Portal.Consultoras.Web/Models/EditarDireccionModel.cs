@@ -19,9 +19,11 @@ namespace Portal.Consultoras.Web.Models
 
         //[Required(ErrorMessage = "Este campo es obligatorio")]
         [RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(8, ErrorMessage = "Máximo 8 caractéres")]
+        //[MaxLength(8, ErrorMessage = "Máximo 8 caractéres")]
+        [ExpressionRequiredIf("CodigoPais", "MX", Expresion = @"^[0-9]{5}$", ErrorMessage = "Máximo 5 caractéres")]
         public string Numero { get; set; }
-        [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
+
+        [RequiredIf("CodigoPais", "PE,MX", ErrorMessage = "Este campo es obligatorio")]
         public string Referencia { get; set; }
 
         //[Required(ErrorMessage = "Este campo es obligatorio")]
@@ -45,15 +47,19 @@ namespace Portal.Consultoras.Web.Models
         public string LugarNivel2 { get; set; }
         [RequiredIf("CodigoPais", "MX,CO,PE", ErrorMessage = "Este campo es obligatorio")]
         public string LugarNivel3 { get; set; }
-        [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
+        //[ExpressionRequiredIf("ContaValorNivel3", "1", Expresion = @"^(\s|\S)*(\S)+(\s|\S)*$", RegexNotMatch = false, ErrorMessage = "Campo obligatorio")]
         public string LugarNivel4 { get; set; }
+        [RequiredIf("CodigoPais", "GT", ErrorMessage = "Este campo es obligatorio")]
+        public string LugarNivel5 { get; set; }
 
         public string NombreLugarNivel1 { get; set; }
         public string NombreLugarNivel2 { get; set; }
         public string NombreLugarNivel3 { get; set; }
         public string NombreLugarNivel4 { get; set; }
+        public string NombreLugarNivel5 { get; set; }
 
         public SelectList LugaresNivel1 { get; set; }
         public SelectList LugaresNivel3 { get; set; }
+        public int ContaValorNivel3 { get; set; }
     }
 }
