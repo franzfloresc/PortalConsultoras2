@@ -114,27 +114,33 @@
                         MONTO TOTAL :</span>
                         @{                                                              
                             string cabezaEscala=null, pieEscala=null;
-                            if (Model.PaisId == 11 || Model.PaisId == 4 || Model.PaisId == 6 || Model.PaisId == 2 || Model.PaisId == 8 || Model.PaisId == 7
-                                || Model.PaisId == 13 || Model.PaisId == 12) //PE - CO - EC - BO - GT - SV - DO - PR
+                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Bolivia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
                             {
                                 cabezaEscala = "Ganancia estimada total";
                                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
-                            }                                   
-                            else if (Model.PaisId == 3) //CHILE
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
                             {
                                 cabezaEscala = "Comisión y ahorro total";
                                 pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                             }
-                            else if (Model.PaisId == 9 || Model.PaisId == 10) //MX - PA
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
                             {
                                 cabezaEscala = "Ganancia estimada total";
                                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                             }
-                            else if (Model.PaisId == 5 || Model.PaisId == 14) //CR - VE
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica || Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                             {
                                 cabezaEscala = "Oportunidad de ahorro total";
-                                pieEscala = "";                
-                            }                                                                                                        
+                                pieEscala = "";
+                            }                                                                                                      
                         }
                         <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
                     </div>
@@ -224,6 +230,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
     <div class="wrapper_resumen_mobile">
@@ -242,9 +249,6 @@
 
 
 </div>
-<!--FIN-->
-
-<!--+CRITERIOS DE ACEPTACIÓN+-->
 <!--FIN-->
 
 <!-- POPUP AGREGAR CLIENTE -->
@@ -280,6 +284,21 @@
     </div>
 </div>
 <!-- FIN POPUP AGREGAR CLIENTE -->
+
+<!-- POPUP CLIENTE AGREGADO -->
+<div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
+        <div class="mensaje_alerta">Se actualizó con exito tu cliente.</div>
+        <a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+<!-- FIN POPUP CLIENTE AGREGADO -->
 
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
