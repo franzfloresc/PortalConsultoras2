@@ -257,7 +257,7 @@
                     }
                 }
             }
-            
+
         </div>
         <!--FIN ESCALA DE DESCUENTO-->
     </div>
@@ -285,7 +285,6 @@
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
-
 <!--CATALOGO PERSONALIZADO-->
 <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
 
@@ -889,16 +888,22 @@
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
             <div id="player"></div>
-            <script>
+            <script type="text/javascript">
                 var tag = document.createElement("script");
                 tag.src = "https://www.youtube.com/iframe_api";
                 var firstScriptTag = document.getElementsByTagName("script")[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
                 var player;
                 function onYouTubeIframeAPIReady() {
+                    var videoIdMostrar;
+                    if (isEsika) {
+                        videoIdMostrar = "MkYSBgNZGcs"; //Video Esika
+                    } else {
+                        videoIdMostrar = "MkYSBgNZGcs"; //Video Lbel
+                    }
                     player = new YT.Player("player", {
                         width: "100%",
-                        videoId: "MkYSBgNZGcs",
+                        videoId: videoIdMostrar,
                     });
                 }
             </script>
@@ -1247,37 +1252,7 @@
     <!-- FIN POPUP MIS DATOS -->
 </div>
 <!-- FIN POPUP POPUPs HOME -->
-
-<!-- VIDEO INTRODUCTORIO HOME -->
-
-<div class="contenedor_fondo_popup" id="video_introductorio" style="display: none;">
-    <div class="popup_video_introductorio" style="display: none;">
-        <div class="contenedor_video_introductorio">
-            <div id="player"></div>
-            <script>
-                //var tag = document.createElement("script");
-                //tag.src = "https://www.youtube.com/iframe_api";
-                //var firstScriptTag = document.getElementsByTagName("script")[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubeIframeAPIReady() {
-                //    player = new YT.Player("player", {
-                //        width: "100%",
-                //        videoId: "7g6h749J02w",
-                //    });
-                //}
-            </script>
-        </div>
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:;" onclick="return $('#video_introductorio').fadeOut();">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- FIN VIDEO INTRODUCTORIO HOME    -->
-
 <!-- POPUP TUTORIAL HOME-->
-
 <div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
     <div class="popup_tutorial_home">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -1288,37 +1263,35 @@
         </div>
     </div>
 </div>
-
 <!-- FIN POPUP TUTORIAL -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
-{{#each this as |item|}}
-    <div data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+    {{#each this as |item|}}
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" id="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
-        <div class="producto_img_home">
-            <img src="{{FotoProducto01}}" class="imagen_producto" />
-        </div>
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+            <div class="producto_img_home">
+                <img src="{{FotoProducto01}}" class="imagen_producto" />
+            </div>
 
         {{#if_eq FlagMostrarImg '1'}}
-        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
         <div class="etiqueta_producto">
             <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
         </div>
-        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
         <div class="etiqueta_producto">
             <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
         </div>
 
-        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
         {{#if_eq FlagEstrella '1' }}
         <div class="etiqueta_producto">
             <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
         </div>
         {{/if_eq}}
+            {{/if_eq}}
         {{/if_eq}}
-        {{/if_eq}}
-
         <div class="producto_nombre_descripcion">
             <h6>{{DescripcionMarca}}</h6>
             {{#if_eq FlagNueva '1'}}
@@ -1388,132 +1361,71 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
-{{/each}}
+    {{/each}}
 </script>
 
-    <script id="liquidacion-template" type="text/x-handlebars-template">
-        {{#each this}}
-        <div>
-            <div class="content_item_carrusel">
-                <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
-                <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
-                <input type="hidden" id="CUV" value="{{CUV}}" />
-                <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                <input type="hidden" id="DescripcionProd" value="{{DescripcionCompleta}}" />
-                <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
-                <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
-                <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
-                <input type="hidden" id="Posicion" value="{{Posicion}}" />
-                <div class="producto_img_home mini">
+<script id="liquidacion-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div>
+        <div class="content_item_carrusel">
+            <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
+            <input type="hidden" id="CUV" value="{{CUV}}" />
+            <input type="hidden" id="ConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" id="DescripcionProd" value="{{DescripcionCompleta}}" />
+            <input type="hidden" id="DescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" id="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" id="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
+            <input type="hidden" id="Posicion" value="{{Posicion}}" />
+            <div class="producto_img_home mini">
                 <img src="{{ImagenProducto}}" class="imagen_producto" />
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto">
-                        <b>{{Descripcion}}</b>
-                    </p>
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{#if TieneTallaColor}}
-                    <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
-                        {{TextoBotonTallaColor}}
-                    </a>
-                    {{else}}
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                            <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home js-agregar-liquidacion">
-                        AGR&Eacute;GALO
-                    </a>
-                    {{/if}}
-                    <div class="clear"></div>
-                </div>
             </div>
-        </div>
-        {{/each}}
-    </script>
-    <script id="packnuevas-template" type="text/x-handlebars-template">
-        <div class="popup_detalleCarousel packNuevas">
-            <div class="btn_cerrar_detalleCarousel">
-                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{#if TieneTallaColor}}
+                <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
+                    {{TextoBotonTallaColor}}
                 </a>
-            </div>
-            <div class="contenido_popUp">
-                <div class="bloque_producto_packNuevas">
-                    <div class="content_item_carrusel">
-                        {{#if_eq FlagMostrarImg '1'}}
-                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                        <div class="etiqueta_producto">
-                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/if_eq}}
-                        {{/if_eq}}
-                        <div class="producto_img_home">
-                            <img src="{{FotoProducto01}}">
-                        </div>
-                        <div class="etiqueta_producto">
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <h6>{{DescripcionMarca}}</h6>
-                            <p class="nombre_producto">
-                                <b>{{DescripcionCUVSplit}}</b>
-                            </p>
-                            <div class="producto_precio">
-                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                            </div>
-                            <div class="monto_ganancia_producto">
-                                <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
-                            </div>
-                            <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                                AGRÉGALO
-                            </a>
-
-                            <div class="clear"></div>
-                        </div>
+                {{else}}
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                     </div>
                 </div>
-                <div class="descripcion_set_packNuevas">
-                    <h6>Contenido del Set</h6>
-                    <div class="descripcion_lista">
-                        {{#each ArrayContenidoSet as |item|}}
-                        <span>
-                            {{item}}
-                        </span>
-                        {{/each}}
-                    </div>
-                    {{#if MostrarTextoLibre}}
-                    <div class="mensaje_advertencia_detalleCarousel">
-                        <span class="icono_advertencia_notificacion"></span>
-                        <span>{{TextoLibre}}</span>
-                    </div>
-                    {{/if}}
-                </div>
+                <a class="boton_Agregalo_home js-agregar-liquidacion">
+                    AGR&Eacute;GALO
+                </a>
+                {{/if}}
                 <div class="clear"></div>
             </div>
-            <div class="clear"></div>
         </div>
-    </script>
-    <script id="lanzamiento-template" type="text/x-handlebars-template">
-        <div class="popup_detalleCarousel lanzamiento">
-            <div class="btn_cerrar_detalleCarousel">
-                <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
-            <div class="contenido_popUp">
+    </div>
+    {{/each}}
+</script>
+<script id="packnuevas-template" type="text/x-handlebars-template">
+    <div class="popup_detalleCarousel packNuevas">
+        <div class="btn_cerrar_detalleCarousel">
+            <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+            <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+            <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
-                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
                     <div class="etiqueta_producto">
                         <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
                     </div>
@@ -1527,102 +1439,164 @@
                     <div class="producto_nombre_descripcion">
                         <h6>{{DescripcionMarca}}</h6>
                         <p class="nombre_producto">
-                            <b>{{DescripcionCUV2}}</b>
+                            <b>{{DescripcionCUVSplit}}</b>
                         </p>
                         <div class="producto_precio">
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                            {{/iff}}
                             <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
-                        <div class="liquidacion_rango_home">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
+                        <div class="monto_ganancia_producto">
+                            <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
                         </div>
-                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">
+                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                             AGRÉGALO
                         </a>
 
                         <div class="clear"></div>
                     </div>
-                    {{#if MostrarTextoLibre}}
-                    <div class="mensaje_advertencia_detalleCarousel">
-                        <span class="icono_advertencia_notificacion"></span>
-                        <span>{{TextoLibre}}</span>
-                    </div>
-                    {{/if}}
                 </div>
-                <div class="clear"></div>
+            </div>
+            <div class="descripcion_set_packNuevas">
+                <h6>Contenido del Set</h6>
+                <div class="descripcion_lista">
+                    {{#each ArrayContenidoSet as |item|}}
+                    <span>
+                        {{item}}
+                    </span>
+                    {{/each}}
+                </div>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
             </div>
             <div class="clear"></div>
         </div>
-    </script>
-
-    <script id="miscursos-template" type="text/x-handlebars-template">
-        {{#each this}}
-        <div class="borde_video">
-        <a role="link" region="Cuerpo" parent="Mi Academia" title="{{nombre}}" href="{{url}}" class="titulo_item_video" target="_blank">
-                {{nombre}}
+        <div class="clear"></div>
+    </div>
+</script>
+<script id="lanzamiento-template" type="text/x-handlebars-template">
+    <div class="popup_detalleCarousel lanzamiento">
+        <div class="btn_cerrar_detalleCarousel">
+            <a href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
             </a>
-            <div class="porcentaje_curso">
-                {{#if_eq estado '0'}}
-                <div class="sin_iniciar">
-                    SIN INICIAR
-                </div>
-                {{else if_eq estado '1' }}
-                <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
-                    <span></span>%
-                </div>
-                {{else if_eq estado '2' }}
-                <div class="sin_iniciar">
-                    FINALIZADO
+        </div>
+        <div class="contenido_popUp">
+            <div class="content_item_carrusel">
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
                 </div>
                 {{/if_eq}}
-            </div>
-        </div>
-        {{/each}}
-    </script>
-
-    <script id="miscursosv-template" type="text/x-handlebars-template">
-        {{#each this}}
-        <div class="contenedor_cursos_academia">
-            <div class="curso_img">
-                <img src="{{imagen}}" alt="Imagen Curso" />
-            </div>
-            <div class="curso_descripcion">
-                <div class="curso_titulo">
-                    <span>{{nombre}}</span>
+                {{/if_eq}}
+                <div class="producto_img_home">
+                    <img src="{{FotoProducto01}}">
                 </div>
-                <div class="curso_porcentaje_avance">
-                    <div class="porcentaje_curso">
-
-                        {{#if_eq estado '0'}}
-                        <div class="sin_iniciar">
-                            SIN INICIAR
-                        </div>
-                        {{else if_eq estado '1' }}
-                        <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
-                            <span></span>%
-                        </div>
-                        {{else if_eq estado '2' }}
-                        <div class="sin_iniciar">
-                            FINALIZADO
-                        </div>
-                        {{/if_eq}}
-
+                <div class="etiqueta_producto">
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto">
+                        <b>{{DescripcionCUV2}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        {{#iff Precio '>' 0}}
+                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                        {{/iff}}
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                     </div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">
+                        AGRÉGALO
+                    </a>
+
+                    <div class="clear"></div>
+                </div>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+
+<script id="miscursos-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="borde_video">
+        <a role="link" region="Cuerpo" parent="Mi Academia" title="{{nombre}}" href="{{url}}" class="titulo_item_video" target="_blank">
+            {{nombre}}
+        </a>
+        <div class="porcentaje_curso">
+            {{#if_eq estado '0'}}
+            <div class="sin_iniciar">
+                SIN INICIAR
+            </div>
+            {{else if_eq estado '1' }}
+            <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                <span></span>%
+            </div>
+            {{else if_eq estado '2' }}
+            <div class="sin_iniciar">
+                FINALIZADO
+            </div>
+            {{/if_eq}}
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="miscursosv-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="contenedor_cursos_academia">
+        <div class="curso_img">
+            <img src="{{imagen}}" alt="Imagen Curso" />
+        </div>
+        <div class="curso_descripcion">
+            <div class="curso_titulo">
+                <span>{{nombre}}</span>
+            </div>
+            <div class="curso_porcentaje_avance">
+                <div class="porcentaje_curso">
+
+                    {{#if_eq estado '0'}}
+                    <div class="sin_iniciar">
+                        SIN INICIAR
+                    </div>
+                    {{else if_eq estado '1' }}
+                    <div class="porcentaje_cursosAcademia" data-percent="{{porcentaje_de_avance}}">
+                        <span></span>%
+                    </div>
+                    {{else if_eq estado '2' }}
+                    <div class="sin_iniciar">
+                        FINALIZADO
+                    </div>
+                    {{/if_eq}}
+
                 </div>
             </div>
         </div>
+    </div>
 
-        {{/each}}
-    </script>
+    {{/each}}
+</script>
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
-    <div class="">  
+    <div class="">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
             <div style="display: none;">
@@ -1678,46 +1652,46 @@
         <div class="clear"></div>
     </div>
 </script>
-    @section scripts{
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>     
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
-        <script type="text/javascript">
-            var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
-            var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
-            var viewBagPrimeraVez = '@Model.PrimeraVez';
-            var ViewBagRutaChile = '@Model.rutaChile';
-            var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-            var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
-            var viewBagCambioClave = '@Model.CambioClave';
-            var viewBagPaisID = '@Model.PaisID';
-            var viewBagIndicadorContrato = '@Model.IndicadorContrato';
-            var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
-            var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
-            var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
-            var viewBagCampanaInvitada = '@Model.CampanaInvitada';
-            var viewBagCampaniaActual = '@Model.CampaniaActual';
-            var viewBagNroCampana = '@Model.NroCampana';
-            var viewBagCodigoConsultora = '@Model.CodigoConsultora';
-            var viewBagPrefijoPais = '@Model.PrefijoPais';
-            var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
-            var viewBagRolID = '@ViewBag.Rol';
-            var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
-            var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
-            var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
-            var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
-            var viewBagValidaSegmento = '@Model.ValidaSegmento';
-            var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
-            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-            var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-            var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
-            var contadorFondoPopUp = 0;
-            var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
-            var sessionIsContrato = '@Session["IsContrato"]';
-            @{ Session["IsContrato"] = 0; }
-            var paisISO = '@ViewBag.CodigoISODL';
-            var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
-            var primeraVezVideo = true;
-</script>
-        @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    }
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript">
+        var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
+        var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
+        var viewBagPrimeraVez = '@Model.PrimeraVez';
+        var ViewBagRutaChile = '@Model.rutaChile';
+        var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagContratoActualizarDatos = '@Model.ContratoActualizarDatos';
+        var viewBagCambioClave = '@Model.CambioClave';
+        var viewBagPaisID = '@Model.PaisID';
+        var viewBagIndicadorContrato = '@Model.IndicadorContrato';
+        var viewBagVisualizoComunicado = '@Model.VisualizoComunicado';
+        var viewBagInvitacionRechazada = '@Model.InvitacionRechazada';
+        var viewBagIndicadorFlexiPago = '@Model.IndicadorFlexipago';
+        var viewBagCampanaInvitada = '@Model.CampanaInvitada';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var viewBagNroCampana = '@Model.NroCampana';
+        var viewBagCodigoConsultora = '@Model.CodigoConsultora';
+        var viewBagPrefijoPais = '@Model.PrefijoPais';
+        var viewBagUrlFlexipagoCL = '@Model.UrlFlexipagoCL';
+        var viewBagRolID = '@ViewBag.Rol';
+        var viewBagVisualizoComunicadoConfigurable = '@Model.VisualizoComunicadoConfigurable';
+        var viewBagValidaSuenioNavidad = '@Model.ValidaSuenioNavidad';
+        var viewBagValidaDatosActualizados = '@Model.ValidaDatosActualizados';
+        var viewBagValidaTiempoVentana = '@Model.ValidaTiempoVentana';
+        var viewBagValidaSegmento = '@Model.ValidaSegmento';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/Contrato_CO.pdf")';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
+        var contadorFondoPopUp = 0;
+        var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        var sessionIsContrato = '@Session["IsContrato"]';
+        var paisISO = '@ViewBag.CodigoISODL';
+        var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
+        var primeraVezVideo = true;
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    @{ Session["IsContrato"] = 0; }
+}

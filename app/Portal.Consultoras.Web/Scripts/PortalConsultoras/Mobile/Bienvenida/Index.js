@@ -146,6 +146,7 @@ function CargarProductoDestacado(objParameter, objInput) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.rango_cantidad_pedido").val();
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -254,7 +255,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                 });
 
                 CloseLoading();
-                AgregarProductoDestacado();
+                AgregarProductoDestacado(tipoEstrategiaImagen);
             } else {
                 $(".zona4Edit").show();
                 $(".zonaCantidad").show();
@@ -281,7 +282,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado();
+                    AgregarProductoDestacado(tipoEstrategiaImagen);
                 } else {
                     CloseLoading();
                 }
@@ -296,7 +297,7 @@ function CargarProductoDestacado(objParameter, objInput) {
         }
     });
 };
-function AgregarProductoDestacado() {
+function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var cantidad = $("#txtCantidadZE").val();
     var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
     var cuv = $("#txtCantidadZE").attr("est-cuv2");
@@ -351,7 +352,7 @@ function AgregarProductoDestacado() {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val()
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     });
 
     jQuery.ajax({
