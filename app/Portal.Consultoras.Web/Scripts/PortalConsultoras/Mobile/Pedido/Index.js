@@ -96,6 +96,11 @@
         };
         InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
     });
+    
+    $("#linkAgregarCliente").on("click", function () {
+        CerrarMantenerCliente();
+        $("#divAgregarClientePedido").show();
+    });
 
     CargarProductosDestacados("");
 
@@ -104,6 +109,7 @@
         $("#txtCodigoProducto").val(CuvEnSession);
         $("#txtCodigoProducto").keyup();
     }
+
 });
 
 /** Buscar Producto **/
@@ -122,7 +128,7 @@ function BuscarByCUV(cuv) {
             else $('#PopSugerido').show();
         }
         else {
-        $("#divProductoMantenedor").show();
+            $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
         }
         return false;
@@ -296,7 +302,7 @@ function ObtenerProductosSugeridos(CUV) {
         async: true,
         cache: false,
         success: function (data) {
-            if (!checkTimeout(data)) return false;
+            if (!checkTimeout(data)) { CloseLoading(); return false };
             $('#hdfCUV').val(CUV);
             productoSugerido = true;
 
@@ -391,7 +397,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
 
             CargarProductosDestacados(cuv);
             $("#txtCodigoProducto").val("");
-            CalcularTotal();
             $("#hdCuvEnSession").val("");
 
             setTimeout(function () { $('.toUp').click(); }, 2000);
@@ -1235,3 +1240,112 @@ function MostrarMensaje(tipoMensaje, message) {
             break;
     };
 };
+
+// Agregar Cliente
+function CerrarMantenerCliente() {
+    $("#divAgregarClientePedido input[type='text']").val("");
+    $("#divAgregarClientePedido input[type='email']").val("");
+    $("#divAgregarClientePedido").hide();
+}
+function AgregarMantenerCliente() {
+    var entidad = ValidarMantenerCliente();
+    if (entidad.Error) {
+        return false;
+    }
+
+    var item = {
+        ClienteID: 0,
+        Nombre: entidad.nombre,
+        eMail: entidad.correo,
+        FlagValidate: 1
+    };
+
+    ShowLoading();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cliente/Mantener',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == false) {
+                    alert(data.message);
+                    CloseLoading();
+                    return false;
+                }
+
+                CargarListaCliente();
+
+                $.each($("#ddlClientes option"), function (ind, cli) {
+                    if ($(cli).text() == entidad.nombre) {
+                        $(cli).attr("selected", "selected");
+                    }
+                });
+
+                CerrarMantenerCliente();
+            }
+            CloseLoading();
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                alert(data.message);
+            }
+        }
+    });
+}
+
+function ValidarMantenerCliente() {
+    var nombre = $.trim($('#Nombres').val());
+    var correo = $.trim($('#Correo').val());
+    var entidad = new Object();
+    entidad.Error = false;
+
+    $('#divNotiNombre, #divNotiEmail').hide();
+    if (nombre == "") {
+        $('#divNotiNombre').show();
+        entidad.Error = true;
+    }
+    if (correo != "") {
+        if (!validateEmail(correo)) {
+            $('#divNotiEmail').show();
+            entidad.Error = true;
+        }
+    }
+    entidad.nombre = nombre;
+    entidad.correo = correo;
+    return entidad;
+}
+
+function CargarListaCliente() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cliente/ObtenerTodosClientes',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                $("#ddlClientes option[value!='0']").remove();
+
+                if (data.success == false) {
+                    return false;
+                }
+                data.lista = data.lista || new Array();
+                $.each(data.lista, function (ind, cli) {
+                    $("#ddlClientes").append(new Option(cli.Nombre, cli.ID));
+                });
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                alert(data.message);
+            }
+        }
+    });
+}
+
+// Fin Agregar Cliente

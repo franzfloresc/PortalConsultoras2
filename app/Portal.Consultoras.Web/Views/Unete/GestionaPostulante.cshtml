@@ -122,8 +122,8 @@
 <div class="wrap" id="data">
     <div class="container clearfix" style="margin-left: 1200px">
         <div class="input_global">
-            <img src="@Url.Content("~/Content/HojaInscripcion/images/excel-xls-icon.png")" onclick="ExportExcel();" style="cursor: pointer; width: 64px; height: 64px"/>
-          
+            <img src="@Url.Content("~/Content/HojaInscripcion/images/excel-xls-icon.png")" onclick="ExportExcel();" style="cursor: pointer; width: 64px; height: 64px" />
+
         </div>
     </div>
     <div class="container clearfix" style="width: 1300px;">
@@ -189,13 +189,20 @@
         'Evaluación Crediticia',
         'Evaluación Telefonica',
         'Estado',
+        'Tipo Rechazo',
+        'Motivo Rechazo',
         'Modificar',
         'Ver',
-        '',
+        'Pendiente de Confirmación',
         'Reactivar',
-        ' ',
+        'Aprobar',
+        'Rechazar',
+        'Enviar a FFVV',
         '@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]',
-        'Comprobante Domicilio'
+        'Comprobante Domicilio',
+        'Contrato',
+        'Pagare',
+        'DNI Aval'
     ];
 
     function fnGrilla() {
@@ -233,6 +240,7 @@
                     name: 'Ubicacion', index: 'Ubicacion', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[12] == '2' ?
                             '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-check.png")" onclick="consultarUbicacion(' + rowObject[0] + ');" /></a>' :
+
                             '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarUbicacion(' + rowObject[0] + ');" /></a>';
                     }
                 },
@@ -257,6 +265,16 @@
                        return rowObject[19].toUpperCase() == 'FALSE' && rowObject[15].toUpperCase() != 'RECHAZADA' ? 'PENDIENTE DE CONFIRMAR CORREO' : rowObject[15].toUpperCase();
                    }
                },
+               {
+                   name: 'Tipo Rechazo', index: 'Tipo Rechazo', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                       return  rowObject[27].toUpperCase();
+                   }
+               },
+                {
+                    name: 'Motivo Rechazo', index: 'Motivo Rechazo', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[26].toUpperCase();
+                    }
+                },
                 {
                     name: 'Modificar', index: 'Modificar', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Edit.png")" onclick="modificar(' + rowObject[0] + ')" /></a>';
@@ -281,6 +299,18 @@
                 }
                 ,
                 {
+                    name: 'Aprobar', index: 'Aprobar', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<input type="button" value="Aprobar" onclick="Aprobar(' + rowObject[0] + ')" style="padding:0;" />';
+                    }
+                }
+                ,
+                {
+                    name: 'Rechazar', index: 'Rechazar', width: 8, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return '<input type="button" value="Rechazar" onclick="Rechazar(' + rowObject[0] + ')" style="padding:0;" />';
+                    }
+                }
+                ,
+                {
                     name: 'Enviar a FFVV', index: 'Enviar a FFVV', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[19].toUpperCase() == 'FALSE' && rowObject[12] == 2 && rowObject[13] == 2 && rowObject[14] == '1' ? '<button value="Enviar" onclick="enviarFFVV(' + rowObject[0] + ')" style="padding:0;text-align:center;color:#A1A1A1;">Enviar a<br/>FFVV</button>' : '';
                     }
@@ -296,6 +326,26 @@
                         return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
                     }
                 }
+                ,
+                {
+                    name: 'Contrato', index: 'Contrato', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[23].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[23] + '\', 3)" /></a>' : '';
+                    }
+                }
+                 ,
+                {
+                    name: 'Pagare', index: 'Pagare', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[24].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[24] + '\', 4)" /></a>' : '';
+                    }
+                }
+                 ,
+                {
+                    name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
+                        return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
+                    }
+                }
+
+
             ],
             jsonReader:
                 {
@@ -318,7 +368,7 @@
             viewrecords: true,
             multiselect: false,
             height: 'auto',
-            width: 1300,
+            width: 1390,
             shrinkToFit: true,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
@@ -336,10 +386,13 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'EvaluacionTelefonica');
                 }
 
+
                 if (typeof option != 'undefined' && option != null) {
 
                     switch (option) {
                         case "0":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
@@ -347,58 +400,132 @@
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
                             break;
                         case "2":
                         case "3":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
                             break;
                         case "4":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Reactivar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
                             break;
                         case "5":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'CodigoConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Ubicacion');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
+
                             break;
                         case "7":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'CodigoConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Ubicacion');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
                             break;
+                            // inicio pendiente por confirmar Estado 8 para Perú
+                        case "8":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Rechazar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'RFC');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pendiente de Confirmación');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Enviar a FFVV');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
+                            break;
+                            // fin pendiente por confirmar Estado 8 para Perú
                         case "9":
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Aprobar');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Rechazar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Reactivar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pendiente de Confirmación');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Enviar a FFVV');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Estado');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Modificar');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'CodigoConsultora');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'FechaIngreso');
                             jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Ubicacion');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                            jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
                             break;
                     }
+                }
+                if ('@Model.CodigoIso' == 'PE') {
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Contrato');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Pagare');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI Aval');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DNI/RUC');
+                }
+                else {
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Contrato');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Pagare');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'DNI Aval');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Tipo Rechazo');
+                    jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Motivo Rechazo');
                 }
             }
         });
@@ -538,6 +665,32 @@
         });
     }
 
+    function Aprobar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 300);
+
+        $.get('@Url.Action("AprobarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
+    function Rechazar(solicitudPostulanteID) {
+        waitingDialog({});
+        modal.dialog("option", "width", 550);
+        modal.dialog("option", "height", 400);
+
+        $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_content').html(html);
+            modal.dialog('open');
+        }).done(function () {
+            closeWaitingDialog({});
+        });
+    }
+
     function reenviar(solicitudPostulanteID) {
         waitingDialog({});
         modal.dialog("option", "width", 550);
@@ -642,7 +795,7 @@
 
         $('#Estado').val(parseInt('@Convert.ToInt32(Portal.Consultoras.Web.ServiceUnete.EnumsEstadoPostulante.EnGestionServicioAlCliente)'));
 
-        $('#btnBuscar').click(function(e) {
+        $('#btnBuscar').click(function (e) {
             fnGrilla();
             e.preventDefault();
             console.info(e.target);

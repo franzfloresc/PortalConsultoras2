@@ -1,6 +1,7 @@
 ﻿
 var listaCorreo = new Array();
 var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+var nombreCat = new Object();
 
 // js-RenderCatalogo
 jQuery(document).ready(function () {
@@ -10,6 +11,10 @@ jQuery(document).ready(function () {
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
     aCam.push($("#hdCampaniaSiguiente").val());
+    
+    nombreCat[tagLbel] = "L'Bel";
+    nombreCat[tagEsika] = "Ésika";
+    nombreCat[tagCyzone] = "Cyzone";
 
     linkCat[tagLbel] = "http://www.lbel.com";
     linkCat[tagEsika] = "http://www.esika.biz";
@@ -37,6 +42,7 @@ jQuery(document).ready(function () {
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
+        'validate': /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*([\.]\w{2,4})+$/,
         classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
@@ -147,12 +153,15 @@ function ObtenerURLExpofertas() {
 };
 
 function CargarCarruselCatalogo() {
-    waitingDialog({});
+    waitingDialog();
 
     var htmlBase = "";
     var totalItem = cantCat * cantCam;
 
     $("#divCatalogo").html("");
+
+    var objCheckCata = $("#divCheckbox > div")[0];
+    $("#divCheckbox").html("");
 
     for (var i = 0; i < totalItem; i++) {
         var nro = "";
@@ -191,6 +200,13 @@ function CargarCarruselCatalogo() {
         htmlBase = htmlBase.replace("{estado}", "0");
 
         $("#divCatalogo").append(htmlBase);
+
+        if (i < 3) {
+            $(objCheckCata).attr("data-cat", tipo);
+            $(objCheckCata).find(".check_label").html(nombreCat[tipo]);
+            var objxx = $("<div></div>").append(objCheckCata);
+            $("#divCheckbox").append(objxx.html());
+        }
     }
 
     $("#divCatalogo").append("<div class='clear'></div>");
@@ -255,7 +271,6 @@ function ObtenerEstadoCatalogo(campana, defered) {
         }
     });
     return defered.promise();
-
 }
 
 function GetCatalogosLinksByCampania(data, campania) {
@@ -266,7 +281,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     var idPais = $("#hdPaisId").val();
 
-    var defered = new Object();
+    //var defered = new Object();
 
     var anio = campania.substring(0, 4);
     var nro = campania.substring(4, 6);
@@ -289,7 +304,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         : i == 2 && data.estadoEsika != 1 ? "1"
         : "0";
 
-        defered[tagCat] = jQuery.Deferred();
+        //defered[tagCat] = jQuery.Deferred();
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
@@ -425,6 +440,19 @@ function CatalogoMostrar(accion, btn) {
             $(btn).hide();
         }
     }
+
+    // Centrar segun cantidad de catalgos
+    var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
+    if (cata.length < 3) {
+        var wUnit = 24.7;//%
+        var wTotalRender = wUnit * cata.length;
+        var wVacio = 100 - wTotalRender;
+        var wVacioUnit = wVacio / cata.length;
+        cata.removeClass("no_margin_right");
+        cata.css("margin-right", (wVacioUnit / 2) + "%");
+        cata.css("margin-left", (wVacioUnit / 2) + "%");
+    }
+
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
@@ -459,6 +487,13 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
     $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
     $('#CompartirCorreo').show();
+
+    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+    $("#divCheckbox [data-cat]").hide();
+    for (var i = 0; i < cata.length; i++) {
+        var cat = $(cata[i]).attr("data-cat");
+        $("#divCheckbox [data-cat='" + cat + "']").show();
+    }
 }
 
 function CargarTodosCorreo() {

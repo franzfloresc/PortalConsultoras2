@@ -845,5 +845,27 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Result;
         }
+
+        [AllowAnonymous]
+        public ActionResult DescargarAppCatalogos()
+        {
+            var redirect = "";
+            if (System.Web.HttpContext.Current.Request.UserAgent != null)
+            {
+                var userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+
+                if (userAgent.Contains("iphone;"))
+                {
+                    redirect = "<script>window.location = 'https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8';</script>";
+
+                }
+                else
+                {
+                    redirect = "<script>window.location = 'https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419';</script>";
+                }
+            }
+
+            return Content(redirect);
+        }
     }
 }

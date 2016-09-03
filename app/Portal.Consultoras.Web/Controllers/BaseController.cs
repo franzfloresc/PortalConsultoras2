@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }                    
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
                     MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -1377,7 +1377,7 @@ namespace Portal.Consultoras.Web.Controllers
             return objR;
         }
 
-        private List<BEEscalaDescuento> GetListaEscalaDescuento()
+        public List<BEEscalaDescuento> GetListaEscalaDescuento()
         {
             List<BEEscalaDescuento> listaEscalaDescuento;
 

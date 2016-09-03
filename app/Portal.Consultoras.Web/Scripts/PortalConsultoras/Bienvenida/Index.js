@@ -1,45 +1,46 @@
 ﻿$(document).ready(function () {
 
     $('#salvavidaTutorial').show();
-    function ocultarAnimacionTutorial() {
 
-        $(".circulo-1").fadeOut();
-        $(".tooltip_tutorial").fadeOut();
+    //function ocultarAnimacionTutorial() {
 
-    }
+    //    $(".circulo-1").fadeOut();
+    //    $(".tooltip_tutorial").fadeOut();
 
-    function AnimacionTutorial() {
+    //}
 
-        $(".tooltip_tutorial").animate({
-            'opacity': 1,
-            'top': 47
-        }, 500, 'swing', function () {
-            $(".tooltip_tutorial").animate({
-                'top': 41
-            }, 500, 'swing');
-        });
+    //function AnimacionTutorial() {
 
-        $(".circulo-1").animate({
+    //    $(".tooltip_tutorial").animate({
+    //        'opacity': 1,
+    //        'top': 47
+    //    }, 500, 'swing', function () {
+    //        $(".tooltip_tutorial").animate({
+    //            'top': 41
+    //        }, 500, 'swing');
+    //    });
 
-            'width': 45,
-            'height': 45,
-            'opacity': 0,
-            'top': -8,
-            'left': -11.5
+    //    $(".circulo-1").animate({
 
-        }, 900, 'swing', function () {
+    //        'width': 45,
+    //        'height': 45,
+    //        'opacity': 0,
+    //        'top': -8,
+    //        'left': -11.5
 
-            $(".circulo-1").css({
-                'width': '0px',
-                'height': '0px',
-                'opacity': '1',
-                'top': 14,
-                'left': 10
-            });
+    //    }, 900, 'swing', function () {
 
-        });
+    //        $(".circulo-1").css({
+    //            'width': '0px',
+    //            'height': '0px',
+    //            'opacity': '1',
+    //            'top': 14,
+    //            'left': 10
+    //        });
 
-    }
+    //    });
+
+    //}
 
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
@@ -226,8 +227,9 @@
         player.stopVideo();
 
         if (primeraVezVideo) {
-            setInterval(AnimacionTutorial, 800);
-            setTimeout(ocultarAnimacionTutorial, 9000);
+            mostrarUbicacionTutorial();
+            //setInterval(AnimacionTutorial, 800);
+            //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -412,35 +414,67 @@ function agregarProductoAlCarrito(o) {
     var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
-    var carrito = $('.campana');
+        var carrito = $('.campana');
 
-    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
-    $(".transicion").css({
-        'height': imagenProducto.css("height"),
-        'width': imagenProducto.css("width"),
-        'top': imagenProducto.offset().top,
-        'left': imagenProducto.offset().left,
-    }).animate({
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
             'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
-        'height': carrito.css("height"),
-        'width': carrito.css("width"),
-        'opacity': 0.5
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
         }, 450, 'swing', function () {
-        $(this).animate({
-            'top': carrito.offset().top,
-            'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
             }, 150, 'swing', function () {
-            $(this).remove();
+                $(this).remove();
+            });
         });
+    }    
+}
+
+//MICROEFECTO RESALTAR ICONO TUTORIAL
+
+function mostrarUbicacionTutorial() {
+    $(".fondo_oscuro").fadeIn(300, function () {
+        $(".mensaje_header").addClass("opcionTutorial");
+        $(".tooltip_tutorial").fadeIn();
+        mostrarIconoTutorial();
     });
+
+    setTimeout(function () {
+        $(".tooltip_tutorial").fadeOut();
+        $(".tooltip_tutorial").stop();
+        $(".fondo_oscuro").delay(500);
+        $(".fondo_oscuro").fadeOut(300, function () {
+            $(".mensaje_header").removeClass("opcionTutorial");
+        });
+    }, 9000);
 }
+
+function mostrarIconoTutorial() {
+
+    $(".tooltip_tutorial").animate({
+        'opacity': 1,
+        'top': 47
+    }, 500, 'swing').animate({
+        'top': 41
+    }, 400, 'swing', mostrarIconoTutorial);
+
 }
+
+// FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
     if (viewBagVioVideo == "0") {
@@ -579,7 +613,7 @@ function CargarCarouselEstrategias(cuv) {
     } else {
         $('#divCarruselHorizontal').html('<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-lbel" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>');
     }
-
+    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/JsonConsultarEstrategias?cuv=' + cuv,
@@ -2246,11 +2280,11 @@ function AceptarContrato() {
                     if (data.extra != "nocorreo") return;
                 }
 
-                        $('#popupAceptacionContrato').hide();
-                        contadorFondoPopUp--;
-                        if (viewBagCambioClave == 0) {
-                            $("#popupActualizarMisDatos").show();
-                            contadorFondoPopUp++;
+                $('#popupAceptacionContrato').hide();
+                contadorFondoPopUp--;
+                if (viewBagCambioClave == 0) {
+                    $("#popupActualizarMisDatos").show();
+                    contadorFondoPopUp++;
                 }
                 if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
             }
@@ -2885,8 +2919,7 @@ function CargarCatalogoPersonalizado() {
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
-            }
-            
+            }            
         },
         error: function (data, error) {
             closeWaitingDialog();

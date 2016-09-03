@@ -667,9 +667,9 @@ namespace Portal.Consultoras.Web.Controllers
                     using (ContenidoServiceClient sv = new ContenidoServiceClient())
                     {
                         if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                            montoPagar = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
+                            montoPagar = Util.DecimalToStringFormat(sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente, userData.CodigoISO);
                         else
-                            montoPagar = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente.ToString();
+                            montoPagar = Util.DecimalToStringFormat(sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente, userData.CodigoISO);
                     }
                 }                
             }

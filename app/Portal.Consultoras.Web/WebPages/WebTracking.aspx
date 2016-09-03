@@ -192,7 +192,7 @@
                     <asp:View ID="vTracking" runat="server">
                         <table style="width: 100%;">
                             <tr>
-                                <td>
+                                <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
                                             <td id="cellPedidos" runat="server" class="width_50" style="vertical-align: top; text-align: left">                                               
@@ -201,7 +201,7 @@
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">
                                                     <asp:GridView ID="gridPedidos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
                                                         GridLines="Horizontal" OnRowCommand="gridPedidos_RowCommand" CellPadding="0" CellSpacing="0">
-
+                                                       
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Nro. Pedido">
                                                                 <ItemTemplate>

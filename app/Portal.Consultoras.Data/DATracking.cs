@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidoByConsultoraAndCampania(string codigoConsultora, int campania)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoByConsultoraAndCampania");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoByConsultoraAndCampania_SB2");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
             return Context.ExecuteReader(command);

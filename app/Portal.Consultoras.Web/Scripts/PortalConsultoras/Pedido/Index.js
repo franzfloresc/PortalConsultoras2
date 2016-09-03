@@ -21,6 +21,13 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
+    // MICROEFECTO AL AGREGAR UN PEDIDO
+
+    //$("#tbobyDetallePedido").prepend('<div class="contenido_ingresoPedido mouse_encima filaIngresoPedidoOculto"><div class="texto_pedidos celda_codigo">04184</div><div class="texto_pedidos celda_producto">ES LAPIZ LABIAL COLOR HD MELON INTENSE 4G</div><div class="celda_cantidad_pedidos"><div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus"><input type="hidden" name="txtLPTempCant42" id="txtLPTempCant42" value="2"><input type="text" value="2" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant42" data-pedido="42" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion("201613", "3798298", "42", "1700", "03289", "1", "2")"><div class="liquidacion_rango_right_pedido"><a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a><a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a></div></div></div><div class="texto_pedidos precioUnitario">S/. 159.20</div><div class="texto_pedidos subtotal"><span class="precio">S/. 19.90</span><span>S/. 58.00</span></div><div class="texto_pedidos clientePedido"><input type="text" name="MARIA DEL PILAR CABALLERO GAVILAN" value="MARIA DEL PILAR CABALLERO GAVILAN" id="txtLPCli35" maxlength="50" class="classClienteNombre" style="width: 90%; padding: 4px;"></div><div class="texto_pedidos celda_iconos_acciones"><a style="background-image: url("/Content/Images/Esika/tacho-copy.png"); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a></div></div>');
+    //$("#tbobyDetallePedido div:first-child").slideDown(function () {
+    //    $(this).animate({ 'left': '0%','opacity':'1' }, 400, 'swing');
+    //});
+
     function abrir_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
@@ -357,6 +364,12 @@ $(document).ready(function () {
             MostrarMensajeProl(data);
         }
     });
+
+    $(document).on('click', '#idImagenCerrar', function (e) {
+        $(this).parent().remove();
+    });
+
+   
     
     CrearDialogs();
     CargarDetallePedido();
@@ -2141,6 +2154,7 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
+    
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2162,6 +2176,18 @@ function EjecutarServicioPROL() {
             var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
+
+                if (!response.data.ValidacionInteractiva) {
+
+                    html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
+                    html +='<img src="/Content/Images/icons/warning.png">';
+                    html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
+                    html +='<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
+                    html += '</div>';
+                    $("#divContendorPrincipal").after(html);
+                    return false;
+                }
+
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
                     mensajePedido += "Tu pedido se guardó con éxito";
 
@@ -2280,6 +2306,9 @@ function EjecutarServicioPROL() {
             }
 
             $('#btnValidarPROL').val(response.data.Prol);
+            var tooltips = response.data.ProlTooltip.split('|');
+            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             //var montoTotalPedido = parseFloat($("#hdfTotal").val());
@@ -2516,6 +2545,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             $('#btnValidarPROL').val(response.data.Prol);
+            $('#divSample1')[0].children[0].innerHTML = tooltips[0];
+            $('#divSample1')[0].children[1].innerHTML = tooltips[1];
 
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
             MostrarMensajeProl(response.data);                        
@@ -2747,23 +2778,26 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
             if (listaObservacionesProl.length == 1) {
-            var tipoError = listaObservacionesProl[0].Caso;
+                var tipoError = listaObservacionesProl[0].Caso;
 
-            if (tipoError == 95) {
-                //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
-                var mensajeCUV = listaObservacionesProl[0].CUV;
+                if (tipoError == 95) {
+                    //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                    var mensajeCUV = listaObservacionesProl[0].CUV;
 
-                if (mensajeCUV == "XXXXX") {
-                    var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                    var diferenciaMonto = montoMinimo - monto;
+                    if (mensajeCUV == "XXXXX") {
+                        var montoMinimo = parseFloat($("#hdMontoMinimo").val());
+                        var diferenciaMonto = montoMinimo - monto;
 
-                    var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
+                        var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
-                    if (parametria != null && parametria.length != 0) {
-                        if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
-                            montoFaltante = diferenciaMonto;
-                            precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
-                            resultado = true;
+                        if (parametria != null && parametria.length != 0) {
+                            if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
+                                montoFaltante = diferenciaMonto;
+                                precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
+                                resultado = true;
+                            } else {
+                                resultado = false;
+                            }
                         } else {
                             resultado = false;
                         }
@@ -2773,10 +2807,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 } else {
                     resultado = false;
                 }
-            } else {
-                resultado = false;
             }
-        }
             else {
                 resultado = false;
             }

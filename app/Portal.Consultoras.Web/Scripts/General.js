@@ -514,7 +514,7 @@ FuncionesGenerales = {
         var patron = /[0-9]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
-    },
+        },
 
     ValidarSoloNumerosAndSpecialCharater: function(e) {
         var tecla = (document.all) ? e.keyCode : e.which;

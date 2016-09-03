@@ -26,7 +26,7 @@
             }
         });
 
-        $("#btnNuevo").click(function () {            
+        $("#btnNuevo").click(function () {
 
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
@@ -110,7 +110,7 @@
                 $("#ddlEtiqueta2").children('option').hide();
                 $("#ddlEtiqueta2").children("option[data-id='3']").show();
             }
-            
+
             /* SB20-312 - FIN */
 
             HideDialog("DialogZona");
@@ -364,8 +364,8 @@
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: "0",
                     flag: "0",
-                    FlagNueva: flagNueva, 
-                    FlagRecoProduc: flagRecoProduc, 
+                    FlagNueva: flagNueva,
+                    FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
                 };
 
@@ -377,37 +377,38 @@
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-                        
+
                         $('#mensajeErrorCUV').val("");
                         if (data.message == "OK") {
                             $("#txtDescripcion").val(data.descripcion);
-                            
-                            //if (data.wsprecio > 0) {
 
-                            //    $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            //    $("#txtPrecio2")[0].disabled = true;
+                            if (data.wsprecio > 0) {
 
-                            //}
-                            //else if(data.wsprecio == 0)
-                            //{
-                            //    if (data.precio == 0) {
-                            //        $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            //        $("#txtPrecio2")[0].disabled = true;
-                            //    }
-                            //    else {
-                            //$("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            //        $("#txtPrecio2")[0].disabled = true;
-                            //    }
+                                $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
 
+                            }
+                            else if (data.wsprecio == 0) {
+                                if (data.precio == 0) {
+                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                    $("#txtPrecio2")[0].disabled = true;
+                                }
+                                else {
+                                    $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                    $("#txtPrecio2")[0].disabled = true;
+                                }
 
-                            //}
-                            //else if (data.wsprecio == -1)
-                            //{
-                            //    $("#txtPrecio2")[0].disabled = true;
-                            //    alert("No se pudo obtener el precio del producto");
-                            //}
+                            }
+                            else if (data.wsprecio == -1) {
+                                $("#txtPrecio2")[0].disabled = true;
+                                alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                            }
+                            else if (data.wsprecio == -2) {
+                                $("#txtPrecio2")[0].disabled = false;
+                                $("#txtPrecio2").val("");
+                                $("#txtPrecio2").focus();
 
-                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            }
 
                             $("#txtPrecio").val("");
                             $("#txtCUV").val("");
@@ -434,7 +435,7 @@
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
                                 $('#chkImagenProducto01').val(img01);
                             }
-                           $('#chkImagenProducto01').val(img01);//20150806
+                            $('#chkImagenProducto01').val(img01);//20150806
                             var img02 = data.imagen2.replace(/^.*[\\\/]/, '');
                             if (img02.lastIndexOf("?") >= 0) {
                                 img02 = img02.substring(0, img02.lastIndexOf("?"));
@@ -552,8 +553,8 @@
                 MostrarVistaPrevia("preview3");
             }
         });
-        
-        
+
+
     });
 
     ///////////////
@@ -607,7 +608,7 @@
     }
     // 2209 - Fin
     function MostrarVistaPrevia(id) {
-        $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));        
+        $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
         $("#imgTipoOferta").attr("src", $("#ddlTipoEstrategia option:selected").attr('imagen-tipo'));
         $("#imgEstrella").hide();
         $(".zona_estrategia_1").html("");
@@ -717,7 +718,7 @@
             $(".Recomendados").show();
             if (flagRecoProduc == "1") {
                 $("#idEstrella").hide();
-                $("#idColorFondo").show();                
+                $("#idColorFondo").show();
             }
             if (flagRecoPerfil == "1") {
                 $("#idColorFondo").hide();
@@ -1028,7 +1029,7 @@
                         alert($('#mensajeErrorCUV2').val());
                         return false;
                     }
-                    
+
                     if ($(".DatosNuevas").css("display") == "block") {
                         if ($("#ddlCampaniaFin").val() == "") {
                             alert("Seleccione la campaña de vigencia hasta.");
@@ -1039,7 +1040,7 @@
                         if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
                             alert("La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
                             return false;
-                        }                    
+                        }
                         //if ($("#txtPedidoAsociado").val() == "") {
                         //    alert("Ingrese un número de pedido asociado.");
                         //    return false;
@@ -1276,7 +1277,7 @@
             }
         });
 
-        
+
         $('#divVistaPrevia').dialog({
             autoOpen: false,
             resizable: false,
@@ -1424,22 +1425,22 @@
 
                         if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
                         else $("#chkHabilitarOferta").attr("checked", false);
-                        
+
                         if (data.FlagDescripcion == "1") $("#chkVisible1").attr("checked", true);
                         else $("#chkVisible1").attr("checked", false);
-                        
+
                         if (data.FlagCEP == "1") $("#chkVisible2").attr("checked", true);
                         else $("#chkVisible2").attr("checked", false);
-                        
+
                         if (data.FlagCEP2 == "1") $("#chkVisible3").attr("checked", true);
                         else $("#chkVisible3").attr("checked", false);
-                        
+
                         if (data.FlagTextoLibre == "1") $("#chkVisible4").attr("checked", true);
                         else $("#chkVisible4").attr("checked", false);
-                        
+
                         if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
                         else $("#chkVisible5").attr("checked", false);
-                        
+
                         if (data.ColorFondo != "") {
                             $("#hdColorFondo").val(data.ColorFondo);
                         } else {
@@ -1665,10 +1666,10 @@
                             for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
                             {
                                 <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                    flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                    flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
                                         codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                    imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
                                         value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
                                         data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral">
                                     @Model.ListaTipoEstrategia.ToList()[i].Descripcion
@@ -1863,7 +1864,8 @@
                 <input type="checkbox" id="chkImagenProducto03">
             </div>
         </div>
-        <div class="div-est-3" id="div-orden">      <!--SB20-312 -->
+        <div class="div-est-3" id="div-orden">
+            <!--SB20-312 -->
             <div class="titB">&nbsp;</div>
             <div class="titB">Orden:</div>
             <div class="titB">
@@ -1877,10 +1879,10 @@
                 <input type="text" id="txtAlcance" readonly="readonly" />
             </div>
             <div class="titA" style="width:20px">
-            <a href="#" style="margin-left: 5px" id="linkAlcance">
-                <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
-            </a>
-                </div>
+                <a href="#" style="margin-left: 5px" id="linkAlcance">
+                    <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                </a>
+            </div>
             <div class="titG" style="width:300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
         </div>
         <div class="div-est-3">
@@ -1913,19 +1915,19 @@
         <div class="div-3">
             <div class="titG">CUV:</div>
             <div class="selectP2 borde_redondeado">
-                 <input type="text" id="txtCUVTC" />
+                <input type="text" id="txtCUVTC" />
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Descripción:</div>
             <div class="selectP2 borde_redondeado" style="width: 300px">
-                 <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
+                <input type="text" id="txtDescripcionCUVTC" style="width: 290px" readonly="readonly" />
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Precio:</div>
             <div class="selectP2 borde_redondeado">
-                 <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
+                <input type="text" id="txtPrecioCUVTC" readonly="readonly" />
             </div>
         </div>
         <div class="div-3">
@@ -1959,7 +1961,7 @@
         </div>
         <div style="position: absolute; width:100%;">
             <img id="imgEstrella" style="float:left; margin-top:10px; width:23px; height:23px;" src="@Url.Content("~/Content/Images/star_reco.png")">
-        </div> 
+        </div>
         <img id="imgZonaEstrategia" style="width:128px; height: 161px; margin:5px;" src="" alt="Imagen Producto">
     </div>
     <div class="zona_estrategia_1"></div>

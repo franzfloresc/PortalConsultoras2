@@ -18,59 +18,59 @@
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-    @if (Model.ListaNotificaciones.Count == 0)
-    {
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert-top-icon text-success">
-                    <i class="icon-exclamation-circle"></i>
-                    <div>No existe notificaciones para mostrar.</div>
-                </div>
+@if (Model.ListaNotificaciones.Count == 0)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert-top-icon text-success">
+                <i class="icon-exclamation-circle"></i>
+                <div>No existe notificaciones para mostrar.</div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="col-xs-12">
-            <ul class="list-notificaciones">
-                @foreach (var item in Model.ListaNotificaciones)
-                {
-                    var estilo = item.Visualizado ? "" : "no-read";
+    </div>
+}
+else
+{
+    <div class="col-xs-12">
+        <ul class="list-notificaciones">
+            @foreach (var item in Model.ListaNotificaciones)
+            {
+                var estilo = item.Visualizado ? "" : "no-read";
 
-                    <li class="@estilo">
-                       
-                        <div class="text-noti">
-                            <div class="upper">
-                                <strong>
-                                    @if (item.FlagProcedencia == true)
-                                    {
-                                        <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
-                                    }
-                                    else
-                                    {
-                                        <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
-                                    }
-                                </strong>
-                                
-                                <b>
-                                    CAMPAÑA
-                                    @if (item.CampaniaId > 0)
-                                    {
-                                        @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
-                                    }
-                                </b>
-                            </div>
-                            <span class="fecha_notificaciones">
-                                @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
-                            </span>
+                <li class="@estilo">
+
+                    <div class="text-noti">
+                        <div class="upper">
+                            <strong>
+                                @if (item.FlagProcedencia == true)
+                                {
+                                    <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
+                                }
+                                else
+                                {
+                                    <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
+                                }
+                            </strong>
+
+                            <b>
+                                CAMPAÑA
+                                @if (item.CampaniaId > 0)
+                                {
+                                    @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
+                                }
+                            </b>
                         </div>
-                        
-                    </li>
-                }
-            </ul>
-            <br />
-        </div>
-    }
+                        <span class="fecha_notificaciones">
+                            @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
+                        </span>
+                    </div>
+
+                </li>
+            }
+        </ul>
+        <br />
+    </div>
+}
 
 
 @section scripts{
