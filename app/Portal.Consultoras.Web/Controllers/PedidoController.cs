@@ -820,10 +820,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (EliminacionMasiva)
                 {
-                    UpdPedidoWebMontosPROL();
-
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
+
+                    UpdPedidoWebMontosPROL();
 
                     if (userData.ZonaValida)
                     {
@@ -1018,7 +1018,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string ElementoOfertaTipoNuevo = null, string ClienteID_ = "", bool EsKitNueva = false)
+                                              string TipoOferta, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1037,57 +1037,21 @@ namespace Portal.Consultoras.Web.Controllers
                 OfertaWeb = false
             };
 
-            if (EsKitNueva)
+            if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var packNuevas = lstPedidoWebDetalle.FirstOrDefault(x => x.TipoEstrategiaID == 1);
+                
+                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1);
 
-                if (packNuevas != null)
+                foreach (var item in packNuevas)
                 {
-                    DeletePedido(packNuevas);
-                    Session["PedidoWebDetalle"] = null;
+                    DeletePedido(item);
                 }
+                Session["PedidoWebDetalle"] = null;
             }
-
-            ValidarInsertarPackNueva(pedidoModel);
 
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
-        }
-        #endregion
-
-        #region Pack Nueva Validar Insertar
-        private bool ValidarInsertarPackNueva(PedidoSb2Model model)
-        {
-            try
-            {
-                var listaEstrategia = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
-                listaEstrategia = listaEstrategia ?? new List<BEEstrategia>();
-                var existe = listaEstrategia.Where(e => e.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas);
-                if (!existe.Any())
-                    return false;
-
-                if (!existe.Where(e => e.CUV2 == model.CUV).ToList().Any())
-                    return false;
-
-                var delete = false;
-                Session["PedidoWebDetalle"] = null;
-                var listaPedido = ObtenerPedidoWebDetalle();
-                foreach (var item in listaPedido)
-                {
-                    if (existe.Where(e => e.CUV2 == item.CUV).ToList().Any())
-                    {
-                        delete = true;
-                        DeletePedido(item);
-                    }
-                }
-
-                return !delete;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
         #endregion
 
@@ -1535,7 +1499,8 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionMarca = item.DescripcionMarca,
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
-                        TipoEstrategiaID = item.TipoEstrategiaID // 
+                        TipoEstrategiaID = item.TipoEstrategiaID,
+                        FlagNueva= item.FlagNueva
                     });
                 }
 

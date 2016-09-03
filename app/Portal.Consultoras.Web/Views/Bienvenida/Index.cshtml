@@ -1292,10 +1292,10 @@
 <!-- FIN POPUP TUTORIAL -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
-{{#each this as |item|}}
-    <div data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+    {{#each this as |item|}}
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" id="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
         <div class="producto_img_home">
             <img src="{{FotoProducto01}}" class="imagen_producto" />
         </div>
@@ -1318,7 +1318,6 @@
         {{/if_eq}}
         {{/if_eq}}
         {{/if_eq}}
-
         <div class="producto_nombre_descripcion">
             <h6>{{DescripcionMarca}}</h6>
             {{#if_eq FlagNueva '1'}}
@@ -1389,7 +1388,8 @@
             </div>
         </div>
     </div>
-{{/each}}
+    </div>
+    {{/each}}
 </script>
 
     <script id="liquidacion-template" type="text/x-handlebars-template">
@@ -1447,7 +1447,7 @@
                     <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
             </div>
-            <div class="contenido_popUp">
+            <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
                 <div class="bloque_producto_packNuevas">
                     <div class="content_item_carrusel">
                         {{#if_eq FlagMostrarImg '1'}}
