@@ -1311,7 +1311,8 @@ BEGIN
 	left join MatrizComercial mc on 
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON 
-		EST.CampaniaID = p.AnoCampania 
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
 		AND EST.Activo = 1 
 	LEFT JOIN dbo.TallaColorCUV tcc 
@@ -1373,7 +1374,8 @@ BEGIN
 	left join MatrizComercial mc on
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON
-		EST.CampaniaID = p.AnoCampania
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV	TCC WHERE TCC.CUV = p.CUV))
 		AND EST.Activo = 1
 	LEFT JOIN TipoEstrategia TE ON
