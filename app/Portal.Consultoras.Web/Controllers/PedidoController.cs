@@ -48,6 +48,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                #region Kit Nuevas
+
+                if (Session["ConfiguracionProgramaNuevas"] == null)
+                    AgregarKitNuevas();
+
+                #endregion
+
                 #region Flexipago
 
                 string hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
@@ -266,12 +273,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                #region Kit Nuevas
-
-                if (Session["ConfiguracionProgramaNuevas"] == null)
-                    AgregarKitNuevas();  
-
-                #endregion
             }
             catch (FaultException ex)
             {
