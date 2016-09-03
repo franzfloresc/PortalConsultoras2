@@ -2279,29 +2279,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in olstPedidoWebDetalle)
             {
-                //if (item.TipoOfertaSisID != Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                //{
-                    dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
-                //}
-                //else
-                //{
-                //    montodescontar = montodescontar + item.ImporteTotal;
-                //}
+                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
             }
 
             ds.Tables.Add(dt);
 
-            List<BEKitNueva> KitNueva = new List<BEKitNueva>();
+            //List<BEKitNueva> KitNueva = new List<BEKitNueva>();
 
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                KitNueva = sv.GetValidarConsultoraNueva(userData.PaisID, userData.CodigoConsultora).ToList();
-            }
+            //using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            //{
+            //    KitNueva = sv.GetValidarConsultoraNueva(userData.PaisID, userData.CodigoConsultora).ToList();
+            //}
 
-            if (KitNueva[0].Estado == 1 && KitNueva[0].EstadoProceso == 1)
-            {
-                montodescontar = montodescontar + KitNueva[0].Monto;
-            }
+            //if (KitNueva[0].Estado == 1 && KitNueva[0].EstadoProceso == 1)
+            //{
+            //    montodescontar = montodescontar + KitNueva[0].Monto;
+            //}
 
             montoenviar = userData.MontoMinimo - montodescontar;
 
