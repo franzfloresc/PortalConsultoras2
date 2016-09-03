@@ -254,39 +254,19 @@
         </div>
     </div>
 
-    <div id="popupInformacion" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div id="mensajeInformacion" class="text-lg"></div>
-                    <br />
-                    <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar"><b>OK</b></a>
-                    </div>
-                </div>
-            </div>
+    <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacion" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
         </div>
     </div>
 
-    @*<div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="mensajeInformacionvalidado" class="text-lg"></div>
-                    <br />
-                    <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
     <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
@@ -299,6 +279,7 @@
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
+
     <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -308,7 +289,7 @@
                         <div class="col-xs-12">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
                             <ol class="breadcrumb-next upper">
-                                <li class="text-primary">
+                                <li>
                                     Comunidad Somos Belcorp
                                 </li>
                             </ol>
@@ -853,7 +834,7 @@
 
         function messageInfo(message, fnAceptar) {
             $('#mensajeInformacion').html(message);
-            $('#popupInformacion').modal("show");
+            $('#popupInformacion').show();
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacion .btn-aceptar').off('click');
                 $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
@@ -862,7 +843,7 @@
 
         function messageInfoBueno(message, fnAceptar) {
             $('#mensajeInformacionSB2Bueno').html(message);
-            $('#popupInformacionSB2Bueno').modal("show");
+            $('#popupInformacionSB2Bueno').show();
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
                 $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);

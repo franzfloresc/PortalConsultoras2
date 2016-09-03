@@ -7,6 +7,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var userData = UserData();
+            if (userData.CodigoISO == "VE")
+                return RedirectToAction("Index", "Bienvenida");
+
             ViewBag.Simbolo = userData.Simbolo;
             return View();
         }

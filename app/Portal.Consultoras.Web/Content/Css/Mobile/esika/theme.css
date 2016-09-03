@@ -1167,8 +1167,8 @@ dt,kbd kbd,label{font-weight:700}
 .text-uppercase{text-transform:uppercase}
 .text-capitalize{text-transform:capitalize}
 .text-muted{color:#777}
-.text-primary{color:#722789}
-a.text-primary:focus,a.text-primary:hover{color:#511c61}
+.text-primary{color:#000000}
+a.text-primary:focus,a.text-primary:hover{color:#000000}
 .text-success{color:#35bdb2}
 a.text-success:focus,a.text-success:hover{color:#2a958c}
 .text-info{color:#00abdf}
