@@ -410,8 +410,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             CargarProductosDestacados(cuv);
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
-
-            setTimeout(function () { $('.toUp').click(); }, 2000);
         },
         error: function (data, error) {
             CloseLoading();
@@ -589,7 +587,6 @@ function InsertarProducto() {
             }
 
             CloseLoading();
-            //$("#divMensajeProductoAgregado").show();
             $('#divMensajeCUV').hide();
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
@@ -609,8 +606,7 @@ function InsertarProducto() {
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 
             setTimeout(function () {
-                //$("#divMensajeProductoAgregado").fadeOut();
-                $('.toUp').click();
+                //$("#divMensajeProductoAgregado").show();
             }, 2000);
         },
         error: function (data, error) {

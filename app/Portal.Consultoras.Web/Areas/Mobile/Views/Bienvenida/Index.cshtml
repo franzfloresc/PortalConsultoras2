@@ -117,7 +117,7 @@
     <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
-    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" 
+    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
        class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
     <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').show();" title="Mira el Video de Bienvenida" target="_blank">MIRA EL VIDEO DE BIENVENIDA</a>
@@ -128,23 +128,29 @@
         <div class="item1_mobile">
             @{
                 string cabezaEscala = null, pieEscala = null;
-                if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
-                    || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Bolivia ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                    Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico) 
                 {
                     cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 3) //CHILE
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
                 {
                     cabezaEscala = "Comisión y ahorro total";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
                 {
-                    cabezaEscala = "Ganancia estimada total*";
+                    cabezaEscala = "Ganancia estimada total";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
-                else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela) 
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
@@ -218,7 +224,7 @@
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
-                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
+                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
         <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
@@ -240,14 +246,13 @@
         <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
-
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
         APRENDE A VENDER MÁS
-        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" 
+        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
            class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
     </div>
     <div class="imagen_catalogo video_esika">
@@ -261,7 +266,7 @@
     {
         <div class="comartir_home_mobile">
             LIQUIDACIÓN WEB
-            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos" 
+            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
                class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
@@ -319,7 +324,7 @@
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
 {
-    <input type="hidden" id="flagCatalogoPersonalizado"/>
+    <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">
         <img src="@Model.UrlImagenCatalogoPersonalizado" alt="-" />
     </div>
@@ -392,11 +397,11 @@
         <a class="cerrar_video" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').hide();"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
         @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(Model.CodigoISO))
         {
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
         }
         else
         {
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
         }
     </div>
 </div>
@@ -471,8 +476,8 @@
 </script>
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-        @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
-<script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
         var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
