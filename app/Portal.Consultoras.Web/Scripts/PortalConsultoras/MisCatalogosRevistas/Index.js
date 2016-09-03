@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
-        'validate': /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*([\.]\w{2,4})+$/,
+        'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
@@ -138,6 +138,13 @@ function ObtenerURLExpofertas() {
                     if ($arrayBanners.length > 1) {
                         var urlExpoferta = $arrayBanners[1].URL;
                         $('#catalogoExpoferta').click(function () {
+                            dataLayer.push({
+                                'event': 'virtualEvent',
+                                'category': 'Catálogos y revistas',
+                                'action': 'Ver expoferta',
+                                'label': 'Expoferta',
+                                'value': 0
+                            });
                             window.open(urlExpoferta, '_blank');
                         });
                         $("#catalogoExpoferta").css("cursor", "pointer");
@@ -323,13 +330,13 @@ function GetCatalogosLinksByCampania(data, campania) {
             cont++;
             if (codigoISSUU == '') {
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver','" + tagCat + "')");
+                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
                 $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
             }
             else {
                 var n = campania.substring(4, 6);
                 var a = campania.substring(0, 4);
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver','" + tagCat + "')");
+                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
                 var urlCat = urlISSUU + tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + n + "." + a + "?e=1/2";
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
                 $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
@@ -452,7 +459,15 @@ function CatalogoMostrar(accion, btn) {
         cata.css("margin-right", (wVacioUnit / 2) + "%");
         cata.css("margin-left", (wVacioUnit / 2) + "%");
     }
-
+    if (btn != null) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+            'label': 'Catálogos C-' + campSelect,
+            'value': 0
+        });
+    }
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
@@ -460,12 +475,19 @@ function SetGoogleAnalytics(Imagen, Accion, Label) {
         'event': 'virtualEvent',
         'category': 'Catalogo',
         'action': Accion,
-        'label': Label
+        'label': Label,
+        'value': 0
     });
 }
 
 function CompartirFacebook(Catalogo, btn) {
-
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir FB',
+        'label': Catalogo,
+        'value': 0
+    });
     var u = $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
 
     var popWwidth = 570;
@@ -479,6 +501,14 @@ function CompartirFacebook(Catalogo, btn) {
 // catalogo email
 var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir email – clic botón',
+        'label': tipoCatalogo,
+        'value': 0
+    });
+
     $("#comentarios").val(valContenidoCorreoDefecto);
     // remover todos los tag
     $('#tagCorreo').removeTagAll();
@@ -579,7 +609,30 @@ function CatalogoEnviarEmail() {
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
-
+    if (_Flagchklbel == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Lbel',
+            'value': clientes.length
+        });
+    if (_Flagchkesika == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Esika',
+            'value': clientes.length
+        });
+    if (_Flagchkcyzone == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Cyzone',
+            'value': clientes.length
+        });
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
@@ -644,13 +697,19 @@ jQuery(document).ready(function () {
 
     $("#lbPortadaGana").on("click", function () {
         
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Ver revista',
+            'label': 'Revista',
+            'value': 0
+        });
         var paisid = parseInt($('#numero_campania')[0].dataset.paisid);
         var codigozona = $('#numero_campania')[0].dataset.codigozona;
         var numero_campania_ = parseInt($("#numero_campania")[0].innerHTML);
         var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
         var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
 
-        SetGoogleAnalytics();
         var srcPortada = $("#imgPortadaGana").attr("src");
         if (srcPortada == defaultImageRevista) {
             var nroCampania = $("#spNroCampania").text();
@@ -699,43 +758,49 @@ function RevistaMostrar(accion, btn) {
     rCampSelect = aCamRev[rCampSelectI] || "";
 
     $("#numero_campania").text(rCampSelect); //EMP
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+        'label': 'Revista C-' + rCampSelect.substr(4),
+        'value': 0
+    });
+    //var campania = rCampSelect || "";
 
-    var campania = rCampSelect || "";
+    //if (campania && campania.length > 4) {
+    //    $("#spNroCampania").text(campania.substr(4));
+    //    if (rCampSelect == $("#hdrCampaniaActual").val()) {
+    //        _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + campania, 'Seleccionada']);
+    //        /*RQ 2505*/
+    //        dataLayer.push({
+    //            'event': 'virtualEvent',
+    //            'category': 'Revista',
+    //            'action': 'Click',
+    //            'label': 'Revista Campaña ' + campania.substring(4, 6)
+    //        });
 
-    if (campania && campania.length > 4) {
-        $("#spNroCampania").text(campania.substr(4));
-        if (rCampSelect == $("#hdrCampaniaActual").val()) {
-            _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Revista Campaña ' + campania.substring(4, 6)
-            });
-
-        }
-        if (campania == $("#hdrCampaniaAnterior").val()) {
-            _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Revista Anterior'
-            });
-        }
-        if (campania == $("#hdrCampaniaSiguiente").val()) {
-            _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Próxima Revista'
-            });
-        }
-    }
+    //    }
+    //    if (campania == $("#hdrCampaniaAnterior").val()) {
+    //        _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + campania, 'Seleccionada']);
+    //        /*RQ 2505*/
+    //        dataLayer.push({
+    //            'event': 'virtualEvent',
+    //            'category': 'Revista',
+    //            'action': 'Click',
+    //            'label': 'Revista Anterior'
+    //        });
+    //    }
+    //    if (campania == $("#hdrCampaniaSiguiente").val()) {
+    //        _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + campania, 'Seleccionada']);
+    //        /*RQ 2505*/
+    //        dataLayer.push({
+    //            'event': 'virtualEvent',
+    //            'category': 'Revista',
+    //            'action': 'Click',
+    //            'label': 'Próxima Revista'
+    //        });
+    //    }
+    //}
 
     waitingDialog({ title: "Cargando Imagen" });
 
@@ -809,36 +874,6 @@ function ObtenerUrlRevista(campania) {
     var numeroCampania = campania.substring(4, 6);;
     var anioCampania = campania.substring(0, 4);;
     return 'http://issuu.com/somosbelcorp/docs/revista.' + prefijoPais + '.c' + numeroCampania + '.' + anioCampania + "?e=11111/22222";
-}
-
-function SetGoogleAnalytics() {
-    campania = $("#spNroCampania").text();
-    if (campania == $("#hdrCampaniaActual").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + $("#hdrCampaniaActual").val(), 'Vista']);
-
-        /*RQ 2505*/
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Revista',
-            'action': 'Ver',
-            'label': 'SomosBelcorp'
-        });
-
-    }
-    if (campania == $("#hdrCampaniaAnterior").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + $("#hdrCampaniaAnterior").val(), 'Vista']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Revista/Anterior-C' + $("#hdrCampaniaActual").val() + '/Vista'
-        });
-    }
-    if (campania == $("#hdrCampaniaSiguiente").val().substr(4)) {
-        _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + $("#hdrCampaniaSiguiente").val(), 'Vista']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Revista/Proxima-C' + $("#hdrCampaniaActual").val() + '/Vista'
-        });
-    }
 }
 
 // mensaje alerta

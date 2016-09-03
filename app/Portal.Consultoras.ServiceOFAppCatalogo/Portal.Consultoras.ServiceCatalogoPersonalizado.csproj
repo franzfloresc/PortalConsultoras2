@@ -60,7 +60,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Librerias\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Librerias\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -172,6 +172,7 @@
     <Compile Include="Data\DAProducto.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Entities\Producto.cs" />
+    <Compile Include="Entities\ProductoJetlore.cs" />
     <Compile Include="Entities\ProductoPcm.cs" />
     <Compile Include="IProductoService.cs" />
     <Compile Include="Logic\BLProducto.cs" />

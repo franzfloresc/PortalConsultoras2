@@ -828,7 +828,7 @@ h4.re3 {
     height: 38px;
 }
     .form-control.text-primary {
-        color: #722789;
+        color: #000000;
     }
 .alert-success {
     background: #35bdb2;
@@ -1422,7 +1422,7 @@ h4.re3 {
     list-style: none;
     border-bottom: 1px solid #ccc;
     padding: 25px 0;
-    /*padding-left: 15px;*/
+    padding-left: 15px;
     position: relative;
     line-height: 1.4;
     font-size: 14px;
@@ -1461,14 +1461,14 @@ h4.re3 {
     cursor:pointer;
     
 }
-/*.list-notificaciones .no-read:before {
+.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}*/
+}
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
@@ -1476,7 +1476,7 @@ h4.re3 {
 }
 .list-notificaciones .text-noti {
     /*padding-left: 85px;*/
-    /*padding-bottom: 10px;*/
+    padding-bottom: 10px;
 }
 .list-notificaciones .btn-more {
     text-decoration: none;
@@ -4038,7 +4038,7 @@ width:100%;
 }
 
 .btn_seguirp_mobile.ver_video_introductorio{
-    margin-top: 5px;
+    margin-top: 15px;
     margin-bottom: 5px;
 }
 
@@ -4064,7 +4064,7 @@ width:100%;
 .titulo_item_mobile{
    display:inline-block;
    font-family:'Lato';
-   font-size:15px;
+   font-size:14px;
    letter-spacing:0.2px;
    vertical-align:middle;
    color:black;
@@ -4672,6 +4672,9 @@ body{
     font-size:15px;
     text-align:center;
     line-height:15px;
+     -webkit-border-radius: 0px;
+    -webkit-appearance: none !important;
+    text-transform:uppercase;
 }
 
 .contenedor_carrusel_home .slick-list{
@@ -5029,8 +5032,8 @@ body{
 
 .tooltip_noOlvidesGuardarTuPedido span{
     display: block;
-    font-size: 11px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 700;
     color: #000;
 }
 
@@ -5166,12 +5169,12 @@ body{
     width:98px;
     height:66px;
     margin-bottom:10px;
-    background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;*/
 }
 .liquidacion_esika{
     width: 110px;
     min-height: 55px;
-    margin-top: 9px;
+    margin-top: 0px;
     margin-bottom:0;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
@@ -5750,7 +5753,7 @@ input[type="checkbox"]:checked + span:after {
 .MensajeAlertaMobile{
     position:fixed;
     z-index:2010;
-    overflow-y:auto;
+    
     width:100%;
     height:100%;
     padding:15px;
@@ -6786,8 +6789,8 @@ input[type="checkbox"]:checked + span:after {
     font-family: 'Lato';
     font-weight: 400;
     color:#000;
-    width:250px;
-    font-size:14px;
+    width:auto;
+    font-size:13px;
 }
 
 /* PANTALLA MI ASESOR DE BELLEZA */
@@ -6947,3 +6950,54 @@ input[type="checkbox"]:checked + span:after {
     padding-left:15px;
     padding-right:15px;
 }
+
+/*VIDEO INTRODUCTORIO*/
+.content_video_introductorio{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+    
+}
+.cerrar_video{
+    position:absolute;
+    width:20px;
+    height:20px;
+    z-index:2005;
+    right:-30px;
+}
+.cerrar_video img{
+    width:100%;
+}
+
+/*.content_video_introductorio {
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}*/
+
+.content_video_introductorio iframe,
+.content_video_introductorio object,
+.content_video_introductorio embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .content_video_introductorio{
+    width: 85%;
+    height: 50%;
+    top: 25%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+       
+    }
+    
+}
+
+/*FIN*/

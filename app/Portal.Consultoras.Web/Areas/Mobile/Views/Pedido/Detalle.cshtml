@@ -32,8 +32,8 @@
             string tooltip2 = tooltips[1];
         }
         <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
-            <@*h2>¡Es importante que guardes tu pedido!</h2>
-            <span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>*@
+            @*h2>¡Es importante que guardes tu pedido!</h2>
+                <span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>*@
 
             <h2>@tooltip1</h2>
             <span>@tooltip2</span>
@@ -46,48 +46,9 @@
     <input type="submit" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
 </div>
 
-<!-- START Popup para Eliminar Item -->
-@*<div class="modal fade" id="popup-eliminar-item">
-    <div class="modal-dialog modal-alert ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-lg">
-                    ¿Estás segura que quieres eliminar el producto?
-                </div>
-                <br />
-                <div>
-                    <a href="javascript:;" onclick="ConfirmaEliminarPedido();" data-dismiss="modal" class="btn btn-line">ACEPTAR</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-<!-- END Popup para Eliminar Item -->
 <!-- START Popup para Observaciones PROL -->
-@*<div class="modal fade" id="popup-observaciones-prol">
-    <div class="modal-dialog modal-alert ">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h3 id="modal-prol-titulo" class="text-primary text-lg"></h3>
-                <div id="modal-prol-contenido"></div>
-                <br />
-                <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
-                    <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn btn-line btn-aceptar">ACEPTAR</a>
-                    <a href="javascript:;" style="padding: 5px;"></a>
-                    <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn btn-line btn-aceptar">CANCELAR</a>
-                </div>
-                <div id="modal-prol-botoneAceptar">
-                    <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 <div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
-     <div class="content_mensajeAlerta">
+    <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
@@ -99,12 +60,11 @@
             <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
             <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
         </div>
-         <div id="modal-prol-botoneAceptar">
+        <div id="modal-prol-botoneAceptar">
             <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" id="" class="btn_ok_mobile"><b>OK</b></a>
-</div>
+        </div>
     </div>
 </div>
-
 <!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
@@ -120,16 +80,15 @@
 </div>
 
 @*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-alert ">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div id="mensajeInformacionEliminar" class="text-lg"></div>
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="mensajeInformacionEliminar" class="text-lg"></div>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- END POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
-
 <!-- START Popup para Eliminar Todo Pedido -->
 <div id="divConfirmEliminarTotal" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -143,24 +102,6 @@
         <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
-
-
-@*<div class="modal fade" id="divConfirmEliminarTotal">
-    <div class="modal-dialog modal-alert ">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h3 id="modal-prol-titulo" class="text-primary text-lg">IMPORTANTE</h3>
-                <div id="modal-prol-contenido">¿Deseas eliminar el pedido completo?.</div>
-                <br />
-                <div id="modal-prol-botonesAceptarCancelar">
-                    <a href="javascript:;" onclick="EliminarPedidoTotalNo();" class="btn btn-line btn-aceptar">NO</a>
-                    <a href="javascript:;" style="padding: 5px;"></a>
-                    <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn btn-line btn-aceptar">SI</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 <!--POP MENSAJE IMPORTANTE-->
 <div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
@@ -176,7 +117,6 @@
     </div>
 </div>
 <!--FIN-->
-
 <!--POP MENSAJE LO LOGRASTE-->
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -188,7 +128,7 @@
         <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
         <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
         <a class="btn_ok_mobile"><b>OK</b></a>
-</div>
+    </div>
 </div>
 <!--FIN-->
 
@@ -270,16 +210,16 @@
                 </div>
 
                 @*<div class="icono_kitNuevas">
-                    <a href="javascript:;">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Kit Nueva" />
-                    </a>
-                </div>
-                <div class="tooltip_kitNuevas">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="texto_tooltipKitNuevas">
-                        Este Kit se agrega automáticamente sólo en tu primer pedido.
-                    </span>
-                </div>*@
+                        <a href="javascript:;">
+                            <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Kit Nueva" />
+                        </a>
+                    </div>
+                    <div class="tooltip_kitNuevas">
+                        <span class="icono_advertencia_notificacion"></span>
+                        <span class="texto_tooltipKitNuevas">
+                            Este Kit se agrega automáticamente sólo en tu primer pedido.
+                        </span>
+                    </div>*@
                 {{else}}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
@@ -307,8 +247,8 @@
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         @*<span class="signo_menos" data-cantidad-agregar="-">
-                            <img src="/Content/Images/Mobile/Esika/menos.png">
-                        </span>*@
+                                <img src="/Content/Images/Mobile/Esika/menos.png">
+                            </span>*@
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="text"
@@ -325,9 +265,7 @@
                                    class="ValidaNumeral"
                                    id="Cantidad_{{detalle.PedidoDetalleID}}"
                                    maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   onblur="UpdateLiquidacionEvento(event)"
-                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"                                  
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                                    data-cantidad-input="-"
@@ -346,8 +284,8 @@
                             {{/iff}}
                         </div>
                         @*<span class="signo_mas" data-cantidad-agregar="+">
-                            <img src="/Content/Images/Mobile/Esika/mas.png">
-                        </span>*@
+                                <img src="/Content/Images/Mobile/Esika/mas.png">
+                            </span>*@
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -448,7 +386,7 @@
 </script>
 
 @section Scripts{
-<script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script type="text/javascript">
 
         var codigoIsoPais = '@Model.CodigoISO';
@@ -476,12 +414,12 @@
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
         var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
-        
+
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
-        
+
     </script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
 }

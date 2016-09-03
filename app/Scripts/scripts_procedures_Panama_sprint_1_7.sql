@@ -1,5 +1,15 @@
-USE BelcorpPeru_SB2
+USE BelcorpPanama
 go
+
+/*ESQUEMAS*/
+IF NOT EXISTS(SELECT 1 FROM sys.schemas WHERE name = 'interfaces')
+BEGIN
+	EXEC sp_executesql N'CREATE SCHEMA interfaces';
+END
+
+go
+
+/*FIN ESQUEMAS*/
 
 /*TABLAS*/
 
@@ -70,35 +80,242 @@ create table dbo.OfertaFinalParametria
 
 go
 
+IF OBJECT_ID('interfaces.ProcesoJetloreConfiguracion') IS NOT NULL
+	DROP TABLE interfaces.ProcesoJetloreConfiguracion
+GO
+CREATE TABLE interfaces.ProcesoJetloreConfiguracion(
+	ProcesoJetloreConfiguracionId int NOT NULL,
+	CodigoProceso varchar(6) NULL,
+	Activo bit NULL,
+	RestriccionEjecucion bit NULL,
+	HoraInicioRestriccion time(0) NULL,
+	HoraFinRestriccion time(0) NULL,
+	CreacionLog bit NULL,
+	EnvioCorreoTodo bit NULL,
+	EnvioCorreoError bit NULL
+	CONSTRAINT PK_ProcesoJetloreConfiguracion PRIMARY KEY CLUSTERED 
+	(
+		ProcesoJetloreConfiguracionId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+
+IF OBJECT_ID('interfaces.ProcesoJetlore') IS NOT NULL
+	DROP TABLE interfaces.ProcesoJetlore
+GO
+CREATE TABLE interfaces.ProcesoJetlore(
+	ProcesoJetloreId bigint IDENTITY(1,1) NOT NULL,
+	CodigoProceso varchar(20) NULL,
+	FechaHoraInicio datetime NULL,
+	FechaHoraFin datetime NULL,
+	Estado int NULL,
+	ErrorProceso varchar(1000) NULL,
+	ErrorLog varchar(2000) NULL,
+	CONSTRAINT PK_ProcesoJetlore PRIMARY KEY CLUSTERED 
+	(
+		ProcesoJetloreId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+
+IF OBJECT_ID('interfaces.JetloreTipoOferta') IS NOT NULL
+	DROP TABLE interfaces.JetloreTipoOferta
+GO
+CREATE TABLE interfaces.JetloreTipoOferta(
+	TipoOfertaId VARCHAR(3) NOT NULL
+	CONSTRAINT PK_JetloreTipoOferta PRIMARY KEY CLUSTERED
+	(
+		TipoOfertaId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+IF OBJECT_ID('interfaces.JetloreTaxonomia') IS NOT NULL
+	DROP TABLE interfaces.JetloreTaxonomia
+GO
+CREATE TABLE interfaces.JetloreTaxonomia(
+	JetloreTaxonomiaId INT IDENTITY(1,1) NOT NULL,
+	Categoria VARCHAR(50) NOT NULL,
+	SubCategoria VARCHAR(50) NULL,
+	Tipo VARCHAR(50) NULL,
+	SubTipo VARCHAR(50) NULL,
+	CONSTRAINT PK_JetloreTaxonomia PRIMARY KEY CLUSTERED
+	(
+		JetloreTaxonomiaId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+
+IF OBJECT_ID('interfaces.LogPJProductFeed') IS NOT NULL
+	DROP TABLE interfaces.LogPJProductFeed
+GO
+CREATE TABLE interfaces.LogPJProductFeed(
+	LogPJProductFeedId bigint IDENTITY(1,1) NOT NULL,
+	PJProductFeedId bigint NOT NULL,
+	Campaign varchar(6) NOT NULL,
+	SalesCode varchar(5) NOT NULL,
+	SKU varchar(15) NOT NULL,
+	PromotionCode varchar(3) NOT NULL,
+	Price decimal(17,2) NOT NULL,
+	OriginalPrice decimal(17,2) NOT NULL,
+	Currency varchar(3) NOT NULL,
+	Title varchar(100) NOT NULL,	
+	ProductURL varchar(100) NOT NULL,
+	ProductImgURL varchar(100) NOT NULL,
+	ProductTaxonomy varchar(100) NOT NULL,
+	Brand varchar(4) NOT NULL,
+	IsRecommendable bit NOT NULL,
+	ProductAttributes varchar(100) NOT NULL
+	CONSTRAINT PK_LogPJProductFeed PRIMARY KEY CLUSTERED 
+	(
+		LogPJProductFeedId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+
+IF OBJECT_ID('interfaces.LogPJHistoricalData') IS NOT NULL
+	DROP TABLE interfaces.LogPJHistoricalData
+GO
+CREATE TABLE interfaces.LogPJHistoricalData(
+	LogPJHistoricalDataId bigint IDENTITY(1,1) NOT NULL,
+	PJProductFeedId bigint NOT NULL,
+	Campaign varchar(6) NOT NULL,
+	BillingDate varchar(10) NOT NULL,
+	PartyCode varchar(15) NOT NULL,
+	SalesCode varchar(5) NOT NULL,
+	SKU varchar(15) NOT NULL,
+	PromotionCode varchar(3) NOT NULL,
+	Price decimal(17,2) NOT NULL,
+	Currency varchar(3) NOT NULL,
+	SaleUnits bigint NOT NULL,
+	SaleDemandUnits bigint NOT NULL,
+	SaleNetAmont decimal(17,2) NOT NULL,
+	Title varchar(100) NOT NULL,
+	ProductTaxonomy varchar(100) NOT NULL,
+	Brand varchar(15) NOT NULL,
+	ProductAttributes varchar(100) NOT NULL
+	CONSTRAINT PK_LogPJHistoricalData PRIMARY KEY CLUSTERED 
+	(
+		LogPJHistoricalDataId ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY];
+
+GO
+
+IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[UsuarioContrasenia]') AND (type = 'U') )
+ DROP TABLE [dbo].[UsuarioContrasenia]
+GO
+
+CREATE TABLE [dbo].[UsuarioContrasenia] (
+	CodigoUsuario varchar(20),
+	Contrasenia varchar(200),
+	CONSTRAINT PK_UsuarioContrasenia PRIMARY KEY CLUSTERED (CodigoUsuario ASC)
+)
+GO
+
 /*FIN TABLAS*/
+
+/*TYPES*/
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+
+IF TYPE_ID('interfaces.JetloreProductFeedType') IS NOT NULL
+	DROP TYPE interfaces.JetloreProductFeedType
+GO
+CREATE TYPE interfaces.JetloreProductFeedType AS TABLE(
+	Campaign varchar(6) NOT NULL,
+	SalesCode varchar(5) NOT NULL,
+	SKU varchar(15) NOT NULL,
+	PromotionCode varchar(3) NOT NULL,
+	Price decimal(17,2) NOT NULL,
+	OriginalPrice decimal(17,2) NOT NULL,
+	Currency varchar(3) NOT NULL,
+	Title varchar(100) NOT NULL,	
+	ProductURL varchar(100) NOT NULL,
+	ProductImgURL varchar(100) NOT NULL,
+	ProductTaxonomy varchar(100) NOT NULL,
+	Brand varchar(4) NOT NULL,
+	IsRecommendable bit NOT NULL,
+	ProductAttributes varchar(100) NOT NULL
+)
+
+GO
+IF TYPE_ID('interfaces.JetloreHistoricalDataType') IS NOT NULL
+	DROP TYPE interfaces.JetloreHistoricalDataType
+GO
+CREATE TYPE interfaces.JetloreHistoricalDataType AS TABLE(
+	Campaign varchar(6) NOT NULL,
+	BillingDate varchar(10) NOT NULL,
+	PartyCode varchar(15) NOT NULL,
+	SalesCode varchar(5) NOT NULL,
+	SKU varchar(15) NOT NULL,
+	PromotionCode varchar(3) NOT NULL,
+	Price decimal(17,2) NOT NULL,
+	Currency varchar(3) NOT NULL,
+	SaleUnits bigint NOT NULL,
+	SaleDemandUnits bigint NOT NULL,
+	SaleNetAmont decimal(17,2) NOT NULL,
+	Title varchar(100) NOT NULL,
+	ProductTaxonomy varchar(100) NOT NULL,
+	Brand varchar(15) NOT NULL,
+	ProductAttributes varchar(100) NOT NULL
+)
+
+GO
+/*FIN TYPES*/
 
 /*NUEVOS CAMPOS*/
 IF  EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[OfertasPersonalizadas]') AND (type = N'SN') )
 	DROP SYNONYM [ods].[OfertasPersonalizadas]
 GO
 
-CREATE SYNONYM [ods].[OfertasPersonalizadas] FOR [ODS_PE_SB2].[dbo].[OfertasPersonalizadas]
+CREATE SYNONYM [ods].[OfertasPersonalizadas] FOR [ODS_PA].[dbo].[OfertasPersonalizadas]
 GO
 
 IF  EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[ConfiguracionProgramaNuevas]') AND (type = N'SN') )
 	DROP SYNONYM [ods].[ConfiguracionProgramaNuevas]
 GO
 
-CREATE SYNONYM [ods].[ConfiguracionProgramaNuevas] FOR [ODS_PE_SB2].[dbo].[ConfiguracionProgramaNuevas]
+CREATE SYNONYM [ods].[ConfiguracionProgramaNuevas] FOR [ODS_PA].[dbo].[ConfiguracionProgramaNuevas]
 GO
 
 IF  EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[EscalaDescuento]') AND (type = N'SN') )
 	DROP SYNONYM [ods].[EscalaDescuento]
 GO
 
-CREATE SYNONYM [ods].[EscalaDescuento] FOR [ODS_PE_SB2].[dbo].[EscalaDescuento]
+CREATE SYNONYM [ods].[EscalaDescuento] FOR [ODS_PA].[dbo].[EscalaDescuento]
 GO
 
-IF  EXISTS ( SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ods].[INT_SOA_COBRA_DEUDA_SECCI]') AND (type = N'SN') )
-	DROP SYNONYM [ods].[INT_SOA_COBRA_DEUDA_SECCI]
+IF OBJECT_ID('ods.SAP_SUBCATEGORIA') IS NULL
+BEGIN
+	CREATE SYNONYM ods.SAP_SUBCATEGORIA
+	FOR ODS_PA.dbo.SAP_SUBCATEGORIA;
+END
 GO
-
-CREATE SYNONYM [ods].[INT_SOA_COBRA_DEUDA_SECCI] FOR [ODS_PE_SB2].[ffvv].[INT_SOA_COBRA_DEUDA_SECCI]
+IF OBJECT_ID('ods.SAP_TIPO') IS NULL
+BEGIN
+	CREATE SYNONYM ods.SAP_TIPO
+	FOR ODS_PA.dbo.SAP_TIPO;  
+END
+GO
+IF OBJECT_ID('ods.SAP_SUBTIPO') IS NULL
+BEGIN
+	CREATE SYNONYM ods.SAP_SUBTIPO
+	FOR ODS_PA.dbo.SAP_SUBTIPO;  
+END
 
 GO
 
@@ -168,7 +385,7 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	values('EscalaDescuento', '¡YA LLEGAS AL #porcentaje% DSCTO!', 'Solo agrega #valor más.')
 	
 	insert into dbo.MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje)
-	values('EscalaDescuentoSupero', '¡BIEN!', 'Ya alcanzaste el #porcentaje de descuento.')
+	values('EscalaDescuentoSupero', '¡BIEN!', 'Ya alcanzaste el #porcentaje% de descuento.')
 
 end
 go
@@ -186,6 +403,11 @@ go
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('dbo.Permiso') and SYSCOLUMNS.NAME = N'EsPrincipal') = 0
 	ALTER TABLE dbo.Permiso ADD EsPrincipal bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('dbo.MenuMobile') and SYSCOLUMNS.NAME = N'EsSB2') = 0
+	ALTER TABLE dbo.MenuMobile ADD EsSB2 bit
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -208,16 +430,11 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE dbo.OfertaFinalParametria ADD PrecioMinimo decimal(18,2)
 go
 
-if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
-	where sysobjects.id = object_id('dbo.MenuMobile') and SYSCOLUMNS.NAME = N'EsSB2') = 0
-	ALTER TABLE dbo.MenuMobile ADD EsSB2 bit
-go
-
 /*FIN NUEVOS CAMPOS*/
 
 /*INSERT*/
 UPDATE dbo.Permiso set EsPrincipal = 0 WHERE PermisoID<1000
-UPDATE dbo.MenuMobile SET EsSB2 = 0 WHERE MenuMobileID<1000
+UPDATE dbo.MenuMobile set EsSB2 = 0 WHERE MenuMobileID<1000
 UPDATE MensajeMetaConsultora
 SET Mensaje = 'Ya alcanzaste el #porcentaje% de descuento.'
 WHERE TipoMensaje = 'EscalaDescuentoSupero'
@@ -231,147 +448,125 @@ DELETE FROM RolPermiso WHERE RolID=1 and PermisoID>1000
 DELETE FROM Permiso WHERE PermisoID IN (SELECT idPermisoTemp FROM #tblTemporal)
 DROP TABLE #tblTemporal
 
--- INICIO PADRES MENU SB20 --
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1002, N'SOCIA EMPRESARIA', 0, 1, N'Lider/Index', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1002, 1, 1)
-
+VALUES (1002, N'SOCIA EMPRESARIA', 0, 1, N'Lider/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1003, N'MI NEGOCIO', 0, 2, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1003, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1004, N'MI ACADEMIA', 0, 3, N'MiAcademia/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1004, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1005, N'MI COMUNIDAD', 0, 4, N'Comunidad/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1005, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1006, N' MI ASESOR DE BELLEZA', 0, 5, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1006, 1, 1)
--- FIN PADRES MENU SB20 --
+VALUES (1006, N'MI ASESOR DE BELLEZA', 0, 5, N'', 0, N'Header', NULL, 0, 0, 0, 1)
 
--- INICIO HIJOS MINEGOCIO --
+--HIJOS MI NEGOCIO
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1013, N'Seguimiento a tu pedido', 1003, 2, N'Tracking/Index', 0, N'Header', NULL, NULL, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1013, 1, 1)
-
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1014, N'Pedido FIC', 1003, 3, N'PedidoFIC/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1015, N'Mis pedidos', 1003, 4, N'MisPedidos/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1015, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1016, N'Mis pagos', 1003, 5, N'MisPagos/Index', 0, N'Header', NULL, NULL, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1016, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal])
 VALUES (1017, N'Mis beneficios', 1003, 6, N'MisBeneficios/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1017, 1, 1)
-
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 --VALUES (1018, N'Mis incentivos', 1003, 7, N'', 0, N'Header', NULL, 0, 0, 0, 1)
---INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1018, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1019, N'Consultora Online', 1003, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1019, 1, 1)
-
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+--VALUES (19, N'Consultora Online', 3, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1020, N'Mis clientes', 1003, 9, N'Cliente/Index', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1020, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1021, N'Liquidación web', 1003, 10, N'OfertaLiquidacion/OfertasLiquidacion', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1021, 1, 1)
---FIN HIJOS MINEGOCIO
+--FIN HIJOS MI NEGOCIO
 
 --HIJOS MI ASESOR DE BELLEZA
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1023, N'ÉSIKA', 1006, 1, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1023, 1, 1)
-
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+--VALUES (23, N'ÉSIKA', 6, 2, N'', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1024, N'LBEL', 1006, 1, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1024, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1025, N'CYZONE', 1006, 1, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1025, 1, 1)
+VALUES (1025, N'CYZONE', 1006, 2, N'', 0, N'Header', NULL, 0, 0, 0, 1)
 
 --HIJOS ESIKA
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1026, N'Maquillador Virtual', 1023, 1, N'http://www.esika.com/coach-de-belleza/maquillador-virtual/', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1026, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1027, N'Manicure virtual', 1023, 2, N'http://www.esika.com/coach-de-belleza/manicure-virtual/', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1027, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1028, N'Esika blog', 1023, 3, N'http://www.esika.com/blog/', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1028, 1, 1)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+--VALUES (26, N'Maquillador Virtual', 23, 1, N'http://www.esika.com/coach-de-belleza/maquillador-virtual/', 1, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+--VALUES (27, N'Manicure virtual', 23, 2, N'http://www.esika.com/coach-de-belleza/manicure-virtual/', 1, N'Header', NULL, 0, 0, 0)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios]) 
+--VALUES (28, N'Esika blog', 1023, 3, N'http://www.esika.com/blog/', 1, N'Header', NULL, 0, 0, 0)
 --FIN HIJOS ESIKA
 
 -- HIJOS LBEL
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1029, N'Diagnóstico de Piel', 1024, 1, N'http://www.lbel.com/diagnosticodepiel', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1029, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1030, N'Asesor de Bases y Polvos', 1024, 2, N'http://www.lbel.com/asesordemaquillaje/', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1030, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1031, N'Belleza a tu medida', 1024, 3, N'http://www.lbel.com/bellezaatumedida', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1031, 1, 1)
 -- FIN HIJOS LBEL
 
 -- HIJOS CYZONE
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1032, N'Maquillador virtual', 1025, 1, N'http://www.cyzone.com/pe/maquillador-virtual', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1032, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1033, N'Manicure virtual', 1025, 2, N'http://www.cyzone.com/pe/manicure-virtual', 1, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1033, 1, 1)
-
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1034, N'Look book', 1025, 3, N'http://www.cyzone.com/look-book/', 1, N'Header', NULL, 0, 0, 0, 1)
+-- FIN HIJOS CYZONE
+
+-- FOOTER
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1040, N'AYUDA', 0, 2, N'', 0, N'Footer', NULL, 0, 0, 0, 1)
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1041, N'LEGAL', 0, 3, N'', 0, N'Footer', NULL, 0, 0, 0, 1)
+
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1042, N'PREGUNTAS FRECUENTES', 1040, 1, N'https://www.somosbelcorp.com/Content/FAQ/Preguntas frecuentes Portal Consultora PA.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1043, N'CONTÁCTANOS', 1040, 2, N'http://belcorprespondeqa.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0, 1)
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1044, N'CONDICIONES DE USO WEB', 1041, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PA.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+VALUES (1045, N'POLÍTICAS DE PRIVACIDAD', 1041, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_PA.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+-- FIN FOOTER
+
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1002, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1003, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1004, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1005, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1006, 1, 1)
+
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1013, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1014, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1015, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1016, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1017, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1018, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 19, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1020, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1021, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 23, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1024, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1025, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 26, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 27, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 28, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1029, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1030, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1031, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1032, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1033, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1034, 1, 1)
--- FIN HIJOS CYZONE --
 
---INICIO FOOTER SB20 --
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1037, N'AYUDA', 0, 1, N'', 0, N'Footer', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1037, 1, 1)
 
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1038, N'LEGAL', 0, 2, N'', 0, N'Footer', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1038, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1039, N'PREGUNTAS FRECUENTES', 1037, 1, N'https://www.somosbelcorp.com/Content/FAQ/Preguntas frecuentes Portal Consultora PE.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1039, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1040, N'CONTÁCTANOS', 1037, 2, N'http://belcorprespondeqa.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1040, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1041, N'CONDICIONES DE USO WEB', 1038, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1041, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1042, N'POLÍTICAS DE PRIVACIDAD', 1038, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_PE.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1042, 1, 1)
-
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1043, N'PROCEDIMIENTO Y FORMULARIO PARA EL EJERCICIO DE DERECHOS ARCO', 38, 3, N'https://www.somosbelcorp.com/Content/FAQ/PROCEDIMIENTO_Y_FORMULARIO_PARA_EL_EJERCICIO_DE_DERECHOS_ARCO_PE.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1043, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1044, 1, 1)
+INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1045, 1, 1)
 
--- FIN FOOTER SB20--
 GO
 
 IF NOT EXISTS (SELECT TablaLogicaID FROM TablaLogica WHERE TablaLogicaID = 87)
@@ -390,23 +585,24 @@ DELETE FROM MenuMobile WHERE Posicion='Menu' AND MENUMOBILEID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, EsSB2)
 VALUES
-(1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile',1),
-(1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
-(1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
-(1004, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
-(1005, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
-(1006, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
+(1030, 'Inicio', 0, 1, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
+(1001, 'Mi Negocio', 0, 2, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
+(1002, 'Catálogos y Revistas', 0, 3, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
+(1003, 'Mi Asesor de Belleza', 0, 4, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
+(1004, 'Mi Academia', 0, 5, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
+(1005, 'Mi Comunidad', 0, 6, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
+(1006, 'Mis Notificaciones', 0, 7, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
 
-(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
+--(7, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
 (1009, 'Seguimiento a tu pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
 (1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
---(1011, 'Pedidos FIC', 1, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile'),
+(1011, 'Pedidos FIC', 1001, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
 (1012, 'Pedidos ingresados', 1001, 3, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
 (1013, 'Pedidos facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile',1),
 (1014, 'Mis clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile',1),
 (1015, 'Productos Agotados', 1001, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile',1)
---(1016, 'Pago en Línea', 1001, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile')
+--(16, 'Pago en Línea', 1001, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile',1)
 
 GO
 
@@ -427,8 +623,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1017
 						,'Ayuda'
 						,0
@@ -437,8 +632,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,0
 						,'Footer'
-						,'Completa'
-						,1)
+						,'Completa',1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -447,8 +641,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1018
 						,'Legal'
 						,0
@@ -457,8 +650,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,0
 						,'Footer'
-						,'Completa'
-						,1)
+						,'Completa',1)
 
 --HIJOS
 
@@ -470,8 +662,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1019
 						,'Preguntas Frecuentes'
 						,1017
@@ -480,8 +671,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,1
 						,'Footer'
-						,'Completa'
-						,1)
+						,'Completa',1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -490,8 +680,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1020
 						,'Contáctanos'
 						,1017
@@ -500,8 +689,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,1
 						,'Footer'
-						,'Mobile'
-						,1)
+						,'Mobile',1)
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
 						,MenuPadreId
@@ -510,8 +698,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1021
 						,'Tutorial'
 						,1017
@@ -520,8 +707,7 @@ INSERT INTO MenuMobile (MenuMobileID
 						,''
 						,1
 						,'Footer'
-						,'Completa'
-						,1)
+						,'Completa',1)
 
 INSERT INTO MenuMobile (MenuMobileID
 						,Descripcion
@@ -531,59 +717,16 @@ INSERT INTO MenuMobile (MenuMobileID
 						,UrlImagen
 						,PaginaNueva
 						,Posicion
-						,[Version]
-						, EsSB2)
+						,[Version], EsSB2)
 				VALUES (1022
-						,'Política de privacidad'
+						,'Términos y Condiciones'
 						,1018
 						,1
-						,'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_PE.pdf'
+						,'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_PA.aspx'
 						,''
 						,1
 						,'Footer'
-						,'Completa'
-						,1)
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version]
-						, EsSB2)
-				VALUES (1023
-						,'Condiciones de uso web'
-						,1018
-						,2
-						,'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_PE.pdf'
-						,''
-						,1
-						,'Footer'
-						,'Completa'
-						,1)
-INSERT INTO MenuMobile (MenuMobileID
-						,Descripcion
-						,MenuPadreId
-						,OrdenItem
-						,UrlItem
-						,UrlImagen
-						,PaginaNueva
-						,Posicion
-						,[Version]
-						, EsSB2)
-				VALUES (1024
-						,'Procedimiento y formulario para el ejercicio de derechos arco'
-						,1018
-						,3
-						,'https://www.somosbelcorp.com/Content/FAQ/PROCEDIMIENTO_Y_FORMULARIO_PARA_EL_EJERCICIO_DE_DERECHOS_ARCO_PE.pdf'
-						,''
-						,1
-						,'Footer'
-						,'Completa'
-						,1)
-
+						,'Completa',1)
 GO
 
 if not exists(select 1 from Permiso where Descripcion = 'Carga de Reemplazos Sugeridos')
@@ -656,6 +799,123 @@ UPDATE dbo.Marca SET Descripcion = 'L''Bel' WHERE Descripcion = 'LBel'
 UPDATE dbo.Marca SET Descripcion = 'Ésika' WHERE Descripcion = 'Esika'
 UPDATE ods.Marca SET Nombre = 'L''Bel' WHERE Nombre = 'LBel'
 UPDATE ods.Marca SET Nombre = 'Ésika' WHERE Nombre = 'Esika'
+
+GO
+
+IF NOT EXISTS(SELECT 1 FROM interfaces.ProcesoJetloreConfiguracion WHERE CodigoProceso = 'PRF-01')
+BEGIN
+	INSERT interfaces.ProcesoJetloreConfiguracion(ProcesoJetloreConfiguracionId,CodigoProceso,Activo,RestriccionEjecucion,HoraInicioRestriccion,HoraFinRestriccion,CreacionLog,EnvioCorreoTodo,EnvioCorreoError)
+	VALUES (1, 'PRF-01', 1, 1, '08:00:00', '20:00:00',1,1,1);
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.ProcesoJetloreConfiguracion WHERE CodigoProceso = 'HID-01')
+BEGIN
+	INSERT interfaces.ProcesoJetloreConfiguracion(ProcesoJetloreConfiguracionId,CodigoProceso,Activo,RestriccionEjecucion,HoraInicioRestriccion,HoraFinRestriccion,CreacionLog,EnvioCorreoTodo,EnvioCorreoError)
+	VALUES (2, 'HID-01', 1, 1, '08:00:00', '20:00:00',1,1,1);
+END
+
+GO
+
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '004')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('004');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '011')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('011');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '013')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('013');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '014')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('014');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '015')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('015');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '017')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('017');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '018')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('018');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '033')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('033');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '106')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('106');
+END
+GO
+IF NOT EXISTS(SELECT 1 FROM interfaces.JetloreTipoOferta WHERE TipoOfertaId = '116')
+BEGIN
+	INSERT interfaces.JetloreTipoOferta(TipoOfertaId) VALUES ('116');
+END
+
+GO
+IF NOT EXISTS(
+	SELECT 1
+	FROM interfaces.JetloreTaxonomia
+	WHERE Categoria = 'Cuidado Personal' AND SubCategoria IS NULL AND Tipo IS NULL AND SubTipo IS NULL
+)
+BEGIN
+	INSERT interfaces.JetloreTaxonomia(Categoria,SubCategoria,Tipo,SubTipo)
+	VALUES ('Cuidado Personal',NULL,NULL,NULL);
+END
+GO
+IF NOT EXISTS(
+	SELECT 1
+	FROM interfaces.JetloreTaxonomia
+	WHERE Categoria = 'Fragancias' AND SubCategoria IS NULL AND Tipo IS NULL AND SubTipo IS NULL
+)
+BEGIN
+	INSERT interfaces.JetloreTaxonomia(Categoria,SubCategoria,Tipo,SubTipo)
+	VALUES ('Fragancias',NULL,NULL,NULL);
+END
+GO
+IF NOT EXISTS(
+	SELECT 1
+	FROM interfaces.JetloreTaxonomia
+	WHERE Categoria = 'Maquillaje' AND SubCategoria IS NULL AND Tipo IS NULL AND SubTipo IS NULL
+)
+BEGIN
+	INSERT interfaces.JetloreTaxonomia(Categoria,SubCategoria,Tipo,SubTipo)
+	VALUES ('Maquillaje',NULL,NULL,NULL);
+END
+GO
+IF NOT EXISTS(
+	SELECT 1
+	FROM interfaces.JetloreTaxonomia
+	WHERE Categoria = 'Tratamiento Facial' AND SubCategoria IS NULL AND Tipo IS NULL AND SubTipo IS NULL
+)
+BEGIN
+	INSERT interfaces.JetloreTaxonomia(Categoria,SubCategoria,Tipo,SubTipo)
+	VALUES ('Tratamiento Facial',NULL,NULL,NULL);
+END
+GO
+IF NOT EXISTS(
+	SELECT 1
+	FROM interfaces.JetloreTaxonomia
+	WHERE Categoria = 'Tratamiento Corporal' AND SubCategoria IS NULL AND Tipo IS NULL AND SubTipo IS NULL
+)
+BEGIN
+	INSERT interfaces.JetloreTaxonomia(Categoria,SubCategoria,Tipo,SubTipo)
+	VALUES ('Tratamiento Corporal',NULL,NULL,NULL);
+END
 
 GO
 
@@ -787,9 +1047,147 @@ end
 
 go
 
+IF OBJECT_ID('dbo.fnGetCampaniaActualPais') IS NOT NULL
+	DROP FUNCTION dbo.fnGetCampaniaActualPais
+GO
+GO
+CREATE FUNCTION dbo.fnGetCampaniaActualPais()
+RETURNS INT
+AS
+BEGIN
+	DECLARE @CampaniaActual INT;
+	SELECT TOP 1 @CampaniaActual = Ca.Codigo
+	FROM ods.cronograma Cr WITH(NOLOCK)
+	INNER JOIN ods.campania Ca WITH(NOLOCK) on Cr.CampaniaID = Ca.CampaniaID
+	WHERE Cr.fechainiciorefacturacion >= CAST(GETDATE() AS DATE)
+	ORDER BY Cr.campaniaid;
+
+	RETURN @CampaniaActual;
+END
+
+GO
+IF OBJECT_ID('dbo.fnAddCampaniaAndNumero') IS NOT NULL
+	DROP FUNCTION dbo.fnAddCampaniaAndNumero
+GO
+
+CREATE FUNCTION dbo.fnAddCampaniaAndNumero(
+	@CodigoISO CHAR(2),
+	@CampaniaActual INT,
+	@AddNro INT
+)
+RETURNS INT
+AS
+BEGIN
+	DECLARE @NroCampanias INT;
+	SELECT @NroCampanias = NroCampanias
+	FROM Pais
+	WHERE CodigoISO = @CodigoISO;
+	
+	DECLARE @AnioCampaniaActual INT = @CampaniaActual/100;
+	DECLARE @NroCampaniaActual INT = @CampaniaActual%100;
+	DECLARE @SumNroCampania INT = (@NroCampaniaActual + @AddNro) - 1;
+	DECLARE @AnioCampaniaSiguiente INT = @AnioCampaniaActual + @SumNroCampania/@NroCampanias;
+	DECLARE @NroCampaniaSiguiente INT = @SumNroCampania%@NroCampanias + 1;
+	
+	IF @NroCampaniaSiguiente < 1
+	BEGIN
+		SET @AnioCampaniaSiguiente = @AnioCampaniaSiguiente - 1;
+		SET @NroCampaniaSiguiente = @NroCampaniaSiguiente + @NroCampanias;
+	END
+	DECLARE @CampaniaSiguiente INT = @AnioCampaniaSiguiente*100 + @NroCampaniaSiguiente;
+	RETURN @CampaniaSiguiente;
+END
+
+GO
+
 /*FIN FUNCIONES*/
 
 /*PROCEDIMIENTOS ALMACENADOS*/
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProductoSugeridoByCUV_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetProductoSugeridoByCUV_SB2
+GO
+
+create procedure dbo.GetProductoSugeridoByCUV_SB2
+@CampaniaID int,
+@ConsultoraID int,
+@CUV varchar(100),
+@RegionID int,
+@ZonaID int,
+@CodigoRegion varchar(10),
+@CodigoZona varchar(10)
+as
+/*
+dbo.GetProductoSugeridoByCUV_SB2 201609,2,'02767',2701,2161,'50','5052'
+dbo.GetProductoSugeridoByCUV_SB2 201609,2,'00040',2701,2161,'50','5052'
+*/
+begin
+
+declare @tablaSugerido table
+(
+	Orden int,
+	ImagenProducto varchar(150),
+	CUV varchar(20)
+)
+
+insert into @tablaSugerido
+select Orden, ImagenProducto, CUVSugerido
+from ProductoSugerido
+where 
+	CampaniaID = @CampaniaID
+	and CUV = @CUV
+	and Estado = '1'
+
+declare @tablaCUV table(
+	CUV varchar(20), Descripcion varchar(100), PrecioCatalogo decimal(18,2), 
+	MarcaID int, EstaEnRevista int, TieneStock int, EsExpoOferta int,
+	CUVRevista varchar(20), CUVComplemento varchar(20), PaisID int,
+	CampaniaID varchar(6), CodigoCatalago varchar(6), CodigoProducto varchar(12),
+	IndicadorMontoMinimo int, DescripcionMarca varchar(20), DescripcionCategoria varchar(20),
+	DescripcionEstrategia varchar(200), ConfiguracionOfertaID int, TipoOfertaSisID int,
+	FlagNueva int, TipoEstrategiaID int, IndicadorOferta bit, TieneSugerido int
+) 
+
+DECLARE cursorSugerido CURSOR
+    FOR SELECT CUV FROM @tablaSugerido
+OPEN cursorSugerido
+FETCH NEXT FROM cursorSugerido into @CUV
+
+WHILE @@FETCH_STATUS = 0   
+BEGIN         
+
+	   insert into @tablaCUV
+	   exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2 @CampaniaID,1,1,@CUV,@RegionID,@ZonaID,@CodigoRegion,@CodigoZona	   
+	   
+	   FETCH NEXT FROM cursorSugerido INTO @CUV 
+END
+
+declare @tablaPedidoDetalle table ( CUV varchar(20) )
+insert into @tablaPedidoDetalle
+select pd.CUV from PedidoWeb p
+inner join PedidoWebDetalle pd on
+	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
+where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
+
+--Verificar que tenga stock
+select
+	t.CUV, t.Descripcion, t.PrecioCatalogo, 
+	t.MarcaID, t.EstaEnRevista, t.TieneStock, t.EsExpoOferta,
+	t.CUVRevista, t.CUVComplemento, t.PaisID,
+	t.CampaniaID, t.CodigoCatalago, t.CodigoProducto,
+	t.IndicadorMontoMinimo, t.DescripcionMarca, t.DescripcionCategoria,
+	t.DescripcionEstrategia, t.ConfiguracionOfertaID, t.TipoOfertaSisID,
+	t.FlagNueva, t.TipoEstrategiaID, t.IndicadorOferta, ts.ImagenProducto as ImagenProductoSugerido
+from @tablaCUV t
+inner join @tablaSugerido ts on
+	t.CUV = ts.CUV
+where t.TieneStock = 1
+	and t.CUV not in (select CUV from @tablaPedidoDetalle)
+order by ts.Orden
+
+end
+
+go
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProductoComercialByCampaniaBySearchRegionZona_SB2]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].GetProductoComercialByCampaniaBySearchRegionZona_SB2
@@ -913,7 +1311,8 @@ BEGIN
 	left join MatrizComercial mc on 
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON 
-		EST.CampaniaID = p.AnoCampania 
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
 		AND EST.Activo = 1 
 	LEFT JOIN dbo.TallaColorCUV tcc 
@@ -975,7 +1374,8 @@ BEGIN
 	left join MatrizComercial mc on
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON
-		EST.CampaniaID = p.AnoCampania
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV	TCC WHERE TCC.CUV = p.CUV))
 		AND EST.Activo = 1
 	LEFT JOIN TipoEstrategia TE ON
@@ -989,91 +1389,6 @@ BEGIN
 END
 
 END
-
-go
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProductoSugeridoByCUV_SB2]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].GetProductoSugeridoByCUV_SB2
-GO
-
-create procedure dbo.GetProductoSugeridoByCUV_SB2
-@CampaniaID int,
-@ConsultoraID int,
-@CUV varchar(100),
-@RegionID int,
-@ZonaID int,
-@CodigoRegion varchar(10),
-@CodigoZona varchar(10)
-as
-/*
-dbo.GetProductoSugeridoByCUV_SB2 201609,2,'02767',2701,2161,'50','5052'
-dbo.GetProductoSugeridoByCUV_SB2 201609,2,'00040',2701,2161,'50','5052'
-*/
-begin
-
-declare @tablaSugerido table
-(
-	Orden int,
-	ImagenProducto varchar(150),
-	CUV varchar(20)
-)
-
-insert into @tablaSugerido
-select Orden, ImagenProducto, CUVSugerido
-from ProductoSugerido
-where 
-	CampaniaID = @CampaniaID
-	and CUV = @CUV
-	and Estado = '1'
-
-declare @tablaCUV table(
-	CUV varchar(20), Descripcion varchar(100), PrecioCatalogo decimal(18,2), 
-	MarcaID int, EstaEnRevista int, TieneStock int, EsExpoOferta int,
-	CUVRevista varchar(20), CUVComplemento varchar(20), PaisID int,
-	CampaniaID varchar(6), CodigoCatalago varchar(6), CodigoProducto varchar(12),
-	IndicadorMontoMinimo int, DescripcionMarca varchar(20), DescripcionCategoria varchar(20),
-	DescripcionEstrategia varchar(200), ConfiguracionOfertaID int, TipoOfertaSisID int,
-	FlagNueva int, TipoEstrategiaID int, IndicadorOferta bit, TieneSugerido int
-) 
-
-DECLARE cursorSugerido CURSOR
-    FOR SELECT CUV FROM @tablaSugerido
-OPEN cursorSugerido
-FETCH NEXT FROM cursorSugerido into @CUV
-
-WHILE @@FETCH_STATUS = 0   
-BEGIN         
-
-	   insert into @tablaCUV
-	   exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2 @CampaniaID,1,1,@CUV,@RegionID,@ZonaID,@CodigoRegion,@CodigoZona	   
-	   
-	   FETCH NEXT FROM cursorSugerido INTO @CUV 
-END
-
-declare @tablaPedidoDetalle table ( CUV varchar(20) )
-insert into @tablaPedidoDetalle
-select pd.CUV from PedidoWeb p
-inner join PedidoWebDetalle pd on
-	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
-where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
-
---Verificar que tenga stock
-select
-	t.CUV, t.Descripcion, t.PrecioCatalogo, 
-	t.MarcaID, t.EstaEnRevista, t.TieneStock, t.EsExpoOferta,
-	t.CUVRevista, t.CUVComplemento, t.PaisID,
-	t.CampaniaID, t.CodigoCatalago, t.CodigoProducto,
-	t.IndicadorMontoMinimo, t.DescripcionMarca, t.DescripcionCategoria,
-	t.DescripcionEstrategia, t.ConfiguracionOfertaID, t.TipoOfertaSisID,
-	t.FlagNueva, t.TipoEstrategiaID, t.IndicadorOferta, ts.ImagenProducto as ImagenProductoSugerido
-from @tablaCUV t
-inner join @tablaSugerido ts on
-	t.CUV = ts.CUV
-where t.TieneStock = 1
-	and t.CUV not in (select CUV from @tablaPedidoDetalle)
-order by ts.Orden
-
-end
 
 go
 
@@ -1254,139 +1569,137 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Listar
 	DROP PROCEDURE [dbo].ListarEstrategiasPedido_SB2
 GO
 
-CREATE PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]  
-@CampaniaID INT,  
-@ConsultoraID VARCHAR(30),  
-@CUV VARCHAR(20),  
-@ZonaID VARCHAR(20)  
+CREATE PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
+	@CampaniaID INT,
+	@ConsultoraID VARCHAR(30),
+	@CUV VARCHAR(20),
+	@ZonaID VARCHAR(20)
 AS
 /*
 dbo.ListarEstrategiasPedido_SB2 201612,'2','','2161'
 */
-BEGIN  
-	SET NOCOUNT ON  
-    
+BEGIN
+	SET NOCOUNT ON;
+
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
 	insert into @tablaCuvPedido
-	SELECT CUV   
-	FROM PedidoWebDetalle with(nolock)   
-	WHERE CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID	
+	SELECT CUV
+	FROM PedidoWebDetalle with(nolock)
+	WHERE CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
-	DECLARE @CuvReco VARCHAR(20)  
-	SELECT 
-		@CuvReco = CSA.CUV 
-	FROM CrossSellingAsociacion CSA   
-	INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID   
+	DECLARE @CuvReco VARCHAR(20)
+	SELECT @CuvReco = CSA.CUV
+	FROM CrossSellingAsociacion CSA
+	INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
 	WHERE
-		CA.Codigo = @CampaniaID 
+		CA.Codigo = @CampaniaID
 		AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-    
-	/* RECOMENDACION POR CUV - INICIO */   
-	SELECT  
-		EstrategiaID,   
-		CUV2,   
-		DescripcionCUV2,   
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,   
-		E.Precio,  
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,   
-		Precio2,  
-		TextoLibre,   
-		FlagEstrella,   
-		ColorFondo,  
-		e.TipoEstrategiaID,  
-		e.ImagenURL FotoProducto01,  
-		te.ImagenEstrategia ImagenURL,  
-		e.LimiteVenta,  
-		pc.MarcaID,  
-		te.Orden Orden1,  
-		e.Orden Orden2,  
-		pc.IndicadorMontoMinimo,  
-		pc.CodigoProducto,   
+
+	/* RECOMENDACION POR CUV - INICIO */
+	SELECT
+		EstrategiaID,
+		CUV2,
+		DescripcionCUV2,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+		E.Precio,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+		Precio2,
+		TextoLibre,
+		FlagEstrella,
+		ColorFondo,
+		e.TipoEstrategiaID,
+		e.ImagenURL FotoProducto01,
+		te.ImagenEstrategia ImagenURL,
+		e.LimiteVenta,
+		pc.MarcaID,
+		te.Orden Orden1,
+		e.Orden Orden2,
+		pc.IndicadorMontoMinimo,
+		pc.CodigoProducto,
 		TE.FlagNueva,
 		dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		1 as TipoEstrategiaImagenMostrar	--CrossSelling
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
-	INTO #TEMPORAL  
-	FROM Estrategia E  
-	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID  
-	INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo  
-	INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )  
-	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2  
+	INTO #TEMPORAL
+	FROM Estrategia E
+	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+	INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
+	INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
+	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	WHERE
-		E.Activo = 1   
-		AND TE.flagRecoProduc = 1  
-		AND TE.FlagActivo = 1  
-		AND CSA.CUV IS NOT NULL  
-		AND CA.Codigo = @CampaniaID  
-		AND CSA.CUV = @CuvReco  
-		AND E.Zona LIKE '%' + @ZonaID + '%' 
-	ORDER BY 
-		te.Orden ASC, 
-		e.Orden ASC  	
-	/* RECOMENDACION POR CUV - FIN */      
+		E.Activo = 1
+		AND TE.flagRecoProduc = 1
+		AND TE.FlagActivo = 1
+		AND CSA.CUV IS NOT NULL
+		AND CA.Codigo = @CampaniaID
+		AND CSA.CUV = @CuvReco
+		AND E.Zona LIKE '%' + @ZonaID + '%'
+	ORDER BY
+		te.Orden ASC,
+		e.Orden ASC
+	/* RECOMENDACION POR CUV - FIN */
 
-	DECLARE @CodigoConsultora VARCHAR(25)    
-	DECLARE @NumeroPedido INT  
-    
-	SELECT   
-		@NumeroPedido = consecutivonueva + 1,  
-		@CodigoConsultora = codigo    
-	FROM ods.Consultora   
-	WHERE   
-		ConsultoraID=@ConsultoraID  
-    
-	-- Obtener estrategias de Pack Nuevas.   
-	INSERT INTO #TEMPORAL  
-	SELECT   
-		EstrategiaID,   
-		CUV2,   
-		DescripcionCUV2,   
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,   
-		Precio,  
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,   
-		Precio2,  
-		TextoLibre,   
-		FlagEstrella,   
-		ColorFondo,  
-		e.TipoEstrategiaID,  
-		e.ImagenURL FotoProducto01,  
-		te.ImagenEstrategia ImagenURL,  
-		e.LimiteVenta,  
-		pc.MarcaID,  
-		te.Orden Orden1,  
-		e.Orden Orden2,  
-		pc.IndicadorMontoMinimo,  
-		pc.CodigoProducto,  
-		1 AS FlagNueva, -- R2621   
+	DECLARE @CodigoConsultora VARCHAR(25)
+	DECLARE @NumeroPedido INT
+
+	SELECT
+		@NumeroPedido = consecutivonueva + 1,
+		@CodigoConsultora = codigo
+	FROM ods.Consultora
+	WHERE
+		ConsultoraID=@ConsultoraID
+
+	-- Obtener estrategias de Pack Nuevas.
+	INSERT INTO #TEMPORAL
+	SELECT
+		EstrategiaID,
+		CUV2,
+		DescripcionCUV2,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+		Precio,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+		Precio2,
+		TextoLibre,
+		FlagEstrella,
+		ColorFondo,
+		e.TipoEstrategiaID,
+		e.ImagenURL FotoProducto01,
+		te.ImagenEstrategia ImagenURL,
+		e.LimiteVenta,
+		pc.MarcaID,
+		te.Orden Orden1,
+		e.Orden Orden2,
+		pc.IndicadorMontoMinimo,
+		pc.CodigoProducto,
+		1 AS FlagNueva, -- R2621
 		dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
-	FROM Estrategia E  
-	INNER JOIN TipoEstrategia TE ON 
-		E.TipoEstrategiaID = TE.TipoEstrategiaID  
-	INNER JOIN ods.Campania CA ON 
-		E.CampaniaID = CA.Codigo  
-	INNER JOIN ods.ProductoComercial PC ON 
-		PC.CampaniaID = CA.CampaniaID 
-		AND PC.CUV = E.CUV2  
-	INNER JOIN Ods.ConsultorasProgramaNuevas CPN ON 
-		CPN.CodigoConsultora = @CodigoConsultora 
-		AND CPN.CodigoPrograma = TE.CodigoPrograma   
-	WHERE       
-		(E.CampaniaID = @CampaniaID OR @CampaniaID between E.CampaniaID and E.CampaniaIDFin)  
-		AND E.Activo = 1  
-		AND CPN.Participa = 1    
-		AND TE.FlagActivo = 1  
-		AND TE.flagNueva = 1    
-		AND E.NumeroPedido = @NumeroPedido   
-		AND E.Zona LIKE '%' + @ZonaID + '%'  
-		AND E.CUV2 not in(	SELECT CUV   
-							FROM @tablaCuvPedido )        		
-	ORDER BY te.Orden ASC, e.Orden ASC   
-        
-	-- Obtener estrategias de recomendadas para ti.  
+	FROM Estrategia E
+	INNER JOIN TipoEstrategia TE ON
+		E.TipoEstrategiaID = TE.TipoEstrategiaID
+	INNER JOIN ods.Campania CA ON
+		E.CampaniaID = CA.Codigo
+	INNER JOIN ods.ProductoComercial PC ON
+		PC.CampaniaID = CA.CampaniaID
+		AND PC.CUV = E.CUV2
+	INNER JOIN Ods.ConsultorasProgramaNuevas CPN ON
+		CPN.CodigoConsultora = @CodigoConsultora
+		AND CPN.CodigoPrograma = TE.CodigoPrograma
+	WHERE
+		(E.CampaniaID = @CampaniaID OR @CampaniaID between E.CampaniaID and E.CampaniaIDFin)
+		AND E.Activo = 1
+		AND CPN.Participa = 1
+		AND TE.FlagActivo = 1
+		AND TE.flagNueva = 1
+		AND E.NumeroPedido = @NumeroPedido
+		AND E.Zona LIKE '%' + @ZonaID + '%'
+		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
+	ORDER BY te.Orden ASC, e.Orden ASC
+
+	-- Obtener estrategias de recomendadas para ti.
 	declare @CodigoRegion varchar(2) = null
 	declare @CodigoZona varchar(4) = null
 	select @CodigoRegion = r.Codigo, @CodigoZona = z.Codigo
@@ -1397,148 +1710,148 @@ BEGIN
 
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
-	select 
+	select
 		distinct ltrim(rtrim(CUV))
 	from dbo.ProductoFaltante nolock
-	where 
+	where
 		CampaniaID = @CampaniaID and Zonaid = @ZonaID
 	UNION ALL
-	select 
+	select
 		distinct ltrim(rtrim(fa.CodigoVenta)) AS CUV
 	from ods.FaltanteAnunciado fa (nolock)
-	inner join ods.Campania c (nolock) on 
+	inner join ods.Campania c (nolock) on
 		fa.CampaniaID = c.CampaniaID
-	where 
-		c.Codigo = @CampaniaID 
+	where
+		c.Codigo = @CampaniaID
 		and (rtrim(fa.CodigoRegion) = @CodigoRegion or fa.CodigoRegion IS NULL)
 		and (rtrim(fa.CodigoZona) = @CodigoZona or fa.CodigoZona IS NULL)
 
-	INSERT INTO #TEMPORAL  
-	SELECT top 5
-		EstrategiaID,   
-		CUV2,   
-		DescripcionCUV2,   
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion, 
-		e.Precio,  
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,   
-		Precio2,  
-		TextoLibre,  
-		FlagEstrella,   
-		ColorFondo,  
-		e.TipoEstrategiaID,  
-		e.ImagenURL FotoProducto01,  
-		te.ImagenEstrategia ImagenURL,  
-		e.LimiteVenta,    pc.MarcaID,  
-		te.Orden Orden1,  
-		op.Orden Orden2,  
-		pc.IndicadorMontoMinimo,  
-		pc.CodigoProducto,  
-		0 AS FlagNueva, -- R2621  
+	INSERT INTO #TEMPORAL
+	SELECT
+		EstrategiaID,
+		CUV2,
+		DescripcionCUV2,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+		e.Precio,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+		Precio2,
+		TextoLibre,
+		FlagEstrella,
+		ColorFondo,
+		e.TipoEstrategiaID,
+		e.ImagenURL FotoProducto01,
+		te.ImagenEstrategia ImagenURL,
+		e.LimiteVenta,    pc.MarcaID,
+		te.Orden Orden1,
+		op.Orden Orden2,
+		pc.IndicadorMontoMinimo,
+		pc.CodigoProducto,
+		0 AS FlagNueva, -- R2621
 		dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
-	FROM Estrategia E  
-	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID  
-	INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid   
+	FROM Estrategia E
+	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+	INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
 	INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo and op.TipoPersonalizacion = 'OPT'
-	INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo  
-	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2  
-	WHERE  
+	INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
+	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+	WHERE
 		E.Activo = 1
-		AND ca.Codigo = @CampaniaID  
+		AND ca.Codigo = @CampaniaID
 		AND c.ConsultoraID = @ConsultoraID
-		AND E.Zona LIKE '%' + @ZonaID + '%'  
+		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
-		AND E.CUV2 not in (	SELECT CUV FROM @tablaCuvPedido )
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	ORDER BY te.Orden ASC, op.Orden  
-    
+	--ORDER BY te.Orden ASC, op.Orden
+	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL  
-	SELECT  
-		EstrategiaID,   
-		CUV2,   
-		DescripcionCUV2,   
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,   
-		Precio,  
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,   
-		Precio2,  
-		TextoLibre,   
-		FlagEstrella,   
-		ColorFondo,  
-		e.TipoEstrategiaID,  
-		e.ImagenURL FotoProducto01,  
-		te.ImagenEstrategia ImagenURL,  
-		e.LimiteVenta,  
-		pc.MarcaID,  
-		te.Orden Orden1,  
-		e.Orden Orden2,  
-		pc.IndicadorMontoMinimo,  
-		pc.CodigoProducto,  
+	INSERT INTO #TEMPORAL
+	SELECT
+		EstrategiaID,
+		CUV2,
+		DescripcionCUV2,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+		Precio,
+		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+		Precio2,
+		TextoLibre,
+		FlagEstrella,
+		ColorFondo,
+		e.TipoEstrategiaID,
+		e.ImagenURL FotoProducto01,
+		te.ImagenEstrategia ImagenURL,
+		e.LimiteVenta,
+		pc.MarcaID,
+		te.Orden Orden1,
+		e.Orden Orden2,
+		pc.IndicadorMontoMinimo,
+		pc.CodigoProducto,
 		te.flagNueva,
 		dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		4 as TipoEstrategiaImagenMostrar	--Oferta Web
 		, E.EtiquetaID		-- SB20-351
 		, E.EtiquetaID2		-- SB20-351
-	FROM Estrategia E  
-	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID  
-	INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo  
-	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2  
-	WHERE  
-		E.Activo = 1   
-		AND TE.FlagActivo = 1  
-		AND E.CampaniaID = @CampaniaID  
-		AND TE.flagRecoProduc = 0  
-		AND TE.flagNueva = 0  
-		AND TE.flagRecoPerfil = 0  
-		AND E.Zona LIKE '%' + @ZonaID + '%'  
-	ORDER BY 
-		te.Orden ASC, 
-		e.Orden ASC   
-           
-	SELECT   
-		T.EstrategiaID,  
-		T.CUV2,  
-		T.DescripcionCUV2,  
-		T.EtiquetaDescripcion,  
-		T.Precio,  
-		T.EtiquetaDescripcion2,  
-		T.Precio2,  
-		T.TextoLibre,  
-		T.FlagEstrella,  
-		T.ColorFondo,  
-		T.TipoEstrategiaID,  
-		T.FotoProducto01,  
-		T.ImagenURL,  
-		T.LimiteVenta,  
-		T.MarcaID,  
-		T.Orden1,  
-		T.Orden2,  
-		T.IndicadorMontoMinimo,  
-		M.Descripcion as DescripcionMarca,  
-		'NO DISPONIBLE' AS DescripcionCategoria,  
-		TE.DescripcionEstrategia AS DescripcionEstrategia,  
-		T.FlagNueva, -- R2621   
+	FROM Estrategia E
+	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+	INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
+	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+	WHERE
+		E.Activo = 1
+		AND TE.FlagActivo = 1
+		AND E.CampaniaID = @CampaniaID
+		AND TE.flagRecoProduc = 0
+		AND TE.flagNueva = 0
+		AND TE.flagRecoPerfil = 0
+		AND E.Zona LIKE '%' + @ZonaID + '%'
+	ORDER BY
+		te.Orden ASC,
+		e.Orden ASC
+
+	SELECT
+		T.EstrategiaID,
+		T.CUV2,
+		T.DescripcionCUV2,
+		T.EtiquetaDescripcion,
+		T.Precio,
+		T.EtiquetaDescripcion2,
+		T.Precio2,
+		T.TextoLibre,
+		T.FlagEstrella,
+		T.ColorFondo,
+		T.TipoEstrategiaID,
+		T.FotoProducto01,
+		T.ImagenURL,
+		T.LimiteVenta,
+		T.MarcaID,
+		T.Orden1,
+		T.Orden2,
+		T.IndicadorMontoMinimo,
+		M.Descripcion as DescripcionMarca,
+		'NO DISPONIBLE' AS DescripcionCategoria,
+		TE.DescripcionEstrategia AS DescripcionEstrategia,
+		T.FlagNueva, -- R2621
 		T.TipoTallaColor,
-		case 
+		case
 			when UPPER(TE.DescripcionEstrategia) = 'LANZAMIENTO' then 5		--Lanzamiento
-			else T.TipoEstrategiaImagenMostrar 
+			else T.TipoEstrategiaImagenMostrar
 		end as TipoEstrategiaImagenMostrar,
 		T.CodigoProducto as CodigoProducto
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg		/* SB20-353 */
 		, T.EtiquetaID		-- SB20-351
 		, T.EtiquetaID2		-- SB20-351
-	FROM #TEMPORAL T  
-	INNER JOIN TipoEstrategia TE ON TE.TipoEstrategiaID = T.TipoEstrategiaID  
-	LEFT JOIN Marca M ON M.MarcaId = T.MarcaId  
-	ORDER BY Orden1 ASC, Orden2 ASC, EstrategiaID ASC    
-    
-	DROP TABLE #TEMPORAL  
-  
- SET NOCOUNT OFF  
-END  
+	FROM #TEMPORAL T
+	INNER JOIN TipoEstrategia TE ON TE.TipoEstrategiaID = T.TipoEstrategiaID
+	LEFT JOIN Marca M ON M.MarcaId = T.MarcaId
+	--ORDER BY Orden1 ASC, Orden2 ASC, EstrategiaID ASC
+	ORDER BY Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+
+	DROP TABLE #TEMPORAL
+	SET NOCOUNT OFF
+END
 
 go
 
@@ -1694,7 +2007,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DelPed
 	DROP PROCEDURE [dbo].DelPedidoWebDetalleMasivo_SB2
 GO
 
-CREATE PROCEDURE [dbo].DelPedidoWebDetalleMasivo_SB2
+CREATE PROCEDURE [dbo].DelPedidoWebDetalleMasivo_SB2  
  @CampaniaID INT,  
  @PedidoID INT
 AS  
@@ -1725,6 +2038,7 @@ set @Total = (select count(*) from @TempPedidoCampania)
 
 IF @Total != 0
 BEGIN
+
 	WHILE(@Cont <= @Total)
 	BEGIN
 		declare @T_TipoOfertaSisID int
@@ -1741,6 +2055,7 @@ BEGIN
 
 		set @Cont = @Cont + 1
 	END
+
 END
 
 insert into PedidoWebDetalleSeguimiento
@@ -1749,7 +2064,8 @@ select PedidoID, MarcaID, ConsultoraID, CampaniaID, CUV, 401, @FechaGeneral, Can
 from PedidoWebDetalle
 where CampaniaID = @CampaniaID and PedidoID = @PedidoID AND ISNULL(EsKitNueva, '0') != '1'
 
-delete from PedidoWebDetalle
+delete
+from PedidoWebDetalle
 where CampaniaID = @CampaniaID and PedidoID = @PedidoID AND ISNULL(EsKitNueva, '0') != '1'
 
 END
@@ -1760,216 +2076,123 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].GetPedidoWebByFechaFacturacion_SB2
 GO
 
+CREATE PROCEDURE [dbo].GetPedidoWebByFechaFacturacion_SB2 --'2014-06-05',1,1
+	@FechaFacturacion date,
+	@TipoCronograma int,
+	@NroLote int
+as
+BEGIN
+set nocount on;
 
-CREATE PROCEDURE [dbo].GetPedidoWebByFechaFacturacion_SB2 --'2015-10-19',1,1  
- @FechaFacturacion date,  
- @TipoCronograma int,  
- @NroLote int  
- with recompile
-as 
-BEGIN 
-set nocount on;  
-  
-declare @Tipo smallint  
-if @TipoCronograma = 1  
-	set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])  
-else if @TipoCronograma = 2  
-	set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])  
-else  
-	set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])  
-  
-declare @EsquemaDAConsultora bit  
-select @EsquemaDAConsultora = EsquemaDAConsultora  
-from pais with(nolock)  
-where EstadoActivo = 1
-  
-declare @ConfValZonaTemp table  
-(  
-	Campaniaid int,  
-	Regionid int,  
-	Zonaid int,  
-	FechaInicioFacturacion smalldatetime,  
-	FechaFinFacturacion smalldatetime,  
-	CodigoRegion varchar(8),  
-	CodigoZona varchar(8),  
-	CodigoCampania int  
-)  
-  
-declare @tabla_pedido_detalle table  
-(  
-	CampaniaId int null,  
-	PedidoId int null,  
-	Clientes int,  
-	EstadoPedido smallint null,  
-	Bloqueado bit null,  
-	IndicadorEnviado bit null,  
-	ModificaPedidoReservadoMovil bit null,  
-	CodigoConsultora varchar(25) null,  
-	CodigoRegion varchar(8) null,  
-	CodigoZona varchar(8) null,  
-	CampaniaIdSicc int null,  
-	ZonaId int,  
-	CUV varchar(20) null,  
-	Cantidad int null,  
-	PedidoDetalleIDPadre bit  
-)  
-  
-declare @tabla_pedido table  
-(  
-	CampaniaId int null,  
-	PedidoId int null,  
-	Clientes int,  
-	EstadoPedido smallint null,  
-	Bloqueado bit null,  
-	IndicadorEnviado bit null,  
-	ModificaPedidoReservadoMovil bit null,  
-	CodigoConsultora varchar(25) null,  
-	CodigoRegion varchar(8) null,  
-	CodigoZona varchar(8) null,  
-	CampaniaIdSicc int null,  
-	ZonaId int  
-)  
-  
-if @TipoCronograma = 1  
-begin  
-		insert into @ConfValZonaTemp  
-		select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion,   
-			cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)  
-			,r.Codigo, z.Codigo, cast(ca.Codigo as int)  
-		from ods.Cronograma cr with(nolock)  
-			left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid  
-			inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId  
-			inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId  
-			inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId  
-			left join cronograma co with(nolock) on cr.CampaniaId = co.CampaniaId and cr.ZonaId = co.ZonaId  
-		where cr.FechaInicioFacturacion <= @FechaFacturacion and   
-			cr.FechaInicioFacturacion + 10 >= @FechaFacturacion and   
-			IIF(ISNULL(co.ZonaId,0) = 0,1,IIF(@EsquemaDAConsultora = 0,0,1)) = 1   
-  
-		IF @EsquemaDAConsultora = 0  
-		BEGIN  
-					insert into @tabla_pedido_detalle  
-					select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,  
-						c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,   
-						IIF(pd.PedidoDetalleIDPadre IS NULL,0,1)  
-					from dbo.PedidoWeb p with(nolock)  
-						join dbo.PedidoWebDetalle pd with(nolock) 
-							on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
-							AND isnull(PD.EsKitNueva, '0') != 1
-						join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID  
-						join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania  
-							and c.RegionID = cr.RegionID  
-							and c.ZonaID = cr.ZonaID  
-					where cr.FechaInicioFacturacion <= @FechaFacturacion  
-						and cr.FechaFinFacturacion >= @FechaFacturacion  
-		END  
-		ELSE  --  @EsquemaDAConsultora = 0  
-		BEGIN  
-					insert into @tabla_pedido_detalle  
-					select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,  
-						c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,   
-						IIF(pd.PedidoDetalleIDPadre IS NULL,0,1)  
-					from dbo.PedidoWeb p with(nolock)  
-						join dbo.PedidoWebDetalle pd with(nolock) 
-							on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID  
-							AND isnull(PD.EsKitNueva, '0') != 1
-						join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID  
-						join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania  
-							and c.RegionID = cr.RegionID  
-							and c.ZonaID = cr.ZonaID  
-						left join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
-					where cr.FechaInicioFacturacion <= @FechaFacturacion  
-						and cr.FechaFinFacturacion >= @FechaFacturacion  
-						and isnull(da.TipoConfiguracion,0) = 0
-						--and p.ConsultoraId not in (  
-						-- select ConsultoraId  
-						-- from ConfiguracionConsultoraDA with(nolock)  
-						-- where CampaniaId = p.CampaniaId and TipoConfiguracion = 1)  
-		END  
-end  
-else -- @TipoCronograma = 1  
-begin  
-		insert into @ConfValZonaTemp  
-		select cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioWeb,   
-			cr.FechaFinWeb,r.Codigo, z.Codigo, cast(ca.Codigo as int)  
-		from Cronograma cr with(nolock)  
-			inner join ods.Region r with(nolock) on cr.RegionId = r.RegionId  
-			inner join ods.Zona z with(nolock) on cr.ZonaId = z.ZonaId  
-			inner join ods.Campania ca with(nolock) on cr.CampaniaId = ca.CampaniaId  
-		where cr.FechaInicioWeb = @FechaFacturacion  
-  
-		IF @EsquemaDAConsultora = 0  
-		BEGIN  
-				insert into @tabla_pedido_detalle  
-				select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,  
-					c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,   
-					IIF(pd.PedidoDetalleIDPadre IS NULL,0,1)  
-				from dbo.PedidoWeb p with(nolock)  
-					join dbo.PedidoWebDetalle pd with(nolock) 
-						on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID  
-						AND isnull(PD.EsKitNueva, '0') != 1
-					join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID  
-					join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania  
-						and c.RegionID = cr.RegionID  
-						and c.ZonaID = cr.ZonaID  
-				where cr.FechaInicioFacturacion <= @FechaFacturacion  
-					and cr.FechaFinFacturacion >= @FechaFacturacion  
-		END  
-		ELSE  -- @EsquemaDAConsultora = 0 
-		BEGIN  
-				insert into @tabla_pedido_detalle  
-				select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,  
-					c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,   
-					IIF(pd.PedidoDetalleIDPadre IS NULL,0,1)  
-				from dbo.PedidoWeb p with(nolock)  
-					join dbo.PedidoWebDetalle pd with(nolock) 
-						on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID  
-						AND isnull(PD.EsKitNueva, '0') != 1
-					join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID  
-					join @ConfValZonaTemp cr on p.CampaniaId = cr.CodigoCampania  
-						and c.RegionID = cr.RegionID  
-						and c.ZonaID = cr.ZonaID  
-					join ConfiguracionConsultoraDA da with(nolock) on p.CampaniaId = da.CampaniaId and p.ConsultoraId = da.ConsultoraId
-				where cr.FechaInicioFacturacion <= @FechaFacturacion  
-					and cr.FechaFinFacturacion >= @FechaFacturacion  
-					and da.TipoConfiguracion = 1
-					--and p.ConsultoraId in (  
-					-- select ConsultoraId  
-					-- from ConfiguracionConsultoraDA with(nolock)  
-					-- where CampaniaId = p.CampaniaId and TipoConfiguracion = 1)  
-		END  
-end  
-  
-insert into @tabla_pedido  
-select CampaniaId,PedidoId,Clientes,EstadoPedido,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,  
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId  
-from @tabla_pedido_detalle  
-group by CampaniaId,PedidoId,Clientes,EstadoPedido,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,  
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId  
-  
-insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)  
-select @NroLote, p.CampaniaID, p.PedidoID  
-from @tabla_pedido p  
-where p.IndicadorEnviado = 0 and p.Bloqueado = 0  
-  and (p.EstadoPedido = @Tipo OR @Tipo = 0)  
-  
-select p.PedidoID, p.CampaniaID, p.CodigoConsultora,  
- p.Clientes, p.CodigoRegion,  
- p.CodigoZona,  
- --(case p.EstadoPedido when 202 then (case when p.ModificaPedidoReservadoMovil = 0 then 1 else 0 end) else 0 end) as Validado  
- case p.EstadoPedido when 202 then 1 else 0 end as Validado  
-from @tabla_pedido p   
- inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID  
-where pk.NroLote = @NroLote  
-  
-select p.PedidoID, p.CampaniaID, p.CodigoConsultora,  
- p.CUV as CodigoVenta, p.CUV as CodigoProducto, sum(p.Cantidad) as Cantidad  
-from @tabla_pedido_detalle p   
- inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID  
- inner join ods.ProductoComercial pr with(nolock) on p.CampaniaIdSicc = pr.CampaniaID and p.CUV = pr.CUV  
-where pk.NroLote = @NroLote and p.PedidoDetalleIDPadre = 0  
-group by p.CampaniaID, p.PedidoID, p.CodigoConsultora, p.CUV  
-having sum(p.Cantidad) > 0  
+declare @Tipo smallint
+if @TipoCronograma = 1
+	set @Tipo = (select isnull(ProcesoRegular,0) from [dbo].[ConfiguracionValidacion])
+else if @TipoCronograma = 2
+	set @Tipo = (select isnull(ProcesoDA,0) from [dbo].[ConfiguracionValidacion])
+else
+	set @Tipo = (select isnull(ProcesoDAPRD,0) from [dbo].[ConfiguracionValidacion])
+
+if @TipoCronograma = 1
+begin
+
+	declare @ConfValZonaTemp table
+	(
+		Campaniaid int,
+		Regionid int,
+		Zonaid int,
+		FechaInicioFacturacion smalldatetime,
+		FechaFinFacturacion smalldatetime
+	)
+
+	insert into @ConfValZonaTemp
+	select	cr.campaniaid, cr.regionid, cr.zonaid, cr.FechaInicioFacturacion, 
+			cr.FechaInicioFacturacion + isnull(cz.DiasDuracionCronograma,1) - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(cr.ZonaID, cz.DiasDuracionCronograma, cr.FechaInicioFacturacion),0)
+	from	ods.Cronograma cr with(nolock)
+	left join ConfiguracionValidacionZona cz with(nolock) on cr.zonaid = cz.zonaid
+	where	cr.FechaInicioFacturacion <= @FechaFacturacion and 
+			cr.FechaInicioFacturacion + 10 >= @FechaFacturacion
+
+	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+	select @NroLote, p.CampaniaID, p.PedidoID
+	from dbo.PedidoWeb p with(nolock)
+	join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+	join ods.Campania ca with(nolock) on p.CampaniaID = ca.Codigo
+	join @ConfValZonaTemp cr on ca.CampaniaID = cr.CampaniaID
+			and c.RegionID = cr.RegionID
+			and c.ZonaID = cr.ZonaID
+	join (
+		select CampaniaID, PedidoID
+		from dbo.PedidoWebDetalle with(nolock)
+		where isnull(EsKitNueva, '0') != 1
+		group by CampaniaID, PedidoID
+	) pd on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
+	where cr.FechaInicioFacturacion <= @FechaFacturacion
+		and cr.FechaFinFacturacion >= @FechaFacturacion
+		and p.IndicadorEnviado = 0
+		and p.Bloqueado = 0
+		--and exists(select * from dbo.PedidoWebDetalle where CampaniaID = p.CampaniaID
+		--and PedidoID = p.PedidoID and Cantidad > 0 and PedidoDetalleIDPadre is null)
+		and c.zonaid not in (select Zonaid 
+							 from cronograma
+						     where CampaniaID = ca.CampaniaID)
+		and (p.EstadoPedido = @Tipo OR @Tipo = 0);
+end
+else
+	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
+	select @NroLote, p.CampaniaID, p.PedidoID
+	from dbo.PedidoWeb p with(nolock)
+	join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+	join ods.Campania ca with(nolock) on p.CampaniaID = ca.Codigo
+	join dbo.Cronograma cr with(nolock) on ca.CampaniaID = cr.CampaniaID
+			and c.RegionID = cr.RegionID
+			and c.ZonaID = cr.ZonaID
+	join (
+		select CampaniaID, PedidoID
+		from dbo.PedidoWebDetalle with(nolock)
+		where isnull(EsKitNueva, '0') != 1
+		group by CampaniaID, PedidoID
+	) pd on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
+	where cr.FechaInicioWeb <= @FechaFacturacion
+		and cr.FechaFinWeb >= @FechaFacturacion
+		and p.IndicadorEnviado = 0
+		and p.Bloqueado = 0
+		--and exists(select * from dbo.PedidoWebDetalle where CampaniaID = p.CampaniaID
+		--and PedidoID = p.PedidoID and Cantidad > 0 and PedidoDetalleIDPadre is null)
+		and (p.EstadoPedido = @Tipo OR @Tipo = 0);
+
+-- Cabecera de pedidos para descarga
+select p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
+	p.Clientes, r.Codigo as CodigoRegion,
+	z.Codigo as CodigoZona,
+	--(case p.EstadoPedido when 202 then (case when p.ModificaPedidoReservadoMovil = 0 then 1 else 0 end) else 0 end) as Validado
+	case p.EstadoPedido when 202 then 1 else 0 end as Validado
+from dbo.PedidoWeb p with(nolock)
+	join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+	join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+	join ods.Region r with(nolock) on c.RegionID = r.RegionID
+	join ods.Zona z with(nolock) on c.RegionID = z.RegionID and c.ZonaID = z.ZonaID
+where pk.NroLote = @NroLote
+order by p.CampaniaID, p.PedidoID;
+
+-- Detalle de pedidos para descarga
+select p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
+	pd.CUV as CodigoVenta, pr.CodigoProducto,
+	/*case when p.EstadoPedido = 202 and pr.IndicadorDigitable = 1
+		then pr.FactorRepeticion * sum(pd.Cantidad)
+		else sum(pd.Cantidad) end as Cantidad*/
+		sum(pd.Cantidad) as Cantidad
+from dbo.PedidoWeb p with(nolock)
+	join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
+	join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
+	join dbo.PedidoWebDetalle pd with(nolock) on p.CampaniaID = pd.CampaniaID and p.PedidoID = pd.PedidoID
+		and isnull(pd.EsKitNueva, '0') != 1
+	join ods.Campania ca with(nolock) on pd.CampaniaID = ca.Codigo
+	join ods.ProductoComercial pr with(nolock) on ca.CampaniaID = pr.CampaniaID and pd.CUV = pr.CUV
+where pk.NroLote = @NroLote and pd.PedidoDetalleIDPadre is null
+group by p.CampaniaID, p.PedidoID, p.EstadoPedido, c.Codigo,
+	pd.CUV, pr.CodigoProducto, pr.IndicadorDigitable, pr.FactorRepeticion
+having sum(pd.Cantidad) > 0
+order by CampaniaID, PedidoID, CodigoVenta
 
 END
 
@@ -2149,29 +2372,6 @@ ORDER BY
 SET NOCOUNT OFF
 
 END
-
-go
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetFechaVencimiento_SB2]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].GetFechaVencimiento_SB2
-GO
-
-create procedure dbo.GetFechaVencimiento_SB2
-@CodigoIso varchar(2),
-@CampaniaID int,
-@CodigoConsultora varchar(20)
-as
-/*
-dbo.GetFechaVencimiento_SB2 'PE',201611,'000758833'
-*/
-begin
-
-select top 1
-	FEC_VENC
-from ods.INT_SOA_COBRA_DEUDA_SECCI
-where COD_PAIS = @CodigoIso and COD_PERI = @CampaniaID and COD_CLIE = @CodigoConsultora
-
-end
 
 go
 
@@ -2658,7 +2858,7 @@ BEGIN
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est? siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -2862,13 +3062,10 @@ BEGIN
    FlagRecoProduc
    , ISNULL(FlagMostrarImg,0) AS FlagMostrarImg 		/* SB20-353 */
    , case TipoEstrategiaID
-	when 10 then 1
-	when 1009 then 2
-	when 2009 then 3
-	when 3009 then 4
-	when 3011 then 5
-	when 3012 then 6
-   end as CodigoGeneral
+	when 1 then 1
+	when 2 then 2
+	when 3 then 4
+	end as CodigoGeneral
   FROM   
    TipoEstrategia  
   WHERE  
@@ -3471,38 +3668,38 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetSes
 	DROP PROCEDURE dbo.GetSesionUsuario_SB2
 GO
 
-CREATE PROCEDURE dbo.GetSesionUsuario_SB2 
-@CodigoConsultora varchar(25)    
-AS      
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
+@CodigoConsultora varchar(25)  
+AS    
 /*
-GetSesionUsuario_SB2 '000758833'
-*/ 
-BEGIN 
-	DECLARE @PasePedidoWeb int    
-	DECLARE @TipoOferta2 int    
-	DECLARE @CompraOfertaEspecial int    
-	DECLARE @IndicadorMeta int    
-    
+GetSesionUsuario_SB2 '009746900'  
+*/
+BEGIN
+	DECLARE @PasePedidoWeb int  
+	DECLARE @TipoOferta2 int  
+	DECLARE @CompraOfertaEspecial int  
+	DECLARE @IndicadorMeta int
+	
 	DECLARE @FechaLimitePago SMALLDATETIME
 	DECLARE @ODSCampaniaID INT
-
-	declare @PaisID int    
-	declare @UsuarioPrueba bit    
-	declare @CodConsultora varchar(20)    
-	declare @CampaniaID int    
-	declare @ZonaID int    
-	declare @RegionID int    
-	declare @ConsultoraID bigint    
-    
-	select TOP 1 
-		@UsuarioPrueba = ISNULL(UsuarioPrueba,0),    
-		@PaisID = IsNull(PaisID,0),    
-		@CodConsultora = CodigoConsultora    
-	from usuario with(nolock)    
-	where codigousuario = @CodigoConsultora      
+	    
+	DECLARE @PaisID int  
+	DECLARE @UsuarioPrueba bit  
+	DECLARE @CodConsultora varchar(20)  
+	DECLARE @CampaniaID int  
+	DECLARE @ZonaID int  
+	DECLARE @RegionID int  
+	DECLARE @ConsultoraID bigint  
+	DECLARE @IndicadorPermiso int  
+	DECLARE @CodigoFicticio varchar(20)  
   
-	declare @CountCodigoNivel bigint    
-    
+	select TOP 1 @UsuarioPrueba = ISNULL(UsuarioPrueba,0),  
+		@PaisID = IsNull(PaisID,0),  
+		@CodConsultora = CodigoConsultora  
+	from usuario with(nolock)  
+	where codigousuario = @CodigoConsultora  
+	declare @CountCodigoNivel bigint  
+  
 	/*Oferta Final*/	
 	declare @EsOfertaFinalZonaValida bit = 0
 	declare @CodigoZona varchar(4) = ''
@@ -3521,205 +3718,253 @@ BEGIN
 	if exists (select 1 from OfertaFinalRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsOfertaFinalZonaValida = 1
 	/*Fin Oferta Final*/
-	        
-	IF @UsuarioPrueba = 0    
-	BEGIN        
-		select 
-			@ZonaID = IsNull(ZonaID,0),    
-			@RegionID = IsNull(RegionID,0),    
-			@ConsultoraID = IsNull(ConsultoraID,0)    
-		from ods.consultora with(nolock)    
-		where codigo = @CodConsultora    
-    
-		select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)    
-			SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))    
-			SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))    
-			SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))    
-			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
-			SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-			SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)    
-			select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
-    
-		SELECT     
-			u.PaisID,    
-			p.CodigoISO,    
-			c.RegionID,    
-			r.Codigo AS CodigorRegion,    
-			ISNULL(c.ZonaID,0) AS ZonaID,    
-			ISNULL(z.Codigo,'') AS CodigoZona,    
-			c.ConsultoraID,    
-			u.CodigoUsuario,    
-			u.CodigoConsultora,    
-			u.Nombre AS NombreCompleto,    
-			ISNULL(ur.RolID,0) AS RolID,    
-			u.EMail,    
-			p.Simbolo,    
-			c.TerritorioID,    
-			t.Codigo AS CodigoTerritorio,    
-			c.MontoMinimoPedido,    
-			c.MontoMaximoPedido,    
-			p.CodigoFuente,    
-			p.BanderaImagen,    
-			p.Nombre as NombrePais,    
-			u.CambioClave,    
-			u.Telefono,    
-			u.Celular,    
-			ISNULL(s.descripcion,'') as Segmento,    
-			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,    
-			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,    
-			isnull(c.IndicadorDupla, 0) as IndicadorDupla,    
-			u.UsuarioPrueba,    
-			ISNULL(u.Sobrenombre,'') as Sobrenombre,    
-			ISNULL(c.PrimerNombre,'') as PrimerNombre,    
-			ISNULL(@PasePedidoWeb,0) as PasePedidoWeb,    
-			ISNULL(@TipoOferta2,0) as TipoOferta2,    
-			1 as CompraKitDupla,    
-			1 as CompraOfertaDupla,
-			ISNULL(@CompraOfertaEspecial,0) as CompraOfertaEspecial,    
-			ISNULL(@IndicadorMeta,0) as IndicadorMeta,    
-			0 as ProgramaReconocimiento,    
-			ISNULL(s.segmentoid, 0) as segmentoid,    			
-			dbo.GetIndicadorFlexipago(c.ConsultoraId,ISNULL(c.UltimaCampanaFacturada,0),'') as IndicadorFlexiPago,    
-			dbo.GetIndicadorFlexipago(c.ConsultoraId,ISNULL(c.UltimaCampanaFacturada,0),'') as InscritaFlexiPago,    
-			'' as Nivel,    
-			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,    
-			ISNULL(c.PrimerNombre,'') as PrimerNombre,    
-			ISNULL(c.PrimerApellido,'') as PrimerApellido,    
-			u.MostrarAyudaWebTraking,    
-			ro.Descripcion as RolDescripcion,    
-			isnull(c.EsJoven,0) EsJoven,    
-			(case       
-				when @CountCodigoNivel =0 then 0
-				when @CountCodigoNivel>0 then 1 End) Lider,
-			isnull(cl.CampaniaInicioLider,null) CampaniaInicioLider,
-			isnull(cl.SeccionGestionLider,null) SeccionGestionLider,
-			isnull(cl.CodigoNivelLider,0) NivelLider,
-			isnull(p.PortalLideres,0) PortalLideres,
-			isnull(p.LogoLideres,null) LogoLideres,
-			null as ConsultoraAsociada,
-			isnull(si.descripcion,null) SegmentoConstancia,
-			isnull(se.Codigo,null) Seccion,
-			isnull(nl.DescripcionNivel,null) DescripcionNivel,
-			(case 
-				When cl.ConsultoraID is null
-				then 0    
-				else 1 end) esConsultoraLider,    
-			u.EMailActivo,
+
+	IF @UsuarioPrueba = 0  
+	BEGIN    
+		select @ZonaID = IsNull(ZonaID,0),  
+			@RegionID = IsNull(RegionID,0),  
+			@ConsultoraID = IsNull(ConsultoraID,0)  
+		from ods.consultora with(nolock)  
+		where codigo = @CodConsultora  
+  
+		select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)  
+		SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))  
+		SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))  
+		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))  
+		SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
+		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
+		
+			-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
+			declare @CampaniaFacturada int = 0
+		
+			 select top 1 @CampaniaFacturada = p.CampaniaID
+			FROM ods.Pedido(NOLOCK) P 
+				INNER JOIN ods.Consultora(NOLOCK) CO ON 
+					P.ConsultoraID=CO.ConsultoraID
+				WHERE 
+					co.ConsultoraID=@ConsultoraID
+					and	P.CampaniaID <> @ODSCampaniaID
+					and	CO.RegionID=@RegionID
+					and	CO.ZonaID=@ZonaID
+			order by PedidoID desc
+
+			SET @FechaLimitePago = (
+				SELECT FECHALIMITEPAGO 
+				FROM ODS.Cronograma 
+				WHERE CampaniaID=@CampaniaFacturada AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
+			)
+		SET @IndicadorPermiso = (Select dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
+		select @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID        
+  
+		declare @IndicadorOfertaFIC int  
+		declare @ImagenUrlOfertaFIC varchar(500)  
+		SET @IndicadorOfertaFIC = (SELECT dbo.GetIndicadorOfertaFIC(@CampaniaID))  
+		if @IndicadorOfertaFIC>=1  
+		begin  
+			SET @ImagenUrlOfertaFIC = (SELECT dbo.GetImagenOfertaFIC(@CampaniaID))  
+		end  
+		else  
+		begin  
+			SET @ImagenUrlOfertaFIC = ''  
+		end  
+  
+		SELECT   
+			u.PaisID,  
+			p.CodigoISO,  
+			c.RegionID,  
+			r.Codigo AS CodigorRegion,  
+			ISNULL(c.ZonaID,0) AS ZonaID,  
+			ISNULL(z.Codigo,'') AS CodigoZona,  
+			c.ConsultoraID,  
+			u.CodigoUsuario,  
+			u.CodigoConsultora,  
+			u.Nombre AS NombreCompleto,  
+			ISNULL(ur.RolID,0) AS RolID,  
+			u.EMail,  
+			p.Simbolo,  
+			c.TerritorioID,  
+			t.Codigo AS CodigoTerritorio,  
+			c.MontoMinimoPedido,  
+			c.MontoMaximoPedido,  
+			p.CodigoFuente,  
+			p.BanderaImagen,  
+			p.Nombre as NombrePais,  
+			u.CambioClave,  
+			u.Telefono,  
+			u.Celular,  
+			ISNULL(s.descripcion,'') as Segmento,  
+			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,  
+			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,  
+			isnull(c.IndicadorDupla, 0) as IndicadorDupla,  
+			u.UsuarioPrueba,  
+			ISNULL(u.Sobrenombre,'') as Sobrenombre,  
+			ISNULL(c.PrimerNombre,'') as PrimerNombre,  
+			ISNULL(@PasePedidoWeb,0) as PasePedidoWeb,  
+			ISNULL(@TipoOferta2,0) as TipoOferta2,  
+			1 as CompraKitDupla,  
+			1 as CompraOfertaDupla,  
+			--ISNULL(c.CompraKitDupla,1) as CompraKitDupla,  
+			--ISNULL(c.CompraOfertaDupla,1) as CompraOfertaDupla,  
+			ISNULL(@CompraOfertaEspecial,0) as CompraOfertaEspecial,  
+			ISNULL(@IndicadorMeta,0) as IndicadorMeta,  
+			0 as ProgramaReconocimiento,  
+			ISNULL(s.segmentoid, 0) as segmentoid,  
+			ISNULL(c.IndicadorFlexiPago, 0) as IndicadorFlexiPago,  
+			'' as Nivel,  
+			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,  
+			ISNULL(c.PrimerNombre,'') as PrimerNombre,  
+			ISNULL(c.PrimerApellido,'') as PrimerApellido,  
+			u.MostrarAyudaWebTraking,  
+			@IndicadorPermiso IndicadorPermisoFIC,  
+			@IndicadorOfertaFIC IndicadorOfertaFIC,--SSAP CGI(Id Solicitud=1402)  
+			@ImagenUrlOfertaFIC ImagenUrlOfertaFIC,--SSAP CGI(Id Solicitud=1402)  
+			ro.Descripcion as RolDescripcion,  
+			isnull(c.EsJoven,0) EsJoven,  
+			(case     
+				when @CountCodigoNivel =0 then 0  --1589  
+				when @CountCodigoNivel>0 then 1 End) Lider,--1589      
+			isnull(cl.CampaniaInicioLider,null) CampaniaInicioLider,--1589  
+			isnull(cl.SeccionGestionLider,null) SeccionGestionLider,--1589  
+			isnull(cl.CodigoNivelLider,0) NivelLider,--1589  
+			isnull(p.PortalLideres,0) PortalLideres,--1589  
+			isnull(p.LogoLideres,null) LogoLideres, --1589   
+			null as ConsultoraAsociada, --1688  
+			isnull(si.descripcion,null) SegmentoConstancia, --2469  
+			isnull(se.Codigo,null) Seccion, --2469  
+			isnull(nl.DescripcionNivel,null) DescripcionNivel,  --2469  
+			case When cl.ConsultoraID is null then 0  
+				else 1 end esConsultoraLider,  
+			u.EMailActivo, --2532  
 			si.SegmentoInternoId,
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
 			@FechaLimitePago as FechaLimitePago,
-			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
+						ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial
-		FROM dbo.Usuario u with(nolock)
-		LEFT JOIN (    
-			select *    
-			from ods.consultora with(nolock)    
-			where ConsultoraId = @ConsultoraID    
+		FROM [dbo].[Usuario] u with(nolock)  
+		LEFT JOIN (  
+			select *  
+			from ods.consultora with(nolock)  
+			where ConsultoraId = @ConsultoraID  
 		) c ON 
-			u.CodigoConsultora = c.Codigo       
-		LEFT JOIN [dbo].[UsuarioRol] ur with(nolock) ON u.CodigoUsuario = ur.CodigoUsuario    
-		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID    
-		INNER JOIN [dbo].[Pais] p with(nolock) ON u.PaisID = p.PaisID    
-		LEFT JOIN [ods].[SegmentoInterno] si with(nolock) on c.SegmentoInternoId = si.SegmentoInternoId --R2469    
-		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469    
-		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID    
-		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID    
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON c.TerritorioID = t.TerritorioID    
-            AND c.SeccionID = t.SeccionID    
-            AND c.ZonaID = t.ZonaID    
-            AND c.RegionID = t.RegionID    
-		left join ods.segmento  s with(nolock) ON c.segmentoid = s.segmentoid    
-		left join ods.ConsultoraLider cl with(nolock) on c.ConsultoraID=cl.ConsultoraID    
-		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469    
+			u.CodigoConsultora = c.Codigo  
+		--LEFT JOIN [ods].[Consultora] c with(nolock) ON u.CodigoConsultora = c.Codigo  
+		LEFT JOIN [dbo].[UsuarioRol] ur with(nolock) ON u.CodigoUsuario = ur.CodigoUsuario  
+		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID  
+		INNER JOIN [dbo].[Pais] p with(nolock) ON u.PaisID = p.PaisID  
+		LEFT JOIN [ods].[SegmentoInterno] si with(nolock) on c.SegmentoInternoId = si.SegmentoInternoId --R2469  
+		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469  
+		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID  
+		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID  
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON c.TerritorioID = t.TerritorioID  
+            AND c.SeccionID = t.SeccionID  
+            AND c.ZonaID = t.ZonaID  
+            AND c.RegionID = t.RegionID  
+		left join ods.segmento  s with(nolock) ON c.segmentoid = s.segmentoid  
+		left join ods.ConsultoraLider cl with(nolock) on c.ConsultoraID=cl.ConsultoraID  
+		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469  
 		WHERE 
 			ro.Sistema = 1 
-			and u.CodigoUsuario = @CodigoConsultora    
-	END    
-	ELSE    
-	BEGIN        
-		SELECT     
-			u.PaisID,    
-			p.CodigoISO,    
-			c.RegionID,    
-			r.Codigo AS CodigorRegion,    
-			ISNULL(c.ZonaID,0) AS ZonaID,    
-			ISNULL(z.Codigo,'') AS CodigoZona,    
-			c.ConsultoraID,    
-			u.CodigoUsuario,    
-			u.CodigoConsultora,    
-			u.Nombre AS NombreCompleto,    
-			ISNULL(ur.RolID,0) AS RolID,    
-			u.EMail,	   
-			p.Simbolo,    
-			c.TerritorioID,    
-			t.Codigo AS CodigoTerritorio,    
-			c.MontoMinimoPedido,    
-			c.MontoMaximoPedido,    
-			p.CodigoFuente,    
-			p.BanderaImagen,    
-			p.Nombre as NombrePais,    
-			u.CambioClave,    
-			u.Telefono,    
-			u.Celular,    
-			ISNULL(s.descripcion,'') as Segmento,    
-			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,    
-			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,    
-			isnull(c.IndicadorDupla, 0) as IndicadorDupla,    
-			u.UsuarioPrueba,    
-			ISNULL(u.Sobrenombre,'') as Sobrenombre,    
-			ISNULL(c.PrimerNombre,'') as PrimerNombre,    
-			ISNULL(@PasePedidoWeb,0) as PasePedidoWeb,    
-			ISNULL(@TipoOferta2,0) as TipoOferta2,    
-			1 as CompraKitDupla,    
-			1 as CompraOfertaDupla,
-			ISNULL(@CompraOfertaEspecial,0) as CompraOfertaEspecial,
-			ISNULL(@IndicadorMeta,0) as IndicadorMeta,
-			0 as ProgramaReconocimiento,    
-			ISNULL(s.segmentoid, 0) as segmentoid,
-			dbo.GetIndicadorFlexipago(c.ConsultoraId,ISNULL(c.UltimaCampanaFacturada,0),up.CodigoConsultoraAsociada) as IndicadorFlexiPago,    
-			dbo.GetIndicadorFlexipago(c.ConsultoraId,ISNULL(c.UltimaCampanaFacturada,0),'') as InscritaFlexiPago,    
-			'' as Nivel,    
-			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,    
-			ISNULL(c.PrimerNombre,'') as PrimerNombre,    
-			ISNULL(c.PrimerApellido,'') as PrimerApellido,    
-			u.MostrarAyudaWebTraking,    
-			ro.Descripcion as RolDescripcion,    
-			(case
-				when ISNULL(cl.ConsultoraID,0) =0 then 0 
-				when ISNULL(cl.ConsultoraID,0)>0 then 1 End) Lider,
-			isnull(cl.CampaniaInicioLider,null) CampaniaInicioLider,
-			isnull(cl.SeccionGestionLider,null) SeccionGestionLider,
-			isnull(cl.CodigoNivelLider,0) NivelLider,
-			isnull(p.PortalLideres,0) PortalLideres,
-			isnull(p.LogoLideres,null) LogoLideres,
-			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada,
-			u.EMailActivo,
+			and u.CodigoUsuario = @CodigoConsultora  
+	END  
+	ELSE  
+	BEGIN    
+		-- SET @CodigoFicticio = (SELECT TOP 1 CodigoConsultoraAsociada FROM UsuarioPrueba with(nolock) WHERE CodigoFicticio = @CodConsultora)  
+		-- SET @IndicadorPermiso = 0 --(SELECT dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
+		-- select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID      
+		SET @CodigoFicticio = (SELECT TOP 1 CodigoConsultoraAsociada FROM UsuarioPrueba with(nolock) WHERE CodigoFicticio = @CodConsultora)  
+		SET @IndicadorPermiso = (SELECT dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID))  
+     
+		SELECT   
+			u.PaisID,  
+			p.CodigoISO,  
+			c.RegionID,  
+			r.Codigo AS CodigorRegion,  
+			ISNULL(c.ZonaID,0) AS ZonaID,  
+			ISNULL(z.Codigo,'') AS CodigoZona,  
+			c.ConsultoraID,  
+			u.CodigoUsuario,  
+			u.CodigoConsultora,  
+			u.Nombre AS NombreCompleto,  
+			ISNULL(ur.RolID,0) AS RolID,  
+			u.EMail,  
+			p.Simbolo,  
+			c.TerritorioID,  
+			t.Codigo AS CodigoTerritorio,  
+			c.MontoMinimoPedido,  
+			c.MontoMaximoPedido,  
+			p.CodigoFuente,  
+			p.BanderaImagen,  
+			p.Nombre as NombrePais,  
+			u.CambioClave,  
+			u.Telefono,  
+			u.Celular,  
+			ISNULL(s.descripcion,'') as Segmento,  
+			ISNULL(c.FechaNacimiento, getdate()) FechaNacimiento,  
+			ISNULL(c.IdEstadoActividad,0) as ConsultoraNueva,  
+			isnull(c.IndicadorDupla, 0) as IndicadorDupla,  
+			u.UsuarioPrueba,  
+			ISNULL(u.Sobrenombre,'') as Sobrenombre,  
+			ISNULL(c.PrimerNombre,'') as PrimerNombre,  
+			ISNULL(@PasePedidoWeb,0) as PasePedidoWeb,  
+			ISNULL(@TipoOferta2,0) as TipoOferta2,  
+			1 as CompraKitDupla,  
+			1 as CompraOfertaDupla,  
+			--ISNULL(c.CompraKitDupla,1) as CompraKitDupla,  
+			--ISNULL(c.CompraOfertaDupla,1) as CompraOfertaDupla,  
+			ISNULL(@CompraOfertaEspecial,0) as CompraOfertaEspecial,  
+			ISNULL(@IndicadorMeta,0) as IndicadorMeta,  
+			0 as ProgramaReconocimiento,  
+			ISNULL(s.segmentoid, 0) as segmentoid,  
+			ISNULL(c.IndicadorFlexiPago, 0) as IndicadorFlexiPago,  
+			'' as Nivel,  
+			ISNULL(c.AnoCampanaIngreso,'') As AnoCampanaIngreso,  
+			ISNULL(c.PrimerNombre,'') as PrimerNombre,  
+			ISNULL(c.PrimerApellido,'') as PrimerApellido,  
+			u.MostrarAyudaWebTraking,     
+			@IndicadorPermiso IndicadorPermisoFIC,  
+			@IndicadorOfertaFIC IndicadorOfertaFIC,--SSAP CGI(Id Solicitud=1402)  
+			@ImagenUrlOfertaFIC ImagenUrlOfertaFIC,--SSAP CGI(Id Solicitud=1402)  
+			ro.Descripcion as RolDescripcion,  
+			--   (case     
+			--    when @CountCodigoNivel =0 then 0  --1589  
+			--   when @CountCodigoNivel>0 then 1 End) Lider,--1589   
+			(case     
+				when ISNULL(cl.ConsultoraID,0) =0 then 0  --1589  
+				when ISNULL(cl.ConsultoraID,0)>0 then 1 End) Lider,--1589   		 
+			isnull(cl.CampaniaInicioLider,null) CampaniaInicioLider,--1589  
+			isnull(cl.SeccionGestionLider,null) SeccionGestionLider,--1589  
+			isnull(cl.CodigoNivelLider,0) NivelLider,--1589  
+			isnull(p.PortalLideres,0) PortalLideres,--1589  
+			isnull(p.LogoLideres,null) LogoLideres, --1589   
+			isnull(up.CodigoConsultoraAsociada,null) ConsultoraAsociada, --1688   
+			u.EMailActivo, --2532  
 			isnull(p.OfertaFinal,0) as OfertaFinal,
 			isnull(@EsOfertaFinalZonaValida,0) as EsOfertaFinalZonaValida,
 			@FechaLimitePago as FechaLimitePago,
 			ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial 
-		FROM dbo.Usuario u (nolock)    
-		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo    
-		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario    
-		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID    
-		INNER JOIN [dbo].[Pais] p (nolock) ON u.PaisID = p.PaisID      
-		LEFT JOIn [ods].[Region] r (nolock) ON c.RegionID = r.RegionID    
-		LEFT JOIN [ods].[Zona] z (nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID    
-		LEFT JOIN [ods].[Territorio] t (nolock) ON c.TerritorioID = t.TerritorioID    
-            AND c.SeccionID = t.SeccionID    
-            AND c.ZonaID = t.ZonaID    
-            AND c.RegionID = t.RegionID    
-		left join ods.segmento  s (nolock) ON c.segmentoid = s.segmentoid    
-		left join usuarioprueba up (nolock) on u.CodigoUsuario = up.CodigoUsuario    
-		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora    
+		FROM [dbo].[Usuario] u (nolock)  
+		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo  
+		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario  
+		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID  
+		INNER JOIN [dbo].[Pais] p (nolock) ON u.PaisID = p.PaisID  
+		LEFT JOIn [ods].[Region] r (nolock) ON c.RegionID = r.RegionID  
+		LEFT JOIN [ods].[Zona] z (nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID  
+		LEFT JOIN [ods].[Territorio] t (nolock) ON c.TerritorioID = t.TerritorioID  
+			AND c.SeccionID = t.SeccionID  
+            AND c.ZonaID = t.ZonaID  
+            AND c.RegionID = t.RegionID  
+		left join ods.segmento  s (nolock) ON c.segmentoid = s.segmentoid  
+		left join usuarioprueba up (nolock) on u.CodigoUsuario = up.CodigoUsuario  
+		--left join ods.ConsultoraLider cl with(nolock) on c.ConsultoraID=cl.ConsultoraID 
+		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada=cl.CodigoConsultora     
 		WHERE 
 			ro.Sistema = 1 
-			and u.CodigoUsuario = @CodigoConsultora    
-	END  
+			and u.CodigoUsuario = @CodigoConsultora  
+	END
 END
 
 go
@@ -3927,12 +4172,12 @@ ALTER PROCEDURE ListarEtiquetas
 AS
 BEGIN
 	SET NOCOUNT ON
-		SELECT EtiquetaID, Descripcion, Estado
+		SELECT EtiquetaID, Descripcion, Estado 
 		,case EtiquetaID
 			when 1 then 1
 			when 2 then 2
 			when 3 then 3
-			when 3003 then 4
+			when 2002 then 4
 		end as CodigoGeneral
 		FROM Etiqueta
 		WHERE (Estado = @Estado OR -1 = @Estado)
@@ -3988,5 +4233,641 @@ FROM dbo.MenuMobile
 WHERE EsSB2=1
 END
 
+GO
+
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetProcesoJetloreConfiguracion' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.GetProcesoJetloreConfiguracion
+END
+GO
+CREATE PROCEDURE interfaces.GetProcesoJetloreConfiguracion
+	@CodigoProceso varchar(20)
+AS
+BEGIN
+	select top 1
+		ProcesoJetloreConfiguracionId,
+		CodigoProceso,
+		Activo,
+		RestriccionEjecucion,
+		HoraInicioRestriccion,
+		HoraFinRestriccion,
+		CreacionLog,
+		EnvioCorreoTodo,
+		EnvioCorreoError
+	from interfaces.ProcesoJetloreConfiguracion
+	where CodigoProceso = @CodigoProceso
+END
+
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetProcesoJetlore' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.GetProcesoJetlore
+END
+GO
+CREATE PROCEDURE interfaces.GetProcesoJetlore
+	@CodigoProceso varchar(20)
+AS
+BEGIN
+	DECLARE @Activo bit;
+	DECLARE @RestriccionEjecucion bit;
+	DECLARE @HoraInicioRestriccion time;
+	DECLARE @HoraFinRestriccion time;
+
+	select
+		@Activo = Activo,
+		@RestriccionEjecucion = RestriccionEjecucion,
+		@HoraInicioRestriccion = HoraInicioRestriccion,
+		@HoraFinRestriccion = HoraFinRestriccion
+	from interfaces.ProcesoJetloreConfiguracion
+	where CodigoProceso = @CodigoProceso
+	
+	DECLARE @Valido int;
+	IF ISNULL(@Activo,0) = 0
+		SET @Valido = 0;
+	ELSE IF ISNULL(@RestriccionEjecucion,0) = 0
+		SET @Valido = 1;
+	ELSE
+	BEGIN
+		DECLARE @HoraPais time = cast(dbo.fnObtenerFechaHoraPais() as time);
+		IF (@HoraInicioRestriccion <= @HoraPais and @HoraPais <= @HoraFinRestriccion)
+			SET @Valido = 1;
+		ELSE
+			SET @Valido = 0;
+	END
+	
+	DECLARE @Estado int = NULL;
+	IF (@Valido = 1)
+	BEGIN
+		select top 1 @Estado = Estado
+		from interfaces.ProcesoJetlore (nolock)
+		where
+			CodigoProceso = @CodigoProceso
+			and
+			cast(FechaHoraInicio as date) = cast(getdate() as date)
+		order by ProcesoJetloreId desc;
+	END
+	ELSE
+		set @Estado = -1;
+
+	select ISNULL(@Estado,0) AS Estado;
+END
+
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'InsProcesoJetlore' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.InsProcesoJetlore
+END
+GO
+CREATE PROCEDURE interfaces.InsProcesoJetlore
+	@CodigoProceso varchar(20)
+AS
+BEGIN
+	INSERT INTO interfaces.ProcesoJetlore(CodigoProceso,FechaHoraInicio,Estado)
+	VALUES(@CodigoProceso,getdate(),1);
+
+	select SCOPE_IDENTITY();
+END
+
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'UpdProcesoJetlore' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.UpdProcesoJetlore
+END
+GO
+CREATE PROCEDURE interfaces.UpdProcesoJetlore
+	@ProcesoJetloreId bigint,
+	@Estado int,
+	@ErrorProceso varchar(1000),
+	@ErrorLog varchar(1500)
+as
+BEGIN
+	UPDATE interfaces.ProcesoJetlore
+	SET	
+		Estado = @Estado,
+		FechaHoraFin = GETDATE(),
+		ErrorProceso = @ErrorProceso,
+		ErrorLog = @ErrorLog
+	WHERE ProcesoJetloreId = @ProcesoJetloreId
+END
+
+GO
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetJetloreProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.GetJetloreProductFeed
+END
+GO
+CREATE PROCEDURE interfaces.GetJetloreProductFeed
+	@CodigoISO CHAR(2),
+	@OffsetRows INT,
+	@NumberRows INT
+AS
+BEGIN
+	DECLARE @CampaniaActual INT = dbo.fnGetCampaniaActualPais();
+	DECLARE @CampaniaSiguiente INT = dbo.fnAddCampaniaAndNumero(@CodigoISO,@CampaniaActual,1);
+	
+	SELECT
+		PC.AnoCampania AS Campania,
+		PC.CUV,
+		PC.CodigoProducto,
+		PC.CodigoTipoOferta,
+		PC.PrecioUnitario AS Precio,
+		PC.Descripcion,
+		SC.DescripcionCategoria AS Categoria,
+		SSC.DescripcionSubCategoria AS SubCategoria,
+		ST.DescripcionTipo AS Tipo,
+		SST.DescripcionSubTipo AS SubTipo,
+		PC.CodigoMarca AS Marca,
+		CASE 
+			WHEN 
+				PC.IndicadorDigitable = 1 AND JTO.TipoOfertaId IS NOT NULL
+				AND
+				EXISTS(
+					SELECT 1
+					FROM interfaces.JetloreTaxonomia JTx
+					WHERE
+						JTx.Categoria = SC.DescripcionCategoria AND (
+							JTx.SubCategoria IS NULL OR (
+								JTx.SubCategoria = SSC.DescripcionSubCategoria AND (
+									JTx.Tipo IS NULL OR (
+										JTx.Tipo = ST.DescripcionTipo AND (
+											JTx.SubTipo IS NULL OR JTx.SubTipo = SST.DescripcionSubTipo
+										)
+									)
+								)
+							)
+						)
+				)
+				THEN 1
+			ELSE 0
+		END AS EsRecomendable
+	FROM ods.ProductoComercial PC WITH(NOLOCK)
+	INNER JOIN ods.SAP_PRODUCTO SP WITH(NOLOCK) ON PC.CodigoProducto = SP.CodigoSap
+	INNER JOIN ods.SAP_CATEGORIA SC WITH(NOLOCK) ON SP.CodigoCategoria = SC.CodigoCategoria
+	INNER JOIN ods.SAP_SUBCATEGORIA SSC WITH(NOLOCK) ON SP.CodigoSubCategoria = SSC.CodigoSubCategoria
+	INNER JOIN ods.SAP_TIPO ST WITH(NOLOCK) ON SP.CodigoTipo = ST.CodigoTipo
+	INNER JOIN ods.SAP_SUBTIPO SST WITH(NOLOCK) ON SP.CodigoSubTipo = SST.CodigoSubTipo
+	LEFT JOIN interfaces.JetloreTipoOferta JTO WITH(NOLOCK) ON PC.CodigoTipoOferta = JTO.TipoOfertaId
+	WHERE PC.AnoCampania IN (@CampaniaActual,@CampaniaSiguiente)
+	ORDER BY
+		PC.AnoCampania,
+		PC.Cuv
+	OFFSET @OffsetRows ROWS 
+	FETCH NEXT @NumberRows ROWS ONLY;
+END
+
+GO
+
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+CREATE PROCEDURE interfaces.InsLogPJProductFeed
+	@PJProductFeedId bigint,
+	@ListadoProductFeed interfaces.JetloreProductFeedType readonly
+AS
+BEGIN
+	INSERT INTO interfaces.LogPJProductFeed(
+		PJProductFeedId,
+		Campaign,
+		SalesCode,
+		SKU,
+		PromotionCode,
+		Price,
+		OriginalPrice,
+		Currency,
+		Title,
+		ProductURL,
+		ProductImgURL,
+		ProductTaxonomy,
+		Brand,
+		IsRecommendable,
+		ProductAttributes
+	)
+	SELECT
+		@PJProductFeedId,
+		Campaign,
+		SalesCode,
+		SKU,
+		PromotionCode,
+		Price,
+		OriginalPrice,
+		Currency,
+		Title,
+		ProductURL,
+		ProductImgURL,
+		ProductTaxonomy,
+		Brand,
+		IsRecommendable,
+		ProductAttributes
+	FROM @ListadoProductFeed;
+END
+
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'GetJetloreHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.GetJetloreHistoricalData
+END
+GO
+CREATE PROCEDURE interfaces.GetJetloreHistoricalData
+	@OffsetRows INT,
+	@NumberRows INT
+AS
+BEGIN
+	DECLARE @hoy DATE = CAST(GETDATE() AS DATE);
+	--DECLARE @hoy DATE = CAST('2016-06-25' AS DATE);
+	DECLARE @ayer DATE = DATEADD(day, -1, @hoy);
+	
+	SELECT
+		Ca.Codigo AS Campania,
+		P.FechaFacturado,
+		Co.Codigo AS CodigoConsultora,
+		PD.CUV,
+		PC.CodigoProducto,
+		PC.CodigoTipoOferta,
+		PD.PrecioUnidad AS Precio,
+		PD.Cantidad AS UnidadesVendidas,
+		PD.MontoPagar,
+		PC.Descripcion,
+		SC.DescripcionCategoria AS Categoria,
+		SSC.DescripcionSubCategoria AS SubCategoria,
+		ST.DescripcionTipo AS Tipo,
+		SST.DescripcionSubTipo AS SubTipo,
+		PC.CodigoMarca AS Marca
+	FROM ods.PedidoDetalle PD
+	INNER JOIN ods.Pedido P WITH(NOLOCK) ON PD.PedidoID = P.PedidoID
+	INNER JOIN ods.Campania Ca WITH(NOLOCK) ON PD.CampaniaID = Ca.CampaniaID
+	INNER JOIN ods.Consultora Co WITH(NOLOCK) ON P.ConsultoraID = Co.ConsultoraID
+	INNER JOIN ods.ProductoComercial PC WITH(NOLOCK) ON PD.CampaniaID = PC.CampaniaID AND PD.CUV = PC.CUV
+	INNER JOIN ods.SAP_PRODUCTO SP WITH(NOLOCK) ON PC.CodigoProducto = SP.CodigoSap
+	INNER JOIN ods.SAP_CATEGORIA SC WITH(NOLOCK) ON SP.CodigoCategoria = SC.CodigoCategoria
+	INNER JOIN ods.SAP_SUBCATEGORIA SSC WITH(NOLOCK) ON SP.CodigoSubCategoria = SSC.CodigoSubCategoria
+	INNER JOIN ods.SAP_TIPO ST WITH(NOLOCK) ON SP.CodigoTipo = ST.CodigoTipo
+	INNER JOIN ods.SAP_SUBTIPO SST WITH(NOLOCK) ON SP.CodigoSubTipo = SST.CodigoSubTipo
+	WHERE 
+		P.MontoFacturado IS NOT NULL 
+		AND
+		CAST(P.FechaFacturado AS DATE) = @ayer
+		AND
+		--@ayer <= P.FechaFacturado AND P.FechaFacturado < @hoy
+		--AND
+		PD.Estado = '4'
+	ORDER BY PD.PedidoDetalleId
+	OFFSET @OffsetRows ROWS 
+	FETCH NEXT @NumberRows ROWS ONLY;
+END
+
+GO
+
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+CREATE PROCEDURE interfaces.InsLogPJHistoricalData
+	@PJHistoricalDataId bigint,
+	@ListadoHistoricalData interfaces.JetloreHistoricalDataType readonly
+AS
+BEGIN
+	INSERT INTO interfaces.LogPJHistoricalData(
+		PJProductFeedId,
+		Campaign,
+		BillingDate,
+		PartyCode,
+		SalesCode,
+		SKU,
+		PromotionCode,
+		Price,
+		Currency,
+		SaleUnits,
+		SaleDemandUnits,
+		SaleNetAmont,
+		Title,
+		ProductTaxonomy,
+		Brand,
+		ProductAttributes
+	)
+	SELECT
+		@PJHistoricalDataId,
+		Campaign,
+		BillingDate,
+		PartyCode,
+		SalesCode,
+		SKU,
+		PromotionCode,
+		Price,
+		Currency,
+		SaleUnits,
+		SaleDemandUnits,
+		SaleNetAmont,
+		Title,
+		ProductTaxonomy,
+		Brand,
+		ProductAttributes
+	FROM @ListadoHistoricalData;
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UpdUsuarioContrasenia]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[UpdUsuarioContrasenia]
+GO
+
+CREATE PROCEDURE [dbo].[UpdUsuarioContrasenia] (
+	@CodigoUsuario varchar(20),
+	@Contrasenia varchar(200)
+)
+AS
+BEGIN
+
+SET NOCOUNT ON;
+
+IF EXISTS(SELECT 1 FROM dbo.UsuarioContrasenia  where CodigoUsuario = @CodigoUsuario)
+BEGIN
+	UPDATE dbo.UsuarioContrasenia SET Contrasenia = @Contrasenia WHERE CodigoUsuario = @CodigoUsuario
+END
+ELSE
+BEGIN
+	INSERT INTO dbo.UsuarioContrasenia (CodigoUsuario, Contrasenia) VALUES (@CodigoUsuario, @Contrasenia)
+END
+
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCodigoSapByCuv_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetCodigoSapByCuv_SB2
+GO
+
+create procedure GetCodigoSapByCuv_SB2
+@CampaniaID int,
+@CUV varchar(20)
+as
+/*
+GetCodigoSapByCuv_SB2 201613,'00006'
+GetCodigoSapByCuv_SB2 201613,'107702'
+*/
+begin
+
+declare @resultado varchar(20) = ''
+
+select top 1 @resultado = p.CodigoProducto from ods.ProductoComercial p
+inner join ods.Campania c on
+	p.CampaniaID = c.CampaniaID
+where c.Codigo = @CampaniaID
+and p.CUV = @CUV
+
+select @resultado as CodigoSap
+
+end
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCuvProductoPedido_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetCuvProductoPedido_SB2
+GO
+
+create procedure GetCuvProductoPedido_SB2
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+GetCuvProductoPedido_SB2 201613,'041278560'
+*/
+begin
+
+select p.CUV
+from PedidoWebDetalle p
+inner join ods.Consultora c on
+	p.ConsultoraID = c.ConsultoraID
+where 
+	p.CampaniaID = @CampaniaID
+	and c.Codigo = @CodigoConsultora
+
+end
+
+go
+
+ALTER procedure [dbo].[GetNotificacionesConsultora] 
+	@ConsultoraId bigint
+as
+BEGIN
+	declare @Temporal table
+	(
+		ProcesoId bigint,
+		CampaniaId int,
+		EstadoPROL varchar(2),
+		FechaHoraValidación datetime,
+		EnvioCorreo bit,
+		Proceso varchar(20),
+		Estado int,
+		Observaciones varchar(500),
+		FechaFacturacion date,
+		Asunto varchar(500),
+		FacturaHoy bit,
+		Visualizado bit,
+		EsMontoMinino bit,
+		FlagProcedencia bit
+	)
+
+	declare @TemporalStock table
+	(
+		ProcesoId bigint,
+		CampaniaId int,
+		EstadoPROL varchar(2),
+		FechaHoraValidación datetime,
+		EnvioCorreo bit,
+		Proceso varchar(20),
+		Estado int,
+		Observaciones varchar(500),
+		FechaFacturacion date,
+		Asunto varchar(500),
+		FacturaHoy bit,
+		Visualizado bit,
+		EsMontoMinino bit,
+		FlagProcedencia bit
+	)
+
+	insert into @TemporalStock
+	select MIN(vs.ValidacionStockPROLLogId) as ProcesoId,0 as CampaniaId, '' as EstadoPROL,
+	v.FechaHoraInicio as FechaHoraValidación, 0 as EnvioCorreo, 'VALSTOCK' as Proceso, 0 as Estado, cast(vs.ValidacionStockProlId as varchar) as Observaciones,
+	'2000-01-01' as FechaFacturacion, 'Validación de Stock' as Asunto , 0 as FacturaHoy, 0 as Visualizado, 0 as EsMontoMinino,0 as 'FlagProcedencia' 
+	from ValidacionStockPROLLog vs with(nolock)
+	inner join ods.Consultora c with(nolock) on vs.Codigo = c.Codigo
+	inner join ValidacionStockPROL v with(nolock) on vs.ValidacionStockProlId = v.ValidacionStockProlId
+	where c.ConsultoraId = @ConsultoraId and vs.Enviocorreo = 1
+	group by vs.ValidacionStockProlId,v.FechaHOraInicio;
+
+	insert into @Temporal
+	select ValAutomaticaPROLLogId as ProcesoId,CampaniaId,EstadoPROL,FechaHoraValidación,
+	ISNULL(EnvioCorreo,0) as EnvioCorreo, 'VALAUTO' as Proceso, Estado, Observaciones, FechaFacturacion,
+	(case when Estado = 4 then 'Pedido reservado con éxito' 
+		 when Estado = 5 then 'Pedido reservado con observaciones'
+		 when Estado = 2 then IIF(EsMontoMinino=1,'Pedido no reservado por monto mínimo','Pedido no reservado por monto máximo')
+		 when Estado = 3 then 'Pedido no reservado por observaciones' end) as Asunto, 
+	ISNULL(FacturaHoy,0) as FacturaHoy,
+	ISNULL(Visualizado,0) as Visualizado, EsMontoMinino,0 as 'FlagProcedencia'
+	from ValidacionAutomaticaPROLLog with(nolock)
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	
+	UNION ALL
+	
+	select ValidacionMovilPROLLogId as ProcesoId,CampaniaId,EstadoPROL,FechaHoraValidación,
+	0 as EnvioCorreo, 'VALMOVIL' as Proceso, Estado, Observaciones, FechaFacturacion,
+	(case when Estado = 4 then 'Pedido reservado con éxito' 
+		 when Estado = 5 then 'Pedido reservado con observaciones'
+		 when Estado = 2 then IIF(EsMontoMinino=1,'Pedido no reservado por monto mínimo','Pedido no reservado por monto máximo')
+		 when Estado = 3 then 'Pedido no reservado por observaciones' end) as Asunto, 
+	ISNULL(FacturaHoy,0) as FacturaHoy,
+	ISNULL(Visualizado,0) as Visualizado, EsMontoMinino,0 as 'FlagProcedencia'
+	from ValidacionMovilPROLLog with(nolock)
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+
+	UNION ALL
+	
+	select st.ProcesoId, 
+		st.CampaniaId, 
+		st.EstadoPROL,
+		st.FechaHoraValidación,
+		st.EnvioCorreo,
+		st.Proceso,
+		st.Estado,
+		st.Observaciones, 
+		st.FechaFacturacion,
+		st.Asunto, 
+		st.FacturaHoy, 
+		ISNULL(i.Visualizado,0), 
+		st.EsMontoMinino,
+		0 as 'FlagProcedencia'
+	from @TemporalStock st
+	left join ValidacionStockPROLInfo i with(nolock) on st.ProcesoId = i.ValidacionStockPROLLogId
+
+	UNION ALL
+	
+	select SolicitudClienteID as ProcesoId,
+	Campania as CampaniaId,
+	'' as EstadoPROL,
+	FechaSolicitud as FechaHoraValidación,
+	  cast(1 as bit) as EnvioCorreo,
+	'BUSCACONS' as Proceso,
+	  1  as Estado,
+	'' as Observaciones,
+	GETDATE()  as FechaFacturacion,
+	CONCAT('Pedido de nuevo cliente ',UPPER(NombreCompleto)) as Asunto,
+	 cast(0 as bit) as FacturaHoy,
+	 Leido as Visualizado,
+	 cast(0 as bit) as EsMontoMinino,
+	 1 as 'FlagProcedencia'
+	from SolicitudCliente where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+
+	UNION ALL
+	
+	select 
+	S.SolicitudClienteCatalogoID  as ProcesoId,
+	S.Campania as CampaniaId,
+	'' as EstadoPROL,
+	S.FechaRegistro as FechaHoraValidación, 
+	cast(0 as bit) as EnvioCorreo,
+	'CATALOGO' as Proceso,
+	1  as Estado,
+	'' as Observaciones,
+	GETDATE()  as FechaFacturacion, 
+	S.AsuntoNotificacion as Asunto,
+	cast(0 as bit) as FacturaHoy,
+
+	S.Visualizado AS Visualizado,
+	cast(0 as bit) as EsMontoMinino,	 
+	1 as FlagProcedencia
+	from SolicitudClienteCatalogo S
+	INNER JOIN ods.Consultora C ON C.ConsultoraID = @ConsultoraId  AND S.CodigoConsultora = C.Codigo;
+
+	select top 10 ProcesoId,CampaniaId,EstadoPROL,FechaHoraValidación,EnvioCorreo,Proceso,Estado,Observaciones,FechaFacturacion,
+	Asunto,FacturaHoy,Visualizado,EsMontoMinino,FlagProcedencia
+	from @Temporal
+	order by FechaHoraValidación desc;
+END
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SelectProductoToKitInicio_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].SelectProductoToKitInicio_SB2
+GO
+
+CREATE PROCEDURE dbo.SelectProductoToKitInicio_SB2
+	@CampaniaID int,
+	@Cuv varchar(100)
+AS
+/*
+dbo.SelectProductoToKitInicio_SB2 201609,'00025'
+dbo.SelectProductoToKitInicio_SB2 201609,'02767'
+*/
+BEGIN
+
+DECLARE @OfertaProductoTemp table
+(
+CampaniaID int,
+CUV varchar(6),
+Descripcion varchar(250)
+)
+insert into @OfertaProductoTemp
+select op.CampaniaID, op.CUV, op.Descripcion
+FROM OfertaProducto op
+inner join ods.Campania c on
+op.CampaniaID = c.CampaniaID
+where c.codigo = @CampaniaID
+
+select distinct 
+p.CUV,
+p.IndicadorMontoMinimo,
+p.MarcaID,
+coalesce(est.precio2, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,
+coalesce(EST.DescripcionCUV2 + ' '+ tcc.Descripcion , est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion) AS Descripcion
+
+from ods.ProductoComercial p
+left join dbo.ProductoDescripcion pd ON p.AnoCampania = pd.CampaniaID AND p.CUV = pd.CUV
+left join ProductoComercialConfiguracion pcc ON p.AnoCampania = pcc.CampaniaID AND p.CUV = pcc.CUV
+left join @OfertaProductoTemp op on op.CampaniaID = P.CampaniaID AND op.CUV = P.CUV
+left join MatrizComercial mc on p.CodigoProducto = mc.CodigoSAP
+LEFT JOIN Estrategia EST ON EST.CampaniaID = p.AnoCampania AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) AND EST.Activo = 1 
+LEFT JOIN dbo.TallaColorCUV tcc ON tcc.CUV = p.CUV AND tcc.CampaniaID = p.AnoCampania
+where p.AnoCampania = @CampaniaID 
+--AND p.IndicadorDigitable = 1
+AND CHARINDEX(@Cuv,p.CUV)>0
+
+
+END
+
+GO
 
 /*FIN PROCEDIMIENTOS ALMACENADOS*/

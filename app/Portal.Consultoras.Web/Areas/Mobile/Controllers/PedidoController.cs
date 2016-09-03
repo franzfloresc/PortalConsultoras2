@@ -26,6 +26,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Session["PedidoWeb"] = null;
             Session["PedidoWebDetalle"] = null;
 
+            BEConfiguracionCampania beConfiguracionCampania;
+            using (var sv = new PedidoServiceClient())
+            {
+                beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+            }
+
+            if (beConfiguracionCampania == null)
+                return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
+
+            if (beConfiguracionCampania.CampaniaID == 0)
+                return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
+
+            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+                && !beConfiguracionCampania.ModificaPedidoReservado
+                && !beConfiguracionCampania.ValidacionAbierta)
+                return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+
             var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
             if (lstPedidoWebDetalle.Count == 0)

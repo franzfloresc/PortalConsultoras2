@@ -2317,8 +2317,11 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index2.js" />
+    <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -2551,7 +2554,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceUnete\PortalService1.disco" />
-    <Content Include="Views\OfertaLiquidacion\_ListadoOfertasLiquidacion.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3249,7 +3251,6 @@
     <Content Include="Views\SolicitudCredito\DetalleCreditoVE.cshtml" />
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
-    <Content Include="Views\Incentivo\Incentivo.cshtml" />
     <Content Include="Views\AdministrarBelcorpResponde\Index.cshtml" />
     <Content Include="Views\AdministrarFeErratas\Index.cshtml" />
     <Content Include="Views\Tracking\Index.cshtml" />
@@ -3448,6 +3449,7 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo2.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
+    <Content Include="Views\Incentivos\Index.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3626,7 +3628,6 @@
     <Content Include="Views\Servicios\AdministrarServicios.cshtml" />
     <Content Include="Views\Servicios\MantenimientoServicios.cshtml" />
     <Content Include="Views\OfertaWeb\_ListadoOfertas.cshtml" />
-    <Content Include="Views\OfertaLiquidacion\_ListadoOfertas.cshtml" />
     <Content Include="Views\AdministrarFactoresGanancia\Index.cshtml" />
     <Content Include="Views\Paypal\Index.cshtml" />
     <Content Include="Views\Paypal\ReporteAbonos.cshtml" />
@@ -3637,7 +3638,6 @@
     <Content Include="Views\SolicitudCredito\DetalleCreditoDO.cshtml" />
     <Content Include="Views\SolicitudCredito\DetalleCreditoPR.cshtml" />
     <Content Include="Views\SolicitudCredito\SolicitudCredito.cshtml" />
-    <Content Include="Views\Incentivos\_Index.cshtml" />
     <Content Include="Views\ModificacionCronograma\Index.cshtml" />
     <Content Include="Views\CrossSelling\ConfiguracionCrossSelling.cshtml" />
     <Content Include="Views\CrossSelling\AdministracionCrossSelling.cshtml" />
@@ -3702,7 +3702,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Contenido\" />
-    <Folder Include="Views\SAC\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
