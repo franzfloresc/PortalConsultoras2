@@ -501,7 +501,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true) messageInfo(data.message);
+            else if (mostrarAlerta == true) {
+                messageInfo(data.message);
+            }
         },
         error: function (error) {
             console.log(error);
@@ -511,7 +513,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     return restringido;
 };
 function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
+    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
 };
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
@@ -757,7 +759,11 @@ function AgregarProductoCarrusel(data) {
 
     SetHandlebars("#html-estrategia", data, "#divContenidoEstrategias");
 
-    RegistrarOwlCarrousel();
+    if ($.trim($('#divContenidoEstrategias').html()).length == 0) {
+        $('.fondo_gris').hide();
+    } else {
+        RegistrarOwlCarrousel();
+    }
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {

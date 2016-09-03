@@ -29,7 +29,6 @@
         }, 50);
     });
 
-    //CargarCantidadProductosPedidos();
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
 
@@ -456,12 +455,13 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    //alert_msg(data.message, fnRedireccionar);
                     messageInfo(data.message);
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true) messageInfo(data.message);
+            else if (mostrarAlerta == true) {
+                messageInfo(data.message);
+            }
         },
         error: function (error) {
             console.log(error);
