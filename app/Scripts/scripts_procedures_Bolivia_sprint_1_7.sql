@@ -1,4 +1,4 @@
-USE BelcorpBolivia_SB2
+USE BelcorpBolivia
 go
 
 /*ESQUEMAS*/
@@ -220,6 +220,18 @@ GO
 /*FIN TABLAS*/
 
 /*TYPES*/
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+
 IF TYPE_ID('interfaces.JetloreProductFeedType') IS NOT NULL
 	DROP TYPE interfaces.JetloreProductFeedType
 GO
@@ -583,6 +595,7 @@ SET EsSB2 = 0
 WHERE MenuMobileID<1000
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version, esSB2)
 VALUES
+(1030, 'Inicio', 1001, 0, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
 (1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile', 1),
 (1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
 (1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
@@ -3762,7 +3775,28 @@ BEGIN
 		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))  
 		SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
-		SET @FechaLimitePago = (SELECT FECHALIMITEPAGO FROM ODS.Cronograma WHERE CampaniaID=@ODSCampaniaID-1 AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1)      
+		
+			-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
+			declare @CampaniaFacturada int = 0
+		
+			 select top 1 @CampaniaFacturada = p.CampaniaID
+			FROM ods.Pedido(NOLOCK) P 
+				INNER JOIN ods.Consultora(NOLOCK) CO ON 
+					P.ConsultoraID=CO.ConsultoraID
+				WHERE 
+					co.ConsultoraID=@ConsultoraID
+					and	P.CampaniaID <> @ODSCampaniaID
+					and	CO.RegionID=@RegionID
+					and	CO.ZonaID=@ZonaID
+			order by PedidoID desc
+
+			SET @FechaLimitePago = (
+				SELECT FECHALIMITEPAGO 
+				FROM ODS.Cronograma 
+				WHERE CampaniaID=@CampaniaFacturada AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
+			)
+				  
+  
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID      
   
 		SELECT   
@@ -4181,6 +4215,10 @@ MenuMobileID
 FROM dbo.MenuMobile
 WHERE EsSB2=0
 END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetMenuMobile_SB2
 GO
 
 --EXEC GetMenuMobile_SB2

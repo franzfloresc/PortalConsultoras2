@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
+            if (userData.CodigoISO == "VE")
+                return RedirectToAction("Index", "Bienvenida");
             try
             {
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();

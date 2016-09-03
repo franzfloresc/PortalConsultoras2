@@ -1016,115 +1016,115 @@
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="vertical" data-item="producto">
-        <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]'}} data-estrategia="{{JSON2string item}}" style="cursor:pointer;"  onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" /> 
-            <div class="producto_img">
-                <img src="{{FotoProducto01}}" />
-            </div>
-            {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
+    <div class="vertical" data-item="producto" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="producto_img">
+            <img src="{{FotoProducto01}}" />
+        </div>
+        {{#if_eq FlagMostrarImg '1'}}
+        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
 
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                    {{#if_eq FlagEstrella '1' }}
-                    <div class="etiqueta_producto">
-                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                    </div>
-                    {{/if_eq}}
-                {{/if_eq}}
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+        {{#if_eq FlagEstrella '1' }}
+        <div class="etiqueta_producto">
+            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+        </div>
+        {{/if_eq}}
+        {{/if_eq}}
+        {{/if_eq}}
+        <div class="producto_nombre_descripcion">
+            <h6>{{DescripcionMarca}}</h6>
+            {{#if_eq FlagNueva '1'}}
+            <p class="nombre_producto">
+                <b>{{DescripcionCUVSplit}}</b>
+            </p>
+            {{else}}
+            <p class="nombre_producto">
+                <b>{{DescripcionCUV2}}</b>
+            </p>
             {{/if_eq}}
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                {{#if_eq FlagNueva '1'}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUVSplit}}</b>
-                </p>
-                {{else}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUV2}}</b>
-                </p>
-                {{/if_eq}}
 
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}} 
-                    {{#if_eq EtiquetaID '1'}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{else}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{/if_eq}}
+            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+            {{#if_eq EtiquetaID '1'}}
+            <div class="producto_precio">
+                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/if_eq}}
 
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/iff}}
+
+            <div class="contenedor_cantidad_producto">
+                {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+                <div class="liquidacion_rango_wrapper_pedido">
+                    <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />
                 </div>
+                <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                    AGREGAR
+                </a>
+                {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+                <div class="liquidacion_rango_wrapper_pedido">
+                    <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup">
+                            <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
+                        </a>
+                        <a class="menos js-no-popup">
+                            <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="">
+                        </a>
+                    </div>
+                </div>
+                <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGREGAR
+                </a>
+                {{else}}
+                <div class="liquidacion_rango_wrapper_pedido">
+                    <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup">
+                            <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
+                        </a>
+                        <a class="menos js-no-popup">
+                            <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="">
+                        </a>
+                    </div>
+                </div>
+                <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGREGAR
+                </a>
                 {{/iff}}
-
-                <div class="contenedor_cantidad_producto">
-                    {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-                    <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />                        
-                    </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                        AGREGAR
-                    </a>
-                    {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-                    <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
-                        <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup">
-                                <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
-                            </a>
-                            <a class="menos js-no-popup">
-                                <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                        AGREGAR
-                    </a>
-                    {{else}}
-                    <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
-                        <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup">
-                                <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
-                            </a>
-                            <a class="menos js-no-popup">
-                                <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                        AGREGAR
-                    </a>
-                    {{/iff}}                    
-                    <div class="clear"></div>
-                    <div style="padding-top:9px; height: 15px;">
-                        <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
+                <div class="clear"></div>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
     </div>
     {{/each}}
 </script>
 <script id="packnuevas-template" type="text/x-handlebars-template">
-    <div class="popup_detalleCarousel packNuevas">
+    <div class="popup_detalleCarousel packNuevas" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <div class="btn_cerrar_detalleCarousel">
             <a href="javascript:void()" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />

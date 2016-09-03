@@ -84,7 +84,8 @@ $(document).ready(function () {
             if (ui.item.CUV == "0") {
                 return false;
             }
-
+            
+            $('#txtDescripcionProd')[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
@@ -277,7 +278,7 @@ $(document).ready(function () {
             if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
                 InsertarProducto(form);
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia($("#hdFlagNueva").val());
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -726,7 +727,7 @@ function InsertarProducto(form) {
         }
     });
 }
-function AgregarProductoZonaEstrategia() {
+function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
     var param2 = {
         MarcaID: $("#hdfMarcaID").val(),
         CUV: $("#txtCUV").val(),
@@ -735,7 +736,7 @@ function AgregarProductoZonaEstrategia() {
         Cantidad: $("#txtCantidad").val(),
         IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val()
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     };
 
     jQuery.ajax({
@@ -865,12 +866,11 @@ function AgregarProductoListado() {
                 alert_msg(datos.message);
                 return false;
             }
-
             if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
                 //CerrarSplash();
                 $('form#frmInsertPedido').submit();
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia($("#hdFlagNueva").val());
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -1885,6 +1885,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.liquidacion_rango_cantidad_pedido").val();
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -1993,7 +1994,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 });
 
                 CerrarSplash();
-                AgregarProductoDestacado(popup);
+                AgregarProductoDestacado(popup, tipoEstrategiaImagen);
             } else {
                 $(".zona4Edit").show();
                 $(".zonaCantidad").show();
@@ -2021,7 +2022,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado(popup);
+                    AgregarProductoDestacado(popup, tipoEstrategiaImagen);
                 } else {
                     CerrarSplash();
                 }
@@ -2039,7 +2040,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 };
 
-function AgregarProductoDestacado(popup) {
+function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var cantidad = $("#txtCantidadZE").val();
     var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
     var cuv = $("#txtCantidadZE").attr("est-cuv2");
@@ -2086,9 +2087,8 @@ function AgregarProductoDestacado(popup) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val(),
         ClienteID_: '-1',
-        EsKitNueva: ($("#OfertaTipoNuevo").val() != undefined && String($("#OfertaTipoNuevo").val()).trim() != "") ? true : false
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     });
 
     jQuery.ajax({
