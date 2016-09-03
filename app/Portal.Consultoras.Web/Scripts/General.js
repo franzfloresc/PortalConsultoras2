@@ -491,6 +491,69 @@ function ActualizarGanancia(data) {
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
 
+    // actualizar el area de escala en los rangos de escala
+    var tieneAreaEscala = $("[data-divescala]");
+    if (tieneAreaEscala.length > 0) {
+        data.ListaEscalaDescuento = data.ListaEscalaDescuento || new Array();
+        var montoEscala = data.MontoEscala || 0;
+        var pos = -1;
+        var nro = 4;
+        var listaEscala = new Array();
+        $.each(data.ListaEscalaDescuento, function (ind, objEscala) {
+            if (data.MontoMinimo <= objEscala.MontoHasta)
+            {
+                objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[ind - 1].MontoHasta;
+                objEscala.MontoDesdeStr = DecimalToStringFormat(objEscala.MontoDesde);
+                objEscala.MontoHastaStr = DecimalToStringFormat(objEscala.MontoHasta);
+
+                if (objEscala.MontoDesde <= montoEscala && montoEscala < objEscala.MontoHasta) {
+                    objEscala.Seleccionado = true;
+                    pos = ind;
+                }
+                listaEscala.push(objEscala);
+            }
+        });
+
+        if (listaEscala.length > 0)
+        {
+            var listaAdd = new Array();
+            var posMin, posMax, tamX = listaEscala.length - 1;
+            posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+            posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+            posMin = pos < 0 ? 0 : posMin;
+            posMax = pos < 0 ? listaEscala.length - 1 > nro - 1 ? nro - 1 : listaEscala.length - 1 : posMax;
+            while (posMin <= posMax) {
+                listaAdd.push(listaEscala[posMin]);
+                posMin++;
+            }
+
+            var htmlIconSelect = '<div class="indicador_escala"></div>';
+            var htmlMontosEscala = '<div class="precio_ganancia">{}</div>';
+            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".indicador_escala").remove();
+            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".precio_ganancia").remove();
+            tieneAreaEscala.find(".escala_ganancia").removeClass("escala_select");
+
+            $.each(tieneAreaEscala.find(".escala_ganancia"), function (ind, objHtmlEscala) {               
+                if (listaAdd.length > ind) {
+                    $(objHtmlEscala).find(".home_porcentaje").html(listaAdd[ind].PorDescuento);
+                    if (listaAdd[ind].Seleccionado == true) {
+                        $(objHtmlEscala).addClass("escala_select");
+                        $(objHtmlEscala).prepend(htmlIconSelect);
+                        if (ind == listaAdd.length - 1) {
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a más."));
+                        }
+                        else {
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a " + vbSimbolo + " " + listaAdd[ind].MontoHastaStr));
+                        }
+                        
+                    }
+                }                
+            });
+        }
+
+        
+    }
+
     setTimeout(function () {
         $('.num-menu-shop').addClass('microefecto_color');
         $('[data-cantidadproducto]').parent().addClass('microefecto_color');
