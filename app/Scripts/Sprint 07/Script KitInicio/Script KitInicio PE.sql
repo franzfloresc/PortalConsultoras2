@@ -1,109 +1,45 @@
 
-ALTER PROCEDURE dbo.GetProductoComercialByCampaniaBySearchRegionZona_Kit_Inicio_SB2
+CREATE PROCEDURE dbo.SelectProductoToKitInicio_SB2
 	@CampaniaID int,
-	@RowCount int,
-	@Criterio int,
-	@CodigoDescripcion varchar(100),
-	@RegionID int,
-	@ZonaID int,
-	@CodigoRegion varchar(10),
-	@CodigoZona varchar(10)
+	@Cuv varchar(100)
 AS
 /*
---EXEC GetProductoComercialByCampaniaBySearchRegionZona_Kit_Inicio_SB2 201613,1,1,'00796',2009,2261,90,9011
+dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2 201609,'00025'
+dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2 201609,'02767'
 */
 BEGIN
 
--- Depuramos las tallas y colores
-EXEC DepurarTallaColorCUV @CampaniaID
-EXEC DepurarTallaColorLiquidacion @CampaniaID
-
 DECLARE @OfertaProductoTemp table
 (
-	CampaniaID int,
-	CUV varchar(6),
-	Descripcion varchar(250),
-	ConfiguracionOfertaID int,
-	TipoOfertaSisID int,
-	PrecioOferta numeric(12,2)
+CampaniaID int,
+CUV varchar(6),
+Descripcion varchar(250)
 )
-
 insert into @OfertaProductoTemp
-select 
-	op.CampaniaID, op.CUV, op.Descripcion, op.ConfiguracionOfertaID, op.TipoOfertaSisID,null
+select op.CampaniaID, op.CUV, op.Descripcion
 FROM OfertaProducto op
 inner join ods.Campania c on
-	op.CampaniaID = c.CampaniaID
-where
-	c.codigo = @CampaniaID
+op.CampaniaID = c.CampaniaID
+where c.codigo = @CampaniaID
 
-DECLARE @ProductoFaltanteTemp table (CUV varchar(6))
+select distinct 
+p.CUV,
+p.IndicadorMontoMinimo,
+p.MarcaID,
+coalesce(est.precio2, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,
+coalesce(EST.DescripcionCUV2 + ' '+ tcc.Descripcion , est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion) AS Descripcion
 
-INSERT INTO @ProductoFaltanteTemp
-select 
-	distinct ltrim(rtrim(CUV))
-from dbo.ProductoFaltante nolock
-where 
-	CampaniaID = @CampaniaID and Zonaid = @ZonaID
-UNION ALL
-select 
-	distinct ltrim(rtrim(fa.CodigoVenta)) AS CUV
-from ods.FaltanteAnunciado fa (nolock)
-inner join ods.Campania c (nolock) on 
-	fa.CampaniaID = c.CampaniaID
-where 
-	c.Codigo = @CampaniaID 
-	and (rtrim(fa.CodigoRegion) = @CodigoRegion or fa.CodigoRegion IS NULL) 
-	and (rtrim(fa.CodigoZona) = @CodigoZona or fa.CodigoZona IS NULL)
+from ods.ProductoComercial p
+left join dbo.ProductoDescripcion pd ON p.AnoCampania = pd.CampaniaID AND p.CUV = pd.CUV
+left join ProductoComercialConfiguracion pcc ON p.AnoCampania = pcc.CampaniaID AND p.CUV = pcc.CUV
+left join @OfertaProductoTemp op on op.CampaniaID = P.CampaniaID AND op.CUV = P.CUV
+left join MatrizComercial mc on p.CodigoProducto = mc.CodigoSAP
+LEFT JOIN Estrategia EST ON EST.CampaniaID = p.AnoCampania AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) AND EST.Activo = 1 
+LEFT JOIN dbo.TallaColorCUV tcc ON tcc.CUV = p.CUV AND tcc.CampaniaID = p.AnoCampania
+where p.AnoCampania = @CampaniaID 
+--AND p.IndicadorDigitable = 1
+AND CHARINDEX(@Cuv,p.CUV)>0
 
---Logica para Producto Sugerido
-declare @TieneSugerido int = 0
-if exists (	select 1 from dbo.ProductoSugerido 
-			where CampaniaID = @CampaniaID and CUV = @CodigoDescripcion and Estado = 1)
-begin
-	set @TieneSugerido = 1
-end
-	select 
-		distinct top (@RowCount) p.CUV,------------------
-		coalesce(EST.DescripcionCUV2 + ' '+ tcc.Descripcion, 
-		est.descripcioncuv2, 
-		op.Descripcion, 
-		mc.Descripcion, 
-		pd.Descripcion, 
-		p.Descripcion) AS Descripcion,--------------------------
-		coalesce(est.precio2, op.PrecioOferta, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,-----------------
-		p.MarcaID,------------------
-		p.IndicadorMontoMinimo, -----------
-		ISNULL(op.ConfiguracionOfertaID,0) ConfiguracionOfertaID,---------------
-		CASE
-			WHEN EXISTS(SELECT 1 FROM TallaColorLiquidacion WHERE CampaniaID = @CampaniaID AND CUV = p.CUV) THEN 1702
-			WHEN EXISTS(SELECT 1 FROM TallaColorCUV WHERE CampaniaID = @CampaniaID AND CUV = p.CUV) THEN
-				(	SELECT E.TipoEstrategiaID FROM Estrategia E
-					INNER JOIN TALLACOLORCUV TCC ON E.CAMPANIAID = TCC.CAMPANIAID AND E.CUV2 = TCC.CUVPADRE
-					WHERE TCC.CUV = p.CUV AND E.CAMPANIAID=@CampaniaID)
-			ELSE ISNULL(op.TipoOfertaSisID,0) END TipoOfertaSisID------------------
-	from ods.ProductoComercial p --------------------
-	left join dbo.ProductoDescripcion pd ON  ----------------------------
-		p.AnoCampania = pd.CampaniaID 
-		AND p.CUV = pd.CUV
-	left join @OfertaProductoTemp op on ------------------------
-		op.CampaniaID = P.CampaniaID 
-		AND op.CUV = P.CUV
-	left join MatrizComercial mc on ------------------------------
-		p.CodigoProducto = mc.CodigoSAP
-	LEFT JOIN Estrategia EST ON -------------------------
-		EST.CampaniaID = p.AnoCampania 
-		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
-		AND EST.Activo = 1 
-	LEFT JOIN dbo.TallaColorCUV tcc  --------------------
-		ON tcc.CUV = p.CUV 
-		AND tcc.CampaniaID = p.AnoCampania
-	LEFT JOIN TipoEstrategia TE ON -------------------------------
-		TE.TipoEstrategiaID = EST.TipoEstrategiaID
-	LEFT JOIN Marca M ON 
-		p.MarcaId = M.MarcaId
-	where 
-		p.AnoCampania = @CampaniaID 
-		AND p.IndicadorDigitable = 1
-		AND CHARINDEX(@CodigoDescripcion,p.CUV)>0
+
 END
+

@@ -4278,28 +4278,27 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     List<BEProducto> olstProducto = new List<BEProducto>();
+
                     using (ODSServiceClient svOds = new ODSServiceClient())
                     {
-                        olstProducto = svOds.SelectProductoByCodigoDescripcionSearchRegionZona(
-                            userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit, userData.RegionID,
-                            userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit).ToList();
                     }
 
                     if (olstProducto != null && olstProducto.Count > 0)
                     {
                         var producto = olstProducto[0];
                         var model = new PedidoSb2Model();
-                        model.TipoOfertaSisID = producto.TipoOfertaSisID;
-                        model.ConfiguracionOfertaID = producto.ConfiguracionOfertaID;
+                        model.TipoOfertaSisID = 0;
+                        model.ConfiguracionOfertaID = 0;
                         model.IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim();
-                        model.MarcaID = Convert.ToByte(producto.MarcaID);
+                        model.MarcaID = producto.MarcaID;
                         model.Cantidad = "1";
                         model.PrecioUnidad = producto.PrecioCatalogo;
                         model.CUV = oBEConfiguracionProgramaNuevas.CUVKit;
                         model.Tipo = 0;
                         model.DescripcionProd = producto.Descripcion;
                         model.Pagina = "0";
-                        model.DescripcionEstrategia = producto.DescripcionEstrategia;
+                        model.DescripcionEstrategia = "";
                         model.EsSugerido = false;
                         model.EsKitNueva = true;
 
