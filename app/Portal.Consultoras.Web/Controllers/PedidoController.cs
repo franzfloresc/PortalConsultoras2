@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
                 PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
@@ -458,9 +458,9 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
-                    pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
+                    //pedidoWebDetalleModel.DescripcionLarga = bePedidoWebDetalle.DescripcionLarga;
                     pedidoWebDetalleModel.DescripcionOferta = bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim();
-                }                
+                }
 
                 return Json(new
                 {
@@ -820,10 +820,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (EliminacionMasiva)
                 {
-                    UpdPedidoWebMontosPROL();
-
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
+
+                    UpdPedidoWebMontosPROL();
 
                     if (userData.ZonaValida)
                     {
@@ -1018,7 +1018,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string ElementoOfertaTipoNuevo = null, string ClienteID_ = "", bool EsKitNueva = false)
+                                              string TipoOferta, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1037,56 +1037,27 @@ namespace Portal.Consultoras.Web.Controllers
                 OfertaWeb = false
             };
 
-            if (EsKitNueva)
-            {
-                var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var packNuevas = lstPedidoWebDetalle.FirstOrDefault(x => x.TipoEstrategiaID == 1);
-
-                if (packNuevas != null)
-                {
-                    DeletePedido(packNuevas);
-                    Session["PedidoWebDetalle"] = null;
-                }
-            }
-
-            ValidarInsertarPackNueva(pedidoModel);
-
+            EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
         }
         #endregion
 
-        #region Pack Nueva Validar Insertar
-        private bool ValidarInsertarPackNueva(PedidoSb2Model model)
+        #region Eliminar Detalle Pack Nueva
+        private void EliminarDetallePackNueva(PedidoSb2Model entidad, int tipoEstrategiaImagen)
         {
-            try
+            if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
-                var listaEstrategia = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
-                listaEstrategia = listaEstrategia ?? new List<BEEstrategia>();
-                var existe = listaEstrategia.Where(e => e.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas);
-                if (!existe.Any())
-                    return false;
+                var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                if (!existe.Where(e => e.CUV2 == model.CUV).ToList().Any())
-                    return false;
+                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
 
-                var delete = false;
-                Session["PedidoWebDetalle"] = null;
-                var listaPedido = ObtenerPedidoWebDetalle();
-                foreach (var item in listaPedido)
+                foreach (var item in packNuevas)
                 {
-                    if (existe.Where(e => e.CUV2 == item.CUV).ToList().Any())
-                    {
-                        delete = true;
-                        DeletePedido(item);
-                    }
+                    DeletePedido(item);
                 }
 
-                return !delete;
-            }
-            catch (Exception)
-            {
-                return false;
+                Session["PedidoWebDetalle"] = null;
             }
         }
         #endregion
@@ -1535,7 +1506,8 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionMarca = item.DescripcionMarca,
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
-                        TipoEstrategiaID = item.TipoEstrategiaID // 
+                        TipoEstrategiaID = item.TipoEstrategiaID,
+                        FlagNueva= item.FlagNueva
                     });
                 }
 

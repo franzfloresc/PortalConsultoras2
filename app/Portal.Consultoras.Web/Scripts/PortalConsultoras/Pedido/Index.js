@@ -76,6 +76,7 @@ $(document).ready(function () {
     };
     $('#txtDescripcionProd').keyup(function (evt) {
         $("#divObservaciones").html("");
+        $("#txtCantidad").removeAttr("disabled");
     });
     $('#txtDescripcionProd').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoDescripcion",
@@ -84,7 +85,8 @@ $(document).ready(function () {
             if (ui.item.CUV == "0") {
                 return false;
             }
-
+            
+            $('#txtDescripcionProd')[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
@@ -102,6 +104,7 @@ $(document).ready(function () {
             .appendTo(ul);
     };
     $("#txtCUV").keyup(function (evt) {
+        $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
         $("#hdfDescripcionProd").val("");
         $("#txtDescripcionProd").val("");
@@ -274,10 +277,12 @@ $(document).ready(function () {
         var validarEstrategia = ValidarStockEstrategia();
 
         if (validarEstrategia.success) {
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
+
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 InsertarProducto(form);
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -726,7 +731,7 @@ function InsertarProducto(form) {
         }
     });
 }
-function AgregarProductoZonaEstrategia() {
+function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
     var param2 = {
         MarcaID: $("#hdfMarcaID").val(),
         CUV: $("#txtCUV").val(),
@@ -735,7 +740,7 @@ function AgregarProductoZonaEstrategia() {
         Cantidad: $("#txtCantidad").val(),
         IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val()
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     };
 
     jQuery.ajax({
@@ -865,12 +870,12 @@ function AgregarProductoListado() {
                 alert_msg(datos.message);
                 return false;
             }
-
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 //CerrarSplash();
                 $('form#frmInsertPedido').submit();
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -1397,7 +1402,7 @@ function BuscarByCUV(CUV) {
                 }
 
                 $("#divObservaciones").html("");
-
+                
                 if (data[0].MarcaID != 0) {
                     $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
                     $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
@@ -1705,7 +1710,9 @@ function ObservacionesProducto(item) {
     $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#OfertaTipoNuevo").val("");
 
+    $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
+        $("#txtCantidad").attr("disabled", "disabled");
         var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
 
         pedidosData.each(function (indice, valor) {
@@ -1885,6 +1892,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.liquidacion_rango_cantidad_pedido").val();
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -1993,7 +2001,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 });
 
                 CerrarSplash();
-                AgregarProductoDestacado(popup);
+                AgregarProductoDestacado(popup, tipoEstrategiaImagen);
             } else {
                 $(".zona4Edit").show();
                 $(".zonaCantidad").show();
@@ -2021,7 +2029,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado(popup);
+                    AgregarProductoDestacado(popup, tipoEstrategiaImagen);
                 } else {
                     CerrarSplash();
                 }
@@ -2039,7 +2047,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 };
 
-function AgregarProductoDestacado(popup) {
+function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var cantidad = $("#txtCantidadZE").val();
     var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
     var cuv = $("#txtCantidadZE").attr("est-cuv2");
@@ -2086,9 +2094,8 @@ function AgregarProductoDestacado(popup) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val(),
         ClienteID_: '-1',
-        EsKitNueva: ($("#OfertaTipoNuevo").val() != undefined && String($("#OfertaTipoNuevo").val()).trim() != "") ? true : false
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     });
 
     jQuery.ajax({
@@ -2326,6 +2333,8 @@ function EjecutarServicioPROL() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
+            $("#divMensajeObservacionesPROL").html("");
+
             var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
@@ -2577,7 +2586,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
-            var mensajePedido = "";            
+            $("#divMensajeObservacionesPROL").html("");
+
+            var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {

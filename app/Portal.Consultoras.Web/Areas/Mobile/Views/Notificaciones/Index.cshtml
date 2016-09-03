@@ -10,6 +10,15 @@
         body {
             background: #FFF !important;
         }
+        .no_leido {
+        content: "";
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        left: -15px;
+        border-left: 7px solid #35bdb2;
+        margin-bottom: 10px;
+}
     </style>
 }
 <div class="titulo_mobile">
@@ -31,11 +40,11 @@
 }
 else
 {
-    <div class="col-xs-12">
+    <div class="col-xs-12" style="background:#fff !important;">
         <ul class="list-notificaciones">
             @foreach (var item in Model.ListaNotificaciones)
             {
-                var estilo = item.Visualizado ? "" : "no-read";
+                var estilo = item.Visualizado ? "" : "no_leido";
 
                 <li class="@estilo">
 
@@ -78,6 +87,7 @@ else
     <script type="text/javascript">
 
         function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
+            
             ShowLoading();
 
             var TipoOrigen = 1;

@@ -828,7 +828,7 @@ h4.re3 {
     height: 38px;
 }
     .form-control.text-primary {
-        color: #722789;
+        color: #000000;
     }
 .alert-success {
     background: #35bdb2;
@@ -6950,6 +6950,7 @@ input[type="checkbox"]:checked + span:after {
     padding-left:15px;
     padding-right:15px;
 }
+
 /*VIDEO INTRODUCTORIO*/
 .content_video_introductorio{
     width: 80%;
