@@ -1883,11 +1883,11 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 }
 
 function EjecutarPROL() {
-    if (HorarioRestringido())
-        return;
+    //if (HorarioRestringido())
+    //    return;
 
-    AbrirSplash();
-    RecalcularPROL();
+    //AbrirSplash();
+    //RecalcularPROL();
 }
 
 function RecalcularPROL() {
