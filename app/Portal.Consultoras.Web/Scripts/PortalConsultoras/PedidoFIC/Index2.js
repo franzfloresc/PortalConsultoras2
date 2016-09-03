@@ -498,7 +498,7 @@ function CargarDetallePedido(page, rows) {
         success: function (response) {
             var data = response.data;
             ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-            $("#pCantidadProductosPedido").html(data.TotalProductos);
+            //$("#pCantidadProductosPedido").html(data.TotalProductos);
 
             //Index
             $("#hdnRegistrosPaginar").val(data.Registros);
@@ -2935,11 +2935,11 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 $("#spnNombreCliente").html(nomCli + " :");
                 $("#spnTotalCliente").html(simbolo + monto);
             }
-            ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente)
+            ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
 
-            var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
-            totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
-            $("#pCantidadProductosPedido").html(totalUnidades);
+            //var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
+            //totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
+            //$("#pCantidadProductosPedido").html(totalUnidades);
         },
         error: function (data, error) {
             console.log(data);
