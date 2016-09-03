@@ -33,5 +33,9 @@
         public string FechaVencimiento { get; set; }
         public int VioTutorial { get; set; }
         public string UrlEnterateMas { get; set; }
+        public string UrlImagenMiAcademia { get; set; }
+        public string UrlImagenLiquidaciones { get; set; }
+        public string UrlImagenCatalogoPersonalizado { get; set; }
+        public string UrlImagenAppCatalogo { get; set; }
     }
 }

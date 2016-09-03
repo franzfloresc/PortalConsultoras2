@@ -78,17 +78,13 @@ namespace Portal.Consultoras.Web.Controllers
                         objEscala.Seleccionado = true;
                         pos = i;
                     }
-
-                    //if (i < nro)
-                    //{
-                        listaEscala.Add(objEscala);
-                    //}
+                    listaEscala.Add(objEscala);
                 }
 
                 model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (listaEscala.Any())
                 {
-                    int posMin, posMax, tamX = tamano - 1;
+                    int posMin, posMax, tamX = listaEscala.Count - 1;
                     posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
                     posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
                     posMin = pos < 0 ? 0 : posMin;

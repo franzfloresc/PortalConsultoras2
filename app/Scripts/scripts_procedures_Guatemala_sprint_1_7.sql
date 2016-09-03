@@ -587,13 +587,13 @@ DELETE FROM MenuMobile WHERE Posicion='Menu' AND MENUMOBILEID>1000
 
 INSERT INTO MenuMobile(MenuMobileID, Descripcion, MenuPadreID, OrdenItem, UrlItem, UrlImagen, PaginaNueva, Posicion, Version,EsSB2)
 VALUES
-(1030, 'Inicio', 1001, 0, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
-(1001, 'Mi Negocio', 0, 1, '', '', 0, 'Menu', 'Mobile',1),
-(1002, 'Catálogos y Revistas', 0, 2, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
-(1003, 'Mi Asesor de Belleza', 0, 3, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
-(1004, 'Mi Academia', 0, 4, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
-(1005, 'Mi Comunidad', 0, 5, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
-(1006, 'Mis Notificaciones', 0, 6, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
+(1030, 'Inicio', 0, 1, 'Mobile/Bienvenida', '', 0, 'Menu', 'Mobile', 1),
+(1001, 'Mi Negocio', 0, 2, '', '', 0, 'Menu', 'Mobile',1),
+(1002, 'Catálogos y Revistas', 0, 3, 'Mobile/Catalogo', '', 0, 'Menu', 'Mobile',1),
+(1003, 'Mi Asesor de Belleza', 0, 4, 'Mobile/MiAsesorBelleza', '', 0, 'Menu', 'Mobile',1),
+(1004, 'Mi Academia', 0, 5, 'MiAcademia/Index', '', 1, 'Menu', 'Mobile',1),
+(1005, 'Mi Comunidad', 0, 6, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
+(1006, 'Mis Notificaciones', 0, 7, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
 
 --(7, 'Consultora Online', 1, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
@@ -1313,7 +1313,8 @@ BEGIN
 	left join MatrizComercial mc on 
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON 
-		EST.CampaniaID = p.AnoCampania 
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
 		AND EST.Activo = 1 
 	LEFT JOIN dbo.TallaColorCUV tcc 
@@ -1375,7 +1376,8 @@ BEGIN
 	left join MatrizComercial mc on
 		p.CodigoProducto = mc.CodigoSAP
 	LEFT JOIN Estrategia EST ON
-		EST.CampaniaID = p.AnoCampania
+		--EST.CampaniaID = p.AnoCampania
+		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV	TCC WHERE TCC.CUV = p.CUV))
 		AND EST.Activo = 1
 	LEFT JOIN TipoEstrategia TE ON
@@ -4816,6 +4818,56 @@ BEGIN
 	Asunto,FacturaHoy,Visualizado,EsMontoMinino,FlagProcedencia
 	from @Temporal
 	order by FechaHoraValidación desc;
+END
+
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SelectProductoToKitInicio_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].SelectProductoToKitInicio_SB2
+GO
+
+CREATE PROCEDURE dbo.SelectProductoToKitInicio_SB2
+	@CampaniaID int,
+	@Cuv varchar(100)
+AS
+/*
+dbo.SelectProductoToKitInicio_SB2 201609,'00025'
+dbo.SelectProductoToKitInicio_SB2 201609,'02767'
+*/
+BEGIN
+
+DECLARE @OfertaProductoTemp table
+(
+CampaniaID int,
+CUV varchar(6),
+Descripcion varchar(250)
+)
+insert into @OfertaProductoTemp
+select op.CampaniaID, op.CUV, op.Descripcion
+FROM OfertaProducto op
+inner join ods.Campania c on
+op.CampaniaID = c.CampaniaID
+where c.codigo = @CampaniaID
+
+select distinct 
+p.CUV,
+p.IndicadorMontoMinimo,
+p.MarcaID,
+coalesce(est.precio2, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,
+coalesce(EST.DescripcionCUV2 + ' '+ tcc.Descripcion , est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion) AS Descripcion
+
+from ods.ProductoComercial p
+left join dbo.ProductoDescripcion pd ON p.AnoCampania = pd.CampaniaID AND p.CUV = pd.CUV
+left join ProductoComercialConfiguracion pcc ON p.AnoCampania = pcc.CampaniaID AND p.CUV = pcc.CUV
+left join @OfertaProductoTemp op on op.CampaniaID = P.CampaniaID AND op.CUV = P.CUV
+left join MatrizComercial mc on p.CodigoProducto = mc.CodigoSAP
+LEFT JOIN Estrategia EST ON EST.CampaniaID = p.AnoCampania AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) AND EST.Activo = 1 
+LEFT JOIN dbo.TallaColorCUV tcc ON tcc.CUV = p.CUV AND tcc.CampaniaID = p.AnoCampania
+where p.AnoCampania = @CampaniaID 
+--AND p.IndicadorDigitable = 1
+AND CHARINDEX(@Cuv,p.CUV)>0
+
+
 END
 
 GO
