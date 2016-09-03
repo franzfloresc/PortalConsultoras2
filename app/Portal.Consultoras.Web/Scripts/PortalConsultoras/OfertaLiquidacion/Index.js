@@ -6,7 +6,6 @@ var offset = 0;
 var puedeCargar = true;
 
 $(document).ready(function () {
-    HorarioRestringido();
     IniDialog();
 
     $(document).on('click', '#boton_vermas', function () {
@@ -81,6 +80,9 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.js-boton_tonotalla', function () {
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
         var contenedor = $(this).parent().parent();
         var objProducto = {
             imagenProducto: $(contenedor).find('.imagenpop').attr('src'),
@@ -107,7 +109,9 @@ $(document).ready(function () {
     });
 
     $(document).on('click', ".js-boton_agregar_popup", function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Agregar-Liquidacion']);
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
@@ -226,7 +230,11 @@ $(document).ready(function () {
     });
 
     $(document).on('click', ".js-boton_liquidacion", function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Agregar-Liquidacion']);
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
+        agregarProductoAlCarrito(this);
+
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
@@ -340,11 +348,10 @@ $(document).ready(function () {
         }
     });
 
-    // Microefecto al agregar productos al carrito de compras
-    $(document).on("click", ".boton_liquidacion", function (e) {
-        e.preventDefault();
-        agregarProductoAlCarrito(this);
-    });
+    if (!ReservadoOEnHorarioRestringido(false)) {
+        $('#loader').show();
+        CargarOfertasLiquidacion();
+    }
 });
 
 function CargarOfertasLiquidacion() {
@@ -403,7 +410,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
 
     return array;
 };
-
 function cargarProductoPopup(objProducto, objHidden) {
     waitingDialog({});
 
@@ -465,34 +471,6 @@ function cargarProductoPopup(objProducto, objHidden) {
         closeWaitingDialog();
         showDialog('divVistaPrevia');
         $(divVistaPrevia).find('#txtCantidadPopup').blur();
-    });
-};
-function HorarioRestringido() {
-    waitingDialog({});
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/EnHorarioRestringido',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    alert_msgHorario(data.message);
-                    horarioRestringido = true;
-                    setTimeout(function () { location.href = baseUrl + 'Bienvenida/Index'; }, 2500);
-                } else {
-                    $('#loader').show();
-                    CargarOfertasLiquidacion();
-                }
-            }
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(data.message);
-            };
-            closeWaitingDialog();
-        }
     });
 };
 function IniDialog() {
@@ -600,7 +578,52 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
 function CerrarProductoAgregado() {
     $('#pop_liquidacion').hide();
 };
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
 
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                var fnRedireccionar = function () {
+                    waitingDialog({});
+                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
+                }
+                if (mostrarAlerta == true) {
+                    closeWaitingDialog();
+                    alert_msg_pedido(data.message);
+                }
+                else fnRedireccionar();
+            }
+            else if (mostrarAlerta == true)
+                alert_msg_pedido(data.message);
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+};
+function alert_msg_pedido(message) {
+    $('#DialogMensajes .pop_pedido_mensaje').html(message);
+    $('#DialogMensajes').dialog('open');
+};
 // Funcion de animación al agregar productos al carrito
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
