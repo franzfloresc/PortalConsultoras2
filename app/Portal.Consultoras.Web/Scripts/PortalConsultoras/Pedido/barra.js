@@ -11,7 +11,6 @@ function MostrarBarra(datax) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
-    ActualizarGanancia(data);
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
@@ -21,6 +20,8 @@ function MostrarBarra(datax) {
     if (dataBarra.ListaMensajeMeta.length > 0) {
         listaMensajeMeta = dataBarra.ListaMensajeMeta;
     }
+
+    ActualizarGanancia(dataBarra);
     /*
     dataBarra.MontoMinimo = 100;
     dataBarra.MontoMinimoStr = "100.00";

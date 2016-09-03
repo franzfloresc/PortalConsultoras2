@@ -1276,7 +1276,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
         
         #region barra
-        public BarraConsultoraModel GetDataBarra(bool inEscala = false, bool inMensaje = false)
+        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false)
         {
             var objR = new BarraConsultoraModel();
             objR.ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>();
