@@ -1294,7 +1294,7 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div>  
-        <input type="hidden" id="PosicionEstrategia" value="{{Posicion}}"/>             
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}"/>             
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
         <div class="producto_img_home">
             <img src="{{FotoProducto01}}" class="imagen_producto" />
@@ -1681,7 +1681,8 @@
 </script>
     @section scripts{
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>     
+        @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@  
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>   
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
         <script type="text/javascript">
             var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';

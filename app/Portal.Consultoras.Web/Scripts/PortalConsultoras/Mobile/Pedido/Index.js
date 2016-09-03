@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var existeCarouselSugerido = false;
+var existeCarouselEstrategias = false;
+$(document).ready(function () {
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
@@ -288,7 +290,11 @@ function ObtenerEstrategiaCoincidente(cuv) {
 function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    $('#divCarruselSugerido').unslick();
+    if (existeCarouselSugerido)
+        $('#divCarruselSugerido').unslick();
+    else
+        existeCarouselSugerido = true;
+    
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     $("#divProductoInformacion").hide();
 
@@ -743,7 +749,11 @@ function AgregarProductoCarrusel(data) {
 
     $('#slick-prev').remove();
     $('#slick-next').remove();
-    $('#divContenidoEstrategias').unslick();
+    if (existeCarouselEstrategias)
+        $('#divContenidoEstrategias').unslick();
+    else
+        existeCarouselEstrategias = true;
+    
     $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
 
     data = EstructurarDataCarousel(data);

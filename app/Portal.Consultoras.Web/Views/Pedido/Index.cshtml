@@ -1294,7 +1294,8 @@
 </script>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+<script src="@Url.Content("~/Scripts/slick.js")"></script>
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
