@@ -73,6 +73,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
 
             Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>();
+
+            Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
         }
     }
 }

@@ -105,8 +105,12 @@ jQuery(document).ready(function () {
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();        
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {                
-                array.push(item);
+            if (item[campo] == valor) {
+                try {
+                    array.push(Clone(item));
+                } catch (e) {
+                    array.push(item);
+                }
             }
         });
         return array;

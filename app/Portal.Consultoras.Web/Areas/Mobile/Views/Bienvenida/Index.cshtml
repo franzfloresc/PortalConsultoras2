@@ -117,7 +117,8 @@
     <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
-    <a class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" 
+       class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
     <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').show();" title="Mira el Video de Bienvenida" target="_blank">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
@@ -190,7 +191,8 @@
     <!--COMPARTIR CATÁLOGOS-->
     <div class="comartir_home_mobile">
         TUS CATÁLOGOS C@(Model.NumeroCampania)
-        <a class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
     </div>
     <div class="imagen_catalogo catalogo_esika"></div>
     <hr class="clear" />
@@ -202,7 +204,8 @@
         <div class="comartir_home_mobile">
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
-            <a class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
+            <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
+               class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -214,7 +217,8 @@
                     ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "MisCatalogosRevistas", new { area = "" });
                     urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
                 }
-                <span class="texto_ws">Compartir el app por</span> <a id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
+                <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
+                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"> <b>Whatsapp</b></a>
             }
         </div>
         <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
@@ -243,7 +247,8 @@
     <!--VIDEOS-->
     <div class="comartir_home_mobile">
         APRENDE A VENDER MÁS
-        <a class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" 
+           class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
     </div>
     <div class="imagen_catalogo video_esika">
         <img src="@Model.UrlImagenMiAcademia" alt="-" />
@@ -256,7 +261,8 @@
     {
         <div class="comartir_home_mobile">
             LIQUIDACIÓN WEB
-            <a class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos" 
+               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <img src="@Model.UrlImagenLiquidaciones" alt="-" />
@@ -313,6 +319,7 @@
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
 {
+    <input type="hidden" id="flagCatalogoPersonalizado"/>
     <div class="banner_inferior_mobile oculto_lbel">
         <img src="@Model.UrlImagenCatalogoPersonalizado" alt="-" />
     </div>
@@ -396,6 +403,7 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home">
             <div class="producto_img_mobile">
                 <img src="{{FotoProducto01}}" />
@@ -447,7 +455,7 @@
                     {{/if_eq}}
                 </div>
                 <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGR&Eacute;GALO
                 </a>
                 <div style="padding-top:9px; height: 15px;">
@@ -463,7 +471,8 @@
 </script>
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+        @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
         var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
