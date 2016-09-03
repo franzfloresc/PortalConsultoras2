@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Common; // 1664
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,7 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectIncentivos(paisID, campaniaID).ToList();
                 }
 
-                // 1664
                 if (lst != null)
                 {
                     var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
@@ -42,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ISO = iso,
                     listaIncentivos = lst
                 };
-                return View("_Index", incentivosModel);
+                return View(incentivosModel);
             }
             catch (FaultException ex)
             {
@@ -52,8 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            return View(new LugaresPagoModel());
+            return View(new IncentivosModel());
         }
-
     }
 }

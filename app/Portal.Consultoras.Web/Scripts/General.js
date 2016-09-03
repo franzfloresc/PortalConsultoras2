@@ -105,8 +105,12 @@ jQuery(document).ready(function () {
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();        
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {                
-                array.push(item);
+            if (item[campo] == valor) {
+                try {
+                    array.push(Clone(item));
+                } catch (e) {
+                    array.push(item);
+                }
             }
         });
         return array;
@@ -508,7 +512,17 @@ function ActualizarGanancia(data) {
 }
 
 FuncionesGenerales = {
-    ValidarSoloNumeros: function(e) {
+    containsObject(obj, array) {
+        var i;
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === obj) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+    ValidarSoloNumeros: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9]/;

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var existeCarouselSugerido = false;
+var existeCarouselEstrategias = false;
+$(document).ready(function () {
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
@@ -8,6 +10,7 @@
         posicion = -1;
         var codigo = $("#txtCodigoProducto").val();
 
+        $("#txtCantidad").removeAttr("disabled");
         $("#divProductoMantenedor").hide();
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
@@ -152,6 +155,7 @@ function BuscarByCUV(cuv) {
                 return false;
             }
 
+            $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
@@ -184,6 +188,11 @@ function BuscarByCUV(cuv) {
     });
 };
 function ObservacionesProducto(item) {
+    $("#hdfValorFlagNueva").val(item.FlagNueva);
+    if (item.FlagNueva == 1) {
+        $("#txtCantidad").attr("disabled", "disabled");
+    }
+
     if (item.TipoOfertaSisID == "1707") {
         if (esShowRoom == "1") {
             $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto disponible sólo desde la sección de Pre-venta Digital.</div>');
@@ -216,7 +225,6 @@ function ObservacionesProducto(item) {
 
     $("#hdfDescripcionEstrategia").val(item.DescripcionEstrategia);
     $("#hdfDescripcionMarca").val(item.DescripcionMarca);
-    $("#hdfValorFlagNueva").val(item.FlagNueva);
     $("#hdLimiteVenta").val(item.LimiteVenta);
 
     $("#hdfIndicadorMontoMinimo").val(item.IndicadorMontoMinimo);
@@ -288,7 +296,11 @@ function ObtenerEstrategiaCoincidente(cuv) {
 function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    $('#divCarruselSugerido').unslick();
+    if (existeCarouselSugerido)
+        $('#divCarruselSugerido').unslick();
+    else
+        existeCarouselSugerido = true;
+    
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     $("#divProductoInformacion").hide();
 
@@ -495,7 +507,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true) messageInfo(data.message);
+            else if (mostrarAlerta == true) {
+                messageInfo(data.message);
+            }
         },
         error: function (error) {
             console.log(error);
@@ -505,7 +519,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     return restringido;
 };
 function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
+    messageInfoValidado('<h3>' + message + '</h3>', fnClose);
 };
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
@@ -546,7 +560,8 @@ function InsertarProducto() {
             Descripcion: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoOferta: $("#hdTipoOfertaSisID").val()
+            TipoOferta: $("#hdTipoOfertaSisID").val(),
+            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
         };
     }
 
@@ -575,7 +590,7 @@ function InsertarProducto() {
 
             CloseLoading();
             //$("#divMensajeProductoAgregado").show();
-
+            $('#divMensajeCUV').hide();
             $("#divProductoObservaciones").html("");
             $("#divProductoMantenedor").hide();
             $("#btnAgregarProducto").hide();
@@ -743,14 +758,22 @@ function AgregarProductoCarrusel(data) {
 
     $('#slick-prev').remove();
     $('#slick-next').remove();
-    $('#divContenidoEstrategias').unslick();
+    if (existeCarouselEstrategias)
+        $('#divContenidoEstrategias').unslick();
+    else
+        existeCarouselEstrategias = true;
+    
     $('#divContenidoEstrategias').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /><br /></div>');
 
     data = EstructurarDataCarousel(data);
 
     SetHandlebars("#html-estrategia", data, "#divContenidoEstrategias");
 
-    RegistrarOwlCarrousel();
+    if ($.trim($('#divContenidoEstrategias').html()).length == 0) {
+        $('.fondo_gris').hide();
+    } else {
+        RegistrarOwlCarrousel();
+    }
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
@@ -927,6 +950,7 @@ function CargarProductoDestacado(objParameter, objInput) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.rango_cantidad_pedido").val();
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -1035,7 +1059,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                 });
 
                 CloseLoading();
-                AgregarProductoDestacado();
+                AgregarProductoDestacado(tipoEstrategiaImagen);
             } else {
                 $(".zona4Edit").show();
                 $(".zonaCantidad").show();
@@ -1062,7 +1086,7 @@ function CargarProductoDestacado(objParameter, objInput) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado();
+                    AgregarProductoDestacado(tipoEstrategiaImagen);
                 } else {
                     CloseLoading();
                 }
@@ -1076,7 +1100,7 @@ function CargarProductoDestacado(objParameter, objInput) {
         }
     });
 };
-function AgregarProductoDestacado() {
+function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var cantidad = $("#txtCantidadZE").val();
     var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
     var cuv = $("#txtCantidadZE").attr("est-cuv2");
@@ -1130,7 +1154,7 @@ function AgregarProductoDestacado() {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val()
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     });
 
     jQuery.ajax({

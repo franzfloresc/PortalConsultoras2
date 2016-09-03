@@ -200,6 +200,16 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int DelPedidoWebDetallePackNueva(long ConsultoraID, int PedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetallePackNueva_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
+
+            int result = Context.ExecuteNonQuery(command);
+            return result;
+        }
+
         public IDataReader GetPedidoWebDetalleByPedidoID(int campaniaID, int pedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByPedidoID");
