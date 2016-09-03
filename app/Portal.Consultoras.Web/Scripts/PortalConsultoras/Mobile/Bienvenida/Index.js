@@ -306,7 +306,6 @@ function CargarProductoDestacado(objParameter, objInput) {
                 }
             }
 
-            InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
             //CloseLoading();
         },
         error: function (data, error) {

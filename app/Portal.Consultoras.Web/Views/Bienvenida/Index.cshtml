@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
@@ -6,11 +7,11 @@
 }
 
 @{
-    Model.NombreConsultora = Portal.Consultoras.Common.Util.SubStr(Model.NombreConsultora, 0);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
-    var nombreConsultoraSin = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
+    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0);
+    var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
+    var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
 
-    var nroCampania = Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
+    var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -148,7 +149,7 @@
             <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
-                @Model.Simbolo @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
+                @Model.Simbolo @Util.DecimalToStringFormat(Model.MontoDeuda, Model.PrefijoPais)
             </div>
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
@@ -184,23 +185,29 @@
         <div class="info_centro">
             @{
                 string cabezaEscala = null, pieEscala = null;
-                if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 2 || Model.PaisID == 8 || Model.PaisID == 7
-                    || Model.PaisID == 13 || Model.PaisID == 12) //PERU
+                if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico) 
                 {
-                    cabezaEscala = "Ganancia estimada total";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 3) //CHILE
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
                 {
                     cabezaEscala = "Comisión y ahorro total";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
                 }
-                else if (Model.PaisID == 9 || Model.PaisID == 10) //MEXICO
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
                 {
                     cabezaEscala = "Ganancia estimada total";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
-                else if (Model.PaisID == 5 || Model.PaisID == 14) //COSTA RICA
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
                 {
                     cabezaEscala = "Oportunidad de ahorro total";
                     pieEscala = "";
@@ -210,7 +217,7 @@
             <div class="deuda_home">
                 @Model.Simbolo
                 <span data-ganancia="">
-                    @Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, Model.PrefijoPais)
+                    @Util.DecimalToStringFormat(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista, Model.PrefijoPais)
                 </span>
             </div>
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
@@ -287,117 +294,9 @@
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--CATALOGO PERSONALIZADO-->
 <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
-
     <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
     <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
     <div id="divCatalogoPersonalizado"></div>
-    @*<div class="contiene-productos">
-            <div class="producto_img_home mini">
-                <img src="">
-            </div>
-
-            <div class="producto_nombre_descripcion">
-                <h6>ÉSIKA</h6>
-                <p class="nombre_producto">
-                    <b>Fragancia Leyenda</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>S/. 59.00</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="contiene-productos">
-            <div class="producto_img_home mini">
-                <img src="">
-            </div>
-            <div class="etiqueta_producto nuevofavorito">
-                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
-            </div>
-            <div class="producto_nombre_descripcion">
-                <h6>CYZONE</h6>
-                <p class="nombre_producto">
-                    <b>Acondicionador berrylicious yummy yogurt</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>S/. 13.00</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="contiene-productos">
-            <div class="producto_img_home mini">
-                <img src="">
-            </div>
-
-            <div class="producto_nombre_descripcion">
-                <h6>CYZONE</h6>
-                <p class="nombre_producto">
-                    <b>perfume #true</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>S/. 69.90</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="contiene-productos">
-            <div class="producto_img_home mini">
-                <img src="">
-            </div>
-
-            <div class="producto_nombre_descripcion">
-                <h6>CYZONE</h6>
-                <p class="nombre_producto">
-                    <b>Esmalte de uñas cyº nails in! finish sugar</b>
-                </p>
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>S/. 10.00</b></span>
-                </div>
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home">
-                    AGRÉGALO
-                </a>
-                <div class="clear"></div>
-            </div>
-        </div>*@
-
 </div>
 <!--FIN CATALOGO PERSONALIZADO-->
 
@@ -1268,99 +1167,99 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}"/>             
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
             </div>
 
-        {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-        <div class="etiqueta_producto">
-            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-        </div>
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
             {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-        <div class="etiqueta_producto">
-            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-        </div>
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
 
             {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-        {{#if_eq FlagEstrella '1' }}
-        <div class="etiqueta_producto">
-            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-        </div>
-        {{/if_eq}}
-            {{/if_eq}}
-        {{/if_eq}}
-        <div class="producto_nombre_descripcion">
-            <h6>{{DescripcionMarca}}</h6>
-            {{#if_eq FlagNueva '1'}}
-            <p class="nombre_producto">
-                <b>{{DescripcionCUVSplit}}</b>
-            </p>
-            {{else}}
-            <p class="nombre_producto">
-                <b>{{DescripcionCUV2}}</b>
-            </p>
-            {{/if_eq}}
-
-            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-            {{#if_eq EtiquetaID '1'}}
-            <div class="producto_precio">
-                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-            </div>
-            {{else}}
-            <div class="producto_precio">
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
             </div>
             {{/if_eq}}
+            {{/if_eq}}
+            {{/if_eq}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                {{#if_eq FlagNueva '1'}}
+                <p class="nombre_producto">
+                    <b>{{DescripcionCUVSplit}}</b>
+                </p>
+                {{else}}
+                <p class="nombre_producto">
+                    <b>{{DescripcionCUV2}}</b>
+                </p>
+                {{/if_eq}}
 
-            {{else}}
-            <div class="producto_precio">
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-            </div>
-            {{/iff}}
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                {{#if_eq EtiquetaID '1'}}
+                <div class="producto_precio">
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{else}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{/if_eq}}
 
-            {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-            </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                AGR&Eacute;GALO
-            </a>
-            {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
-                <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                {{else}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{/iff}}
+
+                {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
+                </div>
+                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                    AGR&Eacute;GALO
+                </a>
+                {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>
+                {{else}}
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>
+                {{/iff}}
+
+                <div class="clear"></div>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
                 </div>
             </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                AGR&Eacute;GALO
-            </a>
-            {{else}}
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral js-no-popup" />
-                <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                </div>
-            </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                AGR&Eacute;GALO
-            </a>
-            {{/iff}}
-
-            <div class="clear"></div>
-            <div style="padding-top:9px; height: 15px;">
-                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                    AGREGADO
-                    <div class="icono"></div>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
     {{/each}}
@@ -1421,7 +1320,7 @@
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
-            <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
@@ -1654,8 +1553,8 @@
 </script>
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-        @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@  
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>   
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
