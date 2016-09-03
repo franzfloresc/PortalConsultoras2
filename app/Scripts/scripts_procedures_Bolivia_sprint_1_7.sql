@@ -220,6 +220,18 @@ GO
 /*FIN TABLAS*/
 
 /*TYPES*/
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJProductFeed' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJProductFeed
+END
+GO
+
+IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME = 'InsLogPJHistoricalData' AND SPECIFIC_SCHEMA = 'interfaces' AND Routine_Type = 'PROCEDURE')
+BEGIN
+    DROP PROCEDURE interfaces.InsLogPJHistoricalData
+END
+GO
+
 IF TYPE_ID('interfaces.JetloreProductFeedType') IS NOT NULL
 	DROP TYPE interfaces.JetloreProductFeedType
 GO
@@ -4203,6 +4215,10 @@ MenuMobileID
 FROM dbo.MenuMobile
 WHERE EsSB2=0
 END
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetMenuMobile_SB2]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GetMenuMobile_SB2
 GO
 
 --EXEC GetMenuMobile_SB2
