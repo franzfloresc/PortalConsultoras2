@@ -1236,6 +1236,7 @@ function ArmarCarouselLiquidaciones(data) {
             //Esconder/mostrar flechas
             if (Number(indexActive) - 1 == 0) {
                 $('.js-slick-prev-liq').hide();
+                $('.js-slick-next-liq').show();
             } else {
                 $('.js-slick-next-liq').show();
             }
@@ -1272,6 +1273,7 @@ function ArmarCarouselLiquidaciones(data) {
             //Esconder/mostrar flechas
             if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
                 $('.js-slick-next-liq').hide();
+                $('.js-slick-prev-liq').show();
             } else {
                 $('.js-slick-prev-liq').show();
             }

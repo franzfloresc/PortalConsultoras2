@@ -6357,12 +6357,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
     .mensaje_productoAgotado p {
         font-family: 'Lato';
-        font-size: 14px;
+        font-size: 12px;
         padding-left: 21.5px;
+        padding-top: 7px;
         text-align: left;
         color: #d20000;
-        height: 55px;
-        line-height: 55px;
+        height: auto;
+        line-height: 20px;
     }
 
 /****************************************************************

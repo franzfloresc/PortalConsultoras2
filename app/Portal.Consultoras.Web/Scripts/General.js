@@ -499,10 +499,12 @@ function ActualizarGanancia(data) {
         var pos = -1;
         var nro = 4;
         var listaEscala = new Array();
+        var contTemp = 0;
         $.each(data.ListaEscalaDescuento, function (ind, objEscala) {
             if (data.MontoMinimo <= objEscala.MontoHasta)
             {
-                objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[ind - 1].MontoHasta;
+                //objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[ind - 1].MontoHasta;
+                objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[contTemp - 1].MontoHasta;
                 objEscala.MontoDesdeStr = DecimalToStringFormat(objEscala.MontoDesde);
                 objEscala.MontoHastaStr = DecimalToStringFormat(objEscala.MontoHasta);
 
@@ -511,6 +513,7 @@ function ActualizarGanancia(data) {
                     pos = ind;
                 }
                 listaEscala.push(objEscala);
+                contTemp++;
             }
         });
 
