@@ -1621,6 +1621,7 @@ h4.re3 {
         position: relative;
         line-height: 1.4;
         font-size: 14px;
+        cursor: pointer;
     }
 
 .noti-detalle {
@@ -1653,9 +1654,6 @@ h4.re3 {
     font-size: 13px;
 }
 
-.text-noti span:hover:first-child {
-    cursor: pointer;
-}
 .list-notificaciones .no-read:before {
     content: "";
     position: absolute;
@@ -1671,7 +1669,7 @@ h4.re3 {
 }
 
 .list-notificaciones .text-noti {
-    padding-left: 85px;
+    /*padding-left: 85px;*/
     padding-bottom: 10px;
 }
 
