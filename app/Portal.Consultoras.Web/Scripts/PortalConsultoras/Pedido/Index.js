@@ -3584,7 +3584,11 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                             $("#spnTotalCliente").html(simbolo + monto);
                                         }
 
-                                        CalcularTotalPedido(data.Total, data.Total_Minimo);
+                                        //CalcularTotalPedido(data.Total, data.Total_Minimo);
+
+                                        var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
+                                        totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
+                                        $("#pCantidadProductosPedido").html(totalUnidades);
 
                                         var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
                                         if (diferenciaCantidades > 0)
