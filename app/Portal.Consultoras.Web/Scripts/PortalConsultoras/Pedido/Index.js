@@ -752,17 +752,39 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
         async: true,
         success: function (response) {
             if (checkTimeout(response)) {
+                if (!!response.success == false)
+                    response = JSON.parse(response);
+
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
                     cierreCarouselEstrategias();
-                    CargarCarouselEstrategias($("#txtCUV").val());
+                    CargarCarouselEstrategias(param2.CUV);
                     HideDialog("divVistaPrevia");
-                    //MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
+                    //MostrarProductoAgregado("", descripcion, cantidad, (cantidad * precio).toFixed(2));
                     PedidoOnSuccess();
                     CargarDetallePedido();
                     MostrarBarra(response);
                     TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
+                    dataLayer.push({
+                        'event': 'addToCart',
+                        'label': $('#hdMetodoBusqueda').val(),
+                        'ecommerce': {
+                            'add': {
+                                'actionField': { 'list': 'Estándar' },
+                                'products': [{
+                                    'name': response.data.DescripcionProd,
+                                    'price': String(response.data.PrecioUnidad),
+                                    'brand': response.data.DescripcionLarga,
+                                    'id': response.data.CUV,
+                                    'category': 'NO DISPONIBLE',
+                                    'variant': response.data.DescripcionOferta,
+                                    'quantity': Number(response.data.Cantidad),
+                                    'position': 1
+                                }]
+                            }
+                        }
+                    });
                     CerrarSplash();
                 } else {
                     CerrarSplash();
@@ -1070,7 +1092,7 @@ function PedidoOnSuccess() {
     var descripcion = $('#txtDescripcionProd').val();
     var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
 
-    MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
+    //MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
 
     $("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
@@ -1328,7 +1350,7 @@ function PedidoOnSuccessSugerido(model) {
         var descripcion = model.DescripcionProd;
         var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
 
-        MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
+        //MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
     }
 
     $("#divObservaciones").html("");
@@ -2129,7 +2151,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                                 CargarCarouselEstrategias(cuv);
                                 HideDialog("divVistaPrevia");
                                 CargarResumenCampaniaHeader();
-                                MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
+                                //MostrarProductoAgregado("", descripcion, cantidad, (cantidad * precio).toFixed(2));
 
                                 tieneMicroefecto = true;
 
