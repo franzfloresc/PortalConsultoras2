@@ -2005,7 +2005,7 @@ BEGIN
  , PW.MontoAhorroCatalogo
  , PW.MontoAhorroRevista
  FROM dbo.PedidoWebDetalle pwd    
-	 INNER JOIN dbo.PedidoWeb PW ON PW.PedidoID = pwd.PedidoID
+	 INNER JOIN dbo.PedidoWeb PW ON PW.PedidoID = pwd.PedidoID and pw.consultoraid=pwd.consultoraid and pw.CampaniaID=pwd.CampaniaID
 	 JOIN ods.ProductoComercial pc ON pwd.CampaniaID = pc.AnoCampania AND pwd.CUV = pc.CUV    
 	 LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID AND pwd.ConsultoraID = c.ConsultoraID    
 	 LEFT JOIN dbo.ProductoDescripcion pd ON pwd.CampaniaID = pd.CampaniaID AND pwd.CUV = pd.CUV      
