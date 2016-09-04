@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (model.FlagValidate == 1)
                     {
-                        vValidation = sv.CheckClienteByConsultora(UserData().PaisID, UserData().ConsultoraID, model.Nombre);
+                        vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
                         if (vValidation > 0)
                         {
                             return Json(new
@@ -71,8 +71,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.ConsultoraID = UserData().ConsultoraID;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
                     entidad.Activo = true;
                     sv.Update(entidad);
 
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -122,12 +122,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    vValidation = sv.CheckClienteByConsultora(UserData().PaisID, UserData().ConsultoraID, model.Nombre);
+                    vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
 
                     if (vValidation == 0)
                     {
-                        entidad.PaisID = UserData().PaisID;
-                        entidad.ConsultoraID = UserData().ConsultoraID;
+                        entidad.PaisID = userData.PaisID;
+                        entidad.ConsultoraID = userData.ConsultoraID;
                         entidad.Activo = true;
                         sv.Insert(entidad);
 
@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BECliente> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    lst = sv.SelectByConsultora(UserData().PaisID, UserData().ConsultoraID).ToList();
+                    lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
                 // Usamos el modelo para obtener los datos
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool rslt = false;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    rslt = sv.Delete(UserData().PaisID, UserData().ConsultoraID, ClienteID);
+                    rslt = sv.Delete(userData.PaisID, userData.ConsultoraID, ClienteID);
                 }
                 string Mensaje = string.Empty;
                 if (rslt)
@@ -292,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -302,7 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    sv.UndoCliente(UserData().PaisID, UserData().ConsultoraID, ClienteID);
+                    sv.UndoCliente(userData.PaisID, userData.ConsultoraID, ClienteID);
                 }
                 return Json(new
                 {
@@ -330,7 +330,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -340,7 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BECliente> lst;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
-                lst = sv.SelectByConsultora(UserData().PaisID, UserData().ConsultoraID).ToList();
+                lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
             BEPager pag = new BEPager();
@@ -386,5 +386,32 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+        
+        public JsonResult ObtenerTodosClientes()
+        {
+            try
+            {
+                List<BECliente> lst;
+                using (ClienteServiceClient sv = new ClienteServiceClient())
+                {
+                    lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    lista = lst ?? new List<BECliente>()
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "",
+                    lista = new List<BECliente>()
+                });
+            }
+        }
     }
 }

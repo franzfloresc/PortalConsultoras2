@@ -101,7 +101,12 @@ function fnGrilla() {
         async: true,
         cache: false,
         success: function (data) {
-            RenderGrilla(data);
+            if (data.length > 0) {
+                RenderGrilla(data);
+            }
+            else {
+                $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+            }
         },
         error: function (data, error) {
             $("#dellateContenido").html("");

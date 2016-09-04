@@ -36,7 +36,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.validate.js",
                "~/Scripts/jquery.validate.unobtrusive.js",
                "~/Scripts/jquery.unobtrusive-ajax.js",
-               "~/Scripts/jquery-ui-1.9.2.custom.js"));
+               "~/Scripts/jquery-ui-1.9.2.custom.js",
+               "~/Scripts/HojaInscripcion/validations.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
                "~/Scripts/Jqgrid/grid.locale-sp*",

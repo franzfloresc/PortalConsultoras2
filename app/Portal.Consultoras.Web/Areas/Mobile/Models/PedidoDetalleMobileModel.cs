@@ -82,6 +82,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string HoraCierre { get; set; }
 
+        public string Prol { get; set; }    /* SB20-287 */
+        public string ProlTooltip { get; set; } /* SB20-287 */
+
         public void SetDetalleMobileFromDetalleWeb(List<BEPedidoWebDetalle> listDetalleWeb)
         {
             this.Detalle = new List<PedidoDetalleMobileDetalleModel>();

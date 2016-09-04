@@ -156,7 +156,7 @@ header {
 .mensaje_header {
     margin-top: 15px;
     float: left;
-    width: 23px;
+    width: 27px;
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
@@ -164,6 +164,7 @@ header {
 
 .cart_compras{
     cursor:pointer;
+    position:relative;
 }
 
 .mensaje_svg {
@@ -1358,9 +1359,11 @@ header {
     margin-bottom:3px;
 }
 .liquidacion_descripcion {
-    margin-left: 15px;
-    margin-right: 15px;
-    height: 100px;
+    display: block;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 90px;
     overflow: hidden;
     color: black;
     font-family: 'lato';
@@ -1747,7 +1750,7 @@ header {
     display:block;
     width:100%;
     font-family:'Lato';
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 
 .filaIngresoPedidoOculto{
@@ -1794,6 +1797,7 @@ div.texto_pedidos, div.celda_cantidad_pedidos{
     padding-top: 25px;
     padding-bottom: 25px;
     vertical-align: middle;
+    position:relative;
 }
 
 div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo{
@@ -2244,10 +2248,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     display: none;
     width:271px;
     min-height: 158px;
-    height:100%;
+    height:auto;
     position: absolute;
     z-index: 50;
-    top: 50%;
+    top: 58%;
     left: 153%;
     margin-top:-84px;
     box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
@@ -2551,13 +2555,14 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .mensaje_productoAgotado p{
-    font-family:'Lato';
-    font-size:14px;
-    padding-left:21.5px;
-    text-align:left;
-    color:#000;
-    height:55px;
-    line-height:55px;
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-left: 21.5px;
+    padding-top: 7px;
+    text-align: left;
+    color: #d20000;
+    height: auto;
+    line-height: 20px;
 }
 
 .cabecera_codigo{
@@ -3352,7 +3357,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     padding:31px 0 23px 0;
     width:240px;
     /*height:auto;*/
-    height:404px;
+    height:425px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;
@@ -5427,6 +5432,31 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /* POPUP TUTORIAL HOME */
+
+.fondo_oscuro{
+    background:rgba(0,0,0,0.8);
+    display:none;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:899;
+    top:0%;
+    left:0%;
+}
+
+.opcionTutorial{
+    position: relative;
+    height:27px;
+    z-index: 1000;
+    background: #FFF;
+    border-radius: 100%;
+}
+
+/*.opcionTutorial .tutoriales_svg{
+    width: 24px;
+    height: 25px;
+    background-position: 2px 3px;
+}*/
 
 #popup_tutorial{
     overflow:auto;
@@ -8239,12 +8269,13 @@ ul.tabs {
         font-weight:700;
         margin-bottom: 10px;
         text-align: center;
+        margin-bottom:20px !important;
         margin: 0px auto;
         text-transform:uppercase;
         font-size: 10pt !Important;
         font-family: 'lato';
         color: black;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
         }
 
 .terminos_title_Contrato {
@@ -9932,14 +9963,14 @@ border: 0;
 .input_modifica_horizontal {
     text-transform: uppercase;
     margin-top: 5px;
-    width: 140px;
-    height: 35px;
-    letter-spacing: 1.5px;
+    width: 100px;
+    height: 40px;
+    letter-spacing: 0.5px;
     padding: 0;
-    background: #642f80;
+    background: #613c87;
     color: white;
     font-family: 'lato';
-    font-size: 10.5px;
+    font-size: 12px;
     border: 0;
     font-weight: 700;
 }
@@ -20155,6 +20186,8 @@ label.checkpop.c_on {
     font-size:10pt;
     margin-top: 83px;
     margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
 }
 .ubicacion_web span {
     color:#878787 !important;    
@@ -20168,7 +20201,7 @@ label.checkpop.c_on {
 .flechita_info {
     position: absolute;
     z-index: 2001;
-    width: 55px;
+    width: 63px;
     height: 54px;
     right: -1px;
     margin-top: -69px;
@@ -20749,7 +20782,7 @@ label.checkpop.c_on {
     float: left;
     width:248px!important;
     margin-right:25px;
-    height: 357px;
+    height: 372px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -20830,7 +20863,7 @@ label.checkpop.c_on {
     margin-top: 7px;
     display:inline-block;
     vertical-align:middle;
-    margin-right:4px;
+    margin-right:3px;
     overflow: hidden;
     height: 45px;
 }
@@ -21176,7 +21209,7 @@ label.checkpop.c_on {
     float: left;
     margin-right: 3.5%;
     margin-top:45px;
-    margin-bottom:70px;
+    margin-bottom:35px;
     background:gray;
     position:relative;
     overflow:hidden;
@@ -21206,7 +21239,8 @@ label.checkpop.c_on {
 }
 /* PAGINA MIS PAGOS*/
 .titulo_interiores{
-    width:30%;
+    /*width:30%;*/
+    padding-right:50px;
     float:left;
      height:50px;
     font-family:'lato';
@@ -21578,9 +21612,9 @@ body{
 
 .tutoriales_svg{
     background: url(../../../Images/Lbel/tutorial.png) no-repeat;
-    background-position: 0 4px;
+    background-position: 2px 3px;
     /* background-size: 100%; */
-    width: 22px;
+    width: 24px;
     height: 25px;
     opacity:1;
     transition:all 0.3s ease;
@@ -21591,26 +21625,72 @@ body{
     position:relative;
 }
 
-.circulo-1{
+.contenedor_circulos{
+    display:none;
+    position: absolute;
+    z-index:500;
+}
+
+.circulo-1, .circulo-2, .circulo-3{
     display: block;
     border-radius: 100%;
     position: absolute;
-    top: 12px;
-    left: 9px;
-    width: 0px;
-    height: 0px;
     background: #642f80;
+    z-index:500;
+}
+
+@keyframes circulo {
+
+    0%{
+        top: 12px;
+        left: 7px;
+        opacity:0.8;
+        width: 0px;
+        height: 0px;
+    }
+
+    100%{
+        opacity:0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+
+}
+
+.circulo-1.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.3s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-2.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.6s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-3.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.9s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
 }
 
 .tooltip_tutorial{
-    display: block;
+    display: none;
     background: #FFF;
-    width: 188px;
-    height: 40px;
-    line-height: 40px;
+    width: 245px;
+    height: auto;
     position: absolute;
     top: 41px;
-    left: -83px;
+    left: -110px;
     border-radius: 5px;
     z-index: 1000;
     box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
@@ -21624,10 +21704,12 @@ body{
 .tooltip_tutorial span{
     display: block;
     width: 100%;
+    padding:11px 9px 10px 9px;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight: 700;
-    color: #642f80;
+    line-height: 17px;
+    font-weight: 400;
+    color: #000;
     text-align: center;
 }
 
@@ -22966,6 +23048,7 @@ body{
     border:0 !important;
     box-shadow: none !important;
 }
+
 .sugerido .producto_imagen{
     height: 200px;
     width: 155px;
@@ -22974,9 +23057,10 @@ body{
     vertical-align:middle;
 }
 
-/*.sugerido .producto_imagen img {
-    margin-left:-25px;
-}*/
+.sugerido .producto_imagen img {
+    width: auto;
+    height: 82.8%;
+}
 
 .sugerido .producto_nombre_descripcion {
     width: 139px;
@@ -25893,7 +25977,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat center center;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.png) no-repeat center center;
     margin:0 auto 13px auto;
     background-size:cover;
 }
@@ -26754,6 +26838,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-size:cover;
     position:relative;
     margin-top:-62px;
+    z-index: 1;
 }
 
 .titulo_banner{
@@ -26794,7 +26879,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     vertical-align:top;
     width:31.035%;
     height:297px;
-    margin-right:3.175%;
+    margin-right:37px;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
     box-shadow:0px 15px 28px -8px rgba(204,200,204,1);
@@ -27073,7 +27158,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     padding-bottom: 10px;
 }
 
-.content-favclientes .agregado {
+.content_carrusel_agregado .agregado {
   height: 12px;
   font-family: Lato;
   font-size: 10px;
@@ -27082,7 +27167,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   text-align: center;
   color: #a18328;
 }
-.content-favclientes .agregado .icono{
+.content_carrusel_agregado .agregado .icono{
    width: 11px;
   height: 11px;
   display: inline-block;
@@ -27160,4 +27245,122 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background: transparent url(../../../Images/Esika/regresar.png) no-repeat left center;
     text-align: center;
     right: 0;
+}
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-bottom:20px;
+    color:#929292;
+}
+
+/*INCENTIVOS*/
+.content_incentivos{
+    max-width:1189px;
+    margin:0 auto;    
+    margin-top:40px;
+    padding-bottom:30px;
+}
+.item_incentivos {
+    width: 23%;
+    margin-left: 1%;
+    margin-right: 1%;
+    height: auto;  
+    float:left;
+    margin-bottom: 30px;
+}
+.content_img_incetivos{
+    width:100%;
+    height:282px;
+    overflow: hidden;
+    border: 1px solid #B7B7B7;
+}
+.content_img_incetivos img{
+    width: 272px;
+    height: 282px;
+}
+.titulo_item_incentivo{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    text-align:center;
+    margin-top:10px;
+}
+
+/*PEDIDO FIC*/
+.codigo_fic {
+    width: 8%;
+    padding-left:1%;
+}
+.producto_fic{
+    width: 45%;
+}
+.unidades_fic{
+    width: 9% !important;
+    text-align: center !important;
+}
+.precioUnitario_fic{
+    width: 9%;
+    text-align:right;
+}
+.subtotal_fic{
+    width: 11%;
+    text-align:right;
+}
+.clienteFic{
+        width: 13%;
+    text-align: center;
+}
+.clienteFic input{
+     max-width: 107px;
+    text-align: left;
+    height: 32px;
+    font-family: 'Lato';
+    color: #1a1a1a;
+    
+    border: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 32px;
+    font-size: 14.5px;
+}
+.titulo_pedidos_fic{
+    float:left;
+        text-align: left;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #000;
+    font-family: 'Lato';
+}
+.content_paginador{
+    float:right;
+    margin-top:10px;
+}
+.mensaje_fic{
+    font-family:'Lato';
+    font-size:16px;
+    color:#613c87;
+    letter-spacing:0.3px;
+}
+@media screen and (max-width: 1092px){
+    .subtotal_fic span:nth-child(2) {
+    font-size: 16.5px;
+    color: #000;
+    font-weight: bold;
+    }
+    .oculto_1092{
+        display:none !important;
+    }
+    .clienteFic{
+        width:16%;
+    }
+    .subtotal_fic {
+        width: 13%;
+    }
+    .unidades_fic{
+        width: 11% !important;
+    }
+    .clienteFic {
+        width: 18%;
+    }
 }

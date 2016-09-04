@@ -53,12 +53,9 @@ namespace Portal.Consultoras.Web.Controllers
                         model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    model.ListaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
-                }
-
                 #region Rangos de Escala de Descuento
+
+                model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
 
                 var pos = -1;
                 int nro = 4;
@@ -68,38 +65,35 @@ namespace Portal.Consultoras.Web.Controllers
 
                 for (int i = 0; i < tamano; i++)
                 {
-                    model.ListaEscalaDescuento[i].MontoDesde = i == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
-
                     var objEscala = model.ListaEscalaDescuento[i];
+                    if (userData.MontoMinimo > objEscala.MontoHasta)
+                    {
+                        continue;
+                    }
+
+                    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
+
                     if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
                     {
-                        model.ListaEscalaDescuento[i].Seleccionado = true;
+                        objEscala.Seleccionado = true;
                         pos = i;
                     }
-
-                    if (i < nro)
-                    {
-                        listaEscala.Add(model.ListaEscalaDescuento[i]);
-                    }
+                    listaEscala.Add(objEscala);
                 }
 
-                if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) <= 1)
+                model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
+                if (listaEscala.Any())
                 {
-                    if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) == 1)
+                    int posMin, posMax, tamX = listaEscala.Count - 1;
+                    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+                    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+                    posMin = pos < 0 ? 0 : posMin;
+                    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
+                    for (int i = posMin; i <= posMax; i++)
                     {
-                        listaEscala = new List<BEEscalaDescuento>();
-
-                        int posMin, posMax, tamX = tamano - 1;
-                        posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                        posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-
-                        for (int i = posMin; i <= posMax; i++)
-                        {
-                            listaEscala.Add(model.ListaEscalaDescuento[i]);
-                        }
+                        model.ListaEscalaDescuento.Add(listaEscala[i]);
                     }
                 }
-                model.ListaEscalaDescuento = listaEscala;
 
                 #endregion Rangos de Escala de Descuento
 
@@ -415,53 +409,6 @@ namespace Portal.Consultoras.Web.Controllers
             string pp = userData.CodigoISO;//1796
             string urlRedirect = "http://FLEXIPAGO.SOMOSBELCORP.COM/FlexipagoCO/index.html?PP=" + pp.ToString() + "&CC=" + cc.ToString() + "&CA=" + ca.ToString();
             return Redirect(urlRedirect);
-        }
-
-        public ActionResult Landing()
-        {
-            string nombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + UserData().CodigoISO].ToString(); //2532 EGL
-            ViewBag.ContratoActualizarDatos = nombreArchivoContrato; //2532 EGL
-
-            var newModel = new BienvenidosModel();
-
-            var lst = new List<ServiceContenido.BEItemCarruselInicio>();
-            var paisID = UserData().PaisID;
-            using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-            {
-                lst = sv.GetItemCarruselInicio(paisID).ToList();
-            }
-
-            Mapper.CreateMap<ServiceContenido.BEItemCarruselInicio, ItemCarruselInicioModel>();
-            newModel.ItemsCarruselInicio = Mapper.Map<List<ItemCarruselInicioModel>>(lst);
-
-            BEUsuario beusuario = new BEUsuario();
-            var actualizarDatos = new ActualizarDatosModel();
-            try
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    beusuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
-                }
-
-                if (beusuario != null)
-                {
-                    actualizarDatos.NombreCompleto = beusuario.Nombre;
-                    actualizarDatos.EMail = beusuario.EMail;
-                    actualizarDatos.Telefono = beusuario.Telefono;
-                    actualizarDatos.Celular = beusuario.Celular;
-                    newModel.ActualizarDatos = actualizarDatos;
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-
-            return View(newModel);
         }
 
         [HttpGet]

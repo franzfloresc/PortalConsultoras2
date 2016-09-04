@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.WebPages
                     row1.Style.Add("display", "none");
 
                     CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
-            }
+                }
             }
             else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
 
@@ -339,7 +339,7 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 pnlSeguimientoPedido.Visible = true;
                 pnlSeguimientoPostVenta.Visible = false;
-                pnlSinTracking .Visible = false;
+                pnlSinTracking.Visible = false;
 
                 IList<BETracking> tracking = new List<BETracking>();
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();

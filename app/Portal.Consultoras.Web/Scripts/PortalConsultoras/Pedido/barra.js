@@ -1,6 +1,7 @@
 ﻿var listaEscalaDescuento = listaEscalaDescuento || new Array();
 var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
+
 function MostrarBarra(datax) {
     //$("#divBarra").hide();
     //return false;
@@ -10,20 +11,27 @@ function MostrarBarra(datax) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
-    ActualizarGanancia(data);
 
-    listaEscalaDescuento = dataBarra.ListaEscalaDescuento || listaEscalaDescuento;
-    listaMensajeMeta = dataBarra.ListaMensajeMeta || listaMensajeMeta;
+    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
+    if (dataBarra.ListaEscalaDescuento.length > 0) {
+        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
+    }
+    dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
+    if (dataBarra.ListaMensajeMeta.length > 0) {
+        listaMensajeMeta = dataBarra.ListaMensajeMeta;
+    }
 
-    //data.MontoMinimo = 100;
-    //data.MontoMinimoStr = "100.00";
-    //data.TippingPoint = 150.99;
-    //data.TippingPointStr = "150.99";
-    //data.MontoMaximo = 200.99;
-    //data.MontoMaximoStr = "200.99";
-    //data.MontoEscala = 2900.99;
-    //data.MontoEscalaStr = "2900.99";
-
+    ActualizarGanancia(dataBarra);
+    /*
+    dataBarra.MontoMinimo = 100;
+    dataBarra.MontoMinimoStr = "100.00";
+    dataBarra.TippingPoint = 150.99;
+    dataBarra.TippingPointStr = "150.99";
+    dataBarra.MontoMaximo = 200.99;
+    dataBarra.MontoMaximoStr = "200.99";
+    dataBarra.MontoEscala = 2900.99;
+    dataBarra.MontoEscalaStr = "2900.99";
+    */
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
     var mx = data.MontoMaximo;
@@ -83,41 +91,76 @@ function MostrarBarra(datax) {
         if (mt < mn)
             vLogro = mt - md;
         else
-            vLogro = me < mn ? mn : me;
+            //vLogro = me < mn ? mn : me;
+            vLogro = me;
 
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
+        var listaEscala = new Array();
         $.each(listaEscalaDescuento, function (ind, monto) {
-            if (ind == 0) {
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
-                    msgLimite: "!VAMOS, ADELANTE!",
-                    msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-                    width: wPrimer,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: data.MontoMinimo,
-                    valorStr: data.MontoMinimoStr,
-                    tipo: 'min'
-                });
-            }
-            else {
-                var montox = listaEscalaDescuento[ind - 1];
-                if (me > montox.MontoHasta && me <= monto.MontoHasta) {
-                }
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
-                    msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
-                    msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
-                    widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: montox.MontoHasta,
-                    valorStr: montox.MontoHastaStr,
-                    tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
-                });
+            if (mn < monto.MontoHasta) {
+                listaEscala.push(monto);
             }
         });
+
+        $.each(listaEscala, function (ind, monto) {
+            var montox = ind == 0 ? monto : listaEscala[ind - 1];
+            listaLimite.push({
+                nombre: textoPunto
+                    .replace("{titulo}", monto.PorDescuento + "% DSCTO")
+                    .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + vbSimbolo + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
+                msgLimite: ind == 0 ? "!VAMOS, ADELANTE!" : ("¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!"),
+                msgFalta: ind == 0 ? "Te faltan " + vbSimbolo + " {falta} para pasar pedido." : ("Solo agrega " + vbSimbolo + " {falta}"),
+                width: ind == 0 ? wPrimer : null,
+                widthR: ind == listaEscala.length - 1 ? wmin : null,
+                tipoMensaje: 'EscalaDescuento',
+                valPor: monto.PorDescuento,
+                valor: ind == 0 ? data.MontoMinimo : montox.MontoHasta,
+                valorStr: ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr,
+                tipo: ind == 0 ? 'min' : ind == listaEscala.length - 1 ? 'max' : 'int'
+            });
+            
+
+            //if (ind == 0) {
+            //    listaLimite.push({
+            //        nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
+            //        msgLimite: "!VAMOS, ADELANTE!",
+            //        msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+            //        width: wPrimer,
+            //        tipoMensaje: 'EscalaDescuento',
+            //        valPor: monto.PorDescuento,
+            //        valor: data.MontoMinimo,
+            //        valorStr: data.MontoMinimoStr,
+            //        tipo: 'min'
+            //    });
+            //}
+            //else {
+            //    var montox = listaEscalaDescuento[ind - 1];
+            //    listaLimite.push({
+            //        nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
+            //        msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
+            //        msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
+            //        widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
+            //        tipoMensaje: 'EscalaDescuento',
+            //        valPor: monto.PorDescuento,
+            //        valor: montox.MontoHasta,
+            //        valorStr: montox.MontoHastaStr,
+            //        tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
+            //    });
+            //}
+        });
+
+        if (listaLimite.length == 0 && mn > 0) {
+            listaLimite.push({
+                nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
+                msgLimite: "!VAMOS, ADELANTE!",
+                msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
+                tipoMensaje: 'MontoMinimo',
+                width: wPrimer,
+                valor: data.MontoMinimo,
+                valorStr: data.MontoMinimoStr
+            });
+        }
     }
 
     // validar si hay algun limite
@@ -289,7 +332,7 @@ function MostrarBarra(datax) {
     }
     if (vLogro >= vLimite) {
         if (indPuntoLimite > 0 && mn > 0) {
-            wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
+            wPuntosAnterior += $("#punto_" + indPuntoLimite).width();
         }
     }
 
@@ -360,149 +403,8 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto + 25);
 
-    return false;
-
-    // obtener valor minimo y maximo, distancia a trabajar
-    var vm = 0, vx = 0, w = 0;
-    $.each(listaLimite, function (ind, limite) {
-        limite.valor = limite.valor || 0;
-        var ww = limite.valor || 0;
-        vx = vx < ww ? ww : vx;
-        vm = ind == 0 ? ww : vm > ww ? ww : vm;
-
-        w += limite.width || limite.widthR || 0;
-    });
-    w = widthTotal - w;
-    var fk = vx - vm;
-
-    // poner width segun el rango min y max, dentro del area
-    $.each(listaLimite, function (ind, limite) {
-        if (!limite.width) {
-            var valor = limite.valor - vm;
-            if (valor > 0 && fk > 0) {
-                valor = valor / fk;
-                valor = parseInt(w * valor * 100) / 100;
-            }
-            limite.width = valor;
-        }
-        if (ind == 0) {
-            wLimite = limite.width;
-            indPuntoLimite = 0;
-            vLimite = limite.valor;
-            tipoMensaje = limite.tipoMensaje;
-            valPor = limite.valPor;
-        }
-        else {
-            var valBack = listaLimite[ind - 1].valor;
-            if (valBack < vLogro && vLogro < limite.valor) {
-                wLimite = limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje;
-                valPor = limite.valPor;
-            }
-            else if (vLogro >= limite.valor) {
-                wLimite = ind == listaLimite.length - 1 ? widthTotal : limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje + (ind == listaLimite.length - 1 ? "Supero" : "");
-                valPor = limite.valPor;
-            }
-            else if (valBack == vLogro && vLogro > 0) {
-                wLimite = limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje;
-                valPor = limite.valPor;
-            }
-        }
-    });
-
-    //console.log(wLimite, vLogro, indPuntoLimite, mx, listaLimite);
-
-    // ancho de logrado
-    var wLogro = 0;
-    if (vLogro == vm) {
-        wLogro = vLogro > 0 ? wmin : 0;
-    }
-    else if (vLogro > vm) {
-        wLogro = (vLogro - vm) / fk;
-        wLogro = parseInt(w * wLogro * 100) / 100;
-    } else if (vm > 0 && vLogro > 0) {
-        wLogro = vLogro / vm;
-        wLogro = parseInt(wmin * wLogro * 100) / 100;
-    }
-
-    // colocar los puntos de limite
-    var w1 = 0;
-
-    var wSumLeft = 0, msgLimite = "";
-    //$("#divBarra #divBarraLimite").html("");
-    $.each(listaLimite, function (ind, limite) {
-        w1 = ind == 0 ? limite.width : w1;
-        var www = limite.width + (ind == 0 ? 0 : w1);
-        var wadd = www - wSumLeft;
-        wSumLeft += wadd;
-        limite.widthAdd = wadd;
-        limite.widthSum = wSumLeft;
-
-        $("#punto_" + ind).css("width", wadd);
-        $("#punto_" + ind + " [data-texto]").css("float", "right");
-
-        $("#punto_" + ind + " > div").css("float", "right");
-        $("#punto_" + ind + " > div").css("left", "45px");
-        if (ind == 0) {
-            if (mn == 0) {
-                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "6px;");
-            }
-        }
-        if (indPuntoLimite == ind) {
-            $("#punto_" + ind).css("left", "45px");
-            $("#punto_" + ind + " .bandera_marcador").css("margin-left", "45px");
-            $("#punto_" + ind + " [data-texto]").css("margin-left", "55px");
-        }
-        //var wText = ind == 0 ? "130" : "90";
-        //var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
-        //var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
-        //var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        //var htmlSet = indPuntoLimite == ind && ind > 0 ? htmlPuntoLimite : htmlPunto;
-        //htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
-        //htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo).replace("{style}", styleMinx);
-        //var objH = $(htmlSet).css("width", wadd).css("float", 'left');
-        //$("#divBarra #divBarraLimite").append(objH);
-
-        msgLimite = indPuntoLimite == ind ? limite.msgLimite : msgLimite;
-        msgLimite = indPuntoLimite == listaLimite.length - 1 && vLogro > limite.valor ? "" : msgLimite;
-    });
-    //$("#divBarra #divBarraLimite").append("<div class='clear'></div>");
-
-    // pintar la barra
-    $("#divBarra #divBarraMinimo").css("width", wPrimer);
-    //wLogro = wLogro <= wmin ? wLogro : wLogro > w ? w + 25 : (wLogro + wPrimer);
-    wLogro = vLogro < vm ? wLogro : wLogro > w ? w + 25 + wPrimer : vLogro != vm ? (wLogro + wPrimer) : wLogro;
-    wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer + (mn == 0 ? wmin : 0));
-
-    $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
-    $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
-    objMsg.Titulo = $.trim(objMsg.Titulo);
-    objMsg.Mensaje = $.trim(objMsg.Mensaje);
-    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
-        $("#divBarra").show();
-        $("#divBarra #divBarraMensajeLogrado").hide();
-        return false;
-    }
-    valPor = valPor || "";
-    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    $("#divBarra").show();
-    $("#divBarra #divBarraMensajeLogrado").show();
-    $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
-    wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+    return true;
 }
 

@@ -14,19 +14,20 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-    <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
     {
-    <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
     @RenderSection("styles", required: false)
 
 </head>
 <body>
+    <!-- Google Tag Manager -->
     <script type="text/javascript">
         dataLayer = [{
             'campana': '@ViewBag.AnalyticsCampania',
@@ -40,13 +41,10 @@
             'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
             'periodo': '@ViewBag.AnalyticsPeriodo',
             'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
-            'socianivel': '@ViewBag.AnalyticsSociaNivel'
+            'socianivel': '@ViewBag.AnalyticsSociaNivel',
+            'semana-periodo': '@ViewBag.SemanaAnalytics'
         }];
     </script>
-
-    @if (!Html.IsDebug())
-    {
-    <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
     </noscript>
@@ -63,21 +61,21 @@
         })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
     </script>
     <!-- End Google Tag Manager -->
-    }
+
 
     @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
-    <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
-    <script type="text/javascript">
-        var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
-        JL.tracking({
-            cid: trackingJetloreAccessToken,
-            user_id: '@ViewBag.CodigoConsultoraDL',
-            feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-        });
-    </script>
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+            
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
     }
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
@@ -122,16 +120,19 @@
                     <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
                 <div class="col-xs-4 text-center">
-                    <a class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida" 
+                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
-                        <a class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" role="menu" region="Superior" parent="Pedido" title="Pedido" id="lnk-sup-pedido">
-                            <span class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                            <span class="num-menu-shop">0</span>
+                        <a role="link" region="Superior" parent="Pedido" title="Pedido" 
+                           class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" role="menu" region="Superior" parent="Pedido" title="Pedido" id="lnk-sup-pedido">
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
                         </a>
-                        <a class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                            <div class="campana_svg_mobile"><p class="notificaciones_mobiles">0</p></div>
+                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones" 
+                           class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                            <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
                     </div>
                 </div>
@@ -218,13 +219,13 @@
     <!-- content -->
     <section style="min-height: 400px;">
 
-            <div id="content">
-                @RenderBody()
-            </div>
-            <div class="clear">
-                <br />
-                <br />
-            </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
 
     </section>
 
@@ -253,39 +254,19 @@
         </div>
     </div>
 
-    <div id="popupInformacion" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div id="mensajeInformacion" class="text-lg"></div>
-                    <br />
-                    <div>
-                        <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar"><b>OK</b></a>
-                    </div>
-                </div>
-            </div>
+    <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacion" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
         </div>
     </div>
 
-    @*<div id="popupInformacionValidado" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10001 !important; ">
-    <div class="modal-dialog modal-alert ">
-    <div class="modal-content">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    </div>
-    <div class="modal-body">
-    <div id="mensajeInformacionvalidado" class="text-lg"></div>
-    <br />
-    <div>
-    <a href="javascript:;" data-dismiss="modal" class="btn btn-line btn-aceptar">ACEPTAR</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>*@
     <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
@@ -298,6 +279,7 @@
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
+
     <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
@@ -307,7 +289,7 @@
                         <div class="col-xs-12">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
                             <ol class="breadcrumb-next upper">
-                                <li class="text-primary">
+                                <li>
                                     Comunidad Somos Belcorp
                                 </li>
                             </ol>
@@ -387,7 +369,7 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>ERROR</b></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
             <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -852,7 +834,7 @@
 
         function messageInfo(message, fnAceptar) {
             $('#mensajeInformacion').html(message);
-            $('#popupInformacion').modal("show");
+            $('#popupInformacion').show();
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacion .btn-aceptar').off('click');
                 $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
@@ -861,7 +843,7 @@
 
         function messageInfoBueno(message, fnAceptar) {
             $('#mensajeInformacionSB2Bueno').html(message);
-            $('#popupInformacionSB2Bueno').modal("show");
+            $('#popupInformacionSB2Bueno').show();
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
                 $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);

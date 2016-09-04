@@ -116,6 +116,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string Prol { get; set; }
 
+        public string ProlTooltip { get; set; } /* SB20-287 */
+
         public string MensajeGuardarColombia { get; set; }
 
         public string Registros { get; set; }
@@ -255,5 +257,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
 
         public bool EsConsultoraNueva { get; set; }
+
+        public string AccionBoton { get; set; }
     }
 }

@@ -46,7 +46,6 @@ $(document).ready(function () {
         e.preventDefault();
         (this).blur();
     });
-    //HorarioRestringido();
     ReservadoOEnHorarioRestringido();
 });
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
@@ -74,21 +73,20 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         }
                         if (mostrarAlerta == true) {
                             CloseLoading();
-                            alert_msg(data.message, fnRedireccionar);
+                            messageInfoValidado(data.message, fnRedireccionar);
                         }
 
                         else fnRedireccionar();
 
                     }
                     else if (mostrarAlerta == true)
-                        alert_msg(data.message);
-                    //setTimeout(function () { location.href = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'; }, 2500);
+                        messageInfoValidado(data.message);
                 }
             }
         },
         error: function (error) {
             console.log(error);
-            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfoValidado('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
@@ -130,7 +128,7 @@ function ArmarCarouselLiquidaciones(data) {
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
-        item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
+        item.Descripcion = (item.Descripcion.length > 60 ? item.Descripcion.substring(0, 60) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
 
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
@@ -149,10 +147,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
 
     return array;
 };
-
-function alert_msg(message, fnClose) {
-    messageInfoValidado('<h3 class="text-primary">' + message + '</h3>', fnClose);
-}
 function AgregarOfertaProducto(article) {
     var cantidad = $(article).find("#txtCantidad").val();
     var CUV = $(article).find(".valorCUV").val();

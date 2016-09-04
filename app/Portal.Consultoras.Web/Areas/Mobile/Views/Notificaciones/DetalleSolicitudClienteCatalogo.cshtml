@@ -18,55 +18,55 @@
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-
-            <div class="col-xs-12">
-                <ul class="list-notificaciones noti-detalle">
-                    <li>
+         
+<div class="col-xs-12">
+    <ul class="list-notificaciones noti-detalle">
+        <li>
                         
-                        <div class="text-noti">
+            <div class="text-noti">
                 <div class="sub_titulo_noti">
                     <span>@ViewBag.Asunto</span>
                     <span>CAMPAÑA @ViewBag.Campania.ToString().Substring(4) @ViewBag.Campania.ToString().Substring(0, 4)</span>
-                            </div>
-                            <span>@ViewBag.FechaEjecucion</span>
-                        </div>
-                    </li>
-                </ul>
+                </div>
+                <span>@ViewBag.FechaEjecucion</span>
             </div>
+        </li>
+    </ul>
+</div>  
 <hr class="clear" />
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
     <p class="consultora_saludo_noti">Te ha llegado el siguiente pedido a través del Catálogo Virtual.</p>
-        <div class="list-table">
-            <ul>
-                <li>
-                    Nombre de cliente: <strong>@Model.NotificacionDetalleCatalogo.NombreCliente</strong>
-                </li>
-                <li>
-                    Correo: <strong>@Model.NotificacionDetalleCatalogo.CorreoCliente</strong>
-                </li>
-                <li>
-                    Teléfono: <strong>@Model.NotificacionDetalleCatalogo.TelefonoCliente</strong>
-                </li>
-            </ul>
-        </div>
+    <div class="list-table">
+        <ul>
+            <li>
+                Nombre de cliente: <strong>@Model.NotificacionDetalleCatalogo.NombreCliente</strong>
+            </li>
+            <li>
+                Correo: <strong>@Model.NotificacionDetalleCatalogo.CorreoCliente</strong>
+            </li>
+            <li>
+                Teléfono: <strong>@Model.NotificacionDetalleCatalogo.TelefonoCliente</strong>
+            </li>
+        </ul>
+    </div>
     
-        @if (!string.IsNullOrEmpty(Model.NotificacionDetalleCatalogo.DetalleNotificacion))
-        {
-            <div id="divTablaDetalle" class="hide">
-                @Html.Raw(Model.NotificacionDetalleCatalogo.DetalleNotificacion)
-            </div>
-            <h3 class="title-line">Detalle del pedido</h3>
+@if (!string.IsNullOrEmpty(Model.NotificacionDetalleCatalogo.DetalleNotificacion))
+{
+    <div id="divTablaDetalle" class="hide">
+        @Html.Raw(Model.NotificacionDetalleCatalogo.DetalleNotificacion)
+    </div>
+    <h3 class="title-line">Detalle del pedido</h3>
     <p class="consultora_saludo_noti" style="margin:20px 0 0 0">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar.</p>
     <div id="DetalleNotificacion">
 
-            </div>
+    </div>
 }
     <hr class="clear" />
     <div class="left_reservado">
         <div class="importe_final">
             <b>MONTO TOTAL</b>
-            </div>
+        </div>
 
     </div>
     <div class="right_reservado">
@@ -117,25 +117,25 @@
                     htmlTable += '      <div class="datos_Reservado">';
                     htmlTable += '          <span>' + tbl[i].codigo + '</span>';
                     htmlTable += '          <span>' + tbl[i].descripcion + '<span>';
-                    htmlTable += '</div>';
-                    htmlTable += '</div>';
+                    htmlTable += '      </div>';
+                    htmlTable += '  </div>';
                     htmlTable += '  <div class="right_reservado">';
                     htmlTable += '      <div class="texto_reservado">CANT</div>';
                     htmlTable += '      <div class="datos_Reservado"><b>' + tbl[i].cantidad + '</b></div>';
-                    htmlTable += '</div>';
+                    htmlTable += '  </div>';
                     htmlTable += '  <hr class="clear"><br>';
                     htmlTable += '  <div class="left_reservado">';
                     htmlTable += '      <div class="texto_reservado">';
                     htmlTable += '          <span>Precio Unitario</span>';
-                    htmlTable += '</div>';
+                    htmlTable += '      </div>';
                     htmlTable += '      <div class="importe_reservado">SUBTOTAL</div>';
-                    htmlTable += '</div>';
+                    htmlTable += '  </div>';
                     htmlTable += '  <div class="right_reservado">';
                     htmlTable += '      <div class="texto_reservado">';
                     htmlTable += '          <span>' + tbl[i].precioUnitario + '</span>';
                     htmlTable += '      </div>';
                     htmlTable += '      <div class="importe_reservado">' + tbl[i].precioTotal + '</div>';
-                    htmlTable += '</div>';
+                    htmlTable += '  </div>';
                     htmlTable += '</div>';
                     $('#DetalleNotificacion').append(htmlTable);
                 }

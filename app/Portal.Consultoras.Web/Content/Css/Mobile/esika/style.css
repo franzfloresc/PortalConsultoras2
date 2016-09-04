@@ -340,6 +340,7 @@ h4.re3 {
     .casa-box {
         margin-top: -20px;
     }
+    
 }
 
 .field-validation-error {
@@ -905,7 +906,7 @@ h4.re3 {
 }
 
     .form-control.text-primary {
-        color: #722789;
+        color: #000000;
     }
 
 .alert-success {
@@ -1616,10 +1617,11 @@ h4.re3 {
         list-style: none;
         border-bottom: 1px solid #ccc;
         padding: 25px 0;
-        /*padding-left: 15px;*/
+        padding-left: 15px;
         position: relative;
         line-height: 1.4;
         font-size: 14px;
+        cursor: pointer;
     }
 
 .noti-detalle {
@@ -1652,17 +1654,14 @@ h4.re3 {
     font-size: 13px;
 }
 
-.text-noti span:hover:first-child {
-    cursor: pointer;
-}
-/*.list-notificaciones .no-read:before {
+.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}*/
+}
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
@@ -1671,7 +1670,7 @@ h4.re3 {
 
 .list-notificaciones .text-noti {
     /*padding-left: 85px;*/
-    /*padding-bottom: 10px;*/
+    padding-bottom: 10px;
 }
 
 .list-notificaciones .btn-more {
@@ -2224,9 +2223,8 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-current .seg-icon .icon-seg {
-       color: #e81c36;
-    
-    border: 1px solid #e81c36 !important;
+        color: #e81c36;
+        border: 1px solid #e81c36 !important;
     }
 
     .block-seguimiento-content .seg-current .seg-fecha {
@@ -2238,14 +2236,14 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-active .seg-title {
-        color: #00abdf;
+        color: black;
     }
 
     .block-seguimiento-content .seg-active .seg-icon:before {
         font-family: "icomoon";
         font-size: 1.3em;
         content: "\e619";
-        color: #00abdf;
+        color: #E81C36;
         position: absolute;
         top: 36px;
         right: -9px;
@@ -2254,16 +2252,16 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-active .seg-icon .icon-seg {
-        color: #00abdf !important;
-        border: 1px solid #00abdf !important;
+        color: #E81C36 !important;
+        border: 1px solid #E81C36 !important;
     }
 
     .block-seguimiento-content .seg-active .seg-fecha {
-        color: #00abdf;
+        color: black;
     }
 
     .block-seguimiento-content .seg-active .seg-hora {
-        color: #6b7f8e;
+        color: black;
     }
 
 .alert .close {
@@ -3230,6 +3228,8 @@ table > thead > tr > th {
 .icon-cart-list-pedidos-inverse {
     background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png);
 }
+
+
 
 
 
@@ -4656,7 +4656,7 @@ table > thead > tr > th {
 }
 
     .btn_seguirp_mobile.ver_video_introductorio {
-        margin-top: 5px;
+        margin-top: 15px;
         margin-bottom: 5px;
     }
 
@@ -4686,7 +4686,7 @@ table > thead > tr > th {
 .titulo_item_mobile {
     display: inline-block;
     font-family: 'Lato';
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0.2px;
     vertical-align: middle;
     color: black;
@@ -5330,6 +5330,9 @@ body {
         font-size: 15px;
         text-align: center;
         line-height: 15px;
+        -webkit-border-radius: 0px;
+        -webkit-appearance: none !important;
+        text-transform:uppercase;
     }
 
 .contenedor_carrusel_home .slick-list {
@@ -5685,8 +5688,8 @@ body {
 
     .tooltip_noOlvidesGuardarTuPedido span {
         display: block;
-        font-size: 11px;
-        font-weight: 400;
+        font-size: 13px;
+        font-weight: 700;
         color: #000;
     }
 
@@ -5822,12 +5825,12 @@ body {
     width: 98px;
     height: 66px;
     margin-bottom: 10px;
-    background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;*/
 }
 
 .liquidacion_esika {
     width: 110px;
-    margin-top: 35px;
+    margin-top: 0px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
 
@@ -6441,7 +6444,7 @@ input[type="checkbox"]:checked + span:after {
 .MensajeAlertaMobile {
     position: fixed;
     z-index: 2010;
-    overflow-y: auto;
+    
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -7355,3 +7358,377 @@ input[type="checkbox"]:checked + span:after {
     background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
 }
 
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-top:13px;
+    margin-bottom:13px;
+    color:#929292;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.content_carrusel_agregado .agregado {
+  height: 12px;
+  font-family: Lato;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #a18328;
+}
+.content_carrusel_agregado .agregado .icono{
+   width: 11px;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") no-repeat center center;
+}
+
+/* POPUP AGREGAR CLIENTE */
+
+#divAgregarCliente{
+    display:block;
+}
+
+.contenedor_popup_clientes{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_agregarCliente .btn_cerrar_agregarUnidades{
+    top: -44px;
+    right: -10px;
+}
+
+.popup_agregarCliente .texto_btn_cerrar{
+    left: -6px;
+    top: -3px;
+}
+
+.popup_agregarCliente{
+    /*display: none;*/
+    position: relative;
+    top: 14%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    padding: 30px 20px 30px 20px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+.popup_agregarCliente h6{
+    display:block;
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    font-weight: 300;
+    margin-bottom:20px;
+}
+
+.popup_agregarCliente form{
+    display:block;
+    margin:0;
+    padding:0;
+}
+
+.popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"]{
+    display:block;
+    margin:0 0 9px 0;
+    padding-left:13px;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    border:1px solid #b0b0b0;
+    background:#FFF;
+    color:#000;
+    font-size:13px;
+    font-weight:normal;
+}
+
+.popup_agregarCliente input[type="button"]{
+    display:block;
+    margin:20px 0 0 0;
+    padding:0;
+    width:100%;
+    height:45px;
+    background:#e81c36;
+    line-height:45px;
+    color:#FFF;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste{
+    display: none;
+    position: relative;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    background: #FFF;
+    height: auto;
+    padding: 12px 13px 14px 13px;
+    box-shadow: 0px 2px 16px 0px #999;
+    -moz-box-shadow: 0px 2px 16px 0px #999;
+    -o-box-shadow: 0px 2px 16px 0px #999;
+    -ms-box-shadow: 0px 2px 16px 0px #999;
+    -webkit-box-shadow: 0px 2px 16px 0px #999;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-bottom-color: #DDD;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.popup_agregarCliente .noti.mensaje_producto_noExiste:after{
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	border-bottom-color: #FFF;
+	border-width: 9px;
+    margin-left: -9px;
+}
+
+.popup_agregarCliente .icono_advertencia_notificacion{
+    display:inline-block;
+    vertical-align:middle;
+    width:20px;
+    height:20px;
+    top: 1px;
+    margin-right: 7px;
+    float:none;
+    background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
+}
+
+.popup_agregarCliente .descripcion_mensaje{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:18px;
+    font-family: 'Lato';
+    font-weight: 400;
+    color:#000;
+    width:auto;
+    font-size:13px;
+}
+
+/* PANTALLA MI ASESOR DE BELLEZA */
+
+.titulo_asesorBelleza{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
+
+.tabs_asesoresBelleza{
+    display:block;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+}
+
+.tabs_asesoresBelleza li {
+    display: inline-block;
+    text-align: center;
+}
+.tabs_asesoresBelleza.contenedor3 li{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 li{ width:49.5%; }
+
+.tabs_asesoresBelleza li a {
+    display: block;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 11px;
+    line-height: 22px;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'lato';
+    font-size: 14px;
+    color: black;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    letter-spacing: 0.25px;
+}
+
+.tabs_asesoresBelleza.contenedor3 .one:hover ~ hr {
+    margin-left: 0%;
+}
+.tabs_asesoresBelleza.contenedor3 .two:hover ~ hr {
+    margin-left: 33.6%;
+}
+.tabs_asesoresBelleza.contenedor3 .three:hover ~ hr {
+    margin-left: 67.35%;
+}
+
+.tabs_asesoresBelleza.contenedor2 .one:hover ~ hr {
+    margin-left: 0%;
+}
+.tabs_asesoresBelleza.contenedor2 .two:hover ~ hr {
+    margin-left: 50.5%;
+}
+
+
+.tabs_asesoresBelleza hr {
+    height: 4px;
+    /* width: 30%; */
+    margin: 0;
+    background: #e81c36;
+    border: none;
+    transition: .3s ease-in-out;
+}
+.tabs_asesoresBelleza.contenedor3 hr{ width:32.5%; }
+.tabs_asesoresBelleza.contenedor2 hr{ width:49.5%; }
+
+.tab_contenido_asesorBelleza{
+    display:block;
+    margin:50px 0 30px 0;
+    width:100%;
+    text-align:center;
+}
+
+.asesor_belleza_contenido{
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle;
+    margin-bottom:31px;
+}
+
+.asesor_belleza_img, .asesor_belleza_texto{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.asesor_belleza_img{
+    border-radius:100%;
+    width:71px;
+    height:auto;
+    margin-right:18px;
+}
+
+.asesor_belleza_texto{
+    width:100px;
+    height:auto;
+}
+
+.asesor_belleza_texto span{
+    display:block;
+    font-size:15px;
+    font-family:'Lato';
+    color:#000;
+    text-align:left;
+    line-height:20.8px;
+}
+
+.asesor_belleza_texto span:first-child{
+    font-weight:bold;
+}
+
+.asesor_belleza_texto span:last-child, .asesor_belleza_texto span.lookbook{
+    font-weight:300;
+}
+
+.asesor_belleza_img img{
+    width:100%;
+    height:auto;
+}
+
+@media screen and (min-width:418px) and (max-width:577px){
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 0 0!important;
+    }
+
+}
+
+@media screen and (orientation:landscape) {
+
+    .tab_contenido_asesorBelleza {
+        margin: 50px 0 -124px 0;
+    }
+
+    .asesor_belleza_contenido{
+        margin-right:26px;
+    }
+
+    .asesor_belleza_texto{
+        width:auto;
+    }
+
+}
+
+/*VIDEO INTRODUCTORIO*/
+.content_video_introductorio{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+    
+}
+.cerrar_video{
+    position:absolute;
+    width:20px;
+    height:20px;
+    z-index:2005;
+    right:-30px;
+}
+.cerrar_video img{
+    width:100%;
+}
+
+/*.content_video_introductorio {
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}*/
+
+.content_video_introductorio iframe,
+.content_video_introductorio object,
+.content_video_introductorio embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .content_video_introductorio{
+    width: 85%;
+    height: 50%;
+    top: 25%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+       
+    }
+    
+}
+
+/*FIN*/

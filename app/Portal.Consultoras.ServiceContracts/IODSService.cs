@@ -116,5 +116,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> GetProductoSugeridoByCUV(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona);
 
         #endregion
+
+        [OperationContract]
+        IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
+
     }
 }

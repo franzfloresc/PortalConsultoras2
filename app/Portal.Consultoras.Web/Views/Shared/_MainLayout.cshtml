@@ -15,37 +15,48 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")        
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
     }
     else
-    {   
+    {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")        
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var _gaq = _gaq || [];
-
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
-
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
-
         window.history.forward();
-
         function noBack() {
             window.history.forward();
         }
     </script>
 
     @RenderSection("styles", required: false)
-
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-
     <!-- Google Tag Manager -->
+    <script type="text/javascript">
+        dataLayer = [{
+            'event': 'userCustomVars',
+            'campana': '@ViewBag.CampaniaCodigo',
+            'segmento': '@ViewBag.SegmentoAnalytics',
+            'edad': '@ViewBag.EdadAnalytics',
+            'zona': '@ViewBag.ZonaAnalytics',
+            'pais': '@ViewBag.PaisAnalytics',
+            'rol': '@ViewBag.esConsultoraLiderAnalytics',
+            'region': '@ViewBag.RegionAnalytics',
+            'seccion': '@ViewBag.SeccionAnalytics',
+            'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+            'periodo': '@ViewBag.PeriodoAnalytics',
+            'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+            'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+            'semana-periodo': '@ViewBag.SemanaAnalytics'
+        }];
+    </script>
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none; visibility:hidden;"></iframe>
     </noscript>
@@ -59,11 +70,11 @@
                         '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
-                 
+    <!-- End Google Tag Manager -->
+
     @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
-
         <script type="text/javascript">
             JL.tracking({
                 cid: trackingJetloreAccessToken,
@@ -72,24 +83,8 @@
             });
         </script>
     }
-    
-    <script type="text/javascript">
-        dataLayer.push({
-            'event': 'userCustomVars',
-            'campana': '@ViewBag.CampaniaCodigo',
-            'segmento': '@ViewBag.SegmentoAnalytics',
-            'edad': '@ViewBag.EdadAnalytics',
-            'zona': '@ViewBag.ZonaAnalytics',
-            'pais': '@ViewBag.PaisAnalytics',
-            'rol': '@ViewBag.esConsultoraLiderAnalytics',
-            'region': '@ViewBag.RegionAnalytics',
-            'seccion': '@ViewBag.SeccionAnalytics',
-            'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
-            'periodo': '@ViewBag.PeriodoAnalitycs',
-            'segmentoconstancia': '@ViewBag.SegmentoConstancia',
-            'socianivel': '@ViewBag.DescripcionNivelAnalytics'
-        });
 
+    <script type="text/javascript">
         if (!String.prototype.startsWith) {
             String.prototype.startsWith = function (searchString, position) {
                 position = position || 0;
@@ -97,7 +92,6 @@
             };
         }
     </script>
-    <!-- End Google Tag Manager -->
     @if (ViewBag.PaisAnalytics == "EC")
     {
         <div class="boton_ayuda">
@@ -111,12 +105,10 @@
         <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
     }
 
-    @*<div id="toDown" class="boton_ayuda flecha_b"><a href="javascript:;" class="boton-home fondo_b">Bajar</a></div>
-        <div id="toUp" class="boton_ayuda flecha_a"><a href="javascript:;" class="boton-home fondo_a">Subir</a></div>*@
-
     <!-- cabecera -->
     <header>
         <div class="wrapper_header">
+            <div class="fondo_oscuro"></div>
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
@@ -130,7 +122,7 @@
             }
             <div class="menu_esika_b">
                 <div class="campana user-profile">
-                    <img class="mostrar_perfil @(controllerAction == "BienvenidaIndex" ? "oculto" : "")" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
+                    <img class="mostrar_perfil oculto" region="Superior"  src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
                 </div>
 
                 <div class="campana">
@@ -142,6 +134,11 @@
 
                 <div class="borde_c @(controllerAction == "BienvenidaIndex" ? "invisible" : "")"></div>
                 <div class="campana cart_compras" style="width:auto;">
+                    <div class="contenedor_circulos">
+                        <div class="circulo-1 iniciarTransicion"></div>
+                        <div class="circulo-2 iniciarTransicion"></div>
+                        <div class="circulo-3 iniciarTransicion"></div>
+                    </div>
                     <a href="#">
                         <div class="campana_svg"></div>
                         <p class="notificaciones" id="pCantidadProductosPedido" style="width:14px;">0</p>
@@ -176,9 +173,8 @@
                 <div class="mensaje_header" id="salvavidaTutorial" style="display:none;">
                     <a href="#" class="abrir_tutorial">
                         <div class="campana_svg tutoriales_svg">
-                            <div class="circulo-1"></div>
                             <div class="tooltip_tutorial">
-                                <span>MIRA NUESTRO TUTORIAL</span>
+                                <span><b>Haciendo clic en el salvavidas</b>, podrás conocer cómo navegar en las páginas de Somos Belcorp</span>
                             </div>
                         </div>
                     </a>
@@ -201,7 +197,6 @@
                         CERRAR <br /> SESIÓN
                     </a>
                 </div>
-
             </div>
         </div>
         <div class="clear"></div>
@@ -323,7 +318,7 @@
             </div>
         </div>
     </div>
-    
+
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
@@ -430,7 +425,6 @@
         <span>{{Simbolo}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span></div>
         <hr class="clear" />
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
-
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
@@ -455,7 +449,7 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

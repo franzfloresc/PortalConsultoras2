@@ -30,13 +30,13 @@
             <div id="divBarraMensaje">
                 <div id="divBarraMensajeLogrado" style="display:none;">
                     <div style="float:right;">
-                    <div class="content_BarrMensaje">
+                        <div class="content_BarrMensaje">
                             <div class="mensaje_barra" style="display: inline;"></div>
                             <div class="agrega_barra"></div>
-                    </div>
+                        </div>
                         <hr class="clear" />
-                    <div class="flechita_barra"></div>
-                </div>
+                        <div class="flechita_barra"></div>
+                    </div>
                 </div>
             </div>
             <hr class="clear" />
@@ -152,7 +152,7 @@
 
 
         </div>
-
+        
         <div class="contenedor_eliminacion_pedido">
             @if (ViewBag.EsKitNueva == 1)
             {
@@ -183,24 +183,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Peru || ViewBag.Pais_ISO == Constantes.CodigosISOPais.Chile)
-                {
-                    <li>
-                        <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Catálogo Personalizado">
-                            <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
-                            <div>CATÁLOGO PERSONALIZADO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "MisCatalogosRevistas")" title="Mis Catálogos y Revistas">
-                            <img src="@ViewBag.UrlBanner01" alt="Mis Catálogos y Revistas" />
-                            <div>MIS CATÁLOGOS Y REVISTAS</div>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Productos Descontinuados">
+                        <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
 
                 @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -214,14 +202,14 @@
                 else
                 {
                     <li>
-                        <a href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
+                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
                             <img src="@ViewBag.UrlBanner02" alt="Liquidaciones Web" />
                             <div>LIQUIDACIONES WEB</div>
                         </a>
                     </li>
                 }
                 <li>
-                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
+                    <a href="javascript:;" title="Productos Agregados" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');">
                         <img src="@ViewBag.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>
@@ -338,8 +326,7 @@
 
 @section scripts{
     <script type="text/javascript">
-        //var correoElectronico = '@Model.eMail';
-        var correoElectronico = 'paul.cabrera@hundred.com.pe';
+        var correoElectronico = '@Model.eMail';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>

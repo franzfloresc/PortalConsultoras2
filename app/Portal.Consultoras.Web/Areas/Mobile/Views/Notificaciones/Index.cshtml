@@ -10,6 +10,16 @@
         body {
             background: #FFF !important;
         }
+
+        .no_leido {
+            content: "";
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            left: -15px;
+            border-left: 7px solid #000;
+            margin-bottom: 10px;
+        }
     </style>
 }
 <div class="titulo_mobile">
@@ -18,59 +28,58 @@
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-    @if (Model.ListaNotificaciones.Count == 0)
-    {
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert-top-icon text-success">
-                    <i class="icon-exclamation-circle"></i>
-                    <div>No existe notificaciones para mostrar.</div>
-                </div>
+@if (Model.ListaNotificaciones.Count == 0)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert-top-icon text-success">
+                <i class="icon-exclamation-circle"></i>
+                <div>No existe notificaciones para mostrar.</div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="col-xs-12">
-            <ul class="list-notificaciones">
-                @foreach (var item in Model.ListaNotificaciones)
-                {
-                    var estilo = item.Visualizado ? "" : "no-read";
+    </div>
+}
+else
+{
+    <div class="col-xs-12" style="background:#fff !important;">
+        <ul class="list-notificaciones">
+            @foreach (var item in Model.ListaNotificaciones)
+            {
+                var estilo = item.Visualizado ? "" : "no_leido";
 
-                    <li class="@estilo">
-                       
-                        <div class="text-noti">
-                            <div class="upper">
-                                <strong>
-                                    @if (item.FlagProcedencia == true)
-                                    {
-                                        <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
-                                    }
-                                    else
-                                    {
-                                        <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">@item.Asunto</span>
-                                    }
-                                </strong>
-                                
-                                <b>
-                                    CAMPAÑA
-                                    @if (item.CampaniaId > 0)
-                                    {
-                                        @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
-                                    }
-                                </b>
-                            </div>
-                            <span class="fecha_notificaciones">
-                                @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
-                            </span>
+                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso')">
+
+                    <div class="text-noti">
+                        <div class="upper">
+                            <strong>
+                                @if (item.FlagProcedencia == true)
+                                {
+                                    <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación">@item.Asunto</span>
+                                }
+                                else
+                                {
+                                    <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación">@item.Asunto</span>
+                                }
+                            </strong>
+
+                            <b>
+                                CAMPAÑA
+                                @if (item.CampaniaId > 0)
+                                {
+                                    @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
+                                }
+                            </b>
                         </div>
-                        
-                    </li>
-                }
-            </ul>
-            <br />
-        </div>
-    }
+                        <span class="fecha_notificaciones">
+                            @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
+                        </span>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    </div>
+}
 
 
 @section scripts{
@@ -78,6 +87,7 @@
     <script type="text/javascript">
 
         function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
+
             ShowLoading();
 
             var TipoOrigen = 1;

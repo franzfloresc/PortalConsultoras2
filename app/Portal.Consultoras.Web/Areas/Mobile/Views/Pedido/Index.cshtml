@@ -35,7 +35,6 @@
 
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
-
             <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
             <div id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
@@ -80,7 +79,7 @@
                     </div>
                     <div class="contenedor_seleccionCliente">
                         @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                        <a href="#" class="btn_agregarCliente" id="linkAgregarCliente">
+                        <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
                         </a>
                     </div>
@@ -113,7 +112,37 @@
                                 <!--FIN-->
                             </div>
                         MONTO TOTAL :</span>
-                        <span class="mi_ganancia" style=" margin-left: 30px;">MI GANANCIA :</span>
+                        @{                                                              
+                            string cabezaEscala=null, pieEscala=null;
+                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Bolivia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
+                            {
+                                cabezaEscala = "Comisión y ahorro total";
+                                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocios y Otros.";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica || Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "";
+                            }                                                                                                      
+                        }
+                        <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
                     </div>
                     <div class="montos_resumen">
                         <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
@@ -139,7 +168,7 @@
         </div>
         <div class="contenedor_carrusel_home">
             <!--CONTENEDOR ITEM CARRUSEL-->
-            <div id="divContenidoEstrategias">
+            <div id="divContenidoEstrategias" class="content_carrusel_agregado">
                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
             </div>
         </div>
@@ -201,6 +230,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
     <div class="wrapper_resumen_mobile">
@@ -221,11 +251,58 @@
 </div>
 <!--FIN-->
 
-<!--+CRITERIOS DE ACEPTACIÓN+-->
-<!--FIN-->
+<!-- POPUP AGREGAR CLIENTE -->
+<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarMantenerCliente();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+        <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" />
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
+        <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
+        <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b><br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+        <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
+    </div>
+</div>
+<!-- FIN POPUP AGREGAR CLIENTE -->
+
+<!-- POPUP CLIENTE AGREGADO -->
+<div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
+        <div class="mensaje_alerta">Se actualizó con exito tu cliente.</div>
+        <a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+<!-- FIN POPUP CLIENTE AGREGADO -->
+
 <script id="html-estrategia" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
-    <div class="content_item_home" data-item="item">
+    <div class="content_item_home" data-item="item" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="valorCuv" value="{{detalle.CUV2}}" />
         <input type="hidden" class="valorPosicion" value="{{detalle.ID}}" />
         <input type="hidden" class="valorPosicionCarrusel" value="{{detalle.PosicionCarrusel}}" />
@@ -235,21 +312,21 @@
             <img src="{{detalle.FotoProducto01}}" alt="{{detalle.DescripcionCUV2}}">
         </div>
         {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                {{#if_eq FlagEstrella '1' }}
-                <div class="etiqueta_producto">
-                    <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                </div>
-                {{/if_eq}}
-            {{/if_eq}}
+        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+        {{#if_eq FlagEstrella '1' }}
+        <div class="etiqueta_producto">
+            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+        </div>
+        {{/if_eq}}
+        {{/if_eq}}
         {{/if_eq}}
         <div class="producto_nombre_descripcion">
             <h6>LBel</h6>
@@ -267,14 +344,31 @@
             </div>
 
             <div class="liquidacion_rango_home">
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;">
+                {{else}}
                 <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                 <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
                 <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                {{/if_eq}}
+                {{else}}
+                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                {{/if_eq}}
             </div>
             <div class="clear"></div>
             <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
                 AGRÉGALO
             </a>
+            <div class="clear"></div>
+            <div style="padding-top:9px; height: 15px;">
+                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>
     </div>
     {{/each}}
@@ -325,7 +419,8 @@
 
 @section scripts
 {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
     <script type="text/javascript">
 
         //Mensajes CUV

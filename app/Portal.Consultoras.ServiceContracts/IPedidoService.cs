@@ -279,6 +279,9 @@ namespace Portal.Consultoras.ServiceContracts
         bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
 
         [OperationContract]
+        bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
+
+        [OperationContract]
         IList<BECrossSellingAsociacion> GetDescripcionProductoByCUV(int PaisID, int CampaniaID, string CUV);
 
         [OperationContract]

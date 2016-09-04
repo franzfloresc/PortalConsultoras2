@@ -10,7 +10,7 @@
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 
-<div id="ResumenPedidoReservado"> 
+<div id="ResumenPedidoReservado">
     <div class="wrapper_resumen_mobile">
         <!--RESUMEN PEDIDO RESERVADO-->
         @if (Model.MostrarEscalaDescuento)
@@ -66,7 +66,7 @@
                 </div>   
                 <div class="right_reservado">
                     <div class="texto_reservado">
-                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>                            
+                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
                     </div>
                         <div class="importe_reservado">
                             @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
@@ -93,28 +93,28 @@
                     }
                 </div>
             }
-               
+
             <div class="left_reservado">
-                <div class="importe_final">                        
+                <div class="importe_final">
                     <div class="info_validado">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
                         <!--TOOLTIP-->
                         <div class="tooltip_validado_importe">
-                <div class="left_reservado">
+                            <div class="left_reservado">
                                 <div class="datos_Reservado">
                                     <span>Total sin Dscto. </span>
                                     <span>Dscto por niveles</span>
-                    </div>
-                </div>
-                <div class="right_reservado">
+                                </div>
+                            </div>
+                            <div class="right_reservado">
                                 <div class="datos_Reservado">
                                     <span>@Model.Simbolo @Model.DescripcionSubTotal</span>
                                     <span>@Model.Simbolo @Model.DescripcionDescuento</span>
                                 </div>
-                    </div>
-                </div>
+                            </div>
+                        </div>
                         <!--FIN-->
-            </div>
+                    </div>
                     <b>MONTO TOTAL</b>
                 </div>
                 <div class="ganancia_Pedidovalidado" style="margin-top:7px">GANANCIA</div>
@@ -129,21 +129,21 @@
 
         </div>
 
-            <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
-            <!--TOOLTIP-->
-            <div class="tooltip_validado">
-                <div class="icono_tooltip_validado"></div>
+        <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
+        <!--TOOLTIP-->
+        <div class="tooltip_validado">
+            <div class="icono_tooltip_validado"></div>
             <div class="info_tooltip">Puedes editar tu pedido hasta las <b>@Model.HoraCierre horas</b>, luego se enviará a Belcorp</div>
-            </div>
         </div>
-    <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">EDITAR MI PEDIDO</a> 
     </div>
-    
+    <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">EDITAR MI PEDIDO</a>
+</div>
+
 <div class="modal fade" id="divConfirmModificarPedido">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
             <div class="modal-body">
-                <h3 id="modal-prol-titulo" class="text-primary text-lg">IMPORTANTE</h3>
+                <h3 id="modal-prol-titulo" class="text-lg">IMPORTANTE</h3>
                 <div id="modal-prol-contenido">Al hacer clic en "Continuar" se perderá la reserva de tus productos. Recuerda que si lo modificas debes volver a validar.</div>
                 <br />
                 <div id="modal-prol-botonesAceptarCancelar">

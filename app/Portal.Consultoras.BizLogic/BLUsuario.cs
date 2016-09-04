@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.PublicService.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1049,5 +1050,13 @@ namespace Portal.Consultoras.BizLogic
         }  
 
         /*R2520 - JICM - LIDERES - FIN*/
+
+        public void GuardarContrasenia(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var contraseniaEncriptada = AESAlgorithm.Encrypt(contrasenia);
+
+            var DAUsuario = new DAUsuario(paisID);
+            DAUsuario.GuardarContrasenia(codigoUsuario, contraseniaEncriptada);
+        }
     }
 }

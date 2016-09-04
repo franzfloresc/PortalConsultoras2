@@ -21,19 +21,19 @@ namespace Portal.Consultoras.Web.Controllers
             string key = ConfigurationManager.AppSettings["secret_key"];
             string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
             string token;
-            string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
-            string eMailNoExiste = UserData().CodigoConsultora + "@notengocorreo.com";
-            string eMail = UserData().EMail.ToString().Trim() == string.Empty ? eMailNoExiste : UserData().EMail.ToString();
+            string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+            string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
+            string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
             bool exito = false;
             //Superate
-            string CampaniaVenta = GetCampaniaLider(UserData().PaisID, UserData().ConsultoraID, UserData().CodigoISO);
+            string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
             string NivelProyectado = "";
             string SeccionGestionLider = "";
             DataSet parametros = null;
 
             using (ContenidoServiceClient csv = new ContenidoServiceClient())
             {
-                parametros = csv.ObtenerParametrosSuperateLider(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID);
+                parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
             }
 
             if (parametros != null && parametros.Tables.Count > 0)
@@ -47,12 +47,12 @@ namespace Portal.Consultoras.Web.Controllers
             result getUser = new result();
             result createUser = new result();
 
-            getUser = svcLMS.ws_serverget_user(IsoUsuario, UserData().CampaniaID.ToString(), key);
+            getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
             token = getUser.token;
 
             if (getUser.codigo == "002")
             {
-                createUser = svcLMS.ws_servercreate_user(IsoUsuario, UserData().NombreConsultora, eMail, UserData().CampaniaID.ToString(), UserData().CodigorRegion, UserData().CodigoZona, UserData().SegmentoConstancia.ToString(), UserData().SeccionAnalytics.ToString(), UserData().Lider.ToString(), UserData().NivelLider.ToString(), UserData().CampaniaInicioLider.ToString(), UserData().SeccionGestionLider.ToString(), NivelProyectado, key);
+                createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
                 token = createUser.token;
             }
 
@@ -77,19 +77,19 @@ namespace Portal.Consultoras.Web.Controllers
             //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
             string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
             string token;
-            string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
-            string eMailNoExiste = UserData().CodigoConsultora + "@notengocorreo.com";
-            string eMail = UserData().EMail.ToString().Trim() == string.Empty ? eMailNoExiste : UserData().EMail.ToString();
+            string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+            string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
+            string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
             bool exito = false;
             //Superate
-            string CampaniaVenta = GetCampaniaLider(UserData().PaisID, UserData().ConsultoraID, UserData().CodigoISO);
+            string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
             string NivelProyectado = "";
             string SeccionGestionLider = "";
             DataSet parametros = null;
 
             using (ContenidoServiceClient csv = new ContenidoServiceClient())
             {
-                parametros = csv.ObtenerParametrosSuperateLider(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID);
+                parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
             }
 
             if (parametros != null && parametros.Tables.Count > 0)
@@ -103,12 +103,12 @@ namespace Portal.Consultoras.Web.Controllers
             result getUser = new result();
             result createUser = new result();
 
-            getUser = svcLMS.ws_serverget_user(IsoUsuario, UserData().CampaniaID.ToString(), key);
+            getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
             token = getUser.token;
 
             if (getUser.codigo == "002")
             {
-                createUser = svcLMS.ws_servercreate_user(IsoUsuario, UserData().NombreConsultora, eMail, UserData().CampaniaID.ToString(), UserData().CodigorRegion, UserData().CodigoZona, UserData().SegmentoConstancia.ToString(), UserData().SeccionAnalytics.ToString(), UserData().Lider.ToString(), UserData().NivelLider.ToString(), UserData().CampaniaInicioLider.ToString(), UserData().SeccionGestionLider.ToString(), NivelProyectado, key);
+                createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
                 token = createUser.token;
             }
 
@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
                 string token = ConfigurationManager.AppSettings["TokenMisCursos"];
                 string urlCurso = ConfigurationManager.AppSettings["UrlCursoMiAcademia"];
-                string IsoUsuario = UserData().CodigoISO + '-' + UserData().CodigoConsultora;
+                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 int max = 4;
                 if (ViewBag.CodigoISODL == "VE") max = 3;
                 urlMC = String.Format(urlMC, IsoUsuario);

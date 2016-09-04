@@ -35,7 +35,7 @@ jQuery(document).ready(function () {
         }
     };
     $.fn.Checked = function (val) {
-        val = val || $(this).is(":checked");        
+        val = val || $(this).is(":checked");
         if (val) {
             $(this).removeAttr('checked');
         }
@@ -101,12 +101,16 @@ jQuery(document).ready(function () {
         else
             return String(str).substring(0, n);
     };
-    
+
     Array.prototype.Find = function (campo, valor) {
-        var array = new Array();        
+        var array = new Array();
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {                
-                array.push(item);
+            if (item[campo] == valor) {
+                try {
+                    array.push(Clone(item));
+                } catch (e) {
+                    array.push(item);
+                }
             }
         });
         return array;
@@ -186,7 +190,7 @@ jQuery(document).ready(function () {
                 }
                 return new Handlebars.SafeString("");
             });
-            
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -194,24 +198,24 @@ jQuery(document).ready(function () {
     }
 
     SetHandlebars = function (idTemplate, data, idHtml) {
-        if (!Handlebars.helpers.iff) 
+        if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
         idHtml = $.trim(idHtml);
-        if (idHtml == "")  return htmlDiv;
+        if (idHtml == "") return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
-    
+
     SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
         if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
             var listaDatos = miles.split("|");
             if (listaDatos.length < 2)
                 return new Object();
-            
+
             miles = listaDatos.length > 0 ? listaDatos[0] : "";
             decimal = listaDatos.length > 1 ? listaDatos[1] : "";
             decimalCantidad = listaDatos.length > 2 ? listaDatos[2] : "";
@@ -232,7 +236,7 @@ jQuery(document).ready(function () {
 
         monto = monto || 0;
         var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
-        
+
         decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
@@ -313,8 +317,8 @@ function waitingDialog(waiting) {
     try {
         $("#loadingScreen").dialog("open");
     }
-    catch(err) {
-    
+    catch (err) {
+
     }
 }
 function closeWaitingDialog() {
@@ -324,7 +328,7 @@ function closeWaitingDialog() {
     catch (err) {
 
     }
-    
+
 }
 
 function compare_dates(fecha, fecha2) {
@@ -374,22 +378,19 @@ function isInt(n) {
     var isn = patron.test(n);
     return isn;
     //return +n === n && !(n % 1);
-}   
+}
 
 // valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     //debugger;
     var thereIsStillTime = true;
 
-    if (data)
-    {
-        if (data.responseText)
-        {
+    if (data) {
+        if (data.responseText) {
             if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
-        else
-        {
+        else {
             if (data == "_Logon_")
                 thereIsStillTime = false;
         }
@@ -400,8 +401,7 @@ function checkTimeout(data) {
             window.location.href = "/SesionExpirada.html";
         }
     }
-    else
-    {
+    else {
         //debugger;
         $.ajax({
             url: "/Dummy/",
@@ -464,7 +464,7 @@ function paginadorAccionGenerico(obj) {
         //    }
         //}
         paginaActual = 1;
-    }    
+    }
 
     paginaActual = paginaActual > pageCount ? pageCount : paginaActual;
 
@@ -491,6 +491,72 @@ function ActualizarGanancia(data) {
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
 
+    // actualizar el area de escala en los rangos de escala
+    var tieneAreaEscala = $("[data-divescala]");
+    if (tieneAreaEscala.length > 0) {
+        data.ListaEscalaDescuento = data.ListaEscalaDescuento || new Array();
+        var montoEscala = data.MontoEscala || 0;
+        var pos = -1;
+        var nro = 4;
+        var listaEscala = new Array();
+        var contTemp = 0;
+        $.each(data.ListaEscalaDescuento, function (ind, objEscala) {
+            if (data.MontoMinimo <= objEscala.MontoHasta)
+            {
+                //objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[ind - 1].MontoHasta;
+                objEscala.MontoDesde = listaEscala.length == 0 || ind < 1 ? data.MontoMinimo : listaEscala[contTemp - 1].MontoHasta;
+                objEscala.MontoDesdeStr = DecimalToStringFormat(objEscala.MontoDesde);
+                objEscala.MontoHastaStr = DecimalToStringFormat(objEscala.MontoHasta);
+
+                if (objEscala.MontoDesde <= montoEscala && montoEscala < objEscala.MontoHasta) {
+                    objEscala.Seleccionado = true;
+                    pos = ind;
+                }
+                listaEscala.push(objEscala);
+                contTemp++;
+            }
+        });
+
+        if (listaEscala.length > 0)
+        {
+            var listaAdd = new Array();
+            var posMin, posMax, tamX = listaEscala.length - 1;
+            posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+            posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+            posMin = pos < 0 ? 0 : posMin;
+            posMax = pos < 0 ? listaEscala.length - 1 > nro - 1 ? nro - 1 : listaEscala.length - 1 : posMax;
+            while (posMin <= posMax) {
+                listaAdd.push(listaEscala[posMin]);
+                posMin++;
+            }
+
+            var htmlIconSelect = '<div class="indicador_escala"></div>';
+            var htmlMontosEscala = '<div class="precio_ganancia">{}</div>';
+            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".indicador_escala").remove();
+            tieneAreaEscala.find(".escala_ganancia.escala_select").find(".precio_ganancia").remove();
+            tieneAreaEscala.find(".escala_ganancia").removeClass("escala_select");
+
+            $.each(tieneAreaEscala.find(".escala_ganancia"), function (ind, objHtmlEscala) {               
+                if (listaAdd.length > ind) {
+                    $(objHtmlEscala).find(".home_porcentaje").html(listaAdd[ind].PorDescuento);
+                    if (listaAdd[ind].Seleccionado == true) {
+                        $(objHtmlEscala).addClass("escala_select");
+                        $(objHtmlEscala).prepend(htmlIconSelect);
+                        if (ind == listaAdd.length - 1) {
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a más."));
+                        }
+                        else {
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a " + vbSimbolo + " " + listaAdd[ind].MontoHastaStr));
+                        }
+                        
+                    }
+                }                
+            });
+        }
+
+        
+    }
+
     setTimeout(function () {
         $('.num-menu-shop').addClass('microefecto_color');
         $('[data-cantidadproducto]').parent().addClass('microefecto_color');
@@ -508,7 +574,17 @@ function ActualizarGanancia(data) {
 }
 
 FuncionesGenerales = {
-    ValidarSoloNumeros: function(e) {
+    containsObject: function (obj, array) {
+        var i;
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === obj) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+    ValidarSoloNumeros: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9]/;
@@ -516,20 +592,20 @@ FuncionesGenerales = {
         return patron.test(te);
     },
 
-    ValidarSoloNumerosAndSpecialCharater: function(e) {
+    ValidarSoloNumerosAndSpecialCharater: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
-    GetDataForm: function(form) {
+    GetDataForm: function (form) {
         var that = $(form);
         var url = that.attr('action');
         var type = that.attr('method');
         var data = {};
 
-        that.find('[name]').each(function(index, value) {
+        that.find('[name]').each(function (index, value) {
             var that = $(this);
             var name = that.attr('name');
             var value = that.val();
