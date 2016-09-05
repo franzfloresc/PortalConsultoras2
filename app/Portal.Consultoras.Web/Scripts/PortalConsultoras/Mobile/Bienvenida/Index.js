@@ -133,9 +133,8 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        });
-        $("#divCarouseHorizontalMobile").on('swipe', function (event, slick, direction) {
-            console.log(direction);
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            console.log('lol');
         });
         TagManagerCarruselInicio(data);
     }

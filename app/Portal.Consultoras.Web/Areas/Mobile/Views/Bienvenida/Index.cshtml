@@ -447,16 +447,16 @@
                 <div class="liquidacion_rango_home">
                     {{#if_eq FlagMostrarImg '1'}}
                     {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important">
                     {{else}}
-                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
                     {{/if_eq}}
                     {{else}}
-                    <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                    <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
                     {{/if_eq}}
                 </div>
                 <div class="clear"></div>
