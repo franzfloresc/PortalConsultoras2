@@ -25,6 +25,11 @@ $(document).ready(function () {
         }, 50);
     });
 
+    $("#cerrarVideoIntroductorio").click(function () {
+        stop();
+        $('#VideoIntroductorio').hide();
+    });
+
     CargarCarouselEstrategias("");
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
@@ -43,6 +48,7 @@ $(document).ready(function () {
             }
         });
     });
+
 });
 
 function mostrarTutorialMobile() {
@@ -52,6 +58,17 @@ function mostrarTutorialMobile() {
             $(window).resize();
         }, 300);
     }
+};
+
+function stop() {
+    document.getElementById("divPlayer").contentWindow
+      .postMessage('{' +
+         '"event":"command",' +
+         '"func":"pauseVideo"' +
+         ',"args":""}', '*');
+    var urlVideo = $("#divPlayer").attr("src");
+    $("#divPlayer").attr("src", "");
+    $("#divPlayer").attr("src", urlVideo);
 };
 
 function UpdateUsuarioTutorialMobile() {

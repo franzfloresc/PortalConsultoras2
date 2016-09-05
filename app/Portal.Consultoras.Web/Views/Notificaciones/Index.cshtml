@@ -13,7 +13,7 @@
         border: 1px solid #D0D0D0;
         position: relative;
         width: 60%;
-        top: -674px;
+        top: -845px;
         margin: 0 auto;
         max-height: none;
     }
@@ -37,7 +37,7 @@
         <!--CONTENIDO DE TITULO -->
         <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor:default!important;">
             <img src="/Content/Images/Esika/notificaciones.png" alt="" style="float:left">
-            <p class="notificaciones notificaciones_existentes notificaciones_activas">@sinLeer</p>
+            <p class="notificaciones notificaciones_existentes notificaciones_activas js-notificaciones">@sinLeer</p>
         </a>
         @if (sinLeer > 0)
         {
@@ -168,14 +168,14 @@
         <div class="texto_monto_pago">Total Monto a pagar: </div>
     </div>
 </div>
-<div id="divNotificacionCatalogo" class="wrap" style="display:none;max-height: 1100px;">
+<div id="divNotificacionCatalogo" class="wrap" style="display:none;max-height: 1300px;">
     <div class="Content_modal_home">
         <a onclick="$('#divNotificacionCatalogo').hide();">CERRAR X</a>
         <div id="divDetalleNotificacionCatalogo">
         </div>
     </div>
 </div>
-<div id="divObservaciones" class="wrap" style="display:none;max-height: 1100px;">
+<div id="divObservaciones" class="wrap" style="display:none;max-height: 1300px;">
     <div class="Content_modal_home">
         <a onclick="$('#divObservaciones').hide();">CERRAR X</a>
         <div id="divListadoObservaciones">
