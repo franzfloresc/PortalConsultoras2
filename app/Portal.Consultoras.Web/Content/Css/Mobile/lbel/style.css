@@ -4574,9 +4574,12 @@ body{
     font-size:13px;
     color:#1a1a1a;
     /*padding-left: 5px;*/
-    margin-left:-10px;
     margin-bottom:25px;
     position:relative;
+}
+
+.montosIngresoPedido{
+    margin-left:-10px;
 }
 
 .textos_resumen, .montos_resumen{
