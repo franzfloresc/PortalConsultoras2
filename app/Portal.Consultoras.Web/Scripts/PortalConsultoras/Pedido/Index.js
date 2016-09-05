@@ -2545,8 +2545,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             $('#btnValidarPROL').val(response.data.Prol);
-            $('#divSample1')[0].children[0].innerHTML = tooltips[0];
-            $('#divSample1')[0].children[1].innerHTML = tooltips[1];
+            var tooltips = response.data.ProlTooltip.split('|');
+            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
             MostrarMensajeProl(response.data);                        
