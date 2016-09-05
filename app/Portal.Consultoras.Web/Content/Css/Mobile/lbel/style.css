@@ -4574,12 +4574,14 @@ body{
     font-size:13px;
     color:#1a1a1a;
     /*padding-left: 5px;*/
+    margin-left:-10px;
     margin-bottom:25px;
     position:relative;
 }
 
 .textos_resumen, .montos_resumen{
     display:inline-block;
+    vertical-align:top;
 }
 
 .textos_resumen{
@@ -4594,6 +4596,14 @@ body{
 .mi_ganancia {
     color:#642f80;
     font-weight:700;
+}
+
+@media screen and (min-width:0px) and (max-width:407px){
+
+    .mi_ganancia{
+        max-width: 126px;
+    }
+
 }
 
 .textos_resumen span, .montos_resumen span{
