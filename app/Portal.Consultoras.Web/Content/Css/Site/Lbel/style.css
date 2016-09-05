@@ -27364,6 +27364,21 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         width: 18%;
     }
 }
+
+/* PÁGINA ESCALA DE DESCUENTOS */
+
+.container_escalaDescuento{
+    width:100%;
+    max-width:1189px;
+    margin-top: -125px;
+    margin-bottom: 47px;
+}
+
+.container_escalaDescuento div{
+    display:block;
+    text-align:center;
+}
+
 /*TOOLTIP FOTO*/
 .subir_foto:hover .tooltip_foto{
     display:block;
