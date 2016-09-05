@@ -120,7 +120,7 @@
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
        class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
-    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').show();" title="Mira el Video de Bienvenida" target="_blank">MIRA EL VIDEO DE BIENVENIDA</a>
+    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').show();" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -393,14 +393,14 @@
 <!--POP UP VIDEO INTRODUCTORIO-->
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
-        <a class="cerrar_video" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').hide();"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
+        <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
         @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(Model.CodigoISO))
         {
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
+            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/jNoP8OoMmW4" frameborder="0" allowfullscreen></iframe>
         }
         else
         {
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/MkYSBgNZGcs" frameborder="0" allowfullscreen></iframe>
+            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/djSn0tFcQ0w" frameborder="0" allowfullscreen></iframe>
         }
     </div>
 </div>
