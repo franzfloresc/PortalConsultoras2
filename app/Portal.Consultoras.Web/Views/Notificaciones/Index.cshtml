@@ -13,7 +13,6 @@
         border: 1px solid #D0D0D0;
         position: relative;
         width: 60%;
-        top: -845px;
         margin: 0 auto;
         max-height: none;
     }
@@ -188,4 +187,11 @@
         var urlMisPedidos = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Notificaciones/Index.js")"></script>
+    <script type="text/javascript">
+        if (isEsika) {
+            $('.Content_modal_home').css("top", "-710px");
+        } else {
+            $('.Content_modal_home').css("top", "-845px");
+        }
+    </script>
 }
