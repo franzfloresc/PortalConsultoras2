@@ -1,4 +1,4 @@
-﻿var cantidadRegistros = 8;
+﻿var cantidadRegistros = 10;
 var offset = 0;
 var puedeCargar = true;
 $(document).ready(function () {
