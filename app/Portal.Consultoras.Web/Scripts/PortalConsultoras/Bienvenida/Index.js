@@ -5,7 +5,7 @@ var arrayLiquidaciones = [];
 
 $(document).ready(function () {
 
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
