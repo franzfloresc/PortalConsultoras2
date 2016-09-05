@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
 
+                model.CatalogoPersonalizadoDesktop = userData.CatalogoPersonalizado;
+
                 model.NombreCompleto = userData.NombreConsultora;
                 model.EMail = userData.EMail;
                 model.Telefono = userData.Telefono;

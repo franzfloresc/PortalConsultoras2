@@ -79,6 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
                     }
                 }
+                SessionKeys.ClearSessionCantidadNotificaciones();
                 var data = new
                 {
                     success = true,
