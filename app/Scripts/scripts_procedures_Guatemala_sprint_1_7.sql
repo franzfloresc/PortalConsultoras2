@@ -599,7 +599,7 @@ VALUES
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
 (1009, 'Seguimiento a tu pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
 (1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
-(1011, 'Pedidos FIC', 1001, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
+(1011, 'Pedido FIC', 1001, 2, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
 (1012, 'Pedidos ingresados', 1001, 3, 'Mobile/PedidoCliente', '', 0, 'Menu', 'Mobile',1),
 (1013, 'Pedidos facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile',1),
 (1014, 'Mis clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile',1),
