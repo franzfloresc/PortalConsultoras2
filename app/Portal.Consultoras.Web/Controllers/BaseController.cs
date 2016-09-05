@@ -285,6 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+                    if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+
                     List<PermisoModel> lstModel = new List<PermisoModel>();
                     foreach (var permiso in lst)
                     {
@@ -310,14 +312,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     // Separar los datos obtenidos y para generar el menú
                     List<PermisoModel> menu = SepararItemsMenu(lstModel);
-
                     return menu;
                 }
-                else
-                    return new List<PermisoModel>();
+                else return new List<PermisoModel>();
             }
-            else
-                return new List<PermisoModel>();
+            else return new List<PermisoModel>();
         }
 
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
