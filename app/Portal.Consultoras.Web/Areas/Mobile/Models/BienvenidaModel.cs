@@ -37,5 +37,6 @@
         public string UrlImagenLiquidaciones { get; set; }
         public string UrlImagenCatalogoPersonalizado { get; set; }
         public string UrlImagenAppCatalogo { get; set; }
+        public int CatalogoPersonalizadoMobile { get; set; }
     }
 }

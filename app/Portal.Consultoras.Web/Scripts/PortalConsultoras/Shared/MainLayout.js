@@ -244,7 +244,7 @@ function CargarCantidadNotificacionesSinLeer() {
                 } else {
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
-                    $(document).find("#mensajeNotificaciones").html("No tienes mensajes. ");
+                    $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 };
 
                 data.mensaje = data.mensaje || "";

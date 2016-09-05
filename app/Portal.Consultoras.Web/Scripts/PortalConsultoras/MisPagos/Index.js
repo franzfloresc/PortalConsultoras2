@@ -101,7 +101,7 @@ function fnGrilla() {
         async: true,
         cache: false,
         success: function (data) {
-            if (data.length > 0) {
+            if (data.Rows.length > 0) {
                 RenderGrilla(data);
             }
             else {

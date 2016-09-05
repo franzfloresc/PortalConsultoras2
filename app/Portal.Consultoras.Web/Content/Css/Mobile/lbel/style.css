@@ -4578,8 +4578,13 @@ body{
     position:relative;
 }
 
+.montosIngresoPedido{
+    margin-left:-10px;
+}
+
 .textos_resumen, .montos_resumen{
     display:inline-block;
+    vertical-align:top;
 }
 
 .textos_resumen{
@@ -4594,6 +4599,14 @@ body{
 .mi_ganancia {
     color:#642f80;
     font-weight:700;
+}
+
+@media screen and (min-width:0px) and (max-width:407px){
+
+    .mi_ganancia{
+        max-width: 126px;
+    }
+
 }
 
 .textos_resumen span, .montos_resumen span{

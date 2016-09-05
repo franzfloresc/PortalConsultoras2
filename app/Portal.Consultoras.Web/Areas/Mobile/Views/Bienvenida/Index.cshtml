@@ -215,13 +215,12 @@
 
             @if (Model.IsConsultoraOnline != -1)
             {
-                string ulrAppCatalogo = "", urlWhatsApp = "";
+                string urlWhatsApp = "";
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + request.ApplicationPath.TrimEnd('/');
-                    ulrAppCatalogo = Url.Action("DescargarAppCatalogos", "MisCatalogosRevistas", new { area = "" });
-                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase + ulrAppCatalogo;
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/AppDeCatalogos.html";                   
+                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
@@ -322,7 +321,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
+@if (Model.CatalogoPersonalizadoMobile != 0)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">
@@ -441,9 +440,25 @@
                     {{DescripcionCUV2}}
                 </p>
                 {{/if_eq}}
+
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                {{#if_eq EtiquetaID '1'}}
+                <div class="producto_precio">
+                    <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{else}}
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
+                {{/if_eq}}
+
+                {{else}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{/iff}}
+
                 <div class="liquidacion_rango_home">
                     {{#if_eq FlagMostrarImg '1'}}
                     {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}

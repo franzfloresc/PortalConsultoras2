@@ -47,7 +47,11 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <a class="subir_foto"></a>
+        <a class="subir_foto">
+            <div class="tooltip_foto">
+                Lorem Ipsum is simply dummy text...
+            </div>
+        </a>
         <div class="foto_perfil_home">
             <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
         </div>
@@ -293,16 +297,22 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--CATALOGO PERSONALIZADO-->
-<div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
-    <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-    <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
-    <div id="divCatalogoPersonalizado"></div>
-</div>
+@if (Model.CatalogoPersonalizadoDesktop != 0)
+{
+    <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
+        <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
+        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+        <div id="divCatalogoPersonalizado"></div>
+    </div>
+}
+
 <!--FIN CATALOGO PERSONALIZADO-->
 
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
+@if (Model.CatalogoPersonalizadoDesktop != 0) 
+{ 
     <div class="linea_separadora"></div>
-
+}
     <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">

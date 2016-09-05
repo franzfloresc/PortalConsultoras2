@@ -184,7 +184,7 @@
         <div class="contenedor_banners">
             <ul>
                 <li>
-                    <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Productos Descontinuados">
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
                         <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
                         <div>PRODUCTOS DESCONTINUADOS</div>
                     </a>
@@ -209,7 +209,7 @@
                     </li>
                 }
                 <li>
-                    <a href="javascript:;" title="Productos Agregados" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');">
+                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
                         <img src="@ViewBag.UrlBanner03" alt="Productos Agotados" />
                         <div>PRODUCTOS AGOTADOS</div>
                     </a>

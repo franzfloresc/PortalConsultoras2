@@ -14,7 +14,7 @@ var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     AnalyticsBannersInferioresImpression();
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
