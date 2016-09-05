@@ -215,12 +215,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
                     
-                    UpdPedidoWebMontosPROL();
-
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
                 }
 
+                UpdPedidoWebMontosPROL();
 
                 return Json(new
                 {
