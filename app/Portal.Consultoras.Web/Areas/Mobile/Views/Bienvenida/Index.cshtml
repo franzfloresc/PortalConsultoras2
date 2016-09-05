@@ -322,7 +322,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesCatalogoPerzonalizado").Contains(Model.CodigoISO))
+@if (Model.CatalogoPersonalizadoMobile != 0)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">
