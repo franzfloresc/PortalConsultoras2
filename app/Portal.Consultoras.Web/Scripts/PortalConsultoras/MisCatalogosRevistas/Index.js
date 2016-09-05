@@ -153,8 +153,7 @@ function ObtenerURLExpofertas() {
                             window.open(urlExpoferta, '_blank');
                         });
                         $("#catalogoExpoferta").css("cursor", "pointer");
-                    }
-                    
+                    }                   
                 }
                 else {
                     MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
