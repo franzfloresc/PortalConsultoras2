@@ -43,6 +43,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             if (checkTimeout(data)) {
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
+                CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
         });
@@ -84,6 +85,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;
                 }
+                CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
         });
@@ -95,6 +97,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').dialog('option', 'title', Asunto);
                 $('#divObservaciones').dialog('open');
+                CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
         });
