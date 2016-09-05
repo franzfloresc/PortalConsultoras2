@@ -20558,9 +20558,9 @@ label.checkpop.c_on {
     font-size:10px;
     color:#848484;
     letter-spacing:0.1px;
-    text-decoration: none !important;
+    text-decoration: none;
 }
-.btn_ver_mas{
+.btn_ver_mas:hover{
     text-decoration:underline;
 }
 
@@ -20736,6 +20736,10 @@ label.checkpop.c_on {
     margin:auto;
     left:0;
     right:0;
+}
+.btn_comparte:hover{
+    background:black;
+    color:white;
 }
 .seguir_pedido{
     display: inline-block;
