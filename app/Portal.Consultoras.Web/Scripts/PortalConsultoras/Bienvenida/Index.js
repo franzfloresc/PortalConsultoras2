@@ -204,7 +204,7 @@ $(document).ready(function () {
         player.stopVideo();
 
         if (primeraVezVideo) {
-            mostrarUbicacionTutorial();
+            //mostrarUbicacionTutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
