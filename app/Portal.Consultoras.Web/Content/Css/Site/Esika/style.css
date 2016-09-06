@@ -20493,6 +20493,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
@@ -23072,7 +23073,7 @@ body{
 .content_datos_pedidosFacturados .descripcion_prod,
 .content_datos_pedidosFacturados .cliente{
     display:inline-block;
-    width: 15%;
+    width: 30%;
     vertical-align:middle;
 }
 
@@ -26168,7 +26169,7 @@ div.subir_archivo input {
 }
 
 .mensaje_cierre_fechapromesa{
-    font-size: 11px;
+    font-size: 10.5px;
     font-family: 'lato';
     color: black;
     height: 51px;
@@ -27475,9 +27476,16 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 /*TOOLTIP FOTO*/
-.subir_foto:hover .tooltip_foto{
+
+.contenedor_img_perfil{
+    display:block;
+    float:left;
+}
+
+.contenedor_img_perfil:hover .tooltip_foto{
     display:block;
 }
+
 .tooltip_foto{
     width: 272px;
     height: 30px;
@@ -27500,7 +27508,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     
 }
 .tooltip_foto::before{
-        position: absolute;
+    position: absolute;
     top: 100%;
     left: 9%;
     border: solid transparent;
@@ -27509,7 +27517,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 0;
     border-color: rgba(5, 7, 8, 0);
     border-top-color: white;
-    border-width: 9px;
-    
+    border-width: 9px;    
     z-index: 10;
 }

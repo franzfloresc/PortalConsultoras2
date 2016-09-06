@@ -347,11 +347,11 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (sidx)
                 {
                     case "NumeroComprobanteSerie":
-                        items = lst.OrderBy(x => x.NumeroComprobanteSerie);
+                        items = lst.OrderBy(x => x.NumeroComprobanteSerie).ThenBy(x => x.ImportePercepcion);
                         break;
 
                     case "FechaEmision":
-                        items = lst.OrderBy(x => x.FechaEmision);
+                        items = lst.OrderBy(x => x.FechaEmision).ThenBy(x => x.ImportePercepcion);
                         break;
 
                     case "ImportePercepcion":
@@ -364,11 +364,11 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (sidx)
                 {
                     case "NumeroComprobanteSerie":
-                        items = lst.OrderByDescending(x => x.NumeroComprobanteSerie);
+                        items = lst.OrderByDescending(x => x.NumeroComprobanteSerie).ThenBy(x => x.ImportePercepcion);
                         break;
 
                     case "FechaEmision":
-                        items = lst.OrderByDescending(x => x.FechaEmision);
+                        items = lst.OrderByDescending(x => x.FechaEmision).ThenBy(x => x.ImportePercepcion);
                         break;
 
                     case "ImportePercepcion":

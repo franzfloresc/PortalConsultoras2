@@ -153,6 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (WebClient client = new WebClient())
                 {
+                    client.Proxy = null;
                     client.Headers.Add("Content-Type", "application/json");
                     client.Headers.Add("token", token);
                     string json = client.DownloadString(urlMC);
@@ -161,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
 
-                        var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+                        var lstCursos = model.Cursos.OrderBy(x => x.estado).Where(x => x.estado == "1").ToList().Take(max);
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 
