@@ -212,7 +212,7 @@ function CargarResumenCampaniaHeader(showPopup) {
                         microefectoPedidoGuardado();
                         setTimeout(function(){
                             $(".contenedor_circulos").fadeOut();
-                        }, 4500);
+                        }, 2700);
                     }
                 }
                 else {
@@ -238,10 +238,12 @@ function CargarCantidadNotificacionesSinLeer() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.cantidadNotificaciones > 0) {
+                    $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
+                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
