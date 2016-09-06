@@ -225,28 +225,24 @@ function ObservacionesProducto(item) {
         $("#divProductoInformacion").hide();
         return false;
     }
+    if (item.TieneSugerido != 0) {
+        ObtenerProductosSugeridos(item.CUV);
+        return false;
+    }
     if (item.TieneStock === true) {
-        if (item.TieneSugerido != 0) {
-            ObtenerProductosSugeridos(item.CUV);
-            return false;
-        } else {
-            if (item.EsExpoOferta == true) {
-                MostrarMensaje("mensajeEsExpoOferta");
-            }
-            if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                MostrarMensaje("mensajeCUVOfertaEspecial");
-            };
-
-            var tipoOferta = $("#hdTipoOfertaSisID").val();
-            if (tipoOferta == ofertaLiquidacion) {
-                MostrarMensaje("mensajeCUVLiquidacion");
-                return false;
-            }
+    	if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
+        if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+            MostrarMensaje("mensajeCUVOfertaEspecial");
         };
-    } else {
+
+        var tipoOferta = $("#hdTipoOfertaSisID").val();
+        if (tipoOferta == ofertaLiquidacion) {
+            MostrarMensaje("mensajeCUVLiquidacion");
+            return false;
+        }
+    }
+    else {
         MostrarMensaje("mensajeCUVAgotado");
-        if (item.TieneSugerido != 0)
-            ObtenerProductosSugeridos(item.CUV);
         return false;
     }
 
