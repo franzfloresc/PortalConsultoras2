@@ -341,9 +341,8 @@
             {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
             {{#if_eq EtiquetaID '1'}}
                 <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{detalle.Simbolo}} {{detalle.PrecioString}}</b></span>
-                <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
             {{else}}
             <div class="producto_precio">
