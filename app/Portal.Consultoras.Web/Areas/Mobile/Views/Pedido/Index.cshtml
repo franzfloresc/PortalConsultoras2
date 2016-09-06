@@ -166,11 +166,9 @@
                 EXCLUSIVO SÓLO POR WEB
             </div>
         </div>
-        <div class="contenedor_carrusel_home">
-            <!--CONTENEDOR ITEM CARRUSEL-->
-            <div id="divContenidoEstrategias" class="content_carrusel_agregado">
-                <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-            </div>
+        <!--CONTENEDOR ITEM CARRUSEL-->
+        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divContenidoEstrategias">
+            <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
         </div>
     </div>
     <!--FIN CARRUSEL-->
@@ -300,52 +298,52 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-<script id="html-estrategia" type="text/x-handlebars-template">
+<script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |detalle|}}
-    <div class="content_item_home" data-item="item" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="valorCuv" value="{{detalle.CUV2}}" />
         <input type="hidden" class="valorPosicion" value="{{detalle.ID}}" />
         <input type="hidden" class="valorPosicionCarrusel" value="{{detalle.PosicionCarrusel}}" />
         <input type="hidden" class="valorFlagNueva" value="{{detalle.FlagNueva}}" />
-
-        <div class="producto_img_mobile">
-            <img src="{{detalle.FotoProducto01}}" alt="{{detalle.DescripcionCUV2}}">
-        </div>
-        {{#if_eq FlagMostrarImg '1'}}
-        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-        <div class="etiqueta_producto">
-            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-        </div>
-        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-        <div class="etiqueta_producto">
-            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-        </div>
-        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-        {{#if_eq FlagEstrella '1' }}
-        <div class="etiqueta_producto">
-            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-        </div>
-        {{/if_eq}}
-        {{/if_eq}}
-        {{/if_eq}}
-        <div class="producto_nombre_descripcion">
-            <h6>LBel</h6>
-            {{#if_eq FlagNueva '1'}}
-            <p class="nombre_producto">
-                {{detalle.DescripcionCUVSplit}}
-            </p>
-            {{else}}
-            <p class="nombre_producto">
-                {{detalle.DescripcionCUV2}}
-            </p>
+        <div class="content_item_home" >
+            <div class="producto_img_mobile">
+                <img src="{{detalle.FotoProducto01}}" alt="{{detalle.DescripcionCUV2}}">
+            </div>
+            {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
             {{/if_eq}}
+            {{/if_eq}}
+            {{/if_eq}}
+            <div class="producto_nombre_descripcion">
+                <h6>LBel</h6>
+                {{#if_eq FlagNueva '1'}}
+                <p class="nombre_producto">
+                    {{detalle.DescripcionCUVSplit}}
+                </p>
+                {{else}}
+                <p class="nombre_producto">
+                    {{detalle.DescripcionCUV2}}
+                </p>
+                {{/if_eq}}
 
             {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
             {{#if_eq EtiquetaID '1'}}
-            <div class="producto_precio">
-                <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-            </div>
+                <div class="producto_precio">
+                    <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
             {{else}}
             <div class="producto_precio">
                 <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
@@ -358,33 +356,34 @@
             </div>
             {{/iff}}
 
-            <div class="liquidacion_rango_home">
-                {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;">
-                {{else}}
-                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                {{/if_eq}}
-                {{else}}
-                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
-                <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                {{/if_eq}}
-            </div>
-            <div class="clear"></div>
-            <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
-                AGRÉGALO
-            </a>
-            <div class="clear"></div>
-            <div style="padding-top:9px; height: 15px;">
-                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                    AGREGADO
-                    <div class="icono"></div>
+                <div class="liquidacion_rango_home">
+                    {{#if_eq FlagMostrarImg '1'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important">
+                    {{else}}
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    {{/if_eq}}
+                    {{else}}
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    {{/if_eq}}
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
     {{/each}}
 </script>
