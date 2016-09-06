@@ -61,11 +61,11 @@ function mostrarTutorialMobile() {
 };
 
 function stop() {
-    document.getElementById("divPlayer").contentWindow
-      .postMessage('{' +
-         '"event":"command",' +
-         '"func":"pauseVideo"' +
-         ',"args":""}', '*');
+    //document.getElementById("divPlayer").contentWindow
+    //  .postMessage('{' +
+    //     '"event":"command",' +
+    //     '"func":"pauseVideo"' +
+    //     ',"args":""}', '*');
     var urlVideo = $("#divPlayer").attr("src");
     $("#divPlayer").attr("src", "");
     $("#divPlayer").attr("src", urlVideo);

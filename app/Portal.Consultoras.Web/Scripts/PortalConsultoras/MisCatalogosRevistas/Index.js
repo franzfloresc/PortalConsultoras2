@@ -142,16 +142,21 @@ function ObtenerURLExpofertas() {
                                 urlExpoferta = banner.URL;
                             }
                         });
-                        $('#catalogoExpoferta').click(function () {
-                            dataLayer.push({
-                                'event': 'virtualEvent',
-                                'category': 'Catálogos y revistas',
-                                'action': 'Ver expoferta',
-                                'label': 'Expoferta',
-                                'value': 0
+                        if (urlExpoferta.length > 0) {
+                            $('#contenedorExpofertaMCR').show();
+                            $('#catalogoExpoferta').click(function () {
+                                dataLayer.push({
+                                    'event': 'virtualEvent',
+                                    'category': 'Catálogos y revistas',
+                                    'action': 'Ver expoferta',
+                                    'label': 'Expoferta',
+                                    'value': 0
+                                });
+                                window.open(urlExpoferta, '_blank');
                             });
-                            window.open(urlExpoferta, '_blank');
-                        });
+                        } else {
+                            $('#contenedorExpofertaMCR').hide();
+                        }                       
                         $("#catalogoExpoferta").css("cursor", "pointer");
                     }                   
                 }
