@@ -444,13 +444,11 @@
             <div class="totalPrecio_prod texto_gris_popup">Descuento</div>
             <div class="totalPrecio_prod texto_gris_popup">Importe a Pagar</div>
             {{/iff}}
+            {{#iff tipo '==' 'i'}}
             <div class="cliente texto_gris_popup">
-                {{#iff tipo '==' 'f'}}
-                Cliente
-                {{else}}
                 <select data-cliente="{{ClienteID}}" data-val="{{ClienteID}}" data-camp="{{CampaniaId}}"></select>
-                {{/iff}}
             </div>
+            {{/iff}}
         </div>
         <!--CONTENIDO DE TABLAS FACTURADOS-->
         <div id="pedidoSugerido">

@@ -397,7 +397,19 @@ $(document).ready(function () {
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
+
+    //SB20-646
+    $(document).on('click', '.miCurso', function () {
+        var id = $(this)[0].id;
+        GetCursoMarquesina(id)
+    });
 });
+
+//SB20-646
+function GetCursoMarquesina(id) {
+    var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
+    window.open(url, '_blank');
+}
 
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);

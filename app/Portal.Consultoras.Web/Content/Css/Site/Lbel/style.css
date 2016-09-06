@@ -7523,7 +7523,7 @@ body {
 p {
     margin: 0 0 1.5em 0;
     padding: 0;
-    line-height: 1.6em;
+    line-height: 1.5em;
 }
 
 h1 {
@@ -18309,7 +18309,9 @@ float: right;
     float:left;
     padding-right:50px;
 }
-
+.webFormCom:last-child {
+    padding-right: 0px;
+}
 .user {
 	background: url('../../../images/comunidad/user_ico.png') top left no-repeat #FFF;
 }
@@ -22979,7 +22981,7 @@ body{
 .content_datos_pedidosFacturados .descripcion_prod,
 .content_datos_pedidosFacturados .cliente{
     display:inline-block;
-    width: 15%;
+    width: 30%;
     vertical-align:middle;
 }
 
@@ -24399,10 +24401,11 @@ img
 	position:relative;
 	float:left;
 	text-align:center;
+    font-family:'Lato';
 }
 .cont_mas_preguntas h2
 {
-	font-family:'Museo Sans', arial, sans-serif;
+	font-family:'Lato';
 	font-size:23.5px;
 	color:#e51437;
 	font-weight:500;
@@ -24417,7 +24420,7 @@ img
 	width:277px;
 	height:318px;
 	position:relative;
-	padding:30px 20px;
+	padding:25px 20px;
 	box-sizing:border-box;
 	margin:10px 8px 40px;
 	display:inline-block;
@@ -24431,7 +24434,7 @@ img
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;
-    font-family: Arial, sans-serif;
+   font-family:'Lato';
 }
 .centrar_preguntas
 {
@@ -24513,6 +24516,7 @@ img
 	font-size:14px;
 	padding-right:100px;
 	box-sizing:border-box;
+    font-family:'Lato';
 }
 .menu_consultora ul
 {
@@ -24571,14 +24575,14 @@ img
 	
 }
 .cont_prox_pasos h2
-{
+{   font-family:'Lato';
 	color:#e51437;
 	font-weight:700;
 	font-size:19.5px;
 	margin-bottom:30px;
 }
 .colum_prox_paso
-{
+{   font-family:'Lato';
 	max-width:228px;
 	min-height:366px;
 	height:auto;
@@ -24595,6 +24599,7 @@ img
 	width:100%;
 	position:relative;
 	float:left;	
+    font-family:'Lato';
 }
 .cont_mas_clientes p
 {
@@ -27409,9 +27414,16 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 /*TOOLTIP FOTO*/
-.subir_foto:hover .tooltip_foto{
+
+.contenedor_img_perfil{
+    display:block;
+    float:left;
+}
+
+.contenedor_img_perfil:hover .tooltip_foto{
     display:block;
 }
+
 .tooltip_foto{
     width: 272px;
     height: 30px;
@@ -27426,7 +27438,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
-        left: -18px;
+    left: -18px;
     border-radius:3px;
     -webkit-border-radius:3px;
     -o-border-radius:3px;
@@ -27434,7 +27446,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     
 }
 .tooltip_foto::before{
-        position: absolute;
+    position: absolute;
     top: 100%;
     left: 9%;
     border: solid transparent;
@@ -27444,6 +27456,5 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-color: rgba(5, 7, 8, 0);
     border-top-color: white;
     border-width:9px;
-    
     z-index: 10;
 }

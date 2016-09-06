@@ -51,6 +51,20 @@
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
+        var cantidad = $.trim($("#txtCantidad").val());
+        if (cantidad == "" || cantidad[0] == "-") {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (!isInt(cantidad)) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+
         var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
         if (cantidadProductos > 0) {
             AgregarProductoListado();
@@ -216,6 +230,9 @@ function ObservacionesProducto(item) {
             ObtenerProductosSugeridos(item.CUV);
             return false;
         } else {
+            if (item.EsExpoOferta == true) {
+                MostrarMensaje("mensajeEsExpoOferta");
+            }
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
                 MostrarMensaje("mensajeCUVOfertaEspecial");
             };
@@ -226,6 +243,10 @@ function ObservacionesProducto(item) {
                 return false;
             }
         };
+    } else {
+        MostrarMensaje("mensajeCUVAgotado");
+        if (item.TieneSugerido != 0)
+            ObtenerProductosSugeridos(item.CUV);
     }
 
     $("#hdfCUV").val(item.CUV);
@@ -1266,6 +1287,12 @@ function MostrarMensaje(tipoMensaje, message) {
             var $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
+            $divMensaje.show();
+            break;
+        case "mensajeEsExpoOferta":
+            var $divMensaje = $('#divMensajeCUV');
+            $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
+            $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
             $divMensaje.show();
             break;
     };

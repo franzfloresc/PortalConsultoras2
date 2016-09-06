@@ -49,13 +49,16 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <a class="subir_foto">
-            <div class="tooltip_foto">
-                Prepara tu foto, pronto podras subirla a tu portal.
+        <div class="contenedor_img_perfil">
+            <a class="subir_foto">
+                <div class="tooltip_foto">
+                    Prepara tu foto, pronto podrás subirla a tu portal.
+                </div>
+            </a>
+            <div class="foto_perfil_home">
+                <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
             </div>
-        </a>
-        <div class="foto_perfil_home">
-            <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+            <div class="clear"></div>
         </div>
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
@@ -825,11 +828,11 @@
                             player.stopVideo();
                         }
                         else{
-                            document.getElementById("divPlayer").contentWindow
-                              .postMessage('{'+
-                                 '"event":"command",'+
-                                 '"func":"pauseVideo"'+
-                                 ',"args":""}','*');
+                            //document.getElementById("divPlayer").contentWindow
+                            //  .postMessage('{'+
+                            //     '"event":"command",'+
+                            //     '"func":"pauseVideo"'+
+                            //     ',"args":""}','*');
                             var urlVideo = $("#divPlayer").attr("src");
                             $("#divPlayer").attr("src","");
                             $("#divPlayer").attr("src",urlVideo);
@@ -1469,7 +1472,7 @@
 <script id="miscursos-template" type="text/x-handlebars-template">
     {{#each this}}
     <div class="borde_video">
-        <a role="link" region="Cuerpo" parent="Mi Academia" title="{{nombre}}" href="{{url}}" class="titulo_item_video" target="_blank">
+        <a role="link" region="Cuerpo" parent="Mi Academia" title="{{nombre}}" id="{{id}}" class="titulo_item_video miCurso">
             {{nombre}}
         </a>
         <div class="porcentaje_curso">

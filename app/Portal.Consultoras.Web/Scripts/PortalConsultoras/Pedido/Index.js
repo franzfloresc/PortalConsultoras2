@@ -269,6 +269,20 @@ $(document).ready(function () {
             return false;
         }
 
+        var cantidad = $.trim($("#txtCantidad").val());
+        if (cantidad == "" || cantidad[0] == "-") {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (!isInt(cantidad)) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+
         AbrirSplash();
 
         /*Logica Kit Nuevas*/
@@ -3305,37 +3319,39 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (checkTimeout(data)) {
-                CerrarSplash();
-                if (data.success == true) {
-                    var item = data.items;
-                    if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                        $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                        $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                    }
-                    $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+            CerrarSplash();
+            if (!checkTimeout(data))
+                return false;
 
-                    var nomCli = $("#ddlClientes option:selected").text();
-                    var simbolo = data.Simbolo;
-                    var monto = data.Total_Cliente;
+            if (data.success != true)
+                return false;
 
-                    $(".pMontoCliente").css("display", "none");
-
-                    if (data.ClienteID_ != "-1") {
-                        $(".pMontoCliente").css("display", "block");
-                        $("#spnNombreCliente").html(nomCli + " :");
-                        $("#spnTotalCliente").html(simbolo + monto);
-                    }
-
-                    CalcularTotalPedido(data.Total, data.Total_Minimo);
-
-                    MostrarBarra(data);
-                }
+            if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
+                $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
             }
+            $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+
+            var nomCli = $("#ddlClientes option:selected").text();
+            var simbolo = data.Simbolo;
+            var monto = data.Total_Cliente;
+
+            $(".pMontoCliente").css("display", "none");
+
+            if (data.ClienteID_ != "-1") {
+                $(".pMontoCliente").css("display", "block");
+                $("#spnNombreCliente").html(nomCli + " :");
+                $("#spnTotalCliente").html(simbolo + monto);
+            }
+
+            CalcularTotalPedido(data.Total, data.Total_Minimo);
+
+            MostrarBarra(data);
+                
         },
         error: function (data, error) {
+            CerrarSplash();
             if (checkTimeout(data)) {
-                CerrarSplash();
                 alert_msg(data.message);
             }
         }
@@ -3422,6 +3438,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#pCantidadProductosPedido").html(totalUnidades);
 
             MostrarBarra(data);
+            CargarResumenCampaniaHeader();
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -3607,6 +3624,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
 
                                         MostrarBarra(data);
+                                        CargarResumenCampaniaHeader();
                                     }
                                 }
                             },

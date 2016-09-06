@@ -43,6 +43,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             if (checkTimeout(data)) {
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
+                $('.content_left_pagos').hide();
                 CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
@@ -54,6 +55,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             if (checkTimeout(data)) {
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
                 switch (Estado) {
                     /*Pedido no reservado por monto mínimo/maximo */
                     case "2":
@@ -96,6 +98,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             if (checkTimeout(data)) {
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
                 CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
