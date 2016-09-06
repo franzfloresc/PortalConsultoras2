@@ -22979,7 +22979,7 @@ body{
 .content_datos_pedidosFacturados .descripcion_prod,
 .content_datos_pedidosFacturados .cliente{
     display:inline-block;
-    width: 15%;
+    width: 30%;
     vertical-align:middle;
 }
 
