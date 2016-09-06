@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case "ImportePercepcion":
-                        items = lst.OrderBy(x => x.ImportePercepcion).ThenBy(x => x.ImportePercepcion);
+                        items = lst.OrderBy(x => x.ImportePercepcion);
                         break;
                 }
             }
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case "ImportePercepcion":
-                        items = lst.OrderByDescending(x => x.ImportePercepcion).ThenBy(x => x.ImportePercepcion);
+                        items = lst.OrderByDescending(x => x.ImportePercepcion);
                         break;
                 }
             }
