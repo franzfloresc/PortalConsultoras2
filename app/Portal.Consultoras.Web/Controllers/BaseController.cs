@@ -501,21 +501,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
-
                 //Mensaje Cierre Campania y Fecha Promesa
-                var TextoPromesa = " ";
+                var TextoPromesa = ".";
+                var TextoNuevoPROL = "";
+
                 if (model.TipoCasoPromesa != "0")
                 {
                     if (model.TipoCasoPromesa == "1" && model.DiasCasoPromesa != -1)
                     {
-                        TextoPromesa += "Si facturas ese día, recibirás tu pedido ";
-                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día después de tu facturación." : " días después de tu facturación.");                        
+                        TextoPromesa = " y recíbelo en ";
+                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");                        
 
                     }
                     else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
                     {
                         model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        TextoPromesa += "Recibirás tu pedido el ";
+                        TextoPromesa = " y recíbelo el ";
                         TextoPromesa += model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
                     }
                 }
@@ -525,33 +526,42 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!model.DiaPROL)
                     {
                         if (model.NuevoPROL && model.ZonaNuevoPROL)
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + model.HoraFacturacion.ToString() + " hrs. hasta las " + HoraCierrePortal.ToString() + " hrs. revisa tu buzón de notificaciones o correo para comprobar que tu pedido esté completo.";
+                        {
+                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + FormatearHora(HoraCierrePortal);
+                            if (!("BO CL VE").Contains(model.CodigoISO))
+                                TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";                               
+                        }                            
                         else
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + model.HoraFacturacion.ToString() + " hrs. hasta las " + HoraCierrePortal.ToString() + " hrs. podrás validar los productos que te llegarán en el pedido.";
+                        {
+                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido.";
+                        }
+                            
                     }
                     else
                     {
                         if (model.DiasCampania != 0 && FechaHoraActual < model.FechaInicioCampania)
                         {
-                            if (model.NuevoPROL && model.ZonaNuevoPROL)
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
-                            else
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
+                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + FormatearHora(HoraCierrePortal);
                         }
                         else
                         {
                             if (model.NuevoPROL && model.ZonaNuevoPROL)
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + HoraCierrePortal.ToString() + " hrs. para ingresar o modificar tu pedido.";
+                            {
+                                ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de hoy a las " + FormatearHora(HoraCierrePortal);
+                            }
                             else
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
+                            {
+                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + FormatearHora(HoraCierrePortal) + " para validar lo que vas a recibir en el pedido.";
+                                TextoPromesa = "Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
+                            }                                
                         }
                     }
                 }
                 else
                 {
-                    ViewBag.MensajeCierreCampania = "Tienes hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para ingresar tu pedido.";
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + FormatearHora(HoraCierrePortal);
                 }
-                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa;
+                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
                 //*******
 
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
@@ -712,19 +722,21 @@ namespace Portal.Consultoras.Web.Controllers
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
                 //Mensaje Cierre Campania y Fecha Promesa
-                var TextoPromesa = " ";
+                var TextoPromesa = ".";
+                var TextoNuevoPROL = "";
+
                 if (model.TipoCasoPromesa != "0")
                 {
                     if (model.TipoCasoPromesa == "1" && model.DiasCasoPromesa != -1)
                     {
-                        TextoPromesa += "Si facturas ese día, recibirás tu pedido ";
-                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día después de tu facturación." : " días después de tu facturación.");
+                        TextoPromesa = " y recíbelo en ";
+                        TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");
 
                     }
                     else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
                     {
                         model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        TextoPromesa += "Recibirás tu pedido el ";
+                        TextoPromesa = " y recíbelo el ";
                         TextoPromesa += model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
                     }
                 }
@@ -734,33 +746,42 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!model.DiaPROL)
                     {
                         if (model.NuevoPROL && model.ZonaNuevoPROL)
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + model.HoraFacturacion.ToString() + " hrs. hasta las " + HoraCierrePortal.ToString() + " hrs. revisa tu buzón de notificaciones o correo para comprobar que tu pedido esté completo.";
+                        {
+                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + FormatearHora(HoraCierrePortal);
+                            if (!("BO CL VE").Contains(model.CodigoISO))
+                                TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
+                        }
                         else
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + model.HoraFacturacion.ToString() + " hrs. hasta las " + HoraCierrePortal.ToString() + " hrs. podrás validar los productos que te llegarán en el pedido.";
+                        {
+                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido.";
+                        }
+
                     }
                     else
                     {
                         if (model.DiasCampania != 0 && FechaHoraActual < model.FechaInicioCampania)
                         {
-                            if (model.NuevoPROL && model.ZonaNuevoPROL)
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
-                            else
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
+                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaInicioCampania.Day + " de " + NombreMes(model.FechaInicioCampania.Month) + " a las " + FormatearHora(HoraCierrePortal);
                         }
                         else
                         {
                             if (model.NuevoPROL && model.ZonaNuevoPROL)
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + HoraCierrePortal.ToString() + " hrs. para ingresar o modificar tu pedido.";
+                            {
+                                ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de hoy a las " + FormatearHora(HoraCierrePortal);
+                            }
                             else
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + HoraCierrePortal.ToString() + " hrs. para validar lo que vas a recibir en el pedido.";
+                            {
+                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + FormatearHora(HoraCierrePortal) + " para validar lo que vas a recibir en el pedido.";
+                                TextoPromesa = "Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
+                            }
                         }
                     }
                 }
                 else
                 {
-                    ViewBag.MensajeCierreCampania = "Tienes hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + HoraCierrePortal.ToString() + " hrs. para ingresar tu pedido.";
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " a las " + FormatearHora(HoraCierrePortal);
                 }
-                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa;
+                ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
                 //*******
 
                 ViewBag.Permiso = BuildMenu();
@@ -1429,5 +1450,17 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
         #endregion
+
+        public string FormatearHora(TimeSpan hora)
+        {
+            DateTime tiempo = DateTime.Today.Add(hora);
+            string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+            if (displayTiempo.Length == 6)
+                displayTiempo = displayTiempo.Insert(4, " ");
+            else
+                displayTiempo = displayTiempo.Insert(5, " ");
+
+            return displayTiempo;
+        }
     }
 }
