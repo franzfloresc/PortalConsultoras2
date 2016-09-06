@@ -151,6 +151,16 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
     $('.ValidaNumeralPedido').live('keyup', function (evt) {
         var theEvent = evt || window.event;
         var key = theEvent.keyCode || theEvent.which;

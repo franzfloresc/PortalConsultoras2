@@ -29,6 +29,16 @@
             BuscarByCUV(codigo);
         };
     });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
