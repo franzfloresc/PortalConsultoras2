@@ -1269,9 +1269,7 @@ function CerrarMantenerCliente() {
 }
 function AgregarMantenerCliente() {
     var entidad = ValidarMantenerCliente();
-    if (entidad.Error) {
-        return false;
-    }
+    if (entidad.Error) return false;
 
     var item = {
         ClienteID: 0,
@@ -1281,7 +1279,6 @@ function AgregarMantenerCliente() {
     };
 
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Cliente/Mantener',
@@ -1304,7 +1301,6 @@ function AgregarMantenerCliente() {
                         $(cli).attr("selected", "selected");
                     }
                 });
-
                 CerrarMantenerCliente();
 
                 $("#popupClienteIngresado").show();
