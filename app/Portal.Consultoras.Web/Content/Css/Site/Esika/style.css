@@ -20493,6 +20493,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
