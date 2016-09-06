@@ -68,6 +68,7 @@
       <xs:element minOccurs="0" name="MontoMeta" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MotivoRechazoTelefonico" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Nit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducativo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreFamiliar" nillable="true" type="xs:string" />
