@@ -288,6 +288,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
             }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
@@ -2038,18 +2042,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             ds.Tables.Add(dt);
 
-            List<BEKitNueva> KitNueva = new List<BEKitNueva>();
+            //List<BEKitNueva> KitNueva = new List<BEKitNueva>();
 
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                KitNueva = sv.GetValidarConsultoraNueva(userData.PaisID, userData.CodigoConsultora).ToList();
-            }
+            //using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            //{
+            //    KitNueva = sv.GetValidarConsultoraNueva(userData.PaisID, userData.CodigoConsultora).ToList();
+            //}
 
-            //Valida de que la consultora tenga estado registrada y de que el proceso de kit de nueva este activo
-            if (KitNueva[0].Estado == 1 && KitNueva[0].EstadoProceso == 1)
-            {
-                montodescontar = montodescontar + KitNueva[0].Monto;
-            }
+            ////Valida de que la consultora tenga estado registrada y de que el proceso de kit de nueva este activo
+            //if (KitNueva[0].Estado == 1 && KitNueva[0].EstadoProceso == 1)
+            //{
+            //    montodescontar = montodescontar + KitNueva[0].Monto;
+            //}
 
             montoenviar = userData.MontoMinimo - montodescontar;
 
@@ -2308,7 +2312,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in olstPedidoWebDetalle)
             {
-                dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
+                //if (item.TipoOfertaSisID != Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
+                //{
+                    dt.Rows.Add(userData.CodigoConsultora, item.CUV, item.Cantidad, item.TipoOfertaSisID);
+                //}
+                //else
+                //{
+                //    montodescontar = montodescontar + item.ImporteTotal;
+                //}
             }
 
             ds.Tables.Add(dt);
