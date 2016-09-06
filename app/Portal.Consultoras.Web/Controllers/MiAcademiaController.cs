@@ -153,6 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (WebClient client = new WebClient())
                 {
+                    client.Proxy = null;
                     client.Headers.Add("Content-Type", "application/json");
                     client.Headers.Add("token", token);
                     string json = client.DownloadString(urlMC);

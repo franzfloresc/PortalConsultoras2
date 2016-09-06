@@ -167,16 +167,16 @@
         <div class="texto_monto_pago">Total Monto a pagar: </div>
     </div>
 </div>
-<div id="divNotificacionCatalogo" class="wrap" style="display:none;max-height: 1300px;">
+<div id="divNotificacionCatalogo" class="wrap" style="display:none;">
     <div class="Content_modal_home">
-        <a onclick="$('#divNotificacionCatalogo').hide();">CERRAR X</a>
+        <a onclick="$('#divNotificacionCatalogo').hide(); $('.content_left_pagos').show();">CERRAR X</a>
         <div id="divDetalleNotificacionCatalogo">
         </div>
     </div>
 </div>
-<div id="divObservaciones" class="wrap" style="display:none;max-height: 1300px;">
+<div id="divObservaciones" class="wrap" style="display:none;">
     <div class="Content_modal_home">
-        <a onclick="$('#divObservaciones').hide();">CERRAR X</a>
+        <a onclick="$('#divObservaciones').hide(); $('.content_left_pagos').show();">CERRAR X</a>
         <div id="divListadoObservaciones">
         </div>
     </div>
@@ -187,11 +187,4 @@
         var urlMisPedidos = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Notificaciones/Index.js")"></script>
-    <script type="text/javascript">
-        if (isEsika) {
-            $('.Content_modal_home').css("top", "-710px");
-        } else {
-            $('.Content_modal_home').css("top", "-845px");
-        }
-    </script>
 }

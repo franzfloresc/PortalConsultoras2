@@ -272,6 +272,15 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
                 $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
+
+                // en caso de facturados tenga, poner fuera del if else
+                $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
+                //$("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));
+                $.each(data.listaCliente, function (item, cliente) {
+                    $("#divGrilla").find("select[data-cliente]").append(new Option(cliente.Nombre, cliente.ClienteID));
+                });
+                //$("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
+                $("#divGrilla").find("select[data-cliente]").val(dataAjax.cliente);
             }
             else if (tipo == "f") {
                 $("#divContenidofacturado").empty().html(htmlDiv);
@@ -288,13 +297,6 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
                 $("#divGrilla").find(".content_datos_pedidosIngresados").removeClass("content_datos_pedidosIngresados").addClass("content_datos_pedidosFacturados");
             }
 
-            $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
-            $("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));
-            $.each(data.listaCliente, function (item, cliente) {
-                $("#divGrilla").find("select[data-cliente]").append(new Option(cliente.Nombre, cliente.ClienteID));
-            });
-            //$("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
-            $("#divGrilla").find("select[data-cliente]").val(dataAjax.cliente);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
