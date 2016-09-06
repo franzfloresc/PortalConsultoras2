@@ -1838,7 +1838,7 @@ div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal{
 }
 
 div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
-    width:20%;
+    width:19.5%;
     text-align:center;
 }
 
@@ -2578,7 +2578,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:1.5%;
+    /*/*padding-right:1.5%;*/*/
 }
 
 .cabecera_producto{
@@ -20420,6 +20420,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
@@ -27016,7 +27017,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .precarga {
   position: relative;
   margin: 0 auto 15px auto;
-  width: 80px;
+  width:70px;
 }
 .precarga:before {
   content: '';
