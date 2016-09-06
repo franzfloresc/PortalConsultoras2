@@ -3058,6 +3058,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
 }
 
 function EliminarPedido() {
+    AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
         return;
