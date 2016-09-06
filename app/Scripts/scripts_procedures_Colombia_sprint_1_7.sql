@@ -502,7 +502,7 @@ VALUES (1029, N'Diagnóstico de Piel', 1024, 1, N'http://www.lbel.com/diagnostico
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1030, N'Asesor de Bases y Polvos', 1024, 2, N'http://www.lbel.com/asesordemaquillaje/', 1, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1031, N'Belleza a tu medida', 1024, 3, N'http://www.lbel.com/bellezaatumedida', 1, N'Header', NULL, 0, 0, 0, 1)
+VALUES (1031, N'Belleza a tu medida', 1024, 3, N'http://www.lbel.com/tutoriales', 1, N'Header', NULL, 0, 0, 0, 1)
 -- FIN HIJOS LBEL
 
 -- HIJOS CYZONE
@@ -525,9 +525,9 @@ VALUES (1042, N'PREGUNTAS FRECUENTES', 1040, 1, N'https://www.somosbelcorp.com/C
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1043, N'CONTÁCTANOS', 1040, 2, N'http://belcorprespondeqa.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1044, N'CONDICIONES DE USO WEB', 1041, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_CO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+VALUES (1044, N'TÉRMINOS Y CONDICIONES', 1041, 1, N'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_CO.aspx', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1045, N'POLÍTICAS DE PRIVACIDAD', 1041, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_CO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+VALUES (1045, N'PROTECCIÓN DE DATOS PERSONALES', 1041, 2, N'https://www.somosbelcorp.com/Content/FAQ/Politica_DATOS_PERSONALES_CO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
 -- FIN FOOTER
 
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1002, 1, 1)
