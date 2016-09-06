@@ -658,7 +658,16 @@ function ArmarCarouselEstrategias(data) {
                 }
             ]
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            var accion = nextSlide > currentSlide ? 'next' : 'prev';
+            var accion;
+            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'next';
+            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'prev';
+            } else if (nextSlide > currentSlide) {
+                accion = 'next';
+            } else {
+                accion = 'prev';
+            };
 
             if (accion == 'prev') {
                 //TagManager
