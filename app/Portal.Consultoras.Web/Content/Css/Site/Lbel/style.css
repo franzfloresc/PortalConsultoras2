@@ -20420,6 +20420,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
@@ -26074,7 +26075,7 @@ div.subir_archivo input {
 }
 
 .mensaje_cierre_fechapromesa{
-    font-size: 11px;
+    font-size: 10.5px;
     font-family: 'lato';
     color: black;
     height: 51px;

@@ -504,7 +504,7 @@ VALUES (1029, N'Diagnóstico de Piel', 1024, 1, N'http://www.lbel.com/diagnostico
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1030, N'Asesor de Bases y Polvos', 1024, 2, N'http://www.lbel.com/asesordemaquillaje/', 1, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1031, N'Belleza a tu medida', 1024, 3, N'http://www.lbel.com/bellezaatumedida', 1, N'Header', NULL, 0, 0, 0, 1)
+VALUES (1031, N'Belleza a tu medida', 1024, 3, N'http://www.lbel.com/tutoriales', 1, N'Header', NULL, 0, 0, 0, 1)
 -- FIN HIJOS LBEL
 
 -- HIJOS CYZONE
@@ -527,9 +527,9 @@ VALUES (1037, N'PREGUNTAS FRECUENTES', 1035, 1, N'https://www.somosbelcorp.com/C
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1038, N'CONTÁCTANOS', 1035, 2, N'http://belcorprespondeqa.somosbelcorp.com/', 1, N'Footer', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1039, N'CONDICIONES DE USO WEB', 1036, 1, N'https://www.somosbelcorp.com/Content/FAQ/CONDICIONES_DE_USO_WEB_BO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1040, N'POLÍTICAS DE PRIVACIDAD', 1036, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_BO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
+VALUES (1039, N'TÉRMINOS Y CONDICIONES', 1036, 1, N'https://www.somosbelcorp.com/WebPages/TerminosyReferencias_BO.aspx', 1, N'Footer', NULL, 0, 0, 0, 1)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+--VALUES (1040, N'POLÍTICAS DE PRIVACIDAD', 1036, 2, N'https://www.somosbelcorp.com/Content/FAQ/POLITICA_DE_PRIVACIDAD_BO.pdf', 1, N'Footer', NULL, 0, 0, 0, 1)
 
 -- FIN FOOTER
 
@@ -567,7 +567,7 @@ INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1,
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1037, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1038, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1039, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1040, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1040, 1, 1)
 
 IF NOT EXISTS (SELECT TablaLogicaID FROM TablaLogica WHERE TablaLogicaID = 87)
 BEGIN
