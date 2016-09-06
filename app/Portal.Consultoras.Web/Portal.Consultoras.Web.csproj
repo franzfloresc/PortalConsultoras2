@@ -2317,7 +2317,6 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index2.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
@@ -3807,10 +3806,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
+    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

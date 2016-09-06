@@ -344,7 +344,7 @@ function MostrarBarra(datax) {
             wLimiteAnterior -= parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
         }
         else {
-            wLimiteAnterior -= $("#punto_" + (indPuntoLimite - 1)).width() - parseInt($("#punto_" + (indPuntoLimite - 1) + " >  div").width() / 2, 10);
+            wLimiteAnterior -= wLimiteAnterior <= 0 ? 0 : $("#punto_" + (indPuntoLimite - 1)).width() - parseInt($("#punto_" + (indPuntoLimite - 1) + " >  div").width() / 2, 10);
             if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
                 wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
             }
@@ -356,6 +356,7 @@ function MostrarBarra(datax) {
             wLimite += parseInt($("#punto_" + (indxx) + " >  div").width() / 2, 10);
         }
     }
+    wLimiteAnterior = wLimiteAnterior < 0 ? 0 : wLimiteAnterior;
     wAreaMover = wLimite - wLimiteAnterior;
 
     // ancho de logrado
@@ -401,9 +402,10 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
+    $("#divBarraMensajeLogrado").css("width", "");
+    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto + 25);
+    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
 
     return true;
 }
