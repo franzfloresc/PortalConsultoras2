@@ -29,6 +29,16 @@
             BuscarByCUV(codigo);
         };
     });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
@@ -1269,9 +1279,7 @@ function CerrarMantenerCliente() {
 }
 function AgregarMantenerCliente() {
     var entidad = ValidarMantenerCliente();
-    if (entidad.Error) {
-        return false;
-    }
+    if (entidad.Error) return false;
 
     var item = {
         ClienteID: 0,
@@ -1281,7 +1289,6 @@ function AgregarMantenerCliente() {
     };
 
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Cliente/Mantener',
@@ -1304,7 +1311,6 @@ function AgregarMantenerCliente() {
                         $(cli).attr("selected", "selected");
                     }
                 });
-
                 CerrarMantenerCliente();
 
                 $("#popupClienteIngresado").show();
