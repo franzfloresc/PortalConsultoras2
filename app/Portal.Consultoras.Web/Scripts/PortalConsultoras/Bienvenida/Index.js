@@ -2190,7 +2190,7 @@ function ActualizarDatos() {
                         $("#fondoComunPopUp").hide();
                     }
                     contadorFondoPopUp--;
-                    alert_msg_pedido(mensajeHtml);
+                    alert_unidadesAgregadas(mensajeHtml, 1);
                 }
                 if (data.success) {
                     dataLayer.push({
