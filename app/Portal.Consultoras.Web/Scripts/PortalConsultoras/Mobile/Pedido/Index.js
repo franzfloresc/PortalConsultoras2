@@ -247,6 +247,7 @@ function ObservacionesProducto(item) {
         MostrarMensaje("mensajeCUVAgotado");
         if (item.TieneSugerido != 0)
             ObtenerProductosSugeridos(item.CUV);
+        return false;
     }
 
     $("#hdfCUV").val(item.CUV);
