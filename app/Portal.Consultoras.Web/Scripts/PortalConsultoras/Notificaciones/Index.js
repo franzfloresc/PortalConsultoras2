@@ -95,8 +95,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
         $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones, function (data) {
             if (checkTimeout(data)) {
                 $('#divListadoObservaciones').html(data);
-                $('#divObservaciones').dialog('option', 'title', Asunto);
-                $('#divObservaciones').dialog('open');
+                $('#divObservaciones').show();
                 CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }

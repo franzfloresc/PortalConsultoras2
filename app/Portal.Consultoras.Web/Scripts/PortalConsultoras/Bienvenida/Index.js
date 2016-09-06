@@ -200,18 +200,18 @@ $(document).ready(function () {
     });
     
     $("#cerrarVideoIntroductorio").click(function () {
-        $('#videoIntroductorio').hide();
-        player.stopVideo();
-
         if (primeraVezVideo) {
             //mostrarUbicacionTutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
+        stop();
+        $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
         contadorFondoPopUp--;
+        //player.stopVideo();
         return false;
     });
     $("#cerrarAceptacionContrato").click(function () {

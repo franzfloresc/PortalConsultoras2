@@ -274,9 +274,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
             }
-            catch (FaultException ex)
+            catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             return View(model);
