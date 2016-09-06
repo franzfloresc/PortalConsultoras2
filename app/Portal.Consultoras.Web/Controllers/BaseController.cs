@@ -285,6 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+                    if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+
                     List<PermisoModel> lstModel = new List<PermisoModel>();
                     foreach (var permiso in lst)
                     {
@@ -310,14 +312,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     // Separar los datos obtenidos y para generar el menú
                     List<PermisoModel> menu = SepararItemsMenu(lstModel);
-
                     return menu;
                 }
-                else
-                    return new List<PermisoModel>();
+                else return new List<PermisoModel>();
             }
-            else
-                return new List<PermisoModel>();
+            else return new List<PermisoModel>();
         }
 
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
@@ -503,7 +502,11 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
                 string TextoNuevoProl = "";                
@@ -703,7 +706,11 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
                 string TextoNuevoProl = "";
@@ -722,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (model.TipoCasoPromesa != "1" && model.DiasCasoPromesa != -1) //casos 2,3 y 4
                     {
                         model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        TextoPromesa = "</b> y recíbelo el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".</p>";
+                        TextoPromesa = "</b> y recíbelo el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".</b></p>";
                     }
                 }
 

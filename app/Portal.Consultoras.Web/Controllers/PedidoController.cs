@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
                     model.AccionBoton = "guardar";
-                    model.Prol = "Guarda tu pedido";
+                    model.Prol = "GUARDA TU PEDIDO";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}" ,ViewBag.FechaFacturacionPedido);
 
@@ -147,23 +147,37 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "guardar";
-                    model.Prol = "Guarda tu pedido";
+                    model.Prol = "GUARDA TU PEDIDO";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
                     if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                     {
                         model.AccionBoton = "validar";
-                        model.Prol = "Reservar tu pedido";
+                        model.Prol = "RESERVA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                        if (diaActual >= userData.FechaFacturacion)
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        }
                     }
                     else // PROL 1
                     {
                         model.AccionBoton = "validar";
-                        model.Prol = "Valida tu pedido";
+                        model.Prol = "VALIDA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                        if (diaActual >= userData.FechaFacturacion)
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        }
                     }
                 }
                 /* SB20-287 - FIN */
@@ -276,7 +290,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             return View(model);
@@ -823,6 +841,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
+                    Session["ListadoEstrategiaPedido"] = null;                    
 
                     UpdPedidoWebMontosPROL();
 
@@ -1804,7 +1823,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
-                model.Prol = "Guarda tu pedido";
+                model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
@@ -1816,21 +1835,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else // Periodo de facturacion
             {
-                model.Prol = "Guarda tu pedido";
+                model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
-                    model.Prol = "Reserva tu pedido";
+                    model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                    if (diaActual >= userData.FechaFacturacion)
+                    {
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                    }
+                    else
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    }
                 }
                 else // PROL 1
                 {
-                    model.Prol = "Valida tu pedido";
+                    model.Prol = "VALIDA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm:ss tt"));
+                    if (diaActual >= userData.FechaFacturacion)
+                    {
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                    }
+                    else
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    }
                 }
             }
             /* SB20-287 - FIN */
@@ -2689,9 +2722,61 @@ namespace Portal.Consultoras.Web.Controllers
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
             //----------------------------------------------------
 
+            /* SB20-287 - INICIO */
+            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+
+            if (!userData.DiaPROL)  // Periodo de venta
+            {
+                //ViewBag.Prol = "GUARDA TU PEDIDO";
+                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.CodigoISO == "BO")
+                {
+                    ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                    ViewBag.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                }
+            }
+            else // Periodo de facturacion
+            {
+                //ViewBag.Prol = "GUARDA TU PEDIDO";
+                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+                {
+                    //ViewBag.Prol = "MODIFICA TU PEDIDO";
+                    ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+                    if (diaActual >= userData.FechaFacturacion)
+                    {
+                        ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                    }
+                    else
+                    {
+                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    }
+                }
+                else // PROL 1
+                {
+                    //ViewBag.Prol = "VALIDA TU PEDIDO";
+                    ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
+                    if (diaActual >= userData.FechaFacturacion)
+                    {
+                        ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                    }
+                    else
+                    {
+                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                    }
+                }
+            }
+            /* SB20-287 - FIN */
+
             #region Banners
 
             string urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
+            string urlProdDesc = WebConfigurationManager.AppSettings["ProdDesc"] + "/" + userData.CodigoISO; 
             string banner01 = WebConfigurationManager.AppSettings["banner_01"];
             string banner02 = WebConfigurationManager.AppSettings["banner_02"];
             string banner03 = WebConfigurationManager.AppSettings["banner_03"];
@@ -2699,6 +2784,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
             ViewBag.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
             ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+
+            model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID + ".pdf", String.Empty);
 
             #endregion
             

@@ -32,8 +32,8 @@
             string tooltip2 = tooltips[1];
         }
         <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
-            @*h2>¡Es importante que guardes tu pedido!</h2>
-                <span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>*@
+            @*<h2>¡Es importante que guardes tu pedido!</h2>*@
+            @*<span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>*@
 
             <h2>@tooltip1</h2>
             <span>@tooltip2</span>
@@ -140,7 +140,37 @@
         <div class="textos_resumen">
             <span id="lblProductosResumen">HE AGREGADO :</span>
             <span id="lblTotalResumen">MONTO TOTAL :</span>
-            <span class="mi_ganancia">MI GANANCIA :</span>
+             @{                                                              
+                    string cabezaEscala=null, pieEscala=null;
+                    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Bolivia ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+                    {
+                        cabezaEscala = "Ganancia estimada total";
+                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+                    {
+                        cabezaEscala = "Comisión y ahorro total";
+                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+                    {
+                        cabezaEscala = "Ganancia estimada total";
+                        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    {
+                        cabezaEscala = "Oportunidad de ahorro total";
+                        pieEscala = "";
+                    }                                                                                                      
+                }
+            <span class="mi_ganancia">@(cabezaEscala.ToUpper().Trim()) :</span>
         </div>
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
@@ -359,7 +389,7 @@
                 </div>
                 MONTO TOTAL :
             </span>
-            <span class="mi_ganancia" style=" margin-left: 30px;">MI GANANCIA :</span>
+            <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
         </div>
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>

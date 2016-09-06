@@ -7576,7 +7576,7 @@ body {
 p {
     margin: 0 0 1.5em 0;
     padding: 0;
-    line-height: 1.6em;
+    line-height: 1.5em;
 }
 
 h1 {
@@ -8706,6 +8706,9 @@ ul.tabs {
     height: auto;
     overflow: hidden;
     margin-top: 10px;
+    font-family: 'Lato';
+    color: black;
+    font-size: 13px;
    
 }
 
@@ -9949,9 +9952,9 @@ border: 0;
     }
 
 .div-3 .input_validar input {
-    font-family:"lato-bold";
-    font-size:10px;
-    letter-spacing:2px;
+    font-family:'Lato';
+    font-size:12px;
+    letter-spacing:0.5px;
     float: right;
     width: 137px;
     height: 37px;
@@ -9961,7 +9964,7 @@ border: 0;
     color: #fff;
     text-transform:uppercase;
     border: 0;
-    margin-left: 5px;
+    font-weight:700;
 }
 
 .div-3 .check {
@@ -14092,8 +14095,8 @@ table-layout: initial !important;
     font-family: 'lato';
      float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
-    color: #e51437 !important;
+    margin: 20px 16px 0.2em 0;
+    color: black !important;
 }
 
 /*************************************************
@@ -18384,15 +18387,15 @@ float: right;
 	height: 42px;
 	padding-left: 42px;
 	margin-bottom: 14px;
-    width:240px;
+   
 }
 
 .formcontrol:hover {
-	border: 1px solid #7e267c;
+	border: 1px solid #e81c36;
 }
 
 .formcontrol:focus {
-	border: 1px solid #7e267c;
+	border: 1px solid #e81c36;
 }
 
 .formcontrol .inputForm {
@@ -18403,7 +18406,8 @@ float: right;
 	width: 100%;
 	border: none;
 	font-size: 13px;
-	color: #768591;
+	color: black;
+    font-family:'Lato';
 }
 
 .formcontrol select {
@@ -18425,14 +18429,16 @@ float: right;
 .webFormComDiv {
     border-left: 1px solid #C9C9C9;
     height:310px;
-    width: 20px;
+    width: 50px;
     float:left;
 }
-
+.webFormCom:last-child {
+    padding-right: 0px;
+}
 .webFormCom {
 	width: 326px;
     float:left;
-    padding-right:20px;
+    padding-right:50px;
 }
 
 .user {
@@ -18445,7 +18451,7 @@ float: right;
 
 .Content_modal_Com {
     background: #FFF;
-    padding: 20px 10px 10px 10px;
+    /*padding: 20px 10px 10px 10px;*/
     max-height: 350px;
     -webkit-border-radius: 10px; /* Para Safari y Chrome */
     -moz-border-radius: 10px; /* Para Firefox */
@@ -20301,6 +20307,11 @@ label.checkpop.c_on {
     display:inline-block;
     color: #b1b1b1 !important;
     }
+.ubicacion_web a:hover {
+    display:inline-block;
+    color: #b1b1b1 !important;
+    text-decoration:underline;
+    }
 
 .fondo_f5f5f7 {
     background:#f5f5f7;
@@ -20549,9 +20560,9 @@ label.checkpop.c_on {
     font-size:10px;
     color:#848484;
     letter-spacing:0.1px;
-    text-decoration: none !important;
+    text-decoration: none;
 }
-.btn_ver_mas{
+.btn_ver_mas:hover{
     text-decoration:underline;
 }
 
@@ -20727,6 +20738,10 @@ label.checkpop.c_on {
     margin:auto;
     left:0;
     right:0;
+}
+.btn_comparte:hover{
+    background:black;
+    color:white;
 }
 .seguir_pedido{
     display: inline-block;
@@ -21426,6 +21441,7 @@ hr{
   height: .25rem;
   /*width: 30%;*/
   width:24%;
+  text-align: left;
   margin: 0 0 0 1.35%;
   background: #e81c36;
   border: none;
@@ -21499,6 +21515,18 @@ hr{
 .acciones_pagos{
     float:right;
     margin-right:15px;
+    position:relative;
+    top: 0px;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.acciones_pagos:hover{
+    top: -5px;
+    opacity: 0.5;
+    filter: alpha(opacity=60);
 }
 .content_datos_mispagos, .content_datos_misPercepciones{
     font-family:'lato';
@@ -24458,10 +24486,11 @@ img
 	position:relative;
 	float:left;
 	text-align:center;
+    font-family:'Lato';
 }
 .cont_mas_preguntas h2
 {
-	font-family:'Museo Sans', arial, sans-serif;
+	font-family:'Lato';
 	font-size:23.5px;
 	color:#e51437;
 	font-weight:500;
@@ -24476,7 +24505,7 @@ img
 	width:277px;
 	height:318px;
 	position:relative;
-	padding:30px 20px;
+	padding:25px 20px;
 	box-sizing:border-box;
 	margin:10px 8px 40px;
 	display:inline-block;
@@ -24486,11 +24515,12 @@ img
 }
 .cont_pregunta h3
 {
-	font-size:16px;
+	font-size:15px;
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;
-    font-family: Arial, sans-serif;
+    margin-bottom:0;
+   font-family:'Lato';
 }
 .centrar_preguntas
 {
@@ -24572,6 +24602,7 @@ img
 	font-size:14px;
 	padding-right:100px;
 	box-sizing:border-box;
+    font-family:'Lato';
 }
 .menu_consultora ul
 {
@@ -24630,14 +24661,14 @@ img
 	
 }
 .cont_prox_pasos h2
-{
+{   font-family:'Lato';
 	color:#e51437;
 	font-weight:700;
 	font-size:19.5px;
 	margin-bottom:30px;
 }
 .colum_prox_paso
-{
+{   font-family:'Lato';
 	max-width:228px;
 	min-height:366px;
 	height:auto;
@@ -24654,6 +24685,7 @@ img
 	width:100%;
 	position:relative;
 	float:left;	
+    font-family:'Lato';
 }
 .cont_mas_clientes p
 {
@@ -27399,6 +27431,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin:0 auto;    
     margin-top:40px;
     padding-bottom:30px;
+    font-family: 'Lato';
+    font-size: 13px;
 }
 .item_incentivos {
     width: 23%;
@@ -27424,4 +27458,58 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color:black;
     text-align:center;
     margin-top:10px;
+}
+
+/* PÁGINA ESCALA DE DESCUENTOS */
+
+.container_escalaDescuento{
+    width:100%;
+    max-width:1189px;
+    margin-top: -100px;
+    margin-bottom: 47px;
+}
+
+.container_escalaDescuento div{
+    display:block;
+    text-align:center;
+}
+
+/*TOOLTIP FOTO*/
+.subir_foto:hover .tooltip_foto{
+    display:block;
+}
+.tooltip_foto{
+    width: 272px;
+    height: 30px;
+    display: none;
+    position: absolute;
+    background: white;
+    top: -45px;
+    font-family:'Lato';
+    font-size:12px;
+    color:black;
+    padding:6px;
+    -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    left: -18px;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -o-border-radius:3px;
+    -moz-border-radius:3px;
+    
+}
+.tooltip_foto::before{
+        position: absolute;
+    top: 100%;
+    left: 9%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(5, 7, 8, 0);
+    border-top-color: white;
+    border-width: 9px;
+    
+    z-index: 10;
 }

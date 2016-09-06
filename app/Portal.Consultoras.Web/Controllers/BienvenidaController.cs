@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
 
+                model.CatalogoPersonalizadoDesktop = userData.CatalogoPersonalizado;
+
                 model.NombreCompleto = userData.NombreConsultora;
                 model.EMail = userData.EMail;
                 model.Telefono = userData.Telefono;
@@ -213,11 +215,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             if (userData.RolID == Constantes.Rol.Consultora)

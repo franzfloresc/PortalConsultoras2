@@ -5,7 +5,7 @@ var arrayLiquidaciones = [];
 
 $(document).ready(function () {
 
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
@@ -200,18 +200,18 @@ $(document).ready(function () {
     });
     
     $("#cerrarVideoIntroductorio").click(function () {
-        $('#videoIntroductorio').hide();
-        player.stopVideo();
-
         if (primeraVezVideo) {
-            mostrarUbicacionTutorial();
+            //mostrarUbicacionTutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
+        stop();
+        $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
         contadorFondoPopUp--;
+        //player.stopVideo();
         return false;
     });
     $("#cerrarAceptacionContrato").click(function () {
@@ -397,7 +397,19 @@ $(document).ready(function () {
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
+
+    //SB20-646
+    $(document).on('click', '.miCurso', function () {
+        var id = $(this)[0].id;
+        GetCursoMarquesina(id)
+    });
 });
+
+//SB20-646
+function GetCursoMarquesina(id) {
+    var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
+    window.open(url, '_blank');
+}
 
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
@@ -1526,10 +1538,10 @@ function CargarBanners() {
 
                         switch (dataResult.data[count].GrupoBannerID) {
                             case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "');\" rel='marquesina' >" : "";
+                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "');\" rel='marquesina' >" : "";
                                 var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
-                                $('.flexslider ul.slides').append('<li>' + iniHtmlLink + '<img src="' + fileName + '" />' + finHtmlLink + '</li>');
+                                $('.flexslider ul.slides').append('<li>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '" />' + finHtmlLink + '</li>');
                                 delayPrincipal = dataResult.data[count].TiempoRotacion;
                                 break;
                             case -5: // Seccion Baja 1 SB2.0 
@@ -1626,6 +1638,8 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
         if (ReservadoOEnHorarioRestringido())
             return false;
         else
+            var objBannerCarrito = $('#bannerMicroefecto');
+            agregarProductoAlCarrito(objBannerCarrito);
             InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
 
         SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
@@ -1654,7 +1668,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
                     ActualizarGanancia(result.DataBarra);
 
-                    CargarResumenCampaniaHeader();
+                    CargarResumenCampaniaHeader(true);
 
                     alert_unidadesAgregadas(result.message, 1);
 

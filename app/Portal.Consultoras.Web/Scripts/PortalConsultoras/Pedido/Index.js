@@ -14,7 +14,7 @@ var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     AnalyticsBannersInferioresImpression();
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -151,6 +151,16 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
     $('.ValidaNumeralPedido').live('keyup', function (evt) {
         var theEvent = evt || window.event;
         var key = theEvent.keyCode || theEvent.which;
@@ -256,6 +266,20 @@ $(document).ready(function () {
         }
 
         if (HorarioRestringido()) {
+            return false;
+        }
+
+        var cantidad = $.trim($("#txtCantidad").val());
+        if (cantidad == "" || cantidad[0] == "-") {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (!isInt(cantidad)) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
             return false;
         }
 
@@ -3058,6 +3082,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
 }
 
 function EliminarPedido() {
+    AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
         return;
