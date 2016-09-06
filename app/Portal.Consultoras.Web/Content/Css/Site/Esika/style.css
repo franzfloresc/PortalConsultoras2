@@ -21439,6 +21439,7 @@ hr{
   height: .25rem;
   /*width: 30%;*/
   width:24%;
+  text-align: left;
   margin: 0 0 0 1.35%;
   background: #e81c36;
   border: none;
