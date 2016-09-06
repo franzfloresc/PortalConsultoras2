@@ -671,9 +671,21 @@ h4.re3 {
 }
 
 .pcolor {
-    color: #722789 !important;
+    color: black;
+    font-weight: 700;
+    font-family: 'LAto';
+    font-size:14.5px;
 }
-
+.color_facturado{
+    color:#e81c36;
+}
+.btn_facturado {
+    color: black;
+    font-family:'Lato';
+    margin-bottom:30px;
+    border-top:1px solid #bababa;
+    padding-top: 30px;
+}
 .scolor {
     color: #35bdb2 !important;
 }
@@ -684,6 +696,8 @@ h4.re3 {
 
 .posr {
     position: relative;
+    font-family:'Lato';
+    color:black;
 }
 
 .mt-10 {
@@ -965,12 +979,12 @@ h4.re3 {
     }
 
 .panel-line-info .panel-heading {
-    border-bottom: 1px solid #00abdf;
-    color: #00abdf;
+     color: black;
     padding-top: 15px;
     padding-bottom: 15px;
     position: relative;
     z-index: 99;
+    font-family: 'LAto';
 }
 
     .panel-line-info .panel-heading .panel-title {
@@ -996,7 +1010,7 @@ h4.re3 {
     z-index: 999;
 }
 
-    .panel-line-info .panel-collapse:before {
+    /*.panel-line-info .panel-collapse:before {
         content: "";
         position: absolute;
         top: -8px;
@@ -1014,7 +1028,7 @@ h4.re3 {
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-bottom: 7px solid #fff;
-    }
+    }*/
 
 .btn {
     font-weight: 300;
@@ -1378,7 +1392,7 @@ h4.re3 {
 }
 
 .block-white {
-    padding: 20px 15px;
+    /*padding: 20px 15px;*/
     margin: 10px 0;
     background: #fff;
 }
@@ -1395,7 +1409,9 @@ h4.re3 {
 }
 
 .block-info {
-    background: #00abdf;
+    background: white;
+    color:black;
+    font-family:'Lato';
 }
 
 .block-primary {
@@ -1446,28 +1462,29 @@ h4.re3 {
 
 .tabs-link {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 13px;
 }
 
     .tabs-link a {
-        width: 33.3%;
-        display: inline-block;
-        padding: 12px 5px;
-        background: #E7E9EC;
-        border-top: 5px solid #E7E9EC;
-        color: #6b7f8e;
-        margin-left: -2px;
-        margin-right: -2px;
-        text-decoration: none;
+       width: 33.3%;
+    display: inline-block;
+    padding: 8px 0 8px 5px;
+    background: #f2f2f2;
+    border-bottom: 5px solid #f2f2f2;
+    color: black;
+    margin-left: -2px;
+    margin-right: -2px;
+    text-decoration: none;
+    font-family: 'Lato';
     }
 
         .tabs-link a.active {
-            border-top: 5px solid #00abdf;
+            border-bottom: 4px solid #e81c36;
             background: #fff;
         }
 
         .tabs-link a:hover {
-            border-top: 5px solid #00abdf;
+            border-bottom: 4px solid #e81c36;
         }
 
 .tabs-two {
@@ -1480,13 +1497,14 @@ h4.re3 {
     }
 
 .tab-primary a.active {
-    border-top: 5px solid #722789;
-    color: #722789;
-    background: #fff;
+    border-bottom: 4px solid #e81c36;
+    color: black;
+    background: #f2f2f2;
+    font-family:'Lato';
 }
 
 .tab-primary a:hover {
-    border-top: 5px solid #722789;
+    border-bottom: 4px solid #e81c36;
 }
 
 .header-icon {
@@ -1835,7 +1853,7 @@ h4.re3 {
     .list-table-new ul li {
         list-style: none;
         padding: 20px 0;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #bababa;
         position: relative;
     }
 
@@ -1845,7 +1863,9 @@ h4.re3 {
 
     .list-table-new .list-table-title li {
         border-bottom: 0px;
-        padding-bottom: 15px;
+        padding-bottom: 0px;
+        font-family:'Lato';
+        color:black;
     }
 
     .list-table-new .list-table-title .table-title-right {
@@ -1874,7 +1894,7 @@ h4.re3 {
 }
 
 .list-table-new .list-table-body .cantidad-numero {
-    font-size: 1.2em;
+    font-size: 13px;
     font-weight: bold;
 }
 
@@ -1892,7 +1912,7 @@ h4.re3 {
 
 .list-table-new strong,
 .list-table-new b {
-    color: #60727f;
+    color: black;
 }
 
 .list-table-new .cli-ac-edit {
@@ -7019,12 +7039,13 @@ input[type="checkbox"]:checked + span:after {
     line-height: 54px;
     font-family: 'Lato';
     font-size: 15px;
-    font-weight: 900;
+    font-weight: 700;
     color: white;
     text-align: center;
     display: block;
     margin-top: 30px;
     background: #e81c36;
+    text-transform:uppercase;
 }
 
 .icono_tooltip_validado {
@@ -7781,3 +7802,6 @@ input[type="checkbox"]:checked + span:after {
 }
 
 /*FIN*/
+.border_bababa{
+    border-bottom:1px solid #bababa !important;
+}
