@@ -503,7 +503,11 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
                 string TextoNuevoProl = "";                
@@ -703,7 +707,11 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
                 string TextoNuevoProl = "";
