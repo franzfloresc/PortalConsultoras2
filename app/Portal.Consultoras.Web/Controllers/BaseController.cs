@@ -729,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (model.TipoCasoPromesa != "1" && model.DiasCasoPromesa != -1) //casos 2,3 y 4
                     {
                         model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
-                        TextoPromesa = "</b> y recíbelo el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".</p>";
+                        TextoPromesa = "</b> y recíbelo el <b>" + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".</b></p>";
                     }
                 }
 
