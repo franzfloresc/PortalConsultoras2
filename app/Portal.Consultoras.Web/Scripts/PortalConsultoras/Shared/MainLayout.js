@@ -191,14 +191,14 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
 
-                        $("#carrito_items").html('');
+                        SetHandlebars("#resumenCampania-template", data, "#carrito_items");
 
-                        var source = $("#resumenCampania-template").html();
-                        var template = Handlebars.compile(source);
-                        var context = data;
-                        var html = template(context);
-
-                        $("#carrito_items").append(html);
+                        //$("#carrito_items").html('');
+                        //var source = $("#resumenCampania-template").html();
+                        //var template = Handlebars.compile(source);
+                        //var context = data;
+                        //var html = template(context);
+                        //$("#carrito_items").append(html);
                     }
 
                     if (showPopup == true) {
