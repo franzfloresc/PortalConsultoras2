@@ -212,7 +212,7 @@ function CargarResumenCampaniaHeader(showPopup) {
                         microefectoPedidoGuardado();
                         setTimeout(function(){
                             $(".contenedor_circulos").fadeOut();
-                        }, 4500);
+                        }, 2700);
                     }
                 }
                 else {
