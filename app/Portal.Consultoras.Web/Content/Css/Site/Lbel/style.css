@@ -22981,7 +22981,7 @@ body{
 .content_datos_pedidosFacturados .descripcion_prod,
 .content_datos_pedidosFacturados .cliente{
     display:inline-block;
-    width: 15%;
+    width: 30%;
     vertical-align:middle;
 }
 
@@ -27414,9 +27414,16 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 /*TOOLTIP FOTO*/
-.subir_foto:hover .tooltip_foto{
+
+.contenedor_img_perfil{
+    display:block;
+    float:left;
+}
+
+.contenedor_img_perfil:hover .tooltip_foto{
     display:block;
 }
+
 .tooltip_foto{
     width: 272px;
     height: 30px;
@@ -27431,7 +27438,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
-        left: -18px;
+    left: -18px;
     border-radius:3px;
     -webkit-border-radius:3px;
     -o-border-radius:3px;
@@ -27439,7 +27446,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     
 }
 .tooltip_foto::before{
-        position: absolute;
+    position: absolute;
     top: 100%;
     left: 9%;
     border: solid transparent;
@@ -27449,6 +27456,5 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-color: rgba(5, 7, 8, 0);
     border-top-color: white;
     border-width:9px;
-    
     z-index: 10;
 }
