@@ -138,8 +138,17 @@
             <hr class="clear" />
             <div>
                 <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
+
+                @{
+                    string[] tooltips = ViewBag.ProlTooltip.Split('|');
+                    string tooltip1 = tooltips[0];
+                    string tooltip2 = tooltips[1];
+                }
+
                 <div class="info_modificarvalidado">
-                    <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+                    @*<span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>*@
+                    <text>@tooltip1</text>
+                    <span>@tooltip2</span>
                 </div>
                 <hr class="clear" />
             </div>
