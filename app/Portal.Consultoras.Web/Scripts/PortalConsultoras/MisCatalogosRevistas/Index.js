@@ -136,7 +136,12 @@ function ObtenerURLExpofertas() {
                 if (dataResult.success) {
                     var $arrayBanners = $.grep(dataResult.data, function (e) { return e.GrupoBannerID == -5; });
                     if ($arrayBanners.length > 1) {
-                        var urlExpoferta = $arrayBanners[1].URL;
+                        var urlExpoferta = "";
+                        $.each($arrayBanners, function (key, banner) {
+                            if (banner.TituloComentario.toLowerCase() == "expoferta") {
+                                urlExpoferta = banner.URL;
+                            }
+                        });
                         $('#catalogoExpoferta').click(function () {
                             dataLayer.push({
                                 'event': 'virtualEvent',
@@ -148,8 +153,7 @@ function ObtenerURLExpofertas() {
                             window.open(urlExpoferta, '_blank');
                         });
                         $("#catalogoExpoferta").css("cursor", "pointer");
-                    }
-                    
+                    }                   
                 }
                 else {
                     MonstrarExclamacion('Error al cargar la informacion de Expoferta.');

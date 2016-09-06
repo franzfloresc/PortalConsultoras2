@@ -14,7 +14,7 @@ var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     AnalyticsBannersInferioresImpression();
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -148,6 +148,16 @@ $(document).ready(function () {
         } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
             return re.test(keyChar);
         }
     });
@@ -3058,6 +3068,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
 }
 
 function EliminarPedido() {
+    AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
         return;

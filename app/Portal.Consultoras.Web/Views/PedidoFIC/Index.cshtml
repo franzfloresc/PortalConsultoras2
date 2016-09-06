@@ -124,37 +124,6 @@
             </div>
             <!--PAGINADOR-->
             <div id="paginadorCab" class="content_paginador">
-                <ul class="paginador_notificaciones" data-paginacion="block">
-
-                    <li class="productos_agregados_usuario">
-                        He agregado
-                        <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion="recordCount">7</b></span>
-                        &nbsp;producto(s)
-                    </li>
-                    <li class="seleccion_pagina">
-                        <select data-paginacion="rows" style="height: 24px;" data-val="">
-                            <option value="5">ver 5 filas</option>
-                            <option value="10">ver 10 filas</option>
-                            <option value="20">ver 20 filas</option>
-                            <option value="30">ver 30 filas</option>
-                            <option value="40">ver 40 filas</option>
-                            <option value="50">ver 50 filas</option>
-                        </select>
-                    </li>
-                    <li class="texto_pagina">Página</li>
-                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
-                    <li style="margin-right: 6px;">
-                        <span class="paginas_pedidos">
-                            <span class="pagina_actual">
-                                <input type="text" name="paginaactual" data-paginacion="page" value="1" class="ValidaNumeral" id="paginaactual" data-val="1">
-                            </span> de
-                            <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">1</span>
-                        </span>
-                    </li>
-                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
-                    <hr class="clear"/>
-                </ul>
-                <div class="clear"></div>
             </div>
             <!--FIN-->
         </div>
@@ -178,39 +147,7 @@
         </div>
         <!--PAGINADOR INFERIOR-->
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-            <div id="paginadorPie">
-                <ul class="paginador_notificaciones" data-paginacion="block">
-
-                    <li class="productos_agregados_usuario">
-                        He agregado
-                        <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion="recordCount">1</b></span>
-                        &nbsp;producto(s)
-                    </li>
-                    <li class="seleccion_pagina">
-                        <select data-paginacion="rows" style="height: 24px;" data-val="">
-                            <option value="5">ver 5 filas</option>
-                            <option value="10">ver 10 filas</option>
-                            <option value="20">ver 20 filas</option>
-                            <option value="30">ver 30 filas</option>
-                            <option value="40">ver 40 filas</option>
-                            <option value="50">ver 50 filas</option>
-                        </select>
-                    </li>
-                    <li class="texto_pagina">Página</li>
-                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
-                    <li style="margin-right: 6px;">
-                        <span class="paginas_pedidos">
-                            <span class="pagina_actual">
-                                <input type="text" name="paginaactual" data-paginacion="page" value="1" class="ValidaNumeral" id="paginaactual" data-val="1">
-                            </span> de
-                            <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">1</span>
-                        </span>
-                    </li>
-                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
-
-                    <div class="clear"></div>
-                </ul>
-                <div class="clear"></div>
+            <div id="paginadorPie">                
             </div>
         </div>
         <!--FIN-->
@@ -261,14 +198,14 @@
             </div>
         </div>
         <!--FIN-->
-        @*<div class="contenedor_eliminacion_pedido">
+        <div class="contenedor_eliminacion_pedido">
             <p class="texto_eliminar_pedido">
                 <span class="texto_pedido_completo">
                     Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                 </span>
             </p>
             <div class="clear"></div>
-        </div>*@
+        </div>
         <!--BANNERS-->
         <div class="contenedor_banners" style="width:72%;">
             <ul>
@@ -298,32 +235,31 @@
     </div>
 </div>
 
-    @*<script type="text/javascript">
-        var CE_SNAPSHOT_NAME = "Pedido_Registro";
-    </script>
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/4400.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-    </script>*@
+<div id="loadingScreen"></div>
 
-
-    <div id="loadingScreen"></div>
-
-    <div id="divOfertaFIC">
-        <div class="Content_modal">
-
-            @if (ViewBag.IndicadorOfertaFIC == 1)
-            {
-                Html.RenderPartial("OfertaFIC");
-            }
-
-        </div>
+<div id="divOfertaFIC">
+    <div class="Content_modal">
+        @if (ViewBag.IndicadorOfertaFIC == 1)
+        {
+            <div>
+                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)"/>
+            </div>
+            <div>
+                <br />
+                <input type="submit" name="" id="btnAgregarOferfaFIC" value="Aceptar" />
+                <input type="submit" name="" id="btnCancelarOferfaFIC" value="Cancelar" />
+            </div>
+        }
+    </div>
+</div>
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
     </div>
 
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
 <div class="contenedor_popup_agregarCliente" id="divClientes">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
@@ -341,6 +277,18 @@
         </form>
     </div>
 </div>
+<div id="divConfirmEliminarTotal" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div class="pop_pedido_mensaje">
+        ¿Deseas eliminar el pedido completo?.
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+    </div>
+</div>
 
 <script id="paginador-template" type="text/x-handlebars-template">
     <ul class="paginador_notificaciones" data-paginacion="block">
@@ -352,7 +300,6 @@
         </li>
         <li class="seleccion_pagina">
             <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
-                <option value="5">ver 5 filas</option>
                 <option value="10">ver 10 filas</option>
                 <option value="20">ver 20 filas</option>
                 <option value="30">ver 30 filas</option>
@@ -376,45 +323,6 @@
     </ul>
     <div class="clear"></div>
 </script>
-
-@*<div class="contenido_ingresoPedido mouse_encima">
-    <div class="texto_pedidos codigo_fic">00006</div>
-    <div class="texto_pedidos producto_fic">
-        <span style="position:relative">
-            <label for="LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML" id="lblLPDesProd1">LB ESSENTIAL ROSTRO DEMAQUILLADORES BIFÁSICO 125 ML</label>
-        </span>
-    </div>
-    <div class="celda_cantidad_pedidos unidades_fic">
-        <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
-            <input type="hidden" name="txtLPTempCant1" id="txtLPTempCant1" value="9">
-            <input type="text" value="9" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant1" data-pedido="1" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion('201613', '2902554', '1', '0', '00006', '1', '9')">
-            <div class="liquidacion_rango_right_pedido">
-                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-            </div>
-        </div>
-    </div>
-    <div class="texto_pedidos precioUnitario_fic oculto_1092">
-        <input type="hidden" name="hdfLPPrecioU1" id="hdfLPPrecioU1" value="149" class="classPrecioUnidad">
-        $ 149.00
-    </div>
-    <div class="texto_pedidos subtotal_fic">
-        <span class="precio">
-            $ 149.00
-        </span>
-        <span>
-            $
-            <label for="item_ImporteTotal" id="lblLPImpTotal1" class="classImporteTotal">1,341.00</label>
-
-        </span>
-    </div>
-    <div class="texto_pedidos clienteFic">
-        <input type="text" value="Ana María" />
-    </div>
-    <div class="texto_pedidos celda_iconos_acciones">
-        <a onclick="DeletePedido('201613', '2902554', '1', '0', '00006', '9', '2', '');" id="btnLPDelete1" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
-    </div>
-</div>*@
 <script id="producto-template" type="text/x-handlebars-template">
     {{#each this}}
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
@@ -477,23 +385,10 @@
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script type="text/javascript">
-        var arregloProductos;
-        var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
-        var constConfiguracionOfertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-        var viewBagPaisID = '@Model.PaisID';
-        var viewBagNombrePais = '@ViewBag.NombrePais';
         var isShown = false;
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var vbSimbolo = '@Html.Raw(Model.Simbolo)';
-        var urlEsikaMenos = '@Url.Content("~/Content/Images/Esika/menos.png")';
-        var urlEsikaMas = '@Url.Content("~/Content/Images/Esika/mas.png")';
-        var heightReference = 0;
-        var constTipoOfertaLiquidacion = '@Constantes.TipoOferta.Liquidacion';
-        var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
-        var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
-        var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
-        var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")' : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
+        var indicadorOfertaFIC = @ViewBag.IndicadorOfertaFIC;
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PedidoFIC/Index2.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PedidoFIC/Index.js")"></script>
 }
