@@ -289,8 +289,11 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
             }
 
             $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
-            $("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));                   
-            $("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
+            $("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));
+            $.each(data.listaCliente, function (item, cliente) {
+                $("#divGrilla").find("select[data-cliente]").append(new Option(cliente.Nombre, cliente.ClienteID));
+            });
+            //$("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
             $("#divGrilla").find("select[data-cliente]").val(dataAjax.cliente);
         },
         error: function (data, error) {
