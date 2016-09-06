@@ -7576,7 +7576,7 @@ body {
 p {
     margin: 0 0 1.5em 0;
     padding: 0;
-    line-height: 1.6em;
+    line-height: 1.5em;
 }
 
 h1 {
@@ -24486,10 +24486,11 @@ img
 	position:relative;
 	float:left;
 	text-align:center;
+    font-family:'Lato';
 }
 .cont_mas_preguntas h2
 {
-	font-family:'Museo Sans', arial, sans-serif;
+	font-family:'Lato';
 	font-size:23.5px;
 	color:#e51437;
 	font-weight:500;
@@ -24504,7 +24505,7 @@ img
 	width:277px;
 	height:318px;
 	position:relative;
-	padding:30px 20px;
+	padding:25px 20px;
 	box-sizing:border-box;
 	margin:10px 8px 40px;
 	display:inline-block;
@@ -24514,11 +24515,12 @@ img
 }
 .cont_pregunta h3
 {
-	font-size:16px;
+	font-size:15px;
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;
-    font-family: Arial, sans-serif;
+    margin-bottom:0;
+   font-family:'Lato';
 }
 .centrar_preguntas
 {
@@ -24600,6 +24602,7 @@ img
 	font-size:14px;
 	padding-right:100px;
 	box-sizing:border-box;
+    font-family:'Lato';
 }
 .menu_consultora ul
 {
@@ -24658,14 +24661,14 @@ img
 	
 }
 .cont_prox_pasos h2
-{
+{   font-family:'Lato';
 	color:#e51437;
 	font-weight:700;
 	font-size:19.5px;
 	margin-bottom:30px;
 }
 .colum_prox_paso
-{
+{   font-family:'Lato';
 	max-width:228px;
 	min-height:366px;
 	height:auto;
@@ -24682,6 +24685,7 @@ img
 	width:100%;
 	position:relative;
 	float:left;	
+    font-family:'Lato';
 }
 .cont_mas_clientes p
 {
