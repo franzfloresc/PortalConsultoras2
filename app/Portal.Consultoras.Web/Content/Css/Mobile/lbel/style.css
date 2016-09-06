@@ -5338,18 +5338,18 @@ body{
     text-align: center;
 }
 
-.descripcion_liquidacion_web{
-    display:block;
-    width: 86%;
+.descripcion_liquidacion_web {
+    display: block;
+    width: 96%;
     /*max-width: 292px;*/
-    margin:0 auto;
-    margin-bottom:27px;
+    margin: 0 auto;
+    margin-bottom: 27px;
 }
 
 .descripcion_liquidacion_web h2, .descripcion_liquidacion_web span{
     font-family: 'Lato';
     text-align: justify!important;
-    padding: 0px 16px;
+    /*padding: 0px 16px;*/
 }
 
 .descripcion_liquidacion_web h2{
@@ -5376,13 +5376,10 @@ body{
     text-align:center;
 }
 
-.contenedor_productos_liquidacion .content_item_home{
-    width: 100%;
-    max-width: 268px;
+.contenedor_productos_liquidacion .content_item_home {
     margin-bottom: 16px;
     display: inline-block;
-    margin-left:5px;
-    margin-right: 5px;
+    vertical-align:top;
 }
 
 .contenedor_productos_liquidacion .producto_img_mobile{
@@ -5391,6 +5388,44 @@ body{
 
 .contenedor_productos_liquidacion .producto_precio .producto_precio_normal{
     text-decoration:line-through;
+}
+
+@media screen and (min-width:0px) and (max-width:425px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width:426px) and (max-width:735px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 47%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+}
+
+@media screen and (min-width:736px) and (max-width:940px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 31%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+}
+
+@media screen and (min-width:941px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 23%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
 }
 
 /*CATÁLOGOS*/
