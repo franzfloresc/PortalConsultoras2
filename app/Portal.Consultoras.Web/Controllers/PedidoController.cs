@@ -823,6 +823,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
+                    Session["ListadoEstrategiaPedido"] = null;                    
 
                     UpdPedidoWebMontosPROL();
 
