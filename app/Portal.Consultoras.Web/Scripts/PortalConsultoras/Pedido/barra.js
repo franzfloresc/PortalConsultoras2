@@ -402,7 +402,8 @@ function MostrarBarra(datax) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
+    $("#divBarraMensajeLogrado").css("width", "");
+    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
     $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
 
