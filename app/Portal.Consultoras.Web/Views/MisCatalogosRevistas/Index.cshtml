@@ -71,7 +71,7 @@
 
         @if (!ViewBag.EsConsultoraNueva)
         {
-            <div class="revista_content">
+            <div class="revista_content" id="contenedorExpofertaMCR" style="display:none;">
                 <div style="text-align: center;
                         font-family: 'lato';
                         font-size: 16pt;
@@ -81,7 +81,7 @@
                         margin-top: 48px;
                         margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
                         <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" /></div>
-                    </div>
+            </div>
         }
 
     </div>

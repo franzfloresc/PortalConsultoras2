@@ -150,9 +150,85 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        });
-        $("#divCarouseHorizontalMobile").on('swipe', function (event, slick, direction) {
-            console.log(direction);
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var accion;
+            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'next';
+            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'prev';
+            } else if (nextSlide > currentSlide) {
+                accion = 'next';
+            } else {
+                accion = 'prev';
+            };
+
+            if (accion == 'prev') {
+                //TagManager
+                var posicionPrimerActivo = $($('#divCarouseHorizontalMobile').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver anterior'
+                });
+            } else if (accion == 'next') {
+                //TagManager
+                var posicionUltimoActivo = $($('#divCarouseHorizontalMobile').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver siguiente'
+                });
+            };
+
         });
         TagManagerCarruselInicio(data);
     }
@@ -412,9 +488,9 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                         if (checkTimeout(data)) {
                             ShowLoading();
                             ActualizarGanancia(JSON.parse(data).DataBarra);
-                            InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
                             CargarCarouselEstrategias(cuv);
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                            TagManagerClickAgregarProducto();
                             CloseLoading();
                         }
                     },
