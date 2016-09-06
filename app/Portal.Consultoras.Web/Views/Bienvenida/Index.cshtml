@@ -41,19 +41,24 @@
         <br />
     </div>
     <div class="flexslider">
-        <ul class="slides"></ul>
+        <ul class="slides">
+
+        </ul>
     </div>
 </div>
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <a class="subir_foto">
-            <div class="tooltip_foto">
-                Prepara tu foto, pronto podras subirla a tu portal.
+        <div class="contenedor_img_perfil">
+            <a class="subir_foto">
+                <div class="tooltip_foto">
+                    Prepara tu foto, pronto podrás subirla a tu portal.
+                </div>
+            </a>
+            <div class="foto_perfil_home">
+                <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
             </div>
-        </a>
-        <div class="foto_perfil_home">
-            <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+            <div class="clear"></div>
         </div>
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
@@ -1111,7 +1116,7 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>¿Qué nombre te gustaría que te digamos?:</label>
+                        <label>¿Qué nombre te gustaría que te digamos?:</label>
                         <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
                     </div>
                     <div>
@@ -1121,11 +1126,11 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                        <label>Tu teléfono:</label>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu teléfono:</label>
                         <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
                     </div>
                     <div>
-                        <label>Tu celular:</label>
+                        <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
                         <input type="text" name="txtCelularMD" id="txtCelularMD" />
                     </div>
                 </div>
@@ -1133,7 +1138,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
                         </label>
                     </div>
                 </div>
@@ -1621,7 +1626,9 @@
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
+
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/object-fit-polyfill.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }
