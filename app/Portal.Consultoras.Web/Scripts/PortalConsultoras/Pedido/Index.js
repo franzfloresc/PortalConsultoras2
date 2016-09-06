@@ -269,6 +269,20 @@ $(document).ready(function () {
             return false;
         }
 
+        var cantidad = $.trim($("#txtCantidad").val());
+        if (cantidad == "" || cantidad[0] == "-") {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (!isInt(cantidad)) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+
         AbrirSplash();
 
         /*Logica Kit Nuevas*/
