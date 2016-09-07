@@ -983,7 +983,8 @@ h4.re3 {
     padding-right: 30px;
 }
 .block-center {
-    padding: 10px;
+    
+    font-family:'Lato';
 }
 .sec-spaced {
     margin-top: 30px;
@@ -1447,7 +1448,7 @@ h4.re3 {
     list-style: none;
     border-bottom: 1px solid #ccc;
     padding: 25px 0;
-    padding-left: 15px;
+    /*padding-left: 15px;*/
     position: relative;
     line-height: 1.4;
     font-size: 14px;
@@ -1504,24 +1505,33 @@ h4.re3 {
     padding-bottom: 10px;
 }
 .list-notificaciones .btn-more {
-    text-decoration: none;
-    position: absolute;
-    right: 0;
-    bottom: -3px;
-    font-weight:bold;
-    color: #e81c36;
+   text-decoration: none;
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        font-weight: bold;
+        color: #613c87;
+        padding-right:0;
 }
 .list-notificaciones .btn-more:hover{
-     text-decoration: none;
-    position: absolute;
-    right: 0;
-    bottom: -3px;
-    font-weight:bold;
-    color: #e81c36;
+    text-decoration: none;
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        font-weight: bold;
+        color: #613c87;
+        padding-right:0;
+}
+ .list-notificaciones{
+     margin-bottom:0;
+ }
+.list-notificaciones li:last-child{
+    border-bottom:0;
 }
 .fecha_notificaciones{
     margin-top:10px;
 }
+
 .block-noti {
     position: relative;
 }
@@ -2611,7 +2621,7 @@ table > thead > tr > th {
   margin-top: 0;
   font-size: 15px;
   text-transform: uppercase;
-  color: #722789;
+  color: black;
   margin-bottom: 0px;
 }
 .line-m5 {
@@ -2635,26 +2645,27 @@ table > thead > tr > th {
 }
 
 .material-tabs {
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
   text-align: center;
 }
 .material-tabs a {
-  text-decoration: none;
-  font-size: 12px;
-  display: inline-block;
-  padding: 5px 10px;
-  width: 30%;
-  line-height: 1.2;
-  margin-right: -5px;
-  margin-bottom: 10px;
-  color: #6b7f8e;
-  font-weight: bold;
-  border-bottom: 1px solid #d7d7d7;
+     text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    padding: 5px 0 16px 10px;
+    width: 30%;
+    /* line-height: 1.2; */
+    margin-right: -5px;
+    /* margin-bottom: 10px; */
+    color: black;
+    /* font-weight: bold; */
+    border-bottom: 0;
+    font-family: 'Lato';
+    /* float: left; */
 }
 .material-tabs a:hover,
 .material-tabs a.active {
-  color: #722789;
-  border-bottom: 2px solid #722789;
+   border-bottom: 4px solid #613c87;
 }
 .material-tabs a:first-child {
   width: 40%;
@@ -2701,9 +2712,10 @@ table > thead > tr > th {
   padding-bottom: 10px;
 }
 .title-landing {
-  color: #722789;
+  color: black;
   margin-bottom: 20px;
   font-size: 14px;
+  font-family:'Lato';
 }
 .img-landing {
   margin-top: 20px;
@@ -2712,13 +2724,14 @@ table > thead > tr > th {
 .list-num-landing {
   padding-left: 10px;
   padding-right: 10px;
+  font-family:'Lato';
 }
 .list-num-landing li {
   list-style: none;
   margin-bottom: 20px;
 }
 .list-num-landing li strong {
-  color: #415261;
+  color: black;
 }
 .list-num-landing li p {
   margin-top: 5px;
@@ -2748,7 +2761,7 @@ table > thead > tr > th {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 1px solid #415261;
+  border: 1px solid black;
   background: transparent;
   cursor: pointer;
 }
@@ -2756,7 +2769,7 @@ table > thead > tr > th {
   display: none;
 }
 .slide-landing .slick-dots li.slick-active {
-  background: #415261;
+  background: black;
 }
 .over-hidden {
   overflow: hidden;
@@ -2767,9 +2780,10 @@ table > thead > tr > th {
   font-size: 14px;
 }
 .item-slide-landing .title-slide-landing {
-  color: #415261;
+  color: #613c87;
   font-size: 15px;
   margin-bottom: 30px;
+  font-family:'Lato';
 }
 .btn-activate {
   width: 220px;
@@ -5207,10 +5221,14 @@ body{
 
 .video_esika{
     width:98px;
-    height:66px;
-    margin-bottom:10px;
+    height:auto;
+    margin-bottom:0;
     /*background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;*/
 }
+.video_esika img{
+    width:100%;
+}
+
 .liquidacion_esika{
     width: 110px;
     min-height: 55px;
@@ -6452,7 +6470,7 @@ input[type="checkbox"]:checked + span:after {
     font-family:'Lato';
     font-size:13px;
     
-    color:black;
+    color:#b75d9f;
     margin-top: 20px;
 }
 .ganancia_Pedidovalidado{
