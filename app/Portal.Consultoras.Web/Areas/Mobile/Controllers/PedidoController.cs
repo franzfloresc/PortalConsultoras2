@@ -319,7 +319,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             //model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-            model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
             return View(model);

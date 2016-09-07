@@ -2720,7 +2720,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             int HoraCierre = userData.EsZonaDemAnti;
             TimeSpan sp = HoraCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            //ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            ViewBag.HoraCierre = FormatearHora(sp);
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 
