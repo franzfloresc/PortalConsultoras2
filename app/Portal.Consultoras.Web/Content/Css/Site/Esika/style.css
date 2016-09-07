@@ -26874,7 +26874,7 @@ position: relative; float: left;
 }
 .info_modificarvalidado{
     float:right;
-    width:213px;
+    width:240px;
     height:auto;
     padding: 20px;
     margin-right: 15px;
@@ -26884,8 +26884,8 @@ position: relative; float: left;
     background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
-    font-weight:900;
-    color:#e81c36;
+    /*font-weight:900;
+    color:#e81c36;*/
     text-align:center;
     line-height: 17px;
     margin-top: 20px;
@@ -26899,6 +26899,23 @@ position: relative; float: left;
     display:block;
     margin-top: 5px;
     line-height: 15px;
+}
+.icono_tooltip_validado {
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: cover;
+}
+.info_tooltip {
+    width: 165px;
+    float: left;
+    margin-left: 10px;
+    font-family: 'Lato';
+    font-size: 14px;
+    line-height: 17px;
+    color: black;
+    text-align: left;
 }
 .linea_gris{
     width:100%;
