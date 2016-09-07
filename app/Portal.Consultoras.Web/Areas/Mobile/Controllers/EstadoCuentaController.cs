@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
                          "</tr>";
 
-            if (userData.PaisID == 4)
+            if (userData.PaisID == 4 && lst.Any())
             {
                 for (int i = 0; i < lst.Count - 1; i++)
                 {
@@ -231,28 +231,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else
             {
-                for (int i = 0; i < lst.Count - 1; i++)
+                if (lst.Any())
                 {
-                    cadena += "<tr>" +
-                                "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                "<td align='right'>" + userData.Simbolo + lst[i].Cargo.ToString("0.00") + "</td>" +
-                                "<td align='right'>" + userData.Simbolo + lst[i].Abono.ToString("0.00") + "</td>" +
-                              "</tr>";
+                    for (int i = 0; i < lst.Count - 1; i++)
+                    {
+                        cadena += "<tr>" +
+                                    "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
+                                    "<td align='left'>" + lst[i].Glosa + "</td>" +
+                                    "<td align='right'>" + userData.Simbolo + lst[i].Cargo.ToString("0.00") + "</td>" +
+                                    "<td align='right'>" + userData.Simbolo + lst[i].Abono.ToString("0.00") + "</td>" +
+                                  "</tr>";
+                    }
                 }
             }
-
-            if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
+            if (lst.Any())
             {
-                cadena += "</table><br /><br />" + 
-                           "TOTAL A PAGAR: " + userData.Simbolo + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') + "<br />";
+                if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
+                {
+                    cadena += "</table><br /><br />" +
+                               "TOTAL A PAGAR: " + userData.Simbolo + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') + "<br />";
+                }
+                else if (Math.Abs(lst[lst.Count - 1].Abono) > 0)
+                {
+                    cadena += "</table><br /><br />" +
+                              "TOTAL A PAGAR: " + userData.Simbolo + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') + "<br />";
+                }
             }
-            else if (Math.Abs(lst[lst.Count - 1].Abono) > 0)
-            {
-                cadena += "</table><br /><br />" + 
-                          "TOTAL A PAGAR: " + userData.Simbolo + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') + "<br />";
-            }
-
             return cadena;
         }
 
