@@ -635,6 +635,24 @@ function InsertarProducto() {
                 $("#hdCuvEnSession").val("");
 
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                dataLayer.push({
+                    'event': 'addToCart',
+                    'ecommerce': {
+                        'add': {
+                            'actionField': { 'list': 'Estándar' },
+                            'products': [{
+                                'name': data.data.DescripcionProd,
+                                'price': String(data.data.PrecioUnidad),
+                                'brand': data.data.DescripcionLarga,
+                                'id': data.data.CUV,
+                                'category': 'NO DISPONIBLE',
+                                'variant': data.data.DescripcionOferta,
+                                'quantity': Number(data.data.Cantidad),
+                                'position': 1
+                            }]
+                        }
+                    }
+                });
 
             } else {
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
