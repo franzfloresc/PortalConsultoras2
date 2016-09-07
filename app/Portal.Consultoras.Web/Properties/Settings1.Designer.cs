@@ -125,8 +125,8 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceSto" +
-            "ckSsic.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceSt" +
+            "ockSsic.asmx")]
         public string Portal_Consultoras_Web_ServicePROL_ServiceStockSsic {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServicePROL_ServiceStockSsic"]));
@@ -147,8 +147,8 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsCon" +
-            "sulta.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsCo" +
+            "nsulta.asmx")]
         public string Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta"]));
@@ -158,8 +158,8 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/WsServicesWebValidaci" +
-            "ones/ServicesCalculosPROL.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidac" +
+            "iones/ServicesCalculosPROL.asmx")]
         public string Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles"]));
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php")]
         public string Portal_Consultoras_Web_ServiceLMS_ws_server {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
