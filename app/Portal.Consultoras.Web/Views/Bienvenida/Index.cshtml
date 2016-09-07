@@ -50,13 +50,16 @@
 <div class="content_belcorp">
     <div class="content_datos">
         <div class="contenedor_img_perfil">
-            <a class="subir_foto">
+            @*<a class="subir_foto">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
-            </a>
+            </a>*@
             <div class="foto_perfil_home">
                 <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+                <div class="tooltip_foto">
+                    Prepara tu foto, pronto podrás subirla a tu portal.
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -314,10 +317,7 @@
 <!--FIN CATALOGO PERSONALIZADO-->
 
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
-@if (Model.CatalogoPersonalizadoDesktop != 0) 
-{ 
-    <div class="linea_separadora"></div>
-}
+    <div class="linea_separadora" id="linea_separadoraCP" style="display:none;"></div>
     <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">

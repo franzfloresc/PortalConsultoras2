@@ -2419,6 +2419,8 @@ function EjecutarServicioPROL() {
                     }
 
                     var html = "<ul>";
+                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    var msgDefaultCont = 0;
                     $.each(response.data.ListaObservacionesProl, function (index, item) {
                         if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
                             if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
@@ -2448,8 +2450,10 @@ function EjecutarServicioPROL() {
                                 'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
                             });
                         } else {
-                            html += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-
+                            if (msgDefaultCont == 0) {
+                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                            }
+                            msgDefaultCont++;
                             mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                         }
                     });
@@ -2658,6 +2662,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
                     }
 
                     var html = "<ul>";
+                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    var msgDefaultCont = 0;
                     $.each(response.data.ListaObservacionesProl, function (index, item) {
                         if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
                             if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
@@ -2690,8 +2696,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
                                 'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
                             });
                         } else {
-                            html += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-
+                            if (msgDefaultCont == 0) {
+                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                            }
+                            msgDefaultCont++;
                             mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                         }
                     });
