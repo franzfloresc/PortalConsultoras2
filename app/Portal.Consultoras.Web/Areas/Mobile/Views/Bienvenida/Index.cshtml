@@ -231,8 +231,9 @@
                 if (System.Web.HttpContext.Current.Request.UserAgent != null)
                 {
                     var request = HttpContext.Current.Request;
-                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/AppDeCatalogos.html";                   
-                    urlWhatsApp = "whatsapp://send?text=Mi%20código%20de%20consultora%20es:%20" + Model.codigoConsultora + "%20" + urlBase;
+                    var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/AppDeCatalogos.html";
+
+                    urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
