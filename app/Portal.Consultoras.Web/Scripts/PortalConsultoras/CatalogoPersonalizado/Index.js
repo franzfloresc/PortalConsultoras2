@@ -43,7 +43,7 @@ function CargarCatalogoPersonalizado() {
                     }
                 });
                 
-                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+                SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
             }
         },
         error: function (data, error) {
