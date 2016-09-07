@@ -6283,9 +6283,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .logo_esika a{
-    height:50px;
+    height:59px;
     background: url(../../../Images/Esika/logo_esika.png) no-repeat;
-    background-size:100%;
+    background-size:cover;
 }
 
 .cliente_detalle {
@@ -20227,7 +20227,7 @@ label.checkpop.c_on {
     border-radius: 100%;
 }
 .logo_esika {
-    margin-top: 5px;
+    /*margin-top: -5px;*/
     float: left;
     width: 10%;
     padding-right: 2px;
