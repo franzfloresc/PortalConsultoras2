@@ -314,10 +314,7 @@
 <!--FIN CATALOGO PERSONALIZADO-->
 
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
-@if (Model.CatalogoPersonalizadoDesktop != 0) 
-{ 
-    <div class="linea_separadora"></div>
-}
+    <div class="linea_separadora" id="linea_separadoraCP" style="display:none;"></div>
     <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
