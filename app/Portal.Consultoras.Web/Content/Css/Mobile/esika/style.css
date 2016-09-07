@@ -1086,7 +1086,8 @@ h4.re3 {
 }
 
 .block-center {
-    padding: 10px;
+   
+    font-family:'LAto';
 }
 
 .sec-spaced {
@@ -1637,7 +1638,7 @@ h4.re3 {
         list-style: none;
         border-bottom: 1px solid #ccc;
         padding: 25px 0;
-        padding-left: 15px;
+        /*padding-left: 15px;*/
         position: relative;
         line-height: 1.4;
         font-size: 14px;
@@ -1697,20 +1698,27 @@ h4.re3 {
     text-decoration: none;
     position: absolute;
     right: 0;
-    bottom: -3px;
+    bottom: 5px;
     font-weight: bold;
     color: #e81c36;
+    padding-right:0;
 }
 
     .list-notificaciones .btn-more:hover {
         text-decoration: none;
         position: absolute;
         right: 0;
-        bottom: -3px;
+        bottom: 5px;
         font-weight: bold;
         color: #e81c36;
+        padding-right:0;
     }
-
+ .list-notificaciones{
+     margin-bottom:0;
+ }
+.list-notificaciones li:last-child{
+    border-bottom:0;
+}
 .fecha_notificaciones {
     margin-top: 5px;
     display: block;
@@ -2998,7 +3006,7 @@ table > thead > tr > th {
     margin-top: 0;
     font-size: 15px;
     text-transform: uppercase;
-    color: #722789;
+    color: black;
     margin-bottom: 0px;
 }
 
@@ -3032,22 +3040,23 @@ table > thead > tr > th {
 
     .material-tabs a {
         text-decoration: none;
-        font-size: 12px;
-        display: inline-block;
-        padding: 5px 10px;
-        width: 30%;
-        line-height: 1.2;
-        margin-right: -5px;
-        margin-bottom: 10px;
-        color: #6b7f8e;
-        font-weight: bold;
-        border-bottom: 1px solid #d7d7d7;
+    font-size: 13px;
+    display: inline-block;
+    padding: 5px 0 16px 10px;
+    width: 30%;
+    /* line-height: 1.2; */
+    margin-right: -5px;
+    /* margin-bottom: 10px; */
+    color: black;
+    /* font-weight: bold; */
+    border-bottom: 0;
+    font-family: 'Lato';
+    /* float: left; */
     }
 
         .material-tabs a:hover,
         .material-tabs a.active {
-            color: #722789;
-            border-bottom: 2px solid #722789;
+            border-bottom: 4px solid #e81c36;
         }
 
         .material-tabs a:first-child {
@@ -3105,9 +3114,10 @@ table > thead > tr > th {
 }
 
 .title-landing {
-    color: #722789;
+    color: black;
     margin-bottom: 20px;
     font-size: 14px;
+    font-family:'Lato';
 }
 
 .img-landing {
@@ -3118,6 +3128,7 @@ table > thead > tr > th {
 .list-num-landing {
     padding-left: 10px;
     padding-right: 10px;
+    font-family:'Lato';
 }
 
     .list-num-landing li {
@@ -3126,7 +3137,7 @@ table > thead > tr > th {
     }
 
         .list-num-landing li strong {
-            color: #415261;
+            color: black;
         }
 
         .list-num-landing li p {
@@ -3161,7 +3172,7 @@ table > thead > tr > th {
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            border: 1px solid #415261;
+            border: 1px solid black;
             background: transparent;
             cursor: pointer;
         }
@@ -3171,7 +3182,7 @@ table > thead > tr > th {
             }
 
             .slide-landing .slick-dots li.slick-active {
-                background: #415261;
+                background: black;
             }
 
 .over-hidden {
@@ -3185,9 +3196,10 @@ table > thead > tr > th {
 }
 
     .item-slide-landing .title-slide-landing {
-        color: #415261;
+        color: #e81c36;
         font-size: 15px;
         margin-bottom: 30px;
+        font-family:'LAto';
     }
 
 .btn-activate {
