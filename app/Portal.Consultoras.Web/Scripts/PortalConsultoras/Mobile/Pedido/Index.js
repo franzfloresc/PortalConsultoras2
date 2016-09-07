@@ -1422,6 +1422,12 @@ function AgregarMantenerCliente() {
                 CerrarMantenerCliente();
 
                 $("#popupClienteIngresado").show();
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Clientes',
+                    'action': 'Agregar',
+                    'label': 'Satisfactorio'
+                });
             }
             CloseLoading();
         },
