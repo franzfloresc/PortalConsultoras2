@@ -156,13 +156,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "RESERVA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                        if (diaActual >= userData.FechaFacturacion)
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                         }
                         else
                         {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                         }
                     }
                     else // PROL 1
@@ -170,13 +170,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "VALIDA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                        if (diaActual >= userData.FechaFacturacion)
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                         }
                         else
                         {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                         }
                     }
                 }
@@ -1843,26 +1843,26 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
                 else // PROL 1
                 {
                     model.Prol = "VALIDA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
             }
@@ -2720,7 +2720,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             int HoraCierre = userData.EsZonaDemAnti;
             TimeSpan sp = HoraCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            //ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            ViewBag.HoraCierre = FormatearHora(sp);
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 

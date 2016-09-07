@@ -26174,7 +26174,7 @@ div.subir_archivo input {
 }
 
 .mensaje_cierre_fechapromesa{
-    font-size: 10.5px;
+    font-size: 11px;
     font-family: 'lato';
     color: black;
     height: 51px;
@@ -27201,7 +27201,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .favoritosClientes{
-    width:39%;
+    width:475px;
 }
 
 .liquidacionRangoClientes{
