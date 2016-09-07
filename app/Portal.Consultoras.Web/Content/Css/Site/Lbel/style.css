@@ -20303,7 +20303,7 @@ label.checkpop.c_on {
     border-radius: 100px;
     -moz-border-radius:100px;
     -webkit-border-radius: 100px;
-    overflow:hidden;
+    position:relative;
     float:left;
 }
 .foto_perfil_home img{
@@ -27438,7 +27438,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     float:left;
 }
 
-.contenedor_img_perfil:hover .tooltip_foto{
+.foto_perfil_home:hover .tooltip_foto{
     display:block;
 }
 
@@ -27466,7 +27466,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .tooltip_foto::before{
     position: absolute;
     top: 100%;
-    left: 9%;
+    left: 24%;
     border: solid transparent;
     content: " ";
     height: 0;
