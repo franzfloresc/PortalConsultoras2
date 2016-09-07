@@ -290,9 +290,9 @@
                             <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
                         </div>*@
 
-                    @{ string[] tooltips = Model.ProlTooltip.Split('|');
-                     string tooltip1 = tooltips[0];
-                     string tooltip2 = tooltips[1];
+                    @{ string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
+                     string tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                     string tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
                     }
                     <div class="tooltip_importanteGuardarPedido">
                         <text>@tooltip1</text>
