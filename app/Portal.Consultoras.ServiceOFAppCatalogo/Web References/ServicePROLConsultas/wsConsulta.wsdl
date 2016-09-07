@@ -1092,10 +1092,10 @@
   </wsdl:binding>
   <wsdl:service name="wsConsulta">
     <wsdl:port name="wsConsultaSoap" binding="tns:wsConsultaSoap">
-      <soap:address location="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx" />
+      <soap:address location="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx" />
     </wsdl:port>
     <wsdl:port name="wsConsultaSoap12" binding="tns:wsConsultaSoap12">
-      <soap12:address location="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx" />
+      <soap12:address location="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
