@@ -1190,7 +1190,7 @@ function ArmarCarouselEstrategias(data) {
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         $('#divListadoEstrategia').parents('.caja_carousel_productos').hide();
     } else {
-        var hCar = $($("#divListadoEstrategia").find("[data-item='producto']").get(0)).height();
+        var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         $('#divListadoEstrategia').slick({

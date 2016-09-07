@@ -1269,10 +1269,10 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                     success: function (data) {
                         if (checkTimeout(data)) {
                             ActualizarGanancia(JSON.parse(data).DataBarra);
-                            ShowLoading();
-                            InfoCommerceGoogle(parseFloat(cantidad * precio).toFixed(2), cuv, descripcion, categoria, precio, cantidad, marca, variant, "Productos destacados – Pedido", parseInt(posicion));
+                            ShowLoading();                            
                             CargarCarouselEstrategias(cuv);
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                            TagManagerClickAgregarProducto();
                             CloseLoading();
                         }
                     },
