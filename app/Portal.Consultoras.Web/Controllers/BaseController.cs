@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
             {
                 sv.Url = ConfigurationManager.AppSettings[keyWeb];
-                rtpa = sv.CalculoMontosProl(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.ZonaID.ToString(), ds.Tables[0]).ToList();
+                rtpa = sv.CalculoMontosProl(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ds.Tables[0]).ToList();
             }
 
             rtpa = rtpa ?? new List<ObjMontosProl>();
