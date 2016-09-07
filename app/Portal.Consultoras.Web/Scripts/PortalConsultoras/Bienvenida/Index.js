@@ -2199,7 +2199,7 @@ function ActualizarDatos() {
                         $("#fondoComunPopUp").hide();
                     }
                     contadorFondoPopUp--;
-                    alert_msg_pedido(mensajeHtml);
+                    alert_unidadesAgregadas(mensajeHtml, 1);
                 }
                 if (data.success) {
                     dataLayer.push({
@@ -3083,10 +3083,12 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             if (data.success) {
                 $("#divCatalogoPersonalizado").html("");
+                $("#linea_separadoraCP").show();
                 SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
+                $("#linea_separadoraCP").hide();
             }            
         },
         error: function (data, error) {

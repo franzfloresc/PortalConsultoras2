@@ -126,7 +126,7 @@
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
-                <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor: default!important;">
+                <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                     <img src="@Url.Content("~/Content/Images/Esika/notificaciones.png")" alt="" />
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
@@ -314,10 +314,7 @@
 <!--FIN CATALOGO PERSONALIZADO-->
 
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
-@if (Model.CatalogoPersonalizadoDesktop != 0) 
-{ 
-    <div class="linea_separadora"></div>
-}
+    <div class="linea_separadora" id="linea_separadoraCP" style="display:none;"></div>
     <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
@@ -1628,7 +1625,7 @@
         var primeraVezVideo = true;
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/object-fit-polyfill.js")"></script>
+    
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }

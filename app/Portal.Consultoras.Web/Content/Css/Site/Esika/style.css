@@ -1869,7 +1869,7 @@ div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal{
 }
 
 div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
-    width:20%;
+    width:19.5%;
     text-align:center;
 }
 
@@ -2608,7 +2608,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:1.5%;
+    /*padding-right:1.5%;*/
 }
 
 .cabecera_producto{
@@ -6283,9 +6283,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .logo_esika a{
-    height:50px;
+    height:69px;
     background: url(../../../Images/Esika/logo_esika.png) no-repeat;
-    background-size:100%;
+    background-size:cover;
 }
 
 .cliente_detalle {
@@ -20227,10 +20227,10 @@ label.checkpop.c_on {
     border-radius: 100%;
 }
 .logo_esika {
-    margin-top: 5px;
+    margin-top: -5px;
     float: left;
     width: 10%;
-    padding-right: 2px;
+    /*padding-right: 2px;*/
 }
 .imagen_showroom img { width: 100%; }
 
@@ -20493,6 +20493,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
@@ -26168,7 +26169,7 @@ div.subir_archivo input {
 }
 
 .mensaje_cierre_fechapromesa{
-    font-size: 11px;
+    font-size: 10.5px;
     font-family: 'lato';
     color: black;
     height: 51px;
@@ -27253,7 +27254,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .precarga {
   position: relative;
   margin: 0 auto 15px auto;
-  width: 80px;
+  width: 70px;
 }
 .precarga:before {
   content: '';
