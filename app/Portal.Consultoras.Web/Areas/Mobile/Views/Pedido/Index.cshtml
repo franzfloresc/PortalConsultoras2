@@ -305,6 +305,7 @@
         <input type="hidden" class="valorPosicion" value="{{detalle.ID}}" />
         <input type="hidden" class="valorPosicionCarrusel" value="{{detalle.PosicionCarrusel}}" />
         <input type="hidden" class="valorFlagNueva" value="{{detalle.FlagNueva}}" />
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home" >
             <div class="producto_img_mobile">
                 <img src="{{detalle.FotoProducto01}}" alt="{{detalle.DescripcionCUV2}}">
@@ -327,7 +328,7 @@
             {{/if_eq}}
             {{/if_eq}}
             <div class="producto_nombre_descripcion">
-                <h6>LBel</h6>
+                <h6>{{DescripcionMarca}}</h6>
                 {{#if_eq FlagNueva '1'}}
                 <p class="nombre_producto">
                     {{detalle.DescripcionCUVSplit}}
