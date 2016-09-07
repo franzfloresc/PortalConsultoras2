@@ -507,15 +507,15 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            ActualizarGanancia(data.DataBarra);
-            TrackingJetloreRemoveAll(listaDetallePedido);
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Ingresa tu pedido',
-                'action': 'Eliminar pedido completo',
-                'label': '(not available)'
-            });
             if (checkTimeout(data)) {
+                ActualizarGanancia(data.DataBarra);
+                TrackingJetloreRemoveAll(listaDetallePedido);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Ingresa tu pedido',
+                    'action': 'Eliminar pedido completo',
+                    'label': '(not available)'
+                });
                 messageDelete("Se eliminaron todos productos del pedido.");
                 location.reload();
             }

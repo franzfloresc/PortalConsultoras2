@@ -855,3 +855,11 @@ function RevistaMostrar(accion, btn) {
         $(btn).hide();
     }
 }
+
+function TagManagerPaginasVirtuales() {
+    dataLayer.push({
+        'event': 'virtualPage',
+        'pageUrl': '/Mobile/catalogo/revistas/',
+        'pageName': 'Catálogo – Revistas | Somos Belcorp'
+    });
+}
