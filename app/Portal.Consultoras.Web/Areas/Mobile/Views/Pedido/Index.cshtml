@@ -17,7 +17,7 @@
             <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar"></a>
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
-                <input type="text" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" />
+                <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>

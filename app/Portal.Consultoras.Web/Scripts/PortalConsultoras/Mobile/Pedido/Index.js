@@ -1587,3 +1587,9 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
+
+
+function maxLengthCheck(object, cantidadMaxima) {
+    if (object.value.length > cantidadMaxima)
+        object.value = object.value.slice(0, cantidadMaxima);
+}
