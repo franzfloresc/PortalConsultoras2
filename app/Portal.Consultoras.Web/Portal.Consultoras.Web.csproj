@@ -3685,10 +3685,10 @@
     <Content Include="Web References\ServiceOSBBelcorp\pedidoWebAnteriorCabeceraBean.datasource" />
     <Content Include="Web References\ServiceOSBBelcorp\pedidoWebAnteriorDetalleBean.datasource" />
     <Content Include="Web References\ServiceOSBBelcorp\Reference.map" />
-    <Content Include="Web References\ServicePROLConsultas\Reference.map">
+    <None Include="Web References\ServicePROLConsultas\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web References\ServicePROLConsultas\wsConsulta.wsdl" />
     <None Include="Web References\ServicePROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3726,10 +3726,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl">
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicesCalculosPROL\</RelPath>
-      <UpdateFromURL>http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -3748,10 +3748,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl">
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicePROLConsultas\</RelPath>
-      <UpdateFromURL>http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -3759,10 +3759,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl">
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicePROL\</RelPath>
-      <UpdateFromURL>http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -3814,10 +3814,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

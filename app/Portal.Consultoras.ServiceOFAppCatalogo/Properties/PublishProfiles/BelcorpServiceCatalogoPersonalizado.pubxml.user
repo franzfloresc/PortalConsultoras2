@@ -10,130 +10,154 @@ editando este archivo MSBuild. Para conocer más acerca de esto, visite http://g
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AWSSDK.dll">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:08</publishTime>
     </File>
     <File Include="bin/ClosedXML.dll">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:08</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:09</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.Core.dll">
+      <publishTime>09/01/2016 13:21:57</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OAuth2.Client.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OAuth2.ClientAuthorization.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OAuth2.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
     </File>
     <File Include="bin/HiQPdf.dep">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:09</publishTime>
     </File>
     <File Include="bin/HiQPdf.dll">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:09</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll">
-      <publishTime>08/05/2016 10:59:34</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll">
-      <publishTime>08/05/2016 10:59:34</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
-      <publishTime>08/08/2016 18:34:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.Unity.dll">
-      <publishTime>08/08/2016 18:45:33</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Practices.Unity.Interception.dll">
-      <publishTime>08/08/2016 18:45:33</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>08/08/2016 14:33:02</publishTime>
+      <publishTime>09/02/2016 12:28:10</publishTime>
     </File>
     <File Include="bin/Omu.Drawing.dll">
-      <publishTime>06/14/2016 15:34:43</publishTime>
+      <publishTime>08/15/2016 10:21:10</publishTime>
     </File>
     <File Include="bin/OpenSource.Library.DataAccess.dll">
-      <publishTime>08/05/2016 11:03:49</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.Common.dll">
-      <publishTime>08/11/2016 13:39:04</publishTime>
+      <publishTime>09/07/2016 10:44:44</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.ServiceCatalogoPersonalizado.dll">
-      <publishTime>08/11/2016 13:39:08</publishTime>
+      <publishTime>09/07/2016 10:44:45</publishTime>
     </File>
     <File Include="bin/Portal.Consultoras.ServiceCatalogoPersonalizado.XmlSerializers.dll">
-      <publishTime>08/11/2016 13:39:13</publishTime>
+      <publishTime>09/07/2016 10:44:46</publishTime>
     </File>
     <File Include="bin/StackExchange.Redis.dll">
-      <publishTime>08/08/2016 14:31:21</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>08/04/2016 20:07:27</publishTime>
+      <publishTime>09/05/2016 19:58:40</publishTime>
     </File>
     <File Include="bin/TSHAK.Components.dll">
-      <publishTime>06/14/2016 15:34:44</publishTime>
+      <publishTime>08/15/2016 10:21:10</publishTime>
+    </File>
+    <File Include="Librerias/DotNetOpenAuth.Core.dll">
+      <publishTime>09/01/2016 13:21:57</publishTime>
+    </File>
+    <File Include="Librerias/DotNetOpenAuth.OAuth2.Client.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
+    </File>
+    <File Include="Librerias/DotNetOpenAuth.OAuth2.ClientAuthorization.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
+    </File>
+    <File Include="Librerias/DotNetOpenAuth.OAuth2.dll">
+      <publishTime>09/01/2016 13:21:58</publishTime>
     </File>
     <File Include="Librerias/Microsoft.Practices.EnterpriseLibrary.Common.dll">
-      <publishTime>08/05/2016 10:59:34</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/Microsoft.Practices.EnterpriseLibrary.Data.dll">
-      <publishTime>08/05/2016 10:59:34</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/Microsoft.Practices.ServiceLocation.dll">
-      <publishTime>08/08/2016 18:34:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/Microsoft.Practices.Unity.dll">
-      <publishTime>08/08/2016 18:45:33</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/Microsoft.Practices.Unity.Interception.dll">
-      <publishTime>08/08/2016 18:45:33</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/Newtonsoft.Json.dll">
-      <publishTime>08/08/2016 14:33:02</publishTime>
+      <publishTime>09/02/2016 12:28:10</publishTime>
     </File>
     <File Include="Librerias/OpenSource.Library.DataAccess.dll">
-      <publishTime>08/05/2016 11:03:49</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Librerias/StackExchange.Redis.dll">
-      <publishTime>08/08/2016 14:31:21</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="ProductoService.svc">
-      <publishTime>08/11/2016 11:11:06</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/ArchivoStock1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/ControlCarga1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/DetallePedido1.datasource">
-      <publishTime>08/11/2016 11:03:55</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/DispoProl1.datasource">
-      <publishTime>08/11/2016 11:03:55</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/Lista1.datasource">
-      <publishTime>08/11/2016 11:03:55</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/LogCarga1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/LogError1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/OfertaProl1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/Reference.map">
-      <publishTime>08/05/2016 16:08:44</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/ReportStockxZona1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/Respuesta1.datasource">
-      <publishTime>08/11/2016 11:03:55</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/RptStock1.datasource">
-      <publishTime>08/11/2016 11:03:55</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web References/ServicePROLConsultas/StockReservado1.datasource">
-      <publishTime>08/11/2016 11:03:56</publishTime>
+      <publishTime>08/15/2016 10:21:36</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/11/2016 13:39:16</publishTime>
+      <publishTime>09/07/2016 10:44:47</publishTime>
     </File>
   </ItemGroup>
 </Project>
