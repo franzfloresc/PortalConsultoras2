@@ -5221,10 +5221,14 @@ body{
 
 .video_esika{
     width:98px;
-    height:66px;
-    margin-bottom:10px;
+    height:auto;
+    margin-bottom:0;
     /*background: url("../../../Images/mobile/Lbel/video.png") no-repeat right bottom;*/
 }
+.video_esika img{
+    width:100%;
+}
+
 .liquidacion_esika{
     width: 110px;
     min-height: 55px;
