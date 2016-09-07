@@ -710,6 +710,85 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var accion;
+            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'next';
+            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'prev';
+            } else if (nextSlide > currentSlide) {
+                accion = 'next';
+            } else {
+                accion = 'prev';
+            };
+
+            if (accion == 'prev') {
+                //TagManager
+                var posicionPrimerActivo = $($('#divContenidoEstrategias').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Pedido',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Pedido',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver anterior'
+                });
+            } else if (accion == 'next') {
+                //TagManager
+                var posicionUltimoActivo = $($('#divContenidoEstrategias').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Pedido',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Pedido',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver siguiente'
+                });
+            };
+
         });
         TagManagerCarruselInicio(data);
     }
@@ -1403,7 +1482,7 @@ function TagManagerCarruselInicio(arrayItems) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – Home',
+            'list': 'Ofertas para ti – Pedido',
             'position': recomendado.Posicion
         };
 
@@ -1424,7 +1503,7 @@ function TagManagerClickAgregarProducto() {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
-                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'actionField': { 'list': 'Ofertas para ti – Pedido' },
                 'products': [
                     {
                         'name': $("#txtCantidadZE").attr("est-descripcion"),
@@ -1455,7 +1534,7 @@ function TagManagerCarruselPrevia() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti – Pedido',
         'position': recomendado.Posicion
     };
 
@@ -1469,7 +1548,7 @@ function TagManagerCarruselPrevia() {
     });
     dataLayer.push({
         'event': 'virtualEvent',
-        'category': 'Home',
+        'category': 'Pedido',
         'action': 'Ofertas para ti',
         'label': 'Ver anterior'
     });
@@ -1488,7 +1567,7 @@ function TagManagerCarruselSiguiente() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti – Pedido',
         'position': recomendado.Posicion
     };
 
@@ -1502,7 +1581,7 @@ function TagManagerCarruselSiguiente() {
     });
     dataLayer.push({
         'event': 'virtualEvent',
-        'category': 'Home',
+        'category': 'Pedido',
         'action': 'Ofertas para ti',
         'label': 'Ver siguiente'
     });
