@@ -6,7 +6,7 @@ var contadorTutorialSlide = 1
 
 $(document).ready(function () {
 
-    $('#salvavidaTutorial').show();
+    //$('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
