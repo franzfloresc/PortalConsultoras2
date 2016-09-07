@@ -408,6 +408,8 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
         
         private int cantidadField;
         
+        private string codsap_nivel_gratisField;
+        
         private string descripcion_gratisField;
         
         /// <comentarios/>
@@ -427,6 +429,16 @@ namespace Portal.Consultoras.Web.ServicesCalculosPROL {
             }
             set {
                 this.cantidadField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public string codsap_nivel_gratis {
+            get {
+                return this.codsap_nivel_gratisField;
+            }
+            set {
+                this.codsap_nivel_gratisField = value;
             }
         }
         

@@ -69,7 +69,7 @@
                                 <img src="/Content/Images/Mobile/Esika/menos.png">
                             </span>
                             <div class="campo_cantidadProductos">
-                                <input type="text" name="cantidad" value="1" id="txtCantidad" />
+                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                             </div>
                             <span class="signo_mas" id="suma">
                                 <img src="/Content/Images/Mobile/Esika/mas.png">
@@ -238,7 +238,7 @@
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:-5px;"></div>
         <div class="mensaje_alerta">
-            Lo sentimos, este producto está agotado. Prueba <b>reemplazarlo</b> con
+            Lo sentimos, se nos agotó este producto. Prueba <b>reemplazarlo</b> con
             alguno de éstos:
         </div>
         <div class="contenedor_carrusel_home" id="divCarruselSugerido">

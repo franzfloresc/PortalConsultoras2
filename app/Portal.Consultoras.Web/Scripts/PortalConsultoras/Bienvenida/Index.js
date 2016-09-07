@@ -3083,10 +3083,25 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             if (data.success) {
                 $("#divCatalogoPersonalizado").html("");
-                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+                $("#linea_separadoraCP").show();
+                var contador = 0;
+                var limite = 8;
+                var arrayProducto = new Array();
+
+                $.each(data.data, function (index, value) {
+                    arrayProducto.push(value);
+                    contador++;
+
+                    if (contador == limite) {
+                        return false;
+                    }
+                });
+
+                SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
+                $("#linea_separadoraCP").hide();
             }            
         },
         error: function (data, error) {

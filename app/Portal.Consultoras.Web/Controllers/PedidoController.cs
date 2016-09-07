@@ -156,13 +156,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "RESERVA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                        if (diaActual >= userData.FechaFacturacion)
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                         }
                         else
                         {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                         }
                     }
                     else // PROL 1
@@ -170,13 +170,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "VALIDA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                        if (diaActual >= userData.FechaFacturacion)
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                         }
                         else
                         {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                         }
                     }
                 }
@@ -1843,26 +1843,26 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
                 else // PROL 1
                 {
                     model.Prol = "VALIDA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
             }
@@ -2720,7 +2720,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             int HoraCierre = userData.EsZonaDemAnti;
             TimeSpan sp = HoraCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
+            //ViewBag.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            ViewBag.HoraCierre = FormatearHora(sp);
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 
@@ -2730,54 +2731,54 @@ namespace Portal.Consultoras.Web.Controllers
             //----------------------------------------------------
 
             /* SB20-287 - INICIO */
-            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+            //TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            //DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
 
-            if (!userData.DiaPROL)  // Periodo de venta
-            {
-                //ViewBag.Prol = "GUARDA TU PEDIDO";
-                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+            //if (!userData.DiaPROL)  // Periodo de venta
+            //{
+            //    //ViewBag.Prol = "GUARDA TU PEDIDO";
+            //    ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+            //    ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
-                if (userData.CodigoISO == "BO")
-                {
-                    ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                    ViewBag.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
-                }
-            }
-            else // Periodo de facturacion
-            {
-                //ViewBag.Prol = "GUARDA TU PEDIDO";
-                ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+            //    if (userData.CodigoISO == "BO")
+            //    {
+            //        ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+            //        ViewBag.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+            //    }
+            //}
+            //else // Periodo de facturacion
+            //{
+            //    //ViewBag.Prol = "GUARDA TU PEDIDO";
+            //    ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+            //    ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
-                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
-                {
-                    //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                    }
-                    else
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
-                    }
-                }
-                else // PROL 1
-                {
-                    //ViewBag.Prol = "VALIDA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                    }
-                    else
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
-                    }
-                }
-            }
+            //    if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+            //    {
+            //        //ViewBag.Prol = "MODIFICA TU PEDIDO";
+            //        ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+            //        if (diaActual >= userData.FechaFacturacion)
+            //        {
+            //            ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+            //        }
+            //        else
+            //        {
+            //            ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+            //        }
+            //    }
+            //    else // PROL 1
+            //    {
+            //        //ViewBag.Prol = "VALIDA TU PEDIDO";
+            //        ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
+            //        if (diaActual >= userData.FechaFacturacion)
+            //        {
+            //            ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+            //        }
+            //        else
+            //        {
+            //            ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+            //        }
+            //    }
+            //}
             /* SB20-287 - FIN */
 
             #region Banners

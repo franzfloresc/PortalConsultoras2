@@ -168,26 +168,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
                 else // PROL 1
                 {
                     model.Prol = "VALIDA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    if (diaActual >= userData.FechaFacturacion)
+                    if (diaActual <= userData.FechaInicioCampania)
                     {
-                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                     }
                 }
             }
@@ -319,7 +319,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             //model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-            model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
             return View(model);

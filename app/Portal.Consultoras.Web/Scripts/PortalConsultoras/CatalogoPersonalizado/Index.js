@@ -30,7 +30,20 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             $("#divCatalogoPersonalizado").html("");
             if (data.success) {
-                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+                var contador = 0;
+                var limite = data.limiteJetloreCatalogoPersonalizado;
+                var arrayProducto = new Array();
+
+                $.each(data.data, function (index, value) {
+                    arrayProducto.push(value);
+                    contador++;
+
+                    if (contador == limite) {
+                        return false;
+                    }
+                });
+                
+                SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
             }
         },
         error: function (data, error) {

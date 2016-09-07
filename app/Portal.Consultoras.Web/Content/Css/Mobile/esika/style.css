@@ -671,9 +671,21 @@ h4.re3 {
 }
 
 .pcolor {
-    color: #722789 !important;
+    color: black;
+    font-weight: 700;
+    font-family: 'LAto';
+    font-size:14.5px;
 }
-
+.color_facturado{
+    color:#e81c36;
+}
+.btn_facturado {
+    color: black;
+    font-family:'Lato';
+    margin-bottom:30px;
+    border-top:1px solid #bababa;
+    padding-top: 30px;
+}
 .scolor {
     color: #35bdb2 !important;
 }
@@ -684,6 +696,8 @@ h4.re3 {
 
 .posr {
     position: relative;
+    font-family:'Lato';
+    color:black;
 }
 
 .mt-10 {
@@ -965,12 +979,12 @@ h4.re3 {
     }
 
 .panel-line-info .panel-heading {
-    border-bottom: 1px solid #00abdf;
-    color: #00abdf;
+     color: black;
     padding-top: 15px;
     padding-bottom: 15px;
     position: relative;
     z-index: 99;
+    font-family: 'LAto';
 }
 
     .panel-line-info .panel-heading .panel-title {
@@ -996,7 +1010,7 @@ h4.re3 {
     z-index: 999;
 }
 
-    .panel-line-info .panel-collapse:before {
+    /*.panel-line-info .panel-collapse:before {
         content: "";
         position: absolute;
         top: -8px;
@@ -1014,7 +1028,7 @@ h4.re3 {
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-bottom: 7px solid #fff;
-    }
+    }*/
 
 .btn {
     font-weight: 300;
@@ -1072,7 +1086,8 @@ h4.re3 {
 }
 
 .block-center {
-    padding: 10px;
+   
+    font-family:'LAto';
 }
 
 .sec-spaced {
@@ -1378,7 +1393,7 @@ h4.re3 {
 }
 
 .block-white {
-    padding: 20px 15px;
+    /*padding: 20px 15px;*/
     margin: 10px 0;
     background: #fff;
 }
@@ -1389,13 +1404,16 @@ h4.re3 {
     padding: 20px 15px 15px;
     margin: 10px 0;
     margin-top: 0;
-    background: #35bdb2;
-    color: #fff;
+    background: #F2F2F2;
+    color: black;
     text-transform: uppercase;
+    font-family:'Lato';
 }
 
 .block-info {
-    background: #00abdf;
+    background: white;
+    color:black;
+    font-family:'Lato';
 }
 
 .block-primary {
@@ -1446,28 +1464,29 @@ h4.re3 {
 
 .tabs-link {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 13px;
 }
 
     .tabs-link a {
-        width: 33.3%;
-        display: inline-block;
-        padding: 12px 5px;
-        background: #E7E9EC;
-        border-top: 5px solid #E7E9EC;
-        color: #6b7f8e;
-        margin-left: -2px;
-        margin-right: -2px;
-        text-decoration: none;
+       width: 33.3%;
+    display: inline-block;
+    padding: 8px 0 8px 5px;
+    background: #f2f2f2;
+    border-bottom: 5px solid #f2f2f2;
+    color: black;
+    margin-left: -2px;
+    margin-right: -2px;
+    text-decoration: none;
+    font-family: 'Lato';
     }
 
         .tabs-link a.active {
-            border-top: 5px solid #00abdf;
+            border-bottom: 4px solid #e81c36;
             background: #fff;
         }
 
         .tabs-link a:hover {
-            border-top: 5px solid #00abdf;
+            border-bottom: 4px solid #e81c36;
         }
 
 .tabs-two {
@@ -1480,17 +1499,18 @@ h4.re3 {
     }
 
 .tab-primary a.active {
-    border-top: 5px solid #722789;
-    color: #722789;
-    background: #fff;
+    border-bottom: 4px solid #e81c36;
+    color: black;
+    background: #f2f2f2;
+    font-family:'Lato';
 }
 
 .tab-primary a:hover {
-    border-top: 5px solid #722789;
+    border-bottom: 4px solid #e81c36;
 }
 
 .header-icon {
-    margin-top: -28px;
+    margin-top: -23px;
 }
 
 .panel-group .panel-heading + .panel-collapse > .list-group,
@@ -1531,6 +1551,7 @@ h4.re3 {
 
 .lista-movimientos {
     text-transform: uppercase;
+    font-family:'Lato';
 }
 
     .lista-movimientos li {
@@ -1617,7 +1638,7 @@ h4.re3 {
         list-style: none;
         border-bottom: 1px solid #ccc;
         padding: 25px 0;
-        padding-left: 15px;
+        /*padding-left: 15px;*/
         position: relative;
         line-height: 1.4;
         font-size: 14px;
@@ -1677,20 +1698,27 @@ h4.re3 {
     text-decoration: none;
     position: absolute;
     right: 0;
-    bottom: -3px;
+    bottom: 5px;
     font-weight: bold;
     color: #e81c36;
+    padding-right:0;
 }
 
     .list-notificaciones .btn-more:hover {
         text-decoration: none;
         position: absolute;
         right: 0;
-        bottom: -3px;
+        bottom: 5px;
         font-weight: bold;
         color: #e81c36;
+        padding-right:0;
     }
-
+ .list-notificaciones{
+     margin-bottom:0;
+ }
+.list-notificaciones li:last-child{
+    border-bottom:0;
+}
 .fecha_notificaciones {
     margin-top: 5px;
     display: block;
@@ -1835,7 +1863,7 @@ h4.re3 {
     .list-table-new ul li {
         list-style: none;
         padding: 20px 0;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #bababa;
         position: relative;
     }
 
@@ -1845,7 +1873,9 @@ h4.re3 {
 
     .list-table-new .list-table-title li {
         border-bottom: 0px;
-        padding-bottom: 15px;
+        padding-bottom: 0px;
+        font-family:'Lato';
+        color:black;
     }
 
     .list-table-new .list-table-title .table-title-right {
@@ -1874,7 +1904,7 @@ h4.re3 {
 }
 
 .list-table-new .list-table-body .cantidad-numero {
-    font-size: 1.2em;
+    font-size: 13px;
     font-weight: bold;
 }
 
@@ -1892,7 +1922,7 @@ h4.re3 {
 
 .list-table-new strong,
 .list-table-new b {
-    color: #60727f;
+    color: black;
 }
 
 .list-table-new .cli-ac-edit {
@@ -2976,7 +3006,7 @@ table > thead > tr > th {
     margin-top: 0;
     font-size: 15px;
     text-transform: uppercase;
-    color: #722789;
+    color: black;
     margin-bottom: 0px;
 }
 
@@ -3010,22 +3040,23 @@ table > thead > tr > th {
 
     .material-tabs a {
         text-decoration: none;
-        font-size: 12px;
-        display: inline-block;
-        padding: 5px 10px;
-        width: 30%;
-        line-height: 1.2;
-        margin-right: -5px;
-        margin-bottom: 10px;
-        color: #6b7f8e;
-        font-weight: bold;
-        border-bottom: 1px solid #d7d7d7;
+    font-size: 13px;
+    display: inline-block;
+    padding: 5px 0 16px 10px;
+    width: 30%;
+    /* line-height: 1.2; */
+    margin-right: -5px;
+    /* margin-bottom: 10px; */
+    color: black;
+    /* font-weight: bold; */
+    border-bottom: 0;
+    font-family: 'Lato';
+    /* float: left; */
     }
 
         .material-tabs a:hover,
         .material-tabs a.active {
-            color: #722789;
-            border-bottom: 2px solid #722789;
+            border-bottom: 4px solid #e81c36;
         }
 
         .material-tabs a:first-child {
@@ -3083,9 +3114,10 @@ table > thead > tr > th {
 }
 
 .title-landing {
-    color: #722789;
+    color: black;
     margin-bottom: 20px;
     font-size: 14px;
+    font-family:'Lato';
 }
 
 .img-landing {
@@ -3096,6 +3128,7 @@ table > thead > tr > th {
 .list-num-landing {
     padding-left: 10px;
     padding-right: 10px;
+    font-family:'Lato';
 }
 
     .list-num-landing li {
@@ -3104,7 +3137,7 @@ table > thead > tr > th {
     }
 
         .list-num-landing li strong {
-            color: #415261;
+            color: black;
         }
 
         .list-num-landing li p {
@@ -3139,7 +3172,7 @@ table > thead > tr > th {
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            border: 1px solid #415261;
+            border: 1px solid black;
             background: transparent;
             cursor: pointer;
         }
@@ -3149,7 +3182,7 @@ table > thead > tr > th {
             }
 
             .slide-landing .slick-dots li.slick-active {
-                background: #415261;
+                background: black;
             }
 
 .over-hidden {
@@ -3163,9 +3196,10 @@ table > thead > tr > th {
 }
 
     .item-slide-landing .title-slide-landing {
-        color: #415261;
+        color: #e81c36;
         font-size: 15px;
         margin-bottom: 30px;
+        font-family:'LAto';
     }
 
 .btn-activate {
@@ -5836,9 +5870,12 @@ body {
 
 .video_esika {
     width: 98px;
-    height: 66px;
-    margin-bottom: 10px;
+    height: auto;
+    margin-bottom: 0;
     /*background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;*/
+}
+.video_esika img{
+    width:100%;
 }
 
 .liquidacion_esika {
@@ -6984,6 +7021,7 @@ input[type="checkbox"]:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
+    text-transform:uppercase;
 }
 
 .tooltip_validado {
@@ -7019,12 +7057,13 @@ input[type="checkbox"]:checked + span:after {
     line-height: 54px;
     font-family: 'Lato';
     font-size: 15px;
-    font-weight: 900;
+    font-weight: 700;
     color: white;
     text-align: center;
     display: block;
     margin-top: 30px;
     background: #e81c36;
+    text-transform:uppercase;
 }
 
 .icono_tooltip_validado {
@@ -7792,7 +7831,7 @@ input[type="checkbox"]:checked + span:after {
     display: none;
     position: absolute;
     background: white;
-    top: 33px;
+    top: 76px;
     font-family: 'Lato';
     font-size: 12px;
     color: black;
@@ -7800,17 +7839,18 @@ input[type="checkbox"]:checked + span:after {
     -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
-    left: -18px;
+    left: 1px;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -o-border-radius: 3px;
     -moz-border-radius: 3px;
+    z-index: 5000;
     
 }
 .tooltip_foto::before{
     position: absolute;
     bottom: 100%;
-    left: 12%;
+    left: 20%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -7822,3 +7862,10 @@ input[type="checkbox"]:checked + span:after {
 }
 
 /*FIN*/
+.border_bababa{
+    border-bottom:1px solid #bababa !important;
+}
+.color_belcorp{
+    color:#e81c36;
+    font-weight:700;
+}
