@@ -647,7 +647,7 @@ function InsertarProducto() {
                                 'id': data.data.CUV,
                                 'category': 'NO DISPONIBLE',
                                 'variant': data.data.DescripcionOferta,
-                                'quantity': Number(data.data.Cantidad),
+                                'quantity': Number(model.Cantidad),
                                 'position': 1
                             }]
                         }

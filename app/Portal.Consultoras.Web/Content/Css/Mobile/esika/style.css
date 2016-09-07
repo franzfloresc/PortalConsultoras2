@@ -4669,7 +4669,7 @@ table > thead > tr > th {
 .btn_seguirp_mobile {
     padding-left: 13px;
     display: inline-block;
-    /*margin-top:15px;*/
+    margin-top:15px;
     color: black;
     font-family: 'Lato';
     font-size: 12px;

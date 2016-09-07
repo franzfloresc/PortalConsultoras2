@@ -785,7 +785,6 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
                     cierreCarouselEstrategias();
                     CargarCarouselEstrategias(param2.CUV);
                     HideDialog("divVistaPrevia");
-                    //MostrarProductoAgregado("", descripcion, cantidad, (cantidad * precio).toFixed(2));
                     PedidoOnSuccess();
                     CargarDetallePedido();
                     MostrarBarra(response);
@@ -803,7 +802,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
                                     'id': response.data.CUV,
                                     'category': 'NO DISPONIBLE',
                                     'variant': response.data.DescripcionOferta,
-                                    'quantity': Number(response.data.Cantidad),
+                                    'quantity': Number(param2.Cantidad),
                                     'position': 1
                                 }]
                             }
@@ -3704,37 +3703,6 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
-
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
-};
-
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();
     var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
