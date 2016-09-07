@@ -533,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }                            
                         else
                         {
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido.";
+                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido";
                         }
                             
                     }
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + FormatearHora(HoraCierrePortal) + " para validar lo que vas a recibir en el pedido.";
-                                TextoPromesa = "Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
+                                TextoPromesa = " Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
                             }                                
                         }
                     }
@@ -753,7 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido.";
+                            ViewBag.MensajeCierreCampania = "El " + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + " desde las " + FormatearHora(model.HoraFacturacion) + " hasta las " + FormatearHora(HoraCierrePortal) + " podrás validar los productos que te llegarán en el pedido";
                         }
 
                     }
@@ -772,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las " + FormatearHora(HoraCierrePortal) + " para validar lo que vas a recibir en el pedido.";
-                                TextoPromesa = "Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
+                                TextoPromesa = " Recibirás tu pedido el " + model.FechaPromesaEntrega.Day + " de " + NombreMes(model.FechaPromesaEntrega.Month) + ".";
                             }
                         }
                     }

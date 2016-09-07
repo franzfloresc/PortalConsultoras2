@@ -6283,7 +6283,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .logo_esika a{
-    height:69px;
+    height:59px;
     background: url(../../../Images/Esika/logo_esika.png) no-repeat;
     background-size:cover;
 }
@@ -20227,10 +20227,10 @@ label.checkpop.c_on {
     border-radius: 100%;
 }
 .logo_esika {
-    margin-top: -5px;
+    /*margin-top: -5px;*/
     float: left;
     width: 10%;
-    /*padding-right: 2px;*/
+    padding-right: 2px;
 }
 .imagen_showroom img { width: 100%; }
 
@@ -20376,7 +20376,7 @@ label.checkpop.c_on {
     border-radius: 100px;
     -moz-border-radius:100px;
     -webkit-border-radius: 100px;
-    overflow:hidden;
+   position:relative;
     float:left;
 }
 .foto_perfil_home img{
@@ -22011,6 +22011,11 @@ body{
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
         margin-left: 3.5%;
+    }
+    .seguir_pedido{
+            width: 143px;
+            padding-left: 13px;
+
     }
 }
 
@@ -26874,7 +26879,7 @@ position: relative; float: left;
 }
 .info_modificarvalidado{
     float:right;
-    width:213px;
+    width:240px;
     height:auto;
     padding: 20px;
     margin-right: 15px;
@@ -26884,8 +26889,8 @@ position: relative; float: left;
     background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
-    font-weight:900;
-    color:#e81c36;
+    /*font-weight:900;
+    color:#e81c36;*/
     text-align:center;
     line-height: 17px;
     margin-top: 20px;
@@ -26899,6 +26904,23 @@ position: relative; float: left;
     display:block;
     margin-top: 5px;
     line-height: 15px;
+}
+.icono_tooltip_validado {
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: cover;
+}
+.info_tooltip {
+    width: 165px;
+    float: left;
+    margin-left: 10px;
+    font-family: 'Lato';
+    font-size: 14px;
+    line-height: 17px;
+    color: black;
+    text-align: left;
 }
 .linea_gris{
     width:100%;
@@ -27179,7 +27201,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .favoritosClientes{
-    width:39%;
+    width:475px;
 }
 
 .liquidacionRangoClientes{
@@ -27482,7 +27504,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     float:left;
 }
 
-.contenedor_img_perfil:hover .tooltip_foto{
+.foto_perfil_home:hover .tooltip_foto{
     display:block;
 }
 
@@ -27510,7 +27532,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .tooltip_foto::before{
     position: absolute;
     top: 100%;
-    left: 9%;
+    left: 24%;
     border: solid transparent;
     content: " ";
     height: 0;

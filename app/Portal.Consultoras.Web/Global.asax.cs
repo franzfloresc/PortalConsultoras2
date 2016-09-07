@@ -383,8 +383,6 @@ namespace Portal.Consultoras.Web
             
             FilterProviders.Providers.Add(providerSession);
             AutoMapperConfiguration.Configure();
-
-            AutoMapperConfiguration.Configure();
         }
 
 
