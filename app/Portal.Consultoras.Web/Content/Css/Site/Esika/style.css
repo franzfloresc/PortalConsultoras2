@@ -5516,7 +5516,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;
+    /*background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;*/
 }
 
 .popup_tutorial_pedido {
@@ -27541,4 +27541,26 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-top-color: white;
     border-width: 9px;    
     z-index: 10;
+}
+
+/*TUTORIAL DINAMICO*/
+
+#slide1_container {
+    display:block;
+    width:900px;
+    height:668px;
+    overflow:hidden; 
+    margin:0 auto;
+}
+#slide1_images {
+  width:7200px;
+  -webkit-transition:all 1.0s ease-in-out;
+  -moz-transition:all 1.0s ease-in-out;
+  -o-transition:all 1.0s ease-in-out;
+  transition:all 1.0s ease-in-out;
+}
+#slide1_images img {
+  padding:0;
+  margin:0;
+  float:left;
 }
