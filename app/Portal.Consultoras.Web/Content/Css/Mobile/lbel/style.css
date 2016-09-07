@@ -1250,9 +1250,10 @@ h4.re3 {
     padding: 20px 15px 15px;
     margin: 10px 0;
     margin-top: 0;
-    background: #35bdb2;
-    color: #fff;
+    background: WHITE;
+    color: black;
     text-transform: uppercase;
+    font-family:'Lato';
 }
 .block-info {
     background: white;
@@ -1338,7 +1339,7 @@ h4.re3 {
 }
 
 .header-icon {
-    margin-top: -28px;
+    margin-top: -23px;
 }
 .panel-group .panel-heading + .panel-collapse > .list-group,
 .panel-group .panel-heading + .panel-collapse > .panel-body {
@@ -1371,6 +1372,7 @@ h4.re3 {
     }
 .lista-movimientos {
     text-transform: uppercase;
+    font-family:'Lato';
 }
     .lista-movimientos li {
         list-style: none;
@@ -6301,6 +6303,7 @@ input[type="checkbox"]:checked + span:after {
     display:block;
     margin-top:25px;
     cursor:pointer;
+    text-transform:uppercase;
 }
 .tooltip_validado {
     width: 280px;
@@ -7121,4 +7124,12 @@ input[type="checkbox"]:checked + span:after {
 }
 #divListaPedidoDetalle_201613{
     margin-top:3px;
+}
+.color_belcorp{
+    color:#613c87;
+    font-weight:700;
+
+}
+.text-danger {
+    color: #b75d9f !important;
 }
