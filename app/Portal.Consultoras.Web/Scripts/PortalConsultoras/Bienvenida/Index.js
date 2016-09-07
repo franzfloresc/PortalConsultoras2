@@ -2,10 +2,11 @@
 var vpromotionsTagged = [];
 var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
+var contadorTutorialSlide = 1
 
 $(document).ready(function () {
 
-    //$('#salvavidaTutorial').show();
+    $('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
@@ -56,6 +57,17 @@ $(document).ready(function () {
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
+        setInterval(function () {
+            $('#slide1_images').css("transform", "translateX(" + contadorTutorialSlide * -900 + "px)");
+
+            contadorTutorialSlide++;
+
+            if (contadorTutorialSlide > 8) {
+                contadorTutorialSlide = 1;
+                $('#slide1_images').css("transform", "translateX(0px)");
+            }
+        }, 3000);
+
     }
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_home').fadeOut();

@@ -69,7 +69,7 @@
                                 <img src="/Content/Images/Mobile/Esika/menos.png">
                             </span>
                             <div class="campo_cantidadProductos">
-                                <input type="text" name="cantidad" value="1" id="txtCantidad" />
+                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                             </div>
                             <span class="signo_mas" id="suma">
                                 <img src="/Content/Images/Mobile/Esika/mas.png">
