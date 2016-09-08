@@ -27539,7 +27539,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*TOOLTIP FOTO*/
 
 .contenedor_img_perfil{
-    display:none;
+    display:block;
     float:left;
 }
 
