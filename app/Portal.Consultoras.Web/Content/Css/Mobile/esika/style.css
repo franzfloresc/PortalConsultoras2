@@ -4589,6 +4589,7 @@ table > thead > tr > th {
 
 .enlace_sociasEmpresarias {
     display: block;
+    text-align:left;
 }
 
     .enlace_sociasEmpresarias .btn_seguirp_mobile {
