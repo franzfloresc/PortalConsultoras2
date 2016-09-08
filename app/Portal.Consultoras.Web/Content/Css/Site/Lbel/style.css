@@ -5468,11 +5468,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /* top: 50%; */
     margin: 8px auto 8px auto;
     width: 100%;
-    max-width: 614px;
-    height: 639px;
+    max-width: 900px;
+    height: 642px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    /*background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;*/
 }
 
 .popup_tutorial_pedido {
@@ -27475,6 +27475,74 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-top-color: white;
     border-width:9px;
     z-index: 10;
+}
+
+/*TUTORIAL DINAMICO*/
+
+#slide1_container {
+    display:block;
+    width:100%;
+    max-width:900px;
+    height:642px;
+    overflow:hidden; 
+    margin:0 auto;
+}
+
+#slide1_images {
+  width:100%;
+  position:absolute;
+  top:0px;
+}
+
+#slide1_images div {
+  padding:0;
+  margin:0;
+  position:absolute;
+  top:15px;
+  left:0px;
+  width:900px;
+  height: 642px;
+  opacity:1;
+}
+
+#slide1_images .img_slide1{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel1.jpg) no-repeat center top;
+    z-index:8;
+}
+
+#slide1_images .img_slide2{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel2.jpg) no-repeat center top;
+    z-index:7;
+}
+
+#slide1_images .img_slide3{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel3.jpg) no-repeat center top;
+    z-index:6;
+}
+
+#slide1_images .img_slide4{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel4.jpg) no-repeat center top;
+    z-index:5;
+}
+
+#slide1_images .img_slide5{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel5.jpg) no-repeat center top;
+    z-index:4;
+}
+
+#slide1_images .img_slide6{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel6.jpg) no-repeat center top;
+    z-index:3;
+}
+
+#slide1_images .img_slide7{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel7.jpg) no-repeat center top;
+    z-index:2;
+}
+
+#slide1_images .img_slide8{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel8.jpg) no-repeat center top;
+    z-index:1;
 }
 /*POP UP FOTO CARGADA*/
 .content_foto_cargada{
