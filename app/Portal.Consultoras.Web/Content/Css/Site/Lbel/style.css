@@ -4336,6 +4336,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:auto;
 }
 
+.fondo_tutorial{
+    background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
+}
+
 .btn_cerrar_invitacionFlexipago{
     display: block;
     width: 100%;
