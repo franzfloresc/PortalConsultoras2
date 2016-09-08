@@ -62,7 +62,6 @@ $(document).ready(function () {
         {
             $(".img_slide" + numImagen).animate({ 'opacity': '0' });
             if (numImagen == 8) {
-                alert(numImagen);
                 $(".img_slide" + numImagen).animate({ 'opacity': '0' });               
             }
             numImagen++;
