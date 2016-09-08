@@ -16,6 +16,8 @@ using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Text.RegularExpressions;
+using Portal.Consultoras.Web.ServiceLMS;
+using System.Data;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -485,6 +487,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+
+                    this.CrearUsuarioMiAcademia(model);
                 }
 
                 pasoLog = "Agregar usuario en session";
@@ -652,5 +656,26 @@ namespace Portal.Consultoras.Web.Controllers
             return result == null ? false : true;
         }
         /*Fin Cambios_Landing_Comunidad*/
+
+        private void CrearUsuarioMiAcademia(UsuarioModel model)
+        {
+            string key = ConfigurationManager.AppSettings["secret_key"];
+            string isoUsuario = model.CodigoISO + '-' + model.CodigoConsultora;
+            ws_server svcLMS = new ws_server();
+
+            result getUser = svcLMS.ws_serverget_user(isoUsuario, model.CampaniaID.ToString(), key);
+            if (getUser.codigo == "002")
+            {
+                string nivelProyectado = "";
+                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                {
+                    DataSet parametros = csv.ObtenerParametrosSuperateLider(model.PaisID, model.ConsultoraID, model.CampaniaID);
+                    if (parametros != null && parametros.Tables.Count > 0) nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
+                }
+                string eMail = model.EMail.Trim() != string.Empty ? model.EMail : (model.CodigoConsultora + "@notengocorreo.com");
+
+                svcLMS.ws_servercreate_user(isoUsuario, model.NombreConsultora, eMail, model.CampaniaID.ToString(), model.CodigorRegion, model.CodigoZona, model.SegmentoConstancia, model.SeccionAnalytics, model.Lider.ToString(), model.NivelLider.ToString(), model.CampaniaInicioLider.ToString(), model.SeccionGestionLider, nivelProyectado, key);
+            }
+        }
     }
 }
