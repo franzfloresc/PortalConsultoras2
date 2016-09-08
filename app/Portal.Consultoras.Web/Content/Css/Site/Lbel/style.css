@@ -20450,6 +20450,7 @@ label.checkpop.c_on {
       font-size:11px;
       color:black;
       margin-left:4%;
+      width:29%;
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -20717,13 +20718,13 @@ label.checkpop.c_on {
 .seguir_pedido{
     display: inline-block;
     vertical-align: top;
-    width: 173px;
+    width:49%;
     background:url("../../../Images/Lbel/indicador_pedido.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
     font-size:13px;
     color:black;
-    padding-left:20px;
+    padding-left:4%;
     margin-top:12px;
     /*letter-spacing: 1px;*/
     font-weight: 500;
@@ -21963,10 +21964,20 @@ body{
 }
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 3.5%;
+        margin-left: 2.5%;
+    }
+    .escala_ganancia {
+        padding-left: 0.8%;
+        padding-right: 0.8%;
     }
 }
-
+@media screen and (max-width: 1187px) {
+    
+    .escala_ganancia {
+        padding-left: 1.2%;
+        padding-right: 1.2%;
+    }
+}
 @media screen and (max-width: 1024px) {
      .linea_blanca{
         width:52px;
