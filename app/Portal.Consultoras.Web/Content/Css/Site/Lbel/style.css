@@ -659,7 +659,7 @@ header {
     cursor: pointer;
     position: fixed;
     z-index: 300;
-    top: 260px;
+    bottom: 100px;
     text-align: center;
     right: 0px;
 }
@@ -20460,8 +20460,8 @@ label.checkpop.c_on {
       color:black;
       /*margin-left:4%;
       width:29%;*/
-      margin-left: 6%;
-      width: 25%;
+      margin-left: 5%;
+      width: 27%;
 }
 .socia_negocio_home span{
      font-weight:400;
