@@ -669,7 +669,7 @@ function ArmarCarouselEstrategias(data) {
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
-                    breakpoint: 1024,
+                    breakpoint: 1025,
                     settings: {
                         slidesToShow: 3
                     }
