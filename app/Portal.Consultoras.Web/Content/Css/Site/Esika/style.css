@@ -27547,20 +27547,60 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 #slide1_container {
     display:block;
-    width:900px;
+    width:100%;
+    max-width:900px;
     height:668px;
     overflow:hidden; 
     margin:0 auto;
 }
+
 #slide1_images {
-  width:7200px;
-  -webkit-transition:all 1.0s ease-in-out;
-  -moz-transition:all 1.0s ease-in-out;
-  -o-transition:all 1.0s ease-in-out;
-  transition:all 1.0s ease-in-out;
+  width:100%;
+  position:absolute;
+  top:0px;
 }
+
 #slide1_images img {
   padding:0;
   margin:0;
-  float:left;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:auto;
+  opacity:1;
+}
+
+#slide1_images .img_slide1{
+    z-index:8;
+}
+
+#slide1_images .img_slide2{
+    z-index:7;
+}
+
+#slide1_images .img_slide3{
+    z-index:6;
+}
+
+#slide1_images .img_slide4{
+    z-index:5;
+}
+
+#slide1_images .img_slide5{
+    z-index:4;
+}
+
+#slide1_images .img_slide6{
+    z-index:3;
+}
+
+#slide1_images .img_slide7{
+    top:668px;
+    z-index:2;
+}
+
+#slide1_images .img_slide8{
+    top:1336px;
+    z-index:1;
 }
