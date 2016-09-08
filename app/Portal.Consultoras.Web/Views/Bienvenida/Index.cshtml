@@ -49,7 +49,7 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <div class="contenedor_img_perfil">
+        <div class="contenedor_img_perfil" style="display:none">
             @*<a class="subir_foto">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
@@ -136,8 +136,8 @@
             </div>
             <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO A TU PEDIDO</a>
-            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
+            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO<br/> A TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br/> DE BIENVENIDA</a>
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
                 <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
@@ -1110,7 +1110,7 @@
 
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
-                    <div class="datos_consultora_img">
+                    <div class="datos_consultora_img" style="display:none;">
                         <a class="subir_foto"></a>
                         <div class="foto_perfil_home">
                             <img src="/Content/Images/Esika/user.jpg" alt="">
@@ -1218,7 +1218,7 @@
           </div>
         </div>
         
-        <div class="btn_cerrar_actualizarMisDatos" style="top: 15px !important;">
+        <div class="btn_cerrar_actualizarMisDatos">
             <a href="#" title="Cerrar" class="cerrar_tutorial">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
@@ -1287,7 +1287,9 @@
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} 
                 <a class="ver_detalle_carrusel">VER DETALLE</a>
+                {{/iff}}
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}

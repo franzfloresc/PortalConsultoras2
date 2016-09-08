@@ -2536,7 +2536,7 @@ exec GetPedidosFacturados '000758833'
 create procedure dbo.GetPedidosIngresadoFacturado_SB2
 	@ConsultoraID int,
 	@CampaniaID int,
-	@top int = 5
+	@top int = 4
 AS
 begin
 
