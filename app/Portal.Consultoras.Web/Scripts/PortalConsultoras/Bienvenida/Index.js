@@ -95,14 +95,11 @@ $(document).ready(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
         $('#videoIntroductorio').fadeIn(function () {
-
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
                 $(".popup_video_introductorio").fadeIn();
             });
-
         });
-
     });
 
     //$(".campana.cart_compras").hover(function () {
@@ -429,6 +426,33 @@ $(document).ready(function () {
         GetCursoMarquesina(id)
     });
 });
+
+function CargarCamara() {
+    //https://github.com/jhuckaby/webcamjs
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+        force_flash: true,
+        flip_horiz: true
+    });
+    Webcam.attach('#my_camera');
+
+    $("#fondoComunPopUp").show();
+    contadorFondoPopUp++;
+    $("#CamaraIntroductoria").show();
+}
+
+function take_snapshot() {
+    // take snapshot and get image data
+    Webcam.snap(function (data_uri) {
+        // display results in page
+        document.getElementById('results').innerHTML =
+            '<h2>Here is your image:</h2>' +
+            '<img src="' + data_uri + '"/>';
+    });
+}
 
 //SB20-646
 function GetCursoMarquesina(id) {
