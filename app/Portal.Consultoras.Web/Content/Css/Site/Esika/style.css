@@ -689,7 +689,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color:black;
-    background: url("../../../Images/Esika/ayuda.png") no-repeat;
+    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
     background-position: 18px 4px;
 }
 
@@ -711,16 +711,16 @@ header {
         z-index: -1;
     }
 
-.boton-home:hover {
+/*.boton-home:hover {
         background-position: 18px 4px !important;
         background:url("../../../Images/Esika/ayuda_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9; /* IE 8 y anteriores */
-        color: white;
-    }
+        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9;*/ /* IE 8 y anteriores */
+        /*color: white;
+    }*/
 
-.boton-home:hover::after {
+/*.boton-home:hover::after {
             border-width: 330px 330px 0 0;
-        }
+        }*/
 
 .boton-home:active {
         background: black;
@@ -3439,6 +3439,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
+    z-index:1500;
 }
 
 .producto_img img {
@@ -6297,9 +6298,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-right: 350px;
     font-family: Lato;
 }
-.boton-home a:hover {
+/*.boton-home a:hover {
     color: white;
-}
+}*/
 .boton-home a {
     color: black;
 }
@@ -20465,16 +20466,53 @@ label.checkpop.c_on {
 .boton_home_guardar{
     width: 100%;
     height: 45px;
-    background-color: #e81c36;
+    background: #e81c36;
+    border: 2px solid #e81c36;
     text-align: center;
     color: white;
     margin-top: 4px;
     font-family: 'lato';
     font-size: 15px;
     font-weight:600;
-    line-height: 45px;
+    line-height: 40px;
     letter-spacing: 0.3px;
     /* float: left; */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    transition-duration: .3s;
+}
+.boton_home_guardar:hover{
+    color:#e81c36;
+}
+.boton_home_guardar:before{
+    content: "";
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+    background: #fff;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.boton_home_guardar:hover:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    color: #7b2481;
 }
 
 .socia_negocio_home{
@@ -21167,12 +21205,13 @@ label.checkpop.c_on {
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
-    margin-top:22px;
+    margin-top:26px;
     float:left;
 }
 .item_video{
     width:100%;
-    height:307px;
+    max-width:342px;
+    height:298px;
     background:black;
     margin-bottom:14px;
     /*background:url("../../../Images/Esika/home-video.png") no-repeat center center;*/
@@ -21186,7 +21225,7 @@ label.checkpop.c_on {
 .item_video_right{
     float: right;
     width: 35%;
-    margin-top: 23px;
+    margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
@@ -27681,4 +27720,94 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color:black;
     text-align:center;
     font-size:16px;
+}
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel {
+    display:block;
+    }
+.producto_img_home{
+    position:relative;
+}
+.ver_detalle_carrusel{
+    display:none;
+    position:absolute;
+    height:35px;
+    line-height:30px;
+    width:60%;
+    font-weight:700;
+    border:2px solid black;
+    font-family:'Lato';
+    background:rgba(255,255,255,0.8);
+    left:0;
+    right:0;
+    bottom:10px;
+    margin:0 auto;
+    -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    animation: opacidad-bottom 500ms linear 0ms 1 normal;
+}
+
+@keyframes opacidad-bottom {
+    0% {
+        opacity:0;
+    
+    }
+    80% {
+        opacity:1;
+    }
+}
+
+
+/* POPUP IMAGEN PERFIL */
+
+.popup_img_perfil{
+    display: none;
+    position: relative;
+    height: 440px;
+    width: 100%;
+    top: 50%;
+    max-width: 485px;
+    margin: -220px auto 0 auto;
+    background: #FFF;
+    padding:37px 47px;
+}
+
+.popup_img_perfil h1{
+    display:block;
+    margin:0;
+    padding:0;
+    font-family:'Lato';
+    font-weight:300!important;
+    font-size:21px;
+    text-align:center;
+    color:#000;
+}
+
+.btn_acciones{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.boton_cancelarImagen, .boton_guardarImagen{
+    display: inline-block;
+    width: 187px;
+    height: 43px;
+    line-height: 43px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.boton_cancelarImagen{
+    color:#000;
+    background:#FFF;
+    border:1px solid #000;
+    margin-right:14px;
+}
+
+.boton_guardarImagen{
+    color:#FFF;
+    background:#e81c36;
+    border:1px solid #e81c36;
 }
