@@ -5472,7 +5472,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     max-width: 900px;
     height: 642px;
     font-family: 'Lato';
-    z-index: 5;
+    z-index: 7;
     /*background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;*/
 }
 
@@ -5503,7 +5503,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:auto;
     box-sizing: border-box;
     font-family: 'Lato';
-    z-index: 7;
+    z-index: 8;
 }
 
 .contenedor_video_introductorio{
