@@ -27547,20 +27547,132 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 #slide1_container {
     display:block;
-    width:900px;
+    width:100%;
+    max-width:900px;
     height:668px;
     overflow:hidden; 
     margin:0 auto;
 }
+
 #slide1_images {
-  width:7200px;
-  -webkit-transition:all 1.0s ease-in-out;
-  -moz-transition:all 1.0s ease-in-out;
-  -o-transition:all 1.0s ease-in-out;
-  transition:all 1.0s ease-in-out;
+  width:100%;
+  position:absolute;
+  top:0px;
 }
+
 #slide1_images img {
   padding:0;
   margin:0;
-  float:left;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:auto;
+  opacity:1;
+}
+
+#slide1_images .img_slide1{
+    z-index:8;
+}
+
+#slide1_images .img_slide2{
+    z-index:7;
+}
+
+#slide1_images .img_slide3{
+    z-index:6;
+}
+
+#slide1_images .img_slide4{
+    z-index:5;
+}
+
+#slide1_images .img_slide5{
+    z-index:4;
+}
+
+#slide1_images .img_slide6{
+    z-index:3;
+}
+
+#slide1_images .img_slide7{
+    top:668px;
+    z-index:2;
+}
+
+#slide1_images .img_slide8{
+    top:1336px;
+    z-index:1;
+}
+/*POP UP FOTO CARGADA*/
+.content_foto_cargada{
+    max-width:486px;
+    height:440px;
+    background:white;
+    top:50%;
+    margin:-220px auto auto auto;
+    position:relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow:hidden;
+}
+.titulo_pop_foto{
+    /*margin-top:15px;*/
+    font-family:'Lato';
+    font-weight:300;
+    font-size:25px;
+    color:black;
+    text-align:center;
+    margin-bottom:30px;
+}
+.content_foto_usuario {
+    width:200px;
+    margin:0 auto;
+    height:200px;
+     margin-BOTTOM:40px !important;
+}
+.foto_usuaria_desktop{
+    background:white;
+    width:100%;
+    height:100%;
+    border-radius:100px;
+    -webkit-border-radius:100px;
+    -moz-border-radius:100px;
+    -o-border-radius:100px;
+    overflow:hidden;
+}
+.foto_usuaria_desktop img{
+    width:100%;
+}
+.btn_tomar_foto{
+    width:50%;
+    height:42px;
+    border:1px solid black;
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    line-height:42px;
+    font-size:13px;
+    font-weight:700;
+   
+    text-transform:uppercase;
+    margin:auto;
+
+}
+.btn_tomar_foto:hover{
+    background:black;
+    color:white;
+}
+.text_actualizada{
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:22px;
+    margin-top:-10px;
+}
+.sub_text_actualizada{
+     font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:16px;
 }

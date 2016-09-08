@@ -340,7 +340,7 @@
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
-            <a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+            @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>*@
         </div>
         <div class="item_video_left">
             <div class="item_video">
@@ -349,10 +349,10 @@
         <div class="item_video_right">
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
-                <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
-                <a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
+                <span>Por el momento no contamos con tutoriales disponibles.</span>
+                @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
                     <span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" class="icono_arrow">&#9658;</span><span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia">IR A "MI ACADEMIA"</span>
-                </a>
+                </a>*@
             </div>
         </div>
     </div>
@@ -1191,14 +1191,14 @@
     <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
           <div id="slide1_images">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika1.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika2.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika3.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika4.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika5.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika6.jpg")">
-            <img src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika7.jpg")">
-            <img class="imagenFinalAbajo" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika8.jpg")">
+            <img class="imagen_tutorial img_slide1"  src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika1.jpg")">
+            <img class="imagen_tutorial img_slide2" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika2.jpg")">
+            <img class="imagen_tutorial img_slide3" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika3.jpg")">
+            <img class="imagen_tutorial img_slide4" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika4.jpg")">
+            <img class="imagen_tutorial img_slide5" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika5.jpg")">
+            <img class="imagen_tutorial img_slide6" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika6.jpg")">
+            <img class="imagen_tutorial img_slide7" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika7.jpg")">
+            <img class="imagen_tutorial img_slide8" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika8.jpg")">
           </div>
         </div>
         
@@ -1211,12 +1211,43 @@
     </div>
 </div>
 <!-- FIN POPUP TUTORIAL -->
+<!--POP UP FOTO CARGADA-->
+    <div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
+        <div class="content_foto_cargada">
+            <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
+                <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
+            </a>
+            <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+            <div class="content_foto_usuario">
+                <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
+            </div>
+            <a class="btn_tomar_foto">TOMAR FOTO</a>
+        </div>
 
-<script id="estrategia-template" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
+    </div>
+<!--FIN-->
+<!--POP UP FOTO ACTUALIZADA-->
+<div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
+    <div class="content_foto_cargada">
+        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
+            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
+        </a>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+        </div>
+        <div class="text_actualizada">¡FELICITACIONES!</div>
+        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
+    </div>
+
+</div>
+<!--FIN-->
+
+    <script id="estrategia-template" type="text/x-handlebars-template">
+        {{#each this as |item|}}
+        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
             </div>
@@ -1309,7 +1340,7 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
     {{/each}}
 </script>
 
