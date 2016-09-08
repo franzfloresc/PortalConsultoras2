@@ -1,6 +1,7 @@
 ﻿var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
@@ -635,6 +636,24 @@ function InsertarProducto() {
                 $("#hdCuvEnSession").val("");
 
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                dataLayer.push({
+                    'event': 'addToCart',
+                    'ecommerce': {
+                        'add': {
+                            'actionField': { 'list': 'Estándar' },
+                            'products': [{
+                                'name': data.data.DescripcionProd,
+                                'price': String(data.data.PrecioUnidad),
+                                'brand': data.data.DescripcionLarga,
+                                'id': data.data.CUV,
+                                'category': 'NO DISPONIBLE',
+                                'variant': data.data.DescripcionOferta,
+                                'quantity': Number(model.Cantidad),
+                                'position': 1
+                            }]
+                        }
+                    }
+                });
 
             } else {
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
@@ -1404,6 +1423,12 @@ function AgregarMantenerCliente() {
                 CerrarMantenerCliente();
 
                 $("#popupClienteIngresado").show();
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Clientes',
+                    'action': 'Agregar',
+                    'label': 'Satisfactorio'
+                });
             }
             CloseLoading();
         },

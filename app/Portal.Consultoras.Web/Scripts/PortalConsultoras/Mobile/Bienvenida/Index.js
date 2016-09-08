@@ -19,14 +19,14 @@ $(document).ready(function () {
     });
     $("#tutorialFooterMobile").click(function () {
         $('#tutorialesMobile').show();
-        setTimeout(function ()
-        {
-            $(window).resize();
-        }, 50);
+        setTimeout(function (){ $(window).resize(); }, 50);
     });
-
+    $(".ver_video_introductorio").click(function () {
+        $('#VideoIntroductorio').show();
+        setTimeout(function () { playVideo(); }, 500);
+    });
     $("#cerrarVideoIntroductorio").click(function () {
-        stop();
+        stopVideo();
         $('#VideoIntroductorio').hide();
     });
 
@@ -60,15 +60,29 @@ function mostrarTutorialMobile() {
     }
 };
 
-function stop() {
-    //document.getElementById("divPlayer").contentWindow
-    //  .postMessage('{' +
-    //     '"event":"command",' +
-    //     '"func":"pauseVideo"' +
-    //     ',"args":""}', '*');
-    var urlVideo = $("#divPlayer").attr("src");
-    $("#divPlayer").attr("src", "");
-    $("#divPlayer").attr("src", urlVideo);
+//Video youtube
+function stopVideo() {
+    if (player) {
+        if (player.stopVideo) {
+            player.stopVideo();
+        }
+        else {
+            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+            var urlVideo = $("#divPlayer").attr("src");
+            $("#divPlayer").attr("src", "");
+            $("#divPlayer").attr("src", urlVideo);
+        }
+    }
+};
+function playVideo() {
+    if (player) {
+        if (player.playVideo) {
+            player.playVideo();
+        }
+        else {
+            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+    }
 };
 
 function UpdateUsuarioTutorialMobile() {
@@ -508,35 +522,6 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
             }
         }
     });
-};
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;

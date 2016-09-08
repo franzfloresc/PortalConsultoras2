@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.ServiceLMS {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="ws_serverBinding", Namespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="ws_serverBinding", Namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server")]
     public partial class ws_server : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback ws_serverget_userOperationCompleted;
@@ -78,8 +78,8 @@ namespace Portal.Consultoras.Web.ServiceLMS {
         public event ws_servercreate_userCompletedEventHandler ws_servercreate_userCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server#getuse" +
-            "r", RequestNamespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server", ResponseNamespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server")]
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server#ge" +
+            "tuser", RequestNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server", ResponseNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server")]
         [return: System.Xml.Serialization.SoapElementAttribute("return")]
         public result ws_serverget_user(string username, string campania, string secret_key) {
             object[] results = this.Invoke("ws_serverget_user", new object[] {
@@ -113,8 +113,8 @@ namespace Portal.Consultoras.Web.ServiceLMS {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server#create" +
-            "user", RequestNamespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server", ResponseNamespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server/ws_server")]
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server#cr" +
+            "eateuser", RequestNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server", ResponseNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server")]
         [return: System.Xml.Serialization.SoapElementAttribute("return")]
         public result ws_servercreate_user(string isoCodconsultora, string Nombre, string Email, string Campania, string Region, string Zona, string Segmento, string Seccion, string Lider, string NivelLider, string CampanaLider, string SeccionGestionLider, string NivelProyectado, string secret_key) {
             object[] results = this.Invoke("ws_servercreate_user", new object[] {
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.ServiceLMS {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.SoapTypeAttribute(Namespace="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server")]
     public partial class result {
         
         private string codigoField;

@@ -61,9 +61,9 @@
 </div>
 
 <div class="wrapper_resumen_mobile sombra_wrapper">
-    <div class="content_320">
+    <div class="content_320" style="text-align:center;"> <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
-            <div class="foto_usuaria_mobile">
+            <div class="foto_usuaria_mobile" style="display:none;">
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
@@ -76,7 +76,7 @@
             </a>*@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
-        <div class="content_resumen_dato_mobile">
+        <div class="content_resumen_dato_mobile" style="text-align:left">
             <div class="saludo_mobile">¡Hola&nbsp;</div>
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
@@ -127,7 +127,7 @@
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
        class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
-    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" onclick="javascript: $('#VideoIntroductorio').show();" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
+    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -149,12 +149,12 @@
                 }
                 else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
                 {
-                    cabezaEscala = "Comisión y ahorro total";
+                    cabezaEscala = "Comisión y ahorro total*";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 }
                 else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
                 {
-                    cabezaEscala = "Ganancia estimada total";
+                    cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 }
                 else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela) 
@@ -319,7 +319,7 @@
                 <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
                 <td>
                     <div class="liquidacion_rango_home">
-                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas"><img src="" alt="" /></a>
                             <a class="menos"><img src="" alt="" /></a>
@@ -410,14 +410,37 @@
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
-        @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(Model.CodigoISO))
+        @*@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(Model.CodigoISO))
         {
-            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/jNoP8OoMmW4" frameborder="0" allowfullscreen></iframe>
+            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/jNoP8OoMmW4?rel=0" frameborder="0" allowfullscreen></iframe>
         }
         else
         {
-            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/djSn0tFcQ0w" frameborder="0" allowfullscreen></iframe>
-        }
+            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/djSn0tFcQ0w?rel=0" frameborder="0" allowfullscreen></iframe>
+        }*@
+        <div id="divPlayer"></div>
+        <script type="text/javascript">
+            var tag = document.createElement("script");
+            tag.src = "https://www.youtube.com/iframe_api";
+
+            var firstScriptTag = document.getElementsByTagName("script")[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            var player;
+
+            function onYouTubeIframeAPIReady(playerId) {
+                var videoIdMostrar;
+                if (isEsika) {
+                    videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+                } else {
+                    videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+                }
+                player = new YT.Player("divPlayer", {
+                    width: "100%",
+                    videoId: videoIdMostrar,
+                    playerVars: { rel: 0 }
+                });
+            };
+        </script>
     </div>
 </div>
 <script id="estrategia-template" type="text/x-handlebars-template">
@@ -478,15 +501,15 @@
                 <div class="liquidacion_rango_home">
                     {{#if_eq FlagMostrarImg '1'}}
                     {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                     {{else}}
                         <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
                     {{/if_eq}}
                     {{else}}
                         <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
                     {{/if_eq}}
                 </div>

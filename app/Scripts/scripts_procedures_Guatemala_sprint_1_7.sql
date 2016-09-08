@@ -1164,12 +1164,12 @@ BEGIN
 	   FETCH NEXT FROM cursorSugerido INTO @CUV 
 END
 
-declare @tablaPedidoDetalle table ( CUV varchar(20) )
-insert into @tablaPedidoDetalle
-select pd.CUV from PedidoWeb p
-inner join PedidoWebDetalle pd on
-	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
-where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
+--declare @tablaPedidoDetalle table ( CUV varchar(20) )
+--insert into @tablaPedidoDetalle
+--select pd.CUV from PedidoWeb p
+--inner join PedidoWebDetalle pd on
+--	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
+--where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
 
 --Verificar que tenga stock
 select
@@ -1184,7 +1184,7 @@ from @tablaCUV t
 inner join @tablaSugerido ts on
 	t.CUV = ts.CUV
 where t.TieneStock = 1
-	and t.CUV not in (select CUV from @tablaPedidoDetalle)
+	--and t.CUV not in (select CUV from @tablaPedidoDetalle)
 order by ts.Orden
 
 end
@@ -2540,7 +2540,7 @@ exec GetPedidosFacturados '000758833'
 create procedure dbo.GetPedidosIngresadoFacturado_SB2
 	@ConsultoraID int,
 	@CampaniaID int,
-	@top int = 5
+	@top int = 4
 AS
 begin
 

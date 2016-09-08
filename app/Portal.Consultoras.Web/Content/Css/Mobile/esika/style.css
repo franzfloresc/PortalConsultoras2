@@ -4589,6 +4589,7 @@ table > thead > tr > th {
 
 .enlace_sociasEmpresarias {
     display: block;
+    text-align:left;
 }
 
     .enlace_sociasEmpresarias .btn_seguirp_mobile {
@@ -6738,7 +6739,7 @@ input[type="checkbox"]:checked + span:after {
     height: 100%;
     overflow: scroll;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 1000;
+    z-index: 7;
 }
 
 .popup_demandaAnticipada {
@@ -7249,7 +7250,7 @@ input[type="checkbox"]:checked + span:after {
 .contenedor-tutorial-esika {
     display: block;
     position: fixed;
-    z-index: 1000;
+    z-index: 10;
     width: 100%;
     height: 100%;
     top: 0;
