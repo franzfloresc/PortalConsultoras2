@@ -509,35 +509,6 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         }
     });
 };
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
-};
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
