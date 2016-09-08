@@ -1233,6 +1233,7 @@
     <Content Include="Content\Images\bg_movil.png" />
     <Content Include="Content\Images\bg_ndias.png" />
     <Content Include="Content\Images\bg_popups.png" />
+    <Content Include="Content\Images\bg_popup_tutorial.png" />
     <Content Include="Content\Images\bg_producto_agregado.png" />
     <Content Include="Content\Images\bg_search.png" />
     <Content Include="Content\Images\bg_select1.png" />
