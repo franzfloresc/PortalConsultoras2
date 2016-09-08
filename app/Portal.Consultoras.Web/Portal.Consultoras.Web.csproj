@@ -3833,10 +3833,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
+    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

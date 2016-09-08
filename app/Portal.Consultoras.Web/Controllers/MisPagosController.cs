@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = Util.PaginadorGenerico(grid, lst);
 
@@ -115,6 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
                 lst = ObtenerEstadoCuenta();
+                lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
                 #region cotnenido del correo
                 /*CO-RE2584 - CS(CGI) */
@@ -239,32 +240,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             decimal cargo = 0;
             decimal abono = 0;
-            List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-            List<BEEstadoCuenta> EstadoCuenta = new List<BEEstadoCuenta>();
-            try
-            {
-                using (SACServiceClient client = new SACServiceClient())
-                {
-                    EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
-
-            foreach (var ec in EstadoCuenta)
-            {
-                lst.Add(new EstadoCuentaModel
-                {
-                    Fecha = ec.FechaRegistro,
-                    Glosa = ec.DescripcionOperacion,
-                    Cargo = ec.Cargo,
-                    Abono = ec.Abono
-                });
-            }
 
             if (lst.Count != 0)
             {
@@ -658,7 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var fechaVencimientoTemp = userData.FechaLimPago;
-                fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM");                       
+                fechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM");
 
                 List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
 
@@ -671,7 +650,7 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                             montoPagar = Util.DecimalToStringFormat(sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente, userData.CodigoISO);
                     }
-                }                
+                }
             }
             catch (FaultException ex)
             {

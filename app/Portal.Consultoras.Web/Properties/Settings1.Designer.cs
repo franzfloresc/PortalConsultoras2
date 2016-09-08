@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php")]
         public string Portal_Consultoras_Web_ServiceLMS_ws_server {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));

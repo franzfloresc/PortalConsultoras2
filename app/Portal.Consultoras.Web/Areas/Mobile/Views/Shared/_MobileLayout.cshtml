@@ -23,6 +23,10 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
+    <script type="text/javascript">
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+    </script>
+
     @RenderSection("styles", required: false)
 
 </head>
@@ -405,7 +409,6 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -452,6 +455,26 @@
                     if (theEvent.preventDefault) theEvent.preventDefault();
                 }
             });
+
+            $("body").on("keypress", ".ValidaNumeral", function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
+                var $input = $(this);
+                var previousVal = $input.val();
+                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
+                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
+                    $input.val(pastedValue);
+                    e.preventDefault();
+                } else {
+                    $input.val(previousVal);
+                    e.preventDefault();
+                };
+            });
+
 
             $("body").on("click", "[data-cantidad-agregar]", function () {
                 var signo = $(this).attr("data-cantidad-agregar");
