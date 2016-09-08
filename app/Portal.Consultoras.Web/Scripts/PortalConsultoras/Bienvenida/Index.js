@@ -156,7 +156,7 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
-            //mostrarUbicacionTutorial();
+            abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }

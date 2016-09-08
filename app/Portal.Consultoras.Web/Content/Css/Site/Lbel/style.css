@@ -5393,8 +5393,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .datos_consultora_textos{
-    width:77%;
+    width:100%;
+    /*width:77%;*/
     text-align:left;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .datos_cod_usuario, .datos_nombre_usuario{
@@ -5472,7 +5475,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     max-width: 900px;
     height: 642px;
     font-family: 'Lato';
-    z-index: 5;
+    z-index: 7;
     /*background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;*/
 }
 
@@ -5503,7 +5506,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:auto;
     box-sizing: border-box;
     font-family: 'Lato';
-    z-index: 7;
+    z-index: 8;
 }
 
 .contenedor_video_introductorio{
@@ -20287,14 +20290,16 @@ label.checkpop.c_on {
 .content_datos{
     padding-top:13px;
     padding-left:23px;
-    width:100%;
+    /*width:100%;*/
+    max-width:1070px; /*SIN FOTO*/
+    margin:0 auto;
     height:130px;
     -webkit-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     border: 1px solid #e7e1e1;
     background:white;
-    margin-top: -36px;
+    margin-top: -36px !important;
     position:relative;
     z-index: 10;
 }
@@ -20316,8 +20321,10 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
     color: black;
     float: left;
-    margin-left: 23px;
-    margin-right: 3%;
+    /*margin-left: 23px;
+    margin-right: 3%;*/
+    margin-left: 3%;
+    margin-right: 9%;
     width: 19.5%;
 }
 .nombre_consultora{
@@ -20357,7 +20364,8 @@ label.checkpop.c_on {
 .info_cam_belcorp2{
     float:left;
     height: 41px;
-    padding-left:12px;
+    /*padding-left:12px;*/
+    padding-left:23px;
     font-family:'lato';
     font-size:10.4px;
     font-weight:700;
@@ -20378,7 +20386,8 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';    
     color:black;
-    width:31.5%;
+    /*width:31.5%;*/
+    width:34.9%;
     float:left;    
 }
 .pedido_resumen_home span{
@@ -20449,8 +20458,10 @@ label.checkpop.c_on {
       float:left;
       font-size:11px;
       color:black;
-      margin-left:4%;
-      width:29%;
+      /*margin-left:4%;
+      width:29%;*/
+      margin-left: 6%;
+      width: 25%;
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -20722,13 +20733,13 @@ label.checkpop.c_on {
     background:url("../../../Images/Lbel/indicador_pedido.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
-    font-size:13px;
+    font-size:11px;
     color:black;
     padding-left:4%;
     margin-top:12px;
     /*letter-spacing: 1px;*/
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 700;
+    
 }
 
 /*.seguir_pedido.ver_video_introductorio{
@@ -21970,9 +21981,13 @@ body{
         padding-left: 0.8%;
         padding-right: 0.8%;
     }
+    .resumen_belcorp_cam{
+         margin-right: 0%;
+        width: 29.5%;
+    }
 }
 @media screen and (max-width: 1187px) {
-    
+        
     .escala_ganancia {
         padding-left: 1.2%;
         padding-right: 1.2%;
