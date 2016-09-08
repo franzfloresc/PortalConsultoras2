@@ -1238,10 +1238,16 @@ function MostrarMensaje(tipoMensaje, message) {
 
 function MostrarDetalleGanancia() {
 
-    $('#tituloGanancia').text($('#hdeCabezaEscala').val());
-    $('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
-    $('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
-    $('#pieGanancia').text($('#hdePieEscala').val());
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
 
-    $('#popupDetalleGanancia').show();
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
 }
