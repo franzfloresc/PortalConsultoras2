@@ -49,8 +49,8 @@ $(document).ready(function () {
         'width': '100%',
         'height': '50px',
         minInputWidth: '100%',
-        'defaultText': 'Ingresar correo...',
-        'delimiter': ',',
+        'defaultText': 'Separa los correos con ;',
+        'delimiter': ';',
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
@@ -470,6 +470,8 @@ function renderItemCliente(event, ui) {
 function CatalogoEnviarEmail() {
     ShowLoading();
 
+    $('#tagCorreo').addTag($('#tagCorreo_tag').val());
+
     var correoEnviar = $('#tagCorreo').exportTag() || new Array();
     if (correoEnviar.length <= 0) {
         $('#MensajeAlertaMobile2 .mensaje_alerta').html('No se ha ingresado ningun correo electrónico');
@@ -747,3 +749,4 @@ function TagManagerWS(Catalogo) {
         'value': 0
     });
 }
+

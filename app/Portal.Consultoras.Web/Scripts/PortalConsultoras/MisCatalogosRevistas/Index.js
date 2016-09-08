@@ -4,7 +4,7 @@ var valContenidoCorreoDefecto = "Hola,\nRevisa los catálogos de esta campaña y
 var nombreCat = new Object();
 
 // js-RenderCatalogo
-jQuery(document).ready(function () {
+$(document).ready(function () {
     ObtenerURLExpofertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);    
@@ -39,8 +39,8 @@ jQuery(document).ready(function () {
         'width': '100%',
         'height': '50px',
         minInputWidth: '100%',
-        'defaultText': 'Ingresar correo...',
-        'delimiter': ',',
+        'defaultText': 'Separa los correos con ;',
+        'delimiter': ';',
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
@@ -560,9 +560,10 @@ function CargarTodosCorreo() {
     });
 }
 
-function CatalogoEnviarEmail() {
-    
+function CatalogoEnviarEmail() {    
     waitingDialog();
+
+    $('#tagCorreo').addTag($('#tagCorreo_tag').val());
 
     var correoEnviar = $('#tagCorreo').exportTag() || new Array();
     if (correoEnviar.length <= 0) {
@@ -859,4 +860,3 @@ function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
     $("#mensaje_alerta").show();
 }
-
