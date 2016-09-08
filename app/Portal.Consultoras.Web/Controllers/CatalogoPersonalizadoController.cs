@@ -24,12 +24,12 @@ namespace Portal.Consultoras.Web.Controllers
             return ObtenerProductos(8);
         }
 
-        public JsonResult ObtenerProductosCatalogoPersonalizado()
+        public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset)
         {
-            return ObtenerProductos(100);
+            return ObtenerProductos(cantidad, offset, true);
         }
 
-        private JsonResult ObtenerProductos(int cantidad)
+        private JsonResult ObtenerProductos(int cantidad, int offset = 0, bool catalogoPersonalizado = false)
         {            
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
@@ -38,16 +38,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "",
-                    data = "",
-                    limiteJetloreCatalogoPersonalizado = 0
+                    data = ""
                 });
             }
 
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
             var lista = new List<Producto>();
-            var listaProductoModel = new List<ProductoModel>();
-            int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
-
+            var listaProductoModel = new List<ProductoModel>();            
             try
             {
                 if (Session["ProductosCatalogoPersonalizado"] == null)
@@ -62,8 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
                                 cantidad).ToList();
                     }
-                    //lista = lista ?? new List<Producto>();
-                    //lista = lista.Skip(0).Take(cantidad).ToList();
 
                     var listaPedido = ObtenerPedidoWebDetalle();
                     
@@ -75,13 +70,10 @@ namespace Portal.Consultoras.Web.Controllers
                             olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
                                     userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
                         }
-
-                        if (olstProducto.Count == 0)
-                            continue;
+                        if (olstProducto.Count == 0) continue;
 
                         string descripcion = "", imagenUrl = "";
                         bool add = false;
-
                         if (userData.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                         {
                             string infoEstrategia;
@@ -150,20 +142,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                         }
                     }
-
                     Session["ProductosCatalogoPersonalizado"] = listaProductoModel;
                 }
-                else
+                else listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+
+                if (catalogoPersonalizado)
                 {
-                    listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+                    int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                    cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
                 }
+                listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
 
                 return Json(new
                 {
                     success = true,
                     message = "OK",
                     data = listaProductoModel,
-                    limiteJetloreCatalogoPersonalizado = limiteJetloreCatalogoPersonalizado
                 });
             }
             catch (Exception ex)
@@ -173,8 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    data = "",
-                    limiteJetloreCatalogoPersonalizado = 0
+                    data = ""
                 });
             }
         }
