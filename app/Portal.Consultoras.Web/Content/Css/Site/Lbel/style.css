@@ -21092,12 +21092,13 @@ label.checkpop.c_on {
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
-    margin-top:22px;
+    margin-top:26px;
     float:left;
 }
 .item_video{
     width:100%;
-    height:307px;
+    max-width:342px;
+    height:298px;
     background:black;
     margin-bottom:14px;
     /*background:url("../../../Images/Lbel/home-video.png") no-repeat center center;*/
@@ -21111,7 +21112,7 @@ label.checkpop.c_on {
 .item_video_right{
     float: right;
     width: 35%;
-    margin-top: 23px;
+    margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
