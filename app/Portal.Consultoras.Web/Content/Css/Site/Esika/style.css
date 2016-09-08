@@ -5516,7 +5516,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     max-width: 900px;
     height: 642px;
     font-family: 'Lato';
-    z-index: 5;
+    z-index: 7;
     /*background: url(../../../Images/Esika/tutorial_esika.jpg) no-repeat center center;*/
 }
 
@@ -5530,7 +5530,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Esika/tutorial_esika_pedido.jpg) no-repeat center center;
+    /*background: url(../../../Images/Esika/tutorial_esika_pedido.jpg) no-repeat center center;*/
 }
 
 /* FIN POPUP TUTORIAL HOME */
@@ -5547,7 +5547,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:auto;
     box-sizing: border-box;
     font-family: 'Lato';
-    z-index: 7;
+    z-index: 8;
 }
 
 .contenedor_video_introductorio{
@@ -20522,6 +20522,8 @@ label.checkpop.c_on {
       font-size:11px;
       color:black;
       margin-left:4%;
+      width:29%;
+
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -20785,13 +20787,13 @@ label.checkpop.c_on {
 .seguir_pedido{
     display: inline-block;
     vertical-align: top;
-    width: 173px;
+    width: 49%;
     background:url("../../../Images/Esika/indicador_pedido.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
     font-size:13px;
     color:black;
-    padding-left:20px;
+    padding-left:4%;
     margin-top:12px;
     /*letter-spacing: 1px;*/
     font-weight: 500;
@@ -22049,12 +22051,19 @@ body{
 }
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 3.5%;
+        margin-left: 2.5%;
     }
-    .seguir_pedido{
-            width: 143px;
-            padding-left: 13px;
-
+     .escala_ganancia {
+        padding-left: 0.8%;
+        padding-right: 0.8%;
+    }
+    
+}
+@media screen and (max-width: 1187px) {
+    
+    .escala_ganancia {
+        padding-left: 1.2%;
+        padding-right: 1.2%;
     }
 }
 
@@ -27590,20 +27599,22 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     max-width:900px;
     height:642px;
     overflow:hidden; 
-    margin:0 auto;
+    margin:15px auto 0 auto;
 }
 
 #slide1_images {
   width:100%;
   position:absolute;
   top:0px;
+  height:642px;
+  overflow:hidden;
 }
 
 #slide1_images div {
   padding:0;
   margin:0;
   position:absolute;
-  top:15px;
+  top:0px;
   left:0px;
   width:900px;
   height: 642px;
@@ -27611,44 +27622,72 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 #slide1_images .img_slide1{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika1.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika1.jpg) no-repeat center top;
     z-index:8;
 }
 
 #slide1_images .img_slide2{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika2.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika2.jpg) no-repeat center top;
     z-index:7;
 }
 
 #slide1_images .img_slide3{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika3.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika3.jpg) no-repeat center top;
     z-index:6;
 }
 
 #slide1_images .img_slide4{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika4.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika4.jpg) no-repeat center top;
     z-index:5;
 }
 
 #slide1_images .img_slide5{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika5.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika5.jpg) no-repeat center top;
     z-index:4;
 }
 
 #slide1_images .img_slide6{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika6.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika6.jpg) no-repeat center top;
     z-index:3;
 }
 
 #slide1_images .img_slide7{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika7.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika7.jpg) no-repeat center top;
     z-index:2;
+    /*top:642px;*/
 }
 
 #slide1_images .img_slide8{
-    background: url(../../../Images/Esika/tutorialEsika/tutorial-home-esika8.jpg) no-repeat center top;
+    background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika8.jpg) no-repeat center top;
     z-index:1;
+    /*top:1284px;*/
 }
+
+#slide1_images .img_slide1Pedido{
+    background: url(../../../Images/Esika/tutorialPedido/esika_tutorial1.jpg) no-repeat center top;
+    z-index:8;
+}
+
+#slide1_images .img_slide2Pedido{
+    background: url(../../../Images/Esika/tutorialPedido/esika_tutorial2.jpg) no-repeat center top;
+    z-index:7;
+}
+
+#slide1_images .img_slide3Pedido{
+    background: url(../../../Images/Esika/tutorialPedido/esika_tutorial3.jpg) no-repeat center top;
+    z-index:6;
+}
+
+#slide1_images .img_slide4Pedido{
+    background: url(../../../Images/Esika/tutorialPedido/esika_tutorial4.jpg) no-repeat center top;
+    z-index:5;
+}
+
+#slide1_images .img_slide5Pedido{
+    background: url(../../../Images/Esika/tutorialPedido/esika_tutorial5.jpg) no-repeat center top;
+    z-index:4;
+}
+
 /*POP UP FOTO CARGADA*/
 .content_foto_cargada{
     max-width:486px;
