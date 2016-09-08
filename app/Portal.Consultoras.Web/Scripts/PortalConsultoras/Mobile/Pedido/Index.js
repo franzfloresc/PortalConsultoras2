@@ -1,6 +1,7 @@
 ﻿var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";

@@ -13,6 +13,8 @@ var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
+
     AnalyticsBannersInferioresImpression();
     //$('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
@@ -4066,3 +4068,46 @@ function AnalyticsBannersInferioresImpression() {
         });
     }
 }
+
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: urlReservadoOEnHorarioRestringido,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                if (mostrarAlerta == true) {
+                    CerrarSplash();
+                    alert_msg(data.message);
+                }
+                else {
+                    AbrirSplash();
+                    location.href = urlValidadoPedido;
+                }
+            }
+            else if (mostrarAlerta == true) {
+                alert_msg(data.message);
+            }
+        },
+        error: function (error, x) {
+            console.log(error, x);
+            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+};
