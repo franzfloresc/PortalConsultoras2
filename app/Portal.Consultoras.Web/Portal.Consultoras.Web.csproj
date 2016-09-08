@@ -2080,6 +2080,8 @@
     <Content Include="Content\Images\mobile\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\mobile\Lbel\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
+    <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
