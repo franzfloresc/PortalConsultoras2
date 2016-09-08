@@ -225,8 +225,10 @@
         <div class="comartir_home_mobile">
             MULTIPLICA TUS CLIENTES CON<br />
             EL APP DE CATÁLOGO
+            @*<a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
+               class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>*@
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("EnterateMas","Catalogo", new {area = "Mobile"})">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {

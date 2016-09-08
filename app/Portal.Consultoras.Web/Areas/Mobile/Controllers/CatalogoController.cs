@@ -33,6 +33,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(clienteModel);
         }
 
+        public ActionResult EnterateMas()
+        {
+            return View("EnterateMas");
+        }
+
         public JsonResult Detalle(int campania)
         {
             string ISO = userData.CodigoISO;

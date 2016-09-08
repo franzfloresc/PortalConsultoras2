@@ -2062,6 +2062,7 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
+    <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\bandera.png" />
@@ -2534,6 +2535,7 @@
     <Content Include="Content\Css\Site\fonts\slick.eot" />
     <Content Include="Content\Css\Site\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\fonts\slick.woff" />
+    <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
