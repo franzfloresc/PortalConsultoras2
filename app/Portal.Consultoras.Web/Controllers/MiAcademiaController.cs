@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -17,7 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-
+            List<MiCurso> MisCursosMA = ValidadCursosMA();
+            if (!MisCursosMA.Any())
+            {
+                return View("Index");
+            }
             string key = ConfigurationManager.AppSettings["secret_key"];
             string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
             string token;
@@ -72,7 +77,6 @@ namespace Portal.Consultoras.Web.Controllers
    
         public ActionResult Cursos(int idcurso)
         {
-
             string key = ConfigurationManager.AppSettings["secret_key"];
             //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
             string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
@@ -138,8 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
             return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
         }
 
-        /* SB20-255 - INICIO */
-        public JsonResult GetMisCursos()
+        private List<MiCurso> ValidadCursosMA() 
         {
             try
             {
@@ -166,23 +169,43 @@ namespace Portal.Consultoras.Web.Controllers
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 
-                        return Json(new
-                        {
-                            success = true,
-                            data = lstCursos,
-                        }, JsonRequestBehavior.AllowGet);
+                        return lstCursos.ToList();
+
                     }
                     else
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Token not Valid",
-                        }, JsonRequestBehavior.AllowGet);
+                        return new List<MiCurso>();
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return new List<MiCurso>();
+            }
+        }
+
+        /* SB20-255 - INICIO */
+        public JsonResult GetMisCursos()
+        {
+            try
+            {
+                List<MiCurso> MisCursosMA = ValidadCursosMA();
+                if (MisCursosMA.Any())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        data = MisCursosMA,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Token not Valid",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 return Json(new
                 {
