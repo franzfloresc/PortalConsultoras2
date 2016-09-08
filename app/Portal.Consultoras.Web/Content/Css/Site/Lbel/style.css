@@ -659,7 +659,7 @@ header {
     cursor: pointer;
     position: fixed;
     z-index: 300;
-    top: 260px;
+    bottom: 100px;
     text-align: center;
     right: 0px;
 }

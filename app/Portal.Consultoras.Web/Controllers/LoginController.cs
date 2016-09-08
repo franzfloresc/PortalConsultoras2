@@ -488,7 +488,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
 
-                    this.CrearUsuarioMiAcademia(model);
+                    if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
                 }
 
                 pasoLog = "Agregar usuario en session";
