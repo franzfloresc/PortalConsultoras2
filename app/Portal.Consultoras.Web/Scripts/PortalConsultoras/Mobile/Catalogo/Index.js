@@ -423,6 +423,16 @@ function CatalogoMostrar(accion, btn) {
             $(btn).hide();
         }
     }
+
+    if (btn != null) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+            'label': 'Catálogos C-' + campSelect,
+            'value': 0
+        });
+    }
 }
 function CompartirFacebook(Catalogo, btn) {
 
@@ -664,45 +674,15 @@ function RevistaMostrar(accion, btn) {
 
     rCampSelect = aCamRev[rCampSelectI] || "";
 
-    var campania = rCampSelect || "";
-
-    if (campania && campania.length > 4) {
-        $("#spNroCampania").text(campania.substr(4));
-        if (rCampSelect == $("#hdrCampaniaActual").val()) {
-            //_gaq.push(['_trackEvent', 'Revista', 'Actual-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Revista Campaña ' + campania.substring(4, 6)
-            });
-
-        }
-        if (campania == $("#hdrCampaniaAnterior").val()) {
-            //_gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Revista Anterior'
-            });
-        }
-        if (campania == $("#hdrCampaniaSiguiente").val()) {
-            //_gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + campania, 'Seleccionada']);
-            /*RQ 2505*/
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Revista',
-                'action': 'Click',
-                'label': 'Próxima Revista'
-            });
-        }
-    }
-
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+        'label': 'Revista C-' + rCampSelect.substr(4),
+        'value': 0
+    });
+    
     ShowLoading();
-
     MostrarRevistaCorrecta(rCampSelect);
 
     $(".content_revistas_mobile > a img").show();
