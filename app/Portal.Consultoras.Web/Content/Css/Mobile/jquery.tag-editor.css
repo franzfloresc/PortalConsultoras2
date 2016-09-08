@@ -16,7 +16,7 @@
     height: 50px !important;
 }
 
-.tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px;}
+.tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px; background: #e7e7e7;}
 
 .tag-editor .tag span, .tag-editor .tag a { float: left; padding: 0 4px; }
 
@@ -47,9 +47,12 @@
     text-align: center;
     line-height: 18px;
     display: inline-block;
-    margin-top: 15px; }
+    margin-top: 10px;
+}
 .tag-editor .tag a i:before { font-size: 15px;
-    /* margin-top: -6px; */
+    font-size: 15px;
+    margin-top: -1px;
+    display: block;
     color: white;
     content: "×";
     /* background: #686868; */
