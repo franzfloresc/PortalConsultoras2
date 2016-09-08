@@ -689,7 +689,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color:black;
-    background: url("../../../Images/Esika/ayuda.png") no-repeat;
+    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
     background-position: 18px 4px;
 }
 
@@ -711,16 +711,16 @@ header {
         z-index: -1;
     }
 
-.boton-home:hover {
+/*.boton-home:hover {
         background-position: 18px 4px !important;
         background:url("../../../Images/Esika/ayuda_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9; /* IE 8 y anteriores */
-        color: white;
-    }
+        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9;*/ /* IE 8 y anteriores */
+        /*color: white;
+    }*/
 
-.boton-home:hover::after {
+/*.boton-home:hover::after {
             border-width: 330px 330px 0 0;
-        }
+        }*/
 
 .boton-home:active {
         background: black;
@@ -6297,9 +6297,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-right: 350px;
     font-family: Lato;
 }
-.boton-home a:hover {
+/*.boton-home a:hover {
     color: white;
-}
+}*/
 .boton-home a {
     color: black;
 }
@@ -27501,7 +27501,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*TOOLTIP FOTO*/
 
 .contenedor_img_perfil{
-    display:block;
+    display:none;
     float:left;
 }
 
