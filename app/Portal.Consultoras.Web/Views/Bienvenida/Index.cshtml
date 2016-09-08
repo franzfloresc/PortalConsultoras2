@@ -1242,12 +1242,11 @@
 
 </div>
 <!--FIN-->
-
-    <script id="estrategia-template" type="text/x-handlebars-template">
-        {{#each this as |item|}}
-        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
             </div>
@@ -1340,7 +1339,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
     {{/each}}
 </script>
 
