@@ -6211,7 +6211,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background: url(../../../Images/Lbel/logo_lbel.png) no-repeat;
 }
 .logo_esika {
-    margin-top: 5px;
+    margin-top: 8px;
     float: left;
     width: 10%;
     padding-right: 2px;
@@ -26075,7 +26075,7 @@ div.subir_archivo input {
 }
 
 .mensaje_cierre_fechapromesa{
-    font-size: 10.5px;
+    font-size: 11px;
     font-family: 'lato';
     color: black;
     height: 51px;

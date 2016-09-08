@@ -340,7 +340,7 @@
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
-            <a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>
+            @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ver más" href="@Url.Action("Index", "MiAcademia")" class="ver_mas_video">VER M&Aacute;S +</a>*@
         </div>
         <div class="item_video_left">
             <div class="item_video">
@@ -349,10 +349,10 @@
         <div class="item_video_right">
             <h2 class="titulo_creceTusVentas">HAZ CRECER TUS VENTAS aprendiendo todos los secretos del éxito.</h2>
             <div class="contenedor_ir_miAcademia">
-                <span>En “Mi Academia” encontrarás cursos de estrategias de venta, coaching en belleza.</span>
-                <a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
+                <span>Por el momento no contamos con tutoriales disponibles.</span>
+                @*<a role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" href="@Url.Action("Index", "MiAcademia")">
                     <span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia" class="icono_arrow">&#9658;</span><span role="link" region="Cuerpo" parent="Mi Academia" title="Ir a Mi Academia">IR A "MI ACADEMIA"</span>
-                </a>
+                </a>*@
             </div>
         </div>
     </div>
@@ -1188,7 +1188,20 @@
 <!-- FIN POPUP POPUPs HOME -->
 <!-- POPUP TUTORIAL HOME-->
 <div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
-    <div class="popup_tutorial_home">
+    <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
+        <div id="slide1_container" class="shadow">
+          <div id="slide1_images">
+            <img class="imagen_tutorial img_slide1"  src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika1.jpg")">
+            <img class="imagen_tutorial img_slide2" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika2.jpg")">
+            <img class="imagen_tutorial img_slide3" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika3.jpg")">
+            <img class="imagen_tutorial img_slide4" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika4.jpg")">
+            <img class="imagen_tutorial img_slide5" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika5.jpg")">
+            <img class="imagen_tutorial img_slide6" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika6.jpg")">
+            <img class="imagen_tutorial img_slide7" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika7.jpg")">
+            <img class="imagen_tutorial img_slide8" src="@Url.Content("~/Content/Images/Esika/tutorial-home-esika8.jpg")">
+          </div>
+        </div>
+        
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="#" title="Cerrar" class="cerrar_tutorial">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />

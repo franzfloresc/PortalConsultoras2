@@ -1634,6 +1634,14 @@
     <Content Include="Content\Images\Esika\tooltip_guardar_BO.png" />
     <Content Include="Content\Images\Esika\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Esika\tooltip_validar.png" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika1.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika2.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika3.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika4.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika5.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika6.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika7.jpg" />
+    <Content Include="Content\Images\Esika\tutorial-home-esika8.jpg" />
     <Content Include="Content\Images\Esika\tutorial.png" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\Tutorial\tuto1.png" />
@@ -3398,6 +3406,7 @@
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
+    <Content Include="Views\MiAcademia\Index.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
