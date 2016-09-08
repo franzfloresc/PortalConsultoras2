@@ -689,7 +689,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color:black;
-    background: url("../../../Images/Esika/ayuda.png") no-repeat;
+    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
     background-position: 18px 4px;
 }
 
@@ -711,16 +711,16 @@ header {
         z-index: -1;
     }
 
-.boton-home:hover {
+/*.boton-home:hover {
         background-position: 18px 4px !important;
         background:url("../../../Images/Esika/ayuda_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9; /* IE 8 y anteriores */
-        color: white;
-    }
+        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9;*/ /* IE 8 y anteriores */
+        /*color: white;
+    }*/
 
-.boton-home:hover::after {
+/*.boton-home:hover::after {
             border-width: 330px 330px 0 0;
-        }
+        }*/
 
 .boton-home:active {
         background: black;
@@ -6298,9 +6298,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-right: 350px;
     font-family: Lato;
 }
-.boton-home a:hover {
+/*.boton-home a:hover {
     color: white;
-}
+}*/
 .boton-home a {
     color: black;
 }
@@ -21205,12 +21205,13 @@ label.checkpop.c_on {
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
-    margin-top:22px;
+    margin-top:26px;
     float:left;
 }
 .item_video{
     width:100%;
-    height:307px;
+    max-width:342px;
+    height:298px;
     background:black;
     margin-bottom:14px;
     /*background:url("../../../Images/Esika/home-video.png") no-repeat center center;*/
@@ -21224,7 +21225,7 @@ label.checkpop.c_on {
 .item_video_right{
     float: right;
     width: 35%;
-    margin-top: 23px;
+    margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
@@ -27754,4 +27755,59 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     80% {
         opacity:1;
     }
+}
+
+
+/* POPUP IMAGEN PERFIL */
+
+.popup_img_perfil{
+    display: none;
+    position: relative;
+    height: 440px;
+    width: 100%;
+    top: 50%;
+    max-width: 485px;
+    margin: -220px auto 0 auto;
+    background: #FFF;
+    padding:37px 47px;
+}
+
+.popup_img_perfil h1{
+    display:block;
+    margin:0;
+    padding:0;
+    font-family:'Lato';
+    font-weight:300!important;
+    font-size:21px;
+    text-align:center;
+    color:#000;
+}
+
+.btn_acciones{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+.boton_cancelarImagen, .boton_guardarImagen{
+    display: inline-block;
+    width: 187px;
+    height: 43px;
+    line-height: 43px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.boton_cancelarImagen{
+    color:#000;
+    background:#FFF;
+    border:1px solid #000;
+    margin-right:14px;
+}
+
+.boton_guardarImagen{
+    color:#FFF;
+    background:#e81c36;
+    border:1px solid #e81c36;
 }
