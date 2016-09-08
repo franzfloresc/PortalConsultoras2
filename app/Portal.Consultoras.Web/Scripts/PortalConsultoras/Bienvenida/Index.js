@@ -81,11 +81,8 @@ $(document).ready(function () {
         $('#videoIntroductorio').fadeIn(function () {
 
             $("#videoIntroductorio").delay(200);
-
             $("#videoIntroductorio").fadeIn(function () {
-
                 $(".popup_video_introductorio").fadeIn();
-
             });
 
         });
@@ -3108,8 +3105,13 @@ function CargarCatalogoPersonalizado() {
                         return false;
                     }
                 });
-
-                SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
+                if (arrayProducto.length > 0) {
+                    SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
+                } else {
+                    $("#divMainCatalogoPersonalizado").remove();
+                    $("#linea_separadoraCP").hide();
+                }
+                
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
