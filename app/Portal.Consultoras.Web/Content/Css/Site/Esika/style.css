@@ -27721,7 +27721,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     text-align:center;
     font-size:16px;
 }
-.producto_img_home:hover .ver_detalle_carrusel{
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel {
     display:block;
     }
 .producto_img_home{
