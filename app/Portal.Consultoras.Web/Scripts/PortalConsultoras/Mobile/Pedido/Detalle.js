@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
