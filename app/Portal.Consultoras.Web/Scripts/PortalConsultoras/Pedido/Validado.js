@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
 
+    history.pushState(null, null, document.location.href);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.location.href);
+    });
+
     $('#DialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
