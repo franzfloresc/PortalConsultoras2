@@ -1249,6 +1249,7 @@
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
+                <a class="ver_detalle_carrusel">VER DETALLE</a>
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}
