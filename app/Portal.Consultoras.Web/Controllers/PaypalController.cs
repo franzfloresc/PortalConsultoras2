@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Paypal/Index"))
-                return RedirectToAction("Index", "Bienvenida");
 
             ViewBag.CodigoConsultora = UserData().CodigoConsultora;
             ViewBag.SaldoActual = GetSaldoActualConsultora();
