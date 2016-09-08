@@ -435,7 +435,13 @@ function CatalogoMostrar(accion, btn) {
     }
 }
 function CompartirFacebook(Catalogo, btn) {
-
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir FB',
+        'label': Catalogo,
+        'value': 0
+    });
     var u = $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
 
     var popWwidth = 570;
@@ -520,6 +526,32 @@ function CatalogoEnviarEmail() {
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
+    if (_Flagchklbel == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Lbel',
+            'value': clientes.length
+        });
+    if (_Flagchkesika == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Esika',
+            'value': clientes.length
+        });
+    if (_Flagchkcyzone == "1")
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email',
+            'label': 'Cyzone',
+            'value': clientes.length
+        });
+
+    var mensaje = $("#comentarios").val();
 
     jQuery.ajax({
         type: 'POST',
@@ -556,6 +588,14 @@ function CatalogoEnviarEmail() {
 // catalogo email
 var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir email – clic botón',
+        'label': tipoCatalogo,
+        'value': 0
+    });
+
     $("#comentarios").val(valContenidoCorreoDefecto);
     // remover todos los tag
     $('#tagCorreo').removeTagAll();
@@ -697,4 +737,13 @@ function TagManagerPaginasVirtuales() {
         'pageUrl': '/Mobile/catalogo/revistas/',
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
+}
+function TagManagerWS(Catalogo) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir WhatsApp',
+        'label': 'Lbel',
+        'value': 0
+    });
 }
