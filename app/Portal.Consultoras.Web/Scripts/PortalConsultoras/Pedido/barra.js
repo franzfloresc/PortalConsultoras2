@@ -15,7 +15,16 @@ function MostrarBarra(datax) {
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
         listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
+
+        $.each(listaEscalaDescuento, function (i, item) {
+            listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta);
+            listaEscalaDescuento[i].MontoHastaStr = Math.ceil(item.MontoHasta);
+
+        });
     }
+
+    //console.log(listaEscalaDescuento);
+
     dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
     if (dataBarra.ListaMensajeMeta.length > 0) {
         listaMensajeMeta = dataBarra.ListaMensajeMeta;
