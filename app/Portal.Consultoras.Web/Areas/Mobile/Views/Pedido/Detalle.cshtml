@@ -282,7 +282,7 @@
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="text"
-                                   class="ValidaNumeral"
+                                   class="ValidaNumeral ValidaPasteNumeral"
                                    id="Cantidad_{{detalle.PedidoDetalleID}}"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
@@ -292,17 +292,17 @@
                                    readonly="readonly">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="text"
-                                   class="ValidaNumeral"
+                                   class="ValidaNumeral ValidaPasteNumeral"
                                    id="Cantidad_{{detalle.PedidoDetalleID}}"
                                    maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"                                  
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                                    data-cantidad-input="-"
                                    readonly="readonly">
                             {{else}}
                             <input type="text"
-                                   class="ValidaNumeral"
+                                   class="ValidaNumeral ValidaPasteNumeral"
                                    id="Cantidad_{{detalle.PedidoDetalleID}}"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"

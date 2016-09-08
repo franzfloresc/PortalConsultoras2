@@ -3388,6 +3388,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
+    z-index:1500;
 }
 
 .producto_img img {
@@ -5468,11 +5469,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /* top: 50%; */
     margin: 8px auto 8px auto;
     width: 100%;
-    max-width: 614px;
-    height: 639px;
+    max-width: 900px;
+    height: 642px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    /*background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;*/
 }
 
 .popup_tutorial_pedido {
@@ -20389,19 +20390,57 @@ label.checkpop.c_on {
     display: block;
 
 }
+
 .boton_home_guardar{
     width: 100%;
     height: 45px;
-    background-color: #613c87;
+    background: #613c87;
+    border: 2px solid #613c87;
     text-align: center;
     color: white;
     margin-top: 4px;
     font-family: 'lato';
     font-size: 15px;
     font-weight:600;
-    line-height: 45px;
+    line-height: 40px;
     letter-spacing: 0.3px;
     /* float: left; */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    transition-duration: .3s;
+}
+.boton_home_guardar:hover{
+    color:#613c87;
+}
+.boton_home_guardar:before{
+    content: "";
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+    background: #fff;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.boton_home_guardar:hover:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    color: #7b2481;
 }
 
 .socia_negocio_home{
@@ -27475,4 +27514,179 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-top-color: white;
     border-width:9px;
     z-index: 10;
+}
+
+/*TUTORIAL DINAMICO*/
+
+#slide1_container {
+    display:block;
+    width:100%;
+    max-width:900px;
+    height:642px;
+    overflow:hidden; 
+    margin:0 auto;
+}
+
+#slide1_images {
+  width:100%;
+  position:absolute;
+  top:0px;
+}
+
+#slide1_images div {
+  padding:0;
+  margin:0;
+  position:absolute;
+  top:15px;
+  left:0px;
+  width:900px;
+  height: 642px;
+  opacity:1;
+}
+
+#slide1_images .img_slide1{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel1.jpg) no-repeat center top;
+    z-index:8;
+}
+
+#slide1_images .img_slide2{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel2.jpg) no-repeat center top;
+    z-index:7;
+}
+
+#slide1_images .img_slide3{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel3.jpg) no-repeat center top;
+    z-index:6;
+}
+
+#slide1_images .img_slide4{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel4.jpg) no-repeat center top;
+    z-index:5;
+}
+
+#slide1_images .img_slide5{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel5.jpg) no-repeat center top;
+    z-index:4;
+}
+
+#slide1_images .img_slide6{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel6.jpg) no-repeat center top;
+    z-index:3;
+}
+
+#slide1_images .img_slide7{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel7.jpg) no-repeat center top;
+    z-index:2;
+}
+
+#slide1_images .img_slide8{
+    background: url(../../../Images/Lbel/tutorialLbel/tutorial-home-lbel8.jpg) no-repeat center top;
+    z-index:1;
+}
+/*POP UP FOTO CARGADA*/
+.content_foto_cargada{
+    max-width:486px;
+    height:440px;
+    background:white;
+    top:50%;
+    margin:-220px auto auto auto;
+    position:relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow:hidden;
+}
+.titulo_pop_foto{
+    /*margin-top:15px;*/
+    font-family:'Lato';
+    font-weight:300;
+    font-size:25px;
+    color:black;
+    text-align:center;
+    margin-bottom:30px;
+}
+.content_foto_usuario {
+    width:200px;
+    margin:0 auto;
+    height:200px;
+     margin-BOTTOM:40px !important;
+}
+.foto_usuaria_desktop{
+    background:white;
+    width:100%;
+    height:100%;
+    border-radius:100px;
+    -webkit-border-radius:100px;
+    -moz-border-radius:100px;
+    -o-border-radius:100px;
+    overflow:hidden;
+}
+.foto_usuaria_desktop img{
+    width:100%;
+}
+.btn_tomar_foto{
+    width:50%;
+    height:42px;
+    border:1px solid black;
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    line-height:42px;
+    font-size:13px;
+    font-weight:700;
+   
+    text-transform:uppercase;
+    margin:auto;
+
+}
+.btn_tomar_foto:hover{
+    background:black;
+    color:white;
+}
+.text_actualizada{
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:22px;
+    margin-top:-10px;
+}
+.sub_text_actualizada{
+     font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:16px;
+}
+.producto_img_home:hover .ver_detalle_carrusel{
+    display:block;
+    }
+.producto_img_home{
+    position:relative;
+}
+.ver_detalle_carrusel{
+    display:none;
+    position:absolute;
+    height:35px;
+    line-height:30px;
+    width:60%;
+    font-weight:700;
+    border:2px solid black;
+    font-family:'Lato';
+    background:rgba(255,255,255,0.8);
+    left:0;
+    right:0;
+    bottom:10px;
+    margin:0 auto;
+    -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    animation: opacidad-bottom 500ms linear 0ms 1 normal;
+}
+
+@keyframes opacidad-bottom {
+    0% {
+        opacity:0;
+    
+    }
+    80% {
+        opacity:1;
+    }
 }

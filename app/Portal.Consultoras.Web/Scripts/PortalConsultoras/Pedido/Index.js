@@ -13,6 +13,8 @@ var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
+
     AnalyticsBannersInferioresImpression();
     //$('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
@@ -785,7 +787,6 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
                     cierreCarouselEstrategias();
                     CargarCarouselEstrategias(param2.CUV);
                     HideDialog("divVistaPrevia");
-                    //MostrarProductoAgregado("", descripcion, cantidad, (cantidad * precio).toFixed(2));
                     PedidoOnSuccess();
                     CargarDetallePedido();
                     MostrarBarra(response);
@@ -803,7 +804,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
                                     'id': response.data.CUV,
                                     'category': 'NO DISPONIBLE',
                                     'variant': response.data.DescripcionOferta,
-                                    'quantity': Number(response.data.Cantidad),
+                                    'quantity': Number(param2.Cantidad),
                                     'position': 1
                                 }]
                             }
@@ -3704,37 +3705,6 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
-
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
-};
-
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();
     var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
@@ -4066,3 +4036,46 @@ function AnalyticsBannersInferioresImpression() {
         });
     }
 }
+
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: urlReservadoOEnHorarioRestringido,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                if (mostrarAlerta == true) {
+                    CerrarSplash();
+                    alert_msg(data.message);
+                }
+                else {
+                    AbrirSplash();
+                    location.href = urlValidadoPedido;
+                }
+            }
+            else if (mostrarAlerta == true) {
+                alert_msg(data.message);
+            }
+        },
+        error: function (error, x) {
+            console.log(error, x);
+            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+};

@@ -2,11 +2,11 @@
 var vpromotionsTagged = [];
 var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
-var contadorTutorialSlide = 1
-
+var numImagen = 1;
+var fnMovimientoTutorial;
 $(document).ready(function () {
 
-    //$('#salvavidaTutorial').show();
+    $('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
@@ -57,37 +57,30 @@ $(document).ready(function () {
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
-        //setInterval(function () {
-        //    $('#slide1_images').css("transform", "translateX(" + contadorTutorialSlide * -900 + "px)");
 
-        //    contadorTutorialSlide++;
+        fnMovimientoTutorial = setInterval(function ()
+        {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            if (numImagen == 8) {
+                alert(numImagen);
+                $(".img_slide" + numImagen).animate({ 'opacity': '0' });               
+            }
+            numImagen++;
+            if (numImagen > 8) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
 
-        //    if (contadorTutorialSlide > 8) {
-        //        contadorTutorialSlide = 1;
-        //        $('#slide1_images').css("transform", "translateX(0px)");
-        //    }
-        //}, 3000);
+        }, 3000);
+
     }
-
-    //var numImagen = 1;
-
-    //setInterval(function () {
-
-    //    if(numImagen < 7) {
-    //        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-    //    }
-    //        numImagen++;
-
-    //    if (numImagen > 8) {
-    //        numImagen = 1;
-    //        $(".imagen_tutorial").animate({'opacity':'1'});
-    //    }
-
-    //}, 3000);
 
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
+        $(".imagen_tutorial").animate({ 'opacity': '1' });
+        window.clearInterval(fnMovimientoTutorial);
+        numImagen = 1;
     }
 
     // Evento para visualizar video introductorio al hacer click
