@@ -1643,6 +1643,14 @@
     <Content Include="Content\Images\Esika\tutorial-home-esika7.jpg" />
     <Content Include="Content\Images\Esika\tutorial-home-esika8.jpg" />
     <Content Include="Content\Images\Esika\tutorial.png" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika1.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika2.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika3.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika4.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika5.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika6.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika7.jpg" />
+    <Content Include="Content\Images\Esika\tutorialEsika\tutorial-home-esika8.jpg" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\Tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\Tutorial\tuto2.png" />
@@ -1838,6 +1846,14 @@
     <Content Include="Content\Images\Lbel\tooltip_guardar_FIC.png" />
     <Content Include="Content\Images\Lbel\tooltip_validar.png" />
     <Content Include="Content\Images\Lbel\tutorial.png" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel1.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel2.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel3.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel4.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel5.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel6.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel7.jpg" />
+    <Content Include="Content\Images\Lbel\tutorialLbel\tutorial-home-lbel8.jpg" />
     <Content Include="Content\Images\Lbel\tutorial_lbel.jpg" />
     <Content Include="Content\Images\Lbel\tutorial\tuto1.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto2.png" />
@@ -3406,6 +3422,7 @@
     <Content Include="Views\MisBeneficios\Index.cshtml" />
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
+    <Content Include="Views\MiAcademia\Index.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

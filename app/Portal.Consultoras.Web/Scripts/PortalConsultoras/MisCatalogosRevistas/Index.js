@@ -774,45 +774,8 @@ function RevistaMostrar(accion, btn) {
         'label': 'Revista C-' + rCampSelect.substr(4),
         'value': 0
     });
-    //var campania = rCampSelect || "";
-
-    //if (campania && campania.length > 4) {
-    //    $("#spNroCampania").text(campania.substr(4));
-    //    if (rCampSelect == $("#hdrCampaniaActual").val()) {
-    //        _gaq.push(['_trackEvent', 'Revista', 'Actual-C' + campania, 'Seleccionada']);
-    //        /*RQ 2505*/
-    //        dataLayer.push({
-    //            'event': 'virtualEvent',
-    //            'category': 'Revista',
-    //            'action': 'Click',
-    //            'label': 'Revista Campaña ' + campania.substring(4, 6)
-    //        });
-
-    //    }
-    //    if (campania == $("#hdrCampaniaAnterior").val()) {
-    //        _gaq.push(['_trackEvent', 'Revista', 'Anterior-C' + campania, 'Seleccionada']);
-    //        /*RQ 2505*/
-    //        dataLayer.push({
-    //            'event': 'virtualEvent',
-    //            'category': 'Revista',
-    //            'action': 'Click',
-    //            'label': 'Revista Anterior'
-    //        });
-    //    }
-    //    if (campania == $("#hdrCampaniaSiguiente").val()) {
-    //        _gaq.push(['_trackEvent', 'Revista', 'Proxima-C' + campania, 'Seleccionada']);
-    //        /*RQ 2505*/
-    //        dataLayer.push({
-    //            'event': 'virtualEvent',
-    //            'category': 'Revista',
-    //            'action': 'Click',
-    //            'label': 'Próxima Revista'
-    //        });
-    //    }
-    //}
 
     waitingDialog({ title: "Cargando Imagen" });
-
     MostrarRevistaCorrecta(rCampSelect);
 
     $("#contentRevista > span[data-accion] img").show();

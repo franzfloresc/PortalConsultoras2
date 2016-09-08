@@ -2,11 +2,11 @@
 var vpromotionsTagged = [];
 var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
-var contadorTutorialSlide = 1
-
+var numImagen = 1;
+var fnMovimientoTutorial;
 $(document).ready(function () {
 
-    //$('#salvavidaTutorial').show();
+    $('#salvavidaTutorial').show();
 
     //function ocultarAnimacionTutorial() {
 
@@ -57,21 +57,30 @@ $(document).ready(function () {
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
-        setInterval(function () {
-            $('#slide1_images').css("transform", "translateX(" + contadorTutorialSlide * -900 + "px)");
 
-            contadorTutorialSlide++;
-
-            if (contadorTutorialSlide > 8) {
-                contadorTutorialSlide = 1;
-                $('#slide1_images').css("transform", "translateX(0px)");
+        fnMovimientoTutorial = setInterval(function ()
+        {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            if (numImagen == 8) {
+                alert(numImagen);
+                $(".img_slide" + numImagen).animate({ 'opacity': '0' });               
             }
+            numImagen++;
+            if (numImagen > 8) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
+
         }, 3000);
 
     }
+
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
+        $(".imagen_tutorial").animate({ 'opacity': '1' });
+        window.clearInterval(fnMovimientoTutorial);
+        numImagen = 1;
     }
 
     // Evento para visualizar video introductorio al hacer click
@@ -81,11 +90,8 @@ $(document).ready(function () {
         $('#videoIntroductorio').fadeIn(function () {
 
             $("#videoIntroductorio").delay(200);
-
             $("#videoIntroductorio").fadeIn(function () {
-
                 $(".popup_video_introductorio").fadeIn();
-
             });
 
         });
@@ -3108,8 +3114,13 @@ function CargarCatalogoPersonalizado() {
                         return false;
                     }
                 });
-
-                SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
+                if (arrayProducto.length > 0) {
+                    SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
+                } else {
+                    $("#divMainCatalogoPersonalizado").remove();
+                    $("#linea_separadoraCP").hide();
+                }
+                
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
