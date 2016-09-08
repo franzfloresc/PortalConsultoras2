@@ -1029,7 +1029,9 @@
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
                 <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
+                {{/iff}}
             </div>
             {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
