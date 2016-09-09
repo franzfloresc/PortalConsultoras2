@@ -172,63 +172,91 @@
 <!--SB20-483 - FIN -->
 
 <script id="template-Detalle" type="text/x-handlebars-template">
-    <div style="position:relative; overflow:hidden;">
-        <div class="textos_resumen" style="margin-left:-31px;">
+    @*<div style="position:relative; overflow:hidden;">*@
+        @*<div class="textos_resumen" style="margin-left:-31px;">*@
+        <div class="textos_resumen">
 
-            <div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>
+            @*<div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>*@
+            @*<span id="lblProductosResumen" style="margin-left:30px;">HE AGREGADO :</span>*@
+            <span id="lblProductosResumen">HE AGREGADO :</span>
+            @*<span style="margin-bottom: 8px; margin-left: 30px;">TOTAL SIN DSCTO. :</span>
+            <span style="margin-bottom: 15px; margin-left: 30px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
+            @*<div style="margin-bottom: 8px; margin-left: 30px;">*@
+            <span id="lblTotalResumen">
+                MONTO TOTAL :
+            </span>
+
              @{                                                              
                     string cabezaEscala=null, pieEscala=null;
-                    string lbl1Ganancia = null, lbl2Danancia = null;
+                    string lbl1Ganancia = null, lbl2Ganancia = null;
                     
                     if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.Bolivia ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                         lbl1Ganancia = "Mis descuentos";
-                        lbl2Danancia = "Ganancia estimada *(Guia de negocio y otros)";
+                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
-                    {
-                        cabezaEscala = "Comisión y ahorro total";
-                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                        lbl2Danancia = "Ahorro estimado *(Guia de negocio y otros)";
-                    }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)// MX,PA
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                         lbl1Ganancia = "Mis descuentos";
-                        lbl2Danancia = "Ganancia estimada *(Revista y otros)";
+                        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)// CH
+                    {
+                        cabezaEscala = "Comisión y ahorro total";
+                        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
-                        pieEscala = "";
-                        lbl1Ganancia = Model.CodigoISO == Constantes.CodigosISOPais.CostaRica ? "Mis descuentos" : "Por tus compras de productos de catalogo";
-                        lbl2Danancia = Model.CodigoISO == Constantes.CodigosISOPais.CostaRica ? "Oportunidad de ahorro *(Revista y otros)": "Por tus comprar de productos de revista";                        
-                    }                                                                                                      
+                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                        lbl1Ganancia = "Por tus compras de productos de catalogo";
+                        lbl2Ganancia = "Por tus comprar de productos de revista";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
+                    {
+                        cabezaEscala = "Ganancia total";
+                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                    }
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
+                    {
+                        cabezaEscala = "Oportunidad de ahorro total";
+                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                    }                                                                                                 
                 }
                 
                 <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
                 <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                 <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Danancia" />
+                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
 
-            <span class="mi_ganancia">@(cabezaEscala.ToUpper().Trim()) :</span>
+                <div class="mi_ganancia">
+                    @*<div class="info_validado abrir_popupMisGanancias" onclick="MostrarDetalleGanancia()">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                    </div>*@
+                    @(cabezaEscala.ToUpper().Trim()) :
+                </div>
         </div>
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
             <!--SB20-483 - INICIO -->
-            <span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
-            <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>
+            @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
+            <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
             <!--SB20-483 - FIN -->
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
@@ -421,22 +449,50 @@
         </div>
 
         <div class="separador"></div>
-        <div style="position:relative;">
+        @*<div style="position:relative;">*@
+        <div style="margin-left: -28px;">
 
-            <div class="textos_resumen" style="margin-left:-31px;">
-                <div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>
-                <span id="lblProductosResumen" style="margin-left:30px;">HE AGREGADO :</span>
+            @*<div class="textos_resumen" style="margin-left:-31px;">*@
+            <div class="textos_resumen">
+                @*<div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>*@
+                <span style="margin-left:30px;">HE AGREGADO :</span>
                 <!-- SB20-483 - INICIO -->
-                <span style="margin-bottom: 8px; margin-left: 30px;">TOTAL SIN DSCTO.:</span>
-                <span style="margin-bottom: 15px; margin-left: 30px;">DSCTO. OFERTAS <br />POR NIVELES :</span>
+                @*<span style="margin-bottom: 8px; margin-left: 30px;">TOTAL SIN DSCTO.:</span>
+                <span style="margin-bottom: 15px; margin-left: 30px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
                 <!-- SB20-483 - FIN -->
-                <div style="margin-bottom: 8px; margin-left: 30px;">
-                    MONTO TOTAL :
-                </div>
-                <div class="mi_ganancia">
-                    <div class="info_validado abrir_popupMisGanancias">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
+
+                <span>
+                    <div class="info_validado">
+                        <img src="/Content/Images/Esika/info-copy.png" />
+                        <!--TOOLTIP-->
+                        <div class="tooltip_validado_importe">
+                            <div class="left_reservado">
+                                <div class="datos_Reservado">
+                                    <span>Total sin Dscto. </span>
+                                    <span>Dscto por niveles</span>
+                                </div>
+                            </div>
+                            <div class="right_reservado">
+                                <div class="datos_Reservado">
+                                    <span data-pedidototal="">S/. {{FormatoTotal}}</span>
+                                    <span data-montodescuento="">S/. {{FormatoMontoDescuento}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--FIN-->
                     </div>
+                    MONTO TOTAL :
+                </span>
+
+
+                @*<div style="margin-bottom: 8px; margin-left: 30px;">
+                    MONTO TOTAL :
+                </div>*@
+
+                <div class="mi_ganancia" style="margin-left: 30px;">
+                    @*<div class="info_validado abrir_popupMisGanancias">
+                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
+                    </div>*@
                     @(cabezaEscala) :
                 </div>
             </div>
@@ -444,8 +500,8 @@
             <div class="montos_resumen">
                 <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;PRODUCTOS</span>
                 <!-- SB20-483 - INICIO -->
-                <span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
-                <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>
+                @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
+                <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
                 <!-- SB20-483 - FIN -->
                 <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
                 <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>

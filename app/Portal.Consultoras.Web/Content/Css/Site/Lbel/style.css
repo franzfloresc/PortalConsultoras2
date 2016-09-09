@@ -26717,6 +26717,8 @@ position: relative; float: left;
     font-size:16px;
     color:black;
     margin-bottom:16px;
+    width: 325px;
+    padding-right: 5px;
 }
 .monto_totalValidado span{
     font-size: 22px;
