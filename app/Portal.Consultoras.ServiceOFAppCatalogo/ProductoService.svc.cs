@@ -131,7 +131,7 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             url += "&id=" + codigoConsultora;
             url += "&limit=" + limiteProductos;
             url += "&feed=" + bpais;
-            url += "&div=" + campaniaId;
+            url += "&campaign_id=" + campaniaId;
             //url += "&campaign=201612";
 
             string rtpaJson;

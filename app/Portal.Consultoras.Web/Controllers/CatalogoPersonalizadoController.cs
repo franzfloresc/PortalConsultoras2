@@ -26,10 +26,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset)
         {
-            return ObtenerProductos(cantidad, offset, true);
+            int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+            cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
+            return ObtenerProductos(cantidad, offset);
         }
 
-        private JsonResult ObtenerProductos(int cantidad, int offset = 0, bool catalogoPersonalizado = false)
+        private JsonResult ObtenerProductos(int cantidad, int offset = 0)
         {            
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
@@ -146,13 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
 
-                if (catalogoPersonalizado)
-                {
-                    int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
-                    cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
-                }
                 listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
-
                 return Json(new
                 {
                     success = true,
