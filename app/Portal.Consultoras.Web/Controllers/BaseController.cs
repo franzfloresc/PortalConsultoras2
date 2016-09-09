@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
-                    MenuBelcorpResponde();
+                    //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
                 }
@@ -799,7 +799,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.Permiso = BuildMenu();
                 ViewBag.Servicio = BuildMenuService();
-                MenuBelcorpResponde();
+                //MenuBelcorpResponde();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
@@ -1075,34 +1075,34 @@ namespace Portal.Consultoras.Web.Controllers
             return IP;
         }
 
-        private void MenuBelcorpResponde()
-        {
-            if (Session["UserData"] != null)
-            {
-                UsuarioModel model = userData;
-                List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    lista = sv.GetBelcorpResponde(model.PaisID).ToList();
-                }
+        //private void MenuBelcorpResponde()
+        //{
+        //    if (Session["UserData"] != null)
+        //    {
+        //        UsuarioModel model = userData;
+        //        List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
+        //        using (ContenidoServiceClient sv = new ContenidoServiceClient())
+        //        {
+        //            lista = sv.GetBelcorpResponde(model.PaisID).ToList();
+        //        }
 
-                if (lista.Count > 0)
-                {
-                    if (lista[0].ChatURL != "" && lista[0].ChatURL != null)
-                    {
-                        if (lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO + "&CODI=" + model.CodigoConsultora;
-                        if (lista[0].ParametroPais && !lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO;
-                        if (!lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?CODI=" + model.CodigoConsultora;
-                    }
-                }
+        //        if (lista.Count > 0)
+        //        {
+        //            if (lista[0].ChatURL != "" && lista[0].ChatURL != null)
+        //            {
+        //                if (lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO + "&CODI=" + model.CodigoConsultora;
+        //                if (lista[0].ParametroPais && !lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO;
+        //                if (!lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?CODI=" + model.CodigoConsultora;
+        //            }
+        //        }
 
-                ViewBag.ListaBelcorpResponde = lista;
-                ViewBag.CantidadListaBelcorpResponde = lista.Count;
-            }
-        }
+        //        ViewBag.ListaBelcorpResponde = lista;
+        //        ViewBag.CantidadListaBelcorpResponde = lista.Count;
+        //    }
+        //}
 
         private bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
         {
@@ -1348,6 +1348,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             return displayTiempo;
         }
+
+        protected string GetImagenUsuario()
+        {
+            try
+            {
+                string rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
+                if (System.IO.File.Exists(Server.MapPath(rutaImagen))) return Url.Content(rutaImagen);
+            }
+            catch(Exception ex){                
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            return Url.Content("~/Content/Images/Esika/user.jpg");
+        }
+
         #endregion
 
         #region barra

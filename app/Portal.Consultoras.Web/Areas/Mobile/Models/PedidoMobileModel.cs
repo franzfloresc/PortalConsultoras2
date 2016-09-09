@@ -53,6 +53,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         
         public string GananciaFormat { get; set; }
 
+        public string FormatoMontoAhorroCatalogo { get; set; }
+
+        public string FormatoMontoAhorroRevista { get; set; }
+
         public string NombreConsultora { get; set; }
 
     }

@@ -6,6 +6,7 @@ var numImagen = 1;
 var fnMovimientoTutorial;
 
 $(document).ready(function () {
+    $('.contenedor_img_perfil').on('click', CargarCamara);
 
     $('#salvavidaTutorial').show();
 
@@ -22,24 +23,7 @@ $(document).ready(function () {
 
         fnMovimientoTutorial = setInterval(function ()
         {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //if (numImagen < 5) {
-            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //}
-
-            //if (numImagen == 5) {                
-            //    $(".img_slide5").fadeIn();
-            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
-
-            //    $(".img_slide5").delay(2000);
-            //    $(".img_slide6").delay(2000);
-            //    $(".img_slide7").delay(2000);
-            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
-            //}
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
             numImagen++;
             //if (numImagen > 9) {
             //    numImagen = 1;
@@ -129,7 +113,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
+    //CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -361,11 +345,19 @@ $(document).ready(function () {
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
-        width: 320,
-        height: 240,
+        // live preview size
+        width: 300,
+        height: 300,
+        // device capture size
+        //dest_width: 600,
+        //dest_height: 600,
+        // final cropped size
+        crop_width: 300,
+        crop_height: 300,
+        // format and quality
         image_format: 'jpeg',
         jpeg_quality: 90,
-        force_flash: true,
+        //force_flash: true,
         flip_horiz: true
     });
     Webcam.attach('#my_camera');
@@ -374,14 +366,36 @@ function CargarCamara() {
     contadorFondoPopUp++;
     $("#CamaraIntroductoria").show();
 }
+function CerrarCamara() {
+    Webcam.reset();
+    $('#imgFotoTomada').attr('src', '');
 
-function take_snapshot() {
-    // take snapshot and get image data
-    Webcam.snap(function (data_uri) {
-        // display results in page
-        document.getElementById('results').innerHTML =
-            '<h2>Here is your image:</h2>' +
-            '<img src="' + data_uri + '"/>';
+    $("#CamaraIntroductoria").hide();
+    contadorFondoPopUp--;
+    if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
+}
+
+function TomarFoto() {
+    Webcam.snap(function (data_uri) { $('#imgFotoTomada').attr('src', data_uri); });    
+}
+function SubirFoto() {
+    waitingDialog();
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/SubirImagen',
+        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            alert_msg(data.message);
+            if (data.success)
+            {
+                console.log(data.imagen);
+                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+            }
+        },
+        error: function (data, error) { console.log(error); },
+        complete: closeWaitingDialog
     });
 }
 

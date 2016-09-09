@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Net;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -104,7 +105,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     datDescBoton = sv.GetTablaLogicaDatos(userData.PaisID, 48).ToList();
-                    datUrlBoton = sv.GetTablaLogicaDatos(userData.PaisID, 49).ToList();
                     datGaBoton = sv.GetTablaLogicaDatos(userData.PaisID, 50).ToList();
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
@@ -134,9 +134,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
-                model.BotonAction = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[1].ToString() : "";
+                
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
-                model.BotonController = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[0].ToString() : "";
+                
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
+                model.ImagenUsuario = this.GetImagenUsuario();
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
@@ -228,6 +229,28 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View("IndexSAC", model);
+        }
+
+        public JsonResult SubirImagen(string data)
+        {
+            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
+            string[] dataPartes = data.Split(new char[]{ ',' });
+            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
+            string image = dataPartes[1];
+
+            string rutaImagen = "";
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(image);
+                rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
+                System.IO.File.WriteAllBytes(Server.MapPath(rutaImagen), base64EncodedBytes);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
+            }
+            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
         public JsonResult AceptarContrato(bool checkAceptar)
@@ -1356,7 +1379,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-
     }
 }
