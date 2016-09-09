@@ -69,6 +69,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.VioTutorial = userData.VioTutorialModelo;
                 model.UrlEnterateMas = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png", String.Empty);
 
+                model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
+
                 if (userData.CodigoISO == "CL" || userData.CodigoISO == "CO")
                 {
                     var tabla = new List<BETablaLogicaDatos>();
@@ -127,6 +129,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
 
                 }
+
+                model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png", String.Empty);
+                model.UrlImagenMiAcademia = ConfigS3.GetUrlFileS3("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png", String.Empty);
+                model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
+                model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
             }
             catch (FaultException ex)
             {

@@ -356,6 +356,11 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
 
+                    if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
+                        model.DiaPROLMensajeCierreCampania = false;
+                    else
+                        model.DiaPROLMensajeCierreCampania = true;
+
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes))
                     {
                         model.DiaPROL = false;

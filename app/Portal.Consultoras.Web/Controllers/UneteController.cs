@@ -726,60 +726,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarEstadoCrediticia(int id)
         {
-            var solicitudPostulante = default(Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante);
-            var evaluacionCrediticaBE = default(EvaluacionCrediticiaBE);
-
             var model = new ConsultarEstadoCrediticiaModel();
 
             var portalSV = new PortalServiceClient();
 
-            solicitudPostulante = portalSV.ObtenerSolicitudPostulante(CodigoISO, id);
+            var solicitudPostulante = portalSV.ObtenerSolicitudPostulante(CodigoISO, id);
             model.SolicitudPostulanteID = id;
 
             if (solicitudPostulante != null)
             {
+                var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO,
+                    solicitudPostulante);
 
-                if (string.IsNullOrWhiteSpace(solicitudPostulante.CodigoZona))
-                {
-                    return PartialView("_MensajeCodigoZona");
-                }
-
-                //using (var sv = new EvaluacionCrediticiaServiceClient())
-                //{
-                //    evaluacionCrediticaBE = sv.ConsultarServicioCrediticio(CodigoISO, "SomosBelcorp", solicitudPostulante.CodigoZona, solicitudPostulante.NumeroDocumento);
-                //    model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
-                //    model.Mensaje = evaluacionCrediticaBE.Mensaje;
-                //}
-
-                if (CodigoISO == "CL")
-                {
-                    // solicitudPostulante.EstadoBurocrediticio = EnumsEstadoBurocrediticio.SinConsultar.ToInt();
-
-                    using (var sv = new EvaluacionCrediticiaServiceClient())
-                    {
-                        evaluacionCrediticaBE = sv.ConsultarServicioCrediticio(CodigoISO, "SomosBelcorp",
-                            solicitudPostulante.CodigoZona, solicitudPostulante.NumeroDocumento);
-                        model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
-                        model.Mensaje = evaluacionCrediticaBE.Mensaje;
-                    }
-                }
-                else if (CodigoISO == "CO")
-                {
-                    solicitudPostulante.EstadoBurocrediticio = EnumsEstadoBurocrediticio.SinConsultar.ToInt();
-
-                    using (var sv = new EvaluacionCrediticiaServiceClient())
-                    {
-                        if (solicitudPostulante.CodigoZona != null)
-                        {
-                            var codigoRegion = solicitudPostulante.CodigoZona.Substring(0, 2).ToString();
-                            evaluacionCrediticaBE = sv.ConsultarServicioCrediticioCO(CodigoISO, "1",
-                                solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoRegion,
-                                solicitudPostulante.CodigoZona, "UNETE");
-                            model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
-                            model.Mensaje = evaluacionCrediticaBE.Mensaje;
-                        }
-                    }
-                }
+                model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
+                model.Mensaje = evaluacionCrediticaBE.Mensaje;
 
                 var estadosEvaluacionCrediticia = portalSV.ObtenerParametrosUnete(CodigoISO,
                     EnumsTipoParametro.EstadoBurocrediticio, 0);
@@ -788,6 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
                         e =>
                             e.Valor.HasValue && e.Valor.Value > Convert.ToInt32(EnumsEstadoBurocrediticio.SinConsultar) &&
                             e.Valor.Value < Convert.ToInt32(EnumsEstadoBurocrediticio.ErrorConsumoIntegracion)).ToList();
+
                 ViewBag.EstadosEvaluacionCrediticia = new SelectList(estados, "Valor", "Nombre");
             }
 

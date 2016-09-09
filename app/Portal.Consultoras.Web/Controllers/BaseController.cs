@@ -285,6 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+                    if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+
                     List<PermisoModel> lstModel = new List<PermisoModel>();
                     foreach (var permiso in lst)
                     {
@@ -310,14 +312,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     // Separar los datos obtenidos y para generar el menú
                     List<PermisoModel> menu = SepararItemsMenu(lstModel);
-
                     return menu;
                 }
-                else
-                    return new List<PermisoModel>();
+                else return new List<PermisoModel>();
             }
-            else
-                return new List<PermisoModel>();
+            else return new List<PermisoModel>();
         }
 
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
@@ -503,10 +502,19 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
-                string TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
+                string TextoNuevoProl = "";                
+
+                if (("BO CL VE").Contains(model.CodigoISO))                
+                    TextoNuevoProl  = "";                
+                else                
+                    TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";                               
 
                 if (model.TipoCasoPromesa != "0")
                 {
@@ -521,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!model.DiaPROL)
+                if (!model.DiaPROLMensajeCierreCampania)
                 {
                     ViewBag.MensajeCierreCampania = "<p>Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + displayTiempo;
                     if (model.ZonaValida)
@@ -698,10 +706,19 @@ namespace Portal.Consultoras.Web.Controllers
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
                 DateTime tiempo = DateTime.Today.Add(HoraCierrePortal);
-                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "").Insert(5, " ");
+                string displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+                if (displayTiempo.Length == 6)
+                    displayTiempo = displayTiempo.Insert(4, " ");
+                else
+                    displayTiempo = displayTiempo.Insert(5, " ");
 
                 string TextoPromesa = ".</b></p>";
-                string TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
+                string TextoNuevoProl = "";
+
+                if (("BO CL VE").Contains(model.CodigoISO))
+                    TextoNuevoProl = "";
+                else
+                    TextoNuevoProl = "<p>Revisa tus notificaciones o correo y verifica que tu pedido esté completo.</p>";
 
                 if (model.TipoCasoPromesa != "0")
                 {
@@ -716,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!model.DiaPROL)
+                if (!model.DiaPROLMensajeCierreCampania)
                 {
                     ViewBag.MensajeCierreCampania = "<p>Pasa tu pedido hasta el <b>" + model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month) + "</b> a las <b>" + displayTiempo;
                     if (model.ZonaValida)
@@ -1276,7 +1293,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
         
         #region barra
-        public BarraConsultoraModel GetDataBarra(bool inEscala = false, bool inMensaje = false)
+        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false)
         {
             var objR = new BarraConsultoraModel();
             objR.ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>();

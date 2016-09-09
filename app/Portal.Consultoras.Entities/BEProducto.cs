@@ -163,19 +163,26 @@ namespace Portal.Consultoras.Entities
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            msCUV = datarec["CUV"].ToString();
+            msCUV = (datarec["CUV"] ?? "").ToString();
             //msCodigoSAP = datarec["CodigoSAP"].ToString();
-            msDescripcion = datarec["Descripcion"].ToString();
-            mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
+            msDescripcion = (datarec["Descripcion"] ?? "").ToString();
+            if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
+                mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
             //mdPrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
-            miMarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
+            if (DataRecord.HasColumn(datarec, "MarcaID") && datarec["MarcaID"] != DBNull.Value)
+                miMarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
             //mbEsPremio = Convert.ToBoolean(datarec["EsPremio"]);
-            mbEstaEnRevista = DbConvert.ToBoolean(datarec["EstaEnRevista"]);
+            if (DataRecord.HasColumn(datarec, "EstaEnRevista") && datarec["EstaEnRevista"] != DBNull.Value)
+                mbEstaEnRevista = DbConvert.ToBoolean(datarec["EstaEnRevista"]);
             //mbEsFaltanteAnunciado = Convert.ToBoolean(datarec["EsFaltanteAnunciado"]);
-            mbTieneStock = DbConvert.ToBoolean(datarec["TieneStock"]);
-            mbEsExpoOferta = DbConvert.ToBoolean(datarec["EsExpoOferta"]);
-            msCUVRevista = datarec["CUVRevista"].ToString();
-            msCUVComplemento = datarec["CUVComplemento"].ToString();
+            if (DataRecord.HasColumn(datarec, "TieneStock") && datarec["TieneStock"] != DBNull.Value)
+                mbTieneStock = DbConvert.ToBoolean(datarec["TieneStock"]);
+            if (DataRecord.HasColumn(datarec, "EsExpoOferta") && datarec["EsExpoOferta"] != DBNull.Value)
+                mbEsExpoOferta = DbConvert.ToBoolean(datarec["EsExpoOferta"]);
+            if (DataRecord.HasColumn(datarec, "CUVRevista") && datarec["CUVRevista"] != DBNull.Value)
+                msCUVRevista = datarec["CUVRevista"].ToString();
+            if (DataRecord.HasColumn(datarec, "CUVComplemento") && datarec["CUVComplemento"] != DBNull.Value)
+                msCUVComplemento = datarec["CUVComplemento"].ToString();
             //msIndicadorMontoMinimo = datarec["IndicadorMontoMinimo"] != DBNull.Value ? DbConvert.ToInt32(datarec["IndicadorMontoMinimo"]) : 1;
             if (DataRecord.HasColumn(datarec, "IndicadorMontoMinimo") && datarec["IndicadorMontoMinimo"] != DBNull.Value)
                 msIndicadorMontoMinimo = Convert.ToInt32(datarec["IndicadorMontoMinimo"]);
@@ -183,7 +190,7 @@ namespace Portal.Consultoras.Entities
                 msIndicadorMontoMinimo = 1;
             //msIndicador = datarec["Indicador"].ToString();
             //miPaisID = (byte)datarec["PaisID"];
-            if (DataRecord.HasColumn(datarec, "ConfiguracionOfertaID") && datarec["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ConfiguracionOfertaID") && datarec["ConfiguracionOfertaID"] != DBNull.Value)
                 ConfiguracionOfertaID = Convert.ToInt32(datarec["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(datarec, "TipoOfertaSisID") && datarec["TipoOfertaSisID"] != DBNull.Value)
                 TipoOfertaSisID = Convert.ToInt32(datarec["TipoOfertaSisID"]);
@@ -217,7 +224,7 @@ namespace Portal.Consultoras.Entities
                 CodigoProducto = Convert.ToString(datarec["CodigoProducto"]);
 
             if (DataRecord.HasColumn(datarec, "PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
-                PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);                
+                PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
         }
 
         public BEProducto()

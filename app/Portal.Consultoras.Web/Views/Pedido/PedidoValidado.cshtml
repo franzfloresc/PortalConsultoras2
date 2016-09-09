@@ -37,6 +37,7 @@
                         <hr class="clear" />
                         <div class="flechita_barra"></div>
                     </div>
+                    <hr class="clear" />
                 </div>
             </div>
             <hr class="clear" />
@@ -137,8 +138,17 @@
             <hr class="clear" />
             <div>
                 <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
+
+                @{
+                    string[] tooltips = ViewBag.ProlTooltip.Split('|');
+                    string tooltip1 = tooltips[0];
+                    string tooltip2 = tooltips[1];
+                }
+
                 <div class="info_modificarvalidado">
-                    <span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>
+                    @*<span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>*@
+                    <text>@tooltip1</text>
+                    <span>@tooltip2</span>
                 </div>
                 <hr class="clear" />
             </div>
@@ -183,24 +193,12 @@
 
         <div class="contenedor_banners">
             <ul>
-                @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Peru || ViewBag.Pais_ISO == Constantes.CodigosISOPais.Chile)
-                {
-                    <li>
-                        <a href="javascript:;" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Catálogo Personalizado">
-                            <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
-                            <div>CATÁLOGO PERSONALIZADO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "MisCatalogosRevistas")" title="Mis Catálogos y Revistas">
-                            <img src="@ViewBag.UrlBanner01" alt="Mis Catálogos y Revistas" />
-                            <div>MIS CATÁLOGOS Y REVISTAS</div>
-                        </a>
-                    </li>
-                }
+                <li>
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                        <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
 
                 @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Venezuela)
                 {
@@ -214,7 +212,7 @@
                 else
                 {
                     <li>
-                        <a href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
+                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
                             <img src="@ViewBag.UrlBanner02" alt="Liquidaciones Web" />
                             <div>LIQUIDACIONES WEB</div>
                         </a>
@@ -338,8 +336,7 @@
 
 @section scripts{
     <script type="text/javascript">
-        //var correoElectronico = '@Model.eMail';
-        var correoElectronico = 'paul.cabrera@hundred.com.pe';
+        var correoElectronico = '@Model.eMail';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>

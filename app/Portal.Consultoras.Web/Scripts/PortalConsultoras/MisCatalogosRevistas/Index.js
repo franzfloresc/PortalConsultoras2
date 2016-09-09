@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
         'defaultText': 'Ingresar correo...',
         'delimiter': ',',
         'unique': true,
-        'validate': /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*([\.]\w{2,4})+$/,
+        'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
         autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
         'autocomplete': {
@@ -136,7 +136,12 @@ function ObtenerURLExpofertas() {
                 if (dataResult.success) {
                     var $arrayBanners = $.grep(dataResult.data, function (e) { return e.GrupoBannerID == -5; });
                     if ($arrayBanners.length > 1) {
-                        var urlExpoferta = $arrayBanners[1].URL;
+                        var urlExpoferta = "";
+                        $.each($arrayBanners, function (key, banner) {
+                            if (banner.TituloComentario.toLowerCase() == "expoferta") {
+                                urlExpoferta = banner.URL;
+                            }
+                        });
                         $('#catalogoExpoferta').click(function () {
                             dataLayer.push({
                                 'event': 'virtualEvent',
@@ -148,8 +153,7 @@ function ObtenerURLExpofertas() {
                             window.open(urlExpoferta, '_blank');
                         });
                         $("#catalogoExpoferta").css("cursor", "pointer");
-                    }
-                    
+                    }                   
                 }
                 else {
                     MonstrarExclamacion('Error al cargar la informacion de Expoferta.');

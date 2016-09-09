@@ -116,6 +116,7 @@ namespace Portal.Consultoras.Web.Models
         public TimeSpan HoraFacturacion { get; set; }
         public TimeSpan HoraFinFacturacion { get; set; }
         public bool DiaPROL { get; set; }
+        public bool DiaPROLMensajeCierreCampania { get; set; }
         public DateTime FechaInicioCampania { get; set; }
         public DateTime FechaFinCampania { get; set; }
         public TimeSpan HoraInicioReserva { get; set; }

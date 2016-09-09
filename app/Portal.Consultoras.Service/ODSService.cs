@@ -196,5 +196,10 @@ namespace Portal.Consultoras.Service
         }
 
         #endregion
+
+        public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
+        {
+            return BLProducto.SelectProductoToKitInicio(paisID, campaniaID, cuv);
+        }
     }
 }

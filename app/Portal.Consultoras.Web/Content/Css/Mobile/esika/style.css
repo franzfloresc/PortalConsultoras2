@@ -340,6 +340,7 @@ h4.re3 {
     .casa-box {
         margin-top: -20px;
     }
+    
 }
 
 .field-validation-error {
@@ -905,7 +906,7 @@ h4.re3 {
 }
 
     .form-control.text-primary {
-        color: #722789;
+        color: #000000;
     }
 
 .alert-success {
@@ -1616,10 +1617,11 @@ h4.re3 {
         list-style: none;
         border-bottom: 1px solid #ccc;
         padding: 25px 0;
-        /*padding-left: 15px;*/
+        padding-left: 15px;
         position: relative;
         line-height: 1.4;
         font-size: 14px;
+        cursor: pointer;
     }
 
 .noti-detalle {
@@ -1652,17 +1654,14 @@ h4.re3 {
     font-size: 13px;
 }
 
-.text-noti span:hover:first-child {
-    cursor: pointer;
-}
-/*.list-notificaciones .no-read:before {
+.list-notificaciones .no-read:before {
     content: "";
     position: absolute;
     top: 5px;
     bottom: 5px;
     left: -15px;
     border-left: 7px solid #35bdb2;
-}*/
+}
 .list-notificaciones .icon-noti {
     position: absolute;
     left: 12px;
@@ -1671,7 +1670,7 @@ h4.re3 {
 
 .list-notificaciones .text-noti {
     /*padding-left: 85px;*/
-    /*padding-bottom: 10px;*/
+    padding-bottom: 10px;
 }
 
 .list-notificaciones .btn-more {
@@ -4657,7 +4656,7 @@ table > thead > tr > th {
 }
 
     .btn_seguirp_mobile.ver_video_introductorio {
-        margin-top: 5px;
+        margin-top: 15px;
         margin-bottom: 5px;
     }
 
@@ -5237,8 +5236,13 @@ body {
     position: relative;
 }
 
+.montosIngresoPedido{
+    margin-left:-10px;
+}
+
 .textos_resumen, .montos_resumen {
     display: inline-block;
+    vertical-align:top;
 }
 
 .textos_resumen {
@@ -5255,28 +5259,36 @@ body {
     font-weight:700;
 }
 
-    .textos_resumen span, .montos_resumen span {
-        display: block;
-        margin-bottom: 2px;
+@media screen and (min-width:0px) and (max-width:407px){
+
+    .mi_ganancia{
+        max-width: 126px;
     }
 
-        .textos_resumen span:first-child, .textos_resumen span:nth-child(2) {
-            padding-bottom: 6px;
-        }
+}
 
-        .textos_resumen span b, .montos_resumen span b {
-            font-size: 17px;
-        }
+.textos_resumen span, .montos_resumen span {
+    display: block;
+    margin-bottom: 2px;
+}
 
-        .montos_resumen span:first-child {
-            padding-bottom: 2px;
-        }
+.textos_resumen span:first-child, .textos_resumen span:nth-child(2) {
+    padding-bottom: 6px;
+}
 
-            .montos_resumen span:first-child b {
-                /*font-size:19px;*/
-                font-size: 13px;
-                font-weight: normal;
-            }
+.textos_resumen span b, .montos_resumen span b {
+    font-size: 17px;
+}
+
+.montos_resumen span:first-child {
+    padding-bottom: 2px;
+}
+
+.montos_resumen span:first-child b {
+    /*font-size:19px;*/
+    font-size: 13px;
+    font-weight: normal;
+}
 
 .btn_verMiPedido {
     width: 100%;
@@ -5331,6 +5343,9 @@ body {
         font-size: 15px;
         text-align: center;
         line-height: 15px;
+        -webkit-border-radius: 0px;
+        -webkit-appearance: none !important;
+        text-transform:uppercase;
     }
 
 .contenedor_carrusel_home .slick-list {
@@ -5686,8 +5701,8 @@ body {
 
     .tooltip_noOlvidesGuardarTuPedido span {
         display: block;
-        font-size: 11px;
-        font-weight: 400;
+        font-size: 13px;
+        font-weight: 700;
         color: #000;
     }
 
@@ -5823,12 +5838,12 @@ body {
     width: 98px;
     height: 66px;
     margin-bottom: 10px;
-    background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;
+    /*background: url("../../../Images/mobile/Esika/video.png") no-repeat right bottom;*/
 }
 
 .liquidacion_esika {
     width: 110px;
-    margin-top: 35px;
+    margin-top: 0px;
     /*background: url("../../../Images/mobile/Esika/liquidacion_home.png") no-repeat right bottom;*/
 }
 
@@ -5948,10 +5963,10 @@ body {
     right: 4%;
 }
 
-    .etiqueta_producto img {
-        width: 100%;
-        height: auto;
-    }
+.etiqueta_producto img {
+    width: 100%;
+    height: auto;
+}
 
 .encabezado_liquidacion:after {
     top: 99%;
@@ -5978,33 +5993,33 @@ body {
 
 .descripcion_liquidacion_web {
     display: block;
-    width: 86%;
+    width: 96%;
     /*max-width: 292px;*/
     margin: 0 auto;
     margin-bottom: 27px;
 }
 
-    .descripcion_liquidacion_web h2, .descripcion_liquidacion_web span {
-        font-family: 'Lato';
-        text-align: justify !important;
-        padding: 0px 16px;
-    }
+.descripcion_liquidacion_web h2, .descripcion_liquidacion_web span {
+    font-family: 'Lato';
+    text-align: justify !important;
+    /*padding: 0px 16px;*/
+}
 
-    .descripcion_liquidacion_web h2 {
-        font-size: 13px;
-        font-weight: 900;
-        color: #262626;
-        margin: 0 auto;
-        margin-bottom: 10px;
-        line-height: 1.65;
-    }
+.descripcion_liquidacion_web h2 {
+    font-size: 13px;
+    font-weight: 900;
+    color: #262626;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    line-height: 1.65;
+}
 
-    .descripcion_liquidacion_web span {
-        display: block;
-        font-size: 13px;
-        font-weight: 400;
-        color: #4c4c4c;
-    }
+.descripcion_liquidacion_web span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #4c4c4c;
+}
 
 .contenedor_productos_liquidacion {
     display: block;
@@ -6014,27 +6029,63 @@ body {
     text-align: center;
 }
 
+.contenedor_productos_liquidacion .content_item_home {
+    margin-bottom: 16px;
+    display: inline-block;
+    vertical-align:top;
+}
+
+.contenedor_productos_liquidacion .producto_img_mobile {
+    height: 150px;
+}
+
+.contenedor_productos_liquidacion .producto_precio .producto_precio_normal {
+    text-decoration: line-through;
+}
+
+.contenedor_productos_liquidacion .producto_precio .producto_stock {
+    text-decoration: none !important;
+    font-size: 12px !important;
+}
+
+@media screen and (min-width:0px) and (max-width:425px){
+
     .contenedor_productos_liquidacion .content_item_home {
         width: 100%;
-        max-width: 268px;
-        margin-bottom: 16px;
-        display: inline-block;
+    }
+
+}
+
+@media screen and (min-width:426px) and (max-width:735px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 47%;
         margin-left: 5px;
         margin-right: 5px;
     }
 
-    .contenedor_productos_liquidacion .producto_img_mobile {
-        height: 150px;
+}
+
+@media screen and (min-width:736px) and (max-width:940px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 31%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
-    .contenedor_productos_liquidacion .producto_precio .producto_precio_normal {
-        text-decoration: line-through;
+}
+
+@media screen and (min-width:941px){
+
+    .contenedor_productos_liquidacion .content_item_home {
+        width: 23%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
-    .contenedor_productos_liquidacion .producto_precio .producto_stock {
-        text-decoration: none !important;
-        font-size: 12px !important;
-    }
+}
+
 /*CATÁLOGOS*/
 .content_app {
     float: left;
@@ -6442,7 +6493,7 @@ input[type="checkbox"]:checked + span:after {
 .MensajeAlertaMobile {
     position: fixed;
     z-index: 2010;
-    overflow-y: auto;
+    
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -7527,8 +7578,8 @@ input[type="checkbox"]:checked + span:after {
     font-family: 'Lato';
     font-weight: 400;
     color:#000;
-    width:250px;
-    font-size:14px;
+    width:auto;
+    font-size:13px;
 }
 
 /* PANTALLA MI ASESOR DE BELLEZA */
@@ -7679,3 +7730,54 @@ input[type="checkbox"]:checked + span:after {
     }
 
 }
+
+/*VIDEO INTRODUCTORIO*/
+.content_video_introductorio{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+    
+}
+.cerrar_video{
+    position:absolute;
+    width:20px;
+    height:20px;
+    z-index:2005;
+    right:-30px;
+}
+.cerrar_video img{
+    width:100%;
+}
+
+/*.content_video_introductorio {
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}*/
+
+.content_video_introductorio iframe,
+.content_video_introductorio object,
+.content_video_introductorio embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .content_video_introductorio{
+    width: 85%;
+    height: 50%;
+    top: 25%;
+    /* height: 0; */
+    margin: auto;
+    position: relative;
+       
+    }
+    
+}
+
+/*FIN*/

@@ -893,7 +893,7 @@ function ConstruirObservacionesPROL(model) {
             mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
-            $("#modal-prol-contenido").html("");
+            $("#modal-prol-contenido").html(mensajePedido);
 
         } else {
             $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
@@ -902,7 +902,7 @@ function ConstruirObservacionesPROL(model) {
             mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
-            $("#modal-prol-contenido").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+            $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
 
             mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
         }

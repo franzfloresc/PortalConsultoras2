@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     waitingDialog({});
     closeWaitingDialog();
 
@@ -141,6 +142,10 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes').dialog('open');
 }
 
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+}
+
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
     $.ajax({
@@ -153,19 +158,7 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    //if (data.montoWebAcumulado == 0) {
-                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
-                    //        data.montoWebAcumulado = "0";
-                    //    else
-                    //        data.montoWebAcumulado = "0.00";
-                    //} else {
-                    //    if (data.paisID == 4)  //Formato de decimales para Colombia
-                    //        data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                    //    else
-                    //        data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    //}
-
-                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebConDescuentoStr);
 
                     if (data.cantidadProductos > 0) {
                         $("#pCantidadProductosPedido").html(data.cantidadProductos);
@@ -173,9 +166,7 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $("#pCantidadProductosPedido").html(0);
                     }
 
-                    //$("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
-                    //$("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
-                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebAcumulado);
+                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
                     var idPais = data.paisID;
 
@@ -211,13 +202,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     }
 
                     if (showPopup == true) {
-                        $('.info_cam').fadeIn(200);
-                        setTimeout(function () {
-                            $('.info_cam').fadeOut(200);
-                            setTimeout(function () {
-                                $('.info_cam').removeAttr("style");
-                            }, 300);
-                        }, 5000);
+                        //$('.info_cam').fadeIn(200);
+                        //setTimeout(function () {
+                        //    $('.info_cam').fadeOut(200);
+                        //    setTimeout(function () {
+                        //        $('.info_cam').removeAttr("style");
+                        //    }, 300);
+                        //}, 5000);
+                        microefectoPedidoGuardado();
+                        setTimeout(function(){
+                            $(".contenedor_circulos").fadeOut();
+                        }, 2700);
                     }
                 }
                 else {
@@ -243,13 +238,15 @@ function CargarCantidadNotificacionesSinLeer() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.cantidadNotificaciones > 0) {
+                    $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
+                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
-                    $(document).find(".mensajes_home").html("No tienes mensajes.");
+                    $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 };
 
                 data.mensaje = data.mensaje || "";

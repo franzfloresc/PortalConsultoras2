@@ -427,6 +427,29 @@ namespace Portal.Consultoras.BizLogic
             return Success;
         }
 
+        public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)
+        {
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
+            bool Success = true;
+            TransactionOptions oTransactionOptions = new TransactionOptions();
+            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+            try
+            {
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    DAPedidoWebDetalle.DelPedidoWebDetallePackNueva(ConsultoraID, PedidoID);
+                    oTransactionScope.Complete();
+                }
+            }
+            catch (Exception)
+            {
+                Success = false;
+            }
+
+            return Success;
+        }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByPedidoID(int paisID, int campaniaID, int pedidoID)
         {
             IList<BEPedidoWebDetalle> listaBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
