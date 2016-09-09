@@ -62,7 +62,6 @@ $(document).ready(function () {
     });
 
     $("#btnVerPedido").click(function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Ver-Pedido']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Liquidacion-Web/Ver-Pedido'

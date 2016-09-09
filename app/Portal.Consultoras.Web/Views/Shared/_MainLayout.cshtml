@@ -25,7 +25,6 @@
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
-        var _gaq = _gaq || [];
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';

@@ -77,7 +77,6 @@ function ConfirmarModificar() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Modificar-Pedido']);
                     dataLayer.push({
                         'event': 'pageview',
                         'virtualUrl': '/Pedido/Modificar-Pedido'
