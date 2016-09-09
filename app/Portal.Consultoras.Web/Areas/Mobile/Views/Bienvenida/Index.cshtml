@@ -215,7 +215,9 @@
         <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
            class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
     </div>
-    <div class="imagen_catalogo catalogo_esika"></div>
+    <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+    class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">
+    <div class="imagen_catalogo catalogo_esika"></div></a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
@@ -244,7 +246,9 @@
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
-        <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
+        <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
+        class="btn_compartelos" href="@Url.Action("EnterateMas","Catalogo", new {area = "Mobile"})">
+        <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div></a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
         <!--FIN APP CATÁLOGOS-->
@@ -272,9 +276,10 @@
         <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
            class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
     </div>
+    <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
     <div class="imagen_catalogo video_esika">
         <img src="@Model.UrlImagenMiAcademia" alt="-" />
-    </div>
+    </div></a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN-->
@@ -287,7 +292,8 @@
                class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
-            <img src="@Model.UrlImagenLiquidaciones" alt="-" />
+            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+            <img src="@Model.UrlImagenLiquidaciones" alt="-" /></a>
         </div>
         <hr class="clear" />
         <div class="linea_separadora_mobile mg_bottom"></div>

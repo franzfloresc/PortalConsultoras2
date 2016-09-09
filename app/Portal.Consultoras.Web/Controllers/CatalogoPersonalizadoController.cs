@@ -61,9 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
                                 cantidad).ToList();
                     }
-
-                    var listaPedido = ObtenerPedidoWebDetalle();
-                    
+                                        
                     foreach (var producto in lista)
                     {
                         List<BEProducto> olstProducto = new List<BEProducto>();
@@ -84,19 +82,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 infoEstrategia = sv.GetImagenOfertaPersonalizadaOF(userData.PaisID, userData.CampaniaID, olstProducto[0].CUV.Trim());
                             }
 
-                            string imagen = "";
                             if (!string.IsNullOrEmpty(infoEstrategia))
                             {
-                                descripcion = infoEstrategia.Split('|')[0];
-                                imagen = infoEstrategia.Split('|')[1];
-                            }
+                                var listSplit  = infoEstrategia.Split('|');
+                                descripcion = listSplit.Count() > 0 ? listSplit[0] : "";
+                                string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
 
-                            if (!string.IsNullOrEmpty(imagen))
-                            {
-                                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagen, carpetapais);
-                                add = true;
+                                if (!string.IsNullOrEmpty(imagen))
+                                {
+                                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                                    imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagen, carpetapais);
+                                    add = true;
+                                }
                             }
+                            
                         }
                         else
                         {
@@ -107,13 +106,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (add)
                         {
-                            var tiene = listaPedido.Where(p => p.CUV == olstProducto[0].CUV.Trim());
                             listaProductoModel.Add(new ProductoModel()
                             {
                                 CUV = olstProducto[0].CUV.Trim(),
                                 Descripcion = descripcion,
-                                PrecioCatalogoString =
-                                    Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
+                                PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
                                 PrecioCatalogo = olstProducto[0].PrecioCatalogo,
                                 MarcaID = olstProducto[0].MarcaID,
                                 EstaEnRevista = olstProducto[0].EstaEnRevista,
@@ -135,18 +132,21 @@ namespace Portal.Consultoras.Web.Controllers
                                 CodigoProducto = olstProducto[0].CodigoProducto,
                                 TieneStockPROL = true,
                                 PrecioValorizado = olstProducto[0].PrecioValorizado,
-                                PrecioValorizadoString =
-                                    Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                                PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
-                                IsAgregado = tiene.Count() > 0
+                                IsAgregado = false
                             });
 
                         }
                     }
                     Session["ProductosCatalogoPersonalizado"] = listaProductoModel;
                 }
-                else listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+                else
+                    listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+                
+                var listaPedido = ObtenerPedidoWebDetalle();
+                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Count() > 0);
 
                 listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
                 return Json(new

@@ -26807,6 +26807,8 @@ position: relative; float: left;
     font-size:16px;
     color:black;
     margin-bottom:16px;
+    width: 325px;
+    padding-right: 5px;
 }
 .monto_totalValidado span{
     font-size: 22px;
@@ -27233,6 +27235,15 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .pantallaCatalogoPersonalizado {
     margin:0px auto 0 auto!important;
+}
+.pantallaCatalogoPersonalizado .agregado{
+    height: 12px;
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
 }
 
 .catalogoPersonalizadoBloque{

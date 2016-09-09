@@ -758,7 +758,6 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 /* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
-    _gaq.push(['_trackEvent', 'Mapa-Site', 'Pedido']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Mapa-Site/Pedido'
@@ -766,7 +765,6 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
-    _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Header/Cerrar-Sesion'
@@ -789,7 +787,10 @@ function SetMarcaGoogleAnalyticsTermino() {
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
-    esJetlore = esPaisTrackingJetlore == "1";
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -803,7 +804,10 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
 function TrackingJetloreRemove(cantidad, campania, cuv) {
     var esJetlore;
 
-    esJetlore = esPaisTrackingJetlore == "1";
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
     if (esJetlore) {
         JL.tracker.removeFromCart({
@@ -817,7 +821,10 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 function TrackingJetloreRemoveAll(lista) {
     var esJetlore;
 
-    esJetlore = esPaisTrackingJetlore == "1";
+    var ofertaFinal = $("#hdTipoOfertaFinal").val();
+    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+
+    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);

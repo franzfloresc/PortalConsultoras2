@@ -1043,7 +1043,6 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente']);
     $('#Nombres').val($('#txtClienteDescripcion').val());
     //showDialog('divClientes');
     $("#divClientes").show();
@@ -1085,7 +1084,6 @@ function GuardarCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente', 'Guardar']);
                     $("#hdfClienteID").val(data.extra);
                     $("#txtClienteDescripcion").val($('#Nombres').val());
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
@@ -1123,7 +1121,6 @@ function Tabular() {
 }
 
 function PedidoOnSuccess() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Agregar-Producto']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Pedido/Agregar-Producto'
@@ -1221,12 +1218,87 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             speed: 270,
             pantallaPedido: false,
-            prevArrow: '<button onclick="javascript:TagManagerCarruselPrevia();" type="button" data-role="none" class="slick-next"></button>',
-            nextArrow: '<button onclick="javascript:TagManagerCarruselSiguiente();" type="button" data-role="none" class="slick-prev"></button>'
+            prevArrow: '<button type="button" data-role="none" class="slick-next"></button>',
+            nextArrow: '<button type="button" data-role="none" class="slick-prev"></button>'
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var accion;
+            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'next';
+            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'prev';
+            } else if (nextSlide > currentSlide) {
+                accion = 'next';
+            } else {
+                accion = 'prev';
+            };
+
+            if (accion == 'prev') {
+                //TagManager
+                var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver anterior'
+                });
+            } else if (accion == 'next') {
+                //TagManager
+                var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver siguiente'
+                });
+            }
         });
         TagManagerCarruselInicio(data);
-        $(".slick-prev").insertAfter('#divCarruselVertical');
-        $(".slick-next").insertBefore('#divCarruselVertical');
         if (data.length > cant) {
             $('#cierreCarousel').show();
         }
@@ -1711,7 +1783,6 @@ function ObservacionesProducto(item) {
         } else {
             $("#divObservaciones").html("");
             if (item.EsExpoOferta == true) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-expoferta']);
                 dataLayer.push({
                     'event': 'pageview',
                     'virtualUrl': '/Pedido/Mensajes/Producto-expoferta'
@@ -1721,7 +1792,6 @@ function ObservacionesProducto(item) {
                 //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
             }
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-revista']);
                 dataLayer.push({
                     'event': 'pageview',
                     'virtualUrl': '/Pedido/Mensajes/Producto-revista'
@@ -1744,7 +1814,6 @@ function ObservacionesProducto(item) {
             $("#btnAgregar").removeAttr("disabled");
         }
     } else {
-        _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-agotado']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Pedido/Mensajes/Producto-agotado'
@@ -2381,7 +2450,6 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2449,12 +2517,7 @@ function EjecutarServicioPROL() {
                         if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0) {
                             html += "<li>" + item.Descripcion + "</li>";
 
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
+                            mensajePedido += item.Caso + " " + item.Descripcion + " ";                            
                             return;
                         }
 
@@ -2462,11 +2525,6 @@ function EjecutarServicioPROL() {
                             html += "<li>" + item.Descripcion + "</li>";
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
                         } else {
                             if (msgDefaultCont == 0) {
                                 html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
@@ -2547,6 +2605,8 @@ function EjecutarServicioPROL() {
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
 
             var cumpleOferta;
+            
+            //MENSAJES
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
@@ -2560,7 +2620,13 @@ function EjecutarServicioPROL() {
                                 CargarDetallePedido();
                             } else {
                                 showDialog("divReservaSatisfactoria");
-                                location.href = baseUrl + 'Pedido/PedidoValidado';
+                                //PEDIDO VALIDADO
+                                AnalyticsGuardarValidar(response);
+                                AnalyticsPedidoValidado(response);
+                                setTimeout(function () {
+                                    location.href = baseUrl + 'Pedido/PedidoValidado';
+                                }, 2000);
+                                return true;
                             }
                         }
                     } else {
@@ -2574,21 +2640,9 @@ function EjecutarServicioPROL() {
                             showDialog("divObservacionesPROL");
                             $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                         }
-
-                        //cambiar para analytics
-                        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                        dataLayer.push({
-                            'event': 'pageview',
-                            'virtualUrl': '/Pedido/Observacion-Validar'
-                        });
                         CargarDetallePedido();
                     }
                 } else {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'virtualUrl': '/Pedido/Validar-Sin-Error'
-                    });
 
                     cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                     if (cumpleOferta.resultado) {
@@ -2618,15 +2672,11 @@ function EjecutarServicioPROL() {
                     showDialog("divObservacionesPROL");
                     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                 }
-
-                _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Observacion-Validar'
-                });
                 CargarDetallePedido();
             }
+            AnalyticsGuardarValidar(response);
         },
+        //**********
         error: function (data, error) {
             CerrarSplash();
             if (checkTimeout(data)) {
@@ -2693,13 +2743,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
                             html += "<li>" + item.Descripcion + "</li>";
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            //Cambiar para analytics
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
                             return;
                         }
 
@@ -2707,12 +2750,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
                             html += "<li>" + item.Descripcion + "</li>";
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
                         } else {
                             if (msgDefaultCont == 0) {
                                 html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
@@ -2789,6 +2826,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
             MostrarMensajeProl(response.data);
+            AnalyticsGuardarValidar(response);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2797,7 +2835,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         }
     });
 }
-
 function MostrarMensajeProl(data) {
     if (data.Reserva == true) {
         if (data.ZonaValida == true) {
@@ -2807,9 +2844,13 @@ function MostrarMensajeProl(data) {
                     CargarDetallePedido();
                 } else {
                     showDialog("divReservaSatisfactoria");
+                    //PEDIDO VALIDADO
+                    AnalyticsGuardarValidar(response);
+                    AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 8000);
+                    }, 2000);
+                    return true;
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2817,21 +2858,9 @@ function MostrarMensajeProl(data) {
 
                 showDialog("divObservacionesPROL");
                 $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-
-                _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Observacion-Validar'
-                });
                 CargarDetallePedido();
             }
         } else {
-            _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
-            dataLayer.push({
-                'event': 'pageview',
-                'virtualUrl': '/Pedido/Validar-Sin-Error'
-            });
-
             if (viewBagNombrePais == 'Venezuela') {
                 showDialog("divReservaSatisfactoriaVE");
             } else {
@@ -2851,13 +2880,13 @@ function MostrarMensajeProl(data) {
         showDialog("divObservacionesPROL");
         $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 
-        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Pedido/Observacion-Validar'
-        });
+        //dataLayer.push({
+        //    'event': 'pageview',
+        //    'virtualUrl': '/Pedido/Observacion-Validar'
+        //});
         CargarDetallePedido();
     }
+    AnalyticsGuardarValidar(response);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -3117,7 +3146,7 @@ function EliminarPedido() {
     var listaDetallePedido = new Array();
     var campania = $("#hdCampaniaCodigo").val();
 
-    $.each($("#tbobyDetallePedido tr"), function (index, value) {
+    $.each($("#tbobyDetallePedido > .contenido_ingresoPedido"), function (index, value) {
         var cuv = $(value).attr("data-cuv");
         var cantidad = $(value).find(".liquidacion_rango_cantidad_pedido").val();
 
@@ -3162,7 +3191,6 @@ function EliminarPedido() {
 }
 
 function EjecutarPROL2() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Pedido', 'Validar']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Pedido/Validar-Pedido/Validar'
@@ -4067,6 +4095,65 @@ function AnalyticsBannersInferioresImpression() {
             }
         });
     }
+}
+function AnalyticsGuardarValidar(data) {
+    var arrayEstrategiasAnalytics = [];
+    var accion = $('#hdAccionBotonProl').val();
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': accion == 'guardar' ? 'Guardar' : 'Validar',
+        'label': data.mensajeAnalytics,
+        'ecommerce': {
+            'checkout': {
+                'actionField': {
+                    'step': accion == 'guardar' ? 1 : 2,
+                    'option': data.mensajeAnalytics
+                },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+function AnalyticsPedidoValidado(data) {
+    var arrayEstrategiasAnalytics = [];
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': 'Validado',
+        'ecommerce': {
+            'checkout': {
+                'actionField': { 'step': 3 },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
 }
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {

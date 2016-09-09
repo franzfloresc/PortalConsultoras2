@@ -23,7 +23,24 @@ $(document).ready(function () {
 
         fnMovimientoTutorial = setInterval(function ()
         {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            //if (numImagen < 5) {
+            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            //}
+
+            //if (numImagen == 5) {                
+            //    $(".img_slide5").fadeIn();
+            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
+            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
+            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
+
+            //    $(".img_slide5").delay(2000);
+            //    $(".img_slide6").delay(2000);
+            //    $(".img_slide7").delay(2000);
+            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
+            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
+            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
+            //}
             numImagen++;
             //if (numImagen > 9) {
             //    numImagen = 1;
@@ -113,7 +130,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    //CargarPopupsConsultora();
+    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();

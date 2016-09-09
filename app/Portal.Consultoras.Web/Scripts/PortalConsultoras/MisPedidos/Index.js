@@ -413,7 +413,6 @@ function ExportExcel(obj) {
     waitingDialog();
     var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
     campaniaID = campaniaID.replace("-", "");
-    _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón Excel']);
     setTimeout(function () { DownloadAttachExcel(campaniaID) }, 0);
 }
 
@@ -462,7 +461,6 @@ function ExportExcelFacturado(obj) {
     var Flete = popup.find("[data-flete]").html();
     var TotalFacturado = popup.find("[data-facturado]").html();
 
-    _gaq.push(['_trackEvent', 'Pedido Web Facturado', 'Botón-Excel']);
     setTimeout(function () { DownloadAttachExcelFacturado(campaniaID, TotalParcial, Flete, TotalFacturado) }, 0);
 }
 
@@ -506,7 +504,6 @@ function DownloadAttachExcelFacturado(CampaniaID, TotalParcial, Flete, TotalFact
 }
 
 function Imprimir() {
-    _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón- Impriimir']);
     window.print();
 }
 

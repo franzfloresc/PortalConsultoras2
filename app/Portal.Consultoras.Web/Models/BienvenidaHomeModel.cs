@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoUsuario { get; set; }
         public string BotonClave { get; set; }
         public string BotonTexto { get; set; }
+        public string BotonAction { get; set; }
+        public string BotonController { get; set; }
         public string BotonAnalytics { get; set; }
         public string UrlFlexipagoCL { get; set; }
         public string NroCampana { get; set; }

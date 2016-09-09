@@ -69,14 +69,12 @@ function AgregarOfertaProducto(Object, TipoOferta) {
                     $("#hdFlagOferta").val("1");
                     $("#hdFlagOfertaWeb").val("1");
                     if (ConfiguracionOfertaID == '@Portal.Consultoras.Common.Constantes.TipoOferta.Web') {
-                            _gaq.push(['_trackEvent', 'Pedido', 'Ofertas-exclusivas', 'Agregar']);
                             dataLayer.push({
                                 'event': 'pageview',
                                 'virtualUrl': '/Pedido/Ofertas-exclusivas/Agregar'
                             });
                         }
                         else {
-                            _gaq.push(['_trackEvent', 'Oferta-Web', 'Agregar-OfertaDupla']);
                             dataLayer.push({
                                 'event': 'pageview',
                                 'virtualUrl': '/Oferta-Web/Agregar-OfertaDupla'

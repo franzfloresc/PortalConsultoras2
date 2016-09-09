@@ -5,17 +5,17 @@ $(document).ready(function () {
     aCam.push($("#hdCampaniaActual").val());
     aCam.push($("#hdCampaniaSiguiente").val());
 
-    //Revista
+    //REVISTA
     aCamRev.push($("#hdrCampaniaAnterior").val());
     aCamRev.push($("#hdrCampaniaActual").val());
     aCamRev.push($("#hdrCampaniaSiguiente").val());
     rCampSelect = $("#hdrCampaniaActual").val();
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
     MostrarRevistaCorrecta(rCampSelect);
-    //Revista Fín
+    //******
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
-        // mostrar el tab correcto
+        //MOSTRAR TAB CORRECTO
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
@@ -23,7 +23,7 @@ $(document).ready(function () {
             $(objTag).fadeIn(300).show();
         });
 
-        //mantener seleccionado
+        //MANTENER SELECCIONADO
         $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
         $(this).find("div.marcador_tab").removeClass("oculto");
     });
@@ -103,7 +103,7 @@ $(document).ready(function () {
     });
 });
 
-//Variables
+//VARIABLES
 var tagLbel = "Lbel";
 var tagEsika = "Esika";
 var tagCyzone = "Cyzone";
@@ -587,7 +587,7 @@ function CatalogoEnviarEmail() {
 
 }
 
-// catalogo email
+//CATALOGO EMAIL
 var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
     dataLayer.push({
@@ -608,26 +608,12 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $('#CompartirCorreoMobile').show();
 }
 
-
+//REVISTA
 var rCampSelect = "";
 var rCampSelectI = 1;
 var cantCamRev = 3;
 var aCamRev = new Array();
 
-//REVISTA
-
-//jQuery(document).ready(function () {
-
-//    aCamRev.push($("#hdrCampaniaAnterior").val());
-//    aCamRev.push($("#hdrCampaniaActual").val());
-//    aCamRev.push($("#hdrCampaniaSiguiente").val());
-
-//    rCampSelect = $("#hdrCampaniaActual").val();
-//    $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-
-//    MostrarRevistaCorrecta(rCampSelect);
-
-//});
 
 function MostrarRevistaCorrecta(campania) {
 

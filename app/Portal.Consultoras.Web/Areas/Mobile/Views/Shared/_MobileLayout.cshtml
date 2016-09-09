@@ -68,7 +68,7 @@
     <!-- End Google Tag Manager -->
 
 
-    @if (ViewBag.PaisesConTrackingJetlore == "1")
+    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
@@ -415,8 +415,7 @@
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
-        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        
+
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
 
