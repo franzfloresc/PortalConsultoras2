@@ -27744,9 +27744,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     top:50%;
     margin:-220px auto auto auto;
     position:relative;
+    padding-top:46px;
     padding-left: 20px;
     padding-right: 20px;
-    overflow:hidden;
 }
 .titulo_pop_foto{
     /*margin-top:15px;*/
@@ -27845,27 +27845,30 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 
-/* POPUP IMAGEN PERFIL */
+/* POPUP IMAGEN PERFIL PROCESO RECORTE */
 
 .popup_img_perfil{
-    display: none;
-    position: relative;
+    display: block;
+    max-width: 486px;
     height: 440px;
-    width: 100%;
+    background: white;
     top: 50%;
-    max-width: 485px;
-    margin: -220px auto 0 auto;
-    background: #FFF;
-    padding:37px 47px;
+    margin: -220px auto auto auto;
+    position: relative;
+    padding-top: 46px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .popup_img_perfil h1{
     display:block;
-    margin:0;
+    position:relative;
+    margin: 0 0 36px 0;
     padding:0;
     font-family:'Lato';
     font-weight:300!important;
-    font-size:21px;
+    font-size:25px;
     text-align:center;
     color:#000;
 }
@@ -27874,6 +27877,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display:block;
     width:100%;
     height:auto;
+    text-align:center;
 }
 
 .boton_cancelarImagen, .boton_guardarImagen{
@@ -27899,8 +27903,57 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border:1px solid #e81c36;
 }
 
+.imgPerfil{
+    display: block;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto 39px auto;
+}
 
+.imgPerfil img{
+    width:100%;
+    height:auto;
+}
 
+/* POPUP PROCESO CARGA FOTO */
+
+.contenedorBarraImagenPerfil{
+    display: block;
+    width: 342px;
+    margin: 0 auto;
+    padding-top: 86px;
+    height: 200px;
+    margin-bottom: 40px !important;
+}
+
+.barra_contenedor{
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 12px;
+    background: #e4e4e4;
+    border-radius: 9px;
+    position: relative;
+    overflow: hidden;
+}
+
+.barra_carga{
+    display: block;
+    width: 20%;
+    height: 5px;
+    background: #e81c36;
+    border-radius: 9px;
+}
+
+.texto_estadoCarga{
+    display: block;
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* FIN PROCESO CARGA FOTO */
 
 
 .caja_montos_textos_sinDescuento, .caja_montos_cantidades_sinDescuento{
