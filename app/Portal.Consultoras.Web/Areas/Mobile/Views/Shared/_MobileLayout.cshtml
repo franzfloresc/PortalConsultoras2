@@ -23,6 +23,10 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
+    <script type="text/javascript">
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+    </script>
+
     @RenderSection("styles", required: false)
 
 </head>
@@ -89,14 +93,15 @@
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
             </div>
         </div>
-        <div class="foto_menu">
+        <div class="foto_menu" style="display:none">
             <div class="content_foto">
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
-                <a class="subir_foto_mobile"></a>
+                @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
+        <br/>
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
         <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
@@ -217,7 +222,7 @@
     </div>
 
     <!-- content -->
-    <section style="min-height: 400px;">
+    <section style="min-height: 380px;">
 
         <div id="content">
             @RenderBody()
@@ -405,7 +410,6 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -452,6 +456,26 @@
                     if (theEvent.preventDefault) theEvent.preventDefault();
                 }
             });
+
+            $("body").on("keypress", ".ValidaNumeral", function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
+                var $input = $(this);
+                var previousVal = $input.val();
+                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
+                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
+                    $input.val(pastedValue);
+                    e.preventDefault();
+                } else {
+                    $input.val(previousVal);
+                    e.preventDefault();
+                };
+            });
+
 
             $("body").on("click", "[data-cantidad-agregar]", function () {
                 var signo = $(this).attr("data-cantidad-agregar");

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
@@ -409,9 +410,23 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 CloseLoading();
                 CargarPedido();
                 var descripcionMarca = GetDescripcionMarca(MarcaID);
-                TagManagerClickEliminarProducto(DescripcionProd, CUV, PrecioUnidad, descripcionMarca, DescripcionOferta, Cantidad);
-
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                dataLayer.push({
+                    'event': 'removeFromCart',
+                    'ecommerce': {
+                        'remove': {
+                            'products': [{
+                                'name': html.data.DescripcionProducto,
+                                'id': html.data.CUV,
+                                'price': html.data.Precio,
+                                'brand': html.data.DescripcionMarca,
+                                'category': 'NO DISPONIBLE',
+                                'variant': html.data.DescripcionOferta,
+                                'quantity': Number(Cantidad)
+                            }]
+                        }
+                    }
+                });
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {
@@ -493,9 +508,15 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            ActualizarGanancia(data.DataBarra);
-            TrackingJetloreRemoveAll(listaDetallePedido);
             if (checkTimeout(data)) {
+                ActualizarGanancia(data.DataBarra);
+                TrackingJetloreRemoveAll(listaDetallePedido);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Ingresa tu pedido',
+                    'action': 'Eliminar pedido completo',
+                    'label': '(not available)'
+                });
                 messageDelete("Se eliminaron todos productos del pedido.");
                 location.reload();
             }

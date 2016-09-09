@@ -473,8 +473,8 @@ INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [Url
 VALUES (1017, N'Mis beneficios', 1003, 6, N'MisBeneficios/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 --VALUES (1018, N'Mis incentivos', 1003, 7, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1019, N'Consultora Online', 1003, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0, 1)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+--VALUES (1019, N'Consultora Online', 1003, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1020, N'Mis clientes', 1003, 9, N'Cliente/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
@@ -545,7 +545,7 @@ INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1,
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1016, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1017, 1, 1)
 --INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1018, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1019, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1019, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1020, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1021, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1023, 1, 1)
@@ -595,7 +595,7 @@ VALUES
 (1005, 'Mi Comunidad', 0, 6, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
 (1006, 'Mis Notificaciones', 0, 7, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
 
-(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
+--(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
 (1009, 'Seguimiento a tu pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
 (1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
@@ -1378,12 +1378,12 @@ BEGIN
 	   FETCH NEXT FROM cursorSugerido INTO @CUV 
 END
 
-declare @tablaPedidoDetalle table ( CUV varchar(20) )
-insert into @tablaPedidoDetalle
-select pd.CUV from PedidoWeb p
-inner join PedidoWebDetalle pd on
-	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
-where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
+--declare @tablaPedidoDetalle table ( CUV varchar(20) )
+--insert into @tablaPedidoDetalle
+--select pd.CUV from PedidoWeb p
+--inner join PedidoWebDetalle pd on
+--	p.PedidoID = pd.PedidoID and p.CampaniaID = pd.CampaniaID
+--where p.ConsultoraID = @ConsultoraID and p.CampaniaID = @CampaniaID
 
 --Verificar que tenga stock
 select
@@ -1398,7 +1398,7 @@ from @tablaCUV t
 inner join @tablaSugerido ts on
 	t.CUV = ts.CUV
 where t.TieneStock = 1
-	and t.CUV not in (select CUV from @tablaPedidoDetalle)
+	--and t.CUV not in (select CUV from @tablaPedidoDetalle)
 order by ts.Orden
 
 end
@@ -2409,6 +2409,21 @@ CREATE PROCEDURE [dbo].InsPedidoWebDetalle_SB2
 	@EskitNueva bit = 0
 AS	
 BEGIN
+	
+	declare @existe int = 0
+	if @EskitNueva = 1
+	begin
+		select @existe = count(1)
+		from dbo.PedidoWebDetalle
+		where ConsultoraID = @ConsultoraID and CampaniaID = @CampaniaID and eskitNueva = 1
+
+		set @existe = isnull(@existe, 0)
+	end
+	
+	if (@existe = 0 and @EskitNueva = 1) or @EskitNueva = 0
+	begin
+		 
+	
 	declare @orden int = 0
 
 	SELECT @PedidoDetalleID = MAX(ISNULL(PedidoDetalleID,0))
@@ -2430,6 +2445,8 @@ BEGIN
 	@Cantidad*@PrecioUnidad, @CUV, @OfertaWeb, 0, @ConfiguracionOfertaID, @TipoOfertaSisID, 
 	@CodigoUsuarioCreacion, dbo.fnObtenerFechaHoraPais(),@SubTipoOfertaSisID, @EsSugerido, @EskitNueva, @orden)
 
+	end
+	
 END
 
 go
@@ -2548,7 +2565,7 @@ exec GetPedidosFacturados '000758833'
 create procedure dbo.GetPedidosIngresadoFacturado_SB2
 	@ConsultoraID int,
 	@CampaniaID int,
-	@top int = 5
+	@top int = 4
 AS
 begin
 
@@ -2657,6 +2674,11 @@ FROM @T1 T
 ) AS R
 ON R.CampaniaID = T.CampaniaID AND T.EstadoPedido <> 'F'
 
+-- solo los 4 correlativos anteriores de la campaña actual
+declare @CampaniaAnterior int = 0
+set @CampaniaAnterior = ffvv.fnGetCampaniaAnterior(@CampaniaID, @top)
+set @CampaniaAnterior = isnull(@CampaniaAnterior, 0)
+
 SELECT top (@top)
  CampaniaID  
 , ImporteTotal 
@@ -2671,7 +2693,9 @@ SELECT top (@top)
 , FechaRegistro
 , CanalIngreso 
 , CantidadProductos 
-FROM @T1 order by CampaniaID desc
+FROM @T1 
+where CampaniaID >= @CampaniaAnterior
+order by CampaniaID desc
 
 
 end
@@ -4773,6 +4797,156 @@ where p.AnoCampania = @CampaniaID
 AND CHARINDEX(@Cuv,p.CUV)>0
 
 
+END
+
+GO
+
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'ValidarStockEstrategia_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.ValidarStockEstrategia_SB2
+END
+GO
+CREATE PROCEDURE ValidarStockEstrategia_SB2
+	@CUV VARCHAR(20),
+	@CampaniaID INT,
+	@CantidadPedida INT,
+	@flagPedido INT,
+	@ConsultoraID INT = NULL
+AS
+BEGIN
+	DECLARE @NumeroPedido INT
+	SELECT @NumeroPedido = consecutivonueva + 1
+	FROM ods.Consultora
+	WHERE ConsultoraID=@ConsultoraID
+	
+	DECLARE @ProgramaNuevoActivado INT
+	SELECT @ProgramaNuevoActivado = COUNT(C.ConsultoraID)
+	FROM ods.Consultora C
+	INNER JOIN ods.ConsultorasProgramaNuevas CP ON C.Codigo = CP.CodigoConsultora
+	WHERE C.ConsultoraID = @ConsultoraID AND CP.Participa = 1	
+	SET NOCOUNT ON;
+	
+	DECLARE @CantidadYaSolicitada INT, @CantidadSolicitante INT, @CantidadLimite INT, @mensaje VARCHAR(5000)
+	IF EXISTS(SELECT 1 FROM Estrategia WHERE CampaniaID = @CampaniaID AND CUV2 = @CUV AND NumeroPedido = CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
+	BEGIN
+		IF EXISTS(SELECT 1 FROM TALLACOLORCUV WHERE CUVPADRE = @CUV)
+		BEGIN		
+			SET @CantidadYaSolicitada = ISNULL((
+				SELECT sum(Cantidad)
+				FROM PEDIDOWEBDETALLE pwd
+				inner join tallacolorcuv t on pwd.cuv = t.cuv and pwd.campaniaid = t.campaniaid
+				WHERE t.cuvpadre = @CUV AND pwd.CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID
+			),0)
+		
+			IF @flagPedido = 1
+			BEGIN
+				SET @CantidadYaSolicitada = ISNULL((
+					SELECT sum(Cantidad)
+					FROM PEDIDOWEBDETALLE pwd
+					inner join tallacolorcuv t on pwd.cuv = t.cuv and pwd.campaniaid = t.campaniaid
+					WHERE t.cuvpadre = @CUV AND pwd.CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID AND pwd.CUV <> @CUV
+				),0)
+				SET @CantidadSolicitante = @CantidadYaSolicitada + @CantidadPedida
+			END
+		END
+		ELSE
+		BEGIN
+			SET @CantidadYaSolicitada = ISNULL((SELECT SUM(Cantidad) FROM PEDIDOWEBDETALLE WHERE CUV = @CUV AND CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID),0)
+			IF @flagPedido = 1
+			BEGIN
+				SET @CantidadSolicitante = @CantidadPedida
+			END
+		END	
+		
+		SET @CantidadLimite = ISNULL((
+			SELECT LimiteVenta FROM Estrategia
+			WHERE
+				CUV2 = @CUV AND CampaniaID = @CampaniaID 
+				AND @flagPedido = (CASE WHEN @flagPedido = 0 THEN 0 ELSE TipoEstrategiaID END)   
+				AND NumeroPedido = CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END
+		), 0);	
+		SET @CantidadSolicitante = isnull(@CantidadYaSolicitada, 0) + @CantidadPedida;
+		SET @mensaje = '';
+	
+		IF  @flagPedido <> 0 AND isnull(@CantidadSolicitante, 0) > isnull(@CantidadLimite, 0)
+		BEGIN			
+			IF @CantidadYaSolicitada < @CantidadLimite
+			BEGIN
+				SET @mensaje = 'La cantidad solicitada sobrepasa las Unidades Permitidas de Venta (' + CONVERT(VARCHAR, @CantidadLimite) + ') del producto.'
+				SET @mensaje = @mensaje + ' Usted solo puede adicionar ' + CONVERT(VARCHAR, @CantidadLimite - @CantidadYaSolicitada) + ' más, debido a que ya agregó este producto a su pedido, verifique.'
+			END
+			ELSE
+			BEGIN
+				SET @mensaje = 'Usted ya ingresó la cantidad total permitida para éste producto (' + CONVERT(VARCHAR, @CantidadLimite) + ').';
+			END
+			SELECT @mensaje;
+		END
+		ELSE
+		BEGIN
+			SELECT 'OK'
+		END
+	END
+	ELSE
+	BEGIN
+		IF EXISTS(SELECT 1 FROM TALLACOLORCUV WHERE CUV = @CUV AND CAMPANIAID = @CampaniaID)
+		BEGIN		
+			DECLARE @CUVPadre INT
+			SELECT @CUVPadre = CUVPadre FROM TALLACOLORCUV WHERE CAMPANIAID = @CampaniaID AND CUV = @CUV;
+		
+			SET @CantidadYaSolicitada = ISNULL((
+				SELECT sum(Cantidad) 
+				FROM PEDIDOWEBDETALLE pwd
+				inner join tallacolorcuv t ON pwd.cuv = t.cuv and pwd.campaniaid = t.campaniaid
+				WHERE t.cuvpadre = @CUVPadre AND pwd.CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID
+			),0)
+		
+			SET @CantidadLimite = ISNULL((
+				SELECT LimiteVenta
+				FROM Estrategia 
+				WHERE CUV2 = @CUVPadre AND CampaniaID = @CampaniaID AND NumeroPedido = CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END
+			), 0)
+			SET @CantidadSolicitante = isnull(@CantidadYaSolicitada, 0) + @CantidadPedida;
+			SET @mensaje = '';
+		
+			IF @flagPedido = 1
+			BEGIN
+				SET @CantidadYaSolicitada = ISNULL((
+					SELECT sum(Cantidad)
+					FROM PEDIDOWEBDETALLE pwd
+					inner join tallacolorcuv t on pwd.cuv = t.cuv and pwd.campaniaid = t.campaniaid
+					WHERE t.cuvpadre = @CUVPadre AND pwd.CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID AND pwd.CUV <> @CUV
+				),0);
+				SET @CantidadSolicitante = @CantidadYaSolicitada + @CantidadPedida;
+			END
+	
+			IF @flagPedido <> 0 AND isnull(@CantidadSolicitante, 0) > isnull(@CantidadLimite, 0)
+			BEGIN		
+				IF @CantidadYaSolicitada < @CantidadLimite
+				BEGIN
+					SET @mensaje = 'La cantidad solicitada sobrepasa las Unidades Permitidas de Venta (' + CONVERT(VARCHAR, @CantidadLimite) + ') del producto.'
+					SET @mensaje = @mensaje + ' Usted solo puede adicionar ' + CONVERT(VARCHAR, @CantidadLimite - @CantidadYaSolicitada) + ' más, debido a que ya agregó este producto a su pedido, verifique.'
+				END
+				ELSE
+				BEGIN
+					SET @mensaje = 'Usted ya ingresó la cantidad total permitida para éste producto (' + CONVERT(VARCHAR, @CantidadLimite) + ').';
+				END
+				SELECT @mensaje;
+			END
+			ELSE
+			BEGIN
+				SELECT 'OK'
+			END
+		END
+		ELSE
+		BEGIN
+			SELECT 'OK'
+		END
+	END
+	SET NOCOUNT OFF;
 END
 
 GO

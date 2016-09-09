@@ -1,5 +1,7 @@
-﻿$(document).ready(function () {
+﻿var cantidadRegistros = 4;
+var offsetRegistros = 0;
 
+$(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
@@ -8,6 +10,9 @@
 
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
+    });
+    $(document).on('click', '#boton_vermas', function () {
+        CargarCatalogoPersonalizado();
     });
 
     if (!ReservadoOEnHorarioRestringido(false)) {
@@ -18,24 +23,33 @@
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
+        $('#boton_vermas').hide();
         return false;
     }
 
-    $('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    waitingDialog();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizado',
         dataType: 'json',
+        data: JSON.stringify({ cantidad: cantidadRegistros, offset: offsetRegistros }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            $("#divCatalogoPersonalizado").html("");
             if (data.success) {
-                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+                if (data.data.length > 0) {
+                    var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
+                    $('#divCatalogoPersonalizado').append(htmlDiv);
+                }
+
+                if (data.data.length < cantidadRegistros) $('#boton_vermas').hide();
+                offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
-            CerrarSplash();
-        }
+            console.log(error);
+        },
+        complete: closeWaitingDialog
     });
 }
 

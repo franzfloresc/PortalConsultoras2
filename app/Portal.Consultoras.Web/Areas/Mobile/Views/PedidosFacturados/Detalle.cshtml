@@ -25,7 +25,7 @@
             </span>
         </div>
     </div>
-    <hr style="border-bottom: 1px solid #CCC" />
+    <hr style="border-top: 1px solid #bababa" />
 
     <div class="list-table-new">
         <ul class="list-table-title upper">
@@ -37,9 +37,9 @@
                 <li>
                     <div class="posr">
                         <div class="table-width">
-                            <strong class="upper">@item.DescripcionProd</strong>
+                            <div class="upper">@item.DescripcionProd</div>
                             <div class="mb-10">
-                                <strong class="text-lg">@item.CUV</strong>
+                                <div>@item.CUV</div>
                             </div>
                             Precio Unitario  @Model.Simbolo
                             @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -94,7 +94,7 @@
     <table class="table pcolor">
         <tbody>
             <tr>
-                <td class="upper" style="padding-top:25px;">Importe Total<br>Flete</td>
+                <td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>
                 <td class="text-right" style="padding-top:25px;">
                     @Model.Simbolo
                     @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -106,21 +106,22 @@
                         @(string.Format("{0:#,##0.00}", Model.Subtotal).Replace(',', '.'))
                     }
                     <br />
-                    @Model.Simbolo
+                    <span class="color_facturado">
+                        @Model.Simbolo</span>
                     @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
                     {
-                        @(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))
+                        <span class="color_facturado">@(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))</span>
                     }
                     else
                     {
-                        @(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))
+                        <span class="color_facturado">@(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))</span>
                     }
-                </td>
+</td>
             </tr>
         </tbody>
     </table>
 </div>
-<div class="block-primary text-center" style="margin-top: -10px;">
+<div class="btn_facturado text-center" style="margin-top: -10px;">
     Total Facturado <br />
     <div class="text-lg">
         @Model.Simbolo

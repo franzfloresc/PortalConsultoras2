@@ -56,7 +56,7 @@ function EstructurarDataProgramasBelcorp(array) {
             item.urlImgBeneficios = urlS3Raiz+ "MisBeneficios/" + codigoISO_MB + "/brillante.png";
             item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento </br><b>¡y una gran celebración!</b>";
             item.Descripcion = "<b>BRILLANTE</b> " + anioActual;
-        } else if (item.Descripcion.trim() == "Familia Protegida") {
+        } else if (item.Descripcion.trim() == "Familia Protegida" || (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero') ) {
             item.Descripcion = "";
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/familiaprotegida.png";
             item.DetalleDesripcion = "Programa de ayuda económica para ti, tus hijos y esposo en caso de hospitalización y fallecimiento.";

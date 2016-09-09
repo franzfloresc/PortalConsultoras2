@@ -33,5 +33,16 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Properties {
                 return ((string)(this["Portal_Consultoras_ServiceCatalogoPersonalizado_ServicePROLConsultas_wsConsulta"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsCo" +
+            "nsulta.asmx")]
+        public string Portal_Consultoras_ServiceOFAppCatalogo_ServicePROLConsultas_wsConsulta {
+            get {
+                return ((string)(this["Portal_Consultoras_ServiceOFAppCatalogo_ServicePROLConsultas_wsConsulta"]));
+            }
+        }
     }
 }
