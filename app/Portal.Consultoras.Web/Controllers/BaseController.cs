@@ -595,6 +595,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
                 ViewBag.Simbolo = model.Simbolo;
+                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
 
                 return model;
 
@@ -823,6 +825,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
                 ViewBag.Simbolo = model.Simbolo;
+                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
 
                 return model;
 

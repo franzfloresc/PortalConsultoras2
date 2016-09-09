@@ -28,7 +28,7 @@
         var _gaq = _gaq || [];
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';        
     </script>
 
     @RenderSection("styles", required: false)
@@ -67,7 +67,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
     <!-- End Google Tag Manager -->
-    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
         <script type="text/javascript">
