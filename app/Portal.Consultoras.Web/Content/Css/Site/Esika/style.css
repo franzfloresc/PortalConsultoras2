@@ -4374,7 +4374,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     right:0;
     width:100%;
     height:100%;
-    background:transparent url(../../../Images/bg_popup.png) repeat left top;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
     overflow:auto;
 }

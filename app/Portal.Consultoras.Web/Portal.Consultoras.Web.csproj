@@ -2080,6 +2080,8 @@
     <Content Include="Content\Images\mobile\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\mobile\Lbel\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
+    <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
@@ -3836,10 +3838,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
