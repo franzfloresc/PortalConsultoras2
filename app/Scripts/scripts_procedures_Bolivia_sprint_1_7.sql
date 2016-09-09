@@ -595,7 +595,7 @@ VALUES
 (1005, 'Mi Comunidad', 0, 6, 'Comunidad/Index', '', 1, 'Menu', 'Mobile',1),
 (1006, 'Mis Notificaciones', 0, 7, 'Mobile/Notificaciones', '', 0, 'Menu', 'Mobile',1),
 
-(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
+--(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile',1),
 (1009, 'Seguimiento a tu pedido', 1001, 1, 'Mobile/SeguimientoPedido', '', 0, 'Menu', 'Mobile',1),
 (1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile',1),
