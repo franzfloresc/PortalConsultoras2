@@ -392,8 +392,8 @@ h4.re3 {
 }
 
 .padding-tb-11 {
-    padding-top: 11px;
-    padding-bottom: 11px;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
 }
 
 .font-size-14 {
@@ -693,6 +693,7 @@ h4.re3 {
 }
 .text-lg {
     font-size: 1.5em;
+    font-family:'Lato';
 }
 .text-md {
     font-size: 1.2em;
@@ -7204,12 +7205,15 @@ input[type="checkbox"]:checked + span:after {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;    
-
+    text-transform:uppercase;
 }
 @media only screen and (max-width : 404px) {
     .btn_borde_black{
         margin-right:0;
     }
+}
+#divProductosAgotados{
+    font-family:'Lato';
 }
 
 /*CONTENT LANDING APP*/
@@ -7307,4 +7311,113 @@ span.title-app-b {
 	.header-bg .row:first-child {
 		text-align: center;
 	}
+}
+
+.montosIngresoPedido{
+    margin-left:-30px;
+}
+
+.desc_por_niveles_texto{
+    max-width:126px;
+}
+
+.separador_montos_mobile{
+    position: absolute;
+    left: 27px;
+    top: 89px;
+    width: 96%;
+    height: 2px;
+    background: #000;
+}
+
+/* POPUP MIS GANANCIAS */
+
+.popup_mis_ganancias{
+    display: block;
+    position: relative;
+    height: 283px;
+    width: 92%;
+    top: 17%;
+    max-width: 492px;
+    margin: 0 auto;
+    background: #FFF;
+    padding: 20px 20px;
+}
+
+.contenido_misGanancias{
+    display:block;
+    height:auto;
+    font-family:'Lato';
+    font-size:13px;
+}
+
+.contenido_misGanancias h6{
+    font-size:13px;
+    font-weight:900!important;
+    color:#e81c36;
+}
+
+.contenedor_montos_sinDescuento{
+    display: block;
+    float: right;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+}
+
+.pValidado{
+    margin-bottom:0px;
+    margin-left:13px;
+}
+
+.mis_descuentos{
+    display:block;
+    width:100%;
+    height:auto;
+    margin-top:4px;
+    margin-bottom:7px;
+}
+
+.mis_descuentos_texto, .mis_descuentos_monto{
+    display:inline-block;
+    vertical-align:top;
+    font-weight:normal;
+    color:#000;
+    font-size:13px;
+}
+
+.mis_descuentos_texto{
+    text-align:left;
+    width:40%;
+}
+
+.mis_descuentos_monto{
+    text-align:right;
+    width:58%;
+}
+
+.separador_montos_misGanancias{
+    background: #642f80;
+    height: 2px;
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.monto_total_misGanancias{
+    display:block;
+    margin-top:13px;
+    margin-bottom:27px;
+    text-align:right;
+    color:#e81c36;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.nota_popup_misGanancias{
+    display:block;
+    text-align:justify;
+    font-size:11px;
+    font-weight:normal;
+    color:#878787;
 }

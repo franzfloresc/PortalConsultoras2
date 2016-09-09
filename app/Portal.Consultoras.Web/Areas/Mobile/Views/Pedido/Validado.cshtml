@@ -25,11 +25,13 @@
 
         }
         <hr class="clear" />
-        <div class="left_reservado">
-            <div class="agregados_reservado">Productos agregados</div>
-            <div class="monto_reservado_mobile">MONTO TOTAL</div>
+        <div style="position:relative; overflow:hidden;">
+            <div class="left_reservado">
+                <div class="agregados_reservado">PRODUCTOS AGREGADOS</div>
+                <!--SB20-483 - INICIO -->
             @{                                                              
                     string cabezaEscala=null, pieEscala=null;
+                    string lbl1Ganancia = null, lbl2Danancia = null;
                     if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
@@ -41,21 +43,29 @@
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                        lbl1Ganancia = "Mis descuentos";
+                            lbl2Danancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
                     else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
                     {
                         cabezaEscala = "Comisión y ahorro total";
                         pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                            lbl2Danancia = "Ahorro estimado *(Guia de negocio y otros)";
                     }
                     else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                        lbl1Ganancia = "Mis descuentos";
+                            lbl2Danancia = "Ganancia estimada *(Revista y otros)";
                     }
                     else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica || Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
                         pieEscala = "";
+                        lbl1Ganancia = Model.CodigoISO == Constantes.CodigosISOPais.CostaRica ? "Mis descuentos" : "Por tus compras de productos de catalogo";
+                        lbl2Danancia = Model.CodigoISO == Constantes.CodigosISOPais.CostaRica ? "Oportunidad de ahorro *(Revista y otros)" : "Por tus comprar de productos de revista";                           
                     }                                                                                                      
                 }
             <div class="ganancia_reservado">@(cabezaEscala.ToUpper().Trim())</div>
@@ -67,86 +77,86 @@
         </div>
         <hr class="clear" />
 
-    <div id="PedidoReservado" class="panel-collapse collapse">
+            <div id="PedidoReservado" class="panel-collapse collapse">
 
-            <div class="linea_gris" style="margin-top:10px;"></div>
-            <span class="detalle_reservado">DETALLE</span>
-            <div class="linea_gris"></div>
-            <!--LISTADO PEDIDO RESERVADO-->
-            @foreach (var item in Model.Detalle)
-            {
-            <div class="detalle_pedido_reservado">
-                <div class="left_reservado" style="width:235px;">
-                    <div class="datos_Reservado">
-                            <span> @item.CUV </span>
-                            <span>@item.DescripcionProd</span>
-                    </div>                    
-                        <div class="texto_reservado">Cliente: @item.Nombre</div>
-                </div>
-                <div class="right_reservado">
-                    <div class="texto_reservado">CANT</div>
-                        <div class="datos_Reservado"><b>@item.Cantidad</b></div>
-                </div>
-                <hr class="clear" /><br /> 
-                <div class="left_reservado">                    
-                    <div class="texto_reservado">
-                       <span>Precio Unitario</span>
-                    </div>  
-                        <div class="importe_reservado">SUBTOTAL</div>
-                </div>   
-                <div class="right_reservado">
-                    <div class="texto_reservado">
-                            <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
-                    </div>
-                        <div class="importe_reservado">
-                            @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
-                            {
-                                <span class="icono_advertencia_notificacion"></span>
-                            }
-                            @Model.Simbolo @item.DescripcionImporteTotal
-                </div> 
-            </div>
-
-                    @if (!string.IsNullOrEmpty(item.Mensaje))
-                    {
-                        <hr class="clear" /><br />
-                        <div class="notificacion_productoAgotado">
-                            <small>
-                                @if (item.TipoObservacion == 0)
-                                { @Html.Raw(item.Mensaje);
-                                }
-                                else
-                                { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
-                                }
-                            </small>
-                    </div>
-                    }
-                </div>
-            }
-
-            <div class="left_reservado">
-                <div class="importe_final">
-                    <div class="info_validado">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-                        <!--TOOLTIP-->
-                        <div class="tooltip_validado_importe">
-                            <div class="left_reservado">
-                                <div class="datos_Reservado">
-                                    <span>Total sin Dscto. </span>
-                                    <span>Dscto por niveles</span>
-                                </div>
+                <div class="linea_gris" style="margin-top:10px;"></div>
+                <span class="detalle_reservado">DETALLE</span>
+                <div class="linea_gris"></div>
+                <!--LISTADO PEDIDO RESERVADO-->
+                @foreach (var item in Model.Detalle)
+                {
+                    <div class="detalle_pedido_reservado">
+                        <div class="left_reservado" style="width:235px;">
+                            <div class="datos_Reservado">
+                                <span> @item.CUV </span>
+                                <span>@item.DescripcionProd</span>
                             </div>
-                            <div class="right_reservado">
-                                <div class="datos_Reservado">
-                                    <span>@Model.Simbolo @Model.DescripcionSubTotal</span>
-                                    <span>@Model.Simbolo @Model.DescripcionDescuento</span>
-                                </div>
+                            <div class="texto_reservado">Cliente: @item.Nombre</div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="texto_reservado">CANT</div>
+                            <div class="datos_Reservado"><b>@item.Cantidad</b></div>
+                        </div>
+                        <hr class="clear" /><br />
+                        <div class="left_reservado">
+                            <div class="texto_reservado">
+                                <span>Precio Unitario</span>
+                            </div>
+                            <div class="importe_reservado">SUBTOTAL</div>
+                        </div>
+                        <div class="right_reservado">
+                            <div class="texto_reservado">
+                                <span>@Model.Simbolo @item.DescripcionPrecioUnidad</span>
+                            </div>
+                            <div class="importe_reservado">
+                                @if (item.IndicadorOfertaCUV && Model.PedidoConDescuentoCuv)
+                                {
+                                    <span class="icono_advertencia_notificacion"></span>
+                                }
+                                @Model.Simbolo @item.DescripcionImporteTotal
                             </div>
                         </div>
-                        <!--FIN-->
+
+                        @if (!string.IsNullOrEmpty(item.Mensaje))
+                        {
+                            <hr class="clear" /><br />
+                            <div class="notificacion_productoAgotado">
+                                <small>
+                                    @if (item.TipoObservacion == 0)
+                                    { @Html.Raw(item.Mensaje);
+                                    }
+                                    else
+                                    { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
+                                    }
+                                </small>
+                            </div>
+                        }
                     </div>
-                    <b>MONTO TOTAL</b>
-                </div>
+                }
+
+                <div class="left_reservado">
+                    <div class="importe_final">
+                        <div class="info_validado">
+                            <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
+                            <!--TOOLTIP-->
+                            <div class="tooltip_validado_importe">
+                                <div class="left_reservado">
+                                    <div class="datos_Reservado">
+                                        <span>Total sin Dscto. </span>
+                                        <span>Dscto por niveles</span>
+                                    </div>
+                                </div>
+                                <div class="right_reservado">
+                                    <div class="datos_Reservado">
+                                        <span>@Model.Simbolo @Model.DescripcionSubTotal</span>
+                                        <span>@Model.Simbolo @Model.DescripcionDescuento</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FIN-->
+                        </div>
+                        <b>MONTO TOTAL</b>
+                    </div>
                  @{                                                              
                      cabezaEscala = null;
                      pieEscala =null;
@@ -179,24 +189,24 @@
                      }
                 }
                 <div class="ganancia_Pedidovalidado" style="margin-top:7px">@(cabezaEscala.ToUpper().Trim())</div>
+                </div>
+                <div class="right_reservado">
+                    <div class="importe_final" style="font-size:15px"><b>@Model.Simbolo @Model.DescripcionTotal</b></div>
+                    <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
+                </div>
+                <hr class="clear" />
+                <!--FIN LISTADO-->
+
+
             </div>
-            <div class="right_reservado">
-                <div class="importe_final" style="font-size:15px"><b>@Model.Simbolo @Model.DescripcionTotal</b></div>
-                <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
-            </div>
-            <hr class="clear" />
-            <!--FIN LISTADO-->
 
-
-        </div>
-
-        <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
-        <!--TOOLTIP-->
-        <div class="tooltip_validado">
-            <div class="icono_tooltip_validado"></div>
+            <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
+            <!--TOOLTIP-->
+            <div class="tooltip_validado">
+                <div class="icono_tooltip_validado"></div>
             <div class="info_tooltip">Puedes modificar tu pedido hasta las <b>@Model.HoraCierre</b>, luego se enviará a Belcorp</div>
+            </div>
         </div>
-    </div>
     <a id="btn_editar_pedido" class="btn_editar_pedido" href="javascript:;">MODIFICA TU PEDIDO</a>
 </div>
 
@@ -218,6 +228,41 @@
         </div>
     </div>
 </div>
+
+<!--SB20-483 - INICIO -->
+<!-- POPUP MIS GANANCIAS -->
+
+<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+    <div class="popup_mis_ganancias">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_misGanancias" id="detalleGanancia">
+            <h6>GANANCIA ESTIMADA TOTAL</h6>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Mis descuentos</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroCatalogo</span>
+            </div>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroRevista</span>
+            </div>
+            <div class="separador_montos_misGanancias"></div>
+            <div class="mis_descuentos">
+                <span class="monto_total_misGanancias">@Model.Simbolo @Model.DescripcionGanaciaEstimada</span>
+            </div>
+            <div class="nota_popup_misGanancias">
+                <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP MIS GANANCIAS -->
+<!--SB20-483 - FIN -->
 
 @section Scripts{
     <script type="text/javascript">
