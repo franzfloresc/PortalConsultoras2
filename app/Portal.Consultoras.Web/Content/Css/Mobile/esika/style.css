@@ -388,8 +388,8 @@ h4.re3 {
 }
 
 .padding-tb-11 {
-    padding-top: 11px;
-    padding-bottom: 11px;
+   padding-top: 15px !important;
+    padding-bottom: 15px !important;
 }
 
 .font-size-14 {
@@ -738,6 +738,7 @@ h4.re3 {
 
 .text-lg {
     font-size: 1.5em;
+    font-family:'Lato';
 }
 
 .text-md {
@@ -7920,11 +7921,15 @@ input[type="checkbox"]:checked + span:after {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;    
+    user-select: none;  
+    text-transform:uppercase;  
 
 }
 @media only screen and (max-width : 404px) {
     .btn_borde_black{
         margin-right:0;
     }
+}
+#divProductosAgotados{
+    font-family:'Lato';
 }
