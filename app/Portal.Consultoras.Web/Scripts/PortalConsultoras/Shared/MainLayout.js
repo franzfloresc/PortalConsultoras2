@@ -758,7 +758,6 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 /* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
-    _gaq.push(['_trackEvent', 'Mapa-Site', 'Pedido']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Mapa-Site/Pedido'
@@ -766,7 +765,6 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
-    _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Header/Cerrar-Sesion'

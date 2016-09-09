@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
 
             return View(model);
         }
@@ -151,6 +151,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
+                ViewBag.AccionBoton = "guardar";
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
@@ -163,12 +164,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else // Periodo de facturacion
             {
-                //model.Prol = "GUARDA TU PEDIDO";
-                //model.ProlTooltip = "Es importante que guardes tu pedido";
-                //model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
-
+                ViewBag.AccionBoton = "guardar";
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
+                    ViewBag.AccionBoton = "validar";
                     model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     if (diaActual <= userData.FechaInicioCampania)
@@ -188,9 +187,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
                 else // PROL 1
-                {
-                    model.Prol = "VALIDA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aqui para validar tu pedido";
+                {                    
+                    if (userData.PROLSinStock)
+                    {
+                    	ViewBag.AccionBoton = "guardar";
+                        model.Prol = "GUARDA TU PEDIDO";
+                        model.ProlTooltip = "Es importante que guardes tu pedido";
+                    }
+                    else
+                    {
+                    	ViewBag.AccionBoton = "validar";
+                        model.Prol = "VALIDA TU PEDIDO";
+                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+                    }
+
                     if (diaActual <= userData.FechaInicioCampania)
                     {
                         model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
@@ -308,6 +318,77 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 model.Email = userData.EMail;
             }
+
+            /* SB20-287 - INICIO */
+            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+
+            if (!userData.DiaPROL)  // Periodo de venta
+            {
+                model.Prol = "GUARDA TU PEDIDO";
+                model.ProlTooltip = "Es importante que guardes tu pedido";
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.CodigoISO == "BO")
+                {
+                    model.ProlTooltip = "Es importante que guardes tu pedido";
+                    model.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                }
+            }
+            else // Periodo de facturacion
+            {
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+                {
+                    model.Prol = "RESERVA TU PEDIDO";
+                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+                    if (diaActual <= userData.FechaInicioCampania)
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                        if (userData.CodigoISO == "BO")
+                        {
+                            model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                    }
+                }
+                else // PROL 1
+                {
+                    if (userData.PROLSinStock)
+                    {
+                        model.Prol = "GUARDA TU PEDIDO";
+                        model.ProlTooltip = "Es importante que guardes tu pedido";
+                    }
+                    else
+                    {
+                        model.Prol = "VALIDA TU PEDIDO";
+                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+                    }
+
+                    if (diaActual <= userData.FechaInicioCampania)
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                        if (userData.CodigoISO == "BO")
+                        {
+                            model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                    }
+                }
+            }
+            /* SB20-287 - FIN */
 
             #region kitNueva
             BEKitNueva[] kitNueva;
