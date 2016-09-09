@@ -137,7 +137,6 @@
                     if (checkTimeout(data)) {
                         if (data.success == true) {
                             closeWaitingDialog();
-                            _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Enviar-Mail']);
                             alert(data.message);
                         }
                         else {
@@ -158,14 +157,12 @@
     });
 
     function Imprimir() {
-        _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón- Impriimir']);
         window.print();
     }
 
     function ExportExcel() {
         waitingDialog({});
         CampaniaID = jQuery.trim($("#hdCampaniaId").val());
-        _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón Excel']);
         setTimeout(function () { DownloadAttachExcel(CampaniaID) }, 0);
     }
 

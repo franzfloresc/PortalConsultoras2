@@ -1026,7 +1026,6 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente']);
     $('#Nombres').val($('#txtClienteDescripcion').val());
     //showDialog('divClientes');
     $("#divClientes").show();
@@ -1068,7 +1067,6 @@ function GuardarCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente', 'Guardar']);
                     $("#hdfClienteID").val(data.extra);
                     $("#txtClienteDescripcion").val($('#Nombres').val());
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
@@ -1106,7 +1104,6 @@ function Tabular() {
 }
 
 function PedidoOnSuccess() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Agregar-Producto']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Pedido/Agregar-Producto'
@@ -1769,7 +1766,6 @@ function ObservacionesProducto(item) {
         } else {
             $("#divObservaciones").html("");
             if (item.EsExpoOferta == true) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-expoferta']);
                 dataLayer.push({
                     'event': 'pageview',
                     'virtualUrl': '/Pedido/Mensajes/Producto-expoferta'
@@ -1779,7 +1775,6 @@ function ObservacionesProducto(item) {
                 //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
             }
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-revista']);
                 dataLayer.push({
                     'event': 'pageview',
                     'virtualUrl': '/Pedido/Mensajes/Producto-revista'
@@ -1802,7 +1797,6 @@ function ObservacionesProducto(item) {
             $("#btnAgregar").removeAttr("disabled");
         }
     } else {
-        _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-agotado']);
         dataLayer.push({
             'event': 'pageview',
             'virtualUrl': '/Pedido/Mensajes/Producto-agotado'
@@ -2869,7 +2863,6 @@ function MostrarMensajeProl(data) {
         showDialog("divObservacionesPROL");
         $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 
-        //_gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
         //dataLayer.push({
         //    'event': 'pageview',
         //    'virtualUrl': '/Pedido/Observacion-Validar'
@@ -3181,7 +3174,6 @@ function EliminarPedido() {
 }
 
 function EjecutarPROL2() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Pedido', 'Validar']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Pedido/Validar-Pedido/Validar'

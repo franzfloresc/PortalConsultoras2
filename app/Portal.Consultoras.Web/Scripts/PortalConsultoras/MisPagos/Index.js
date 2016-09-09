@@ -52,7 +52,6 @@
 });
 
 function RedirectPagaEnLineaAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Paga-en-linea']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Menu-Lateral/Paga-en-linea'
@@ -67,7 +66,6 @@ function RedirectPagaEnLineaAnalytics() {
 };
 
 function EventoAnalytics(NombreBanco, nro) {
-    _gaq.push(['_trackEvent', 'Lugares de Pago', 'Link-' + nro, NombreBanco.replace(/\s+/g, '-')]);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Lugares de Pago/Link-' + nro + '/' + NombreBanco.replace(/\s+/g, '-')
@@ -145,7 +143,6 @@ function fnEnviarCorreo() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                _gaq.push(['_trackEvent', 'Estado-Cuenta', 'Enviar-informacion']);
                 dataLayer.push({
                     'event': 'pageview',
                     'virtualUrl': '/Estado-Cuenta/Enviar-informacion'
@@ -181,7 +178,6 @@ function validarExportar() {
 
 function ExportExcelEC() {
     waitingDialog({});
-    _gaq.push(['_trackEvent', 'Estado-Cuenta', 'Excel']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Estado-Cuenta/Excel'
