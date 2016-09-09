@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Net;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -196,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
+                model.ImagenUsuario = this.GetImagenUsuario();
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
@@ -228,6 +230,28 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View("IndexSAC", model);
+        }
+
+        public JsonResult SubirImagen(string data)
+        {
+            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
+            string[] dataPartes = data.Split(new char[]{ ',' });
+            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
+            string image = dataPartes[1];
+
+            string rutaImagen = "";
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(image);
+                rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
+                System.IO.File.WriteAllBytes(Server.MapPath(rutaImagen), base64EncodedBytes);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
+            }
+            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
         public JsonResult AceptarContrato(bool checkAceptar)
@@ -1356,7 +1380,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-
     }
 }

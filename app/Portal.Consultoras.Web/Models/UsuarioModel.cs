@@ -262,5 +262,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaFinalZonaValida { get; set; }
 
         public int CatalogoPersonalizado { get; set; }
+
+        public bool EjecutaProl { get; set; }
     }
 }
