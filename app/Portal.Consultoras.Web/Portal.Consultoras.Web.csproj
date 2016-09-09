@@ -1917,6 +1917,10 @@
     <Content Include="Content\Images\menu_rwd.png" />
     <Content Include="Content\Images\mobile-pedido.png" />
     <Content Include="Content\Images\mobile.png" />
+    <Content Include="Content\Images\mobile\app-android.jpg" />
+    <Content Include="Content\Images\mobile\app-ios.jpg" />
+    <Content Include="Content\Images\mobile\bg_la_01.jpg" />
+    <Content Include="Content\Images\mobile\bg_la_02.png" />
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
     <Content Include="Content\Images\mobile\Esika\banner1.png" />
@@ -1972,6 +1976,10 @@
     <Content Include="Content\Images\mobile\icon_plus-.png" />
     <Content Include="Content\Images\mobile\icon_plus.png" />
     <Content Include="Content\Images\mobile\icon_plus2.png" />
+    <Content Include="Content\Images\mobile\ico_download.png" />
+    <Content Include="Content\Images\mobile\ico_laptop.png" />
+    <Content Include="Content\Images\mobile\ico_laptop_01.png" />
+    <Content Include="Content\Images\mobile\ico_pers.png" />
     <Content Include="Content\Images\mobile\img-consultoraonline\aceptarPedido.png" />
     <Content Include="Content\Images\mobile\img-consultoraonline\actualizaTuPerfil.png" />
     <Content Include="Content\Images\mobile\img-consultoraonline\americanExpress.png" />
@@ -3732,6 +3740,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ConsultoraImagen\" />
     <Folder Include="Views\Contenido\" />
   </ItemGroup>
   <ItemGroup>

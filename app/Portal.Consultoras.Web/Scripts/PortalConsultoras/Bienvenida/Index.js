@@ -6,6 +6,7 @@ var numImagen = 1;
 var fnMovimientoTutorial;
 
 $(document).ready(function () {
+    $('.contenedor_img_perfil').on('click', CargarCamara);
 
     $('#salvavidaTutorial').show();
 
@@ -22,24 +23,7 @@ $(document).ready(function () {
 
         fnMovimientoTutorial = setInterval(function ()
         {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //if (numImagen < 5) {
-            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //}
-
-            //if (numImagen == 5) {                
-            //    $(".img_slide5").fadeIn();
-            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
-
-            //    $(".img_slide5").delay(2000);
-            //    $(".img_slide6").delay(2000);
-            //    $(".img_slide7").delay(2000);
-            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
-            //}
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
             numImagen++;
             //if (numImagen > 9) {
             //    numImagen = 1;
@@ -129,7 +113,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
+    //CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -361,11 +345,19 @@ $(document).ready(function () {
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
-        width: 320,
-        height: 240,
+        // live preview size
+        width: 300,
+        height: 300,
+        // device capture size
+        //dest_width: 600,
+        //dest_height: 600,
+        // final cropped size
+        crop_width: 300,
+        crop_height: 300,
+        // format and quality
         image_format: 'jpeg',
         jpeg_quality: 90,
-        force_flash: true,
+        //force_flash: true,
         flip_horiz: true
     });
     Webcam.attach('#my_camera');
@@ -374,14 +366,36 @@ function CargarCamara() {
     contadorFondoPopUp++;
     $("#CamaraIntroductoria").show();
 }
+function CerrarCamara() {
+    Webcam.reset();
+    $('#imgFotoTomada').attr('src', '');
 
-function take_snapshot() {
-    // take snapshot and get image data
-    Webcam.snap(function (data_uri) {
-        // display results in page
-        document.getElementById('results').innerHTML =
-            '<h2>Here is your image:</h2>' +
-            '<img src="' + data_uri + '"/>';
+    $("#CamaraIntroductoria").hide();
+    contadorFondoPopUp--;
+    if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
+}
+
+function TomarFoto() {
+    Webcam.snap(function (data_uri) { $('#imgFotoTomada').attr('src', data_uri); });    
+}
+function SubirFoto() {
+    waitingDialog();
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/SubirImagen',
+        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            alert_msg(data.message);
+            if (data.success)
+            {
+                console.log(data.imagen);
+                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+            }
+        },
+        error: function (data, error) { console.log(error); },
+        complete: closeWaitingDialog
     });
 }
 
@@ -1531,10 +1545,10 @@ function CargarBanners() {
 
                         switch (dataResult.data[count].GrupoBannerID) {
                             case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "');\" rel='marquesina' >" : "";
+                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                                 var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
-                                $('.flexslider ul.slides').append('<li>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</li>');
+                                $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
                                 delayPrincipal = dataResult.data[count].TiempoRotacion;
                                 break;
                             case -5: // Seccion Baja 1 SB2.0 
@@ -1622,7 +1636,7 @@ function CargarBanners() {
         }
     });
 };
-function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo) {
+function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo, link) {
     if (TipoAccion == 0 || TipoAccion == 2) {
         SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo);
     }
@@ -1631,7 +1645,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
         if (ReservadoOEnHorarioRestringido())
             return false;
         else
-            var objBannerCarrito = $('#bannerMicroefecto');
+            var objBannerCarrito = $("#" + $(link).attr("id"));
             agregarProductoAlCarrito(objBannerCarrito);
             InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
 
@@ -1663,7 +1677,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
                     CargarResumenCampaniaHeader(true);
 
-                    alert_unidadesAgregadas(result.message, 1);
+                    //alert_unidadesAgregadas(result.message, 1);
 
                     if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
                         variantcad = "Estándar";
