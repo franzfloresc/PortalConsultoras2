@@ -473,8 +473,8 @@ INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [Url
 VALUES (1017, N'Mis beneficios', 1003, 6, N'MisBeneficios/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 --INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 --VALUES (1018, N'Mis incentivos', 1003, 7, N'', 0, N'Header', NULL, 0, 0, 0, 1)
-INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
-VALUES (1019, N'Consultora Online', 1003, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0, 1)
+--INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
+--VALUES (1019, N'Consultora Online', 1003, 8, N'ConsultoraOnline/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
 VALUES (1020, N'Mis clientes', 1003, 9, N'Cliente/Index', 0, N'Header', NULL, 0, 0, 0, 1)
 INSERT [dbo].[Permiso] ([PermisoID], [Descripcion], [IdPadre], [OrdenItem], [UrlItem], [PaginaNueva], [Posicion], [UrlImagen], [EsSoloImagen], [EsMenuEspecial], [EsServicios], [EsPrincipal]) 
@@ -546,7 +546,7 @@ INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1,
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1016, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1017, 1, 1)
 --INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1018, 1, 1)
-INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1019, 1, 1)
+--INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1019, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1020, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1021, 1, 1)
 INSERT [dbo].[RolPermiso] ([RolID], [PermisoID], [Activo], [Mostrar]) VALUES (1, 1023, 1, 1)
@@ -602,7 +602,7 @@ VALUES
 (1013, 'Pedidos facturados', 1001, 4, 'Mobile/PedidosFacturados', '', 0, 'Menu', 'Mobile', 1),
 (1010, 'Estado de cuenta', 1001, 5, 'Mobile/EstadoCuenta', '', 0, 'Menu', 'Mobile', 1),
 (1016, 'Pago en Línea', 1001, 6, 'Mobile/Paypal', '', 0, 'Menu', 'Mobile', 1),
-(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
+--(1007, 'Consultora Online', 1001, 7, 'Mobile/ConsultoraOnline', '', 0, 'Menu', 'Mobile',1),
 (1014, 'Mis clientes', 1001, 8, 'Mobile/Cliente', '', 0, 'Menu', 'Mobile', 1),
 (1008, 'Liquidación web', 1001, 9, 'Mobile/OfertaLiquidacion', '', 0, 'Menu', 'Mobile', 1),
 (1015, 'Productos Agotados', 1001, 10, 'Mobile/ProductosAgotados', '', 0, 'Menu', 'Mobile', 1)
@@ -2414,6 +2414,21 @@ CREATE PROCEDURE [dbo].InsPedidoWebDetalle_SB2
 	@EskitNueva bit = 0
 AS	
 BEGIN
+	
+	declare @existe int = 0
+	if @EskitNueva = 1
+	begin
+		select @existe = count(1)
+		from dbo.PedidoWebDetalle
+		where ConsultoraID = @ConsultoraID and CampaniaID = @CampaniaID and eskitNueva = 1
+
+		set @existe = isnull(@existe, 0)
+	end
+	
+	if (@existe = 0 and @EskitNueva = 1) or @EskitNueva = 0
+	begin
+		 
+	
 	declare @orden int = 0
 
 	SELECT @PedidoDetalleID = MAX(ISNULL(PedidoDetalleID,0))
@@ -2435,6 +2450,8 @@ BEGIN
 	@Cantidad*@PrecioUnidad, @CUV, @OfertaWeb, 0, @ConfiguracionOfertaID, @TipoOfertaSisID, 
 	@CodigoUsuarioCreacion, dbo.fnObtenerFechaHoraPais(),@SubTipoOfertaSisID, @EsSugerido, @EskitNueva, @orden)
 
+	end
+	
 END
 
 go
@@ -2662,6 +2679,11 @@ FROM @T1 T
 ) AS R
 ON R.CampaniaID = T.CampaniaID AND T.EstadoPedido <> 'F'
 
+-- solo los 4 correlativos anteriores de la campaña actual
+declare @CampaniaAnterior int = 0
+set @CampaniaAnterior = ffvv.fnGetCampaniaAnterior(@CampaniaID, @top)
+set @CampaniaAnterior = isnull(@CampaniaAnterior, 0)
+
 SELECT top (@top)
  CampaniaID  
 , ImporteTotal 
@@ -2676,7 +2698,9 @@ SELECT top (@top)
 , FechaRegistro
 , CanalIngreso 
 , CantidadProductos 
-FROM @T1 order by CampaniaID desc
+FROM @T1 
+where CampaniaID >= @CampaniaAnterior
+order by CampaniaID desc
 
 
 end

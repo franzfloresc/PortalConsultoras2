@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
-                    MenuBelcorpResponde();
+                    //MenuBelcorpResponde();
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
                 }
@@ -236,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void UpdPedidoWebMontosPROL()
         {
+            userData.EjecutaProl = false;
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
 
             var lista = ServicioProl_CalculoMontosProl(false);
@@ -264,6 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // poner en Session
                 Session["PedidoWeb"] = null;
+                userData.EjecutaProl = true;
                 ObtenerPedidoWeb();
             }
         }
@@ -797,7 +799,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.Permiso = BuildMenu();
                 ViewBag.Servicio = BuildMenuService();
-                MenuBelcorpResponde();
+                //MenuBelcorpResponde();
                 ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month); 
@@ -1073,34 +1075,34 @@ namespace Portal.Consultoras.Web.Controllers
             return IP;
         }
 
-        private void MenuBelcorpResponde()
-        {
-            if (Session["UserData"] != null)
-            {
-                UsuarioModel model = userData;
-                List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    lista = sv.GetBelcorpResponde(model.PaisID).ToList();
-                }
+        //private void MenuBelcorpResponde()
+        //{
+        //    if (Session["UserData"] != null)
+        //    {
+        //        UsuarioModel model = userData;
+        //        List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
+        //        using (ContenidoServiceClient sv = new ContenidoServiceClient())
+        //        {
+        //            lista = sv.GetBelcorpResponde(model.PaisID).ToList();
+        //        }
 
-                if (lista.Count > 0)
-                {
-                    if (lista[0].ChatURL != "" && lista[0].ChatURL != null)
-                    {
-                        if (lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO + "&CODI=" + model.CodigoConsultora;
-                        if (lista[0].ParametroPais && !lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO;
-                        if (!lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
-                            lista[0].ChatURL = lista[0].ChatURL + "?CODI=" + model.CodigoConsultora;
-                    }
-                }
+        //        if (lista.Count > 0)
+        //        {
+        //            if (lista[0].ChatURL != "" && lista[0].ChatURL != null)
+        //            {
+        //                if (lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO + "&CODI=" + model.CodigoConsultora;
+        //                if (lista[0].ParametroPais && !lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?PAIS=" + model.CodigoISO;
+        //                if (!lista[0].ParametroPais && lista[0].ParametroCodigoConsultora)
+        //                    lista[0].ChatURL = lista[0].ChatURL + "?CODI=" + model.CodigoConsultora;
+        //            }
+        //        }
 
-                ViewBag.ListaBelcorpResponde = lista;
-                ViewBag.CantidadListaBelcorpResponde = lista.Count;
-            }
-        }
+        //        ViewBag.ListaBelcorpResponde = lista;
+        //        ViewBag.CantidadListaBelcorpResponde = lista.Count;
+        //    }
+        //}
 
         private bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
         {
@@ -1371,7 +1373,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var rtpa = ServicioProl_CalculoMontosProl(false);
+                var rtpa = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
+                userData.EjecutaProl = true;
+
                 if (!rtpa.Any())
                     return objR;
 

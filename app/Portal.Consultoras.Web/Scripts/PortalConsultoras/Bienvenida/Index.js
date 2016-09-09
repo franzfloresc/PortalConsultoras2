@@ -1562,10 +1562,10 @@ function CargarBanners() {
 
                         switch (dataResult.data[count].GrupoBannerID) {
                             case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "');\" rel='marquesina' >" : "";
+                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:void();' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                                 var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
-                                $('.flexslider ul.slides').append('<li>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</li>');
+                                $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
                                 delayPrincipal = dataResult.data[count].TiempoRotacion;
                                 break;
                             case -5: // Seccion Baja 1 SB2.0 
@@ -1653,7 +1653,7 @@ function CargarBanners() {
         }
     });
 };
-function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo) {
+function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo, link) {
     if (TipoAccion == 0 || TipoAccion == 2) {
         SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo);
     }
@@ -1662,7 +1662,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
         if (ReservadoOEnHorarioRestringido())
             return false;
         else
-            var objBannerCarrito = $('#bannerMicroefecto');
+            var objBannerCarrito = $("#" + $(link).attr("id"));
             agregarProductoAlCarrito(objBannerCarrito);
             InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
 
@@ -1694,7 +1694,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 
                     CargarResumenCampaniaHeader(true);
 
-                    alert_unidadesAgregadas(result.message, 1);
+                    //alert_unidadesAgregadas(result.message, 1);
 
                     if (result.oPedidoDetalle.DescripcionEstrategia == null || result.oPedidoDetalle.DescripcionEstrategia == "") {
                         variantcad = "Estándar";

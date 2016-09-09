@@ -295,7 +295,7 @@ header {
     background: black;
 }
 .pestana_esika{
-    width: 29px;
+    width: 30px;
     height: 20px;
     top: 37px;
     display: none;
@@ -305,7 +305,8 @@ header {
     right: 0;
     left: 0;
     margin: 0 auto;
-    background:url(../../../Images/Lbel/pestana_lbel.png);
+    background:white url(../../../Images/Lbel/pestana_lbel.png);
+    background-size:100% 100%;
     
 }
 
@@ -1619,6 +1620,17 @@ header {
     width:1110px;
     margin:0 auto;
     height:auto;
+}
+
+.pago_ingreso_datos{
+    float: left;
+    font-family: 'lato';
+    font-size: 11pt;
+    font-weight: 400;
+    color: #060000;
+    margin-right: 8px;
+    height: 30px;
+    margin-top: 2px;
 }
 .pedido_ingreso_c {
     width:100%;
@@ -4334,6 +4346,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
     overflow:auto;
+}
+
+.fondo_tutorial{
+    background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
 
 .btn_cerrar_invitacionFlexipago{
@@ -20460,8 +20476,8 @@ label.checkpop.c_on {
       color:black;
       /*margin-left:4%;
       width:29%;*/
-      margin-left: 6%;
-      width: 25%;
+      margin-left: 5%;
+      width: 27%;
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -21139,7 +21155,7 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
 }
 .item_video_left{
-    width:60%;
+    width:46.42%;
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
@@ -21162,13 +21178,12 @@ label.checkpop.c_on {
 }
 .item_video_right{
     float: right;
-    width: 35%;
+    width: 48%;
     margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
-    width:66%;
-   
+    width:66%;   
     font-family:'lato';
     font-size:13px;
     letter-spacing:0.3px;
@@ -21842,6 +21857,7 @@ body{
  }
  .pestana_lbel{
       background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+      background-size: 100% 100%;
       width:30px;
       height:20px;
       margin-left:64px;
@@ -25835,6 +25851,23 @@ div.subir_archivo input {
     letter-spacing:0.25px;
     text-align:center;
 }
+
+.pagar_btn{
+    float:right;
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    font-family: 'Lato';
+    margin-top: 35px;
+    margin-bottom:40px;
+    background:#613c87;
+    font-weight:700;
+    font-size:11pt;
+    letter-spacing:0.25px;
+    text-align:center;
+}
+
 .numero_lista{
     width:40px;
     margin-left:15px;

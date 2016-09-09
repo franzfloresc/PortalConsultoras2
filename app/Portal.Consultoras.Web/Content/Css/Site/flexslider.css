@@ -50,11 +50,11 @@
 .flexslider .slides img {
     display: block;
     width: 100vw;
-    height: 48vh;
+    height: 323px;
     object-fit: cover;
 }
 
-@media screen and (min-width:1440px) and (max-width:1699px){
+/*@media screen and (min-width:1440px) and (max-width:1699px){
 
     .flexslider .slides img {
         height:43vh;
@@ -68,7 +68,7 @@
         height:35vh;
     }
 
-}
+}*/
 
 .flex-pauseplay span {text-transform: capitalize;}
 

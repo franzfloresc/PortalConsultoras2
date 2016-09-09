@@ -659,6 +659,8 @@ namespace Portal.Consultoras.Web.Controllers
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
                     ImporteTotal = Util.DecimalToStringFormat(a.ImporteTotal, userData.CodigoISO),
+                    MontoEscala = Util.DecimalToStringFormat(a.ImporteTotalPedido,userData.CodigoISO),
+                    ImportePagar = Util.DecimalToStringFormat(a.ImporteTotal - a.ImporteTotalPedido, userData.CodigoISO),
                     a.NombreCliente
                 }),
                 listaCliente
