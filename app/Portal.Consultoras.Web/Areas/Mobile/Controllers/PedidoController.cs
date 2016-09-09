@@ -98,6 +98,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
 
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
+            model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
+            model.FormatoMontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
 
             using (var sv = new ClienteServiceClient())
             {
@@ -207,7 +209,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             /* SB20-287 - FIN */
-            
+
+            /* SB20-483 - INICIO */
+            var pedidoWeb = ObtenerPedidoWeb();
+            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+            ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
+            ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+
+            model.PaisID = userData.PaisID;
+            /* SB20-483 - FIN */
+
             //Se desactiva dado que el mensaje de Guardar por MM no va en países SICC
             if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
             {
@@ -278,6 +290,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
             model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
             model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
+
+            /* SB20-483 - INICIO */
+            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
+            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
+            //ViewBag.MontoDescuento = Util.DecimalToStringFormat(0, userData.CodigoISO);
+            //ViewBag.GananciaEstimada = Util.DecimalToStringFormat(ViewBag.MontoAhorroCatalogo + ViewBag.MontoAhorroRevista, userData.CodigoISO);
+            model.PaisID = userData.PaisID;
+            /* SB20-483 - FIN */
 
             if (lstPedidoWebDetalle.Count != 0)
             {
