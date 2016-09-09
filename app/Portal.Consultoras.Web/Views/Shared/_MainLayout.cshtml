@@ -4,14 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
-
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
-
     <title>Belcorp | Portal Consultoras</title>
-
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
-
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
@@ -22,7 +18,6 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
-
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var _gaq = _gaq || [];
@@ -30,7 +25,6 @@
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';        
     </script>
-
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -78,7 +72,6 @@
             });
         </script>
     }
-
     <script type="text/javascript">
         if (!String.prototype.startsWith) {
             String.prototype.startsWith = function (searchString, position) {
@@ -87,17 +80,33 @@
             };
         }
     </script>
-    @if (ViewBag.PaisAnalytics == "EC")
+    @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
     {
-        <div class="boton_ayuda">
-            <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
-                <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
-            </a>
-        </div>
-    }
-    else
-    {
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+        string nombre_pais = ViewBag.PaisAnalytics;
+
+        switch (nombre_pais)
+        {
+            case "EC":
+                <div class="boton_ayuda">
+                    <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
+                        <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
+                    </a>
+                </div>
+                break;
+            case "CO":
+            case "BO":
+            case "CL":
+            case "MX":
+            case "PR":
+            case "DO":
+            case "PE":
+            case "PA":
+            case "CR":
+            case "SV":
+            case "GT": 
+            <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+                break;
+        }
     }
 
     <!-- cabecera -->
@@ -107,11 +116,9 @@
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
-
             <div class="menu_new_esika">
                 @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
-
             @{
                 string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
             }
@@ -119,14 +126,12 @@
                 <div class="campana user-profile">
                     <img class="mostrar_perfil oculto" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika"> @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
                 </div>
-
                 <div class="campana">
                     <a class="@(controllerAction == "BienvenidaIndex" ? "oculto" : "")" href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                         <div class="campana_svg mensaje_svg"></div>
                         <p class="notificaciones notificaciones_existentes js-notificaciones">0</p>
                     </a>
                 </div>
-
                 <div class="borde_c @(controllerAction == "BienvenidaIndex" ? "invisible" : "")"></div>
                 <div class="campana cart_compras" style="width:auto;">
                     <div class="contenedor_circulos">
@@ -138,7 +143,6 @@
                         <div class="campana_svg"></div>
                         <p class="notificaciones" id="pCantidadProductosPedido" style="width:14px;">0</p>
                     </a>
-
                     <div class="info_cam">
                         <div class="flechita_info"></div>
                         <div class="linea_blanca"></div>
@@ -150,7 +154,6 @@
                         </div>
                         <div id="carrito_items">
                         </div>
-
                         @*<h1> RESUMEN DE CAMPAÑA</h1>
                             <p>
                                 PEDIDO WEB ACUMULADO <br />
@@ -163,7 +166,6 @@
                             </span>*@
                     </div>
                 </div>
-
                 <div class="borde_c"></div>
                 <div class="mensaje_header" id="salvavidaTutorial" style="display:none;">
                     <a href="#" class="abrir_tutorial">
@@ -174,7 +176,6 @@
                         </div>
                     </a>
                 </div>
-
                 <div class="boton_cam">
                     @{
                         if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
@@ -196,16 +197,13 @@
         </div>
         <div class="clear"></div>
     </header>
-
     <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
     </div>
-
     <!-- end cabecera -->
     <!-- contenedor -->
     <div class="content">
         @RenderBody()
-
         @if (ViewBag.TerminoMostrar == 1)
         {
             <div class="footerTerminos">
@@ -220,13 +218,11 @@
         <!-- end footer -->
     </div>
     <!-- end contenedor -->
-
     <div id="ModalFeDeErratas" style="display: none;">
         <div class="lista_erratas">
             <ul id="ListadoFeErratas"></ul>
         </div>
     </div>
-
     <div id="divRegistroComunidad" class="wrap">
         <div id="divRegCom_Form" class="Content_modal_Com">
             <div class="webFormCom">
@@ -306,14 +302,12 @@
             </div>
         </div>
     </div>
-
     <div id="DialogMensajesCom" style="display: none;">
         <div class="Content_modal">
             <div class="message_text">
             </div>
         </div>
     </div>
-
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
@@ -321,7 +315,6 @@
     <input type="hidden" id="hdFlagOfertaLiquidacion" value="0" />
     <input type="hidden" id="hdFlagValidacion" value="0" />
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
-
     <!--Div Banner Lateral ShowRoom-->
     <div id="ctras" class="caja-traslado" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
@@ -355,7 +348,6 @@
                class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
         </div>
     </div>
-
     <div id="ctrasHoy" class="caja-traslado" style="display: none;">
         <a href="#" class="mover">
             <img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />
@@ -373,13 +365,11 @@
             <a href="#" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateralHoy">VER OFERTAS AQUÍ</a>
         </div>
     </div>
-
     <div id="alertDialogMensajes" style="display: none;">
         <div class="terminos_title_2">MENSAJE</div>
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
-
     <script id="resumenCampania-template" type="text/x-handlebars-template">
         <div class="info_productos_carrito">
             He agregado <span>{{cantidadProductos}}</span> unidades.<br />
@@ -422,18 +412,13 @@
         <hr class="clear" />
         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
     </script>
-
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
-
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
     </script>
-
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
-
     <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
-
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
@@ -445,7 +430,6 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
     @RenderSection("scripts", required: false)
 </body>
 </html>
