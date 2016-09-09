@@ -93,7 +93,7 @@
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
             </div>
         </div>
-        <div class="foto_menu">
+        <div class="foto_menu" style="display:none">
             <div class="content_foto">
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
@@ -101,6 +101,7 @@
                 @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
+        <br/>
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
         <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>

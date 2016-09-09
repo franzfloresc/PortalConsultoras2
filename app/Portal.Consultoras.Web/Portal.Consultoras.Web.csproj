@@ -1233,6 +1233,7 @@
     <Content Include="Content\Images\bg_movil.png" />
     <Content Include="Content\Images\bg_ndias.png" />
     <Content Include="Content\Images\bg_popups.png" />
+    <Content Include="Content\Images\bg_popup_tutorial.png" />
     <Content Include="Content\Images\bg_producto_agregado.png" />
     <Content Include="Content\Images\bg_search.png" />
     <Content Include="Content\Images\bg_select1.png" />
@@ -2062,6 +2063,7 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
+    <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\bandera.png" />
@@ -2078,6 +2080,8 @@
     <Content Include="Content\Images\mobile\Lbel\indicador_pedido.png" />
     <Content Include="Content\Images\mobile\Lbel\liquidacion_home.png" />
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
+    <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
@@ -2534,6 +2538,7 @@
     <Content Include="Content\Css\Site\fonts\slick.eot" />
     <Content Include="Content\Css\Site\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\fonts\slick.woff" />
+    <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -3833,10 +3838,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServiceActualizaDatosConsultoraEcuador_ProcesoMAEPortalConsultoraWebServiceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl">
+    <WebReferenceUrl Include="http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServiceLMS\</RelPath>
-      <UpdateFromURL>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
