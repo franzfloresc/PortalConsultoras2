@@ -1620,6 +1620,17 @@ header {
     margin:0 auto;
     height:auto;
 }
+
+.pago_ingreso_datos{
+    float: left;
+    font-family: 'lato';
+    font-size: 11pt;
+    font-weight: 400;
+    color: #060000;
+    margin-right: 8px;
+    height: 30px;
+    margin-top: 2px;
+}
 .pedido_ingreso_c {
     width:100%;
     height:100px;
@@ -25839,6 +25850,23 @@ div.subir_archivo input {
     letter-spacing:0.25px;
     text-align:center;
 }
+
+.pagar_btn{
+    float:right;
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    font-family: 'Lato';
+    margin-top: 35px;
+    margin-bottom:40px;
+    background:#613c87;
+    font-weight:700;
+    font-size:11pt;
+    letter-spacing:0.25px;
+    text-align:center;
+}
+
 .numero_lista{
     width:40px;
     margin-left:15px;
