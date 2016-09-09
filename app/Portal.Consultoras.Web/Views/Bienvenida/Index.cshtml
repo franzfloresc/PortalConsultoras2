@@ -49,7 +49,7 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <div class="contenedor_img_perfil">
+        <div class="contenedor_img_perfil" style="display:none">
             @*<a class="subir_foto">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
@@ -136,8 +136,8 @@
             </div>
             <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
-            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO A TU PEDIDO</a>
-            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO DE BIENVENIDA</a>
+            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO<br/> A TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br/> DE BIENVENIDA</a>
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
                 <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
@@ -211,7 +211,7 @@
                 }
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
                 {
-                    cabezaEscala = "Comisión y ahorro total";
+                    cabezaEscala = "Comisión y ahorro total*";
                     pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 }
                 else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
@@ -805,9 +805,11 @@
             <script type="text/javascript">
                 var tag = document.createElement("script");
                 tag.src = "https://www.youtube.com/iframe_api";
+
                 var firstScriptTag = document.getElementsByTagName("script")[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
                 var player;
+
                 function onYouTubeIframeAPIReady(playerId) {
                     var videoIdMostrar;
                     if (isEsika) {
@@ -818,27 +820,8 @@
                     player = new YT.Player("divPlayer", {
                         width: "100%",
                         videoId: videoIdMostrar,
+                        playerVars: { rel: 0 }
                     });
-                    //player = document.getElementById("divPlayer");
-                }
-
-                function stop() {
-                    if (player) {
-                        if (player.stopVideo) {
-                            player.stopVideo();
-                        }
-                        else{
-                            //document.getElementById("divPlayer").contentWindow
-                            //  .postMessage('{'+
-                            //     '"event":"command",'+
-                            //     '"func":"pauseVideo"'+
-                            //     ',"args":""}','*');
-                            var urlVideo = $("#divPlayer").attr("src");
-                            $("#divPlayer").attr("src","");
-                            $("#divPlayer").attr("src",urlVideo);
-                        }
-                    }
-
                 };
             </script>
         </div>
@@ -1127,7 +1110,7 @@
 
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
-                    <div class="datos_consultora_img">
+                    <div class="datos_consultora_img" style="display:none;">
                         <a class="subir_foto"></a>
                         <div class="foto_perfil_home">
                             <img src="/Content/Images/Esika/user.jpg" alt="">
@@ -1220,7 +1203,7 @@
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 <!-- POPUP TUTORIAL HOME-->
-<div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: none;">
+<div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_home" style="display: none;">
     <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
           <div id="slide1_images">
@@ -1235,7 +1218,7 @@
           </div>
         </div>
         
-        <div class="btn_cerrar_actualizarMisDatos" style="top: 15px !important;">
+        <div class="btn_cerrar_actualizarMisDatos">
             <a href="#" title="Cerrar" class="cerrar_tutorial">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
@@ -1304,7 +1287,9 @@
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} 
                 <a class="ver_detalle_carrusel">VER DETALLE</a>
+                {{/iff}}
             </div>
 
             {{#if_eq FlagMostrarImg '1'}}

@@ -23,6 +23,10 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
+    <script type="text/javascript">
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+    </script>
+
     @RenderSection("styles", required: false)
 
 </head>
@@ -89,7 +93,7 @@
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
             </div>
         </div>
-        <div class="foto_menu">
+        <div class="foto_menu" style="display:none">
             <div class="content_foto">
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
@@ -97,6 +101,7 @@
                 @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
+        <br/>
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
         <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
@@ -405,7 +410,6 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
-        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';

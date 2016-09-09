@@ -1,4 +1,22 @@
-﻿function ConfirmarModificarPedido() {
+﻿$(document).ready(function () {
+
+    history.pushState(null, null, document.location.href);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.location.href);
+    });
+
+    $('#btn_editar_pedido').on('click', function () {
+        if (modificacionPedidoProl == "0") ConfirmarModificarPedido();
+        else $("#divConfirmModificarPedido").modal("show");
+    })
+
+    $('.btn_ver_pedido_reservado').on('click', function () {
+        $('.btn_ver_pedido_reservado').hide();
+        $('.tooltip_validado').hide();
+    })
+});
+
+function ConfirmarModificarPedido() {
     ShowLoading();
     jQuery.ajax({
         type: 'POST',
@@ -30,15 +48,3 @@
         }
     });
 }
-
-$(document).ready(function () {
-    $('#btn_editar_pedido').on('click', function () {
-        if (modificacionPedidoProl == "0") ConfirmarModificarPedido();
-        else $("#divConfirmModificarPedido").modal("show");
-    })
-
-    $('.btn_ver_pedido_reservado').on('click', function () {
-        $('.btn_ver_pedido_reservado').hide();
-        $('.tooltip_validado').hide();
-    })
-});

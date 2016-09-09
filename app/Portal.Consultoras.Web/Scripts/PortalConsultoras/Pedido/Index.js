@@ -11,12 +11,14 @@ var salto = 3;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
+var numImagen = 1;
+var fnMovimientoTutorial;
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
 
     AnalyticsBannersInferioresImpression();
-    //$('#salvavidaTutorial').show();
+    $('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
     });
@@ -32,14 +34,29 @@ $(document).ready(function () {
     //    $(this).animate({ 'left': '0%','opacity':'1' }, 400, 'swing');
     //});
 
+
     function abrir_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
+
+        fnMovimientoTutorial = setInterval(function () {
+            $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
+            numImagen++;
+            if (numImagen > 5) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
+
+        }, 3000);
+
     }
 
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
+        $(".imagen_tutorial").animate({ 'opacity': '1' });
+        window.clearInterval(fnMovimientoTutorial);
+        numImagen = 1;
     }
 
     $(document).on('change', '.seleccion_pagina select', function () {
