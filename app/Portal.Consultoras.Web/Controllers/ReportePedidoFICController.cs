@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
             
-            //await Task.Run(() => LoadConsultorasCache(11));
+            await Task.Run(() => LoadConsultorasCache(11));
             var listaCampanias = DropDowListCampanias(11);
             var reportePedidoCampaniaModel = new ReportePedidoFICModel()
             {

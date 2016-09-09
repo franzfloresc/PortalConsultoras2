@@ -105,6 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     datDescBoton = sv.GetTablaLogicaDatos(userData.PaisID, 48).ToList();
+                    datUrlBoton = sv.GetTablaLogicaDatos(userData.PaisID, 49).ToList();
                     datGaBoton = sv.GetTablaLogicaDatos(userData.PaisID, 50).ToList();
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
@@ -134,9 +135,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
-                
+                model.BotonAction = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[1].ToString() : "";
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
-                
+                model.BotonController = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[0].ToString() : "";
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
