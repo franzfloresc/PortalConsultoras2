@@ -236,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void UpdPedidoWebMontosPROL()
         {
+            userData.EjecutaProl = false;
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
 
             var lista = ServicioProl_CalculoMontosProl(false);
@@ -264,6 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // poner en Session
                 Session["PedidoWeb"] = null;
+                userData.EjecutaProl = true;
                 ObtenerPedidoWeb();
             }
         }
@@ -1357,7 +1359,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var rtpa = ServicioProl_CalculoMontosProl(false);
+                var rtpa = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
+                userData.EjecutaProl = true;
+
                 if (!rtpa.Any())
                     return objR;
 

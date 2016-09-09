@@ -295,7 +295,7 @@ header {
     background: black;
 }
 .pestana_esika{
-    width: 29px;
+    width: 30px;
     height: 20px;
     top: 37px;
     display: none;
@@ -305,7 +305,8 @@ header {
     right: 0;
     left: 0;
     margin: 0 auto;
-    background:url(../../../Images/Lbel/pestana_lbel.png);
+    background:white url(../../../Images/Lbel/pestana_lbel.png);
+    background-size:100% 100%;
     
 }
 
@@ -21154,7 +21155,7 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
 }
 .item_video_left{
-    width:60%;
+    width:46.42%;
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
@@ -21177,13 +21178,12 @@ label.checkpop.c_on {
 }
 .item_video_right{
     float: right;
-    width: 35%;
+    width: 48%;
     margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
-    width:66%;
-   
+    width:66%;   
     font-family:'lato';
     font-size:13px;
     letter-spacing:0.3px;
@@ -21857,6 +21857,7 @@ body{
  }
  .pestana_lbel{
       background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+      background-size: 100% 100%;
       width:30px;
       height:20px;
       margin-left:64px;
