@@ -139,16 +139,18 @@
             <div>
                 <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
 
-                @{
+                @*@{
                     string[] tooltips = ViewBag.ProlTooltip.Split('|');
                     string tooltip1 = tooltips[0];
                     string tooltip2 = tooltips[1];
                 }
-
                 <div class="info_modificarvalidado">
-                    @*<span>Puedes realizar cambios hasta el @ViewBag.FechaFacturacionPedido</span>*@
                     <text>@tooltip1</text>
                     <span>@tooltip2</span>
+                </div>*@
+                <div class="info_modificarvalidado">
+                    <div class="icono_tooltip_validado"></div>
+                    <div class="info_tooltip">Puedes modificar tu pedido hasta las <b>@ViewBag.HoraCierre</b>, luego se enviará a Belcorp</div>
                 </div>
                 <hr class="clear" />
             </div>
@@ -325,7 +327,7 @@
         <li style="margin-right: 6px;">
             <span class="paginas_pedidos">
                 <span class="pagina_actual">
-                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral" id="paginaactual" data-val="{{Pagina}}">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}">
                 </span> de
                 <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">{{PaginaDe}}</span>
             </span>

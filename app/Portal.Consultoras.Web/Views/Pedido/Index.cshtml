@@ -103,7 +103,7 @@
                 @*Cantidad*@
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido">
-                    <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral"
+                    <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            onkeypress="PreValidarCUV();" onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
@@ -290,9 +290,9 @@
                             <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
                         </div>*@
 
-                    @{ string[] tooltips = Model.ProlTooltip.Split('|');
-                     string tooltip1 = tooltips[0];
-                     string tooltip2 = tooltips[1];
+                    @{ string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
+                     string tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                     string tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
                     }
                     <div class="tooltip_importanteGuardarPedido">
                         <text>@tooltip1</text>
@@ -444,8 +444,17 @@
 
 <!-- POPUP TUTORIAL INGRESO DE PEDIDO -->
 
-<div class="contenedor_fondo_popup" id="popup_tutorial_pedido" style="display: none;">
-    <div class="popup_tutorial_pedido">
+<div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_pedido" style="display: none;">
+    <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
+        <div id="slide1_container" class="shadow">
+          <div id="slide1_images">
+            <div class="imagen_tutorial img_slide1Pedido"></div>
+            <div class="imagen_tutorial img_slide2Pedido"></div>
+            <div class="imagen_tutorial img_slide3Pedido"></div>
+            <div class="imagen_tutorial img_slide4Pedido"></div>
+            <div class="imagen_tutorial img_slide5Pedido"></div>
+          </div>
+        </div>
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="#" title="Cerrar" class="cerrar_tutorial">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -833,7 +842,7 @@
             <div class="clear"></div>
             <div class="contenedor_cantidad_producto">
                 <div class="liquidacion_rango_wrapper_pedido">
-                    <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad">
+                    <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -870,7 +879,7 @@
         <li style="margin-right: 6px;">
             <span class="paginas_pedidos">
                 <span class="pagina_actual">
-                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral" id="paginaactual" data-val="{{Pagina}}" />
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
                 </span> de
                 <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
             </span>
@@ -935,7 +944,7 @@
             <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">                
-                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant{{PedidoDetalleID}}"
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
                 <div class="liquidacion_rango_right_pedido">
@@ -1029,6 +1038,9 @@
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+                <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
+                {{/iff}}
             </div>
             {{#if_eq FlagMostrarImg '1'}}
             {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
@@ -1081,14 +1093,15 @@
                 <div class="contenedor_cantidad_producto">
                     {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
                     <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled" class="liquidacion_rango_cantidad_pedido" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />
+                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled="" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" />
                     </div>
                     <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                         AGREGAR
                     </a>
                     {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
                     <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
+                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral"
+                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
                         <div class="liquidacion_rango_right_pedido js-no-popup">
                             <a class="mas js-no-popup">
                                 <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
@@ -1103,7 +1116,8 @@
                     </a>
                     {{else}}
                     <div class="liquidacion_rango_wrapper_pedido">
-                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
+                        <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral" 
+                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " />
                         <div class="liquidacion_rango_right_pedido js-no-popup">
                             <a class="mas js-no-popup">
                                 <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
@@ -1228,7 +1242,7 @@
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                     </div>
                     <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral">
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                             <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -1285,7 +1299,7 @@
                 <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
             </div>
             <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-input="cantidad">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                     <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
@@ -1330,6 +1344,8 @@
         var listaMensajeMeta = dataBarra.ListaMensajeMeta;
         $("#hdDataBarra, #hdListaEscala").val("");
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")

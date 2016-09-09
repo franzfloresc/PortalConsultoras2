@@ -532,10 +532,10 @@
   </wsdl:binding>
   <wsdl:service name="ServiceStockSsic">
     <wsdl:port name="ServiceStockSsicSoap" binding="tns:ServiceStockSsicSoap">
-      <soap:address location="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx" />
+      <soap:address location="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceStockSsicSoap12" binding="tns:ServiceStockSsicSoap12">
-      <soap12:address location="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx" />
+      <soap12:address location="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

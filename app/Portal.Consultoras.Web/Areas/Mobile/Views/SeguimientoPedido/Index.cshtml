@@ -24,15 +24,13 @@
 {
     if (Model.ListaEstadoSeguimiento.Count == 0)
     {
-
-            <div class="col-xs-12">
-                <div class="simple-alert text-danger">
-                    <span class="alert-icon"><i class="icon-exclamation-circle"></i></span>
-                    <small>
-                        Hasta el momento no tienes ningún seguimiento de pedido.
-                    </small>
-                </div>
-            </div>
+        
+        <div class="col-xs-12">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="mensaje_alerta">Hasta el momento no tienes ningún seguimiento de pedido.</div>
+            
+        </div>
+           
 
     }
     else
@@ -214,7 +212,8 @@
                     {
                         var esActual06 = Model.Estado == "ENTREGADO";
                         var estaActivo06 = estado06Entregado.Fecha.HasValue;
-                        var claseIcono06 = esActual06 ? "seg-current" : estaActivo06 ? "seg-active" : "";
+                        //var claseIcono06 = esActual06 ? "seg-current" : estaActivo06 ? "seg-active" : "";
+                        var claseIcono06 = esActual06 ? "seg-active" : estaActivo06 ? "seg-active" : "";
                         contador += 1;
 
                         <div class="col-xs-4">

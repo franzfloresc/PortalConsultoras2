@@ -2,50 +2,12 @@
 var vpromotionsTagged = [];
 var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
+var numImagen = 1;
+var fnMovimientoTutorial;
 
 $(document).ready(function () {
 
-    //$('#salvavidaTutorial').show();
-
-    //function ocultarAnimacionTutorial() {
-
-    //    $(".circulo-1").fadeOut();
-    //    $(".tooltip_tutorial").fadeOut();
-
-    //}
-
-    //function AnimacionTutorial() {
-
-    //    $(".tooltip_tutorial").animate({
-    //        'opacity': 1,
-    //        'top': 47
-    //    }, 500, 'swing', function () {
-    //        $(".tooltip_tutorial").animate({
-    //            'top': 41
-    //        }, 500, 'swing');
-    //    });
-
-    //    $(".circulo-1").animate({
-
-    //        'width': 45,
-    //        'height': 45,
-    //        'opacity': 0,
-    //        'top': -8,
-    //        'left': -11.5
-
-    //    }, 900, 'swing', function () {
-
-    //        $(".circulo-1").css({
-    //            'width': '0px',
-    //            'height': '0px',
-    //            'opacity': '1',
-    //            'top': 14,
-    //            'left': 10
-    //        });
-
-    //    });
-
-    //}
+    $('#salvavidaTutorial').show();
 
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
@@ -53,13 +15,53 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
+
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
+
+        fnMovimientoTutorial = setInterval(function ()
+        {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            //if (numImagen < 5) {
+            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+            //}
+
+            //if (numImagen == 5) {                
+            //    $(".img_slide5").fadeIn();
+            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
+            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
+            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
+
+            //    $(".img_slide5").delay(2000);
+            //    $(".img_slide6").delay(2000);
+            //    $(".img_slide7").delay(2000);
+            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
+            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
+            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
+            //}
+            numImagen++;
+            //if (numImagen > 9) {
+            //    numImagen = 1;
+            //    $(".img_slide5").css('top', '15px');
+            //    $(".img_slide6").css('top', '642px');
+            //    $(".img_slide7").css('top', '1284px');
+            //    $(".imagen_tutorial").animate({ 'opacity': '1' });
+            //}
+            if (numImagen > 8) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
+        }, 3000);
+
     }
+
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_home').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
+        $(".imagen_tutorial").animate({ 'opacity': '1' });
+        window.clearInterval(fnMovimientoTutorial);
+        numImagen = 1;
     }
 
     // Evento para visualizar video introductorio al hacer click
@@ -67,60 +69,13 @@ $(document).ready(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
         $('#videoIntroductorio').fadeIn(function () {
-
             $("#videoIntroductorio").delay(200);
-
             $("#videoIntroductorio").fadeIn(function () {
-
                 $(".popup_video_introductorio").fadeIn();
-
+                playVideo();
             });
-
         });
-
     });
-
-    //$(".campana.cart_compras").hover(function () {
-    //    $(".info_cam").fadeIn(200);
-    //}, function () {
-    //    $(".info_cam").fadeOut(200);
-    //});
-
-    // MICROEFECTO FLECHA HOME
-
-    // Función de animación de la flecha scroll 
-
-    //function animacionFlechaScroll() {
-
-    //    $(".flecha_scroll").animate({
-    //        'top': '87%'
-    //    }, 450, 'swing', function () {
-    //        $(this).animate({
-    //            'top': '90%'
-    //        }, 150, 'swing', function () {
-    //            $(this).animate({
-    //                'top': '89.5%'
-    //            }, 100, 'swing', function () {
-    //                $(this).animate({
-    //                    'top': '90.5%'
-    //                }, 450, 'swing');
-    //            });
-    //        });
-    //    });
-
-    //}
-
-    function animacionFlechaScroll() {
-
-        $(".flecha_scroll").animate({
-            'top': '87%'
-        }, 400, 'swing', function () {
-            $(this).animate({
-                'top': '90%'
-            }, 400, 'swing');
-        });
-
-    }
 
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
@@ -201,17 +156,16 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
-            //mostrarUbicacionTutorial();
+            abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
-        stop();
+        stopVideo();
         $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
         }
         contadorFondoPopUp--;
-        //player.stopVideo();
         return false;
     });
     $("#cerrarAceptacionContrato").click(function () {
@@ -398,19 +352,51 @@ $(document).ready(function () {
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
 
-    //SB20-646
     $(document).on('click', '.miCurso', function () {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
 });
 
-//SB20-646
-function GetCursoMarquesina(id) {
-    var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
-    window.open(url, '_blank');
+function CargarCamara() {
+    //https://github.com/jhuckaby/webcamjs
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+        force_flash: true,
+        flip_horiz: true
+    });
+    Webcam.attach('#my_camera');
+
+    $("#fondoComunPopUp").show();
+    contadorFondoPopUp++;
+    $("#CamaraIntroductoria").show();
 }
 
+function take_snapshot() {
+    // take snapshot and get image data
+    Webcam.snap(function (data_uri) {
+        // display results in page
+        document.getElementById('results').innerHTML =
+            '<h2>Here is your image:</h2>' +
+            '<img src="' + data_uri + '"/>';
+    });
+}
+
+// MICROEFECTO FLECHA HOME
+function animacionFlechaScroll() {
+
+    $(".flecha_scroll").animate({
+        'top': '87%'
+    }, 400, 'swing', function () {
+        $(this).animate({
+            'top': '90%'
+        }, 400, 'swing');
+    });
+
+}
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
@@ -448,7 +434,6 @@ function agregarProductoAlCarrito(o) {
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
-
 function mostrarUbicacionTutorial() {
     $(".fondo_oscuro").fadeIn(300, function () {
         $(".mensaje_header").addClass("opcionTutorial");
@@ -465,7 +450,6 @@ function mostrarUbicacionTutorial() {
         });
     }, 9000);
 }
-
 function mostrarIconoTutorial() {
 
     $(".tooltip_tutorial").animate({
@@ -476,7 +460,6 @@ function mostrarIconoTutorial() {
     }, 400, 'swing', mostrarIconoTutorial);
 
 }
-
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
@@ -485,6 +468,7 @@ function mostrarVideoIntroductorio() {
             $("#fondoComunPopUp").show();
         }
         $("#videoIntroductorio").show();
+        setTimeout(function () { playVideo(); }, 1000);
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
     } else {
@@ -651,7 +635,7 @@ function ArmarCarouselEstrategias(data) {
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
-                    breakpoint: 1024,
+                    breakpoint: 1025,
                     settings: {
                         slidesToShow: 3
                     }
@@ -2114,6 +2098,10 @@ function porcentajesCursos() {
         }
     });
 };
+function GetCursoMarquesina(id) {
+    var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
+    window.open(url, '_blank');
+}
 
 // Métodos ActualizarDatos
 function ActualizarDatos() {
@@ -3083,10 +3071,30 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             if (data.success) {
                 $("#divCatalogoPersonalizado").html("");
-                SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
+                $("#linea_separadoraCP").show();
+                var contador = 0;
+                var limite = 8;
+                var arrayProducto = new Array();
+
+                $.each(data.data, function (index, value) {
+                    arrayProducto.push(value);
+                    contador++;
+
+                    if (contador == limite) {
+                        return false;
+                    }
+                });
+                if (arrayProducto.length > 0) {
+                    SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
+                } else {
+                    $("#divMainCatalogoPersonalizado").remove();
+                    $("#linea_separadoraCP").hide();
+                }
+                
             }
             else {
                 $("#divMainCatalogoPersonalizado").remove();
+                $("#linea_separadoraCP").hide();
             }            
         },
         error: function (data, error) {
@@ -3451,3 +3459,28 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
         }
     }
 }
+
+//Video youtube
+function stopVideo() {
+    if (player) {
+        if (player.stopVideo) {
+            player.stopVideo();
+        }
+        else {
+            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+            var urlVideo = $("#divPlayer").attr("src");
+            $("#divPlayer").attr("src", "");
+            $("#divPlayer").attr("src", urlVideo);
+        }
+    }
+};
+function playVideo() {
+    if (player) {
+        if (player.playVideo) {
+            player.playVideo();
+        }
+        else {
+            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
+        }
+    }
+};

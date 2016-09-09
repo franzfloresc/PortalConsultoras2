@@ -10,10 +10,8 @@
     Model.ListaFacturados = Model.ListaFacturados ?? new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
     var cantidad = Model.ListaFacturados.Count;
     var mensajeCantidad = cantidad == 0
-        ? "No tienes campañas realizadas."
-        : cantidad == 1
-            ? "Tienes " + cantidad + " campaña realizada."
-            : "Son mis " + cantidad + " últimas campañas realizadas.";
+        ? "No tienes pedidos facturados."
+            : "Revisa el detalle de tus pedidos facturados.";
 }
 <!-- Titulo -->
 <div class="fondo_f9f9f9">
@@ -123,7 +121,7 @@
                 <div class="content_mis_pedidos">
                     <div class="icono_campanias"></div>
                     <div class="titulo_detalle_pago titulo_campanias">
-                        <div>MIS ÚLTIMAS<b> CAMPAÑAS</b></div>
+                        <div>MIS ÚLTIMOS<b> PEDIDOS</b></div>
                     </div>
 
                     <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">@mensajeCantidad</div>
