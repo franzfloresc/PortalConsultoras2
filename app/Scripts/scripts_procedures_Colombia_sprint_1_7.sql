@@ -2420,6 +2420,21 @@ CREATE PROCEDURE [dbo].InsPedidoWebDetalle_SB2
 	@EskitNueva bit = 0
 AS	
 BEGIN
+	
+	declare @existe int = 0
+	if @EskitNueva = 1
+	begin
+		select @existe = count(1)
+		from dbo.PedidoWebDetalle
+		where ConsultoraID = @ConsultoraID and CampaniaID = @CampaniaID and eskitNueva = 1
+
+		set @existe = isnull(@existe, 0)
+	end
+	
+	if (@existe = 0 and @EskitNueva = 1) or @EskitNueva = 0
+	begin
+		 
+	
 	declare @orden int = 0
 
 	SELECT @PedidoDetalleID = MAX(ISNULL(PedidoDetalleID,0))
@@ -2440,6 +2455,8 @@ BEGIN
 	(@CampaniaID, @PedidoID, @PedidoDetalleID, @MarcaID, @ConsultoraID, @ClienteID, @Cantidad, @PrecioUnidad, 
 	@Cantidad*@PrecioUnidad, @CUV, @OfertaWeb, 0, @ConfiguracionOfertaID, @TipoOfertaSisID, 
 	@CodigoUsuarioCreacion, dbo.fnObtenerFechaHoraPais(),@SubTipoOfertaSisID, @EsSugerido, @EskitNueva, @orden)
+
+	end
 
 END
 
@@ -2668,6 +2685,11 @@ FROM @T1 T
 ) AS R
 ON R.CampaniaID = T.CampaniaID AND T.EstadoPedido <> 'F'
 
+-- solo los 4 correlativos anteriores de la campaña actual
+declare @CampaniaAnterior int = 0
+set @CampaniaAnterior = ffvv.fnGetCampaniaAnterior(@CampaniaID, @top)
+set @CampaniaAnterior = isnull(@CampaniaAnterior, 0)
+
 SELECT top (@top)
  CampaniaID  
 , ImporteTotal 
@@ -2682,7 +2704,9 @@ SELECT top (@top)
 , FechaRegistro
 , CanalIngreso 
 , CantidadProductos 
-FROM @T1 order by CampaniaID desc
+FROM @T1 
+where CampaniaID >= @CampaniaAnterior
+order by CampaniaID desc
 
 
 end
