@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
 
             return View(model);
         }
@@ -148,6 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
+                ViewBag.AccionBoton = "guardar";
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
@@ -160,12 +161,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else // Periodo de facturacion
             {
+                ViewBag.AccionBoton = "guardar";
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
 
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
+                    ViewBag.AccionBoton = "validar";
                     model.Prol = "RESERVA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     if (diaActual <= userData.FechaInicioCampania)
@@ -179,6 +182,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else // PROL 1
                 {
+                    ViewBag.AccionBoton = "validar";
                     model.Prol = "VALIDA TU PEDIDO";
                     model.ProlTooltip = "Haz click aqui para validar tu pedido";
                     if (diaActual <= userData.FechaInicioCampania)

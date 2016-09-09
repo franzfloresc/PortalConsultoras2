@@ -1925,9 +1925,39 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                data = model
+                data = model,
+                mensajeAnalytics = ObtenerMensajePROLAnalytics(olstObservaciones),
+                pedidoDetalle = from item in olstPedidoWebDetalle
+                                select new
+                                {
+                                    name = item.DescripcionProd,
+                                    id = item.CUV,
+                                    price = item.PrecioUnidad,
+                                    brand = item.DescripcionLarga,
+                                    variant = item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim(),
+                                    quantity = item.Cantidad
+                                }
             }, JsonRequestBehavior.AllowGet);
         }
+
+        private string ObtenerMensajePROLAnalytics(List<ObservacionModel> lista)
+        {
+            if(lista == null || lista.Count == 0)
+            {
+                return "00_Tu pedido se guardó con éxito";
+            }
+            else
+            {
+                foreach(var item in lista)
+                {
+                    if(!Regex.IsMatch(item.CUV, @"^\d+$"))
+                    {
+                        return item.Caso + "_" + item.Descripcion;
+                    }
+                }
+                return "01_Tu pedido tiene observaciones, por favor revísalo";
+            }
+        } 
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
