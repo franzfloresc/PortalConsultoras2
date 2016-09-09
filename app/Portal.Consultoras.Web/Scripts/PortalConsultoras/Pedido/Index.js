@@ -4017,6 +4017,21 @@ function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_packNuevas').hide();
 };
 
+function MostrarDetalleGanancia() {
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1Ganancia').text($('#hdeLbl1Ganancia').val());
+    //$('#lbl2DGanancia').text($('#hdeLbl2Ganancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
+}
+
 function AnalyticsBannersInferiores(obj) {
     dataLayer.push({
         'event': 'promotionClick',

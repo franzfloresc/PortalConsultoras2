@@ -75,5 +75,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoPedido { get; set; }
 
         public int CatalogoPersonalizadoDesktop { get; set; }
+
+        public string ImagenUsuario { get; set; }
     }
 }

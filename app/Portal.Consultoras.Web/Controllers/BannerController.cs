@@ -1182,6 +1182,12 @@ namespace Portal.Consultoras.Web.Controllers
                                      where item.GrupoBannerID == 1
                                      select item).ToList();
                 }
+                else if (vTipoBanner == "P_SB2")
+                {
+                    lstBannerInfo = (from item in lstBannerInfo
+                                     where item.GrupoBannerID == 150
+                                     select item).ToList();
+                }
                 //else if (vTipoBanner == "I")
                 //{
                 //    lstBannerInfo = (from item in lstBannerInfo

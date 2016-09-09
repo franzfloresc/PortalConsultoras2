@@ -2764,6 +2764,14 @@ namespace Portal.Consultoras.Web.Controllers
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
             //----------------------------------------------------
 
+            /* SB20-483 - INICIO */
+            model.PaisID = userData.PaisID;
+            var pedidoWeb = ObtenerPedidoWeb();
+            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+            ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
+            /* SB20-483 - FIN */
+            
             /* SB20-287 - INICIO */
             //TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             //DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
@@ -4499,6 +4507,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
                 model.MontoDescuento = bePedidoWebByCampania.DescuentoProl;
                 model.TotalConDescuento = total - bePedidoWebByCampania.DescuentoProl;
+
+                ViewBag.GananciaEstimada = Util.DecimalToStringFormat(bePedidoWebByCampania.MontoAhorroCatalogo + bePedidoWebByCampania.MontoAhorroRevista, userData.CodigoISO);
 
                 userData.PedidoID = 0;
                 if (model.ListaDetalleModel.Any())
