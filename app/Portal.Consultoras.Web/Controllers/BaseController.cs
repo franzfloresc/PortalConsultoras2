@@ -1349,19 +1349,6 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
-        protected string GetImagenUsuario()
-        {
-            try
-            {
-                string rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
-                if (System.IO.File.Exists(Server.MapPath(rutaImagen))) return Url.Content(rutaImagen);
-            }
-            catch(Exception ex){                
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            return Url.Content("~/Content/Images/Esika/user.jpg");
-        }
-
         #endregion
 
         #region barra
