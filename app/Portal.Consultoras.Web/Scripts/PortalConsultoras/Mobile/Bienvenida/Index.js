@@ -7,17 +7,21 @@ $(document).ready(function () {
     });
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
         $('#tutorialesMobile').hide();
+        $('.btn_agregarPedido').show();
     });
     $(".contenedor-tutorial-esika .otromomento").click(function () {
         $('#tutorialesMobile').hide();
+        $('.btn_agregarPedido').show();
     });
     $(".footer-page").css({ "margin-bottom": "54px" });
     mostrarTutorialMobile();
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
+        $('.btn_agregarPedido').show();
     });
     $("#tutorialFooterMobile").click(function () {
+        $('.btn_agregarPedido').hide();
         $('#tutorialesMobile').show();
         setTimeout(function (){ $(window).resize(); }, 50);
     });
@@ -54,6 +58,7 @@ $(document).ready(function () {
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
         $('#tutorialesMobile').show();
+        $('.btn_agregarPedido').hide();
         setTimeout(function () {
             $(window).resize();
         }, 300);
