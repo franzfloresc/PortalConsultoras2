@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(PaisId, CampaniaId, CodigoConsultora, ConsultoraNueva).ToList();
                 }
 
-                lstBannerInfoTemp.Update(p => p.ConfiguracionZona = "," + p.ConfiguracionZona + ",");
+                lstBannerInfoTemp.Where(p => p.ConfiguracionZona != string.Empty).Update(p => p.ConfiguracionZona = "," + p.ConfiguracionZona + ",");
                 //ListadoTodos
                 List<BEBannerInfo> lstBannerInfoPorZona = new List<BEBannerInfo>();
                 
