@@ -49,14 +49,14 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <div class="contenedor_img_perfil" style="display:none">
+        <div class="contenedor_img_perfil" style="display:none;">
             @*<a class="subir_foto">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
             </a>*@
             <div class="foto_perfil_home">
-                <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="" />
+                <img id="imgFotoUsuario" src="@Model.ImagenUsuario" alt="" />
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
@@ -135,9 +135,12 @@
                 </a>
             </div>
             <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
+            
             <hr class="clear" />
-            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action(Convert.ToString(Model.BotonAction), Convert.ToString(Model.BotonController))">SEGUIMIENTO<br/> A TU PEDIDO</a>
+
+            <a role="link" region="Cuerpo" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="seguir_pedido" href="@Url.Action("Index", "Tracking")">SEGUIMIENTO<br/> A TU PEDIDO</a>
             <a role="link" region="Cuerpo" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="seguir_pedido ver_video_introductorio">MIRA EL VIDEO<br/> DE BIENVENIDA</a>
+            
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
                 <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
@@ -833,22 +836,20 @@
         </div>
     </div>
     
-    @*<div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
+    <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:void();" id="" title="Cerrar">
+            <a href="javascript:CerrarCamara();" id="" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
         <div class="contenido_popUp">
             <style type="text/css">
-                form {
+                #btnTomarFoto, #btnSubirFoto {
                     margin-top: 15px;
+                    margin-right: 15px;
                 }
-                    form > input {
-                        margin-right: 15px;
-                    }
-                #results {
+                .results {
                     margin: 20px;
                     padding: 20px;
                     border: 1px solid;
@@ -857,13 +858,11 @@
             </style>
 
             <div id="my_camera"></div>
-            <form>
-                <input type="button" value="Take Snapshot" onclick="take_snapshot()">
-            </form>
-
-            <div id="results">Your captured image will appear here...</div>
-        </div>
-    </div>*@
+            <input type="button" id="btnTomarFoto" value="Tomar Foto" onclick="TomarFoto()">
+            <div class="results"><img id="imgFotoTomada"/></div>
+            <input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">
+</div>
+    </div>
 
     <!-- POPUP ACTUALIZACIÓN DATOS -->
     <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
@@ -1228,19 +1227,19 @@
 </div>
 <!-- FIN POPUP TUTORIAL -->
 <!--POP UP FOTO CARGADA-->
-    <div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
-        <div class="content_foto_cargada">
-            <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
-                <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-            </a>
-            <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-            <div class="content_foto_usuario">
-                <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
-            </div>
-            <a class="btn_tomar_foto">TOMAR FOTO</a>
+<div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
+    <div class="content_foto_cargada">
+        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
+            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
+        </a>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
         </div>
-
+        <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
+
+</div>
 <!--FIN-->
 <!--POP UP FOTO ACTUALIZADA-->
 <div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
@@ -1671,7 +1670,7 @@
     </div>
 </script>
 @section scripts{
-    @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>*@
+    <script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>

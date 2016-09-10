@@ -111,7 +111,6 @@ function MostrarDetallePercepcion() {
 };
 function ImprimirDetalle(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComprobante, FechaEmision, ImportePercepcion) {
     waitingDialog({});
-    _gaq.push(['_trackEvent', 'Percepciones', 'Imprimir']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Percepciones/Imprimir'

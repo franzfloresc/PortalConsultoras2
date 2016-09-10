@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SomosBelcorp Web Mobile" />
     <title>Somos Belcorp</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
@@ -67,7 +68,7 @@
     <!-- End Google Tag Manager -->
 
 
-    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
@@ -414,7 +415,8 @@
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
-
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -1147,12 +1149,21 @@
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
+                if (JL == null || JL == undefined) {
+                    return false;
+                }
+
+                if (JL.tracker == null || JL.tracker == undefined) {
+                    return false;
+                }
+
+                if (typeof JL.tracker.addToCar != "function") {
+                    return false;
+                }
+
                 JL.tracker.addToCart({
                     count: cantidad,
                     deal_id: cuv,
@@ -1164,10 +1175,19 @@
         function TrackingJetloreRemove(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+            esJetlore = esPaisTrackingJetlore == "1";
 
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            if (JL == null || JL == undefined) {
+                return false;
+            }
+
+            if (JL.tracker == null || JL.tracker == undefined) {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart({
@@ -1185,6 +1205,18 @@
             var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (JL == null || JL == undefined) {
+                return false;
+            }
+
+            if (JL.tracker == null || JL.tracker == undefined) {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart(lista);

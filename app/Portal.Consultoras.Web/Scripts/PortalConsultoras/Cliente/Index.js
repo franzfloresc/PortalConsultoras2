@@ -366,10 +366,8 @@ function MantenerCliente(opt) {
                 // si no ha habido timeout continua el procesamiento normal
                 if (data.success == true) {
                     //if (jQuery('#hdClienteId').val() == "0") {
-                    //    _gaq.push(['_trackEvent', 'Cliente', 'Nuevo-cliente', 'Guardar']);
                     //}
                     //else {
-                    //    _gaq.push(['_trackEvent', 'Cliente', 'Editar-Cliente', 'Guardar']);
                     //}
 
                     //var item = data.items;
@@ -416,7 +414,6 @@ function MantenerCliente(opt) {
 
 function EliminarCliente() {
 
-    //_gaq.push(['_trackEvent', 'Cliente', 'Eliminar-Cliente']);
     //dataLayer.push({
     //    'event': 'pageview',
     //    'virtualUrl': '/Cliente/Eliminar-Cliente'
@@ -445,7 +442,6 @@ function EliminarCliente() {
                 CerrarSplash();
 
                 if (data.success == true) {
-                    //_gaq.push(['_trackEvent', 'Cliente', 'Eliminar-Cliente', 'Guardar']);
                     //dataLayer.push({
                     //    'event': 'pageview',
                     //    'virtualUrl': '/Cliente/Eliminar-Cliente/Guardar'
