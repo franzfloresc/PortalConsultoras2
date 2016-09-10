@@ -1152,6 +1152,18 @@
             esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
+                if (typeof JL != "object") {
+                    return false;
+                }
+
+                if (typeof JL.tracker != "object") {
+                    return false;
+                }
+
+                if (typeof JL.tracker.addToCar != "function") {
+                    return false;
+                }
+
                 JL.tracker.addToCart({
                     count: cantidad,
                     deal_id: cuv,
@@ -1164,6 +1176,18 @@
             var esJetlore;
 
             esJetlore = esPaisTrackingJetlore == "1";
+
+            if (typeof JL != "object") {
+                return false;
+            }
+
+            if (typeof JL.tracker != "object") {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart({
@@ -1181,6 +1205,18 @@
             var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            
+            if (typeof JL != "object") {
+                return false;
+            }
+
+            if (typeof JL.tracker != "object") {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart(lista);
