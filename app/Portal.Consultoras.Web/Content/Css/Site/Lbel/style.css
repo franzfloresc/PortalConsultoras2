@@ -7193,12 +7193,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .ver-mas-vertical span.icon{visibility:hidden}
 
 .ver-mas-vertical {
-        font-size:11px;
-        text-transform:uppercase;
-        position:relative;
-        bottom:20px;
-        margin:15px 0 0 0;
-        cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    position: relative;
+    top: -4px;
+    bottom: 20px;
+    margin: 15px 0 33px 0;
+    cursor: pointer;
 }
 
 .ver-mas-vertical span.text{
