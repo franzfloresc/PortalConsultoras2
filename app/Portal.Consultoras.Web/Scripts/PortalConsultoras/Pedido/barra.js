@@ -352,6 +352,9 @@ function MostrarBarra(datax) {
     }
     var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
     tipoMensaje += vLogro >= vLimite ? "Supero" : "";
+    if (vLogro < mn) {
+        tipoMensaje = "MontoMinimo";
+    }
 
     listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();

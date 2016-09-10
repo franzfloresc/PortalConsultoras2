@@ -1425,7 +1425,7 @@ function AgregarMantenerCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == false) {
-                    alert(data.message);
+                    alert_msg(data.message);
                     CloseLoading();
                     return false;
                 }
