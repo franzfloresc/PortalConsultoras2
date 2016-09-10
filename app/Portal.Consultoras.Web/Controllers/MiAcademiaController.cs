@@ -18,11 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            List<MiCurso> MisCursosMA = ValidadCursosMA();
-            if (!MisCursosMA.Any())
-            {
-                return View("Index");
-            }
+            //List<MiCurso> MisCursosMA = ValidadCursosMA();
+            //if (!MisCursosMA.Any())
+            //{
+            //    return View("Index");
+            //}
             string key = ConfigurationManager.AppSettings["secret_key"];
             string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
             string token;
