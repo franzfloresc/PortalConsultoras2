@@ -415,7 +415,8 @@
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
-
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -1148,10 +1149,7 @@
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
                 if (JL == null || JL == undefined) {
@@ -1177,10 +1175,7 @@
         function TrackingJetloreRemove(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (JL == null || JL == undefined) {
                 return false;
