@@ -1154,11 +1154,11 @@
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
             if (esJetlore) {
-                if (typeof JL != "object") {
+                if (JL == null || JL == undefined) {
                     return false;
                 }
 
-                if (typeof JL.tracker != "object") {
+                if (JL.tracker == null || JL.tracker == undefined) {
                     return false;
                 }
 
@@ -1182,11 +1182,11 @@
 
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
 
-            if (typeof JL != "object") {
+            if (JL == null || JL == undefined) {
                 return false;
             }
 
-            if (typeof JL.tracker != "object") {
+            if (JL.tracker == null || JL.tracker == undefined) {
                 return false;
             }
 
@@ -1210,12 +1210,12 @@
             var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
-            
-            if (typeof JL != "object") {
+
+            if (JL == null || JL == undefined) {
                 return false;
             }
 
-            if (typeof JL.tracker != "object") {
+            if (JL.tracker == null || JL.tracker == undefined) {
                 return false;
             }
 

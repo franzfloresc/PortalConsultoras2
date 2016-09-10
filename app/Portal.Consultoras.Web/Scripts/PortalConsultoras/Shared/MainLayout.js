@@ -774,11 +774,11 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
 
     esJetlore = esPaisTrackingJetlore == "1";
     
-    if (typeof JL != "object") {
+    if (JL == null || JL == undefined) {
         return false;
     }
 
-    if (typeof JL.tracker != "object") {
+    if (JL.tracker == null || JL.tracker == undefined) {
         return false;
     }
 
@@ -800,11 +800,11 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 
     esJetlore = esPaisTrackingJetlore == "1";
 
-    if (typeof JL != "object") {
+    if (JL == null || JL == undefined) {
         return false;
     }
 
-    if (typeof JL.tracker != "object") {
+    if (JL.tracker == null || JL.tracker == undefined) {
         return false;
     }
 
@@ -827,14 +827,13 @@ function TrackingJetloreRemoveAll(lista) {
     esJetlore = esPaisTrackingJetlore == "1";
 
 
-    if (typeof JL != "object") {
+    if (JL == null || JL == undefined) {
         return false;
     }
 
-    if (typeof JL.tracker != "object") {
+    if (JL.tracker == null || JL.tracker == undefined) {
         return false;
     }
-
     if (typeof JL.tracker.removeFromCart != "function") {
         return false;
     }
@@ -844,4 +843,5 @@ function TrackingJetloreRemoveAll(lista) {
 
     }
 }
+
 /* Fin Tracking Jetlore */
