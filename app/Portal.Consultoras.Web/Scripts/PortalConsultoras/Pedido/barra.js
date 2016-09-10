@@ -17,7 +17,7 @@ function MostrarBarra(datax) {
 
         $.each(listaEscalaDescuento, function (i, item) {
             listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta);
-            listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(Math.ceil(item.MontoHasta));
+            listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta));
         });
     }
 
@@ -27,6 +27,13 @@ function MostrarBarra(datax) {
     }
 
     ActualizarGanancia(dataBarra);
+
+    dataBarra.MontoMinimo = Math.ceil(dataBarra.MontoMinimo);
+    dataBarra.MontoMinimoStr = $.trim(dataBarra.MontoMinimo);
+    dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
+    dataBarra.MontoMaximoStr = $.trim(dataBarra.MontoMaximo);
+    dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
+    dataBarra.TippingPointStr = $.trim(dataBarra.TippingPoint);
 
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
