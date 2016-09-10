@@ -1884,22 +1884,46 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else // PROL 1
                 {
-                    model.Prol = "VALIDA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aqui para validar tu pedido";
+                    if (reservaProl)
+                    {
+                        model.Prol = "VALIDA TU PEDIDO";
+                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
 
-                    if (diaActual <= userData.FechaInicioCampania)
-                    {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        if (userData.CodigoISO == "BO")
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                         }
                         else
                         {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            if (userData.CodigoISO == "BO")
+                            {
+                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            }
+                            else
+                            {
+                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        model.Prol = "GUARDA TU PEDIDO";
+                        model.ProlTooltip = "Es importante que guardes tu pedido.";
+
+                        if (diaActual <= userData.FechaInicioCampania)
+                        {
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                        }
+                        else
+                        {
+                            if (userData.CodigoISO == "BO")
+                            {
+                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            }
+                            else
+                            {
+                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            }
                         }
                     }
                 }

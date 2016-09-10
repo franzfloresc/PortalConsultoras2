@@ -7030,7 +7030,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .tooltip_validado {
-    width: 3000px;
+    width: 300px;
     height: 86px;
     margin: 0 auto;
     margin-top: 30px;
