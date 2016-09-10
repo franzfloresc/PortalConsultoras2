@@ -772,10 +772,7 @@ function SetMarcaGoogleAnalyticsTermino() {
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -789,10 +786,7 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
 function TrackingJetloreRemove(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart({
@@ -806,10 +800,7 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 function TrackingJetloreRemoveAll(lista) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);

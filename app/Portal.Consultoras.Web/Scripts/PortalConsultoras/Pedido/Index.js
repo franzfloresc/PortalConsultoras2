@@ -3526,7 +3526,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
     if (cant == "" || cant == "0") {
         alert_msg("Ingrese una cantidad mayor que cero.");
-        $('#txtLPCant' + PedidoDetalleID).val("1");
+        $('#txtLPCant' + PedidoDetalleID).val(cantAnti);
         CerrarSplash();
         return false;
     }
