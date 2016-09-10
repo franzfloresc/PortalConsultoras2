@@ -850,9 +850,12 @@ function EjecutarServicioPROL() {
                     }
 
                     messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    window.setTimeout(function () {
-                            location.href = urlPedidoValidado;
-                        }, 2000);                    
+                    //PEDIDO VALIDADO
+                    AnalyticsGuardarValidar(response);
+                    AnalyticsPedidoValidado(response);
+                    setTimeout(function () {
+                        location.href = urlPedidoValidado;
+                    }, 2000);                    
                     return true;
                 }
 
@@ -876,6 +879,7 @@ function EjecutarServicioPROL() {
                 msg = '<h3>Tu pedido se guardó con éxito</h3>';
             }
             messageInfoBueno(msg);
+            AnalyticsGuardarValidar(response);
             CargarPedido();
             return true;
         },
@@ -1034,3 +1038,79 @@ function CancelarObsInformativas() {
     }
 }
 // Fin PROL
+
+function AnalyticsGuardarValidar(data) {
+    var arrayEstrategiasAnalytics = [];
+    var accion = $('#hdAccionBotonProl').val();
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': accion == 'guardar' ? 'Guardar' : 'Validar',
+        'label': data.mensajeAnalytics,
+        'ecommerce': {
+            'checkout': {
+                'actionField': {
+                    'step': accion == 'guardar' ? 1 : 2,
+                    'option': data.mensajeAnalytics
+                },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+function AnalyticsPedidoValidado(data) {
+    var arrayEstrategiasAnalytics = [];
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': 'Validado',
+        'ecommerce': {
+            'checkout': {
+                'actionField': { 'step': 3 },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+
+function MostrarDetalleGanancia() {
+
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
+}

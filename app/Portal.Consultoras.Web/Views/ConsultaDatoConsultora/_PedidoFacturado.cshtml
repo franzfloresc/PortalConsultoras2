@@ -318,7 +318,6 @@
                     if (checkTimeout(data)) {
                         if (data.success == true) {
                             closeWaitingDialog();
-                            _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Enviar-Mail']);
                             alert(data.message);
                         }
                         else {

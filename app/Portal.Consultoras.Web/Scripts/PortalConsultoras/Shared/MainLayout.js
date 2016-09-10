@@ -158,30 +158,15 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebConDescuentoStr);
+                    
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
 
-                    if (data.cantidadProductos > 0) {
-                        $("#pCantidadProductosPedido").html(data.cantidadProductos);
-                    } else {
-                        $("#pCantidadProductosPedido").html(0);
-                    }
-
+                    $("#pCantidadProductosPedido").html(data.cantidadProductos > 0 ? data.cantidadProductos : 0);
+                    
                     $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
-                    var idPais = data.paisID;
-
                     $.each(data.ultimosTresPedidos, function (index, item) {
-                        if (item.ImporteTotal == 0) {
-                            if (idPais == 4)  //Formato de decimales para Colombia
-                                item.ImporteTotal = "0";
-                            else
-                                item.ImporteTotal = "0.00";
-                        } else {
-                            if (idPais == 4)  //Formato de decimales para Colombia
-                                item.ImporteTotal = SeparadorMiles(item.ImporteTotal.toFixed(0));
-                            else
-                                item.ImporteTotal = item.ImporteTotal.toFixed(2);
-                        }
+                        item.ImporteTotal = DecimalToStringFormat(item.ImporteTotal);
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
@@ -758,7 +743,6 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 /* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
-    _gaq.push(['_trackEvent', 'Mapa-Site', 'Pedido']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Mapa-Site/Pedido'
@@ -766,7 +750,6 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
-    _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Header/Cerrar-Sesion'
@@ -789,10 +772,7 @@ function SetMarcaGoogleAnalyticsTermino() {
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -806,10 +786,7 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
 function TrackingJetloreRemove(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart({
@@ -823,10 +800,7 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 function TrackingJetloreRemoveAll(lista) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);

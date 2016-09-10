@@ -102,6 +102,22 @@ namespace Portal.Consultoras.Web.Models
             }
         }
 
+        public string FormatoMontoAhorroCatalogo
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoAhorroCatalogo, CodigoIso);
+            }
+        }
+
+        public string FormatoMontoAhorroRevista
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoAhorroRevista, CodigoIso);
+            }
+        }
+
         public string TotalCliente { get; set; }
 
         public string ClienteID_ { get; set; }
