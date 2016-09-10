@@ -415,7 +415,8 @@
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
-
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -1148,12 +1149,21 @@
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
+                if (JL == null || JL == undefined) {
+                    return false;
+                }
+
+                if (JL.tracker == null || JL.tracker == undefined) {
+                    return false;
+                }
+
+                if (typeof JL.tracker.addToCar != "function") {
+                    return false;
+                }
+
                 JL.tracker.addToCart({
                     count: cantidad,
                     deal_id: cuv,
@@ -1165,10 +1175,19 @@
         function TrackingJetloreRemove(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
+            esJetlore = esPaisTrackingJetlore == "1";
 
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            if (JL == null || JL == undefined) {
+                return false;
+            }
+
+            if (JL.tracker == null || JL.tracker == undefined) {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart({
@@ -1186,6 +1205,18 @@
             var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
 
             esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+
+            if (JL == null || JL == undefined) {
+                return false;
+            }
+
+            if (JL.tracker == null || JL.tracker == undefined) {
+                return false;
+            }
+
+            if (typeof JL.tracker.removeFromCart != "function") {
+                return false;
+            }
 
             if (esJetlore) {
                 JL.tracker.removeFromCart(lista);

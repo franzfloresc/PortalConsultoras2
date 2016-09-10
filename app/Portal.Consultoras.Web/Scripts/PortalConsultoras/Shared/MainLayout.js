@@ -773,6 +773,18 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
     esJetlore = esPaisTrackingJetlore == "1";
+    
+    if (JL == null || JL == undefined) {
+        return false;
+    }
+
+    if (JL.tracker == null || JL.tracker == undefined) {
+        return false;
+    }
+
+    if (typeof JL.tracker.addToCart != "function") {
+        return false;
+    }
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -788,6 +800,18 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 
     esJetlore = esPaisTrackingJetlore == "1";
 
+    if (JL == null || JL == undefined) {
+        return false;
+    }
+
+    if (JL.tracker == null || JL.tracker == undefined) {
+        return false;
+    }
+
+    if (typeof JL.tracker.removeFromCart != "function") {
+        return false;
+    }
+
     if (esJetlore) {
         JL.tracker.removeFromCart({
             count: cantidad,
@@ -802,9 +826,22 @@ function TrackingJetloreRemoveAll(lista) {
 
     esJetlore = esPaisTrackingJetlore == "1";
 
+
+    if (JL == null || JL == undefined) {
+        return false;
+    }
+
+    if (JL.tracker == null || JL.tracker == undefined) {
+        return false;
+    }
+    if (typeof JL.tracker.removeFromCart != "function") {
+        return false;
+    }
+
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);
 
     }
 }
+
 /* Fin Tracking Jetlore */
