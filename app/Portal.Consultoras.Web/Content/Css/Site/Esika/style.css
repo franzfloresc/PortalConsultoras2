@@ -7245,12 +7245,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .ver-mas-vertical span.icon{visibility:hidden}
 
 .ver-mas-vertical {
-        font-size:11px;
-        text-transform:uppercase;
-        position:relative;
-        bottom:20px;
-        margin:15px 0 0 0;
-        cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    position: relative;
+    top: -4px;
+    bottom: 20px;
+    margin: 15px 0 33px 0;
+    cursor: pointer;
 }
 
 .ver-mas-vertical span.text{
@@ -27376,6 +27377,139 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     right: 0;
 }
 
+.caja_montos_textos_sinDescuento, .caja_montos_cantidades_sinDescuento{
+    display:inline-block;
+    font-size:16px;
+    font-family:'Lato';
+    color:#000;
+    margin-bottom:23px;
+}
+
+.caja_montos_textos_sinDescuento{
+    text-align:left;
+    font-weight:normal;
+    margin-right:10px;
+}
+
+.caja_montos_cantidades_sinDescuento{
+    text-align:right;
+    font-weight:700;
+}
+
+.caja_montos_textos_sinDescuento span, .caja_montos_cantidades_sinDescuento span{
+    display:block;
+}
+
+.caja_montos_cantidades_sinDescuento span:first-child{
+    line-height:20px;
+}
+
+.caja_montos_cantidades_sinDescuento span:last-child{
+    line-height:30px;
+}
+
+.separador_montos{
+    display: block;
+    width: 100%;
+    position: absolute;
+    background: #000;
+    height: 1px;
+    top: 56px;
+    right: 0px;
+}
+
+/* POPUP MIS GANANCIAS */
+
+.popup_mis_ganancias{
+    display: block;
+    position: relative;
+    height: 296px;
+    width: 100%;
+    top: 50%;
+    max-width: 492px;
+    margin: -148px auto 0 auto;
+    background: #FFF;
+    padding:51px 61px;
+}
+
+.contenido_misGanancias{
+    display:block;
+    height:auto;
+    font-family:'Lato';
+    font-size:13px;
+}
+
+.contenido_misGanancias h6{
+    font-size:13px;
+    font-weight:900!important;
+    color:#e81c36;
+}
+
+.contenedor_montos_sinDescuento{
+    display: block;
+    float: right;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+}
+
+.pValidado{
+    margin-bottom:0px;
+    margin-left:13px;
+}
+
+.mis_descuentos{
+    display:block;
+    width:100%;
+    height:auto;
+    margin-top:4px;
+    margin-bottom:7px;
+}
+
+.mis_descuentos_texto, .mis_descuentos_monto{
+    display:inline-block;
+    vertical-align:top;
+    font-weight:normal;
+    color:#000;
+    font-size:13px;
+}
+
+.mis_descuentos_texto{
+    text-align:left;
+    width:40%;
+}
+
+.mis_descuentos_monto{
+    text-align:right;
+    width:59%;
+}
+
+.separador_montos_misGanancias{
+    background: #e81c36;
+    height: 2px;
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.monto_total_misGanancias{
+    display:block;
+    margin-top:13px;
+    margin-bottom:27px;
+    text-align:right;
+    color:#e81c36;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.nota_popup_misGanancias{
+    display:block;
+    text-align:justify;
+    font-size:11px;
+    font-weight:normal;
+    color:#878787;
+}
+
 /* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */
 
 .precarga {
@@ -27963,137 +28097,3 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 /* FIN PROCESO CARGA FOTO */
-
-
-.caja_montos_textos_sinDescuento, .caja_montos_cantidades_sinDescuento{
-    display:inline-block;
-    font-size:16px;
-    font-family:'Lato';
-    color:#000;
-    margin-bottom:23px;
-}
-
-.caja_montos_textos_sinDescuento{
-    text-align:left;
-    font-weight:normal;
-    margin-right:10px;
-}
-
-.caja_montos_cantidades_sinDescuento{
-    text-align:right;
-    font-weight:700;
-}
-
-.caja_montos_textos_sinDescuento span, .caja_montos_cantidades_sinDescuento span{
-    display:block;
-}
-
-.caja_montos_cantidades_sinDescuento span:first-child{
-    line-height:20px;
-}
-
-.caja_montos_cantidades_sinDescuento span:last-child{
-    line-height:30px;
-}
-
-.separador_montos{
-    display: block;
-    width: 100%;
-    position: absolute;
-    background: #000;
-    height: 1px;
-    top: 56px;
-    right: 0px;
-}
-
-/* POPUP MIS GANANCIAS */
-
-.popup_mis_ganancias{
-    display: block;
-    position: relative;
-    height: 296px;
-    width: 100%;
-    top: 50%;
-    max-width: 492px;
-    margin: -148px auto 0 auto;
-    background: #FFF;
-    padding:51px 61px;
-}
-
-.contenido_misGanancias{
-    display:block;
-    height:auto;
-    font-family:'Lato';
-    font-size:13px;
-}
-
-.contenido_misGanancias h6{
-    font-size:13px;
-    font-weight:900!important;
-    color:#e81c36;
-}
-
-.contenedor_montos_sinDescuento{
-    display: block;
-    float: right;
-    border-bottom: 1px solid #000;
-    padding-bottom: 5px;
-    margin-bottom: 16px;
-}
-
-.pValidado{
-    margin-bottom:0px;
-    margin-left:13px;
-}
-
-.mis_descuentos{
-    display:block;
-    width:100%;
-    height:auto;
-    margin-top:4px;
-    margin-bottom:7px;
-}
-
-.mis_descuentos_texto, .mis_descuentos_monto{
-    display:inline-block;
-    vertical-align:top;
-    font-weight:normal;
-    color:#000;
-    font-size:13px;
-}
-
-.mis_descuentos_texto{
-    text-align:left;
-    width:40%;
-}
-
-.mis_descuentos_monto{
-    text-align:right;
-    width:59%;
-}
-
-.separador_montos_misGanancias{
-    background: #e81c36;
-    height: 2px;
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-}
-
-.monto_total_misGanancias{
-    display:block;
-    margin-top:13px;
-    margin-bottom:27px;
-    text-align:right;
-    color:#e81c36;
-    font-size:17px;
-    font-weight:bold;
-}
-
-.nota_popup_misGanancias{
-    display:block;
-    text-align:justify;
-    font-size:11px;
-    font-weight:normal;
-    color:#878787;
-}

@@ -2089,7 +2089,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPed
 	DROP PROCEDURE [dbo].GetPedidoWebByFechaFacturacion_SB2
 GO
 
-ALTER proc [dbo].[GetPedidoWebByFechaFacturacion] --'2014-03-06',1,2
+CREATE proc [dbo].[GetPedidoWebByFechaFacturacion_SB2] --'2014-03-06',1,2
 	@FechaFacturacion date,
 	@TipoCronograma int,
 	@NroLote int

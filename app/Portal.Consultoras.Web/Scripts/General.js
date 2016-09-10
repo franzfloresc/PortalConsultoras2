@@ -487,6 +487,8 @@ function ActualizarGanancia(data) {
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
+    $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
+    $("[data-montoahorrorevista]").html(vbSimbolo + " " + data.MontoAhorroRevistaStr);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);

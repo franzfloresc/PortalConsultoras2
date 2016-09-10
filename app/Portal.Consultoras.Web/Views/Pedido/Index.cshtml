@@ -305,8 +305,8 @@
 
                                 <!--SB20-483 - INICIO -->
                                 <div class="caja_montos_cantidades_sinDescuento">
-                                    <span>@Model.Simbolo @Model.FormatoTotal</span>
-                                    <span>@Model.Simbolo @Model.FormatoMontoDescuento</span>
+                                    <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
+                                    <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                 </div>
                                 <!--SB20-483 - FIN -->
 
@@ -510,15 +510,15 @@
             <h6>GANANCIA ESTIMADA TOTAL</h6>
             <div class="mis_descuentos">
                 <span class="mis_descuentos_texto">Mis descuentos</span>
-                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
+                <span class="mis_descuentos_monto" data-montoahorrocatalogo>@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
             </div>
             <div class="mis_descuentos">
                 <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
-                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
+                <span class="mis_descuentos_monto" data-montoahorrorevista>@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
             </div>
             <div class="separador_montos_misGanancias"></div>
             <div class="mis_descuentos">
-                <span class="monto_total_misGanancias">@Model.Simbolo @Model.FormatoMontoGanancia</span>
+                <span class="monto_total_misGanancias" data-ganancia>@Model.Simbolo @Model.FormatoMontoGanancia</span>
             </div>
             <div class="nota_popup_misGanancias">
                 <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>

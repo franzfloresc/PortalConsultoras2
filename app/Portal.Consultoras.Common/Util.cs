@@ -1161,15 +1161,16 @@ namespace Portal.Consultoras.Common
             BEPager pag = new BEPager();
 
             int RecordCount = lst.Count;
-            item.PageSize = item.PageSize < 1 ? 0 : item.PageSize;
+            item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
 
-            int PageCount = (int)(float)(RecordCount / item.PageSize);
-            PageCount += RecordCount % (PageCount * item.PageSize) > 0 ? 1 : 0;
+            int PageCount = RecordCount/item.PageSize;
+            PageCount = PageCount < 1 ? 1 : PageCount;
+            PageCount += RecordCount > (PageCount*item.PageSize) ? 1 : 0;
             
             pag.RecordCount = RecordCount;
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage > PageCount ? PageCount : CurrentPage;
 
             return pag;
