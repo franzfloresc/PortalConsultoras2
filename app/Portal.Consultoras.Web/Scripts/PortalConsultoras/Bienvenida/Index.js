@@ -130,7 +130,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
+    //CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
