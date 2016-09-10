@@ -7030,7 +7030,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .tooltip_validado {
-    width: 280px;
+    width: 3000px;
     height: 86px;
     margin: 0 auto;
     margin-top: 30px;
@@ -7080,7 +7080,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .info_tooltip {
-    width: 210px;
+    width: 230px;
     float: left;
     margin-left: 10px;
     font-family: 'Lato';
