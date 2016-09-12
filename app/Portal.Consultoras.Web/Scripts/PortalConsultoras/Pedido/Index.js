@@ -4057,7 +4057,7 @@ function MostrarDetalleGanancia() {
     div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
     div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
 
-    $('#popupGanancias').show();
+    $('#popupGanancias').fadeIn(200);
 }
 
 function AnalyticsBannersInferiores(obj) {
