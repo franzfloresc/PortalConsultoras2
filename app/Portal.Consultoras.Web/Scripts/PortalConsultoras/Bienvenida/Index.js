@@ -4,9 +4,14 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
+var fotoCroppie
 
 $(document).ready(function () {
     $('.contenedor_img_perfil').on('click', CargarCamara);
+    $('#imgFotoUsuario').error(function() {
+        $('#imgFotoUsuario').hide();
+        $('#imgFotoUsuarioDefault').show();
+    })
 
     $('#salvavidaTutorial').show();
 
@@ -79,7 +84,8 @@ $(document).ready(function () {
                     'category': 'Home',
                     'action': 'Video de Bienvenida: Iniciar video',
                     'label': 'SomosBelcorp.com ¡se renueva para ti!'
-                });
+                });
+
             });
         });
     });
@@ -398,14 +404,51 @@ function CargarCamara() {
 function CerrarCamara() {
     Webcam.reset();
     $('#imgFotoTomada').attr('src', '');
+    $('#demo').removeClass('croppie-container').html('');
 
     $("#CamaraIntroductoria").hide();
     contadorFondoPopUp--;
     if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
 }
 
+function CortarFoto() {
+    $('#demo').croppie('result', {
+        type: 'canvas',
+        format: 'png'
+    }).then(function (resp) {
+        waitingDialog();
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Bienvenida/SubirImagen',
+            data: JSON.stringify({ data: resp }),
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert_msg(data.message);
+                if (data.success) {
+                    $('#imgFotoUsuario').show();
+                    $('#imgFotoUsuarioDefault').hide();
+                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+                }
+            },
+            error: function (data, error) { console.log(error); },
+            complete: closeWaitingDialog
+        });
+    });
+}
+
 function TomarFoto() {
-    Webcam.snap(function (data_uri) { $('#imgFotoTomada').attr('src', data_uri); });    
+    Webcam.snap(function (data_uri) {
+        $('#imgFotoTomada').attr('src', data_uri);
+        $('#demo').croppie({
+            viewport: {
+                width: 150,
+                height: 150,
+                type: 'circle'
+            },
+            url: data_uri
+        });
+    });
 }
 function SubirFoto() {
     waitingDialog();
@@ -419,7 +462,8 @@ function SubirFoto() {
             alert_msg(data.message);
             if (data.success)
             {
-                console.log(data.imagen);
+                $('#imgFotoUsuario').show();
+                $('#imgFotoUsuarioDefault').hide();
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
             }
         },

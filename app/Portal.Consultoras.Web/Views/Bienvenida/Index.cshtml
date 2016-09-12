@@ -2,6 +2,7 @@
 @model Portal.Consultoras.Web.Models.BienvenidaHomeModel
 
 @section styles{
+    <link href="http://foliotek.github.io/Croppie/croppie.css" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 }
@@ -49,7 +50,7 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <div class="contenedor_img_perfil" style="display:none;">
+        <div class="contenedor_img_perfil" style="display:none">
             @*<a class="subir_foto">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
@@ -57,6 +58,7 @@
             </a>*@
             <div class="foto_perfil_home">
                 <img id="imgFotoUsuario" src="@Model.ImagenUsuario" alt="" />
+                <img id="imgFotoUsuarioDefault" src="@Url.Content("~/Content/Images/Esika/user.jpg")" style="display:none;" />
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
@@ -858,9 +860,11 @@
             </style>
 
             <div id="my_camera"></div>
-            <input type="button" id="btnTomarFoto" value="Tomar Foto" onclick="TomarFoto()">
+            <input type="button" value="Tomar Foto" onclick="TomarFoto()">
             <div class="results"><img id="imgFotoTomada"/></div>
-            <input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">
+            @*<input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">*@
+            <div class="results"><div id="demo"></div></div>          
+            <input type="button" value="Cortar Foto" onclick="CortarFoto()">  
 </div>
     </div>
 
@@ -1238,7 +1242,6 @@
         </div>
         <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
-
 </div>
 <!--FIN-->
 <!--POP UP FOTO ACTUALIZADA-->
@@ -1254,13 +1257,12 @@
         <div class="text_actualizada">¡FELICITACIONES!</div>
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
-
 </div>
 <!--FIN-->
 
 <!-- POPUP IMAGEN PERFIL -->
 
-@*<div class="contenedor_fondo_popup" id="popup_tutorial_home" style="display: block;">
+<div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
         <h1>MI <b>FOTO</b></h1>
         <div class="imgPerfil">
@@ -1275,7 +1277,29 @@
             </button>
         </div>
     </div>
-</div>*@
+    <div class="content_foto_cargada">
+        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
+            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
+        </a>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+        </div>
+        <div class="text_actualizada">¡FELICITACIONES!</div>
+        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
+    </div>
+    <div class="content_foto_cargada">
+        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
+            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
+        </a>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+        </div>
+        <div class="text_actualizada">¡FELICITACIONES!</div>
+        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
+    </div>
+</div>
 
 <!-- POPUP FIN IMAGEN PERFIL -->
 
@@ -1671,6 +1695,8 @@
 </script>
 @section scripts{
     <script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
+    <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>
+    <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>

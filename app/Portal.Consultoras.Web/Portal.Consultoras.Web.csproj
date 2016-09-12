@@ -3740,7 +3740,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\ConsultoraImagen\" />
     <Folder Include="Views\Contenido\" />
   </ItemGroup>
   <ItemGroup>
