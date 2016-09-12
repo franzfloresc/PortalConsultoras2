@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using Portal.Consultoras.ServiceCatalogoPersonalizado.Entities;
+
+namespace Portal.Consultoras.ServiceCatalogoPersonalizado
+{
+    // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IProductoService" en el código y en el archivo de configuración a la vez.
+    [ServiceContract]
+    public interface IProductoService
+    {
+        [OperationContract]
+        List<Producto> ObtenerProductos(int tipoOfertaFinal, string codigoIso, int campaniaId, string codigoConsultora,
+            int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar);
+
+        [OperationContract]
+        List<Producto> ObtenerTodosProductos(int lugar, string codigoIso, int campaniaId, string codigoConsultora,
+            int zonaId, string codigoRegion, string codigoZona, int tipoProductoMostrar, int limimte = 100);
+    }
+}

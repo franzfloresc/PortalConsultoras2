@@ -1,0 +1,434 @@
+﻿@using Portal.Consultoras.Common
+@{
+    ViewBag.Title = "_ListadoEstrategias";
+}
+
+<style>
+    .message_text {
+        background: #FFF;
+        padding: 20px 10px 10px 10px;
+        /*max-height: 350px;*/
+        /* overflow: auto; */
+        border: 1px solid #D0D0D0;
+        -webkit-border-radius: 10px; /* Para Safari y Chrome */
+        -moz-border-radius: 10px; /* Para Firefox */
+        -khtml-border-radius: 10px; /* Navegadores de Linux */
+        border-radius: 10px; /* CSS3 */
+        behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
+        position: relative;
+    }
+</style>
+
+<script type="text/javascript">
+
+    //R2469 - JICM - Se Modificará la marcación InfoCommerceGoogle
+    function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, MarcaID) {
+
+        if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
+            if (variant == null || variant == "") { variant = "Estándar"; }
+            if (Categoria == null || Categoria == "") { Categoria = "Sin Categoría"; }
+            //r20160216
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': 'Productos destacados' },
+                        'products': [{
+                            'name': DescripcionProd,
+                            'price': Precio,
+                            'brand': Marca,
+                            'id': CUV,
+                            'category': Categoria,
+                            'variant': variant,
+                            'quantity': parseInt(Cantidad),
+                            'position': MarcaID
+                        }]
+                    }
+                }
+            })
+        }
+    }
+
+    ///////////////////////////
+
+    function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+
+        mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+        var restringido = true;
+
+        $.ajaxSetup({ cache: false });
+        jQuery.ajax({
+            type: 'GET',
+            url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido")',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == false) restringido = false;
+                    else {
+                        if (data.pedidoReservado) {
+                            var fnRedireccionar = function () {
+                                waitingDialog({});
+                                location.href = '@Url.Action("PedidoValidado", "Pedido")'
+                            }
+                            if (mostrarAlerta == true) alert_msg(data.message, fnRedireccionar);
+                            else fnRedireccionar();
+                        }
+                        else if (mostrarAlerta == true) alert_msg(data.message);
+                    }
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
+        });
+        return restringido;
+    };
+
+
+    //////////////////////////
+
+    $(document).ready(function () {
+        $(document).on('click', '.js-boton_agregar', function () {
+            var contenedor = $(this).parents(".js-producto_destacado");
+            AgregarOfertaProducto(contenedor);
+        });
+    });
+
+    function AgregarOfertaProducto(contenedor) {
+        var Cantidad = $(contenedor).find(".txtCantidad")[0].value;
+        var OfertaProductoID = $(contenedor).find(".OfertaProductoID")[0].value;
+        var TipoOfertaID = $(contenedor).find(".TipoOfertaSisID")[0].value;
+        var ConfiguracionOfertaID = $(contenedor).find(".ConfiguracionOfertaID")[0].value;
+        var MarcaID = $(contenedor).find(".MarcaID")[0].value;
+        var CUV = $(contenedor).find(".CUV")[0].value;
+        var PrecioUnidad = $(contenedor).find(".PrecioOferta")[0].value;
+        var DescripcionProd = $(contenedor).find(".DescripcionProd")[0].value;
+        var DescripcionMarca = $(contenedor).find(".DescripcionMarca")[0].value;
+        var LimiteVenta = $(contenedor).find(".LimiteVenta")[0].value;
+        var DescripcionMarcaProducto = $(contenedor).find(".DescripcionMarcaProducto")[0].value;
+        var DescripcionCategoria = $(contenedor).find(".DescripcionCategoria")[0].value;
+        var DescripcionEstrategia = $(contenedor).find(".DescripcionEstrategia")[0].value;
+    };
+
+    //function AgregarOfertaProducto(identificador, Object, TipoOferta) {
+    //    if (ReservadoOEnHorarioRestringido())
+    //        return;
+
+    //    var tallaColor = $(Object).parent().parent().parent().parent().find(".ddlTallaColor").attr('value'); // 2209
+    //    var existeTalla = $(Object).parent().parent().parent().parent().find(".ExisteTalla")[0].value; // 2209
+    //    var Cantidad = $(Object).parent().parent().find(".ValidaNumeralOferta")[0].value;
+    //    var OfertaProductoID = $(Object).prev('input[type="hidden"]').val();
+    //    var div = $(Object).parent().parent().parent().parent().find(".producto_agregado");
+    //    var TipoOfertaID = $(Object).parent().parent().parent().parent().find(".TipoOfertaSisID")[0].value;
+    //    var ConfiguracionOfertaID = $(Object).parent().parent().parent().parent().find(".ConfiguracionOfertaID")[0].value;
+    //    var MarcaID = $(Object).parent().parent().parent().parent().find(".MarcaID")[0].value;
+    //    var CUV = $(Object).parent().parent().parent().parent().find(".CUV")[0].value;
+    //    var PrecioUnidad = $(Object).parent().parent().parent().parent().find(".PrecioOferta")[0].value;
+    //    var DescripcionProd = $(Object).parent().parent().parent().parent().find(".DescripcionProd")[0].value;
+    //    var DescripcionMarca = $(Object).parent().parent().parent().parent().find(".DescripcionMarca")[0].value;
+    //    var LimiteVenta = $(Object).parent().parent().parent().parent().find(".LimiteVenta")[0].value;
+    //    var DescripcionMarcaProducto = $(Object).parent().parent().parent().parent().find(".DescripcionMarcaProducto")[0].value;
+    //    var DescripcionCategoria = $(Object).parent().parent().parent().parent().find(".DescripcionCategoria")[0].value;
+    //    var DescripcionEstrategia = $(Object).parent().parent().parent().parent().find(".DescripcionEstrategia")[0].value;
+    //    var ExisteFlagNueva = $(Object).parent().parent().parent().parent().find(".ExisteFlagNueva")[0].value;
+
+    //    if (ExisteFlagNueva == 1) {
+    //        Cantidad = LimiteVenta;
+    //    }
+    //    // 2209 - Inicio
+    //    if (parseInt(existeTalla) > 2) {
+    //        if ($.trim(tallaColor) == "") {
+    //            alert_msg("Por favor, seleccione la Talla/Color del producto.");
+    //            return false;
+    //        }
+    //    }
+    //    // 2209 - Fin
+    //    waitingDialog({});
+    //    if (Cantidad == "" || Cantidad == 0) {
+    //        alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+    //        closeWaitingDialog();
+    //        return false;
+    //    } else if (parseInt(LimiteVenta) < parseInt(Cantidad)) {
+    //        alert_msg("La cantidad ingresada debe ser menor que la cantidad de límite de venta. (Limite de venta: " + LimiteVenta + ")");
+    //        closeWaitingDialog();
+    //        return false;
+    //    } else {
+    //        $($(Object).parent().parent().find(".ValidaNumeralOfertaAnterior")).val(Cantidad);
+    //        var Item = {
+    //            MarcaID: MarcaID,
+    //            Cantidad: Cantidad,
+    //            PrecioUnidad: PrecioUnidad,
+    //            CUV: CUV,
+    //            ConfiguracionOfertaID: ConfiguracionOfertaID,
+    //            FlagNueva: ExisteFlagNueva
+    //        };
+
+    //        jQuery.ajax({
+    //            type: 'POST',
+    //            url: baseUrl + 'AdministrarEstrategia/InsertEstrategiaPortal',
+    //            dataType: 'json',
+    //            contentType: 'application/json; charset=utf-8',
+    //            data: JSON.stringify(Item),
+    //            async: true,
+    //            success: function (data) {
+    //                if (data.success == true) {
+    //                    $(Object).attr('disabled', true);
+    //                    $(Object).parent().parent().parent().parent().find(".ddlTallaColor").attr('disabled', true);
+    //                    $(Object).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
+    //                    $(div).css('display', 'block');
+    //                    CalcularAcumuladoCarrito();
+    //                    $("#hdFlagOferta").val("1");
+    //                    $("#hdFlagOfertaWeb").val("1");
+    //                    dataLayer.push({
+    //                        'event': 'pageview',
+    //                        'virtualUrl': '/Pedido/Ofertas-exclusivas/Agregar'
+    //                    });
+
+    //                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarcaProducto, DescripcionEstrategia, MarcaID);
+    //                }
+    //                else {
+    //                    alert_msg(data.message);
+    //                }
+    //                closeWaitingDialog();
+    //            },
+    //            error: function (data, error) {
+    //                if (checkTimeout(data)) {
+    //                    alert_msg(data.message);
+    //                    closeWaitingDialog();
+    //                }
+    //            }
+    //        });
+    //    }
+    //}
+    
+    function CalcularAcumuladoCarrito() {
+        var cantidad = 0;
+        var items = $(".ValidaNumeralOferta");
+        for (var i = 0; i < items.length; i++) {
+            var estado = $(items[i]).parent().find(".btnAdd")[0].disabled;
+            if (parseInt(items[i].value) > 0 && estado)
+                cantidad += parseInt(items[i].value)
+        }
+        $("#spCantidadItems").text(cantidad);
+    }
+</script>
+
+@{
+    List<Portal.Consultoras.Web.ServicePedido.BEEstrategia> lstEstrategias = ViewBag.ListaEstrategias;
+    string ISO = ViewBag.ISO;
+    string Simbolo = ViewBag.Simbolo;
+}
+<input type="hidden" id="hdFlagOferta" value="0" />
+@if (lstEstrategias != null)
+{
+    var posicion = 1;
+    <div style="max-width: 1136px; margin: 0 auto; height: auto; width: 100%;">
+    @foreach (var item in lstEstrategias)
+    {
+        var descripcion = item.DescripcionCUV2;
+        var tallacolor = item.TallaColor.Replace("</>", "@");
+        var arrOption = tallacolor.Split('@');
+        string[] ofertas = descripcion.Split('|');
+        if (item.FlagNueva == 1)
+        {
+            descripcion = ofertas[0];
+        }
+
+            <div class="js-producto_destacado">
+                <div class="estrateg_item" data-identificador="@posicion">
+                    <input type="hidden" class="TipoOfertaSisID" value="0" />
+                    <input type="hidden" class="ConfiguracionOfertaID" value="0" />
+                    <input type="hidden" class="MarcaID" value="@item.MarcaID" />
+                    <input type="hidden" class="CUV" value="@item.CUV2" />
+                    <input type="hidden" class="PrecioOferta" value="@item.Precio2" />
+                    <input type="hidden" class="DescripcionProd" value="@descripcion" />
+                    <input type="hidden" class="DescripcionMarca" value="@item.MarcaID" />
+                    <input type="hidden" class="LimiteVenta" value="@item.LimiteVenta" />
+                    <input type="hidden" class="ExisteTalla" value="@arrOption.Length" />
+                    <!-- 2209 -->
+                    <input type="hidden" class="DescripcionMarcaProducto" value="@item.DescripcionMarca" />
+                    <input type="hidden" class="DescripcionCategoria" value="@item.DescripcionCategoria" />
+                    <input type="hidden" class="DescripcionEstrategia" value="@item.DescripcionEstrategia" />
+                    @*<div style="position: absolute; width: 100%;">
+                <img id="imgTipoOfertaEdit" style="float:right; margin-top:10px;" src="@item.ImagenURL">
+            </div>*@
+                    @*@if (item.FlagEstrella == 1)
+            {
+                <div style="position: absolute; width: 100%;">
+                    <img id="imgEstrellaEdit" style="float:left; margin-left:10px; margin-top:10px; width:23px; height:23px;" src="@Url.Content("~/Content/Images/star_reco.png")" />
+                </div>
+            }*@
+                    <div class="producto_agregado" style="display: none;">
+                        <div>Agregado</div>
+                    </div>
+
+                    <div class="estrateg_imagen">
+                        @if (!item.FotoProducto01.Equals(string.Empty))
+                        {
+                            <img src='@item.FotoProducto01' alt="Imagen Producto" class="imagenpop" />
+                        }
+                        else
+                        {
+                            <img src='@Url.Content("~/Content/Matriz/Producto_Sin_Imagen.png")' alt="Imagen Producto" class="imagenpop" />
+                        }
+                    </div>
+                    <div class="etiqueta_producto">
+                        @if (item.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas || item.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento)
+                        {
+                            <img src="@item.ImagenURL" alt="Etiqueta Producto" />
+                        }
+                    </div>    
+                    <h1 class="liquidacion_titulo_item">@item.DescripcionMarca</h1>
+                    @if (item.FlagNueva == 1)
+                    {
+                        <input type="hidden" class="ExisteFlagNueva" value="@item.FlagNueva" />
+                        <p class="estrateg_descripcion">@descripcion</p>
+                        if (item.Precio > 0)
+                        {
+                            <span style="padding: 3px; text-align: left; color: #A1A1A1">
+                                @item.EtiquetaDescripcion @Simbolo
+                                @if (ViewBag.PaisID == "4")
+                                {
+                                    @item.Precio.ToString("#,##0").Replace(',', '.')
+                                }
+                                else
+                                {
+                                    @item.Precio.ToString("#,##0.00")
+                                }
+                            </span>
+                        }
+                        <br />
+                        <ul id="OfertasResultados" class="listaOfertasDestacados">
+                            @{
+                        string str = item.DescripcionCUV2.Replace('|', '-');
+                        ofertas = str.Split('-');
+                        string data = string.Join(" - ", ofertas.Where(x => x != ofertas[0]).ToArray());
+                            }
+                            @data
+                        </ul>
+                        <div class="liquidacion_precio_tachado"></div>
+                        <div class="liquidacion_precio"><span>@ViewBag.Simbolo @item.Precio2</span></div>
+                    }
+                    else
+                    {
+                        <input type="hidden" class="ExisteFlagNueva" value="0" />
+                        <p class="estrateg_descripcion">@item.DescripcionCUV2</p>
+                        if (item.Precio > 0)
+                        {
+                            <span style="padding: 3px; text-align: left; color: #A1A1A1">
+                                @item.EtiquetaDescripcion @Simbolo
+                                @if (ViewBag.PaisID == "4")
+                                {
+                                    @item.Precio.ToString("#,##0").Replace(',', '.')
+                                }
+                                else
+                                {
+                                    @item.Precio.ToString("#,##0.00")
+                                }
+                            </span>
+                        }
+                        <span style="padding: 3px;" class="zona_estrategia_4">@item.TextoLibre</span>
+                        <div class="liquidacion_precio_tachado"></div>
+                        <div class="liquidacion_precio">
+                            <span>
+                                @if (ViewBag.PaisID == "4")
+                                { // Validación para colombia req. 1478
+                                    @ViewBag.Simbolo<text>&nbsp</text>@item.Precio2.ToString("#,##0").Replace(',', '.')
+                                }
+                                else
+                                {
+                                    @ViewBag.Simbolo<text>&nbsp</text>@item.Precio2.ToString("#,##0.00")
+                                }
+                                @*@ViewBag.Simbolo @item.Precio2*@
+                            </span>
+                        </div>
+                    }
+                    <hr class="clear" />
+                    <p class="liquidacion_cantidad"></p>
+                    @*@if (arrOption.Length > 2)
+            {
+                <span style="padding: 3px; float: left;">Talla/Color&nbsp;</span>
+                <span class="tallaColor">
+                    <select class="ddlTallaColor" style="width: 100px; padding: 3px;">
+                        @for (var i = 0; i < arrOption.Length; i++)
+                        {
+                            if (arrOption[i] != "")
+                            {
+                                var strOption = arrOption[i].Split('|');
+                                var strCuv = strOption[0];
+                                var strDescCuv = strOption[1];
+                                var strDescTalla = strOption[2];
+                                <option value='@strCuv' desc-talla='@strDescCuv'>@strDescTalla</option>
+                            }
+                        }
+                    </select>
+                </span>
+            }
+            else
+            {
+                <select style="width: 100px; padding: 3px; visibility: hidden">
+                    <option>seleccione</option>
+                </select>
+            }*@
+                    <input type="hidden" class="ValidaNumeralOfertaAnterior" />
+                    @if (item.FlagNueva == 1)
+                    {
+                        @*<span style="visibility: hidden">Cantidad</span>
+                <input style="visibility: hidden" type="text" maxlength="2" value="@item.LimiteVenta" class="ValidaNumeralOferta">*@
+
+                        <div style=" margin-left: 20px;">
+                            <div class="liquidacion_rango_home">
+                                <input type="text" value="@item.LimiteVenta" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="liquidacion_rango_wrapper" style="visibility: hidden">
+                    <div class="liquidacion_rango_cantidad">
+                    <input type="text" value="@item.LimiteVenta" size="2" maxlength="2" style="text-align: center; border: none; padding-top: 14px !important;" class="txtCantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" /></div>
+                    <div class="liquidacion_rango_right"><a class="mas js-mas_body"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a></div>
+                    <div class="liquidacion_rango_left"><a class="menos js-menos_body"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a></div>
+                </div>*@
+
+                        <hr class="clear" />
+                        <input type="hidden" value="0" class="OfertaProductoID" />
+                        <a class="boton_liquidacion js-boton_agregar" style="width: 216px!important;" data-identificador="@posicion">agregar</a>
+                    }
+                    else
+                    {
+                        <div style=" margin-left: 20px;">
+                            <div class="liquidacion_rango_home" @(item.TipoTallaColor != "" ? "style=visibility:hidden" : "")>
+                                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
+                                <div class="liquidacion_rango_right_pedido">
+                                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="liquidacion_rango_wrapper" @(item.TipoTallaColor != "" ? "style=visibility:hidden" : "")>
+                    <div class="liquidacion_rango_cantidad"><input type="text" value="1" size="2" maxlength="2" style="text-align: center; border: none; padding-top: 14px !important;" class="txtCantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" /></div>
+                    <div class="liquidacion_rango_right"><a class="mas js-mas_body"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a></div>
+                    <div class="liquidacion_rango_left"><a class="menos js-menos_body"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a></div>
+                </div>*@
+                        <hr class="clear" />
+                        <input type="hidden" value="0" class="OfertaProductoID" />
+                        <a class="boton_liquidacion @(item.TipoTallaColor != "" ? "js-boton_tonotalla" : "js-boton_agregar")" @(item.TipoTallaColor != "" ? "style=width:218px!important" : "") data-identificador="@posicion">
+                            @(item.TipoTallaColor == "" ? "agregar" : (item.TipoTallaColor == "C" ? "elegir tono" : "elegir talla"))
+                        </a>
+                        @*<span>Cantidad</span>
+                <input type="text" maxlength="2" class="ValidaNumeralOferta">*@
+                    }
+                </div>
+                @{
+                    posicion++;
+                }
+            </div>
+    }
+        <div class="clear"></div>
+    </div>
+}

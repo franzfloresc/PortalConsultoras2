@@ -1,0 +1,584 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+}
+<div class="wrapper_resumen_mobile sin_padding">
+    <!-- BANNERS INGRESO DE PEDIDO -->
+    <div class="banner_ingresoPedido">
+        <div class="content_320 ingresoPedido">
+            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar"></a>
+            <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
+            <form>
+                <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </form>
+        </div>
+    </div>
+    <!-- FIN BANNERS INGRESO DE PEDIDO -->
+
+    <div class="franja_inferior_banner_pedido"></div>
+
+    <!-- MENSAJES CUV -->
+    <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
+        <span id="divIcono" class="icono_aprobacion"></span>
+        <span id="divMensaje" class="mensaje_productoCUV">
+        </span>
+    </div>
+    <!-- FIN MENSAJES CUV -->
+
+    <div class="contenedor_producto">
+        <div class="content_320 ingresoPedidom">
+            <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
+            <div id="divProductoMantenedor" style="display: none;">
+                <div style="display: none;">
+                    <input type="hidden" id="hdfCUV" />
+                    <input type="hidden" id="hdTipoOfertaSisID" />
+                    <input type="hidden" id="hdConfiguracionOfertaID" />
+                    <input type="hidden" id="hdfDescripcionCategoria" />
+                    <input type="hidden" id="hdfDescripcionEstrategia" />
+                    <input type="hidden" id="hdfDescripcionMarca" />
+                    <input type="hidden" id="hdfIndicadorMontoMinimo" />
+                    <input type="hidden" id="hdfMarcaID" />
+                    <input type="hidden" id="hdfPrecioUnidad" />
+                    <input type="hidden" id="hdfDescripcionProd" />
+                    <input type="hidden" id="hdCuvRecomendado" />
+                    <input type="hidden" id="hdTipoEstrategiaID" />
+                    <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
+                    <input type="hidden" id="hdfValorFlagNueva" />
+                    <input type="hidden" id="hdLimiteVenta" />
+                </div>
+                <div id="divProductoObservaciones"></div>
+                <div id="divProductoInformacion">
+                    <div class="nombreProducto" id="divNombreProducto"></div>
+                    <div class="precioProducto">
+                        <span id="spnTextoPrecio"></span>
+                        @*<span class="precioNormal">S/. 00.00</span>*@
+                        <span class="precioOferta" id="spnPrecio"></span>
+                    </div>
+                    <div class="contenedor_cantidadProductos">
+                        <span class="textoCantidad">CANTIDAD:</span>
+                        <div>
+                            <span class="signo_menos" id="resta">
+                                <img src="/Content/Images/Mobile/Esika/menos.png">
+                            </span>
+                            <div class="campo_cantidadProductos">
+                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                            </div>
+                            <span class="signo_mas" id="suma">
+                                <img src="/Content/Images/Mobile/Esika/mas.png">
+                            </span>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="contenedor_seleccionCliente">
+                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
+                        <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
+                            AGREGAR CLIENTE <span>+</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
+            <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
+            <div id="divResumenPedido">
+                <div class="contenedor_resumenPedido montosIngresoPedido">
+                    @*<div style="position:relative; overflow:hidden;">*@
+                        <div class="textos_resumen">
+                            @*<div class="separador_montos_mobile"></div>*@
+                            <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+                            <!--SB20-343 - INICIO -->
+                            @*<span style="margin-left:30px; padding-bottom:0px;">TOTAL SIN DSCTO. :</span>
+                            <span class="desc_por_niveles_texto" style="margin-left: 30px; margin-bottom:17px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
+                            <!--SB20-343 - FIN -->
+
+                            @*<span id="lblTotalResumen" style="margin-left:30px;">*@
+                            <span id="lblTotalResumen">
+
+                                <div class="info_validado">
+                                    <img src="/Content/Images/Esika/info-copy.png" />
+                                    <!--TOOLTIP-->
+                                    <div class="tooltip_validado_importe">
+                                        <div class="left_reservado">
+                                            <div class="datos_Reservado">
+                                                <span>Total sin Dscto. </span>
+                                                <span>Dscto por niveles</span>
+                                            </div>
+                                        </div>
+                                        <div class="right_reservado">
+                                            <div class="datos_Reservado">
+                                                <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
+                                                <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--FIN-->
+                                </div>
+
+
+                                MONTO TOTAL :
+                            </span>
+                            @{
+                                string cabezaEscala = null, pieEscala = null;
+                                string lbl1Ganancia = null, lbl2Ganancia = null;
+
+                                if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                            Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
+                                {
+                                    cabezaEscala = "Ganancia estimada total";
+                                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                                    lbl1Ganancia = "Mis descuentos";
+                                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                }
+                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)    //PA,MX
+                                {
+                                    cabezaEscala = "Ganancia estimada total";
+                                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                                    lbl1Ganancia = "Mis descuentos";
+                                    lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                                }
+                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)// CH
+                                {
+                                    cabezaEscala = "Comisión y ahorro total";
+                                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                                    lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                                    lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                                }
+                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)// VE
+                                {
+                                    cabezaEscala = "Oportunidad de ahorro total";
+                                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                    lbl1Ganancia = "Por tus compras de productos de catalogo";
+                                    lbl2Ganancia = "Por tus comprar de productos de revista";
+                                }
+                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)// BO
+                                {
+                                    cabezaEscala = "Ganancia total";
+                                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                    lbl1Ganancia = "Mis descuentos";
+                                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                }
+                                else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)// CR
+                                {
+                                    cabezaEscala = "Oportunidad de ahorro total";
+                                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                    lbl1Ganancia = "Mis descuentos";
+                                    lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                                }
+                                
+                            }
+                            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+
+                            @*<div class="mi_ganancia" style=" margin-left: 30px;">
+                                @(cabezaEscala.ToUpper().Trim()) :
+
+                                <div class="info_validado abrir_popupMisGanancias" style="position: absolute; top: 8px; left:-29px;">
+                                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
+                                </div>
+
+                            </div>*@
+                            <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+
+                        </div>
+
+                        <div class="montos_resumen">
+                            <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;PRODUCTOS</span>
+                            <!--SB20-483 - INICIO -->
+                            @*<span><b>@Model.Simbolo @Model.DescripcionTotal</b></span>
+                            <span style="margin-bottom:24px;"><b>@Model.Simbolo @Model.DescuentoStr</span>*@
+                            <!--SB20-483 - FIN -->
+
+                            <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
+                            <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
+                        </div>
+                    @*</div>*@
+                </div>
+                <button type="button" class="btn_verMiPedido">
+                    VER MI PEDIDO
+                </button>
+            </div>
+            <!-- FIN CONTENIDO RESUMEN DE PEDIDO -->
+
+        </div>
+    </div>
+    <!--INICIO CARRUSEL-->
+    <div class="fondo_gris" id="divListaEstrategias">
+        <div class="titulo_ofertas_home">
+            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+            <div class="texto_exclusivo">
+                EXCLUSIVO SÓLO POR WEB
+            </div>
+        </div>
+        <!--CONTENEDOR ITEM CARRUSEL-->
+        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divContenidoEstrategias">
+            <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
+        </div>
+    </div>
+    <!--FIN CARRUSEL-->
+
+    <div class="btn_agregarPedido">
+        <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
+    </div>
+
+    <div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
+        <img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
+        <p>Producto <br /> Agregado</p>
+    </div>
+</div>
+<input type="hidden" id="hdTipoEstrategiaID" value="0" />
+
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
+    <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOfertaEdit" style="float: left;" src="">
+        </div>
+        <div style="position: absolute; width: 100%;">
+            <img id="imgEstrellaEdit" style="float:left; margin-top:10px; width:23px; height:23px; margin-left:10px" src="">
+        </div>
+        <img id="imgZonaEstrategiaEdit" style="height: 200px; margin: 5px;" src="" alt="Imagen Producto" />
+    </div>
+    <br />
+    <div class="zona0Edit pedidos_datos_titulo"></div>
+    <div class="zona1Edit pedidos_datos_info texto-centrado" style="width:100%"></div>
+    <div class="zona2Edit texto-centrado"></div>
+    <div class="zona3Edit_1 pedidos_para_ti texto-centrado"></div>
+    <div class="zona3Edit_2 liquidacion_precio texto-centrado"></div>
+    <br />
+    <ul id="OfertasResultados" class="listaOfertas"></ul>
+    <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
+    <div class="zonaCantidad texto-centrado">
+        <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
+                <td>
+                    <div class="liquidacion_rango_home">
+                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="" alt="" /></a>
+                            <a class="menos"><img src="" alt="" /></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="tallaColor">
+                <td style="vertical-align: middle;">Talla/Color: &nbsp;&nbsp;</td>
+                <td>
+                    <select id="ddlTallaColor" style="width: 130px; height: 30px; border: 1px solid #cccccc;"></select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
+
+<!--POP UP PRODUCTO SUGERIDO-->
+<div class="pop_sugerido_mobile" id="PopSugerido" style="display:none;">
+    <div class="wrapper_resumen_mobile">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta exclamacion_icono_mobile" style="margin-top:-5px;"></div>
+        <div class="mensaje_alerta">
+            Lo sentimos, se nos agotó este producto. Prueba <b>reemplazarlo</b> con
+            alguno de éstos:
+        </div>
+        <div class="contenedor_carrusel_home" id="divCarruselSugerido">
+        </div>
+    </div>
+
+
+</div>
+<!--FIN-->
+
+<!--SB20-483 - INICIO -->
+
+<!-- POPUP MIS GANANCIAS -->
+
+<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+    <div class="popup_mis_ganancias">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_misGanancias" id="detalleGanancia">
+            <h6>GANANCIA ESTIMADA TOTAL</h6>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Mis descuentos</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
+            </div>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
+            </div>
+            <div class="separador_montos_misGanancias"></div>
+            <div class="mis_descuentos">
+                <span class="monto_total_misGanancias">@Model.Simbolo @Model.GananciaFormat</span>
+            </div>
+            <div class="nota_popup_misGanancias">
+                <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP MIS GANANCIAS -->
+<!--SB20-483 - FIN -->
+
+<!-- POPUP AGREGAR CLIENTE -->
+<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarMantenerCliente();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+        <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" class="ValidaAlfabeto" />
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
+        <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
+        <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b><br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+        <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
+    </div>
+</div>
+<!-- FIN POPUP AGREGAR CLIENTE -->
+
+<!-- POPUP CLIENTE AGREGADO -->
+<div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
+        <div class="mensaje_alerta">Tu cliente fue guardado con éxito.</div>
+        <a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+<!-- FIN POPUP CLIENTE AGREGADO -->
+
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#each this as |detalle|}}
+    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <input type="hidden" class="valorCuv" value="{{detalle.CUV2}}" />
+        <input type="hidden" class="valorPosicion" value="{{detalle.ID}}" />
+        <input type="hidden" class="valorPosicionCarrusel" value="{{detalle.PosicionCarrusel}}" />
+        <input type="hidden" class="valorFlagNueva" value="{{detalle.FlagNueva}}" />
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_home" >
+            <div class="producto_img_mobile">
+                <img src="{{detalle.FotoProducto01}}" alt="{{detalle.DescripcionCUV2}}">
+            </div>
+            {{#if_eq FlagMostrarImg '1'}}
+            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+            {{#if_eq FlagEstrella '1' }}
+            <div class="etiqueta_producto">
+                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+            </div>
+            {{/if_eq}}
+            {{/if_eq}}
+            {{/if_eq}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                {{#if_eq FlagNueva '1'}}
+                <p class="nombre_producto">
+                    {{detalle.DescripcionCUVSplit}}
+                </p>
+                {{else}}
+                <p class="nombre_producto">
+                    {{detalle.DescripcionCUV2}}
+                </p>
+                {{/if_eq}}
+
+            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+            {{#if_eq EtiquetaID '1'}}
+                <div class="producto_precio">
+                    <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/if_eq}}
+
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/iff}}
+
+                <div class="liquidacion_rango_home">
+                    {{#if_eq FlagMostrarImg '1'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    {{else}}
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    {{/if_eq}}
+                    {{else}}
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    {{/if_eq}}
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
+                <div style="padding-top:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    {{/each}}
+</script>
+
+<script id="js-CarruselSugerido" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="sugerido" data-item="producto">
+        <div style="display: none;">
+            <input type="hidden" class="hdSugeridoCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdSugeridoTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdSugeridoConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdSugeridoIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdSugeridoTipo" value="1" />
+            <input type="hidden" class="hdSugeridoMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdSugeridoPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdSugeridoDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdSugeridoPagina" value="0" />
+            <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+
+        <div class="content_item_home">
+            <div class="producto_img_mobile">
+                <img src="{{ImagenProductoSugerido}}">
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">{{Descripcion}}</p>
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="sugeridos_rango_home">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarSugerido" href="javascript:;">AGRÉGALO</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+@section scripts
+{
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
+    <script type="text/javascript">
+
+        //Mensajes CUV
+        var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
+        var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
+        if (isEsika) {
+            var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
+        } else {
+            var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+        }
+        var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+        var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
+
+        var cantProductosLoad = 'Model.ListaEstrategias.Count';
+        var posicion = -1;
+        var posicionAnteriorPrimeraEstrategia = 0;
+        var posicionAnteriorUltimaEstrategia = 0;
+        var esTipoDrag = 0;
+        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
+                
+        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
+        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlInsertOfertaNueva = '@Url.Action("AgregarProductoZE", "Pedido", new {area = ""})';
+        var urlInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlCargarListaEstrategia = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+
+        var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
+        var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
+
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
+        var paisIDSesion = '@Model.PaisId';
+
+        var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+
+        var esShowRoom = '@Session["EsShowRoom"]';
+        var simbolo = '@Model.Simbolo';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var vbSimbolo = simbolo;
+        var productoSugerido = false
+        var productoAgotado = false;
+    </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
+}

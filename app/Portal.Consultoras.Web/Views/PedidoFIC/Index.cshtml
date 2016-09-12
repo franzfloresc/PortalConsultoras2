@@ -1,0 +1,394 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.PedidoFICDetalleModel
+@{
+    ViewBag.Title = "Pedido FIC";
+}
+@section styles{   
+    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+
+    <style>
+        .btn_animado {
+            display: none;
+            position: absolute;
+            /*width: 70px;
+            height: 30px;
+            background: red;*/
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .no_mostrar {
+            display: none;
+        }
+        .texto_pedidos{
+            font-size:14px;
+            font-weight:400;
+        }
+
+        /*.campana:hover .info_cam {
+            display:none;
+        }*/
+
+        
+    </style>
+}
+
+<div class="franja_negra"></div>
+
+<h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
+<div class="wrapper_general2">   
+
+    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
+
+    <h1 class="titulo_principal_interiores pedido_left" style="margin-top: -10px;">
+        INGRESA <strong>TU PEDIDO FIC - C08 antes de 8 de Marzo</strong>
+    </h1>
+    <div class="clear"></div>
+
+    <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+    <input type="hidden" id="hdfTotal" value="@Model.Total" />
+    <input type="hidden" id="hdfTotalCliente" value="@Model.TotalCliente" />
+    <div class="pedido_ingreso_c2">
+        <form id="frmInsertPedido" action="@Url.Action("Insert","PedidoFIC")" method="post" role="form">
+            <input type="hidden" id="hdfDescripcionCategoria" />
+            <input type="hidden" id="hdfDescripcionEstrategia" />
+            <input type="hidden" id="hdfDescripcionMarca" />
+            <input type="hidden" id="hdfCUV" />
+            <input type="hidden" id="hdfClienteDescripcion" />
+            <input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
+            <input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
+            <input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
+            <input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
+            <input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
+            <input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
+
+            <input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
+            <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
+            <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
+            <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />            
+
+            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
+
+            <div class="pedido_ingreso_datos campo_codigo">
+                <br />
+                <input type="text" name="CUV" id="txtCUV" onblur="ValidarCUV();" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+            </div>
+
+            <div class="pedido_ingreso_datos campo_descripcion_producto">
+                @*Descripción Producto*@
+                <br />
+                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
+                       onkeyup="PreValidarCUV();" placeholder="Descripción producto" />
+            </div>
+
+            <div class="pedido_ingreso_datos campo_precio">
+                @*Precio*@
+                <br />
+                <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
+            </div>
+
+            <div class="pedido_ingreso_datos campo_cantidad">
+                @*Cantidad*@
+                <br />
+                <div class="liquidacion_rango_wrapper_pedido">
+                    <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           onkeypress="PreValidarCUV();" onfocus="SeleccionarContenido(this)" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pedido_ingreso_datos campo_cliente">
+                @*Cliente*@
+                <br />
+                <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus();"
+                       maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
+                <span class="pedido_ingreso_datos_icono_mas">+</span>
+                <a class="pedidos_cliente" onclick="AbrirModalCliente();">
+                    AGREGAR NUEVO CLIENTE
+                </a>
+            </div>
+            <input type="hidden" id="hdFlagNueva" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
+        </form>
+    </div>
+    <div class="clear"></div> 
+    <div class="PedidoFic">
+        <div class="mensaje_fic"><b>Recuerda:</b> este pedido NO te será facturado. Solo nos estas ayudando a conocer tus preferencias y las de tus clientes</div>
+        <div class="paginador_pedidos mostrarPaginadorPedidos">
+            <div class="titulo_pedidos_fic">
+                MIS <b>PEDIDOS</b>
+            </div>
+            <!--PAGINADOR-->
+            <div id="paginadorCab" class="content_paginador">
+            </div>
+            <!--FIN-->
+        </div>
+        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+            <div class="encabezado_ingresoPedido">
+                <div class="texto_encabezado_pedidos codigo_fic" align="left">Código</div>
+                <div class="texto_encabezado_pedidos producto_fic" align="left">Producto</div>
+                <div class="texto_encabezado_pedidos unidades_fic">Unidades</div>
+                <div class="texto_encabezado_pedidos precioUnitario precioUnitario_fic">Precio Unitario</div>
+                <div class="texto_encabezado_pedidos subtotal subtotal_fic">
+                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                    <span>Subtotal</span>
+                </div>
+                <div class="texto_encabezado_pedidos clienteFic">
+                    <select id="ddlClientes" onchange="CambiarCliente(this)"><option value="-1">Cliente</option><option value="2">KRISTELL ALMAZAN HERNANDEZ</option><option value="0">JULIA HERNANDEZ BASTIDA</option></select>
+                </div>
+                <div class="texto_encabezado_pedidos acciones_fic"></div>
+            </div>
+            <!--LISTADO 1-->
+            <div id="tbobyDetallePedido"></div>
+        </div>
+        <!--PAGINADOR INFERIOR-->
+        <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+            <div id="paginadorPie">                
+            </div>
+        </div>
+        <!--FIN-->
+        <!--MONTOS-->
+        <div class="caja_guardar_pedido">
+            <div class="contenedor_guardadoPedido">
+                <div class="bloque_montosPedido">
+                    <div class="caja_montos">
+                        <div class="caja_montos_textos">
+                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                <span id="spnNombreCliente"></span>
+                            </p>
+                            <div class="monto_total">
+                                <span>Monto total :</span>
+                            </div>
+                        </div>
+                        <div class="caja_montos_cantidades">
+                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                <span id="spnTotalCliente"></span>
+                            </p>
+                            <p class="monto_total">
+                                <b class="">
+                                    @Model.Simbolo
+                                    <span id="sTotal" class="num" data-pedidocondescuento="">@Model.Total</span>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedor_btnGuardarPedido">
+
+                    <div class="tooltip_importanteGuardarPedido">
+                        Haz click aquí cuando<br>hayas finalizado
+                        <span>Podras optar por un pedido sorpresa a un super precio</span>
+                    </div>
+                    <div class="boton_guardarPedido">
+                        <input type="button" id="btnValidarPROL" value="Guarda tu pedido" style="text-transform: uppercase;" class="info_copy">
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+
+            <div class="clear"></div>
+
+            <div id="divContendorPrincipal">
+            </div>
+        </div>
+        <!--FIN-->
+        <div class="contenedor_eliminacion_pedido">
+            <p class="texto_eliminar_pedido">
+                <span class="texto_pedido_completo">
+                    Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                </span>
+            </p>
+            <div class="clear"></div>
+        </div>
+        <!--BANNERS-->
+        <div class="contenedor_banners" style="width:72%;">
+            <ul>
+                <li>
+                    <a href="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/ProductosDescontinuados/MX/201613.pdf" title="Productos Descontinuados" target="_blank">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_01.png" alt="Productos Descontinuados">
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/OfertaLiquidacion/OfertasLiquidacion" title="Liquidaciones Web">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_02.png" alt="Liquidaciones Web">
+                        <div>LIQUIDACIONES WEB</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_03.png" alt="Productos Agotados">
+                        <div>PRODUCTOS AGOTADOS</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <!--FIN-->
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+<div id="divOfertaFIC">
+    <div class="Content_modal">
+        @if (ViewBag.IndicadorOfertaFIC == 1)
+        {
+            <div>
+                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)"/>
+            </div>
+            <div>
+                <br />
+                <input type="submit" name="" id="btnAgregarOferfaFIC" value="Aceptar" />
+                <input type="submit" name="" id="btnCancelarOferfaFIC" value="Cancelar" />
+            </div>
+        }
+    </div>
+</div>
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
+    </div>
+
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
+<div class="contenedor_popup_agregarCliente" id="divClientes">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="javascript: $('#divClientes').hide();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+        <form action="" method="post">
+            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingrese su nombre" maxlength="50" class="input_search_form ValidaAlfabeto" />
+            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (opcional)" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo" />
+            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="javascript: $('#divClientes').hide();" />
+            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="AGREGAR" onclick="javascript: ValidarRegistroCliente();" />
+        </form>
+    </div>
+</div>
+<div id="divConfirmEliminarTotal" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div class="pop_pedido_mensaje">
+        ¿Deseas eliminar el pedido completo?.
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+    </div>
+</div>
+
+<script id="paginador-template" type="text/x-handlebars-template">
+    <ul class="paginador_notificaciones" data-paginacion="block">
+
+        <li class="productos_agregados_usuario">
+            He agregado
+            <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
+            &nbsp;productos
+        </li>
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+
+        <div class="clear"></div>
+    </ul>
+    <div class="clear"></div>
+</script>
+<script id="producto-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
+        <div class="texto_pedidos codigo_fic">{{CUV}}</div>
+        <div class="texto_pedidos producto_fic">
+            <span style="position:relative">
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+            </span>
+
+            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />
+            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" />
+            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" />
+            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" />
+        </div>
+        <div class="celda_cantidad_pedidos unidades_fic">
+            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
+                <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" id="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" />
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
+                       data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)"
+                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="texto_pedidos precioUnitario_fic oculto_1092">
+            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" id="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad" />
+            {{Simbolo}} {{FormatoPrecioUnidad}}
+        </div>
+        <div class="texto_pedidos subtotal_fic">
+            <span class="precio">
+                {{Simbolo}} {{FormatoPrecioUnidad}}
+            </span>
+            <span>
+                {{Simbolo}}
+                <label for="item_ImporteTotal" id="lblLPImpTotal{{PedidoDetalleID}}" class="classImporteTotal">{{FormatoImporteTotal}}</label>
+            </span>
+        </div>
+        <div class="texto_pedidos clienteFic">
+            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" id="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
+            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" id="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
+            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" id="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID" />
+
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" id="txtLPCli{{PedidoDetalleID}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico"
+                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}')" style="width: 90%; padding: 4px;"
+                   datapedido="{{PedidoDetalleID}}" />
+        </div>
+        <div class="texto_pedidos celda_iconos_acciones">
+            @*{{#iff DescripcionLarga 'Contains' '\''}}
+            {{Replace DescripcionLarga '\'' ''}}
+            {{/iff}}*@
+            <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
+               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script type="text/javascript">
+        var isShown = false;
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")' : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
+        var indicadorOfertaFIC = @ViewBag.IndicadorOfertaFIC;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PedidoFIC/Index.js")"></script>
+}

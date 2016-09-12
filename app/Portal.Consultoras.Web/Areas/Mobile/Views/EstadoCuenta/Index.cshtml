@@ -1,0 +1,167 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model EstadoCuentaMobilModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;ESTADO DE CUENTA
+</div>
+<div class="fondo_f2f2f2" style="border-bottom:0;">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+</div>
+   
+
+    
+        <div class="block-success" style="margin-top:0;padding-top:15px;">
+            <div class="text-center">
+                MONTO TOTAL A PAGAR <br />
+                <div class="text-lg">
+                    @Model.Simbolo
+
+                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                    {
+                        @(string.Format("{0:#,##0}", Model.MontoPagar).Replace(',', '.'))
+                    }
+                    else
+                    {
+                        @(string.Format("{0:#,##0.00}", @Model.MontoPagar).Replace(',', '.'))
+                    }
+                </div>
+            </div>
+        </div>
+   
+
+    <div class="header-icon upper">
+        <img src="@Url.Content("~/Content/Images/mobile/img-icon/icon-tarjeta.png")" alt="Tarjeta" class="" width="65" height="65" />
+        <span class="pcolor">Último pago recibido</span>
+    </div>
+    
+        <div class="col-xs-12">
+            <div id="ultimoEstadoCuenta">
+                <ul class="lista-movimientos">
+                    <li>
+                        <b>@Model.Glosa</b>
+                        <br />
+                        <span>@Model.FechaVencimiento</span>
+                        <span class="pull-right color_belcorp">
+                            @Model.Simbolo
+                            @(Model.CodigoISO == Constantes.CodigosISOPais.Colombia
+                                ? string.Format("{0:#,##0}", (Model.Abono > 0 ? Model.Abono : Model.Cargo)).Replace(',', '.')
+                                : string.Format("{0:#,##0.00}", (Model.Abono > 0 ? Model.Abono : Model.Cargo)).Replace(',', '.'))
+                        </span>
+                    </li>
+                </ul>
+                
+                    <a href="javascript:;" class="btn_ver_pedido_reservado" onclick="return MostrarOcultarListaEstado();">
+                        <i id="iconCollpase" class="icon-lg icon-angle-down"></i> Ver listado de movimientos
+                    </a>
+                
+            </div>
+            <div id="listaEstadoCuenta" style="display: none;">
+                <ul class="lista-movimientos">
+                    @foreach (var item in Model.ListaEstadoCuenta)
+                    {
+                        <li>
+                            <div class="mb-10" style="font-size: 14px;"><b>@item.Glosa </b></div>
+                            <div style="font-size: 14px;">
+                                <span>@item.FechaConvertida</span>
+                                @if (item.Abono > 0)
+                                {
+                                    <span class="inline-center" style="margin-left: 20px;">Abono</span>
+                                    <span class="pull-right">
+                                        <strong>
+                                            @Model.Simbolo
+                                            @(Model.CodigoISO == Constantes.CodigosISOPais.Colombia
+                                        ? string.Format("{0:#,##0}", item.Abono).Replace(',', '.')
+                                        : string.Format("{0:#,##0.00}", item.Abono).Replace(',', '.'))
+                                        </strong>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-center" style="margin-left: 20px;">Pedido</span>
+                                    <span class="pull-right text-danger">
+                                        <strong>
+                                            @Model.Simbolo
+                                            @(Model.CodigoISO == Constantes.CodigosISOPais.Colombia
+                                        ? string.Format("{0:#,##0}", item.Cargo).Replace(',', '.')
+                                        : string.Format("{0:#,##0.00}", item.Cargo).Replace(',', '.'))
+                                        </strong>
+                                    </span>
+                                }
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <br />
+                <div class="row">
+                    <a href="javascript:;" class="btn_editar_pedido" onclick="EnviarCorreoConsultora();">
+                        Enviar listado a mi correo
+                    </a>
+                </div>
+                    
+                    @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
+                
+            </div>
+        </div>
+    
+
+
+
+    @section scripts
+{
+        <script type="text/javascript">
+
+            function EnviarCorreoConsultora() {
+                ShowLoading();
+
+                dataLayer.push({
+                    'event': 'virtualEvent', 'category': 'Estado de cuenta', 'action': 'Enviar email', 'label': 'Detalle estado de cuenta'
+                });
+
+                var correo = $.trim($("#hdn_Correo").val());
+                if (correo == "") {
+                    messageInfo("No tiene una cuenta de correo registrada.");
+                    CloseLoading();
+                }
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("EnviarCorreo", "EstadoCuenta", new { area = "Mobile" })',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ correo: correo }),
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            messageInfo(data.message);
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            console.log(data);
+                        }
+                    }
+                });
+            }
+
+            function MostrarOcultarListaEstado() {
+                dataLayer.push({ 'event': 'virtualEvent', 'category': 'Estado de cuenta', 'action': 'Ver listado', 'label': 'Detalle estado de cuenta' });
+                $("#ultimoEstadoCuenta").hide();
+                $("#listaEstadoCuenta").fadeIn();
+            }
+        </script>
+    }

@@ -1,0 +1,213 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model ClienteMobileModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+    var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
+                                                                                     : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
+    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
+}
+<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
+<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
+<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+<span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+
+@{
+    if (HttpContext.Current.Request.Browser.IsMobileDevice &&
+        ("MX, CL, PE, CO, EC").ToUpper().Contains(Convert.ToString(ViewBag.CodigoISO).ToUpper()))
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="content_320">
+                <div class="content_app">
+                    DESCARGA TU<br />
+                    APP DE CATÁLOGOS<br />
+                    <span>@textApp</span>
+                </div>
+                <a class="btn_obtener_app" href="@urlApp">OBTENER</a>
+                <hr class="clear" />
+            </div>
+        </div>
+    }
+}
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS
+</div>
+<div class="fondo_f2f2f2">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+        <li class="one">
+            <a href="#" data-tag="Catalogos">
+                CATÁLOGOS
+                <div class="marcador_tab"></div>
+            </a>
+        </li>
+        <li class="two">
+            <a href="#" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
+                REVISTAS
+                <div class="marcador_tab oculto"></div>
+            </a>
+        </li>
+        
+        <hr id="barCursor">
+    </ul>
+</div>
+<div class="wrapper_resumen_mobile">
+    <!--TAB CATÁLOGOS-->
+    <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
+        <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
+        <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
+            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
+            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
+        </div>
+       
+    </div>
+    <!--FIN-->
+    <!--TAB REVISTA-->
+    <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
+        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="content_revistas_mobile">
+            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
+            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
+            <a id="lbPortadaGana" href="#" target="_blank">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
+            </a>
+        </div>
+    </div>
+    <!--FIN TAB REVISTA-->
+    
+</div>
+
+<!--POP UP COMPARTIR CATALOGO-->
+<div id="CompartirCorreoMobile" class="PopMobile1">
+    <div class="content_popMobile">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#CompartirCorreoMobile').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
+        <div class="Label_compartir">Agregar contacto:</div>
+        <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
+        <hr class="clear" />
+        <!--TAG-->
+        <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
+            <div style="min-height:25px; max-height:150px;">
+                <textarea id="tagCorreo"></textarea>
+            </div>
+        </div>
+        <!--FIN TAG-->
+        <div class="Label_compartir">Mensaje (Editable):</div>
+        <hr class="clear" />
+
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola, Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
+        </textarea>
+        <div class="Label_compartir">Catálogos a enviar:</div>
+        <hr class="clear" />
+        <div id="divCheckbox">
+            <!--CHECBOX1-->
+            <div data-cat="Esika">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Ésika</div>
+            </div>
+            <!--CHECBOX 2-->
+            <div data-cat="Lbel">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">L'Bel</div>
+            </div>
+            <!--CHECBOX 3-->
+            <div data-cat="Cyzone">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Cyzone</div>
+            </div>
+            <hr class="clear">
+        </div>
+        <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
+    </div>
+</div>
+<!--FIN-->
+<!--MENSAJE DE ALERTA 1-->
+<div id="MensajeAlertaMobile" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta check_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO</b>!</div>
+        <div class="mensaje_alerta">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
+        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile').hide();">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+<!--MENSAJE DE ALERTA 2-->
+<div id="MensajeAlertaMobile2" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile2').hide();">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¡LO <b>SENTIMOS</b>!</div>
+        <div class="mensaje_alerta">Debe seleccionar al menos <br />un Catálogo</div>
+        <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile2').hide();">OK</a>
+    </div>
+
+</div>
+<!--FIN-->
+
+<script id="catalogo-template" type="text/x-handlebars-template">
+    <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
+        <div data-tipo="content">
+            <a class="content_catalogo" data-tipo="img" target="_blank" href="">
+                <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
+            </a>
+            <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
+            <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+            <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+            <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+        </div>
+    </div>
+</script>
+
+@section styles{
+
+    <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
+}
+@section scripts{
+    <script type="text/javascript">
+
+        var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var codigoIso = '@ViewBag.CodigoISO';
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+        var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
+
+    </script>
+    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-autcomplete.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Catalogo/Index.js")"></script>
+}

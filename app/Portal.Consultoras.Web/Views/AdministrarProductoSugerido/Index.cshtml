@@ -1,0 +1,645 @@
+﻿@model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
+@{
+    ViewBag.Title = "Administración de Producto Sugerido";
+}
+
+@Html.HiddenFor(model => model.PaisIDUser)
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Carga de Reemplazos Sugeridos</h1>
+            </div>
+            <div class="div-2" style="display:none;">
+                <h3>Datos del Evento</h3>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })                    
+                </div>
+                <span class="color_red" style="width:5px;">*</span>
+                <div class="titG">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+                <span class="color_red" style="width:5px;">*</span>
+            </div>
+            <div class="div-3">
+                <div class="titG">
+                    CUV Agotado:
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="txtCUVAgotado" />
+                </div>
+                <span class="color_red" style="width:5px;"></span>
+                <div class="titG">
+                    CUV Sugerido:
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="txtCUVSugerido" />
+                </div>
+                <span class="color_red" style="width:5px;"></span>
+            </div>  
+            <div class="div-3">
+                <div class="titG"><span class="color_red" style="float: none;width:5px;">*</span></div>
+                <div class="selectA borde_redondeado" style="border: none; padding: 9px 18px 9px 0;">
+                    <span class="color_red" style="float: none; padding: initial;">Campo obligatorio</span>
+                </div>
+                <span class="color_red" style="width:5px;"></span>
+                <div class="titG"></div>
+                <div class="selectA borde_redondeado" style="border: none;">
+                    <div class="input_search titD" style="width: 100px;">
+                        <input type="button" value="Buscar" id="btnBuscar" name="">
+                    </div>
+                    <div class="input_search titD" style="width: 100px;">
+                        <input type="button" value="Nuevo" id="btnNuevo" name="">
+                    </div>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>
+
+
+@*<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">            
+            <div class="div-3">
+                <div class="input_search titD">
+                    <input type="button" value="Buscar" id="btnBuscar" name="">
+                </div>
+                <div class="input_search titD">
+                    <input type="button" value="Nuevo" id="btnNuevo" name="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="wrap" id="divListado">
+    <div class="container clearfix">
+        <h3>Listado</h3>
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="DialogRegistroProductoSugerido" style="display: none;">
+    <div class="Content_modal" id="divRegistroModal">
+        <input type="hidden" id="hdIdSugerido" class="man" />
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaModal", @class ="man" })
+            </div>
+            <span class="color_red" style="width: 5px;">*</span>
+        </div>
+        <div class="div-3">
+            <div class="titG">CUV Agotado:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVModal" class="man" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" maxlength="5" />
+            </div>
+            <span class="color_red" style="width: 5px;">*</span>
+            <div class="titG">CUV Sugerido:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVSugeridoModal" class="man" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+            <span class="color_red" style="width: 5px;">*</span>
+        </div>
+        <div class="div-3">
+            <div class="titG">Orden:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtOrdenModal" class="man" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+            <span class="color_red" style="width: 5px;">*</span>
+            <div class="titG" style="display: none;" >¿Habilitar Producto Sugerido?</div>
+            <div class="selectCheck borde_redondeado" style="display: none;">
+                <input type="checkbox" class="check" id="chkHabilitar" />
+            </div>
+        </div>
+        <div class="div-3" id="divPanelImagen">
+            <div class="titG">Imagen:</div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview1" style="cursor: pointer; width: 60px;">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview2" style="cursor: pointer; width: 60px;">
+            </div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: auto;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview3" style="cursor: pointer; width: 60px;">
+            </div>
+            <div><span class="color_red" style="float: none;">*</span></div>
+        </div>
+        <div class="div-3" id="divCheckImagen">
+            <div class="titG"></div>
+            <div class="pdr_modal_check aligncenter" style="width: 80px;">
+                <input type="checkbox" id="chkImagenProducto01" disabled="disabled">
+            </div>
+            <div class="pdr_modal_check aligncenter" style="width: 80px;">
+                <input type="checkbox" id="chkImagenProducto02" disabled="disabled">
+            </div>
+            <div class="pdr_modal_check aligncenter" style="width: 80px;">
+                <input type="checkbox" id="chkImagenProducto03" disabled="disabled">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<script type="text/javascript" id="js-ready">
+    var paisNombre = "";
+    var paisID = $("#PaisIDUser").val();
+    var imageUrlVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
+    var imagen = "";
+    jQuery(document).ready(function () {
+        CargarDialog();
+        CargarEventos();
+    });
+
+</script>
+<script type="text/javascript" id="js-FuctReady">
+    function CargarEventos() {
+        $('#ddlPais').change(function () {
+            var Id = $(this).val() || "";
+            if (Id == "") {
+                LimpiarDependencias('ddlCampania');
+                return false;
+            }
+            CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
+        });
+    
+        $("#btnBuscar").click(function () {
+
+            var msjex = "";
+            if ($("#ddlPais").val() == "")
+                msjex += " - Debe seleccionar un país.\n";
+            if ($("#ddlCampania").val() == "")
+                msjex += " - Debe seleccionar un campaña.\n";
+
+            if (msjex != "") {
+                alert("Faltan ingresar datos obligatorios.");
+                return false;
+            }
+
+            paisNombre = $("#ddlPais option:selected").text();
+            paisID = $("#ddlPais").val();
+
+            fnGrilla();
+
+        });
+        
+        $("#btnNuevo").click(function () {
+            var op = $("#ddlCampaniaModal option").length;
+            if (op == 1) {
+                CargarCampaniaModal(null, 'ddlCampaniaModal');
+            }
+            RegistroLimpiar();
+
+            $("#ddlCampaniaModal").val($.trim($("#ddlCampania").val()));
+            $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));            
+
+            showDialog("DialogRegistroProductoSugerido");
+        });
+               
+        $("#txtCUVSugeridoModal").change(function () {
+            CargarImagenSugerido();
+        });
+
+        $("#txtCUVSugeridoModal").keyup(function (evt) {
+            if ($(this).val().length == 5) {
+                $("#txtOrdenModal").focus();
+            }
+        });
+
+        $("#ddlCampaniaModal").change(function () {
+            CargarImagenSugerido();
+        });
+
+        $("#divCheckImagen input").click(function () {
+            var che = $(this).attr('checked');
+            $("#divCheckImagen input").prop('checked', false);
+            imagen = "";
+            if (che) {
+                $(this).attr('checked', 'checked');
+                imagen = $(this).attr('value');
+            }
+        });
+    }
+
+    function CargarDialog() {
+        $('#DialogRegistroProductoSugerido').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Ingreso/Edición Reemplazos Sugeridos",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = RegistroValidar();
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    
+                    RegistrarProductoSugerido();
+                    
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript" id="js-Consulta">
+
+    function LimpiarDependencias(combo) {
+        var ddlCampania = $('#' + combo );
+        ddlCampania.empty();
+        ddlCampania.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+
+        //$("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+    }
+
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "AdministrarProductoSugerido/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function () { return $("#ddlPais").val() },
+                CampaniaID: function () { return ($("#ddlCampania").val() || "0"); },
+                CUVAgotado: function () { return $.trim($("#txtCUVAgotado").val()); },
+                CUVSugerido: function () { return $.trim($("#txtCUVSugerido").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Id', 'Campaña', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'CodigoProducto', 'Estado', 'Foto', 'Opciones'],
+            colModel: [
+                { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', key: true, hidden: true },
+                { name: 'CampaniaID', index: 'CampaniaID', width: 50, align: 'center', resizable: false },
+                { name: 'CUV', index: 'CUV', width: 80, align: 'center', resizable: false },
+                { name: 'CUVSugerido', index: 'CUVSugerido', width: 80, align: 'center', resizable: false },
+                { name: 'Orden', index: 'Orden', width: 35, align: 'center', resizable: false },
+                { name: 'ImagenProducto', index: 'ImagenProducto', hidden: true },
+                { name: 'CodigoProducto', index: 'CodigoProducto', hidden: true },
+                { name: 'Estado', index: 'Estado', hidden: true },
+                { name: 'Imagen', index: 'Imagen', width: 55, align: 'center', resizable: false, formatter: ShowImage },
+                { name: 'Options', index: 'Options', width: 60, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'CampaniaID',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+            }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowImage(cellvalue, options, rowObject) {
+            var image = $.trim(rowObject[5]);
+            var filename = image.replace(/^.*[\\\/]/, '');
+            image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';            
+            return image;
+        };
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Producto Sugerido' title='Editar Producto Sugerido' border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "');\" >" + "<img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar Producto Sugerido' title='Deshabilitar Producto Sugerido' border='0' /></a>";
+
+            return Edit + Del;
+        };
+    }
+
+</script>
+<script type="text/javascript" id="js-Registro">
+
+    function CargarCampaniaModal(pais, combo) {
+        var paisUser = $("#PaisIDUser").val();
+        pais = pais || paisUser || 0;
+        combo = combo || "";
+        var listaCombo = combo.split(',');
+        if (listaCombo.length == 0) {
+            return false;
+        }
+
+        waitingDialog({});
+        $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: pais }, function (data) {
+            if (!checkTimeout(data)) {
+                closeWaitingDialog();
+                return false;
+            }
+
+            $.each(listaCombo, function (index, combo) {
+                LimpiarDependencias($.trim(combo));
+            });
+            
+            data = data || new Object();
+            data.lista = data.lista || new Array();
+            if (data.lista.length == 0) {
+                closeWaitingDialog();
+                return false;
+            }
+
+
+            $.each(listaCombo, function (index, combo) {
+                var ddlCampania = $('#' + $.trim(combo));
+                ddlCampania.empty();
+                ddlCampania.append($('<option/>', {
+                    value: "",
+                    text: "-- Seleccionar --"
+                }));
+
+                for (var item in data.lista) {
+                    ddlCampania.append($('<option/>', {
+                        value: data.lista[item].CampaniaID,
+                        text: data.lista[item].Codigo
+                    }));
+                }
+            });
+
+            closeWaitingDialog();
+            
+        });
+    }
+
+    function CargarImagenSugerido() {
+
+        LimpiarImagen();
+
+        var cuv = $.trim($("#txtCUVSugeridoModal").val());
+        var campaniaID = $.trim($("#ddlCampaniaModal").val());
+        if (cuv == "" || campaniaID == "") {
+            return false;
+        }
+
+        waitingDialog({});
+        $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerImagenesByCUV', { paisID: paisID, campaniaID: campaniaID, cuv: cuv }, function (data) {
+            if (!checkTimeout(data)) {
+                closeWaitingDialog();
+                return false;
+            }
+            
+            $("#divPanelImagen img").attr("src", imageUrlVacio);
+            $("#divCheckImagen input").prop('checked', false);
+
+            data = data || new Object();
+            data.lista = data.lista || new Array();
+            if (data.lista.length <= 0) {
+                alert("El producto sugerido no cuenta con imágenes disponibles.");
+                closeWaitingDialog();
+                return false;
+            }
+
+            RegistroAsignarImagenes(data);
+
+            closeWaitingDialog();
+            
+        });
+    }
+
+    function RegistroLimpiar() {
+        $(".man").val("");
+        $("#chkHabilitar").prop('checked', false);
+        LimpiarImagen();
+    }
+
+    function LimpiarImagen() {
+        $("#divPanelImagen img").attr("src", imageUrlVacio);
+        $("#divPanelImagen img").css("width", "60px");
+        $("#divCheckImagen input").attr('disabled', true);
+        $("#divCheckImagen input").prop('checked', false);
+        $("#divCheckImagen input").parent().css("width", "85px");
+        $("#divCheckImagen input").val('');
+    }
+
+    function RegistroValidar() {
+        var vMessage = "";
+        if (jQuery.trim($('#ddlCampaniaModal').val()) == "")
+            vMessage += "- Debe seleccionar una campaña.\n";
+        
+        if (jQuery.trim($('#txtCUVModal').val()) == "")
+            vMessage += "- Debe ingresar un CUV agotado.\n";
+
+        if (jQuery.trim($('#txtCUVSugeridoModal').val()) == "")
+            vMessage += "- Debe ingresar un CUV sugerido.\n";
+
+        if (jQuery.trim($('#txtOrdenModal').val()) == "")
+            vMessage += "- Debe ingresar el orden.\n";
+        
+        if (vMessage != "") {
+            vMessage = "La información ingresada se encuentra incompleta. Por favor, revisar." + "\n" + vMessage;
+        }
+
+        return vMessage;
+    }
+
+    function RegistrarProductoSugerido() {
+
+        var Item = {
+            ProductoSugeridoID: jQuery('#hdIdSugerido').val(),
+            CampaniaID: jQuery('#ddlCampaniaModal').val(),
+            CUV: jQuery('#txtCUVModal').val(),
+            CUVSugerido: jQuery('#txtCUVSugeridoModal').val(),
+            Orden: jQuery('#txtOrdenModal').val(),
+            Estado: $("#chkHabilitar").attr('checked') ? 1 : 0,
+            ImagenProducto: imagen,
+            PaisID: paisID
+        };
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministrarProductoSugerido/Registrar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (data) {
+                if (!checkTimeout(data)) {
+                    return false;
+                }
+
+                alert(data.message);
+                if (data.success == true) {
+                    HideDialog("DialogRegistroProductoSugerido");
+                    RegistroLimpiar();
+                    //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    $("#btnBuscar").click();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert(data.message);
+                    HideDialog("DialogRegistroProductoSugerido");
+                }
+            }
+        });
+
+    }
+    
+    function RegistroAsignarImagenes(data, imgRow) {
+
+        data = data || new Object();
+        data.lista = data.lista || new Array();
+
+        LimpiarImagen();
+
+        if (data.lista.length <= 0) {
+            $("#divCheckImagen input").attr('disabled', true);
+            return false;
+        }
+        imgRow = imgRow || "";
+        var cantImg = 3;
+        var obj = data.lista[0];
+        for (var i = 0; i < cantImg; i++) {
+            var ind = (i + 1);
+
+            var urlImg = (obj || new Object())["FotoProducto0" + ind] || "";
+            if (urlImg == "") {
+                $("#chkImagenProducto0" + ind).attr('disabled', true);
+                continue;
+            }
+            
+            $('#preview' + ind).attr('src', urlImg);
+            var img = urlImg.replace(/^.*[\\\/]/, '');
+            if (img.lastIndexOf("?") >= 0) {
+                img = img.substring(0, img.lastIndexOf("?"));
+            }
+
+            $("#chkImagenProducto0" + ind).val(img);
+            if (img == imgRow && imgRow != "") {
+                $('#chkImagenProducto0' + ind).attr('checked', true);
+                imagen = img;
+            }
+            $("#chkImagenProducto0" + ind).removeAttr('disabled');
+            
+            $('#preview' + ind).css("width", "150px");
+            $("#chkImagenProducto0" + ind).parent().css("width", "175px");
+        }
+    }
+
+    $.jgrid.extend({
+        Editar: function (rowPk) {
+            rowPk = rowPk || 0;
+            if (rowPk == 0) {
+                alert("Debe seleccionar un Producto, verifique");
+                return false;
+            }
+            var op = $("#ddlCampaniaModal option").length;
+            if (op == 1) {
+                CargarCampaniaModal(null, 'ddlCampaniaModal');
+            }
+
+            RegistroLimpiar();
+            var codigoSAP = jQuery("#list").jqGrid('getCell', rowPk, 'CodigoProducto');
+            $.ajaxSetup({ cache: false });
+            $.getJSON(baseUrl + 'ShowRoom/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: codigoSAP }, function (data) {
+
+                // cargar datos
+                $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
+                $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
+                $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
+                $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
+                $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));
+                var estado = jQuery("#list").jqGrid('getCell', rowPk, 'Estado');
+                if (estado == "True" || estado == "true" || estado == "1")
+                    $('#chkHabilitar').attr('checked', true);
+                else
+                    $('#chkHabilitar').removeAttr('checked');
+
+                // cargar imagenes
+                var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto');
+                imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow).replace(/^.*[\\\/]/, '');
+
+                data = data || new Object();
+                data.lista = data.lista || new Array();
+                if (data.lista.length <= 0) {
+                    $("#divCheckImagen input").attr('disabled', true);
+                    showDialog("DialogRegistroProductoSugerido");
+                    return false;
+                }
+
+                RegistroAsignarImagenes(data, imgRow);
+                                                
+                showDialog("DialogRegistroProductoSugerido");
+            });
+            
+            return false;
+        },
+        Eliminar: function (rowPk) {
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+
+            var Item = {
+                ProductoSugeridoID: jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID')
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarProductoSugerido/Deshabilitar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function (data) {
+                    closeWaitingDialog();
+
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
+
+                    alert(data.message);
+                    if (data.success == true) {
+                        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        $("#btnBuscar").click();
+                    }                    
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        }
+    });
+</script>

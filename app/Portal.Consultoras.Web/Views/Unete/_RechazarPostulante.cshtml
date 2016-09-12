@@ -1,0 +1,112 @@
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.RechazoModel
+
+@Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
+@Html.Hidden("CodigoISO", Model.CodigoISO)
+
+
+<style>
+    .boton_celeste { behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important; }
+</style>
+<style>
+    .boton_celeste {
+        width: auto !important;
+        background-color: #009EE4 !important;
+        color: white;
+        border: none;
+        outline: none;
+        border-radius: 15px;
+        box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        -moz-box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        -webkit-box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+        padding: 0 10px;
+    }
+</style>
+@*@using (Ajax.BeginForm("RechazarPostulante", "Unete", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "modal_content",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "OnSuccess",
+    OnBegin = "waitingDialog({});",
+    OnComplete = "closeWaitingDialog({});"
+}, new
+{
+    @id = "frmDetalleSolicitud"
+}))
+{*@
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="div-2">
+            <h2>
+                Solicitud Postulante
+                <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+            </h2>
+        </div>
+    </div>
+</div>
+<div class="elements">
+    <div class="div-3">
+        ¿Est&aacute; seguro de rechazar a esta postulante?
+    </div>
+
+    <div class="div-3">
+        <div class="titC">Tipo Rechazo</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "-- Seleccionar --", new { @class = "field_85" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => m.TipoRechazo)
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titC">Motivo Rechazo</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => m.MotivoRechazo)
+        </div>
+    </div>
+</div>
+<div class="elements">
+    <div class="div-2" style="text-align:center">
+        <div class="input_search" style="text-align: center;">
+            <input type="submit" class="boton_celeste" id="btnAceptar" value="Rechazar" />
+            <input type="submit" class="boton_celeste" id="btnCancelar" value="Cancelar" />
+        </div>
+    </div>
+</div>
+    @* } *@
+<script>
+    $('#imgCerrar, #btnCancelar').click(function () {
+        modal.dialog('close');
+    });
+    $('#btnAceptar').click(function () {
+        debugger;
+        if ($('#TipoRechazo').val()) {
+            var data = {
+                SolicitudPostulanteID: $('#SolicitudPostulanteID').val(),
+                TipoRechazo: $('#TipoRechazo').val(),
+                MotivoRechazo: $('#MotivoRechazo').val(),
+                CodigoISO: $('#CodigoISO').val()
+            };
+            $.post('@Url.Action("RechazarPostulante", "Unete")', data, function (reactivada) {
+                if (reactivada) {
+                    modal.dialog('close');
+                    fnGrilla();
+                }
+            });
+        }
+        else {
+            alert("El campo Tipo Rechazo es obligatorio.");
+        }
+
+    });
+</script>

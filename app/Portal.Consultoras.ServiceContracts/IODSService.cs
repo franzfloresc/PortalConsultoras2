@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ServiceModel;
+using Portal.Consultoras.Entities;
+
+namespace Portal.Consultoras.ServiceContracts
+{
+    [ServiceContract]
+    public interface IODSService
+    {
+        [OperationContract]
+        IList<BEProductoDescripcion> GetProductoComercialByPaisAndCampania(int CampaniaID, string codigo, int paisID, int rowCount);
+
+        [OperationContract]
+        IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
+
+        [OperationContract]
+        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount);
+
+        [OperationContract]
+        IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount);
+
+        [OperationContract]
+        IList<BEConsultoraCodigo> SelectConsultoraByCodigo(int paisID, string codigo);
+
+        [OperationContract]
+        IList<BEConsultoraCodigo> SelectConsultoraCodigo_A(int paisID, string codigo, int rowCount);
+
+        [OperationContract]
+        IList<BEConsultora> SelectConsultoraByID(int paisID, Int64 ConsultoraID);
+
+        [OperationContract]
+        IList<BEComprobantePercepcion> SelectComprobantePercepcion(int paisID, long ConsultoraID);
+
+        [OperationContract]
+        IList<BEComprobantePercepcionDetalle> SelectComprobantePercepcionDetalle(int paisID, int IdComprobantePercepcion);
+
+        [OperationContract]
+        void LoadConsultoraCodigo(int paisID);
+
+        [OperationContract]
+        decimal GetSaldoActualConsultora(int paisID, string Codigo);
+
+        [OperationContract]
+        IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID);
+
+        [OperationContract]
+        bool SetMensajesCUVsByPaisAndCampania(int parametroID, int paisID, int campaniaID, string mensaje, string cuvs);
+
+        [OperationContract]
+        void DeleteMensajesCUVsByPaisAndCampania(int parametroID, int paisID);
+
+        [OperationContract]
+        BEMensajeCUV GetMensajeByCUV(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora);
+
+        #region Digitacion Distribuida
+
+        #region Consultoras
+
+        [OperationContract]
+        IList<BEConsultoraDD> SelectConsultoraDatos(int paisID, string codigoZona, string codigoSeccion, string codigoConsultora, string nombreConsultora);
+
+        [OperationContract]
+        BEConsultoraDD GetConsultoraByCodigo(int paisID, string codigo);
+
+        [OperationContract]
+        BEConsultoraDD GetConsultoraByCodigoByZona(int paisID, string codigo, string codigoZona);
+
+        [OperationContract]
+        BEConsultoraDD GetConsultoraByNumeroDocumento(int paisID, string numeroDocumento);
+
+        #endregion
+
+        #region Producto Comercial
+
+        [OperationContract]
+        IList<BEProductoDescripcion> GetProductosByCampaniaCuv(int paisID, int anioCampania, string codigoVenta);
+
+        [OperationContract]
+        BEProductoDescripcion GetProductoByCampaniaCuv(int paisID, int anioCampania, string codigoZona, string codigoVenta);
+
+        #endregion
+
+        #region Tipo de Meta
+
+        [OperationContract]
+        List<BETipoMeta> GetTipoMeta(int paisID);
+
+        [OperationContract]
+        BETipoMeta GetTipoMetaPorCodigo(int paisID, string tipoMeta);
+
+        #endregion
+
+        #region Ubigeo
+
+        [OperationContract]
+        BEUbigeo GetUbigeoPorCodigoTerritorio(int paisID, string codigoZona, string codigoTerritorio);
+
+
+        [OperationContract]
+        BEUbigeo GetUbigeoPorCodigoUbigeo(int paisID, string codigoUbigeo);
+
+        #endregion
+
+        #endregion
+
+        #region Productos Sugeridos
+
+        [OperationContract]
+        IList<BEProducto> GetProductoSugeridoByCUV(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona);
+
+        #endregion
+
+        [OperationContract]
+        IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
+
+    }
+}
