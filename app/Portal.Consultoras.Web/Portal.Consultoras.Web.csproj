@@ -1105,6 +1105,7 @@
     <Content Include="Content\fonts\museo\museosans_900-webfont.svg" />
     <Content Include="Content\fonts\museo\stylesheet.css" />
     <Content Include="Content\HojaInscripcion\Images\btnCerrar_AD.png" />
+    <Content Include="Content\HojaInscripcion\Images\excel-xls-icon.png" />
     <Content Include="Content\HojaInscripcion\Images\input-checked.png" />
     <Content Include="Content\HojaInscripcion\Images\input-unchecked.png" />
     <Content Include="Content\HojaInscripcion\Images\loader.gif" />
