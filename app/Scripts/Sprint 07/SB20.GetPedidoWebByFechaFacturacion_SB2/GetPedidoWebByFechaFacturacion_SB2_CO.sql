@@ -55,7 +55,7 @@ BEGIN
 			group by CampaniaID, PedidoID
 		) pd on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 		where cr.FechaInicioFacturacion <= @FechaFacturacion
-			and cr.FechaFinFacturacion >= @FechaFacturacion
+			and cr.FechaInicioReFacturacion >= @FechaFacturacion
 			and p.IndicadorEnviado = 0
 			and p.Bloqueado = 0
 			--and exists(select * from dbo.PedidoWebDetalle where CampaniaID = p.CampaniaID
@@ -83,7 +83,7 @@ BEGIN
 			group by CampaniaID, PedidoID
 		) pd on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 		where cr.FechaInicioWeb <= @FechaFacturacion
-			and cr.FechaFinWeb >= @FechaFacturacion
+			and cr.FechaInicioDD >= @FechaFacturacion
 			and p.IndicadorEnviado = 0
 			and p.Bloqueado = 0
 			--and exists(select * from dbo.PedidoWebDetalle where CampaniaID = p.CampaniaID

@@ -77,13 +77,13 @@
                 {
                     if (menuHijo.EsDireccionExterior)
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }
                     else
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }

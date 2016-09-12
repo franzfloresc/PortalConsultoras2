@@ -79,6 +79,13 @@ $(document).ready(function () {
             $("#videoIntroductorio").fadeIn(function () {
                 $(".popup_video_introductorio").fadeIn();
                 playVideo();
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Video de Bienvenida: Iniciar video',
+                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
+                });
+
             });
         });
     });
@@ -167,6 +174,12 @@ $(document).ready(function () {
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         stopVideo();
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Video de Bienvenida: Finalizar video',
+            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+        });
         $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -542,7 +555,15 @@ function mostrarVideoIntroductorio() {
             $("#fondoComunPopUp").show();
         }
         $("#videoIntroductorio").show();
-        setTimeout(function () { playVideo(); }, 1000);
+        setTimeout(function () {
+            playVideo();
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Home',
+                'action': 'Video de Bienvenida: Iniciar video',
+                'label': 'SomosBelcorp.com ¡se renueva para ti!'
+            });
+        }, 1000);
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
     } else {
@@ -973,8 +994,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 }
             }
 
-            InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
-
             //closeWaitingDialog();
             //showDialog('divVistaPrevia');
         },
@@ -1189,59 +1208,6 @@ function alert_unidadesAgregadas(message, exito) {
         $('#dialog_AgregasteUnidades .popup_agregarUnidades .contenido_popUp .mensaje_agregarUnidades').html(message);
     }
     $('#dialog_AgregasteUnidades').show();
-}
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
-};
-function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-    if (variant == null || variant == "") {
-        variant = "Estándar";
-    }
-    if (category == null || category == "") {
-        category = "Sin Categoría";
-    }
-
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                'products': [{
-                    'name': name,
-                    'id': id,
-                    'category': category,
-                    'variant': variant,
-                    'position': position
-                }]
-            }
-        }
-    });
 }
 
 //Metodos para carousel Liquidaciones
@@ -1595,12 +1561,11 @@ function CargarBanners() {
                     while (dataResult.data.length > count) {
                         Titulo = dataResult.data[count].Titulo;
                         Id = dataResult.data[count].BannerID.toString();
-                        Posicion = dataResult.data[count].Nombre;
                         fileName = dataResult.data[count].Archivo;
                         TipoAccion = dataResult.data[count].TipoAccion;
 
                         if (dataResult.data[count].GrupoBannerID.toString() == '150') {
-                            Posicion = dataResult.data[count].Nombre + '-' + dataResult.data[count].Orden;
+                            Posicion = 'Home Slider – ' + dataResult.data[count].Orden;
                         }
 
                         switch (dataResult.data[count].GrupoBannerID) {
@@ -1621,7 +1586,7 @@ function CargarBanners() {
                                 promotionsBajos.push({
                                     id: dataResult.data[count].BannerID,
                                     name: dataResult.data[count].Titulo,
-                                    position: 'pedido-inferior-' +  countBajos
+                                    position: 'home-inferior-' +  countBajos
                                 });
                                 countBajos++;                                
                                 break;
@@ -3244,8 +3209,7 @@ function AgregarProducto(url, item, otraFunct) {
         async: true,
         success: function (data) {
             if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);
-                InfoCommerceGoogle(parseFloat(item.Cantidad * item.PrecioUnidad).toFixed(2), item.CUV, item.descripcionProd, item.descripcionCategoria, item.PrecioUnidad, item.Cantidad, item.descripcionMarca, item.descripcionEstrategia);
+                ActualizarGanancia(data.DataBarra);                
                 CargarResumenCampaniaHeader(true);
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
 
