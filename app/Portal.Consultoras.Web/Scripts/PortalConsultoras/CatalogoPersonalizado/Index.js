@@ -1,13 +1,12 @@
 ﻿var cantidadRegistros = 4;
 var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
-        if (ReservadoOEnHorarioRestringido())
-            return false;
+        if (ReservadoOEnHorarioRestringido()) return false;
 
         agregarProductoAlCarrito(this);
-
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
@@ -15,19 +14,40 @@ $(document).ready(function () {
         CargarCatalogoPersonalizado();
     });
 
-    if (!ReservadoOEnHorarioRestringido(false)) {
-        CargarCatalogoPersonalizado();
-    }
+    Inicializar();
 });
 
+function Inicializar()
+{
+    CargarCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();
+}
+
+function LinkCargarCatalogoToScroll() { $(window).scroll(CargarCatalogoScroll); }
+function UnlinkCargarCatalogoToScroll() { $(window).off("scroll", CargarCatalogoScroll); }
+function CargarCatalogoScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        CargarCatalogoPersonalizado();
+    }
+}
+
 function CargarCatalogoPersonalizado() {
-    var cataPer = $("#hdTipoCatalogoPersonalizado").val();
-    if (cataPer != "1" && cataPer != "2") {
-        $('#boton_vermas').hide();
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    if (ReservadoOEnHorarioRestringido(false)) {
+        cargandoRegistros = false;
         return false;
     }
 
-    //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
+    var cataPer = $("#hdTipoCatalogoPersonalizado").val();
+    if (cataPer != "1" && cataPer != "2") {
+        UnlinkCargarCatalogoToScroll();
+        cargandoRegistros = false;
+        return false;
+    }
+
+    console.log('cargando');
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
@@ -42,14 +62,17 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
 
-                if (data.data.length < cantidadRegistros) $('#boton_vermas').hide();
+                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                 offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             console.log(error);
         },
-        complete: closeWaitingDialog
+        complete: function () {
+            closeWaitingDialog();
+            cargandoRegistros = false;
+        }
     });
 }
 
