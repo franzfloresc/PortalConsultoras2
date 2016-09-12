@@ -8,6 +8,9 @@
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
+
+
+
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
@@ -58,6 +61,7 @@
         
         <hr id="barCursor">
     </ul>
+    <hr class="clear" />
 </div>
 <div class="wrapper_resumen_mobile">
     <!--TAB CATÁLOGOS-->
@@ -190,6 +194,12 @@
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        overflow-x: hidden;
+    }
+</style>
+
 }
 @section scripts{
     <script type="text/javascript">
