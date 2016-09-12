@@ -105,7 +105,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     datDescBoton = sv.GetTablaLogicaDatos(userData.PaisID, 48).ToList();
-                    datUrlBoton = sv.GetTablaLogicaDatos(userData.PaisID, 49).ToList();
                     datGaBoton = sv.GetTablaLogicaDatos(userData.PaisID, 50).ToList();
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
@@ -135,9 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
-                model.BotonAction = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[1].ToString() : "";
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
-                model.BotonController = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[0].ToString() : "";
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -197,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
-                model.ImagenUsuario = this.GetImagenUsuario();
+                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
@@ -243,8 +240,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var base64EncodedBytes = Convert.FromBase64String(image);
-                rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
-                System.IO.File.WriteAllBytes(Server.MapPath(rutaImagen), base64EncodedBytes);
+                string fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
+                string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
+                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
+
+                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
+                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName, "");
             }
             catch (Exception ex)
             {

@@ -77,11 +77,7 @@ function ConfirmarModificar() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Modificar-Pedido']);
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'virtualUrl': '/Pedido/Modificar-Pedido'
-                    });
+
                     location.href = baseUrl + 'Pedido/Index';
                 }
                 else {
@@ -291,4 +287,19 @@ function CambioPagina(obj) {
 
     CargarListado(rpt.page, rpt.rows);
     return true;
+}
+
+function MostrarDetalleGanancia() {
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
 }

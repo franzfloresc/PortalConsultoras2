@@ -525,7 +525,7 @@ namespace Portal.Consultoras.Web.Controllers
                     /*Se comenta la linea por problemas con el tipo de consultora de EsJoven que no muestra ningun Banner. Se cambia la logica a pedido de Belcorp.*/
                     //SegmentoBanner = UserData().EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161 
                 SegmentoBanner = SegmentoID; //Correctivo 2544 (CSR) - Error Banners Inferiores.
-
+                string zonaIDStr = ","+ZonaId.ToString().Trim()+",";
                 string CodigoConsultora = UserData().CodigoConsultora;
                 bool ConsultoraNueva = UserData().ConsultoraNueva == 2 ? true : false;
                 List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
@@ -535,9 +535,12 @@ namespace Portal.Consultoras.Web.Controllers
                     lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(PaisId, CampaniaId, CodigoConsultora, ConsultoraNueva).ToList();
                 }
 
+                lstBannerInfoTemp.Where(p => p.ConfiguracionZona != string.Empty).Update(p => p.ConfiguracionZona = "," + p.ConfiguracionZona + ",");
                 //ListadoTodos
                 List<BEBannerInfo> lstBannerInfoPorZona = new List<BEBannerInfo>();
-                lstBannerInfoPorZona = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(ZonaId.ToString())).ToList();
+                
+
+                lstBannerInfoPorZona = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(zonaIDStr)).ToList();
                 lstBannerInfo = new List<BEBannerInfo>();
                 lstBannerInfo = lstBannerInfoPorZona.Where(p => p.Segmento == -1 || p.Segmento == SegmentoBanner).ToList();
 

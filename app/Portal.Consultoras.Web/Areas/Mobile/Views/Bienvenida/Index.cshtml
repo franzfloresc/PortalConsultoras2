@@ -215,7 +215,9 @@
         <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
            class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">COMPÁRTELOS</a>
     </div>
-    <div class="imagen_catalogo catalogo_esika"></div>
+    <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+    class="btn_compartelos" href="@Url.Action("Index", "Catalogo", new { area = "Mobile" })">
+    <div class="imagen_catalogo catalogo_esika"></div></a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
@@ -244,7 +246,9 @@
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
-        <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
+        <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
+        class="btn_compartelos" href="@Url.Action("EnterateMas","Catalogo", new {area = "Mobile"})">
+        <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div></a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
         <!--FIN APP CATÁLOGOS-->
@@ -272,9 +276,10 @@
         <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
            class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
     </div>
+    <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
     <div class="imagen_catalogo video_esika">
         <img src="@Model.UrlImagenMiAcademia" alt="-" />
-    </div>
+    </div></a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN-->
@@ -287,7 +292,8 @@
                class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
-            <img src="@Model.UrlImagenLiquidaciones" alt="-" />
+            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+            <img src="@Model.UrlImagenLiquidaciones" alt="-" /></a>
         </div>
         <hr class="clear" />
         <div class="linea_separadora_mobile mg_bottom"></div>
@@ -347,6 +353,124 @@
     </div>
 }
 <div class="disclaimer_b">@(pieEscala)</div>
+
+<!-- POPUP SUBIR FOTO -->
+
+<div class="contenedor_fondo_popup" id="popup_subirImagenPerfil" style="display: none;">
+    <div class="popup_img_perfil">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript;" onclick="return $('#popup_subirImagenPerfil').hide();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h1>MI <b>FOTO</b></h1>
+        <div class="imgPerfil">
+            <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="">
+        </div>
+        <div class="btn_acciones">
+            <button class="boton_cancelarImagen" type="button" name="btncancelarimg">
+                TOMAR FOTO
+            </button>
+            <button class="boton_guardarImagen" type="button" name="btnguardarimg">
+                SUBIR FOTO
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP SUBIR FOTO -->
+
+<!--POPUP PROCESO DE CARGA FOTO -->
+
+<div id="PopUpProcesoCargaFoto" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
+    <div class="content_foto_cargada">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript;" onclick="return $('#PopUpProcesoCargaFoto').hide();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario contenedorBarraImagenPerfil">
+            <div class="barra_contenedor">
+                <div class="barra_carga"></div>
+            </div>
+            <span class="texto_estadoCarga">subiendo...</span>
+        </div>
+        <a class="btn_tomar_foto">CANCELAR</a>
+    </div>
+</div>
+
+<!--FIN POPUP PROCESO DE CARGA FOTO -->
+
+<!--POP UP FOTO CARGADA-->
+
+<div id="PopUpFotoCargada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
+    <div class="content_foto_cargada">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript;" onclick="return $('#PopUpFotoCargada').hide();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+        </div>
+        <a class="btn_tomar_foto">TOMAR FOTO</a>
+    </div>
+</div>
+
+<!--FIN-->
+
+<!-- POPUP IMAGEN PERFIL PROCESO RECORTE -->
+
+<div class="contenedor_fondo_popup" id="popup_imagenPerfilCorte" style="display: none;">
+    <div class="popup_img_perfil">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript;" onclick="return $('#popup_imagenPerfilCorte').hide();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <h1>MI <b>FOTO</b></h1>
+        <div class="imgPerfil">
+
+        </div>
+        <div class="btn_acciones">
+            <button class="boton_cancelarImagen" type="button" name="btncancelarimg">
+                CANCELAR
+            </button>
+            <button class="boton_guardarImagen" type="button" name="btnguardarimg">
+                GUARDAR
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- POPUP FIN IMAGEN PERFIL PROCESO RECORTE -->
+
+<!--POP UP FOTO ACTUALIZADA-->
+
+<div id="PopUpFotoActualizada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
+    <div class="content_foto_cargada">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript;" onclick="return $('PopUpFotoActualizada').hide();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
+        <div class="content_foto_usuario">
+            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+        </div>
+        <div class="text_actualizada">¡FELICITACIONES!</div>
+        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
+    </div>
+</div>
+
+<!--FIN-->
 
 <!-- POPUP DEMANDA ANTICIPADA -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">

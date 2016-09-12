@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Web.Controllers
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.MisPedidosSb2Model
 
 @{
@@ -12,6 +13,51 @@
     var mensajeCantidad = cantidad == 0
         ? "No tienes pedidos facturados."
             : "Revisa el detalle de tus pedidos facturados.";
+}
+
+
+<!--SB20-483 - INICIO -->
+@{
+    string cabezaEscala = null, pieEscala = null;
+
+    if (ViewBag.PaisISO == Constantes.CodigosISOPais.Peru ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Colombia ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Ecuador ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Guatemala ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Salvador ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Dominicana ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
+    {
+
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+    }
+    else if (ViewBag.PaisISO == Constantes.CodigosISOPais.Panama ||
+        ViewBag.PaisISO == Constantes.CodigosISOPais.Mexico) //PA,MX
+    {
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+    }
+    else if (ViewBag.PaisISO == Constantes.CodigosISOPais.Chile) //CH
+    {
+        cabezaEscala = "Comisión y ahorro total";
+        pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+    }
+    else if (ViewBag.PaisISO == Constantes.CodigosISOPais.Venezuela) //VE
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+    }
+    else if (ViewBag.PaisISO == Constantes.CodigosISOPais.Bolivia) //BO
+    {
+        cabezaEscala = "Ganancia total";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+    }
+    else if (ViewBag.PaisISO == Constantes.CodigosISOPais.CostaRica) //CR
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+    }
 }
 <!-- Titulo -->
 <div class="fondo_f9f9f9">
@@ -410,7 +456,7 @@
     </div>
     <div style="float:right;">
         <div class="productos_agregados_usuario" style="display:inline-block;">
-            <span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
+            <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>
             &nbsp;productos
         </div>
         <div class="totalPedidoFacturado" style="display:inline-block; margin-right:0px!important;">
@@ -502,7 +548,7 @@
                 <!--FIN-->
             </div>
             <div class="totalTexto">MONTO TOTAL:</div>
-            <div class="totalTexto">GANANCIA:</div>
+            <div class="totalTexto">@(cabezaEscala.Trim().ToUpper()): </div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
             <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteFacturado}}</div>

@@ -1050,7 +1050,7 @@ function TagManagerCarruselSiguiente(esDrag) {
 
 function CargarProductoDestacado(objParameter, objInput) {
     ShowLoading();
-
+   
     if (ReservadoOEnHorarioRestringido())
         return false;
 
@@ -1126,7 +1126,7 @@ function CargarProductoDestacado(objParameter, objInput) {
             $("#hdnProgramaOfertaNuevo").val(false);
             $("#OfertasResultados li").hide();
             $("#OfertaTipoNuevo").val("");
-
+           
             if (datos.data.FlagNueva == 1) {
                 $(".zona4Edit").hide();
                 $(".zonaCantidad").hide();
@@ -1195,13 +1195,14 @@ function CargarProductoDestacado(objParameter, objInput) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado(tipoEstrategiaImagen);
+                    AgregarProductoDestacado(tipoEstrategiaImagen);                    
                 } else {
                     CloseLoading();
                 }
             }
 
             InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
+            CloseLoading();
         },
         error: function (data, error) {
             alert(datos.data.message);
@@ -1301,7 +1302,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
                         }
                     }
                 });
-            }
+            }           
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -1380,6 +1381,22 @@ function MostrarMensaje(tipoMensaje, message) {
     };
 };
 
+function MostrarDetalleGanancia() {
+
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
+}
+
 // Agregar Cliente
 function CerrarMantenerCliente() {
     $("#divAgregarClientePedido input[type='text']").val("");
@@ -1408,7 +1425,7 @@ function AgregarMantenerCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == false) {
-                    alert(data.message);
+                    alert_msg(data.message);
                     CloseLoading();
                     return false;
                 }

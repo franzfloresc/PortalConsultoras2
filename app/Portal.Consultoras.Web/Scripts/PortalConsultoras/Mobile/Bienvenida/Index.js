@@ -105,11 +105,6 @@ function UpdateUsuarioTutorialMobile() {
 };
 
 function RedirectPagaEnLineaAnalytics() {
-    _gaq.push(['_trackEvent', 'Menu-Lateral', 'Paga-en-linea']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Paga-en-linea'
-    });
 
     if (ViewBagRutaChile != "") {
         window.open(ViewBagRutaChile + ViewBagUrlChileEncriptada, "_blank");

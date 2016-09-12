@@ -68,7 +68,7 @@
     <!-- End Google Tag Manager -->
 
 
-    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
@@ -415,7 +415,8 @@
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
-
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -1148,10 +1149,7 @@
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
                 JL.tracker.addToCart({
@@ -1165,10 +1163,7 @@
         function TrackingJetloreRemove(cantidad, campania, cuv) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
                 JL.tracker.removeFromCart({
@@ -1182,10 +1177,7 @@
         function TrackingJetloreRemoveAll(lista) {
             var esJetlore;
 
-            var ofertaFinal = $("#hdTipoOfertaFinal").val();
-            var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-            esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+            esJetlore = esPaisTrackingJetlore == "1";
 
             if (esJetlore) {
                 JL.tracker.removeFromCart(lista);

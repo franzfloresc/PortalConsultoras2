@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Session["UserData"] != null)
                 {
                     ViewBag.Permiso = BuildMenu();
+                    ViewBag.ProgramasBelcorpMenu = BuildMenuService();
                     ViewBag.codigoISOMenu = userData.CodigoISO;
                     if (userData.CodigoISO == "VE")
                     {
@@ -595,6 +596,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
                 ViewBag.Simbolo = model.Simbolo;
+                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
 
                 return model;
 
@@ -823,6 +826,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
                 ViewBag.Simbolo = model.Simbolo;
+                string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+                ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
 
                 return model;
 
@@ -1347,19 +1352,6 @@ namespace Portal.Consultoras.Web.Controllers
                 displayTiempo = displayTiempo.Insert(5, " ");
 
             return displayTiempo;
-        }
-
-        protected string GetImagenUsuario()
-        {
-            try
-            {
-                string rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
-                if (System.IO.File.Exists(Server.MapPath(rutaImagen))) return Url.Content(rutaImagen);
-            }
-            catch(Exception ex){                
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            return Url.Content("~/Content/Images/Esika/user.jpg");
         }
 
         #endregion

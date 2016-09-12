@@ -5293,6 +5293,7 @@ body {
 .mi_ganancia {
     color:#e81c36;
     font-weight:700;
+    text-transform: uppercase;
 }
 
 @media screen and (min-width:0px) and (max-width:407px){
@@ -6740,7 +6741,7 @@ input[type="checkbox"]:checked + span:after {
     height: 100%;
     overflow: scroll;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 7;
+    z-index: 1000;
 }
 
 .popup_demandaAnticipada {
@@ -6992,6 +6993,7 @@ input[type="checkbox"]:checked + span:after {
     color: #606061;
     margin-top: 20px;
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .monto_reservado_mobile {
@@ -7008,6 +7010,7 @@ input[type="checkbox"]:checked + span:after {
     font-weight: 700;
     color: #e81c36;
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .btn_ver_pedido_reservado {
@@ -7027,7 +7030,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .tooltip_validado {
-    width: 280px;
+    width: 300px;
     height: 86px;
     margin: 0 auto;
     margin-top: 30px;
@@ -7077,7 +7080,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .info_tooltip {
-    width: 210px;
+    width: 230px;
     float: left;
     margin-left: 10px;
     font-family: 'Lato';
@@ -7972,7 +7975,7 @@ input[type="checkbox"]:checked + span:after {
 }
 .header-bg .act-app {
 	margin-top: 20%;
-	width: 155px;
+	width: 165px;
 }
 .header-bg .row:last-child p {
 	margin: 0;
@@ -8030,3 +8033,353 @@ span.title-app-b {
 		text-align: center;
 	}
 }
+
+.montosIngresoPedido{
+    margin-left:-30px;
+}
+
+.desc_por_niveles_texto{
+    max-width:126px;
+}
+
+.separador_montos_mobile{
+    position: absolute;
+    left: 27px;
+    top: 89px;
+    width: 96%;
+    height: 2px;
+    background: #000;
+}
+
+
+/* POPUP MIS GANANCIAS */
+
+.popup_mis_ganancias{
+    display: block;
+    position: relative;
+    height: 283px;
+    width: 92%;
+    top: 17%;
+    max-width: 492px;
+    margin: 0 auto;
+    background: #FFF;
+    padding: 20px 20px;
+}
+
+.contenido_misGanancias{
+    display:block;
+    height:auto;
+    font-family:'Lato';
+    font-size:13px;
+}
+
+.contenido_misGanancias h6{
+    font-size:13px;
+    font-weight:900!important;
+    color:#e81c36;
+}
+
+.contenedor_montos_sinDescuento{
+    display: block;
+    float: right;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+}
+
+.pValidado{
+    margin-bottom:0px;
+    margin-left:13px;
+}
+
+.mis_descuentos{
+    display:block;
+    width:100%;
+    height:auto;
+    margin-top:4px;
+    margin-bottom:7px;
+}
+
+.mis_descuentos_texto, .mis_descuentos_monto{
+    display:inline-block;
+    vertical-align:top;
+    font-weight:normal;
+    color:#000;
+    font-size:13px;
+}
+
+.mis_descuentos_texto{
+    text-align:left;
+    width:40%;
+}
+
+.mis_descuentos_monto{
+    text-align:right;
+    width:58%;
+}
+
+.separador_montos_misGanancias{
+    background: #e81c36;
+    height: 2px;
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.monto_total_misGanancias{
+    display:block;
+    margin-top:13px;
+    margin-bottom:27px;
+    text-align:right;
+    color:#e81c36;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.nota_popup_misGanancias{
+    display:block;
+    text-align:justify;
+    font-size:11px;
+    font-weight:normal;
+    color:#878787;
+}
+
+/*POP UP FOTO CARGADA*/
+.content_foto_cargada{
+    max-width: 320px;
+    width: 93%;
+    height: 440px;
+    background: white;
+    top: 14%;
+    margin: 0 auto 25px auto;
+    position: relative;
+    padding-top: 46px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media screen and (orientation:landscape){
+
+    .content_foto_cargada {
+        top: 19%;
+    }
+
+}
+
+.titulo_pop_foto{
+    /*margin-top:15px;*/
+    font-family:'Lato';
+    font-weight:300;
+    font-size:25px;
+    color:black;
+    text-align:center;
+    margin-bottom:30px;
+}
+.content_foto_usuario {
+    width:160px;
+    margin:0 auto;
+    height:160px;
+    margin-bottom:32px!important;
+}
+.foto_usuaria_desktop{
+    background: white;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -o-border-radius: 100px;
+    overflow: hidden;
+}
+.foto_usuaria_desktop img{
+    width:100%;
+}
+
+.btn_tomar_foto{
+    width: 50%;
+    height: 42px;
+    border: 1px solid black;
+    font-family: 'Lato';
+    color: black;
+    text-align: center;
+    line-height: 42px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 auto;
+    display: block;
+}
+
+.btn_tomar_foto:hover{
+    background:black;
+    color:white;
+}
+.text_actualizada{
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:22px;
+    margin-top:-10px;
+}
+.sub_text_actualizada{
+     font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:16px;
+}
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel {
+    display:block;
+    }
+.producto_img_home{
+    position:relative;
+}
+.ver_detalle_carrusel{
+    display:none;
+    position:absolute;
+    height:35px;
+    line-height:30px;
+    width:60%;
+    font-weight:700;
+    border:2px solid black;
+    font-family:'Lato';
+    background:rgba(255,255,255,0.8);
+    left:0;
+    right:0;
+    bottom:10px;
+    margin:0 auto;
+    -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    animation: opacidad-bottom 500ms linear 0ms 1 normal;
+}
+
+@keyframes opacidad-bottom {
+    0% {
+        opacity:0;
+    
+    }
+    80% {
+        opacity:1;
+    }
+}
+
+
+/* POPUP IMAGEN PERFIL PROCESO RECORTE */
+
+.popup_img_perfil{
+    display: block;
+    width: 93%;
+    max-width: 320px;
+    height: 440px;
+    background: white;
+    top: 14%;
+    margin: 0 auto 25px auto;
+    position: relative;
+    padding-top: 46px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media screen and (orientation:landscape){
+
+    .popup_img_perfil {
+        top: 19%;
+    }
+
+}
+
+.popup_img_perfil h1{
+    display:block;
+    position:relative;
+    margin: 0 0 36px 0;
+    padding:0;
+    font-family:'Lato';
+    font-weight:300!important;
+    font-size:25px;
+    text-align:center;
+    color:#000;
+}
+
+.btn_acciones{
+    display:block;
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+
+.boton_cancelarImagen, .boton_guardarImagen{
+    display: inline-block;
+    width: 187px;
+    height: 43px;
+    line-height: 43px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.boton_cancelarImagen{
+    color:#000;
+    background:#FFF;
+    border:1px solid #000;
+    margin-bottom:15px;
+}
+
+.boton_guardarImagen{
+    color:#FFF;
+    background:#e81c36;
+    border:1px solid #e81c36;
+}
+
+.imgPerfil{
+    display: block;
+    height: 160px;
+    width: 160px;
+    margin: 0 auto 32px auto;
+}
+
+.imgPerfil img{
+    width:100%;
+    height:auto;
+}
+
+/* POPUP PROCESO CARGA FOTO */
+
+.contenedorBarraImagenPerfil{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 86px;
+    height: 200px;
+    margin-bottom: 40px !important;
+}
+
+.barra_contenedor{
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 12px;
+    background: #e4e4e4;
+    border-radius: 9px;
+    position: relative;
+    overflow: hidden;
+}
+
+.barra_carga{
+    display: block;
+    width: 20%;
+    height: 5px;
+    background: #e81c36;
+    border-radius: 9px;
+}
+
+.texto_estadoCarga{
+    display: block;
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* FIN PROCESO CARGA FOTO */

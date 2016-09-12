@@ -25,10 +25,10 @@
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
-        var _gaq = _gaq || [];
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
     </script>
 
     @RenderSection("styles", required: false)
@@ -67,7 +67,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
     <!-- End Google Tag Manager -->
-    @if (ViewBag.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || ViewBag.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
         <script type="text/javascript">
@@ -87,19 +87,34 @@
             };
         }
     </script>
-    @if (ViewBag.PaisAnalytics == "EC")
+    @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
     {
-        <div class="boton_ayuda">
-            <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
-                <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
-            </a>
-        </div>
-    }
-    else
-    {
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
-    }
+        string nombre_pais = ViewBag.PaisAnalytics;
 
+        switch (nombre_pais)
+        {
+            case "EC":
+                <div class="boton_ayuda">
+                    <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
+                        <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
+                    </a>
+                </div>
+                break;
+            case "CO":
+            case "BO":
+            case "CL":
+            case "MX":
+            case "PR":
+            case "DO":
+            case "PE":
+            case "PA":
+            case "CR":
+            case "SV":
+            case "GT":
+            <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+                break;
+        }
+    }
     <!-- cabecera -->
     <header>
         <div class="wrapper_header">
@@ -410,7 +425,7 @@
                     <div class="right_reservado">
                         <div class="datos_Reservado">
                             <span data-pedidototal="">{{Simbolo}} {{montoWebAcumulado}}</span>
-                            <span data-montodescuento="">{{Simbolo}} {{DescuentoProlStr}}</span>
+                            <span data-montodescuento="">{{Simbolo}} {{#iff DescuentoProl '>' 0}}-{{/iff}}{{DescuentoProlStr}}</span>
                         </div>
                     </div>
                 </div>
@@ -428,6 +443,7 @@
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
