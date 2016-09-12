@@ -97,7 +97,10 @@
     }
     else
     {
-        <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+        if (ViewBag.PaisAnalytics != "VZ")
+        {
+            <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+        }
     }
 
     <!-- cabecera -->
