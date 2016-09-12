@@ -74,6 +74,12 @@ $(document).ready(function () {
             $("#videoIntroductorio").fadeIn(function () {
                 $(".popup_video_introductorio").fadeIn();
                 playVideo();
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Video de Bienvenida: Iniciar video',
+                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
+                });
             });
         });
     });
@@ -162,6 +168,12 @@ $(document).ready(function () {
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         stopVideo();
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Video de Bienvenida: Finalizar video',
+            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+        });
         $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -499,7 +511,15 @@ function mostrarVideoIntroductorio() {
             $("#fondoComunPopUp").show();
         }
         $("#videoIntroductorio").show();
-        setTimeout(function () { playVideo(); }, 1000);
+        setTimeout(function () {
+            playVideo();
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Home',
+                'action': 'Video de Bienvenida: Iniciar video',
+                'label': 'SomosBelcorp.com ¡se renueva para ti!'
+            });
+        }, 1000);
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
     } else {
