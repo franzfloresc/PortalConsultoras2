@@ -492,3 +492,40 @@ function Limpiar() {
     $('#Correo').val("");
     $('#divValidationSummary').html("");
 }
+
+function DownloadAttachExcelMC() {
+    if (!checkTimeout()) {
+        return false;
+    }
+
+    var content = baseUrl + "Cliente/ExportarExcelMisClientes";
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    iframe_.setAttribute("src", content);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    waitingDialog({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    closeWaitingDialog();
+                    break;
+                default:
+                    closeWaitingDialog();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            closeWaitingDialog();
+        });
+    }
+
+    document.body.appendChild(iframe_);
+}

@@ -176,7 +176,7 @@
                         if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
                         {
                             <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="RedirectMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>
@@ -194,7 +194,7 @@
                         else
                         {
                             <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>
@@ -212,7 +212,7 @@
                         else
                         {
                             <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="return SetAnalyticsMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                                     @menuPadre.Descripcion
                                 </a>
                             </li>
