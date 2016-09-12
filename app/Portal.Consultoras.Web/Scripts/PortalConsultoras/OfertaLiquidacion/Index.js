@@ -62,10 +62,6 @@ $(document).ready(function () {
     });
 
     $("#btnVerPedido").click(function () {
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Ver-Pedido'
-        });
         location.href = baseUrl + 'Pedido/Index';
     });
 
@@ -110,11 +106,6 @@ $(document).ready(function () {
     $(document).on('click', ".js-boton_agregar_popup", function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
-
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
-        });
         var contenedor = $(this).parents('#divVistaPrevia');
 
         var txtCantidad = $(contenedor).find("#txtCantidadPopup");
@@ -233,11 +224,6 @@ $(document).ready(function () {
             return false;
 
         agregarProductoAlCarrito(this);
-
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
-        });
         var txtCantidad = $(this).parents('.liquidacion_item').find(".txtCantidad");
         var Cantidad = $(this).parents('.liquidacion_item').find(".txtCantidad")[0].value;
         var OfertaProductoID = $(this).parents('.liquidacion_item').find(".OfertaProductoID")[0].value;

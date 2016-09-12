@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
-                model.ImagenUsuario = this.GetImagenUsuario();
+                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
@@ -240,8 +240,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var base64EncodedBytes = Convert.FromBase64String(image);
-                rutaImagen = "~/Content/ConsultoraImagen/" + userData.CodigoISO + "-" + userData.CodigoConsultora + ".jpg";
-                System.IO.File.WriteAllBytes(Server.MapPath(rutaImagen), base64EncodedBytes);
+                string fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
+                string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
+                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
+
+                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
+                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName, "");
             }
             catch (Exception ex)
             {

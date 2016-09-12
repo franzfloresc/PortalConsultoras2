@@ -87,22 +87,34 @@
             };
         }
     </script>
-    @if (ViewBag.PaisAnalytics == "EC")
+    @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
     {
-        <div class="boton_ayuda">
-            <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
-                <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
-            </a>
-        </div>
-    }
-    else
-    {
-        if (ViewBag.PaisAnalytics != "VZ")
+        string nombre_pais = ViewBag.PaisAnalytics;
+
+        switch (nombre_pais)
         {
+            case "EC":
+                <div class="boton_ayuda">
+                    <a href="http://200.32.70.19/Belcorp/" class="boton-home chat" target="_blank">
+                        <span style="display: block; height: 100%; width: 100%;">¿Necesitas ayuda?</span>
+                    </a>
+                </div>
+                break;
+            case "CO":
+            case "BO":
+            case "CL":
+            case "MX":
+            case "PR":
+            case "DO":
+            case "PE":
+            case "PA":
+            case "CR":
+            case "SV":
+            case "GT":
             <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+                break;
         }
     }
-
     <!-- cabecera -->
     <header>
         <div class="wrapper_header">

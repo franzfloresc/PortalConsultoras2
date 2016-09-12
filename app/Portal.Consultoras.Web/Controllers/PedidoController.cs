@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.CodigoISO == "BO")
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
-                        model.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                        model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
                     }
                 }
                 else // Periodo de facturacion
@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (userData.CodigoISO == "BO")
                             {
-                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                             }
                             else
                             {
@@ -176,27 +176,28 @@ namespace Portal.Consultoras.Web.Controllers
                             model.AccionBoton = "guardar";
                             model.Prol = "GUARDA TU PEDIDO";
                             model.ProlTooltip = "Es importante que guardes tu pedido";
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                         }
                         else
                         {
                             model.AccionBoton = "validar";
                             model.Prol = "VALIDA TU PEDIDO";
                             model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                        }
-                       
-                        if (diaActual <= userData.FechaInicioCampania)
-                        {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "BO")
+
+                            if (diaActual <= userData.FechaInicioCampania)
                             {
-                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                             }
                             else
                             {
-                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                                if (userData.CodigoISO == "BO")
+                                {
+                                    model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                                }
+                                else
+                                {
+                                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                                }
                             }
                         }
                     }
@@ -1852,15 +1853,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CodigoISO == "BO")
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
-                    model.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
                 }
             }
             else // Periodo de facturacion
             {
-                //model.Prol = "GUARDA TU PEDIDO";
-                //model.ProlTooltip = "Es importante que guardes tu pedido";
-                //model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
-
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     model.Prol = "RESERVA TU PEDIDO";
@@ -1874,7 +1871,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.CodigoISO == "BO")
                         {
-                            model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
                         else
                         {
@@ -1886,22 +1883,31 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (reservaProl)
                     {
-                        model.Prol = "VALIDA TU PEDIDO";
-                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
-
-                        if (diaActual <= userData.FechaInicioCampania)
+                        if (userData.PROLSinStock)
                         {
+                            model.Prol = "GUARDA TU PEDIDO";
+                            model.ProlTooltip = "Es importante que guardes tu pedido";
                             model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                         }
                         else
                         {
-                            if (userData.CodigoISO == "BO")
+                            model.Prol = "VALIDA TU PEDIDO";
+                            model.ProlTooltip = "Haz click aqui para validar tu pedido";
+
+                            if (diaActual <= userData.FechaInicioCampania)
                             {
-                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                             }
                             else
                             {
-                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                                if (userData.CodigoISO == "BO")
+                                {
+                                    model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                                }
+                                else
+                                {
+                                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                                }
                             }
                         }
                     }
@@ -1918,7 +1924,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (userData.CodigoISO == "BO")
                             {
-                                model.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                             }
                             else
                             {
@@ -2835,7 +2841,6 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
-
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 //ViewBag.Prol = "GUARDA TU PEDIDO";
@@ -2845,7 +2850,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CodigoISO == "BO")
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                    ViewBag.ProlTooltip += string.Format("|No olvides validar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                    ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
                 }
             }
             else // Periodo de facturacion
@@ -2854,6 +2859,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     //ViewBag.Prol = "MODIFICA TU PEDIDO";
                     ViewBag.ProlTooltip = "Haz click aqui para modificar tu pedido";
+
                     if (diaActual <= userData.FechaInicioCampania)
                     {
                         ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
@@ -2862,7 +2868,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.CodigoISO == "BO")
                         {
-                            ViewBag.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            ViewBag.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
                         else
                         {
@@ -2876,26 +2882,27 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         //ViewBag.Prol = "GUARDA TU PEDIDO";
                         ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
+                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                     }
                     else
                     {
                         //ViewBag.Prol = "MODIFICA TU PEDIDO";
                         ViewBag.ProlTooltip = "Haz click aqui para validar tu pedido";
-                    }
 
-                    if (diaActual <= userData.FechaInicioCampania)
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        if (userData.CodigoISO == "BO")
+                        if (diaActual <= userData.FechaInicioCampania)
                         {
-                            ViewBag.ProlTooltip += "|No olvides validar tu pedido el dia de hoy para que sea enviado a facturar";
+                            ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                         }
                         else
                         {
-                            ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            if (userData.CodigoISO == "BO")
+                            {
+                                ViewBag.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                            }
+                            else
+                            {
+                                ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            }
                         }
                     }
                 }
