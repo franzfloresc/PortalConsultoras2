@@ -2150,9 +2150,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 } else {
                     CerrarSplash();
                 }
-            }
-
-            InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
+            }           
 
             //CerrarSplash();
             //showDialog('divVistaPrevia');
@@ -3840,31 +3838,6 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-    if (variant == null || variant == "") {
-        variant = "Estándar";
-    }
-    if (category == null || category == "") {
-        category = "Sin Categoría";
-    }
-
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                'products': [{
-                    'name': name,
-                    'id': id,
-                    'category': category,
-                    'variant': variant,
-                    'position': position
-                }]
-            }
-        }
-    });
-}
-
 function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
@@ -4005,11 +3978,9 @@ function CargarEstrategiasEspeciales(objInput, e) {
     }
 };
 function ArmarPopupPackNuevas(obj) {
-    console.log(obj);
     return SetHandlebars("#packnuevas-template", obj);
 };
 function ArmarPopupLanzamiento(obj) {
-    console.log(obj);
     return SetHandlebars("#lanzamiento-template", obj);
 };
 

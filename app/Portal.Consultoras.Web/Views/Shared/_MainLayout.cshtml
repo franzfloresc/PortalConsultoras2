@@ -425,7 +425,7 @@
                     <div class="right_reservado">
                         <div class="datos_Reservado">
                             <span data-pedidototal="">{{Simbolo}} {{montoWebAcumulado}}</span>
-                            <span data-montodescuento="">{{Simbolo}} {{DescuentoProlStr}}</span>
+                            <span data-montodescuento="">{{Simbolo}} {{#iff DescuentoProl '>' 0}}-{{/iff}}{{DescuentoProlStr}}</span>
                         </div>
                     </div>
                 </div>
