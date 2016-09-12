@@ -2359,6 +2359,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -2389,7 +2390,6 @@
     <Content Include="Scripts\PortalConsultoras\Shared\Menu.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayout.js" />
     <Content Include="Scripts\slick-vertical.min.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\Spectrum\spectrum.js" />
     <Content Include="Scripts\trans-banner.js" />
     <Content Include="Content\ArchivoFaltante\PlantillaModelFaltante.xls" />
