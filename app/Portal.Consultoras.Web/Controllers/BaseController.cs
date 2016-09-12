@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Session["UserData"] != null)
                 {
                     ViewBag.Permiso = BuildMenu();
+                    ViewBag.ProgramasBelcorpMenu = BuildMenuService();
                     ViewBag.codigoISOMenu = userData.CodigoISO;
                     if (userData.CodigoISO == "VE")
                     {
