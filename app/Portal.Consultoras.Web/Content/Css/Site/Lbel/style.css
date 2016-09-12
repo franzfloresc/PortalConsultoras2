@@ -734,9 +734,9 @@ header {
             border-width: 330px 330px 0 0;
         }*/
 
-.boton-home:active {
+/*.boton-home:active {
         background: black;
-    }
+    }*/
 
 .fondo_b {
     background: url("../../../Images/Esika/bajar.png") no-repeat;
