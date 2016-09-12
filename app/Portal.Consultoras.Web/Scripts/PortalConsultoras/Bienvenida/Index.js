@@ -1552,12 +1552,11 @@ function CargarBanners() {
                     while (dataResult.data.length > count) {
                         Titulo = dataResult.data[count].Titulo;
                         Id = dataResult.data[count].BannerID.toString();
-                        Posicion = dataResult.data[count].Nombre;
                         fileName = dataResult.data[count].Archivo;
                         TipoAccion = dataResult.data[count].TipoAccion;
 
                         if (dataResult.data[count].GrupoBannerID.toString() == '150') {
-                            Posicion = dataResult.data[count].Nombre + '-' + dataResult.data[count].Orden;
+                            Posicion = 'Home Slider – ' + dataResult.data[count].Orden;
                         }
 
                         switch (dataResult.data[count].GrupoBannerID) {
@@ -1578,7 +1577,7 @@ function CargarBanners() {
                                 promotionsBajos.push({
                                     id: dataResult.data[count].BannerID,
                                     name: dataResult.data[count].Titulo,
-                                    position: 'pedido-inferior-' +  countBajos
+                                    position: 'home-inferior-' +  countBajos
                                 });
                                 countBajos++;                                
                                 break;
