@@ -290,18 +290,196 @@ function GetCatalogosLinksByCampania(data, campania) {
             urlCatWS = urlCatWS.ReplaceAll("?", "%3F");
             urlCatWS = urlCatWS.ReplaceAll("=", "%3D");
 
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
-            $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            var codigozona = $('#divCatalogo')[0].dataset.codigozona;
+            var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
+            var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
+            var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
 
-            $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+            if (idPais == 11 && campania == "201614") {
+                if (tagCat == "Lbel" && (arrC201614.indexOf(codigozona) > -1)) {
 
-            $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/");
 
-            //Whatsapp
-            $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
-            $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
+                }
+                else if (tagCat == "Esika" && (arrC201614.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else if (tagCat == "Cyzone" && (arrC201614.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else {
+
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
+                }
+            }
+            else if (idPais == 11 && campania == "201615") {
+                if (tagCat == "Lbel" && (arrC201615.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else if (tagCat == "Esika" && (arrC201615.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else if (tagCat == "Cyzone" && (arrC201615.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else {
+
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
+                }
+            }
+            else if (idPais == 11 && campania == "201616") {
+                if (tagCat == "Lbel" && (arrC201616.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else if (tagCat == "Esika" && (arrC201616.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else if (tagCat == "Cyzone" && (arrC201616.indexOf(codigozona) > -1)) {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe");
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_cy1616pe");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe");
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+                else {
+
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    //Whatsapp
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
+                }
+            }
+            else {
+
+                $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+                $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+
+                $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                //Whatsapp
+                $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
+                $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
+            }
             //}
         }
     }
@@ -680,14 +858,18 @@ function ObtenerUrlRevista(campania) {
     //EPD
     var paisid = $('#divCatalogo')[0].dataset.paisid;
     var codigozona = $('#divCatalogo')[0].dataset.codigozona;
-    var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
-    var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
+    var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
+    var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
+    var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
 
     if (paisid == 11 && campania == "201614" && (arrC201614.indexOf(codigozona) > -1)) {
         return "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
     }
     else if (paisid == 11 && campania == "201615" && (arrC201615.indexOf(codigozona) > -1)) {
         return "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
+    }
+    else if (paisid == 11 && campania == "201616" && (arrC201616.indexOf(codigozona) > -1)) {
+        return "https://issuu.com/somosbelcorp/docs/piloto_rev1616pe";
     }
         //EPD
     else {
