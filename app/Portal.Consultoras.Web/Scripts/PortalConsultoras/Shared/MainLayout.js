@@ -743,24 +743,12 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 /* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Mapa-Site/Pedido'
-    });
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Header/Cerrar-Sesion'
-    });
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Notificacion/Notificacion'
-    });
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
