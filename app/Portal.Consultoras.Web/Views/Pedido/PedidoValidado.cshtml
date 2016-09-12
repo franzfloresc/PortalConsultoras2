@@ -403,7 +403,37 @@
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
-        <div class="descripcion_listado">{{DescripcionProd}}</div>
+        <div class="descripcion_listado">
+            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA LIQUIDACIÓN</label>
+            </span>
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else}}
+            {{#IsNullOrEmpty DescripcionOferta '!='}}
+            <span class="texto_pedidos_ofertas">
+                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
+            </span>
+            {{/IsNullOrEmpty}}
+            {{/if_eq}}
+
+
+            {{#if_eq TipoPedido 'M'}}
+            <span style="position:relative">
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
+                </p>
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+            </span>
+            {{else}}
+            <span style="position:relative">
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+            </span>
+            {{/if_eq}}
+            {{DescripcionProd}}</div>
         <div class="cantidad_listado">{{Cantidad}}</div>
         <div class="unitario_listado"> {{PrecioUnidad}}</div>
         <div class="total_listado">{{ImporteTotal}}</div>
