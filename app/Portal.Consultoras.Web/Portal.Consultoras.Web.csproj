@@ -1059,6 +1059,7 @@
     <Content Include="Content\Css\Site\Lbel\style.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
+    <Content Include="Content\Css\Site\slick.min.css" />
     <Content Include="Content\Css\Site\style-pedido.css" />
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
