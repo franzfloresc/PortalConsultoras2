@@ -47,40 +47,20 @@
         }
 
         if (TipoMenu == "1") {
-            dataLayer.push({
-                'event': 'pageview',
-                'virtualUrl': '/Menu-Superior/' + Descripcion.replace(/\s+/g, '-')
-            });
         }
         else
             if (RolID == "1" || RolID == "4") {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Sub-Menu/' + Descripcion.replace(/\s+/g, '-')
-                });
             }
             else {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Menu-Principal-SAC/' + Descripcion.replace(/\s+/g, '-')
-                });
             }
 
         //
         if (Descripcion != "Pedidos") {
             if ($("#hdFlagOfertaWeb").val() == "1") {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Oferta-Web/Observacion-OfertaWeb'
-                });
                 MostrarMensajeConsultora();
                 return false;
             }
             else if ($("#hdFlagOfertaLiquidacion").val() == "1") {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Liquidacion-Web/Observacion-Liquidacion'
-                });
                 MostrarMensajeConsultora();
                 return false;
             }
@@ -88,10 +68,6 @@
 
         if ($("#hdFlagValidacion").val() == "1") {
             if ($('#hdFlagValidacionReserva').val() == "1") {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido-Web/Observacion-Validacion'
-                });
                 MostrarMensajeConsultoraValidacion();
             }
             return false;
@@ -108,10 +84,6 @@
     }
 
     function SetAnalyticsProgramasBelcorp(Descripcion) {
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Sub-Menu/' + Descripcion.replace(/\s+/g, '-')
-        });
     }
 
     function MostrarMensajeConsultora() {

@@ -68,6 +68,21 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
                 }
 
             return listaProducto;
-        } 
+        }
+
+        public List<Producto> ObtenerEstrategiasOfertaParaTi(string codigoIso, int campaniaId, string codigoConsultora)
+        {
+            var listaProducto = new List<Producto>();
+            var daProducto = new DAProducto(codigoIso);
+
+            using (IDataReader reader = daProducto.ObtenerEstrategiasOfertaParaTi(campaniaId, codigoConsultora))
+                while (reader.Read())
+                {
+                    var entidad = new Producto(reader);
+                    listaProducto.Add(entidad);
+                }
+
+            return listaProducto;
+        }
     }
 }
