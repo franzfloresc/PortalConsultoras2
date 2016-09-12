@@ -508,7 +508,6 @@ function GuardarCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente', 'Guardar']);
                     $("#hdfClienteID").val(data.extra);
                     $("#txtClienteDescripcion").val($('#Nombres').val());
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
@@ -534,7 +533,6 @@ function GuardarCliente() {
 
 
 function PedidoOnSuccess() {
-    //_gaq.push(['_trackEvent', 'Pedido', 'Agregar-Producto']);
     //dataLayer.push({
     //    'event': 'pageview',
     //    'virtualUrl': '/Pedido/Agregar-Producto'
