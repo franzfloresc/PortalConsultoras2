@@ -1,5 +1,5 @@
 ﻿
-function SetAnalyticsMenu(ActionName, ControllerName, Flag, Descripcion) {
+function RedirectMenu(ActionName, ControllerName, Flag, Descripcion) {
     var estado = true;
     // se valida si la URL es externa (no tiene Controladora)
     var URL = '';

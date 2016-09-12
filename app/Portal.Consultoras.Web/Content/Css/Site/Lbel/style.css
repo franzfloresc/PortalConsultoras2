@@ -305,8 +305,8 @@ header {
     right: 0;
     left: 0;
     margin: 0 auto;
-    background:url(../../../Images/Lbel/pestana_lbel.png);
-    
+    background:#FFF url(../../../Images/Lbel/pestana_lbel.png);
+    background-size:cover;    
 }
 
 .content_left_menu{
@@ -2040,6 +2040,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .caja_montos_textos{
     margin-right:15px;
     position:relative;
+    text-align:left;
 }
 
 .caja_montos_textos .pMontoCliente{
@@ -2128,7 +2129,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     display: inline-block;
     vertical-align: middle;
     width: 213px;
-    height: 107px;
+    height: auto;
     padding: 20px 36px 20px 20px;
     margin-right: 15px;
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
@@ -2468,7 +2469,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     font-weight:400;
     /*max-width:302px;
     margin-bottom:2px;*/
-    text-align:right;
     line-height: 42px;
     text-transform:uppercase;
     position:relative;
@@ -2478,8 +2478,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     position: relative;
     font-size: 16px;
     font-weight: normal;
-    max-width: 302px;
-    text-align: right;
     text-transform: uppercase;
     color:#642f80;
 }
@@ -2965,11 +2963,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .precio_total_sinDescuento span.icon-advertencia{
-    display: block;
+    display: inline-block;
     /*background: #d20000;*/
     background:url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
-    float: left;
-    margin-top: 4px;
     width: 18px;
     height: 18px;
     /*border-radius: 100%;*/
@@ -21858,6 +21854,7 @@ body{
  }
  .pestana_lbel{
       background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+      background-size:cover;
       width:30px;
       height:20px;
       margin-left:64px;
@@ -27288,7 +27285,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .favoritosClientes{
-    width:475px;
+    width:475px!important;
 }
 
 .liquidacionRangoClientes{
@@ -27306,7 +27303,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin: 12px 24px;
+    margin: 0px 24px;
+    padding-bottom: 20px;
     float: left;
     position: relative;
     margin-bottom: 15px;
@@ -27348,7 +27346,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-bottom: 1px solid;
 }
 
-.imagen-curvatura {
+/*.imagen-curvatura {
     background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
     height: 20px;
     width: 100%;
@@ -27357,6 +27355,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index: 2;
     margin-top: -3px;
     background-position-x: 110px;
+}*/
+
+.imagen-curvatura{
+    background: #FFF url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 30px;
+    background-position: center center;
+    position: absolute;
+    z-index: 2;
+    margin-top: -3.5px;
+    margin-left:50px;
 }
 
 .pestana_lbel.new .boton_Agregalo_home{
@@ -27416,7 +27426,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .caja_montos_textos_sinDescuento{
-    text-align:left;
     font-weight:normal;
     margin-right:10px;
 }
@@ -27473,7 +27482,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .contenido_misGanancias h6{
     font-size:13px;
     font-weight:900!important;
-    color:#e81c36;
+    color:#642f80;
+    text-transform:uppercase;
 }
 
 .contenedor_montos_sinDescuento{
@@ -27528,7 +27538,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top:13px;
     margin-bottom:27px;
     text-align:right;
-    color:#e81c36;
+    color:#642f80;
     font-size:17px;
     font-weight:bold;
 }

@@ -173,31 +173,44 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             var listaFinal = new List<Producto>();
 
             var listaCuvMostrarConStock = ObtenerProductosMostrarConStock(codigoIso, listaCuvMostrar);
-
-            List<Producto> listaProductosHistorial = tipoProductoMostrar == 1
-                ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
-                : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
-
-            if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
+            List<Producto> listaProductosHistorial = new List<Producto>();
+            
+            if (tipoOfertaFinal == 1)
             {
-                listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
-                if (tipoProductoMostrar == 1)
-                    CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
-                else
-                    CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
+                // estrategia
+                var blProducto = new BLProducto();
+                listaProductosHistorial = blProducto.ObtenerEstrategiasOfertaParaTi(codigoIso, campaniaId, codigoConsultora);
             }
+            else
+            {
+                listaProductosHistorial = tipoProductoMostrar == 1
+                    ? (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo)
+                    : (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm);
 
-            //Jetlore
-            if (tieneValidacionPedido && tipoOfertaFinal == 2)
-                listaCuvMostrarConStock = ObtenerProductosMostrarSinPedido(codigoIso, listaCuvMostrarConStock, campaniaId, codigoConsultora);
+                if (listaProductosHistorial == null || listaProductosHistorial.Count == 0)
+                {
+                    listaProductosHistorial = ObtenerProductosHistorial(tipoProductoMostrar, codigoIso, campaniaId);
+                    if (tipoProductoMostrar == 1)
+                        CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogo, listaProductosHistorial);
+                    else
+                        CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoCatalogoPcm, listaProductosHistorial);
+                }
+
+                //Jetlore
+                if (tieneValidacionPedido && tipoOfertaFinal == 2)
+                    listaCuvMostrarConStock = ObtenerProductosMostrarSinPedido(codigoIso, listaCuvMostrarConStock, campaniaId, codigoConsultora);
+            }
 
             listaFinal = ObtenerProductosFinalesMostrar(listaCuvMostrarConStock, listaProductosHistorial);
 
-            if (tipoProductoMostrar == 1)
+            if (tipoOfertaFinal == 2)
             {
-                var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
-                listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
-            }   
+                if (tipoProductoMostrar == 1)
+                {
+                    var rutaImagenAppCatalogo = ConfigurationManager.AppSettings.Get("RutaImagenesAppCatalogo");
+                    listaFinal.Update(x => x.Imagen = string.Format(rutaImagenAppCatalogo, codigoIso, campaniaId, x.CodigoMarca, x.Imagen));
+                }
+            } 
 
             return listaFinal;
         }

@@ -159,6 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                     paisID = PaisID,
                     montoWebConDescuentoStr = Util.DecimalToStringFormat(totalPedido - pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
+                    pedidoWeb.DescuentoProl,
                 }, JsonRequestBehavior.AllowGet);
 
             }

@@ -414,10 +414,6 @@ function MantenerCliente(opt) {
 
 function EliminarCliente() {
 
-    //dataLayer.push({
-    //    'event': 'pageview',
-    //    'virtualUrl': '/Cliente/Eliminar-Cliente'
-    //});
     //var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
     //if (!elimina)
     //    return false;
@@ -442,10 +438,6 @@ function EliminarCliente() {
                 CerrarSplash();
 
                 if (data.success == true) {
-                    //dataLayer.push({
-                    //    'event': 'pageview',
-                    //    'virtualUrl': '/Cliente/Eliminar-Cliente/Guardar'
-                    //});
                     //alert(data.message);
                     alert_msg(data.message);
 

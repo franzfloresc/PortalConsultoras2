@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 
-                ViewBag.URLWebTracking = url;   
+                ViewBag.URLWebTracking = url;
+                ViewBag.PaisISO = userData.CodigoISO;
             }
             catch (FaultException ex)
             {
