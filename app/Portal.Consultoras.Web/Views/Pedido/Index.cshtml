@@ -218,7 +218,7 @@
                                 <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                     <span id="spnNombreCliente"></span>
                                 </p>
-                                <div class="monto_total" style="float: left;">
+                                <div class="monto_total">
                                     <span>Monto total:</span>
                                 </div>
                                 <br />
@@ -371,7 +371,7 @@
                     <span class="icon-advertencia"></span>
                     <span>
                         El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                        Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
+                        @*Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.*@
                     </span>
                 </p>
             </div>
@@ -1406,8 +1406,7 @@
 </script>
 
 @section scripts{
-    @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
-    <script src="@Url.Content("~/Scripts/slick.js")"></script>
+    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
