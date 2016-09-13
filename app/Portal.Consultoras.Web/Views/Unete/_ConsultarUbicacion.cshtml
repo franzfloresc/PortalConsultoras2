@@ -1,0 +1,474 @@
+﻿@model Portal.Consultoras.Web.Models.ConsultarUbicacionModel
+@{
+    var nro = 0;
+    var textoNingunaDireccion = Model.Puntos.Count > 1 ? "Ninguna dirección coincide, asignar manualmente" : (Model.Puntos.Count > 0 ? "La dirección no coincide, asignar manualmente" : "No figura dirección, asignar manualmente");
+}
+
+<style>
+    .modal-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 4%;
+        bottom: 90%;
+        margin: 0 5px;
+    }
+        .modal-header h2 {
+            border-bottom: 1px solid lightgray;
+            margin-top: 15px;
+            padding-bottom: 5px;
+        }
+        .modal-header img {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+        }
+    .modal-content {
+        position: absolute;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 10%;
+    }
+    .modal-buttons {
+        position: absolute;
+        top: 92.5%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .modal-content div {
+        padding: 5px 10px;
+        box-sizing: border-box;
+    }
+    .modal-content .modal-lado-izq {
+        position: relative;
+        float: left;
+        width: 25%;
+        height: 100%;
+        overflow: auto;
+    }
+
+        .modal-content .modal-lado-izq .fila-direccion {
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #702789;
+        }
+
+            .modal-content .modal-lado-izq .fila-direccion:hover, .modal-content .modal-lado-izq .fila-direccion.selected {
+                background-color: #009EE4;
+                color: white;
+            }
+
+    .modal-content .modal-lado-der {
+        position: relative;
+        float: left;
+        width: 71%;
+        height: 100%;
+    }
+    .modal-content .modal-lado-der .territorio {
+        float: left;
+        width: 100%;
+        height: 14%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        border-radius: 10px;
+        border: 1.5px solid lightgray;
+        margin-top:10px;
+        padding-top:1px;
+    }
+    .modal-content .modal-lado-der .territorio h6 {
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: lighter;
+        padding: 0;
+        margin: 0;
+    }
+    .modal-content .modal-lado-der .territorio span {
+        text-transform: uppercase;
+        font-size: 25px;
+        font-weight: lighter;
+        color: #768591;
+    }
+    .modal-content .modal-lado-der .mapa {
+        float: left;
+        width: 100%;
+        height: 86%;
+    }
+    .modal-content .modal-button-close {
+        position: relative;
+        float: left;
+        width: 4%;
+        margin-top: -8px;   
+        text-align: right;
+        cursor: pointer;
+    }
+    .button_purple {
+        background-color: #722789;
+        color: #fff;
+        border: 0px;
+        border-radius: 20px;
+        padding: 10px 40px;
+        font-size: 10pt;
+        font-weight: 300;
+        transition: all 0.3s;
+        cursor: pointer;
+        outline: none;
+        font-family: inherit;
+    }
+
+    .field_3{
+        float: left;
+        width: 25%;
+    }
+    .button_purple:disabled {
+        background-color: #BABABA;
+        cursor: default;
+    }
+    .height_100 {
+        height: 100% !important;
+    }
+</style>
+
+<div class="modal-header">
+    <h2 id="modal_title" style="padding: !important;"></h2>
+    <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" />
+</div>
+<div class="modal-content" >
+
+    @if (Model.ZonaPreferencial)
+    {
+        <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
+            <h4 style="font-size: 12pt;">
+                Lamentablemente la consultora no puede ser registrada ya que en esa zona no tenemos cobertura
+            </h4>
+        </div>      
+    }
+    else if (Model.Puntos.Count == 0)
+    {
+        <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
+            <h4 style="font-size: 12pt;">
+                La direcci&oacute;n <span style="font-weight: bold; color: #768ea3; font-size: 13pt;">@string.Format("{0}, {1}, {2}", Model.DireccionCadena, Model.NombreComuna, Model.NombreRegion)</span> no se pudo localizar. 
+                <br /> <br />
+                Verifica que sea la direcci&oacute;n correcta o en todo caso podr&aacute;s georeferenciar m&aacute;s adelante.
+            </h4>
+        </div>
+    }
+    else
+    {
+        <div class="modal-lado-izq">
+            @foreach (var item in Model.Puntos)
+            {
+                 <div class="fila-direccion" data-latitud="@item.Item1" data-longitud="@item.Item2" data-nro="@nro">
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="padding: 0 10px 0 5px;"><span style="font-weight: bold">@(nro + 1).</span></td>
+                            <td>@item.Item3</td>
+                        </tr>
+                    </table>
+                </div>
+                nro++;
+            }
+        </div>
+        <div  class="modal-lado-der">
+            <div id="mapa" class="mapa @(Model.Puntos.Count == 1 ? "" : "height_100")"></div>
+            <div class="territorio" id="datos_territorio" style="display:none;">
+                <div class="field_3">
+                    <h6>Regi&oacute;n</h6>
+                    <span id="spanRegion">@Model.Region</span>
+                </div>
+                <div class="field_3">
+                    <h6>Zona</h6>
+                    <span id="spanZona">@Model.Zona</span>
+                </div>
+                <div class="field_3">
+                    <h6>Secci&oacute;n</h6>
+                    <span id="spanSeccion">@Model.Seccion</span>
+                </div>
+                <div class="field_3">
+                    <h6>Territorio</h6>
+                    <span id="spanTerritorio">@Model.Territorio</span>
+                </div>
+            </div>
+            <div class="territorio" id="mensaje_territorio" style="display:none;">
+                <h5>No se encontro territorio del sistema comercial con respecto a la ubicaci&oacute;n, proceda cambiando la dirección o asigne manualmente el territorio</h5>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal-buttons">
+    <input type="button" class="button_purple" style="width:120px;"id="btnAceptar" data-direccion-correcta="si" disabled value="Aceptar" />
+    <input type="button" class="button_purple" style="width:140px;"id="btnEditarDireccion" value="Editar dirección" />
+    <input type="button" class="button_purple" style="width:400px;"id="btnNingunaDireccion" data-direccion-correcta="no" value="" />
+</div>
+
+@Html.HiddenFor(m => Model.SolicitudPostulanteID)
+@Html.HiddenFor(m => Model.Direccion)
+@Html.HiddenFor(m => Model.NombreRegion)
+@Html.HiddenFor(m => Model.NombreComuna)
+@Html.HiddenFor(m => Model.Region)
+@Html.HiddenFor(m => Model.Zona)
+@Html.HiddenFor(m => Model.Seccion)
+@Html.HiddenFor(m => Model.Territorio)
+@Html.HiddenFor(m => Model.Direccion)
+@Html.HiddenFor(m => Model.DireccionCadena)
+
+
+<script>
+    var map, marker, markers = [], polygon;
+
+    @{
+        var titulo = Model.Puntos.Count > 1 ? "Elige la dirección correcta" : (Model.Puntos.Count > 0 ? "Confirma si es la dirección correcta" : "No se ha encontrado tu ubicación en el mapa");
+    }
+
+    $('#modal_title').html('@Html.Raw(titulo)');
+
+    $('#btnNingunaDireccion').val('@Html.Raw(textoNingunaDireccion)');
+
+    @if (Model.Puntos.Count == 0)
+    {
+        <text>$('#btnAceptar').hide();</text>
+    }
+    
+    $(function () {
+        setTimeout(cargarMapa, 1000);
+    });
+
+    $('#imgCerrar').click(function () {
+        modal.dialog('close');        
+    })
+
+    $('#btnEditarDireccion').click(function () {
+        var solicitudPostulanteID = $('#SolicitudPostulanteID').val();
+        waitingDialog({});
+        modalOpcion.dialog("option", "width", 500);
+        modalOpcion.dialog("option", "height", 400);
+
+        $.get('@Url.Action("EditarDireccion", "Unete")', { id: solicitudPostulanteID }, function (html) {           
+            $('#modal_opcion').html(html);
+            modalOpcion.dialog('open');
+        }).complete(function () {
+            closeWaitingDialog({});     
+        });
+    });
+
+    $('#btnNingunaDireccion').click(function () {
+        var solicitudPostulanteID = $('#SolicitudPostulanteID').val();
+        waitingDialog({});
+        modalOpcion.dialog("option", "width", 550);
+        modalOpcion.dialog("option", "height", 460);
+
+        $.get('@Url.Action("EditarDireccionManualmente", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#modal_opcion').html(html);
+            modalOpcion.dialog('open');
+        }).complete(function () {
+            closeWaitingDialog({});
+        });
+    });
+
+    $('#btnAceptar').click(function () {
+        if (map) {
+            var center = map.center;
+
+            // post
+            var data = {
+                id: $('#SolicitudPostulanteID').val(),
+                latitud: parseFloat(marker.getPosition().lat()),
+                longitud: parseFloat(marker.getPosition().lng()),
+                direccionCorrecta: $(this).attr('data-direccion-correcta'),
+                direccionCadena: $('#DireccionCadena').val(),
+                region: $('#NombreRegion').val(),
+                comuna: $('#NombreComuna').val(),
+                codregion: $('#Region').val(),
+                codzona: $('#Zona').val(),
+                codseccion: $('#Seccion').val(),
+                codterritorio: $('#Territorio').val(),
+                direccion: $('#Direccion').val()
+            };
+
+            waitingDialog({});
+
+            $.post('@Url.Action("ConsultarUbicacion", "Unete")', data, function (actualizado) {
+                if (actualizado) {
+                    modal.dialog('close');
+                    fnGrilla();
+                }
+            }).complete(function () {
+                closeWaitingDialog({});
+            });
+        }
+    })
+
+    $('.fila-direccion').click(function () {
+        $('#btnAceptar').attr('disabled', false);
+        $('#btnNingunaDireccion').attr('disabled', true);
+        $('.fila-direccion').removeClass('selected');
+        $(this).addClass('selected');
+
+        if (map) {
+
+            var lat = parseFloat($(this).attr('data-latitud').replace(',', '.'));
+            var lnt = parseFloat($(this).attr('data-longitud').replace(',', '.'));
+
+            map.panTo(new google.maps.LatLng(lat, lnt));
+            for (var i in markers) {
+                var marker = markers[i];
+                if (marker.setAnimation) {
+                    marker.setAnimation(null);
+                }
+            } 
+            markers[$(this).attr('data-nro')].setAnimation(google.maps.Animation.BOUNCE);
+
+            // Consultar servicio para buscar territorio
+
+            var data = {
+                latitud: lat,
+                longitud: lnt
+            }
+
+            waitingDialog({});
+
+            $.post('@Url.Action("ConsultarTerritorios", "Unete")', data, function (json) {
+
+                if (polygon != null) {
+                    polygon.setMap(null);
+                }
+
+                var coords = JSON.parse(json.Vertices);
+
+                if (coords != null && coords.length > 0) {
+                    var bounds = new google.maps.LatLngBounds();
+
+                    $.each(coords, function (i, coord) {
+                        bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+                    })
+
+                    polygon = new google.maps.Polygon({
+                        paths: coords,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35
+                    });
+
+                    polygon.setMap(map);
+
+                    map.fitBounds(bounds);
+
+                    $('#datos_territorio').show();
+                    $('mensaje_territorio').hide();
+                    $('#spanRegion').html(json.Region);
+                    $('#spanZona').html(json.Zona);
+                    $('#spanSeccion').html(json.Seccion);
+                    $('#spanTerritorio').html(json.Territorio);
+
+                    $('#btnAceptar').attr('disabled', false);
+                } else {
+                    $('datos_territorio').hide();
+                    $('mensaje_territorio').show();
+                }
+                
+                $('#mapa').removeClass('height_100');
+
+            }).complete(function () {
+                closeWaitingDialog({});
+            });
+
+        }
+    });
+
+    function cargarMapa() {
+        if (google && google.maps) {
+            var markerBounds = new google.maps.LatLngBounds();
+            modalOpcion.dialog('close');
+
+            @if (Model.Puntos.Count > 0)
+	        {
+		        <text>
+                    map = new google.maps.Map(document.getElementById('mapa'), {
+                        center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",",".")), parseFloat('@Model.Puntos[0].Item2'.replace(",",".")))
+                    });
+
+                    // Markers
+                    @for (var i = 0; i < Model.Puntos.Count; i++)
+                    {
+                        var punto = Model.Puntos[i];
+                        <text>
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(parseFloat('@punto.Item1'.replace(",",".")), parseFloat('@punto.Item2'.replace(",","."))),
+                                map: map,
+                                animation: google.maps.Animation.DROP
+                            });
+                        markerBounds.extend(marker.getPosition());
+                        markers.push(marker);
+                        </text>
+                    }
+
+                    
+                </text>
+                
+                if (Model.Puntos.Count == 1)
+                {
+                    if (!string.IsNullOrWhiteSpace(Model.Vertices))
+                    {
+                        <text>
+                            var coords = JSON.parse('@Html.Raw(Model.Vertices.ToLower())');
+                            var bounds = new google.maps.LatLngBounds();
+
+                            $.each(coords, function (i, coord) {
+                                bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+                                markerBounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+                            })
+
+                            polygon = new google.maps.Polygon({
+                                paths: coords,
+                                strokeColor: '#FF0000',
+                                strokeOpacity: 0.8,
+                                strokeWeight: 2,
+                                fillColor: '#FF0000',
+                                fillOpacity: 0.35
+                            });
+
+                            polygon.setMap(map);
+                        </text>
+                    }
+
+                    if (string.IsNullOrEmpty(Model.Region) || string.IsNullOrEmpty(Model.Zona) || string.IsNullOrEmpty(Model.Territorio))
+                    {
+                        <text>
+                        $('#datos_territorio').hide();
+                        $('#mensaje_territorio').show();
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            $('#datos_territorio').show();
+                            $('#mensaje_territorio').hide();
+                            $('#btnAceptar').attr('disabled', false);
+                        </text>
+                    }
+
+                    <text>
+                        $('.fila-direccion').addClass('selected');
+                        $('#btnAceptar').attr('disabled', false);
+                        markers[0].setAnimation(google.maps.Animation.BOUNCE);
+                    </text>
+                }
+
+                <text>map.fitBounds(markerBounds);</text>
+	        }
+        }
+    }
+
+    setTimeout(function () {
+        $('.button_purple').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
+    }, 10);
+
+</script>

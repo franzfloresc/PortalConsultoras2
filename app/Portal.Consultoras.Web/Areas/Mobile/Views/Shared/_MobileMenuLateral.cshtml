@@ -1,0 +1,56 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+
+@{
+    var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
+    var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
+    var urlDomain = Util.GetUrlHost(Request);
+}
+
+<div class="botones">
+    <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" 
+      class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA <b>TU PEDIDO</b></a>
+@foreach (var item in itemsMenu)
+{
+    if (item.SubMenu.Count == 0)
+    {
+        var target = item.PaginaNueva ? "_blank" : "_self";
+        var url = item.Version == "Completa"
+            ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
+            : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
+        var onclickF = "";
+        if (item.Descripcion.ToLower().Trim() == "mi comunidad")
+        {
+            <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" 
+               class="menu_mobile_belcorp" href="http://comunidad.somosbelcorp.com" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                @item.Descripcion
+            </a>
+        }
+        else
+        {
+            <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" 
+               class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                @item.Descripcion
+            </a>
+        }
+    }
+    else
+    {
+        <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion" 
+           class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
+        <div class="panel-collapse collapse submenu_1" id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
+            @foreach (var subItem in item.SubMenu)
+            {
+                var target = subItem.PaginaNueva ? "_blank" : "_self";
+                var url = subItem.Version == "Completa"
+                    ? subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subItem.UrlItem)
+                    : subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}{1}", urlDomain, subItem.UrlItem);
+
+                <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" 
+                   class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion</a>
+            }
+        </div>
+    }
+}
+</div>

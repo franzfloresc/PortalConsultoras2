@@ -1,0 +1,274 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.GestionPasos
+@model Portal.Consultoras.Web.Models.DetalleSolicitudPostulanteModel
+
+@{
+    var Solicitud = Model;
+    var estadosCiviles = ViewBag.EstadosCiviles as SelectList;
+    var nivelesEducativos = ViewBag.NivelesEducativos as SelectList;
+    var tiposNacionalidad = ViewBag.TiposNacionalidad as SelectList;
+    var tiposContacto = ViewBag.TiposContacto as SelectList;
+    var tiposDocumentos = ViewBag.TiposDocumentos as SelectList;
+    var validacionTipoRucEmpresa = false;
+}
+
+<style>
+    .validation {
+        float: left;
+        width: 170px !important;
+        padding: 0 9px !important;
+        min-height: 1px !important;
+        color: #702789;
+    }
+
+    .validation_clear {
+        float: left;
+        width: 140px !important;
+        height: 1px !important;
+        padding: 0 9px !important;
+    }
+
+    .border_modal {
+        margin-bottom: 10px;
+    }
+
+    .modal_base h3, .modal_base h4 {
+        color: lightgray;
+        border-bottom: 1px solid lightgray;
+        margin: 0 40px;
+    }
+
+    .div_3_fix {
+        padding: 1px !important;
+        margin: 0 !important;
+    }
+
+        .div_3_fix .titC {
+            width: 150px !important;
+        }
+
+    #frmDetalleSolicitud * {
+        text-transform: uppercase;
+    }
+
+    #frmDetalleSolicitud .field-validation-error, #frmDetalleSolicitud .field-validation-error span {
+        text-transform: initial !important;
+    }
+
+    #frmDetalleSolicitud .titC, #frmDetalleSolicitud .selectP2 * {
+        font-size: 12px !important;
+    }
+</style>
+
+@using (Ajax.BeginForm("Detalle", "Unete", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "modal_content",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "OnSuccess",
+    OnBegin = "waitingDialog({});",
+    OnComplete = "closeWaitingDialog({});"
+}, new
+{
+    @id = "frmDetalleSolicitud"
+}))
+{
+    @Html.HiddenFor(m => m.EstadoPostulante)
+    @Html.HiddenFor(m => m.CodigoConsultora)
+
+    @Html.HiddenFor(m => m.SolicitudPostulanteID)
+    @Html.HiddenFor(m => m.CodigoPais)
+    @Html.HiddenFor(m => m.ModoLectura)
+    @Html.HiddenFor(m => m.CodigoISO)
+    @Html.HiddenFor(m => m.TipoDocumento)
+
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <div class="div-2">
+                <h2>
+                    Solicitud de Postulante
+                    <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
+                </h2>
+            </div>
+            <h4>Datos del Postulante</h4>
+
+            @Html.Partial(Dictionaries.TemplatDatosGenerales[Model.CodigoPais], Model)
+
+            <h4>Informaci&oacute;n adicional del Postulante</h4>
+            <div class="elements border_modal" style="padding-top: 15px !important">
+                <div class="div-3 div_3_fix">
+                    <div class="titC">Estado civil:</div>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(m => m.EstadoCivil, estadosCiviles, "Seleccione")
+                    </div>
+                    <div class="titC">Nivel educativo:</div>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(m => m.NivelEducativo, nivelesEducativos, "Seleccione")
+                    </div>
+                    @if (Model.CodigoPais != "MX")
+                    {
+                        <div class="titC">Nacionalidad:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.DropDownListFor(m => m.TipoNacionalidad, tiposNacionalidad, "Seleccione")
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="titC">Como llego a nosotros:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Seleccione")
+                        </div>
+                    }
+                </div>
+                <div class="div-3 div_3_fix">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.EstadoCivil)
+                    </div>
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.NivelEducativo)
+                    </div>
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.TipoNacionalidad)
+                    </div>
+                </div>
+                <div class="div-3 div_3_fix">
+                    @if (Model.CodigoPais != "MX")
+                    {
+                        <div class="titC">Como llego a nosotros:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Seleccione")
+                        </div>
+                        <div class="titC">C&oacute;digo Consultora que recomienda:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="titC">C&oacute;digo Consultora que recomienda:</div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero" })
+                        </div>
+                    }
+
+                </div>
+                <div class="div-3 div_3_fix">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.TipoContacto)
+                    </div>
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.CodigoConsultoraRecomienda)
+                    </div>
+                </div>
+            </div>
+            @if (!Model.ModoLectura)
+            {
+                <div class="elements" style="padding-top: 0 !important">
+                    <div class="div-3">
+                        <div class="input_search">
+                            <input type="submit" style="float:right !important; margin-right: 50px;" id="btnGuardar" value="Guardar" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.maskedinput.min.js"></script>
+<script src="~/Scripts/HojaInscripcion/utilsCommon.js"></script>
+<script>
+    $.validator.setDefaults({
+        ignore: '.ignore'
+    });
+
+    $.validator.addMethod('LengthTelefonoFijo', function (value, element) {
+        return value.length == parseInt('@Solicitud.LengthTelefonoFijo') || value.length == 0;
+    }, 'Máximo ' + '@Solicitud.LengthTelefonoFijo' + ' carácteres');
+
+    $.validator.addMethod('LengthTelefonoCelular', function (value, element) {
+        return value.length == parseInt('@Solicitud.LengthTelefonoCelular') || value.length == 0;
+    }, 'Máximo ' + '@Solicitud.LengthTelefonoCelular' + ' carácteres');
+
+    $.validator.addMethod('DocumentoValido', function (value, element) {
+        var regex = new RegExp('@Solicitud.NumeroDocumentoRegex');
+        return regex.test(value);
+    }, 'El texto ingresado no es un documento valido');
+
+    $(document).ready(function () {
+    });
+
+    $(function () {
+
+        $.validator.unobtrusive.parse('form');
+
+        $("#FechaNacimiento").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+
+        @if (Model.ModoLectura)
+        {
+            <text>
+        var controles = $('#modal_general input, #modal_general select');
+        controles.attr('disabled', true);
+        controles.attr('readonly', true);
+        </text>
+        }
+
+        $('#imgCerrar').click(function () {
+            modal.dialog('close');
+        });
+
+        $('.numero').keydown(IntegerNumber);
+        $('.texto').keydown(Text);
+
+        //if ($("#CodigoPais").val() == "CO")
+        //    $("#Celular").mask("3-999-999-999");
+
+        if ($("#CodigoPais").val() == "MX") {
+            $("body").on("change", ".rfcSearch", function (evt) {
+                var primerNombre = $("#PrimerNombre").val();
+                var segundoNombre = $("#SegundoNombre").val();
+                var apellidoPaterno = $("#ApellidoPaterno").val();
+                var apellidoMaterno = $("#ApellidoMaterno").val();
+                var diaNacimiento = $("#FechaNacimiento").val().substr(0, 2);
+                var mesNacimiento = $("#FechaNacimiento").val().substr(3, 2);
+                var anioNacimiento = $("#FechaNacimiento").val().substr(6, 4);
+
+
+                if (primerNombre && apellidoPaterno && diaNacimiento && mesNacimiento && anioNacimiento) {
+                    Utils.Ajax({
+                        url: "@Url.Action("GenerarRfc", "Unete", new {area = ""})",
+                        parametros: {
+                            Nombres: primerNombre + ' ' + segundoNombre,
+                            ApellidoPaterno: apellidoPaterno,
+                            ApellidoMaterno: apellidoMaterno,
+                            DiaNacimiento: diaNacimiento,
+                            MesNacimiento: mesNacimiento,
+                            AnioNacimiento: anioNacimiento
+                        }
+                    }, function (response) {
+                        $("#NumeroDocumento").val(response.Rfc);
+                    });
+                }
+            });
+        }
+    });
+
+    function OnSuccess(data) {
+        if (data.success) {
+            modal.dialog('close');
+
+            fnGrilla();
+        }
+    }
+
+</script>

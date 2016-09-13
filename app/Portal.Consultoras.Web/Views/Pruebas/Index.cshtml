@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <title>Belcorp | Portal Consultoras</title>
+
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript">var baseUrl = "@Url.Content("~")"; </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+    @System.Web.Optimization.Scripts.Render("~/bundles/JQGridJs")
+    <link href = "@Url.Content("~/Content/Css/ui.jquery/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <link href = "@Url.Content("~/Content/Css/ui.jqgrid/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href = "@Url.Content("~/Content/Css/Site/style.css")" rel="stylesheet" type="text/css" />
+    @*<script type="text/javascript" src="~/Scripts/modernizr.custom.js"></script>
+    <script type="text/javascript" src="~/Scripts/General.js"></script>
+    <script type="text/javascript" src="~/Scripts/maskedinput.js"></script>*@
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+    </script>
+    @*    <script type="text/javascript" src="~/Scripts/maskedinput.js"></script>
+    <script type="text/javascript" src="~/Scripts/General.js"></script>
+    <script type="text/javascript" src='@Url.Content("~/Scripts/JsonSupport.js")'></script>
+    <!-- HTML5 Shiv -->
+    <script type="text/javascript" src="~/Scripts/modernizr.custom.js"></script>*@
+    @System.Web.Optimization.Scripts.Render("~/bundles/JSTree")
+    <!-- jquery library -->
+
+    <!--[if lt IE 9]>
+	<script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
+	<script src="~/Scripts/IE8.js"></script>
+    <![endif]-->
+    @*    <script type="text/javascript" src="~/Scripts/jqueryslidemenu.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.cycle.all.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/respond.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/trans-banner.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.tinyscrollbar.min.js"></script>*@
+</head>
+<script>
+    // se refresca el arbol con el pais, region y zona seleccionadas
+    function CargarArbol(pais, region, zona) {
+        //debugger;
+        //waitingDialog({});
+        //$.jstree._reference($("#arbolRegionZona")).refresh(-1);
+    }
+
+    $(function () {
+        //debugger;
+        //CargarArbol();
+        //});
+
+        $("#chkSeleccionar").click(function () {
+            //debugger;
+            //alert("demo");
+            if (this.status)
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+            //$("#tree_control").jstree("check_all");
+        });
+
+        $("#arbolRegionZona").jstree({
+            html_data: {
+                "data": "<li id='root'><a href='#'>Root node</a><ul><li><a href='#'>Child node 1</a></li><li><a href='#'>Child node 2</a></li></ul></li>"
+            },
+            plugins: ["themes", "html_data", "ui", "checkbox"]
+        });
+    });
+</script>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+
+    <div class="wrap">
+        <div class="container clearfix">
+            <div class="border-wrapper_reg">
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="titH" style="width: 300px;">
+                        Para actualizar el N° de días del cronograma, marque las regiones o zonas deseadas:
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="treeview_content borde_redondeado">
+                        <div id="arbolRegionZona" class="demo">
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="titH">
+                        <label id="lblSeleccionar">
+                            <input type="checkbox" id="chkSeleccionar" />
+                            Seleccionar todo</label>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF">N° dias Cronograma:</div>
+                    <div class="selectH2 borde_redondeado" style="width: 75px;">
+                        <input type="text" id="txtDiasDuracionCronograma" maxlength="3" onpaste="return paste(this);" />
+                    </div>
+                    <div class="input_horizontal">
+                        <input type="submit" value="Grabar" id="btnGrabar" name="btnGrabar">
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="input_horizontal">
+                        <input type="button" value="Excel" id="btnExportarExcel" name="btnExportarExcel">
+                        <input type="button" value="Ver Log" id="btnVerLog" name="btnVerLog">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loadingScreen"></div>
+
+</body>
+</html>

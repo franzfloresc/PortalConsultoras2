@@ -1,0 +1,484 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.PedidoDetalleModel
+
+@{
+    ViewBag.Title = "Pedido Reservado";
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+}
+
+<div class="franja_negra pedidoReservado"></div>
+<div class="wrapper_general2">
+    @if (ViewBag.ZonaNuevoPROL == true)
+    {
+        <h1 class="titulo_principal_interiores pedido_left">PEDIDO <strong>RESERVADO CON ÉXITO</strong></h1>
+    }
+    else
+    {
+        <h1 class="titulo_principal_interiores pedido_left">PEDIDO <strong>VALIDADO CON ÉXITO</strong></h1>
+    }
+    <div class="clear"></div>
+    <div style="height: 70px;"></div>
+    <div class="caja_pedidos pedidoReservado">
+
+        @Html.Hidden("hdfCorreo", (string)Model.eMail)
+
+        <!-- DIV BARRA -->
+        <div id="divBarra" style="display: none;">
+            <div id="divBarraMensaje">
+                <div id="divBarraMensajeLogrado" style="display:none;">
+                    <div style="float:right;">
+                        <div class="content_BarrMensaje">
+                            <div class="mensaje_barra" style="display: inline;"></div>
+                            <div class="agrega_barra"></div>
+                        </div>
+                        <hr class="clear" />
+                        <div class="flechita_barra"></div>
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <hr class="clear" />
+            <div id="divBarraLimite">
+            </div>
+            <hr class="clear" />
+            <div id="divBarraPosicion" class="BarraPosicion">
+                @*<span id="divBarraMinimo" class="BarraMinimo"></span>*@
+                <span id="divBarraEspacioLimite" class="BarraLimite">
+                    <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                </span>
+            </div>
+            <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock.</div>
+        </div>
+        <div class="clear"></div>
+        <!-- FIN DIV BARRA -->
+
+        <div class="escalaDescuento_texto" style="margin-bottom: 20px; margin-top: 5px;">
+            <div class="iconos_acciones">
+                <div class="icono_email">
+                    <a href="javascript:;" title="Enviar por Correo">
+                        <img src="@Url.Content("~/Content/Images/Esika/imprimir.png")" alt="Enviar por correo" onclick="EnviarCorreo();" />
+                    </a>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div style="margin-top: 20px; overflow: hidden; margin-bottom: -10px;">
+                <div class="titulo_mis_pedidos">
+                    @if (ViewBag.ZonaNuevoPROL == true)
+                    {
+                        <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
+                    }
+                    else
+                    {
+                        <h1>MI <b>PEDIDO VALIDADO CON ÉXITO</b></h1>
+                    }
+                </div>
+
+                <div id="paginadorCab"></div>
+                <!--
+                <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block" style="margin-top:5px">
+                    <li class="seleccion_pagina">
+                        <select data-paginacion="rows" style="height: 24px;" data-val="">
+                            <option value="10">ver 10 filas</option>
+                            <option value="20">ver 20 filas</option>
+                            <option value="30">ver 30 filas</option>
+                            <option value="40">ver 40 filas</option>
+                            <option value="50">ver 50 filas</option>
+                        </select>
+                    </li>
+                    <li class="texto_pagina">Página</li>
+                    <li class="flecha_paginador_atras" data-paginacion="back"></li>
+                    <li style="margin-right: 6px;">
+                        <span class="paginas_pedidos">
+                            <span class="pagina_actual">
+                                <input type="text" name="paginaactual" data-paginacion="page" value="1" class="ValidaNumeral" id="paginaactual" data-val="1">
+                            </span> de
+                            <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">2</span>
+                        </span>
+                    </li>
+                    <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+                </ul>
+                    -->
+            </div>
+            <hr class="clear" />
+        </div>
+
+        <div id="divListadoPedido" class="divListadoPedido">
+            <div class="linea_separadora" style="height:2px;"></div>
+            <div class="content_listado_notificaciones">
+                <div class="cod_venta_listado texto_gris">Código</div>
+                <div class="descripcion_listado texto_gris">Producto</div>
+                <div class="cantidad_listado texto_gris">Cantidad</div>
+                <div class="unitario_listado texto_gris">Precio Unitario</div>
+                <div class="total_listado texto_gris">Precio Total</div>
+                <div class="cliente_listado texto_gris">Cliente</div>
+            </div>
+            <div class="linea_separadora"></div>
+            <div id="divListado"></div>
+        </div>
+        <div class="montos_pedidoValidado">
+            <!--SB20-483 - INICIO -->
+            <div class="contenedor_montos_sinDescuento">
+                <div class="caja_montos_textos_sinDescuento pValidado">
+                    <span>TOTAL SIN DSCTO.</span>
+                    <span>DSCTO. OFERTAS POR NIVELES</span>
+                </div>
+                <div class="caja_montos_cantidades_sinDescuento pValidado">
+                    <span>@Model.Simbolo @Model.TotalSinDsctoFormato</span>
+                    <span>@Model.Simbolo @ViewBag.MontoDescuento</span>
+                </div>
+            </div>
+            <hr class="clear">
+            <!--SB20-483 - FIN -->
+
+            <div class="monto_totalValidado">MONTO TOTAL : <span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
+
+            <hr class="clear" />
+            <div class="monto_gananciaValidado">
+                @{
+                    string cabezaEscala = null, pieEscala = null;
+                    string lbl1Ganancia = null, lbl2Ganancia = null;
+
+                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 7 || Model.PaisID == 8
+                        || Model.PaisID == 12 || Model.PaisID == 13) //PE,CO,EC,GT.SV,PR,DO
+                    {
+                        cabezaEscala = "Ganancia estimada total";
+                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                    }
+                    else if (Model.PaisID == 9 || Model.PaisID == 10) //PA,MX
+                    {
+                        cabezaEscala = "Ganancia estimada total";
+                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                    }
+                    else if (Model.PaisID == 3) //CH
+                    {
+                        cabezaEscala = "Comisión y ahorro total";
+                        pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                    }
+                    else if (Model.PaisID == 14) //VE
+                    {
+                        cabezaEscala = "Oportunidad de ahorro total";
+                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                        lbl1Ganancia = "Por tus compras de productos de catalogo";
+                        lbl2Ganancia = "Por tus comprar de productos de revista";
+                    }
+                    else if (Model.PaisID == 2) //BO
+                    {
+                        cabezaEscala = "Ganancia total";
+                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                    }
+                    else if (Model.PaisID == 5) //CR
+                    {
+                        cabezaEscala = "Oportunidad de ahorro total";
+                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                        lbl1Ganancia = "Mis descuentos";
+                        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                    }
+                }
+
+
+                @*<img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">*@
+                @(cabezaEscala): <span>@Model.Simbolo @ViewBag.GananciaEstimada</span>
+
+                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+            </div>
+
+            <div class="info_extra_Validado abrir_popupMisGanancias">
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia();">
+            </div>
+
+            <hr class="clear" />
+            <div>
+                <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
+
+                @{
+                    string[] tooltips = ViewBag.ProlTooltip.Split('|');
+                    string tooltip1 = tooltips[0];
+                    string tooltip2 = tooltips[1];
+                }
+
+                @*<div class="info_modificarvalidado">
+                    <text>@tooltip1</text>
+                    <span>@tooltip2</span>
+                </div>*@
+
+                @*<div class="info_modificarvalidado">
+                    <div class="icono_tooltip_validado"></div>
+                    <div class="info_tooltip">Puedes modificar tu pedido hasta las <b>@ViewBag.HoraCierre</b>, luego se enviará a Belcorp</div>
+                </div>*@
+
+                <div class="info_modificarvalidado">
+                    <div class="icono_tooltip_validado"></div>
+                    <div class="info_tooltip">@tooltip1 <br /> @tooltip2 </div>
+                </div>
+
+                <hr class="clear" />
+            </div>
+            <hr class="clear" />
+            <div class="linea_gris" style="margin-top:30px"></div>
+            @*<div class="eliminar_pedidoValidado">Para eliminar el pedido completo haz <a href="#">click aquí</a></div>
+            <div class="eliminar_pedidoValidado" style="float:left">
+                <span style="color: #e81c36">(*)</span>    El precio no incluye el descuento de ofertas por niveles.<br />
+                Guarda tu pedido y elegiremos la mejor opción para ti.
+            </div>*@
+
+        </div>
+        
+        <div class="contenedor_eliminacion_pedido">
+            @if (ViewBag.EsKitNueva == 1)
+            {
+                <p class="precio_total_sinDescuento">
+                    <span class="icon-advertencia"></span>
+                    <span>
+                        Por ser tu primer pedido estarás recibiendo el Kit de nuevas, el cual será incluido en tu factura.
+                    </span>
+                </p>
+            }
+        </div>
+        <div class="clear"></div>
+
+        <div class="datos_para_movil">
+            @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.CostaRica)
+            {
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Producto ingresado por aplicación "Pedido Belcorp" desde celular.</b>
+                </p>
+            }
+            else if (ViewBag.PedidoProductoMovil == 1)
+            {
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Tienes productos pendientes de validación ingresados desde celular, por favor modifique su pedido y valide nuevamente.</b>
+                </p>
+            }
+        </div>
+
+        <div class="contenedor_banners">
+            <ul>
+                <li>
+                    <a href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                        <img src="@ViewBag.UrlBanner01" alt="Catálogo Personalizado" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
+
+                @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Venezuela)
+                {
+                    <li>
+                        <a href="javascript:;" title="Monto Mínimo">
+                            <img src="@ViewBag.UrlBanner02" alt="Monto Mínimo" />
+                            <div>MONTO MÍNIMO</div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Liquidaciones Web">
+                            <img src="@ViewBag.UrlBanner02" alt="Liquidaciones Web" />
+                            <div>LIQUIDACIONES WEB</div>
+                        </a>
+                    </li>
+                }
+                <li>
+                    <a href="javascript:;" title="Productos Agregados" onclick="CargarProductoAgotados();">
+                        <img src="@ViewBag.UrlBanner03" alt="Productos Agotados" />
+                        <div>PRODUCTOS AGOTADOS</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogMensajes" style="display: none;">
+    <div class="terminos_title_2">
+        MENSAJE
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+    </div>
+</div>
+
+<div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
+    <div class="popup_productosAgotados">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="javascript: $('#divProductoAgotado').hide()">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_lista_productosAgotados">
+            <h6>PRODUCTOS <b>AGOTADOS</b></h6>
+            <div class="tabla_productos_agotados" id="tblProductoSugerido">
+                <table></table>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!--SB20-483 - INICIO -->
+
+<!-- POPUP MIS GANANCIAS -->
+
+<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+    <div class="popup_mis_ganancias">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_misGanancias" id="detalleGanancia">
+            <h6>GANANCIA ESTIMADA TOTAL</h6>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Mis descuentos</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroCatalogo</span>
+            </div>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroRevista</span>
+            </div>
+            <div class="separador_montos_misGanancias"></div>
+            <div class="mis_descuentos">
+                <span class="monto_total_misGanancias">@Model.Simbolo @ViewBag.GananciaEstimada</span>
+            </div>
+            <div class="nota_popup_misGanancias">
+                <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP MIS GANANCIAS -->
+
+<!--SB20-483 - INICIO -->
+
+<div id="divConfirmValidarPROL" style="display: none;">
+    <div class="terminos_title_2">
+        Importante
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+        <ul>
+            <li>Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.</li>
+        </ul>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="CerrarDialogo('divConfirmValidarPROL')" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />
+        <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="ConfirmarModificar()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+@Html.Hidden("hdfModificacionPedidoProl", Model.ModificacionPedidoProl)
+
+
+<script id="producto-template" type="text/x-handlebars-template">
+    <div class="linea_separadora" style="height:2px;"></div>
+    <div class="content_listado_notificaciones">
+        <div class="cod_venta_listado texto_gris">Código</div>
+        <div class="descripcion_listado texto_gris">Producto</div>
+        <div class="cantidad_listado texto_gris">Cantidad</div>
+        <div class="unitario_listado texto_gris">Precio Unitario</div>
+        <div class="total_listado texto_gris">Precio Total</div>
+        <div class="cliente_listado texto_gris">Cliente</div>
+    </div>
+    <div class="linea_separadora"></div>
+    {{#each this}}
+    <div class="content_listado_notificaciones">
+        <div class="cod_venta_listado">{{CUV}}</div>
+        <div class="descripcion_listado">
+            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA LIQUIDACIÓN</label>
+            </span>
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else}}
+            {{#IsNullOrEmpty DescripcionOferta '!='}}
+            <span class="texto_pedidos_ofertas">
+                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
+            </span>
+            {{/IsNullOrEmpty}}
+            {{/if_eq}}
+
+
+            {{#if_eq TipoPedido 'M'}}
+            <span style="position:relative">
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
+                </p>
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+            </span>
+            {{else}}
+            <span style="position:relative">
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+            </span>
+            {{/if_eq}}</div>
+        <div class="cantidad_listado">{{Cantidad}}</div>
+        <div class="unitario_listado"> {{PrecioUnidad}}</div>
+        <div class="total_listado">{{ImporteTotal}}</div>
+        <div class="cliente_listado">{{Nombre}}</div>
+    </div>
+
+    {{#IsNullOrEmpty ObservacionPROL '!='}}
+
+    <div class="content_listado_notificaciones">
+        <div class="mensaje_producto_validado">{{Split ObservacionPROL '|' 0}}</div>           
+    </div>
+    {{/IsNullOrEmpty}}
+
+    {{/each}}
+</script>
+
+<script id="paginador-template" type="text/x-handlebars-template">
+    <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block" style="margin-top:5px">
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{RegistrosTotal}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}">
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+    </ul>
+</script>
+
+@section scripts{
+    <script type="text/javascript">
+        var correoElectronico = '@Model.eMail';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
+}

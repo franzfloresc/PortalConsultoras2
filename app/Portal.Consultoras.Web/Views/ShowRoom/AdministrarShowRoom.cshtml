@@ -1,0 +1,2547 @@
+﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
+@{
+    ViewBag.Title = "Administración de Ofertas Liquidación";
+}
+
+<link href="@Url.Content("~/Scripts/MultiSelect/css/ui.multiselect.css")" rel="stylesheet" />
+
+<style>
+    .multiselect {
+        width: 560px;
+        height: 250px;
+    }
+
+    .actions.ui-widget-header.ui-helper-clearfix {
+        background: #6c217f !important;
+        color: white;
+    }
+
+    .ui-multiselect div.selected {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        float: left;
+        border-left: 1px solid;
+    }
+
+    .ui-multiselect div.available {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        float: left;
+    }
+
+    #switcher {
+        margin-top: 20px;
+    }
+</style>
+
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/MultiSelect/js/plugins/localisation/jquery.localisation.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MultiSelect/js/plugins/scrollTo/jquery.scrollTo.js")"></script>
+<script src="@Url.Content("~/Scripts/MultiSelect/js/ui.multiselect.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MultiSelect/js/locale/ui-multiselect-es.js")"></script>
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administrador Ofertas <span>ShowRoom</span></h1>
+            </div>
+            <div class="div-2">
+                <h3>Datos del Evento</h3>
+            </div>
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Tipo Oferta:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CodigoTipoOferta, new SelectList(Model.lstConfiguracionOferta, "CodigoOferta", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionOferta" })
+                </div>
+                <div class="input_search">
+                    <input type="button" value="Buscar" id="btnBuscar" name="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap" id="divShowRoomEvento" style="display: none;">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="listEvento"></table>
+            <div id="pagerEvento"></div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap" id="divShowRoomEventoNuevo" style="display: none;">
+    <div class="filtros">
+        <div class="elements" style="padding-top: 0">
+            <div class="div-3">
+                <div class="input_search">
+                    <input type="button" value="Nuevo" id="btnNuevo" name="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="elements" id="divCargaArchivos" style="display: none;">
+    <div class="div-2">
+        <h3>Carga de Archivo</h3>
+        <div class="div-3">
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web Imagen Set (344 x 366)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagen1" />
+                    <input type="hidden" id="hdImagen1Anterior" />
+                    <div id="fpPopupWebFondo">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupWebFondo'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPopupWebFondo';
+                                            var tipo = 1;
+                                            $("#hdImagen1").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPopupWebFondo" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Venta Imagen Set (209 x 94)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagenVentaSetPopup" />
+                    <input type="hidden" id="hdImagenVentaSetPopupAnterior" />
+                    <div id="fpPopupVentaImagenSet">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupVentaImagenSet'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPopupVentaImagenSet';
+                                            var tipo = 2;
+                                            $("#hdImagenVentaSetPopup").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPopupVentaImagenSet" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px; ">Carga de Descripción de Sets/Productos</div>
+            <div class="titC" style="padding: 0; margin-top: 15px;">
+                <a href="#" id="lnkDescripcionSets">
+                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web Fondo (442 x 480)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagen2" />
+                    <input type="hidden" id="hdImagen2Anterior" />
+                    <div id="fpPopupWebImagenSet">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupWebImagenSet'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPopupWebImagenSet';
+                                            var tipo = 3;
+                                            $("#hdImagen2").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPopupWebImagenSet" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px;">Tag Lateral Venta Mobile Imagen Set (154 x 197)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagenVentaTagLateral" />
+                    <input type="hidden" id="hdImagenVentaTagLateralAnterior" />
+                    <div id="fpPopupTagLateralVentaImagenSet">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupTagLateralVentaImagenSet'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPopupTagLateralVentaImagenSet';
+                                            var tipo = 4;
+                                            $("#hdImagenVentaTagLateral").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPopupTagLateralVentaImagenSet" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px;">Carga de Stock/Precio de Sets:</div>
+            <div class="titC" style="padding: 0; margin-top: 15px;">
+                <a href="#" id="lnkStock">
+                    <img title="Cargar Stock" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC" style="width: 140px; margin-top: 6px;">Cabecera de Página Productos (1352 x 270)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagenCabeceraProducto" />
+                    <input type="hidden" id="hdImagenCabeceraProductoAnterior" />
+                    <div id="fpCabeceraPaginaProductos">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpCabeceraPaginaProductos'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divCabeceraPaginaProductos';
+                                            var tipo = 5;
+                                            $("#hdImagenCabeceraProducto").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divCabeceraPaginaProductos" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px;">Pestaña Nombre ShowRoom (41 x 305)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagenPestaniaShowRoom" />
+                    <input type="hidden" id="hdImagenPestaniaShowRoomAnterior" />
+                    <div id="fpPestaniaNombreShowRoom">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPestaniaNombreShowRoom'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPestaniaNombreShowRoom';
+                                            var tipo = 6;
+                                            $("#hdImagenPestaniaShowRoom").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPestaniaNombreShowRoom" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+
+            <div class="titC" style="width: 140px; margin-top: 6px;">Carga de Consultoras</div>
+            <div class="titC" style="padding: 0; margin-top: 15px;">
+                <a href="#" id="lnkConsultoras">
+                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt="" />
+                </a>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC" style="width: 140px; margin-top: 6px;">Popup Imagen Pre-Venta Digital (192 x 76)</div>
+            <div class="titC" style="padding: 0; width: 180px;">
+                <div class="input_search">
+                    <input type="hidden" id="hdImagenPreventaDigital" />
+                    <input type="hidden" id="hdImagenPreventaDigitalAnterior" />
+                    <div id="fpPopupImagenPreventaDigital">
+                        <script type="text/javascript">
+
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupImagenPreventaDigital'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            var nombreDiv = 'divPopupImagenPreventaDigital';
+                                            var tipo = 7;
+                                            $("#hdImagenPreventaDigital").val(responseJSON.name);
+                                            GuardarImagenEventoShowRoom(rutaImagen, responseJSON.name, nombreDiv, tipo);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div id="divPopupImagenPreventaDigital" style="width: 70px; height: 60px; float: right;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap" id="divOfertasShowRoom" style="display: none;">
+    <div class="container clearfix">
+        <h3>Ofertas ShowRoom</h3>
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+        @*<div class="div-3">
+            <div class="titAuto">
+                <div class="input_horizontal">
+                    <input type="button" name="btnExcel" id="btnExcel" value="Excel" />
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+
+<div class="wrap" id="divShowRoomPerfil" style="display: none;">
+    <fieldset style="border: 1px black; border-style: groove; margin-left: 200px; margin-right: 200px;">
+        <legend></legend>
+        <div class="container clearfix">
+            <h3>Perfiles</h3>
+            <div class="div-3">
+                <div class="titC">Perfil:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="cbPerfilesEvento"></select>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Sets:</div>
+                <h4>Selecciones los sets para el perfil</h4>
+            </div>
+            <div class="div-3" id="divPerfilOfertaShowRoom" style="display: none;">
+            </div>
+            <div class="div-3">
+                <div class="titAuto">
+                    <div class="input_horizontal">
+                        <input type="button" name="btnGuardarPerfilOfertaShowRoom" id="btnGuardarPerfilOfertaShowRoom" value="Guardar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+</div>
+
+<div id="loadingScreen"></div>
+
+<div id="DialogMensajes" style="display: none;">
+    <div class="Content_modal">
+        <div class="message_text">
+            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+        </div>
+    </div>
+</div>
+
+<div id="DialogDatosShowRoom" style="display: none;">
+    <div class="Content_modal">
+        <input type="hidden" id="hdEventoID" />
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoPaisID" readonly="readonly" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoCampaniaID" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Nombre:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoNombre" />
+            </div>
+            <div class="titG">Tema:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoTema" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Dias Antes Fact.:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoDiasAntes" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+            <div class="titG">Dias Despues Fact.:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoDiasDespues" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Ruta ShowRoom Popup</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoRutaShowRoomPopup" />
+            </div>
+            <div class="titG">Ruta ShowRoom Banner Lateral</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoRutaShowRoomBannerLateral" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"># de Perfiles:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoNumeroPerfiles" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+            <div id="divEventoEstado">
+                <div class="titG">Habilitar Evento</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoEstado" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogCargarConsultoras" style="display: none;">
+    @using (Html.BeginForm("CargarMasivaConsultora", "ShowRoom", FormMethod.Post, new { id = "frmCargarConsultoras", enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" id="hdCargaCampaniaID" name="hdCargaCampaniaID" />
+        <input type="hidden" id="hdCargaEventoID" name="hdCargaEventoID" />
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="file" id="flCargarConsultoras" name="flCargarConsultoras" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align:left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- Código Consultora</div>
+                    <div>- Nombre Perfil</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="DialogCargarStock" style="display: none;">
+    @using (Html.BeginForm("ActualizarStockMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarStock", enctype = "multipart/form-data" }))
+    {
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="file" id="flStock" name="flStock" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align:left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- Pais</div>
+                    <div>- Campaña</div>
+                    <div>- CUV</div>
+                    <div>- Unidades</div>
+                    <div>- PNormal</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="DialogCargarDescripcionSets" style="display: none;">
+    @using (Html.BeginForm("ActualizarDescripcionSetsMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarDescripcionSets", enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" id="hdCargaDescripcionSetsCampaniaID" name="hdCargaDescripcionSetsCampaniaID" />
+        <input type="hidden" id="hdCargaDescripcionSetsEventoID" name="hdCargaDescripcionSetsEventoID" />
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="file" id="flDescripcionSets" name="flDescripcionSets" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align:left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- CUV</div>
+                    <div>- NombreSet</div>
+                    <div>- NombreProducto</div>
+                    <div>- Descripcion1</div>
+                    <div>- Descripcion2</div>
+                    <div>- Descripcion3</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="DialogRegistroOfertaShowRoom" style="display: none;">
+    <input type="hidden" id="hdTallaColorID" value="0" />
+    <input type="hidden" id="hdCampaniaID" />
+    <input type="hidden" id="hdImagenProducto" />
+    <input type="hidden" id="hdImagenProductoAnterior" />
+    <input type="hidden" id="hdImagenMini" />
+    <input type="hidden" id="hdImagenMiniAnterior" />
+    <input type="hidden" id="FlagTransaccion" value="0" />
+    <input type="hidden" id="hdCodigoOferta" value="" />
+    <input type="hidden" id="hdCodigoCampania" value="" />
+    <input type="hidden" id="hdOrdenAnterior" value="" />
+    <input type="hidden" id="hdStockProducto" value="0" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisModal" readonly="readonly" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCampaniaModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo Oferta:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtTipoOfertaModal" readonly="readonly" />
+            </div>
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionModal" />
+            </div>
+            <div class="titG">Precio Normal:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioOfertaModal" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Unid. Permitidas:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
+            </div>
+            <div class="titG">¿Habilitar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Imagen:</div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgProducto" style="cursor: pointer; max-width: 100% !important;">
+            </div>
+            <div class="titG">Imagen Mini:</div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgMini" style="cursor: pointer; max-width: 100% !important;">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
+                <div class="input_search">
+                    <div id="fpPopupImagenProducto">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupImagenProducto'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            $("#imgProducto").attr('src', rutaImagen);
+                                            $("#hdImagenProducto").val(responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="titG"></div>
+            <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
+                <div class="input_search">
+                    <div id="fpPopupImagenMini">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupImagenMini'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            $("#imgMini").attr('src', rutaImagen);
+                                            $("#hdImagenMini").val(responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogRegistroOfertaShowRoomDetalle" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisDetalle" readonly="readonly" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCampaniaDetalle" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo Oferta:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtTipoOfertaDetalle" readonly="readonly" />
+            </div>
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVDetalle" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionDetalle" readonly="readonly" />
+            </div>
+            <div class="titG">Precio Normal:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioNormalDetalle" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="input_search" style="float: right; padding-right: 155px;">
+                <input type="button" value="Nuevo" id="btnNuevoDetalle" name="">
+            </div>
+        </div>
+        <div class="container clearfix" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listShowRoomDetalle"></table>
+                <div id="pagerShowRoomDetalle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogRegistroOfertaShowRoomDetalleEditar" style="display: none;">
+    <div class="Content_modal">
+        <input type="hidden" id="hdOfertaShowRoomDetalleID"/>
+        <input type="hidden" id="hdImagenDetalle" />
+        <input type="hidden" id="hdImagenDetalleAnterior" />
+        <div class="div-3">
+            <div class="titG">Nombre Producto:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtNombreProductoDetalle" />
+            </div>
+            <div class="titG">Descripcion 1:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcion1Detalle" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripcion 2:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcion2Detalle" />
+            </div>
+            <div class="titG">Descripcion 3:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcion3Detalle" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Imagen:</div>
+            <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgProductoDetalle" style="cursor: pointer; max-width: 100% !important;">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
+                <div class="input_search">
+                    <div id="fpPopupImagenProductoDetalle">
+                        <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupImagenProductoDetalle'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            $("#imgProductoDetalle").attr('src', rutaImagen);
+                                            $("#hdImagenDetalle").val(responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var paisNombre = "";
+    var paisID = 11;
+    var urlConsultorOfertaShowRoom = baseUrl + "ShowRoom/ConsultarOfertaShowRoom";
+    var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
+    var imagenEliminar = '@Url.Content("~/Content/Images/delete.png")';
+    var imagenProductoVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
+    var urlConsultarShowRoom = baseUrl + 'ShowRoom/ConsultarShowRoom';
+    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalle";
+    var urlGuardarPerfilOfertaShowRoom = baseUrl + 'ShowRoom/GuardarPerfilOfertaShowRoom';
+    var urlGetShowRoomPerfilOfertaCuvs = baseUrl + 'ShowRoom/GetShowRoomPerfilOfertaCuvs';
+    var urlGetShowRoomPerfiles = baseUrl + 'ShowRoom/GetShowRoomPerfiles';
+    var urlGuardarImagenShowRoom = baseUrl + 'ShowRoom/GuardarImagenShowRoom';
+    var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
+    var urlUpdateOfertaShowRoom = baseUrl + 'ShowRoom/UpdateOfertaShowRoom';
+    var urlInsertOfertaShowRoom = baseUrl + 'ShowRoom/InsertOfertaShowRoom';
+    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
+    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
+    var urlDeshabilitarOfertaShowRoom = baseUrl + 'ShowRoom/DeshabilitarOfertaShowRoom';
+    var urlRemoverOfertaShowRoom = baseUrl + 'ShowRoom/RemoverOfertaShowRoom';
+    var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
+    var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
+    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll';
+    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
+
+    jQuery(document).ready(function() {
+        CargarDialog();
+        CargarAjaxForm();
+        CargarEventos();
+    });
+
+    function CargarDialog() {
+        $('#DialogMensajes').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            draggable: true,
+            title: ":: Mensaje ::",
+            buttons:
+            {
+                "Aceptar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogDatosShowRoom').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Carga de Consultoras",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#txtEventoNombre').val()) == "")
+                        vMessage += "- Debe ingresar el Nombre del Evento.\n";
+                    if (jQuery.trim($('#txtEventoTema').val()) == "")
+                        vMessage += "- Debe ingresar el Tema del Evento.\n";
+                    if (jQuery.trim($('#txtEventoDiasAntes').val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                    if (parseInt(jQuery.trim($('#txtEventoDiasAntes').val())) <= 0)
+                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                    if (jQuery.trim($('#txtEventoDiasDespues').val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                    if (parseInt(jQuery.trim($('#txtEventoDiasDespues').val())) <= 0)
+                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
+                    if (jQuery.trim($('#txtEventoNumeroPerfiles').val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de perfiles.\n";
+                    if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
+                        vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
+                    if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
+                        vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
+                    if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
+                        vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    } else {
+                        GuardarShowRoomEvento();
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogCargarConsultoras').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga de Consultoras",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarConsultoras').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogCargarStock').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga Stock de Productos",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarStock').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogCargarDescripcionSets').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga de Descripcion de Sets/Productos",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarDescripcionSets').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogRegistroOfertaShowRoom').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Edición de Sets",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#txtDescripcionModal').val()) == "")
+                        vMessage += "- Debe ingresar la Descripción del Producto.\n";
+
+                    if (jQuery.trim($('#txtUnidadesPermitidasModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
+                        vMessage += "- Debe ingresar las unidades permitidas válido.\n";
+
+                    //if (jQuery.trim($('#hdStockProducto').val()) == "0" && $("#chkHabilitarOferta").attr('checked')) {
+                    //    vMessage += "- La Oferta no se podrá habilitar hasta que el stock sea mayor que 0.\n";
+                    //    $("#chkHabilitarOferta").removeAttr('checked');
+                    //}
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        RegistrarOfertaShowRoom();
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogRegistroOfertaShowRoomDetalle').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 900,
+            draggable: true,
+            title: "Edición de Productos"
+            //buttons:
+            //{
+            //    "Guardar": function () {
+            //        alert("hola");
+            //    },
+            //    "Cancelar": function () {
+            //        $(this).dialog('close');
+            //    }
+            //}
+        });
+
+        $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Registro / Edición de Productos",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#txtNombreProductoDetalle').val()) == "")
+                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
+
+                    if (jQuery.trim($('#txtDescripcion1Detalle').val()) == "")
+                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        RegistrarOfertaShowRoomDetalle();
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+
+    }
+
+    function CargarAjaxForm() {
+        $('#frmCargarConsultoras').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flCargarConsultoras').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    alert(response);
+                    $('#DialogCargarConsultoras').dialog('close');
+                }
+            }
+        });
+
+        $('#frmCargarStock').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flStock').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    alert(response);
+                    $('#DialogCargarStock').dialog('close');
+                }
+            }
+        });
+
+        $('#frmCargarDescripcionSets').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flDescripcionSets').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    alert(response);
+                    $('#DialogCargarDescripcionSets').dialog('close');
+                }
+            }
+        });
+    }
+
+    function CargarEventos() {
+        $('#ddlPais').change(function () {
+            var Id = $(this).val();
+            if (Id != "") {
+                waitingDialog({});
+                $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                    if (checkTimeout(data)) {
+                        LimpiarDependencias(Id);
+
+                        var ddlCampania = $('#ddlCampania');
+                        var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+                        ddlCampania.empty();
+                        ddlConfiguracionOferta.empty();
+                        if (data.lista.length > 0) {
+                            ddlCampania.append($('<option/>', {
+                                value: "",
+                                text: "-- Seleccionar --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lista) {
+                                    ddlCampania.append($('<option/>', {
+                                        value: data.lista[item].CampaniaID,
+                                        text: data.lista[item].Codigo
+                                    }));
+                                }
+                            }
+                        }
+                        if (data.lstConfig.length > 0) {
+                            ddlConfiguracionOferta.append($('<option/>', {
+                                value: "0",
+                                text: "-- Todos --"
+                            }));
+                            if (Id != "") {
+                                for (var item in data.lstConfig) {
+                                    ddlConfiguracionOferta.append($('<option/>', {
+                                        value: data.lstConfig[item].CodigoOferta,
+                                        text: data.lstConfig[item].Descripcion
+                                    }));
+                                }
+                            }
+                        }
+                        closeWaitingDialog();
+                    }
+                });
+            } else LimpiarDependencias(Id);
+        });
+
+        $("#btnBuscar").click(function () {
+            $("#divCargaArchivos").css("display", "none");
+            $("#divOfertasShowRoom").css("display", "none");
+            $("#divShowRoomPerfil").css("display", "none");
+
+            $("#divPerfilOfertaShowRoom").css("display", "none");
+
+            LimpiarDatosEventoShowRoom();
+
+            var msjex = "";
+            if ($("#ddlPais").val() == "")
+                msjex += " - Debe seleccionar un País .\n";
+            if ($("#ddlCampania").val() == "")
+                msjex += " - Debe seleccionar un Campania .\n";
+
+            if (msjex == "") {
+                paisNombre = $("#ddlPais option:selected").text();
+                paisID = $("#ddlPais").val();
+
+                fnGrillaEvento();
+
+                $("#divShowRoomEvento").css("display", "");
+            }
+            else {
+                alert(msjex);
+                return false;
+            }
+        });
+
+        $("#btnNuevo").click(function () {
+            $("#txtEventoPaisID").val(paisNombre);
+            $("#txtEventoCampaniaID").val($("#ddlCampania").val());
+
+            $("#divEventoEstado").css("display", "none");
+
+            $("#divShowRoomPerfil").css("display", "none");
+
+            showDialog("DialogDatosShowRoom");
+        });
+
+        $("#lnkConsultoras").click(function () {
+            showDialog("DialogCargarConsultoras");
+            LimpiarCargaConsultoras();
+            return false;
+        });
+
+        $("#lnkStock").click(function () {
+            showDialog("DialogCargarStock");
+            LimpiarCargaStock();
+            return false;
+        });
+
+        $("#lnkDescripcionSets").click(function () {
+            showDialog("DialogCargarDescripcionSets");
+            LimpiarCargaDescripcionSets();
+            return false;
+        });
+
+        $("#btnNuevoDetalle").click(function () {
+            LimpiarDatosEventoShowRoomDetalle();
+            showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+        });
+
+        $("#cbPerfilesEvento").change(function() {
+            var perfilId = 0;
+
+            var campaniaId = $("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val();
+            var eventoId = $("#hdEventoID").val();
+
+            if ($(this).val() != "") {
+                perfilId = $(this).val();
+
+                ObtenerShowRoomPerfilOfertaCuvs(campaniaId, eventoId, perfilId);
+            } else {
+                alert("Debe seleccionar un Perfil");
+            }
+        });
+
+        $("#btnGuardarPerfilOfertaShowRoom").click(function () {
+            var tagUlPerfil = $(".selected.connected-list.ui-sortable");
+            var listaTagLiPerfil = $(tagUlPerfil).find("li.ui-state-default.ui-element");
+
+            var cadenaCuv = "";
+
+            if (listaTagLiPerfil.length > 0) {
+                $.each(listaTagLiPerfil, function(index, value) {
+                    var cuv = $(value).attr("data-selected-value");
+                    cadenaCuv += cuv + ",";
+                });
+
+                var item = {
+                    perfilId: $("#cbPerfilesEvento").val(),
+                    eventoId: $("#hdEventoID").val(),
+                    campaniaId: $("#ddlCampania").val(),
+                    cadenaCuv: cadenaCuv
+                };
+
+                waitingDialog({ title: "Procesando" });
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlGuardarPerfilOfertaShowRoom,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (response) {
+                        if (checkTimeout(response)) {
+                            if (response.success) {
+                                closeWaitingDialog();
+
+                                alert_msg(response.message);
+                            } else {
+                                alert_msg(response.message);
+                            }
+                        }
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            alert_msg(response.message);
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            } else {
+                alert("Debe seleccionar al menos un cuv");
+            }
+        });
+    }
+
+    function ObtenerShowRoomPerfilOfertaCuvs(campaniaId, eventoId, perfilId) {
+        var item = {            
+            campaniaId: campaniaId,
+            eventoId: eventoId,
+            perfilId: perfilId
+        };
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoomPerfilOfertaCuvs,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        closeWaitingDialog();
+                        
+                        if (response.data == "") {
+                            $("#divPerfilOfertaShowRoom").css("display", "none");
+                        } else {
+                            var listaPerfilCuv = response.data;
+                           
+                            var html = '<select id="cbPerfilOfertaShowRoom" class="multiselect" multiple="multiple" name="cbPerfilOfertaShowRoom[]"></select>';
+                            $("#divPerfilOfertaShowRoom").html(html);
+                            
+                            $.each(listaPerfilCuv, function (index, value) {
+                                var clase = '';
+
+                                if (value.PerfilOfertaShowRoomID != 0) {
+                                    clase = 'selected="selected"';
+                                }
+
+                                var html = '<option value="' + value.CUV + '" ' + clase + '>' + value.CUV + '</option>';
+
+                                $("#cbPerfilOfertaShowRoom").append(html);
+                            });
+
+                            $("#divPerfilOfertaShowRoom").css("display", "");
+                            
+                            $("#cbPerfilOfertaShowRoom").multiselect();
+                        }
+                    } else {
+                        $("#divPerfilOfertaShowRoom").css("display", "none");
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function fnGrillaEvento() {
+        jQuery("#listEvento").jqGrid({
+            url: urlConsultarShowRoom,
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function () { return $("#ddlPais").val(); },
+                CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['EventoID', 'Nombre', 'Tema', 'Dias Antes Fact.', 'Dias Despues Fact.', 'Ruta ShowRoom Popup', 'Ruta ShowRoom Banner Lateral', '# Perfiles',
+                'Imagen1', 'Imagen2', 'ImagenCabeceraProducto', 'ImagenVentaSetPopup', 'ImagenVentaTagLateral', 'ImagenPestaniaShowRoom', 'ImagenPreventaDigital', ''],
+            colModel: [
+                { name: 'EventoID', index: 'EventoID', width: 50, editable: true, resizable: false },
+                { name: 'Nombre', index: 'Nombre', width: 80, editable: true, resizable: false },
+                { name: 'Tema', index: 'Tema', width: 80, editable: true, resizable: false },
+                { name: 'DiasAntes', index: 'DiasAntes', width: 50, editable: true, resizable: false },
+                { name: 'DiasDespues', index: 'DiasDespues', width: 50, editable: true, resizable: false },
+                { name: 'RutaShowRoomPopup', index: 'RutaShowRoomPopup', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'RutaShowRoomBannerLateral', index: 'RutaShowRoomBannerLateral', width: 100, editable: true, resizable: false, hidden: true },
+                { name: 'NumeroPerfiles', index: 'NumeroPerfiles', width: 50, editable: true, resizable: false },
+                { name: 'Imagen1', index: 'Imagen1', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'Imagen2', index: 'Imagen2', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenCabeceraProducto', index: 'ImagenCabeceraProducto', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenVentaSetPopup', index: 'ImagenVentaSetPopup', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenVentaTagLateral', index: 'ImagenVentaTagLateral', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenPestaniaShowRoom', index: 'ImagenPestaniaShowRoom', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenPreventaDigital', index: 'ImagenPreventaDigital', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsEvento }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerEvento'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                var cantidadRegistros = jQuery('#listEvento').jqGrid('getGridParam', 'reccount');
+                if (cantidadRegistros <= 0) {
+                    $("#hdEventoID").val("0");
+                    //Carga de Consultora
+                    $("#hdCargaEventoID").val("0");
+                    $("#hdCargaCampaniaID").val("");
+                    //Carga de Descripcion de Sets
+                    $("#hdCargaDescripcionSetsEventoID").val("0");
+                    $("#hdCargaDescripcionSetsCampaniaID").val("");
+
+                    $("#divShowRoomEventoNuevo").css("display", "");
+                    $("#divCargaArchivos").css("display", "none");
+                    $("#divOfertasShowRoom").css("display", "none");
+                } else {
+                    $("#divShowRoomEventoNuevo").css("display", "none");
+                    $("#divCargaArchivos").css("display", "");
+
+                    /*Carga de Imagenes*/
+                    var showroomEvento = jQuery('#listEvento').jqGrid('getRowData')[0];
+                    CargarImagenes(showroomEvento);
+
+                    fnGrilla();
+                    $("#divOfertasShowRoom").css("display", "");
+                }
+            }
+        });
+        jQuery("#listEvento").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ObtenerShowRoomPerfiles() {
+        var item = {
+            paisId: $("#ddlPais").val(),
+            eventoId: $("#hdEventoID").val()
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoomPerfiles,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $("#cbPerfilesEvento").empty();
+
+                        if (response.data == "") {
+                            $("#divShowRoomPerfil").css("display", "none");
+                        } else {
+                            var listaPerfiles = response.data;
+
+                            var htmlSeleccionar = '<option value="">-- Seleccionar --</option>';
+
+                            $("#cbPerfilesEvento").append(htmlSeleccionar);
+
+                            $.each(listaPerfiles, function (index, value) {
+                                var html = '<option value="' + value.PerfilID + '">' + value.PerfilDescripcion + '</option>';
+
+                                $("#cbPerfilesEvento").append(html);
+                            });
+
+                            $("#divShowRoomPerfil").css("display", "");
+                        }
+                    } else {
+                        $("#divShowRoomPerfil").css("display", "none");
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function CargarImagenes(showroomEvento) {
+        if (showroomEvento.Imagen1 != "") {
+            $("#divPopupWebFondo").html("");
+            var htmlImagen1 = '<img src="' + showroomEvento.Imagen1 + '" alt="PopupWebFondo" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebFondo").html(htmlImagen1);
+        }
+        $("#hdImagen1").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ''));
+        $("#hdImagen1Anterior").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenVentaSetPopup != "") {
+            $("#divPopupVentaImagenSet").html("");
+            var htmlImagen2 = '<img src="' + showroomEvento.ImagenVentaSetPopup + '" alt="PopupVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupVentaImagenSet").html(htmlImagen2);
+        }
+        $("#hdImagenVentaSetPopup").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenVentaSetPopupAnterior").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.Imagen2 != "") {
+            $("#divPopupWebImagenSet").html("");
+            var htmlImagen3 = '<img src="' + showroomEvento.Imagen2 + '" alt="Imagen2" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebImagenSet").html(htmlImagen3);
+        }
+        $("#hdImagen2").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ''));
+        $("#hdImagen2Anterior").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenVentaTagLateral != "") {
+            $("#divPopupTagLateralVentaImagenSet").html("");
+            var htmlImagen4 = '<img src="' + showroomEvento.ImagenVentaTagLateral + '" alt="PopupTagLateralVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupTagLateralVentaImagenSet").html(htmlImagen4);
+        }
+        $("#hdImagenVentaTagLateral").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenVentaTagLateralAnterior").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenCabeceraProducto != "") {
+            $("#divCabeceraPaginaProductos").html("");
+            var htmlImagen5 = '<img src="' + showroomEvento.ImagenCabeceraProducto + '" alt="CabeceraPaginaProductos" style="width: 75px; height: 50px;" />';
+            $("#divCabeceraPaginaProductos").html(htmlImagen5);
+        }
+        $("#hdImagenCabeceraProducto").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenCabeceraProductoAnterior").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenPestaniaShowRoom != "") {
+            $("#divPestaniaNombreShowRoom").html("");
+            var htmlImagen6 = '<img src="' + showroomEvento.ImagenPestaniaShowRoom + '" alt="PestaniaNombreShowRoom" style="width: 75px; height: 50px;" />';
+            $("#divPestaniaNombreShowRoom").html(htmlImagen6);
+        }
+        $("#hdImagenPestaniaShowRoom").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenPestaniaShowRoomAnterior").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenPreventaDigital != "") {
+            $("#divPopupImagenPreventaDigital").html("");
+            var htmlImagen7 = '<img src="' + showroomEvento.ImagenPreventaDigital + '" alt="PopupImagenPreventaDigital" style="width: 75px; height: 50px;" />';
+            $("#divPopupImagenPreventaDigital").html(htmlImagen7);
+        }
+        $("#hdImagenPreventaDigital").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenPreventaDigitalAnterior").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ''));
+    }
+
+    function GuardarImagenEventoShowRoom(rutaImagen, nombreImagen, nombreDiv, tipo) {
+        var html = '<img  alt="" src="' + rutaImagen + '" style="max-width: 100% !important;"/>';
+        $("#" + nombreDiv).html(html);
+
+        waitingDialog({ title: "Procesando" });
+
+        var imagenAnterior = "";
+        switch (tipo) {
+            case 1:
+                imagenAnterior = $("#hdImagen1Anterior").val();
+                break;
+            case 2:
+                imagenAnterior = $("#hdImagenVentaSetPopupAnterior").val();
+                break;
+            case 3:
+                imagenAnterior = $("#hdImagen2Anterior").val();
+                break;
+            case 4:
+                imagenAnterior = $("#hdImagenVentaTagLateralAnterior").val();
+                break;
+            case 5:
+                imagenAnterior = $("#hdImagenCabeceraProductoAnterior").val();
+                break;
+            case 6:
+                imagenAnterior = $("#hdImagenPestaniaShowRoomAnterior").val();
+                break;
+            case 7:
+                imagenAnterior = $("#hdImagenPreventaDigitalAnterior").val();
+                break;
+            default:
+                break;
+        }
+
+        var item = {
+            eventoId: parseInt($("#hdEventoID").val()),
+            nombreImagen: nombreImagen,
+            nombreImagenAnterior: imagenAnterior,
+            tipo: tipo
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarImagenShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        //actualizar los inputs de la imagen respectiva
+                        switch (tipo) {
+                            case 1:
+                                $("#hdImagen1").val(data.extra);
+                                $("#hdImagen1Anterior").val(data.extra);
+                                break;
+                            case 2:
+                                $("#hdImagenVentaSetPopup").val(data.extra);
+                                $("#hdImagenVentaSetPopupAnterior").val(data.extra);
+                                break;
+                            case 3:
+                                $("#hdImagen2").val(data.extra);
+                                $("#hdImagen2Anterior").val(data.extra);
+                                break;
+                            case 4:
+                                $("#hdImagenVentaTagLateral").val(data.extra);
+                                $("#hdImagenVentaTagLateralAnterior").val(data.extra);
+                                break;
+                            case 5:
+                                $("#hdImagenCabeceraProducto").val(data.extra);
+                                $("#hdImagenCabeceraProductoAnterior").val(data.extra);
+                                break;
+                            case 6:
+                                $("#hdImagenPestaniaShowRoom").val(data.extra);
+                                $("#hdImagenPestaniaShowRoomAnterior").val(data.extra);
+                                break;
+                            case 7:
+                                $("#hdImagenPreventaDigital").val(data.extra);
+                                $("#hdImagenPreventaDigitalAnterior").val(data.extra);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function ShowActionsEvento(cellvalue, options, rowObject) {
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[15] + "','" + rowObject[19] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[15] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[15] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+
+        var resultado = edit;
+
+        if (rowObject[19] == "1")
+            resultado += del;
+
+        if (rowObject[19] == "1")
+            resultado += remove;
+
+        $("#hdEventoID").val(options.rowId);
+        //Carga de Consultoras
+        $("#hdCargaEventoID").val(options.rowId);
+        $("#hdCargaCampaniaID").val(rowObject[15]);
+        //Carga de Descripcion de Sets
+        $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
+        $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[15]);
+
+        return resultado;
+    }
+
+    function GuardarShowRoomEvento() {
+        var eventoID = $("#hdEventoID").val();
+        var campaniaID = $("#txtEventoCampaniaID").val();
+        var nombre = $("#txtEventoNombre").val();
+        var tema = $("#txtEventoTema").val();
+        var diasAntes = $("#txtEventoDiasAntes").val();
+        var diasDespues = $("#txtEventoDiasDespues").val();
+        var rutaShowRoomPopup = $("#txtEventoRutaShowRoomPopup").val();
+        var rutaShowRoomBannerLateral = $("#txtEventoRutaShowRoomBannerLateral").val();
+        var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
+        var estado = $("#chkEventoEstado").is(":checked");
+
+        var showRoom = {
+            EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
+            CampaniaID: campaniaID,
+            Nombre: nombre,
+            Tema: tema,
+            DiasAntes: parseInt(diasAntes),
+            DiasDespues: parseInt(diasDespues),
+            NumeroPerfiles: parseInt(numeroPerfiles),
+            RutaShowRoomPopup: rutaShowRoomPopup,
+            RutaShowRoomBannerLateral: rutaShowRoomBannerLateral,
+            Estado: estado
+        };
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(showRoom),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        closeWaitingDialog();
+                        var id = response.data;
+
+                        if ($("#hdEventoID").val() == "0")
+                            fnGrilla();
+
+                        $("#hdEventoID").val(id);
+                        //Cargar de Consultoras
+                        $("#hdCargaEventoID").val(id);
+                        $("#hdCargaCampaniaID").val(campaniaID);
+                        //Carga de Descripcion de Sets
+                        $("#hdCargaDescripcionSetsEventoID").val(id);
+                        $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);
+
+                        HideDialog("DialogDatosShowRoom");
+                        jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        alert_msg(response.message);
+                    } else {
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function RegistrarOfertaShowRoom() {
+        var accion = "";
+        if ($("#FlagTransaccion").val() == "1")
+            accion = urlUpdateOfertaShowRoom;
+        else
+            accion = urlInsertOfertaShowRoom;
+
+        var Item = {
+            CampaniaID: jQuery('#hdCampaniaID').val(),
+            CUV: jQuery('#txtCUVModal').val(),
+            Descripcion: $("#txtDescripcionModal").val(),
+            PrecioOferta: $("#txtPrecioOfertaModal").val(),
+            ImagenProducto: $("#hdImagenProducto").val(),
+            ImagenProductoAnterior: $('#hdImagenProductoAnterior').val(),
+            ImagenMini: $("#hdImagenMini").val(),
+            ImagenMiniAnterior: $("#hdImagenMiniAnterior").val(),
+            UnidadesPermitidas: $("#txtUnidadesPermitidasModal").val(),
+            CodigoCampania: $("#txtCampaniaModal").val(),
+            FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
+            CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
+            PaisID: paisID
+        };
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: accion,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        HideDialog("DialogRegistroOfertaShowRoom");
+                        LimpiarDatos();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    HideDialog("DialogRegistroOfertaShowRoom");
+                }
+            }
+        });
+    }
+
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: urlConsultorOfertaShowRoom,
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function() { return $("#ddlPais").val() },
+                CodigoOferta: function() { return ($("#ddlConfiguracionOferta").val() == "" ? "0" : $("#ddlConfiguracionOferta").val()); },
+                CampaniaID: function() { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
+                'Foto', 'Set', 'Productos'],
+            colModel: [
+                { name: 'TipoOferta', index: 'TipoOferta', width: 50, editable: true, resizable: false },
+                { name: 'CodigoProducto', index: 'CodigoProducto', width: 60, editable: true, resizable: false },
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false },
+                { name: 'CUV', index: 'CUV', width: 40, editable: true, resizable: false },
+                { name: 'Descripcion', index: 'Descripcion', width: 135, editable: true, resizable: false },
+                { name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
+                { name: 'Orden', index: 'Orden', width: 35, editable: true, resizable: false, hidden: true },
+                { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false },
+                { name: 'StockInicial', index: 'StockInicial', width: 50, editable: true, resizable: false },
+                { name: 'UnidadesPermitidas', index: 'UnidadesPermitidas', width: 65, editable: true, resizable: false },
+                { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
+                { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsProductos }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function() {
+            },
+            gridComplete: function () {
+                ObtenerShowRoomPerfiles();
+            }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function fnGrillaOfertaShowRoomDetalle(campaniaId, cuv) {
+        $("#listShowRoomDetalle").jqGrid("clearGridData");
+
+        var parametros = {
+            campaniaId: campaniaId,
+            cuv: cuv
+        };
+
+        $('#listShowRoomDetalle').setGridParam({ postData: parametros });
+
+        jQuery("#listShowRoomDetalle").jqGrid({
+            url: urlConsultarOfertaShowRoomDetalle,
+            hidegrid: false,
+            datatype: 'json',
+            postData: (parametros),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['OfertaShowRoomDetalleID', 'CampaniaID', 'CUV', 'Nombre', 'Descripcion1', 'Descripcion2', 'Descripcion3', 'Foto', ''],
+            colModel: [
+                { name: 'OfertaShowRoomDetalleID', index: 'OfertaShowRoomDetalleID', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'CampaniaID', index: 'CampaniaID', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'CUV', index: 'CUV', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion2', index: 'Descripcion2', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },
+                { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
+                { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsDetalle }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerShowRoomDetalle'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 830,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+            }
+        });
+        jQuery("#listShowRoomDetalle").jqGrid('navGrid', "#pagerShowRoomDetalle", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listShowRoomDetalle").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ShowActions(cellvalue, options, rowObject) {
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[15] + "','" + rowObject[19] + "','" + rowObject[20] + "','" + rowObject[13] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
+
+        var resultado = edit;
+
+        if (rowObject[15] == "True")
+            resultado += del;
+
+        resultado += remove;
+
+        return resultado;
+    }
+
+    function ShowActionsProductos(cellvalue, options, rowObject) {
+        var id = options.rowId;
+        var campaniaId = rowObject[2];
+        var cuv = rowObject[3];
+
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Productos Oferta Show Room' title='Editar Productos Oferta Show Room' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Productos Oferta Show Room' title='Eliminar Productos Oferta Show Room' border='0' /></a>";
+
+        return edit + remove;
+    }
+
+    function ShowActionsDetalle(cellvalue, options, rowObject) {
+        var id = options.rowId;
+        var campaniaId = rowObject[1];
+        var cuv = rowObject[2];
+        var imagen = rowObject[7];
+
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EditarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "','" + imagen + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Productos Oferta Show Room Detalle' title='Editar Productos Oferta Show Room Detalle' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Productos Oferta Show Room Detalle' title='Eliminar Productos Oferta Show Room Detalle' border='0' /></a>";
+
+        return edit + remove;
+    }
+
+    function ShowImage(cellvalue, options, rowObject) {
+        var image = "";
+        if (rowObject[10] != "") {
+            image = '<img src="' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+        } else {
+            image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+
+    function ShowImageDetalle(cellvalue, options, rowObject) {
+        var image = "";
+        if (rowObject[7] != "") {
+            image = '<img src="' + rowObject[7] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+        } else {
+            image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+
+    function RegistrarOfertaShowRoomDetalle() {
+        var accion;
+
+        if ($("#hdOfertaShowRoomDetalleID").val() == "0")
+            accion = urlInsertOfertaShowRoomDetalle;
+        else
+            accion = urlUpdateOfertaShowRoomDetalle;
+
+        var item = {
+            OfertaShowRoomDetalleID: $("#hdOfertaShowRoomDetalleID").val(),
+            CampaniaID: $("#txtCampaniaDetalle").val(),
+            CUV: $("#txtCUVDetalle").val(),
+            NombreProducto: $("#txtNombreProductoDetalle").val(),
+            Descripcion1: $("#txtDescripcion1Detalle").val(),
+            Descripcion2: $("#txtDescripcion2Detalle").val(),
+            Descripcion3: $("#txtDescripcion3Detalle").val(),
+            Imagen: $("#hdImagenDetalle").val(),
+            ImagenAnterior: $("#hdImagenDetalleAnterior").val()
+        };
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: accion,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                        LimpiarDatos();
+                        jQuery("#listShowRoomDetalle").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                }
+            }
+        });
+    }
+
+    $.jgrid.extend({
+        Editar: function(ID, CUV, CampaniaID, OfertaShowRoomID, CodigoOferta, ISO, FlagHabilitarProducto, ConfiguracionOfertaID, CodigoSAP, Stock, ImagenProducto, ImagenMini) {
+            if (ID) {
+                LimpiarDatos();
+
+                if (OfertaShowRoomID != "0")
+                    $("#FlagTransaccion").val("1");
+
+                $.ajaxSetup({
+                    cache: false
+                });
+
+                $('#hdCampaniaID').val(CampaniaID);
+                $('#hdStockProducto').val(Stock);
+                $("#txtPaisModal").val(paisNombre);
+                $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
+
+                $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
+                $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
+                $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
+                $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+                if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
+                    $("#txtUnidadesPermitidasModal").val("1");
+                else
+                    $("#txtUnidadesPermitidasModal").val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
+
+                var imagen = ImagenProducto.replace(/^.*[\\\/]/, '');
+
+                if (imagen != "prod_grilla_vacio.png") {
+                    $('#hdImagenProductoAnterior').val(imagen);
+                    $('#hdImagenProducto').val(imagen);
+                    $('#imgProducto').attr('src', ImagenProducto);
+                } else {
+                    $('#hdImagenProductoAnterior').val("");
+                    $('#hdImagenProducto').val("");
+                    $('#imgProducto').attr('src', imagenProductoVacio);
+                }
+
+                var imagenMini = ImagenMini.replace(/^.*[\\\/]/, '');
+
+                if (imagenMini != "prod_grilla_vacio.png") {
+                    $('#hdImagenMiniAnterior').val(imagenMini);
+                    $('#hdImagenMini').val(imagenMini);
+                    $('#imgMini').attr('src', ImagenMini);
+                } else {
+                    $('#hdImagenMiniAnterior').val("");
+                    $('#hdImagenMini').val("");
+                    $('#imgMini').attr('src', imagenProductoVacio);
+                }
+
+                if (FlagHabilitarProducto == "True")
+                    $('#chkHabilitarOferta').attr('checked', true);
+                else
+                    $('#chkHabilitarOferta').removeAttr('checked');
+
+                $('#hdCodigoOferta').val(CodigoOferta);
+
+                showDialog("DialogRegistroOfertaShowRoom");
+
+            } else {
+                alert("Debe seleccionar un Producto, verifique");
+            }
+            return false;
+        },
+        Eliminar: function(ID, CUV, CampaniaID) {
+            var elimina = confirm('¿ Está seguro que desea deshabilitar el producto seleccionado?');
+            if (!elimina)
+                return false;
+
+            var Item = {
+                CampaniaID: CampaniaID,
+                CUV: CUV,
+                PaisID: paisID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlDeshabilitarOfertaShowRoom,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        LimpiarDatos();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        Remover: function(ID, CUV, CampaniaID) {
+            var elimina = confirm('¿ Está seguro que desea eliminar el producto seleccionado?');
+            if (!elimina)
+                return false;
+
+            var Item = {
+                CampaniaID: CampaniaID,
+                CUV: CUV,
+                PaisID: paisID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlRemoverOfertaShowRoom,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(Item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        LimpiarDatos();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        EditarEvento: function(ID, campaniaID, estado) {
+            $("#txtEventoPaisID").val(paisNombre);
+            $("#txtEventoCampaniaID").val(campaniaID);
+            $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
+            $('#txtEventoTema').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Tema'));
+            $('#txtEventoDiasAntes').val(jQuery("#listEvento").jqGrid('getCell', ID, 'DiasAntes'));
+            $('#txtEventoDiasDespues').val(jQuery("#listEvento").jqGrid('getCell', ID, 'DiasDespues'));
+            $('#txtEventoNumeroPerfiles').val(jQuery("#listEvento").jqGrid('getCell', ID, 'NumeroPerfiles'));
+            $('#txtEventoRutaShowRoomPopup').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomPopup'));
+            $('#txtEventoRutaShowRoomBannerLateral').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomBannerLateral'));
+
+            if (estado == "1")
+                $("#chkEventoEstado").prop('checked', true);
+            else
+                $("#chkEventoEstado").prop('checked', false);
+
+            $("#divEventoEstado").css("display", "");
+
+            showDialog("DialogDatosShowRoom");
+        },
+        DeshabilitarEvento: function(ID, CampaniaID) {
+            var deshabilitar = confirm('¿ Está seguro que desea deshabilitar el evento?');
+            if (!deshabilitar)
+                return false;
+
+            var item = {
+                campaniaID: CampaniaID,
+                eventoID: ID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlDeshabilitarShowRoomEvento,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        EliminarEvento: function(ID, CampaniaID) {
+            var eliminar = confirm('¿ Está seguro que desea eliminar el evento?');
+            if (!eliminar)
+                return false;
+
+            $("#divShowRoomPerfil").css("display", "none");
+
+            var item = {
+                campaniaID: CampaniaID,
+                eventoID: ID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlEliminarShowRoomEvento,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            $("#divCargaArchivos").css("display", "none");
+                            $("#divOfertasShowRoom").css("display", "none");
+                            LimpiarDatosEventoShowRoom();
+                            alert(data.message);
+                            jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        EditarProducto: function (ID, CampaniaID, CUV) {
+            LimpiarDatosShowRoomDetalle();
+
+            $("#txtPaisDetalle").val(paisNombre);
+            $("#txtCampaniaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
+            $("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
+            $("#txtCUVDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
+            $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
+            $("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+
+            showDialog("DialogRegistroOfertaShowRoomDetalle");
+
+            fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV);
+        },
+        EliminarProducto: function(ID, CampaniaID, CUV) {
+            var eliminar = confirm('¿ Está seguro que desea eliminar todos los productos del set ?');
+            if (!eliminar)
+                return false;
+
+            var item = {
+                campaniaID: CampaniaID,
+                cuv: CUV
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlEliminarOfertaShowRoomDetalleAll,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            alert(data.message);
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+        },
+        EditarProductoDetalle: function(ID, CampaniaID, CUV, Imagen) {
+            $('#hdOfertaShowRoomDetalleID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'OfertaShowRoomDetalleID'));
+            $('#txtNombreProductoDetalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'NombreProducto'));
+            $('#txtDescripcion1Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion1'));
+            $('#txtDescripcion2Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion2'));
+            $('#txtDescripcion3Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion3'));
+
+            var imagen = Imagen.replace(/^.*[\\\/]/, '');
+
+            if (imagen != "prod_grilla_vacio.png") {
+                $('#hdImagenDetalle').val(imagen);
+                $('#hdImagenDetalleAnterior').val(imagen);
+                $('#imgProductoDetalle').attr('src', Imagen);
+            } else {
+                $('#hdImagenDetalle').val("");
+                $('#hdImagenDetalleAnterior').val("");
+                $('#imgProductoDetalle').attr('src', imagenProductoVacio);
+            }
+
+            showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+        },
+        EliminarProductoDetalle: function (ID, CampaniaID, CUV) {
+            var eliminar = confirm('¿ Está seguro que desea eliminar el producto ?');
+            if (!eliminar)
+                return false;
+
+            var item = {
+                ofertaShowRoomDetalleID: ID,
+                campaniaID: CampaniaID,
+                cuv: CUV
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlEliminarOfertaShowRoomDetalle,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#listShowRoomDetalle").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+        }
+    });
+
+    function LimpiarDatosEventoShowRoom() {
+        $("#txtEventoNombre").val("");
+        $("#txtEventoTema").val("");
+        $("#txtEventoDiasAntes").val("");
+        $("#txtEventoDiasDespues").val("");
+        $("#txtEventoNumeroPerfiles").val("");
+        $("#txtEventoRutaShowRoomPopup").val("");
+        $("#txtEventoRutaShowRoomBannerLateral").val("");
+
+        $("#divPopupWebFondo").html("");
+        $("#divPopupVentaImagenSet").html("");
+        $("#divPopupWebImagenSet").html("");
+        $("#divPopupTagLateralVentaImagenSet").html("");
+        $("#divCabeceraPaginaProductos").html("");
+        $("#divPestaniaNombreShowRoom").html("");
+        $("#divPopupImagenPreventaDigital").html("");
+    }
+
+    function LimpiarDatos() {
+        $('#hdCampaniaID').val("");
+        $('#txtPaisModal').val("");
+        $('#txtTipoOfertaModal').val("");
+        $('#txtCUVModal').val("");
+        $('#txtDescripcionModal').val("");
+        $('#txtPrecioOfertaModal').val("");
+        $('#chkHabilitarOferta').removeAttr('checked');
+        $("#FlagTransaccion").val("0");
+        $("#hdCodigoOferta").val("");
+        $("#hdStockProducto").val("0");
+        $('#txtUnidadesPermitidasModal').val("");
+    }
+
+    function LimpiarDatosShowRoomDetalle() {
+        $("#txtPaisDetalle").val('');
+        $("#txtCampaniaDetalle").val('');
+        $("#txtTipoOfertaDetalle").val('');
+        $("#txtCUVDetalle").val('');
+        $("#txtDescripcionDetalle").val('');
+        $("#txtPrecioNormalDetalle").val('');
+    }
+
+    function LimpiarDatosEventoShowRoomDetalle() {
+        $("#hdOfertaShowRoomDetalleID").val("0");
+        $("#txtNombreProductoDetalle").val("");
+        $("#txtDescripcion1Detalle").val("");
+        $("#txtDescripcion2Detalle").val("");
+        $("#txtDescripcion3Detalle").val("");
+        $('#imgProductoDetalle').attr('src', imagenProductoVacio);
+        $("#hdImagenDetalle").val("");
+        $("#hdImagenDetalleAnterior").val("");
+    }
+
+    function LimpiarCargaStock() {
+        var divcontainer = $('#flStock').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+
+    function LimpiarCargaConsultoras() {
+        var divcontainer = $('#flCargarConsultoras').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+
+    function LimpiarCargaDescripcionSets() {
+        var divcontainer = $('#flDescripcionSets').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+
+    function LimpiarDependencias(Id) {
+        var ddlCampania = $('#ddlCampania');
+        ddlCampania.empty();
+        ddlCampania.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+        var ddlConfiguracionOferta = $('#ddlConfiguracionOferta');
+        ddlConfiguracionOferta.empty();
+        ddlConfiguracionOferta.append($('<option/>', {
+            value: "",
+            text: "-- Seleccionar --"
+        }));
+        $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+    }
+
+    function alert_msg(message) {
+        $('#DialogMensajes .message_text').html(message);
+        $('#DialogMensajes').dialog('open');
+    }
+
+</script>

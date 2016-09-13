@@ -1,0 +1,77 @@
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.EditarDireccionModel
+
+@* Template para México *@
+
+<div class="div-3">
+    <div class="titC">@DictionariesUnete.LabelLugar1[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel1)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">@DictionariesUnete.LabelLugar2[Model.CodigoPais]</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel2)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">Colonia</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(m => Model.LugarNivel3, new List<SelectListItem>(), "-- Seleccionar --", new {@class = "field_85"})
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.LugarNivel3)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">Dirección</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85", @placeholder = "Ej. Calle/Nº/Edif/Apto" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">Referencia</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85", @placeholder = "Ej. entre calle 1 y calle 3" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.Referencia)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC">Codigo Postal</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100", @maxlength = 5 })
+    </div>
+</div>
+<div class="div-3">
+    <div class="validation_clear"></div>
+    <div class="validation">
+        @Html.ValidationMessageFor(m => Model.Numero)
+    </div>
+</div>

@@ -1,0 +1,236 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model List<ClienteMobileModel>
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+        }
+    </style>
+}
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;LISTADO DE CLIENTES
+</div>
+
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+
+    
+    
+        <div class="col-xs-12">
+            <div class="text-center">
+                <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
+            </div>
+            <div class="list-table-new">
+                <ul class="list-table-title upper">
+                    <li>Cliente</li>
+                </ul>
+                <ul class="list-table-body list-body-clientes">
+                    @foreach (var cliente in Model)
+                    {
+                        <li>
+                            <div class="posr">
+                                <div class="table-width">
+                                    <div>
+                                        <strong class="upper clienteNombre">@cliente.Nombre</strong>
+                                    </div>
+                                    <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
+                                    <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
+                                </div>
+                                <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
+                                <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="text-center mt-20">
+                <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
+            </div><br>
+        </div>
+    
+
+    <!-- modal popup -->
+    <div class="modal fade" id="modal-id">
+        <div class="modal-dialog modal-alert">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-lg">¿Estás segura que quieres <br> eliminar este cliente?</p><br>
+                    <p>
+                        <a href="#" class="btn_belcorp" data-dismiss="modal" onclick="ConfirmaEliminarCliente();"> Aceptar</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+
+    <div id="agregarCliente" class="modal fade">
+        <div class="modal-dialog modal-alert ">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @Html.Partial("AgregarCliente", new ClienteMobileModel())
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts
+{
+        <script type="text/javascript">
+            var esAgregarCliente = true;
+            var posicionClienteActual = 0;
+            var fnEliminarCliente = null;
+            var urlEliminarCliente = '@Url.Action("Eliminar", "Cliente", new {area = "Mobile"})';
+
+            $(document).ready(function () {
+                $("body").on("click", ".agregarCliente", function (event) {
+                    esAgregarCliente = true;
+                    $('#Nombre').val("");
+                    $('#Email').val("");
+                    $('#Telefono').val("");
+                    $('#ClienteID').val("0");
+                    $('#FlagValidate').val("0");
+                    $("#hdNombreClienteAnterior").val("");
+
+                    posicionClienteActual = 0;
+
+                    ShowAgregarCliente();
+                    $("#liOpcionCliente").html("Agregar Cliente");
+                });
+
+                $("body").on("click", ".actualizarCliente", function (event) {
+                    esAgregarCliente = false;
+                    var divPadre = $(this).parent("div");
+                    var divInfo = $(divPadre).find(".table-width");
+
+                    var clienteId = $(divInfo).find(".clienteId").val();
+                    var clienteNombre = $(divInfo).find(".clienteNombre").html();
+                    var clienteEmail = $(divInfo).find(".clienteEmail").html();
+
+                    posicionClienteActual = parseInt(clienteId);
+                    $("#ClienteID").val(clienteId);
+                    $("#Nombre").val(clienteNombre);
+                    $("#Email").val(clienteEmail);
+                    $("#hdNombreClienteAnterior").val(clienteNombre);
+                    ShowAgregarCliente();
+                    $("#liOpcionCliente").html("Modificar Cliente");
+                });
+            });
+
+            function RealizarLuegoGuardarCliente(data) {
+                if (esAgregarCliente) {
+                    var clienteNombre = data.Nombre == "" || data.Nombre == null ? "" : data.Nombre;
+                    var clienteEmail = data.eMail == "" || data.eMail == null ? "" : data.eMail;
+                    var clienteId = data.ClienteID == "" || data.ClienteID == null ? "" : data.ClienteID;
+
+                    var htmlInsertar = '<li>';
+                    htmlInsertar += '<div class="posr">';
+                    htmlInsertar += '<div class="table-width">';
+                    htmlInsertar += '<div>';
+                    htmlInsertar += '<strong class="upper clienteNombre">' + clienteNombre + '</strong>';
+                    htmlInsertar += '</div>';
+                    htmlInsertar += '<div class="mt-10">Correo: <span class="clienteEmail">' + clienteEmail + '</span></div>';
+                    htmlInsertar += '<input type="hidden" class="clienteId" value="' + clienteId + '"/>';
+                    htmlInsertar += '</div>';
+                    htmlInsertar += '<a href="javascript:;" class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>';
+                    htmlInsertar += '<a href="javascript:;" class="cli-ac-delete text-primary" onclick="return EliminarCliente(' + clienteId + ');"><i class="icon-delete icon-lg"></i></a>';
+                    htmlInsertar += '</div>';
+                    htmlInsertar += '</li>';
+
+                    $(".list-body-clientes").append(htmlInsertar);
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Clientes',
+                        'action': 'Agregar',
+                        'label': 'Satisfactorio',
+                    });
+                } else {
+                    var inputClienteId = $(".clienteId[value=" + data.ClienteID + "]");
+                    var divPadre = $(inputClienteId).parent(".table-width");
+                    var clienteNombreActualizar = $(divPadre).find(".clienteNombre");
+                    var clienteEmailActualizar = $(divPadre).find(".clienteEmail");
+
+                    $(clienteNombreActualizar).html(data.Nombre);
+                    $(clienteEmailActualizar).html(data.eMail);
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Clientes',
+                        'action': 'Editar',
+                        'label': 'Satisfactorio',
+                    });
+
+                }
+            }
+
+            function EliminarCliente(clienteId) {
+                $("#modal-id").modal("show");
+
+                fnEliminarCliente = function () {
+                    ShowLoading();
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: urlEliminarCliente,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ clienteId: clienteId }),
+                        async: true,
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true) {
+                                    var inputClienteId = $(".clienteId[value=" + clienteId + "]");
+                                    var liEliminar = $(inputClienteId).parents("li");
+                                    $(liEliminar).remove();
+
+                                    dataLayer.push({
+                                        'event': 'virtualEvent',
+                                        'category': 'Clientes',
+                                        'action': 'Eliminar',
+                                        'label': 'Satisfactorio',
+                                    });
+                                }
+
+                                window.messageInfo(data.message);
+
+                                CloseLoading();
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                CloseLoading();
+                                console.error(data);
+                            }
+                        }
+                    });
+                };
+            }
+
+            function ConfirmaEliminarCliente() {
+                $("#modal-id").modal("hide");
+
+                if ($.isFunction(fnEliminarCliente)) {
+                    fnEliminarCliente();
+                }
+            }
+
+            function ShowAgregarCliente() {
+                $("#agregarCliente").modal("show");
+            }
+
+            function CloseAgregarCliente() {
+                $("#agregarCliente").modal("hide");
+            }
+        </script>
+    }
