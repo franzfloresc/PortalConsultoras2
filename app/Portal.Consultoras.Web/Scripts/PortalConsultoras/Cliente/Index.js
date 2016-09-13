@@ -414,10 +414,6 @@ function MantenerCliente(opt) {
 
 function EliminarCliente() {
 
-    //dataLayer.push({
-    //    'event': 'pageview',
-    //    'virtualUrl': '/Cliente/Eliminar-Cliente'
-    //});
     //var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
     //if (!elimina)
     //    return false;
@@ -442,10 +438,6 @@ function EliminarCliente() {
                 CerrarSplash();
 
                 if (data.success == true) {
-                    //dataLayer.push({
-                    //    'event': 'pageview',
-                    //    'virtualUrl': '/Cliente/Eliminar-Cliente/Guardar'
-                    //});
                     //alert(data.message);
                     alert_msg(data.message);
 
@@ -499,4 +491,49 @@ function Limpiar() {
     $('#Nombres').val("");
     $('#Correo').val("");
     $('#divValidationSummary').html("");
+}
+
+function DownloadAttachExcelMC() {
+    if (!checkTimeout()) {
+        return false;
+    }
+
+    var content = baseUrl + "Cliente/ExportarExcelMisClientes";
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    iframe_.setAttribute("src", content);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    waitingDialog({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    closeWaitingDialog();
+                    break;
+                default:
+                    closeWaitingDialog();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            closeWaitingDialog();
+        });
+    }
+    document.body.appendChild(iframe_);
+}
+
+function validarExportarMC() {
+    if ($("#divListaCliente").find(".content_listado_notificaciones") == null) {
+        alert_msg("No hay datos para poder generar el archivo.");
+        return false;
+    }else{
+        DownloadAttachExcelMC();
+    }
 }

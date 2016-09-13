@@ -7673,3 +7673,7 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
+a:focus, a:hover {
+    color: initial;
+    text-decoration: underline;
+}

@@ -64,5 +64,14 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ObtenerEstrategiasOfertaParaTi(int campaniaId, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerEstrategiasOfertaParaTi_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }
