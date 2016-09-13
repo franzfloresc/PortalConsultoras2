@@ -1178,6 +1178,24 @@ function CargarEstrategiasEspeciales(objInput, e) {
             $('#popupDetalleCarousel_lanzamiento').html(html);
             $('#popupDetalleCarousel_lanzamiento').show();
         };
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas para ti – Home' },
+                    'products': [{
+                        'id': estrategia.CUV2,
+                        'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
+                        'price': estrategia.Precio2.toString(),
+                        'brand': estrategia.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': estrategia.DescripcionEstrategia,
+                        'position': estrategia.Posicion
+                    }]
+                }
+            }
+        });
+
     } else {
         return false;
     }
