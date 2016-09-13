@@ -659,23 +659,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CrearUsuarioMiAcademia(UsuarioModel model)
         {
-            string key = ConfigurationManager.AppSettings["secret_key"];
-            string isoUsuario = model.CodigoISO + '-' + model.CodigoConsultora;
-            ws_server svcLMS = new ws_server();
-
-            result getUser = svcLMS.ws_serverget_user(isoUsuario, model.CampaniaID.ToString(), key);
-            if (getUser.codigo == "002")
+            try
             {
-                string nivelProyectado = "";
-                using (ContenidoServiceClient csv = new ContenidoServiceClient())
-                {
-                    DataSet parametros = csv.ObtenerParametrosSuperateLider(model.PaisID, model.ConsultoraID, model.CampaniaID);
-                    if (parametros != null && parametros.Tables.Count > 0) nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                }
-                string eMail = model.EMail.Trim() != string.Empty ? model.EMail : (model.CodigoConsultora + "@notengocorreo.com");
+                string key = ConfigurationManager.AppSettings["secret_key"];
+                string isoUsuario = model.CodigoISO + '-' + model.CodigoConsultora;
+                ws_server svcLMS = new ws_server();
 
-                svcLMS.ws_servercreate_user(isoUsuario, model.NombreConsultora, eMail, model.CampaniaID.ToString(), model.CodigorRegion, model.CodigoZona, model.SegmentoConstancia, model.SeccionAnalytics, model.Lider.ToString(), model.NivelLider.ToString(), model.CampaniaInicioLider.ToString(), model.SeccionGestionLider, nivelProyectado, key);
+                result getUser = svcLMS.ws_serverget_user(isoUsuario, model.CampaniaID.ToString(), key);
+                if (getUser.codigo == "002")
+                {
+                    string nivelProyectado = "";
+                    using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                    {
+                        DataSet parametros = csv.ObtenerParametrosSuperateLider(model.PaisID, model.ConsultoraID, model.CampaniaID);
+                        if (parametros != null && parametros.Tables.Count > 0) nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
+                    }
+                    string eMail = model.EMail.Trim() != string.Empty ? model.EMail : (model.CodigoConsultora + "@notengocorreo.com");
+
+                    svcLMS.ws_servercreate_user(isoUsuario, model.NombreConsultora, eMail, model.CampaniaID.ToString(), model.CodigorRegion, model.CodigoZona, model.SegmentoConstancia, model.SeccionAnalytics, model.Lider.ToString(), model.NivelLider.ToString(), model.CampaniaInicioLider.ToString(), model.SeccionGestionLider, nivelProyectado, key);
+                }
             }
+            catch { }
         }
     }
 }

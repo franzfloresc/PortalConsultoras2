@@ -533,10 +533,6 @@ function GuardarCliente() {
 
 
 function PedidoOnSuccess() {
-    //dataLayer.push({
-    //    'event': 'pageview',
-    //    'virtualUrl': '/Pedido/Agregar-Producto'
-    //});
 
     var ItemCantidad = $("#txtCantidad").val();
     var ItemPrecio = $("#hdfPrecioUnidad").val();
