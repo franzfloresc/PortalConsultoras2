@@ -7166,7 +7166,7 @@ input[type="checkbox"]:checked + span:after {
     height: auto;
     position: absolute;
     background: white;
-    top: 176px;
+    top: 56px;
     padding-top: 10px;
     padding-bottom: 36px;
     z-index: 1000;
