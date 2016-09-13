@@ -59,6 +59,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora);
 
+        [OperationContract]
+        IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+
+
         #region Digitacion Distribuida
 
         #region Consultoras

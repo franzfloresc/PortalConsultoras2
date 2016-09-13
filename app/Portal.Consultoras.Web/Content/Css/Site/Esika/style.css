@@ -731,12 +731,12 @@ header {
 
 }
 
-    .fondo_b:hover {
-        background: url("../../../Images/Esika/bajar_hover.png") no-repeat;
-        background-position: 22px 5px !important;
-        background: black url("../../../Images/Esika/bajar_hover.png") no-repeat\9; /* IE 8 y anteriores */
-        color:white;
-    }
+.fondo_b:hover {
+    background: url("../../../Images/Esika/bajar_hover.png") no-repeat;
+    background-position: 22px 5px !important;
+    background: black url("../../../Images/Esika/bajar_hover.png") no-repeat\9; /* IE 8 y anteriores */
+    color:white;
+}
 
 .fondo_a {
     background: url("../../../Images/Esika/subir.png") no-repeat;
@@ -2685,7 +2685,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos{
-    float:left;
+    float: left;
+
+    /*width: 100%;
+    border-bottom: 1px solid;
+    margin-bottom: 16px;*/
 }
 
 .titulo_mis_pedidos h1{
@@ -2694,6 +2698,19 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     letter-spacing:3px;
     color:#000;
     font-family:'Lato';
+
+    float: left;
+    margin-bottom: -2px;
+    padding: 18px;
+    padding-left: 33px;
+    padding-right: 33px;
+}
+
+.bordespacive{
+    border-bottom: 2px solid white;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid;
 }
 
 .titulo_mis_pedidos h1 b{
@@ -27242,6 +27259,33 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .catalogoPersonalizadoBloque{
     background:#f6f6f6;
+    
+}
+
+/* Consultora Online */
+
+.popup_Pendientes {
+    display: block;
+    position: relative;
+    width: 72%;
+    max-width: 1230px;
+    height: auto;
+    background: #FFF;
+    margin: 3.2% auto 1.5% auto;
+    z-index: 3;
+    padding-top: 30px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 75px;
+}
+
+.content_popUp_Pendientes {
+    width: 100%;
+    max-width: 1189px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    position: relative;
 }
 
 .content-favclientes .contiene-productos {
@@ -27251,6 +27295,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position: relative;
     margin-bottom: 15px;
     margin-top: 15px;
+}
+/*información adicional*/
+.mensajes_deAtencion span {
+    width: 50%;
+    color: #e81c36;
+    font-weight: 700;
+    font-size: 16px;
+    margin-left: 20px;
 }
 
 .content_carrusel_agregado .agregado {
@@ -27287,8 +27339,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-family: Lato;
 }
 
-.ver_mas_favoritos{
-        float: right;
+.ver_mas_favoritos {
+    float: right;
     width: 55%;
     text-align: right;
     font-size: 13px;
@@ -27297,6 +27349,51 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-bottom: 1px solid black;
     height: 50px;
     padding-top: 15px;
+}
+.mensajes_deAtencion span:first-child {
+    float: left;
+    text-align: left;
+    font-size: 17px;
+    letter-spacing: -0.2px;
+}
+
+.mensajes_deAtencion span:last-child {
+    float: right;
+    text-align: right;
+    margin-right: -60px;
+    font-size: 15px;
+    padding-right: 20px;
+}
+
+.percepcion_campania.libero {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 23px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.percepcion_campania.libero h1{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-family: 'Lato';
+    font-size: 21px;
+    color: #000;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.percepcion_campania.libero h5{
+  margin-top: 12px;
+  height: 32px;
+  font-family: Lato;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  color: #463a3a;
 }
 
 .favoritosClientes{
@@ -27320,11 +27417,37 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
      padding-top: 15px;
      padding-bottom: 10px;
  }
+.AtribCliente {
+    font-size: 13px;
+    color: #463a3a;
+    width: 22%;
+    float: left;
+}
 
- .pestana_lbel.new .boton_Agregalo_home{
+.datos_cliente_pendientes {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.datos_cliente_pendientes .bloque_datos.izq{
+    float: left;
+    width: 50%;
+    height: 60px;
+}
+
+.pestana_lbel.new .boton_Agregalo_home {
     font-style: normal;
     color: black;
     text-decoration: none;
+}
+.datos_cliente_pendientes .bloque_datos.der{
+    float: right;
+    width: 50%;
+    height: 60px;
 }
 
 .pestana_lbel.new .boton_Agregalo_home:hover{
@@ -27431,11 +27554,121 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-size:13px;
 }
 
-.contenido_misGanancias h6{
-    font-size:13px;
-    font-weight:900!important;
-    color:#e81c36;
-    text-transform:uppercase;
+.contenido_misGanancias h6 {
+    font-size: 13px;
+    font-weight: 900 !important;
+    color: #e81c36;
+    text-transform: uppercase;
+}
+span.datoPedidoCliente {
+    color: black;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Lato';
+    float: left;
+    width: 78%;
+}
+
+.content_datos_pendientes {
+    width: 100%;
+    height: auto;
+    font-family: 'lato';
+    font-size: 10pt;
+    color: black;
+    border-bottom: 1px solid #CCC;
+}
+
+.padding_tabla_pendientes {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.dinamicostable {
+    width: 15.2%;
+    padding-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+}
+
+.dinamicostablemini{
+    text-align: center;
+    width: 11%;
+    padding-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.dinamicostablemedio{
+    text-align: center;
+    width: 15%;
+    padding-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.dinamicostablegrande{
+    text-align: center;
+    width: 21%;
+    padding-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.dinamicostableextragrande{
+    text-align: center;
+    width: 24%;
+    padding-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.dinamicostableextragrande.izq{
+    text-align: left;
+}
+
+.dinamicostablegrande.izq{
+    text-align: left;
+}
+
+.oscurece {
+    color: black;
+    font-weight: 700;
+    padding: 8px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.notiPendientes{
+    background: #F7F7F7;
+    height: 55px;
+    padding: 0 27px 0px 27px;
+    position: relative;
+    top: 10px;
+}
+
+.notiPendientes:after, .notiPendientes:before{
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.mensajePendientes{
+    position: relative;
+    color: #000;
+    font-size: 14px;
+    top: 16px;
+    margin-top: -11.5px;
 }
 
 .contenedor_montos_sinDescuento{
@@ -27495,20 +27728,91 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-weight:bold;
 }
 
-.nota_popup_misGanancias{
-    display:block;
-    text-align:justify;
-    font-size:11px;
-    font-weight:normal;
-    color:#878787;
+.nota_popup_misGanancias {
+    display: block;
+    text-align: justify;
+    font-size: 11px;
+    font-weight: normal;
+    color: #878787;
+}
+.notiPendientes:after{
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #F7F7F7;
+    border-width: 17px;
+    position: absolute;
+    top: -48%;
+    left: 5%;
+    z-index: 5;
+}
+
+.cubre{
+    position: absolute;
+    width: 100%;
+    height: 215px;
+    background: #F7F7F7;
+    top: 0;
+    left: 0;
+}
+
+.cubre:after, .cubre:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.cubre:after {
+	border-color: rgba(247, 247, 247, 0);
+	border-top-color: #F7F7F7;
+	border-width: 10px;
+	margin-left: -10px;
+}
+.cubre:before {
+	border-color: rgba(247, 247, 247, 0);
+	border-top-color: #F7F7F7;
+	border-width: 16px;
+	margin-left: -16px;
+}
+
+.calculo_PendientesTotal h4{
+    height: 50px;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    color: black;
+    font-family: 'Lato';
+    font-weight: 700 !important;
+}
+
+.btn_grupo_accionesPedido{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.accionesPendientes {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
 }
 
 /* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */
 
 .precarga {
-  position: relative;
-  margin: 0 auto 15px auto;
-  width: 70px;
+    position: relative;
+    margin: 0 auto 15px auto;
+    width: 70px;
+}
+.venizquierda{
+    float: left;
+}
+
+.venderecha{
+    float: right;
 }
 .precarga:before {
   content: '';
@@ -27532,21 +27836,57 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .path-esika {
-  stroke-dasharray: 1, 200;
-  stroke-dashoffset: 0;
-  -webkit-animation: dash 1.5s ease-in-out infinite;
-          animation: dash 1.5s ease-in-out infinite;
-  stroke:#e81c36;
-  stroke-linecap: round;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    -webkit-animation: dash 1.5s ease-in-out infinite;
+    animation: dash 1.5s ease-in-out infinite;
+    stroke: #e81c36;
+    stroke-linecap: round;
+}
+.btn_noEliminarCliente.venderecha{
+    width: 198px;
 }
 
-.texto_precarga{
-    display:block;
-    text-align:center;
-    font-family:'Lato';
-    font-size:14px;
-    font-weight:400;
-    color:#000;
+#dialog_confirmacionRechazo .popup_rechazarPendientes {
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+div.confirmacionRechazo h1 {
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 21px;
+    color: #000;
+    font-weight: 300;
+    text-align: center;
+}
+
+.texto_precarga {
+    display: block;
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+}
+button.btn_eliminarCliente.venderecha.prosigue {
+    background-color: #000;
+    color: white;
+}
+
+a#cierreRechazoPendientes img {
+    width: 25px;
 }
 
 .texto_precarga b{
@@ -27640,13 +27980,111 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height: 32px;
     font-size: 14.5px;
 }
-.titulo_pedidos_fic{
-    float:left;
-        text-align: left;
+.titulo_pedidos_fic {
+    float: left;
+    text-align: left;
     font-size: 22px;
     letter-spacing: 3px;
     color: #000;
     font-family: 'Lato';
+}
+
+/*MODAL MOTIVO DE RECHAZO*/
+
+button.btn_eliminarCliente.btn-negro {
+    margin: 0 25%;
+    background-color: black;
+    color: white;
+}
+
+.titulo_mensajeMotivoRechazo {
+    width: 100%;
+    margin: 0 0 19px 0;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 21px;
+    color: #000;
+    font-weight: 300;
+    text-align: center;
+}
+
+a#cierreMotivoRechazo img {
+    width: 25px;
+}
+
+.btn_revisalo_pendientes1{
+    display: block;
+    width: 139px;
+    height: 45px;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    line-height: 45px;
+    background: #e81c36;
+    color: #FFF;
+    margin: 0 auto;
+    border: 0px;
+}
+
+.btn_revisalo_pendientes2{
+    display: block;
+    width: 139px;
+    height: 45px;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    line-height: 45px;
+    background: #e81c36;
+    color: #FFF;
+    margin: 0 auto;
+    border: 0px;
+}
+
+.texto_pedidos_pendientes {
+    display: block;
+    font-size: 11px;
+    color: #d20000;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.info_tiempo_oportunidad {
+    position: absolute;
+    padding: 0px 8px;
+    background: #fff;
+    height: 80px;
+    min-width: 200px;
+    margin-top: -58px;
+    z-index: 9;
+    margin-left: 160px;
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 0px solid #000000;
+}
+.info_tiempo_oportunidad:after {
+	right: 100%;
+    top: 32%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 0, 0, 0);
+    border-right-color: #fff;
+    border-width: 10px;
+    margin-top: -10px;
+}
+
+.tiempos_P {
+    text-align: left;
+    color: black;
+    margin: 0;
 }
 .content_paginador{
     float:right;
@@ -27829,6 +28267,186 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika5.jpg) no-repeat center top;
     z-index:4;
 }
+.texto_pedidos_pendientes.tips{
+     margin: 0;
+    padding: 0;
+    height: 33px;
+}
+  
+.tiempos_P span {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.linkea_Pendientes {
+    text-align: left;
+    color: black;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 600 !important;
+    margin-top: 3px;
+}
+
+.mouse-encima-padding {
+    padding-top: 14px;
+    transition: all ease 300ms;
+    padding-bottom: 14px;
+    padding-left: 20px;
+}
+
+.mouse-encima-padding:hover {
+    background: #f0f0f0;
+}
+
+
+.optionsRechazo {
+    width: 71%;
+    padding: 10px;
+    border-bottom: 1px solid #C2C2C2;
+    margin: 0 auto;
+    font-size: 14px;
+    transition: all ease 300ms;
+    color: black;
+    font-family: 'Lato';
+    font-weight: 500;
+    padding-left: 35px;
+    cursor: pointer;
+}
+
+.optionsRechazo:hover{
+    background: #f0f0f0;
+}
+
+.mrechaza{
+    display: block;
+    position: relative;
+    top: 40%;
+    margin: -153px auto 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    padding-top: 55px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
+div.motivoRechazo textarea {
+    border: 1px solid #C2C2C2;
+    width: 71%;
+    margin: -1px 15%;
+    background-color: white;
+    height: 75px;
+    color: black;
+    font-family: 'Lato';
+    margin-bottom: 25px;
+    max-width: 71%;
+    max-height: 75px;
+}
+
+
+#aceptandoPendientes img{
+    width: 25px;
+}
+
+.calculo_PendientesTotal h4.txtderecha{
+    text-align: right;
+    padding-right: 20px;
+}
+
+.truco_bloqueo{
+    position: absolute;
+    z-index: 8;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+}
+
+
+.cambio_bk_pendientes{
+    background-color: #D6D6D6;
+}
+
+.truco_bloqueo.sim1 {
+    width: 100%;
+    height: 457px;
+    top: 0;
+    left: 0;
+    opacity: .2;
+    display: none;
+}
+
+.truco_bloqueo.sim2 {
+    width: 34.8%;
+    height: 1280px;
+    right: -80px;
+    top: 404px;
+    opacity: .2;
+    position: absolute;
+    z-index: 8;
+    display: none;
+}
+
+.truco_bloqueo.sim3 {
+    width: 80px;
+    top: 457px;
+    height: 57px;
+    left: 0;
+    opacity: .2;
+    position: absolute;
+    z-index: 8;
+    display: none;
+}
+
+.truco_bloqueo.sim4{
+    position: absolute;
+    top: 457px;
+    width: 389px;
+    height: 57px;
+    left: 546px;
+    opacity: .2;
+    display: none;
+}
+/*
+.caja_carousel_productos::after {
+    content: "";
+    width: 37.9%;
+    height: 83.9%;
+    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    opacity: .2;
+    position: absolute;
+    right: -81px;
+    top: 270px;
+    z-index: 8;
+    display: block;
+}*/
+
+.aparece_bloqueo{
+    display: block !important;
+}
+
+.info_tiempo_oportunidad.inicial {
+    height: 67px;
+    padding-top: 5px;
+    margin-top: -57px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.info_tiempo_oportunidad.inicial::after{
+    top: 65%;
+}
+
+.info_tiempo_oportunidad.inicial * {
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.info_tiempo_oportunidad.inicial h6 {
+    color: black;
+    font-size: 12px;
+    font-family: 'Lato';
+    margin: 0;
+}
 
 #slide1_images .img_slide6{
     background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika6.jpg) no-repeat center top;
@@ -27847,9 +28465,30 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     /*top:1284px;*/
 }
 
-#slide1_images .img_slide1Pedido{
+#slide1_images .img_slide1Pedido {
     background: url(../../../Images/Esika/tutorialPedido/esika_tutorial1.jpg) no-repeat center top;
-    z-index:8;
+    z-index: 8;
+}
+.info_tiempo_oportunidad.inicial .tiempos_P {
+    width: 264px;
+}
+
+.info_tiempo_oportunidad.inicial .noticia{
+    margin-left: 56px;
+    padding-left: 5px;
+    border-left: 1px solid #d4d4d4;
+}
+
+#penmostreo{
+    cursor: pointer;
+}
+
+#pedmostreo{
+    cursor: pointer;
+}
+
+h1#penmostreo .campana {
+    margin-top: 10px;
 }
 
 #slide1_images .img_slide2Pedido{
@@ -27857,10 +28496,16 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index:7;
 }
 
-#slide1_images .img_slide3Pedido{
+#slide1_images .img_slide3Pedido {
+    /*.margen-sup {
+    margin-bottom: 30px;
+}*/
     background: url(../../../Images/Esika/tutorialPedido/esika_tutorial3.jpg) no-repeat center top;
-    z-index:6;
+    z-index: 6;
 }
+
+/* Fin Consultora Online */
+
 
 #slide1_images .img_slide4Pedido{
     background: url(../../../Images/Esika/tutorialPedido/esika_tutorial4.jpg) no-repeat center top;
