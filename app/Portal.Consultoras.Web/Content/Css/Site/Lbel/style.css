@@ -689,10 +689,6 @@ header {
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
@@ -6268,6 +6264,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }*/
 .boton-home a {
     color: black;
+    padding-top: 32px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .liquidacion_rango_left_pedido {
     width: 23px;
