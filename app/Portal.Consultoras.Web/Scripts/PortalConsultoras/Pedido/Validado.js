@@ -77,10 +77,7 @@ function ConfirmarModificar() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'virtualUrl': '/Pedido/Modificar-Pedido'
-                    });
+
                     location.href = baseUrl + 'Pedido/Index';
                 }
                 else {

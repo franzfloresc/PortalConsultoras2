@@ -7,7 +7,7 @@
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
 }
 <div class="footer_wrapper">
-    <a id="aBelcorpResponde" href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde" target="_blank">
+    <a id="aBelcorpResponde" href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde">
         <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" /><br />
         @if (ViewBag.CodigoISODL == "CO")
         {
@@ -77,13 +77,13 @@
                 {
                     if (menuHijo.EsDireccionExterior)
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }
                     else
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }
