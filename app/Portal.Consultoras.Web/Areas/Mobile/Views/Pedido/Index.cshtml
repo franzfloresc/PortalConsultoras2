@@ -8,7 +8,7 @@
 }
 @section styles
 {
-    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
@@ -466,7 +466,7 @@
                     {{/if_eq}}
                 </div>
                 <div class="clear"></div>
-                <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: 0 , FlagNueva: '{{FlagNueva}}' }, this); ">
+                <a class="boton_Agregalo_home btnAgregarEstrategia" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGRÉGALO
                 </a>
                 <div class="clear"></div>
@@ -527,8 +527,7 @@
 
 @section scripts
 {
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
-<script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
         //Mensajes CUV
@@ -549,7 +548,7 @@
         var esTipoDrag = 0;
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-                
+
         var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';

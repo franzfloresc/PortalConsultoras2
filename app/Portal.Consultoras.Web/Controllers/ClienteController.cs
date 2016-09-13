@@ -8,6 +8,8 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using AutoMapper;
 using System.ServiceModel;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -411,6 +413,136 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "",
                     lista = new List<BECliente>()
                 });
+            }
+        }
+
+        public ActionResult ExportarExcelMisClientes()
+        {
+            decimal cargo = 0;
+            decimal abono = 0;
+            List<BECliente> lst;
+            using (ClienteServiceClient sv = new ClienteServiceClient())
+            {
+                lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+            }
+
+            List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
+
+            if (lst.Count != 0)
+            {
+                dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
+            }
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            dic.Add("Nombres y Apellidos", "msNombre");
+            dic.Add("Correo", "mseMail");
+
+            string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
+
+            ExportToExcelMisClientes("MisClientes", lst, dicCabeceras, dic, arrTotal, 0, 100);
+            return new EmptyResult();
+        }
+
+        private void ExportToExcelMisClientes(string filename, List<BECliente> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+           Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)
+        {
+            try
+            {
+                string extension = ".xlsx";
+                string originalFileName = System.IO.Path.GetFileNameWithoutExtension(filename) + extension;
+
+                var wb = new XLWorkbook();
+                var ws = wb.Worksheets.Add("Hoja1");
+                List<string> Columns = new List<string>();
+                int index = 1;
+
+                int row = 1;
+                int col = 0;
+                int i = 0;
+
+                int col2 = 1;
+                foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
+                {
+                    ws.Cell(row, 1).Value = keyvalue.Value;
+                    ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
+                    ws.Cell(row, 1).Style.Font.Bold = true;
+                    col2 = 1;
+                    foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
+                    {
+                        ws.Cell(row + 1, col2).Value = keyvalue2.Key;
+                        col2++;
+                        Columns.Add(keyvalue2.Value);
+                    }
+
+                    ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
+                    var titlesStyleh = wb.Style;
+                    titlesStyleh.Font.Bold = true;
+                    titlesStyleh.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    titlesStyleh.Fill.BackgroundColor = XLColor.FromHtml("#00A2E8");
+                    titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
+                    wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
+
+                    i = 0;
+
+                    row += 2;
+                    while (i < keyvalue.Key)
+                    {
+                        col = 1;
+                        foreach (string column in Columns)
+                        {
+                            BECliente source = SourceDetails[i];
+
+                            string[] arr = new string[2];
+                            if (column.Contains("#"))
+                                arr = column.Split('#');
+                            else
+                                arr = new string[] { "", column };
+
+                            if (arr[1] == "msNombre")
+                            {
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                ws.Cell(row, col).Value = arr[0] + source.Nombre;
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
+                            }
+
+                            else if (arr[1] == "mseMail")
+                            {
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                ws.Cell(row, col).Value = arr[0] + source.eMail;
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
+                            }                            
+                            col++;
+                        }
+                        row++;
+                        i++;
+                    }                    
+                    row++;
+                    index = keyvalue.Key;
+                    SourceDetails.RemoveRange(0, index);
+                }
+
+                ws.Columns().AdjustToContents();
+
+                var stream = new MemoryStream();
+                wb.SaveAs(stream);
+
+                HttpContext.Response.ClearHeaders();
+                HttpContext.Response.Clear();
+                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
+                HttpContext.Response.Buffer = false;
+                HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Response.Charset = "UTF-8";
+                HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
+                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Response.ContentType = "application/octet-stream";
+                HttpContext.Response.BinaryWrite(stream.ToArray());
+                HttpContext.Response.Flush();
+                HttpContext.Response.End();
+                stream = null;
+            }
+            catch (Exception)
+            {
             }
         }
     }
