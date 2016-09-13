@@ -1059,10 +1059,12 @@
     <Content Include="Content\Css\Site\Lbel\style.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
+    <Content Include="Content\Css\Site\slick.min.css" />
     <Content Include="Content\Css\Site\style-pedido.css" />
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
     <Content Include="Content\Css\Site\slick.css" />
+    <Content Include="Content\Css\Site\menu_comunidad.css" />
     <Content Include="Content\Css\Site\style-tismart.css" />
     <Content Include="Content\Css\Site\style.css" />
     <Content Include="Content\Css\Site\footer_PE.css" />
@@ -1103,6 +1105,7 @@
     <Content Include="Content\fonts\museo\museosans_900-webfont.svg" />
     <Content Include="Content\fonts\museo\stylesheet.css" />
     <Content Include="Content\HojaInscripcion\Images\btnCerrar_AD.png" />
+    <Content Include="Content\HojaInscripcion\Images\excel-xls-icon.png" />
     <Content Include="Content\HojaInscripcion\Images\input-checked.png" />
     <Content Include="Content\HojaInscripcion\Images\input-unchecked.png" />
     <Content Include="Content\HojaInscripcion\Images\loader.gif" />
@@ -2359,6 +2362,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -2389,7 +2393,6 @@
     <Content Include="Scripts\PortalConsultoras\Shared\Menu.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayout.js" />
     <Content Include="Scripts\slick-vertical.min.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\Spectrum\spectrum.js" />
     <Content Include="Scripts\trans-banner.js" />
     <Content Include="Content\ArchivoFaltante\PlantillaModelFaltante.xls" />
@@ -3740,7 +3743,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\ConsultoraImagen\" />
     <Folder Include="Views\Contenido\" />
   </ItemGroup>
   <ItemGroup>

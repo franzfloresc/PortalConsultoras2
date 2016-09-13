@@ -1121,11 +1121,6 @@ function Tabular() {
 }
 
 function PedidoOnSuccess() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Pedido/Agregar-Producto'
-    });
-
     var ItemCantidad = $("#txtCantidad").val();
     var ItemPrecio = $("#hdfPrecioUnidad").val();
     var descripcion = $('#txtDescripcionProd').val();
@@ -1783,19 +1778,10 @@ function ObservacionesProducto(item) {
         } else {
             $("#divObservaciones").html("");
             if (item.EsExpoOferta == true) {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Mensajes/Producto-expoferta'
-                });
-
                 $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
                 //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
             }
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Mensajes/Producto-revista'
-                });
                 if (isEsika) {
                     $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
                 } else {
@@ -1814,11 +1800,6 @@ function ObservacionesProducto(item) {
             $("#btnAgregar").removeAttr("disabled");
         }
     } else {
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Pedido/Mensajes/Producto-agotado'
-        });
-
         $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
         //$("#divObservaciones").html("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
         $("#btnAgregar").attr("disabled", "disabled");
@@ -2169,9 +2150,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 } else {
                     CerrarSplash();
                 }
-            }
-
-            InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
+            }           
 
             //CerrarSplash();
             //showDialog('divVistaPrevia');
@@ -2880,10 +2859,6 @@ function MostrarMensajeProl(data) {
         showDialog("divObservacionesPROL");
         $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 
-        //dataLayer.push({
-        //    'event': 'pageview',
-        //    'virtualUrl': '/Pedido/Observacion-Validar'
-        //});
         CargarDetallePedido();
     }
     AnalyticsGuardarValidar(response);
@@ -3191,10 +3166,6 @@ function EliminarPedido() {
 }
 
 function EjecutarPROL2() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Pedido/Validar-Pedido/Validar'
-    });
     $('#divConfirmValidarPROL').dialog('close');
     EjecutarPROL();
 }
@@ -3867,31 +3838,6 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-    if (variant == null || variant == "") {
-        variant = "Estándar";
-    }
-    if (category == null || category == "") {
-        category = "Sin Categoría";
-    }
-
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                'products': [{
-                    'name': name,
-                    'id': id,
-                    'category': category,
-                    'variant': variant,
-                    'position': position
-                }]
-            }
-        }
-    });
-}
-
 function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
@@ -4032,11 +3978,9 @@ function CargarEstrategiasEspeciales(objInput, e) {
     }
 };
 function ArmarPopupPackNuevas(obj) {
-    console.log(obj);
     return SetHandlebars("#packnuevas-template", obj);
 };
 function ArmarPopupLanzamiento(obj) {
-    console.log(obj);
     return SetHandlebars("#lanzamiento-template", obj);
 };
 
@@ -4057,7 +4001,7 @@ function MostrarDetalleGanancia() {
     div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
     div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
 
-    $('#popupGanancias').show();
+    $('#popupGanancias').fadeIn(200);
 }
 
 function AnalyticsBannersInferiores(obj) {
