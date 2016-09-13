@@ -1,9 +1,6 @@
-﻿var cantidadItemPagina = 12;
-var cantidadItemMostrarInicio = 12;
-var posicionFinalMostrada = 0;
-var cantidadRegistros = 12;
-var offset = 0;
-var puedeCargar = true;
+﻿var cantidadRegistros = 12;
+var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
     IniDialog();
@@ -333,38 +330,50 @@ $(document).ready(function () {
         }
     });
 
-    if (!ReservadoOEnHorarioRestringido(false)) {
-        $('#loader').show();
-        CargarOfertasLiquidacion();
-    }
+    Inicializar();
 });
 
+function Inicializar() {
+    CargarOfertasLiquidacion();
+    LinkCargarOfertasToScroll();
+}
+
+function LinkCargarOfertasToScroll() { $(window).scroll(CargarOfertasScroll); }
+function UnlinkCargarOfertasToScroll() { $(window).off("scroll", CargarOfertasScroll); }
+function CargarOfertasScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        CargarOfertasLiquidacion();
+    }
+}
+
 function CargarOfertasLiquidacion() {
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    if (ReservadoOEnHorarioRestringido()) {
+        UnlinkCargarOfertasToScroll();
+        cargandoRegistros = false;
+        return false;
+    }
+
+    waitingDialog();
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertaLiquidacion/JsonGetOfertasLiquidacion',
-        data: { offset: offset, cantidadregistros: cantidadRegistros, origen: 'OfertaLiquidacion' },
+        data: { offset: offsetRegistros, cantidadregistros: cantidadRegistros, origen: 'OfertaLiquidacion' },
         dataType: 'json',
-        beforeSend: function () {
-            $('#loader').show();
-            $('#boton_vermas').hide();
-        },
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {                    
-            ArmarCarouselLiquidaciones(data.lista);
-            if (data.verMas == true) {
-                $('#boton_vermas').show();
-            }           
-            offset += cantidadRegistros;
+        success: function (data) {
+            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+            if (!data.verMas) UnlinkCargarOfertasToScroll();
+            offsetRegistros += cantidadRegistros;
+        },
+        error: function (data, error) {
+            console.log(error);
         },
         complete: function (data) {
-            $('#loader').hide();           
-            puedeCargar = true;
-        },
-        error: function () {
-            puedeCargar = true;
-            $('#boton_vermas').show();
-            $('#loader').hide();
+            closeWaitingDialog();
+            cargandoRegistros = false;
         }
     });
 };

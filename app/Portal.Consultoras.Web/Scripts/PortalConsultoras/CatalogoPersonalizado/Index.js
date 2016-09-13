@@ -1,4 +1,4 @@
-﻿var cantidadRegistros = 4;
+﻿var cantidadRegistros = 12;
 var offsetRegistros = 0;
 var cargandoRegistros = false;
 
@@ -10,17 +10,31 @@ $(document).ready(function () {
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
-    $(document).on('click', '#boton_vermas', function () {
-        CargarCatalogoPersonalizado();
-    });
 
     Inicializar();
 });
 
 function Inicializar()
 {
+    IniDialog();
     CargarCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
+}
+function IniDialog() {
+    $('#DialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
 }
 
 function LinkCargarCatalogoToScroll() { $(window).scroll(CargarCatalogoScroll); }
@@ -35,7 +49,8 @@ function CargarCatalogoPersonalizado() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
 
-    if (ReservadoOEnHorarioRestringido(false)) {
+    if (ReservadoOEnHorarioRestringido()) {
+        UnlinkCargarCatalogoToScroll();
         cargandoRegistros = false;
         return false;
     }
@@ -47,7 +62,6 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
-    console.log('cargando');
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
@@ -236,8 +250,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+            else if (mostrarAlerta == true) alert_msg_pedido(data.message);
         },
         error: function (error) {
             console.log(error);
