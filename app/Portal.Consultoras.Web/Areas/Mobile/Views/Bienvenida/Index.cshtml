@@ -16,7 +16,7 @@
         }
     </style>
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -720,8 +720,7 @@
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
         var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
         var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';

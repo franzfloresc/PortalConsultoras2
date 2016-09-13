@@ -475,7 +475,7 @@
                             <div class="right_reservado">
                                 <div class="datos_Reservado">
                                     <span data-pedidototal="">{{Simbolo}} {{FormatoTotal}}</span>
-                                    <span data-montodescuento="">{{Simbolo}} {{FormatoMontoDescuento}}</span>
+                                    <span data-montodescuento="">{{Simbolo}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>
                                 </div>
                             </div>
                         </div>

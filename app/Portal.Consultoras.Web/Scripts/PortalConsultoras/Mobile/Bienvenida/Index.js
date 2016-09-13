@@ -263,10 +263,6 @@ function UpdateUsuarioTutorialMobile() {
 };
 
 function RedirectPagaEnLineaAnalytics() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Menu-Lateral/Paga-en-linea'
-    });
 
     if (ViewBagRutaChile != "") {
         window.open(ViewBagRutaChile + ViewBagUrlChileEncriptada, "_blank");

@@ -18,122 +18,138 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            //List<MiCurso> MisCursosMA = ValidadCursosMA();
-            //if (!MisCursosMA.Any())
-            //{
-            //    return View("Index");
-            //}
-            string key = ConfigurationManager.AppSettings["secret_key"];
-            string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
-            string token;
-            string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-            string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-            string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
-            bool exito = false;
-            //Superate
-            string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
-            string NivelProyectado = "";
-            string SeccionGestionLider = "";
-            DataSet parametros = null;
-
-            using (ContenidoServiceClient csv = new ContenidoServiceClient())
+            try
             {
-                parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-            }
+                string key = ConfigurationManager.AppSettings["secret_key"];
+                string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
+                string token;
+                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
+                string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
+                bool exito = false;
+                
+                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
+                string NivelProyectado = "";
+                string SeccionGestionLider = "";
+                DataSet parametros = null;
 
-            if (parametros != null && parametros.Tables.Count > 0)
+                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                {
+                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                }
+
+                if (parametros != null && parametros.Tables.Count > 0)
+                {
+                    SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString();
+                    NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
+                    SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                }
+
+                ws_server svcLMS = new ws_server();
+                result getUser = new result();
+                result createUser = new result();
+
+                getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
+                token = getUser.token;
+
+                if (getUser.codigo == "002")
+                {
+                    createUser = svcLMS.ws_servercreate_user(
+                        IsoUsuario, 
+                        userData.NombreConsultora, 
+                        eMail, 
+                        userData.CampaniaID.ToString(), 
+                        userData.CodigorRegion, 
+                        userData.CodigoZona, 
+                        userData.SegmentoConstancia.ToString(), 
+                        userData.SeccionAnalytics.ToString(), 
+                        userData.Lider.ToString(), 
+                        userData.NivelLider.ToString(), 
+                        userData.CampaniaInicioLider.ToString(), 
+                        userData.SeccionGestionLider.ToString(), 
+                        NivelProyectado, 
+                        key);
+                    token = createUser.token;
+                }
+
+                exito = true;
+
+                if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
+                    createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
+                {
+                    exito = false;
+                }
+
+                urlLMS = String.Format(urlLMS, IsoUsuario, token);
+
+                return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
+            }
+            catch (Exception ex)
             {
-                SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString();
-                NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            ws_server svcLMS = new ws_server();
-            result getUser = new result();
-            result createUser = new result();
-
-            getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
-            token = getUser.token;
-
-            if (getUser.codigo == "002")
-            {
-                createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
-                token = createUser.token;
-            }
-
-            exito = true;
-
-            if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
-            {
-                exito = false;
-            }
-
-            urlLMS = String.Format(urlLMS, IsoUsuario, token);
-
-            return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
-
+            return View();
         }
    
         public ActionResult Cursos(int idcurso)
         {
-            string key = ConfigurationManager.AppSettings["secret_key"];
-            //string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
-            string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
-            string token;
-            string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-            string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-            string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
-            bool exito = false;
-            //Superate
-            string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
-            string NivelProyectado = "";
-            string SeccionGestionLider = "";
-            DataSet parametros = null;
-
-            using (ContenidoServiceClient csv = new ContenidoServiceClient())
+            try
             {
-                parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-            }
+                string key = ConfigurationManager.AppSettings["secret_key"];
+                string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
+                string token;
+                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
+                string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
+                bool exito = false;
+                
+                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
+                string NivelProyectado = "";
+                string SeccionGestionLider = "";
+                DataSet parametros = null;
 
-            if (parametros != null && parametros.Tables.Count > 0)
+                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                {
+                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                }
+
+                if (parametros != null && parametros.Tables.Count > 0)
+                {
+                    SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString();
+                    NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
+                    SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                }
+
+                ws_server svcLMS = new ws_server();
+                result getUser = new result();
+                result createUser = new result();
+
+                getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
+                token = getUser.token;
+
+                if (getUser.codigo == "002")
+                {
+                    createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
+                    token = createUser.token;
+                }
+
+                exito = true;
+
+                if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
+                    createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
+                {
+                    exito = false;
+                }
+
+                urlLMS = String.Format(urlLMS, IsoUsuario, token, idcurso);
+
+                return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
+            }
+            catch (Exception ex)
             {
-                SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString(); 
-                NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            ws_server svcLMS = new ws_server();
-            result getUser = new result();
-            result createUser = new result();
-
-            getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
-            token = getUser.token;
-
-            if (getUser.codigo == "002")
-            {
-                createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
-                token = createUser.token;
-            }
-
-            exito = true;
-
-            if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
-            {
-                exito = false;
-            }
-
-            urlLMS = String.Format(urlLMS, IsoUsuario, token, idcurso);
-
-            //string html;
-            //using (WebClient client = new WebClient())
-            //{
-            //    html = client.DownloadString(urlLMS);
-            //}
-            
-            return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
-
+            return View();
         }
 
         private string GetCampaniaLider(int paisID, long ConsultoraID, string CodigoPais)
@@ -184,7 +200,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /* SB20-255 - INICIO */
         public JsonResult GetMisCursos()
         {
             try
@@ -214,6 +229,5 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        /* SB20-255 - FIN */
     }
 }
