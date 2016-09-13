@@ -28120,14 +28120,39 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .mod-ofer1 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 650px;
-    max-width: 1230px;
+    width: 617px;
+    /*max-width: 1230px;*/
     height: auto;
     background: #FFF;
-    margin: 10% auto 1.5% auto;
+    margin: 9% auto 0 auto;
     z-index: 3;
-    padding-top: 50px;
+    padding-top: 27px;
 }
+
+.encabezado_popupCatalogoPersonalizado {
+    display: block;
+    text-align: center;
+    margin-bottom: 19px;
+}
+
+.linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 163px;
+    vertical-align: middle;
+}
+
+.titulo_popupCatalogoPersonalizado {
+    display: inline-block;
+    color: #e81c36;
+    font-weight: 900;
+    font-size: 16px;
+    text-align: center;
+    margin: 0px 35px;
+    vertical-align: middle;
+}
+
 .mod-ofer1 .sombrio{
         position: relative;
     width: 100%;
@@ -28186,7 +28211,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     float: left;
     text-align: center;
     margin-top: 23px;
-    width: 50%;
+    width: 48%;
 }
 
 .mod-ofer1 .pos-baja .informa h6{
@@ -28212,31 +28237,37 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_img_home.mini{
     float: left;
-    width: 50%;
+    width: 46%;
     text-align: right;
 }
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion {
     float: right;
-    width: 50%;
+    width: 54%;
     text-align: left;
     margin-top: 60px;
+    padding-left:0px;
 }
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span{
     float: left;
     width: 100%;
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(3) {
-    font-weight: 900;
+    font-weight: bold;
     font-size: 16px;
+    margin-bottom:3px;
 }
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(4) {
     font-weight: 600;
     margin-top: -5px;
-    font-size: 16px;
+    font-size: 11px;
+    color:#e81c36;
 }
 
 .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(5) {
@@ -28251,11 +28282,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .mod-ofer1 .cerrar-mod{
-        float: right;
+    float: right;
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    margin-top: -27px;
     cursor: pointer;
 }
 
