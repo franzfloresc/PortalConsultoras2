@@ -312,6 +312,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
                 }
                 else if (tagCat == "Esika" && (arrC201614.indexOf(codigozona) > -1)) {
+
                     $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/");
                     $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/");
 
@@ -325,6 +326,7 @@ function GetCatalogosLinksByCampania(data, campania) {
                     $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
                 }
                 else if (tagCat == "Cyzone" && (arrC201614.indexOf(codigozona) > -1)) {
+
                     $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/");
                     $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/");
 
@@ -411,6 +413,7 @@ function GetCatalogosLinksByCampania(data, campania) {
             }
             else if (idPais == 11 && campania == "201616") {
                 if (tagCat == "Lbel" && (arrC201616.indexOf(codigozona) > -1)) {
+
                     $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
                     $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
 
@@ -422,8 +425,10 @@ function GetCatalogosLinksByCampania(data, campania) {
                     //Whatsapp
                     $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe");
                     $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
                 }
                 else if (tagCat == "Esika" && (arrC201616.indexOf(codigozona) > -1)) {
+
                     $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
                     $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
 
@@ -435,8 +440,10 @@ function GetCatalogosLinksByCampania(data, campania) {
                     //Whatsapp
                     $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe");
                     $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+
                 }
                 else if (tagCat == "Cyzone" && (arrC201616.indexOf(codigozona) > -1)) {
+
                     $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe");
                     $(idCat).find(elemItem).find("#txtUrl" + tagCat).val("https://issuu.com/somosbelcorp/docs/piloto_cy1616pe");
 

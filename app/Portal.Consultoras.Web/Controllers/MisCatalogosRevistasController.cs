@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (catalogoLbel != null && !string.IsNullOrEmpty(catalogoLbel.DocumentID))
 
-                            #region Email Perú
+                            #region Email Perú LBel
 
                             if (UserData().PaisID == 11)
                             {
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (catalogoEsika != null && !string.IsNullOrEmpty(catalogoEsika.DocumentID))
 
-                            #region Email Perú
+                            #region Email Perú Esika
 
                             if (UserData().PaisID == 11)
                             {
@@ -632,11 +632,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (catalogoCyZone != null && !string.IsNullOrEmpty(catalogoCyZone.DocumentID))
 
-                            #region Email Perú
+                            #region Email Perú Cyzone
 
                             if (UserData().PaisID == 11)
                             {
-                                if (CampaniaID == "201614") //1072, 1075, 3035, 3036, 5035, 5044, 1081, 3033
+                                if (CampaniaID == "201614")
                                 {
                                     if (UserData().CodigoZona == "1072")
                                     {
