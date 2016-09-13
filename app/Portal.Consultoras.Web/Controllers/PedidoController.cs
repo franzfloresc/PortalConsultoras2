@@ -2018,7 +2018,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach(var item in lista)
                 {
-                    if(!Regex.IsMatch(item.CUV, @"^\d+$"))
+                    if(item.CUV == null ||  !Regex.IsMatch(item.CUV, @"^\d+$"))
                     {
                         return item.Caso + "_" + item.Descripcion;
                     }
