@@ -90,6 +90,50 @@ $(document).ready(function () {
         });
     });
 
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            if ($('#popup_tutorial_home').is(':visible')) {
+                cerrar_popup_tutorial();
+            }
+            if ($('#videoIntroductorio').is(':visible')) {
+                if (primeraVezVideo) {
+                    abrir_popup_tutorial();                    
+                }
+                stopVideo();                
+                $('#videoIntroductorio').hide();
+                if (contadorFondoPopUp == 1) {
+                    $("#fondoComunPopUp").hide();
+                }
+                contadorFondoPopUp--;
+                return false;
+            }
+        }
+    };
+    //Video youtube
+    function stopVideo() {
+        if (player) {
+            if (player.stopVideo) {
+                player.stopVideo();
+            }
+            else {
+                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+                var urlVideo = $("#divPlayer").attr("src");
+                $("#divPlayer").attr("src", "");
+                $("#divPlayer").attr("src", urlVideo);
+            }
+        }
+    };
+    function playVideo() {
+        if (player) {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+            else {
+                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }
+        }
+    };
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
 
@@ -3497,28 +3541,3 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
         }
     }
 }
-
-//Video youtube
-function stopVideo() {
-    if (player) {
-        if (player.stopVideo) {
-            player.stopVideo();
-        }
-        else {
-            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
-            var urlVideo = $("#divPlayer").attr("src");
-            $("#divPlayer").attr("src", "");
-            $("#divPlayer").attr("src", urlVideo);
-        }
-    }
-};
-function playVideo() {
-    if (player) {
-        if (player.playVideo) {
-            player.playVideo();
-        }
-        else {
-            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
-        }
-    }
-};
