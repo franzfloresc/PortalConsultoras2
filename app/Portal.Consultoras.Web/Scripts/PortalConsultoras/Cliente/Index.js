@@ -526,6 +526,14 @@ function DownloadAttachExcelMC() {
             closeWaitingDialog();
         });
     }
-
     document.body.appendChild(iframe_);
+}
+
+function validarExportarMC() {
+    if ($("#divListaCliente").find(".content_listado_notificaciones") == null) {
+        alert_msg("No hay datos para poder generar el archivo.");
+        return false;
+    }else{
+        DownloadAttachExcelMC();
+    }
 }
