@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            using (var sv = new ServicesCalculoPrecioNiveles())
+            {
+                var test = sv.Ofertas_catalogo("", "", "", "", "");
+            }
             return View();
         }
 
