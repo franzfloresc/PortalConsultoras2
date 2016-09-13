@@ -307,8 +307,7 @@ header {
     /* margin-left: 72px; */
     right: 0;
     left: 0;
-    margin: 0 auto;
-    
+    margin: 0 auto;    
     background:url(../../../Images/Esika/pestana_esika.png);
     background-size:cover;
 }
@@ -722,9 +721,9 @@ header {
             border-width: 330px 330px 0 0;
         }*/
 
-.boton-home:active {
+/*.boton-home:active {
         background: black;
-    }
+    }*/
 
 .fondo_b {
     background: url("../../../Images/Esika/bajar.png") no-repeat;
@@ -2071,6 +2070,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .caja_montos_textos{
     margin-right:15px;
     position:relative;
+    text-align:left;
 }
 
 .caja_montos_textos .pMontoCliente{
@@ -2159,7 +2159,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     display: inline-block;
     vertical-align: middle;
     width: 213px;
-    height: 107px;
+    height: auto;
     padding: 20px 36px 20px 20px;
     margin-right: 15px;
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
@@ -2496,7 +2496,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     font-weight:400;
     /*max-width:302px;
     margin-bottom:2px;*/
-    text-align:right;
     line-height: 42px;
     text-transform:uppercase;
     position:relative;
@@ -2506,14 +2505,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     position: relative;
     font-size: 16px;
     font-weight: normal;
-    max-width: 302px;
-    text-align: right;
     text-transform: uppercase;
     color:#e81c36;
 }
-.monto_descuento, .monto_montodescuento {
-    
-}
+
 .tabla_pedidos, .tabla_productos_agotados{
     font-family:'Lato';
     font-weight:normal;
@@ -3016,11 +3011,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .precio_total_sinDescuento span.icon-advertencia{
-    display: block;
+    display: inline-block;
     /*background: #d20000;*/
     background:url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
-    float: left;
-    margin-top: 4px;
     width: 18px;
     height: 18px;
     /*border-radius: 100%;*/
@@ -27307,7 +27300,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .favoritosClientes{
-    width:475px;
+    width:475px!important;
 }
 
 .liquidacionRangoClientes{
@@ -27386,7 +27379,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .caja_montos_textos_sinDescuento{
-    text-align:left;
     font-weight:normal;
     margin-right:10px;
 }
@@ -27443,6 +27435,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-size:13px;
     font-weight:900!important;
     color:#e81c36;
+    text-transform:uppercase;
 }
 
 .contenedor_montos_sinDescuento{
