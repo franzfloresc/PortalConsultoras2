@@ -1783,19 +1783,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string AplicarFormatoNumeroDocumentoPorPais(string codigoPais, string numeroDocumento)
         {
-            return DictionariesUnete.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
-                   DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais] != null &&
-                   !string.IsNullOrWhiteSpace(numeroDocumento)
-                ? DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
-                : numeroDocumento;
+            return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
+                  Dictionaries.FormatoNumeroDocumentoBD[codigoPais] != null &&
+                  !string.IsNullOrWhiteSpace(numeroDocumento)
+               ? Dictionaries.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
+               : numeroDocumento;
+            //return DictionariesUnete.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
+            //       DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais] != null &&
+            //       !string.IsNullOrWhiteSpace(numeroDocumento)
+            //    ? DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
+            //    : numeroDocumento;
         }
 
         private string AplicarFormatoNumeroDocumentoPorPaisVista(string codigoPais, string numeroDocumento)
         {
-            return DictionariesUnete.FormatoNumeroDocumentoView.ContainsKey(codigoPais) &&
-                   DictionariesUnete.FormatoNumeroDocumentoView[codigoPais] != null &&
+            return Dictionaries.FormatoNumeroDocumentoView.ContainsKey(codigoPais) &&
+                   Dictionaries.FormatoNumeroDocumentoView[codigoPais] != null &&
                    !string.IsNullOrWhiteSpace(numeroDocumento)
-                ? DictionariesUnete.FormatoNumeroDocumentoView[codigoPais](numeroDocumento)
+                ? Dictionaries.FormatoNumeroDocumentoView[codigoPais](numeroDocumento)
                 : numeroDocumento;
         }
 

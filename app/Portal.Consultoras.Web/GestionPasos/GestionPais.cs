@@ -8,15 +8,17 @@ namespace Portal.Consultoras.Web.GestionPasos
     {
         public static Dictionary<string, IEvaluacionCrediticia> EvaluacionCrediticia = new Dictionary<string, IEvaluacionCrediticia>();
 
-        public GestionPais()
+        static GestionPais()
         {
-            EvaluacionCrediticia = new Dictionary<string, IEvaluacionCrediticia>
-            {
-                {Constantes.CodigosISOPais.Chile, new EvaluacionCrediticiaChile()},
-                {Constantes.CodigosISOPais.Colombia, new EvaluacionCrediticiaColombia()},
-                {Constantes.CodigosISOPais.Mexico, new EvaluacionCrediticiaMexico()},
-                {Constantes.CodigosISOPais.Peru, new EvaluacionCrediticiaPeru()}
-            };
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Chile, new EvaluacionCrediticiaChile());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Colombia, new EvaluacionCrediticiaColombia());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Mexico, new EvaluacionCrediticiaMexico());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Peru, new EvaluacionCrediticiaPeru());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.CostaRica, new EvaluacionCrediticiaCam());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Guatemala, new EvaluacionCrediticiaCam());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Panama, new EvaluacionCrediticiaCam());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Salvador, new EvaluacionCrediticiaCam());
+            
         }
     }
 }
