@@ -17,7 +17,7 @@ $(document).ready(function () {
 function Inicializar()
 {
     IniDialog();
-    CargarCatalogoPersonalizado();
+    ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
 function IniDialog() {
@@ -38,31 +38,30 @@ function IniDialog() {
 }
 
 function LinkCargarCatalogoToScroll() { $(window).scroll(CargarCatalogoScroll); }
-function UnlinkCargarCatalogoToScroll() { $(window).off("scroll", CargarCatalogoScroll); }
+function UnlinkCargarCatalogoToScroll() {
+    $(window).off("scroll", CargarCatalogoScroll);
+    cargandoRegistros = false;
+}
 function CargarCatalogoScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
-        CargarCatalogoPersonalizado();
+        ValidarCargaCatalogoPersonalizado();
     }
 }
 
-function CargarCatalogoPersonalizado() {
+function ValidarCargaCatalogoPersonalizado() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
 
-    if (ReservadoOEnHorarioRestringido()) {
-        UnlinkCargarCatalogoToScroll();
-        cargandoRegistros = false;
-        return false;
-    }
-
+    waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
+}
+function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
         UnlinkCargarCatalogoToScroll();
-        cargandoRegistros = false;
         return false;
     }
 
-    waitingDialog();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizado',
@@ -258,6 +257,44 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
+}
+
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
 }
 
 function alert_msg_pedido(message) {

@@ -334,29 +334,29 @@ $(document).ready(function () {
 });
 
 function Inicializar() {
-    CargarOfertasLiquidacion();
+    ValidarCargaOfertasLiquidacion();
     LinkCargarOfertasToScroll();
 }
 
 function LinkCargarOfertasToScroll() { $(window).scroll(CargarOfertasScroll); }
-function UnlinkCargarOfertasToScroll() { $(window).off("scroll", CargarOfertasScroll); }
+function UnlinkCargarOfertasToScroll() {
+    $(window).off("scroll", CargarOfertasScroll);
+    cargandoRegistros = false;
+}
 function CargarOfertasScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
-        CargarOfertasLiquidacion();
+        ValidarCargaOfertasLiquidacion();
     }
 }
 
-function CargarOfertasLiquidacion() {
+function ValidarCargaOfertasLiquidacion() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
 
-    if (ReservadoOEnHorarioRestringido()) {
-        UnlinkCargarOfertasToScroll();
-        cargandoRegistros = false;
-        return false;
-    }
-
     waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+}
+function CargarOfertasLiquidacion() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertaLiquidacion/JsonGetOfertasLiquidacion',
@@ -614,6 +614,43 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 };
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+}
 function alert_msg_pedido(message) {
     $('#DialogMensajes .pop_pedido_mensaje').html(message);
     $('#DialogMensajes').dialog('open');
