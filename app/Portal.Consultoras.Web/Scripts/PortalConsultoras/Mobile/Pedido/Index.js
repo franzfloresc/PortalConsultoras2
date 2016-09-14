@@ -220,9 +220,9 @@ function ObservacionesProducto(item) {
 
     if (item.TipoOfertaSisID == "1707") {
         if (esShowRoom == "1") {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto disponible sólo desde la sección de Pre-venta Digital.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
         } else {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Esta promoción no se encuentra disponible.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");
         }
 
         $("#divProductoInformacion").hide();
@@ -1376,6 +1376,12 @@ function MostrarMensaje(tipoMensaje, message) {
             var $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
+            $divMensaje.show();
+            break;
+        case "mensajeCUVShowRoom":
+            var $divMensaje = $('#divMensajeCUV');
+            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
+            $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
     };
