@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //if (checkTimeout()) {
     //    fnGrilla();
     //    IniDialog();
@@ -21,7 +19,6 @@ $(document).ready(function () {
 
             }
         });
-
 
     //$(".ui-pg-input").keypress(
     //function (evt) {
@@ -530,7 +527,7 @@ function DownloadAttachExcelMC() {
 }
 
 function validarExportarMC() {
-    if ($("#divListaCliente").find(".content_listado_notificaciones") == null) {
+    if ($("#divListaCliente").find(".content_listado_notificaciones").val() == "") {
         alert_msg("No hay datos para poder generar el archivo.");
         return false;
     }else{
