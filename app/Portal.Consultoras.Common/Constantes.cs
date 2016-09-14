@@ -205,6 +205,8 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoSugerido = 225;
 
             public const int MobileLiquidacion = 234;
+
+            public const int MobilePedidoOferaFinal = 226;
         }
 
     }

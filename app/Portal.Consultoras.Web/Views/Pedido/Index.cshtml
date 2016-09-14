@@ -988,18 +988,15 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto">
-
-            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOferaFinal'}}
+            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOferaFinal'}}
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
             </span>
             {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
-            </span>
-            {{else if_eq OrigenPedidoWeb '126'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA FINAL</label>
             </span>
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
