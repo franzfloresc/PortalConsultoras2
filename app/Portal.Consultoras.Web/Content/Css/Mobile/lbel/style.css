@@ -7679,7 +7679,46 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
+
 a:focus, a:hover {
     color: initial;
     text-decoration: underline;
 }
+
+/* POPUP OFERTA FINAL */
+
+.popup_ofertaFinal{
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: 5%;
+    background: #FFF;
+    width: 92%;
+    height: auto;
+    padding: 41px 28px;
+}
+
+.ofertaFinal_titulo{
+    display:block;
+    margin:0 0 8px 0;
+    padding:0;
+    font-family: 'Lato';
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 29.38px;
+    color: #000;
+}
+
+.ofertaFinal_descripcion{
+    display:block;
+    margin:0;
+    padding:0;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 19px;
+}
+
+/* FIN POPUP OFERTA FINAL */

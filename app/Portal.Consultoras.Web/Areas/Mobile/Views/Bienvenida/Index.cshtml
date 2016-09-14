@@ -530,6 +530,7 @@
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>
 </div>
+
 <!--POP UP VIDEO INTRODUCTORIO-->
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
@@ -567,107 +568,157 @@
         </script>
     </div>
 </div>
-<script id="estrategia-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_home">
-            <div class="producto_img_mobile">
-                <img src="{{FotoProducto01}}" />
+<!-- FIN POPUP VIDEO INTRODUCTORIO -->
+
+<!-- POPUP OFERTA FINAL -->
+
+<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: block;">
+    <div class="popup_ofertaFinal">
+        <h1 class="ofertaFinal_titulo">GUARDASTE TU <b>PEDIDO CON ÉXITO !</b></h1>
+        <div class="ofertaFinal_descripcion">
+            Agrega S/. 21 para ganar más esta campaña.
+        </div>
+        <div class="contenedor_carruselOfertaFinal">
+            <div class="ofertaFinal_info">
+                Gana mas con estas ofertas que tenemos solo para ti
             </div>
-            {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            @*<div class="bloque_carousel">
+            <div class="content_item_carrusel_ofertaFinal">
+                <div class="producto_img_home">
+                    <img src="" style="height: 100%;">
+                </div>
+                <div class="etiqueta_producto">
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <h6></h6>
+                    <p class="nombre_producto">
+                        <b></b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_normal"></span>
+                        <span class="producto_precio_oferta"><b></b></span>
+                    </div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home agregarOfertaFinal">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                </div>
             </div>
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-            {{#if_eq FlagEstrella '1' }}
-            <div class="etiqueta_producto">
-                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-            </div>
-            {{/if_eq}}
-            {{/if_eq}}
-            {{/if_eq}}
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                {{#if_eq FlagNueva '1'}}
-                <p class="nombre_producto">
-                    {{DescripcionCUVSplit}}
-                </p>
-                {{else}}
-                <p class="nombre_producto">
-                    {{DescripcionCUV2}}
-                </p>
+        </div>*@
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP OFERTA FINAL -->
+
+    <script id="estrategia-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <div class="content_item_home">
+                <div class="producto_img_mobile">
+                    <img src="{{FotoProducto01}}" />
+                </div>
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                {{#if_eq FlagEstrella '1' }}
+                <div class="etiqueta_producto">
+                    <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+                </div>
                 {{/if_eq}}
-
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                {{#if_eq EtiquetaID '1'}}
-                <div class="producto_precio">
-                    <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
                 {{/if_eq}}
-
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                </div>
-                {{/iff}}
-
-                <div class="liquidacion_rango_home">
-                    {{#if_eq FlagMostrarImg '1'}}
-                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                {{/if_eq}}
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    {{#if_eq FlagNueva '1'}}
+                    <p class="nombre_producto">
+                        {{DescripcionCUVSplit}}
+                    </p>
                     {{else}}
-                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                    <p class="nombre_producto">
+                        {{DescripcionCUV2}}
+                    </p>
                     {{/if_eq}}
+
+                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                    {{#if_eq EtiquetaID '1'}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
                     {{else}}
-                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
                     {{/if_eq}}
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                    AGR&Eacute;GALO
-                </a>
-                <div style="padding-top:9px; height: 15px;">
-                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                        AGREGADO
-                        <div class="icono"></div>
+
+                    {{else}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{/iff}}
+
+                    <div class="liquidacion_rango_home">
+                        {{#if_eq FlagMostrarImg '1'}}
+                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        {{else}}
+                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                        {{/if_eq}}
+                        {{else}}
+                        <a class="cantidad_menos_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/menos.png")" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <a class="cantidad_mas_home"><img src="@Url.Content("~/Content/Images/Mobile/Esika/mas.png")" alt=""></a>
+                        {{/if_eq}}
+                    </div>
+                    <div class="clear"></div>
+                    <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                        AGR&Eacute;GALO
+                    </a>
+                    <div style="padding-top:9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{/each}}
-</script>
-@section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript">
-        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
-        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var ViewBagRutaChile = '@Model.RutaChile';
-        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-        var viewBagPaisID = '@Model.PaisID';
-        var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var contadorFondoPopUp = 0;
-        var viewBagVioTutorial = '@Model.VioTutorial';
+        {{/each}}
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-}
+    @section scripts{
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+        <script type="text/javascript">
+            var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+            var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+            var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+            var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+            var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+            var ViewBagRutaChile = '@Model.RutaChile';
+            var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+            var viewBagPaisID = '@Model.PaisID';
+            var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+            var contadorFondoPopUp = 0;
+            var viewBagVioTutorial = '@Model.VioTutorial';
+        </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+    }
