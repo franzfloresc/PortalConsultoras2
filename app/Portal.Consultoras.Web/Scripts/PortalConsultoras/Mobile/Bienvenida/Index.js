@@ -435,6 +435,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
     var posicion = $("#txtCantidadZE").attr("est-posicion");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
+    var OrigenPedidoWeb = MobileHomeOfertasParaTi;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -476,7 +477,8 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWebModel: OrigenPedidoWeb
     });
 
     jQuery.ajax({

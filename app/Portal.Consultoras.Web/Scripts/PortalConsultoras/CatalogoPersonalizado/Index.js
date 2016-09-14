@@ -75,6 +75,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+    var OrigenPedidoWeb = DesktopCatalogoPersonalizado;
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -102,7 +103,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         DescripcionCategoria: descripcionCategoria,
         DescripcionMarca: descripcionMarca,
         DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false
+        EsSugerido: false,
+        OrigenPedidoWebModel: OrigenPedidoWeb
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
