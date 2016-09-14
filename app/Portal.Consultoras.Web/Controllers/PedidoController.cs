@@ -2265,6 +2265,8 @@ namespace Portal.Consultoras.Web.Controllers
                     bePedidoWeb.MontoEscala = montoEscala;
 
                     sv.UpdateMontosPedidoWeb(bePedidoWeb);
+                    
+                    UpdateSesionProlMontos(bePedidoWeb);
 
                     Session["PedidoWeb"] = null;
                 }
@@ -2499,11 +2501,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
+                    UpdateSesionProlMontos(bePedidoWeb);
+
                     Session["PedidoWeb"] = null;
                 }
 
                 #endregion
 
+                #region
                 if (datos.codigoMensaje != "00")
                 {
                     foreach (DataRow row in dtr.Rows)
@@ -2565,6 +2570,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Reserva = true;
                     }
                 }
+                #endregion
             }
             return olstPedidoWebDetalleObs;
         }
@@ -2685,6 +2691,18 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal gananciaEstimada = CalcularGananciaEstimada(PaisID, CampaniaID, PedidoID, totalPedido);
                 sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
             }
+        }
+
+        private void UpdateSesionProlMontos(BEPedidoWeb pedido)
+        {
+            var modeloProl = new ObjMontosProl();
+            modeloProl.AhorroCatalogo = pedido.MontoAhorroCatalogo.ToString();
+            modeloProl.AhorroRevista = pedido.MontoAhorroRevista.ToString();
+            modeloProl.MontoTotalDescuento = pedido.DescuentoProl.ToString();
+            modeloProl.MontoEscala = pedido.MontoEscala.ToString();
+            var lista = new List<ObjMontosProl>();
+            lista.Add(modeloProl);
+            Session[Constantes.ConstSession.PROL_CalculoMontosProl] = lista;
         }
 
         #region Campaña y Zona No Configurada
