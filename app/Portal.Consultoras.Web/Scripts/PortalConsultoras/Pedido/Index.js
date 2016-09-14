@@ -2896,18 +2896,29 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
-    if (tipoPopupMostrar == 1) {
+    if (tipoPopupMostrar == 1)
+    {
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
-        $("#spnTituloOfertaFinal").html("GUARDASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
+        $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y gana más esta campaña.");
-        $("#spnSubTituloOfertaFinal").html("Consigue más ganancias agregando uno de estos productos");
-    } else {
+        if (viewBagNombrePais == "PE") {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estas ofertas que tenemos solo para ti.");
+        } else if (viewBagNombrePais == "CL") {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti.");
+        }
+    }
+    else
+    {
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
         $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
-        $("#spnSubTituloOfertaFinal").html("Completa tu pedido con alguno de estos productos");
+        if (viewBagNombrePais == "PE") {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti.");
+        } else if (viewBagNombrePais == "CL") {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti.");
+        }
     }
 
     $("#divOfertaFinal").show();
