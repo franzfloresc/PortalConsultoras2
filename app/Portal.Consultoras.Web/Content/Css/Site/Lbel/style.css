@@ -27907,19 +27907,20 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position:relative;
 }
 .ver_detalle_carrusel{
-    display:none;
-    position:absolute;
-    height:35px;
-    line-height:30px;
-    width:60%;
-    font-weight:700;
-    border:2px solid black;
-    font-family:'Lato';
-    background:rgba(255,255,255,0.8);
-    left:0;
-    right:0;
-    bottom:10px;
-    margin:0 auto;
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    height: 35px;
+    line-height: 34px;
+    width: 119px;
+    font-weight: normal;
+    border: 1px solid #ddd8d8;
+    font-family: 'Lato';
+    background: #FFF;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: 0 auto;
     -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
