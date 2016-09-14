@@ -1,6 +1,7 @@
 ﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
 @{
     ViewBag.Title = "Administración de Ofertas Liquidación";
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
 }
 
 <link href="@Url.Content("~/Scripts/MultiSelect/css/ui.multiselect.css")" rel="stylesheet" />
@@ -12,7 +13,7 @@
     }
 
     .actions.ui-widget-header.ui-helper-clearfix {
-        background: #6c217f !important;
+        background: #00A2E8 !important;
         color: white;
     }
 
@@ -103,7 +104,7 @@
     <div class="div-2">
         <h3>Carga de Archivo</h3>
         <div class="div-3">
-            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web Imagen Set (344 x 366)</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web / Imagen Set (344 x 366)</div>
             <div class="titC" style="padding: 0; width: 180px;">
                 <div class="input_search">
                     <input type="hidden" id="hdImagen1" />
@@ -142,7 +143,7 @@
                 </div>
             </div>
 
-            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Venta Imagen Set (209 x 94)</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp / Imagen Set / Venta (209 x 94)</div>
             <div class="titC" style="padding: 0; width: 180px;">
                 <div class="input_search">
                     <input type="hidden" id="hdImagenVentaSetPopup" />
@@ -181,15 +182,15 @@
                 </div>
             </div>
 
-            <div class="titC" style="width: 140px; margin-top: 6px; ">Carga de Descripción de Sets/Productos</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">Carga de Consultoras</div>
             <div class="titC" style="padding: 0; margin-top: 15px;">
-                <a href="#" id="lnkDescripcionSets">
-                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                <a href="#" id="lnkConsultoras">
+                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt="" />
                 </a>
             </div>
         </div>
         <div class="div-3">
-            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web Fondo (442 x 480)</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">PopUp Web / Fondo (442 x 480)</div>
             <div class="titC" style="padding: 0; width: 180px;">
                 <div class="input_search">
                     <input type="hidden" id="hdImagen2" />
@@ -228,7 +229,7 @@
                 </div>
             </div>
 
-            <div class="titC" style="width: 140px; margin-top: 6px;">Tag Lateral Venta Mobile Imagen Set (154 x 197)</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">Tag Lateral Web / Imagen Set / Venta (154 x 197)</div>
             <div class="titC" style="padding: 0; width: 180px;">
                 <div class="input_search">
                     <input type="hidden" id="hdImagenVentaTagLateral" />
@@ -353,15 +354,15 @@
                 </div>
             </div>
 
-            <div class="titC" style="width: 140px; margin-top: 6px;">Carga de Consultoras</div>
+            <div class="titC" style="width: 140px; margin-top: 6px; ">Carga de Descripción de Sets/Productos</div>
             <div class="titC" style="padding: 0; margin-top: 15px;">
-                <a href="#" id="lnkConsultoras">
-                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt="" />
+                <a href="#" id="lnkDescripcionSets">
+                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
                 </a>
             </div>
         </div>
         <div class="div-3">
-            <div class="titC" style="width: 140px; margin-top: 6px;">Popup Imagen Pre-Venta Digital (192 x 76)</div>
+            <div class="titC" style="width: 140px; margin-top: 6px;">Popup / Imagen Texto / Venta Digital (192 x 76)</div>
             <div class="titC" style="padding: 0; width: 180px;">
                 <div class="input_search">
                     <input type="hidden" id="hdImagenPreventaDigital" />
@@ -412,12 +413,12 @@
             <div id="pager"></div>
         </div>
         @*<div class="div-3">
-            <div class="titAuto">
-                <div class="input_horizontal">
-                    <input type="button" name="btnExcel" id="btnExcel" value="Excel" />
+                <div class="titAuto">
+                    <div class="input_horizontal">
+                        <input type="button" name="btnExcel" id="btnExcel" value="Excel" />
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
     </div>
 </div>
 
@@ -433,12 +434,11 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titC">Sets:</div>
-                <h4>Selecciones los sets para el perfil</h4>
+                <div class="titC" style="width: 300px; margin-left: -45px;">Selecciones los sets para el perfil</div>
             </div>
-            <div class="div-3" id="divPerfilOfertaShowRoom" style="display: none;">
+            <div class="div-3" id="divPerfilOfertaShowRoom" style="display: none; padding-left: 52px;">
             </div>
-            <div class="div-3">
+            <div class="div-3" style="padding-left: 42px;">
                 <div class="titAuto">
                     <div class="input_horizontal">
                         <input type="button" name="btnGuardarPerfilOfertaShowRoom" id="btnGuardarPerfilOfertaShowRoom" value="Guardar" />
@@ -465,12 +465,12 @@
         <input type="hidden" id="hdEventoID" />
         <div class="div-3">
             <div class="titG">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtEventoPaisID" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtEventoPaisID" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtEventoCampaniaID" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtEventoCampaniaID" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
@@ -619,22 +619,22 @@
     <div class="Content_modal">
         <div class="div-3">
             <div class="titG">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisModal" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtPaisModal" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCampaniaModal" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtCampaniaModal" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Tipo Oferta:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtTipoOfertaModal" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtTipoOfertaModal" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">CUV:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUVModal" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtCUVModal" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
@@ -739,32 +739,32 @@
     <div class="Content_modal">
         <div class="div-3">
             <div class="titG">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtPaisDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCampaniaDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtCampaniaDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Tipo Oferta:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtTipoOfertaDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtTipoOfertaDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">CUV:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUVDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtCUVDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
             <div class="titG">Descripción:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtDescripcionDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
             <div class="titG">Precio Normal:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPrecioNormalDetalle" readonly="readonly" />
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtPrecioNormalDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
@@ -783,7 +783,7 @@
 
 <div id="DialogRegistroOfertaShowRoomDetalleEditar" style="display: none;">
     <div class="Content_modal">
-        <input type="hidden" id="hdOfertaShowRoomDetalleID"/>
+        <input type="hidden" id="hdOfertaShowRoomDetalleID" />
         <input type="hidden" id="hdImagenDetalle" />
         <input type="hidden" id="hdImagenDetalleAnterior" />
         <div class="div-3">
@@ -1362,7 +1362,7 @@
     }
 
     function ObtenerShowRoomPerfilOfertaCuvs(campaniaId, eventoId, perfilId) {
-        var item = {            
+        var item = {
             campaniaId: campaniaId,
             eventoId: eventoId,
             perfilId: perfilId
@@ -1380,15 +1380,15 @@
                 if (checkTimeout(response)) {
                     if (response.success) {
                         closeWaitingDialog();
-                        
+
                         if (response.data == "") {
                             $("#divPerfilOfertaShowRoom").css("display", "none");
                         } else {
                             var listaPerfilCuv = response.data;
-                           
+
                             var html = '<select id="cbPerfilOfertaShowRoom" class="multiselect" multiple="multiple" name="cbPerfilOfertaShowRoom[]"></select>';
                             $("#divPerfilOfertaShowRoom").html(html);
-                            
+
                             $.each(listaPerfilCuv, function (index, value) {
                                 var clase = '';
 
@@ -1402,7 +1402,7 @@
                             });
 
                             $("#divPerfilOfertaShowRoom").css("display", "");
-                            
+
                             $("#cbPerfilOfertaShowRoom").multiselect();
                         }
                     } else {

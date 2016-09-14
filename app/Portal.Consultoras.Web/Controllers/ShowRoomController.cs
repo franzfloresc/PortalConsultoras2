@@ -20,8 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.TerminoMostrar = 1;
-            var userData = UserData();
-
+            
             try
             {
                 var showRoomEvento = new BEShowRoomEvento();
@@ -53,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                             {
-                                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                                 using (PedidoServiceClient sv = new PedidoServiceClient())
                                 {
                                     listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
@@ -168,7 +167,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                var userData = UserData();
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
@@ -197,8 +195,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int PaisID, int campaniaID)
         {
-            var userData = UserData();
-
             try
             {
                 var showRoomEvento = new BEShowRoomEvento();
@@ -362,8 +358,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetShowRoomPerfiles(int paisId, int eventoId)
         {
-            var userData = UserData();
-
             try
             {
                 var listaShowRoomPerfil = new List<BEShowRoomPerfil>();
@@ -401,8 +395,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GuardarShowRoom(ShowRoomEventoModel showRoomEventoModel)
         {
-            var userData = UserData();
-
             try
             {
                 Mapper.CreateMap<ShowRoomEventoModel, BEShowRoomEvento>()
@@ -474,8 +466,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult DeshabilitarShowRoomEvento(int campaniaID, int eventoID)
         {
-            var userData = UserData();
-
             try
             {
                 BEShowRoomEvento beShowRoomEvento = new BEShowRoomEvento();
@@ -519,8 +509,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarShowRoomEvento(int campaniaID, int eventoID)
         {
-            var userData = UserData();
-
             try
             {
                 BEShowRoomEvento beShowRoomEvento = new BEShowRoomEvento();
@@ -563,7 +551,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GuardarImagenShowRoom(int eventoId, string nombreImagen, string nombreImagenAnterior, int tipo)
         {
-            var userData = UserData();
             string nombreImagenFinal = "";
 
             try
@@ -606,7 +593,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -616,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -631,8 +618,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string message = string.Empty;
             int registros = 0;
-            var userData = UserData();
-
+            
             try
             {
                 #region Procesar Carga Masiva Consultoras Archivo CSV
@@ -735,7 +721,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string ActualizarStockMasivo(HttpPostedFileBase flStock)
         {
-            var userData = UserData();
             string message = string.Empty;
             int registros = 0;
             try
@@ -841,8 +826,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string message = string.Empty;
             int registros = 0;
-            var userData = UserData();
-
+            
             try
             {
                 #region Procesar Carga Masiva Consultoras Archivo CSV
@@ -948,8 +932,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdatePopupShowRoom(bool noMostrarPopup)
         {
-            var userData = UserData();
-
             try
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1118,8 +1100,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
-            var userData = UserData();
-
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1180,8 +1160,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaShowRoom(ShowRoomOfertaModel model)
         {
-            var userData = UserData();
-
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
@@ -1245,7 +1223,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateOfertaShowRoom(ShowRoomOfertaModel model)
         {
-            var userData = UserData();
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
@@ -1310,7 +1287,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult DeshabilitarOfertaShowRoom(ShowRoomOfertaModel model)
         {
-            var userData = UserData();
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
@@ -1365,7 +1341,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RemoverOfertaShowRoom(ShowRoomOfertaModel model)
         {
-            var userData = UserData();
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
@@ -1419,7 +1394,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV)
         {
-            var userData = UserData();
             int UnidadesPermitidas = 0;
             int Saldo = 0;
             /* 2024 - Inicio */
@@ -1447,7 +1421,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerStockActualProducto(string CUV)
         {
-            var userData = UserData();
             int Stock = 0;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1464,7 +1437,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
         {
-            var userData = UserData();
             try
             {
                 Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
@@ -1513,7 +1485,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1560,7 +1532,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int campaniaId, string cuv)
         {
-            var userData = UserData();
             if (ModelState.IsValid)
             {
                 List<BEShowRoomOfertaDetalle> lst;
@@ -1657,8 +1628,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
         {
-            var userData = UserData();
-
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>()
@@ -1720,8 +1689,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
         {
-            var userData = UserData();
-
             try
             {
                 Mapper.CreateMap<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>()
@@ -1783,8 +1750,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalle(int ofertaShowRoomDetalleID, int campaniaID, string cuv)
         {
-            var userData = UserData();
-
             try
             {
                 BEShowRoomOfertaDetalle beShowRoomOfertaDetalle = new BEShowRoomOfertaDetalle();
@@ -1828,8 +1793,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalleAll(int campaniaID, string cuv)
         {
-            var userData = UserData();
-
             try
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1869,8 +1832,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetShowRoomPerfilOfertaCuvs(int campaniaId, int eventoId, int perfilId)
         {
-            var userData = UserData();
-
             try
             {
                 var listaShowRoomPerfilOferta = new List<BEShowRoomPerfilOferta>();
@@ -1924,8 +1885,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GuardarPerfilOfertaShowRoom(int perfilId, int eventoId, int campaniaId, string cadenaCuv)
         {
-            var userData = UserData();
-
             if (!string.IsNullOrEmpty(cadenaCuv))
                 cadenaCuv = cadenaCuv.Substring(0, cadenaCuv.Length - 1);
 
@@ -1966,7 +1925,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            var userData = UserData();
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {

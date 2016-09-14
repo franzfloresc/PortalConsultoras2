@@ -1219,13 +1219,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
+      
         #region ShowRoom
 
         [HttpPost]
         public JsonResult MostrarShowRoomPopup()
         {
-            var userData = UserData();
             try
             {
                 var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
@@ -1237,39 +1236,49 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
                     if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+
+                    if (beShowRoom.Estado == 1)
+                    {
+                        bool mostrarShowRoomProductos = false;
+                        var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
+
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                            mostrarShowRoomProductos = true;
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
+                            diaFin = userData.FechaInicioCampania.Day,
+                            mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                            nombre = string.IsNullOrEmpty(userData.Sobrenombre)
+                                ? userData.NombreConsultora
+                                : userData.Sobrenombre,
+                            message = "ShowRoomConsultora encontrada",
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomPopup
+                        });
+                    }
                     else
                     {
-                        beShowRoom.Imagen1 = beShowRoom.Imagen1 ?? "";
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        beShowRoom.Imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, beShowRoom.Imagen1,
-                            Globals.UrlMatriz + "/" + UserData().CodigoISO);
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
                     }
 
-                    bool mostrarShowRoomProductos = false;
-                    var rutaShowRoomPopup = ConfigurationManager.AppSettings["RutaShowRoomPopup"];
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                    if (fechaHoy >= userData.FechaInicioCampania.AddDays(-2).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                        mostrarShowRoomProductos = true;
-                    }
-                    if (fechaHoy > userData.FechaInicioCampania.AddDays(1).Date) beShowRoomConsultora.MostrarPopup = false;
-
-                    return Json(new
-                    {
-                        success = true,
-                        data = beShowRoomConsultora,
-                        diaFin = userData.FechaInicioCampania.Day,
-                        mesFin = NombreMes(userData.FechaInicioCampania.Month),
-                        nombre = string.IsNullOrEmpty(userData.Sobrenombre)
-                            ? userData.NombreConsultora
-                            : userData.Sobrenombre,
-                        message = "ShowRoomConsultora encontrada",
-                        evento = beShowRoom,
-                        mostrarShowRoomProductos,
-                        rutaShowRoomPopup
-                    });
                 }
                 else
                 {
@@ -1313,11 +1322,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        beShowRoom.Imagen1 = beShowRoom.Imagen1 ?? "";
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        beShowRoom.Imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, beShowRoom.Imagen1,
-                            Globals.UrlMatriz + "/" + UserData().CodigoISO);
-
                         if (beShowRoomConsultora == null)
                         {
                             beShowRoomConsultora = new BEShowRoomEventoConsultora();
@@ -1326,35 +1330,49 @@ namespace Portal.Consultoras.Web.Controllers
                         else Session["EsShowRoom"] = "1";
                     }
 
-                    var rutaShowRoomBannerLateral = ConfigurationManager.AppSettings["RutaShowRoomBannerLateral"];
-                    bool mostrarShowRoomProductos = false;
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                    bool estaActivoLateral = true;
+                    if (beShowRoom.Estado == 1)
+                    {
+                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
+                        bool mostrarShowRoomProductos = false;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool estaActivoLateral = true;
 
-                    if (fechaHoy >= userData.FechaInicioCampania.AddDays(-2).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        mostrarShowRoomProductos = true;
-                        rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
-                    }
-                    if (fechaHoy > userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        estaActivoLateral = false;
-                        //beShowRoomConsultora.MostrarPopup = false;
-                    }
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
 
-                    return Json(new
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            mostrarShowRoomProductos = true;
+                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                            estaActivoLateral = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            message = "ShowRoomConsultora encontrada",
+                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
+                            mesFaltante = userData.FechaInicioCampania.Month,
+                            anioFaltante = userData.FechaInicioCampania.Year,
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomBannerLateral,
+                            estaActivoLateral
+                        });
+                    }
+                    else
                     {
-                        success = true,
-                        data = beShowRoomConsultora,
-                        message = "ShowRoomConsultora encontrada",
-                        diasFaltantes = userData.FechaInicioCampania.Day - 2,
-                        mesFaltante = userData.FechaInicioCampania.Month,
-                        anioFaltante = userData.FechaInicioCampania.Year,
-                        evento = beShowRoom,
-                        mostrarShowRoomProductos,
-                        rutaShowRoomBannerLateral,
-                        estaActivoLateral
-                    });
+                        Session["EsShowRoom"] = "0";
+
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
+                    }
                 }
                 else
                 {
@@ -1364,7 +1382,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         data = "",
-                        message = "ShowRoomConsultora encontrada"
+                        message = "ShowRoomConsultora no encontrada"
                     });
                 }
             }

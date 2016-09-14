@@ -19258,6 +19258,14 @@ float: right;
 
 
 /* ESTILOS DE POP UP Y BOTON FLOTANTE*/
+.pestana_pop_hoy {
+    width:40px;
+    height:305px;
+    float:left;
+    position: relative;
+    left: 1px;
+    background:black;
+}
 .pestana_pop {
     width:40px;
     height:305px;
@@ -19277,7 +19285,7 @@ float: right;
     margin-left: 20px;
     width: 450px;
     /* float: left; */
-    margin-top: 17px;
+    /*margin-top: 17px;*/
   
 }
 .content_show_right {
@@ -19288,13 +19296,14 @@ float: right;
 }
 .borde_superior {
     width:344px;
+    height: 59px;
     overflow:hidden;
     }
 .borde_inferior {
     padding-top:10px;
     width:344px;
-    height:60px;
-     background: url(../../Images/showroom/borde_inferior.png) no-repeat;
+    /*height:60px;*/
+     background: url(../../../Images/showroom/borde_inferior.png) no-repeat;
     }
 .borde_inferior p{
     margin-top:6px;
@@ -19440,9 +19449,20 @@ html {
 .floating-chat {
        top: 510px !important;
 }
+
+.fondo_popupShowRoom {
+    display: block;
+    position: fixed;
+    background: url("/Content/Images/bg_popups.png") repeat;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 1100;
+}
+
 .datos_pop_up {
     margin-top: 84px;
-    width: 183px;
+    width: 267px;
     min-height: 280px;
     margin-left: 89px;
     position: absolute;
@@ -19450,7 +19470,23 @@ html {
     background: white;
     /* height: 100px; */
     padding-left: 40px;
-        padding-bottom: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 40px;
+}
+
+.datos_pop_up_hoy {
+    margin-top: 28px;
+    width: 267px;
+    min-height: 280px;
+    margin-left: 107px;
+    position: absolute;
+    z-index: 2000;
+    background: white;
+    /* height: 100px; */
+    padding-left: 40px;
+    padding-bottom: 18px;
+    padding-top: 10px;
     padding-right: 40px;
 }
 
@@ -19497,7 +19533,7 @@ html {
     text-align: justify;
 }
 .titulo_padre_s {
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -19507,8 +19543,10 @@ html {
     background: black;
     color: white;
     letter-spacing: 0.3px;
-    margin-top:6px;
-    }
+    margin-top: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .fecha_promocion_s {
     width: 100%;
     margin-top: 6px;
@@ -19582,14 +19620,15 @@ html {
 }
 .check_hoy {
     position:absolute;
-    bottom: 20px;
+    bottom: 15px;
     right: 42px;
 }
 .pestana_preventa2 {
     position: absolute;
-    margin-left: 100px;
-    width: 525px;
-        margin-top: -18px;
+    margin-left: 42px;
+    width: 500px;
+    height: 511px;
+    background: white;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -19600,6 +19639,12 @@ html {
     margin-bottom: -26px;
     margin-left:-9px;
     
+}
+.evento_tema_hoy {
+    width: 192px;
+    height: 76px;
+    margin-top: 23px;
+    margin-left: -6px;
 }
 .precio_caja_traslado {
     font-family: 'lato';
@@ -19623,8 +19668,10 @@ html {
 /*FIN*/
 
 .nombre_separado {
-    font-weight:bold; width:100%; text-align:center;
-     font-family: 'lato';
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-family: 'lato';
     font-size: 11pt;
     /* font-weight: 300; */
     text-transform: uppercase;

@@ -58,7 +58,7 @@ $(document).ready(function () {
 });
 
 function CrearPopShow() {
-    $("#btnCerrarPopShowroom").click(function () {
+    $("#btnCerrarPopShowroom").click(function () {        
         $("#PopShowroom").modal("hide");
     });
 
@@ -71,7 +71,7 @@ function CrearPopShow() {
 
         $.ajax({
             type: "POST",
-            url: '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new {area = ""})',
+            url: urlUpdatePopupShowRoom,
             data: JSON.stringify(params),
             contentType: 'application/json',
             success: function (data) {
@@ -101,7 +101,7 @@ function CrearPopShow() {
 function MostrarShowRoom() {
     $.ajax({
         type: "POST",
-        url: '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new {area = ""})',
+        url: urlMostrarShowRoomPopup,
         contentType: 'application/json',
         success: function (response) {
             if (checkTimeout(response)) {
@@ -118,9 +118,9 @@ function MostrarShowRoom() {
                                 $("#spnShowRoomDiaInicioHoy").html(response.diaFin - 2);
                                 $("#spnShowRoomDiaFinHoy").html(response.diaFin);
                                 $("#spnShowRoomMesHoy").html(response.mesFin);
-
+                                
                                 $("#PopShowroomHoy").modal("show");
-                                $("#lnkConoceMasShowRoomPopupHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+                                $("#lnkConoceMasShowRoomPopupHoy").attr("href", urlShowRoomBienvenida);
 
                                 //Carga de Imagenes
                                 $("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
@@ -134,7 +134,10 @@ function MostrarShowRoom() {
                                 $("#spnShowRoomDiaInicio").html(response.diaInicio);
                                 $("#spnShowRoomDiaFin").html(response.diaFin);
                                 $("#spnShowRoomMes").html(response.mesFin);
-
+                                if (response.mesFin.length > 6) {
+                                    $(".fecha_promocion_m").css("font-size", "10.5pt");
+                                }
+                                
                                 $("#PopShowroom").modal("show");
                                 $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 

@@ -342,7 +342,8 @@
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <a href="#" class="mover">
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />
+            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
+            <img id="imgPestaniaShowRoomLateral" alt="imgPestaniaShowRoomLateral" style="max-width: 100% !important;" />
         </a>
         <div class="contenido-ct">
             <div class="titulo_caja_traslado">
@@ -354,7 +355,7 @@
             <div class="titulo_caja_traslado">
                 DÍAS
             </div>
-            <div style="height: 20px; width: 100%; margin-top:20px">
+            <div style="height: 20px; width: 100%; margin-top: 20px">
                 <div class="text_hora">hrs</div>
                 <div class="text_hora">min</div>
                 <div class="text_hora no_margin_right">sec</div>
@@ -366,6 +367,7 @@
                 <div class="text_bolita">&#8226;</div>
                 <div class="text_numero"><span id="spnSegundosFaltantes">02</span></div>
             </div>
+
             <a href=""
                class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
         </div>
@@ -373,17 +375,12 @@
 
     <div id="ctrasHoy" class="caja-traslado" style="display: none;">
         <a href="#" class="mover">
-            <img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />
+            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
+            <img id="imgPestaniaShowRoomLateralHoy" alt="imgPestaniaShowRoomLateralHoy" style="max-width: 100% !important;" />
         </a>
         <div class="contenido-ct">
-            <div class="titulo_caja_traslado">
-                SETS DESDE
-            </div>
-            <div class="precio_caja_traslado">
-                $ 5,990
-            </div>
-            <div class="imagen_hoy_caja">
-                <img src="@Url.Content("~/Content/Images/showroom/contador_hoy.png")" alt="" />
+            <div style="width: 154px; height: 197px; margin-left: -12px;">
+                <img id="imgVentaTagLateralHoy" alt="" />
             </div>
             <a href="#" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateralHoy">VER OFERTAS AQUÍ</a>
         </div>
@@ -444,6 +441,7 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var viewBagRol = '@ViewBag.Rol';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
