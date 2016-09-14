@@ -2902,9 +2902,9 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y gana más esta campaña.");
-        if (viewBagNombrePais == "PE") {
+        if (viewBagPaisID == 11) {
             $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagNombrePais == "CL") {
+        } else if (viewBagPaisID == 3) {
             $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti.");
         }
     }
@@ -2914,9 +2914,9 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
-        if (viewBagNombrePais == "PE") {
+        if (viewBagPaisID == "11") {
             $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagNombrePais == "CL") {
+        } else if (viewBagPaisID == "3") {
             $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti.");
         }
     }
