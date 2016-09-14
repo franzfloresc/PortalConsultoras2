@@ -997,6 +997,10 @@
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
             </span>
+            {{else if_eq OrigenPedidoWeb '126'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FINAL</label>
+            </span>
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
