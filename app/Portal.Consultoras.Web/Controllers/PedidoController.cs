@@ -456,7 +456,9 @@ namespace Portal.Consultoras.Web.Controllers
                 oBePedidoWebDetalle.MarcaID = Convert.ToByte(model.MarcaID);
                 oBePedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
-                oBePedidoWebDetalle.CUV = model.CUV;                
+                oBePedidoWebDetalle.CUV = model.CUV;
+
+                oBePedidoWebDetalle.OrigenPedidoWebBE = model.OrigenPedidoWebModel;
 
                 oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
                 oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
@@ -1060,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+                                              string TipoOferta, string OrigenPedidoWebModel, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1076,7 +1078,8 @@ namespace Portal.Consultoras.Web.Controllers
                 DescripcionProd = Descripcion,
                 TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
                 ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),                
-                OfertaWeb = false
+                OfertaWeb = false,
+                OrigenPedidoWebModel = Convert.ToInt32(OrigenPedidoWebModel)
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
@@ -1403,7 +1406,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
+        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido, int origenPedidoWeb)
         {            
             List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
@@ -1458,6 +1461,8 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionLarga = olstProducto[0].DescripcionMarca;
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
+
+                oBEPedidoWebDetalle.OrigenPedidoWebBE = Convert.ToInt16(origenPedidoWeb);
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())

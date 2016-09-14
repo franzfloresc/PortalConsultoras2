@@ -236,6 +236,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdSugeridoDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
+        var OrigenPedidoWeb = DesktopPedidoSugerido;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -266,7 +267,8 @@ $(document).ready(function () {
                 DescripcionCategoria: descripcionCategoria,
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
-                EsSugerido: true
+                EsSugerido: true,
+                OrigenPedidoWebModel: OrigenPedidoWeb
             };
 
             AgregarProducto('Insert', model, 'divProductoSugerido', true);
@@ -371,6 +373,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        var OrigenPedidoWeb = DesktopPedidoOferaFinal;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -400,7 +403,8 @@ $(document).ready(function () {
                 DescripcionCategoria: descripcionCategoria,
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
-                EsSugerido: false
+                EsSugerido: false,
+                OrigenPedidoWebModel: OrigenPedidoWeb
             };
 
             AgregarProducto('Insert', model, "", false);
@@ -426,8 +430,6 @@ $(document).ready(function () {
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();
     });
-
-
 
     CrearDialogs();
     CargarDetallePedido();
@@ -2171,6 +2173,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var descripcion = $("#txtCantidadZE").attr("est-descripcion");
     var indicadorMontoMinimo = $("#txtCantidadZE").attr("est-montominimo");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
+    var OrigenPedidoWeb = DesktopHomeOfertasParaTi;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -2210,7 +2213,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWebModel: OrigenPedidoWeb
     });
 
     jQuery.ajax({

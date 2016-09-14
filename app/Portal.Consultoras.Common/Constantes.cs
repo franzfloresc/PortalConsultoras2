@@ -171,6 +171,42 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
+        public class OrigenPedidoWeb 
+        {
+
+            // Primer Digito
+            // 1: Desktop                   2: Mobile
+
+            // Segundo Digito
+            // 1: Home                      2: Pedido
+            // 3: Liquidacion               4: Catalogo Personalizado
+            
+            // Tercer Digito
+            // 1: Banners                   2: Ofertas para ti
+            // 3: Catalogo Personalizado    4: Liquidacion
+            // 5: Producto Sugerido         6: Oferta Final
+
+            public const int DesktopHomeBanners = 111;
+            public const int DesktopHomeOfertasParaTi = 112;
+            public const int DesktopHomeCatalogoPersonalizado = 113;
+            public const int DesktopHomeLiquidacion = 114;
+
+            public const int DesktopPedidoOfertasParaTi = 122;
+            public const int DesktopPedidoSugerido = 125;
+            public const int DesktopPedidoOferaFinal = 126;
+
+            public const int DesktopLiquidacion = 134;
+
+            public const int DesktopCatalogoPersonalizado = 143;
+
+            public const int MobileHomeOfertasParaTi = 212;
+
+            public const int MobilePedidoOfertasParaTi = 222;
+            public const int MobilePedidoSugerido = 225;
+
+            public const int MobileLiquidacion = 234;
+        }
+
     }
 }
 

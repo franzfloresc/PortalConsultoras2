@@ -114,6 +114,7 @@ namespace Portal.Consultoras.Web.Models
         public string TotalSinDsctoFormato { get; set; }
         public string TotalConDsctoFormato { get; set; }
 
+        public int OrigenPedidoWeb { get; set; }
     }
 
     public class ProductoModel
