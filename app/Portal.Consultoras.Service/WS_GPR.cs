@@ -1,12 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
 
 namespace Portal.Consultoras.Service
 {

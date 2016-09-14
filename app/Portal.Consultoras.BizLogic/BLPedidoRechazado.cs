@@ -1,38 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using System.Transactions;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoRechazado
     {
-        public int InsertarPedidoRechazadoXML(string PaisISO, List<BEPedidoRechazado> obj)
+        private DAPedidoRechazado dAPedidoRechazado;
+
+        public BLPedidoRechazado()
         {
-            int valor = 0;
+            this.dAPedidoRechazado = new DAPedidoRechazado();
+        }
 
-            DAPedidoRechazado DAPedidoRechazado = new DAPedidoRechazado();
-
+        public int InsertarPedidoRechazadoXML(string paisISO, List<BEPedidoRechazado> listBEPedidoRechazado)
+        {
+            if (listBEPedidoRechazado == null || listBEPedidoRechazado.Count == 0) return 0;
             try
             {
-                if (obj != null)
-                {
-                    string xml = CrearClienteXML(obj);
-                    DAPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO,xml);
-                    valor = 1;
-                }
+                string xml = CrearClienteXML(listBEPedidoRechazado);
+                this.dAPedidoRechazado.InsertarPedidoRechazadoXML(paisISO, xml);
+                return 1;
             }
-            catch (Exception ex)
-            {
-                valor = 0;
-            }
-
-            return valor;
+            catch (Exception ex) { }
+            return 0;
         }
 
         private string CrearClienteXML(List<BEPedidoRechazado> obj)
