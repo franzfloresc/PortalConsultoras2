@@ -304,7 +304,9 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            ActualizarCantidadTotalPedido();
+                                            //ActualizarCantidadTotalPedido();
+                                            CargarCantidadProductosPedidos();
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
                                         else {
                                             messageInfo(response.message);
