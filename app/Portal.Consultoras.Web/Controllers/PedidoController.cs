@@ -4754,11 +4754,22 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
                 }
 
+                // Si ya esta en pedido detalle no se debe mostrar
+                var pedidoDetalle = ObtenerPedidoWebDetalle();
+                var listaRetorno = new List<ProductoModel>();
+                foreach (var item in listaProductoModel)
+                {
+                    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
+                    addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
+                    if (addProducto.CUV == "")
+                        listaRetorno.Add(item);
+                }
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
-                    data = listaProductoModel,
+                    data = listaRetorno,
                     limiteJetlore = limiteJetlore
                 });
             }
