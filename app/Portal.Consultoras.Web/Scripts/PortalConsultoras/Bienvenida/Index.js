@@ -1019,6 +1019,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
     var posicion = $("#txtCantidadZE").attr("est-posicion");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
+    var OrigenPedidoWeb = DesktopHomeOfertasParaTi;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -1058,7 +1059,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWebModel: OrigenPedidoWeb
     });
 
     jQuery.ajax({
@@ -1178,6 +1180,24 @@ function CargarEstrategiasEspeciales(objInput, e) {
             $('#popupDetalleCarousel_lanzamiento').html(html);
             $('#popupDetalleCarousel_lanzamiento').show();
         };
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas para ti – Home' },
+                    'products': [{
+                        'id': estrategia.CUV2,
+                        'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
+                        'price': estrategia.Precio2.toString(),
+                        'brand': estrategia.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': estrategia.DescripcionEstrategia,
+                        'position': estrategia.Posicion
+                    }]
+                }
+            }
+        });
+
     } else {
         return false;
     }
@@ -1419,7 +1439,8 @@ function AgregarProductoLiquidacion(contenedor) {
         descripcionMarca: $(contenedor).find("#DescripcionMarca").val(),
         descripcionEstrategia: $(contenedor).find("#DescripcionEstrategia").val(),
         imagenProducto: $(contenedor).find("#ImagenProducto").val(),
-        Posicion: $(contenedor).find("#Posicion").val()
+        Posicion: $(contenedor).find("#Posicion").val(),
+        OrigenPedidoWeb: DesktopHomeLiquidacion,
     };
     $.ajaxSetup({
         cache: false
@@ -1682,7 +1703,8 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     var item = {
         CUV: CUVpedido,
-        CantCUVpedido: CantCUVpedido
+        CantCUVpedido: CantCUVpedido,
+        origenPedidoWeb: DesktopHomeBanners
     };
     var categoriacad = "";
     var variantcad = "";
@@ -3163,7 +3185,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
-
+    var OrigenPedidoWeb = DesktopHomeCatalogoPersonalizado;
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
@@ -3190,7 +3212,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         DescripcionCategoria: descripcionCategoria,
         DescripcionMarca: descripcionMarca,
         DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false
+        EsSugerido: false,
+        OrigenPedidoWebModel: OrigenPedidoWeb
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    

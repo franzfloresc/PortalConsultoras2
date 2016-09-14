@@ -332,6 +332,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidowebdetalle.IPUsuario);
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidowebdetalle.CodigoUsuarioCreacion);
 
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWebBE);
+
             return Context.ExecuteNonQuery(command);
         }
 
@@ -347,6 +349,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PrecioUnidad", DbType.Decimal, pedidowebdetalle.PrecioUnidad);
             Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, pedidowebdetalle.TipoOfertaSisID);
             Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidowebdetalle.CodigoUsuarioModificacion);
+
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWebBE);
 
             return Context.ExecuteNonQuery(command);
         }

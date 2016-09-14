@@ -416,8 +416,14 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        
+
+        var MobileHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
+        var MobilePedidoOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var MobilePedidoSugerido = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
+
         $(function () {
+
             SetFormatDecimalPais(formatDecimalPaisMain);
 
             HandlebarsRegisterHelper();
@@ -1020,171 +1026,171 @@
                                     if (response.mostrarShowRoomProductos) {
                                         $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
 
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoomHoy").show();
-                                            AgregarTagManagerShowRoomBannerLateral(true);
-                                        }
-                                    } else {
-                                        $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+                                    if (document.getElementById("estiloShowRoom") == null) {
+                                        $("#divShowRoomHoy").show();
+                                        AgregarTagManagerShowRoomBannerLateral(true);
+                                    }
+                                } else {
+                                    $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
 
-                                        AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+                                    AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
 
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoom").show();
-                                            AgregarTagManagerShowRoomBannerLateral(false);
-                                        }
+                                    if (document.getElementById("estiloShowRoom") == null) {
+                                        $("#divShowRoom").show();
+                                        AgregarTagManagerShowRoomBannerLateral(false);
                                     }
                                 }
                             }
                         }
                     }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.error(error);
-                    }
                 }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    console.error(error);
+                }
+            }
+        });
+    }
+
+    function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
+        var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+
+        if (esHoy)
+            name += " - fase 2";
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                        {
+                            'id': $("#hdEventoIDShowRoom").val(),
+                            'name': name,
+                            'position': 'Home lateral - 1',
+                            'creative': 'Banner'
+                        }]
+                }
+            }
+        });
+    }
+
+    function AgregarTagManagerShowRoomBannerLateral(esHoy) {
+        var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+
+        if (esHoy)
+            name += " - fase 2";
+
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                        {
+                            'id': $("#hdEventoIDShowRoom").val(),
+                            'name': name,
+                            'position': 'Home lateral - 1',
+                            'creative': 'Banner'
+                        }]
+                }
+            }
+        });
+    }
+
+    function SeparadorMiles(pnumero) {
+        // Función que colocará el caracter "." como separador de miles.
+
+        var resultado = "";
+        var numero = pnumero.replace(/\,/g, '');
+        var nuevoNumero = "";
+        if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+        else nuevoNumero = numero.replace(/\./g, '');
+
+        if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+
+        for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+            resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+
+        if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+
+        if (numero[0] == "-") return "-" + resultado;
+        else return resultado;
+    };
+
+    function AgregarTimerShowRoom(dia, mes, anio) {
+        var calcNewYear = setInterval(function () {
+            //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
+            date_future = new Date(anio, mes - 1, dia);
+            date_now = new Date();
+
+            seconds = Math.floor((date_future - (date_now)) / 1000);
+            minutes = Math.floor(seconds / 60);
+            hours = Math.floor(minutes / 60);
+            days = Math.floor(hours / 24);
+
+            hours = hours - (days * 24);
+            minutes = minutes - (days * 24 * 60) - (hours * 60);
+            seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+            //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
+            $("#spnDiasFaltantes").html(days);
+            $("#spnHorasFaltantes").html(hours);
+            $("#spnMinutosFaltantes").html(minutes);
+            $("#spnSegundosFaltantes").html(seconds);
+
+            if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+                clearInterval(calcNewYear);
+            }
+            if (days < 0) {
+                $("#spnDiasFaltantes").html(0);
+                $("#spnHorasFaltantes").html(0);
+                $("#spnMinutosFaltantes").html(0);
+                $("#spnSegundosFaltantes").html(0);
+                clearInterval(calcNewYear);
+            }
+        }, 1000);
+    }
+
+    /* Tracking Jetlore */
+    function TrackingJetloreAdd(cantidad, campania, cuv) {
+        var esJetlore;
+
+        esJetlore = esPaisTrackingJetlore == "1";
+
+        if (esJetlore) {
+            JL.tracker.addToCart({
+                count: cantidad,
+                deal_id: cuv,
+                option_id: campania
             });
         }
+    }
 
-        function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    function TrackingJetloreRemove(cantidad, campania, cuv) {
+        var esJetlore;
 
-            if (esHoy)
-                name += " - fase 2";
+        esJetlore = esPaisTrackingJetlore == "1";
 
-            dataLayer.push({
-                'event': 'promotionClick',
-                'ecommerce': {
-                    'promoClick': {
-                        'promotions': [
-                            {
-                                'id': $("#hdEventoIDShowRoom").val(),
-                                'name': name,
-                                'position': 'Home lateral - 1',
-                                'creative': 'Banner'
-                            }]
-                    }
-                }
+        if (esJetlore) {
+            JL.tracker.removeFromCart({
+                count: cantidad,
+                deal_id: cuv,
+                option_id: campania
             });
         }
+    }
 
-        function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    function TrackingJetloreRemoveAll(lista) {
+        var esJetlore;
 
-            if (esHoy)
-                name += " - fase 2";
+        esJetlore = esPaisTrackingJetlore == "1";
 
-            dataLayer.push({
-                'event': 'promotionView',
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': [
-                            {
-                                'id': $("#hdEventoIDShowRoom").val(),
-                                'name': name,
-                                'position': 'Home lateral - 1',
-                                'creative': 'Banner'
-                            }]
-                    }
-                }
-            });
+        if (esJetlore) {
+            JL.tracker.removeFromCart(lista);
+
         }
-
-        function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
-
-            var resultado = "";
-            var numero = pnumero.replace(/\,/g, '');
-            var nuevoNumero = "";
-            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-            else nuevoNumero = numero.replace(/\./g, '');
-
-            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
-            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
-            if (numero[0] == "-") return "-" + resultado;
-            else return resultado;
-        };
-
-        function AgregarTimerShowRoom(dia, mes, anio) {
-            var calcNewYear = setInterval(function () {
-                //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
-                date_future = new Date(anio, mes - 1, dia);
-                date_now = new Date();
-
-                seconds = Math.floor((date_future - (date_now)) / 1000);
-                minutes = Math.floor(seconds / 60);
-                hours = Math.floor(minutes / 60);
-                days = Math.floor(hours / 24);
-
-                hours = hours - (days * 24);
-                minutes = minutes - (days * 24 * 60) - (hours * 60);
-                seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-
-                //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
-                $("#spnDiasFaltantes").html(days);
-                $("#spnHorasFaltantes").html(hours);
-                $("#spnMinutosFaltantes").html(minutes);
-                $("#spnSegundosFaltantes").html(seconds);
-
-                if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
-                    clearInterval(calcNewYear);
-                }
-                if (days < 0) {
-                    $("#spnDiasFaltantes").html(0);
-                    $("#spnHorasFaltantes").html(0);
-                    $("#spnMinutosFaltantes").html(0);
-                    $("#spnSegundosFaltantes").html(0);
-                    clearInterval(calcNewYear);
-                }
-            }, 1000);
-        }
-
-        /* Tracking Jetlore */
-        function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.addToCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemoveAll(lista) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart(lista);
-
-            }
-        }
-        /* Fin Tracking Jetlore */
+    }
+    /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

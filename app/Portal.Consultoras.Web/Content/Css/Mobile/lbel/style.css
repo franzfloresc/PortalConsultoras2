@@ -471,14 +471,14 @@ h4.re3 {
 }
 .btn-line-action {
     padding: 8px 35px;
-    background: none !important;
+    background:  #642F80 !important;
     border: 1px solid #722789;
-    color: #722789;
+    color: #FFF;
 }
     .btn-line-action:hover,
     .btn-line-action:focus {
         color: #fff;
-        background: #511c61 !important;
+        background: #642F80 !important;
     }
 .btn-wfijo {
     width: 235px;
@@ -6460,7 +6460,7 @@ input[type="checkbox"]:checked + span:after {
     height: auto;
     position: absolute;
     background: white;
-    top: 176px;
+    top: 56px;
     padding-top:10px;
     padding-bottom: 36px;
     z-index: 1000;

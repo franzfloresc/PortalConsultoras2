@@ -193,7 +193,8 @@ function AgregarOfertaProducto(article) {
                     Cantidad: cantidad,
                     PrecioUnidad: PrecioUnidad,
                     CUV: CUV,
-                    ConfiguracionOfertaID: ConfiguracionOfertaID
+                    ConfiguracionOfertaID: ConfiguracionOfertaID,
+                    OrigenPedidoWeb: MobileLiquidacion
                 };
 
                 $.ajaxSetup({ cache: false });
