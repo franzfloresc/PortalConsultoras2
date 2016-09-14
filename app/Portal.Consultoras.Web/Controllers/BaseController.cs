@@ -983,6 +983,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
                 model.EMailActivo = oBEUsuario.EMailActivo;
                 model.EMail = oBEUsuario.EMail;
+                model.EstadoSimplificacionCUV = oBEUsuario.EstadoSimplificacionCUV;
                 model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
 
                 List<TipoLinkModel> lista = GetLinksPorPais(model.PaisID);
