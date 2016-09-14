@@ -27,7 +27,7 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Css/Mobile/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Esika/slick.css")" rel="stylesheet" />
 }
 
 <input type="hidden" id="hdPosicionCarruselModel" value="@Model.PosicionCarrusel"/>
@@ -367,7 +367,9 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            ActualizarCantidadTotalPedido();
+                                            //ActualizarCantidadTotalPedido();
+                                            CargarCantidadProductosPedidos();
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         } else {
                                             messageInfo(response.message);
                                         }

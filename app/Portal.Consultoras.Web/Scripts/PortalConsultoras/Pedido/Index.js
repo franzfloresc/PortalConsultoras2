@@ -1766,48 +1766,64 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
-    if (item.TieneStock == true) {
-        if (item.TieneSugerido != 0) {
-            $("#divObservaciones").html("");
+    if (item.TipoOfertaSisID == "1707") {
+        var esShowRoom = sesionEsShowRoom;
 
-            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
-            //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+        $("#divObservaciones").html("");
 
-            $("#btnAgregar").attr("disabled", "disabled");
-            ObtenerProductosSugeridos(item.CUV);
+        if (esShowRoom == "1") {
+            //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
+            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
         } else {
-            $("#divObservaciones").html("");
-            if (item.EsExpoOferta == true) {
-                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
-                //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
-            }
-            if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                if (isEsika) {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
-                } else {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la revista Somos Belcorp con oferta especial.</div></div>");
-                }
-            }
-
-            if (item.MensajeCUV != null) {
-                if (item.MensajeCUV != "") {
-                    //$("#divMensajeCUV").html(item.MensajeCUV);
-                    //showDialog("divMensajeCUV");
-                    alert_msg(item.MensajeCUV, "IMPORTANTE");
-                }
-            }
-
-            $("#btnAgregar").removeAttr("disabled");
+            //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Esta promoción no se encuentra disponible.</div></div>");
+            $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
         }
-    } else {
-        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
-        //$("#divObservaciones").html("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
-        $("#btnAgregar").attr("disabled", "disabled");
-        IngresoFAD(item);
 
-        if (item.TieneSugerido != 0)
-            ObtenerProductosSugeridos(item.CUV);
-    }
+        $("#btnAgregar").attr("disabled", "disabled");
+    } else {
+        if (item.TieneStock == true) {
+            if (item.TieneSugerido != 0) {
+                $("#divObservaciones").html("");
+
+                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
+                //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+
+                $("#btnAgregar").attr("disabled", "disabled");
+                ObtenerProductosSugeridos(item.CUV);
+            } else {
+                $("#divObservaciones").html("");
+                if (item.EsExpoOferta == true) {
+                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
+                    //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
+                }
+                if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+                    if (isEsika) {
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
+                    } else {
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la revista Somos Belcorp con oferta especial.</div></div>");
+                    }
+                }
+
+                if (item.MensajeCUV != null) {
+                    if (item.MensajeCUV != "") {
+                        //$("#divMensajeCUV").html(item.MensajeCUV);
+                        //showDialog("divMensajeCUV");
+                        alert_msg(item.MensajeCUV, "IMPORTANTE");
+                    }
+                }
+
+                $("#btnAgregar").removeAttr("disabled");
+            }
+        } else {
+            $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+            //$("#divObservaciones").html("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+            $("#btnAgregar").attr("disabled", "disabled");
+            IngresoFAD(item);
+
+            if (item.TieneSugerido != 0)
+                ObtenerProductosSugeridos(item.CUV);
+        }
+    }    
 
     $("#txtCUV").val(item.CUV);
     $("#hdfCUV").val(item.CUV);
@@ -1850,6 +1866,17 @@ function ObservacionesProducto(item) {
     }
     $("#divMensaje").text("");
     $("#txtCantidad").focus();
+    
+    if (item.TipoOfertaSisID == "1707") {
+        if (esShowRoom != "1") {
+            $("#txtDescripcionProd").val("");
+            $("#hdfDescripcionProd").val("");
+            $("#txtPrecioR").val("");
+            $("#txtCantidad").val("");
+            $("#divMensaje").text("");
+            $("#txtCUV").focus();
+        }
+    }
 }
 
 function IngresoFAD(producto) {
@@ -2307,6 +2334,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     CargarCarouselEstrategias(cuv);
                 }
                 MostrarBarra(response);
+                CargarResumenCampaniaHeader(true);
                 TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                 dataLayer.push({
                     'event': 'removeFromCart',
@@ -3665,42 +3693,214 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             }
         });
     } else {
-        var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+        if (TipoOfertaSisID == constConfiguracionOfertaShowRoom) {
+            var PROL = $("#hdValidarPROL").val();
 
-        var param = ({
-            MarcaID: 0,
-            CUV: CUV,
-            PrecioUnidad: 0,
-            Descripcion: 0,
-            Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
-            IndicadorMontoMinimo: 0,
-            TipoOferta: 0
-        });
+            $.ajaxSetup({
+                cache: false
+            });
+            var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
+            var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
+            var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
+            var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
+            var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+            var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
+            var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
+            var Flag = 0;
+            var StockNuevo = 0;
+            if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
+                Flag = 1;
+                StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
+            } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
+                Flag = 2;
+                StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+            }
+            if (FlagValidacion == "1") {
+                if (CantidadAnti == Cantidad)
+                    return false;
+            } else {
+                if (ClienteAnti == CliDes)
+                    return false;
+            }
 
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'Pedido/ValidarStockEstrategia',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(param),
-            async: true,
-            success: function (datos) {
-                if (!datos.result) {
-                    alert_msg(datos.message);
-                    CerrarSplash();
-                    $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
+            if (Cantidad.length == 0) {
+                alert_msg('Por favor ingrese una cantidad válida.');
+                return;
+            }
+
+            if (Cantidad == 0) {
+                alert_msg('Por favor ingrese una cantidad mayor a cero.');
+                return;
+            }
+
+            if ((CliDes.length != 0 && CliDes != CliDesVal)) {
+                alert_msg('Por favor ingrese un cliente válido.');
+                return;
+            }
+
+            var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
+            if (CliDes.length == 0) {
+                CliID = 0;
+            }
+            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+                var Saldo = data.Saldo;
+                var UnidadesPermitidas = data.UnidadesPermitidas;
+                var CantidadPedida = data.CantidadPedida;
+                Cantidad = parseInt(Cantidad) + parseInt(CantidadPedida);
+                if (parseInt(data.UnidadesPermitidas) < parseInt(Cantidad)) {
+                    if (PROL == "1") {
+                        UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                        $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
+                    }
+                    else
+                        $('#txtLPCant' + PedidoDetalleID).val($('#txtLPTempCant' + PedidoDetalleID).val());
+                    if (Saldo == UnidadesPermitidas)
+                        alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                    else {
+                        if (Saldo == "0")
+                            alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                        else
+                            alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                    }
+
                     return false;
                 } else {
-                    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                    $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
+                        var CantidadActual = $('#txtLPCant' + PedidoDetalleID).val();
+                        var CantidadaValidar = parseInt(CantidadActual) - parseInt(CantidadAnti);
+                        if (parseInt(data.Stock) < parseInt(CantidadaValidar)) {
+                            if (PROL == "1") {
+                                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                                $('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
+                            }
+                            else
+                                $('#txtLPCant' + PedidoDetalleID).val($('#txtLPTempCant' + PedidoDetalleID).val());
+
+                            alert_msg("Lamentablemente, no puede actualizar la cantidad del Producto , ya que sobrepasa el stock actual (" + data.Stock + "), verifique");
+
+
+                            return false;
+                        } else {
+
+                            var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
+                            var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
+                            var Total = parseFloat(Cantidad * Unidad).toFixed(2);
+                            $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
+                            var ClienteID_ = $('#ddlClientes').val();
+                            var item = {
+                                CampaniaID: CampaniaID,
+                                PedidoID: PedidoID,
+                                PedidoDetalleID: PedidoDetalleID,
+                                ClienteID: CliID,
+                                Cantidad: Cantidad,
+                                PrecioUnidad: PrecioUnidad,
+                                ClienteDescripcion: CliDes,
+                                DescripcionProd: DesProd,
+                                Stock: StockNuevo,
+                                Flag: Flag,
+                                TipoOfertaSisID: TipoOfertaSisID,
+                                CUV: CUV,
+                                ClienteID_: ClienteID_
+                            };
+
+                            AbrirSplash();
+                            jQuery.ajax({
+                                type: 'POST',
+                                url: baseUrl + 'Pedido/Update',
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(item),
+                                async: true,
+                                success: function (data) {
+                                    if (checkTimeout(data)) {
+                                        CerrarSplash();
+                                        if (data.success == true) {
+                                            if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
+                                                $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                                                $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                                            }
+                                            if (PROL == "0")
+                                                $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+
+                                            var nomCli = $("#ddlClientes option:selected").text();
+                                            var simbolo = data.Simbolo;
+                                            var monto = data.Total_Cliente;
+
+                                            $(".pMontoCliente").css("display", "none");
+
+                                            if (data.ClienteID_ != "-1") {
+                                                $(".pMontoCliente").css("display", "block");
+                                                $("#spnNombreCliente").html(nomCli + " :");
+                                                $("#spnTotalCliente").html(simbolo + monto);
+                                            }
+
+                                            //CalcularTotalPedido(data.Total, data.Total_Minimo);
+
+                                            var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
+                                            totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
+                                            $("#pCantidadProductosPedido").html(totalUnidades);
+
+                                            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+                                            if (diferenciaCantidades > 0)
+                                                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), CUV);
+                                            else if (diferenciaCantidades < 0)
+                                                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
+
+
+                                            MostrarBarra(data);
+                                            CargarResumenCampaniaHeader();
+                                        }
+                                    }
+                                },
+                                error: function (data, error) {
+                                    if (checkTimeout(data)) {
+                                        CerrarSplash();
+                                        alert_msg(data.message);
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    HideDialog("divVistaPrevia");
-                    CerrarSplash();
+            });
+        } else {
+            var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+
+            var param = ({
+                MarcaID: 0,
+                CUV: CUV,
+                PrecioUnidad: 0,
+                Descripcion: 0,
+                Cantidad: $('#txtLPCant' + PedidoDetalleID).val(),
+                IndicadorMontoMinimo: 0,
+                TipoOferta: 0
+            });
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'Pedido/ValidarStockEstrategia',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(param),
+                async: true,
+                success: function (datos) {
+                    if (!datos.result) {
+                        alert_msg(datos.message);
+                        CerrarSplash();
+                        $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
+                        return false;
+                    } else {
+                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        HideDialog("divVistaPrevia");
+                        CerrarSplash();
+                    }
                 }
-            }
-        });
+            });
+        }        
     }
 }
 

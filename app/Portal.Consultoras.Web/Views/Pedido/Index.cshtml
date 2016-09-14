@@ -997,6 +997,10 @@
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
             </span>
+            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+            <span class="texto_pedidos_ofertas">
+                <label>PRE-VENTA DIGITAL</label>
+            </span>
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
@@ -1435,6 +1439,8 @@
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
