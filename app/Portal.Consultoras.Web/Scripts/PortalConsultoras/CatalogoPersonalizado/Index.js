@@ -18,7 +18,7 @@ $(document).ready(function () {
     if (!ReservadoOEnHorarioRestringido(false)) {
         CargarCatalogoPersonalizado();
     }
-    $(document).on('click', '.lol', function () {
+    $(document).on('click', '.pop-ofertarevista', function () {
         waitingDialog({});
         var cuv = $(this).parents('.contiene-productos').find('.hdItemCuv').val();
         jQuery.ajax({
