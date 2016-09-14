@@ -27226,11 +27226,33 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 25px auto 0 auto;
     min-height: 405px;
     position: relative;
+    display:block;
+    text-align:center;
     font-family: 'Lato';
 }
 
 .catalogoPersonalizadoBloque{
     background:#FFF;
+}
+
+.enlace_popupCatalogoPersonalizado{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    margin-bottom: 6px;
+}
+
+.enlace_popupCatalogoPersonalizado:hover{
+    text-decoration:none;
+}
+
+.enlace_popupCatalogoPersonalizado a{
+    display:inline;
+    color:#642f80;
+}
+
+.enlace_popupCatalogoPersonalizado a:hover{
+    text-decoration:underline;
 }
 
 .pantallaCatalogoPersonalizado {
@@ -27248,11 +27270,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin: 0px 24px;
-    float: left;
+    margin: 0px 6px;
+    display: inline-block;
     position: relative;
+    width: 280px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
-
 
 .pestania {
     border-bottom: 1px solid;
@@ -27303,16 +27327,16 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin: 0px 24px;
-    padding-bottom: 20px;
-    float: left;
+    margin: 0px 6px;
+    display: inline-block;
     position: relative;
+    width: 280px;
     margin-bottom: 15px;
     margin-top: 15px;
 }
 
 .content-favclientes.catper {
-    padding-top: 25px;
+    padding-top: 0px;
     padding-bottom: 10px;
 }
 
@@ -28095,7 +28119,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: inline-block;
     background: #000;
     height: 1px;
-    width: 163px;
+    width: 139px;
     vertical-align: middle;
 }
 
@@ -28105,7 +28129,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-weight: 900;
     font-size: 16px;
     text-align: center;
-    margin: 0px 35px;
+    margin: 0px 25px;
     vertical-align: middle;
 }
 
