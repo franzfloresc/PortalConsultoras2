@@ -1058,6 +1058,7 @@
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
     <Content Include="Content\Css\Site\Lbel\style.css" />
+    <Content Include="Content\Css\Site\menu_comunidad_new.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
     <Content Include="Content\Css\Site\slick.min.css" />
@@ -1942,6 +1943,7 @@
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
+    <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
@@ -2551,7 +2553,9 @@
     <Content Include="Content\Css\Site\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\fonts\slick.woff" />
     <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
-    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -3187,6 +3191,7 @@
     <Content Include="WebPages\Comunidad\CondicionesServicio_8.html" />
     <Content Include="WebPages\Comunidad\CondicionesServicio_9.html" />
     <Content Include="WebPages\Comunidad\footercomunidad.html" />
+    <Content Include="WebPages\Comunidad\menucomunidad - OLD.html" />
     <Content Include="WebPages\Comunidad\menucomunidad.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_10.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_11.html" />
