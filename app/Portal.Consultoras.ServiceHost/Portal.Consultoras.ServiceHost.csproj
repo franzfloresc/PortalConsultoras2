@@ -75,6 +75,7 @@
     <Content Include="SACService.svc" />
     <Content Include="SeguridadService.svc" />
     <Content Include="UbigeoWebService.svc" />
+    <Content Include="WS_GPR.svc" />
     <Content Include="ZonificacionService.svc" />
     <Content Include="UsuarioService.svc" />
     <Content Include="Web.config">
