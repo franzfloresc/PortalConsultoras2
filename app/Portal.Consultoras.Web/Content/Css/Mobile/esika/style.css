@@ -478,15 +478,15 @@ h4.re3 {
 
 .btn-line-action {
     padding: 8px 35px;
-    background: none !important;
+    background: #E81C36 !important;
     border: 1px solid #722789;
-    color: #722789;
+    color: #FFF;
 }
 
     .btn-line-action:hover,
     .btn-line-action:focus {
         color: #fff;
-        background: #511c61 !important;
+        background: #E81C36 !important;
     }
 
 .btn-wfijo {
