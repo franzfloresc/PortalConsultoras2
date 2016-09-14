@@ -228,6 +228,15 @@ jQuery(document).ready(function () {
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
     }
 
+    IsDecimalExist = function (p_decimalNumber) {
+        var l_boolIsExist = true;
+
+        if (p_decimalNumber % 1 == 0)
+            l_boolIsExist = false;
+
+        return l_boolIsExist;
+    }
+
     DecimalToStringFormat = function (monto) {
         formatDecimalPais = formatDecimalPais || new Object();
         var decimal = formatDecimalPais.decimal || ".";
