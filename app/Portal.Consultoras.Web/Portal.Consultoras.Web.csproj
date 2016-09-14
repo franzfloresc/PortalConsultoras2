@@ -1969,6 +1969,8 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -2074,6 +2076,7 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
+    <Content Include="Content\Images\mobile\img_producto_ofertaFinal.png" />
     <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
