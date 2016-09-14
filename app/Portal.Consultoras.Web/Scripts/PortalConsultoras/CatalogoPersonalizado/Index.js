@@ -18,6 +18,47 @@ $(document).ready(function () {
     if (!ReservadoOEnHorarioRestringido(false)) {
         CargarCatalogoPersonalizado();
     }
+    $(document).on('click', '.pop-ofertarevista', function () {
+        waitingDialog({});
+        var cuv = $(this).parents('.contiene-productos').find('.hdItemCuv').val();
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
+            dataType: 'json',
+            data: JSON.stringify({ cuv: cuv }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    DecimalToStringFormat(response.data.precio_catalogo);
+                    DecimalToStringFormat(response.data.precio_revista);
+                    DecimalToStringFormat(response.data.ganancia);
+                    response.data.Simbolo = viewBagSimbolo;
+                    switch (response.data.tipo_oferta) {
+                        case '003':
+                            var html = SetHandlebars("#template-mod-ofer1", response.data);
+                            $('.mod-ofer1').html(html).show();
+                            break;
+                        case '048':
+                            var html = SetHandlebars("#template-mod-ofer2", response.data);
+                            $('.mod-ofer2').html(html).show();
+                            break;
+                        case '049':
+                            var html = SetHandlebars("#template-mod-ofer3", response.data);
+                            $('.mod-ofer3').html(html).show();
+                            break;
+                    }
+                } else {
+                    console.log(response.message);
+                }
+                closeWaitingDialog();
+            },
+            error: function (response, error) {
+                console.log(error);
+                closeWaitingDialog();
+            }
+        });
+    });
 });
 
 function CargarCatalogoPersonalizado() {

@@ -162,6 +162,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Sello { get; set; }
         public bool IsAgregado { get; set; }
+        public bool TieneOfertaEnRevista { get; set; }
     }
 
     public class ObservacionModel
