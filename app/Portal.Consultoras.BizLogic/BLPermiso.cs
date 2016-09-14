@@ -30,6 +30,11 @@ namespace Portal.Consultoras.BizLogic
             return permisos;
         }
 
+        public void RemovePermisosByRol(int paisID, int rolID)
+        {
+            CacheManager<BEPermiso>.RemoveData(paisID, ECacheItem.MenuGeneralSB2, rolID.ToString());
+        }
+
         public IList<BEPermiso> GetPermisosByRolAdministrador(int paisID, int rolID)
         {
 

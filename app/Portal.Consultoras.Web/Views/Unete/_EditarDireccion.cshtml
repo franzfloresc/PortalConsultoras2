@@ -98,145 +98,151 @@
 
     $(function () {
 
-        $.validator.unobtrusive.parse('form');
+        $(document).ready(function () {
 
-        $('.numero').keydown(IntegerNumber);
+            $.validator.unobtrusive.parse('form');
 
-        $('#LugarNivel1')
-           .change(function () {
-               debugger;
-               var nivel1 = $(this);
-               var nivel2 = $('#LugarNivel2');
-               nivel2.attr('disabled', 'disabled');
+            $('.numero').keydown(IntegerNumber);
 
-               $('#NombreLugarNivel1').val(nivel1.find('option:selected').text());
-               $.getJSON('@Url.Action("ObtenerNivelN")',
-                       { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel2.ToInt()' },
-                       function (data) {
-                           nivel2.html(defaultOption);
+            $('#LugarNivel1')
+               .change(function () {
+                   debugger;
+                   var nivel1 = $(this);
+                   var nivel2 = $('#LugarNivel2');
+                   nivel2.attr('disabled', 'disabled');
 
-                           $.map(data,
-                               function (e, i) {
-                                   nivel2.append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                               });
-                       })
-                   .complete(function () {
-                       nivel2.attr('disabled', false);
-                       if (nivel1.val() == '') {
-                           nivel2.html(defaultOption);
-                       }
-                   });
-           });
+                   $('#NombreLugarNivel1').val(nivel1.find('option:selected').text());
+                   $.getJSON('@Url.Action("ObtenerNivelN")',
+                           { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel2.ToInt()' },
+                           function (data) {
+                               nivel2.html(defaultOption);
 
-        $('#LugarNivel2')
-            .change(function () {
-                debugger;
-                var nivel2 = $(this);
-                $('#NombreLugarNivel2').val(nivel2.find('option:selected').text());
+                               $.map(data,
+                                   function (e, i) {
+                                       nivel2.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                   });
+                           })
+                       .complete(function () {
+                           nivel2.attr('disabled', false);
+                           if (nivel1.val() == '') {
+                               nivel2.html(defaultOption);
+                           }
+                       });
+               });
 
-                if ("@Model.CodigoPais" == "CO")
-                    return;
+            $('#LugarNivel2')
+                .change(function () {
+                    debugger;
+                    var nivel2 = $(this);
+                    $('#NombreLugarNivel2').val(nivel2.find('option:selected').text());
 
-                var nivel3 = $('#LugarNivel3');
-                nivel3.attr('disabled', 'disabled');
+                    if ("@Model.CodigoPais" == "CO")
+                        return;
 
-                $.getJSON('@Url.Action("ObtenerNivelN")',
-                        { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel3.ToInt()' },
-                        function (data) {
-                            nivel3.html(defaultOption);
+                    var nivel3 = $('#LugarNivel3');
+                    nivel3.attr('disabled', 'disabled');
 
-                            $.map(data,
-                                function (e, i) {
-                                    nivel3.append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                                });
-                        })
-                    .complete(function () {
-                        nivel3.attr('disabled', false);
-                        if (nivel2.val() == '') {
-                            nivel3.html(defaultOption);
-                        }
-                    });
-            });
+                    $.getJSON('@Url.Action("ObtenerNivelN")',
+                            { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel3.ToInt()' },
+                            function (data) {
+                                nivel3.html(defaultOption);
 
-        $('#LugarNivel3')
-            .change(function () {
+                                $.map(data,
+                                    function (e, i) {
+                                        nivel3.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                    });
+                            })
+                        .complete(function () {
+                            nivel3.attr('disabled', false);
+                            if (nivel2.val() == '') {
+                                nivel3.html(defaultOption);
+                            }
+                        });
+                });
+
+            $('#LugarNivel3')
+                .change(function () {
+                    debugger;
+                    var nivel3 = $(this);
+
+                    $('#NombreLugarNivel3').val($(this).find('option:selected').text());
+
+                    var nivel4 = $('#LugarNivel4');
+                    if (nivel4.length == 0) return;
+                    var div = $('#centroPoblado');
+                    nivel4.attr('disabled', 'disabled');
+
+                    $.getJSON('@Url.Action("ObtenerNivelN")',
+                            { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
+                            function (data) {
+                                nivel4.html(defaultOption);
+                                if (data.length == 0) {
+                                    $('#ContaValorNivel3').val('0');
+                                    nivel4.val('');
+                                    div.hide();
+                                }
+                                else {
+                                    $('#ContaValorNivel3').val('1');
+                                    div.show();
+                                }
+                                $.map(data,
+                                    function (e, i) {
+                                        nivel4.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                    });
+                            })
+                        .complete(function () {
+                            nivel4.attr('disabled', false);
+                            if (nivel3.val() == '') {
+                                nivel4.html(defaultOption);
+
+                            }
+                        });
+                });
+
+            $('#LugarNivel4').change(function () {
+                //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
                 debugger;
                 var nivel3 = $(this);
 
-                $('#NombreLugarNivel3').val($(this).find('option:selected').text());
+                $('#NombreLugarNivel4').val($(this).find('option:selected').text());
 
-                var nivel4 = $('#LugarNivel4');
-                if (nivel4.length == 0) return;
-                var div = $('#centroPoblado');
-                nivel4.attr('disabled', 'disabled');
+                var nivel5 = $('#LugarNivel5');
+                if (nivel5.length == 0) return;
+                nivel5.attr('disabled', 'disabled');
 
                 $.getJSON('@Url.Action("ObtenerNivelN")',
-                        { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
+                        { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel5.ToInt()' },
                         function (data) {
-                            nivel4.html(defaultOption);
-                            if (data.length == 0) {
-                                $('#ContaValorNivel3').val('0');
-                                nivel4.val('');
-                                div.hide();
-                            }
-                            else {
-                                $('#ContaValorNivel3').val('1');
-                                div.show();
-                            }
+                            nivel5.html(defaultOption);
+
                             $.map(data,
                                 function (e, i) {
-                                    nivel4.append('<option value="' + e.Value + '">' + e.Text + '</option>');
+                                    nivel5.append('<option value="' + e.Value + '">' + e.Text + '</option>');
                                 });
                         })
                     .complete(function () {
-                        nivel4.attr('disabled', false);
+                        nivel5.attr('disabled', false);
                         if (nivel3.val() == '') {
-                            nivel4.html(defaultOption);
+                            nivel5.html(defaultOption);
 
                         }
                     });
             });
 
-        $('#LugarNivel4').change(function () {
-            //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
-            debugger;
-            var nivel3 = $(this);
+            $('#LugarNivel5').change(function () {
+                $('#NombreLugarNivel5').val($(this).find('option:selected').text());
+            });
 
-            $('#NombreLugarNivel4').val($(this).find('option:selected').text());
-
-            var nivel5 = $('#LugarNivel5');
-            if (nivel5.length == 0) return;
-            nivel5.attr('disabled', 'disabled');
-
-            $.getJSON('@Url.Action("ObtenerNivelN")',
-                    { id: this.value, codigoIso: "@Model.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel5.ToInt()' },
-                    function (data) {
-                        nivel5.html(defaultOption);
-                      
-                        $.map(data,
-                            function (e, i) {
-                                nivel5.append('<option value="' + e.Value + '">' + e.Text + '</option>');
-                            });
-                    })
-                .complete(function () {
-                    nivel5.attr('disabled', false);
-                    if (nivel3.val() == '') {
-                        nivel5.html(defaultOption);
-
-                    }
-                });
-        });
-
-        $('#LugarNivel5').change(function () {
-            $('#NombreLugarNivel5').val($(this).find('option:selected').text());
-        });
-
-        $('#imgCerrarOpcion,#btnCancelar').click(function () {
-            modalOpcion.dialog('close');
+            $('#imgCerrarOpcion,#btnCancelar').click(function () {
+                modalOpcion.dialog('close');
+            });
         });
     });
 
     function OnSuccess(html) {
-        $('#modal_content').html(html);
+        modalOpcion.dialog('close');
+        modal.dialog('close');
+        document.getElementById('btnBuscar').click();
+        //$('#modal_content').html(html);
     }
 </script>

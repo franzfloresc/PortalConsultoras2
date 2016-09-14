@@ -27,9 +27,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            return Login();
+            //return Login();
 
-            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
+            return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
         private ActionResult Login()
@@ -186,12 +186,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult LogOut()
         {
-            return CerrarSesion();
+            //return CerrarSesion();
 
-            //Session["UserData"] = null;
-            //Session.Clear();
-            //Session.Abandon();
-            //return RedirectToAction("Index", "Login");
+            Session["UserData"] = null;
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Login");
         }
 
         private ActionResult CerrarSesion()

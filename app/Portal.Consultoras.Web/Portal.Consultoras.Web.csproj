@@ -344,7 +344,14 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
+    <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2557,29 +2564,29 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+    <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
@@ -2594,7 +2601,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3492,6 +3498,9 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <Content Include="Views\Incentivos\Index.cshtml" />
+    <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
+    <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
+    <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
