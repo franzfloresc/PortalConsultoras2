@@ -328,6 +328,9 @@ h4.re3 {
 }
 
 @media only screen and (max-width: 320px) {
+    .divShowRoom{
+        zoom:93%
+    }
     .zoom-320 {
         margin-right: -15px;
         margin-top: 5px;
@@ -3481,12 +3484,12 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 19px;
     text-align: center;
-    margin-top: 6px;
+    margin-top: 5px;
     float: left;
     color: #fff;
     letter-spacing: 3px;
     font-size: 11.5pt;
-    font-family: 'museo_sans_500regular';
+    font-family: 'Lato';
 }
 
 .texto_dias_m {
@@ -3548,27 +3551,38 @@ table > thead > tr > th {
 
 .boton_showroom {
     font-family: 'lato';
-    background: #fd0017;
+    background: #e81c36;
     color: #fff !important;
     text-align: center;
     font-size: 8.8pt;
     padding: 5px;
     padding-left: 11px;
     padding-right: 12px;
-    -webkit-border-radius: 5px;
+    font-weight:700;
+    display:block;
+    width:100%;
+    /*-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -khtml-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;*/
     /* height: 30px; */
     /* width: 140px !important;*/
 }
 
     .boton_showroom:hover {
-        text-decoration: none;
+        text-decoration: none !important;
+        color:white;
+    }
+     .boton_showroom:focus {
+        text-decoration: none !important;
+        color:white;
     }
 
 .fondo_m {
     background: #f7f9f9;
+    box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
+    -webkit-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
+    -moz-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
 }
 
 .sombra_m {
@@ -3648,6 +3662,7 @@ table > thead > tr > th {
     text-transform: uppercase;
     overflow: hidden;
     line-height: 13px;
+    margin-bottom:6px;
 }
 
     .titulo_nombre_pop_m img {
@@ -3682,7 +3697,9 @@ table > thead > tr > th {
     padding-top: 3px;
     padding-bottom: 3px;
     font-family: 'lato';
-    font-size: 16pt;
+    font-size: 15pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-weight: 300;
     background: black;
     color: white;
@@ -3710,13 +3727,13 @@ table > thead > tr > th {
     }
 
 .boton_cerrar_mobile {
-    background: #ff1300;
+    background:#e81c36;
     padding-top: 8px;
     padding-bottom: 8px;
     text-align: center;
     /* position: absolute; */
     bottom: -45px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     margin-top: 15px;
     -ms-border-radius: 5px;
 }
@@ -3729,6 +3746,7 @@ table > thead > tr > th {
 
         .boton_cerrar_mobile a:hover {
             text-decoration: none !important;
+            color: white;
         }
 
 .CerrarPopMobile {
@@ -8386,4 +8404,9 @@ span.title-app-b {
 a:focus, a:hover {
     color: initial;
   
+}
+/*SHOWROOM*/
+.divShowRoom{
+    margin-top: 63px;
+    position: relative;
 }

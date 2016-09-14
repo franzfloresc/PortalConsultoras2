@@ -147,7 +147,7 @@
     </header>
     
     <!-- SHOWROOM -->
-    <div id="divShowRoom" class="ocultarPopup" style="display: none;">
+    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -160,8 +160,8 @@
             </div>
         </div>
         <div class="fondo_m">
-            <div class=" row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 24px; width: 110px;">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
                     <div class="texto_dias_m">
                         SÓLO FALTAN
                     </div>
@@ -192,7 +192,7 @@
 
             </div>
         </div>
-        <div class="sombra_m"></div>
+        
     </div>
     <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
@@ -1079,6 +1079,9 @@
                                 if (response.estaActivoLateral) {
                                     $("#hdNombreEventoShowRoom").val(evento.Tema);
                                     $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                                    ///////NOHELY
+                                    $("#content").css("margin-top", "0px");
 
                                     if (response.mostrarShowRoomProductos) {
                                         $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');

@@ -19216,12 +19216,14 @@ float: right;
     z-index: 100;
         }
 .contenido-ct {
-    /*padding-top: 11px;*/
+    /*padding-top: 11px; */
     padding-top: 7px;
     width: 135px;
-    padding-left: 50px;
-    padding-right: 10px;
-    margin: 0 auto;
+    margin-left: 25px !important;
+    /* padding-right: 10px; */
+    /* margin: 0 auto; */
+    float: left;
+    /*overflow:hidden;*/
 }
 a.mover{
     float: left;
@@ -19295,19 +19297,16 @@ a.mover{
 }
 .boton_showroom {
     font-family: 'lato';
-    background: #fd0017;
+    background: #613c87;
     color: white !important;
     text-align: center;
     font-size: 8.7pt;
-    width: 120px;
+    width: 135px;
     display:block;
     margin-top: 10px;
     padding: 8px;
-    -webkit-border-radius: 5px; /* Para Safari y Chrome */
-    -moz-border-radius: 5px; /* Para Firefox */
-    -khtml-border-radius: 5px; /* Navegadores de Linux */
-    border-radius: 5px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */    
+    font-weight:700;
+     
 }
 html {
     overflow-x:hidden;
@@ -19612,15 +19611,15 @@ label.checkpop.c_on {
     
 }
 .wrapper_showroom {
-    width:1023px;
+    max-width:1189px;
     margin:0 auto;
     height:auto;
     overflow:hidden;
     padding-top:21px;
 }
 .wrapper_showroom_items {
-   width: 1095px;
-    padding-left: 72px;
+   width: 1189px;
+    /*padding-left: 72px;*/
     margin: 0 auto;
     height: auto;
     overflow: hidden;
@@ -19632,10 +19631,10 @@ label.checkpop.c_on {
 .titulo_showroom {  
     width: 650px;
     height: 45px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 13px;
     line-height: 24px;
-    color: #3f5e7d;
+    color: black;
     float: left;
 
 }
@@ -19663,17 +19662,21 @@ label.checkpop.c_on {
     background:transparent;
     }
 .producto_showroom {
-    width:292px;
-    margin-right: 73px;
+   width: 29%;
+    margin-right: 6.5%;
     height:auto;
     float:left;
     margin-top:30px;
     margin-bottom: 40px;
     }
+.producto_showroom:nth-child(3n){
+    margin-right:0;
+}
 .imagen_showroom {
     cursor: pointer;
     width: 100%;
-    height: 349px;
+    height:412px;
+    background:black;
     position: relative;
     display: block;
 }
@@ -19700,25 +19703,25 @@ label.checkpop.c_on {
     margin-top: 27px;
     overflow: hidden;
     line-height: 21px;
-    color: #617180;
-    font-family: 'ArialMT';
+    color: black;
+    font-family: 'Lato';
     font-size: 16px;
     text-align: center;
     font-weight: bold;
 }
 .descripcion_producto_s {
     text-align:center;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size:13px;
-    color:#536576;
+    color:black;
     margin-top:7px;
     height: 36px;
     width: 100%;
     overflow: hidden;
 }
 .precio_showroom { 
-    font-family:Arial;
-    color:#ef0e4a;
+    font-family:'Lato';
+    color:black;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19727,31 +19730,32 @@ label.checkpop.c_on {
 }
 .precio_showroom span{
     margin-right:10px; 
-    color:#536576;
+    color:black;
+    font-weight:300;
     font-size:13px;
     text-decoration:line-through;
    }
 .stock_showroom {
     width:75px;
     height:18px;
-    font-family: 'ArialMT';
+    font-family: 'LAto';
     font-size:12.5px;
-    color:#5c6d7d;
+    color:black;
     float:left;
     margin-top:5px;
 }
 .stock_showroom span{
-   font-family: 'ArialBoldMT';
+   font-family: 'Lato';
 }
 .cantidad_showroom_detalle {
     float:right;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size:12.5px;
 }
 .showroom_menos {
-    color:#536576;
+    color:black;
     font-size: 17px;    
-    border:1px solid #536576;
+    border:1px solid black;
     width:23px;
     height:27px;
     float:left;    
@@ -19764,19 +19768,19 @@ label.checkpop.c_on {
     height: 17px;
     border: 0;
     font-size: 14px;
-    border-top: 1px solid #536576;
-    border-bottom: 1px solid #536576;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     background: white;
-    color: #536576;
+    color: black;
     float: left;
     text-align: center;
     cursor: pointer;
     display: block;
 }
 .showroom_mas{
-   color: #536576;
+   color: black;
     font-size: 18px;
-    border: 1px solid #536576;
+    border: 1px solid black;
     width: 22px;
     height: 25px;
     float: left;
@@ -19791,33 +19795,42 @@ label.checkpop.c_on {
     margin-top: 17px;
     width: 290px;
     text-align: center;
-    -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
-    border: solid 2px #778592;
+    font-weight:700;
+    border: solid 1px black;
     display: block;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: #536576;
-    font-family: 'ArialBoldMT';
+    padding-top: 11px;
+    padding-bottom: 11px;
+    color: black;
+    font-family: 'LAto';
     font-size: 14.4px;
        }
 .boton_agregar_showroom:hover {
     background:black;
     color:white;
-     border: solid 2px black;
+   
    }
 .producto_agotado {
     position:absolute;
     z-index:100;
     background: url("/Content/Images/showroom/opacity_items.png");
-    width:292px;
-    height:349px;
+    width: 100%;
+    height: 412px;
 }
 .agotado_texto {
-    color:white;
+   color: white;
+    width: 148px;
+    height: 36px;
+    line-height: 32px;
+    margin: 0 auto;
+    top: 50%;
+    margin-top: -16px;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    /* padding-top: 10px; */
+    border: 2px solid #ffffff;
+    position: relative;
+    font-weight: 700; color:white;
     width:148px;
     height:33px;
     margin:0 auto;
@@ -19827,6 +19840,17 @@ label.checkpop.c_on {
     text-align:center;
     padding-top:10px;
     border:2px solid #ffffff;
+}
+.footerTerminos a{
+    background:#f7f7f7;
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    padding:20px;
+    text-transform:uppercase;
+     font-family: 'Lato';
+    font-size: 14px;
+    font-weight:700;
 }
 .clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
