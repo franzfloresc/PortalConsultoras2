@@ -17,10 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            using (var sv = new ServicesCalculoPrecioNiveles())
-            {
-                var test = sv.Ofertas_catalogo("", "", "", "", "");
-            }
             return View();
         }
 
@@ -140,7 +136,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
-                                IsAgregado = false
+                                IsAgregado = false,
+                                TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista
                             });
 
                         }
@@ -171,6 +168,36 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        public JsonResult ObtenerOfertaRevista(string cuv)
+        {
+            try
+            {
+                ObjOfertaCatalogos objReturn;
+                using (var sv = new ServicesCalculoPrecioNiveles())
+                {
+                    objReturn = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    data = objReturn
+                });
+            }
+            catch(Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                    data = ""
+                });
+            }
+            
         }
     }
 }
