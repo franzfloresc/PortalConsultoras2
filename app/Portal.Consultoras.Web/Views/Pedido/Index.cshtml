@@ -13,6 +13,17 @@
         .optRechazoSelect {
             background-color: silver;
         }
+
+        .btn_animado {
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .no_mostrar {
+            display: none;
+        }
     </style>
 }
 <div class="franja_negra"></div>
@@ -216,195 +227,196 @@
                 <div class="clear"></div>
             </div>
 
-            <div class="caja_guardar_pedido">
-                <div class="contenedor_guardadoPedido">
-                    <div class="bloque_montosPedido">
-                        <div class="caja_montos">
-                        <div style="position:relative;">
-                            <hr class="separador_montos" />
-                            <div class="caja_montos_textos">
+        <div class="caja_guardar_pedido">
+            <div class="contenedor_guardadoPedido">
+                <div class="bloque_montosPedido">
+                    <div class="caja_montos">
+                    <div style="position:relative;">
+                        <hr class="separador_montos" />
+                        <div class="caja_montos_textos">
+                            <!--SB20-483 - INICIO -->
+                            <div class="caja_montos_textos_sinDescuento">
+                                <span>TOTAL SIN DSCTO.</span>
+                                <span>DSCTO. OFERTAS POR NIVELES</span>
+                            </div>
+                            <br />
+                            <!--SB20-483 - FIN -->
+                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                <span id="spnNombreCliente"></span>
+                            </p>
+                            <div class="monto_total">
+                                <span>Monto total:</span>
+                            </div>
+                            <br />
+                            <div class="monto_ganancia">
+                                <div class="info_extra_Validado abrir_popupMisGanancias">
+                                    <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
+                                    <!--MONTOS-->
+                                    @*<div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
+                                    <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
+
+                                    <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
+                                    <hr class="clear">
+                                    <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
+                                    <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
+                                    </div>*@
+                                    <!--FIN-->
+                                </div>
                                 <!--SB20-483 - INICIO -->
-                                <div class="caja_montos_textos_sinDescuento">
-                                    <span>TOTAL SIN DSCTO.</span>
-                                    <span>DSCTO. OFERTAS POR NIVELES</span>
-                                </div>
-                                <br />
-                                <!--SB20-483 - FIN -->
-                                <p class="monto_con_descuento pMontoCliente" style="display: none;">
-                                    <span id="spnNombreCliente"></span>
-                                </p>
-                                <div class="monto_total">
-                                    <span>Monto total:</span>
-                                </div>
-                                <br />
-                                <div class="monto_ganancia">
-                                    <div class="info_extra_Validado abrir_popupMisGanancias">
-                                        <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
-                                        <!--MONTOS-->
-                                        @*<div class="monto_resumenValidado" style="height:65px; padding-top:7px; margin-top:5px;">
-                                        <div class="monto_1" style="font-size:10px;">Total sin Dscto.</div>
+                                @{
+                                    string cabezaEscala = null, pieEscala = null;
+                                    string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                                        <div class="monto_numero" style="opacity: 0.6; font-size: 13px;" data-pedidototal="">@Model.Simbolo @Model.FormatoTotal</div>
-                                        <hr class="clear">
-                                        <div class="monto_1" style="font-size:10px; margin-top:-20px;">Dscto. por niveles </div>
-                                        <div class="monto_numero" style="font-size:13px; margin-top:-20px;" data-montodescuento="">@Model.Simbolo @Model.FormatoMontoDescuento</div>
-                                        </div>*@
-                                        <!--FIN-->
-                                    </div>
-                                    <!--SB20-483 - INICIO -->
-                                    @{
-                                        string cabezaEscala = null, pieEscala = null;
-                                        string lbl1Ganancia = null, lbl2Ganancia = null;
+                                    if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
+                                    {
 
-                                        if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
-                                        {
-
-                                            cabezaEscala = "Ganancia estimada total";
-                                            pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                            lbl1Ganancia = "Mis descuentos";
-                                            lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                                        }
-                                        else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
-                                        {
-                                            cabezaEscala = "Ganancia estimada total";
-                                            pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                            lbl1Ganancia = "Mis descuentos";
-                                            lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-                                        }
-                                        else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile) //CH
-                                        {
-                                            cabezaEscala = "Comisión y ahorro total";
-                                            pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                            lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                                            lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                                        }
-                                        else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela) //VE
-                                        {
-                                            cabezaEscala = "Oportunidad de ahorro total";
-                                            pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                            lbl1Ganancia = "Por tus compras de productos de catalogo";
-                                            lbl2Ganancia = "Por tus comprar de productos de revista";
-                                        }
-                                        else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia) //BO
-                                        {
-                                            cabezaEscala = "Ganancia total";
-                                            pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                            lbl1Ganancia = "Mis descuentos";
-                                            lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                                        }
-                                        else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica) //CR
-                                        {
-                                            cabezaEscala = "Oportunidad de ahorro total";
-                                            pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                            lbl1Ganancia = "Mis descuentos";
-                                            lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                                        }
+                                        cabezaEscala = "Ganancia estimada total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1Ganancia = "Mis descuentos";
+                                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                                     }
-                                    @(cabezaEscala):
+                                    else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
+                                    {
+                                        cabezaEscala = "Ganancia estimada total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1Ganancia = "Mis descuentos";
+                                        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                                    }
+                                    else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile) //CH
+                                    {
+                                        cabezaEscala = "Comisión y ahorro total";
+                                        pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                                        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                                    }
+                                    else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela) //VE
+                                    {
+                                        cabezaEscala = "Oportunidad de ahorro total";
+                                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1Ganancia = "Por tus compras de productos de catalogo";
+                                        lbl2Ganancia = "Por tus comprar de productos de revista";
+                                    }
+                                    else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia) //BO
+                                    {
+                                        cabezaEscala = "Ganancia total";
+                                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                        lbl1Ganancia = "Mis descuentos";
+                                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                    }
+                                    else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica) //CR
+                                    {
+                                        cabezaEscala = "Oportunidad de ahorro total";
+                                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                        lbl1Ganancia = "Mis descuentos";
+                                        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                                    }
+                                }
+                                @(cabezaEscala):
 
-                                    <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                                    <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                                    <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                                    <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                                    <!--SB20-483 - FIN -->
-                                </div>
-                            </div>
-                            <div class="caja_montos_cantidades">
-
-                                <!--SB20-483 - INICIO -->
-                                <div class="caja_montos_cantidades_sinDescuento">
-                                    <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
-                                    <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
-                                </div>
+                                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                                 <!--SB20-483 - FIN -->
-
-                                <p class="monto_con_descuento pMontoCliente" style="display: none;">
-                                    <span id="spnTotalCliente"></span>
-                                </p>
-                                <p class="monto_total">
-                                    <b>
-                                        @Model.Simbolo
-                                        <span id="sTotal" class="num" data-pedidocondescuento="">
-                                        @Model.FormatoTotalConDescuento
-                                        </span>
-                                    </b>
-                                </p>
-
-                                <p class="monto_ganancia">
-                                    <b>
-                                        @Model.Simbolo
-                                        <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
-                                    </b>
-                                </p>
                             </div>
+                        </div>
+                        <div class="caja_montos_cantidades">
+
+                            <!--SB20-483 - INICIO -->
+                            <div class="caja_montos_cantidades_sinDescuento">
+                                <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
+                                <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
+                            </div>
+                            <!--SB20-483 - FIN -->
+
+                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                <span id="spnTotalCliente"></span>
+                            </p>
+                            <p class="monto_total">
+                                <b>
+                                    @Model.Simbolo
+                                    <span id="sTotal" class="num" data-pedidocondescuento="">
+                                    @Model.FormatoTotalConDescuento
+                                    </span>
+                                </b>
+                            </p>
+
+                            <p class="monto_ganancia">
+                                <b>
+                                    @Model.Simbolo
+                                    <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+                                </b>
+                            </p>
                         </div>
                     </div>
                 </div>
-                    <div class="contenedor_btnGuardarPedido">
-                    @*<div class="mensajes">
-                            <div class="mensaje_guardar_pedido">
-                                ¡No olvides guardar tu pedido!
-                                <span style="font-size:12px;">&#9658;</span>
-                            </div>
-                            <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
-                        </div>*@
+            </div>
+                <div class="contenedor_btnGuardarPedido">
+                @*<div class="mensajes">
+                        <div class="mensaje_guardar_pedido">
+                            ¡No olvides guardar tu pedido!
+                            <span style="font-size:12px;">&#9658;</span>
+                        </div>
+                        <div class="mensaje_fecha_limite_cambios">Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</div>
+                    </div>*@
 
-                    @{ 
-                        string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
-                        string tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
-                        string tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
-                    }
-                    <div class="tooltip_importanteGuardarPedido">
-                        <text>@tooltip1</text>
-                        <span>@tooltip2</span>
-                        </div>
-                        <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
-                        </div>
+                @{ 
+                    string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
+                    string tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                    string tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
+                }
+                <div class="tooltip_importanteGuardarPedido">
+                    <text>@tooltip1</text>
+                    <span>@tooltip2</span>
                     </div>
-
-                    <div class="clear"></div>
-
+                    <div class="boton_guardarPedido">
+                        <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
+                    </div>
                 </div>
 
                 <div class="clear"></div>
 
-            <div id="divContendorPrincipal">
-            </div>
             </div>
 
-            <div class="contenedor_eliminacion_pedido">
-                <div class="datos_simplificacionCUV" style="display: none;">
-                    <p class="precio_total_sinDescuento">
-                        <span class="icon-advertencia"></span>
-                        <span>
-                            El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                        @*Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.*@
-                        </span>
-                    </p>
-                </div>
+            <div class="clear"></div>
 
-                <p class="texto_eliminar_pedido">
-                    <span class="texto_pedido_completo">
-                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+        <div id="divContendorPrincipal">
+        </div>
+        </div>
+
+        <div class="contenedor_eliminacion_pedido">
+            <div class="datos_simplificacionCUV" style="display: none;">
+                <p class="precio_total_sinDescuento">
+                    <span class="icon-advertencia"></span>
+                    <span>
+                        El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
+                    @*Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.*@
                     </span>
                 </p>
-                <div class="clear"></div>
             </div>
+
+            <p class="texto_eliminar_pedido">
+                <span class="texto_pedido_completo">
+                    Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                </span>
+            </p>
             <div class="clear"></div>
-            <div class="datos_para_movil" style="display: none;">
-                <p class="productos_ingresados_movil">
-                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span><b> Productos ingresados desde tu móvil.</b>
-                </p>
-            </div>
         </div>
+        <div class="clear"></div>
+        <div class="datos_para_movil" style="display: none;">
+            <p class="productos_ingresados_movil">
+                <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span><b> Productos ingresados desde tu móvil.</b>
+            </p>
+        </div>
+
+        <!--14082016 - INICIO -->
         <div class="contenedor_banners">
             <ul>
                 <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
@@ -442,6 +454,48 @@
             <div class="clear"></div>
         </div>
 
+        <!--14082016 - FIN -->
+
+    </div>
+        @*<div class="contenedor_banners">
+            <ul>
+                <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
+                    <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                        <img src="@Model.UrlBanner01" alt="Productos Descontinuados" />
+                        <div>PRODUCTOS DESCONTINUADOS</div>
+                    </a>
+                </li>
+
+                @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+                {
+                    <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                        <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
+                            <img src="@Model.UrlBanner02" alt="Monto Mínimo" />
+                            <div>MONTO MÍNIMO</div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                        <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                            <img src="@Model.UrlBanner02" alt="Liquidaciones Web" />
+                            <div>LIQUIDACIONES WEB</div>
+                        </a>
+                    </li>
+                }
+                <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
+                    <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
+                        <img src="@Model.UrlBanner03" alt="Productos Agotados" />
+                        <div>PRODUCTOS AGOTADOS</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>*@
+
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
         <div id="infoPendientes">
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nobre de Cliente</div>
@@ -511,55 +565,90 @@
 
             </div>
         </div>
-    </div>
-
-    <div class="flexiPago_belcorp">
-        @if (Model.IndicadorFlexiPago == 1)
-        {
-            if (Model.LineaCredito == 0)
-            {
-                <label id="lblPBFlexipago" style="display: none;">@Model.Simbolo @Model.FormatoPedidoBase</label>
-            }
-            else
-            {
-                <div class="flexiPago_img">
-                    <img src="@Url.Content("~/Content/Images/flexipago_img.jpg")" alt="Alternate Text" />
-                </div>
-                <div class="pedidoBase_lineaCredito">
-                    <span>
-                        <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
-                    </span>
-                    <span>
-                        <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
-                    </span>
-                </div>
-                <div class="clear"></div>
-            }
         }
-    </div>
-    <div class="truco_bloqueo sim2"></div>
-    <div class="caja_carousel_productos">
-        <div class="contenedor_carousel">
-            <h1>
-                OFERTAS
-                <b>PARA TI</b>
-                <b class="">@Model.SobreNombre</b>
-            </h1>
-            <div class="texto_exclusivo_web">
-                EXCLUSIVAS SÓLO POR WEB
-            </div>
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
+        
+        <!--14092016 - INICIO -->
+        <div class="flexiPago_belcorp">
+            @if (Model.IndicadorFlexiPago == 1)
+            {
+                if (Model.LineaCredito == 0)
+                {
+                    <label id="lblPBFlexipago" style="display: none;">@Model.Simbolo @Model.FormatoPedidoBase</label>
+                }
+                else
+                {
+                    <div class="flexiPago_img">
+                        <img src="@Url.Content("~/Content/Images/flexipago_img.jpg")" alt="Alternate Text" />
+                    </div>
+                    <div class="pedidoBase_lineaCredito">
+                        <span>
+                            <p>Pedido Base</p>
+                            <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
+                        </span>
+                        <span>
+                            <p>Línea de Crédito</p>
+                            <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                }
+            }
+        </div>
+        <!--14092016 - FIN -->
+
+    @*</div>*@
+
+        @*<div class="flexiPago_belcorp">
+            @if (Model.IndicadorFlexiPago == 1)
+            {
+                if (Model.LineaCredito == 0)
+                {
+                    <label id="lblPBFlexipago" style="display: none;">@Model.Simbolo @Model.FormatoPedidoBase</label>
+                }
+                else
+                {
+                    <div class="flexiPago_img">
+                        <img src="@Url.Content("~/Content/Images/flexipago_img.jpg")" alt="Alternate Text" />
+                    </div>
+                    <div class="pedidoBase_lineaCredito">
+                        <span>
+                            <p>Pedido Base</p>
+                            <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
+                        </span>
+                        <span>
+                            <p>Línea de Crédito</p>
+                            <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                }
+            }
+        </div>*@
+
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+        <div class="truco_bloqueo sim2"></div>
+        }
+        <div class="caja_carousel_productos">
+            <div class="contenedor_carousel">
+                <h1>
+                    OFERTAS
+                    <b>PARA TI</b>
+                    <b class="">@Model.SobreNombre</b>
+                </h1>
+                <div class="texto_exclusivo_web">
+                    EXCLUSIVAS SÓLO POR WEB
+                </div>
+                <div class="contenedor_productos">
+                    <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                    <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="clear"></div>
-    <hr class="clear" />
+        <div class="clear"></div>
+        <hr class="clear" />
 </div>
 
 <div class="contenedor_popup_agregarCliente" id="divClientes">
@@ -1284,13 +1373,19 @@
 <!--FIN OPCION PENDIENTES DE PEDIDO-->
 }
 
+
+@if (ViewBag.MostrarPedidosPendientes == "1")
+{
 <!--TRUCOS DE BLOQUEO-->
 <div class="truco_bloqueo sim1"></div>
 
 <div class="truco_bloqueo sim3"></div>
 <div class="truco_bloqueo sim4"></div>
 <!--TRUCOS DE BLOQUEO-->
+}
 
+@if (ViewBag.MostrarPedidosPendientes == "1")
+{
 <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
 <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
     <div class="popup_rechazarPendientes">
@@ -1430,6 +1525,8 @@
 
 <!--TAPS-->
 <div class="tapsPedidos"></div>
+    
+}    
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -2255,116 +2352,122 @@
         $('#pedmostreo').addClass('bordespacive');
         $('#infoPendientes').hide();
 
-        $(document).ready(function () {
-            $('#pedmostreo').on('click', function () {
-                $('#pedmostreo').addClass('bordespacive');
-                $('#penmostreo').removeClass('bordespacive');
-                $('#infoPedido').show();
-                $('#infoPendientes').hide();
-                $('ul.paginador_notificaciones').show();
-                $('.caja_guardar_pedido').show();
-                $('.contenedor_eliminacion_pedido').show();
-                $('.contenedor_banners').show();
-                $('.info_tiempo_oportunidad.inicial').show();
-                $('.truco_bloqueo').hide();
-                $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
-                $('#pedmostreo').removeClass('cambio_bk_pendientes');
-                $('.datos_para_movil').show();
-            });
+        var mostrarPedidosPendientes = '@ViewBag.MostrarPedidosPendientes';
 
-            $('.optionsRechazo').on('click', function () {
+        if (mostrarPedidosPendientes == '1')
+        {
+            /* SB20-398- INICIO */
+            $(document).ready(function () {
+                $('#pedmostreo').on('click', function () {
+                    $('#pedmostreo').addClass('bordespacive');
+                    $('#penmostreo').removeClass('bordespacive');
+                    $('#infoPedido').show();
+                    $('#infoPendientes').hide();
+                    $('ul.paginador_notificaciones').show();
+                    $('.caja_guardar_pedido').show();
+                    $('.contenedor_eliminacion_pedido').show();
+                    $('.contenedor_banners').show();
+                    $('.info_tiempo_oportunidad.inicial').show();
+                    $('.truco_bloqueo').hide();
+                    $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
+                    $('#pedmostreo').removeClass('cambio_bk_pendientes');
+                    $('.datos_para_movil').show();
+                });
 
-                $('.optionsRechazo').removeClass('optRechazoSelect');
-                $(this).addClass('optRechazoSelect');
+                $('.optionsRechazo').on('click', function () {
 
-            });
+                    $('.optionsRechazo').removeClass('optRechazoSelect');
+                    $(this).addClass('optRechazoSelect');
 
-            $('#penmostreo').on('click', function () {
-                $('#pedmostreo').removeClass('bordespacive');
-                $('#penmostreo').addClass('bordespacive');
-                $('#infoPedido').hide();
-                $('#infoPendientes').show();
-                $('ul.paginador_notificaciones').hide();
-                $('.caja_guardar_pedido').hide();
-                $('.contenedor_eliminacion_pedido').hide();
-                $('.contenedor_banners').hide();
-                $('.info_tiempo_oportunidad.inicial').hide();
-                $('.datos_para_movil').hide();
+                });
 
-                //TRUCOS BLOQUES
-                $('.truco_bloqueo').show();
-                $('#pedmostreo').addClass('cambio_bk_pendientes');
+                $('#penmostreo').on('click', function () {
+                    $('#pedmostreo').removeClass('bordespacive');
+                    $('#penmostreo').addClass('bordespacive');
+                    $('#infoPedido').hide();
+                    $('#infoPendientes').show();
+                    $('ul.paginador_notificaciones').hide();
+                    $('.caja_guardar_pedido').hide();
+                    $('.contenedor_eliminacion_pedido').hide();
+                    $('.contenedor_banners').hide();
+                    $('.info_tiempo_oportunidad.inicial').hide();
+                    $('.datos_para_movil').hide();
 
-            });
+                    //TRUCOS BLOQUES
+                    $('.truco_bloqueo').show();
+                    $('#pedmostreo').addClass('cambio_bk_pendientes');
 
-            //APP CATALOGO
-            $('a.RevisionPendientes').on('click', function () {
-                $('#popup_pendientes').show();
-            });
+                });
 
-            $('.btn_revisalo_pendientes1').on('click', function () {
-                $('#popup_pendientes').show();
-            });
+                //APP CATALOGO
+                $('a.RevisionPendientes').on('click', function () {
+                    $('#popup_pendientes').show();
+                });
 
-            $('.regresaPendientes').on('click', function () {
-                $('#popup_pendientes').hide();
-            });
+                $('.btn_revisalo_pendientes1').on('click', function () {
+                    $('#popup_pendientes').show();
+                });
 
-            $('button.sedetiene').on('click', function () {
-                $('#dialog_confirmacionRechazo').hide();
-            });
+                $('.regresaPendientes').on('click', function () {
+                    $('#popup_pendientes').hide();
+                });
 
-            $('#rechazarPendientes').on('click', function () {
-                //$('#dialog_confirmacionRechazo').show();
-            });
-            $('#cierreRechazoPendientes').on('click', function () {
-                //$('#dialog_confirmacionRechazo').hide();
-            });
-            $('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
-                $('#dialog_confirmacionRechazo').hide();
-                $('#dialog_motivoRechazo').show();
-            });
-            $('#cierreMotivoRechazo').on('click', function () {
-                //$('#dialog_motivoRechazo').hide();
-                $('#popup_pendientes').hide();
-                $('.popupPendientesPORTAL').hide();
-            });
-            $('button.btn_eliminarCliente.btn-negro').on('click', function () {
-                $('#dialog_motivoRechazo').hide();
-                $('#popup_pendientes').hide();
-                $('.popupPendientesPORTAL').hide();
-            });
+                $('button.sedetiene').on('click', function () {
+                    $('#dialog_confirmacionRechazo').hide();
+                });
 
-            $('#aceptarPendientes').on('click', function () {
-                $('#popup_pendientes').hide();
-                //$('#dialog_aceptasPendientes').show();
-            });
+                $('#rechazarPendientes').on('click', function () {
+                    //$('#dialog_confirmacionRechazo').show();
+                });
+                $('#cierreRechazoPendientes').on('click', function () {
+                    //$('#dialog_confirmacionRechazo').hide();
+                });
+                $('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
+                    $('#dialog_confirmacionRechazo').hide();
+                    $('#dialog_motivoRechazo').show();
+                });
+                $('#cierreMotivoRechazo').on('click', function () {
+                    //$('#dialog_motivoRechazo').hide();
+                    $('#popup_pendientes').hide();
+                    $('.popupPendientesPORTAL').hide();
+                });
+                $('button.btn_eliminarCliente.btn-negro').on('click', function () {
+                    $('#dialog_motivoRechazo').hide();
+                    $('#popup_pendientes').hide();
+                    $('.popupPendientesPORTAL').hide();
+                });
 
-            $('.ok_aceptaPedido').on('click', function () {
-                $('#dialog_aceptasPendientes').hide();
-                $('.popupPendientesPORTAL').hide();
-            });
+                $('#aceptarPendientes').on('click', function () {
+                    $('#popup_pendientes').hide();
+                    //$('#dialog_aceptasPendientes').show();
+                });
 
-            $('#aceptandoPendientes').on('click', function () {
-                //$('#dialog_aceptasPendientes').hide();
-                $('.popupPendientesPORTAL').hide();
-            });
+                $('.ok_aceptaPedido').on('click', function () {
+                    $('#dialog_aceptasPendientes').hide();
+                    $('.popupPendientesPORTAL').hide();
+                });
 
+                $('#aceptandoPendientes').on('click', function () {
+                    //$('#dialog_aceptasPendientes').hide();
+                    $('.popupPendientesPORTAL').hide();
+                });
 
-            //PORTAL LBEL
-            $('.btn_revisalo_pendientes2').on('click', function () {
-                $('.popupPendientesPORTAL').show();
+                //PORTAL LBEL
+                $('.btn_revisalo_pendientes2').on('click', function () {
+                    $('.popupPendientesPORTAL').show();
+                });
+                $('.cerrarPendientesPORTAL').on('click', function () {
+                    $('.popupPendientesPORTAL').hide();
+                });
+                $('#rechazarPendientesPORTAL').on('click', function () {
+                    $('#dialog_confirmacionRechazo').show();
+                });
+                $('#aceptarPendientesPORTAL').on('click', function () {
+                    $('#dialog_aceptasPendientes').show();
+                });
             });
-            $('.cerrarPendientesPORTAL').on('click', function () {
-                $('.popupPendientesPORTAL').hide();
-            });
-            $('#rechazarPendientesPORTAL').on('click', function () {
-                $('#dialog_confirmacionRechazo').show();
-            });
-            $('#aceptarPendientesPORTAL').on('click', function () {
-                $('#dialog_aceptasPendientes').show();
-            });
-        });
+            /* SB20-398- FIN */
+        }
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
