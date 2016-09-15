@@ -1324,7 +1324,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" || CodigoISO == "GT")
+                
+                if (CodigoISO == "CL" || CodigoISO == "MX" || CodigoISO == "PE" )
                 {
                     try
                     {
@@ -1506,6 +1507,22 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.Referencia = model.Referencia;
                     solicitudPostulante.CodigoPostal = model.Numero;
 
+                    // Activacion de la geolocalización para CAM 
+                    if (CodigoISO == Constantes.CodigosISOPais.CostaRica || CodigoISO == Constantes.CodigosISOPais.Guatemala || CodigoISO==Constantes.CodigosISOPais.Panama || CodigoISO==Constantes.CodigosISOPais.Salvador )
+                    {
+                        BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
+                        var codigoLugarNivel = CodigoISO ==Constantes.CodigosISOPais.Guatemala? model.LugarNivel5.ToInt(): model.LugarNivel4.ToInt();
+                        var parametro = svPaises.ObtenerParametroUnete(CodigoISO, codigoLugarNivel);
+                        var resultado = parametro.Descripcion;
+
+                        solicitudPostulante.RespuestaGEO = resultado;
+                        solicitudPostulante.CodigoZona = resultado.Substring(2, 4);
+                        solicitudPostulante.CodigoSeccion = resultado.Substring(6, 1);
+                        solicitudPostulante.CodigoTerritorio = resultado.Substring(7, resultado.Length - 7);
+                        solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
+                    }
+                 
+                 
                     sv.ActualizarSolicitudPostulante(CodigoISO, solicitudPostulante);
                 }
             }

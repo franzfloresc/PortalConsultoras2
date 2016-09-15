@@ -180,6 +180,18 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         ClavedeDcifraSinTabla = 29,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CondicionadaFiador = 30,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CondicionadaCartaDescargo = 31,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        CondicionadaCartaDescargoYFiador = 32,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Condicionada = 33,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
