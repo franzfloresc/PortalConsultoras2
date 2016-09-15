@@ -285,9 +285,8 @@ header {
     padding-right: 2px;
 }
 .logo_esika a {
-        width: 82%;
+    width: 82%;
     height: 62px;
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/40xq1AaLZapROAF/belcorp-%281%29.png) no-repeat;
     background-size: cover;
     display:block;
 }
