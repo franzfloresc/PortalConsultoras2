@@ -77,14 +77,15 @@ $(document).ready(function () {
 
     //EPD-826 INICIO
     $(".tipoClase").on("click", function () {
-       
+
         var idPais = $("#hdPaisId").val();
         var Campania_ = $(this)[0].dataset.cam;
         var Categoria = $(this)[0].dataset.cat;
         var codigozona = $(this)[0].dataset.codigozona;
 
-        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
-        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
+        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
+        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
+        var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
 
         //Campaña 14
         if (Campania_ == "201614" && idPais == 11 && (arrC201614.indexOf(codigozona) > -1)) {
@@ -102,7 +103,7 @@ $(document).ready(function () {
                 $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/";
             }
         }
-        //Campaña 15
+            //Campaña 15
         else if (Campania_ == "201615" && idPais == 11 && (arrC201615.indexOf(codigozona) > -1)) {
 
             if (Categoria == "Lbel") {
@@ -118,9 +119,25 @@ $(document).ready(function () {
                 $(this).find('.revista')[0].attributes[3].value = "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/";
             }
         }
+            //Campaña 16 - EPD-932
+        else if (Campania_ == "201616" && idPais == 11 && (arrC201616.indexOf(codigozona) > -1)) {
+
+            if (Categoria == "Lbel") {
+
+                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe";
+            }
+            else if (Categoria == "Esika") {
+
+                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe";
+            }
+            else if (Categoria == "Cyzone") {
+
+                $(this).find('.revista')[0].attributes[3].value = "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe";
+            }
+        }
     });
-    
-    //EPD-826 - FIN
+
+    //EPD-826 - FINFIN
 
     
 });
@@ -706,7 +723,7 @@ jQuery(document).ready(function () {
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
 
     $("#lbPortadaGana").on("click", function () {
-        
+
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -717,8 +734,9 @@ jQuery(document).ready(function () {
         var paisid = parseInt($('#numero_campania')[0].dataset.paisid);
         var codigozona = $('#numero_campania')[0].dataset.codigozona;
         var numero_campania_ = parseInt($("#numero_campania")[0].innerHTML);
-        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035", "5044");
-        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035", "5044");
+        var arrC201614 = new Array("1072", "1075", "3035", "3036", "5035");
+        var arrC201615 = new Array("1081", "3033", "3035", "3036", "5035");
+        var arrC201616 = new Array("1081", "3033", "3035", "3036", "5035");
 
         var srcPortada = $("#imgPortadaGana").attr("src");
         if (srcPortada == defaultImageRevista) {
@@ -728,13 +746,17 @@ jQuery(document).ready(function () {
         }
 
         if (paisid == 11) {
-            if (numero_campania_ == 201614 && (arrC201614.indexOf(codigozona) > -1 )) {
+            if (numero_campania_ == 201614 && (arrC201614.indexOf(codigozona) > -1)) {
                 $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1614pe_1/";
             }
             else if (numero_campania_ == 201615 && (arrC201615.indexOf(codigozona) > -1)) {
                 $(this)[0].attributes[2].value = "http://issuu.com/somosbelcorp/docs/piloto_rev1615pe/";
-               
-            } 
+
+            }
+            else if (numero_campania_ == 201616 && (arrC201616.indexOf(codigozona) > -1)) {
+                $(this)[0].attributes[2].value = "https://issuu.com/somosbelcorp/docs/piloto_rev1616pe";
+
+            }
             else {
                 var srcPortada = $("#imgPortadaGana").attr("src");
                 if (srcPortada == defaultImageRevista) {
