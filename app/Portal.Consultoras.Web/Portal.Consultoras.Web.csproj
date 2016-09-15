@@ -1071,7 +1071,6 @@
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
     <Content Include="Content\Css\Site\slick.css" />
-    <Content Include="Content\Css\Site\menu_comunidad.css" />
     <Content Include="Content\Css\Site\style-tismart.css" />
     <Content Include="Content\Css\Site\style.css" />
     <Content Include="Content\Css\Site\footer_PE.css" />
