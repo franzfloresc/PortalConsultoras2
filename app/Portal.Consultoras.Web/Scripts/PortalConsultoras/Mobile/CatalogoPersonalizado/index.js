@@ -1,73 +1,87 @@
-﻿var cantidadRegistros = 4;
+﻿var cantidadRegistros = 12;
 var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
-        if (ReservadoOEnHorarioRestringido())
-            return false;
+        if (ReservadoOEnHorarioRestringido()) return false;
 
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
-    $(document).on('click', '#boton_vermas', function () {
-        CargarCatalogoPersonalizado();
-    });
-
-    if (!ReservadoOEnHorarioRestringido(false)) {
-        CargarCatalogoPersonalizado();
-    }
-    $(document).on('click', '.pop-ofertarevista', function () {
-        waitingDialog({});
-        var cuv = $(this).parents('.contiene-productos').find('.hdItemCuv').val();
-        jQuery.ajax({
-            type: 'POST',
-            url: urlObtenerOfertaRevista,
-            dataType: 'json',
-            data: JSON.stringify({ cuv: cuv }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                console.log(response);
-                if (response.success) {
-                    DecimalToStringFormat(response.data.precio_catalogo);
-                    DecimalToStringFormat(response.data.precio_revista);
-                    DecimalToStringFormat(response.data.ganancia);
-                    response.data.Simbolo = viewBagSimbolo;
-                    switch (response.data.tipo_oferta) {
-                        case '003':
-                            var html = SetHandlebars("#template-mod-ofer1", response.data);
-                            $('.mod-ofer1').html(html).show();
-                            break;
-                        case '048':
-                            var html = SetHandlebars("#template-mod-ofer2", response.data);
-                            $('.mod-ofer2').html(html).show();
-                            break;
-                        case '049':
-                            var html = SetHandlebars("#template-mod-ofer3", response.data);
-                            $('.mod-ofer3').html(html).show();
-                            break;
-                    }
-                } else {
-                    console.log(response.message);
-                }
-                CloseLoading();
-            },
-            error: function (response, error) {
-                console.log(error);
-                CloseLoading();
-            }
-        });
-    });
+    Inicializar();
 });
 
+function Inicializar() {
+    IniDialog();
+    ValidarCargaCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();
+}
+function IniDialog() {
+    $('#DialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+function LinkCargarCatalogoToScroll() {
+    $(window).scroll(CargarCatalogoScroll);
+}
+function UnlinkCargarCatalogoToScroll() {
+    $(window).off("scroll", CargarCatalogoScroll);
+    cargandoRegistros = false;
+}
+function CargarCatalogoScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        ValidarCargaCatalogoPersonalizado();
+    }
+}
+
+function ValidarCargaCatalogoPersonalizado() {
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    ShowLoading();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
+}
+
+function ObtenerOfertaRevista(cuv) {
+    jQuery.ajax({
+        type: 'POST',
+        url: urlObtenerOfertaRevista,
+        dataType: 'json',
+        data: JSON.stringify({ cuv: cuv }),
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (data.success) {
+                console.log(data.data);
+            }
+        },
+        error: function (data, error) {
+            console.log(error);
+        },
+        complete: function () {
+            CloseLoading();
+        }
+    });
+}
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
-        $('#boton_vermas').hide();
+        UnlinkCargarCatalogoToScroll();
         return false;
     }
 
-    //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
-    ShowLoading();
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerProductosCatalogoPersonalizado,
@@ -81,14 +95,17 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
 
-                if (data.data.length < cantidadRegistros) $('#boton_vermas').hide();
+                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                 offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             console.log(error);
         },
-        complete: CloseLoading
+        complete: function () {
+            CloseLoading();
+            cargandoRegistros = false;
+        }
     });
 }
 
@@ -116,13 +133,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
 
     if (!isInt(cantidad)) {
-        messageInfo("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
         CloseLoading();
         return false;
     }
 
     if (cantidad <= 0) {
-        messageInfo("La cantidad ingresada debe ser mayor que cero, verifique");
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
         CloseLoading();
         return false;
     }
@@ -144,17 +161,15 @@ function AgregarProductoCatalogoPersonalizado(item) {
         EsSugerido: false
     };
 
-    AgregarProducto(urlAgregarProducto, model, function () { $(divPadre).find(".product-add").show(); });
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
 }
 
 function AgregarProducto(url, item, otraFunct) {
     ShowLoading();
 
-    tieneMicroefecto = true;
-
     jQuery.ajax({
         type: 'POST',
-        url: url,
+        url: urlAgregarProducto,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -173,12 +188,11 @@ function AgregarProducto(url, item, otraFunct) {
                 }
             }
             else {
-                messageInfo(data.message);
+                alert_msg_com(data.message);
             }
             CloseLoading();
         },
         error: function (data, error) {
-            tieneMicroefecto = false;
             AjaxError(data, error);
         }
     });
@@ -207,8 +221,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
-                    ShowLoading();
-                    location.href = urlReservadoOEnHorarioRestringido;
+                    waitingDialog({});
+                    location.href = urlPedidoValidado;
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
@@ -216,8 +230,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+            else if (mostrarAlerta == true) alert_msg_pedido(data.message);
         },
         error: function (error) {
             console.log(error);
@@ -225,6 +238,44 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
+}
+
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: urlReservadoOEnHorarioRestringido,
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                ShowLoading();
+                location.href = urlPedidoValidado;
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                CloseLoading();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
 }
 
 function alert_msg_pedido(message) {

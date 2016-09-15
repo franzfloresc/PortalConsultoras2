@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
@@ -26,12 +25,8 @@
 
     </div>
     <div class="clear"></div>
-    <div id="boton_vermas" class="ver-mas-vertical">
-        <span class="text">VER MÁS</span>
-        <span class="icon"></span>
-    </div>
 </div>
-<div id="OfertaCatalogo1" class="MensajeAlertaMobile">
+<div id="OfertaCatalogo1" class="MensajeAlertaMobile" style="display: none;">
     <div class="content_PopOferta" style="padding-bottom:0;">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#OfertaCatalogo1').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -214,11 +209,12 @@
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio" style="margin-bottom: 30px !important;">
+                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                     </div>
                     {{#if TieneOfertaEnRevista}}
                     <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="position: absolute;top: 250px;font-size: 12px;">
-                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA</a>
+                        <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;" onclick="return ObtenerOfertaRevista({{CUV}})">¡MIRA LA OFERTA</a>
                         EN TU GUÍA DE NEGOCIO!
                     </div>
                     {{/if}}
