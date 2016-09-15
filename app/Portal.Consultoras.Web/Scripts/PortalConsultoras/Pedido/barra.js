@@ -21,8 +21,8 @@ function MostrarBarra(datax) {
                 listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
                 listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta));
             } else {
-                listaEscalaDescuento[i].MontoHasta = (Math.ceil(item.MontoHasta * 10) / 10) + 1; //Math.ceil(item.MontoHasta) + 1;
-                listaEscalaDescuento[i].MontoHastaStr = (Math.ceil(item.MontoHasta * 10) / 10) ; //$.trim(Math.ceil(item.MontoHasta) + 1);
+                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1; 
+                listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta)); 
 
             }
         });
