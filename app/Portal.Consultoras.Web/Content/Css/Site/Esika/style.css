@@ -27250,7 +27250,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display: block;
     width: 100%;
     text-decoration: none;
-    margin-bottom: 6px;
+    position: absolute;
+    top: 247px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -27271,7 +27272,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 0px 9px;
     display: inline-block;
     position: relative;
-    width: 276px;
+    width: 274px;
     margin-bottom: 15px;
     margin-top: 15px;
 }
@@ -28801,3 +28802,5 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .columnas .opciones-paralelas .liquidacion_rango_right_pedido{
     margin-top: 7px !important;
 }
+
+/* FIN POPUPS OFERTAS REVISTA */
