@@ -428,7 +428,7 @@ $(document).ready(function () {
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();
     });
-
+    
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
@@ -2150,7 +2150,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 } else {
                     CerrarSplash();
                 }
-            }           
+            }
 
             //CerrarSplash();
             //showDialog('divVistaPrevia');
@@ -2498,7 +2498,7 @@ function EjecutarServicioPROL() {
                         if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0) {
                             html += "<li>" + item.Descripcion + "</li>";
 
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";                            
+                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
                             return;
                         }
 
@@ -2586,7 +2586,7 @@ function EjecutarServicioPROL() {
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
 
             var cumpleOferta;
-            
+
             //MENSAJES
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
@@ -2602,8 +2602,8 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
-                                AnalyticsGuardarValidar(response);
-                                AnalyticsPedidoValidado(response);
+                                AnalyticsGuardarValidar(response.data);
+                                AnalyticsPedidoValidado(response.data);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
                                 }, 2000);
@@ -2655,7 +2655,7 @@ function EjecutarServicioPROL() {
                 }
                 CargarDetallePedido();
             }
-            AnalyticsGuardarValidar(response);
+            AnalyticsGuardarValidar(response.data);
         },
         //**********
         error: function (data, error) {
@@ -2807,7 +2807,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
             MostrarMensajeProl(response.data);
-            AnalyticsGuardarValidar(response);
+            AnalyticsGuardarValidar(response.data);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2826,8 +2826,8 @@ function MostrarMensajeProl(data) {
                 } else {
                     showDialog("divReservaSatisfactoria");
                     //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
-                    AnalyticsPedidoValidado(response);
+                    AnalyticsGuardarValidar(data);
+                    AnalyticsPedidoValidado(data);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
                     }, 2000);
@@ -2863,7 +2863,7 @@ function MostrarMensajeProl(data) {
 
         CargarDetallePedido();
     }
-    AnalyticsGuardarValidar(response);
+    AnalyticsGuardarValidar(data);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -3385,7 +3385,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
             CalcularTotalPedido(data.Total, data.Total_Minimo);
 
             MostrarBarra(data);
-                
+
         },
         error: function (data, error) {
             CerrarSplash();
@@ -4073,12 +4073,12 @@ function AnalyticsBannersInferioresImpression() {
 function AnalyticsGuardarValidar(data) {
     var arrayEstrategiasAnalytics = [];
     var accion = $('#hdAccionBotonProl').val();
-
+    data.pedidoDetalle = data.pedidoDetalle || new Array();
     $.each(data.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
-            'price': value.price.toString(),
+            'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
             'variant': value.variant,
@@ -4104,12 +4104,12 @@ function AnalyticsGuardarValidar(data) {
 }
 function AnalyticsPedidoValidado(data) {
     var arrayEstrategiasAnalytics = [];
-
+    data.pedidoDetalle = data.pedidoDetalle || new Array();
     $.each(data.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
-            'price': value.price.toString(),
+            'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
             'variant': value.variant,
