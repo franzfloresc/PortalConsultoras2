@@ -19337,7 +19337,7 @@ float: right;
     
     background-color: #f1f3f3;
     right: -181px;
-    top: 239px; /*CAMBIO EL ESTILO*/
+    top: 220px; /*CAMBIO EL ESTILO*/
     z-index: 100;
         }
 .contenido-ct {
@@ -20046,6 +20046,7 @@ label.checkpop.c_on {
     padding:0;
     background:black;
     height:538px !important;
+    
 }
 .imagen_principal_set {
     width:900px;
@@ -20071,7 +20072,8 @@ label.checkpop.c_on {
 }
 .titulo_setDetalle {
     color: black;
-    font-family: 'ArialBoldMT';
+    font-family: 'LAto';
+    font-weight: bold;
     font-size: 27px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -20105,11 +20107,12 @@ label.checkpop.c_on {
     float:left;
 }
 .titulo_detalle_texto {
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
     font-size: 12px;
+    font-weight:bold;
 }
 .descripcion_producto_texto{
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 13px;
     line-height: 15px;
     /*height: 30px;*/
@@ -20118,7 +20121,7 @@ label.checkpop.c_on {
 }
 .set_precio {
     
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 13px;
     color:black;
     line-height: 20px;
@@ -20127,7 +20130,8 @@ label.checkpop.c_on {
 }
 
 .set_precio span{
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
+    font-weight:bold;
     font-size: 23px;
     padding-left:18px;
     color:#f11935;
@@ -20137,7 +20141,7 @@ label.checkpop.c_on {
 }
 .set_precio_gana {
     margin-left:130px;
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
     font-size: 11.5px;
     color:black;
     line-height: 20px;
@@ -20160,54 +20164,58 @@ label.checkpop.c_on {
     font-weight: 700;
     bottom: 15px;
     left: 30px;
+    color:black;
   }
 .detalle_menos {
     text-align: center;
     width: 33px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 18px;
-    color: #536576;
+    color: black;
     padding-top: 6px;
     padding-bottom: 6px;
-    border: 1px solid #536576;
+    border: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
+    font-weight:bold;
 }
 .detalle_numero {
     text-align: center;
     width: 46px;
-    font-family: 'ArialMT' !important;
-    font-size: 18px !important;
-    color: #536576; /* padding-top: 0; */ /* padding-bottom: 0; */
+    font-family: 'Lato' !important;
+    font-size: 16px !important;
+    color: black; /* padding-top: 0; */ /* padding-bottom: 0; */
     border: 0;
-    border-top: 1px solid #536576;
-    border-bottom: 1px solid #536576;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
-    height: 37px;
+    height: 41px;
     line-height: 36px;
+    font-weight:bold;
 }
 .detalle_mas {
     text-align: center;
     width: 33px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 18px;
-    color: #536576;
+    color: black;
     padding-top: 6px;
     padding-bottom: 6px;
-    border: 1px solid #536576;
+    border: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
+    font-weight:bold;
 }
 .cantidad_agregar_detalle {
     position: absolute;
-    float: left;
+    /*float: left;*/
     /* height: 70px; */
     width: 256px;
     color: white !important;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 12px;
-    letter-spacing: 1.8px;
+    letter-spacing: 0.5px;
     font-weight: 700;
     bottom: 18px;
     left: 158px;
@@ -20215,12 +20223,7 @@ label.checkpop.c_on {
     padding-top: 11px;
     padding-bottom: 12px;
     text-decoration: none !important;
-    background: #f11935 !important;
-    -webkit-border-radius: 5px !important;
-    -moz-border-radius: 5px !important;
-    -khtml-border-radius: 5px !important;
-    border-radius: 5px !important;
-    behavior: url(/Content/Css/Pie/PIE.htc) !important;
+    background:#e81c36 !important;
     cursor:pointer;
 }
  .fondo_detalle_blanco .cantidad_agregar_detalle:hover {
@@ -20229,8 +20232,8 @@ label.checkpop.c_on {
     }
  /*CARRUSEL*/
 .contenedor_carrusel_detalle {
-    width:107px;
-    height:520px;
+    width:139px;
+    height:538px;
     background:white;
     float:left;
     padding-top:18px;
@@ -20238,7 +20241,7 @@ label.checkpop.c_on {
     padding-right:16px;
 }
 .contenedor_carrusel_detalle a{
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 14px;
     text-align:center;
     text-decoration:none;
@@ -20266,7 +20269,7 @@ label.checkpop.c_on {
     }
 .cantidad_productos_carrusel {
     margin-bottom: 20px;
-    width: 105px;
+    /*width: 105px;*/
     text-align: center;
    color:#a0a0a0;
     font-family: 'lato';
