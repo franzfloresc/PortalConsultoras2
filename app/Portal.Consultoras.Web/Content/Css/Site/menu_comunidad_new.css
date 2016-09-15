@@ -33,7 +33,7 @@ header {
 }
 .menu_new_esika {
     float: left;
-    width: 60%;
+    width: 70%;
     height:60px;
     position:relative;
 }
@@ -41,7 +41,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: left;
-    width: 29%;
+    width: 19%;
     /*overflow: hidden;*/
 }
 
@@ -292,4 +292,37 @@ header {
 }
 .content_left_menu:last-child{
     margin-right:0;
+}
+.no_margin_right{
+    margin-right:0;
+}
+.sub_comunidad1{
+    width: 748px;
+}
+.sub_comunidad3{
+    left: -211px;
+    width: 484px;
+}
+.sub_comunidad2{
+   margin-left: -118px;
+}
+.boton_cam {
+    text-align: center;
+    float: right;
+    height: 80px;
+    padding-top: 24px;
+    /* padding-bottom: 14px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #a18328;
+    color: white;
+    line-height: 15px;
+    font-family: 'lato';
+    font-size: 9px;
+    box-sizing: border-box;
+    overflow:hidden;
+}
+.boton_cam span {
+    font-size: 15px;
+    font-family: Lato;
 }
