@@ -20,47 +20,16 @@
 </div>
 <br/>
 <br />
+
 <div class="wrapper_resumen_mobile">
-    <div id="liquidacionMobile" class="contenedor_productos_liquidacion">
+    <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
 
-        <div class="content_item_home">
-            <div class="liquidacion_item" data-idposicion="1">
-                <input type="hidden" class="TipoOfertaSisID" value="1702">
-                <input type="hidden" class="OfertaProductoID" value="7763">
-                <input type="hidden" class="claseConfiguracionOfertaID" value="3">
-                <input type="hidden" class="claseMarcaID" value="3">
-                <input type="hidden" class="valorCUV" value="38819">
-                <input type="hidden" class="clasePrecioUnidad" value="5.9">
-                <input type="hidden" class="Stock" value="63">
-                <input type="hidden" class="DescripcionProd" value="Cyzone Anillo Quiérete. En plástico rojo. Talla 8.">
-                <input type="hidden" class="DescripcionMarca" value="Cyzone">
-                <input type="hidden" class="DescripcionCategoria" value="NO DISPONIBLE">
-                <input type="hidden" class="DescripcionEstrategia" value="NO DISPONIBLE">
-                <input type="hidden" class="posicionEstrategia" value="1">
-                <div class="producto_img_mobile">
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_210070789_20151153676_01_xizfwicmqu.png">
-                </div>
-                <div class="producto_nombre_descripcion">
-                    <h6>Cyzone</h6>
-                    <p class="nombre_producto">Cyzone Anillo Quiérete. En plástico rojo. Talla 8.</p>
-                    <div class="producto_precio">
-                        <span class="producto_stock">Stock: <span class="claseStock">63</span></span>
-                        <span class="producto_precio_oferta"><b>S/.<span id="precio_oferta">5.90</span></b></span>
-                    </div>
-                    <hr class="clear">
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="boton_Agregalo_home btnAgregarOfertaProducto"> AGREGALO</a>
-                </div>
-            </div>
-        </div>
-       
     </div>
-
+    <div class="clear"></div>
+    <div id="boton_vermas" class="ver-mas-vertical">
+        <span class="text">VER MÁS</span>
+        <span class="icon"></span>
+    </div>
 </div>
 <div id="OfertaCatalogo1" class="MensajeAlertaMobile">
     <div class="content_PopOferta" style="padding-bottom:0;">
@@ -211,3 +180,80 @@
         <!--FIN-->
     </div>
 </div>
+
+<script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div>
+        {{#each this as |item|}}
+        <div class="content_item_home" style="position: relative;">
+            <div class="liquidacion_item" data-item="catalogopersonalizado">
+                <div style="display: none;">
+                    <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+                    <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                    <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                    <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                    <input type="hidden" class="hdItemTipo" value="1" />
+                    <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+                    <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+                    <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+                    <input type="hidden" class="hdItemPagina" value="0" />
+                    <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                    <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+                    <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                </div>
+                <div class="producto_img_mobile">
+                    <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
+                </div>
+                {{#IsNullOrEmpty item.Sello '!='}}
+                <div class="etiqueta_producto nuevofavorito">
+                    <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                </div>
+                {{/IsNullOrEmpty}}
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio" style="margin-bottom: 30px !important;">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                    </div>
+                    {{#if TieneOfertaEnRevista}}
+                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="position: absolute;top: 250px;font-size: 12px;">
+                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA</a>
+                        EN TU GUÍA DE NEGOCIO!
+                    </div>
+                    {{/if}}
+                    <hr class="clear">
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <div class="clear"></div>
+                    
+                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>
+                                  
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class="clear"></div>
+    </div>
+</script>
+@section scripts
+{
+    <script type="text/javascript">
+        var urlObtenerOfertaRevista = '@Url.Action("ObtenerOfertaRevista", "CatalogoPersonalizado", new { area = "" })';
+        var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
+        var urlAgregarProducto = '@Url.Action("Insert", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+    </script>   
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/Index.js")"></script>   
+}
