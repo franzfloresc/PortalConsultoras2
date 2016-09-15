@@ -27275,6 +27275,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 274px;
     margin-bottom: 15px;
     margin-top: 15px;
+    vertical-align:top;
 }
 
 .content_carrusel_agregado .agregado {
@@ -27340,10 +27341,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top: 15px;
 }
 
- .content-favclientes.catper{
-     padding-top: 15px;
-     padding-bottom: 10px;
- }
+.content-favclientes.catper{
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.content-favclientes .contiene-productos .producto_nombre_descripcion{
+    margin-bottom:9px;
+}
 
  .pestana_lbel.new .boton_Agregalo_home{
     font-style: normal;
