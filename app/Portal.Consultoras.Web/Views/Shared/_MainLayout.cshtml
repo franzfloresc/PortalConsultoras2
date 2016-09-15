@@ -111,10 +111,10 @@
         case "CR":
         case "SV":
         case "GT":
-            <div class="boton_ayuda"><span id="belcorpChat" class="boton-home">¿Necesitas ayuda?</span></div>
+            <div class="boton_ayuda"><span id="belcorpChat" class="boton-home"><a href="#">¿Necesitas ayuda?</a> </span></div>
                 break;
-        }
     }
+}
     <!-- cabecera -->
     <header>
         <div class="wrapper_header">
@@ -451,13 +451,13 @@
     <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>
 
     <script type='text/javascript'>
-        (function () {
+        (function () {           
             var proto = document.location.protocol || 'http:';
             var trme = document.createElement('script');
             trme.type = 'text/javascript';
             trme.async = true;
             trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-            var s = document.getElementsByTagName('script')[0];
+            var s = document.getElementsByTagName('script')[0];           
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
