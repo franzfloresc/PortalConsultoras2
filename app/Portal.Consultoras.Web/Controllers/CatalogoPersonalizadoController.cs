@@ -174,17 +174,25 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                ObjOfertaCatalogos objReturn;
+                BEProducto producto = new BEProducto();
+
+                ObjOfertaCatalogos dataPROL;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
-                    objReturn = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                }
+                using (ODSServiceClient sv = new ODSServiceClient())
+                {
+                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
+                            userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).FirstOrDefault();
                 }
 
                 return Json(new
                 {
                     success = true,
                     message = "",
-                    data = objReturn
+                    data = new { dataPROL = dataPROL,
+                                 producto = producto }
                 });
             }
             catch(Exception ex)
