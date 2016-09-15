@@ -1239,7 +1239,7 @@
 <!-- POP UP SHOWROOM HTML-->
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
-        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
+        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom" style="margin-right:-50px"></div>
         <div class="pestana_pop">
             <img id="imgPestaniaShowRoom" alt="imgPestaniaShowRoom" />
         </div>
@@ -1250,7 +1250,7 @@
                 <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
                 <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
 
-                <div class="evento_tema_hoy">
+                <div class="evento_tema_hoy" style="margin-top:23px">
                     <img id="imgPreventaDigital" alt="imgPreventaDigital" />
                 </div>
                 <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
@@ -1263,18 +1263,18 @@
             <img id="imgIntriga" alt="imgIntriga" />
         </div>
         <div class="content_show_right">
-            <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
+            @*<div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>*@
             <div class="slider_pop_up">
                 <img id="imgShowRoomGif" alt="imgShowRoomGif" />
             </div>
-            <div class="borde_inferior">
+            
                 <div class="check_01">
                     <label class="checkpop">
                         <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
                         No quiero volver a ver éste comunicado
                     </label>
                 </div>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -1303,7 +1303,7 @@
                 </div>
             </div>
 
-            <img id="imgIntrigaHoy" alt="imgIntrigaHoy" style="max-width: 90% !important; margin-left:31px;" />
+            <img id="imgIntrigaHoy" alt="imgIntrigaHoy" />
 
             <div class="check_hoy">
                 <label class="checkpop">

@@ -19156,11 +19156,11 @@ float: right;
     padding-top:10px;
 }
 .pestana_preventa {
-    position: absolute;
-    margin-left: 20px;
-    width: 450px;
+   position: absolute;
+    /* margin-left: 20px; */
+    width: 442px;
     /* float: left; */
-    /*margin-top: 17px;*/
+    /* margin-top: 17px; */
   
 }
 .content_show_right {
@@ -19186,8 +19186,8 @@ float: right;
    
     }
 .slider_pop_up {
-     width:344px;
-     height:366px;
+     width:100%;
+     min-height:366px;
      overflow:hidden;
 }
 .show_input {
@@ -19318,7 +19318,7 @@ html {
     background: url("/Content/Images/showroom/cerrar_popshowroom.png") no-repeat;
     cursor: pointer;
     position: absolute;
-    right: -35px;
+    right: 15px;
 }
 .floating-chat {
        top: 510px !important;
@@ -19350,10 +19350,13 @@ html {
 }
 
 .datos_pop_up_hoy {
-    margin-top: 28px;
+    margin-top: 40px !important;
     width: 267px;
     min-height: 280px;
-    margin-left: 107px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    /* margin-left: 107px; */
     position: absolute;
     z-index: 2000;
     background: white;
@@ -19494,13 +19497,13 @@ html {
 }
 .check_hoy {
     position:absolute;
-    bottom: 15px;
+    bottom: 7px;
     right: 42px;
 }
 .pestana_preventa2 {
     position: absolute;
     margin-left: 42px;
-    width: 500px;
+    width: 442px;
     height: 511px;
     background: white;
 }
@@ -19517,7 +19520,7 @@ html {
 .evento_tema_hoy {
     width: 192px;
     height: 76px;
-    margin-top: 23px;
+    /*margin-top: 23px;*/
     margin-left: -6px;
 }
 .precio_caja_traslado {
