@@ -27272,6 +27272,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 0px 9px;
     display: inline-block;
     position: relative;
+    vertical-align: top!important;
     width: 274px;
     margin-bottom: 15px;
     margin-top: 15px;
