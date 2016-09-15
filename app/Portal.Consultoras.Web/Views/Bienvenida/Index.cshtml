@@ -1303,6 +1303,34 @@
 
 <!-- POPUP FIN IMAGEN PERFIL -->
 
+<!-- POPUP COMUNICADOS -->
+
+<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
+    <div class="popup_comunicados">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_imagen_comunicado">
+            <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
+        </div>
+        <div class="franja_noVolverMostrar">
+            <form>
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
+                    <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
+                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP COMUNICADOS -->
+
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">

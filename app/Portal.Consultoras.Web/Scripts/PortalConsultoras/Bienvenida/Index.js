@@ -7,6 +7,25 @@ var fnMovimientoTutorial;
 var fotoCroppie
 
 $(document).ready(function () {
+
+    var altoPopup = $(".popup_comunicados").height() / 2;
+    var imagenPopup = $(".contenedor_imagen_comunicado img");
+    var estadoPopup = $(".fondo_popupComunicados").css("display");
+    var altoPantalla = $(window).height();
+
+    if (estadoPopup == "block") {
+        $("html").css({ "overflow-y": "hidden" });
+        if (imagenPopup.height() > altoPantalla) {
+            $(".popup_comunicados").css({ "top": "57%", "opacity": "1", "margin-top": -altoPopup, "width": "760px" });
+            imagenPopup.css({ "width": "100%", "height": "auto" });
+        } else {
+            $(".popup_comunicados").css({ "top": "50%", "opacity": "1", "margin-top": -altoPopup, "width": imagenPopup.width() });
+        }
+        $(".fondo_popupComunicados").css({ "overflow": "auto" });
+    } else {
+        $("html").css({ "overflow-y": "auto" });
+    }
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
