@@ -765,6 +765,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ent.CUV = values[2].Trim();
                                     ent.Stock = int.Parse(values[3].Trim());
                                     ent.PrecioOferta = decimal.Parse(values[4].Trim());
+                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim());
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
                                 }
