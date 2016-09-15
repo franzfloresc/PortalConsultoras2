@@ -178,8 +178,13 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado
             if (tipoOfertaFinal == 1)
             {
                 // estrategia
-                var blProducto = new BLProducto();
-                listaProductosHistorial = blProducto.ObtenerEstrategiasOfertaParaTi(codigoIso, campaniaId, codigoConsultora);
+                listaProductosHistorial = (List<Producto>)CacheManager<Producto>.GetData(codigoIso, campaniaId, ECacheItem.ListaProductoEstrategiasOfertaParaTi) ?? new List<Producto>();
+                if (listaProductosHistorial.Count == 0)
+                {
+                    var blProducto = new BLProducto();
+                    listaProductosHistorial = blProducto.ObtenerEstrategiasOfertaParaTi(codigoIso, campaniaId, "");
+                    CacheManager<Producto>.AddData(codigoIso, campaniaId, ECacheItem.ListaProductoEstrategiasOfertaParaTi, listaProductosHistorial);
+                }
             }
             else
             {

@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
                 oBePedidoWebDetalle.CUV = model.CUV;
 
-                oBePedidoWebDetalle.OrigenPedidoWebBE = model.OrigenPedidoWebModel;
+                oBePedidoWebDetalle.OrigenPedidoWeb = model.OrigenPedidoWebModel;
 
                 oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
                 oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
@@ -1450,7 +1450,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //oBEPedidoWebDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
 
                 oBEPedidoWebDetalle.MarcaID = Convert.ToByte(olstProducto[0].MarcaID);
-                oBEPedidoWebDetalle.Cantidad = Convert.ToInt32(CantCUVpedido);
+                oBEPedidoWebDetalle.Cantidad = CantCUVpedido;
                 oBEPedidoWebDetalle.PrecioUnidad = olstProducto[0].PrecioCatalogo;
                 oBEPedidoWebDetalle.CUV = olstProducto[0].CUV.Trim();
 
@@ -1462,7 +1462,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
 
-                oBEPedidoWebDetalle.OrigenPedidoWebBE = Convert.ToInt16(origenPedidoWeb);
+                oBEPedidoWebDetalle.OrigenPedidoWeb = origenPedidoWeb;
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
