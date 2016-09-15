@@ -1382,7 +1382,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWeb> lstPedidosDD = new List<BEPedidoDDWeb>();
-                if (BEPedidoDDWeb.Origen != 2)
+                if (BEPedidoDDWeb.Origen != 2 && BEPedidoDDWeb.EstadoValidacion != 202)
                 {
                     try
                     {

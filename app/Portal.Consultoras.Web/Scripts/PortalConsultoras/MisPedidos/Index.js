@@ -412,6 +412,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 function ExportExcel(obj) {
     waitingDialog();
     var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
     setTimeout(function () { DownloadAttachExcel(campaniaID) }, 0);
 }
