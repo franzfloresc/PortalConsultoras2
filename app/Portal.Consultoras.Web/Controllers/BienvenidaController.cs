@@ -22,6 +22,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var model = new BienvenidaHomeModel();

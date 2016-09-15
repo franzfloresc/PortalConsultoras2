@@ -28049,3 +28049,42 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 /* FIN PROCESO CARGA FOTO */
 
+/* ACTUALIZAR CONTRASEÑA */
+
+.contenedor_actualizarContraseniaForm{
+    display:block;
+    margin:63px auto 63px auto;
+    font-family:'Lato';
+    width:496px;
+}
+
+.imagen_consultora, .campos_actualizacionContrasenia{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.imagen_consultora{
+    width:131px;
+    height:131px;
+    border-radius:100%;
+}
+
+.imagen_consultora img{
+    width:100%;
+    height:auto;
+}
+
+.saludoConsultora{
+    display:block;
+    font-size:18px;
+    color:#000;
+}
+
+.cambiarContraseniaTexto{
+    font-size:15px;
+    color:#000;
+    opacity:0.8;
+}
+
+/* FIN ACTUALIZAR CONTRASEÑA */
+
