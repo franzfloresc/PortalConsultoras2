@@ -1316,6 +1316,12 @@ namespace Portal.Consultoras.Web.Controllers
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida + "|" + model.Referencia
                              : model.CodigoPais == "GT"
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Constantes.CodigosISOPais.CostaRica
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            :model.CodigoPais == Constantes.CodigosISOPais.Panama
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Constantes.CodigosISOPais.Salvador
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
                             : model.CalleOAvenida + "|" + model.Numero,
 
                 NombreRegion = CodigoISO == "PE" ? model.NombreLugarNivel2 : model.NombreLugarNivel1,

@@ -17,6 +17,7 @@
       <xs:element minOccurs="0" name="NombreProspecto" nillable="true" type="xs:string" />
       <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" minOccurs="0" name="TipoEstadoTelefonico" nillable="true" type="q5:Enums.TipoEstadoTelefonico" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidarFuenteIngreso" nillable="true" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPostulanteParameter" nillable="true" type="tns:SolicitudPostulanteParameter" />
