@@ -102,7 +102,10 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             descripcion = producto.NombreComercial;
                             imagenUrl = producto.Imagen;
-                            add = true;
+                            if (olstProducto[0].TieneStock)
+                            {
+                                add = true;
+                            }
                         }
 
                         if (add)
@@ -139,7 +142,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista
                             });
-
                         }
                     }
                     Session["ProductosCatalogoPersonalizado"] = listaProductoModel;
