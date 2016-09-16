@@ -26,7 +26,8 @@
     </div>
     <div class="clear"></div>
 </div>
-<div id="OfertaCatalogo1" class="MensajeAlertaMobile" style="display: none;">
+
+<div id="OfertaCatalogo1" class="MensajeAlertaMobile" style="display:none">
     <div class="content_PopOferta" style="padding-bottom:0;">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#OfertaCatalogo1').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -43,7 +44,7 @@
             <div class="content_imagen_oferta">
                 <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/UrUA3eQDY5mvfyF/f-o-t-o%402x.png" alt="">
             </div>         
-            <div class="titulo_producto_oferta">
+            <div class="titulo_producto_oferta" id="titulo">
                 Dorsay 100ml
             </div>
             <div class="sub_texto_oferta">
@@ -176,6 +177,98 @@
     </div>
 </div>
 
+<div id="popUpCatalogoPersonalizado_003" class="MensajeAlertaMobile" style="display: none;">
+
+</div>
+
+<script id="template-PopUp-Oferta003" type="text/x-handlebars-template">
+        <div class="content_PopOferta" style="padding-bottom:0;" data-item="popOfertaRevistaCatalogo">
+            <div style="display: none;">
+                <input type="hidden" class="hdItemCuv_Catalogo" value="{{CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID_Catalogo" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID_Catalogo" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo_Catalogo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo_Catalogo" value="1" />
+                <input type="hidden" class="hdItemMarcaID_Catalogo" value="{{MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad_Catalogo" value="{{PrecioUnidad_Catalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd_Catalogo" value="{{Descripcion}}" />
+                <input type="hidden" class="hdItemPagina_Catalogo" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria_Catalogo" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca_Catalogo" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia_Catalogo" value="{{DescripcionEstrategia}}" />
+
+                <input type="hidden" class="hdItemCuv" value="{{CUV_Revista}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID_Revista}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID_Revista}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo_Revista}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{MarcaID_Revista}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioUnidad_Revista}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{DescripcionProd_Revista}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria_Revista}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca_Revista}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia_Revista}}" />
+                <input type="hidden" class="hdItemRutaImagen" value="{{ImagenRevistaOferta}}" />
+            </div>
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popUpCatalogoPersonalizado_003').fadeOut('slow');">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear" />
+            <div style="text-align:center">
+                <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
+            </div>
+            <div class="linea_separadora_black" style="margin-top:-10px;"></div>
+            <hr class="clear" />
+            <div class="content_item_oferta">
+                <div class="content_imagen_oferta">
+                    <img src="{{ImagenRevistaOferta}}" alt="">
+                </div>         
+                <div class="titulo_producto_oferta" id="titulo">
+                    {{DescripcionProd_Revista}}
+                </div>
+                <div class="sub_texto_oferta">
+                    En Revista:  @(ViewBag.Simbolo) {{PrecioUnidad_Revista}}
+                </div>
+                <div class="texto_ganancia_oferta">
+                GANANCIA:  @(ViewBag.Simbolo) {{Ganancia_Revista}}  
+                </div>
+                <div class="liquidacion_rango_home">
+                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad-revista" data-cantidad-input="-">
+                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <div class="clear"></div>
+                <a class="boton_Agregalo_home btnAgregarProductoRevista" tabindex="0">
+                    AGRÉGALO
+                </a>               
+            </div>
+            <div class="row_20">
+                <div class="sombra_oferta">
+                    <div class="content_item_oferta">
+                        <div class="sub_texto_oferta" style="font-weight: 800;">
+                            También puedes comprarlo <br/>con el precio catálogo: 
+                        </div>
+                        <div class="sub_texto_oferta" style="font-weight: 800;">
+                            @(ViewBag.Simbolo) {{PrecioUnidad_Catalogo}}
+                        </div>
+                        <hr class="clear" />
+                        <br/>                    
+                        <div class="liquidacion_rango_home">
+                            <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad-catalogo" data-cantidad-input="-">
+                            <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="boton_Agregalo_home btnAgregarProductoCatalogo" tabindex="0">
+                            AGRÉGALO
+                        </a>
+                    </div>
+                </div>
+            </div>      
+        </div>
+</script>
+
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div>
         {{#each this as |item|}}
@@ -194,6 +287,7 @@
                     <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                     <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                    <input type="hidden" class="hdItemRutaImagen" value="{{ImagenProductoSugerido}}" />
                 </div>
                 <div class="producto_img_mobile">
                     <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
@@ -214,7 +308,7 @@
                     </div>
                     {{#if TieneOfertaEnRevista}}
                     <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="position: absolute;top: 250px;font-size: 12px;">
-                        <a title="AQUÍ" class="pop-ofertarevista" style="cursor: pointer;" onclick="return ObtenerOfertaRevista({{CUV}})">¡MIRA LA OFERTA</a>
+                        <a title="AQUÍ" id="mostrarPopUpOfertaRevista" style="cursor: pointer;">¡MIRA LA OFERTA</a>
                         EN TU GUÍA DE NEGOCIO!
                     </div>
                     {{/if}}

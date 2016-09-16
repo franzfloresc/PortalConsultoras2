@@ -1,14 +1,109 @@
 ﻿var cantidadRegistros = 12;
 var offsetRegistros = 0;
 var cargandoRegistros = false;
+var divPadreOfertaRevista;
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         if (ReservadoOEnHorarioRestringido()) return false;
-
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
+    $(document).on('click', '#mostrarPopUpOfertaRevista', function () {
+        var contenedor = $(this).parents(".liquidacion_item");
+        ObtenerOfertaRevista(contenedor);
+    });
+
+    $(document).on('click', '.btnAgregarProductoRevista', function () {
+        if (ReservadoOEnHorarioRestringido()) return false;
+
+        var contenedor = $(this).parents("[data-item='popOfertaRevistaCatalogo']");
+        var divPadre = contenedor;
+
+        var attItem = $(contenedor).attr("data-item") || "";
+        if (attItem == "") {
+            divPadre = $(contenedor).parents("[data-item]").eq(0);
+        }
+
+        var cuv = $(divPadre).find(".hdItemCuv").val();
+        var cantidad = $(divPadre).find("[data-input='cantidad-revista']").val();
+        var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID").val();
+        var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID").val();
+        var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo").val();
+        var tipo = $(divPadre).find(".hdItemTipo").val();
+        var marcaID = $(divPadre).find(".hdItemMarcaID").val();
+        var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad").val();
+        var descripcionProd = $(divPadre).find(".hdItemDescripcionProd").val();
+        var pagina = $(divPadre).find(".hdItemPagina").val();
+        var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
+        var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
+        var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+
+        var model = {
+            TipoOfertaSisID: tipoOfertaSisID,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            MarcaID: marcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: precioUnidad,
+            CUV: cuv,
+            Tipo: tipo,
+            DescripcionProd: descripcionProd,
+            Pagina: pagina,
+            DescripcionCategoria: descripcionCategoria,
+            DescripcionMarca: descripcionMarca,
+            DescripcionEstrategia: descripcionEstrategia,
+            EsSugerido: false
+        };
+        AgregarProducto('Insert', model, function () { $(divPadreOfertaRevista).find(".product-add").show(); });
+        $('#popUpCatalogoPersonalizado_003').fadeOut("slow");
+    });
+
+    $(document).on('click', '.btnAgregarProductoCatalogo', function () {
+        if (ReservadoOEnHorarioRestringido()) return false;
+
+        var contenedor = $(this).parents("[data-item='popOfertaRevistaCatalogo']");
+        var divPadre = contenedor;
+
+        var attItem = $(contenedor).attr("data-item") || "";
+        if (attItem == "") {
+            divPadre = $(contenedor).parents("[data-item]").eq(0);
+        }
+
+        var cuv = $(divPadre).find(".hdItemCuv_Catalogo").val();
+        var cantidad = $(divPadre).find("[data-input='cantidad-catalogo']").val();
+        var tipoOfertaSisID = $(divPadre).find(".hdItemTipoOfertaSisID_Catalogo").val();
+        var configuracionOfertaID = $(divPadre).find(".hdItemConfiguracionOfertaID_Catalogo").val();
+        var indicadorMontoMinimo = $(divPadre).find(".hdItemIndicadorMontoMinimo_Catalogo").val();
+        var tipo = $(divPadre).find(".hdItemTipo_Catalogo").val();
+        var marcaID = $(divPadre).find(".hdItemMarcaID_Catalogo").val();
+        var precioUnidad = $(divPadre).find(".hdItemPrecioUnidad_Catalogo").val();
+        var descripcionProd = $(divPadre).find(".hdItemDescripcionProd_Catalogo").val();
+        var pagina = $(divPadre).find(".hdItemPagina_Catalogo").val();
+        var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria_Catalogo").val();
+        var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca_Catalogo").val();
+        var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia_Catalogo").val();        
+
+        var model = {
+            TipoOfertaSisID: tipoOfertaSisID,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            MarcaID: marcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: precioUnidad,
+            CUV: cuv,
+            Tipo: tipo,
+            DescripcionProd: descripcionProd,
+            Pagina: pagina,
+            DescripcionCategoria: descripcionCategoria,
+            DescripcionMarca: descripcionMarca,
+            DescripcionEstrategia: descripcionEstrategia,
+            EsSugerido: false
+        };
+        AgregarProducto('Insert', model, function () { $(divPadreOfertaRevista).find(".product-add").show(); });
+        $('#popUpCatalogoPersonalizado_003').fadeOut("slow");
+    });
+
     Inicializar();
 });
 
@@ -17,6 +112,7 @@ function Inicializar() {
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
+
 function IniDialog() {
     $('#DialogMensajes').dialog({
         autoOpen: false,
@@ -36,11 +132,13 @@ function IniDialog() {
 
 function LinkCargarCatalogoToScroll() {
     $(window).scroll(CargarCatalogoScroll);
-}
+}   
+
 function UnlinkCargarCatalogoToScroll() {
     $(window).off("scroll", CargarCatalogoScroll);
     cargandoRegistros = false;
 }
+
 function CargarCatalogoScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
         ValidarCargaCatalogoPersonalizado();
@@ -55,7 +153,28 @@ function ValidarCargaCatalogoPersonalizado() {
     ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
 }
 
-function ObtenerOfertaRevista(cuv) {
+function ObtenerOfertaRevista(item) {
+    ShowLoading();
+    divPadreOfertaRevista = item;
+    var attItem = $(item).attr("data-item") || "";
+    if (attItem == "") {
+        divPadreOfertaRevista = $(item).parents("[data-item]").eq(0);
+    }
+    var rutaImg = $(divPadreOfertaRevista).find(".hdItemRutaImagen").val();
+    var cuv = $(divPadreOfertaRevista).find(".hdItemCuv").val();
+    var tipoOfertaSisID = $(divPadreOfertaRevista).find(".hdItemTipoOfertaSisID").val();
+    var configuracionOfertaID = $(divPadreOfertaRevista).find(".hdItemConfiguracionOfertaID").val();
+    var indicadorMontoMinimo = $(divPadreOfertaRevista).find(".hdItemIndicadorMontoMinimo").val();
+    var tipo = $(divPadreOfertaRevista).find(".hdItemTipo").val();
+    var marcaID = $(divPadreOfertaRevista).find(".hdItemMarcaID").val();
+    var precioUnidad = $(divPadreOfertaRevista).find(".hdItemPrecioUnidad").val();
+    var descripcionProd = $(divPadreOfertaRevista).find(".hdItemDescripcionProd").val();
+    var pagina = $(divPadreOfertaRevista).find(".hdItemPagina").val();
+    var descripcionCategoria = $(divPadreOfertaRevista).find(".hdItemDescripcionCategoria").val();
+    var descripcionMarca = $(divPadreOfertaRevista).find(".hdItemDescripcionMarca").val();
+    var descripcionEstrategia = $(divPadreOfertaRevista).find(".hdItemDescripcionEstrategia").val();
+    var model;
+    
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerOfertaRevista,
@@ -64,7 +183,44 @@ function ObtenerOfertaRevista(cuv) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (data.success) {
-                console.log(data.data);
+                var InfoRevista = data.data.dataPROL;
+                var InfoProducto = data.data.producto;
+                if (InfoRevista.tipo_oferta == "003") {
+                    model = {
+                        TipoOfertaSisID_Revista: InfoProducto.TipoOfertaSisID,
+                        ConfiguracionOfertaID_Revista: InfoProducto.ConfiguracionOfertaID,
+                        IndicadorMontoMinimo_Revista: InfoProducto.IndicadorMontoMinimo,
+                        MarcaID_Revista: InfoProducto.MarcaID,
+                        PrecioUnidad_Revista: DecimalToStringFormat(InfoRevista.precio_revista),
+                        CUV_Revista: InfoRevista.cuv_revista,
+                        DescripcionProd_Revista: InfoProducto.Descripcion,
+                        DescripcionCategoria_Revista: InfoProducto.DescripcionCategoria,
+                        DescripcionMarca_Revista: InfoProducto.DescripcionMarca,
+                        DescripcionEstrategia_Revista: InfoProducto.DescripcionEstrategia,
+                        ImagenRevistaOferta: rutaImg,
+                        Ganancia_Revista: DecimalToStringFormat(InfoRevista.ganancia),
+                        PrecioUnidad_Catalogo: DecimalToStringFormat(InfoRevista.precio_catalogo),
+
+                        TipoOfertaSisID: tipoOfertaSisID,
+                        ConfiguracionOfertaID: configuracionOfertaID,
+                        IndicadorMontoMinimo: indicadorMontoMinimo,
+                        MarcaID: marcaID,
+                        CUV: cuv,
+                        Tipo: tipo,
+                        Descripcion: descripcionProd,
+                        Pagina: pagina,
+                        DescripcionCategoria: descripcionCategoria,
+                        DescripcionMarca: descripcionMarca,
+                        DescripcionEstrategia: descripcionEstrategia,
+                    };
+                    var html = SetHandlebars("#template-PopUp-Oferta003", model);
+                    $('#popUpCatalogoPersonalizado_003').html(html);
+                    $('#popUpCatalogoPersonalizado_003').fadeIn("slow");
+                } else if (data.data.dataPROL == "048") {
+
+                } else if (data.data.dataPROL == "005") {
+
+                }                
             }
         },
         error: function (data, error) {
@@ -75,6 +231,7 @@ function ObtenerOfertaRevista(cuv) {
         }
     });
 }
+
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
