@@ -13,13 +13,19 @@
 </div>
 
 <div class="content_belcorp">
+    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <div class="contenedor_actualizarContraseniaForm">
         <div class="imagen_consultora">
             <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="Imagen Consultora" />
         </div>
         <div class="campos_actualizacionContrasenia">
-            <div class="saludoConsultora">Hola <span>Valeria</span></div>
+            <div class="saludoConsultora">¡Hola <span>Valeria!</span></div>
             <span class="cambiarContraseniaTexto">Cambia tu contraseña aquí:</span>
+            <form class="formulario_actualizarContrasenia" >
+                <input type="password" name="nuevaContrasenia" class="campoContrasenia" placeholder="Nueva contraseña" />
+                <input type="password" name="confirmarContrasenia" class="campoContrasenia"  placeholder="Confirmar contraseña" />
+                <input type="submit" name="btnCambiarContrasenia" class="btnCambiarContrasenia" value="CAMBIAR" />
+            </form>
         </div>
     </div>
 </div>

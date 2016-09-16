@@ -28053,9 +28053,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .contenedor_actualizarContraseniaForm{
     display:block;
-    margin:63px auto 63px auto;
+    margin:63px auto 119px auto;
     font-family:'Lato';
-    width:496px;
+    width:500px;
 }
 
 .imagen_consultora, .campos_actualizacionContrasenia{
@@ -28067,6 +28067,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width:131px;
     height:131px;
     border-radius:100%;
+    margin-right:40px;
 }
 
 .imagen_consultora img{
@@ -28081,8 +28082,67 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .cambiarContraseniaTexto{
+    display:block;
     font-size:15px;
     color:#000;
+    opacity:0.8;
+    margin-bottom:15px;
+}
+
+.formulario_actualizarContrasenia{
+    display:block;
+    margin:0;
+    padding:0;
+}
+
+.campoContrasenia, .btnCambiarContrasenia{
+    display:block;
+    width:325px;
+    height:45px;
+    line-height:45px;
+    margin:0 0 11px 0;
+    font-family:'Lato';
+    font-size:14px;
+}
+
+.campoContrasenia{
+    border:1px solid #000;
+    color:#000;
+    background:#FFF;
+    font-weight:normal;
+    padding:0 20px;
+}
+
+.campoContrasenia::-webkit-input-placeholder{
+   color:#000;
+}
+
+.campoContrasenia:-moz-placeholder{
+   color:#000;
+}
+
+.campoContrasenia::-moz-placeholder{
+   color:#000;
+}
+
+.campoContrasenia:-ms-input-placeholder{
+   color:#000;
+}
+
+.btnCambiarContrasenia{
+    background:#642f80;
+    color:#FFF;
+    font-weight:bold;
+    border:1px solid #642f80;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btnCambiarContrasenia:hover{
     opacity:0.8;
 }
 
