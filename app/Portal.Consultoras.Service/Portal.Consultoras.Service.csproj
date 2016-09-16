@@ -70,7 +70,7 @@
     <Compile Include="SeguridadService.cs" />
     <Compile Include="UbigeoWebService.cs" />
     <Compile Include="UsuarioService.cs" />
-    <Compile Include="WS_GPR.cs" />
+    <Compile Include="PedidoRechazadoService.cs" />
     <Compile Include="ZonificacionService.cs" />
   </ItemGroup>
   <ItemGroup>
