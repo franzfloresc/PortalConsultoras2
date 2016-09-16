@@ -4983,7 +4983,7 @@ table > thead > tr > th {
     width: 40%;
     height: 48px;
     line-height: 48px;
-    background: white;
+    background: transparent;
     float: left;
     text-align: center;
     font-weight: 700;
@@ -8497,4 +8497,43 @@ a:focus, a:hover {
     position:relative;
     background:#ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
     
+}
+.agregado {
+    height: 12px;
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
+}
+.icono {
+    width: 11px;
+    height: 11px;
+    display: inline-block;
+    background: url("../../../Images/group.svg") center center no-repeat;
+}
+.enlace_popupCatalogoPersonalizado {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    margin-bottom: 6px;
+}
+.seguir_pedido {
+    display: inline-block;
+    vertical-align: top;
+   
+    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background-position: 0px 5px;
+    font-family: 'lato';
+    font-size: 11px;
+    color: black;
+    padding-left: 4%;
+    
+    /* letter-spacing: 1px; */
+    font-weight: 700;
+}
+.enlace_popupCatalogoPersonalizado a {
+    display: inline;
+    color: #e81c36;
 }

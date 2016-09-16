@@ -302,16 +302,19 @@
                     <p class="nombre_producto">
                         <b>{{Descripcion}}</b>
                     </p>
-                    <div class="producto_precio" style="margin-bottom: 30px !important;">
+                    <div class="producto_precio" style="margin-bottom: 2px !important;">
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                     </div>
-                    {{#if TieneOfertaEnRevista}}
-                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="position: absolute;top: 250px;font-size: 12px;">
-                        <a title="AQUÍ" id="mostrarPopUpOfertaRevista" style="cursor: pointer;">¡MIRA LA OFERTA</a>
-                        EN TU GUÍA DE NEGOCIO!
+                    <div style="min-height:38px">
+                        {{#if TieneOfertaEnRevista}}
+                        <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
+                            <a title="AQUÍ" id="mostrarPopUpOfertaRevista" style="cursor: pointer;">¡MIRA LA OFERTA</a>
+                            EN TU GUÍA DE NEGOCIO!
+                        </div>
+                        {{/if}}
                     </div>
-                    {{/if}}
+                    
                     <hr class="clear">
                     <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
