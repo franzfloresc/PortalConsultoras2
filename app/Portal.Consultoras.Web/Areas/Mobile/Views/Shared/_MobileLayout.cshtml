@@ -145,8 +145,9 @@
             </div>
         </div>
     </header>
-
-    <div id="divShowRoom" class="ocultarPopup" style="display: none;">
+    
+    <!-- SHOWROOM -->
+    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -154,12 +155,13 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigital"></span>
             </div>
         </div>
         <div class="fondo_m">
-            <div class=" row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 24px; width: 110px;">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
                     <div class="texto_dias_m">
                         SÓLO FALTAN
                     </div>
@@ -190,10 +192,9 @@
 
             </div>
         </div>
-        <div class="sombra_m"></div>
+        
     </div>
-
-    <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
+    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -201,14 +202,16 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigitalHoy"></span>
             </div>
         </div>
-        <div class="fondo_m">
+        <div class="fondo_white">
             <div class=" row_contador">
-                <div>
-                    <a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                    <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>
+                <div style="text-align: center;">
+                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
                 </div>
             </div>
         </div>
@@ -218,7 +221,7 @@
             </div>
         </div>
         <div class="indicador_red">
-            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
+            
         </div>
     </div>
 
@@ -442,17 +445,7 @@
 
             CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
-            //CargarCantidadPedidosConsultoraOnline();
-
-            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
-            });
-
-            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
-            });
-
-            CargarShowRoom();
+            //CargarCantidadPedidosConsultoraOnline();            
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {
                 var theEvent = evt || window.event;
@@ -520,6 +513,15 @@
                 $txtcantidad.val(cantidad);
             });
 
+            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
+            });
+
+            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
+            });
+
+            CargarShowRoom();
         });
 
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -1004,8 +1006,69 @@
                     }
                 }
             });
+        }        
+
+        function SeparadorMiles(pnumero) {
+            // Función que colocará el caracter "." como separador de miles.
+
+            var resultado = "";
+            var numero = pnumero.replace(/\,/g, '');
+            var nuevoNumero = "";
+            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+            else nuevoNumero = numero.replace(/\./g, '');
+
+            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+
+            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+
+            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+
+            if (numero[0] == "-") return "-" + resultado;
+            else return resultado;
+        };
+
+        /* Tracking Jetlore */
+        function TrackingJetloreAdd(cantidad, campania, cuv) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.addToCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
         }
 
+        function TrackingJetloreRemove(cantidad, campania, cuv) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemoveAll(lista) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart(lista);
+
+            }
+        }
+        /* Fin Tracking Jetlore */
+        
         function CargarShowRoom() {
             jQuery.ajax({
                 type: 'POST',
@@ -1020,11 +1083,18 @@
 
                             if (showroomConsultora.EventoConsultoraID != 0) {
                                 if (response.estaActivoLateral) {
-                                    $("#hdNombreEventoShowRoom").val(evento.Nombre);
+                                    $("#hdNombreEventoShowRoom").val(evento.Tema);
                                     $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                                    ///////NOHELY
+                                    $("#content").css("margin-top", "0px");
 
                                     if (response.mostrarShowRoomProductos) {
                                         $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+
+                                        $("#spnPreventaDigitalHoy").html(evento.Nombre);
+
+                                        $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                     if (document.getElementById("estiloShowRoom") == null) {
                                         $("#divShowRoomHoy").show();
@@ -1032,6 +1102,8 @@
                                     }
                                 } else {
                                     $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+
+                                        $("#spnPreventaDigital").html(evento.Nombre);
 
                                     AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
 
@@ -1099,24 +1171,18 @@
 
     function SeparadorMiles(pnumero) {
         // Función que colocará el caracter "." como separador de miles.
-
         var resultado = "";
         var numero = pnumero.replace(/\,/g, '');
         var nuevoNumero = "";
         if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
         else nuevoNumero = numero.replace(/\./g, '');
-
         if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
         for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
             resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
         if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
         if (numero[0] == "-") return "-" + resultado;
         else return resultado;
     };
-
     function AgregarTimerShowRoom(dia, mes, anio) {
         var calcNewYear = setInterval(function () {
             //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -1150,13 +1216,10 @@
             }
         }, 1000);
     }
-
     /* Tracking Jetlore */
     function TrackingJetloreAdd(cantidad, campania, cuv) {
         var esJetlore;
-
         esJetlore = esPaisTrackingJetlore == "1";
-
         if (esJetlore) {
             JL.tracker.addToCart({
                 count: cantidad,
@@ -1165,12 +1228,9 @@
             });
         }
     }
-
     function TrackingJetloreRemove(cantidad, campania, cuv) {
         var esJetlore;
-
         esJetlore = esPaisTrackingJetlore == "1";
-
         if (esJetlore) {
             JL.tracker.removeFromCart({
                 count: cantidad,
@@ -1179,15 +1239,11 @@
             });
         }
     }
-
     function TrackingJetloreRemoveAll(lista) {
         var esJetlore;
-
         esJetlore = esPaisTrackingJetlore == "1";
-
         if (esJetlore) {
             JL.tracker.removeFromCart(lista);
-
         }
     }
     /* Fin Tracking Jetlore */
