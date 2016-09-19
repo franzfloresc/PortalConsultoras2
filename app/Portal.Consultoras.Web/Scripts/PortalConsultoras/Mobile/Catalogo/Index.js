@@ -552,7 +552,7 @@ function ObtenerNombrePais(idPais) {
 function SetGoogleAnalytics(Imagen, Accion, Label) {
     dataLayer.push({
         'event': 'virtualEvent',
-        'category': 'Catalogo',
+        'category': 'Catálogos y revistas',
         'action': Accion,
         'label': Label,
         'value': 0
@@ -922,6 +922,7 @@ function TagManagerWS(Catalogo) {
         'action': 'Compartir WhatsApp',
         'label': 'Lbel',
         'value': 0
-    });
+    });
+
 }
 

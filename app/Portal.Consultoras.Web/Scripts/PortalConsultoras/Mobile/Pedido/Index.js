@@ -647,7 +647,7 @@ function InsertarProducto() {
                                 'brand': data.data.DescripcionLarga,
                                 'id': data.data.CUV,
                                 'category': 'NO DISPONIBLE',
-                                'variant': data.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                                 'quantity': Number(model.Cantidad),
                                 'position': 1
                             }]
@@ -763,17 +763,17 @@ function ArmarCarouselEstrategias(data) {
                 arrayEstrategia.push(impresionRecomendado);
 
                 dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Pedido',
                     'action': 'Ofertas para ti',
                     'label': 'Ver anterior'
                 });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });                
             } else if (accion == 'next') {
                 //TagManager
                 var posicionUltimoActivo = $($('#divContenidoEstrategias').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
@@ -795,17 +795,17 @@ function ArmarCarouselEstrategias(data) {
                 arrayEstrategia.push(impresionRecomendado);
 
                 dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Pedido',
                     'action': 'Ofertas para ti',
                     'label': 'Ver siguiente'
                 });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });                
             };
 
         });
@@ -829,9 +829,6 @@ function PedidoOnSuccess() {
     var ItemCantidad = $("#txtCantidad").val();
     var ItemPrecio = $("#spnPrecio").html();
     var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
-
-    TagManagerClickAgregarProducto(ItemTotal, $("#hdfCUV").val(), $("#divNombreProducto").html(), $("#hdfDescripcionCategoria").val(),
-        ItemPrecio, ItemCantidad, $("#hdfDescripcionMarca").val(), $("#hdfDescripcionEstrategia").val(), posicion);
 
     $("#hdfCUV").val("");
     $("#hdfDescripcionProd").val("");
