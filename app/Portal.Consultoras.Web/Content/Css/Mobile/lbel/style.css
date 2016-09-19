@@ -4362,7 +4362,7 @@ width:100%;
     width:40%;
     height:48px;
     line-height:48px;
-    background:white;
+    background:transparent;
     float:left;
     text-align:center;
     font-weight:700;
@@ -5445,7 +5445,7 @@ body{
 }
 
 .contenedor_productos_liquidacion .content_item_home {
-    margin-bottom: 16px;
+    margin-bottom: 30px;
     display: inline-block;
     vertical-align:top;
 }
@@ -7705,4 +7705,154 @@ a:focus, a:hover {
 }
 .fondo_white{
     background:white;
+}
+/*CATÁLOGO PERSONALIZADO*/
+.content_PopOferta{
+    width: 100%;
+    height: 100%;
+    /* height: 0; */
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+.linea_separadora_black{
+    width:100%;
+    height:1px;
+    background:black;
+}
+.titulo_popOferta{
+    font-family:'Lato';
+    font-size:16px;
+    font-weight:900;
+    color:#613c87;
+    padding-left:10px;
+    padding-right:10px;
+    background:white;
+    display: inline-block;
+    margin-top:15px;
+}
+.content_item_oferta{
+    width:80%;
+    margin:0 auto;
+    padding-top:30px;
+    padding-bottom:50px;
+    font-family:'Lato';
+}
+.content_imagen_oferta{
+    width:80%;
+    height:auto;
+    min-height:100px;
+    margin:0 auto;
+    border: 1px solid #dadada;
+    margin-bottom:15px !important
+
+}
+.content_imagen_oferta img{
+    width:100%;
+}
+.titulo_producto_oferta{
+    font-family:'Lato';
+    font-size:16px;
+    font-weight:700;
+    color:black;
+    text-align:center;
+    margin-bottom:5px;
+}
+.sub_texto_oferta{
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:700;
+    color:black;
+    text-align:center;
+    margin-bottom:5px;
+}
+.texto_ganancia_oferta{
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:700;
+    color:#613c87;
+    text-align:center;
+    margin-bottom:5px;
+    margin-bottom:15px;
+}
+.row_20{
+    margin-left:-20px;
+    margin-right:-20px;
+}
+.content_sub_items{
+    overflow:hidden;
+   }
+.sub_imagen_oferta{
+    width:25%;
+    margin-right:5%;
+    height:auto;
+    border:1px solid #dadada;
+    float:left;
+}
+.sub_imagen_oferta img{
+    width:100%;
+}
+.sub_descripcion_oferta{
+    width:70%;
+    height:100%;
+    padding-top:8%;
+    border-top:1px solid #dadada;
+    float:left;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    }
+.left_70{
+    float:left;
+    margin-left:30%;
+}
+.sombra_oferta{
+    width:100%;
+    height:auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    position:relative;
+    background:#ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+    
+}
+.agregado {
+    height: 12px;
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
+}
+.icono {
+    width: 11px;
+    height: 11px;
+    display: inline-block;
+    background: url("../../../Images/group.svg") center center no-repeat;
+}
+.enlace_popupCatalogoPersonalizado {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    margin-bottom: 6px;
+}
+.seguir_pedido {
+    display: inline-block;
+    vertical-align: top;
+   
+    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background-position: 0px 5px;
+    font-family: 'lato';
+    font-size: 11px;
+    color: black;
+    padding-left: 4%;
+    
+    /* letter-spacing: 1px; */
+    font-weight: 700;
+}
+.enlace_popupCatalogoPersonalizado a {
+    display: inline;
+    color: #e81c36;
 }
