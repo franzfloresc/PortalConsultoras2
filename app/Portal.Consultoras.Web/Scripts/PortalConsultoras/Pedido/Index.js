@@ -429,7 +429,7 @@ $(document).ready(function () {
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();
     });
-    
+
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
@@ -2632,8 +2632,7 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
-                                AnalyticsGuardarValidar(response.data);
-                                AnalyticsPedidoValidado(response.data);
+                                AnalyticsPedidoValidado(response);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
                                 }, 3000);
@@ -2684,7 +2683,7 @@ function EjecutarServicioPROL() {
                 }
                 CargarDetallePedido();
             }
-            AnalyticsGuardarValidar(response.data);
+            AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;
         },
         //**********
@@ -2838,7 +2837,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             $("#btnNoGraciasOfertaFinal")[0].data = response;
             MostrarMensajeProl(response);
-            AnalyticsGuardarValidar(response.data);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2862,8 +2860,7 @@ function MostrarMensajeProl(response) {
                 } else {
                     showDialog("divReservaSatisfactoria");
                     //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(data);
-                    AnalyticsPedidoValidado(data);
+                    AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
                     }, 3000);
@@ -2898,7 +2895,6 @@ function MostrarMensajeProl(response) {
 
         CargarDetallePedido();
     }
-    AnalyticsGuardarValidar(data);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -2933,8 +2929,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
-    if (tipoPopupMostrar == 1)
-    {
+    if (tipoPopupMostrar == 1) {
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
         $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
@@ -2945,8 +2940,7 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
             $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti.");
         }
     }
-    else
-    {
+    else {
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
         $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
@@ -4280,7 +4274,7 @@ function AnalyticsBannersInferioresImpression() {
 function AnalyticsGuardarValidar(response) {
     var arrayEstrategiasAnalytics = [];
     var accion = $('#hdAccionBotonProl').val();
-    data.pedidoDetalle = data.pedidoDetalle || new Array();
+
     response.pedidoDetalle = response.pedidoDetalle || new Array();
     $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
@@ -4312,7 +4306,7 @@ function AnalyticsGuardarValidar(response) {
 }
 function AnalyticsPedidoValidado(response) {
     var arrayEstrategiasAnalytics = [];
-    data.pedidoDetalle = data.pedidoDetalle || new Array();
+
     response.pedidoDetalle = response.pedidoDetalle || new Array();
     $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
