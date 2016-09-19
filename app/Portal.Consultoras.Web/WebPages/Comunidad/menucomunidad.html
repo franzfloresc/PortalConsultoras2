@@ -5,8 +5,6 @@
         left: 0px !important;
         background: white !important;
         height: 80px;
-        position: fixed;
-        background: white;
         z-index: 900;
         width: 100% !important;
         -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
@@ -197,6 +195,7 @@
         color: black;
         display: block;
         text-decoration: none;
+        text-align: left;
     }
 
         .menu_enlace:hover {
@@ -362,7 +361,6 @@
                                     $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/Lbel/logo_lbel.png");
                                     $(".pestana_marca").removeClass("pestana_esika");
                                     $(".pestana_marca").addClass("pestana_lbel");
-                                    $(".boton_marca").removeClass("boton_cam");
                                     $(".boton_marca").addClass("boton_cam_lbel");
                                     break;
                                 default:
@@ -404,7 +402,6 @@
                     alert(response.responseText);
                 }
             });
-
         }
     });
 
