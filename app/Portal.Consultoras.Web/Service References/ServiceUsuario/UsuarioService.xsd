@@ -358,13 +358,19 @@
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaSolicitud" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaSolicitudFormat" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagMedio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Leido" type="xs:int" />
+      <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeDelCliente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumIteracion" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SaldoHoras" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -379,12 +385,19 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeValidacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoWebDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioTotal" type="xs:double" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:double" />
       <xs:element minOccurs="0" name="Producto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneStock" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoAtencion" type="xs:int" />
       <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

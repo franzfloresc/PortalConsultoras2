@@ -309,6 +309,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                #region Pedidos Pendientes
+                ViewBag.MostrarPedidosPendientes = System.Configuration.ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                #endregion
+
             }
             catch (FaultException ex)
             {
