@@ -365,7 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
-                    mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; max-width:524px; \">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:524px; \">";
                     mailBody += "<tbody>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"width:13%; text-align:left;\">";
