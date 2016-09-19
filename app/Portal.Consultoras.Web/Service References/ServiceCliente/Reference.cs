@@ -927,6 +927,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int OrdenPedidoWDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrigenPedidoWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1517,6 +1520,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.OrdenPedidoWDField.Equals(value) != true)) {
                     this.OrdenPedidoWDField = value;
                     this.RaisePropertyChanged("OrdenPedidoWD");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrigenPedidoWeb {
+            get {
+                return this.OrigenPedidoWebField;
+            }
+            set {
+                if ((this.OrigenPedidoWebField.Equals(value) != true)) {
+                    this.OrigenPedidoWebField = value;
+                    this.RaisePropertyChanged("OrigenPedidoWeb");
                 }
             }
         }
