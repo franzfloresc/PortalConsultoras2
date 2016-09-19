@@ -101,7 +101,11 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             descripcion = producto.NombreComercial;
                             imagenUrl = producto.Imagen;
-                            add = true;
+                            if (olstProducto[0].TieneStock)
+                            {
+                                add = true;
+                            }
+                            //add = true;
                         }
 
                         if (add)
