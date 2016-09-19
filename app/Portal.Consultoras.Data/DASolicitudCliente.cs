@@ -166,6 +166,18 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
+
+        public void UpdSolicitudClienteDetalle(long solicitudClienteDetalleId, int tipoAtencion, int pedidoWebID, int pedidoWebDetalleID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudClienteDetalle_SB2");
+            Context.Database.AddInParameter(command, "@SolicitudDetalleId", DbType.Int64, solicitudClienteDetalleId);
+            Context.Database.AddInParameter(command, "@TipoAtencion", DbType.Int32, tipoAtencion);
+            Context.Database.AddInParameter(command, "@PedidoWebID", DbType.Int32, pedidoWebID);
+            Context.Database.AddInParameter(command, "@PedidoWebDetalleID", DbType.Int32, pedidoWebDetalleID);
+
+            Context.ExecuteReader(command);
+        }
+
         public void RechazarSolicitudCliente(long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdRechazarSolicitud");

@@ -300,10 +300,18 @@ namespace Portal.Consultoras.Service
 
 
         //ConsultoraOnline
-        public IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId)
+        //public IList<BEMisPedidos> GetNotificacionesConsultoraOnlineCab(int PaisID, long ConsultoraId)
+        public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
             var BLMisPedidos = new BLConsultoraOnline();
-            return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
+            //return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
+            return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
+        }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID)
+        {
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
 
         //R2073

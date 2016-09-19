@@ -349,7 +349,7 @@
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">
-        <img src="@Model.UrlImagenCatalogoPersonalizado" alt="-" />
+        <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
     </div>
 }
 <div class="disclaimer_b">@(pieEscala)</div>
