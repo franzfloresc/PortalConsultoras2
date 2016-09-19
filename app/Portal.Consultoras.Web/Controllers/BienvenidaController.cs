@@ -373,42 +373,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
-        {
-            try
-            {
-                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
-                {
-                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-        }
+        //public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        //{
+        //    try
+        //    {
+        //        using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+        //        {
+        //            sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+        //        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         public ActionResult RedireccionarFlexipago()
         {
@@ -1381,5 +1381,113 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        /* SB20-834 - INICIO */
+        public JsonResult ObtenerComunicadosPopUps()
+        {
+            int ComunicadoVisualizado = 0;
+            List<BEComunicado> comunicados = new List<BEComunicado>();
+
+            using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+            {
+                comunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora).ToList();
+
+                if (comunicados != null)
+                    ComunicadoVisualizado = 1;
+            }
+
+            ViewBag.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+
+            return Json(new
+            {
+                success = true,
+                data = comunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == UserData().CampaniaID),
+                codigoISO = UserData().CodigoISO,
+                codigoCampania = UserData().CampaniaID,
+                codigoConsultora = UserData().CodigoConsultora,
+                comunicadoVisualizado = ComunicadoVisualizado,
+                ipUsuario = UserData().IPUsuario
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult RegistrarDonacionConsultora(string CodigoISO, string CodigoConsultora, string Campania, int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarDonacionConsultora(UserData().PaisID, CodigoISO, UserData().CodigoConsultora, Campania, UserData().IPUsuario);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                string mensaje = string.Format("¡Gracias por ayudar a la familia Ésika a reconstruir su vida! Tu donación será cargada a tu estado de cuenta de pedido de campaña {0}", Campania.Substring(4));
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+        /* SB20-834 - FIN */
     }
 }
