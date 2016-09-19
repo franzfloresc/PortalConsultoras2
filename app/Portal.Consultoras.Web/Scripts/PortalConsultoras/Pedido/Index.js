@@ -8,6 +8,7 @@ var posicionInicial = 0;
 var posicionFinalPantalla = 2;
 var posicionTotal = 0;
 var salto = 3;
+var analyticsGuardarValidarEnviado = false;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
@@ -2429,6 +2430,7 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
+    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2600,12 +2602,10 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
-                                AnalyticsGuardarValidar(response);
                                 AnalyticsPedidoValidado(response);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
-                                }, 2000);
-                                return true;
+                                }, 3000);
                             }
                         }
                     } else {
@@ -2654,6 +2654,7 @@ function EjecutarServicioPROL() {
                 CargarDetallePedido();
             }
             AnalyticsGuardarValidar(response);
+            analyticsGuardarValidarEnviado = true;
         },
         //**********
         error: function (data, error) {
@@ -2665,6 +2666,7 @@ function EjecutarServicioPROL() {
 }
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
+    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2805,7 +2807,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
             $("#btnNoGraciasOfertaFinal")[0].data = response;
             MostrarMensajeProl(response);
-            AnalyticsGuardarValidar(response);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2816,6 +2817,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 function MostrarMensajeProl(response) {
     var data = response.data;
+
+    if (!analyticsGuardarValidarEnviado)
+        AnalyticsGuardarValidar(response);
+
     if (data.Reserva == true) {
         if (data.ZonaValida == true) {
             if (data.ObservacionInformativa == false) {
@@ -2825,12 +2830,10 @@ function MostrarMensajeProl(response) {
                 } else {
                     showDialog("divReservaSatisfactoria");
                     //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 2000);
-                    return true;
+                    }, 3000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2862,7 +2865,6 @@ function MostrarMensajeProl(response) {
 
         CargarDetallePedido();
     }
-    AnalyticsGuardarValidar(data);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -4058,19 +4060,19 @@ function AnalyticsBannersInferioresImpression() {
         });
     }
 }
-function AnalyticsGuardarValidar(data) {
+function AnalyticsGuardarValidar(response) {
     var arrayEstrategiasAnalytics = [];
     var accion = $('#hdAccionBotonProl').val();
 
-    data.pedidoDetalle = data.pedidoDetalle || new Array();
-    $.each(data.pedidoDetalle, function (index, value) {
+    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
             'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? 'Estándar' : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -4079,30 +4081,30 @@ function AnalyticsGuardarValidar(data) {
     dataLayer.push({
         'event': 'productCheckout',
         'action': accion == 'guardar' ? 'Guardar' : 'Validar',
-        'label': data.mensajeAnalytics,
+        'label': response.mensajeAnalytics,
         'ecommerce': {
             'checkout': {
                 'actionField': {
                     'step': accion == 'guardar' ? 1 : 2,
-                    'option': data.mensajeAnalytics
+                    'option': response.mensajeAnalytics
                 },
                 'products': arrayEstrategiasAnalytics
             }
         }
     });
 }
-function AnalyticsPedidoValidado(data) {
+function AnalyticsPedidoValidado(response) {
     var arrayEstrategiasAnalytics = [];
 
-    data.pedidoDetalle = data.pedidoDetalle || new Array();
-    $.each(data.pedidoDetalle, function (index, value) {
+    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
             'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? 'Estándar' : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
