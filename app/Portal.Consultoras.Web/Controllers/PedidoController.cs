@@ -4697,12 +4697,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (olstProducto.Count != 0)
                         {
-                            if (!olstProducto[0].TieneStock)
-                                continue;
-
                             string descripcion = producto.NombreComercial;
-                            string imagenUrl = Util.SubStr(producto.Imagen, 0);                           
-                            
+                            string imagenUrl = Util.SubStr(producto.Imagen, 0);
+
                             if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                             {
                                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -4711,7 +4708,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (imagenUrl == "")
                                 continue;
-
 
                             listaProductoModel.Add(new ProductoModel()
                             {
