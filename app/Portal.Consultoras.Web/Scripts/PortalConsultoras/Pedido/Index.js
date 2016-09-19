@@ -418,8 +418,8 @@ $(document).ready(function () {
         if (esMontoMinimo) {
             $("#divOfertaFinal").hide();
         } else {
-            var data = $("#btnNoGraciasOfertaFinal")[0].data;
-            MostrarMensajeProl(data);
+            var response = $("#btnNoGraciasOfertaFinal")[0].data;
+            MostrarMensajeProl(response);
         }
     });
 
@@ -2581,7 +2581,7 @@ function EjecutarServicioPROL() {
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             //var montoTotalPedido = parseFloat($("#hdfTotal").val());
 
-            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+            $("#btnNoGraciasOfertaFinal")[0].data = response;
 
             var cumpleOferta;
             
@@ -2600,8 +2600,8 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
-                                AnalyticsGuardarValidar(response.data);
-                                AnalyticsPedidoValidado(response.data);
+                                AnalyticsGuardarValidar(response);
+                                AnalyticsPedidoValidado(response);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
                                 }, 2000);
@@ -2653,7 +2653,7 @@ function EjecutarServicioPROL() {
                 }
                 CargarDetallePedido();
             }
-            AnalyticsGuardarValidar(response.data);
+            AnalyticsGuardarValidar(response);
         },
         //**********
         error: function (data, error) {
@@ -2803,9 +2803,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
             $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
             $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
-            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
-            MostrarMensajeProl(response.data);
-            AnalyticsGuardarValidar(response.data);
+            $("#btnNoGraciasOfertaFinal")[0].data = response;
+            MostrarMensajeProl(response);
+            AnalyticsGuardarValidar(response);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2814,7 +2814,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
         }
     });
 }
-function MostrarMensajeProl(data) {
+function MostrarMensajeProl(response) {
+    var data = response.data;
     if (data.Reserva == true) {
         if (data.ZonaValida == true) {
             if (data.ObservacionInformativa == false) {
@@ -2824,8 +2825,8 @@ function MostrarMensajeProl(data) {
                 } else {
                     showDialog("divReservaSatisfactoria");
                     //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(data);
-                    AnalyticsPedidoValidado(data);
+                    AnalyticsGuardarValidar(response);
+                    AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
                     }, 2000);
