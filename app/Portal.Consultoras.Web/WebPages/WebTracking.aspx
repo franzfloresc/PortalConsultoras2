@@ -249,7 +249,7 @@
                                                 </asp:Panel>
 
 
-
+                                                <br />
                                                 <asp:Panel ID="pPostVenta" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>postventas<b>"
                                                     Font-Names="verdana" Font-Size="12pt" HorizontalAlign="Left" Visible="false">
