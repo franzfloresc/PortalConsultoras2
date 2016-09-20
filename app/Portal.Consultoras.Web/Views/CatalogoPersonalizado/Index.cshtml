@@ -14,6 +14,8 @@
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
                 <div class="pestana_lbel new"></div>
+                <div class="clear"></div>
+                <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
                 <div id="divCatalogoPersonalizado"></div>
                 <div class="clear"></div>
             </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
@@ -41,7 +43,7 @@
     <div class="content-favclientes catper pantallaCatalogoPersonalizado">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
-            <div style="display: none;">
+            <div id="hiddenCatalogo" style="display: none;">
                 <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
                 <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
                 <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
@@ -68,13 +70,13 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
-                <div class="producto_precio">
+                <div class="producto_precio" style="margin-bottom:28px;">
+                    @*<span class="producto_precio_normal">S/. 20.90</span>*@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="seguir_pedido enlace_popupCatalogoPersonalizado">
-                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA</a>
-                    EN TU GUÍA DE NEGOCIO!
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
                 </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
@@ -103,18 +105,34 @@
 
 <script id="template-mod-ofer1" type="text/x-handlebars-template">
     <div class="cuerpo-mod">
-        <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
-        <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-        <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-        <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
-        <input type="hidden" class="hdItemTipo" value="1" />
-        <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
-        <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
-        <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
-        <input type="hidden" class="hdItemPagina" value="0" />
-        <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
-        <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
-        <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+        <div style="display:none;" id="hiddenRevista">
+                <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+        </div>
         <div class="cerrar-mod" onclick="$('.mod-ofer1').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
@@ -122,7 +140,7 @@
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
         </div>
         <div class="contiene-productos">
-            <div class="producto_img_home mini">
+            <div class="producto_img_home mini" id="imagenAnimacion">
 
                 <img src="{{UrlImagen}}" />
             </div>
@@ -147,7 +165,7 @@
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="{{cuv_revista}}">
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
                     AGRÉGALO
                 </a>
             </div>
@@ -170,7 +188,7 @@
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="{{cuv_catalogo}}">
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">
                     AGRÉGALO
                 </a>
             </div>
