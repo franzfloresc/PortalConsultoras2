@@ -676,10 +676,6 @@ header {
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
@@ -6331,6 +6327,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }*/
 .boton-home a {
     color: black;
+    padding-top: 32px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .mensaje_adicional_producto {
     display: block;
@@ -27014,7 +27014,7 @@ position: relative; float: left;
     float: left;
     margin-left: 10px;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: black;
     text-align: left;
@@ -27493,7 +27493,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .caja_montos_textos_sinDescuento{
     font-weight:normal;
-    margin-right:10px;
+    margin-right:28px;
 }
 
 .caja_montos_cantidades_sinDescuento{
@@ -27511,6 +27511,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .caja_montos_cantidades_sinDescuento span:last-child{
     line-height:30px;
+}
+
+.dscto_ofertasNiveles{
+    margin-left:20px;
 }
 
 .separador_montos{
@@ -27670,8 +27674,8 @@ span.datoPedidoCliente {
 }
 
 .pValidado{
-    margin-bottom:0px;
-    margin-left:13px;
+    margin-bottom: 0px;
+    margin-left: 13px;
 }
 
 .mis_descuentos{
