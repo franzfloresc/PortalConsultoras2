@@ -2903,6 +2903,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
+    var montoMinimo = DecimalToStringFormat(parseFloat($("#hdMontoMinimo").val()));
+
     if (tipoPopupMostrar == 1) {
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
         $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
@@ -2918,7 +2920,7 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
         $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO...</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $('#spMontoMinimoCabecera').html(formatoMontoFaltante);
+        $('#spMontoMinimoCabecera').html(montoMinimo);
         $('#spCabeceraMontominimo').show();
         $("#spnMensajeOfertaFinal").html("&nbsp;para poder pasar tu pedido.");
         if (viewBagPaisID == "3") {
