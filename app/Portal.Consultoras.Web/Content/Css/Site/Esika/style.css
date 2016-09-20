@@ -27292,6 +27292,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-bottom: 15px;
     margin-top: 15px;
     vertical-align:top;
+    padding-bottom:12px;
 }
 
 .content_carrusel_agregado .agregado {
