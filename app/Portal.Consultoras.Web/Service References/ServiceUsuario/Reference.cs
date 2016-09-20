@@ -128,6 +128,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EMailActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCatalogoPersonalizadoZonaValidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -864,6 +867,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EMailActivoField.Equals(value) != true)) {
                     this.EMailActivoField = value;
                     this.RaisePropertyChanged("EMailActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCatalogoPersonalizadoZonaValida {
+            get {
+                return this.EsCatalogoPersonalizadoZonaValidaField;
+            }
+            set {
+                if ((this.EsCatalogoPersonalizadoZonaValidaField.Equals(value) != true)) {
+                    this.EsCatalogoPersonalizadoZonaValidaField = value;
+                    this.RaisePropertyChanged("EsCatalogoPersonalizadoZonaValida");
                 }
             }
         }

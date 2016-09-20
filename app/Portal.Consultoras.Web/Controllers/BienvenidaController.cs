@@ -1411,7 +1411,8 @@ namespace Portal.Consultoras.Web.Controllers
                 comunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora).ToList();
 
                 if (comunicados != null)
-                    ComunicadoVisualizado = 1;
+                    if (comunicados.Any())
+                        ComunicadoVisualizado = 1;                    
             }
 
             ViewBag.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
