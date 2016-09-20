@@ -1,9 +1,6 @@
-﻿var cantidadItemPagina = 12;
-var cantidadItemMostrarInicio = 12;
-var posicionFinalMostrada = 0;
-var cantidadRegistros = 12;
-var offset = 0;
-var puedeCargar = true;
+﻿var cantidadRegistros = 12;
+var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
     IniDialog();
@@ -334,38 +331,50 @@ $(document).ready(function () {
         }
     });
 
-    if (!ReservadoOEnHorarioRestringido(false)) {
-        $('#loader').show();
-        CargarOfertasLiquidacion();
-    }
+    Inicializar();
 });
 
+function Inicializar() {
+    ValidarCargaOfertasLiquidacion();
+    LinkCargarOfertasToScroll();
+}
+
+function LinkCargarOfertasToScroll() { $(window).scroll(CargarOfertasScroll); }
+function UnlinkCargarOfertasToScroll() {
+    $(window).off("scroll", CargarOfertasScroll);
+    cargandoRegistros = false;
+}
+function CargarOfertasScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        ValidarCargaOfertasLiquidacion();
+    }
+}
+
+function ValidarCargaOfertasLiquidacion() {
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+}
 function CargarOfertasLiquidacion() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertaLiquidacion/JsonGetOfertasLiquidacion',
-        data: { offset: offset, cantidadregistros: cantidadRegistros, origen: 'OfertaLiquidacion' },
+        data: { offset: offsetRegistros, cantidadregistros: cantidadRegistros, origen: 'OfertaLiquidacion' },
         dataType: 'json',
-        beforeSend: function () {
-            $('#loader').show();
-            $('#boton_vermas').hide();
-        },
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {                    
-            ArmarCarouselLiquidaciones(data.lista);
-            if (data.verMas == true) {
-                $('#boton_vermas').show();
-            }           
-            offset += cantidadRegistros;
+        success: function (data) {
+            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+            if (!data.verMas) UnlinkCargarOfertasToScroll();
+            offsetRegistros += cantidadRegistros;
+        },
+        error: function (data, error) {
+            console.log(error);
         },
         complete: function (data) {
-            $('#loader').hide();           
-            puedeCargar = true;
-        },
-        error: function () {
-            puedeCargar = true;
-            $('#boton_vermas').show();
-            $('#loader').hide();
+            closeWaitingDialog();
+            cargandoRegistros = false;
         }
     });
 };
@@ -606,6 +615,43 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 };
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+}
 function alert_msg_pedido(message) {
     $('#DialogMensajes .pop_pedido_mensaje').html(message);
     $('#DialogMensajes').dialog('open');
