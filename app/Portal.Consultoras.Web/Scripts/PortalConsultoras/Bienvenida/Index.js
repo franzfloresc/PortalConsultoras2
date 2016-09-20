@@ -542,6 +542,11 @@ $(document).ready(function () {
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
     });
+        
+    //ShowRoom
+    CrearPopShow();
+    MostrarShowRoom();
+    //Fin ShowRoom
 });
 
 function CargarCamara() {
@@ -3608,6 +3613,76 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
     }
 }
 
+function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
+    waitingDialog();
+    var hidden;
+
+    if (tipoCUV == 'revista') {
+        hidden = $(item).find('#hiddenRevista');
+    } else if (tipoCUV == 'catalogo') {
+        hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    var model = {
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        Cantidad: cantidad,
+        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
+        CUV: $(hidden).find(".hdItemCuv").val(),
+        Tipo: $(hidden).find(".hdItemTipo").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        Pagina: $(hidden).find(".hdItemPagina").val(),
+        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
+        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
+        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
+        EsSugerido: false
+    };
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
+    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+}
+  
 //ShowRoom
 function CrearPopShow() {
     $("body").on("click", "div.check_01 label.checkpop input", function (event) {
@@ -3751,76 +3826,6 @@ function MostrarShowRoom() {
         });
     }
 
-}
-
-function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
-    waitingDialog();
-    var hidden;
-
-    if (tipoCUV == 'revista') {
-        hidden = $(item).find('#hiddenRevista');
-    } else if (tipoCUV == 'catalogo') {
-        hidden = $(item).find('#hiddenCatalogo');
-    }
-
-    var model = {
-        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
-        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
-        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
-        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
-        Cantidad: cantidad,
-        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
-        CUV: $(hidden).find(".hdItemCuv").val(),
-        Tipo: $(hidden).find(".hdItemTipo").val(),
-        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
-        Pagina: $(hidden).find(".hdItemPagina").val(),
-        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
-        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
-        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
-        EsSugerido: false
-    };
-
-    if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
-
-    if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
-
-    var imagenProducto = $('#imagenAnimacion>img', item);
-
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
-
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
-        }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 450, 'swing', function () {
-            $(this).animate({
-                'top': carrito.offset().top,
-                'opacity': 0,
-            }, 150, 'swing', function () {
-                $(this).remove();
-            });
-        });
-    }
-
-    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
 }
 
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
