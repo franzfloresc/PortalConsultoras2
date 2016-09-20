@@ -215,7 +215,9 @@ $(document).ready(function () {
             if (viewBagVerComunicado == '1') {
                 //console.log('show popup #3');
                 showComunicadoSinMostrar();
-                $('#popupComunicados').show();
+                if ($.trim($('#popupComunicados').html()) != "") {
+                    $('#popupComunicados').show();
+                }
             }
             else {
                 //console.log('show popup #4');
