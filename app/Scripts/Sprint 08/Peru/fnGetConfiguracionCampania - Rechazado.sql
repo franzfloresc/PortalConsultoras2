@@ -1,6 +1,6 @@
 
 
-CREATE FUNCTION dbo.fnGetConfiguracionCampania
+ALTER FUNCTION dbo.fnGetConfiguracionCampania
 (
 	@PaisID tinyint,
 	@ZonaID int,
@@ -105,11 +105,8 @@ BEGIN
 	-- Dias Duracion Cronograma para Nuevas (CR)
 	IF @PaisID = 5 OR @PaisID = 8 OR @PaisID = 7 OR @PaisID = 10
 	BEGIN
-		declare @UCF int
-		declare @SID int
-	
-		set @UCF = 0
-		set @SID = 0
+		declare @UCF int = 0
+		declare @SID int = 0
 
 		select
 			@UCF = ISNULL(UltimaCampanaFacturada,0),
@@ -122,10 +119,8 @@ BEGIN
 	END
 
 	-- Variables ConfiguracionValidacionNuevoPROL
-	DECLARE @ZonaNuevoPROL BIT
-	DECLARE @ContNuevoPROL INT
-	SET @ZonaNuevoPROL = 0
-	SET @ContNuevoPROL = 0
+	DECLARE @ZonaNuevoPROL BIT = 0
+	DECLARE @ContNuevoPROL INT = 0
 
 	IF @NuevoPROL = 1
 	BEGIN
@@ -143,68 +138,67 @@ BEGIN
 
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
-	DECLARE @AceptacionConsultoraDA INT
-	SET @AceptacionConsultoraDA = -1
+	DECLARE @AceptacionConsultoraDA INT = -1
 
 	-- Obtener Campania Anterior
-	DECLARE @Campania INT
+	DECLARE @Campania INT = 0
 	DECLARE @Anio INT
-	SET @Campania = 0
 
 	IF @EsquemaDAConsultora = 0
 	BEGIN
 		IF @TipoDA = 0
 		BEGIN
-		
-			SELECT TOP 1
-				@Campania = ca.Codigo,
-				@Anio = ca.Anio * 100
-			FROM [ods].[Cronograma] c (nolock)
-			INNER JOIN [ods].[Zona] z (nolock) ON z.RegionID = c.RegionID AND c.ZonaID = z.ZonaID
-			INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
-			WHERE
-				c.ZonaID = @ZonaID AND
-				c.RegionID = @RegionID AND
-				CONVERT(datetime, c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0)) + CONVERT(datetime, @HoraCierreZonaNormal) < @FechaGeneral
-			ORDER BY c.CampaniaID DESC
+				SELECT TOP 1
+					@Campania = ca.Codigo,
+					@Anio = ca.Anio * 100
+				FROM [ods].[Cronograma] c (nolock)
+				INNER JOIN [ods].[Zona] z (nolock) ON z.RegionID = c.RegionID AND c.ZonaID = z.ZonaID
+				INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
+				WHERE
+					c.ZonaID = @ZonaID AND
+					c.RegionID = @RegionID AND
+					CONVERT(datetime, c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
+					ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0)) + 
+					CONVERT(datetime, @HoraCierreZonaNormal) < @FechaGeneral
+				ORDER BY c.CampaniaID DESC
 		END
 		ELSE
 		BEGIN
-			SELECT TOP 1
-				@Campania = ca.Codigo,
-				@Anio = ca.Anio * 100
-			FROM [ods].[Cronograma] c (nolock)
-			INNER JOIN [ods].[Zona] z (nolock) ON z.RegionID = c.RegionID AND c.ZonaID = z.ZonaID
-			INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
-			LEFT JOIN [dbo].[Cronograma] cr (nolock) ON 
-				c.CampaniaID = cr.CampaniaID AND
-				c.RegionID = cr.RegionID AND
-				c.ZonaID = cr.ZonaID
-			WHERE 
-				c.ZonaID = @ZonaID AND c.RegionID = @RegionID AND
-				IIF(
-					@PaisID = 4,
-					ISNULL(
-						CONVERT(datetime, cr.FechaInicioDD) + CONVERT(datetime, @HoraCierreZonaDemAnti),
-						CONVERT(datetime, c.FechaInicioReFacturacion) + CONVERT(datetime, @HoraCierreZonaNormal)
-					),
-					ISNULL(
-						CONVERT(datetime, cr.FechaInicioWeb) + CONVERT(datetime, @HoraCierreZonaDemAnti),
-						CONVERT(
-							datetime,
-							c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0)
-						) + CONVERT(datetime, @HoraCierreZonaNormal)
-					)
-				) < @FechaGeneral
-			ORDER BY c.CampaniaID DESC
+				SELECT TOP 1
+					@Campania = ca.Codigo,
+					@Anio = ca.Anio * 100
+				FROM [ods].[Cronograma] c (nolock)
+				INNER JOIN [ods].[Zona] z (nolock) ON z.RegionID = c.RegionID AND c.ZonaID = z.ZonaID
+				INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
+				LEFT JOIN [dbo].[Cronograma] cr (nolock) ON 
+					c.CampaniaID = cr.CampaniaID AND
+					c.RegionID = cr.RegionID AND
+					c.ZonaID = cr.ZonaID
+				WHERE 
+					c.ZonaID = @ZonaID AND c.RegionID = @RegionID AND
+					IIF(
+						@PaisID = 4,
+						ISNULL(
+							CONVERT(datetime, cr.FechaInicioDD) + CONVERT(datetime, @HoraCierreZonaDemAnti),
+							CONVERT(datetime, c.FechaInicioReFacturacion) + CONVERT(datetime, @HoraCierreZonaNormal)
+						),
+						ISNULL(
+							CONVERT(datetime, cr.FechaInicioWeb) + CONVERT(datetime, @HoraCierreZonaDemAnti),
+							CONVERT(
+								datetime,
+								c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
+								ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0)
+							) + CONVERT(datetime, @HoraCierreZonaNormal)
+						)
+					) < @FechaGeneral
+				ORDER BY c.CampaniaID DESC
 		END
-	END
+	END -- FIN IF @EsquemaDAConsultora = 0
 	ELSE
 	BEGIN
 
-		DECLARE @Campania_temp INT
+		DECLARE @Campania_temp INT = 0
 		DECLARE @Anio_temp INT
-		SET @Campania_temp = 0
 
 		SELECT TOP 1
 			@Campania_temp = ca.Codigo,
@@ -260,7 +254,7 @@ BEGIN
 			) < @FechaGeneral
 		ORDER BY c.CampaniaID DESC
 
-	END
+	END -- FIN ELSE IF @EsquemaDAConsultora = 0
 
 	-- Valida Campania Anterior
 	IF(@Campania <> 0)
@@ -279,9 +273,7 @@ BEGIN
 		/* PCABRERA EPD-167 - INICIO */
 
 		DECLARE @UltimaCampanaFact INT
-		DECLARE @flgFact BIT
- 
-       SET @flgFact = 0
+		DECLARE @flgFact BIT = 0
 
 		-- ultima campania facturada de la consultora
 		SELECT @UltimaCampanaFact = UltimaCampanaFacturada FROM ods.Consultora WHERE ConsultoraID = @ConsultoraID
@@ -312,7 +304,7 @@ BEGIN
 		END
 		
 		/* PCABRERA EPD-167 - FIN */
-	END
+	END  -- FIN IF(@Campania <> 0)
 	ELSE
 	BEGIN
 		SELECT TOP 1 
@@ -323,7 +315,7 @@ BEGIN
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
 		WHERE z.ZonaID = @ZonaID AND z.RegionID = @RegionID
 		ORDER BY c.FechaInicioFacturacion ASC
-	END
+	END -- FIN ELSE IF(@Campania <> 0)
 
 	--Obtiene UltimaCampaniaFacturada
 	declare @UltimaCampanaFacturada int
@@ -356,8 +348,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		declare @IndicadorEnviado bit
-		set @IndicadorEnviado = 0
+		declare @IndicadorEnviado bit = 0
   
 		Select @IndicadorEnviado  = IndicadorEnviado
 		From pedidoweb (nolock)
@@ -390,8 +381,7 @@ BEGIN
 			CampaniaID = (				
 				SELECT CampaniaID
 				FROM ods.Campania with(nolock)
-	
-			WHERE Codigo=@campaniaFIC
+				WHERE Codigo=@campaniaFIC
 			)
 	END
 			
@@ -401,20 +391,20 @@ BEGIN
 		INSERT @TConfiguracionCampania
 		SELECT
 			ca.Codigo AS CampaniaID,
-			IIF(@TipoDA = 0,c.FechaInicioFacturacion,ISNULL(cr.FechaInicioWeb, c.FechaInicioFacturacion)) AS FechaInicioFacturacion,
+			IIF(@TipoDA = 0, c.FechaInicioFacturacion, ISNULL(cr.FechaInicioWeb, c.FechaInicioFacturacion)) AS FechaInicioFacturacion,
 			IIF(@TipoDA = 0,
-				c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),
+				c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
+				ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),
 				IIF(
 					@PaisID = 4,
-
 					ISNULL(cr.FechaInicioDD,c.FechaInicioReFacturacion),
-					ISNULL(cr.FechaInicioWeb,c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0))
+					ISNULL(cr.FechaInicioWeb,c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
+					ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0))
 				)
-
 			) AS FechaFinFacturacion,
 			ca.NombreCorto AS CampaniaDescripcion,
 			@HoraInicio AS HoraInicio,
-			IIF(@TipoDA = 0, @HoraFin,IIF(ISNULL(cr.CampaniaId,0) = 0,@HoraFin,@HoraCierreZonaDemAnti)) as HoraFin,
+			IIF(@TipoDA = 0, @HoraFin, IIF(ISNULL(cr.CampaniaId,0) = 0,@HoraFin,@HoraCierreZonaDemAnti)) as HoraFin,
 			@DiasAntes AS DiasAntes,
 			ISNULL(@ZonaValida,-1) AS ZonaValida,
 			@HoraInicioNoFacturable AS HoraInicioNoFacturable,
@@ -451,7 +441,8 @@ BEGIN
 		SELECT
 			ca.Codigo AS CampaniaID,
 			IIF(@AceptacionConsultoraDA < 1, c.FechaInicioFacturacion, cr.FechaInicioWeb) AS FechaInicioFacturacion,
-			IIF(@AceptacionConsultoraDA < 1, c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),cr.FechaInicioWeb) AS FechaFinFacturacion,
+			IIF(@AceptacionConsultoraDA < 1, c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
+				ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),cr.FechaInicioWeb) AS FechaFinFacturacion,
 			ca.NombreCorto AS CampaniaDescripcion,
 			@HoraInicio AS HoraInicio,
 			IIF(@AceptacionConsultoraDA < 1, @HoraFin, @HoraCierreZonaDemAnti) as HoraFin,
@@ -463,14 +454,12 @@ BEGIN
 			@HoraCierreZonaNormal AS HoraCierreZonaNormal,
 			IIF(@AceptacionConsultoraDA < 1,@HoraCierreZonaNormal,@HoraCierreZonaDemAnti) AS HoraCierreZonaDemAnti,
 			@HoraCierreZonaDemAnti AS HoraCierreZonaDemAntiCierre,
-			IIF(ISNULL(cr.CampaniaId,0) = 0,0,IIF(@AceptacionConsultoraDA = 0,0,1)) as EsZonaDemAnti,
-
+			IIF(ISNULL(cr.CampaniaId,0) = 0,0, IIF(@AceptacionConsultoraDA = 0,0,1)) as EsZonaDemAnti,
 			ISNULL(@DiasDuracionCronograma,1) As DiasDuracionCronograma,
 			@HabilitarRestriccionHoraria As HabilitarRestriccionHoraria,
 			@HorasDuracionRestriccion As HorasDuracionRestriccion,
 			@NroCampanias as NroCampanias,
 			@PROLSinStock as PROLSinStock,
-
 			ISNULL(@FechaFinFIC,GETDATE()) as FechaFinFIC,
 			@NuevoPROL as NuevoPROL,
 			@ZonaNuevoPROL as ZonaNuevoPROL,

@@ -1,4 +1,6 @@
-CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2] 
+
+
+ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2] 
 @CodigoConsultora varchar(25)    
 AS      
 /*
@@ -52,17 +54,17 @@ BEGIN
 	if not exists (select 1 from CatalogoPersonalizadoRegionZona where CodigoRegion = @CodigoRegion and CodigoZona = @CodigoZona and Estado = 1)
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	/*Fin Oferta Final y Catalogo Personalizado*/
-	        
+	
 	IF @UsuarioPrueba = 0    
-	BEGIN        
-		select 
-			@ZonaID = IsNull(ZonaID,0),    
-			@RegionID = IsNull(RegionID,0),    
-			@ConsultoraID = IsNull(ConsultoraID,0)    
-		from ods.consultora with(nolock)    
-		where codigo = @CodConsultora    
+	BEGIN
+			select 
+				@ZonaID = IsNull(ZonaID,0),    
+				@RegionID = IsNull(RegionID,0),    
+				@ConsultoraID = IsNull(ConsultoraID,0)    
+			from ods.consultora with(nolock)    
+			where codigo = @CodConsultora    
     
-		select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)    
+			select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)    
 			SET @PasePedidoWeb = (SELECT dbo.GetPasaPedidoWeb(@CampaniaID,@ConsultoraID))    
 			SET @TipoOferta2 = (SELECT dbo.GetComproOfertaWeb(@CampaniaID,@ConsultoraID))    
 			SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))    
@@ -72,15 +74,15 @@ BEGIN
 			-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 			declare @CampaniaFacturada int = 0
 		
-			 select top 1 @CampaniaFacturada = p.CampaniaID
+			select top 1 @CampaniaFacturada = p.CampaniaID
 			FROM ods.Pedido(NOLOCK) P 
 				INNER JOIN ods.Consultora(NOLOCK) CO ON 
 					P.ConsultoraID=CO.ConsultoraID
-				WHERE 
-					co.ConsultoraID=@ConsultoraID
-					and	P.CampaniaID <> @ODSCampaniaID
-					and	CO.RegionID=@RegionID
-					and	CO.ZonaID=@ZonaID
+			WHERE 
+				co.ConsultoraID=@ConsultoraID
+				and	P.CampaniaID <> @ODSCampaniaID
+				and	CO.RegionID=@RegionID
+				and	CO.ZonaID=@ZonaID
 			order by PedidoID desc
 
 			SET @FechaLimitePago = (
@@ -89,9 +91,9 @@ BEGIN
 				WHERE CampaniaID=@CampaniaFacturada AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
 			)
 
-		        select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
-    
-		SELECT     
+		    select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
+    			
+		SELECT
 			u.PaisID,    
 			p.CodigoISO,    
 			c.RegionID,    
@@ -169,8 +171,7 @@ BEGIN
 			select *    
 			from ods.consultora with(nolock)    
 			where ConsultoraId = @ConsultoraID    
-		) c ON 
-			u.CodigoConsultora = c.Codigo       
+		) c ON u.CodigoConsultora = c.Codigo       
 		LEFT JOIN [dbo].[UsuarioRol] ur with(nolock) ON u.CodigoUsuario = ur.CodigoUsuario    
 		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID    
 		INNER JOIN [dbo].[Pais] p with(nolock) ON u.PaisID = p.PaisID    
@@ -179,9 +180,9 @@ BEGIN
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID    
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID    
 		LEFT JOIN [ods].[Territorio] t with(nolock) ON c.TerritorioID = t.TerritorioID    
-            AND c.SeccionID = t.SeccionID    
-            AND c.ZonaID = t.ZonaID    
-            AND c.RegionID = t.RegionID    
+			AND c.SeccionID = t.SeccionID    
+			AND c.ZonaID = t.ZonaID    
+			AND c.RegionID = t.RegionID    
 		left join ods.segmento  s with(nolock) ON c.segmentoid = s.segmentoid    
 		left join ods.ConsultoraLider cl with(nolock) on c.ConsultoraID=cl.ConsultoraID    
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469    
@@ -191,7 +192,7 @@ BEGIN
 	END    
 	ELSE    
 	BEGIN        
-		SELECT     
+		SELECT
 			u.PaisID,    
 			p.CodigoISO,    
 			c.RegionID,    
