@@ -27,6 +27,12 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
+        $('#boton_vermas').hide();
+        return false;
+    }
+
     //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     waitingDialog();
     jQuery.ajax({

@@ -3098,6 +3098,12 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
+        $("#divMainCatalogoPersonalizado").remove();
+        return false;
+    }
+
     $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     jQuery.ajax({
         type: 'POST',
