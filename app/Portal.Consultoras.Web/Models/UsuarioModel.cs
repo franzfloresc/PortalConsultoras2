@@ -264,5 +264,7 @@ namespace Portal.Consultoras.Web.Models
         public int CatalogoPersonalizado { get; set; }
 
         public bool EjecutaProl { get; set; }
+
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
     }
 }

@@ -322,6 +322,8 @@ namespace Portal.Consultoras.Entities
                 EsOfertaFinalZonaValida = Convert.ToBoolean(row["EsOfertaFinalZonaValida"]);
             if (DataRecord.HasColumn(row, "CatalogoPersonalizado") && row["CatalogoPersonalizado"] != DBNull.Value)
                 CatalogoPersonalizado = Convert.ToInt32(row["CatalogoPersonalizado"]);
+            if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
+                EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
         }
 
         [DataMember]
@@ -870,6 +872,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CatalogoPersonalizado { get; set; }
 
+        [DataMember]
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public BEUsuario(IDataRecord row, string Lider)
         {
             if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
