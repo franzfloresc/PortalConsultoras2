@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
@@ -1057,6 +1058,7 @@
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
     <Content Include="Content\Css\Site\Lbel\style.css" />
+    <Content Include="Content\Css\Site\menu_comunidad_new.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
     <Content Include="Content\Css\Site\slick.min.css" />
@@ -1941,6 +1943,7 @@
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
+    <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
@@ -2061,6 +2064,7 @@
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_2.png" />
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_pop.png" />
     <Content Include="Content\Images\mobile\img-showroom\exclusiva.png" />
+    <Content Include="Content\Images\mobile\img-showroom\lbel.png" />
     <Content Include="Content\Images\mobile\img-showroom\next2.png" />
     <Content Include="Content\Images\mobile\img-showroom\opacity_items.png" />
     <Content Include="Content\Images\mobile\img-showroom\precio_detalle.png" />
@@ -2204,6 +2208,7 @@
     <Content Include="Content\Images\showroom\exclusiva.png" />
     <Content Include="Content\Images\showroom\f_contenedor_pop.png" />
     <Content Include="Content\Images\showroom\hoy1.png" />
+    <Content Include="Content\Images\showroom\lbel.png" />
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
@@ -2211,6 +2216,7 @@
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
+    <Content Include="Content\Images\showroom\red.png" />
     <Content Include="Content\Images\showroom\selector.png" />
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />
     <Content Include="Content\Images\showroom\Showroom-hoy.gif" />
@@ -2351,6 +2357,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
@@ -2550,6 +2557,9 @@
     <Content Include="Content\Css\Site\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\fonts\slick.woff" />
     <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -3185,6 +3195,7 @@
     <Content Include="WebPages\Comunidad\CondicionesServicio_8.html" />
     <Content Include="WebPages\Comunidad\CondicionesServicio_9.html" />
     <Content Include="WebPages\Comunidad\footercomunidad.html" />
+    <Content Include="WebPages\Comunidad\menucomunidad - OLD.html" />
     <Content Include="WebPages\Comunidad\menucomunidad.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_10.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_11.html" />

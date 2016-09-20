@@ -27,13 +27,14 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Css/Mobile/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Esika/slick.css")" rel="stylesheet" />
 }
 
 <input type="hidden" id="hdPosicionCarruselModel" value="@Model.PosicionCarrusel"/>
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count"/>
-<div class="row">
-    <div class=" row_contador">
+<div style="margin-top:64px;">
+    <div class="row_set_detalle">
+        <a class="volver_set_carrousel" href="@Url.Action("Index")">Volver a Sets</a>
         <div class="slick-list">
             @{ var posicion = 1; }
             @foreach (var item in Model.ListaShowRoomOferta)
@@ -75,7 +76,7 @@
                     <input type="hidden" class="posicionEstrategia" value="@posicion" />
 
                     <div class="imagen_principal_carrousel">
-                        <a class="volver_set_carrousel" href="@Url.Action("Index")">Volver a Sets</a>
+                       
 
                         @if (string.IsNullOrEmpty(item.ImagenProducto))
                         {
@@ -87,7 +88,7 @@
                         }
                     </div>
                     <div class="top_triangular">
-                        <img src="@Url.Content("~/Content/Images/mobile/img-showroom/top_triangular.png")" alt="" />
+                        
                     </div>
                     <div class="contenedor_info_mobile">
                         <div class="titulo_lista">@item.Descripcion</div>
@@ -136,6 +137,7 @@
                             </div>
                             <div class="set_precio_gana_m">
                                 GANA HASTA
+                                <br/>
                                 <span>@Model.Simbolo @formatoGanaHasta</span>
                             </div>
                         </div>
@@ -367,7 +369,9 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            ActualizarCantidadTotalPedido();
+                                            //ActualizarCantidadTotalPedido();
+                                            CargarCantidadProductosPedidos();
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         } else {
                                             messageInfo(response.message);
                                         }

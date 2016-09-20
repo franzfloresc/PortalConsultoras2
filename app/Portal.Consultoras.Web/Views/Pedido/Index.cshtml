@@ -856,16 +856,19 @@
             <h1 class="titulo_ofertaFinal">
                 <span id="spnTituloOfertaFinal">TODAVIA<b>&nbsp;TE FALTA UN POCO</b></span>
             </h1>
+            <div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
+                <span style="display: block;text-align: center;font-size: 12px;">Recuerda que en esta campaña el monto mínimo es @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
+            </div>
             <span class="descripcion_ofertaFinal">
                 Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal">21</span> <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
             </span>
             <div class="contenedor_bloques_agregaProductos">
                 <div class="bloque_descripciones">
                     <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                    <span class="enlace_catalogos">
+                    @*<span class="enlace_catalogos">
                         También puedes buscarlo en tus
                         <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                    </span>
+                    </span>*@
                     <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
                         NO, GRACIAS
                     </button>
@@ -988,14 +991,19 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto">
-
-            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOferaFinal'}}
+            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOferaFinal'}}
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
             </span>
             {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+            <span class="texto_pedidos_ofertas">
+                <label>PRE-VENTA DIGITAL</label>
             </span>
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
@@ -1435,6 +1443,8 @@
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
