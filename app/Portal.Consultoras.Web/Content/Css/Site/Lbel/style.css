@@ -4872,30 +4872,32 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display:block;
-    position:absolute;
-    margin-left:10px;
-    bottom:14px;
-    border:1px solid #9b9b9b;
-    background:transparent;
-    width:139px;
-    height:45px;
-    line-height:45px;
-    color:#000;
-    font-family:'Lato';
-    font-size:13px;
-    font-weight:900;
-    text-align:center;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+        display: block;
+    position: absolute;
+    margin-left: 10px;
+    bottom: 14px;
+    border: none;
+    background: transparent;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 900;
+    text-align: left;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
+
 .btn_noGracias_agregarProductos:hover{
-    opacity:0.5;
-    filter:alpha(opacity=50);
+    /*opacity:0.5;
+    filter:alpha(opacity=50);*/
+    text-decoration: underline;
 }
 
 .bloque_carousel{
