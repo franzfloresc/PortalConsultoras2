@@ -1106,8 +1106,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
-                                mensajecliente.ToString(), true, pedido.Email);
+                            string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                            Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
                         }
                         catch (Exception ex)
                         {
