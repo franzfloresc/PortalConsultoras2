@@ -27246,6 +27246,21 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background:#f6f6f6;
 }
 
+.texto_descripcionCatalogoPersonalizado{
+    display: block;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 15px;
+    margin-top: 30px;
+    padding-left: 41px;
+    margin-bottom: 26px;
+}
+
+.paginaCatalogo{
+    padding-left:0px;
+    margin-bottom:0px;
+}
+
 .enlace_popupCatalogoPersonalizado{
     display: block;
     width: 100%;
@@ -27277,6 +27292,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-bottom: 15px;
     margin-top: 15px;
     vertical-align:top;
+    padding-bottom:12px;
 }
 
 .content_carrusel_agregado .agregado {

@@ -314,7 +314,7 @@
 {
     <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
         <div id="divCatalogoPersonalizado"></div>
     </div>
 }
@@ -1644,6 +1644,8 @@
 </script>
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="clear"></div>
+    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
     <div class="">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
@@ -1679,9 +1681,8 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:92%; left:12px;">
-                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA</a>
-                    EN TU GUÍA DE NEGOCIO!
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
                 </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
