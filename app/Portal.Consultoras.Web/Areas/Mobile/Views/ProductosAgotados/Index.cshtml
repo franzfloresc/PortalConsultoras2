@@ -13,19 +13,14 @@
         }
     </style>
 }
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;PRODUCTOS AGOTADOS
+</div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <ol class="breadcrumb-next upper">
-            <li>
-                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
-            </li>
-            <li>|</li>
-            <li>
-                Productos Agotados
-            </li>
-        </ol>
-    </div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+  <br/> 
 
     <div class="col-xs-12">
         @if (Model.ListaProductoFaltante.Count == 0)
@@ -60,13 +55,13 @@
             </div>
             if (Model.ListaProductoFaltante.Count == 10)
             {
-                <p class="text-center">
-                    <a href="javascript:;" class="btn btn-line btnMostrar"><i class="icon-angle-down"></i> Ver más</a>
-                </p>
+                <div class="row">
+                    <a href="javascript:;" class="btn_editar_pedido btnMostrar"><i class="icon-angle-down"></i> &nbsp;&nbsp;Ver más</a>
+                </div>
             }
         }
     </div>
-</div>
+
 
 @section scripts
 {

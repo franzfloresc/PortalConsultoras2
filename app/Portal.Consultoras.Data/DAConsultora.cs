@@ -148,7 +148,42 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@tipoFiltroUbigeo", DbType.Int32, tipoFiltroUbigeo);
             
             return Context.ExecuteReader(command);
+        }
 
+        public IDataReader GetConsultorasPorTerritorio(int paisId, string codigoRegion, string codigoZona, string codigoSeccion, string codigoTerritorio)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultorasPorTerritorio");
+            command.CommandTimeout = 0;
+            Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            Context.Database.AddInParameter(command, "@CodigoSeccion", DbType.String, codigoSeccion);
+            Context.Database.AddInParameter(command, "@CodigoTerritorio", DbType.String, codigoTerritorio);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetConsultorasPorSeccion(int paisId, string codigoRegion, string codigoZona, string codigoSeccion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultorasPorSeccion");
+            command.CommandTimeout = 0;
+            Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            Context.Database.AddInParameter(command, "@CodigoSeccion", DbType.String, codigoSeccion);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetConsultorasPorZona(int paisId, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultorasPorZona");
+            command.CommandTimeout = 0;
+            Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+
+            return Context.ExecuteReader(command);
         }
     }
 }

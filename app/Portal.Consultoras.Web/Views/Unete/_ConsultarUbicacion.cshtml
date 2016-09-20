@@ -141,21 +141,29 @@
 </div>
 <div class="modal-content" >
 
-    @if (Model.Puntos.Count == 0)
+    @if (Model.ZonaPreferencial)
     {
         <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
             <h4 style="font-size: 12pt;">
-                La direcci&oacute;n <span style="font-weight: bold; color: #768ea3; font-size: 13pt;">@string.Format("{0}, {1}, {2}", Model.Direccion, Model.NombreComuna, Model.NombreRegion)</span> no se pudo localizar. 
+                Lamentablemente la consultora no puede ser registrada ya que en esa zona no tenemos cobertura
+            </h4>
+        </div>      
+    }
+    else if (Model.Puntos.Count == 0)
+    {
+        <div style="position:relative;float:left;width:90%;height:100%;padding:20px 40px;">
+            <h4 style="font-size: 12pt;">
+                La direcci&oacute;n <span style="font-weight: bold; color: #768ea3; font-size: 13pt;">@string.Format("{0}, {1}, {2}", Model.DireccionCadena, Model.NombreComuna, Model.NombreRegion)</span> no se pudo localizar. 
                 <br /> <br />
                 Verifica que sea la direcci&oacute;n correcta o en todo caso podr&aacute;s georeferenciar m&aacute;s adelante.
             </h4>
         </div>
     }
     else
-    { 
+    {
         <div class="modal-lado-izq">
             @foreach (var item in Model.Puntos)
-            {            
+            {
                  <div class="fila-direccion" data-latitud="@item.Item1" data-longitud="@item.Item2" data-nro="@nro">
                     <table cellpadding="0" cellspacing="0">
                         <tr>
@@ -203,6 +211,13 @@
 @Html.HiddenFor(m => Model.Direccion)
 @Html.HiddenFor(m => Model.NombreRegion)
 @Html.HiddenFor(m => Model.NombreComuna)
+@Html.HiddenFor(m => Model.Region)
+@Html.HiddenFor(m => Model.Zona)
+@Html.HiddenFor(m => Model.Seccion)
+@Html.HiddenFor(m => Model.Territorio)
+@Html.HiddenFor(m => Model.Direccion)
+@Html.HiddenFor(m => Model.DireccionCadena)
+
 
 <script>
     var map, marker, markers = [], polygon;
@@ -238,7 +253,7 @@
             $('#modal_opcion').html(html);
             modalOpcion.dialog('open');
         }).complete(function () {
-            closeWaitingDialog({});
+            closeWaitingDialog({});     
         });
     });
 
@@ -263,12 +278,17 @@
             // post
             var data = {
                 id: $('#SolicitudPostulanteID').val(),
-                latitud: parseFloat(center.lat()),
-                longitud: parseFloat(center.lng()),
+                latitud: parseFloat(marker.getPosition().lat()),
+                longitud: parseFloat(marker.getPosition().lng()),
                 direccionCorrecta: $(this).attr('data-direccion-correcta'),
-                direccion: $('#Direccion').val(),
+                direccionCadena: $('#DireccionCadena').val(),
                 region: $('#NombreRegion').val(),
-                comuna: $('#NombreComuna').val()
+                comuna: $('#NombreComuna').val(),
+                codregion: $('#Region').val(),
+                codzona: $('#Zona').val(),
+                codseccion: $('#Seccion').val(),
+                codterritorio: $('#Territorio').val(),
+                direccion: $('#Direccion').val()
             };
 
             waitingDialog({});
@@ -366,7 +386,7 @@
     function cargarMapa() {
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
-            
+            modalOpcion.dialog('close');
 
             @if (Model.Puntos.Count > 0)
 	        {
@@ -416,20 +436,25 @@
                             });
 
                             polygon.setMap(map);
+                        </text>
+                    }
 
-                            $('#datos_territorio').show();
-                            $('#mensaje_territorio').hide();
-                            $('#btnAceptar').attr('disabled', false);
+                    if (string.IsNullOrEmpty(Model.Region) || string.IsNullOrEmpty(Model.Zona) || string.IsNullOrEmpty(Model.Territorio))
+                    {
+                        <text>
+                        $('#datos_territorio').hide();
+                        $('#mensaje_territorio').show();
                         </text>
                     }
                     else
                     {
                         <text>
-                            $('#datos_territorio').hide();
-                            $('#mensaje_territorio').show();
+                            $('#datos_territorio').show();
+                            $('#mensaje_territorio').hide();
+                            $('#btnAceptar').attr('disabled', false);
                         </text>
                     }
-                    
+
                     <text>
                         $('.fila-direccion').addClass('selected');
                         $('#btnAceptar').attr('disabled', false);

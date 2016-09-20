@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     waitingDialog({});
     closeWaitingDialog();
 
@@ -129,7 +130,12 @@
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-
+    $("#belcorpChat a").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
+    });
+    
     Scrolling();
     MostrarShowRoomBannerLateral();
 });
@@ -139,6 +145,10 @@ function alert_msg(message, titulo) {
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
+}
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
 }
 
 function CargarResumenCampaniaHeader(showPopup) {
@@ -153,42 +163,15 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    if (data.montoWebAcumulado == 0) {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            data.montoWebAcumulado = "0";
-                        else
-                            data.montoWebAcumulado = "0.00";
-                    } else {
-                        if (data.paisID == 4)  //Formato de decimales para Colombia
-                            data.montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                        else
-                            data.montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                    }
+                    
+                    data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
 
-                    if (data.cantidadProductos > 0) {
-                        $("#pCantidadProductosPedido").html(data.cantidadProductos);
-                    } else {
-                        $("#pCantidadProductosPedido").html(0);
-                    }
-
-                    //$("#spPedidoWebAcumulado").text(data.Simbolo + " " + montoWebAcumulado);
-                    //$("#spTotalMontoAPagar").text(data.Simbolo + " " + montoTotalPagar);
-                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebAcumulado);
-
-                    var idPais = data.paisID;
+                    $("#pCantidadProductosPedido").html(data.cantidadProductos > 0 ? data.cantidadProductos : 0);
+                    
+                    $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
                     $.each(data.ultimosTresPedidos, function (index, item) {
-                        if (item.ImporteTotal == 0) {
-                            if (idPais == 4)  //Formato de decimales para Colombia
-                                item.ImporteTotal = "0";
-                            else
-                                item.ImporteTotal = "0.00";
-                        } else {
-                            if (idPais == 4)  //Formato de decimales para Colombia
-                                item.ImporteTotal = SeparadorMiles(item.ImporteTotal.toFixed(0));
-                            else
-                                item.ImporteTotal = item.ImporteTotal.toFixed(2);
-                        }
+                        item.ImporteTotal = DecimalToStringFormat(item.ImporteTotal);
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
@@ -198,24 +181,28 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
 
-                        $("#carrito_items").html('');
+                        SetHandlebars("#resumenCampania-template", data, "#carrito_items");
 
-                        var source = $("#resumenCampania-template").html();
-                        var template = Handlebars.compile(source);
-                        var context = data;
-                        var html = template(context);
-
-                        $("#carrito_items").append(html);
+                        //$("#carrito_items").html('');
+                        //var source = $("#resumenCampania-template").html();
+                        //var template = Handlebars.compile(source);
+                        //var context = data;
+                        //var html = template(context);
+                        //$("#carrito_items").append(html);
                     }
 
                     if (showPopup == true) {
-                        $('.info_cam').fadeIn(200);
-                        setTimeout(function () {
-                            $('.info_cam').fadeOut(200);
-                            setTimeout(function () {
-                                $('.info_cam').removeAttr("style");
-                            }, 300);
-                        }, 5000);
+                        //$('.info_cam').fadeIn(200);
+                        //setTimeout(function () {
+                        //    $('.info_cam').fadeOut(200);
+                        //    setTimeout(function () {
+                        //        $('.info_cam').removeAttr("style");
+                        //    }, 300);
+                        //}, 5000);
+                        microefectoPedidoGuardado();
+                        setTimeout(function(){
+                            $(".contenedor_circulos").fadeOut();
+                        }, 2700);
                     }
                 }
                 else {
@@ -241,13 +228,15 @@ function CargarCantidadNotificacionesSinLeer() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.cantidadNotificaciones > 0) {
+                    $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
+                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
-                    $(document).find(".mensajes_home").html("No tienes mensajes.");
+                    $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
                 };
 
                 data.mensaje = data.mensaje || "";
@@ -759,44 +748,12 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 /* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
-    _gaq.push(['_trackEvent', 'Mapa-Site', 'Pedido']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Mapa-Site/Pedido'
-    });
     location.href = baseUrl + 'Pedido/Index';
 };
-function SetMarcaGoogleAnalytics(Marca, Url) {
-    _gaq.push(['_trackEvent', 'Link', Marca, 'Site']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Link/' + Marca + '/Site'
-    });
-    window.open(Url, '_blank');
-    return false;
-};
-function SetSiguenosGoogleAnalytics(RedSocial, Url) {
-    _gaq.push(['_trackEvent', 'Follow', RedSocial]);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Follow/' + RedSocial
-    });
-    window.open(Url, '_blank');
-    return false;
-};
 function CerrarSesion() {
-    _gaq.push(['_trackEvent', 'Header', 'Cerrar-Sesion']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Header/Cerrar-Sesion'
-    });
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Notificacion/Notificacion'
-    });
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
@@ -808,10 +765,7 @@ function SetMarcaGoogleAnalyticsTermino() {
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.addToCart({
@@ -825,10 +779,7 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
 function TrackingJetloreRemove(cantidad, campania, cuv) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart({
@@ -842,14 +793,12 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
 function TrackingJetloreRemoveAll(lista) {
     var esJetlore;
 
-    var ofertaFinal = $("#hdTipoOfertaFinal").val();
-    var catalogoPersonalizado = $("#hdTipoCatalogoPersonalizado").val();
-
-    esJetlore = ofertaFinal == tipoOfertaFinalCatalogoPersonalizado || catalogoPersonalizado == tipoOfertaFinalCatalogoPersonalizado;
+    esJetlore = esPaisTrackingJetlore == "1";
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);
 
     }
 }
+
 /* Fin Tracking Jetlore */

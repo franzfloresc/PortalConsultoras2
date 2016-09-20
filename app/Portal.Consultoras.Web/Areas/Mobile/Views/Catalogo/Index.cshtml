@@ -6,8 +6,11 @@
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-    var textApp = userAgent.Contains("iphone;") ? "Grátis en App Store" : "Grátis en Play Store";
+    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
+
+
+
 <input type="hidden" id="hdPaisId" value="@Model.PaisID" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
@@ -50,7 +53,7 @@
             </a>
         </li>
         <li class="two">
-            <a href="#" data-tag="Revistas">
+            <a href="#" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
                 REVISTAS
                 <div class="marcador_tab oculto"></div>
             </a>
@@ -58,13 +61,14 @@
         
         <hr id="barCursor">
     </ul>
+    <hr class="clear" />
 </div>
 <div class="wrapper_resumen_mobile">
     <!--TAB CATÁLOGOS-->
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
-        <div class="titulo_catalogo">CATÁLOGOS C-09</div>
-        <div class="content_carrusel_catalogo" id="divCatalogo">
+        <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
             <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
             <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
         </div>
@@ -73,7 +77,7 @@
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo">REVISTAS C-09</div>
+        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_revistas_mobile">
             <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
             <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
@@ -98,7 +102,7 @@
         <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
         <hr class="clear" />
         <!--TAG-->
-        <div style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
+        <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
             <div style="min-height:25px; max-height:150px;">
                 <textarea id="tagCorreo"></textarea>
             </div>
@@ -166,7 +170,7 @@
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir">¡LO <b>SENTIMOS</b>!</div>
-        <div class="mensaje_alerta">Debe seleccionar al menos <br/>un Catálogo</div>
+        <div class="mensaje_alerta">Debe seleccionar al menos <br />un Catálogo</div>
         <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile2').hide();">OK</a>
     </div>
 
@@ -180,7 +184,7 @@
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
-            <a class="btn_ws"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+            <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
             <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
             <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
         </div>
@@ -190,6 +194,12 @@
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        overflow-x: hidden;
+    }
+</style>
+
 }
 @section scripts{
     <script type="text/javascript">
@@ -206,8 +216,8 @@
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tag-autcomplete.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Catalogo/Index.js")"></script>
-    <script src="~/Scripts/Tag/jquery.tag-editor.js"></script>
-    <script src="~/Scripts/Tag/jquery.caret.min.js"></script>
-    <script src="~/Scripts/Tag/jquery.tag-autcomplete.js"></script>
 }

@@ -47,45 +47,20 @@
         }
 
         if (TipoMenu == "1") {
-            _gaq.push(['_trackEvent', 'Menu-Superior', Descripcion.replace(/\s+/g, '-')]);
-            dataLayer.push({
-                'event': 'pageview',
-                'virtualUrl': '/Menu-Superior/' + Descripcion.replace(/\s+/g, '-')
-            });
         }
         else
             if (RolID == "1" || RolID == "4") {
-                _gaq.push(['_trackEvent', 'Sub-Menu', Descripcion.replace(/\s+/g, '-')]);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Sub-Menu/' + Descripcion.replace(/\s+/g, '-')
-                });
             }
             else {
-                _gaq.push(['_trackEvent', 'Menu-Principal-SAC', Descripcion.replace(/\s+/g, '-')]);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Menu-Principal-SAC/' + Descripcion.replace(/\s+/g, '-')
-                });
             }
 
         //
         if (Descripcion != "Pedidos") {
             if ($("#hdFlagOfertaWeb").val() == "1") {
-                _gaq.push(['_trackEvent', 'Oferta-Web', 'Observacion-OfertaWeb']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Oferta-Web/Observacion-OfertaWeb'
-                });
                 MostrarMensajeConsultora();
                 return false;
             }
             else if ($("#hdFlagOfertaLiquidacion").val() == "1") {
-                _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Observacion-Liquidacion']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Liquidacion-Web/Observacion-Liquidacion'
-                });
                 MostrarMensajeConsultora();
                 return false;
             }
@@ -93,11 +68,6 @@
 
         if ($("#hdFlagValidacion").val() == "1") {
             if ($('#hdFlagValidacionReserva').val() == "1") {
-                _gaq.push(['_trackEvent', 'Pedido-Web', 'Observacion-Validacion']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido-Web/Observacion-Validacion'
-                });
                 MostrarMensajeConsultoraValidacion();
             }
             return false;
@@ -114,11 +84,6 @@
     }
 
     function SetAnalyticsProgramasBelcorp(Descripcion) {
-        _gaq.push(['_trackEvent', 'Sub-Menu', Descripcion.replace(/\s+/g, '-')]);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Sub-Menu/' + Descripcion.replace(/\s+/g, '-')
-        });
     }
 
     function MostrarMensajeConsultora() {

@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 
-                ViewBag.URLWebTracking = url;   
+                ViewBag.URLWebTracking = url;
+                ViewBag.PaisISO = userData.CodigoISO;
             }
             catch (FaultException ex)
             {
@@ -614,8 +615,12 @@ namespace Portal.Consultoras.Web.Controllers
             
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado);
             var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
-            List<BEPedidoWebDetalle> itemCliente = lst.Where(p => p.ClienteID == cliente || cliente == -1).ToList();
 
+            var listaCliente = (from item in lst
+                                select new Portal.Consultoras.Web.ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
+                    ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+
+            List<BEPedidoWebDetalle> itemCliente = lst.Where(p => p.ClienteID == cliente || cliente == -1).ToList();
             BEPager pag = Util.PaginadorGenerico(grid, itemCliente);
 
             List<BEPedidoWebDetalle> items = itemCliente.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
@@ -655,8 +660,11 @@ namespace Portal.Consultoras.Web.Controllers
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
                     ImporteTotal = Util.DecimalToStringFormat(a.ImporteTotal, userData.CodigoISO),
+                    MontoEscala = Util.DecimalToStringFormat(a.ImporteTotalPedido,userData.CodigoISO),
+                    ImportePagar = Util.DecimalToStringFormat(a.ImporteTotal - a.ImporteTotalPedido, userData.CodigoISO),
                     a.NombreCliente
-                })
+                }),
+                listaCliente
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

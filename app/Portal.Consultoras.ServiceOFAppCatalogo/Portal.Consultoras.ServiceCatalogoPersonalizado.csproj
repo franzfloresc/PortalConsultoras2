@@ -60,7 +60,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Librerias\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Librerias\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -113,10 +113,10 @@
     <Content Include="Librerias\Newtonsoft.Json.xml" />
     <Content Include="Librerias\StackExchange.Redis.dll" />
     <Content Include="Librerias\StackExchange.Redis.pdb" />
-    <Content Include="Web References\ServicePROLConsultas\Reference.map">
+    <None Include="Web References\ServicePROLConsultas\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Web References\ServicePROLConsultas\ArchivoStock1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
@@ -172,6 +172,7 @@
     <Compile Include="Data\DAProducto.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Entities\Producto.cs" />
+    <Compile Include="Entities\ProductoJetlore.cs" />
     <Compile Include="Entities\ProductoPcm.cs" />
     <Compile Include="IProductoService.cs" />
     <Compile Include="Logic\BLProducto.cs" />
@@ -205,10 +206,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl">
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ServicePROLConsultas\</RelPath>
-      <UpdateFromURL>http://qaelb-webprol-2076989301.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

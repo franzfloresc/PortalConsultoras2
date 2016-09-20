@@ -61,11 +61,17 @@
     function LoadPreviewControls() {
         $.getJSON(baseUrl + 'Banner/ObtenerPaises', {}, function (data) {
             if (checkTimeout(data)) {
+                var ddlPaisesBanPrinpl_SB2 = $('#ddlPaisesBanPrinpl_SB2');
                 var ddlPaisesBanPrinpl = $('#ddlPaisesBanPrinpl');
                 var ddlPaisesBanBaja = $('#ddlPaisesBanBaja');
+                ddlPaisesBanPrinpl_SB2.empty();
                 ddlPaisesBanPrinpl.empty();
                 ddlPaisesBanBaja.empty();
                 if (data.listapaises.length > 0) {
+                    ddlPaisesBanPrinpl_SB2.append($('<option/>', {
+                        value: "",
+                        text: "-- Seleccionar --"
+                    }));
                     ddlPaisesBanPrinpl.append($('<option/>', {
                         value: "",
                         text: "-- Seleccionar --"
@@ -76,6 +82,10 @@
                     }));
                     for (var item in data.listapaises) {
                         if (data.listapaises.hasOwnProperty(+item)) {
+                            ddlPaisesBanPrinpl_SB2.append($('<option/>', {
+                                value: data.listapaises[item].PaisID,
+                                text: data.listapaises[item].Nombre
+                            }));
                             ddlPaisesBanPrinpl.append($('<option/>', {
                                 value: data.listapaises[item].PaisID,
                                 text: data.listapaises[item].Nombre
@@ -90,6 +100,18 @@
             }
         });
         IniDialogPreview();
+
+        $("#lnkAdmBanPrincipalSB2").click(function () {
+            if ($("#ddlCampania").val() === "0") {
+                alert('Debe seleccionar una Campaña');
+                return false;
+            }
+            $("#hdTipoBanner").val("P_SB2");
+            LimpiaPreviewBanner("P_SB2");
+            showDialog("DialogPreviewBanPrincipalSB2");
+            return false;
+        });
+
         $("#lnkAdmBanPrincipal").click(function () {
             if ($("#ddlCampania").val() === "0") {
                 alert('Debe seleccionar una Campaña');
@@ -132,6 +154,94 @@
             var src = $(this).attr('src');
             $("#imgModal").attr('src', src);
             showDialog('DialogImagenContainer');
+        });
+
+        $("#ddlPaisesBanPrinpl_SB2").change(function () {
+            var value = this.value;
+            if (value !== "") {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+                var tipoBanner = $("#hdTipoBanner").val();
+                var campaniaID = $("#ddlCampania").val();
+                $.getJSON(baseUrl + 'Banner/ObtenerBannerPrevio', { vTipoBanner: tipoBanner, vPaisID: value, vCampaniaID: campaniaID }, function (data) {
+                    if (checkTimeout(data)) {
+                        var divBanPPreview = $('#divBanPPreviewSB2');
+                        divBanPPreview.empty();
+                        if (data.lstBannerInfo.length > 0) {
+                            divBanPPreview = document.getElementById("divBanPPreviewSB2");
+                            for (var item in data.lstBannerInfo) {
+                                if (data.lstBannerInfo.hasOwnProperty(+item)) {
+                                    var div1 = document.createElement("div");
+                                    div1.setAttribute("class", "box_banner");
+
+                                    var hidden2 = document.createElement("input");
+                                    hidden2.setAttribute("type", "hidden");
+                                    hidden2.setAttribute("value", data.lstBannerInfo[item].BannerID);
+                                    hidden2.setAttribute("class", "clasehid");
+
+                                    var div2 = document.createElement("div");
+                                    div2.setAttribute("class", "banner_img");
+
+                                    var img1 = document.createElement("img");
+                                    // img1.setAttribute("src", ".." + data.lstBannerInfo[item].Archivo);
+                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo); // 1664 - ObtenerBannerPrevio
+                                    img1.setAttribute("alt", "Imagen Banner");
+                                    img1.setAttribute("width", "290");
+                                    img1.setAttribute("height", "120");
+                                    div2.appendChild(img1);
+
+                                    var div3 = document.createElement("div");
+                                    div3.setAttribute("class", "div-3 orde_banner");
+
+                                    var div4 = document.createElement("div");
+                                    div4.setAttribute("class", "titAuto");
+                                    div4.innerHTML = "Orden:";
+                                    div3.appendChild(div4);
+
+                                    var div5 = document.createElement("div");
+                                    div5.setAttribute("class", "ndias borde_redondeado");
+
+                                    var text1 = document.createElement("input");
+                                    text1.setAttribute("type", "text");
+                                    text1.setAttribute("maxlength", "2");
+                                    (function (t) {
+                                        if (t.addEventListener) {
+                                            t.addEventListener("keypress", function () { validate(event) }, false);
+                                            t.addEventListener("blur", function () { validateblur(t) }, false);
+                                        }
+                                        else {
+                                            t.attachEvent("onkeypress", function () { validate(event) });
+                                            t.attachEvent("onblur", function () { validateblur(t) });
+                                        }
+                                    })(text1);
+                                    text1.setAttribute("value", data.lstBannerInfo[item].Orden);
+                                    div5.appendChild(text1);
+                                    div3.appendChild(div4);
+                                    div3.appendChild(div5);
+
+                                    div1.appendChild(hidden2);
+                                    div1.appendChild(div2);
+                                    div1.appendChild(div3);
+                                    divBanPPreview.appendChild(div1);
+                                }
+                            }
+                            $('#DialogPreviewBanPrincipal').dialog({
+                                position: 'center'
+                            });
+                        }
+                        closeWaitingDialog();
+                    }
+                })
+                .error(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                });
+            }
+            else {
+                $('#divBanPPreviewSB2').empty();
+                $('#DialogPreviewBanPrincipalSB2').dialog({
+                    position: 'center'
+                });
+            }
         });
         $("#ddlPaisesBanPrinpl").change(function () {
             var value = this.value;
@@ -330,6 +440,10 @@
             $('#ddlPaisesBanPrinpl')[0].selectedIndex = 0;
             $('#divBanPPreview').empty();
         }
+        else if (tipo == "P_SB2") {
+            $('#ddlPaisesBanPrinpl_SB2')[0].selectedIndex = 0;
+            $('#divBanPPreviewSB2').empty();
+        }
         else if (tipo === "B") {
             $('#ddlPaisesBanBaja')[0].selectedIndex = 0;
             $('#divBanBPreview').empty();
@@ -386,6 +500,84 @@
             title: "Sección Intermedia",
             draggable: true
         });
+
+        $('#DialogPreviewBanPrincipalSB2').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 720,
+            draggable: true,
+            title: "Grupo Banner Principal SB2.0: Orden de Presentación - Preview",
+            buttons:
+            {
+                "Guardar": function () {
+                    var divBanPPreview = $('#divBanPPreviewSB2');
+                    textos = divBanPPreview.find('.box_banner').find('.ndias input[type=text]');
+                    var rep = {}, index = 0;
+                    campaniaID = $("#ddlCampania").val();
+                    var params = {
+                        banners: []
+                    };
+                    for (i = 0; i < textos.length; i++) {
+                        texto = textos[i].value;
+                        id = $(textos[i]).parent().parent().parent().find('.clasehid').val();
+
+                        if (texto === "") {
+                            alert("Debe ingresar un número en el campo Orden.");
+                            return false;
+                        }
+                        if (texto === "0") {
+                            alert("Debe ingresar un número mayor a cero en el campo Orden.");
+                            return false;
+                        }
+                        params.banners.push({
+                            BannerID: id,
+                            CampaniaID: campaniaID,
+                            Orden: texto
+                        });
+
+                        if (rep[texto]) {
+                            break;
+                        }
+                        else {
+                            rep[texto] = true;
+                            index++;
+                        }
+                    }
+                    if (index !== textos.length) {
+                        alert('Debe ingresar un número de orden distinto para cada Banner.');
+                        return false;
+                    }
+                    waitingDialog({});
+                    $.ajax({
+                        type: "POST",
+                        url: baseUrl + "Banner/ActualizarNroOrdenBanner",
+                        data: JSON.stringify(params),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                closeWaitingDialog();
+                                if (data.success == true) {
+                                    alert(data.message);
+                                    HideDialog("DialogPreviewBanPrincipalSB2");
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                closeWaitingDialog();
+                                alert("Ocurrió un error inesperado. Consulte con su administrador del sistema para obtener mayor información");
+                            }
+                        }
+                    });
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
         $('#DialogPreviewBanPrincipal').dialog({
             autoOpen: false,
             resizable: false,
@@ -1876,6 +2068,9 @@
                 </div>
                 <div class="input_search">
                     <input type="hidden" id="hdTipoBanner" />
+                    <a href="#" id="lnkAdmBanPrincipalSB2">
+                        <img title="Preview y Orden de Banner Principal SB2" src='@Url.Content("~/Content/Images/preview_banner_prin.png")' alt="" />
+                    </a>
                     <a href="#" id="lnkAdmBanPrincipal">
                         <img title="Preview y Orden de Banner Principal" src='@Url.Content("~/Content/Images/preview_banner_prin.png")' alt="" />
                     </a>
@@ -2146,6 +2341,20 @@
         </div>
     </div>
 </div>
+
+<div id="DialogPreviewBanPrincipalSB2" style="display: none">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titC">País:</div>
+            <div class="selectA borde_redondeado">
+                <select id="ddlPaisesBanPrinpl_SB2"></select>
+            </div>
+        </div>
+        <div class="border_banner" id="divBanPPreviewSB2">
+        </div>
+    </div>
+</div>
+
 <div id="DialogPreviewBanBaja" style="display: none">
     <div class="Content_modal">
         <div class="div-3">

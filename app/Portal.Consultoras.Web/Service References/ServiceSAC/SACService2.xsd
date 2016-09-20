@@ -246,12 +246,24 @@
   <xs:element name="BECiudad" nillable="true" type="tns:BECiudad" />
   <xs:complexType name="BEComunicado">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ComunicadoId" type="xs:long" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionAccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Visualizo" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEComunicado" nillable="true" type="tns:BEComunicado" />
+  <xs:complexType name="ArrayOfBEComunicado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEComunicado" nillable="true" type="tns:BEComunicado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEComunicado" nillable="true" type="tns:ArrayOfBEComunicado" />
   <xs:complexType name="ArrayOfBEEstadoCuenta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstadoCuenta" nillable="true" type="tns:BEEstadoCuenta" />

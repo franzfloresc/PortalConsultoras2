@@ -17,9 +17,12 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <hr class="clear" />
-    <input type="text" class="buscador_clientes" id="txtBusqueda" />
+    <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" />
+   
     <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
+    
     <hr class="clear" />
+    <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px;" onclick="return validarExportarMC();" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
     <!--PGINADOR-->
     <!--
     <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
@@ -247,7 +250,7 @@
             <li style="margin-right: 6px;">
                 <span class="paginas_pedidos">
                     <span class="pagina_actual">
-                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
                     </span> de
                     <span class="paginas_totales">1</span>
                 </span>
@@ -323,7 +326,7 @@
         <li style="margin-right: 6px;">
             <span class="paginas_pedidos">
                 <span class="pagina_actual">
-                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral" id="paginaactual" data-val="{{Pagina}}">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}">
                 </span> de
                 <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion="pageCount">{{PaginaDe}}</span>
             </span>

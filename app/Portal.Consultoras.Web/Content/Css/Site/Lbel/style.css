@@ -156,7 +156,7 @@ header {
 .mensaje_header {
     margin-top: 15px;
     float: left;
-    width: 23px;
+    width: 27px;
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
@@ -164,6 +164,7 @@ header {
 
 .cart_compras{
     cursor:pointer;
+    position:relative;
 }
 
 .mensaje_svg {
@@ -304,8 +305,8 @@ header {
     right: 0;
     left: 0;
     margin: 0 auto;
-    background:url(../../../Images/Lbel/pestana_lbel.png);
-    
+    background:#FFF url(../../../Images/Lbel/pestana_lbel.png);
+    background-size:cover;    
 }
 
 .content_left_menu{
@@ -658,7 +659,7 @@ header {
     cursor: pointer;
     position: fixed;
     z-index: 300;
-    top: 260px;
+    bottom: 100px;
     text-align: center;
     right: 0px;
 }
@@ -688,10 +689,6 @@ header {
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
@@ -700,7 +697,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color:black;
-    background: url("../../../Images/Esika/ayuda.png") no-repeat;
+    background: #FFF url("../../../Images/Esika/ayuda.png") no-repeat;
     background-position: 18px 4px;
 }
 
@@ -722,20 +719,20 @@ header {
         z-index: -1;
     }
 
-.boton-home:hover {
+/*.boton-home:hover {
         background-position: 18px 4px !important;
         background:url("../../../Images/Esika/ayuda_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9; /* IE 8 y anteriores */
-        color: white;
-    }
+        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9;*/ /* IE 8 y anteriores */
+        /*color: white;
+    }*/
 
-.boton-home:hover::after {
+/*.boton-home:hover::after {
             border-width: 330px 330px 0 0;
-        }
+        }*/
 
-.boton-home:active {
+/*.boton-home:active {
         background: black;
-    }
+    }*/
 
 .fondo_b {
     background: url("../../../Images/Esika/bajar.png") no-repeat;
@@ -1358,9 +1355,11 @@ header {
     margin-bottom:3px;
 }
 .liquidacion_descripcion {
-    margin-left: 15px;
-    margin-right: 15px;
-    height: 100px;
+    display: block;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 90px;
     overflow: hidden;
     color: black;
     font-family: 'lato';
@@ -1617,6 +1616,17 @@ header {
     margin:0 auto;
     height:auto;
 }
+
+.pago_ingreso_datos{
+    float: left;
+    font-family: 'lato';
+    font-size: 11pt;
+    font-weight: 400;
+    color: #060000;
+    margin-right: 8px;
+    height: 30px;
+    margin-top: 2px;
+}
 .pedido_ingreso_c {
     width:100%;
     height:100px;
@@ -1741,6 +1751,102 @@ header {
 
 .franja_negra.pedidoReservado{
     height:129px;
+}
+
+.grilla_pedidos {
+    display:block;
+    width:100%;
+    font-family:'Lato';
+    /*overflow:hidden;*/
+}
+
+.filaIngresoPedidoOculto{
+    display:none;
+    left:100%;
+    opacity:0;
+}
+
+.grilla_pedidos label{
+    cursor:default;
+}
+
+.encabezado_ingresoPedido {
+    border-bottom:2px solid #000;
+}
+
+.contenido_ingresoPedido{
+    border-bottom: 1px solid #ccc;
+    position:relative;
+}
+
+.contenido_ingresoPedido.mouse_encima{
+    background:#FFF;
+    transition:background 0.3s ease;
+    -moz-transition:background 0.3s ease;
+    -o-transition:background 0.3s ease;
+    -ms-transition:background 0.3s ease;
+    -webkit-transition:background 0.3s ease;
+}
+
+.contenido_ingresoPedido.mouse_encima:hover{
+    background:#f0f0f0;
+}
+
+div.texto_encabezado_pedidos{
+    display:inline-block;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    color: #797979;
+}
+
+div.texto_pedidos, div.celda_cantidad_pedidos{
+    display:inline-block;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    vertical-align: middle;
+    position:relative;
+}
+
+div.texto_encabezado_pedidos.cabecera_codigo, div.texto_pedidos.celda_codigo{
+    width:11%;
+}
+
+div.texto_encabezado_pedidos.cabecera_producto, div.texto_pedidos.celda_producto{
+    width:25.41%;
+}
+
+div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos{
+    width:12%;
+    text-align:center;
+}
+
+div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input{
+    font-size:12px!important;
+    background:#FFF;
+    padding-left: 0px!important;
+}
+
+div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input[value] {
+    vertical-align:middle;
+}
+
+.grilla_pedidos div.fila_mensajeProductoAgotado div{
+    padding-top: 0px;
+    padding-bottom: 0px!important;
+    border:0px;
+}
+
+div.texto_encabezado_pedidos.cabecera_precioUnitario, div.texto_pedidos.precioUnitario{
+    width:11%;
+}
+
+div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal{
+    width:15%;
+}
+
+div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
+    width:19.5%;
+    text-align:center;
 }
 
 .escalaDescuento_texto{
@@ -1908,7 +2014,7 @@ header {
     vertical-align: top;
     position: absolute;
     float: none;
-    margin-top: 9px;
+    /*margin-top: 7px;*/
     right: 99%;
     top: 0%;
     z-index: 50;
@@ -1930,6 +2036,7 @@ header {
 .caja_montos_textos{
     margin-right:15px;
     position:relative;
+    text-align:left;
 }
 
 .caja_montos_textos .pMontoCliente{
@@ -2018,7 +2125,7 @@ header {
     display: inline-block;
     vertical-align: middle;
     width: 213px;
-    height: 107px;
+    height: auto;
     padding: 20px 36px 20px 20px;
     margin-right: 15px;
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
@@ -2149,10 +2256,10 @@ header {
     display: none;
     width:271px;
     min-height: 158px;
-    height:100%;
+    height:auto;
     position: absolute;
     z-index: 50;
-    top: 50%;
+    top: 58%;
     left: 153%;
     margin-top:-84px;
     box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
@@ -2358,16 +2465,15 @@ header {
     font-weight:400;
     /*max-width:302px;
     margin-bottom:2px;*/
-    text-align:right;
     line-height: 42px;
     text-transform:uppercase;
+    position:relative;
 }
 
 .monto_ganancia{
+    position: relative;
     font-size: 16px;
     font-weight: normal;
-    max-width: 302px;
-    text-align: right;
     text-transform: uppercase;
     color:#642f80;
 }
@@ -2455,13 +2561,14 @@ header {
 }
 
 .mensaje_productoAgotado p{
-    font-family:'Lato';
-    font-size:14px;
-    padding-left:21.5px;
-    text-align:left;
-    color:#000;
-    height:55px;
-    line-height:55px;
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-left: 21.5px;
+    padding-top: 7px;
+    text-align: left;
+    color: #d20000;
+    height: auto;
+    line-height: 20px;
 }
 
 .cabecera_codigo{
@@ -2477,7 +2584,7 @@ header {
 
 .celda_iconos_acciones{
     text-align:center;
-    padding-right:1.5%;
+    /*/*padding-right:1.5%;*/*/
 }
 
 .cabecera_producto{
@@ -2852,11 +2959,9 @@ header {
 }
 
 .precio_total_sinDescuento span.icon-advertencia{
-    display: block;
+    display: inline-block;
     /*background: #d20000;*/
     background:url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
-    float: left;
-    margin-top: 4px;
     width: 18px;
     height: 18px;
     /*border-radius: 100%;*/
@@ -3256,7 +3361,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     padding:31px 0 23px 0;
     width:240px;
     /*height:auto;*/
-    height:404px;
+    height:425px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;
@@ -3287,6 +3392,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
+    z-index:1500;
 }
 
 .producto_img img {
@@ -3475,31 +3581,30 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
     .precio{
         display:block;
-        font-size:13px;
     }
 
     .texto_encabezado_pedidos.cabecera_codigo{
-        width:11%;
+        width:11%!important;
     }
 
     .texto_encabezado_pedidos.acciones{
-        width:5%;
+        width:5%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_subtotal{
-        width:17%;
+    .texto_encabezado_pedidos.cabecera_subtotal, .texto_pedidos.subtotal{
+        width:18%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_producto{
-        width:20%;
+    .texto_encabezado_pedidos.cabecera_producto, .texto_pedidos.celda_producto{
+        width:28%!important;
     }
 
-    .texto_encabezado_pedidos.cabecera_cliente{
-        width:22%;
+    .texto_encabezado_pedidos.cabecera_cliente, .texto_pedidos.clientePedido{
+        width:24%!important;
     }
 
     .flexiPago_belcorp, .caja_carousel_productos{
-        width:30.9%;
+        width:30.9%!important;
     }
 
     .productos_ingresados_movil span.icon-mobile{
@@ -3508,6 +3613,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
     .tabla_pedidos td div.liquidacion_rango_wrapper_pedido input{
         font-size:14px!important;
+    }
+
+    .precio{
+        font-size:13px;
     }
 
     .texto_pedidos.subtotal{
@@ -3534,6 +3643,17 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
     .precio_total_sinDescuento span.icon-advertencia{
         margin-bottom:32px;
+    }
+
+    .paginador_pedidos{
+        margin-bottom:36px!important;
+    }
+
+    .titulo_mis_pedidos{
+        display: block;
+        width: 100%;
+        float: none;
+        margin-bottom:25px;
     }
 
 }
@@ -4217,6 +4337,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:100%;
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
+    overflow:auto;
+}
+
+.fondo_tutorial{
+    background:transparent url(../../../Images/bg_popup_tutorial.png) repeat left top;
 }
 
 .btn_cerrar_invitacionFlexipago{
@@ -5276,8 +5401,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .datos_consultora_textos{
-    width:77%;
+    width:100%;
+    /*width:77%;*/
     text-align:left;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .datos_cod_usuario, .datos_nombre_usuario{
@@ -5317,6 +5445,31 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 /* POPUP TUTORIAL HOME */
 
+.fondo_oscuro{
+    background:rgba(0,0,0,0.8);
+    display:none;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:899;
+    top:0%;
+    left:0%;
+}
+
+.opcionTutorial{
+    position: relative;
+    height:27px;
+    z-index: 1000;
+    background: #FFF;
+    border-radius: 100%;
+}
+
+/*.opcionTutorial .tutoriales_svg{
+    width: 24px;
+    height: 25px;
+    background-position: 2px 3px;
+}*/
+
 #popup_tutorial{
     overflow:auto;
 }
@@ -5327,11 +5480,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /* top: 50%; */
     margin: 8px auto 8px auto;
     width: 100%;
-    max-width: 614px;
-    height: 639px;
+    max-width: 900px;
+    height: 642px;
     font-family: 'Lato';
-    z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    z-index: 7;
+    /*background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;*/
 }
 
 .popup_tutorial_pedido {
@@ -5344,7 +5497,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height: 639px;
     font-family: 'Lato';
     z-index: 5;
-    background: url(../../../Images/Lbel/tutorial_lbel.jpg) no-repeat center center;
+    /*background: url(../../../Images/Lbel/tutorial_lbel_pedido.jpg) no-repeat center center;*/
 }
 
 /* FIN POPUP TUTORIAL HOME */
@@ -5361,7 +5514,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:auto;
     box-sizing: border-box;
     font-family: 'Lato';
-    z-index: 7;
+    z-index: 8;
 }
 
 .contenedor_video_introductorio{
@@ -6070,7 +6223,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background: url(../../../Images/Lbel/logo_lbel.png) no-repeat;
 }
 .logo_esika {
-    margin-top: 5px;
+    margin-top: 8px;
     float: left;
     width: 10%;
     padding-right: 2px;
@@ -6106,11 +6259,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width: 47px;
     height: 32px;
 }
-.boton-home a:hover {
+/*.boton-home a:hover {
     color: white;
-}
+}*/
 .boton-home a {
     color: black;
+    padding-top: 32px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .liquidacion_rango_left_pedido {
     width: 23px;
@@ -7032,12 +7189,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .ver-mas-vertical span.icon{visibility:hidden}
 
 .ver-mas-vertical {
-        font-size:11px;
-        text-transform:uppercase;
-        position:relative;
-        bottom:20px;
-        margin:15px 0 0 0;
-        cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    position: relative;
+    top: -4px;
+    bottom: 20px;
+    margin: 15px 0 33px 0;
+    cursor: pointer;
 }
 
 .ver-mas-vertical span.text{
@@ -7382,7 +7540,7 @@ body {
 p {
     margin: 0 0 1.5em 0;
     padding: 0;
-    line-height: 1.6em;
+    line-height: 1.5em;
 }
 
 h1 {
@@ -8128,12 +8286,13 @@ ul.tabs {
         font-weight:700;
         margin-bottom: 10px;
         text-align: center;
+        margin-bottom:20px !important;
         margin: 0px auto;
         text-transform:uppercase;
         font-size: 10pt !Important;
         font-family: 'lato';
         color: black;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
         }
 
 .terminos_title_Contrato {
@@ -8507,6 +8666,9 @@ ul.tabs {
     height: auto;
     overflow: hidden;
     margin-top: 10px;
+     font-family: 'Lato';
+    color: black;
+    font-size: 13px;
    
 }
 
@@ -9750,19 +9912,20 @@ border: 0;
     }
 
 .div-3 .input_validar input {
-    font-family:"lato-bold";
-    font-size:10px;
-    letter-spacing:2px;
+    font-family:'Lato';
+    font-size:12px;
+    letter-spacing:0.5px;
     float: right;
     width: 137px;
     height: 37px;
     line-height: 37px;
     padding: 0;
-    background:#e81c36;
+    background:#613c87;
     color: #fff;
     text-transform:uppercase;
     border: 0;
-    margin-left: 5px;
+    font-weight:700;
+    
 }
 
 .div-3 .check {
@@ -9821,14 +9984,14 @@ border: 0;
 .input_modifica_horizontal {
     text-transform: uppercase;
     margin-top: 5px;
-    width: 140px;
-    height: 35px;
-    letter-spacing: 1.5px;
+    width: 100px;
+    height: 40px;
+    letter-spacing: 0.5px;
     padding: 0;
-    background: #642f80;
+    background: #613c87;
     color: white;
     font-family: 'lato';
-    font-size: 10.5px;
+    font-size: 12px;
     border: 0;
     font-weight: 700;
 }
@@ -13822,8 +13985,8 @@ table-layout: initial !important;
     font-family: 'lato';
      float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
-    color: #e51437 !important;
+    margin: 20px 16px 0.2em 0;
+    color: black !important;
 }
 
 /*************************************************
@@ -18112,15 +18275,15 @@ float: right;
 	height: 42px;
 	padding-left: 42px;
 	margin-bottom: 14px;
-    width:240px;
+    
 }
 
 .formcontrol:hover {
-	border: 1px solid #7e267c;
+	border: 1px solid #613c87;
 }
 
 .formcontrol:focus {
-	border: 1px solid #7e267c;
+	border: 1px solid #613c87;
 }
 
 .formcontrol .inputForm {
@@ -18131,7 +18294,8 @@ float: right;
 	width: 100%;
 	border: none;
 	font-size: 13px;
-	color: #768591;
+	color: black;
+    font-family:'Lato';
 }
 
 .formcontrol select {
@@ -18153,16 +18317,18 @@ float: right;
 .webFormComDiv {
     border-left: 1px solid #C9C9C9;
     height:310px;
-    width: 20px;
+    width: 50px;
     float:left;
 }
 
 .webFormCom {
 	width: 326px;
     float:left;
-    padding-right:20px;
+    padding-right:50px;
 }
-
+.webFormCom:last-child {
+    padding-right: 0px;
+}
 .user {
 	background: url('../../../images/comunidad/user_ico.png') top left no-repeat #FFF;
 }
@@ -18173,7 +18339,7 @@ float: right;
 
 .Content_modal_Com {
     background: #FFF;
-    padding: 20px 10px 10px 10px;
+    /*padding: 20px 10px 10px 10px;*/
     max-height: 350px;
     -webkit-border-radius: 10px; /* Para Safari y Chrome */
     -moz-border-radius: 10px; /* Para Firefox */
@@ -20016,7 +20182,7 @@ label.checkpop.c_on {
     text-align: center;
     float: left;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 14px;
     padding-left: 10px;
     padding-right: 10px;
     background: #613c87;
@@ -20044,6 +20210,8 @@ label.checkpop.c_on {
     font-size:10pt;
     margin-top: 83px;
     margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
 }
 .ubicacion_web span {
     color:#878787 !important;    
@@ -20053,11 +20221,16 @@ label.checkpop.c_on {
     color:#b1b1b1 !important; 
 
     }
+.ubicacion_web a:hover {
+    display:inline-block;
+    color:#b1b1b1 !important; 
+    text-decoration:underline;
+    }
 
 .flechita_info {
     position: absolute;
     z-index: 2001;
-    width: 55px;
+    width: 63px;
     height: 54px;
     right: -1px;
     margin-top: -69px;
@@ -20076,7 +20249,7 @@ label.checkpop.c_on {
     padding-bottom:15px;
     display: none;
     position: absolute;
-    z-index: 150;
+    z-index: 1001;
     background: white;
     margin-top: 45px;
     width: 310px;
@@ -20088,7 +20261,7 @@ label.checkpop.c_on {
     box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
 }
 
-.campana:hover .info_cam {
+.cart_compras:hover .info_cam {
     display: block;
 }
 
@@ -20130,14 +20303,16 @@ label.checkpop.c_on {
 .content_datos{
     padding-top:13px;
     padding-left:23px;
-    width:100%;
+    /*width:100%;*/
+    max-width:1070px; /*SIN FOTO*/
+    margin:0 auto;
     height:130px;
     -webkit-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
     border: 1px solid #e7e1e1;
     background:white;
-    margin-top: -36px;
+    margin-top: -36px !important;
     position:relative;
     z-index: 10;
 }
@@ -20147,7 +20322,7 @@ label.checkpop.c_on {
     border-radius: 100px;
     -moz-border-radius:100px;
     -webkit-border-radius: 100px;
-    overflow:hidden;
+    position:relative;
     float:left;
 }
 .foto_perfil_home img{
@@ -20159,8 +20334,10 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
     color: black;
     float: left;
-    margin-left: 23px;
-    margin-right: 3%;
+    /*margin-left: 23px;
+    margin-right: 3%;*/
+    margin-left: 3%;
+    margin-right: 9%;
     width: 19.5%;
 }
 .nombre_consultora{
@@ -20200,7 +20377,8 @@ label.checkpop.c_on {
 .info_cam_belcorp2{
     float:left;
     height: 41px;
-    padding-left:12px;
+    /*padding-left:12px;*/
+    padding-left:23px;
     font-family:'lato';
     font-size:10.4px;
     font-weight:700;
@@ -20221,7 +20399,8 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';    
     color:black;
-    width:31.5%;
+    /*width:31.5%;*/
+    width:34.9%;
     float:left;    
 }
 .pedido_resumen_home span{
@@ -20233,19 +20412,57 @@ label.checkpop.c_on {
     display: block;
 
 }
+
 .boton_home_guardar{
     width: 100%;
     height: 45px;
-    background-color: #613c87;
+    background: #613c87;
+    border: 2px solid #613c87;
     text-align: center;
     color: white;
     margin-top: 4px;
     font-family: 'lato';
     font-size: 15px;
     font-weight:600;
-    line-height: 45px;
+    line-height: 40px;
     letter-spacing: 0.3px;
     /* float: left; */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    transition-duration: .3s;
+}
+.boton_home_guardar:hover{
+    color:#613c87;
+}
+.boton_home_guardar:before{
+    content: "";
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+    background: #fff;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.boton_home_guardar:hover:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    color: #7b2481;
 }
 
 .socia_negocio_home{
@@ -20254,7 +20471,10 @@ label.checkpop.c_on {
       float:left;
       font-size:11px;
       color:black;
-      margin-left:4%;
+      /*margin-left:4%;
+      width:29%;*/
+      margin-left: 5%;
+      width: 27%;
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -20264,6 +20484,7 @@ label.checkpop.c_on {
      overflow: hidden;
      float: left;
      width: 50px;
+     cursor: pointer;
 }
 .notificaciones_resumen a img{
     float:left;
@@ -20331,9 +20552,9 @@ label.checkpop.c_on {
     font-size:10px;
     color:#848484;
     letter-spacing:0.1px;
-    text-decoration: none !important;
+    text-decoration: none;
 }
-.btn_ver_mas{
+.btn_ver_mas:hover{
     text-decoration:underline;
 }
 
@@ -20514,20 +20735,24 @@ label.checkpop.c_on {
     left:0;
     right:0;
 }
+.btn_comparte:hover{
+    background:black;
+    color:white;
+}
 .seguir_pedido{
     display: inline-block;
     vertical-align: top;
-    width: 173px;
+    width:49%;
     background:url("../../../Images/Lbel/indicador_pedido.png") no-repeat;
     background-position:0px 5px;
     font-family:'lato';
-    font-size:13px;
+    font-size:11px;
     color:black;
-    padding-left:20px;
+    padding-left:4%;
     margin-top:12px;
     /*letter-spacing: 1px;*/
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 700;
+    
 }
 
 /*.seguir_pedido.ver_video_introductorio{
@@ -20638,7 +20863,7 @@ label.checkpop.c_on {
     float: left;
     width:248px!important;
     margin-right:25px;
-    height: 357px;
+    height: 372px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -20719,7 +20944,7 @@ label.checkpop.c_on {
     margin-top: 7px;
     display:inline-block;
     vertical-align:middle;
-    margin-right:4px;
+    margin-right:3px;
     overflow: hidden;
     height: 45px;
 }
@@ -20927,16 +21152,17 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
 }
 .item_video_left{
-    width:60%;
+    width:46.42%;
     font-family:'lato';
     letter-spacing:0.3px;
     font-size: 15px;
-    margin-top:22px;
+    margin-top:26px;
     float:left;
 }
 .item_video{
     width:100%;
-    height:307px;
+    max-width:342px;
+    height:298px;
     background:black;
     margin-bottom:14px;
     /*background:url("../../../Images/Lbel/home-video.png") no-repeat center center;*/
@@ -20949,13 +21175,12 @@ label.checkpop.c_on {
 }
 .item_video_right{
     float: right;
-    width: 35%;
-    margin-top: 23px;
+    width: 48%;
+    margin-top: 27px;
     margin-left: 5%;
 }
 .titulo_item_video{
-    width:66%;
-   
+    width:66%;   
     font-family:'lato';
     font-size:13px;
     letter-spacing:0.3px;
@@ -21065,7 +21290,7 @@ label.checkpop.c_on {
     float: left;
     margin-right: 3.5%;
     margin-top:45px;
-    margin-bottom:70px;
+    margin-bottom:35px;
     background:gray;
     position:relative;
     overflow:hidden;
@@ -21095,7 +21320,8 @@ label.checkpop.c_on {
 }
 /* PAGINA MIS PAGOS*/
 .titulo_interiores{
-    width:30%;
+    /*width:30%;*/
+    padding-right:50px;
     float:left;
      height:50px;
     font-family:'lato';
@@ -21108,7 +21334,7 @@ label.checkpop.c_on {
 }
 .titulo_interiores span{
     font-weight:700;
-    font-size:13.5pt;
+    font-size:13pt;
 }
 /*.fondo_negro_lateral{
     height: 50px;
@@ -21186,6 +21412,7 @@ hr{
   height: .25rem;
   /*width: 30%;*/
   width:24%;
+  text-align: left;
   margin: 0 0 0 1.35%;
   background: #693484;
   border: none;
@@ -21250,6 +21477,18 @@ hr{
 .acciones_pagos{
     float:right;
     margin-right:15px;
+    position:relative;
+    top: 0px;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.acciones_pagos:hover{
+    top: -5px;
+    opacity: 0.5;
+    filter: alpha(opacity=60);
 }
 .content_datos_mispagos, .content_datos_misPercepciones{
     font-family:'lato';
@@ -21467,9 +21706,9 @@ body{
 
 .tutoriales_svg{
     background: url(../../../Images/Lbel/tutorial.png) no-repeat;
-    background-position: 0 4px;
+    background-position: 2px 3px;
     /* background-size: 100%; */
-    width: 22px;
+    width: 24px;
     height: 25px;
     opacity:1;
     transition:all 0.3s ease;
@@ -21480,26 +21719,72 @@ body{
     position:relative;
 }
 
-.circulo-1{
+.contenedor_circulos{
+    display:none;
+    position: absolute;
+    z-index:500;
+}
+
+.circulo-1, .circulo-2, .circulo-3{
     display: block;
     border-radius: 100%;
     position: absolute;
-    top: 12px;
-    left: 9px;
-    width: 0px;
-    height: 0px;
     background: #642f80;
+    z-index:500;
+}
+
+@keyframes circulo {
+
+    0%{
+        top: 12px;
+        left: 7px;
+        opacity:0.8;
+        width: 0px;
+        height: 0px;
+    }
+
+    100%{
+        opacity:0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+
+}
+
+.circulo-1.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.3s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-2.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.6s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+}
+
+.circulo-3.iniciarTransicion{
+    animation:circulo;
+    animation-duration:1.5s;
+    animation-delay:0.9s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
 }
 
 .tooltip_tutorial{
-    display: block;
+    display: none;
     background: #FFF;
-    width: 188px;
-    height: 40px;
-    line-height: 40px;
+    width: 245px;
+    height: auto;
     position: absolute;
     top: 41px;
-    left: -83px;
+    left: -110px;
     border-radius: 5px;
     z-index: 1000;
     box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
@@ -21513,10 +21798,12 @@ body{
 .tooltip_tutorial span{
     display: block;
     width: 100%;
+    padding:11px 9px 10px 9px;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight: 700;
-    color: #642f80;
+    line-height: 17px;
+    font-weight: 400;
+    color: #000;
     text-align: center;
 }
 
@@ -21567,6 +21854,7 @@ body{
  }
  .pestana_lbel{
       background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+      background-size:cover;
       width:30px;
       height:20px;
       margin-left:64px;
@@ -21700,10 +21988,24 @@ body{
 }
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 3.5%;
+        margin-left: 2.5%;
+    }
+    .escala_ganancia {
+        padding-left: 0.8%;
+        padding-right: 0.8%;
+    }
+    .resumen_belcorp_cam{
+         margin-right: 0%;
+        width: 29.5%;
     }
 }
-
+@media screen and (max-width: 1187px) {
+        
+    .escala_ganancia {
+        padding-left: 1.2%;
+        padding-right: 1.2%;
+    }
+}
 @media screen and (max-width: 1024px) {
      .linea_blanca{
         width:52px;
@@ -22759,7 +23061,7 @@ body{
 .content_datos_pedidosFacturados .descripcion_prod,
 .content_datos_pedidosFacturados .cliente{
     display:inline-block;
-    width: 15%;
+    width: 30%;
     vertical-align:middle;
 }
 
@@ -22855,6 +23157,7 @@ body{
     border:0 !important;
     box-shadow: none !important;
 }
+
 .sugerido .producto_imagen{
     height: 200px;
     width: 155px;
@@ -22863,9 +23166,10 @@ body{
     vertical-align:middle;
 }
 
-/*.sugerido .producto_imagen img {
-    margin-left:-25px;
-}*/
+.sugerido .producto_imagen img {
+    width: auto;
+    height: 82.8%;
+}
 
 .sugerido .producto_nombre_descripcion {
     width: 139px;
@@ -24177,10 +24481,11 @@ img
 	position:relative;
 	float:left;
 	text-align:center;
+    font-family:'Lato';
 }
 .cont_mas_preguntas h2
 {
-	font-family:'Museo Sans', arial, sans-serif;
+	font-family:'Lato';
 	font-size:23.5px;
 	color:#e51437;
 	font-weight:500;
@@ -24195,7 +24500,7 @@ img
 	width:277px;
 	height:318px;
 	position:relative;
-	padding:30px 20px;
+	padding:25px 20px;
 	box-sizing:border-box;
 	margin:10px 8px 40px;
 	display:inline-block;
@@ -24209,7 +24514,7 @@ img
 	color:#405160;
 	font-weight:600 !important;
 	height:78px;
-    font-family: Arial, sans-serif;
+   font-family:'Lato';
 }
 .centrar_preguntas
 {
@@ -24291,6 +24596,7 @@ img
 	font-size:14px;
 	padding-right:100px;
 	box-sizing:border-box;
+    font-family:'Lato';
 }
 .menu_consultora ul
 {
@@ -24349,14 +24655,14 @@ img
 	
 }
 .cont_prox_pasos h2
-{
+{   font-family:'Lato';
 	color:#e51437;
 	font-weight:700;
 	font-size:19.5px;
 	margin-bottom:30px;
 }
 .colum_prox_paso
-{
+{   font-family:'Lato';
 	max-width:228px;
 	min-height:366px;
 	height:auto;
@@ -24373,6 +24679,7 @@ img
 	width:100%;
 	position:relative;
 	float:left;	
+    font-family:'Lato';
 }
 .cont_mas_clientes p
 {
@@ -25541,6 +25848,23 @@ div.subir_archivo input {
     letter-spacing:0.25px;
     text-align:center;
 }
+
+.pagar_btn{
+    float:right;
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    font-family: 'Lato';
+    margin-top: 35px;
+    margin-bottom:40px;
+    background:#613c87;
+    font-weight:700;
+    font-size:11pt;
+    letter-spacing:0.25px;
+    text-align:center;
+}
+
 .numero_lista{
     width:40px;
     margin-left:15px;
@@ -25657,7 +25981,7 @@ div.subir_archivo input {
     overflow-y: auto;
 }
 .seleccion_pagina{
-    margin-right:40px;
+    margin-right:24px;
 }
 /* POPUP AGREGAR CLIENTE, EDITAR CLIENTE PAGINA MIS CLIENTES*/
 
@@ -25782,7 +26106,7 @@ div.subir_archivo input {
     display:block;
     width:67px;
     height:67px;
-    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat center center;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.png) no-repeat center center;
     margin:0 auto 13px auto;
     background-size:cover;
 }
@@ -26174,7 +26498,7 @@ position: relative; float: left;
  }
 /*PEDIDO VALIDADO*/
 .cod_venta_listado{
-    width:13%;
+    width:10%;
     display:inline-block;
     vertical-align:middle;
     padding-left:15px;
@@ -26183,14 +26507,14 @@ position: relative; float: left;
 }
 
 .descripcion_listado{
-    width: 22%;
+    width: 25%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
     padding-bottom:23px;
 }
 .cantidad_listado{
-    width:11%;
+    width:10%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26198,7 +26522,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .unitario_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26206,7 +26530,7 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .total_listado{
-    width:16%;
+    width:13%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
@@ -26214,11 +26538,12 @@ position: relative; float: left;
     padding-bottom:23px;
 }
 .cliente_listado{
-    width:19%;
+    width:25%;
     display: inline-block;
     vertical-align: middle;
     text-align:right;
     padding-top:23px;
+    padding-left:1%;
     padding-bottom:23px;
 }
 
@@ -26295,8 +26620,7 @@ position: relative; float: left;
     font-size:13px;
 }
 .icono_exclamacion_alerta{
-    background:url(../../../Images/Lbel/icono_exclamacion_lbel.svg) no-repeat;
-    background-size:cover;
+    background:url(../../../Images/Lbel/icono_exclamacion_lbel.png) no-repeat center center;
 }
 
 /* POPUP LAYOUT */
@@ -26364,7 +26688,7 @@ position: relative; float: left;
 .popup_frame .popup_btn_cerrar_top .icono_regresar .img {
     width: 14px;
     height: 19px;
-    background:transparent url(../../../Images/btn_regresar.svg) no-repeat;
+    background:transparent url(../../../Images/btn_regresar.svg) no-repeat center center;
 }
 .popup_frame .popup_btn_cerrar_top .texto_btn_regresar {
     font-family: 'Lato';
@@ -26389,6 +26713,8 @@ position: relative; float: left;
     font-size:16px;
     color:black;
     margin-bottom:16px;
+    width: 325px;
+    padding-right: 5px;
 }
 .monto_totalValidado span{
     font-size: 22px;
@@ -26553,7 +26879,7 @@ position: relative; float: left;
 }
 .info_modificarvalidado{
     float:right;
-    width:213px;
+    width:240px;
     height:auto;
     padding: 20px;
     margin-right: 15px;
@@ -26563,8 +26889,8 @@ position: relative; float: left;
     background: url(../../../Images/Esika/fondo_pestana.png) no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
-    font-weight:900;
-    color:#613c87;
+    /*font-weight:900;
+    color:#613c87;*/
     text-align:center;
     line-height: 17px;
     margin-top: 20px;
@@ -26578,6 +26904,23 @@ position: relative; float: left;
     display:block;
     margin-top: 5px;
     line-height: 15px;
+}
+.icono_tooltip_validado{
+    float:left;
+    width:20px;
+    height:20px;
+    background:url(../../../Images/Mobile/Lbel/icono_advertencia_b75d9f.svg) no-repeat;
+    background-size:cover;
+}
+.info_tooltip{
+    width: 165px;
+    float:left;
+    margin-left:10px;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:17px;
+    color:black;
+    text-align: left;
 }
 .linea_gris{
     width:100%;
@@ -26643,6 +26986,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background-size:cover;
     position:relative;
     margin-top:-62px;
+    z-index: 1;
 }
 
 .titulo_banner{
@@ -26683,7 +27027,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     vertical-align:top;
     width:31.035%;
     height:297px;
-    margin-right:3.175%;
+    margin-right:37px;
     margin-bottom:4.5%;
     border:1px solid #e7e1e1;
     box-shadow:0px 15px 28px -8px rgba(204,200,204,1);
@@ -26788,7 +27132,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .precarga {
   position: relative;
   margin: 0 auto 15px auto;
-  width: 80px;
+  width:70px;
 }
 .precarga:before {
   content: '';
@@ -26879,12 +27223,29 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
     min-height: 405px;
     position: relative;
     font-family: 'Lato';
 }
 
+.catalogoPersonalizadoBloque{
+    background:#FFF;
+}
+
+.pantallaCatalogoPersonalizado {
+    margin:0px auto 0 auto!important;
+}
+
+.pantallaCatalogoPersonalizado .agregado{
+    height: 12px;
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
+}
 .content-favclientes .contiene-productos {
     background-color: white;
     margin: 0px 24px;
@@ -26923,6 +27284,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     padding-top: 15px;
 }
 
+.favoritosClientes{
+    width:475px!important;
+}
+
+.liquidacionRangoClientes{
+    margin-top:-3px;
+}
+
 /*catalogo personalizado*/
 .content-favclientes.catper .contiene-productos {
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -26934,7 +27303,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin: 12px 24px;
+    margin: 0px 24px;
+    padding-bottom: 20px;
     float: left;
     position: relative;
     margin-bottom: 15px;
@@ -26946,7 +27316,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     padding-bottom: 10px;
 }
 
-.content-favclientes .agregado {
+.content_carrusel_agregado .agregado {
   height: 12px;
   font-family: Lato;
   font-size: 10px;
@@ -26955,7 +27325,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   text-align: center;
   color: #a18328;
 }
-.content-favclientes .agregado .icono{
+.content_carrusel_agregado .agregado .icono{
    width: 11px;
   height: 11px;
   display: inline-block;
@@ -26963,13 +27333,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .pestana_lbel.new {
-    background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
-    width: 100%;
+    width: 30px;
     height: 20px;
     position: relative;
-    margin-bottom: 9px;
-    margin-left: 0px;
-    background-position-x: 128px;
+    margin-bottom: 8px;
+    margin-left: 64px;
+    z-index: 21;
 }
 
 .titulo_interiores {
@@ -26977,7 +27346,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     border-bottom: 1px solid;
 }
 
-.imagen-curvatura {
+/*.imagen-curvatura {
     background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
     height: 20px;
     width: 100%;
@@ -26986,6 +27355,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index: 2;
     margin-top: -3px;
     background-position-x: 110px;
+}*/
+
+.imagen-curvatura{
+    background: #FFF url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 30px;
+    background-position: center center;
+    position: absolute;
+    z-index: 2;
+    margin-top: -3.5px;
+    margin-left:50px;
 }
 
 .pestana_lbel.new .boton_Agregalo_home{
@@ -27035,3 +27416,636 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     text-align: center;
     right: 0;
 }
+
+.caja_montos_textos_sinDescuento, .caja_montos_cantidades_sinDescuento{
+    display:inline-block;
+    font-size:16px;
+    font-family:'Lato';
+    color:#000;
+    margin-bottom:23px;
+}
+
+.caja_montos_textos_sinDescuento{
+    font-weight:normal;
+    margin-right:28px;
+}
+
+.caja_montos_cantidades_sinDescuento{
+    text-align:right;
+    font-weight:700;
+}
+
+.caja_montos_textos_sinDescuento span, .caja_montos_cantidades_sinDescuento span{
+    display:block;
+}
+
+.caja_montos_cantidades_sinDescuento span:first-child{
+    line-height:20px;
+}
+
+.caja_montos_cantidades_sinDescuento span:last-child{
+    line-height:30px;
+}
+
+.dscto_ofertasNiveles{
+    margin-left:20px;
+}
+
+.separador_montos{
+    display: block;
+    width: 100%;
+    position: absolute;
+    background: #000;
+    height: 1px;
+    top: 56px;
+    right: 0px;
+}
+
+
+/* POPUP MIS GANANCIAS */
+
+.popup_mis_ganancias{
+    display: block;
+    position: relative;
+    height: 296px;
+    width: 100%;
+    top: 50%;
+    max-width: 492px;
+    margin: -148px auto 0 auto;
+    background: #FFF;
+    padding:51px 61px;
+}
+
+.contenido_misGanancias{
+    display:block;
+    height:auto;
+    font-family:'Lato';
+    font-size:13px;
+}
+
+.contenido_misGanancias h6{
+    font-size:13px;
+    font-weight:900!important;
+    color:#642f80;
+    text-transform:uppercase;
+}
+
+.contenedor_montos_sinDescuento{
+    display: block;
+    float: right;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+}
+
+.pValidado{
+    margin-bottom:0px;
+    margin-left:13px;
+}
+
+.mis_descuentos{
+    display:block;
+    width:100%;
+    height:auto;
+    margin-top:4px;
+    margin-bottom:7px;
+}
+
+.mis_descuentos_texto, .mis_descuentos_monto{
+    display:inline-block;
+    vertical-align:top;
+    font-weight:normal;
+    color:#000;
+    font-size:13px;
+}
+
+.mis_descuentos_texto{
+    text-align:left;
+    width:40%;
+}
+
+.mis_descuentos_monto{
+    text-align:right;
+    width:59%;
+}
+
+.separador_montos_misGanancias{
+    background: #642f80;
+    height: 2px;
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.monto_total_misGanancias{
+    display:block;
+    margin-top:13px;
+    margin-bottom:27px;
+    text-align:right;
+    color:#642f80;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.nota_popup_misGanancias{
+    display:block;
+    text-align:justify;
+    font-size:11px;
+    font-weight:normal;
+    color:#878787;
+}
+.disclaimer_b{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-bottom:20px;
+    color:#929292;
+}
+
+/*INCENTIVOS*/
+.content_incentivos{
+    max-width:1189px;
+    margin:0 auto;    
+    margin-top:40px;
+    padding-bottom:30px;
+    font-family: 'Lato';
+    font-size: 13px;
+}
+.item_incentivos {
+    width: 23%;
+    margin-left: 1%;
+    margin-right: 1%;
+    height: auto;  
+    float:left;
+    margin-bottom: 30px;
+}
+.content_img_incetivos{
+    width:100%;
+    height:282px;
+    overflow: hidden;
+    border: 1px solid #B7B7B7;
+}
+.content_img_incetivos img{
+    width: 272px;
+    height: 282px;
+}
+.titulo_item_incentivo{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    text-align:center;
+    margin-top:10px;
+}
+
+/*PEDIDO FIC*/
+.codigo_fic {
+    width: 8%;
+    padding-left:1%;
+}
+.producto_fic{
+    width: 45%;
+}
+.unidades_fic{
+    width: 9% !important;
+    text-align: center !important;
+}
+.precioUnitario_fic{
+    width: 9%;
+    text-align:right;
+}
+.subtotal_fic{
+    width: 11%;
+    text-align:right;
+}
+.clienteFic{
+        width: 13%;
+    text-align: center;
+}
+.clienteFic input{
+     max-width: 107px;
+    text-align: left;
+    height: 32px;
+    font-family: 'Lato';
+    color: #1a1a1a;
+    
+    border: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 32px;
+    font-size: 14.5px;
+}
+.titulo_pedidos_fic{
+    float:left;
+        text-align: left;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #000;
+    font-family: 'Lato';
+}
+.content_paginador{
+    float:right;
+    margin-top:10px;
+}
+.mensaje_fic{
+    font-family:'Lato';
+    font-size:16px;
+    color:#613c87;
+    letter-spacing:0.3px;
+}
+@media screen and (max-width: 1092px){
+    .subtotal_fic span:nth-child(2) {
+    font-size: 16.5px;
+    color: #000;
+    font-weight: bold;
+    }
+    .oculto_1092{
+        display:none !important;
+    }
+    .clienteFic{
+        width:16%;
+    }
+    .subtotal_fic {
+        width: 13%;
+    }
+    .unidades_fic{
+        width: 11% !important;
+    }
+    .clienteFic {
+        width: 18%;
+    }
+}
+
+/* PÁGINA ESCALA DE DESCUENTOS */
+
+.container_escalaDescuento{
+    width:100%;
+    max-width:1189px;
+    margin-top: -125px;
+    margin-bottom: 47px;
+}
+
+.container_escalaDescuento div{
+    display:block;
+    text-align:center;
+}
+
+/*TOOLTIP FOTO*/
+
+.contenedor_img_perfil{
+    display:block;
+    float:left;
+}
+
+.foto_perfil_home:hover .tooltip_foto{
+    display:block;
+}
+
+.tooltip_foto{
+    width: 272px;
+    height: 30px;
+    display: none;
+    position: absolute;
+    background: white;
+    top: -45px;
+    font-family:'Lato';
+    font-size:12px;
+    color:black;
+    padding:6px;
+    -webkit-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
+    left: -18px;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -o-border-radius:3px;
+    -moz-border-radius:3px;
+    
+}
+.tooltip_foto::before{
+    position: absolute;
+    top: 100%;
+    left: 24%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    border-color: rgba(5, 7, 8, 0);
+    border-top-color: white;
+    border-width:9px;
+    z-index: 10;
+}
+
+/*TUTORIAL DINAMICO*/
+
+#slide1_container {
+    display:block;
+    width:100%;
+    max-width:900px;
+    height:642px;
+    overflow:hidden; 
+    margin:15px auto 0 auto;
+}
+
+#slide1_images {
+  width:100%;
+  position:absolute;
+  top:0px;
+  height:642px;
+  overflow:hidden;
+}
+
+#slide1_images div {
+  padding:0;
+  margin:0;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:900px;
+  height: 642px;
+  opacity:1;
+}
+
+#slide1_images .img_slide1{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel1.jpg) no-repeat center top;
+    z-index:8;
+}
+
+#slide1_images .img_slide2{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel2.jpg) no-repeat center top;
+    z-index:7;
+}
+
+#slide1_images .img_slide3{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel3.jpg) no-repeat center top;
+    z-index:6;
+}
+
+#slide1_images .img_slide4{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel4.jpg) no-repeat center top;
+    z-index:5;
+}
+
+#slide1_images .img_slide5{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel5.jpg) no-repeat center top;
+    z-index:4;
+}
+
+#slide1_images .img_slide6{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel6.jpg) no-repeat center top;
+    z-index:3;
+}
+
+#slide1_images .img_slide7{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel7.jpg) no-repeat center top;
+    z-index:2;
+    /*top:642px;*/
+}
+
+#slide1_images .img_slide8{
+    background: url(../../../Images/Lbel/tutorialHome/tutorial-home-lbel8.jpg) no-repeat center top;
+    z-index:1;
+    /*top:1284px;*/
+}
+
+#slide1_images .img_slide1Pedido{
+    background: url(../../../Images/Lbel/tutorialPedido/Lbel_tutorial2.jpg) no-repeat center top;
+    z-index:8;
+}
+
+#slide1_images .img_slide2Pedido{
+    background: url(../../../Images/Lbel/tutorialPedido/Lbel_tutorial2.jpg) no-repeat center top;
+    z-index:7;
+}
+
+#slide1_images .img_slide3Pedido{
+    background: url(../../../Images/Lbel/tutorialPedido/Lbel_tutorial3.jpg) no-repeat center top;
+    z-index:6;
+}
+
+#slide1_images .img_slide4Pedido{
+    background: url(../../../Images/Lbel/tutorialPedido/Lbel_tutorial4.jpg) no-repeat center top;
+    z-index:5;
+}
+
+#slide1_images .img_slide5Pedido{
+    background: url(../../../Images/Lbel/tutorialPedido/Lbel_tutorial5.jpg) no-repeat center top;
+    z-index:4;
+}
+
+/*POP UP FOTO CARGADA*/
+.content_foto_cargada{
+    max-width:486px;
+    height:440px;
+    background:white;
+    top:50%;
+    margin:-220px auto auto auto;
+    position:relative;
+    padding-top:46px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.titulo_pop_foto{
+    /*margin-top:15px;*/
+    font-family:'Lato';
+    font-weight:300;
+    font-size:25px;
+    color:black;
+    text-align:center;
+    margin-bottom:30px;
+}
+.content_foto_usuario {
+    width:200px;
+    margin:0 auto;
+    height:200px;
+     margin-BOTTOM:40px !important;
+}
+.foto_usuaria_desktop{
+    background:white;
+    width:100%;
+    height:100%;
+    border-radius:100px;
+    -webkit-border-radius:100px;
+    -moz-border-radius:100px;
+    -o-border-radius:100px;
+    overflow:hidden;
+}
+.foto_usuaria_desktop img{
+    width:100%;
+}
+.btn_tomar_foto{
+    width:50%;
+    height:42px;
+    border:1px solid black;
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    line-height:42px;
+    font-size:13px;
+    font-weight:700;
+   
+    text-transform:uppercase;
+    margin:auto;
+
+}
+.btn_tomar_foto:hover{
+    background:black;
+    color:white;
+}
+.text_actualizada{
+    font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:22px;
+    margin-top:-10px;
+}
+.sub_text_actualizada{
+     font-family:'Lato';
+    color:black;
+    text-align:center;
+    font-size:16px;
+}
+.producto_img_home:hover .ver_detalle_carrusel,  .producto_img:hover .ver_detalle_carrusel{
+    display:block;
+    }
+.producto_img_home{
+    position:relative;
+}
+.ver_detalle_carrusel{
+    display:none;
+    position:absolute;
+    height:35px;
+    line-height:30px;
+    width:60%;
+    font-weight:700;
+    border:2px solid black;
+    font-family:'Lato';
+    background:rgba(255,255,255,0.8);
+    left:0;
+    right:0;
+    bottom:10px;
+    margin:0 auto;
+    -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    animation: opacidad-bottom 500ms linear 0ms 1 normal;
+}
+
+@keyframes opacidad-bottom {
+    0% {
+        opacity:0;
+    
+    }
+    80% {
+        opacity:1;
+    }
+}
+
+/* POPUP IMAGEN PERFIL PROCESO RECORTE */
+
+.popup_img_perfil{
+    display: block;
+    max-width: 486px;
+    height: 440px;
+    background: white;
+    top: 50%;
+    margin: -220px auto auto auto;
+    position: relative;
+    padding-top: 46px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.popup_img_perfil h1{
+    display:block;
+    margin: 0 0 36px 0;
+    padding:0;
+    font-family:'Lato';
+    font-weight:300!important;
+    font-size:25px;
+    text-align:center;
+    color:#000;
+}
+
+.btn_acciones{
+    display:block;
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+
+.boton_cancelarImagen, .boton_guardarImagen{
+    display: inline-block;
+    width: 187px;
+    height: 43px;
+    line-height: 43px;
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.boton_cancelarImagen{
+    color:#000;
+    background:#FFF;
+    border:1px solid #000;
+    margin-right:14px;
+}
+
+.boton_guardarImagen{
+    color:#FFF;
+    background:#642f80;
+    border:1px solid #642f80;
+}
+
+.imgPerfil{
+    display: block;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto 39px auto;
+}
+
+.imgPerfil img{
+    width:100%;
+    height:auto;
+}
+
+/* POPUP PROCESO CARGA FOTO */
+
+.contenedorBarraImagenPerfil{
+    display: block;
+    width: 342px;
+    margin: 0 auto;
+    padding-top: 86px;
+    height: 200px;
+    margin-bottom: 40px !important;
+}
+
+.barra_contenedor{
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 12px;
+    background: #e4e4e4;
+    border-radius: 9px;
+    position: relative;
+    overflow: hidden;
+}
+
+.barra_carga{
+    display: block;
+    width: 20%;
+    height: 5px;
+    background: #642f80;
+    border-radius: 9px;
+}
+
+.texto_estadoCarga{
+    display: block;
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* FIN PROCESO CARGA FOTO */
+

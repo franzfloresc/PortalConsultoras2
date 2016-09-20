@@ -6,7 +6,6 @@ var offset = 0;
 var puedeCargar = true;
 
 $(document).ready(function () {
-    HorarioRestringido();
     IniDialog();
 
     $(document).on('click', '#boton_vermas', function () {
@@ -63,11 +62,6 @@ $(document).ready(function () {
     });
 
     $("#btnVerPedido").click(function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Ver-Pedido']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Ver-Pedido'
-        });
         location.href = baseUrl + 'Pedido/Index';
     });
 
@@ -81,6 +75,9 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.js-boton_tonotalla', function () {
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
         var contenedor = $(this).parent().parent();
         var objProducto = {
             imagenProducto: $(contenedor).find('.imagenpop').attr('src'),
@@ -107,11 +104,8 @@ $(document).ready(function () {
     });
 
     $(document).on('click', ".js-boton_agregar_popup", function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Agregar-Liquidacion']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
-        });
+        if (ReservadoOEnHorarioRestringido())
+            return false;
         var contenedor = $(this).parents('#divVistaPrevia');
 
         var txtCantidad = $(contenedor).find("#txtCantidadPopup");
@@ -226,11 +220,10 @@ $(document).ready(function () {
     });
 
     $(document).on('click', ".js-boton_liquidacion", function () {
-        _gaq.push(['_trackEvent', 'Liquidacion-Web', 'Agregar-Liquidacion']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Liquidacion-Web/Agregar-Liquidacion'
-        });
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
+        agregarProductoAlCarrito(this);
         var txtCantidad = $(this).parents('.liquidacion_item').find(".txtCantidad");
         var Cantidad = $(this).parents('.liquidacion_item').find(".txtCantidad")[0].value;
         var OfertaProductoID = $(this).parents('.liquidacion_item').find(".OfertaProductoID")[0].value;
@@ -318,6 +311,7 @@ $(document).ready(function () {
                                         InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia);
                                         CargarResumenCampaniaHeader(true);
                                         TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                        ActualizarGanancia(data.DataBarra);
                                     }
                                     else {
                                         alert_msg(data.message);
@@ -338,7 +332,11 @@ $(document).ready(function () {
             });
         }
     });
-    
+
+    if (!ReservadoOEnHorarioRestringido(false)) {
+        $('#loader').show();
+        CargarOfertasLiquidacion();
+    }
 });
 
 function CargarOfertasLiquidacion() {
@@ -378,7 +376,7 @@ function ArmarCarouselLiquidaciones(data) {
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
-        item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
+        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0,159) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
                
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
@@ -397,7 +395,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
 
     return array;
 };
-
 function cargarProductoPopup(objProducto, objHidden) {
     waitingDialog({});
 
@@ -459,34 +456,6 @@ function cargarProductoPopup(objProducto, objHidden) {
         closeWaitingDialog();
         showDialog('divVistaPrevia');
         $(divVistaPrevia).find('#txtCantidadPopup').blur();
-    });
-};
-function HorarioRestringido() {
-    waitingDialog({});
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/EnHorarioRestringido',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    alert_msgHorario(data.message);
-                    horarioRestringido = true;
-                    setTimeout(function () { location.href = baseUrl + 'Bienvenida/Index'; }, 2500);
-                } else {
-                    $('#loader').show();
-                    CargarOfertasLiquidacion();
-                }
-            }
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(data.message);
-            };
-            closeWaitingDialog();
-        }
     });
 };
 function IniDialog() {
@@ -594,3 +563,82 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
 function CerrarProductoAgregado() {
     $('#pop_liquidacion').hide();
 };
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                var fnRedireccionar = function () {
+                    waitingDialog({});
+                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
+                }
+                if (mostrarAlerta == true) {
+                    closeWaitingDialog();
+                    alert_msg_pedido(data.message);
+                }
+                else fnRedireccionar();
+            }
+            else if (mostrarAlerta == true)
+                alert_msg_pedido(data.message);
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
+};
+function alert_msg_pedido(message) {
+    $('#DialogMensajes .pop_pedido_mensaje').html(message);
+    $('#DialogMensajes').dialog('open');
+};
+// Funcion de animación al agregar productos al carrito
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+    var carrito = $('.campana');
+
+    $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+    $(".transicion").css({
+        'height': imagenProducto.css("height"),
+        'width': imagenProducto.css("width"),
+        'top': imagenProducto.offset().top,
+        'left': imagenProducto.offset().left,
+    }).animate({
+        'top': carrito.offset().top - 60,
+        'left': carrito.offset().left + 100,
+        'height': carrito.css("height"),
+        'width': carrito.css("width"),
+        'opacity': 0.5
+    }, 450, 'swing', function () {
+        $(this).animate({
+            'top': carrito.offset().top,
+            'opacity': 0,
+            //}, 100, 'swing', function () {
+            //    $(".campana .info_cam").fadeIn(200);
+            //    $(".campana .info_cam").delay(2500);
+            //    $(".campana .info_cam").fadeOut(200);
+        }, 150, 'swing', function () {
+            $(this).remove();
+        });
+    });
+}

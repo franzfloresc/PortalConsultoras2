@@ -36,11 +36,7 @@
     }
 
     function AgregarOfertaProducto(Object) {
-        _gaq.push(['_trackEvent', 'Accesorizate', 'Agregar']);
-        //dataLayer.push({
-        //    'event': 'pageview',
-        //    'virtualUrl': '/Accesorizate/Agregar'
-        //});
+
         var Cantidad = $(Object).parent().parent().find(".ValidaNumeralOferta")[0].value;
         var OfertaProductoID = $(Object).prev('input[type="hidden"]').val();
         var div = $(Object).parent().parent().parent().parent().find(".producto_agregado");

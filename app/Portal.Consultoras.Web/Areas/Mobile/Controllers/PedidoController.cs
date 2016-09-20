@@ -26,6 +26,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Session["PedidoWeb"] = null;
             Session["PedidoWebDetalle"] = null;
 
+            BEConfiguracionCampania beConfiguracionCampania;
+            using (var sv = new PedidoServiceClient())
+            {
+                beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+            }
+
+            if (beConfiguracionCampania == null)
+                return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
+
+            if (beConfiguracionCampania.CampaniaID == 0)
+                return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
+
+            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+                && !beConfiguracionCampania.ModificaPedidoReservado
+                && !beConfiguracionCampania.ValidacionAbierta)
+                return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+
             var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
             if (lstPedidoWebDetalle.Count == 0)
@@ -76,11 +93,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, userData.CodigoISO);
             model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
-            model.DescuentoStr = Util.DecimalToStringFormat(bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
+            model.DescuentoStr = (bePedidoWebByCampania.DescuentoProl > 0 ? "-" : "") + Util.DecimalToStringFormat(bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
             model.ListaProductos = lstPedidoWebDetalle.ToList();
             model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
 
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
+            model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
+            model.FormatoMontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
 
             using (var sv = new ClienteServiceClient())
             {
@@ -88,7 +107,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
 
             return View(model);
         }
@@ -124,7 +143,95 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && beConfiguracionCampania.ModificaPedidoReservado ? "1" : "0";
 
             ValidarStatusCampania(beConfiguracionCampania);
-            
+
+            /* SB20-287 - INICIO */
+            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+
+            if (!userData.DiaPROL)  // Periodo de venta
+            {
+                ViewBag.AccionBoton = "guardar";
+                model.Prol = "GUARDA TU PEDIDO";
+                model.ProlTooltip = "Es importante que guardes tu pedido";
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.CodigoISO == "BO")
+                {
+                    model.ProlTooltip = "Es importante que guardes tu pedido";
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                }
+            }
+            else // Periodo de facturacion
+            {
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+                {
+                    ViewBag.AccionBoton = "validar";
+                    model.Prol = "RESERVA TU PEDIDO";
+                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+
+                    if (diaActual <= userData.FechaInicioCampania)
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                        if (userData.CodigoISO == "BO")
+                        {
+                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                    }
+                }
+                else // PROL 1
+                {                    
+                    if (userData.PROLSinStock)
+                    {
+                    	ViewBag.AccionBoton = "guardar";
+                        model.Prol = "GUARDA TU PEDIDO";
+                        model.ProlTooltip = "Es importante que guardes tu pedido";
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                    	ViewBag.AccionBoton = "validar";
+                        model.Prol = "VALIDA TU PEDIDO";
+                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+
+                        if (diaActual <= userData.FechaInicioCampania)
+                        {
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                        }
+                        else
+                        {
+                            if (userData.CodigoISO == "BO")
+                            {
+                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                            }
+                            else
+                            {
+                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            }
+                        }
+                    }
+
+                }
+            }
+            /* SB20-287 - FIN */
+
+            /* SB20-483 - INICIO */
+            var pedidoWeb = ObtenerPedidoWeb();
+            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+            ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
+            ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+
+            model.PaisID = userData.PaisID;
+            /* SB20-483 - FIN */
+
             //Se desactiva dado que el mensaje de Guardar por MM no va en países SICC
             if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
             {
@@ -168,6 +275,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
 
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -180,7 +288,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.PedidoConProductosExceptuadosMontoMinimo = lstPedidoWebDetalle.Any(p => p.IndicadorMontoMinimo == 0);
 
             model.SubTotal = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-            if (model.PedidoConDescuentoCuv) model.Descuento = -lstPedidoWebDetalle[0].DescuentoProl;
+            if (model.PedidoConDescuentoCuv) model.Descuento = -bePedidoWebByCampania.DescuentoProl;
             model.Total = model.SubTotal + model.Descuento;
 
             model.DescripcionSubTotal = Util.DecimalToStringFormat(model.SubTotal, model.CodigoISO);
@@ -190,11 +298,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
             
-            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
             model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
             model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
             model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
             model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
+
+            /* SB20-483 - INICIO */
+            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
+            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
+            //ViewBag.MontoDescuento = Util.DecimalToStringFormat(0, userData.CodigoISO);
+            //ViewBag.GananciaEstimada = Util.DecimalToStringFormat(ViewBag.MontoAhorroCatalogo + ViewBag.MontoAhorroRevista, userData.CodigoISO);
+            model.PaisID = userData.PaisID;
+            /* SB20-483 - FIN */
 
             if (lstPedidoWebDetalle.Count != 0)
             {
@@ -206,6 +321,80 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
+            /* SB20-287 - INICIO */
+            TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+
+            if (!userData.DiaPROL)  // Periodo de venta
+            {
+                model.Prol = "GUARDA TU PEDIDO";
+                model.ProlTooltip = "Es importante que guardes tu pedido";
+                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", ViewBag.FechaFacturacionPedido);
+
+                if (userData.CodigoISO == "BO")
+                {
+                    model.ProlTooltip = "Es importante que guardes tu pedido";
+                    model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", ViewBag.FechaFacturacionPedido);
+                }
+            }
+            else // Periodo de facturacion
+            {
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+                {
+                    model.Prol = "RESERVA TU PEDIDO";
+                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+
+                    if (diaActual <= userData.FechaInicioCampania)
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                        if (userData.CodigoISO == "BO")
+                        {
+                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                        }
+                        else
+                        {
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                        }
+                    }
+                }
+                else // PROL 1
+                {
+                    if (userData.PROLSinStock)
+                    {
+                        model.Prol = "GUARDA TU PEDIDO";
+                        model.ProlTooltip = "Es importante que guardes tu pedido";
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                    }
+                    else
+                    {
+                        model.Prol = "VALIDA TU PEDIDO";
+                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+
+                        if (diaActual <= userData.FechaInicioCampania)
+                        {
+                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                        }
+                        else
+                        {
+                            if (userData.CodigoISO == "BO")
+                            {
+                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                            }
+                            else
+                            {
+                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+                            }
+                        }
+                    }   
+                }
+            }
+            /* SB20-287 - FIN */
+
+            #region kitNueva
             BEKitNueva[] kitNueva;
             int esColaborador = 0;
             using (var sv = new UsuarioServiceClient())
@@ -224,34 +413,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             ViewBag.MontoKitNueva = Util.DecimalToStringFormat(montoKitNueva, model.CodigoISO);
             ViewBag.EsKitNueva = esKitNueva;
+            #endregion 
+
+            #region mensaje monto logro para la meta
+            decimal montoLogro = 0;
+            string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+            if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo) montoLogro = model.Total;
+            else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala) montoLogro = userData.MontoMinimo;
+            else montoLogro = bePedidoWebByCampania.MontoEscala;
 
             BEFactorGanancia oBEFactorGanancia = null;
             using (var sv = new SACServiceClient())
             {
-                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(model.Total, userData.PaisID);
+                oBEFactorGanancia = sv.GetFactorGananciaSiguienteEscala(montoLogro, userData.PaisID);
             }
             if (oBEFactorGanancia != null && esColaborador == 0 && oBEFactorGanancia.RangoMinimo <= userData.MontoMaximo)
             {
                 model.MostrarEscalaDescuento = true;
                 model.PorcentajeEscala = Convert.ToInt32(oBEFactorGanancia.Porcentaje);
-
-                string montoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
-                if (!string.IsNullOrEmpty(montoMaximoStr) || model.SubTotal < userData.MontoMinimo)
-                {
-                    model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - model.Total;
-                }
-                else if (userData.MontoMinimo > bePedidoWebByCampania.MontoEscala)
-                {
-                    model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - userData.MontoMinimo;
-                }
-                else model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - bePedidoWebByCampania.MontoEscala;
-
+                model.MontoEscalaDescuento = oBEFactorGanancia.RangoMinimo - montoLogro;
                 model.DescripcionMontoEscalaDescuento = Util.DecimalToStringFormat(model.MontoEscalaDescuento, model.CodigoISO);
             }
+            #endregion
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
+            //model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
+            //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
+            model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
             return View(model);

@@ -17,13 +17,8 @@
     <link href="../Content/Css/Site/style.css" rel="stylesheet" />
     <title>Recuperar Clave</title>
 </head>
-<script>
 
-    var _gaq = _gaq || [];
-    //_gaq.push(['_setAccount', 'UA-38299403-1']);
-    //_gaq.push(['_setDomainName', 'none']);
-    //_gaq.push(['_setAllowLinker', true]);
-    //_gaq.push(['_trackPageview']);
+<script>
 
     //(function () {
     //    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

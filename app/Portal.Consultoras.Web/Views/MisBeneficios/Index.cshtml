@@ -4,7 +4,7 @@
 
 <div class="banner_misBeneficios">
     <div class="titulo_banner">
-        @if (ViewBag.CodigoISO_MB == "PR")
+        @if (ViewBag.CodigoISO_MB == "CR")
         {
             <h1>
                 MIS&nbsp;<b>PROGRAMAS</b>
@@ -44,7 +44,7 @@
         var urlIncentivos = '@Url.Action("Index","Incentivos")';
         var codigoISO_MB = '@ViewBag.CodigoISODL';
         var anioActual = '@DateTime.Now.Year';
-        console.log(codigoISO_MB);
+        var urlS3Raiz = '@ViewBag.UrlRaizS3';
     </script>
 
     <script type="text/javascript" src="~/Scripts/PortalConsultoras/MisBeneficios/Index.js"></script>

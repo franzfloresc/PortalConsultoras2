@@ -9,8 +9,8 @@
 }
 
 <div class="botones">
-    <a class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})"
-       role="menu" region="Lateral-inferior" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
+    <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" 
+      class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA <b>TU PEDIDO</b></a>
 @foreach (var item in itemsMenu)
 {
     if (item.SubMenu.Count == 0)
@@ -22,30 +22,23 @@
         var onclickF = "";
         if (item.Descripcion.ToLower().Trim() == "mi comunidad")
         {
-            //url = ViewBag.EsUsuarioComunidad == 0 ? "javascript:;" : url;
-            //onclickF = ViewBag.EsUsuarioComunidad == 0 ? "onclick='return ShowComunidad();'" : "";
-            <a class="menu_mobile_belcorp" href="http://comunidad.somosbelcorp.com" role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+            <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" 
+               class="menu_mobile_belcorp" href="http://comunidad.somosbelcorp.com" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
                 @item.Descripcion
             </a>
         }
         else
         {
-            <a class="menu_mobile_belcorp" href="@url" @onclickF role="menu" region="Principal" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                @*@if (item.Descripcion.ToLower().Trim() == "consultora online")
-                {
-                    <div id="divPedidosOnlineSinLeer" class="circulo cir-l circlemenu-success" style="display: none;">0</div>
-                }
-                @if (item.Descripcion.ToLower().Trim() == "mis notificaciones")
-                {
-                    <div id="divNotificacionesSinLeer" class="circulo cir-l" style="display:none;">0</div>
-                }*@
+            <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion" 
+               class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
                 @item.Descripcion
             </a>
         }
     }
     else
     {
-        <a class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
+        <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion" 
+           class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
         <div class="panel-collapse collapse submenu_1" id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
             @foreach (var subItem in item.SubMenu)
             {
@@ -54,7 +47,8 @@
                     ? subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subItem.UrlItem)
                     : subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}{1}", urlDomain, subItem.UrlItem);
 
-                <a class="menu_subHeader" href="@url" role="menu" region="Principal" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion</a>
+                <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion" 
+                   class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">@subItem.Descripcion</a>
             }
         </div>
     }

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
@@ -409,9 +410,23 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 CloseLoading();
                 CargarPedido();
                 var descripcionMarca = GetDescripcionMarca(MarcaID);
-                TagManagerClickEliminarProducto(DescripcionProd, CUV, PrecioUnidad, descripcionMarca, DescripcionOferta, Cantidad);
-
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                dataLayer.push({
+                    'event': 'removeFromCart',
+                    'ecommerce': {
+                        'remove': {
+                            'products': [{
+                                'name': html.data.DescripcionProducto,
+                                'id': html.data.CUV,
+                                'price': html.data.Precio,
+                                'brand': html.data.DescripcionMarca,
+                                'category': 'NO DISPONIBLE',
+                                'variant': html.data.DescripcionOferta,
+                                'quantity': Number(Cantidad)
+                            }]
+                        }
+                    }
+                });
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {
@@ -493,9 +508,15 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            ActualizarGanancia(data.DataBarra);
-            TrackingJetloreRemoveAll(listaDetallePedido);
             if (checkTimeout(data)) {
+                ActualizarGanancia(data.DataBarra);
+                TrackingJetloreRemoveAll(listaDetallePedido);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Ingresa tu pedido',
+                    'action': 'Eliminar pedido completo',
+                    'label': '(not available)'
+                });
                 messageDelete("Se eliminaron todos productos del pedido.");
                 location.reload();
             }
@@ -778,7 +799,7 @@ function EjecutarPROL() {
         }
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('<h3 class="text-primary">No existen productos en su Pedido.</h3>');
+        messageInfoMalo('<h3>No existen productos en su Pedido.</h3>');
     }
 }
 
@@ -807,6 +828,9 @@ function EjecutarServicioPROL() {
             var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
 
             $('#btnGuardarPedido').text(model.Prol);
+            var tooltips = model.ProlTooltip.split('|');
+            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
 
             if (model.Reserva != true) {
                 $('#modal-prol-botonesAceptarCancelar').hide();
@@ -820,15 +844,18 @@ function EjecutarServicioPROL() {
             if (model.ZonaValida == true) {
                 if (model.ObservacionInformativa == false) {
                     if (model.ProlSinStock == true) {
-                        messageInfoBueno('<h3 class="text-primary">Tu pedido se guardó con éxito</h3>');
+                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                         return true;
                     }
 
-                    messageInfoBueno('<h3 class="text-primary">Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    window.setTimeout(function () {
-                            location.href = urlPedidoValidado;
-                        }, 2000);                    
+                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                    //PEDIDO VALIDADO
+                    AnalyticsGuardarValidar(response);
+                    AnalyticsPedidoValidado(response);
+                    setTimeout(function () {
+                        location.href = urlPedidoValidado;
+                    }, 2000);                    
                     return true;
                 }
 
@@ -842,16 +869,17 @@ function EjecutarServicioPROL() {
 
             var msg = ""
             if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
                 msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
                 msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
             } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
                 msg += '<p>' + mensajeGuardarCO + '</p>';
             } else {
-                msg = '<h3 class="text-primary">Tu pedido se guardó con éxito</h3>';
+                msg = '<h3>Tu pedido se guardó con éxito</h3>';
             }
             messageInfoBueno(msg);
+            AnalyticsGuardarValidar(response);
             CargarPedido();
             return true;
         },
@@ -862,7 +890,7 @@ function EjecutarServicioPROL() {
                 if (data.mensaje != undefined || data.mensaje != null) {
                     mensaje_ = data.mensaje;
                 }
-                messageInfoMalo('<h3 class="text-primary">' + mensaje_ + '</h3>')
+                messageInfoMalo('<h3>' + mensaje_ + '</h3>')
                 console.error(data);
             }
         }
@@ -890,7 +918,7 @@ function ConstruirObservacionesPROL(model) {
             mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
-            $("#modal-prol-contenido").html("");
+            $("#modal-prol-contenido").html(mensajePedido);
 
         } else {
             $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
@@ -899,7 +927,7 @@ function ConstruirObservacionesPROL(model) {
             mensajePedido += "Tu pedido fue guardado con éxito.";
 
             $("#modal-prol-titulo").html(mensajePedido);
-            $("#modal-prol-contenido").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+            $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
 
             mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
         }
@@ -962,7 +990,7 @@ function AceptarObsInformativas() {
                 if (data.success == true) {
                     if ($('#hdfPROLSinStock').val() == 1) {
                         $('#popup-observaciones-prol').hide();
-                        messageInfoBueno('<h3 class="text-primary">Tu pedido se guardó con éxito</h3>');
+                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                     } else
                         location.href = urlPedidoValidado;
@@ -1010,3 +1038,79 @@ function CancelarObsInformativas() {
     }
 }
 // Fin PROL
+
+function AnalyticsGuardarValidar(data) {
+    var arrayEstrategiasAnalytics = [];
+    var accion = $('#hdAccionBotonProl').val();
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': accion == 'guardar' ? 'Guardar' : 'Validar',
+        'label': data.mensajeAnalytics,
+        'ecommerce': {
+            'checkout': {
+                'actionField': {
+                    'step': accion == 'guardar' ? 1 : 2,
+                    'option': data.mensajeAnalytics
+                },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+function AnalyticsPedidoValidado(data) {
+    var arrayEstrategiasAnalytics = [];
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': 'Validado',
+        'ecommerce': {
+            'checkout': {
+                'actionField': { 'step': 3 },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+
+function MostrarDetalleGanancia() {
+
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
+    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').show();
+}

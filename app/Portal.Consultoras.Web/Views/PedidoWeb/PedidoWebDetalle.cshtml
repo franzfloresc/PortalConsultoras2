@@ -137,7 +137,6 @@
                     if (checkTimeout(data)) {
                         if (data.success == true) {
                             closeWaitingDialog();
-                            _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Enviar-Mail']);
                             alert(data.message);
                         }
                         else {
@@ -158,14 +157,12 @@
     });
 
     function Imprimir() {
-        _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón- Impriimir']);
         window.print();
     }
 
     function ExportExcel() {
         waitingDialog({});
         CampaniaID = jQuery.trim($("#hdCampaniaId").val());
-        _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón Excel']);
         setTimeout(function () { DownloadAttachExcel(CampaniaID) }, 0);
     }
 
@@ -293,6 +290,36 @@
                     </label>
                 </div>
             </div>
+        </div>
+    </section>
+</div>
+<div id="loadingScreen"></div>
+        <div class="border-wrapper">
+            <div class="grila_fixed">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+        <div class="sep"></div>
+        <div class="elements2">
+            @if (Model.TieneDescuentoCuv)
+            {
+                <div class="subTotalPROL">SubTotal: <span id="subTotal"><span id="sSimbolo">@Model.Simbolo</span>@Model.SubTotalString</span></div>                
+                <div style="clear: both"></div>
+                <div class="leyendaIndicadorPROL">
+                    <img src="@Url.Content("~/Content/Images/indicador.png")" />Descuento por ofertas con más de un precio <span id="Descuento"><span id="sSimbolo">@Model.Simbolo</span>@Model.DescuentoString</span>
+                </div>
+            }
+            <div class="div-3">
+                <div class="total">Monto Total: <span id="sSimbolo" class="superindice">@Model.Simbolo</span><span id="sTotal" class="num">@Model.TotalString</span></div>
+            </div>
+            @*<div class="div-3">
+                <div class="titAutoRight">
+                    <label style=" color:black; font-weight:bold;">
+                        Monto Total: @Model.Simbolo @Model.TotalString
+                    </label>
+                </div>
+            </div>*@
         </div>
     </section>
 </div>

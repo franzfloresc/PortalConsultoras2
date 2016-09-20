@@ -7,11 +7,11 @@
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
 }
 <div class="footer_wrapper">
-    <a id="aBelcorpResponde" href="#" class="footer_responde" target="_blank">
-        <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" /><br />
+    <a id="aBelcorpResponde" href="http://belcorpresponde.somosbelcorp.com?@ViewBag.QSBR" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" class="footer_responde">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_esikaresponde.png")" role="outbound-link" region="Footer" parent="Belcorp Responde" title="BELCORP RESPONDE" /><br />
         @if (ViewBag.CodigoISODL == "CO")
         {
-            <text>ESIKA RESPONDE</text>
+            <text>ÉSIKA RESPONDE</text>
         }
         else
         {
@@ -20,20 +20,20 @@
         <br />
         <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
     </a>
-    <a href="http://comunidad.somosbelcorp.com/" class="footer_responde" target="_blank">
-        <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" /><br />
+    <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_comunidad.png")" role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL" /><br />
         COMUNIDAD VIRTUAL <br />
-        <span>Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
+        <span role="outbound-link" region="Footer" parent="Comunidad Virtual" title="COMUNIDAD VIRTUAL">Conoce todo lo que compartimos las mujeres de esta comunidad.</span>
     </a>
-    <a href="@Url.Action("Index", "Catalogo")" class="footer_responde" target="_blank">
-        <img src="@Url.Content("~/Content/Images/Esika/icon_catalogo.png")" /><br />
+    <a href="@Url.Action("Index", "MisCatalogosRevistas")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_catalogo.png")" role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS" /><br />
         CATÁLOGOS <br />
-        <span>Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</span>
+        <span role="outbound-link" region="Footer" parent="Catálogos" title="CATÁLOGOS">Entérate de nuestras promociones actuales en nuestro Catálogo Virtual.</span>
     </a>
-    <a href="http://comunidad.somosbelcorp.com/" class="footer_responde" target="_blank">
-        <img src="@Url.Content("~/Content/Images/Esika/icon_noticias.png")" /><br />
+    <a href="http://comunidad.somosbelcorp.com/" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS" class="footer_responde" target="_blank">
+        <img src="@Url.Content("~/Content/Images/Esika/icon_noticias.png")" role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS" /><br />
         NOTICIAS <br />
-        <span>Entérate de las noticias de Belcorp.</span>
+        <span role="outbound-link" region="Footer" parent="Noticias" title="NOTICIAS">Entérate de las noticias de Belcorp.</span>
     </a>
 </div>
 <hr class="clear" />
@@ -44,12 +44,12 @@
     </div>
     <div class="sub_footer" style="text-align:left !important">
         <h1>NUESTRAS MARCAS</h1>
-        <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('LBel','http://www.lbel.com');" role="outbound-link" region="Outbound Link" parent="L’bel" id="lnk-out-lbel" title="LBEL">L'BEL</a>
+        <a href="http://www.lbel.com" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="LBEL" id="lnk-out-lbel">L'BEL</a>
         @if (ViewBag.PaisAnalytics != "PA")
         {
-            <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('Esika','http://www.esika.biz');" role="outbound-link" region="Outbound Link" parent="Ésika" id="lnk-out-esika" title="ESIKA">ÉSIKA</a>
+            <a href="http://www.esika.biz" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="ESIKA" id="lnk-out-esika">ÉSIKA</a>
         }
-        <a href="javascript:;" onclick="return SetMarcaGoogleAnalytics('Cyzone','http://www.cyzone.com');" role="outbound-link" region="Outbound Link" parent="Cyzone" id="lnk-out-cyzone" title="CYZONE">CYZONE</a>
+        <a href="http://www.cyzone.com" target="_blank" role="outbound-link" region="Footer" parent="Nuestras Marcas" title="CYZONE" id="lnk-out-cyzone">CYZONE</a>
     </div>
     @foreach (var menuPadre in permisoList)
     {
@@ -77,13 +77,13 @@
                 {
                     if (menuHijo.EsDireccionExterior)
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@menuHijo.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem', '',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }
                     else
                     {
-                        <a href="javascript:;" onclick="return SetAnalyticsMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@menuHijo.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
+                        <a href="javascript:;" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]',@Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion',1, '@menuHijo.RolId')" target="@pageTarget" role="outbound-link" region="Footer" parent="@menuPadre.Descripcion" id="lnk-out-@menuHijo.DescripcionFormateada" title="@menuHijo.Descripcion">
                             @menuHijo.Descripcion
                         </a>
                     }
@@ -93,10 +93,10 @@
     }
     <div class="sub_footer" style="text-align:left !important">
         <h1>SÍGUENOS</h1>
-        <a href="javascript:;" onclick="return SetSiguenosGoogleAnalytics('Facebook', 'https://www.facebook.com/SomosBelcorpOficial?fref=ts');" target="_blank" role="outbound-link" region="Outbound Link" parent="Facebook" id="lnk-out-facebook" title="Facebook Belcorp">
+        <a href="https://www.facebook.com/SomosBelcorpOficial?fref=ts" target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-facebook" title="Facebook Belcorp">
             FACEBOOK<img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
         </a>
-        <a href="javascript:;" onclick="return SetSiguenosGoogleAnalytics('Youtube', 'https://www.youtube.com/user/somosbelcorp');" target="_blank" role="outbound-link" region="Outbound Link" parent="Facebook" id="lnk-out-facebook" title="Facebook Belcorp">
+        <a href="https://www.youtube.com/user/somosbelcorp" target="_blank" role="outbound-link" region="Footer" parent="Síguenos" id="lnk-out-youtube" title="Youtube Belcorp">
             YOUTUBE <img class="logo_redes" src="@Url.Content("~/Content/Images/Esika/youtube.png")" />
         </a>
     </div>

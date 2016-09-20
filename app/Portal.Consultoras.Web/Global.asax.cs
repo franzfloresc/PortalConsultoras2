@@ -380,9 +380,8 @@ namespace Portal.Consultoras.Web
 
             /*ShowRoom*/
             providerSession.Add("ShowRoom", "AdministrarShowRoom");
-
+            
             FilterProviders.Providers.Add(providerSession);
-
             AutoMapperConfiguration.Configure();
         }
 

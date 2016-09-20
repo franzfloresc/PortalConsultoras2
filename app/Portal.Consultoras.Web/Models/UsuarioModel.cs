@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
             this.Celular = string.Empty;
-            this.Telefono = string.Empty;
+            this.Telefono = string.Empty;           
             this.DiasAntes = 0;
             this.DiasDuracionCronograma = 1;
             this.HabilitarRestriccionHoraria = false;
@@ -116,6 +116,7 @@ namespace Portal.Consultoras.Web.Models
         public TimeSpan HoraFacturacion { get; set; }
         public TimeSpan HoraFinFacturacion { get; set; }
         public bool DiaPROL { get; set; }
+        public bool DiaPROLMensajeCierreCampania { get; set; }
         public DateTime FechaInicioCampania { get; set; }
         public DateTime FechaFinCampania { get; set; }
         public TimeSpan HoraInicioReserva { get; set; }
@@ -129,7 +130,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
-        public string UrlTerminos { get; set; }
+        public string UrlTerminos { get; set; }       
         public TimeSpan HoraCierreZonaNormal { get; set; }
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
         public int HorasDuracionRestriccion { get; set; }
@@ -261,5 +262,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaFinalZonaValida { get; set; }
 
         public int CatalogoPersonalizado { get; set; }
+
+        public bool EjecutaProl { get; set; }
     }
 }

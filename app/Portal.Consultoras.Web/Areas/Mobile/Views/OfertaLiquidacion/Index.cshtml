@@ -31,7 +31,7 @@
     <div class="descripcion_liquidacion_web">
         <h2>APROVECHA ESTOS PRODUCTOS SÓLO POR WEB. Se atenderá hasta agotar stock.</h2>
         <span>
-            Suman al monto mínimo del pedido. No suma la escala de comisión, ni otorga puntaje, ni comisión. Precio neto consultora. Productos vigentes en 201611.
+            Suman al monto mínimo del pedido. No suma la escala de comisión, ni otorga puntaje, ni comisión. Precio neto consultora. Productos vigentes en @ViewBag.CodigoCampania .
         </span>
     </div>
     <div class="fondo_f5f5f7">
@@ -90,7 +90,7 @@
                 {{else}}               
                 <div class="liquidacion_rango_home">
                     <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral">
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                     <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <div class="clear"></div>

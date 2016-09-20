@@ -16,6 +16,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Net;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -42,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
-                
+
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -50,15 +51,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
                         model.MontoDeuda = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                     else
-                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;                  
-                }
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    model.ListaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
+                        model.MontoDeuda = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
                 }
 
                 #region Rangos de Escala de Descuento
+
+                model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
 
                 var pos = -1;
                 int nro = 4;
@@ -68,38 +66,35 @@ namespace Portal.Consultoras.Web.Controllers
 
                 for (int i = 0; i < tamano; i++)
                 {
-                    model.ListaEscalaDescuento[i].MontoDesde = i == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
-
                     var objEscala = model.ListaEscalaDescuento[i];
+                    if (userData.MontoMinimo > objEscala.MontoHasta)
+                    {
+                        continue;
+                    }
+
+                    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
+
                     if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
                     {
-                        model.ListaEscalaDescuento[i].Seleccionado = true;
+                        objEscala.Seleccionado = true;
                         pos = i;
                     }
-
-                    if (i < nro)
-                    {
-                        listaEscala.Add(model.ListaEscalaDescuento[i]);
-                    }
+                    listaEscala.Add(objEscala);
                 }
 
-                if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) <= 1)
+                model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
+                if (listaEscala.Any())
                 {
-                    if (model.ListaEscalaDescuento.Count(x => x.Seleccionado) == 1)
+                    int posMin, posMax, tamX = listaEscala.Count - 1;
+                    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
+                    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
+                    posMin = pos < 0 ? 0 : posMin;
+                    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
+                    for (int i = posMin; i <= posMax; i++)
                     {
-                        listaEscala = new List<BEEscalaDescuento>();
-
-                        int posMin, posMax, tamX = tamano - 1;
-                        posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                        posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-
-                        for (int i = posMin; i <= posMax; i++)
-                        {
-                            listaEscala.Add(model.ListaEscalaDescuento[i]);
-                        }
+                        model.ListaEscalaDescuento.Add(listaEscala[i]);
                     }
                 }
-                model.ListaEscalaDescuento = listaEscala;
 
                 #endregion Rangos de Escala de Descuento
 
@@ -110,10 +105,11 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     datDescBoton = sv.GetTablaLogicaDatos(userData.PaisID, 48).ToList();
-                    datUrlBoton = sv.GetTablaLogicaDatos(userData.PaisID, 49).ToList();
                     datGaBoton = sv.GetTablaLogicaDatos(userData.PaisID, 50).ToList();
                     configCarouselLiquidacion = sv.GetTablaLogicaDatos(userData.PaisID, 87).ToList();
                 }
+
+                model.CatalogoPersonalizadoDesktop = userData.CatalogoPersonalizado;
 
                 model.NombreCompleto = userData.NombreConsultora;
                 model.EMail = userData.EMail;
@@ -138,9 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
-                model.BotonAction = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[1].ToString() : "";
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
-                model.BotonController = (datUrlBoton.Count > 0) ? datUrlBoton[0].Descripcion.Split('/')[0].ToString() : "";
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -200,6 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
+                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
@@ -210,20 +205,20 @@ namespace Portal.Consultoras.Web.Controllers
                     if (comunicado != null)
                         Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null)
-                        ComunicadoVisualizado = VisualizaComunicado.Visualizo ? 1 : 0;
+                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             if (userData.RolID == Constantes.Rol.Consultora)
@@ -232,6 +227,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View("IndexSAC", model);
+        }
+
+        public JsonResult SubirImagen(string data)
+        {
+            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
+            string[] dataPartes = data.Split(new char[]{ ',' });
+            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
+            string image = dataPartes[1];
+
+            string rutaImagen = "";
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(image);
+                string fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
+                string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
+                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
+
+                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
+                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName, "");
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
+            }
+            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
         public JsonResult AceptarContrato(bool checkAceptar)
@@ -352,13 +373,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion()
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
         {
             try
             {
                 using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                 {
-                    sac.InsertComunicadoByConsultoraVisualizacion(userData.PaisID, userData.CodigoConsultora);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
                 }
                 return Json(new
                 {
@@ -415,53 +436,6 @@ namespace Portal.Consultoras.Web.Controllers
             string pp = userData.CodigoISO;//1796
             string urlRedirect = "http://FLEXIPAGO.SOMOSBELCORP.COM/FlexipagoCO/index.html?PP=" + pp.ToString() + "&CC=" + cc.ToString() + "&CA=" + ca.ToString();
             return Redirect(urlRedirect);
-        }
-
-        public ActionResult Landing()
-        {
-            string nombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + UserData().CodigoISO].ToString(); //2532 EGL
-            ViewBag.ContratoActualizarDatos = nombreArchivoContrato; //2532 EGL
-
-            var newModel = new BienvenidosModel();
-
-            var lst = new List<ServiceContenido.BEItemCarruselInicio>();
-            var paisID = UserData().PaisID;
-            using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-            {
-                lst = sv.GetItemCarruselInicio(paisID).ToList();
-            }
-
-            Mapper.CreateMap<ServiceContenido.BEItemCarruselInicio, ItemCarruselInicioModel>();
-            newModel.ItemsCarruselInicio = Mapper.Map<List<ItemCarruselInicioModel>>(lst);
-
-            BEUsuario beusuario = new BEUsuario();
-            var actualizarDatos = new ActualizarDatosModel();
-            try
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    beusuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
-                }
-
-                if (beusuario != null)
-                {
-                    actualizarDatos.NombreCompleto = beusuario.Nombre;
-                    actualizarDatos.EMail = beusuario.EMail;
-                    actualizarDatos.Telefono = beusuario.Telefono;
-                    actualizarDatos.Celular = beusuario.Celular;
-                    newModel.ActualizarDatos = actualizarDatos;
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-
-            return View(newModel);
         }
 
         [HttpGet]
@@ -528,7 +502,6 @@ namespace Portal.Consultoras.Web.Controllers
                 result = retorno
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult ValidarCorreoComunidad(string correo)
@@ -1408,7 +1381,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-       
     }
 }

@@ -39,17 +39,18 @@ namespace Portal.Consultoras.Web.LogManager
             oStream.Close();
         }
 
-        public static void LogErrorWebServicesBus(Exception expException, string Usuario, string Pais)
+        public static void LogErrorWebServicesBus(Exception expException, string Usuario, string Pais, string Paso = "")
         {
             if (!Directory.Exists(sPathFile))
                 Directory.CreateDirectory(sPathFile);
 
-            StreamWriter oStream = new StreamWriter(sPathFile + "Log_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2, '0').ToString() + "-" + DateTime.Now.Day.ToString().PadLeft(2, '0').ToString() + ".portal", true);
-            oStream.WriteLine(":::::::::::::: Seguimiento de Errores ::::::::::::::");
-            oStream.WriteLine("País :" + Pais + "==>" + DateTime.Now + "- " + Usuario + " - Error : " + expException.Message + "(" + expException.StackTrace + ").");
-            oStream.WriteLine(string.Empty);
-            oStream.Flush();
-            oStream.Close();
+            string p = sPathFile + "Log_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString().PadLeft(2, '0') + "-" + DateTime.Now.Day.ToString().PadLeft(2, '0') + ".portal";
+            using (StreamWriter sw = File.AppendText(p))
+            {
+                sw.WriteLine(":::::::::::::: Seguimiento de Errores ::::::::::::::");
+                sw.WriteLine("País : " + Pais + " ==> " + DateTime.Now + " - " + Usuario + " - Error : " + expException.Message + "(" + expException.StackTrace + ") - Paso : " + Paso + ".");
+                sw.WriteLine(string.Empty);
+            }
         }
     }
 }

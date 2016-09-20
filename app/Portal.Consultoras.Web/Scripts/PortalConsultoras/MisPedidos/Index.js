@@ -38,6 +38,7 @@ $(document).ready(function () {
         estado = estado.toLowerCase()[0];
         if (estado == "") return false;
         DetalleVisible(false);
+        $("#divGrilla").find("select[data-cliente]").val(-1);
         PopupMostrar(estado, campId);
         $("#regresarFacturado").Visible(estado == "f");
         $('[data-popup="ingresado"] [data-selectcamp]').Visible(estado == "i");
@@ -207,16 +208,12 @@ function PopupMostrar(popup, campFormat) {
     popup = popup.toLowerCase();
     popup = popup[0];
     $("html").css({ "overflow": "hidden" });
-    $("#divGrilla").find("select[data-cliente]").val(-1);
+    //$("#divGrilla").find("select[data-cliente]").val(-1);
     if (popup == "f") {
         $('[data-popup="facturado"]').show();
-        //$(".popup_pedidosFacturados").show();
-        //CargarDetalleFacturado(campFormat);
     }
     else if (popup == "i") {
         $('[data-popup="ingresado"]').show();
-        //$(".popup_pedidosIngresados").show();
-        //CargarDetalleIngresado(campFormat);
     }
     else {
         $("html").css({ "overflow": "auto" });
@@ -231,12 +228,6 @@ function DetalleVisible(accion, popup) {
         if (popup) {
             PopupCerrarTodos();
         }
-        //$("#contenidoGrilla").show();
-        //$(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
-    }
-    else {
-        //$("#contenidoGrilla").hide();
-        //$(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
     }
 }
 
@@ -272,17 +263,28 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+            
             var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
+            var campania = data.CampaniaId;
             if (tipo == "i") {
+                var facturado = data.ImporteFacturado;
                 $('#pedidoPorCliente').attr("data-camp", camp);
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
+                $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
+
+                // en caso de facturados tenga, poner fuera del if else
+                $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
+                //$("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));
+                $.each(data.listaCliente, function (item, cliente) {
+                    $("#divGrilla").find("select[data-cliente]").append(new Option(cliente.Nombre, cliente.ClienteID));
+                });
+                //$("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
+                $("#divGrilla").find("select[data-cliente]").val(dataAjax.cliente);
             }
             else if (tipo == "f") {
                 $("#divContenidofacturado").empty().html(htmlDiv);
                 $("#divContenidofacturado").find('[data-paginacion="rows"]').val(data.PageSize);
-                var campania = data.CampaniaId;
                 if ($(".content_mis_pedidos").find("[data-camp='" + campania + "']").length == 1) {
                     var parcial = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-parcial]').attr("data-parcial");
                     var flete = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-flete]').attr("data-flete");
@@ -290,19 +292,11 @@ function CargarDetalleFacturado(camp, page, rows, tipo) {
                     $("#divContenidofacturado").find("[data-total]").html(parcial);
                     $("#divContenidofacturado").find("[data-flete]").html(flete);
                     $("#divContenidofacturado").find("[data-facturado]").html(facturado);
+                    $("#divContenidofacturado").find("[data-facturadoCabecera]").html(facturado);
                 }
                 $("#divGrilla").find(".content_datos_pedidosIngresados").removeClass("content_datos_pedidosIngresados").addClass("content_datos_pedidosFacturados");
             }
 
-            var cienteId = $("#divGrilla").find("select[data-cliente]").attr("data-val");
-            //var ddlCliente = Clone($("#ddlClientes"));
-            //$.each(ddlCliente.find("option"), function (ind, item) {
-            //    $("#divGrilla").find("select[data-cliente]").append($(item));
-            //});
-            $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
-            $("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));                   
-            $("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
-            $("#divGrilla").find("select[data-cliente]").val(cienteId);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -418,8 +412,8 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 function ExportExcel(obj) {
     waitingDialog();
     var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
-    _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón Excel']);
     setTimeout(function () { DownloadAttachExcel(campaniaID) }, 0);
 }
 
@@ -468,7 +462,6 @@ function ExportExcelFacturado(obj) {
     var Flete = popup.find("[data-flete]").html();
     var TotalFacturado = popup.find("[data-facturado]").html();
 
-    _gaq.push(['_trackEvent', 'Pedido Web Facturado', 'Botón-Excel']);
     setTimeout(function () { DownloadAttachExcelFacturado(campaniaID, TotalParcial, Flete, TotalFacturado) }, 0);
 }
 
@@ -512,7 +505,6 @@ function DownloadAttachExcelFacturado(CampaniaID, TotalParcial, Flete, TotalFact
 }
 
 function Imprimir() {
-    _gaq.push(['_trackEvent', 'Pedido Web Ingresado', 'Botón- Impriimir']);
     window.print();
 }
 

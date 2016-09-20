@@ -10,8 +10,14 @@ var posicionTotal = 0;
 var salto = 3;
 
 var esPedidoValidado = false;
+var arrayOfertasParaTi = [];
+var numImagen = 1;
+var fnMovimientoTutorial;
 
 $(document).ready(function () {
+    ReservadoOEnHorarioRestringido(false);
+
+    AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
     $(".abrir_tutorial").click(function () {
         abrir_popup_tutorial();
@@ -21,16 +27,46 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
+    // MICROEFECTO AL AGREGAR UN PEDIDO
+
+    //$("#tbobyDetallePedido").prepend('<div class="contenido_ingresoPedido mouse_encima filaIngresoPedidoOculto"><div class="texto_pedidos celda_codigo">04184</div><div class="texto_pedidos celda_producto">ES LAPIZ LABIAL COLOR HD MELON INTENSE 4G</div><div class="celda_cantidad_pedidos"><div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus"><input type="hidden" name="txtLPTempCant42" id="txtLPTempCant42" value="2"><input type="text" value="2" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" id="txtLPCant42" data-pedido="42" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)" onblur="UpdateLiquidacion("201613", "3798298", "42", "1700", "03289", "1", "2")"><div class="liquidacion_rango_right_pedido"><a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a><a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a></div></div></div><div class="texto_pedidos precioUnitario">S/. 159.20</div><div class="texto_pedidos subtotal"><span class="precio">S/. 19.90</span><span>S/. 58.00</span></div><div class="texto_pedidos clientePedido"><input type="text" name="MARIA DEL PILAR CABALLERO GAVILAN" value="MARIA DEL PILAR CABALLERO GAVILAN" id="txtLPCli35" maxlength="50" class="classClienteNombre" style="width: 90%; padding: 4px;"></div><div class="texto_pedidos celda_iconos_acciones"><a style="background-image: url("/Content/Images/Esika/tacho-copy.png"); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a></div></div>');
+    //$("#tbobyDetallePedido div:first-child").slideDown(function () {
+    //    $(this).animate({ 'left': '0%','opacity':'1' }, 400, 'swing');
+    //});
+
+
     function abrir_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
+
+        fnMovimientoTutorial = setInterval(function () {
+            $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
+            numImagen++;
+            if (numImagen > 5) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
+
+        }, 3000);
+
     }
 
     function cerrar_popup_tutorial() {
         $('#popup_tutorial_pedido').fadeOut();
         $('html').css({ 'overflow-y': 'auto' });
+        $(".imagen_tutorial").animate({ 'opacity': '1' });
+        window.clearInterval(fnMovimientoTutorial);
+        numImagen = 1;
     }
 
+    $(document).on('change', '.seleccion_pagina select', function () {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ingresa tu pedido',
+            'action': 'Ver lista de productos',
+            'label': $(this).find('option:selected').text()
+        });
+    });
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -59,6 +95,7 @@ $(document).ready(function () {
     };
     $('#txtDescripcionProd').keyup(function (evt) {
         $("#divObservaciones").html("");
+        $("#txtCantidad").removeAttr("disabled");
     });
     $('#txtDescripcionProd').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoDescripcion",
@@ -68,12 +105,14 @@ $(document).ready(function () {
                 return false;
             }
 
+            $('#txtDescripcionProd')[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
             $("#hdfIndicadorMontoMinimo").val(ui.item.IndicadorMontoMinimo);
             $("#hdTipoEstrategiaID").val(ui.item.TipoEstrategiaID);
             ObservacionesProducto(ui.item);
+            $('#hdMetodoBusqueda').val('Por descripción');
 
             event.preventDefault();
         }
@@ -84,6 +123,7 @@ $(document).ready(function () {
             .appendTo(ul);
     };
     $("#txtCUV").keyup(function (evt) {
+        $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
         $("#hdfDescripcionProd").val("");
         $("#txtDescripcionProd").val("");
@@ -127,6 +167,16 @@ $(document).ready(function () {
         } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ' ]/;
+            return re.test(keyChar);
+        }
+    });
+    $(".ValidaAlfabeto").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return true;
+        } else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ' ]/;
             return re.test(keyChar);
         }
     });
@@ -238,6 +288,20 @@ $(document).ready(function () {
             return false;
         }
 
+        var cantidad = $.trim($("#txtCantidad").val());
+        if (cantidad == "" || cantidad[0] == "-") {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (!isInt(cantidad)) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            alert_msg("Ingrese una cantidad mayor que cero.");
+            return false;
+        }
+
         AbrirSplash();
 
         /*Logica Kit Nuevas*/
@@ -256,11 +320,12 @@ $(document).ready(function () {
         var validarEstrategia = ValidarStockEstrategia();
 
         if (validarEstrategia.success) {
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
-                //CerrarSplash();
+
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 InsertarProducto(form);
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -288,7 +353,7 @@ $(document).ready(function () {
             CambioPagina(obj);
         }
     });
-    
+
     $("body").on("click", ".agregarOfertaFinal", function () {
         AbrirSplash();
 
@@ -336,31 +401,36 @@ $(document).ready(function () {
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
                 EsSugerido: false
-            };                        
-            
-            AgregarProducto('Insert', model, "", false);                       
-            
+            };
+
+            AgregarProducto('Insert', model, "", false);
+
             setTimeout(function () {
                 $("#divOfertaFinal").hide();
                 EjecutarServicioPROLSinOfertaFinal();
-            }, 1000);                                   
+            }, 1000);
         }
     });
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        
-        if (esMontoMinimo) {
-            $("#divOfertaFinal").hide();
-        } else {
+        $("#divOfertaFinal").hide();
+        if (!esMontoMinimo) {
             var data = $("#btnNoGraciasOfertaFinal")[0].data;
             MostrarMensajeProl(data);
         }
     });
-    
+
+    $(document).on('click', '#idImagenCerrar', function (e) {
+        $(this).parent().remove();
+    });
+
+
+
     CrearDialogs();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
+    CargarAutocomplete();
     MostrarBarra();
 });
 
@@ -499,7 +569,7 @@ function CrearDialogs() {
 function CargarDetallePedido(page, rows) {
     $(".pMontoCliente").css("display", "none");
 
-    $('#tbobyDetallePedido').html('<tr><td colspan="7"><div style="text-align: center;">Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></td></tr>');
+    $('#tbobyDetallePedido').html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
 
     var clienteId = $("#ddlClientes").val() || -1;
     var obj = {
@@ -573,6 +643,9 @@ function CargarDetallePedido(page, rows) {
             mostrarSimplificacionCUV();
             //if (tieneMicroefecto)
             //MostrarMicroEfecto();
+
+            MostrarBarra(response);
+            CargarAutocomplete();
         },
         error: function (error) {
             //alert(error);
@@ -588,11 +661,11 @@ function MostrarInformacionCliente(clienteId) {
 
     $(".pMontoCliente").css("display", "none");
 
-    $(".caja_montos div.info_extra_Validado").css({ 'top': '0%', 'right': '99%' });
+    //$(".caja_montos div.info_extra_Validado").css({ 'top': '0%', 'right': '99%' });
 
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
-        $(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
+        //$(".caja_montos div.info_extra_Validado").css({ 'top': '31%', 'right': '53%' });
         $("#spnNombreCliente").html(nomCli + " :");
         $("#spnTotalCliente").html(simbolo + monto);
     }
@@ -665,7 +738,27 @@ function InsertarProducto(form) {
                 tieneMicroefecto = true;
                 MostrarBarra(response);
                 CargarDetallePedido();
+
                 TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
+                dataLayer.push({
+                    'event': 'addToCart',
+                    'label': $('#hdMetodoBusqueda').val(),
+                    'ecommerce': {
+                        'add': {
+                            'actionField': { 'list': 'Estándar' },
+                            'products': [{
+                                'name': form.data.DescripcionProd,
+                                'price': form.data.PrecioUnidad,
+                                'brand': response.data.DescripcionLarga,
+                                'id': form.data.CUV,
+                                'category': 'NO DISPONIBLE',
+                                'variant': response.data.DescripcionOferta,
+                                'quantity': Number(form.data.Cantidad),
+                                'position': 1
+                            }]
+                        }
+                    }
+                });
             } else {
                 alert(response.message);
             }
@@ -676,6 +769,73 @@ function InsertarProducto(form) {
         },
         error: function (x, xh, xhr) {
             console.error(xh);
+        }
+    });
+}
+function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
+    var param2 = {
+        MarcaID: $("#hdfMarcaID").val(),
+        CUV: $("#txtCUV").val(),
+        PrecioUnidad: $("#hdfPrecioUnidad").val(),
+        Descripcion: $("#txtDescripcionProd").val(),
+        Cantidad: $("#txtCantidad").val(),
+        IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
+        TipoOferta: $("#hdTipoEstrategiaID").val(),
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/AgregarProductoZE',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param2),
+        async: true,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (!!response.success == false)
+                    response = JSON.parse(response);
+
+                if (response.success == true) {
+                    $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
+
+                    cierreCarouselEstrategias();
+                    CargarCarouselEstrategias(param2.CUV);
+                    HideDialog("divVistaPrevia");
+                    PedidoOnSuccess();
+                    CargarDetallePedido();
+                    MostrarBarra(response);
+                    TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
+                    dataLayer.push({
+                        'event': 'addToCart',
+                        'label': $('#hdMetodoBusqueda').val(),
+                        'ecommerce': {
+                            'add': {
+                                'actionField': { 'list': 'Estándar' },
+                                'products': [{
+                                    'name': response.data.DescripcionProd,
+                                    'price': String(response.data.PrecioUnidad),
+                                    'brand': response.data.DescripcionLarga,
+                                    'id': response.data.CUV,
+                                    'category': 'NO DISPONIBLE',
+                                    'variant': response.data.DescripcionOferta,
+                                    'quantity': Number(param2.Cantidad),
+                                    'position': 1
+                                }]
+                            }
+                        }
+                    });
+                    CerrarSplash();
+                } else {
+                    CerrarSplash();
+                    alert(response.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
         }
     });
 }
@@ -772,12 +932,12 @@ function AgregarProductoListado() {
                 alert_msg(datos.message);
                 return false;
             }
-
-            if ($("#hdFlagNueva").val() == "0" || $("#hdFlagNueva").val() == "") {
+            var flagNueva = $.trim($("#hdFlagNueva").val());
+            if (flagNueva == "0" || flagNueva == "") {
                 //CerrarSplash();
                 $('form#frmInsertPedido').submit();
             } else {
-                AgregarProductoZonaEstrategia();
+                AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
             $("#btnAgregar").removeAttr("disabled");
@@ -792,70 +952,6 @@ function AgregarProductoListado() {
     });
 
     return false;
-}
-
-function AgregarProductoZonaEstrategia() {
-    var param2 = {
-        MarcaID: $("#hdfMarcaID").val(),
-        CUV: $("#txtCUV").val(),
-        PrecioUnidad: $("#hdfPrecioUnidad").val(),
-        Descripcion: $("#txtDescripcionProd").val(),
-        Cantidad: $("#txtCantidad").val(),
-        IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-        TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val()
-    };
-
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/AgregarProductoZE',
-        dataType: 'html',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param2),
-        async: true,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success == true) {
-                    //var producto = response.data;
-                    //var array = new Array();
-                    //array.push(producto);
-
-                    //var html = ArmarDetallePedido(array);
-
-                    //if (response.tipo == "I" || response.tipo == "I_S") {
-                    //    $("#tbobyDetallePedido").prepend(html);
-                    //} else {
-                    //    var trCuv = $("#tbobyDetallePedido").find("tr[data-cuv='" + producto.CUV + "']");
-                    //    $(trCuv).remove();
-
-                    //    $("#tbobyDetallePedido").prepend(html);
-                    //}
-
-                    //ActualizarMontosPedido(response.formatoTotal, response.total, undefined);
-
-                    $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
-
-                    cierreCarouselEstrategias();
-                    CargarCarouselEstrategias(cuv);
-                    HideDialog("divVistaPrevia");
-                    MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
-
-                    CargarDetallePedido();
-                    MostrarBarra(response);
-                    TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
-                    CerrarSplash();
-                } else {
-                    CerrarSplash();
-                    alert(response.message);
-                }
-            }
-        },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
-    });
 }
 
 function mostrarSimplificacionCUV() {
@@ -884,10 +980,6 @@ function ValidarCUV() {
             $("#divMensaje").text("");
             $("#txtPrecioR").val("");
             $("#hdfPrecioUnidad").val("");
-
-            //if ($("#txtCUV").val().length == 0) {
-            //    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Debe ingresar un CUV.</div></div>");
-            //}
         }
     }
 }
@@ -949,7 +1041,6 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente']);
     $('#Nombres').val($('#txtClienteDescripcion').val());
     //showDialog('divClientes');
     $("#divClientes").show();
@@ -976,7 +1067,6 @@ function ValidarRegistroCliente() {
 
     GuardarCliente();
 }
-
 function GuardarCliente() {
     var item = {
         Nombre: $('#Nombres').val(),
@@ -992,13 +1082,17 @@ function GuardarCliente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Nuevo-cliente', 'Guardar']);
                     $("#hdfClienteID").val(data.extra);
                     $("#txtClienteDescripcion").val($('#Nombres').val());
                     $("#hdfClienteDescripcion").val($('#Nombres').val());
                     $('#Nombres').val("");
                     $('#Correo').val("");
-                    //HideDialog("divClientes");
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Clientes',
+                        'action': 'Agregar',
+                        'label': 'Satisfactorio'
+                    });
                     $("#divClientes").hide();
                 }
                 alert_msg(data.message);
@@ -1025,18 +1119,12 @@ function Tabular() {
 }
 
 function PedidoOnSuccess() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Agregar-Producto']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Pedido/Agregar-Producto'
-    });
-
     var ItemCantidad = $("#txtCantidad").val();
     var ItemPrecio = $("#hdfPrecioUnidad").val();
     var descripcion = $('#txtDescripcionProd').val();
     var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
 
-    MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
+    //MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
 
     $("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
@@ -1083,7 +1171,8 @@ function PedidoOnSuccess() {
 function CargarCarouselEstrategias(cuv) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
-    $('#divListadoEstrategia').unslick();
+    $('#divListadoEstrategia.slick-initialized').slick('unslick');
+
     $('#divListadoEstrategia').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
     $.ajax({
@@ -1099,9 +1188,9 @@ function CargarCarouselEstrategias(cuv) {
         }
     });
 };
-
 function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
+    arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
 
@@ -1109,36 +1198,109 @@ function ArmarCarouselEstrategias(data) {
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         $('#divListadoEstrategia').parents('.caja_carousel_productos').hide();
     } else {
-        var hCar = $($("#divListadoEstrategia").find("[data-item='producto']").get(0)).height();
+        var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,
             centerMode: true,
-            centerPadding: '50px',
+            centerPadding: '0px',
             slidesToShow: cant,
             slidesToScroll: 1,
             autoplay: false,
+            speed: 270,
             pantallaPedido: false,
-            prevArrow: '<button type="button" data-role="none" class="slick-next" onclick="javascript:TagManagerCarruselPrevia(false);"></button>',
-            nextArrow: '<button type="button" data-role="none" class="slick-prev" onclick="javascript:TagManagerCarruselSiguiente(false);"></button>'
+            prevArrow: '<button type="button" data-role="none" class="slick-next"></button>',
+            nextArrow: '<button type="button" data-role="none" class="slick-prev"></button>'
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var accion;
+            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'next';
+            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+                accion = 'prev';
+            } else if (nextSlide > currentSlide) {
+                accion = 'next';
+            } else {
+                accion = 'prev';
+            };
+
+            if (accion == 'prev') {
+                //TagManager
+                var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver anterior'
+                });
+            } else if (accion == 'next') {
+                //TagManager
+                var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+                var recomendado = arrayOfertasParaTi[posicionEstrategia];
+                var arrayEstrategia = new Array();
+
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV2,
+                    'price': recomendado.Precio2.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Ofertas para ti – Home',
+                    'position': recomendado.Posicion
+                };
+
+                arrayEstrategia.push(impresionRecomendado);
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Ofertas para ti',
+                    'label': 'Ver siguiente'
+                });
+            }
         });
-        $(".slick-prev").insertAfter('#divCarruselVertical');
-        $(".slick-next").insertBefore('#divCarruselVertical');
+        TagManagerCarruselInicio(data);
         if (data.length > cant) {
             $('#cierreCarousel').show();
         }
     }
-    
+
 };
-
-function cierreCarouselEstrategias() {
-    $('#cierreCarousel').hide();
-}
-
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
+        item.DescripcionCompleta = item.DescripcionCUV2;
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
@@ -1146,11 +1308,137 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
         };
 
+        item.Posicion = i + 1;
         item.MostrarTextoLibre = item.TextoLibre.length > 0;
     });
 
     return array;
 };
+
+//Google Analytics
+function TagManagerCarruselInicio(arrayItems) {
+    var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
+
+    var arrayEstrategia = [];
+    for (var i = 0; i < cantidadRecomendados; i++) {
+        var recomendado = arrayItems[i];
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV2,
+            'price': recomendado.Precio2.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': recomendado.DescripcionEstrategia,
+            'list': 'Ofertas para ti – Pedido',
+            'position': recomendado.Posicion
+        };
+
+        arrayEstrategia.push(impresionRecomendado);
+    }
+
+    if (arrayEstrategia.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
+    }
+}
+function TagManagerClickAgregarProducto() {
+    dataLayer.push({
+        'event': 'addToCart',
+        'label': '(not available)',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas para ti – Pedido' },
+                'products': [
+                    {
+                        'name': $("#txtCantidadZE").attr("est-descripcion"),
+                        'price': $("#txtCantidadZE").attr("est-precio2"),
+                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
+                        'id': $("#txtCantidadZE").attr("est-cuv2"),
+                        'category': 'NO DISPONIBLE',
+                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia"),
+                        'quantity': parseInt($("#txtCantidadZE").val()),
+                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
+                    }
+                ]
+            }
+        }
+    });
+}
+function TagManagerCarruselPrevia() {
+    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    var arrayEstrategia = new Array();
+
+
+    var impresionRecomendado = {
+        'name': recomendado.DescripcionCompleta,
+        'id': recomendado.CUV2,
+        'price': recomendado.Precio2.toString(),
+        'brand': recomendado.DescripcionMarca,
+        'category': 'NO DISPONIBLE',
+        'variant': recomendado.DescripcionEstrategia,
+        'list': 'Ofertas para ti – Pedido',
+        'position': recomendado.Posicion
+    };
+
+    arrayEstrategia.push(impresionRecomendado);
+
+    dataLayer.push({
+        'event': 'productImpression',
+        'ecommerce': {
+            'impressions': arrayEstrategia
+        }
+    });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ingresa tu pedido',
+        'action': 'Ofertas para ti',
+        'label': 'Ver anterior'
+    });
+
+}
+function TagManagerCarruselSiguiente() {
+    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    var arrayEstrategia = new Array();
+
+    var impresionRecomendado = {
+        'name': recomendado.DescripcionCompleta,
+        'id': recomendado.CUV2,
+        'price': recomendado.Precio2.toString(),
+        'brand': recomendado.DescripcionMarca,
+        'category': 'NO DISPONIBLE',
+        'variant': recomendado.DescripcionEstrategia,
+        'list': 'Ofertas para ti – Pedido',
+        'position': recomendado.Posicion
+    };
+
+    arrayEstrategia.push(impresionRecomendado);
+
+    dataLayer.push({
+        'event': 'productImpression',
+        'ecommerce': {
+            'impressions': arrayEstrategia
+        }
+    });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ingresa tu pedido',
+        'action': 'Ofertas para ti',
+        'label': 'Ver siguiente'
+    });
+
+}
+
+function cierreCarouselEstrategias() {
+    $('#cierreCarousel').hide();
+}
 
 function limpiarInputsPedido() {
     $("#txtCUV").val("");
@@ -1169,7 +1457,7 @@ function PedidoOnSuccessSugerido(model) {
         var descripcion = model.DescripcionProd;
         var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
 
-        MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
+        //MostrarProductoAgregado("", descripcion, ItemCantidad, ItemTotal);
     }
 
     $("#divObservaciones").html("");
@@ -1250,6 +1538,7 @@ function BuscarByCUV(CUV) {
                     $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
                     $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
                     ObservacionesProducto(data[0]);
+                    $('#hdMetodoBusqueda').val('Por código');
                     if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                         $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                     }
@@ -1281,7 +1570,8 @@ function ObtenerProductosSugeridos(CUV) {
 
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
-    $('#divCarruselSugerido').unslick();
+    $('#divCarruselSugerido.slick-initialized').slick('unslick');
+
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
 
     AbrirSplash();
@@ -1486,26 +1776,15 @@ function ObservacionesProducto(item) {
         } else {
             $("#divObservaciones").html("");
             if (item.EsExpoOferta == true) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-expoferta']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Mensajes/Producto-expoferta'
-                });
-
                 $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
                 //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
             }
             if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-revista']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Mensajes/Producto-revista'
-                });
                 if (isEsika) {
                     $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la Guía de Negocio Ésika con oferta especial.</div></div>");
                 } else {
                     $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto en la revista Somos Belcorp con oferta especial.</div></div>");
-                }                
+                }
             }
 
             if (item.MensajeCUV != null) {
@@ -1519,12 +1798,6 @@ function ObservacionesProducto(item) {
             $("#btnAgregar").removeAttr("disabled");
         }
     } else {
-        _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Producto-agotado']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Pedido/Mensajes/Producto-agotado'
-        });
-
         $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
         //$("#divObservaciones").html("<div class='noti'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
         $("#btnAgregar").attr("disabled", "disabled");
@@ -1552,7 +1825,9 @@ function ObservacionesProducto(item) {
     $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#OfertaTipoNuevo").val("");
 
+    $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
+        $("#txtCantidad").attr("disabled", "disabled");
         var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
 
         pedidosData.each(function (indice, valor) {
@@ -1732,6 +2007,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.liquidacion_rango_cantidad_pedido").val();
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
 
@@ -1840,7 +2116,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 });
 
                 CerrarSplash();
-                AgregarProductoDestacado(popup);
+                AgregarProductoDestacado(popup, tipoEstrategiaImagen);
             } else {
                 $(".zona4Edit").show();
                 $(".zonaCantidad").show();
@@ -1868,13 +2144,11 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     }
                 }
                 if (option == "") {
-                    AgregarProductoDestacado(popup);
+                    AgregarProductoDestacado(popup, tipoEstrategiaImagen);
                 } else {
                     CerrarSplash();
                 }
-            }
-
-            InfoCommerceGoogleDestacadoProductClick(datos.data.DescripcionCUV2, datos.data.CUV2, datos.data.DescripcionCategoria, datos.data.DescripcionEstrategia, posicionItem);
+            }           
 
             //CerrarSplash();
             //showDialog('divVistaPrevia');
@@ -1886,7 +2160,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     });
 };
 
-function AgregarProductoDestacado(popup) {
+function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var cantidad = $("#txtCantidadZE").val();
     var cantidadLimite = $("#txtCantidadZE").attr("est-cantidad");
     var cuv = $("#txtCantidadZE").attr("est-cuv2");
@@ -1933,9 +2207,8 @@ function AgregarProductoDestacado(popup) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        ElementoOfertaTipoNuevo: $("#OfertaTipoNuevo").val(),
         ClienteID_: '-1',
-        EsKitNueva: ($("#OfertaTipoNuevo").val() != undefined && String($("#OfertaTipoNuevo").val()).trim() != "") ? true : false
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
     });
 
     jQuery.ajax({
@@ -1966,13 +2239,14 @@ function AgregarProductoDestacado(popup) {
                                 CargarCarouselEstrategias(cuv);
                                 HideDialog("divVistaPrevia");
                                 CargarResumenCampaniaHeader();
-                                MostrarProductoAgregado(urlImagen, descripcion, cantidad, (cantidad * precio).toFixed(2));
+                                //MostrarProductoAgregado("", descripcion, cantidad, (cantidad * precio).toFixed(2));
 
                                 tieneMicroefecto = true;
 
                                 CargarDetallePedido();
                                 MostrarBarra(response);
                                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                                TagManagerClickAgregarProducto();
                                 CerrarSplash();
                                 if (popup) {
                                     HidePopupEstrategiasEspeciales();
@@ -2032,6 +2306,22 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
                 MostrarBarra(response);
                 TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                dataLayer.push({
+                    'event': 'removeFromCart',
+                    'ecommerce': {
+                        'remove': {
+                            'products': [{
+                                'name': response.data.DescripcionProducto,
+                                'id': response.data.CUV,
+                                'price': response.data.Precio,
+                                'brand': response.data.DescripcionMarca,
+                                'category': 'NO DISPONIBLE',
+                                'variant': response.data.DescripcionOferta,
+                                'quantity': cantidad
+                            }]
+                        }
+                    }
+                });
                 CerrarSplash();
             } else {
                 CerrarSplash();
@@ -2155,9 +2445,23 @@ function EjecutarServicioPROL() {
             $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
             $("#hdMontoDescuento").val(response.data.MontoDescuento);
             $("#hdMontoEscala").val(response.data.MontoEscala);
+            $("#divMensajeObservacionesPROL").html("");
+
             var mensajePedido = "";
 
             if (response.data.ErrorProl == false) {
+
+                if (!response.data.ValidacionInteractiva) {
+
+                    html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
+                    html += '<img src="/Content/Images/icons/warning.png">';
+                    html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
+                    html += '<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
+                    html += '</div>';
+                    $("#divContendorPrincipal").after(html);
+                    return false;
+                }
+
                 if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
                     mensajePedido += "Tu pedido se guardó con éxito";
 
@@ -2178,6 +2482,8 @@ function EjecutarServicioPROL() {
                     }
 
                     var html = "<ul>";
+                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    var msgDefaultCont = 0;
                     $.each(response.data.ListaObservacionesProl, function (index, item) {
                         if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
                             if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
@@ -2185,16 +2491,10 @@ function EjecutarServicioPROL() {
                             }
                         }
 
-                        if (item.Caso == 95 || item.Caso == 105) {
+                        if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0) {
                             html += "<li>" + item.Descripcion + "</li>";
 
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
+                            mensajePedido += item.Caso + " " + item.Descripcion + " ";                            
                             return;
                         }
 
@@ -2202,251 +2502,11 @@ function EjecutarServicioPROL() {
                             html += "<li>" + item.Descripcion + "</li>";
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
                         } else {
-                            html += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-
-                            mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                        }
-                    });
-                    html += "</ul>";
-
-                    $("#divMensajeObservacionesPROL").html(html);
-                }
-                mensajePedido = "-1 " + mensajePedido;
-            } else {
-                mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
-
-                $("#divTituloObservacionesPROL").html("ERROR");
-                $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
-            }
-
-            $("#hdfMensajePedido").val(mensajePedido);
-
-            var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
-
-            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
-
-            var montoDescuento = parseFloat(response.data.MontoDescuento);
-            var montoEscala = parseFloat(response.data.MontoEscala);
-            if (montoDescuento > 0) {               
-                var htmlTexto = "";
-                htmlTexto += '<p class="monto_descuento">';
-                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
-                htmlTexto += '</p>';
-                htmlTexto += '<p class="monto_montodescuento">';
-                htmlTexto += 'MONTO DESCUENTO :';
-                htmlTexto += '</p>';
-                
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
-                $("#divMontosEscalaDescuentoTexto").css("display", "block");
-
-                var htmlMontos = "";
-                htmlMontos += '<p class="monto_descuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-                htmlMontos += '<p class="monto_montodescuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-                                        
-                $("#divMontosEscalaDescuento").html("");
-                $("#divMontosEscalaDescuento").html(htmlMontos);
-
-                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
-
-                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
-                $("#divMontosEscalaDescuento").css("display", "block");                                
-            } else {
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuento").html("");
-                
-                $("#divMontosEscalaDescuentoTexto").css("display", "none");
-                $("#divMontosEscalaDescuento").css("display", "none");
-            }
-
-            $('#btnValidarPROL').val(response.data.Prol);
-
-            var codigoMensajeProl = response.data.CodigoMensajeProl;
-            //var montoTotalPedido = parseFloat($("#hdfTotal").val());
-
-            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
-            
-            var cumpleOferta;
-            if (response.data.Reserva == true) {
-                if (response.data.ZonaValida == true) {
-                    if (response.data.ObservacionInformativa == false) {
-                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        if (cumpleOferta.resultado) {
-                            esPedidoValidado = response.data.ProlSinStock != true;
-                            MostrarPopupOfertaFinal(cumpleOferta, 1);
-                        } else {
-                            if (response.data.ProlSinStock == true) {
-                                showDialog("divReservaSatisfactoria3");
-                                CargarDetallePedido();
-                            } else {
-                                showDialog("divReservaSatisfactoria");
-                                location.href = baseUrl + 'Pedido/PedidoValidado';
+                            if (msgDefaultCont == 0) {
+                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
                             }
-                        }
-                    } else {
-                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        if (cumpleOferta.resultado) {
-                            MostrarPopupOfertaFinal(cumpleOferta, 2);
-                        } else {
-                            $('#DivObsBut').css({ "display": "none" });
-                            $('#DivObsInfBut').css({ "display": "block" });
-
-                            showDialog("divObservacionesPROL");
-                            $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-                        }
-
-                        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                        dataLayer.push({
-                            'event': 'pageview',
-                            'virtualUrl': '/Pedido/Observacion-Validar'
-                        });
-                        CargarDetallePedido();
-                    }
-                } else {
-                    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
-                    dataLayer.push({
-                        'event': 'pageview',
-                        'virtualUrl': '/Pedido/Validar-Sin-Error'
-                    });
-
-                    cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    if (cumpleOferta.resultado) {
-                        MostrarPopupOfertaFinal(cumpleOferta, 1);
-                    } else {
-                        if (viewBagNombrePais == 'Venezuela') {
-                            showDialog("divReservaSatisfactoriaVE");
-                        } else {
-                            if (viewBagNombrePais == 'Colombia') {
-                                showDialog("divReservaSatisfactoriaCO");
-                            } else {
-                                showDialog("divReservaSatisfactoria3");
-                            }
-                        }
-                    }
-
-                    CargarDetallePedido();
-                }
-            } else {
-                $('#DivObsBut').css({ "display": "block" });
-                $('#DivObsInfBut').css({ "display": "none" });
-
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
-                if (cumpleOferta.resultado) {
-                    MostrarPopupOfertaFinal(cumpleOferta, 2);
-                } else {
-                    showDialog("divObservacionesPROL");
-                    $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-                }
-
-                _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Observacion-Validar'
-                });
-                CargarDetallePedido();
-            }
-        },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
-    });
-}
-
-function EjecutarServicioPROLSinOfertaFinal() {
-    AbrirSplash();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/EjecutarServicioPROL',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        //async: false,
-        success: function (response) {
-            CerrarSplash();
-
-            $("#hdfAccionPROL").val(response.data.Prol);
-            $("#hdfReserva").val(response.data.Reserva);
-            $("#hdfObsInfor").val(response.data.ObservacionInformativa);
-            $("#hdfModificaPedido").val(response.data.EsModificacion);
-            $("#hdfZonaValida").val(response.data.ZonaValida);
-            $("#hdfPROLSinStock").val(response.data.ProlSinStock);
-            $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
-            $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
-            $("#hdMontoDescuento").val(response.data.MontoDescuento);
-            $("#hdMontoEscala").val(response.data.MontoEscala);
-            var mensajePedido = "";            
-
-            if (response.data.ErrorProl == false) {
-                if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
-                    mensajePedido += "Tu pedido se guardó con éxito";
-
-                    if (response.data.ProlSinStock) {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                    }
-                    else {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                        if (response.data.ZonaNuevoProlM == false) {
-                            $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-                        }
-                    }
-                } else {
-                    if (response.data.EsDiaProl) {
-                        $("#divTituloObservacionesPROL").html("Importante");
-                    } else {
-                        $("#divTituloObservacionesPROL").html("Aviso");
-                    }
-
-                    var html = "<ul>";
-                    $.each(response.data.ListaObservacionesProl, function (index, item) {
-                        if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                                item.Caso = 105;
-                            }
-                        }
-
-                        if (item.Caso == 95 || item.Caso == 105) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
-                            return;
-                        }
-
-                        if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-
-                            _gaq.push(['_trackEvent', 'Pedido', 'Mensajes', 'Tipo-' + item.Caso]);
-                            dataLayer.push({
-                                'event': 'pageview',
-                                'virtualUrl': '/Pedido/Mensajes/Tipo-' + item.Caso
-                            });
-                        } else {
-                            html += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-
+                            msgDefaultCont++;
                             mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
                         }
                     });
@@ -2501,7 +2561,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
                 var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
 
                 $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(" "+DecimalToStringFormat(totalConDescuento));
+                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
                 $("#divMontosEscalaDescuento").css("display", "block");
             } else {
                 $("#divMontosEscalaDescuentoTexto").html("");
@@ -2512,9 +2572,238 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             $('#btnValidarPROL').val(response.data.Prol);
+            var tooltips = response.data.ProlTooltip.split('|');
+            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+
+            var codigoMensajeProl = response.data.CodigoMensajeProl;
+            //var montoTotalPedido = parseFloat($("#hdfTotal").val());
 
             $("#btnNoGraciasOfertaFinal")[0].data = response.data;
-            MostrarMensajeProl(response.data);                        
+
+            var cumpleOferta;
+            
+            //MENSAJES
+            if (response.data.Reserva == true) {
+                if (response.data.ZonaValida == true) {
+                    if (response.data.ObservacionInformativa == false) {
+                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        if (cumpleOferta.resultado) {
+                            esPedidoValidado = response.data.ProlSinStock != true;
+                            MostrarPopupOfertaFinal(cumpleOferta, 1);
+                        } else {
+                            if (response.data.ProlSinStock == true) {
+                                showDialog("divReservaSatisfactoria3");
+                                CargarDetallePedido();
+                            } else {
+                                showDialog("divReservaSatisfactoria");
+                                //PEDIDO VALIDADO
+                                AnalyticsGuardarValidar(response);
+                                AnalyticsPedidoValidado(response);
+                                setTimeout(function () {
+                                    location.href = baseUrl + 'Pedido/PedidoValidado';
+                                }, 2000);
+                                return true;
+                            }
+                        }
+                    } else {
+                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        if (cumpleOferta.resultado) {
+                            MostrarPopupOfertaFinal(cumpleOferta, 2);
+                        } else {
+                            $('#DivObsBut').css({ "display": "none" });
+                            $('#DivObsInfBut').css({ "display": "block" });
+
+                            showDialog("divObservacionesPROL");
+                            $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+                        }
+                        CargarDetallePedido();
+                    }
+                } else {
+
+                    cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                    if (cumpleOferta.resultado) {
+                        MostrarPopupOfertaFinal(cumpleOferta, 1);
+                    } else {
+                        if (viewBagNombrePais == 'Venezuela') {
+                            showDialog("divReservaSatisfactoriaVE");
+                        } else {
+                            if (viewBagNombrePais == 'Colombia') {
+                                showDialog("divReservaSatisfactoriaCO");
+                            } else {
+                                showDialog("divReservaSatisfactoria3");
+                            }
+                        }
+                    }
+
+                    CargarDetallePedido();
+                }
+            } else {
+                $('#DivObsBut').css({ "display": "block" });
+                $('#DivObsInfBut').css({ "display": "none" });
+
+                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
+                if (cumpleOferta.resultado) {
+                    MostrarPopupOfertaFinal(cumpleOferta, 2);
+                } else {
+                    showDialog("divObservacionesPROL");
+                    $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+                }
+                CargarDetallePedido();
+            }
+            AnalyticsGuardarValidar(response);
+        },
+        //**********
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+function EjecutarServicioPROLSinOfertaFinal() {
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EjecutarServicioPROL',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        //async: false,
+        success: function (response) {
+            CerrarSplash();
+
+            $("#hdfAccionPROL").val(response.data.Prol);
+            $("#hdfReserva").val(response.data.Reserva);
+            $("#hdfObsInfor").val(response.data.ObservacionInformativa);
+            $("#hdfModificaPedido").val(response.data.EsModificacion);
+            $("#hdfZonaValida").val(response.data.ZonaValida);
+            $("#hdfPROLSinStock").val(response.data.ProlSinStock);
+            $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
+            $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
+            $("#hdMontoDescuento").val(response.data.MontoDescuento);
+            $("#hdMontoEscala").val(response.data.MontoEscala);
+            $("#divMensajeObservacionesPROL").html("");
+
+            var mensajePedido = "";
+
+            if (response.data.ErrorProl == false) {
+                if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
+                    mensajePedido += "Tu pedido se guardó con éxito";
+
+                    if (response.data.ProlSinStock) {
+                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
+                    }
+                    else {
+                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
+                        if (response.data.ZonaNuevoProlM == false) {
+                            $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+                        }
+                    }
+                } else {
+                    if (response.data.EsDiaProl) {
+                        $("#divTituloObservacionesPROL").html("Importante");
+                    } else {
+                        $("#divTituloObservacionesPROL").html("Aviso");
+                    }
+
+                    var html = "<ul>";
+                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+                    var msgDefaultCont = 0;
+                    $.each(response.data.ListaObservacionesProl, function (index, item) {
+                        if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
+                            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                                item.Caso = 105;
+                            }
+                        }
+
+                        if (item.Caso == 95 || item.Caso == 105) {
+                            html += "<li>" + item.Descripcion + "</li>";
+
+                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                            return;
+                        }
+
+                        if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
+                            html += "<li>" + item.Descripcion + "</li>";
+
+                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                        } else {
+                            if (msgDefaultCont == 0) {
+                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                            }
+                            msgDefaultCont++;
+                            mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                        }
+                    });
+                    html += "</ul>";
+
+                    $("#divMensajeObservacionesPROL").html(html);
+                }
+                mensajePedido = "-1 " + mensajePedido;
+            } else {
+                mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
+
+                $("#divTituloObservacionesPROL").html("ERROR");
+                $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
+            }
+
+            $("#hdfMensajePedido").val(mensajePedido);
+
+            var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
+
+            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
+
+            var montoDescuento = parseFloat(response.data.MontoDescuento);
+            var montoEscala = parseFloat(response.data.MontoEscala);
+            if (montoDescuento > 0) {
+                var htmlTexto = "";
+                htmlTexto += '<p class="monto_descuento">';
+                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
+                htmlTexto += '</p>';
+                htmlTexto += '<p class="monto_montodescuento">';
+                htmlTexto += 'MONTO DESCUENTO :';
+                htmlTexto += '</p>';
+
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
+                $("#divMontosEscalaDescuentoTexto").css("display", "block");
+
+                var htmlMontos = "";
+                htmlMontos += '<p class="monto_descuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+                htmlMontos += '<p class="monto_montodescuento">';
+                htmlMontos += '<b>';
+                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+                htmlMontos += '</b>';
+                htmlMontos += '</p>';
+
+                $("#divMontosEscalaDescuento").html("");
+                $("#divMontosEscalaDescuento").html(htmlMontos);
+
+                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
+                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
+                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
+                $("#divMontosEscalaDescuento").css("display", "block");
+            } else {
+                $("#divMontosEscalaDescuentoTexto").html("");
+                $("#divMontosEscalaDescuento").html("");
+
+                $("#divMontosEscalaDescuentoTexto").css("display", "none");
+                $("#divMontosEscalaDescuento").css("display", "none");
+            }
+
+            $('#btnValidarPROL').val(response.data.Prol);
+            var tooltips = response.data.ProlTooltip.split('|');
+            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+
+            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+            MostrarMensajeProl(response.data);
+            AnalyticsGuardarValidar(response);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2523,7 +2812,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         }
     });
 }
-
 function MostrarMensajeProl(data) {
     if (data.Reserva == true) {
         if (data.ZonaValida == true) {
@@ -2533,9 +2821,13 @@ function MostrarMensajeProl(data) {
                     CargarDetallePedido();
                 } else {
                     showDialog("divReservaSatisfactoria");
+                    //PEDIDO VALIDADO
+                    AnalyticsGuardarValidar(response);
+                    AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 8000);
+                    }, 2000);
+                    return true;
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2543,21 +2835,9 @@ function MostrarMensajeProl(data) {
 
                 showDialog("divObservacionesPROL");
                 $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-
-                _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-                dataLayer.push({
-                    'event': 'pageview',
-                    'virtualUrl': '/Pedido/Observacion-Validar'
-                });
                 CargarDetallePedido();
             }
         } else {
-            _gaq.push(['_trackEvent', 'Pedido', 'Validar-Sin-Error']);
-            dataLayer.push({
-                'event': 'pageview',
-                'virtualUrl': '/Pedido/Validar-Sin-Error'
-            });
-
             if (viewBagNombrePais == 'Venezuela') {
                 showDialog("divReservaSatisfactoriaVE");
             } else {
@@ -2577,23 +2857,20 @@ function MostrarMensajeProl(data) {
         showDialog("divObservacionesPROL");
         $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 
-        _gaq.push(['_trackEvent', 'Pedido', 'Observacion-Validar']);
-        dataLayer.push({
-            'event': 'pageview',
-            'virtualUrl': '/Pedido/Observacion-Validar'
-        });
         CargarDetallePedido();
     }
+    AnalyticsGuardarValidar(response);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-prev-of').remove();
     $('.js-slick-next-of').remove();
-    $('#divCarruselOfertaFinal').unslick();
+    $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
+
     $('#divCarruselOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divCarruselOfertaFinal");
-    
+
     $("#divOfertaFinal").show();
 
     $('#divCarruselOfertaFinal').slick({
@@ -2611,7 +2888,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-of"));
     $('#divCarruselOfertaFinal').prepend($(".js-slick-next-of"));
-                    
+
     CargandoValoresPopupOfertaFinal(tipoPopupMostrar, cumpleOferta.montoFaltante, cumpleOferta.porcentajeDescuento);
 }
 
@@ -2659,13 +2936,20 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
         if (cumpleParametria.resultado) {
             montoFaltante = cumpleParametria.montoFaltante;
             porcentajeDescuento = cumpleParametria.porcentajeDescuento;
-            var listaProductoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
+            var productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
+            var listaProductoOfertaFinal = productoOfertaFinal.lista;
+            var limite = productoOfertaFinal.limite;
 
             if (listaProductoOfertaFinal != null) {
-                $.each(listaProductoOfertaFinal, function(index, value) {
+                var contador = 0;
+                $.each(listaProductoOfertaFinal, function (index, value) {
                     if (value.PrecioCatalogo >= montoFaltante && value.PrecioCatalogo > cumpleParametria.precioMinimoOfertaFinal) {
                         productosMostrar.push(value);
+                        contador++;
                         //return false;
+
+                        if (contador >= limite)
+                            return false;
                     }
                 });
 
@@ -2677,7 +2961,7 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
             } else {
                 resultado = false;
             }
-        }            
+        }
         else
             resultado = false;
     }
@@ -2738,27 +3022,31 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     }
                 }
             }
-        }        
+        }
     } else {
         //Monto Minimo y Maximo
         if (codigoMensajeProl == "01") {
-            var tipoError = listaObservacionesProl[0].Caso;
+            if (listaObservacionesProl.length == 1) {
+                var tipoError = listaObservacionesProl[0].Caso;
 
-            if (tipoError == 95) {
-                //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
-                var mensajeCUV = listaObservacionesProl[0].CUV;
+                if (tipoError == 95) {
+                    //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
+                    var mensajeCUV = listaObservacionesProl[0].CUV;
 
-                if (mensajeCUV == "XXXXX") {
-                    var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                    var diferenciaMonto = montoMinimo - monto;
+                    if (mensajeCUV == "XXXXX") {
+                        var montoMinimo = parseFloat($("#hdMontoMinimo").val());
+                        var diferenciaMonto = montoMinimo - monto;
 
-                    var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
+                        var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
-                    if (parametria != null && parametria.length != 0) {
-                        if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
-                            montoFaltante = diferenciaMonto;
-                            precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
-                            resultado = true;
+                        if (parametria != null && parametria.length != 0) {
+                            if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
+                                montoFaltante = diferenciaMonto;
+                                precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
+                                resultado = true;
+                            } else {
+                                resultado = false;
+                            }
                         } else {
                             resultado = false;
                         }
@@ -2768,7 +3056,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 } else {
                     resultado = false;
                 }
-            } else {
+            }
+            else {
                 resultado = false;
             }
         }
@@ -2786,6 +3075,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
     var item = { tipoOfertaFinal: tipoOfertaFinal };
 
     var lista = null;
+    var limite = 0;
 
     jQuery.ajax({
         type: 'POST',
@@ -2798,6 +3088,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
             if (checkTimeout(response)) {
                 if (response.success) {
                     lista = response.data;
+                    limite = response.limiteJetlore;
                 } else {
                     lista = null;
                 }
@@ -2812,10 +3103,14 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
         }
     });
 
-    return lista;
+    return {
+        lista: lista,
+        limite: limite
+    };
 }
 
 function EliminarPedido() {
+    AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
         return;
@@ -2824,7 +3119,7 @@ function EliminarPedido() {
     var listaDetallePedido = new Array();
     var campania = $("#hdCampaniaCodigo").val();
 
-    $.each($("#tbobyDetallePedido tr"), function(index, value) {
+    $.each($("#tbobyDetallePedido > .contenido_ingresoPedido"), function (index, value) {
         var cuv = $(value).attr("data-cuv");
         var cantidad = $(value).find(".liquidacion_rango_cantidad_pedido").val();
 
@@ -2847,10 +3142,16 @@ function EliminarPedido() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                location.href = baseUrl + 'Pedido/Index';
-                MostrarBarra(data);
                 TrackingJetloreRemoveAll(listaDetallePedido);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Ingresa tu pedido',
+                    'action': 'Eliminar pedido completo',
+                    'label': '(not available)'
+                });
+                MostrarBarra(data);
                 CerrarSplash();
+                location.href = baseUrl + 'Pedido/Index';
             }
         },
         error: function (data, error) {
@@ -2863,11 +3164,6 @@ function EliminarPedido() {
 }
 
 function EjecutarPROL2() {
-    _gaq.push(['_trackEvent', 'Pedido', 'Validar-Pedido', 'Validar']);
-    dataLayer.push({
-        'event': 'pageview',
-        'virtualUrl': '/Pedido/Validar-Pedido/Validar'
-    });
     $('#divConfirmValidarPROL').dialog('close');
     EjecutarPROL();
 }
@@ -3016,12 +3312,12 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
     var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
     if (CliDes.length == 0) {
-        CliID = 0
+        CliID = 0;
     }
 
     var Cantidad = CantidadModi;
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-    var Total = parseFloat(Cantidad * Unidad).toFixed(2);
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     var ClienteID_ = $('#ddlClientes').val();
     $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
@@ -3046,37 +3342,39 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (checkTimeout(data)) {
-                CerrarSplash();
-                if (data.success == true) {
-                    var item = data.items;
-                    if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                        $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                        $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                    }
-                    $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+            CerrarSplash();
+            if (!checkTimeout(data))
+                return false;
 
-                    var nomCli = $("#ddlClientes option:selected").text();
-                    var simbolo = data.Simbolo;
-                    var monto = data.Total_Cliente;
+            if (data.success != true)
+                return false;
 
-                    $(".pMontoCliente").css("display", "none");
-
-                    if (data.ClienteID_ != "-1") {
-                        $(".pMontoCliente").css("display", "block");
-                        $("#spnNombreCliente").html(nomCli + " :");
-                        $("#spnTotalCliente").html(simbolo + monto);
-                    }
-
-                    CalcularTotalPedido(data.Total, data.Total_Minimo);
-
-                    MostrarBarra(data);
-                }
+            if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
+                $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
             }
+            $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
+
+            var nomCli = $("#ddlClientes option:selected").text();
+            var simbolo = data.Simbolo;
+            var monto = data.Total_Cliente;
+
+            $(".pMontoCliente").css("display", "none");
+
+            if (data.ClienteID_ != "-1") {
+                $(".pMontoCliente").css("display", "block");
+                $("#spnNombreCliente").html(nomCli + " :");
+                $("#spnTotalCliente").html(simbolo + monto);
+            }
+
+            CalcularTotalPedido(data.Total, data.Total_Minimo);
+
+            MostrarBarra(data);
+                
         },
         error: function (data, error) {
+            CerrarSplash();
             if (checkTimeout(data)) {
-                CerrarSplash();
                 alert_msg(data.message);
             }
         }
@@ -3104,8 +3402,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     }
 
     var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-    var Total = parseFloat(Cantidad * Unidad).toFixed(2)
-    $('#lblLPImpTotal' + PedidoDetalleID).html(DecimalToStringFormat(Total));
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
+    $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
     $('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
     var item = {
         CampaniaID: CampaniaID,
@@ -3163,7 +3461,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#pCantidadProductosPedido").html(totalUnidades);
 
             MostrarBarra(data);
-            
+            CargarResumenCampaniaHeader();
+
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
                 TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), CUV);
@@ -3196,7 +3495,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
     if (cant == "" || cant == "0") {
         alert_msg("Ingrese una cantidad mayor que cero.");
-        $('#txtLPCant' + PedidoDetalleID).val("1");
+        $('#txtLPCant' + PedidoDetalleID).val(cantAnti);
         CerrarSplash();
         return false;
     }
@@ -3283,7 +3582,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                     } else {
                         var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
                         var Unidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-                        var Total = parseFloat(Cantidad * Unidad).toFixed(2);
+                        var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
                         $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
                         var ClienteID_ = $('#ddlClientes').val();
                         var item = {
@@ -3334,7 +3633,11 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                             $("#spnTotalCliente").html(simbolo + monto);
                                         }
 
-                                        CalcularTotalPedido(data.Total, data.Total_Minimo);
+                                        //CalcularTotalPedido(data.Total, data.Total_Minimo);
+
+                                        var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
+                                        totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
+                                        $("#pCantidadProductosPedido").html(totalUnidades);
 
                                         var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
                                         if (diferenciaCantidades > 0)
@@ -3344,6 +3647,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
 
                                         MostrarBarra(data);
+                                        CargarResumenCampaniaHeader();
                                     }
                                 }
                             },
@@ -3415,37 +3719,6 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
-
-function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
-    posicion = posicion || 1;
-    if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
-        if (variant == null || variant == "") {
-            variant = "Estándar";
-        }
-        if (Categoria == null || Categoria == "") {
-            Categoria = "Sin Categoría";
-        }
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': listaDes },
-                    'products': [{
-                        'name': DescripcionProd,
-                        'price': Precio,
-                        'brand': Marca,
-                        'id': CUV,
-                        'category': Categoria,
-                        'variant': variant,
-                        'quantity': parseInt(Cantidad),
-                        'position': posicion
-                    }]
-                }
-            }
-        });
-    }
-};
-
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();
     var cadListaRecomendados = $("#hdListaEstrategiasPedido").val();
@@ -3563,43 +3836,21 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-    if (variant == null || variant == "") {
-        variant = "Estándar";
-    }
-    if (category == null || category == "") {
-        category = "Sin Categoría";
-    }
-
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                'products': [{
-                    'name': name,
-                    'id': id,
-                    'category': category,
-                    'variant': variant,
-                    'position': position
-                }]
-            }
-        }
-    });
-}
-
-function TagManagerCarruselPrevia(esDrag) {
-}
-
-function TagManagerCarruselSiguiente(esDrag) {
-}
-
 function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
+    var accion = obj.attr("data-paginacion");
+    if (accion === "back" || accion === "next") {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ingresa tu pedido',
+            'action': 'Ir a página',
+            'label': 'Pág. ' + rpt.page
+        });
+    }
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
@@ -3607,8 +3858,8 @@ function CambioPagina(obj) {
 function AgregarProducto(url, model, divDialog, cerrarSplash) {
     AbrirSplash();
 
-    tieneMicroefecto = true;    
-    
+    tieneMicroefecto = true;
+
     divDialog = $.trim(divDialog);
 
     jQuery.ajax({
@@ -3707,510 +3958,6 @@ function AjaxError(data) {
     }
 }
 
-// Barra
-
-function MostrarBarra(datax) {
-    //$("#divBarra").hide();
-    //return false;
-
-    //return;
-    $("#divBarra #divLimite").html("");
-    var datax = datax || new Object();
-    data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
-    dataBarra = data;
-    ActualizarGanancia(data);
-
-    ActualizarGanancia(data);
-
-    //data.MontoMinimo = 100;
-    //data.MontoMinimoStr = "100.00";
-    //data.TippingPoint = 150.99;
-    //data.TippingPointStr = "150.99";
-    //data.MontoMaximo = 200.99;
-    //data.MontoMaximoStr = "200.99";
-    //data.MontoEscala = 2900.99;
-    //data.MontoEscalaStr = "2900.99";
-
-    var me = data.MontoEscala;
-    var md = data.MontoDescuento;
-    var mx = data.MontoMaximo;
-    var mn = data.MontoMinimo;
-    var tp = data.TippingPoint;
-    var mt = data.TotalPedido;
-
-    var salto = "<br>";
-    var listaLimite = new Array();
-
-    var widthTotal = $("#divListadoPedido").outerWidth();
-    var wPrimer = 0;
-    var vLogro = 0;
-    var wMsgFin = 0;
-    var wmin = 45; //parseInt(parseInt(widthTotal, 10) / 20, 10);
-
-    if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
-        wPrimer = wmin;
-    }
-    var textoPunto = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
-    if (mx > 0) {
-        listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
-            msgLimite: "!VAMOS, ADELANTE!",
-            msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-            tipoMensaje: 'MontoMinimo',
-            width: wPrimer,
-            valor: data.MontoMinimo,
-            valorStr: data.MontoMinimoStr
-        });
-
-        vLogro = mt - md;
-
-        if (tp > 0) {
-            listaLimite.push({
-                nombre: "",
-                msgLimite: "!VAMOS POR LA BONIFICACIÓN!",
-                msgFalta: "Solo te faltan " + vbSimbolo + " {falta}.",
-                tipoMensaje: 'TippingPoint',
-                valor: data.TippingPoint,
-                valorStr: data.TippingPointStr
-            });
-        }
-
-        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);
-        listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
-            msgLimite: dif <= 0 ? "" : ("SOLO PUEDES AGREGAR " + vbSimbolo + " " + dif + " MÁS"),
-            msgFalta: "Ya estas por llegar a tu tope de linea de crédito.",
-            tipoMensaje: 'MontoMaximo',
-            widthR: wmin,
-            valor: data.MontoMaximo,
-            valorStr: data.MontoMaximoStr
-        });
-    }
-    else {
-        if (mt < mn)
-            vLogro = mt - md;
-        else
-            vLogro = me < mn ? mn : me;
-
-        listaLimite = new Array();
-        listaEscalaDescuento = listaEscalaDescuento || new Array();
-        $.each(listaEscalaDescuento, function (ind, monto) {
-            if (ind == 0) {
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", "M. mínimo: " + vbSimbolo + " " + data.MontoMinimoStr),
-                    msgLimite: "!VAMOS, ADELANTE!",
-                    msgFalta: "Te faltan " + vbSimbolo + " {falta} para pasar pedido.",
-                    width: wPrimer,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: data.MontoMinimo,
-                    valorStr: data.MontoMinimoStr,
-                    tipo: 'min'
-                });
-            }
-            else {
-                var montox = listaEscalaDescuento[ind - 1];
-                if (me > montox.MontoHasta && me <= monto.MontoHasta) {
-                }
-                listaLimite.push({
-                    nombre: textoPunto.replace("{titulo}", monto.PorDescuento + "% DSCTO").replace("{detalle}", vbSimbolo + " " + montox.MontoHastaStr),
-                    msgLimite: "¡YA LLEGAS AL " + monto.PorDescuento + "% DSCTO!",
-                    msgFalta: "Solo agrega " + vbSimbolo + " {falta}",
-                    widthR: ind == listaEscalaDescuento.length - 1 ? wmin : null,
-                    tipoMensaje: 'EscalaDescuento',
-                    valPor: monto.PorDescuento,
-                    valor: montox.MontoHasta,
-                    valorStr: montox.MontoHastaStr,
-                    tipo: ind == listaEscalaDescuento.length - 1 ? 'max' : 'int'
-                });
-            }
-        });
-    }
-
-    // validar si hay algun limite
-    listaLimite = listaLimite || new Array();
-    if (listaLimite.length == 0) {
-        $("#divBarra").hide();
-        return false;
-    }
-
-    var indPuntoLimite = 0;
-    // obtener el punto limite actual
-    $.each(listaLimite, function (ind, limite) {
-        if (ind == 0) {
-            indPuntoLimite = 0;
-        }
-        else {
-            var valBack = listaLimite[ind - 1].valor;
-            if (valBack < vLogro && vLogro < limite.valor) {
-                indPuntoLimite = ind;
-            }
-            else if (vLogro >= limite.valor) {
-                indPuntoLimite = ind;
-            }
-            else if (valBack == vLogro && vLogro > 0) {
-                indPuntoLimite = ind;
-            }
-        }
-    });
-
-    var wTotal = widthTotal;
-    var vLimite = listaLimite[indPuntoLimite].valor;
-
-    $("#divBarra").show();
-    $("#divBarra #divBarraPosicion").css("width", wTotal);
-    $("#divBarra").css("width", wTotal);
-
-    // colocar los puntos limites
-    var styleMin = 'style="margin-left: 6px;"';
-    var htmlPunto = '<div id="punto_{punto}">'
-                + '<div class="monto_minimo_barra">'
-                    + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
-                    + '<div class="linea_indicador_barra" {style}></div>'
-                + '</div>'
-            + '</div>';
-    var htmlTippintPoint = '<div id="punto_{punto}">'
-                + '<div class="monto_minimo_barra">'
-                    + '<div style="width:{wText}px;position: absolute;" data-texto><div class="tippingPoint {estado}"></div></div>'
-                    + '<div class="linea_indicador_barra"></div>'
-                + '</div>'
-            + '</div>';
-    var htmlPuntoLimite = '<div id="punto_{punto}">'
-                + '<div class="monto_minimo_barra">'
-                    + '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
-                    + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
-                + '</div>'
-            + '</div>';
-
-    if (mx > 0)
-        htmlPuntoLimite = htmlPunto;
-
-    var wTotalPunto = 0;
-    $("#divBarra #divBarraLimite").html("");
-    $.each(listaLimite, function (ind, limite) {
-        var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
-        htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
-        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
-
-        var wText = ind == 0 ? "130" : "90";
-        var marl = indPuntoLimite == listaLimite.length - 1 ? "-80" : "21";
-        var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
-        var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        htmlSet = htmlSet
-            .replace("{punto}", ind)
-            .replace("{texto}", limite.nombre)
-            .replace("{wText}", wText)
-            .replace("{marl}", marl)
-            .replace("{estado}", activo)
-            .replace("{style}", styleMinx);
-
-        var objH = $(htmlSet).css("float", 'left');
-        $("#divBarra #divBarraLimite").append(objH);
-
-        var wPunto = $("#punto_" + ind + " [data-texto]").width();
-        wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
-        if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
-            if (vLogro < vLimite) {
-                if (mx <= 0) {
-                    wPunto = wmin;
-                }
-            }
-        }
-
-        $("#punto_" + ind).css("width", wPunto);
-        if (ind == 0) {
-            if (mn == 0) {
-                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
-            }
-        }
-        wTotalPunto += wPunto;
-
-    });
-    $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
-
-    //console.log(listaLimite, indPuntoLimite, wTotalPunto);
-
-    if (wTotalPunto > wTotal) {
-        var indAux = indPuntoLimite;
-        while (indAux > 1) {
-            if (indAux - 1 < indPuntoLimite - 1) {
-                var wwx = $("#punto_" + (indAux - 1) + " [data-texto]").width();
-                wTotalPunto -= wwx;
-                $("#punto_" + (indAux - 1)).remove();
-                listaLimite.splice(indAux - 1, 1);
-                if (wTotalPunto < wTotal) {
-                    indAux = 0;
-                }
-            }
-            indAux--;
-        }
-        if (wTotalPunto > wTotal) {
-            indAux = listaLimite.length;
-            while (indAux > indPuntoLimite + 1) {
-                var wwx = $("#punto_" + (indAux) + " [data-texto]").width();
-                wTotalPunto -= wwx;
-                $("#punto_" + indAux).remove();
-                listaLimite.splice(indAux, 1);
-                indAux--;
-                if (wTotalPunto < wTotal) {
-                    indAux = 0;
-                }
-            }
-        }
-    }
-
-    //console.log(listaLimite, indPuntoLimite, wTotalPunto);
-    // asignar espacio para el progreso
-    var wAreaMover = widthTotal - wTotalPunto;
-    if (indPuntoLimite > 0) {
-        if (vLogro >= vLimite) {
-            $("#punto_" + (indPuntoLimite)).css("margin-right", wAreaMover);
-        }
-        else {
-            $("#punto_" + (indPuntoLimite - 1)).css("margin-right", wAreaMover);
-        }
-    }
-    else {
-        if (mn > 0) {
-            $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
-        }
-        else {
-            $("#punto_" + indPuntoLimite).css("margin-right", wAreaMover);
-        }
-    }
-
-    if (mn == 0) {
-        wAreaMover += $("#punto_" + 0).width();
-    }
-
-    var wPuntosAnterior = 0;
-    indAux = indPuntoLimite;
-    while (indAux > 0) {
-        if (indAux == 1 && mn == 0) {
-            wPuntosAnterior += 0;
-        }
-        else {
-            wPuntosAnterior += $("#punto_" + (indAux - 1)).width();
-        }
-        indAux--;
-    }
-    if (vLogro >= vLimite) {
-        if (indPuntoLimite > 0 && mn > 0) {
-            wPuntosAnterior += $("#punto_" + indPuntoLimite).width()
-        }
-    }
-
-    var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
-    var wLimiteAnterior = wPuntosAnterior;
-    if (indPuntoLimite > 0) {
-        if (vLogro >= vLimite) { // supero el ultimo limite
-            wLimite = widthTotal;
-            wLimiteAnterior -= parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
-        }
-        else {
-            wLimiteAnterior -= $("#punto_" + (indPuntoLimite - 1)).width() - parseInt($("#punto_" + (indPuntoLimite - 1) + " >  div").width() / 2, 10);
-            if ($("#punto_" + indPuntoLimite).find(".bandera_marcador").length == 0) {
-                wLimite += parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
-            }
-        }
-    }
-    else {
-        var indxx = indPuntoLimite == 0 && mn == 0 ? (indPuntoLimite + 1) : indPuntoLimite;
-        if ($("#punto_" + indxx).find(".bandera_marcador").length == 0) {
-            wLimite += parseInt($("#punto_" + (indxx) + " >  div").width() / 2, 10);
-        }
-    }
-    wAreaMover = wLimite - wLimiteAnterior;
-
-    // ancho de logrado
-    var vLimiteAnterior = indPuntoLimite > 0 ? listaLimite[indPuntoLimite - 1].valor : 0;
-    var vMover = vLogro - vLimiteAnterior;
-    var vDiferencia = listaLimite[indPuntoLimite].valor - vLimiteAnterior;
-    var wLogro = wLimiteAnterior;
-    wLogro += vDiferencia > 0 ? (vMover * wAreaMover) / vDiferencia : 0;
-
-    if (wLimite == widthTotal) {
-        if (vLogro > vLimite) {
-            wLogro = widthTotal - 20;
-        }
-        else if (vLogro == vLimite) {
-            wLogro = wLimiteAnterior;
-        }
-    }
-
-    //wLogro = wLimite == widthTotal ? vLogro > vLimite ? widthTotal - 20 : wLimite : wLogro;
-    $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
-    $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-    //console.log(widthTotal, wTotalPunto, wAreaMover, wLimite, indPuntoLimite, vLogro, vLimite, wLimiteAnterior);
-
-    // mensaje
-    var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
-    tipoMensaje += vLogro >= vLimite ? "Supero" : "";
-
-    listaMensajeMeta = listaMensajeMeta || new Array();
-    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
-    objMsg.Titulo = $.trim(objMsg.Titulo);
-    objMsg.Mensaje = $.trim(objMsg.Mensaje);
-    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
-        $("#divBarra #divBarraMensajeLogrado").hide();
-        return false;
-    }
-    var valPor = listaLimite[indPuntoLimite].valPor || "";
-    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    $("#divBarra #divBarraMensajeLogrado").show();
-    $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
-    wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
-
-    return false;
-
-    // obtener valor minimo y maximo, distancia a trabajar
-    var vm = 0, vx = 0, w = 0;
-    $.each(listaLimite, function (ind, limite) {
-        limite.valor = limite.valor || 0;
-        var ww = limite.valor || 0;
-        vx = vx < ww ? ww : vx;
-        vm = ind == 0 ? ww : vm > ww ? ww : vm;
-
-        w += limite.width || limite.widthR || 0;
-    });
-    w = widthTotal - w;
-    var fk = vx - vm;
-
-    // poner width segun el rango min y max, dentro del area
-    $.each(listaLimite, function (ind, limite) {
-        if (!limite.width) {
-            var valor = limite.valor - vm;
-            if (valor > 0 && fk > 0) {
-                valor = valor / fk;
-                valor = parseInt(w * valor * 100) / 100;
-            }
-            limite.width = valor;
-        }
-        if (ind == 0) {
-            wLimite = limite.width;
-            indPuntoLimite = 0;
-            vLimite = limite.valor;
-            tipoMensaje = limite.tipoMensaje;
-            valPor = limite.valPor;
-        }
-        else {
-            var valBack = listaLimite[ind - 1].valor;
-            if (valBack < vLogro && vLogro < limite.valor) {
-                wLimite = limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje;
-                valPor = limite.valPor;
-            }
-            else if (vLogro >= limite.valor) {
-                wLimite = ind == listaLimite.length - 1 ? widthTotal : limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje + (ind == listaLimite.length - 1 ? "Supero" : "");
-                valPor = limite.valPor;
-            }
-            else if (valBack == vLogro && vLogro > 0) {
-                wLimite = limite.width;
-                indPuntoLimite = ind;
-                vLimite = limite.valor;
-                tipoMensaje = limite.tipoMensaje;
-                valPor = limite.valPor;
-            }
-        }
-    });
-
-    //console.log(wLimite, vLogro, indPuntoLimite, mx, listaLimite);
-
-    // ancho de logrado
-    var wLogro = 0;
-    if (vLogro == vm) {
-        wLogro = vLogro > 0 ? wmin : 0;
-    }
-    else if (vLogro > vm) {
-        wLogro = (vLogro - vm) / fk;
-        wLogro = parseInt(w * wLogro * 100) / 100;
-    } else if (vm > 0 && vLogro > 0) {
-        wLogro = vLogro / vm;
-        wLogro = parseInt(wmin * wLogro * 100) / 100;
-    }
-
-    // colocar los puntos de limite
-    var w1 = 0;
-
-    var wSumLeft = 0, msgLimite = "";
-    //$("#divBarra #divBarraLimite").html("");
-    $.each(listaLimite, function (ind, limite) {
-        w1 = ind == 0 ? limite.width : w1;
-        var www = limite.width + (ind == 0 ? 0 : w1);
-        var wadd = www - wSumLeft;
-        wSumLeft += wadd;
-        limite.widthAdd = wadd;
-        limite.widthSum = wSumLeft;
-
-        $("#punto_" + ind).css("width", wadd);
-        $("#punto_" + ind + " [data-texto]").css("float", "right");
-
-        $("#punto_" + ind + " > div").css("float", "right");
-        $("#punto_" + ind + " > div").css("left", "45px");
-        if (ind == 0) {
-            if (mn == 0) {
-                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "6px;");
-            }
-        }
-        if (indPuntoLimite == ind) {
-            $("#punto_" + ind).css("left", "45px");
-            $("#punto_" + ind + " .bandera_marcador").css("margin-left", "45px");
-            $("#punto_" + ind + " [data-texto]").css("margin-left", "55px");
-        }
-        //var wText = ind == 0 ? "130" : "90";
-        //var marl = indPuntoLimite == listaLimite.length - 1 ? "-45" : "55";
-        //var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
-        //var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        //var htmlSet = indPuntoLimite == ind && ind > 0 ? htmlPuntoLimite : htmlPunto;
-        //htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
-        //htmlSet = htmlSet.replace("{texto}", limite.nombre).replace("{wText}", wText).replace("{marl}", marl).replace("{estado}", activo).replace("{style}", styleMinx);
-        //var objH = $(htmlSet).css("width", wadd).css("float", 'left');
-        //$("#divBarra #divBarraLimite").append(objH);
-
-        msgLimite = indPuntoLimite == ind ? limite.msgLimite : msgLimite;
-        msgLimite = indPuntoLimite == listaLimite.length - 1 && vLogro > limite.valor ? "" : msgLimite;
-    });
-    //$("#divBarra #divBarraLimite").append("<div class='clear'></div>");
-
-    // pintar la barra
-    $("#divBarra #divBarraMinimo").css("width", wPrimer);
-    //wLogro = wLogro <= wmin ? wLogro : wLogro > w ? w + 25 : (wLogro + wPrimer);
-    wLogro = vLogro < vm ? wLogro : wLogro > w ? w + 25 + wPrimer : vLogro != vm ? (wLogro + wPrimer) : wLogro;
-    wLimite = wLogro <= 0 ? listaLimite[indPuntoLimite].widthSum : vLogro < vm ? wLimite : ((wLimite > w ? w + wmin : wLimite) + wPrimer + (mn == 0 ? wmin : 0));
-
-    $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
-    $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-    var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
-    objMsg.Titulo = $.trim(objMsg.Titulo);
-    objMsg.Mensaje = $.trim(objMsg.Mensaje);
-    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
-        $("#divBarra").show();
-        $("#divBarra #divBarraMensajeLogrado").hide();
-        return false;
-    }
-    valPor = valPor || "";
-    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    $("#divBarra").show();
-    $("#divBarra #divBarraMensajeLogrado").show();
-    $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width();
-    wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
-}
-
-// Fin Barra
-
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
@@ -4229,15 +3976,167 @@ function CargarEstrategiasEspeciales(objInput, e) {
     }
 };
 function ArmarPopupPackNuevas(obj) {
-    console.log(obj);
     return SetHandlebars("#packnuevas-template", obj);
 };
 function ArmarPopupLanzamiento(obj) {
-    console.log(obj);
     return SetHandlebars("#lanzamiento-template", obj);
 };
 
 function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
+};
+
+function MostrarDetalleGanancia() {
+    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
+    //$('#lbl1Ganancia').text($('#hdeLbl1Ganancia').val());
+    //$('#lbl2DGanancia').text($('#hdeLbl2Ganancia').val());
+    //$('#pieGanancia').text($('#hdePieEscala').val());
+
+    var div = $('#detalleGanancia');
+    div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
+    div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();
+    div[0].children[2].children[0].innerHTML = $('#hdeLbl2Ganancia').val();
+    div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
+
+    $('#popupGanancias').fadeIn(200);
+}
+
+function AnalyticsBannersInferiores(obj) {
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                {
+                    'id': obj.id,
+                    'name': obj.name,
+                    'position': obj.position
+                }]
+            }
+        }
+    });
+}
+function AnalyticsBannersInferioresImpression() {
+    var promotionsBajos = [];
+    $('.contenedor_banners li').each(function (index) {
+        var $this = $(this);
+        promotionsBajos.push({
+            id: $this.attr('data-id'),
+            name: $this.attr('data-name'),
+            position: $this.attr('data-position')
+        });
+    });
+    if (promotionsBajos.length > 0) {
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': promotionsBajos
+                }
+            }
+        });
+    }
+}
+function AnalyticsGuardarValidar(data) {
+    var arrayEstrategiasAnalytics = [];
+    var accion = $('#hdAccionBotonProl').val();
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': accion == 'guardar' ? 'Guardar' : 'Validar',
+        'label': data.mensajeAnalytics,
+        'ecommerce': {
+            'checkout': {
+                'actionField': {
+                    'step': accion == 'guardar' ? 1 : 2,
+                    'option': data.mensajeAnalytics
+                },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+function AnalyticsPedidoValidado(data) {
+    var arrayEstrategiasAnalytics = [];
+
+    $.each(data.pedidoDetalle, function (index, value) {
+        var estrategia = {
+            'name': value.name,
+            'id': value.id,
+            'price': value.price.toString(),
+            'brand': value.brand,
+            'category': 'NO DISPONIBLE',
+            'variant': value.variant,
+            'quantity': value.quantity
+        };
+        arrayEstrategiasAnalytics.push(estrategia);
+    });
+
+    dataLayer.push({
+        'event': 'productCheckout',
+        'action': 'Validado',
+        'ecommerce': {
+            'checkout': {
+                'actionField': { 'step': 3 },
+                'products': arrayEstrategiasAnalytics
+            }
+        }
+    });
+}
+
+function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+    var restringido = true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: urlReservadoOEnHorarioRestringido,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            if (data.success == false) {
+                restringido = false;
+                return false;
+            }
+
+            if (data.pedidoReservado) {
+                if (mostrarAlerta == true) {
+                    CerrarSplash();
+                    alert_msg(data.message);
+                }
+                else {
+                    AbrirSplash();
+                    location.href = urlValidadoPedido;
+                }
+            }
+            else if (mostrarAlerta == true) {
+                alert_msg(data.message);
+            }
+        },
+        error: function (error, x) {
+            console.log(error, x);
+            alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+    return restringido;
 };

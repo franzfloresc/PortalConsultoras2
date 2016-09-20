@@ -7,15 +7,16 @@
 Así como el precio, la fecha y dirección de entrega.
 </p>
 
-<table class="margin_top_34">
+<table id="idTablaListaPedido">
     <thead>
         <tr>
-            <th class="text_align_left" style="width: 160px;">CLIENTE</th>
-            <th class="text_align_left" style="width: 120px;">PRODUCTO</th>
-            <th>PRECIO SIN DESCUENTO</th>
-            <th>CANTIDAD</th>
-            <th>CÓDIGO</th>
-            <th class="text_align_right">PRECIO TOTAL</th>
+            <th class="" style="width: 150px;">CLIENTE</th>
+            <th class="" style="width: 125px;">ORIGEN DE PEDIDO</th>
+             <th style="width: 100px;">CÓDIGO</th>
+            <th class="text_align_left" style="width: 160px;">PRODUCTO</th>
+            <th style="width: 80px;">CANTIDAD</th>
+            <th style="width: 130px;">PRECIO UNITARIO</th>
+            <th class="" style="width: 140px;" >PRECIO TOTAL</th>
             <th style="width: 160px;">ESTADO</th>
         </tr>
     </thead>
@@ -69,10 +70,10 @@ Así como el precio, la fecha y dirección de entrega.
                             <br />
                             <img class="margin_right_10 vertical_align_top" src="/Content/Images/ConsultoraOnline/ic_ver_detalle.png" width="19" height="19" alt="" />
 
-                            <div class="btn_correo_direc text_color_morado cursor_pointer display_inline_block">
+                            <div id="btninfo" class="btn_correo_direc text_color_morado cursor_pointer display_inline_block">
                                 Ver correo<br />
                                 y dirección  
-                        <div class="cont_correo_direc">
+                        <div id="info" class="cont_correo_direc ocultarHide">
                             Correo: @item.Email<br />
                             Dirección: @item.Direccion
                         </div>
@@ -80,20 +81,21 @@ Así como el precio, la fecha y dirección de entrega.
                             </div>
                         </div>
                     }
-
                 </td>
                 @if (nroProductos > 0)
                 {
                     sumaTotalPrecios += item.DetallePedido[0].PrecioTotal;
+                    <td>@(item.DetallePedido[0].MedioContacto != "" ? item.DetallePedido[0].MedioContacto : "Web " + item.DetallePedido[0].Marca)</td>
+                    <td>@(item.DetallePedido[0].CUV != "" ? item.DetallePedido[0].CUV : "-")</td>                   
                     <td class="text_align_left">
-                        @Html.Raw(String.Format("{0}{1}<br/>{2}",
+                        @Html.Raw(String.Format("{0}{1} {2}",
                             item.DetallePedido[0].Producto,
                             item.DetallePedido[0].Tono == "" ? "" : "<br/>Tono: " + item.DetallePedido[0].Tono,
                             item.DetallePedido[0].Marca))</td>
-                    <td>@ViewBag.Simbolo @Html.Raw(item.DetallePedido[0].PrecioUnitario.ToString("N2"))</td>
                     <td>@Html.Raw(item.DetallePedido[0].Cantidad)</td>
-                    <td>@Html.Raw(item.DetallePedido[0].CUV)</td>
-                    <td class="text_align_right">@ViewBag.Simbolo @Html.Raw(item.DetallePedido[0].PrecioTotal.ToString("N2"))</td>
+                    <td>@ViewBag.Simbolo @Html.Raw(item.DetallePedido[0].PrecioUnitario.ToString("N2"))</td>
+                    
+                    <td class="">@ViewBag.Simbolo @Html.Raw(item.DetallePedido[0].PrecioTotal.ToString("N2"))</td>
                 }
                 else
                 {
@@ -156,30 +158,32 @@ Así como el precio, la fecha y dirección de entrega.
                             {
                                 sumaTotalPrecios += item.DetallePedido[i].PrecioTotal;
             <tr>
+                <td>@(item.DetallePedido[i].MedioContacto != "" ? item.DetallePedido[i].MedioContacto : "Web " + item.DetallePedido[i].Marca)</td>
+                <td>@(item.DetallePedido[i].CUV != "" ? item.DetallePedido[i].CUV : "-")</td>                   
                 <td class="text_align_left">
                     @Html.Raw(String.Format("{0}{1}<br/>{2}",
                             item.DetallePedido[i].Producto,
                             item.DetallePedido[i].Tono == "" ? "" : "<br/>Tono: " + item.DetallePedido[i].Tono,
                             item.DetallePedido[i].Marca))
                 </td>
-                <td>@ViewBag.Simbolo @item.DetallePedido[i].PrecioUnitario.ToString("N2")</td>
                 <td>@item.DetallePedido[i].Cantidad</td>
-                <td>@item.DetallePedido[i].CUV</td>
-                <td class="text_align_right">@ViewBag.Simbolo  @item.DetallePedido[i].PrecioTotal.ToString("N2")</td>
+                <td>@ViewBag.Simbolo @item.DetallePedido[i].PrecioUnitario.ToString("N2")</td>
+                
+                <td class="">@ViewBag.Simbolo  @item.DetallePedido[i].PrecioTotal.ToString("N2")</td>
             </tr>
                             }
                 
             <tr>
-                <td class="text_align_right" colspan="5">@ViewBag.Simbolo  @sumaTotalPrecios.ToString("N2")</td>
+                <td id="tdMontoTotal" class=""colspan="6"><span class="ClaseMontoTotal"><span>TOTAL :</span>@ViewBag.Simbolo  @sumaTotalPrecios.ToString("N2")</span></td>
             </tr>
             
                         }
             <tr>
-                <td class="text_align_right text_align_left" colspan="5" id="@String.Format("MensajeConsultora{0}", nroDivPanelPedido)">
+                <td class="text_align_right text_align_left" colspan="6" id="@String.Format("MensajeConsultora{0}", nroDivPanelPedido)">
                     @if(item.Estado.Trim() != "R" && item.Estado.Trim() != "C")
                     {                      
-                        <span>Comentario:</span>
-                        <p>
+                        <span style="padding-left: 20px;">Comentario:</span>
+                        <p style="padding-left: 20px;text-align: justify;">
                             @item.MensajeDelCliente
                         </p>
                     }
@@ -270,89 +274,3 @@ Así como el precio, la fecha y dirección de entrega.
 
     </ul>
 </div>
-
-
-<script>
-    $('#PedidosPendientes').html('@ViewBag.CantidadPedidos');
-
-    $(document).ready(function () {
-
-        $(function () {
-            $('#Pager').on('click', 'a', function () {
-                $.ajax({
-                    url: this.href,
-                    type: 'GET',
-                    cache: false,
-                    success: function (result) {
-                        $('#viewContentHolder').html(result);
-                    },
-                    error: function () {
-                        $('#viewContentHolder').html('Ocurrio un error con la carga de la Pagina, contactese con su Administrador ...');
-                    }
-                });
-                return false;
-            });
-        });
-
-        $("#modal_aceptar_pedido").fuzemodal({ buttonIdOrClass: '.btnAcepta', speed: 450 });
-        $("#modal_rechazar_pedido").fuzemodal({ buttonIdOrClass: '.btnRechaza', speed: 450 });
-        $("#modal_cancelar_pedido").fuzemodal({ buttonIdOrClass: '.btnCancela', speed: 450 });
-
-
-        $(".btnAceptar").click(function () {
-            waitingDialog({});
-            var cell = $(this);
-            cell.prop('disabled', true);
-            var pedidoId = $(this).data('id');
-            var panelTarget = 'alertImage' + $(this).data('imgpane');
-            var panelTargetNumber = $(this).data('imgpane');
-
-            $("#viewPlaceHolder").load("/ConsultoraOnline/AceptarPedido",
-            { id: "" + pedidoId + "" }, function (reponse, status, xhr) {
-                if (status == "success") {
-                    closeWaitingDialog();
-                    $("#modal_aceptar_pedido").fuzemodal('open');
-                    updateCantidadPedidos();
-                    var htmlCancelContent = '<div class="text_verde2 margin_bottom_45">ACEPTADO</div>' +
-                            '<button type="button" class="boton_linea_verde margin_left_23 btnCancelar" onclick=";CancelarSolicitud(' + pedidoId + ',\'' + cell.parent().closest("div").attr("id") + '\',\'' + panelTargetNumber + '\');" >CANCELAR</button> ' +
-                            '<div class="wrap_pregunta">' +
-                                '<img class="ic_pregunta" src="/Content/Images/ConsultoraOnline/ic_pregunta.png" width="19" height="19" alt="" />' +
-                                '<img class="cont_info" src="/Content/Images/ConsultoraOnline/cont_pregunta.png" width="140" height="48" alt="" />' +
-                            '</div>';
-                    var imgAceptado = '<img class="margin_right_10 vertical_align_top" src="/Content/Images/ConsultoraOnline/ic_aceptar.png" width="19" height="19" alt="" />';
-                    $('#' + panelTarget).html(imgAceptado);
-                    cell.parent().html(htmlCancelContent);
-
-                } else {
-                    console.log('Error al invocar /ConsultoraOnline/AceptarPedido');
-                }
-            });
-
-        });
-
-        $(".btn_correo_direc").click(function () {
-            $(this).find(".cont_correo_direc").animate({
-                display: "block",
-                opacity: 1,
-                height: "toggle"
-            }, 300, function () {
-                // Animation complete.
-            });
-        });
-
-
-        $(".ic_pregunta").click(function () {
-            $(this).parent().find(".cont_info").animate({
-                display: "block",
-                opacity: 1,
-                height: "toggle"
-            }, 100, function () {
-                // Animation complete.
-            });
-        });
-
-
-    });
-
-</script>
-

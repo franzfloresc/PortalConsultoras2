@@ -16,7 +16,7 @@
     height: 50px !important;
 }
 
-.tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px;}
+.tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px;background:#e7e7e7;}
 
 .tag-editor .tag span, .tag-editor .tag a { float: left; padding: 0 4px; }
 
@@ -47,14 +47,17 @@
     text-align: center;
     line-height: 18px;
     display: inline-block;
-    margin-top: 15px; }
+   margin-top: 9px; }
 .tag-editor .tag a i:before { font-size: 15px;
     /* margin-top: -6px; */
     color: white;
     content: "×";
     /* background: #686868; */
     /* width: 15px; */
-    font-style: normal; }
+    font-style: normal;
+     display: block;
+    margin-top: -1px;
+}
 .tag-editor .tag a:hover i:before { color: white; }
 .tag-editor .tag span.active + .tag a, .tag-editor .tag span.active + .tag a i { visibility: hidden; cursor: text; }
 

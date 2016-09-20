@@ -13,12 +13,12 @@
         border: 1px solid #D0D0D0;
         position: relative;
         width: 60%;
-        top: -674px;
         margin: 0 auto;
         max-height: none;
     }
-    .no_leido{
-        font-weight:900;
+
+    .no_leido {
+        font-weight: 900;
     }
 </style>
 <div class="fondo_f9f9f9">
@@ -36,12 +36,12 @@
         <!--CONTENIDO DE TITULO -->
         <a role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion" style="cursor:default!important;">
             <img src="/Content/Images/Esika/notificaciones.png" alt="" style="float:left">
-            <p class="notificaciones notificaciones_existentes notificaciones_activas">@sinLeer</p>
+            <p class="notificaciones notificaciones_existentes notificaciones_activas js-notificaciones">@sinLeer</p>
         </a>
         @if (sinLeer > 0)
         {
 
-            <div class="aviso_mensajes">TIENES @sinLeer MENSAJES SIN LEER</div>
+            <div class="aviso_mensajes">TIENES <span class="js-notificaciones2">@sinLeer</span> MENSAJES SIN LEER</div>
         }
         else
         {
@@ -113,7 +113,7 @@
             <li style="margin-right: 6px;">
                 <span class="paginas_pedidos">
                     <span class="pagina_actual">
-                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
                     </span> de
                     <span class="paginas_totales">1</span>
                 </span>
@@ -154,7 +154,7 @@
             <li style="margin-right: 6px;">
                 <span class="paginas_pedidos">
                     <span class="pagina_actual">
-                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
+                        <input type="text" name="paginaactual" value="1" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
                     </span> de
                     <span class="paginas_totales">1</span>
                 </span>
@@ -167,32 +167,24 @@
         <div class="texto_monto_pago">Total Monto a pagar: </div>
     </div>
 </div>
-<div id="divNotificacionCatalogo" class="wrap" style="display:none;max-height: 1100px;">
+<div id="divNotificacionCatalogo" class="wrap" style="display:none;">
     <div class="Content_modal_home">
-        <a onclick="$('#divNotificacionCatalogo').hide();">CERRAR X</a>
+        <a onclick="$('#divNotificacionCatalogo').hide(); $('.content_left_pagos').show();">CERRAR X</a>
         <div id="divDetalleNotificacionCatalogo">
         </div>
     </div>
 </div>
-<div id="divObservaciones" class="wrap" style="display:none;max-height: 1100px;">
+<div id="divObservaciones" class="wrap" style="display:none;">
     <div class="Content_modal_home">
-        <a onclick="$('#divObservaciones').hide();">CERRAR X</a>
+        <a onclick="$('#divObservaciones').hide(); $('.content_left_pagos').show();">CERRAR X</a>
         <div id="divListadoObservaciones">
         </div>
     </div>
 </div>
 
 @section scripts{
-    <script src="~/Scripts/PortalConsultoras/Notificaciones/Index.js"></script>
     <script type="text/javascript">
-        // POPUP NOTIFICACIONES //
-        $(document).ready(function () {
-            //$(".movimientos_pagos").click(function () {
-            //    $(".PopUpNotificaciones").fadeIn(400);
-            //});
-            //$(".btn_cerrar_popup_notificaciones").click(function () {
-            //    $(".PopUpNotificaciones").fadeOut(200);
-            //});
-        });
+        var urlMisPedidos = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Notificaciones/Index.js")"></script>
 }

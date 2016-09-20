@@ -74,7 +74,6 @@
     }
 
     function Imprimir() {
-        _gaq.push(['_trackEvent', 'Pedido Web Facturado', 'Botón -mpriimir']);
         window.print();
     }
 
@@ -86,7 +85,6 @@
         var Flete = $('#lblFlete').html();
         var TotalFacturado = $('#lblTotalFacturado').html();
 
-        _gaq.push(['_trackEvent', 'Pedido Web Facturado', 'Botón-Excel']);
         setTimeout(function () { DownloadAttachExcel(CampaniaID, TotalParcial, Flete, TotalFacturado) }, 0);
     }
 

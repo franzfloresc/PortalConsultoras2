@@ -16,21 +16,24 @@
 
 <div class="envolvente_pop_up">
     <div class="pop_liquidacion" id="pop_liquidacion" style="display: none;">
-        <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")"/>
+        <div class="check_liquidacion">
+            <img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" />
         </div>
         <div class="titulo_liquidacion">
             ¡PRODUCTO AGREGADO SATISFACTORIAMENTE!
         </div>
-        <hr class="clear"/>
-        <div class="imagen_pop_l"><img id="imgProductoAgregado" src="" alt=""/>
+        <hr class="clear" />
+        <div class="imagen_pop_l">
+            <img id="imgProductoAgregado" src="" alt="" />
         </div>
         <div class="info_pop_liquidacion">
             <h1 id="nombreProductoAgregado"></h1>
-            <h2><span id="cantidadProductoAgregado"></span> unidades
+            <h2>
+                <span id="cantidadProductoAgregado"></span> unidades
             </h2>
             <p>@ViewBag.Simbolo <span id="totalProductoAgregado"></span></p>
         </div>
-        <hr class="clear"/>
+        <hr class="clear" />
         <a href="javascript: CerrarProductoAgregado();" class="boton_pop_up">CERRAR</a>
     </div>
 </div>
@@ -121,7 +124,7 @@
                 <td>
 
                     <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral" name="txtCantidadPopup" id="txtCantidadPopup" />
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadPopup" id="txtCantidadPopup" />
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                             <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -174,8 +177,8 @@
                 <p class="liquidacion_descripcion">{{Descripcion}}</p>
                 <div class="liquidacion_precio_tachado"></div>
                 <div class="liquidacion_precio"><span>@ViewBag.Simbolo<span id="precio_oferta">{{PrecioString}}</span></span></div>
-                <hr class="clear" />                                
-                
+                <hr class="clear" />
+
                 {{#if TieneTallaColor}}
                 <a class="boton_liquidacion js-boton_tonotalla" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:218px!important;">
                     {{TextoBotonTallaColor}}
@@ -183,7 +186,7 @@
                 {{else}}
                 <p class="liquidacion_cantidad">Stock: <span class="spStock">{{Stock}}</span>  unidades.</p>
                 <div class="liquidacion_rango_home" style="margin-left: 20px;">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad"/>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtCantidad" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -191,8 +194,8 @@
                 </div>
                 <hr class="clear" />
                 <a class="boton_liquidacion js-boton_liquidacion">agregar</a>
-                {{/if}}       
-            </div>            
+                {{/if}}
+            </div>
         </div>
     </div>
     {{/each}}
@@ -200,58 +203,4 @@
 
 @section scripts{
     <script type="text/javascript" src="~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js"></script>
-    <script type="text/javascript">
-
-        // MICROEFECTO AGREGAR PRODUCTOS AL CARRITO DE COMPRA
-
-            // Funcion de animación al agregar productos al carrito
-
-            function agregarProductoAlCarrito(o) {
-                var btnClickeado = $(o);
-                var contenedorItem = btnClickeado.parent();
-                var imagenProducto = $('.imagen_producto', contenedorItem);
-                var carrito = $('.campana');
-
-                $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-                $(".transicion").css({
-                    'height': imagenProducto.css("height"),
-                    'width': imagenProducto.css("width"),
-                    'top': imagenProducto.offset().top,
-                    'left': imagenProducto.offset().left,
-                }).animate({
-                    'top': carrito.offset().top - 40,
-                    'left': carrito.offset().left + 100,
-                    'height': carrito.css("height"),
-                    'width': carrito.css("width"),
-                    'opacity': 0.5
-                }, 300, 'swing', function () {
-                    $(this).animate({
-                        'top': carrito.offset().top,
-                        'opacity': 0,
-                    //}, 100, 'swing', function () {
-                    //    $(".campana .info_cam").fadeIn(200);
-                    //    $(".campana .info_cam").delay(2500);
-                    //    $(".campana .info_cam").fadeOut(200);
-                    }, 100, 'swing', function () {
-                        $(this).remove();
-                    });
-                });
-            }
-
-            $(document).ready(function () {
-
-                // Microefecto al agregar productos al carrito de compras
-
-                $(document).on("click", ".boton_liquidacion", function (e) {
-
-                    e.preventDefault();
-
-                    agregarProductoAlCarrito(this);
-
-                });
-
-            });
-
-    </script>
 }

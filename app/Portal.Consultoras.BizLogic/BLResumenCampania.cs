@@ -105,6 +105,6 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return productos;
-        }     
+        }
     }
 }

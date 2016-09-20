@@ -21,7 +21,7 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
 
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+        $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
                 if (data.success) {
                     console.log(data.message);
@@ -30,29 +30,32 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                     console.log(data.message);
                 }
             }
-        });
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
 
     //R2319 - JLCS
     if (TipoOrigen == 4) {
-        location.href = '@Url.Action("MisPedidos", "ConsultoraOnline")'; //GR-723
+        location.href = urlMisPedidos; //GR-723
     }
     else if (TipoOrigen == 5) {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarDetalleSolicitudClienteCatalogo?SolicitudId=" + ProcesoId, function (data) {
+        $.get(baseUrl + "Notificaciones/ListarDetalleSolicitudClienteCatalogo?SolicitudId=" + ProcesoId).success(function (data) {
             if (checkTimeout(data)) {
                 $('#divDetalleNotificacionCatalogo').html(data);
                 $('#divNotificacionCatalogo').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer();
                 closeWaitingDialog();
             }
-        });
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
     else if (TipoOrigen != 3) {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+        $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
                 switch (Estado) {
                     /*Pedido no reservado por monto mínimo/maximo */
                     case "2":
@@ -84,20 +87,23 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;
                 }
+                CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
-        });
+        })
+        .error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
     else {
         $.ajaxSetup({ cache: false });
-        $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones, function (data) {
+        $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones).success(function (data) {
             if (checkTimeout(data)) {
                 $('#divListadoObservaciones').html(data);
-                $('#divObservaciones').dialog('option', 'title', Asunto);
-                $('#divObservaciones').dialog('open');
+                $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer()
                 closeWaitingDialog();
             }
-        });
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
 
     }
 

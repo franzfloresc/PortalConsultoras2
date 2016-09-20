@@ -15,32 +15,43 @@ using System.Web.Security;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Text.RegularExpressions;
+using Portal.Consultoras.Web.ServiceLMS;
+using System.Data;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
     {
+        private string pasoLog;
+
         public ActionResult Index()
         {
             return Login();
 
-            //var LoginModel = new LoginModel()
-            //{
-            //    listaPaises = DropDowListPaises()
-            //};
-            //return View(LoginModel);
+            //return View(new LoginModel() { listaPaises = DropDowListPaises() });
         }
 
         private ActionResult Login()
         {
-            ViewBag.Fecha = DateTime.Now;
+            string usuarioLog = "";
+            string paisLog = "";
             try
             {
+                pasoLog = "Se empezará a leer los Claims";
                 ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+                pasoLog = "Se obtuvo claimsPrincipal";
                 Claim FederationClaimName = claimsPrincipal.FindFirst(ClaimTypes.Name);
+                if (FederationClaimName == null)
+                {
+                    pasoLog = "FederationClaimName es null";
+                }
                 string claimUser = FederationClaimName.Value.ToUpper();
+                pasoLog = "FederationClaimName.Value: " + FederationClaimName.Value;
                 string DomConsultora = ConfigurationManager.AppSettings.Get("DomConsultora");
+                pasoLog = "DomConsultora: " + DomConsultora;
                 string DomBelcorp = ConfigurationManager.AppSettings.Get("DomBelcorp");
+                pasoLog = "DomBelcorp: " + DomBelcorp;
 
                 string UserPortal = string.Empty;
                 bool UsuarioSAC = false;
@@ -51,14 +62,15 @@ namespace Portal.Consultoras.Web.Controllers
                     UserPortal = claimUser.Replace(DomConsultora + @"\", "");
                     Tipo = 1;
                 }
-                else
-                    if (claimUser.Contains(DomBelcorp))
-                    {
-                        UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
-                        UsuarioSAC = true;
-                        Tipo = 2;
-                    }
+                else if (claimUser.Contains(DomBelcorp))
+                {
+                    UserPortal = claimUser.Replace(DomBelcorp + @"\", "");
+                    UsuarioSAC = true;
+                    Tipo = 2;
+                }
 
+                pasoLog = "Se obtuvo el usuario";
+                usuarioLog = UserPortal;
 
                 if (!string.IsNullOrEmpty(UserPortal))
                 {
@@ -84,6 +96,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Codigo = UserPortal;
                     }
 
+                    pasoLog = "Se obtuvo el país";
+                    paisLog = Pais;
+                    usuarioLog = Codigo;
 
                     BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
                     if (PaisModel != null)
@@ -91,11 +106,10 @@ namespace Portal.Consultoras.Web.Controllers
                         UsuarioModel usuario = GetUserData(PaisModel.PaisID, Codigo, Tipo);
                         if (usuario != null)
                         {
-                            //Inicio Cambios_Landing_Comunidad
+                            pasoLog = "Se obtuvo datos de sesión";
+
                             if (usuario.RolID == Portal.Consultoras.Common.Constantes.Rol.Consultora)
                             {
-                                //REQ - 2589 - Inicio
-                                //TISMART
                                 bool esMovil = Request.Browser.IsMobileDevice;
 
                                 if (esMovil)
@@ -108,24 +122,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         Session["PrimeraVezSession"] = 0;
                                     }
-
-                                    if (usuario.CambioClave == 0) //2532 EG
-                                    {
-                                        return RedirectToAction("Landing", "Bienvenida");
-                                    }
-                                    else
-                                    {
-                                        return RedirectToAction("Index", "Bienvenida");
-                                    }
+                                    return RedirectToAction("Index", "Bienvenida");
                                 }
-                                //REQ - 2589 - Fin
                             }
                             else
                             {
                                 return RedirectToAction("Index", "Bienvenida");
                             }
-                            //Fin Cambios_Landing_Comunidad
-
                         }
                         else
                         {
@@ -147,11 +150,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioLog, paisLog, pasoLog);
                 string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                 return Redirect(Url);
             }
-        } 
+        }
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
@@ -268,7 +271,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult LoginCargarConfiguracion(int paisID, string codigoUsuario)
         {
             GetUserData(paisID, codigoUsuario, 1, 1);
@@ -277,20 +279,22 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-
         public UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int Tipo, int refrescarDatos = 0)
         {
             Session["IsContrato"] = 1;
             Session["IsOfertaPack"] = 1;
+
             UsuarioModel model = null;
             BEUsuario oBEUsuario = null;
             string valores = "";
             string[] arrValores;
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+
+            try
             {
-                try
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     oBEUsuario = sv.GetSesionUsuario(PaisID, CodigoUsuario);
+                    pasoLog = "Se obtuvo usuario de BD";
 
                     if (oBEUsuario != null && refrescarDatos == 0)
                     {
@@ -298,196 +302,205 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
                             sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIPCliente(), 1, oBEUsuario.CampaniaID.ToString());
+                            pasoLog = "Se registro el log de ingreso al portal";
                         }
                         catch
                         {
-
+                            pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
                         }
                     }
                 }
-                catch (FaultException) { throw; }
-            }
-            if (oBEUsuario != null)
-            {
-                model = new UsuarioModel();
-                model.NombrePais = oBEUsuario.NombrePais;
-                model.PaisID = oBEUsuario.PaisID;
-                model.CodigoISO = oBEUsuario.CodigoISO;
-                model.CodigoFuente = oBEUsuario.CodigoFuente;
-                model.RegionID = oBEUsuario.RegionID;
-                model.CodigorRegion = oBEUsuario.CodigorRegion;
-                model.ZonaID = oBEUsuario.ZonaID;
-                model.CodigoZona = oBEUsuario.CodigoZona;
-                model.ConsultoraID = oBEUsuario.ConsultoraID;
-                model.CodigoUsuario = oBEUsuario.CodigoUsuario;
-                model.CodigoConsultora = oBEUsuario.CodigoConsultora;
-                model.NombreConsultora = oBEUsuario.Nombre;
-                model.RolID = oBEUsuario.RolID;
-                model.EMail = oBEUsuario.EMail;
-                model.CampaniaID = oBEUsuario.CampaniaID;
-                model.BanderaImagen = oBEUsuario.BanderaImagen;
-                model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
-                model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
-                model.Telefono = oBEUsuario.Telefono;
-                model.Celular = oBEUsuario.Celular;
-                model.IndicadorDupla = oBEUsuario.IndicadorDupla;
-                model.UsuarioPrueba = oBEUsuario.UsuarioPrueba;
-                model.PasePedidoWeb = oBEUsuario.PasePedidoWeb;
-                model.TipoOferta2 = oBEUsuario.TipoOferta2;
-                model.CompraKitDupla = oBEUsuario.CompraKitDupla;
-                model.CompraOfertaDupla = oBEUsuario.CompraOfertaDupla;
-                model.CompraOfertaEspecial = oBEUsuario.CompraOfertaEspecial;
-                model.IndicadorMeta = oBEUsuario.IndicadorMeta;
-                model.ProgramaReconocimiento = oBEUsuario.ProgramaReconocimiento;
-                model.NivelEducacion = oBEUsuario.NivelEducacion;
-                model.SegmentoID = oBEUsuario.SegmentoID;
-                model.FechaNacimiento = oBEUsuario.FechaNacimiento;
-                model.Nivel = oBEUsuario.Nivel;
-                model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
-                model.FechaLimPago = oBEUsuario.FechaLimPago;
-                model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
-                model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
-                model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
-                model.EsJoven = oBEUsuario.EsJoven;
-                model.PROLSinStock = oBEUsuario.PROLSinStock;//1510
-                model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre; //R20151123
 
-                if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes))
+                if (oBEUsuario != null)
                 {
-                    model.DiaPROL = false;
-                    model.FechaFacturacion = oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes);
-                    if (oBEUsuario.DiasAntes == 0)
-                        model.HoraFacturacion = oBEUsuario.HoraInicio;
+                    model = new UsuarioModel();
+                    model.NombrePais = oBEUsuario.NombrePais;
+                    model.PaisID = oBEUsuario.PaisID;
+                    model.CodigoISO = oBEUsuario.CodigoISO;
+                    model.CodigoFuente = oBEUsuario.CodigoFuente;
+                    model.RegionID = oBEUsuario.RegionID;
+                    model.CodigorRegion = oBEUsuario.CodigorRegion;
+                    model.ZonaID = oBEUsuario.ZonaID;
+                    model.CodigoZona = oBEUsuario.CodigoZona;
+                    model.ConsultoraID = oBEUsuario.ConsultoraID;
+                    model.CodigoUsuario = oBEUsuario.CodigoUsuario;
+                    model.CodigoConsultora = oBEUsuario.CodigoConsultora;
+                    model.NombreConsultora = oBEUsuario.Nombre;
+                    model.RolID = oBEUsuario.RolID;
+                    model.EMail = oBEUsuario.EMail;
+                    model.CampaniaID = oBEUsuario.CampaniaID;
+                    model.BanderaImagen = oBEUsuario.BanderaImagen;
+                    model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
+                    model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
+                    model.Telefono = oBEUsuario.Telefono;
+                    model.Celular = oBEUsuario.Celular;
+                    model.IndicadorDupla = oBEUsuario.IndicadorDupla;
+                    model.UsuarioPrueba = oBEUsuario.UsuarioPrueba;
+                    model.PasePedidoWeb = oBEUsuario.PasePedidoWeb;
+                    model.TipoOferta2 = oBEUsuario.TipoOferta2;
+                    model.CompraKitDupla = oBEUsuario.CompraKitDupla;
+                    model.CompraOfertaDupla = oBEUsuario.CompraOfertaDupla;
+                    model.CompraOfertaEspecial = oBEUsuario.CompraOfertaEspecial;
+                    model.IndicadorMeta = oBEUsuario.IndicadorMeta;
+                    model.ProgramaReconocimiento = oBEUsuario.ProgramaReconocimiento;
+                    model.NivelEducacion = oBEUsuario.NivelEducacion;
+                    model.SegmentoID = oBEUsuario.SegmentoID;
+                    model.FechaNacimiento = oBEUsuario.FechaNacimiento;
+                    model.Nivel = oBEUsuario.Nivel;
+                    model.FechaInicioCampania = oBEUsuario.FechaInicioFacturacion;
+                    model.FechaLimPago = oBEUsuario.FechaLimPago;
+                    model.VioVideoModelo = oBEUsuario.VioVideo;
+                    model.VioTutorialModelo = oBEUsuario.VioTutorial;
+                    model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
+                    model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
+                    model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
+                    model.EsJoven = oBEUsuario.EsJoven;
+                    model.PROLSinStock = oBEUsuario.PROLSinStock;
+                    model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
+
+                    if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
+                        model.DiaPROLMensajeCierreCampania = false;
                     else
-                        model.HoraFacturacion = oBEUsuario.HoraInicioNoFacturable;
+                        model.DiaPROLMensajeCierreCampania = true;
+
+                    if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes))
+                    {
+                        model.DiaPROL = false;
+                        model.FechaFacturacion = oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes);
+                        if (oBEUsuario.DiasAntes == 0)
+                            model.HoraFacturacion = oBEUsuario.HoraInicio;
+                        else
+                            model.HoraFacturacion = oBEUsuario.HoraInicioNoFacturable;
+                    }
+                    else
+                    {
+                        model.DiaPROL = true;
+                        model.FechaFacturacion = oBEUsuario.FechaFinFacturacion;
+                        model.HoraFacturacion = oBEUsuario.HoraFin;
+                    }
+
+                    model.HoraInicioReserva = oBEUsuario.HoraInicio;
+                    model.HoraFinReserva = oBEUsuario.HoraFin;
+                    model.HoraInicioPreReserva = oBEUsuario.HoraInicioNoFacturable;
+                    model.HoraFinPreReserva = oBEUsuario.HoraCierreNoFacturable;
+                    model.DiasCampania = oBEUsuario.DiasAntes;
+                    model.HoraFinFacturacion = oBEUsuario.HoraFin;
+                    model.NombreCorto = oBEUsuario.CampaniaDescripcion;
+                    model.CampanaInvitada = oBEUsuario.CampanaInvitada;
+                    model.InscritaFlexipago = oBEUsuario.InscritaFlexipago;
+                    model.InvitacionRechazada = oBEUsuario.InvitacionRechazada;
+
+                    // OGA: agregado el campo para determinar el inicio del rango
+                    model.DiasAntes = oBEUsuario.DiasAntes;
+                    model.DiasDuracionCronograma = oBEUsuario.DiasDuracionCronograma;
+
+                    // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
+                    switch (oBEUsuario.RolID)
+                    {
+                        case Portal.Consultoras.Common.Constantes.Rol.Administrador:
+                            model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
+                            break;
+                        case Portal.Consultoras.Common.Constantes.Rol.Consultora:
+                            model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
+                            break;
+
+                    }
+
+                    model.ZonaValida = oBEUsuario.ZonaValida;
+                    model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
+                    model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
+                    model.Simbolo = oBEUsuario.Simbolo;
+                    model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
+                    pasoLog = "Obtener listado de productos faltantes";
+                    model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
+                    model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
+                    model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
+                    model.ZonaHoraria = oBEUsuario.ZonaHoraria;
+                    model.TipoUsuario = Tipo;
+                    model.EsZonaDemAnti = oBEUsuario.EsZonaDemAnti;
+                    model.Segmento = oBEUsuario.Segmento;
+                    model.Sobrenombre = oBEUsuario.Sobrenombre;
+                    model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
+                    model.Direccion = oBEUsuario.Direccion;
+                    pasoLog = "Obtener IP de Cliente";
+                    model.IPUsuario = GetIPCliente();
+                    model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
+                    model.PrimerNombre = oBEUsuario.PrimerNombre;
+                    model.PrimerApellido = oBEUsuario.PrimerApellido;
+                    model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
+                    pasoLog = "Obtener Permisos de flexipago";
+                    model.IndicadorPermisoFlexipago = GetPermisoFlexipago(model.PaisID, model.CodigoISO, model.CodigoConsultora, model.CampaniaID);
+                    model.MostrarAyudaWebTraking = oBEUsuario.MostrarAyudaWebTraking;
+                    model.NroCampanias = oBEUsuario.NroCampanias;
+                    model.RolDescripcion = oBEUsuario.RolDescripcion;
+                    model.IndicadorOfertaFIC = oBEUsuario.IndicadorOfertaFIC;
+                    model.ImagenURLOfertaFIC = oBEUsuario.ImagenURLOfertaFIC;
+                    model.Lider = oBEUsuario.Lider;
+                    model.ConsultoraAsociada = oBEUsuario.ConsultoraAsociada;
+                    model.CampaniaInicioLider = oBEUsuario.CampaniaInicioLider;
+                    model.SeccionGestionLider = oBEUsuario.SeccionGestionLider;
+                    model.NivelLider = oBEUsuario.NivelLider;
+                    model.PortalLideres = oBEUsuario.PortalLideres;
+                    model.LogoLideres = oBEUsuario.LogoLideres;
+                    model.IndicadorContrato = oBEUsuario.IndicadorContrato;
+                    model.FechaFinFIC = oBEUsuario.FechaFinFIC;
+                    model.MenuNotificaciones = 1;
+                    if (model.MenuNotificaciones == 1)
+                    {
+                        pasoLog = "Obtener si tiene notificaciones";
+                        model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
+                    }
+                    model.NuevoPROL = oBEUsuario.NuevoPROL;
+                    model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
+
+                    if (oBEUsuario.CampaniaID != 0)
+                    {
+                        pasoLog = "Obtener fecha promesa";
+                        valores = GetFechaPromesaEntrega(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.CodigoConsultora, oBEUsuario.FechaInicioFacturacion);
+                        arrValores = valores.Split('|');
+                        model.TipoCasoPromesa = arrValores[2].ToString();
+                        model.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
+                        model.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
+                    }
+                    pasoLog = "Obtener links por pais";
+                    List<TipoLinkModel> lista = GetLinksPorPais(model.PaisID);
+                    if (lista.Count > 0)
+                    {
+                        model.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
+                        model.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
+                        model.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                    }
+
+                    pasoLog = "Obtener si es usuario comunidad";
+                    model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
+                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
+                    model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
+                    model.DescripcionNivel = oBEUsuario.DescripcionNivel;
+                    model.esConsultoraLider = oBEUsuario.esConsultoraLider;
+                    model.EMailActivo = oBEUsuario.EMailActivo;
+                    model.EMail = oBEUsuario.EMail;
+                    model.SegmentoInternoID = oBEUsuario.SegmentoInternoID;
+                    model.EstadoSimplificacionCUV = oBEUsuario.EstadoSimplificacionCUV;
+                    model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
+                    model.ValidacionInteractiva = oBEUsuario.ValidacionInteractiva;
+                    model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva;
+                    model.OfertaFinal = oBEUsuario.OfertaFinal;
+                    model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
+                    model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+
+                    //if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
                 }
-                else
-                {
-                    model.DiaPROL = true;
-                    model.FechaFacturacion = oBEUsuario.FechaFinFacturacion;
-                    model.HoraFacturacion = oBEUsuario.HoraFin;
-                }
 
-                model.HoraInicioReserva = oBEUsuario.HoraInicio;
-                model.HoraFinReserva = oBEUsuario.HoraFin;
-                model.HoraInicioPreReserva = oBEUsuario.HoraInicioNoFacturable;
-                model.HoraFinPreReserva = oBEUsuario.HoraCierreNoFacturable;
-                model.DiasCampania = oBEUsuario.DiasAntes;
-                model.HoraFinFacturacion = oBEUsuario.HoraFin;
-                model.NombreCorto = oBEUsuario.CampaniaDescripcion;
-                //1796
-                model.CampanaInvitada = oBEUsuario.CampanaInvitada;
-                model.InscritaFlexipago = oBEUsuario.InscritaFlexipago;
-                model.InvitacionRechazada = oBEUsuario.InvitacionRechazada;
-                //1796 fin
-
-                // OGA: agregado el campo para determinar el inicio del rango
-                model.DiasAntes = oBEUsuario.DiasAntes;
-                model.DiasDuracionCronograma = oBEUsuario.DiasDuracionCronograma;
-
-                // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
-                switch (oBEUsuario.RolID)
-                {
-                    case Portal.Consultoras.Common.Constantes.Rol.Administrador:
-                        model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
-                        break;
-                    case Portal.Consultoras.Common.Constantes.Rol.Consultora:
-                        model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
-                        break;
-
-                }
-
-                model.ZonaValida = oBEUsuario.ZonaValida;
-                model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
-                model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
-                model.Simbolo = oBEUsuario.Simbolo;
-                model.CodigoTerritorio = oBEUsuario.CodigoTerritorio;
-                model.ListaProductoFaltante = GetModelPedidoAgotado(model.PaisID, model.CampaniaID, model.ZonaID);
-                model.HoraCierreZonaDemAnti = oBEUsuario.HoraCierreZonaDemAnti;
-                model.HoraCierreZonaNormal = oBEUsuario.HoraCierreZonaNormal;
-                model.ZonaHoraria = oBEUsuario.ZonaHoraria;
-                model.TipoUsuario = Tipo;
-                model.EsZonaDemAnti = oBEUsuario.EsZonaDemAnti;
-                model.Segmento = oBEUsuario.Segmento;
-                model.Sobrenombre = oBEUsuario.Sobrenombre;
-                model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
-                model.Direccion = oBEUsuario.Direccion;
-                model.IPUsuario = GetIPCliente();
-                model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
-                model.PrimerNombre = oBEUsuario.PrimerNombre;
-                model.PrimerApellido = oBEUsuario.PrimerApellido;
-                model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
-                model.IndicadorPermisoFlexipago = GetPermisoFlexipago(model.PaisID, model.CodigoISO, model.CodigoConsultora, model.CampaniaID);
-                model.MostrarAyudaWebTraking = oBEUsuario.MostrarAyudaWebTraking;
-                model.NroCampanias = oBEUsuario.NroCampanias;
-                model.RolDescripcion = oBEUsuario.RolDescripcion;
-                model.IndicadorOfertaFIC = oBEUsuario.IndicadorOfertaFIC;//SSAP CGI(Id Solicitud=1402)
-                model.ImagenURLOfertaFIC = oBEUsuario.ImagenURLOfertaFIC;//SSAP CGI(Id Solicitud=1402)
-                model.Lider = oBEUsuario.Lider;//1485
-                model.ConsultoraAsociada = oBEUsuario.ConsultoraAsociada;//1688
-                model.CampaniaInicioLider = oBEUsuario.CampaniaInicioLider;//1589
-                model.SeccionGestionLider = oBEUsuario.SeccionGestionLider;//1589
-                model.NivelLider = oBEUsuario.NivelLider;//1485
-                model.PortalLideres = oBEUsuario.PortalLideres;//1589
-                model.LogoLideres = oBEUsuario.LogoLideres;//1589
-                model.IndicadorContrato = oBEUsuario.IndicadorContrato;//1484
-                model.FechaFinFIC = oBEUsuario.FechaFinFIC;//1501
-                //CCSS_JZ_PROL
-                model.MenuNotificaciones = 1;  //MenuNotificaciones(oBEUsuario);
-                if (model.MenuNotificaciones == 1)
-                {
-                    model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
-                }
-                //RQ_NP - R2133
-                model.NuevoPROL = oBEUsuario.NuevoPROL;
-                //RQ_NP - R2133
-                model.ZonaNuevoPROL = oBEUsuario.ZonaNuevoPROL;
-
-                //RQ_FP - R2161
-                if (oBEUsuario.CampaniaID != 0)
-                {
-                    //model.FechaPromesaEntrega = GetFechaPromesaEntrega(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.CodigoConsultora, oBEUsuario.FechaInicioFacturacion);
-                    valores = GetFechaPromesaEntrega(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.CodigoConsultora, oBEUsuario.FechaInicioFacturacion);
-                    arrValores = valores.Split('|');
-                    model.TipoCasoPromesa = arrValores[2].ToString();
-                    model.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
-                    model.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
-                }
-                List<TipoLinkModel> lista = GetLinksPorPais(model.PaisID);
-                if (lista.Count > 0)
-                {
-                    model.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                    model.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                    model.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
-                }
-
-                /*Cambios_Landing_Comunidad*/
-                model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
-                /*R2469*/
-                model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
-                model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
-                model.DescripcionNivel = oBEUsuario.DescripcionNivel;
-                model.esConsultoraLider = oBEUsuario.esConsultoraLider;
-                model.EMailActivo = oBEUsuario.EMailActivo; //2532 EGL
-                model.EMail = oBEUsuario.EMail; //2532 EGL
-
-                /*RE2544 - CS*/
-                model.SegmentoInternoID = oBEUsuario.SegmentoInternoID;
-
-                model.EstadoSimplificacionCUV = oBEUsuario.EstadoSimplificacionCUV;
-                model.EsquemaDAConsultora = oBEUsuario.EsquemaDAConsultora;
-                model.ValidacionInteractiva = oBEUsuario.ValidacionInteractiva; //R20160306
-                model.MensajeValidacionInteractiva = oBEUsuario.MensajeValidacionInteractiva; //R20160306
-                model.OfertaFinal = oBEUsuario.OfertaFinal;
-                model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
-                model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                pasoLog = "Agregar usuario en session";
+                Session["UserData"] = model;
             }
-
-            Session["UserData"] = model;
-
+            catch (Exception ex)
+            {
+                pasoLog = "Error: " + ex.Message;
+                throw;
+            }
             return model;
         }
-
 
         public List<ServiceSAC.BEProductoFaltante> GetModelPedidoAgotado(int PaisID, int CampaniaID, int ZonaID)
         {
@@ -541,6 +554,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                IP = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(IP)[0].ToString();
             }
             catch { }
             return IP;
@@ -642,5 +656,30 @@ namespace Portal.Consultoras.Web.Controllers
             return result == null ? false : true;
         }
         /*Fin Cambios_Landing_Comunidad*/
+
+        private void CrearUsuarioMiAcademia(UsuarioModel model)
+        {
+            try
+            {
+                string key = ConfigurationManager.AppSettings["secret_key"];
+                string isoUsuario = model.CodigoISO + '-' + model.CodigoConsultora;
+                ws_server svcLMS = new ws_server();
+
+                result getUser = svcLMS.ws_serverget_user(isoUsuario, model.CampaniaID.ToString(), key);
+                if (getUser.codigo == "002")
+                {
+                    string nivelProyectado = "";
+                    using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                    {
+                        DataSet parametros = csv.ObtenerParametrosSuperateLider(model.PaisID, model.ConsultoraID, model.CampaniaID);
+                        if (parametros != null && parametros.Tables.Count > 0) nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
+                    }
+                    string eMail = model.EMail.Trim() != string.Empty ? model.EMail : (model.CodigoConsultora + "@notengocorreo.com");
+
+                    svcLMS.ws_servercreate_user(isoUsuario, model.NombreConsultora, eMail, model.CampaniaID.ToString(), model.CodigorRegion, model.CodigoZona, model.SegmentoConstancia, model.SeccionAnalytics, model.Lider.ToString(), model.NivelLider.ToString(), model.CampaniaInicioLider.ToString(), model.SeccionGestionLider, nivelProyectado, key);
+                }
+            }
+            catch { }
+        }
     }
 }

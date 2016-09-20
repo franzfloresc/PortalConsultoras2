@@ -47,6 +47,42 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
 
             return DAProducto.ObtenerCuvByCodigoSap(campaniaId, codigoSap);
         }
-        
+
+        public string ObtenerSapByCuv(string codigoIso, int campaniaId, string cuv)
+        {
+            var DAProducto = new DAProducto(codigoIso);
+
+            return DAProducto.ObtenerSapByCuv(campaniaId, cuv);
+        }
+
+        public List<Producto> ObtenerProductosPedido(string codigoIso , int campaniaId , string codigoConsultora)
+        {
+            var listaProducto = new List<Producto>();
+            var daProducto = new DAProducto(codigoIso);
+
+            using (IDataReader reader = daProducto.ObtenerProductosPedido(campaniaId, codigoConsultora))
+                while (reader.Read())
+                {
+                    var entidad = new Producto(reader);
+                    listaProducto.Add(entidad);
+                }
+
+            return listaProducto;
+        }
+
+        public List<Producto> ObtenerEstrategiasOfertaParaTi(string codigoIso, int campaniaId, string codigoConsultora)
+        {
+            var listaProducto = new List<Producto>();
+            var daProducto = new DAProducto(codigoIso);
+
+            using (IDataReader reader = daProducto.ObtenerEstrategiasOfertaParaTi(campaniaId, codigoConsultora))
+                while (reader.Read())
+                {
+                    var entidad = new Producto(reader);
+                    listaProducto.Add(entidad);
+                }
+
+            return listaProducto;
+        }
     }
 }

@@ -2678,6 +2678,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductoSugeridoByCUV", ReplyAction="http://tempuri.org/IODSService/GetProductoSugeridoByCUVResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetProductoSugeridoByCUVAsync(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectProductoToKitInicio", ReplyAction="http://tempuri.org/IODSService/SelectProductoToKitInicioResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEProducto[] SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectProductoToKitInicio", ReplyAction="http://tempuri.org/IODSService/SelectProductoToKitInicioResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoToKitInicioAsync(int paisID, int campaniaID, string cuv);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2921,6 +2927,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetProductoSugeridoByCUVAsync(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona) {
             return base.Channel.GetProductoSugeridoByCUVAsync(paisID, campaniaID, consultoraID, cuv, regionID, zonaID, codigoRegion, codigoZona);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEProducto[] SelectProductoToKitInicio(int paisID, int campaniaID, string cuv) {
+            return base.Channel.SelectProductoToKitInicio(paisID, campaniaID, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> SelectProductoToKitInicioAsync(int paisID, int campaniaID, string cuv) {
+            return base.Channel.SelectProductoToKitInicioAsync(paisID, campaniaID, cuv);
         }
     }
 }
