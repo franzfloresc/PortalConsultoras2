@@ -79,12 +79,12 @@ $(document).ready(function () {
         }
         else {
             if (viewBagVerComunicado == '1') {
-                console.log('show popup #3');
+                //console.log('show popup #3');
                 showComunicadoSinMostrar();
                 $('#popupComunicados').show();
             }
             else {
-                console.log('show popup #4');
+                //console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
@@ -213,12 +213,12 @@ $(document).ready(function () {
 
         if (showViewVideo == '1') {
             if (viewBagVerComunicado == '1') {
-                console.log('show popup #3');
+                //console.log('show popup #3');
                 showComunicadoSinMostrar();
                 $('#popupComunicados').show();
             }
             else {
-                console.log('show popup #4');
+                //console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
@@ -684,12 +684,12 @@ function mostrarVideoIntroductorio() {
         }
         else {
             if (viewBagVerComunicado == '1') {
-                console.log('show popup #3');
+                //console.log('show popup #3');
                 showComunicadoSinMostrar();
                 $('#popupComunicados').show();
             }
             else {
-                console.log('show popup #4');
+                //console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
