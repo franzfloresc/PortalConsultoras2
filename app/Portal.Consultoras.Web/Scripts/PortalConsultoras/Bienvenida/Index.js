@@ -72,18 +72,19 @@ $(document).ready(function () {
         numImagen = 1;
 
         /* SB20-834 - INICIO */
-        //console.log('comunicado: ' + viewBagVerComunicado);
+        //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
         if (viewBagVerComunicado == '-1') {
             waitingDialog({});
             showViewVideo = '1';
         }
         else {
             if (viewBagVerComunicado == '1') {
-                $('#popupComunicados').show();
+                console.log('show popup #3');
                 showComunicadoSinMostrar();
+                $('#popupComunicados').show();
             }
             else {
-                //console.log('show popup #4');
+                console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
@@ -199,7 +200,7 @@ $(document).ready(function () {
 
     /* SB20-834 - INICIO */
     var showViewVideo = viewBagVioVideo;
-    //console.log('video: ' + viewBagVioVideo);
+    //console.log('viewBagVioVideo: ' + viewBagVioVideo);
     waitingDialog({});
     var promesaComunicado = ObtenerComunicadosPopUps();
     promesaComunicado.done(function (response) {
@@ -207,13 +208,17 @@ $(document).ready(function () {
         closeWaitingDialog();
         procesarPromesaComunicado(response);
 
+        //console.log('showViewVideo:' + showViewVideo);
+        //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
+
         if (showViewVideo == '1') {
             if (viewBagVerComunicado == '1') {
-                $('#popupComunicados').show();
+                console.log('show popup #3');
                 showComunicadoSinMostrar();
+                $('#popupComunicados').show();
             }
             else {
-                //console.log('show popup #4');
+                console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
@@ -673,17 +678,18 @@ function mostrarVideoIntroductorio() {
         primeraVezVideo = false;
 
         /* SB20-834 - INICIO */
-        //console.log('comunicado: ' +  viewBagVerComunicado);
+        //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
         if (viewBagVerComunicado == '-1') {
             waitingDialog({});
         }
         else {
             if (viewBagVerComunicado == '1') {
-                $('#popupComunicados').show();
+                console.log('show popup #3');
                 showComunicadoSinMostrar();
+                $('#popupComunicados').show();
             }
             else {
-                //console.log('show popup #4');
+                console.log('show popup #4');
                 //CargarPopupsConsultora();
             }
         }
@@ -754,11 +760,13 @@ function procesarPromesaComunicado(response) {
         //    }
         //});
     });
+
+    showViewVideo = '1';
 }
 
 function showComunicadoSinMostrar() {
     //$('#popupComunicados').show();
-    $('html').css({ 'overflow-y': 'hidden' });
+    //$('html').css({ 'overflow-y': 'hidden' });
     var j = 0;
 
     $('#popupComunicados').find('div.popup_comunicados').each(function (index, element) {
