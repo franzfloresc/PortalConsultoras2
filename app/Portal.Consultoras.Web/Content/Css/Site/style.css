@@ -11876,53 +11876,12 @@ float: right;
     }
 
 /* ESTILOS DE POP UP Y BOTON FLOTANTE*/
-.pestana_pop {
-    width:40px;
-    height:305px;
-    float:left;
-    background:black;
-    margin-left: -40px;
-}
 .etiqueta2 {
     background:#fd0017;
     text-align:center;
     width:100%;
     padding-bottom:10px;
     padding-top:10px;
-}
-.pestana_preventa {
-    position: absolute;
-    margin-left: 20px;
-    width: 450px;
-    /* float: left; */
-    /*margin-top: 17px;*/
-  
-}
-.content_show_right {
-    float: right;
-    height: 485px;
-    width: 343px;
-    overflow: hidden;
-}
-.borde_superior {
-    width:344px;
-    overflow:hidden;
-    }
-.borde_inferior {
-    padding-top:10px;
-    width:344px;
-    /*height:60px;*/
-     background: url(../../Images/showroom/borde_inferior.png) no-repeat;
-    }
-.borde_inferior p{
-    margin-top:6px;
-    font-family:'lato';
-   
-    }
-.slider_pop_up {
-     width:344px;
-     height:366px;
-     overflow:hidden;
 }
 .show_input {
     display:inline-block !important;
@@ -11939,23 +11898,6 @@ float: right;
     height:20px;
     margin-left: 10px;
     margin-top:10px;
-}
-.caja-traslado{
-    position: absolute;
-    width: 214px;
-    
-    background-color: #f1f3f3;
-    right: -181px;
-    top: 239px; /*CAMBIO EL ESTILO*/
-    z-index: 100;
-        }
-.contenido-ct {
-    /*padding-top: 11px;*/
-    padding-top: 7px;
-    width: 135px;
-    padding-left: 50px;
-    padding-right: 10px;
-    margin: 0 auto;
 }
 a.mover{
     float: left;
@@ -12046,62 +11988,6 @@ a.mover{
 html {
     overflow-x:hidden;
 }
-.btnCerrarShowroom {
-    width: 25px;
-    height: 24px;
-    /* float: right; */
-    background: url("/Content/Images/showroom/cerrar_popshowroom.png") no-repeat;
-    cursor: pointer;
-    position: absolute;
-    right: -35px;
-}
-.floating-chat {
-       top: 510px !important;
-}
-.datos_pop_up {
-    margin-top: 84px;
-    width: 183px;
-    min-height: 280px;
-    margin-left: 89px;
-    position: absolute;
-    z-index: 2000;
-    background: white;
-    /* height: 100px; */
-    padding-left: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-right: 40px;
-}
-
-.datos_pop_up_hoy {
-    margin-top: 60px;
-    width: 183px;
-    min-height: 280px;
-    margin-left: 89px;
-    position: absolute;
-    z-index: 2000;
-    background: white;
-    /* height: 100px; */
-    padding-left: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-right: 40px;
-}
-
-.titulo_nombre_pop_s{
-    text-align: center;
-    float: left;
-    font-family: 'lato';
-    font-size: 11pt;
-    /* font-weight: 300; */
-    text-transform: uppercase;
-    overflow: hidden;
-   
-    line-height: 13px;
-}
-.titulo_nombre_pop_s img {
-    margin-top:2px;
-    }
 .no_margin_right {
     margin-right:0 !important;
 }
@@ -12129,34 +12015,6 @@ html {
     -webkit-text-align-last: justify;
     text-align-last: justify;
     text-align: justify;
-}
-.titulo_padre_s {
-    /*width: 100%;*/
-    text-align: center;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    font-family: 'lato';
-    font-size: 17pt;
-    font-weight: 300;
-    background: black;
-    color: white;
-    letter-spacing: 0.3px;
-    margin-top: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.fecha_promocion_s {
-    width: 100%;
-    margin-top: 6px;
-    font-family: 'lato';
-    font-size: 13.5pt;
-    font-weight: 700;
-    color: black;
-    -moz-text-align-last: justify;
-    -webkit-text-align-last: justify;
-    text-align-last: justify;
-    text-align:justify;
-    
 }
 .btn_conoce_mas_aqui {
     margin-top:18px;
@@ -12221,11 +12079,6 @@ html {
     bottom: -20px;
     right: 42px;
 }
-.pestana_preventa2 {
-    position: absolute;
-    margin-left: 42px;
-    width: 500px;
-}
 .titulo_hoy {
    font-family: 'lato';
     font-weight: 100;
@@ -12235,13 +12088,6 @@ html {
     margin-bottom: -26px;
     margin-left:-9px;
     
-}
-
-.evento_tema_hoy {
-    width: 192px;
-    height: 76px;
-    margin-top: 23px;
-    margin-left: -6px;
 }
 
 .precio_caja_traslado {
@@ -12265,15 +12111,6 @@ html {
    
 /*FIN*/
 
-.nombre_separado {
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    font-family: 'lato';
-    font-size: 11pt;
-    /* font-weight: 300; */
-    text-transform: uppercase;
-}
 .texto_vertical_pop {
         padding-bottom: 24px;
     letter-spacing: 2.5px;

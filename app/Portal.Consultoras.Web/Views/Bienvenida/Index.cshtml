@@ -314,7 +314,7 @@
 {
     <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver mas +</a>
+        <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>
         <div id="divCatalogoPersonalizado"></div>
     </div>
 }
@@ -582,74 +582,7 @@
             <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
             <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
         </div>*@
-    <!-- FIN POPUP SUEÑOS NAVIDAD -->
-    <!-- POP UP SHOWROOM HTML-->
-    @*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
-            <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
-            <div class="pestana_pop">
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-            </div>
-            <div class="pestana_preventa">
-                <div class="datos_pop_up">
-                    <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
-                    <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                    <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
-                    <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                    <div class="titulo_preventa">PRE &middot; VENTA</div>
-                    <div class="titulo_digital">DIGITAL</div>
-                    <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
-                    <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
-                    <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
-                    <div class="btn_conoce_mas_aqui">
-                        <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
-                    </div>
-                </div>
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-            </div>
-            <div class="content_show_right">
-                <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
-                <div class="slider_pop_up">
-                    <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
-                    <img src="" alt="" id="imgShowRoomGif"/>
-                </div>
-                <div class="borde_inferior">
-                    <div class="check_01">
-                        <label class="checkpop">
-                            <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
-                            No quiero volver a ver &eacute;ste comunicado
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-    @*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
-            <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
-            <div class="pestana_pop">
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-            </div>
-            <div class="pestana_preventa2">
-                <div class="datos_pop_up">
-                    <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
-                    <div class="titulo_preventa">PRE &middot; VENTA</div>
-                    <div class="titulo_digital">DIGITAL</div>
-                    <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
-                    <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
-                    <div class="set_desde">SETS DESDE <span>$5,990</span></div>
-                    <hr class="clear" />
-                    <div class="btn_hoy">
-                        <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
-                    </div>
-                </div>
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-                <div class="check_hoy">
-                    <label class="checkpop">
-                        <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
-                        No quiero volver a ver &eacute;ste comunicado
-                    </label>
-                </div>
-            </div>
-        </div>*@
+    <!-- FIN POPUP SUEÑOS NAVIDAD -->    
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -1303,6 +1236,95 @@
 
 <!-- POPUP FIN IMAGEN PERFIL -->
 
+<div class="mod-ofer1">
+</div>
+<div class="mod-ofer2">
+</div>
+<div class="mod-ofer3">
+</div>
+
+<!-- POP UP SHOWROOM HTML-->
+<div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
+    <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
+        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom" style="margin-right:-50px"></div>
+        <div class="pestana_pop">
+            <img id="imgPestaniaShowRoom" alt="imgPestaniaShowRoom" />
+        </div>
+        <div class="pestana_preventa">
+            <div class="datos_pop_up">
+                <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">María</span></div>
+                <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
+                <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+
+                <div class="evento_tema_hoy" style="margin-top:23px">
+                    <img id="imgPreventaDigital" alt="imgPreventaDigital" />
+                </div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                <div class="btn_conoce_mas_aqui">
+                    <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE MÁS AQUÍ</a>
+                </div>
+            </div>
+            <img id="imgIntriga" alt="imgIntriga" />
+        </div>
+        <div class="content_show_right">
+            @*<div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>*@
+            <div class="slider_pop_up">
+                <img id="imgShowRoomGif" alt="imgShowRoomGif" />
+            </div>
+            
+                <div class="check_01">
+                    <label class="checkpop">
+                        <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                        No quiero volver a ver éste comunicado
+                    </label>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="DialogoMensajeBannerShowRoomHoy" class="fondo_popupShowRoom" style="display: none;">
+    <div style="overflow: inherit; padding: 0; width: 540px; height: 450px !important; z-index: 9999999; position: relative; margin: -244.5px auto 0 auto; top: 50%; ">
+        <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
+        <div class="pestana_pop_hoy">
+            <img id="imgPestaniaShowRoomHoy" alt="imgPestaniaShowRoomHoy" />
+        </div>
+        <div class="pestana_preventa2">
+            <div class="datos_pop_up_hoy">
+                <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
+
+                <div class="evento_tema_hoy">
+                    <img id="imgPreventaDigitalHoy" alt="imgPreventaDigitalHoy" />
+                </div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+
+                <div class="imagen_hoy" style="width: 210px">
+                    <img id="imgVentaSetPopupHoy" alt="imgVentaSetPopupHoy" />
+                </div>
+                <hr class="clear" />
+                <div class="btn_hoy">
+                    <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
+                </div>
+            </div>
+
+            <img id="imgIntrigaHoy" alt="imgIntrigaHoy" />
+
+            <div class="check_hoy">
+                <label class="checkpop">
+                    <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
+                    No quiero volver a ver éste comunicado
+                </label>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -1637,6 +1659,8 @@
 </script>
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
+    <div class="clear"></div>
+    <div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
     <div class="">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
@@ -1667,9 +1691,15 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
-                <div class="producto_precio">
+                <div class="producto_precio" style="margin-bottom:28px;">
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizado}}</span>
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
+                {{#if TieneOfertaEnRevista}}
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
+                </div>
+                {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
@@ -1693,6 +1723,286 @@
         <div class="clear"></div>
     </div>
 </script>
+
+<script id="template-mod-ofer1" type="text/x-handlebars-template">
+    <div class="cuerpo-mod">
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        </div>
+        <div style="display:none;" id="hiddenRevista">
+            <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+        </div>
+        <div class="cerrar-mod" onclick="$('.mod-ofer1').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="encabezado_popupCatalogoPersonalizado">
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+            <div class="titulo_popupCatalogoPersonalizado">OFERTAS EN GUÍA DE NEGOCIO</div>
+            <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
+        </div>
+        <div class="contiene-productos">
+            <div class="producto_img_home mini" id="imagenAnimacion">
+
+                <img src="{{UrlImagen}}" />
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                @*<div class="etiqueta_producto nuevofavorito">
+                        <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
+                    </div>*@
+                <h6></h6>
+                <span>{{Descripcion}}</span>
+                <span>{{Simbolo}} {{precio_revista}}</span>
+                <span>GANANCIA: {{Simbolo}} {{ganancia}}</span>
+                <hr class="clear">
+                <div class="clear"></div>
+            </div>
+            <hr class="clear">
+            <div class="mod-cantidades metido">
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
+                    AGRÉGALO
+                </a>
+            </div>
+            <div class="sombrio">
+                <div style="width: 50%;"></div>
+            </div>
+        </div>
+        <div class="pos-baja">
+
+            <div class="informa">
+                <h6>También puedes comprarlo con el precio catálogo:</h6>
+                <span>{{Simbolo}} {{precio_catalogo}}</span>
+            </div>
+
+            <div class="mod-cantidades">
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">
+                    AGRÉGALO
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+<script id="template-mod-ofer2" type="text/x-handlebars-template">
+    <div class="cuerpo-mod">
+        <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="contiene-productos">
+            <span class="mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</span>
+            <hr class="clear">
+            <div class="producto_img_home mini">
+
+                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                <span class="inc">Dorsay 100 ml</span>
+            </div>
+
+            <div class="producto_nombre_descripcion">
+                <div class="etiqueta_producto nuevofavorito">
+                    <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
+                </div>
+            </div>
+
+            <div class="compras">
+                <div class="columnas c1">
+                    <span></span>
+                    <span>Compra 1x $ 29.900</span>
+                    <span>GANANCIA:  $ 9.500</span>
+                </div>
+                <div class="columnas c2">
+                    <span></span>
+                    <span>Compra 2x $ 99.900</span>
+                    <span>GANANCIA:  $ 29.500</span>
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                </div>
+                <div class="columnas c3">
+                    <span></span>
+                    <span>Compra 4x $ 189.900</span>
+                    <span>GANANCIA:  $ 59.500</span>
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                </div>
+                <div class="columnas c4">
+                    <span></span>
+                    <span>Compra 6x $ 249.900</span>
+                    <span>GANANCIA:  $ 99.500</span>
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                </div>
+            </div>
+            <hr class="clear">
+            <div class="mod-cantidades metido">
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+            </div>
+            <div class="sombrio">
+                <div style="width: 50%;"></div>
+            </div>
+        </div>
+        <div class="pos-baja">
+
+            <div class="informa">
+                <h6>También puedes comprarlo con el precio catálogo:</h6>
+                <span>$ 39.900</span>
+            </div>
+
+            <div class="mod-cantidades">
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+<script id="template-mod-ofer3" type="text/x-handlebars-template">
+    <div class="cuerpo-mod">
+        <div class="cerrar-mod" onclick="$('.mod-ofer3').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
+        <div class="contiene-productos">
+            <div class="etiqueta_producto nuevofavorito">
+                <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
+            </div>
+            <div class="compras">
+                <div class="columnas c1">
+                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                    <span>Pulso 100 ml</span>
+                    <span>Precio revista $ 29.900</span>
+                    <span>GANANCIA:  $ 10.000</span>
+                    <div class="opciones-paralelas">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                        <a class="boton_Agregalo_home">
+                            AGRÉGALO
+                        </a>
+                    </div>
+                </div>
+                <div class="columnas c2">
+                    <div class="marquer">PACK GANANCIA</div>
+                    <span></span>
+                    <span>$ 189.900</span>
+                    <span>GANANCIA:  $ 289.500</span>
+                    <h5>INCLUYE:</h5>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />3 Pulso 100ml</h6>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Élanie 50 ml</h6>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Vanilla Hombre 100ml</h6>
+                    <div class="opciones-paralelas">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                        <a class="boton_Agregalo_home">
+                            AGRÉGALO
+                        </a>
+                    </div>
+
+                </div>
+                <div class="columnas c3">
+                    <div class="marquer">PACK MÁXIMA GANANCIA</div>
+                    <span></span>
+                    <span>$ 249.900</span>
+                    <span>GANANCIA:  $ 469.200</span>
+                    <h5>INCLUYE:</h5>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />2 Pulso 100ml</h6>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Bravío 100ml</h6>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Sexy Gold 50ml</h6>
+                    <h6><img class="miniaturaproducto" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />1 Strong Musk 50ml</h6>
+                    <div class="opciones-paralelas">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                        <a class="boton_Agregalo_home">
+                            AGRÉGALO
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="clear">
+
+            <div class="sombrio">
+                <div style="width: 50%;"></div>
+            </div>
+        </div>
+        <div class="pos-baja">
+
+            <div class="informa">
+                <h6>También puedes comprarlo con el precio catálogo:</h6>
+                <span>$ 39.900</span>
+            </div>
+
+            <div class="mod-cantidades">
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home">
+                    AGRÉGALO
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+
+
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
     <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
@@ -1734,6 +2044,7 @@
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
+        var viewBagRol = '@ViewBag.Rol';
 
     </script>
     
