@@ -45,17 +45,17 @@ function CargarPedidosPend(page, rows) {
                     //$("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                     //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                    //$('#penmostreo').show();
-
                     $('#penmostreo').show();
 
-                    $('#pedmostreo').removeClass('bordespacive');
-                    $('#penmostreo').addClass('bordespacive');
-                    $('#infoPedido').hide();
-                    $('#infoPendientes').show();
+                    //$('#penmostreo').show();
 
-                    $('.truco_bloqueo').show();
-                    $('#pedmostreo').addClass('cambio_bk_pendientes');
+                    //$('#pedmostreo').removeClass('bordespacive');
+                    //$('#penmostreo').addClass('bordespacive');
+                    //$('#infoPedido').hide();
+                    //$('#infoPendientes').show();
+
+                    //$('.truco_bloqueo').show();
+                    //$('#pedmostreo').addClass('cambio_bk_pendientes');
 
                 }
                 else {
@@ -63,13 +63,13 @@ function CargarPedidosPend(page, rows) {
                     $('#penmostreo').hide();
                     //$('#divPedidosPend').empty();
 
-                    $('#pedmostreo').addClass('bordespacive');
-                    $('#penmostreo').removeClass('bordespacive');
-                    $('#infoPedido').show();
-                    $('#infoPendientes').hide();
+                    //$('#pedmostreo').addClass('bordespacive');
+                    //$('#penmostreo').removeClass('bordespacive');
+                    //$('#infoPedido').show();
+                    //$('#infoPendientes').hide();
 
-                    $('.truco_bloqueo').hide();
-                    $('#pedmostreo').removeClass('cambio_bk_pendientes');
+                    //$('.truco_bloqueo').hide();
+                    //$('#pedmostreo').removeClass('cambio_bk_pendientes');
                 }
             }
             else {
@@ -86,9 +86,9 @@ function CargarPedidosPend(page, rows) {
 function CargarPopupPedidoPend(pedidoId) {
 
 
-    CargarPedidosPend();
+    //CargarPedidosPend();
 
-    return;
+    //return;
 
 
     var obj = {
