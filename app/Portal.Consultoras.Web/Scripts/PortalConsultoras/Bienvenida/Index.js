@@ -1236,7 +1236,7 @@ function ArmarCarouselLiquidaciones(data) {
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
 
     //Se agrega item VER MAS
-    if (htmlDiv.length > 0) {
+    if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
                 '<div class="content_item_carrusel background_vermas">',
