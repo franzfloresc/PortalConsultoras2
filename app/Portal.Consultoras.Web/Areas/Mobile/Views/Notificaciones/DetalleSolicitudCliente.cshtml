@@ -165,7 +165,7 @@
             {
                 if (String.IsNullOrEmpty(Model.MensajeaCliente))
                 {
-                    Model.MensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
+                    Model.MensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", ViewBag.NombreCompleto);
                 }
 
                 @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", id = "taMensaje", @class = "form-control", maxlength = 250 })
