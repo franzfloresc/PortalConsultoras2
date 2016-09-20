@@ -19259,6 +19259,14 @@ float: right;
 
 
 /* ESTILOS DE POP UP Y BOTON FLOTANTE*/
+.pestana_pop_hoy {
+    width:40px;
+    height:305px;
+    float:left;
+    position: relative;
+    left: 1px;
+    background:black;
+}
 .pestana_pop {
     width:40px;
     height:305px;
@@ -19274,28 +19282,29 @@ float: right;
     padding-top:10px;
 }
 .pestana_preventa {
-    position: absolute;
-    margin-left: 20px;
-    width: 450px;
-    /* float: left; */
-    margin-top: 17px;
+    position: relative;
+    /* margin-left: 20px; */
+    width: 442px;
+    float: left;
+    /* margin-top: 17px; */
   
 }
 .content_show_right {
-    float: right;
+    float: left;
     height: 485px;
-    width: 343px;
+    width: 379px;
     overflow: hidden;
 }
 .borde_superior {
     width:344px;
+    height: 59px;
     overflow:hidden;
     }
 .borde_inferior {
     padding-top:10px;
     width:344px;
-    height:60px;
-     background: url(../../Images/showroom/borde_inferior.png) no-repeat;
+    /*height:60px;*/
+     background: url(../../../Images/showroom/borde_inferior.png) no-repeat;
     }
 .borde_inferior p{
     margin-top:6px;
@@ -19303,8 +19312,8 @@ float: right;
    
     }
 .slider_pop_up {
-     width:344px;
-     height:366px;
+     width:100%;
+     height:436px;
      overflow:hidden;
 }
 .show_input {
@@ -19329,16 +19338,18 @@ float: right;
     
     background-color: #f1f3f3;
     right: -181px;
-    top: 239px; /*CAMBIO EL ESTILO*/
+    top: 220px; /*CAMBIO EL ESTILO*/
     z-index: 100;
         }
 .contenido-ct {
     /*padding-top: 11px;*/
     padding-top: 7px;
     width: 135px;
-    padding-left: 50px;
-    padding-right: 10px;
-    margin: 0 auto;
+    margin-left: 25px !important;
+    /* padding-right: 10px; */
+    /* margin: 0 auto; */
+    float: left;
+    /*overflow:hidden;*/
 }
 a.mover{
     float: left;
@@ -19412,19 +19423,15 @@ a.mover{
 }
 .boton_showroom {
     font-family: 'lato';
-    background: #fd0017;
+    background: #e81c36;
     color: white !important;
     text-align: center;
     font-size: 8.7pt;
-    width: 120px;
+    width: 135px;
     display:block;
     margin-top: 10px;
     padding: 8px;
-    -webkit-border-radius: 5px; /* Para Safari y Chrome */
-    -moz-border-radius: 5px; /* Para Firefox */
-    -khtml-border-radius: 5px; /* Navegadores de Linux */
-    border-radius: 5px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */    
+    font-weight:700;
 }
 html {
     overflow-x:hidden;
@@ -19436,22 +19443,55 @@ html {
     background: url("/Content/Images/showroom/cerrar_popshowroom.png") no-repeat;
     cursor: pointer;
     position: absolute;
-    right: -35px;
+    right: 15px;
 }
 .floating-chat {
        top: 510px !important;
 }
+
+.fondo_popupShowRoom {
+    display: block;
+    position: fixed;
+    background: url("/Content/Images/bg_popups.png") repeat;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 1100;
+}
+
 .datos_pop_up {
-    margin-top: 84px;
-    width: 183px;
+    margin-top: 60px !important;
+    width: 267px;
     min-height: 280px;
-    margin-left: 89px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    /* margin-left: 107px; */
     position: absolute;
     z-index: 2000;
     background: white;
     /* height: 100px; */
     padding-left: 40px;
-        padding-bottom: 20px;
+    padding-bottom: 18px;
+    padding-top: 10px;
+    padding-right: 40px;
+}
+
+.datos_pop_up_hoy {
+    margin-top: 40px !important;
+    width: 267px;
+    min-height: 280px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    /* margin-left: 107px; */
+    position: absolute;
+    z-index: 2000;
+    background: white;
+    /* height: 100px; */
+    padding-left: 40px;
+    padding-bottom: 18px;
+    padding-top: 10px;
     padding-right: 40px;
 }
 
@@ -19498,7 +19538,7 @@ html {
     text-align: justify;
 }
 .titulo_padre_s {
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -19508,8 +19548,10 @@ html {
     background: black;
     color: white;
     letter-spacing: 0.3px;
-    margin-top:6px;
-    }
+    margin-top: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .fecha_promocion_s {
     width: 100%;
     margin-top: 6px;
@@ -19583,14 +19625,15 @@ html {
 }
 .check_hoy {
     position:absolute;
-    bottom: 20px;
+    bottom: 7px;
     right: 42px;
 }
 .pestana_preventa2 {
     position: absolute;
-    margin-left: 100px;
-    width: 525px;
-        margin-top: -18px;
+    margin-left: 42px;
+    width: 442px;
+    height: 511px;
+    background: white;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -19601,6 +19644,12 @@ html {
     margin-bottom: -26px;
     margin-left:-9px;
     
+}
+.evento_tema_hoy {
+    width: 192px;
+    height: 76px;
+    /*margin-top: 23px;*/
+    margin-left: -6px;
 }
 .precio_caja_traslado {
     font-family: 'lato';
@@ -19624,8 +19673,10 @@ html {
 /*FIN*/
 
 .nombre_separado {
-    font-weight:bold; width:100%; text-align:center;
-     font-family: 'lato';
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-family: 'lato';
     font-size: 11pt;
     /* font-weight: 300; */
     text-transform: uppercase;
@@ -19691,15 +19742,15 @@ label.checkpop.c_on {
     
 }
 .wrapper_showroom {
-    width:1023px;
+    max-width:1189px;
     margin:0 auto;
     height:auto;
     overflow:hidden;
     padding-top:21px;
 }
 .wrapper_showroom_items {
-   width: 1095px;
-    padding-left: 72px;
+   max-width: 1189px;
+    /*padding-left: 72px;*/
     margin: 0 auto;
     height: auto;
     overflow: hidden;
@@ -19711,10 +19762,11 @@ label.checkpop.c_on {
 .titulo_showroom {  
     width: 650px;
     height: 45px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
+    color: black;
     font-size: 13px;
     line-height: 24px;
-    color: #3f5e7d;
+    
     float: left;
 
 }
@@ -19742,17 +19794,22 @@ label.checkpop.c_on {
     background:transparent;
     }
 .producto_showroom {
-    width:292px;
-    margin-right: 73px;
+    width: 29%;
+    margin-right: 6.5%;
     height:auto;
     float:left;
     margin-top:30px;
     margin-bottom: 40px;
+    position:relative;
     }
+.producto_showroom:nth-child(3n){
+    margin-right:0;
+}
 .imagen_showroom {
     cursor: pointer;
     width: 100%;
-    height: 349px;
+    height:412px;
+    background:black;
     position: relative;
     display: block;
 }
@@ -19779,25 +19836,25 @@ label.checkpop.c_on {
     margin-top: 27px;
     overflow: hidden;
     line-height: 21px;
-    color: #617180;
-    font-family: 'ArialMT';
+    color: black;
+    font-family: 'Lato';
     font-size: 16px;
     text-align: center;
     font-weight: bold;
 }
 .descripcion_producto_s {
     text-align:center;
-    font-family: 'ArialMT';
+    font-family: 'LAto';
     font-size:13px;
-    color:#536576;
+    color:black;
     margin-top:7px;
     height: 36px;
     width: 100%;
     overflow: hidden;
 }
 .precio_showroom { 
-    font-family:Arial;
-    color:#ef0e4a;
+    font-family:'LAto';
+    color:black;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19806,106 +19863,121 @@ label.checkpop.c_on {
 }
 .precio_showroom span{
     margin-right:10px; 
-    color:#536576;
+    color:black;
+    font-weight:300;
     font-size:13px;
     text-decoration:line-through;
    }
 .stock_showroom {
     width:75px;
     height:18px;
-    font-family: 'ArialMT';
+    font-family: 'LAto';
     font-size:12.5px;
-    color:#5c6d7d;
+    color:black;
     float:left;
     margin-top:5px;
 }
 .stock_showroom span{
-   font-family: 'ArialBoldMT';
+   font-family: 'Lato';
 }
 .cantidad_showroom_detalle {
     float:right;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size:12.5px;
 }
 .showroom_menos {
-    color:#536576;
+    color:black;
     font-size: 17px;    
-    border:1px solid #536576;
-    width:23px;
-    height:27px;
+    border:1px solid #cccccc;
+    width:30px;
+    height:30px;
     float:left;    
     text-align:center;
+    font-weight:700;
 }
 .showroom_cantidad {
     padding-top: 5px;
     padding-bottom: 5px;
-    width: 32px;
-    height: 17px;
+    width: 35px;
+    height: 30px;
     border: 0;
     font-size: 14px;
-    border-top: 1px solid #536576;
-    border-bottom: 1px solid #536576;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
     background: white;
-    color: #536576;
+    color: black;
     float: left;
     text-align: center;
     cursor: pointer;
     display: block;
+    font-weight:700;
 }
 .showroom_mas{
-   color: #536576;
+   color: black;
     font-size: 18px;
-    border: 1px solid #536576;
-    width: 22px;
-    height: 25px;
+    border: 1px solid #cccccc;
+    width: 30px;
+    height: 30px;
     float: left;
     text-align: center;
     cursor: pointer;
     padding-top: 0px;
     padding-bottom: 2px;
     display: block;
+    font-weight:700;
 }
 .boton_agregar_showroom {
     cursor:pointer;
     margin-top: 17px;
-    width: 290px;
+    width: 100%;
     text-align: center;
-    -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
-    border: solid 2px #778592;
+   font-weight:700;
+    border: solid 1px black;
     display: block;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: #536576;
-    font-family: 'ArialBoldMT';
+    padding-top: 11px;
+    padding-bottom: 11px;
+    color:black;
+    font-family: 'Lato';
     font-size: 14.4px;
        }
 .boton_agregar_showroom:hover {
     background:black;
     color:white;
-     border: solid 2px black;
+    
    }
 .producto_agotado {
     position:absolute;
     z-index:100;
     background: url("/Content/Images/showroom/opacity_items.png");
-    width:292px;
-    height:349px;
+    width: 100%;
+    height: 412px;
 }
 .agotado_texto {
-    color:white;
-    width:148px;
-    height:33px;
-    margin:0 auto;
-    margin-top:150px;
-    font-family: 'ArialBoldMT';
-    font-size:14px;
+    color: white;
+    width: 148px;
+    height: 36px;
+    line-height: 32px;
+    margin: 0 auto;
+    top: 50%;
+    margin-top: -16px;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    /* padding-top: 10px; */
+    border: 2px solid #ffffff;
+    position: relative;
+    font-weight: 700;
+}
+.footerTerminos a{
+    background:#f7f7f7;
+    display:block;
+    margin-top:20px;
     text-align:center;
-    padding-top:10px;
-    border:2px solid #ffffff;
+    padding:20px;
+    text-transform:uppercase;
+     font-family: 'Lato';
+    font-size: 14px;
+    font-weight:700;
 }
 .clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
@@ -19981,6 +20053,7 @@ label.checkpop.c_on {
     padding:0;
     background:black;
     height:538px !important;
+    
 }
 .imagen_principal_set {
     width:900px;
@@ -20006,7 +20079,8 @@ label.checkpop.c_on {
 }
 .titulo_setDetalle {
     color: black;
-    font-family: 'ArialBoldMT';
+    font-family: 'LAto';
+    font-weight: bold;
     font-size: 27px;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -20040,11 +20114,12 @@ label.checkpop.c_on {
     float:left;
 }
 .titulo_detalle_texto {
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
     font-size: 12px;
+    font-weight:bold;
 }
 .descripcion_producto_texto{
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 13px;
     line-height: 15px;
     /*height: 30px;*/
@@ -20053,7 +20128,7 @@ label.checkpop.c_on {
 }
 .set_precio {
     
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 13px;
     color:black;
     line-height: 20px;
@@ -20062,7 +20137,8 @@ label.checkpop.c_on {
 }
 
 .set_precio span{
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
+    font-weight:bold;
     font-size: 23px;
     padding-left:18px;
     color:#f11935;
@@ -20072,7 +20148,7 @@ label.checkpop.c_on {
 }
 .set_precio_gana {
     margin-left:130px;
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
     font-size: 11.5px;
     color:black;
     line-height: 20px;
@@ -20095,54 +20171,58 @@ label.checkpop.c_on {
     font-weight: 700;
     bottom: 15px;
     left: 30px;
+    color:black;
   }
 .detalle_menos {
     text-align: center;
     width: 33px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 18px;
-    color: #536576;
+    color: black;
     padding-top: 6px;
     padding-bottom: 6px;
-    border: 1px solid #536576;
+    border: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
+    font-weight:bold;
 }
 .detalle_numero {
     text-align: center;
     width: 46px;
-    font-family: 'ArialMT' !important;
-    font-size: 18px !important;
-    color: #536576; /* padding-top: 0; */ /* padding-bottom: 0; */
+    font-family: 'Lato' !important;
+    font-size: 16px !important;
+    color: black; /* padding-top: 0; */ /* padding-bottom: 0; */
     border: 0;
-    border-top: 1px solid #536576;
-    border-bottom: 1px solid #536576;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
-    height: 37px;
+    height: 41px;
     line-height: 36px;
+    font-weight:bold;
 }
 .detalle_mas {
     text-align: center;
     width: 33px;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 18px;
-    color: #536576;
+    color: black;
     padding-top: 6px;
     padding-bottom: 6px;
-    border: 1px solid #536576;
+    border: 1px solid #cccccc;
     float: left;
     margin-top: 5px;
+    font-weight:bold;
 }
 .cantidad_agregar_detalle {
     position: absolute;
-    float: left;
+    /*float: left;*/
     /* height: 70px; */
     width: 256px;
     color: white !important;
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 12px;
-    letter-spacing: 1.8px;
+    letter-spacing: 0.5px;
     font-weight: 700;
     bottom: 18px;
     left: 158px;
@@ -20150,12 +20230,7 @@ label.checkpop.c_on {
     padding-top: 11px;
     padding-bottom: 12px;
     text-decoration: none !important;
-    background: #f11935 !important;
-    -webkit-border-radius: 5px !important;
-    -moz-border-radius: 5px !important;
-    -khtml-border-radius: 5px !important;
-    border-radius: 5px !important;
-    behavior: url(/Content/Css/Pie/PIE.htc) !important;
+    background:#e81c36 !important;
     cursor:pointer;
 }
  .fondo_detalle_blanco .cantidad_agregar_detalle:hover {
@@ -20164,8 +20239,8 @@ label.checkpop.c_on {
     }
  /*CARRUSEL*/
 .contenedor_carrusel_detalle {
-    width:107px;
-    height:520px;
+    width:139px;
+    height:538px;
     background:white;
     float:left;
     padding-top:18px;
@@ -20173,7 +20248,7 @@ label.checkpop.c_on {
     padding-right:16px;
 }
 .contenedor_carrusel_detalle a{
-    font-family: 'ArialMT';
+    font-family: 'Lato';
     font-size: 14px;
     text-align:center;
     text-decoration:none;
@@ -20201,7 +20276,7 @@ label.checkpop.c_on {
     }
 .cantidad_productos_carrusel {
     margin-bottom: 20px;
-    width: 105px;
+    /*width: 105px;*/
     text-align: center;
    color:#a0a0a0;
     font-family: 'lato';
@@ -20222,7 +20297,7 @@ label.checkpop.c_on {
     width:100%;
     height: 75px;
     font-size:14px;
-    font-family: 'ArialBoldMT';
+    font-family: 'Lato';
     text-align:center;
     padding-top:50px;
     position:absolute;

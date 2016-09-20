@@ -582,74 +582,7 @@
             <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
             <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
         </div>*@
-    <!-- FIN POPUP SUEÑOS NAVIDAD -->
-    <!-- POP UP SHOWROOM HTML-->
-    @*<div id="DialogoMensajeBannerShowRoom" style="overflow: inherit; padding: 0;z-index: 9999999; display: none;">
-            <div id="btnCerrarPopShowroom" class="btnCerrarShowroom"></div>
-            <div class="pestana_pop">
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-            </div>
-            <div class="pestana_preventa">
-                <div class="datos_pop_up">
-                    <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">Mar&iacute;a</span></div>
-                    <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                    <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
-                    <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
-                    <div class="titulo_preventa">PRE &middot; VENTA</div>
-                    <div class="titulo_digital">DIGITAL</div>
-                    <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
-                    <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
-                    <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
-                    <div class="btn_conoce_mas_aqui">
-                        <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE M&Aacute;S AQUÍ</a>
-                    </div>
-                </div>
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-            </div>
-            <div class="content_show_right">
-                <div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>
-                <div class="slider_pop_up">
-                    <img src="@Url.Content("~/Content/Images/showroom/CORTE-GIF.gif")" alt="" id="imgShowRoomGif" />
-                    <img src="" alt="" id="imgShowRoomGif"/>
-                </div>
-                <div class="borde_inferior">
-                    <div class="check_01">
-                        <label class="checkpop">
-                            <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
-                            No quiero volver a ver &eacute;ste comunicado
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-    @*<div id="DialogoMensajeBannerShowRoomHoy" style="overflow: inherit; padding: 0; height: 450px !important; z-index: 9999999; display: none;">
-            <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
-            <div class="pestana_pop">
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_pestana.png")" alt="" />
-            </div>
-            <div class="pestana_preventa2">
-                <div class="datos_pop_up">
-                    <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
-                    <div class="titulo_preventa">PRE &middot; VENTA</div>
-                    <div class="titulo_digital">DIGITAL</div>
-                    <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
-                    <div class="imagen_hoy"><img src="@Url.Content("~/Content/Images/showroom/hoy1.png")" alt="" /></div>
-                    <div class="set_desde">SETS DESDE <span>$5,990</span></div>
-                    <hr class="clear" />
-                    <div class="btn_hoy">
-                        <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
-                    </div>
-                </div>
-                <img src="@Url.Content("~/Content/Images/showroom/preventa_digital.png")" alt="" />
-                <div class="check_hoy">
-                    <label class="checkpop">
-                        <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
-                        No quiero volver a ver &eacute;ste comunicado
-                    </label>
-                </div>
-            </div>
-        </div>*@
+    <!-- FIN POPUP SUEÑOS NAVIDAD -->    
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -1309,6 +1242,88 @@
 </div>
 <div class="mod-ofer3">
 </div>
+
+<!-- POP UP SHOWROOM HTML-->
+<div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
+    <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
+        <div id="btnCerrarPopShowroom" class="btnCerrarShowroom" style="margin-right:-50px"></div>
+        <div class="pestana_pop">
+            <img id="imgPestaniaShowRoom" alt="imgPestaniaShowRoom" />
+        </div>
+        <div class="pestana_preventa">
+            <div class="datos_pop_up">
+                <div class="nombre_separado"><span id="spnShowRoomNombreConsultora">María</span></div>
+                <div class="titulo_nombre_pop_s" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+                <div class="titulo_nombre_pop_s" style="width:141px">te invitamos a la</div>
+                <div class="titulo_nombre_pop_s no_margin_right" style="width:21px"><img src="@Url.Content("~/Content/Images/showroom/deco_nombre.png")" alt="" /></div>
+
+                <div class="evento_tema_hoy" style="margin-top:23px">
+                    <img id="imgPreventaDigital" alt="imgPreventaDigital" />
+                </div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                <div class="fecha_promocion_s">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                <div><img src="@Url.Content("~/Content/Images/showroom/exclusiva.png")" alt="" /></div>
+                <div class="btn_conoce_mas_aqui">
+                    <a href="" class="btn_conoce_mas_2" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE MÁS AQUÍ</a>
+                </div>
+            </div>
+            <img id="imgIntriga" alt="imgIntriga" />
+        </div>
+        <div class="content_show_right">
+            @*<div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>*@
+            <div class="slider_pop_up">
+                <img id="imgShowRoomGif" alt="imgShowRoomGif" />
+            </div>
+            
+                <div class="check_01">
+                    <label class="checkpop">
+                        <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
+                        No quiero volver a ver éste comunicado
+                    </label>
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="DialogoMensajeBannerShowRoomHoy" class="fondo_popupShowRoom" style="display: none;">
+    <div style="overflow: inherit; padding: 0; width: 540px; height: 450px !important; z-index: 9999999; position: relative; margin: -244.5px auto 0 auto; top: 50%; ">
+        <div id="btnCerrarPopShowroomHoy" class="btnCerrarShowroom"></div>
+        <div class="pestana_pop_hoy">
+            <img id="imgPestaniaShowRoomHoy" alt="imgPestaniaShowRoomHoy" />
+        </div>
+        <div class="pestana_preventa2">
+            <div class="datos_pop_up_hoy">
+                <div class="titulo_hoy"><img src="@Url.Content("~/Content/Images/showroom/Showroom-hoy.gif")" alt="" /></div>
+
+                <div class="evento_tema_hoy">
+                    <img id="imgPreventaDigitalHoy" alt="imgPreventaDigitalHoy" />
+                </div>
+                <div class="titulo_padre_s"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+
+                <div class="imagen_hoy" style="width: 210px">
+                    <img id="imgVentaSetPopupHoy" alt="imgVentaSetPopupHoy" />
+                </div>
+                <hr class="clear" />
+                <div class="btn_hoy">
+                    <a class="btn_conoce_mas_2_hoy" href="" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a>
+                </div>
+            </div>
+
+            <img id="imgIntrigaHoy" alt="imgIntrigaHoy" />
+
+            <div class="check_hoy">
+                <label class="checkpop">
+                    <input type="checkbox" id="cbNoMostrarPopupShowRoomHoy" />
+                    No quiero volver a ver éste comunicado
+                </label>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1985,6 +2000,9 @@
 
     </div>
 </script>
+
+
+
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
     <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
@@ -2026,6 +2044,7 @@
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
+        var viewBagRol = '@ViewBag.Rol';
 
     </script>
     

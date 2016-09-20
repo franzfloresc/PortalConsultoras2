@@ -19,17 +19,20 @@
 }
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
-<div class="titulo_showroom_mobile">
-    <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
-    Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
+<div class="wrapper_resumen_mobile">
+    <div class="titulo_showroom_mobile">
+        <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
+        Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
+    </div>
+
+    <div class="titulo_showroom_mobile">
+        <a onclick="SetMarcaGoogleAnalyticsTermino();"
+           href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre<br />@Model.Tema</a>
+    </div>
+
+    <br />
 </div>
 
-<div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" 
-       href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre <br />@Model.Tema</a>
-</div>
-
-<br />
 
 @{ var posicion = 1; }
 @foreach (var item in Model.ListaShowRoomOferta)
@@ -304,7 +307,9 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            ActualizarCantidadTotalPedido();
+                                            //ActualizarCantidadTotalPedido();
+                                            CargarCantidadProductosPedidos();
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
                                         else {
                                             messageInfo(response.message);

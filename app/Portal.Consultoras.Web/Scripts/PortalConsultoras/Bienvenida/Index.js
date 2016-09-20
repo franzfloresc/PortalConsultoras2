@@ -442,6 +442,12 @@ $(document).ready(function () {
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
     });
+    
+        
+    //ShowRoom
+    CrearPopShow();
+    MostrarShowRoom();
+    //Fin ShowRoom
 });
 
 function CargarCamara() {
@@ -2882,218 +2888,6 @@ function AceptarComunicadoVisualizacion() {
     $("#divComunicadoVisualizacion").dialog('close');
 };
 
-// Métodos ShowRoom
-function CrearPopShowRoom() {
-    $("body").on("click", "div.check_01 label.checkpop input", function (event) {
-        event.preventDefault();
-        if ($(this).parent().hasClass("c_on")) {
-            $(this).parent().removeClass("c_on");
-        } else {
-            $(this).parent().addClass("c_on");
-        }
-    });
-
-    $("body").on("click", "div.check_hoy label.checkpop input", function (event) {
-        event.preventDefault();
-        if ($(this).parent().hasClass("c_on")) {
-            $(this).parent().removeClass("c_on");
-        } else {
-            $(this).parent().addClass("c_on");
-        }
-    });
-
-    var noMostrarShowRoom = true;
-
-    $('#DialogoMensajeBannerShowRoom').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 821,
-        draggable: true,
-    });
-    $("#btnCerrarPopShowroom").click(function () {
-        $("#DialogoMensajeBannerShowRoom").dialog('close');
-    });
-
-    $('#DialogoMensajeBannerShowRoomHoy').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 624,
-        draggable: true,
-    });
-    $("#btnCerrarPopShowroomHoy").click(function () {
-        $("#DialogoMensajeBannerShowRoomHoy").dialog('close');
-    });
-
-    $("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
-        var noMostrarPopup = noMostrarShowRoom;
-
-        var item = {
-            noMostrarPopup: noMostrarPopup
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'ShowRoom/UpdatePopupShowRoom',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: false,
-            success: function (response) {
-                if (checkTimeout(response)) {
-                    if (response.success) {
-                        if (noMostrarShowRoom)
-                            AgregarTagManagerShowRoomCheckBox();
-                        noMostrarShowRoom = noMostrarShowRoom == true ? false : true;
-                    }
-                }
-            },
-            error: function (response, error) {
-                if (checkTimeout(response)) {
-                    closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
-                }
-            }
-        });
-    });
-
-    $("#lnkConoceMasShowRoomPopup").click(function () {
-        AgregarTagManagerShowRoomPopupConocesMas(1);
-    });
-
-    $("#lnkConoceMasShowRoomPopupHoy").click(function () {
-        AgregarTagManagerShowRoomPopupConocesMas(2);
-    });
-};
-function MostrarShowRoom() {
-    if (viewBagRolID == 1) { // Rol Consultora
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
-            contentType: 'application/json',
-            success: function (response) {
-                if (checkTimeout(response)) {
-                    if (response.success) {
-                        var showroomConsultora = response.data;
-                        var evento = response.evento;
-
-                        if (showroomConsultora.EventoConsultoraID != 0) {
-                            if (showroomConsultora.MostrarPopup) {
-                                $("#hdEventoIDShowRoom").val(evento.EventoID);
-
-                                if (response.mostrarShowRoomProductos) {
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().find(".ui-dialog-titlebar").hide();
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("overflow", "inherit");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("border", "0");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("-webkit-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("-moz-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("-khtml-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("padding", "0");
-
-                                    $('#DialogoMensajeBannerShowRoomHoy').dialog('open'); //llamar al pop up
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("top", "");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("top", "90px");
-                                    $("#DialogoMensajeBannerShowRoomHoy").parent().css("height", "450px");
-
-                                    $("#spnShowRoomEventoHoy").html(evento.Nombre);
-
-                                    $("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
-
-                                    showDialog("DialogoMensajeBannerShowRoomHoy");
-
-                                    AgregarTagManagerShowRoomPopup(evento.Nombre, true);
-                                } else {
-                                    $("#DialogoMensajeBannerShowRoom").parent().find(".ui-dialog-titlebar").hide();
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("overflow", "inherit");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("border", "0");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("-webkit-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("-moz-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("-khtml-border-radius", "0");
-                                    $("#DialogoMensajeBannerShowRoom").parent().css("padding", "0");
-                                    $('#DialogoMensajeBannerShowRoom').dialog('open'); //llamar al pop up
-
-                                    $("#spnShowRoomEvento").html(evento.Nombre);
-                                    $("#spnShowRoomNombreConsultora").html(response.nombre);
-                                    $("#spnShowRoomDiaInicio").html(response.diaFin - 2);
-                                    $("#spnShowRoomDiaFin").html(response.diaFin);
-                                    $("#spnShowRoomMes").html(response.mesFin);
-
-                                    $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
-
-                                    showDialog("DialogoMensajeBannerShowRoom");
-
-                                    AgregarTagManagerShowRoomPopup(evento.Nombre, false);
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            error: function (response, error) {
-                if (checkTimeout(response)) {
-                    closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
-                }
-            }
-        });
-    }
-};
-function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
-    var name = 'showroom digital ' + nombreEvento;
-
-    if (esHoy)
-        name += " - fase 2";
-
-    dataLayer.push({
-        'event': 'promotionView',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                {
-                    'id': $("#hdEventoIDShowRoom").val(),
-                    'name': name,
-                    'position': 'Home pop-up - 1',
-                    'creative': 'Banner'
-                }]
-            }
-        }
-    });
-};
-function AgregarTagManagerShowRoomPopupConocesMas(opcion) {
-    var nombre = opcion == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
-
-    if (opcion != 1)
-        nombre += " - fase 2";
-
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoClick': {
-                'promotions': [
-                    {
-                        'id': $("#hdEventoIDShowRoom").val(),
-                        'name': 'showroom digital ' + nombre,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }]
-            }
-        }
-    });
-};
-function AgregarTagManagerShowRoomCheckBox() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Ofertas Showroom',
-        'action': 'checkbox',
-        'label': '(not available)'
-    });
-};
-
 // Métodos de marcaciones
 function RedirectPagaEnLineaAnalytics() {
     if (ViewBagRutaChile != "") {
@@ -3664,3 +3458,200 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
 }
+  
+//ShowRoom
+function CrearPopShow() {
+    $("body").on("click", "div.check_01 label.checkpop input", function (event) {
+        event.preventDefault();
+        if ($(this).parent().hasClass("c_on")) {
+            $(this).parent().removeClass("c_on");
+        } else {
+            $(this).parent().addClass("c_on");
+        }
+    });
+
+    $("body").on("click", "div.check_hoy label.checkpop input", function (event) {
+        event.preventDefault();
+        if ($(this).parent().hasClass("c_on")) {
+            $(this).parent().removeClass("c_on");
+        } else {
+            $(this).parent().addClass("c_on");
+        }
+    });
+
+    var noMostrarShowRoom = true;
+
+    $("#btnCerrarPopShowroom").click(function () {
+        $("#DialogoMensajeBannerShowRoom").hide();
+    });
+
+    $("#btnCerrarPopShowroomHoy").click(function () {
+        $("#DialogoMensajeBannerShowRoomHoy").hide();
+    });
+
+    $("#cbNoMostrarPopupShowRoom, #cbNoMostrarPopupShowRoomHoy").click(function () {
+        var noMostrarPopup = noMostrarShowRoom;
+
+        var item = {
+            noMostrarPopup: noMostrarPopup
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ShowRoom/UpdatePopupShowRoom',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: false,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        if (noMostrarShowRoom)
+                            AgregarTagManagerShowRoomCheckBox();
+                        noMostrarShowRoom = noMostrarShowRoom == true ? false : true;
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    closeWaitingDialog();
+                    console.log("Ocurrió un error en ShowRoom");
+                    //alert("Ocurrió un error en ShowRoom");
+                }
+            }
+        });
+    });
+
+    $("#lnkConoceMasShowRoomPopup").click(function () {
+        AgregarTagManagerShowRoomPopupConocesMas(1);
+    });
+
+    $("#lnkConoceMasShowRoomPopupHoy").click(function () {
+        AgregarTagManagerShowRoomPopupConocesMas(2);
+    });
+}
+function MostrarShowRoom() {
+    var idRol = viewBagRol;
+
+    if (idRol == 1) {
+
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
+            contentType: 'application/json',
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        var showroomConsultora = response.data;
+                        var evento = response.evento;
+
+                        if (showroomConsultora.EventoConsultoraID != 0) {
+                            if (showroomConsultora.MostrarPopup) {
+                                $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                                if (response.mostrarShowRoomProductos) {
+                                    $("#spnShowRoomEventoHoy").html(evento.Tema);
+
+                                    $("#lnkConoceMasShowRoomPopupHoy").attr("href", response.rutaShowRoomPopup);
+
+                                    //Carga de Imagenes del Popup
+                                    $("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
+                                    $("#imgIntrigaHoy").attr("src", evento.Imagen2);
+                                    $("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
+                                    $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
+
+                                    $("#DialogoMensajeBannerShowRoomHoy").show();
+                                    
+                                    AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                                } else {
+                                    $("#spnShowRoomEvento").html(evento.Tema);
+                                    $("#spnShowRoomNombreConsultora").html(response.nombre);
+                                    $("#spnShowRoomDiaInicio").html(response.diaInicio);
+                                    $("#spnShowRoomDiaFin").html(response.diaFin);
+                                    $("#spnShowRoomMes").html(response.mesFin);
+                                    if (response.mesFin.length > 6) {
+                                        $(".fecha_promocion_s").css("font-size", "11.5pt");
+                                    }
+                                    
+                                    $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
+
+                                    //Carga de Imagenes del Popup
+                                    $("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
+                                    $("#imgIntriga").attr("src", evento.Imagen2);
+                                    $("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
+                                    $("#imgShowRoomGif").attr("src", evento.Imagen1);
+
+                                    $("#DialogoMensajeBannerShowRoom").show();
+                                    
+                                    AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                                }
+
+                                //$("#imgShowRoomGif").attr("src", evento.Imagen1);
+                            }
+                        }
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    closeWaitingDialog();
+                    console.log("Ocurrió un error en ShowRoom");
+                    //alert("Ocurrió un error en ShowRoom");
+                }
+            }
+        });
+    }
+
+}
+function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
+    var name = 'showroom digital ' + nombreEvento;
+
+    if (esHoy)
+        name += " - fase 2";
+
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': $("#hdEventoIDShowRoom").val(),
+                    'name': name,
+                    'position': 'Home pop-up - 1',
+                    'creative': 'Banner'
+                }]
+            }
+        }
+    });
+}
+function AgregarTagManagerShowRoomPopupConocesMas(opcion) {
+    var nombre = opcion == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
+
+    if (opcion != 1)
+        nombre += " - fase 2";
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                    {
+                        'id': $("#hdEventoIDShowRoom").val(),
+                        'name': 'showroom digital ' + nombre,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+            }
+        }
+    });
+}
+
+function AgregarTagManagerShowRoomCheckBox() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'checkbox',
+        'label': '(not available)'
+    });
+}
+//Fin ShowRoom

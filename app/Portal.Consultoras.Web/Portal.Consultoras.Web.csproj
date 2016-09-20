@@ -2064,6 +2064,7 @@
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_2.png" />
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_pop.png" />
     <Content Include="Content\Images\mobile\img-showroom\exclusiva.png" />
+    <Content Include="Content\Images\mobile\img-showroom\lbel.png" />
     <Content Include="Content\Images\mobile\img-showroom\next2.png" />
     <Content Include="Content\Images\mobile\img-showroom\opacity_items.png" />
     <Content Include="Content\Images\mobile\img-showroom\precio_detalle.png" />
@@ -2207,6 +2208,7 @@
     <Content Include="Content\Images\showroom\exclusiva.png" />
     <Content Include="Content\Images\showroom\f_contenedor_pop.png" />
     <Content Include="Content\Images\showroom\hoy1.png" />
+    <Content Include="Content\Images\showroom\lbel.png" />
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
@@ -2214,6 +2216,7 @@
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
+    <Content Include="Content\Images\showroom\red.png" />
     <Content Include="Content\Images\showroom\selector.png" />
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />
     <Content Include="Content\Images\showroom\Showroom-hoy.gif" />
