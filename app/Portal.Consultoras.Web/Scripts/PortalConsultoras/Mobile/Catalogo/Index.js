@@ -791,6 +791,13 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
     $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);
     $('#CompartirCorreoMobile').show();
+    // Mostrar las marcas adecuadas.
+    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+    $("#divCheckbox [data-cat]").hide();
+    for (var i = 0; i < cata.length; i++) {
+        var cat = $(cata[i]).attr("data-cat");
+        $("#divCheckbox [data-cat='" + cat + "']").show();
+    }
 }
 
 //REVISTA
