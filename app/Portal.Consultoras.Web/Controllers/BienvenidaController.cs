@@ -1408,24 +1408,24 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
             {
-                comunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora).ToList();
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
 
-                if (comunicados != null)
-                    if (comunicados.Any())
+                if (tempComunicados != null && tempComunicados.Length > 0)
+                {
+                    comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
                         ComunicadoVisualizado = 1;                    
+                }
             }
-
-            ViewBag.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
             return Json(new
             {
                 success = true,
-                data = comunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == UserData().CampaniaID),
-                codigoISO = UserData().CodigoISO,
-                codigoCampania = UserData().CampaniaID,
-                codigoConsultora = UserData().CodigoConsultora,
+                data = comunicados,
+                codigoISO = userData.CodigoISO,
+                codigoCampania = userData.CampaniaID,
+                codigoConsultora = userData.CodigoConsultora,
                 comunicadoVisualizado = ComunicadoVisualizado,
-                ipUsuario = UserData().IPUsuario
+                ipUsuario = userData.IPUsuario
             },
             JsonRequestBehavior.AllowGet);
         }
