@@ -3073,7 +3073,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
                     var parametriaEd_SIG = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuentoSiguiente.PorDescuento) : null;
 
-                    if (parametriaEd != null && parametriaEd.length != 0) {
+                    if (parametriaEd != null && parametriaEd.length != 0 && parametriaEd_SIG != null && parametriaEd_SIG.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
