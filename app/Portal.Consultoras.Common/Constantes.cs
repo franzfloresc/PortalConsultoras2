@@ -174,39 +174,55 @@ namespace Portal.Consultoras.Common
         public class OrigenPedidoWeb 
         {
 
-            // Primer Digito
+            // Primer Dígito
             // 1: Desktop                   2: Mobile
 
-            // Segundo Digito
+            // Segundo Dígito
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
+            // 5: ShowRoom
             
-            // Tercer Digito
+            // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
+            // 7: ShowRoom
 
-            public const int DesktopHomeBanners = 111;
-            public const int DesktopHomeOfertasParaTi = 112;
-            public const int DesktopHomeCatalogoPersonalizado = 113;
-            public const int DesktopHomeLiquidacion = 114;
+            // Cuarto Dígito
+            // 1. Sin popUp                 2. Con popUp
 
-            public const int DesktopPedidoOfertasParaTi = 122;
-            public const int DesktopPedidoSugerido = 125;
-            public const int DesktopPedidoOferaFinal = 126;
+            public const int DesktopHomeBanners = 1111;
+            public const int DesktopHomeOfertasParaTi = 1121;
+            public const int DesktopHomeOfertasParaTiPopUp = 1122;
+            public const int DesktopHomeCatalogoPersonalizado = 1131;
+            public const int DesktopHomeCatalogoPersonalizadoPopUp = 1132;
+            public const int DesktopHomeLiquidacion = 1141;
 
-            public const int DesktopLiquidacion = 134;
+            public const int DesktopPedidoOfertasParaTi = 1221;
+            public const int DesktopPedidoOfertasParaTiPopUp = 1222;
+            public const int DesktopPedidoSugerido = 1251;
+            public const int DesktopPedidoOfertaFinal = 1261;
 
-            public const int DesktopCatalogoPersonalizado = 143;
+            public const int DesktopLiquidacion = 1341;
 
-            public const int MobileHomeOfertasParaTi = 212;
+            public const int DesktopCatalogoPersonalizado = 1431;
+            public const int DesktopCatalogoPersonalizadoPopUp = 1432;
 
-            public const int MobilePedidoOfertasParaTi = 222;
-            public const int MobilePedidoSugerido = 225;
+            public const int DesktopShowRoom = 1571;
 
-            public const int MobileLiquidacion = 234;
+            public const int MobileHomeOfertasParaTi = 2121;
 
-            public const int MobilePedidoOferaFinal = 226;
+            public const int MobilePedidoOfertasParaTi = 2221;
+            public const int MobilePedidoSugerido = 2251;
+            public const int MobilePedidoOfertaFinal = 2261;
+
+            public const int MobileShowRoom = 2571;
+
+            public const int MobileLiquidacion = 2341;
+            
+            public const int MobileCatalogoPersonalizado = 2431;
+            public const int MobileCatalogoPersonalizadoPopUp = 2432;
+
         }
 
     }

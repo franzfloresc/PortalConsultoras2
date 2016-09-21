@@ -462,7 +462,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
                 oBePedidoWebDetalle.CUV = model.CUV;
 
-                oBePedidoWebDetalle.OrigenPedidoWeb = model.OrigenPedidoWebModel;
+                oBePedidoWebDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
 
                 oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
                 oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
@@ -1066,7 +1066,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string OrigenPedidoWebModel, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1083,7 +1083,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
                 ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),                
                 OfertaWeb = false,
-                OrigenPedidoWebModel = Convert.ToInt32(OrigenPedidoWebModel)
+                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb)
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
@@ -4692,6 +4692,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         #endregion
+
+        [HttpPost]
+        public void LimpiarSesionProductosOF()
+        {
+            Session["ProductosOfertaFinal"] = null;
+        }
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {

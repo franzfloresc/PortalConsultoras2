@@ -14,6 +14,7 @@ var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
+var origenPedidoWebEstrategia = 0;
 
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
@@ -272,7 +273,7 @@ $(document).ready(function () {
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
                 EsSugerido: true,
-                OrigenPedidoWebModel: OrigenPedidoWeb
+                OrigenPedidoWeb: OrigenPedidoWeb
             };
 
             AgregarProducto('Insert', model, 'divProductoSugerido', true);
@@ -377,7 +378,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
-        var OrigenPedidoWeb = DesktopPedidoOferaFinal;
+        var OrigenPedidoWeb = DesktopPedidoOfertaFinal;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -408,7 +409,7 @@ $(document).ready(function () {
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
                 EsSugerido: false,
-                OrigenPedidoWebModel: OrigenPedidoWeb
+                OrigenPedidoWeb: OrigenPedidoWeb
             };
 
             AgregarProducto('Insert', model, "", false);
@@ -422,6 +423,7 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
+        LimpiarSesionProductosOF();
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;
@@ -2052,6 +2054,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
     var cantidadIngresada = $(objInput).parent().find("input.liquidacion_rango_cantidad_pedido").val();
+    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val();
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
@@ -2214,7 +2217,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
     var descripcion = $("#txtCantidadZE").attr("est-descripcion");
     var indicadorMontoMinimo = $("#txtCantidadZE").attr("est-montominimo");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
-    var OrigenPedidoWeb = DesktopHomeOfertasParaTi;
+    var OrigenPedidoWeb = origenPedidoWebEstrategia;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -2255,7 +2258,7 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWebModel: OrigenPedidoWeb
+        OrigenPedidoWeb: OrigenPedidoWeb
     });
 
     jQuery.ajax({
@@ -2654,9 +2657,11 @@ function EjecutarServicioPROL() {
                             }
                         }
                     } else {
-                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+
+                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (cumpleOferta.resultado) {
-                            MostrarPopupOfertaFinal(cumpleOferta, 2);
+                            MostrarPopupOfertaFinal(cumpleOferta, tipoMensaje);
                         } else {
                             $('#DivObsBut').css({ "display": "none" });
                             $('#DivObsInfBut').css({ "display": "block" });
@@ -2689,9 +2694,11 @@ function EjecutarServicioPROL() {
                 $('#DivObsBut').css({ "display": "block" });
                 $('#DivObsInfBut').css({ "display": "none" });
 
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
+                var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+
+                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                 if (cumpleOferta.resultado) {
-                    MostrarPopupOfertaFinal(cumpleOferta, 2);
+                    MostrarPopupOfertaFinal(cumpleOferta, tipoMensaje);
                 } else {
                     showDialog("divObservacionesPROL");
                     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
@@ -2943,10 +2950,14 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
+
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
     var montoMinimo = DecimalToStringFormat(parseFloat($("#hdMontoMinimo").val()));
+    
+    $('#spCabeceraMontominimo').hide();
 
     if (tipoPopupMostrar == 1) {
+        $("#divIconoOfertaFinal").removeClass("icono_exclamacion");
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
         $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
@@ -2958,8 +2969,9 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         }
     }
     else {
+        $("#divIconoOfertaFinal").removeClass("icono_aprobacion");
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
-        $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO...</b>");
+        $("#spnTituloOfertaFinal").html("TODAVÍA<b>&nbsp;TE FALTA UN POCO...</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
         $('#spMontoMinimoCabecera').html(montoMinimo);
         $('#spCabeceraMontominimo').show();
@@ -3071,14 +3083,13 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
-                    var parametriaEd_SIG = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuentoSiguiente.PorDescuento) : null;
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
-                            tipoOfertaFinal_Log = parametriaEd_SIG[0].TipoParametriaOfertaFinal;
+                            tipoOfertaFinal_Log = "E" + escalaDescuentoSiguiente.PorDescuento;
                             gap_Log = montoFaltante;
                             resultado = true;
                         } else {
@@ -4432,4 +4443,20 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
+};
+
+function LimpiarSesionProductosOF()
+{
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/LimpiarSesionProductosOF',      
+        async: true,
+        success: function (data) {            
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                alert_msg(data.message);
+            }
+        }
+    });
 };
