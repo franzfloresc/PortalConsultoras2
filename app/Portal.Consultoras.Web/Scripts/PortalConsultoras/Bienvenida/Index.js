@@ -233,10 +233,9 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-
+    CargarPopupsConsultora();
     /* SB20-834 - INICIO */
     //ObtenerComunicadosPopUps();
-    //CargarPopupsConsultora();
     /* SB20-834 - FIN */
 
     CargarMisCursos();
