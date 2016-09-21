@@ -4,7 +4,8 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
-var fotoCroppie
+var showViewVideo = viewBagVioVideo;
+var fotoCroppie;
 
 $(document).ready(function () {
 
@@ -22,73 +23,6 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
-    function abrir_popup_tutorial() {
-        closeWaitingDialog();   // SB20-834
-        $('#popup_tutorial_home').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-
-        fnMovimientoTutorial = setInterval(function ()
-        {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //if (numImagen < 5) {
-            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //}
-
-            //if (numImagen == 5) {                
-            //    $(".img_slide5").fadeIn();
-            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
-
-            //    $(".img_slide5").delay(2000);
-            //    $(".img_slide6").delay(2000);
-            //    $(".img_slide7").delay(2000);
-            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
-            //}
-            numImagen++;
-            //if (numImagen > 9) {
-            //    numImagen = 1;
-            //    $(".img_slide5").css('top', '15px');
-            //    $(".img_slide6").css('top', '642px');
-            //    $(".img_slide7").css('top', '1284px');
-            //    $(".imagen_tutorial").animate({ 'opacity': '1' });
-            //}
-            if (numImagen > 8) {
-                numImagen = 1;
-                $(".imagen_tutorial").animate({ 'opacity': '1' });
-            }
-        }, 3000);
-
-    }
-
-    function cerrar_popup_tutorial() {
-        $('#popup_tutorial_home').fadeOut();
-        $('html').css({ 'overflow-y': 'auto' });
-        $(".imagen_tutorial").animate({ 'opacity': '1' });
-        window.clearInterval(fnMovimientoTutorial);
-        numImagen = 1;
-
-        /* SB20-834 - INICIO */
-        //console.log('comunicado: ' + viewBagVerComunicado);
-        if (viewBagVerComunicado == '-1') {
-            waitingDialog({});
-            showViewVideo = '1';
-        }
-        else {
-            if (viewBagVerComunicado == '1') {
-                $('#popupComunicados').show();
-                showComunicadoSinMostrar();
-            }
-            else {
-                //console.log('show popup #4');
-                //CargarPopupsConsultora();
-            }
-        }
-        /* SB20-834 - FIN */
-    }
 
     // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function () {
@@ -159,40 +93,17 @@ $(document).ready(function () {
     });
 
     /* SB20-834 - INICIO */
-    var showViewVideo = viewBagVioVideo;
-    //console.log('video: ' + viewBagVioVideo);
-    waitingDialog({});
-    var promesaComunicado = ObtenerComunicadosPopUps();
-    promesaComunicado.done(function (response) {
-        //console.log('done');
-        closeWaitingDialog();
-        procesarPromesaComunicado(response);
-
-        if (showViewVideo == '1') {
-            if (viewBagVerComunicado == '1') {
-                $('#popupComunicados').show();
-                showComunicadoSinMostrar();
-            }
-            else {
-                //console.log('show popup #4');
-                //CargarPopupsConsultora();
-            }
-        }
-
+    ObtenerComunicadosPopUps();
+    $('body').bind('resize', '.popup_comunicados', function (e) {
+        stylePopupComunicado($(this).attr('id'));
     });
     /* SB20-834 - FIN */
        
-
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-
-    /* SB20-834 - INICIO */
-    //ObtenerComunicadosPopUps();
     //CargarPopupsConsultora();
-    /* SB20-834 - FIN */
-
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -430,6 +341,70 @@ $(document).ready(function () {
     });
 });
 
+function abrir_popup_tutorial() {
+    closeWaitingDialog();   // SB20-834
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        //if (numImagen < 5) {
+        //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        //}
+
+        //if (numImagen == 5) {                
+        //    $(".img_slide5").fadeIn();
+        //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
+        //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
+        //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
+
+        //    $(".img_slide5").delay(2000);
+        //    $(".img_slide6").delay(2000);
+        //    $(".img_slide7").delay(2000);
+        //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
+        //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
+        //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
+        //}
+        numImagen++;
+        //if (numImagen > 9) {
+        //    numImagen = 1;
+        //    $(".img_slide5").css('top', '15px');
+        //    $(".img_slide6").css('top', '642px');
+        //    $(".img_slide7").css('top', '1284px');
+        //    $(".imagen_tutorial").animate({ 'opacity': '1' });
+        //}
+        if (numImagen > 8) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+    }, 3000);
+}
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_home').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+    
+    /* SB20-834 - INICIO */
+    if (viewBagVerComunicado == '-1') {
+        waitingDialog({});
+        showViewVideo = '1';
+    }
+    else {
+        if (viewBagVerComunicado == '1') {
+            showComunicadoSinMostrar();
+            if ($.trim($('#popupComunicados').html()) != "") {
+                $('#popupComunicados').show();
+            }
+        }
+        else {
+            //CargarPopupsConsultora();
+        }
+    }
+    /* SB20-834 - FIN */
+}
+
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
@@ -454,6 +429,7 @@ function CargarCamara() {
     contadorFondoPopUp++;
     $("#CamaraIntroductoria").show();
 }
+
 function CerrarCamara() {
     Webcam.reset();
     $('#imgFotoTomada').attr('src', '');
@@ -712,7 +688,6 @@ function procesarPromesaComunicado(response) {
 }
 
 function showComunicadoSinMostrar() {
-    //$('#popupComunicados').show();
     $('html').css({ 'overflow-y': 'hidden' });
     var j = 0;
 
@@ -720,9 +695,6 @@ function showComunicadoSinMostrar() {
         if ($(element).attr('data-cerrado') == '0') {
             //console.log(element);
             var id = $(element).attr('id');
-            //$('#' + id).show();
-            //$('#' + id).fadeIn();
-
             var img1 = $(element).find('img.img-comunicado');
 
             setTimeout(function () {
@@ -731,13 +703,6 @@ function showComunicadoSinMostrar() {
                 $('#' + id).fadeIn();
                 stylePopupComunicado(id);
             }, 300);
-
-            //$(img1).load(function () {
-            //    console.log('load image');
-            //    $('#' + id).show();
-            //    stylePopupComunicado(id);
-            //});
-
             j++;
             return false;
         }
@@ -3698,37 +3663,43 @@ function playVideo() {
     }
 };
 
-
 /* SB20-834 - INICIO */
-
-//var dialogTemplate = $.template("<div id='${id}'><div class=tituloC>&nbsp;<div id='btnCerrarComunicado' class='btnCerrarComunicado btnCerrar' data-comunicado=${idComunicado} data-id=${id} ></div></div><div class=marginBottom><a href=${hrefUrl} ${target} class=imgComunicado data-comunicadoID=${idComunicado} data-comunicadodescripcion=${comunicadoDescripcion}><img src=${urlImg} /></a></div><div class='alignleft'><label class=lblComunicadoV><input type=checkbox id=chkMostrarComunicado${idComunicado} class=chkComunicadoV />No volver a mostrar</label></div><div style='float: right;${display}'><label class=lblComunicadoV><input type=checkbox id=chkTerminos${idComunicado} class=chkComunicadoV />Acepto <a href='https://s3.amazonaws.com/somosbelcorp/2016/Comunicados/C10/EC_TERMINOS_Y_CONDICIONES-CAMPANA_SOLIDARIA-RECONSTRUIR_TIENE_UNA_E.pdf' target='_blank'>Términos y Condiciones</a></label></div></div>");
-
 function ObtenerComunicadosPopUps() {
-
-    //console.log('ObtenerComunicadosPopUps');
-
-    return $.ajax({
+    waitingDialog({});
+    $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
-        contentType: 'application/json'
+        contentType: 'application/json',
+        success: function (response) {
+            closeWaitingDialog();
+            procesarPromesaComunicado(response);
+
+            if (showViewVideo == '1') {
+                if (viewBagVerComunicado == '1') {
+                    $('#popupComunicados').show();
+                    showComunicadoSinMostrar();
+                }
+                else {
+                    //CargarPopupsConsultora();
+                }
+            }
+        },
+        error: function (data, error) {
+            console.log(data);
+            closeWaitingDialog();
+        }
     });
 }
-
 function stylePopupComunicado(ID) {
 
-    //var altoPopup = $(".popup_comunicados").height() / 2;
     var altoPopup = $("#" + ID).height() / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
 
     if (estadoPopup == "block") {
-        //$("html").css({ "overflow-y": "hidden" });
-        //$(".popup_comunicados").css({ "margin-top": -altoPopup, "width": imagenPopup.width() });
         $("#" + ID).css({ "margin-top": -altoPopup, "width": imagenPopup.width() });
-        //$(".fondo_popupComunicados").css({ "overflow": "auto" });
     }
 }
-
 function clickCerrarComunicado(obj) {
 
     //console.log('clickCerrarComunicado');
@@ -3749,7 +3720,6 @@ function clickCerrarComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
-
 function clickImagenComunicado(obj) {
 
     //console.log('clickImagenComunicado');
@@ -3784,7 +3754,6 @@ function clickImagenComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
-
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
 
     //console.log('AceptarComunicadoVisualizacion');
@@ -3817,50 +3786,7 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
         });
     }
 
-    //$("#" + dialogComunicadoID + "").dialog('close');
-    //$('#popupComunicados').hide();
-    //$('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).fadeOut();
 }
-
-//function RealizarDonacion(dialogComunicadoID, comunicadoId, codigoISO, codigoConsultora, codigoCampania, nombreEvento) {
-//    var divComunicado = $("#" + dialogComunicadoID + "");
-//    if ($('#chkTerminos_' + comunicadoId).is(':checked')) {
-//        var params = {
-//            CodigoISO: codigoISO,
-//            CodigoConsultora: codigoConsultora,
-//            Campania: codigoCampania,
-//            ComunicadoID: comunicadoId
-//        };
-//        waitingDialog({});
-//        $.ajax({
-//            type: "POST",
-//            url: baseUrl + "Bienvenida/RegistrarDonacionConsultora",
-//            data: JSON.stringify(params),
-//            contentType: 'application/json',
-//            success: function (data) {
-//                if (checkTimeout(data)) {
-//                    if (data.success == true) {
-//                        // Cerrar el comuncicado al mostrar el aviso de donación.
-//                        //$("#" + dialogComunicadoID + "").dialog('close');
-//                        $('#popupMostrarComumnicado').hide();
-//                        alert_msgComunicado(data.message);
-//                        closeWaitingDialog();
-//                    }
-//                }
-//            },
-//            error: function (data, error) {
-//                if (checkTimeout(data)) {
-//                    closeWaitingDialog();
-//                    alert("Ocurrió un error al aceptar el comunicado.");
-//                }
-//            }
-//        });
-//    } else {
-//        alert_msgComunicado('Debes aceptar los Términos y Condiciones para poder Donar.');
-//        closeWaitingDialog();
-//    }
-//}
-
 /* SB20-834 - FIN */
