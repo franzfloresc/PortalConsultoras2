@@ -323,6 +323,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
+            Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
+            
 
             return Context.ExecuteReader(command);
         }
