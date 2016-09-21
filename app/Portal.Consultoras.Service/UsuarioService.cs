@@ -314,6 +314,11 @@ namespace Portal.Consultoras.Service
             return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
 
+        public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
+        {
+            return new BLConsultoraOnline().GetMisPedidosClienteOnline(paisID, consultoraId, campania);
+        }
+
         //R2073
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {

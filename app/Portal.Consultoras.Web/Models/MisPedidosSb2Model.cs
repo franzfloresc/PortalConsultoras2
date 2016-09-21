@@ -11,6 +11,8 @@ namespace Portal.Consultoras.Web.Models
     {
         public SP.BEPedidoWeb PedidoActual { get; set; }
         public List<SP.BEPedidoWeb> ListaFacturados { get; set; }
+        public List<CampaniaModel> CampaniasConsultoraOnline { get; set; }
+        public int CampaniaActualConsultoraOnline { get; set; }
 
         public bool TienePercepcion { get; set; }
 

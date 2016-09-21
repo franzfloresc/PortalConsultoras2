@@ -413,7 +413,9 @@
     <Compile Include="Models\CrossSellingProductoModel.cs" />
     <Compile Include="Models\MailOptInModel.cs" />
     <Compile Include="Models\MailVM.cs" />
+    <Compile Include="Models\MisPedidosDetalleModel.cs" />
     <Compile Include="Models\MisPedidosModel.cs" />
+    <Compile Include="Models\MisPedidosClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
@@ -2365,6 +2367,7 @@
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />

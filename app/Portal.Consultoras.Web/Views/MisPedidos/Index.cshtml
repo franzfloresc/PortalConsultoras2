@@ -68,14 +68,14 @@
         <div class="titulo_tabs mis_pagos_tabs">
             <ul class="tabs_pagos" data-tab="tab">
                 <li class="one">
-                    <a href="javascript:;" data-tag="EstadoCuenta">
+                    <a href="javascript:;" data-tag="UltimasCampanias">
                         <div class="icono_pagos ultima_campana"></div>
                         MIS<b> ULTIMAS CAMPAÑAS</b>
                         <div class="marcador_tab oculto"></div>
                     </a>
                 </li>
                 <li class="two">
-                    <a href="javascript:;" data-tag="LugaresPago">
+                    <a href="javascript:;" data-tag="PedidosClientesOnline">
                         <div class="icono_pagos online_2"></div>
                         MIS PEDIDOS DE<b> CLIENTES ONLINE</b>
                         <div class="marcador_tab oculto"></div>
@@ -93,81 +93,22 @@
 
 <!-- Fin titulo-->
 <!--CLIENTES ONLINE-->
-<div id="ClientesOnline" class="content_belcorp content_belcorp_misPedidos">
+<div id="ClientesOnline" data-tag-html="PedidosClientesOnline" class="content_belcorp content_belcorp_misPedidos" style="display:none">
 
     <div class="icono_online"></div>
     <div class="pedidosFacturados_campania" style="width:auto; float:left; margin-top:48px; margin-bottom:0">
         <h1>MIS PEDIDOS DE <b> CLIENTES ONLINE</b></h1>
         <form novalidate="novalidate">
-            <select data-selectcamp="" class="valid"><option value="2016-13" data-campformat="2016-13">C-13</option><option value="2016-12" data-campformat="2016-12">C-12</option><option value="2016-11" data-campformat="2016-11">C-11</option><option value="2016-10" data-campformat="2016-10">C-10</option></select>
+            @Html.DropDownListFor(model => model.CampaniaActualConsultoraOnline, new SelectList(Model.CampaniasConsultoraOnline, "CampaniaID", "NombreCorto"), new { id = "ddlCampania" })
         </form>        
     </div>
     <hr class="clear" />
     <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">Estos son los <b>pedidos aceptados</b>  que llegaron por el App del catálogo y los portales de Esika, L’Bel y Cyzone.</div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online texto_gris">Tipo y nombre<br/>de Cliente</div>
-        <div class="origen_online texto_gris">Origen</div>
-        <div class="canpana_online texto_gris">Campaña</div>
-        <div class="registro_online texto_gris">Fecha Registro</div>
-        <div class="total_online texto_gris">Precio Total.</div>       
-        <div class="detalle_online texto_gris">Estado</div>
-    </div>
-    <div class="linea_separadora" style="height:2px"></div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">           
-             <span class="facturado_online estado_detalleFacturado"> ACEPTADO </span>                
-             <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-              </a>    
-        </div>
-    </div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">
-            <span class="facturado_online estado_cancelado"> CANCELADO </span>
-            <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-            </a>
-        </div>
-    </div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">
-            <span class="facturado_online estado_cancelado"> CANCELADO </span>
-            <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-            </a>
-        </div>
-    </div>
-    
-  
-
+    <div id="divTablaClientesOnline"></div>
 </div>
 
 <!--FIN-->
-<div id="cuerpo">    
+<div id="divUltimosPedidos" data-tag-html="UltimasCampanias" style="display:none">
     <div data-div="f">
         <div class="popup_frame" data-popup="facturado">
             <div class="popup_body">
@@ -249,7 +190,6 @@
                         <!-- CONTENIDO TABLAS CLIENTE-->
                         <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -266,12 +206,9 @@
                     <div class="titulo_detalle_pago titulo_campanias">
                         <div>MIS ÚLTIMOS<b> PEDIDOS</b></div>
                     </div>
-
                     <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">@mensajeCantidad</div>
-
                     <hr class="clear" />
                     <div class="linea_separadora" style="height:2px"></div>
-
                     <!-- CABECERA DE TABLAS -->
                     <div class="content_datos_mispedidos">
                         <div class="nombre_campania texto_gris_cabeceraMisPedidos">Campaña</div>
@@ -284,9 +221,7 @@
                         <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
                     </div>
                     <!-- FIN CABECERA DE TABLAS -->
-
                     <div class="linea_separadora" style="margin-top:-1px"></div>
-
                     <!--CONTENIDO DE TABLAS -->
                     <!--Pedido Actual -->
                     @*@if (Model.PedidoActual.CampaniaID != 0)
@@ -656,10 +591,45 @@
     {{/iff}}
     <div class="clear"></div>
 </script>
+<script id="html-clientes-online" type="text/x-handlebars-template">
+    <div class="content_datos_mispedidos">
+        <div class="tipo_online texto_gris">Tipo y nombre<br />de Cliente</div>
+        <div class="origen_online texto_gris">Origen</div>
+        <div class="canpana_online texto_gris">Campaña</div>
+        <div class="registro_online texto_gris">Fecha Registro</div>
+        <div class="total_online texto_gris">Precio Total.</div>
+        <div class="detalle_online texto_gris">Estado</div>
+    </div>
+    <div class="linea_separadora" style="height:2px"></div>
+    {{#each this as |detalle|}}
+        <div class="content_datos_mispedidos">
+            <div class="tipo_online">
+                <span class="tipo_cliente">{{detalle.TipoCliente}}</span>
+                <span>{{detalle.Cliente}}</span>
+            </div>
+            <div class="origen_online">{{detalle.Origen}}</div>
+            <div class="canpana_online">{{detalle.Campania}}</div>
+            <div class="registro_online">{{detalle.FechaSolicitudString}}</div>
+            <div class="total_online">{{detalle.PrecioTotalString}}</div>
+            <div class="detalle_online" onclick="console.log('abrir popup');">
+                {{#iff detalle.Estado '==' 'A'}}
+                <span class="facturado_online estado_detalleFacturado"> {{detalle.EstadoDesc}} </span>
+                {{else}}
+                <span class="facturado_online estado_cancelado"> {{detalle.EstadoDesc}} </span>
+                {{/iff}}
+                <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
+                    <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                </a>
+            </div>
+        </div>
+    {{/each}}
+</script>
 @section scripts{
     <script>
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPedidos = '@ViewBag.URLWebTracking';
+        var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos")';
+        var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
 }

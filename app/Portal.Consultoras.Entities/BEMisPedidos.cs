@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-
 
 namespace Portal.Consultoras.Entities
 {
@@ -71,17 +67,22 @@ namespace Portal.Consultoras.Entities
         {
             this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
             this.MarcaID = Convert.ToInt32(row["MarcaID"]);
-            this.Campania = Convert.ToString(row["Campania"]);
             this.Cliente = Convert.ToString(row["NombreCompleto"]);
             this.Direccion = Convert.ToString(row["Direccion"]);
             this.Telefono = Convert.ToString(row["Telefono"]);
             this.Email = Convert.ToString(row["Email"]);
             this.MensajeDelCliente = Convert.ToString(row["Mensaje"]);
-            this.Leido = Convert.ToInt16(row["Leido"]);
             this.Estado = Convert.ToString(row["Estado"]);
-            this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
             this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
+
+            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+                this.Campania = Convert.ToString(row["Campania"]);
+            if (DataRecord.HasColumn(row, "Leido") && row["Leido"] != DBNull.Value)
+                this.Leido = Convert.ToInt16(row["Leido"]);
+            if (DataRecord.HasColumn(row, "NumIteracion") && row["NumIteracion"] != DBNull.Value)
+                this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
+            if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+                this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
 
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);

@@ -1,9 +1,9 @@
 ﻿var slidetime = 1000;
 var slidedireccion = "left";
 var slidedireccionInversa = "right";
+var primeraVezClienteOnline = true;
 
-$(document).ready(function () {
-    
+$(document).ready(function () {    
     WidthWindow();
 
     $('#PopSeguimiento iframe').on('load', function () {
@@ -153,7 +153,68 @@ $(document).ready(function () {
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat);
     });
+
+    CargarEventosTabs();
+    CargarEventosClienteOnline();
 });
+
+function CargarEventosTabs() {
+    $('ul[data-tab="tab"]>li>a[data-tag]').on('click',function (e) {
+        e.preventDefault();
+        // mostrar el tab correcto
+        $("[data-tag-html]").hide();
+        var tag = $(this).attr("data-tag") || "";
+        var obj = $("[data-tag-html='" + tag + "']");
+        $.each(obj, function (ind, objTag) {
+            $(objTag).fadeIn(300).show();
+        });
+
+        //mantener seleccionado
+        $('ul[data-tab="tab"]>li>a').find("div.marcador_tab").addClass("oculto");
+        $(this).find("div.marcador_tab").removeClass("oculto");
+    })
+        .on('mouseover',function () { $("#barCursor").css("opacity", "1"); })
+        .on('mouseout', function () { $("#barCursor").css("opacity", "0"); });
+
+    $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
+}
+
+function CargarEventosClienteOnline() {
+    $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').on('click', function (e) {
+        if (primeraVezClienteOnline) {
+            primeraVezClienteOnline = false;
+            $('#ddlCampania').trigger('change');
+        }
+    });
+    $('#ddlCampania').on('change', function () {
+        waitingDialog();
+        jQuery.ajax({
+            type: 'POST',
+            url: urlClienteOnline,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            success: function (data) {
+                if (!checkTimeout(data)) return false;
+
+                console.log(data);
+                console.log(data.success);
+                console.log(data.listaPedidosClienteOnline.length);
+
+                if(data.success && data.listaPedidosClienteOnline.length > 0){
+                    var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
+                    $('#divTablaClientesOnline').html(tablaClientesOnline);
+                }
+                else $('#divTablaClientesOnline').html(data.message);
+            },
+            error: function(data) {
+                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+                console.log(data);
+            },
+            complete: closeWaitingDialog
+        });        
+    })
+}
 
 function CargarFramePedido(campania)
 {
