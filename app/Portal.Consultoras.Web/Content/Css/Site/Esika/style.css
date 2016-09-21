@@ -28126,7 +28126,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .mensajes_estadoPedido {
     color: #FFF;
     font-family: 'Lato';
-    line-height:18px;
+    line-height:19px;
 }
 
 .mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
@@ -28140,8 +28140,17 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .mensaje_horarioIngresoPedido{
-    font-size:13px;
+    font-size:12px;
     font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */

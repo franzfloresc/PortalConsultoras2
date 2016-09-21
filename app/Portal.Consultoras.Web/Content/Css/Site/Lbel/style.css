@@ -28049,3 +28049,62 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 /* FIN PROCESO CARGA FOTO */
 
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #a18328;
+    height: 56px;
+    display: none;
+    padding: 9px 84px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_estadoPedido{
+    width:32px;
+    height:32px;
+    height:auto;
+    margin-right:16.8px;
+    padding-top:1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:15px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.mensaje_horarioIngresoPedido a:hover{
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
+
