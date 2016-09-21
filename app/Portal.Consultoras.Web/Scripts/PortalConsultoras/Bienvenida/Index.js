@@ -1014,12 +1014,12 @@ function ArmarCarouselEstrategias(data) {
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
 
-    var data = $('#divCarruselHorizontal').find('.nombre_producto');
-    nbData = data.length;
+    var data1 = $('#divCarruselHorizontal').find('.nombre_producto');
+    nbData = data1.length;
     var found;
     for (var iData = 0; iData < nbData; iData++) {
-        if (data[iData].children[0].innerHTML.length > 40) {
-            data[iData].children[0].innerHTML = data[iData].children[0].innerHTML.substring(0, 40) + "...";
+        if (data1[iData].children[0].innerHTML.length > 40) {
+            data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
         }
     }
 
