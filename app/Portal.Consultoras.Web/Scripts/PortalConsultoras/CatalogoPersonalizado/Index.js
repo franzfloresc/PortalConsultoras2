@@ -170,7 +170,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
         DescripcionMarca: descripcionMarca,
         DescripcionEstrategia: descripcionEstrategia,
         EsSugerido: false,
-        OrigenPedidoWebModel: OrigenPedidoWeb
+        OrigenPedidoWeb: OrigenPedidoWeb
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
