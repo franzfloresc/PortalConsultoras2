@@ -1,5 +1,6 @@
 ﻿var cantidadRegistros = 4;
 var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
@@ -84,9 +85,53 @@ $(document).ready(function () {
 
     if (!ReservadoOEnHorarioRestringido(false)) {
         CargarCatalogoPersonalizado();
+
+    Inicializar();
     }
 });
+/*SB-600*/
+function Inicializar() {
+    IniDialog();
+    ValidarCargaCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();
+}
 
+function IniDialog() {
+    $('#DialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+function LinkCargarCatalogoToScroll() { $(window).scroll(CargarCatalogoScroll); }
+function UnlinkCargarCatalogoToScroll() {
+    $(window).off("scroll", CargarCatalogoScroll);
+    cargandoRegistros = false;
+}
+function CargarCatalogoScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        ValidarCargaCatalogoPersonalizado();
+    }
+
+}
+function ValidarCargaCatalogoPersonalizado() {
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
+}
+/*F- SB-600*/
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
@@ -97,9 +142,9 @@ function CargarCatalogoPersonalizado() {
     var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
     if (esCatalogoPersonalizadoZonaValida != "True") {
         $('#boton_vermas').hide();
+        UnlinkCargarCatalogoToScroll();
         return false;
     }
-
     //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     waitingDialog();
     jQuery.ajax({
@@ -115,16 +160,61 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
 
-                if (data.data.length < cantidadRegistros) $('#boton_vermas').hide();
+                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll() ;
                 offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             console.log(error);
         },
-        complete: closeWaitingDialog
+        complete: function () {
+            closeWaitingDialog();
+            cargandoRegistros = false;
+        }
     });
 }
+/*SB20-600*/
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+            
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+}
+
+/*F SB20-600*/
 function AgregarProductoCatalogoPersonalizado(item) {
     waitingDialog();
 
