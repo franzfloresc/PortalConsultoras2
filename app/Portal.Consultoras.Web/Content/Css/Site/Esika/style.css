@@ -28100,9 +28100,37 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .bloque_mensajesPedido{
     background: #a18328;
+    width:100%;
     height: 56px;
     display: none;
     padding: 9px 84px;
+    text-align:center;
+    position:relative;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 23px;
+    width: 21px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
 }
 
 .icono_estadoPedido, .mensajes_estadoPedido{
