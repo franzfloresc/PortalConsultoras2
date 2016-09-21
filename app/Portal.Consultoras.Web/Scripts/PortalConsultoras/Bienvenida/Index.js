@@ -652,6 +652,7 @@ function UpdateUsuarioVideo() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            viewBagVioVideo = data.result;
         },
         error: function (data) {
         }

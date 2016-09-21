@@ -16,6 +16,9 @@ var numImagen = 1;
 var fnMovimientoTutorial;
 var origenPedidoWebEstrategia = 0;
 
+var tipoOfertaFinal_Log = "";
+var gap_Log = 0;
+
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
 
@@ -410,7 +413,7 @@ $(document).ready(function () {
             };
 
             AgregarProducto('Insert', model, "", false);
-
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log)
             setTimeout(function () {
                 $("#divOfertaFinal").hide();
                 EjecutarServicioPROLSinOfertaFinal();
@@ -3065,14 +3068,18 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 if (escalaDescuento == null) {
                     resultado = false;
                 } else {
+
                     var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
+                    var parametriaEd_SIG = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuentoSiguiente.PorDescuento) : null;
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
+                            tipoOfertaFinal_Log = parametriaEd_SIG[0].TipoParametriaOfertaFinal;
+                            gap_Log = montoFaltante;
                             resultado = true;
                         } else {
                             resultado = false;
@@ -3103,6 +3110,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                             if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
                                 montoFaltante = diferenciaMonto;
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
+                                tipoOfertaFinal_Log = "MM";
+                                gap_Log = montoFaltante;
                                 resultado = true;
                             } else {
                                 resultado = false;
@@ -4085,6 +4094,32 @@ function CambioPagina(obj) {
     }
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
+}
+
+function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log) {
+    var param = {
+        CUV: cuv,
+        cantidad: cantidad,
+        tipoOfertaFinal_Log: tipoOfertaFinal_log,
+        gap_Log: gap_Log
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (response) {            
+            if (response.success == true) {
+                console.log(response.result);
+            }           
+        },
+        error: function (data, error) {           
+            AjaxError(data, error);
+        }
+    });
 }
 
 function AgregarProducto(url, model, divDialog, cerrarSplash) {

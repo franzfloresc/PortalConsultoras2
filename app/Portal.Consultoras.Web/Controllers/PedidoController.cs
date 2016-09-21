@@ -4809,5 +4809,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
+
+        [HttpPost]
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log)
+        {
+            try 
+            {
+                using (PedidoServiceClient svp = new PedidoServiceClient())
+                {
+                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log);
+                }
+                return Json(new
+                    {
+                        success = true,
+                        message = "El log ha sido registrado satisfactoriamente.",
+                        extra = ""
+                    });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
     }
 }

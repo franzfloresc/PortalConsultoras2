@@ -228,6 +228,15 @@ jQuery(document).ready(function () {
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
     }
 
+    IsDecimalExist = function (p_decimalNumber) {
+        var l_boolIsExist = true;
+
+        if (p_decimalNumber % 1 == 0)
+            l_boolIsExist = false;
+
+        return l_boolIsExist;
+    }
+
     DecimalToStringFormat = function (monto) {
         formatDecimalPais = formatDecimalPais || new Object();
         var decimal = formatDecimalPais.decimal || ".";
@@ -485,7 +494,8 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " +data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
     $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
