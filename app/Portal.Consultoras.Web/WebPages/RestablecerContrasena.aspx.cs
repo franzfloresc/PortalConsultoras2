@@ -51,15 +51,15 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    HttpCookie cokie = Request.Cookies["datosenviado"];
+                    //HttpCookie cokie = Request.Cookies["datosenviado"];
 
-                    if (cokie != null)
-                    {
-                        string emailcokie = cokie["email"];
-                        string paisisocokie = cokie["paisiso"];
+                    //if (cokie != null)
+                    //{
+                        //string emailcokie = cokie["email"];
+                        //string paisisocokie = cokie["paisiso"];
 
-                        if (emailcokie == correo && paisisocokie == paisiso)
-                        {
+                        //if (emailcokie == correo && paisisocokie == paisiso)
+                        //{
                             txtpaisid.Text = paisid;
                             txtcorreo.Text = correo;
                             txtpaisiso.Text = paisiso;
@@ -72,28 +72,28 @@ namespace Portal.Consultoras.Web.WebPages
                                 Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
                             }
 
-                        }
-                        else
-                        {
-                            string[] myCookies = Request.Cookies.AllKeys;
-                            foreach (string cookie in myCookies)
-                            {
-                                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                            }
+                        //}
+                        //else
+                        //{
+                        //    string[] myCookies = Request.Cookies.AllKeys;
+                        //    foreach (string cookie in myCookies)
+                        //    {
+                        //        Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+                        //    }
 
-                            Response.Redirect("about:blank");
-                        }
+                        //    Response.Redirect("about:blank");
+                        //}
 
-                    }
-                    else
-                    {
-                        string[] myCookies = Request.Cookies.AllKeys;
-                        foreach (string cookie in myCookies)
-                        {
-                            Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                        }
-                        Response.Redirect("about:blank");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    string[] myCookies = Request.Cookies.AllKeys;
+                    //    foreach (string cookie in myCookies)
+                    //    {
+                    //        Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+                    //    }
+                    //    Response.Redirect("about:blank");
+                    //}
 
                 }
 
