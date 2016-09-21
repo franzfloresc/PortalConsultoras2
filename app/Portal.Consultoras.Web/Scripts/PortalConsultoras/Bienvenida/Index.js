@@ -23,7 +23,11 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    function cerrarMensajeEstadoPedido(){
+    $("#cerrarMensajeEstadoPedido").click(function () {
+        cerrarMensajeEstadoPedido();
+    });
+
+    function cerrarMensajeEstadoPedido() {
         $(".content").animate({ "top": "0px" });
         $(".bloque_mensajesPedido").slideUp();
     }
