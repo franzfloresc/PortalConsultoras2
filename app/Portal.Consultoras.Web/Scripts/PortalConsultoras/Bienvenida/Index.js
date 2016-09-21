@@ -7,6 +7,7 @@ var fnMovimientoTutorial;
 var fotoCroppie
 
 $(document).ready(function () {
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
@@ -21,6 +22,11 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
+
+    function cerrarMensajeEstadoPedido(){
+        $(".content").animate({ "top": "0px" });
+        $(".bloque_mensajesPedido").slideUp();
+    }
 
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
