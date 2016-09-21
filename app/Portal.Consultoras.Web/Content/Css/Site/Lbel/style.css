@@ -28094,7 +28094,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .icono_estadoPedido{
     width:32px;
     height:32px;
-    height:auto;
     margin-right:16.8px;
     padding-top:1px;
 }

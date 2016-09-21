@@ -2,6 +2,15 @@
 
 $(document).ready(function () {
 
+    $("#cerrarMensajeEstadoPedido").click(function () {
+        cerrarMensajeEstadoPedido();
+    });
+
+    function cerrarMensajeEstadoPedido() {
+        $("#content").animate({ "margin-top": "63px" });
+        $(".bloque_mensajesPedido").slideUp();
+    }
+
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
