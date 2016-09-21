@@ -4924,30 +4924,31 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-    display:block;
-    position:absolute;
-    margin-left:10px;
-    bottom:14px;
-    border:1px solid #9b9b9b;
-    background:transparent;
-    width:139px;
-    height:45px;
-    line-height:45px;
-    color:#000;
-    font-family:'Lato';
-    font-size:13px;
-    font-weight:900;
-    text-align:center;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    display: block;
+    position: absolute;
+    margin-left: 10px;
+    bottom: 14px;
+    border: none;
+    background: transparent;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 900;
+    text-align: left;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
 .btn_noGracias_agregarProductos:hover{
-    opacity:0.5;
-    filter:alpha(opacity=50);
+    /*opacity:0.5;*/
+    /*filter:alpha(opacity=50);*/
+    text-decoration: underline;
 }
 
 .bloque_carousel{
@@ -27365,11 +27366,27 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position: relative;
 }
 
+.texto_descripcionCatalogoPersonalizado{
+    display: block;
+    text-align: left;
+    font-family: 'Lato';
+    font-size: 15px;
+    margin-top: 30px;
+    padding-left: 41px;
+    margin-bottom: 26px;
+}
+
+.paginaCatalogo{
+    padding-left:0px;
+    margin-bottom:0px;
+}
+
 .enlace_popupCatalogoPersonalizado{
     display: block;
     width: 100%;
     text-decoration: none;
-    margin-bottom: 6px;
+    position: absolute;
+    top: 247px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -27390,9 +27407,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 0px 9px;
     display: inline-block;
     position: relative;
-    width: 276px;
+    vertical-align: top!important;
+    width: 274px;
     margin-bottom: 15px;
     margin-top: 15px;
+    vertical-align:top;
+    padding-bottom:12px;
 }
 /*información adicional*/
 .mensajes_deAtencion span {
@@ -27511,10 +27531,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top: 15px;
 }
 
- .content-favclientes.catper{
-     padding-top: 15px;
-     padding-bottom: 10px;
- }
+.content-favclientes.catper{
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
 .AtribCliente {
     font-size: 13px;
     color: #463a3a;
@@ -27535,6 +27555,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     float: left;
     width: 50%;
     height: 60px;
+}
+
+.content-favclientes .contiene-productos .producto_nombre_descripcion{
+    margin-bottom:9px;
 }
 
 .pestana_lbel.new .boton_Agregalo_home {
@@ -28876,6 +28900,43 @@ h1#penmostreo .campana {
     padding-top: 27px;
 }
 
+/*SB20-863* Inicio*/
+
+.producto_precio2 {
+        width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+        font-family: 'Lato';
+        letter-spacing: 0.2px;
+        color: #000;
+        margin-bottom: 16px;
+        margin-top: 35px;
+        }
+
+        .nombre_producto2 {
+            height: 40px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .nombre_producto22 {
+            /*padding: 0px;*/
+            padding-left: 6px;
+            padding-right: 6px;
+            font-size: 13px;
+            margin: 0 auto;
+            width: 100%;
+            /* height: auto; */
+            max-width: 500px;
+            height: auto;
+            /*max-height: 40px;*/
+            margin-bottom:10px;
+            margin-top: 5px;
+        }
+
+
+/*Sb20-863 - Fín*/
+
 .encabezado_popupCatalogoPersonalizado {
     display: block;
     text-align: center;
@@ -29565,3 +29626,5 @@ h1#penmostreo .campana {
     margin-top: -7px;
     position:relative;
 }
+
+/* FIN POPUPS OFERTAS REVISTA */

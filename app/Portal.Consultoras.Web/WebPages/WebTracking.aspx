@@ -249,11 +249,11 @@
                                                 </asp:Panel>
 
 
-
+                                                <br />
                                                 <asp:Panel ID="pPostVenta" runat="server" Width="100%"
-                                                    ForeColor="#666666" GroupingText="Mis postventas"
+                                                    ForeColor="#666666" GroupingText="Mis <b>postventas<b>"
                                                     Font-Names="verdana" Font-Size="12pt" HorizontalAlign="Left" Visible="false">
-                                                    <asp:GridView ID="gridPostVenta" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
+                                                    <asp:GridView ID="gridPostVenta" runat="server" AutoGenerateColumns="False" CssClass="tabla2"  Width="100%"
                                                         GridLines="Horizontal" CellPadding="0" CellSpacing="0" OnRowCommand="gridPostVenta_RowCommand" DataKeyNames="EstadoRecojoID">
 
                                                         <Columns>
@@ -261,31 +261,31 @@
                                                                 <ItemTemplate>
                                                                     <asp:ImageButton ID="btnMostrar" runat="server" CommandName="MOSTRAR"
                                                                         CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'
-                                                                        ImageUrl="~/Content/Images/webtracking/boxGrande.png" Width="35px" />
+                                                                        ImageUrl="~/Content/Images/webtracking/boxGrande.png" Width="55px" />
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="15%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Nro. Recojo">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblNumeroRecojo" runat="server" Text='<%# Eval("NumeroRecojo") %>' Font-Size="12pt"></asp:Label>
+                                                                    <asp:Label ID="lblNumeroRecojo" runat="server" Text='<%# Eval("NumeroRecojo") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="25%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="F. Recojo">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblFechaRecojo" runat="server" Text='<%# Eval("FechaRecojo", "{0:dd/MM/yyyy}") %>' Font-Size="12pt"></asp:Label>
+                                                                    <asp:Label ID="lblFechaRecojo" runat="server" Text='<%# Eval("FechaRecojo", "{0:dd/MM/yyyy}") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="20%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Campaña">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblCampana" runat="server" Text='<%# Eval("Campania") %>' Font-Size="12pt"></asp:Label>
+                                                                    <asp:Label ID="lblCampana" runat="server" Text='<%# Eval("Campania") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="20%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Estado">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblEstado" runat="server" Text='<%# Eval("EstadoRecojo") %>' Font-Size="12pt"></asp:Label>
+                                                                    <asp:Label ID="lblEstado" runat="server" Text='<%# Eval("EstadoRecojo") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="20%" />
                                                             </asp:TemplateField>
@@ -296,7 +296,7 @@
                                                             </asp:TemplateField>--%>
                                                         </Columns>
 
-                                                        <HeaderStyle Font-Size="11px" Height="30px" BackColor="#B7BDC3" ForeColor="#6c217f" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                        <HeaderStyle Font-Size="11pt" Height="30px" HorizontalAlign="Center" VerticalAlign="Middle" />
                                                         <RowStyle HorizontalAlign="Center" />
 
                                                     </asp:GridView>
@@ -378,8 +378,8 @@
                                                     </asp:GridView>
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlSeguimientoPostVenta" runat="server" Width="100%"
-                                                    CssClass="qpanelBorder" ForeColor="#666666" GroupingText="Seguimiento de PostVenta"
-                                                    Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left" Visible="false">
+                                                    CssClass="qpanelBorder" ForeColor="#666666" GroupingText="Seguimiento de <b>PostVenta<b>"
+                                                    Font-Names="verdana" HorizontalAlign="Left" Visible="false">
                                                     <div style="font-size: 12px; width: 100%; text-align: center;">
                                                         <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0">
                                                             <ProgressTemplate>
@@ -416,13 +416,13 @@
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Situación">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblSituacion" runat="server" Text='<%# Eval("Situacion") %>' Font-Size="8pt"></asp:Label>
+                                                                    <asp:Label ID="lblSituacion" runat="server" Text='<%# Eval("Situacion") %>'></asp:Label>
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="35%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("FechaEstimadoRecojo") %>' Font-Size="8pt"></asp:Label>
+                                                                    <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("FechaEstimadoRecojo") %>'></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Font-Size="8pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
@@ -437,7 +437,7 @@
                                                             </asp:TemplateField>
                                                         </Columns>
 
-                                                        <HeaderStyle Font-Size="11px" Height="30px" BackColor="#B7BDC3" ForeColor="#6c217f" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                        <HeaderStyle Font-Size="11pt" Height="30px" HorizontalAlign="Center" VerticalAlign="Middle" />
                                                         <RowStyle HorizontalAlign="Center" />
                                                     </asp:GridView>
                                                 </asp:Panel>
@@ -570,7 +570,7 @@
 
                                                 <asp:Panel ID="pnlNovedadesPostVenta" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Novedades de PostVenta"
-                                                    Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left" Visible="false">
+                                                    Font-Names="verdana"  HorizontalAlign="Left" Visible="false">
                                                     <asp:GridView ID="gvNovedadesPostVenta" runat="server" AutoGenerateColumns="False" CssClass="tabla2" Width="100%"
                                                         GridLines="Horizontal" CellPadding="0" CellSpacing="0" OnRowCommand="gvNovedadesPostVenta_RowCommand" OnRowDataBound="gvNovedadesPostVenta_RowDataBound" DataKeyNames="Latitud,Longitud,Foto1,Foto2">
                                                         <Columns>

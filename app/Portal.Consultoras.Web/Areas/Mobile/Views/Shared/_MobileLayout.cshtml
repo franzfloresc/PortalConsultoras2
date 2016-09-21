@@ -86,6 +86,7 @@
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -1169,20 +1170,6 @@
         });
     }
 
-    function SeparadorMiles(pnumero) {
-        // Función que colocará el caracter "." como separador de miles.
-        var resultado = "";
-        var numero = pnumero.replace(/\,/g, '');
-        var nuevoNumero = "";
-        if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-        else nuevoNumero = numero.replace(/\./g, '');
-        if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-        for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-            resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-        if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-        if (numero[0] == "-") return "-" + resultado;
-        else return resultado;
-    };
     function AgregarTimerShowRoom(dia, mes, anio) {
         var calcNewYear = setInterval(function () {
             //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -1216,37 +1203,6 @@
             }
         }, 1000);
     }
-    /* Tracking Jetlore */
-    function TrackingJetloreAdd(cantidad, campania, cuv) {
-        var esJetlore;
-        esJetlore = esPaisTrackingJetlore == "1";
-        if (esJetlore) {
-            JL.tracker.addToCart({
-                count: cantidad,
-                deal_id: cuv,
-                option_id: campania
-            });
-        }
-    }
-    function TrackingJetloreRemove(cantidad, campania, cuv) {
-        var esJetlore;
-        esJetlore = esPaisTrackingJetlore == "1";
-        if (esJetlore) {
-            JL.tracker.removeFromCart({
-                count: cantidad,
-                deal_id: cuv,
-                option_id: campania
-            });
-        }
-    }
-    function TrackingJetloreRemoveAll(lista) {
-        var esJetlore;
-        esJetlore = esPaisTrackingJetlore == "1";
-        if (esJetlore) {
-            JL.tracker.removeFromCart(lista);
-        }
-    }
-    /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

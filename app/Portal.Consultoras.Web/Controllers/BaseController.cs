@@ -598,6 +598,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Simbolo = model.Simbolo;
                 string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
+                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
                 return model;
 
@@ -827,6 +828,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Simbolo = model.Simbolo;
                 string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
+                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
                 return model;
 
@@ -1008,6 +1010,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.OfertaFinal = oBEUsuario.OfertaFinal;
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
             }
             Session["UserData"] = model;
 

@@ -15,6 +15,9 @@ var arrayOfertasParaTi = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
 
+var tipoOfertaFinal_Log = "";
+var gap_Log = 0;
+
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
 
@@ -409,7 +412,7 @@ $(document).ready(function () {
             };
 
             AgregarProducto('Insert', model, "", false);
-
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log)
             setTimeout(function () {
                 $("#divOfertaFinal").hide();
                 EjecutarServicioPROLSinOfertaFinal();
@@ -1192,10 +1195,20 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
+    
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+
+    var data1 = $('#divListadoEstrategia').find('.nombre_producto');
+    nbData = data1.length;
+    var found;
+    for (var iData = 0; iData < nbData; iData++) {
+        if (data1[iData].children[0].innerHTML.length > 40) {
+            data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0,40) + "...";
+        }
+    }
 
     cierreCarouselEstrategias();
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
@@ -1302,13 +1315,15 @@ function ArmarCarouselEstrategias(data) {
 
 };
 function EstructurarDataCarousel(array) {
+    
     $.each(array, function (i, item) {
         item.DescripcionCompleta = item.DescripcionCUV2;
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
         } else {
-            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            //item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 0 ? item.DescripcionCUV2 : "");
         };
 
         item.Posicion = i + 1;
@@ -2929,26 +2944,30 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
+    var montoMinimo = DecimalToStringFormat(parseFloat($("#hdMontoMinimo").val()));
+
     if (tipoPopupMostrar == 1) {
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
         $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y gana más esta campaña.");
-        if (viewBagPaisID == 11) {
-            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagPaisID == 3) {
-            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti.");
+        $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y ganar más esta campaña.");
+        if (viewBagPaisID == 3) {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estas ofertas que tenemos solo para ti");
+        } else if (viewBagPaisID == 11) {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti");
         }
     }
     else {
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
-        $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
+        $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO...</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
-        if (viewBagPaisID == "11") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagPaisID == "3") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti.");
+        $('#spMontoMinimoCabecera').html(montoMinimo);
+        $('#spCabeceraMontominimo').show();
+        $("#spnMensajeOfertaFinal").html("&nbsp;para poder pasar tu pedido.");
+        if (viewBagPaisID == "3") {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti");
+        } else if (viewBagPaisID == "11") {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti");
         }
     }
 
@@ -3049,14 +3068,18 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 if (escalaDescuento == null) {
                     resultado = false;
                 } else {
+
                     var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
+                    var parametriaEd_SIG = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuentoSiguiente.PorDescuento) : null;
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
+                            tipoOfertaFinal_Log = parametriaEd_SIG[0].TipoParametriaOfertaFinal;
+                            gap_Log = montoFaltante;
                             resultado = true;
                         } else {
                             resultado = false;
@@ -3087,6 +3110,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                             if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
                                 montoFaltante = diferenciaMonto;
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
+                                tipoOfertaFinal_Log = "MM";
+                                gap_Log = montoFaltante;
                                 resultado = true;
                             } else {
                                 resultado = false;
@@ -4071,6 +4096,32 @@ function CambioPagina(obj) {
     return true;
 }
 
+function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log) {
+    var param = {
+        CUV: cuv,
+        cantidad: cantidad,
+        tipoOfertaFinal_Log: tipoOfertaFinal_log,
+        gap_Log: gap_Log
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (response) {            
+            if (response.success == true) {
+                console.log(response.result);
+            }           
+        },
+        error: function (data, error) {           
+            AjaxError(data, error);
+        }
+    });
+}
+
 function AgregarProducto(url, model, divDialog, cerrarSplash) {
     AbrirSplash();
 
@@ -4175,6 +4226,7 @@ function AjaxError(data) {
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
+    
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
 
@@ -4185,6 +4237,12 @@ function CargarEstrategiasEspeciales(objInput, e) {
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
+            if ($('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').children()[0].innerHTML.length > 40) {
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').addClass('nombre_producto22');
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
+                //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            }
+
             $('#popupDetalleCarousel_lanzamiento').show();
         };
         dataLayer.push({

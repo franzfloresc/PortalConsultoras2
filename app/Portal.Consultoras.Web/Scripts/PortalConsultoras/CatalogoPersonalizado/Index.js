@@ -1,18 +1,8 @@
 ﻿var cantidadRegistros = 4;
 var offsetRegistros = 0;
+var cargandoRegistros = false;
 
 $(document).ready(function () {
-    $(document).on('click', '.agregar-ofertarevista', function () {
-        if (ReservadoOEnHorarioRestringido())
-            return false;
-
-        var contenedor = $(this).parents(".cuerpo-mod");
-        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
-        var cuv = $(this).attr('data-cuv');
-        var cuvLista = $(contenedor).find('.hdItemCuv').val();
-
-        AgregarProductoOfertaRevista(contenedor, cantidad, cuv, cuvLista);
-    });
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
@@ -49,14 +39,16 @@ $(document).ready(function () {
             data: JSON.stringify({ cuv: cuv }),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                if (response.success) { 
-                    response.data.dataPROL.precio_catalogo = DecimalToStringFormat(response.data.dataPROL.precio_catalogo);
-                    response.data.dataPROL.precio_revista = DecimalToStringFormat(response.data.dataPROL.precio_revista);
-                    response.data.dataPROL.ganancia = DecimalToStringFormat(response.data.dataPROL.ganancia);
+                if (response.success) {
                     response.data.dataPROL.Simbolo = viewBagSimbolo;
-                    var settings = $.extend({}, response.data.dataPROL, obj)
+                    var settings = $.extend({}, response.data.dataPROL, obj);
+                    settings.productoRevista = response.data.producto;
+
                     switch (settings.tipo_oferta) {
                         case '003':
+                            settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                            settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                            settings.ganancia = DecimalToStringFormat(settings.ganancia);
                             var html = SetHandlebars("#template-mod-ofer1", settings);
                             $('.mod-ofer1').html(html).show();
                             break;
@@ -80,12 +72,66 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on('click', '.agregar-ofertarevista', function () {
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
+        var contenedor = $(this).parents(".cuerpo-mod");
+        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var tipoCUV = $(this).attr('data-cuv');
+
+        AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
+        });
 
     if (!ReservadoOEnHorarioRestringido(false)) {
         CargarCatalogoPersonalizado();
+
+    Inicializar();
     }
 });
+/*SB-600*/
+function Inicializar() {
+    IniDialog();
+    ValidarCargaCatalogoPersonalizado();
+    LinkCargarCatalogoToScroll();
+}
 
+function IniDialog() {
+    $('#DialogMensajes').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 400,
+        draggable: true,
+        buttons:
+        {
+            "Aceptar": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+function LinkCargarCatalogoToScroll() { $(window).scroll(CargarCatalogoScroll); }
+function UnlinkCargarCatalogoToScroll() {
+    $(window).off("scroll", CargarCatalogoScroll);
+    cargandoRegistros = false;
+}
+function CargarCatalogoScroll() {
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
+        ValidarCargaCatalogoPersonalizado();
+    }
+
+}
+function ValidarCargaCatalogoPersonalizado() {
+    if (cargandoRegistros) return false;
+    cargandoRegistros = true;
+
+    waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
+}
+/*F- SB-600*/
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
@@ -93,6 +139,12 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
+        $('#boton_vermas').hide();
+        UnlinkCargarCatalogoToScroll();
+        return false;
+    }
     //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     waitingDialog();
     jQuery.ajax({
@@ -108,16 +160,61 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
 
-                if (data.data.length < cantidadRegistros) $('#boton_vermas').hide();
+                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll() ;
                 offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             console.log(error);
         },
-        complete: closeWaitingDialog
+        complete: function () {
+            closeWaitingDialog();
+            cargandoRegistros = false;
+        }
     });
 }
+/*SB20-600*/
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+            
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+}
+
+/*F SB20-600*/
 function AgregarProductoCatalogoPersonalizado(item) {
     waitingDialog();
 
@@ -293,22 +390,32 @@ function alert_msg_pedido(message) {
 }
 
 
-function AgregarProductoOfertaRevista(item, cantidad, cuv, cuvLista) {
+function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();
+    var hidden;
 
-    var cuv = cuv;
-    var cantidad = cantidad;
-    var tipoOfertaSisID = $(item).find(".hdItemTipoOfertaSisID").val();
-    var configuracionOfertaID = $(item).find(".hdItemConfiguracionOfertaID").val();
-    var indicadorMontoMinimo = $(item).find(".hdItemIndicadorMontoMinimo").val();
-    var tipo = $(item).find(".hdItemTipo").val();
-    var marcaID = $(item).find(".hdItemMarcaID").val();
-    var precioUnidad = $(item).find(".hdItemPrecioUnidad").val();
-    var descripcionProd = $(item).find(".hdItemDescripcionProd").val();
-    var pagina = $(item).find(".hdItemPagina").val();
-    var descripcionCategoria = $(item).find(".hdItemDescripcionCategoria").val();
-    var descripcionMarca = $(item).find(".hdItemDescripcionMarca").val();
-    var descripcionEstrategia = $(item).find(".hdItemDescripcionEstrategia").val();
+    if (tipoCUV == 'revista') {
+        hidden = $(item).find('#hiddenRevista');
+    } else if (tipoCUV == 'catalogo') {
+        hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    var model = {
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        Cantidad: cantidad,
+        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
+        CUV: $(hidden).find(".hdItemCuv").val(),
+        Tipo: $(hidden).find(".hdItemTipo").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        Pagina: $(hidden).find(".hdItemPagina").val(),
+        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
+        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
+        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
+        EsSugerido: false
+    };
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -320,26 +427,9 @@ function AgregarProductoOfertaRevista(item, cantidad, cuv, cuvLista) {
         alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
         closeWaitingDialog();
         return false;
-    }
+    }    
 
-    var model = {
-        TipoOfertaSisID: tipoOfertaSisID,
-        ConfiguracionOfertaID: configuracionOfertaID,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        MarcaID: marcaID,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidad,
-        CUV: cuv,
-        Tipo: tipo,
-        DescripcionProd: descripcionProd,
-        Pagina: pagina,
-        DescripcionCategoria: descripcionCategoria,
-        DescripcionMarca: descripcionMarca,
-        DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false
-    };
-
-    var imagenProducto = $('.producto_img_home mini>img', item);
+    var imagenProducto = $('#imagenAnimacion>img', item);
 
     if (imagenProducto.length > 0) {
         var carrito = $('.campana');
@@ -367,5 +457,5 @@ function AgregarProductoOfertaRevista(item, cantidad, cuv, cuvLista) {
         });
     }
 
-    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + cuvLista + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
 }

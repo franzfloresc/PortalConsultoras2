@@ -38,7 +38,9 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorEnviado { get; set; }
         [DataMember]
         public DateTime FechaEnvio { get; set; }  // R20151003 - Fin
-
+        //SB20-871
+        [DataMember]
+        public string MotivoRechazo { get; set; }
         public BEPedidoDDWebDetalle()
         { }
 
@@ -70,6 +72,9 @@ namespace Portal.Consultoras.Entities
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
             if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
+            // SB20-871
+            if (DataRecord.HasColumn(row, "MotivoRechazo"))
+                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
         }
     }
 }

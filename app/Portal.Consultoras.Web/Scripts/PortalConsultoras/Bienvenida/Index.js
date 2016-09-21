@@ -233,10 +233,9 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-
+    CargarPopupsConsultora();
     /* SB20-834 - INICIO */
     //ObtenerComunicadosPopUps();
-    //CargarPopupsConsultora();
     /* SB20-834 - FIN */
 
     CargarMisCursos();
@@ -475,7 +474,74 @@ $(document).ready(function () {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-    
+    $(document).on('click', '.pop-ofertarevista', function () {
+        waitingDialog({});
+        var $contenedor = $(this).parents('.contiene-productos');
+        var cuv = $contenedor.find('.hdItemCuv').val();
+        var obj = {
+            UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
+            CUV: $contenedor.find('.hdItemCuv').val(),
+            TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
+            ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
+            IndicadorMontoMinimo: $contenedor.find('.hdItemIndicadorMontoMinimo').val(),
+            MarcaID: $contenedor.find('.hdItemMarcaID').val(),
+            PrecioCatalogo: $contenedor.find('.hdItemPrecioUnidad').val(),
+            Descripcion: $contenedor.find('.hdItemDescripcionProd').val(),
+            DescripcionCategoria: $contenedor.find('.hdItemDescripcionCategoria').val(),
+            DescripcionMarca: $contenedor.find('.hdItemDescripcionMarca').val(),
+            DescripcionEstrategia: $contenedor.find('.hdItemDescripcionEstrategia').val()
+        };
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
+            dataType: 'json',
+            data: JSON.stringify({ cuv: cuv }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.success) {
+                    response.data.dataPROL.Simbolo = viewBagSimbolo;
+                    var settings = $.extend({}, response.data.dataPROL, obj);
+                    settings.productoRevista = response.data.producto;
+
+                    switch (settings.tipo_oferta) {
+                        case '003':
+                            settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                            settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                            settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                            var html = SetHandlebars("#template-mod-ofer1", settings);
+                            $('.mod-ofer1').html(html).show();
+                            break;
+                        case '048':
+                            //var html = SetHandlebars("#template-mod-ofer2", settings);
+                            //$('.mod-ofer2').html(html).show();
+                            break;
+                        case '049':
+                            //var html = SetHandlebars("#template-mod-ofer3", settings);
+                            //$('.mod-ofer3').html(html).show();
+                            break;
+                    }
+                } else {
+                    console.log(response.message);
+                }
+                closeWaitingDialog();
+            },
+            error: function (response, error) {
+                console.log(error);
+                closeWaitingDialog();
+            }
+        });
+    });
+    $(document).on('click', '.agregar-ofertarevista', function () {
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
+        var contenedor = $(this).parents(".cuerpo-mod");
+        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var tipoCUV = $(this).attr('data-cuv');
+
+        AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
+    });
+        
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
@@ -942,10 +1008,20 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
+    
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
+
+    var data1 = $('#divCarruselHorizontal').find('.nombre_producto');
+    nbData = data1.length;
+    var found;
+    for (var iData = 0; iData < nbData; iData++) {
+        if (data1[iData].children[0].innerHTML.length > 40) {
+            data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
+        }
+    }
 
     if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
         $('.fondo_gris').hide();
@@ -1055,7 +1131,8 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
         } else {
-            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            //item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 0 ? item.DescripcionCUV2 : "");
         };
 
         item.Posicion = i+1;
@@ -1409,6 +1486,13 @@ function CargarEstrategiasEspeciales(objInput, e) {
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
+
+            if ($('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').children()[0].innerHTML.length > 40) {
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').addClass('nombre_producto22');
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
+                //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            }
+            
             $('#popupDetalleCarousel_lanzamiento').show();
         };
         dataLayer.push({
@@ -1490,7 +1574,7 @@ function ArmarCarouselLiquidaciones(data) {
     var htmlDiv = SetHandlebars("#liquidacion-template", data);
 
     //Se agrega item VER MAS
-    if (htmlDiv.length > 0) {
+    if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
                 '<div class="content_item_carrusel background_vermas">',
@@ -3142,6 +3226,12 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
+        $("#divMainCatalogoPersonalizado").remove();
+        return false;
+    }
+
     $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     jQuery.ajax({
         type: 'POST',
@@ -3540,6 +3630,76 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
     }
 }
 
+function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
+    waitingDialog();
+    var hidden;
+
+    if (tipoCUV == 'revista') {
+        hidden = $(item).find('#hiddenRevista');
+    } else if (tipoCUV == 'catalogo') {
+        hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    var model = {
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        Cantidad: cantidad,
+        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
+        CUV: $(hidden).find(".hdItemCuv").val(),
+        Tipo: $(hidden).find(".hdItemTipo").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        Pagina: $(hidden).find(".hdItemPagina").val(),
+        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
+        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
+        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
+        EsSugerido: false
+    };
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
+    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+}
+  
 //ShowRoom
 function CrearPopShow() {
     $("body").on("click", "div.check_01 label.checkpop input", function (event) {
@@ -3684,6 +3844,7 @@ function MostrarShowRoom() {
     }
 
 }
+
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     var name = 'showroom digital ' + nombreEvento;
 
