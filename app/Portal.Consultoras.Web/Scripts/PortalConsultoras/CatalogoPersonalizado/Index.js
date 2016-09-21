@@ -182,7 +182,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
-    var OrigenPedidoWeb = DesktopCatalogoPersonalizado;
+    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -396,7 +396,8 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
         DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
         DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
         DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
-        EsSugerido: false
+        EsSugerido: false,
+        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
     };
 
     if (!isInt(cantidad)) {
