@@ -854,6 +854,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                var noPasa = ReservadoEnHorarioRestringido(out message);
+                if (noPasa)
+                {
+                    ErrorServer = true;
+
+                    return Json(new
+                    {
+                        success = ErrorServer,
+                        message = message,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 List<BEPedidoWebDetalle> olstTempListado = new List<BEPedidoWebDetalle>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -3732,6 +3745,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                var mensaje = "";
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                if (noPasa)
+                {
+                    ErrorServer = true;
+                    tipo = "";
+                    return olstTempListado;
+                }
+
                 var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
@@ -3937,11 +3959,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ReservadoOEnHorarioRestringido()
         {
-            var result = ValidarSession();
-            if (result != null) return result;
-
             try
             {
+                var result = ValidarSession();
+                if (result != null) return result;
+
                 string mensaje = string.Empty;
                 bool pedidoReservado = ValidarPedidoReservado(out mensaje);
                 bool estado = pedidoReservado;
@@ -3969,6 +3991,18 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private bool ReservadoEnHorarioRestringido(out string mensaje)
+        {
+            mensaje = "";
+            var result = ValidarSession();
+            if (result != null) return true;
+
+            bool estado = ValidarPedidoReservado(out mensaje);
+            if (!estado)
+                estado = ValidarHorarioRestringido(out mensaje);
+            return estado;
         }
 
         private ActionResult ValidarSession()

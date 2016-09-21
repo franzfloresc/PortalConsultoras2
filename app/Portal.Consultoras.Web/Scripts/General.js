@@ -681,3 +681,44 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
     });
 };
 
+function MensajaEstadoPedido() {
+    //indicadorEnviadoDescarga = "1";
+    $("#bloquemensajesPedido").hide();
+    if (cerrarRechazado != '1') {
+        if (indicadorEnviadoDescarga == 1) {
+            if (estaRechazado == '1') {
+                //alert("El pedido esta rechazado.");
+                $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
+            }
+            else if (estaRechazado == '0') {
+                //alert("El pedido esta proceso de facturación.");
+                $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO");
+            }
+            $("#bloquemensajesPedido").show();
+        }
+    }
+}
+
+function cerrarMensajeEstadoPedido() {
+    $.ajax({
+        type: 'Post',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
+        data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            cerrarRechazado = data || '0';
+            if (cerrarRechazado == '1') {
+                $("#bloquemensajesPedido").hide();
+            }
+            else {
+                $("#bloquemensajesPedido").show();
+            }
+        },
+        error: function (data, error) {
+            cerrarRechazado = '0';
+        }
+    });
+}
+

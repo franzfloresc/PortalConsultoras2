@@ -157,6 +157,7 @@
     <Compile Include="BEOfertaFIC.cs" />
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
+    <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoSugerido.cs" />
     <Compile Include="BEShowRoomOfertaDetalle.cs" />
     <Compile Include="BEShowRoomOferta.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="BEZonificacionJerarquia.cs" />
     <Compile Include="BEConfiguracionProgramaNuevas.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
