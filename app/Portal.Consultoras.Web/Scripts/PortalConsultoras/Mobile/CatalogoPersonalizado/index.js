@@ -185,7 +185,7 @@ function ObtenerOfertaRevista(item) {
             if (data.success) {
                 var InfoRevista = data.data.dataPROL;
                 var InfoProducto = data.data.producto;
-                if (InfoRevista.tipo_oferta == "003") {
+                if (InfoRevista.tipo_oferta =! null) {
                     model = {
                         TipoOfertaSisID_Revista: InfoProducto.TipoOfertaSisID,
                         ConfiguracionOfertaID_Revista: InfoProducto.ConfiguracionOfertaID,
@@ -216,11 +216,12 @@ function ObtenerOfertaRevista(item) {
                     var html = SetHandlebars("#template-PopUp-Oferta003", model);
                     $('#popUpCatalogoPersonalizado_003').html(html);
                     $('#popUpCatalogoPersonalizado_003').fadeIn("slow");
-                } else if (data.data.dataPROL == "048") {
+                }
+                //else if (data.data.dataPROL == "048") {
 
-                } else if (data.data.dataPROL == "005") {
+                //} else if (data.data.dataPROL == "005") {
 
-                }                
+                //}                
             }
         },
         error: function (data, error) {
