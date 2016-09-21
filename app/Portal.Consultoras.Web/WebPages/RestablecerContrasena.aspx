@@ -15,7 +15,7 @@
     <link href="../Content/Css/Mobile/menu.css" rel="stylesheet" />
     <link href="../Content/Css/Mobile/style.css" rel="stylesheet" />
 
-    <script src="../Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.validate.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>

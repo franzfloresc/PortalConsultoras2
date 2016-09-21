@@ -6,7 +6,7 @@
 <head runat="server">
      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <script src="../Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.validate.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
@@ -30,87 +30,12 @@
     <!--Fín GR-1390 -->
 
      <title>Recuperar Clave</title>
-</head>   
+</head>
 
-<body class="bodyrecuperaclave">
-    <!--R2469 (CSR) Nueva  Etiquetas de Seguimiento-->
-    <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-})(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');</script>
-    <!-- End Google Tag Manager -->
-    <div id="loadingScreen"></div>
-    <!--Inicio GR-1390 -->
-    <div id="tblMobile" style="width:100%;background:#F2F3F7;">
-        <img class="imagencentrado" src="../Content/Images/logo_foot.png" alt="" />
-    </div>
-    <!--Fín GR-1390 -->
-    <form id="form1" runat="server">
-        <!--Inicio GR-1390 - Mobile -->
-
-         <div id="idcontenedor" class="ws-campana text-center">
-        
-                <div class="ws-campana">
-                    <p class="cambiarcontrasena">CAMBIAR CONTRASEÑA</p>
-                </div>
-                <div class="ws-campana">
-                    <p id="idingresepais" class="ingresetupais">Ingrese tu país</p>
-                </div>
-                <div id="idpais" class="ws-campana text-center combopais">
-                    <asp:DropDownList ID="ddlPaisMobile" runat="server"></asp:DropDownList>
-                </div>
-                <div class="ws-campana">
-                    <p id="idingresatucorreo" class="ingresatucorreo">Ingresa tu correo electrónico</p>
-                </div>
-                <div class="ws-campana text-center">
-                    <asp:TextBox ID="txtEmailMobile" AutoComplete="off" runat="server" CssClass="txttexto"></asp:TextBox>
-                </div>
-           
-                <div class="ws-campana text-center">
-                    <div>
-                        <input id="btnRecordarMobile" class="botonenviar" type="button" value="Enviar" />
-                    </div>
-                </div>
-           
-            </div>
-
-         <!--Fín GR-1390 - Mobile -->
-    </form>
-
-    <!--GR-1390 Incio Mobile-->
-
-    <div id="pnlExitoMobile" style="display: none;" class="ws-campana text-center">
-        <div class="color_black letrajustificada">
-            Te hemos enviado una nueva clave a tu correo electrónico.
-        </div>
-    </div>
-    <div id="pnlErrorMobile" style="display: none;" class="ws-campana text-center">
-        <div id="iderror" class="color_black letrajustificada">
-            Error al realizar proceso, inténtelo mas tarde.
-        </div>
-    </div>
-    <div id="pnlNoEncontradoMobile" style="display: none;" class="ws-campana text-center">
-        <div class="color_black letrajustificada">
-            NO HEMOS IDENTIFICADO TU CORREO ELECTRONICO POR FAVOR COMUNICATE CON <b><a href="http://belcorpresponde.somosbelcorp.com" target="_blank">BELCORP RESPONDE</a></b>
-            <asp:Label ID="lblNroTelefonoMobile" runat="server" Text="Label" Visible="false"></asp:Label>
-        </div>
-    </div>
-
-    <!--GR-1390 Fín Mobile-->
-
-
-</body>
     <script>
 
       
-        $(document).ready(function () {
+        jQuery(document).ready(function () {
 
             //GR-1390 - Inicio Mobile
 
@@ -319,4 +244,80 @@
         //GR-1390 - Fín Mobile
 
 </script>
+
+<body class="bodyrecuperaclave">
+    <!--R2469 (CSR) Nueva  Etiquetas de Seguimiento-->
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');</script>
+    <!-- End Google Tag Manager -->
+    <div id="loadingScreen"></div>
+    <!--Inicio GR-1390 -->
+    <div id="tblMobile" style="width:100%;background:#F2F3F7;">
+        <img class="imagencentrado" src="../Content/Images/logo_foot.png" alt="" />
+    </div>
+    <!--Fín GR-1390 -->
+    <form id="form1" runat="server">
+        <!--Inicio GR-1390 - Mobile -->
+
+         <div id="idcontenedor" class="ws-campana text-center">
+        
+                <div class="ws-campana">
+                    <p class="cambiarcontrasena">CAMBIAR CONTRASEÑA</p>
+                </div>
+                <div class="ws-campana">
+                    <p id="idingresepais" class="ingresetupais">Ingrese tu país</p>
+                </div>
+                <div id="idpais" class="ws-campana text-center combopais">
+                    <asp:DropDownList ID="ddlPaisMobile" runat="server"></asp:DropDownList>
+                </div>
+                <div class="ws-campana">
+                    <p id="idingresatucorreo" class="ingresatucorreo">Ingresa tu correo electrónico</p>
+                </div>
+                <div class="ws-campana text-center">
+                    <asp:TextBox ID="txtEmailMobile" AutoComplete="off" runat="server" CssClass="txttexto"></asp:TextBox>
+                </div>
+           
+                <div class="ws-campana text-center">
+                    <div>
+                        <input id="btnRecordarMobile" class="botonenviar" type="button" value="Enviar" />
+                    </div>
+                </div>
+           
+            </div>
+
+         <!--Fín GR-1390 - Mobile -->
+    </form>
+
+    <!--GR-1390 Incio Mobile-->
+
+    <div id="pnlExitoMobile" style="display: none;" class="ws-campana text-center">
+        <div class="color_black letrajustificada">
+            Te hemos enviado una nueva clave a tu correo electrónico.
+        </div>
+    </div>
+    <div id="pnlErrorMobile" style="display: none;" class="ws-campana text-center">
+        <div id="iderror" class="color_black letrajustificada">
+            Error al realizar proceso, inténtelo mas tarde.
+        </div>
+    </div>
+    <div id="pnlNoEncontradoMobile" style="display: none;" class="ws-campana text-center">
+        <div class="color_black letrajustificada">
+            NO HEMOS IDENTIFICADO TU CORREO ELECTRONICO POR FAVOR COMUNICATE CON <b><a href="http://belcorpresponde.somosbelcorp.com" target="_blank">BELCORP RESPONDE</a></b>
+            <asp:Label ID="lblNroTelefonoMobile" runat="server" Text="Label" Visible="false"></asp:Label>
+        </div>
+    </div>
+
+    <!--GR-1390 Fín Mobile-->
+
+
+</body>
 </html>
