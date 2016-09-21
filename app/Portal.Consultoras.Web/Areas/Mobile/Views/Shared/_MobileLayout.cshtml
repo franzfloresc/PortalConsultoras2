@@ -416,9 +416,14 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+        var estaRechazado = '@ViewBag.EstaRechazado';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
         
         $(function () {
             SetFormatDecimalPais(formatDecimalPaisMain);
+
+            MensajaEstadoPedido();
 
             HandlebarsRegisterHelper();
             $('.menu_footer').on('click', function () {

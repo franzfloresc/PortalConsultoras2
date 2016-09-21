@@ -158,6 +158,7 @@
     <Compile Include="BLPedidoWebAnteriores.cs" />
     <Compile Include="BLPedidoWebDetalle.cs" />
     <Compile Include="BLPermiso.cs" />
+    <Compile Include="BLProcesoPedidoRechazado.cs" />
     <Compile Include="BLProducto.cs" />
     <Compile Include="BLProductoFaltante.cs" />
     <Compile Include="BLProductoSugerido.cs" />

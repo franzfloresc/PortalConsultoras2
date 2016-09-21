@@ -211,6 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+
             }
             catch (FaultException ex)
             {
@@ -1381,5 +1382,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public JsonResult CerrarMensajeEstadoPedido()
+        {
+            userData.CerrarRechazado = 1;
+            SetUserData(userData);
+            return Json(userData.CerrarRechazado);
+        }
     }
 }

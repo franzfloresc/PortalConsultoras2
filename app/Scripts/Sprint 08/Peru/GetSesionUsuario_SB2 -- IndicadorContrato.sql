@@ -55,6 +55,8 @@ BEGIN
 		set @EsCatalogoPersonalizadoZonaValida = 1
 	/*Fin Oferta Final y Catalogo Personalizado*/
 	
+	declare @IndicadorEnviado int = 0  
+
 	IF @UsuarioPrueba = 0    
 	BEGIN
 			select 
@@ -93,6 +95,12 @@ BEGIN
 
 		    select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID          
     			
+			Select @IndicadorEnviado  = IndicadorEnviado
+			From pedidoweb (nolock)
+			Where CampaniaID = @CampaniaID and consultoraid = @ConsultoraID
+
+			--SET @IndicadorEnviado = 1
+
 		SELECT
 			u.PaisID,    
 			p.CodigoISO,    
@@ -165,7 +173,8 @@ BEGIN
 			isnull(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial,
-			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida
+			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida,
+			@IndicadorEnviado as IndicadorEnviado
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (    
 			select *    
@@ -255,7 +264,8 @@ BEGIN
 			ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial,
-			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida
+			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida,
+			@IndicadorEnviado as IndicadorEnviado
 		FROM dbo.Usuario u (nolock)    
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo    
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario    

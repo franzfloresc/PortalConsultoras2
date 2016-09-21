@@ -1,5 +1,6 @@
 
 
+-- select * from dbo.fnGetConfiguracionCampania(11, 2578, 2016, 99)
 ALTER FUNCTION dbo.fnGetConfiguracionCampania
 (
 	@PaisID tinyint,
@@ -34,7 +35,9 @@ RETURNS @TConfiguracionCampania TABLE(
 	EstadoSimplificacionCUV bit,
 	EsquemaDAConsultora bit,	
 	ValidacionInteractiva bit,
-	MensajeValidacionInteractiva varchar(500)
+	MensajeValidacionInteractiva varchar(500),
+	IndicadorEnviado bit,
+	IndicadorRechazado int
 )
 AS
 BEGIN
@@ -63,7 +66,7 @@ BEGIN
 		@PedidoFIC = PedidoFIC
 	from Pais (nolock)
 	where PaisId = @PaisID
-
+	
 	-- Variables ConfiguracionValidacion
 	DECLARE @HoraInicio time(0)
 	DECLARE @HoraFin time(0)
@@ -139,7 +142,7 @@ BEGIN
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
 	DECLARE @AceptacionConsultoraDA INT = -1
-
+		
 	-- Obtener Campania Anterior
 	DECLARE @Campania INT = 0
 	DECLARE @Anio INT
@@ -336,6 +339,9 @@ BEGIN
 		INNER JOIN ods.Consultora c with(nolock) on up.CodigoConsultoraAsociada = c.Codigo
 		WHERE cf.ConsultoraId = @consultoraid
 	END
+	
+	declare @esRechazado int = -1
+	declare @IndicadorEnviado bit = 0
 
 	--Valida UltimaCampaniaFacturada
 	IF (@UltimaCampanaFacturada = @Campania)
@@ -348,7 +354,6 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		declare @IndicadorEnviado bit = 0
   
 		Select @IndicadorEnviado  = IndicadorEnviado
 		From pedidoweb (nolock)
@@ -356,11 +361,35 @@ BEGIN
 
 		If(@IndicadorEnviado = 1)
 		BEGIN
-			SET @Campania = @Campania - @Anio
-			IF(@Campania = @NroCampanias)
-				SET @Campania = @Anio + 101
+			set @esRechazado = 0
+
+			SELECT @esRechazado = esRechazado
+			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+
+			if @esRechazado = 1
+			begin
+				
+				declare @fechaFin datetime
+				select @fechaFin = c.FechaInicioReFacturacion
+				FROM [ods].[Cronograma] c (nolock)
+				INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
+				WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID  AND ca.Codigo = @Campania
+
+				if @fechaFin < getdate()
+					set @esRechazado = 2 -- continua con el proceso
+			end
+
+			if @esRechazado = 2
+			begin
+				SET @Campania = @Campania - @Anio
+				IF(@Campania = @NroCampanias)
+					SET @Campania = @Anio + 101
+				ELSE
+					SET @Campania = @Anio + @Campania + 1
+			END
 			ELSE
-				SET @Campania = @Anio + @Campania + 1
+				SET @AceptacionConsultoraDA = -1
+
 		END
 	END
 
@@ -401,7 +430,9 @@ BEGIN
 					ISNULL(cr.FechaInicioWeb,c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
 					ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0))
 				)
-			) AS FechaFinFacturacion,
+			) 
+			+ case when @esRechazado = 0 or @esRechazado = 1 then 1 else 0 end
+			AS FechaFinFacturacion,
 			ca.NombreCorto AS CampaniaDescripcion,
 			@HoraInicio AS HoraInicio,
 			IIF(@TipoDA = 0, @HoraFin, IIF(ISNULL(cr.CampaniaId,0) = 0,@HoraFin,@HoraCierreZonaDemAnti)) as HoraFin,
@@ -425,7 +456,9 @@ BEGIN
 			@EstadoSimplificacionCUV AS EstadoSimplificacionCUV,
 			@EsquemaDAConsultora AS EsquemaDAConsultora,
 			@ValidacionInteractiva AS ValidacionInteractiva,
-			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva
+			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
+			@IndicadorEnviado as IndicadorEnviado,
+			@esRechazado as IndicadorRechazado
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
@@ -442,7 +475,9 @@ BEGIN
 			ca.Codigo AS CampaniaID,
 			IIF(@AceptacionConsultoraDA < 1, c.FechaInicioFacturacion, cr.FechaInicioWeb) AS FechaInicioFacturacion,
 			IIF(@AceptacionConsultoraDA < 1, c.FechaInicioFacturacion + @DiasDuracionCronograma - 1 + 
-				ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),cr.FechaInicioWeb) AS FechaFinFacturacion,
+				ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion), 0),cr.FechaInicioWeb) 
+			+ case when @esRechazado = 0 or @esRechazado = 1 then 1 else 0 end 
+				AS FechaFinFacturacion,
 			ca.NombreCorto AS CampaniaDescripcion,
 			@HoraInicio AS HoraInicio,
 			IIF(@AceptacionConsultoraDA < 1, @HoraFin, @HoraCierreZonaDemAnti) as HoraFin,
@@ -466,7 +501,9 @@ BEGIN
 			@EstadoSimplificacionCUV AS EstadoSimplificacionCUV,
 			@EsquemaDAConsultora AS EsquemaDAConsultora,
 			@ValidacionInteractiva AS ValidacionInteractiva,
-			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva
+			@MensajeValidacionInteractiva AS MensajeValidacionInteractiva,
+			@IndicadorEnviado as IndicadorEnviado,
+			@esRechazado as IndicadorRechazado
 		FROM [ods].[Cronograma] c (nolock)
 		INNER JOIN [ods].[Zona] z (nolock) ON c.RegionID = z.RegionID AND c.ZonaID = z.ZonaID
 		INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID

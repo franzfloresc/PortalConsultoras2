@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
 
-    waitingDialog({});
+    waitingDialog();
+
+    MensajaEstadoPedido();
+
     closeWaitingDialog();
 
     $(document).ajaxStop(function () {
