@@ -1057,6 +1057,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         return false;
     }
 
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
     var param = ({
         MarcaID: marcaID,
         CUV: cuv,
@@ -1176,7 +1178,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-
+        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
