@@ -125,7 +125,7 @@ $(document).ready(function () {
             EsSugerido: true,
             OrigenPedidoWeb: OrigenPedidoWeb
         };
-        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
+        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
     });
     
     $("#linkAgregarCliente").on("click", function () {
@@ -391,7 +391,7 @@ function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup")
 }
-function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta) {
+function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
     ShowLoading();
     if (ReservadoOEnHorarioRestringido()) {
         CloseLoading();
@@ -410,7 +410,8 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             Descripcion: descripcion,
             Cantidad: cantidad,
             IndicadorMontoMinimo: indicadorMontoMinimo,
-            TipoOferta: tipoOferta
+            TipoOferta: tipoOferta,
+            OrigenPedidoWeb: OrigenPedidoWeb
         }),
         async: true,
         cache: false,
