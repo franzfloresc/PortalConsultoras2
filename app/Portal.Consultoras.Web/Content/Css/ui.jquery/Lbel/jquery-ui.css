@@ -1940,7 +1940,7 @@ button.ui-button::-moz-focus-inner {
 
 /* Overlays *//*ITG - 1869*/
 .ui-widget-overlay {
-    background: url("/Content/Images/bg_popups.png") repeat;
+    background: #aaaaaa /*{bgColorOverlay}*/ url(../images/ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
      /*opacity: .3;
     filter: Alpha(Opacity=30) /*{opacityOverlay}*/
 }
@@ -1948,7 +1948,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-shadow {
     margin: -8px /*{offsetTopShadow}*/ 0 0 -8px /*{offsetLeftShadow}*/;
     padding: 8px /*{thicknessShadow}*/;
-    background: #aaaaaa /*{bgColorShadow}*/ url(../../ui.jquery/images/ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlShadow}*/ 50% /*{bgShadowXPos}*/ 50% /*{bgShadowYPos}*/ repeat-x /*{bgShadowRepeat}*/;
+    background: #aaaaaa /*{bgColorShadow}*/ url(../images/ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlShadow}*/ 50% /*{bgShadowXPos}*/ 50% /*{bgShadowYPos}*/ repeat-x /*{bgShadowRepeat}*/;
     opacity: .3;
     filter: Alpha(Opacity=30) /*{opacityShadow}*/;
     -moz-border-radius: 8px /*{cornerRadiusShadow}*/;

@@ -1,4 +1,5 @@
-﻿var arrayOfertasParaTi = [];
+﻿
+var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
@@ -122,7 +123,7 @@ $(document).ready(function () {
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
             EsSugerido: true,
-            OrigenPedidoWebModel: OrigenPedidoWeb
+            OrigenPedidoWeb: OrigenPedidoWeb
         };
         InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
     });
@@ -1268,7 +1269,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWebModel: OrigenPedidoWeb
+        OrigenPedidoWeb: OrigenPedidoWeb
     });
 
     jQuery.ajax({
