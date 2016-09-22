@@ -72,8 +72,8 @@
                     var result = JSON.parse(output);
                     if (result.succes == true) {
                         closeWaitingDialog();
-                        $('#divFormularioActualizacion').hide();
-                        $('#divActualizacionCorrecta').hide();
+                        $('#divFormulario').hide();
+                        $("#divActualizacionCorrecta").show();
                     }
                     else {
                         closeWaitingDialog();
@@ -162,7 +162,7 @@
             <div class="pestana_lbel"></div>
             <!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
             <div class="contenedor_actualizarContraseniaForm" id="divFormularioActualizacion">
-                <div class="campos_actualizacionContrasenia">
+                <div class="campos_actualizacionContrasenia" id="divFormulario">
                     <div class="saludoConsultora">¡Hola <span><asp:Label runat="server" ID="lblNombre"></asp:Label>!</span></div>
                     <span class="cambiarContraseniaTexto">Cambia tu contraseña aquí:</span>
                     <form id="frmrestablecercontrasena" runat="server" class="formulario_actualizarContrasenia">

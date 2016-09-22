@@ -1,16 +1,14 @@
-﻿using System;
+﻿using EasyCallback;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EasyCallback;
-using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -49,7 +47,6 @@ namespace Portal.Consultoras.Web.WebPages
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "AbrirAlertaPopup", "$(function() { AbrirAlertaPopup('" + titulo + "', '" + mensaje + "'); });", true);
 
                     Response.AddHeader("REFRESH", "3;URL='" + urlportal + "'");
-
                 }
                 else
                 {
@@ -82,7 +79,6 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-
                     string nuevacontrasena = datos["newPassword"].ToString();
 
                     //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
@@ -103,10 +99,8 @@ namespace Portal.Consultoras.Web.WebPages
                             succes = false
                         });
                     }
-
                 }
             }
-
             catch (Exception ex)
             {
                 return serializer.Serialize(new
@@ -139,7 +133,5 @@ namespace Portal.Consultoras.Web.WebPages
             }
             return cipherText;
         }
-
-
     }
 }
