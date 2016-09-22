@@ -38,7 +38,9 @@ namespace Portal.Consultoras.Web.WebPages
 
                 string fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
 
-                DateTime fechaactual = DateTime.Now; 
+                string nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
+
+                DateTime fechaactual = DateTime.Now;
 
                 if (!(Convert.ToDateTime(fechasolicitud) >= fechaactual))
                 {
@@ -51,52 +53,13 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    HttpCookie cokie = Request.Cookies["datosenviado"];
-
-                    if (cokie != null)
-                    {
-                        string emailcokie = cokie["email"];
-                        string paisisocokie = cokie["paisiso"];
-
-                        if (emailcokie == correo && paisisocokie == paisiso)
-                        {
-                            txtpaisid.Text = paisid;
-                            txtcorreo.Text = correo;
-                            txtpaisiso.Text = paisiso;
-                            txtcodigousuario.Text = codigousuario;
-                            txtcontrasenaanterior.Text = fechasolicitud;
-
-                            string[] myCookies = Request.Cookies.AllKeys;
-                            foreach (string cookie in myCookies)
-                            {
-                                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                            }
-
-                        }
-                        else
-                        {
-                            string[] myCookies = Request.Cookies.AllKeys;
-                            foreach (string cookie in myCookies)
-                            {
-                                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                            }
-
-                            Response.Redirect("about:blank");
-                        }
-
-                    }
-                    else
-                    {
-                        string[] myCookies = Request.Cookies.AllKeys;
-                        foreach (string cookie in myCookies)
-                        {
-                            Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                        }
-                        Response.Redirect("about:blank");
-                    }
-
+                    lblNombre.Text = nombre;
+                    txtpaisid.Text = paisid;
+                    txtcorreo.Text = correo;
+                    txtpaisiso.Text = paisiso;
+                    txtcodigousuario.Text = codigousuario;
+                    txtcontrasenaanterior.Text = fechasolicitud;
                 }
-
             }
         }
 
@@ -122,25 +85,22 @@ namespace Portal.Consultoras.Web.WebPages
 
                     string nuevacontrasena = datos["newPassword"].ToString();
 
-                    bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
-                    //bool result = true;
+                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
+                    bool result = true;
 
                     if (result)
                     {
-
+                        linkregresarasomosbelcorp.NavigateUrl = urlportal;
                         return serializer.Serialize(new
                         {
-                            succes = true,
-                            url = urlportal + "/WebPages/CambioExitoso.aspx",
-
+                            succes = true
                         });
                     }
                     else
                     {
                         return serializer.Serialize(new
                         {
-                            succes = false,
-                            estado = "0"
+                            succes = false
                         });
                     }
 

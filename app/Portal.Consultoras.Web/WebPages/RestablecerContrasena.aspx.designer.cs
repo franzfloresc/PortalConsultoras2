@@ -13,6 +13,15 @@ namespace Portal.Consultoras.Web.WebPages {
     public partial class RestablecerContrasena {
         
         /// <summary>
+        /// lblNombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombre;
+        
+        /// <summary>
         /// frmrestablecercontrasena control.
         /// </summary>
         /// <remarks>
@@ -83,5 +92,14 @@ namespace Portal.Consultoras.Web.WebPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtcontrasenanueva2;
+        
+        /// <summary>
+        /// linkregresarasomosbelcorp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink linkregresarasomosbelcorp;
     }
 }
