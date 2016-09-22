@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
     <script src="../Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery-migrate-1.2.1.min.js"></script>
@@ -138,28 +138,28 @@
     <header>
         <div class="wrapper_header">
             <div class="fondo_oscuro"></div>
-            <div class="logo_esika">
+            <div class="logo_esika logoEsikaActualizarContrasenia">
                 <a href="#"></a>
             </div>
         </div>
         <div class="clear"></div>
     </header>
     <div id="loadingScreen"></div>
-    <div class="ubicacion_web ">
+    <div class="ubicacion_web ubicacionWebActualizarContrasenia">
         <span><a href="/Bienvenida">Home</a></span> <span>| Cambio de Contraseña</span>
     </div>
     <div class="content">
         <div class="fondo_f9f9f9">
             <div class="content_belcorp">
                 <div class="fondo_negro_lateral"></div>
-                <div class="titulo_interiores"><span>CAMBIO DE CONTRASEÑA</span></div>
+                <div class="titulo_interiores tituloCambioContrasenia"><span>CAMBIO DE CONTRASEÑA</span></div>
             </div>
             <hr class="clear" />
             <div class="linea_separadora" style="margin-top: -1px"></div>
         </div>
 
         <div class="content_belcorp">
-            <div class="pestana_lbel"></div>
+            <div class="pestana_lbel pestanaLbelActualizarContrasenia"></div>
             <!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
             <div class="contenedor_actualizarContraseniaForm" id="divFormularioActualizacion">
                 <div class="campos_actualizacionContrasenia">
