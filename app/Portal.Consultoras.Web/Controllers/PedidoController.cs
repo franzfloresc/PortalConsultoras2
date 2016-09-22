@@ -310,7 +310,16 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Pedidos Pendientes
-                ViewBag.MostrarPedidosPendientes = System.Configuration.ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("PaisesConsultoraOnline");
+                if (paisesConsultoraOnline.Contains(userData.CodigoISO) )
+                {
+                    ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                }
+                else
+                {
+                    ViewBag.MostrarPedidosPendientes = '0';
+                }
+                
                 #endregion
 
             }
