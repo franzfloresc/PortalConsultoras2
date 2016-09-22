@@ -65,11 +65,11 @@
             <div class="producto_img_home mini">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
-            {{#IsNullOrEmpty item.Sello '!='}}
+            {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
-                <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
             </div>
-            {{/IsNullOrEmpty}}
+            {{/if}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
                 <p class="nombre_producto">
