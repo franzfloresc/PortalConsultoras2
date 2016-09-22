@@ -1726,6 +1726,7 @@
 </script>
 
 <!-- SB20-834 - INICIO -->
+<input  type="hidden" id="totalComuSinMostrar" value="0" />
 
 <script id="template-comunicado" type="text/x-handlebars-template">
 
@@ -1795,8 +1796,8 @@
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
-        var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
-        //var viewBagVioVideo = '0';
+        //var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        var viewBagVioVideo = '0';
         var sessionIsContrato = '@Session["IsContrato"]';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
