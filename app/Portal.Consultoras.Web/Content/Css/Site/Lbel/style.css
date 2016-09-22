@@ -28440,7 +28440,7 @@ a#cierreMotivoRechazo img {
 
 .texto_pedidos_pendientes {
     display: block;
-    font-size: 11px;
+    font-size: 10px;
     color: #d20000;
     margin-bottom: 5px;
     font-weight: bold;
@@ -28908,4 +28908,26 @@ h1#penmostreo .campana {
         left: 56.5%;
         }
     }
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+.fondo_pendiente{
+    background: rgba(0,0,0,0.2);
+    width: 200%;
+    height: 100%;
+    position: absolute;
+    z-index: 90;
+    margin-top: -20px;
+    margin-left: -50%;
 }
