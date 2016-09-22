@@ -310,14 +310,19 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Pedidos Pendientes
+                ViewBag.MostrarPedidosPendientes = "0";
                 string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("PaisesConsultoraOnline");
                 if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                 {
-                    ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                }
-                else
-                {
-                    ViewBag.MostrarPedidosPendientes = '0';
+                    List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                    {
+                        olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
+                    }
+                    if (olstMisPedidos.Any())
+                    {
+                        ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                    }
                 }
 
                 #endregion

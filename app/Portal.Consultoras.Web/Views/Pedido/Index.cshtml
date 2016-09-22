@@ -207,10 +207,11 @@
                 <div id="paginadorCab">
                 </div>
             </div>
-            @*<div class="clear"></div>*@
+            <div class="clear"></div>
 
 
-            @*<div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+            <div id="infoPedido">
+                <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
                     <div class="encabezado_ingresoPedido">
                         <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
                         <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
@@ -228,17 +229,16 @@
 
                     <div id="tbobyDetallePedido"></div>
                 </div>
+            </div>
 
-                    <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-                        <div id="paginadorPie">
-                        </div>
-                    </div>
+            <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+                <div id="paginadorPie">
+                </div>
+            </div>
 
-                    <div class="clear"></div>
-            *@
+            <div class="clear"></div>
 
-
-            <div id="infoPedido">
+            @*<div id="infoPedido">
                 <table data-tag="table" id="tbListaPedido">
                     <thead>
                         <tr>
@@ -266,7 +266,8 @@
                 </div>
 
                 <div class="clear"></div>
-            </div>
+            </div>*@
+        </div>
 
             <div class="caja_guardar_pedido">
                 <div class="contenedor_guardadoPedido">
@@ -456,7 +457,7 @@
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span><b> Productos ingresados desde tu móvil.</b>
                 </p>
             </div>
-        </div>
+        <!--</div>-->
 
         <!--14082016 - INICIO -->
         <div class="contenedor_banners">
@@ -1662,7 +1663,9 @@
                 <label>OFERTA FLEXIPLAGO</label>
             </span>
             {{else}}
-            <label>CLIENTE ONLINE</label>
+            <span class="texto_pedidos_ofertas">
+                <label>CLIENTE ONLINE</label>
+            </span>
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
@@ -2072,7 +2075,7 @@
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-        <div class="producto_carousel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{ />iff}}>
+        <div class="producto_carousel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="producto_img">
             <img src="{{FotoProducto01}}" />
@@ -2385,16 +2388,14 @@
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
 
         //$('#pedmostreo').addClass('bordespacive');
-        //$('#infoPendientes').hide();
+        $('#infoPendientes').hide();
 
         /* SB20-398- INICIO */
-
         var mostrarPedidosPendientes = '@ViewBag.MostrarPedidosPendientes';
 
         if (mostrarPedidosPendientes == '1')
         {
             $('#pedmostreo').addClass('bordespacive');
-            $('#infoPendientes').hide();
 
             $(document).ready(function () {
                 $('#pedmostreo').on('click', function () {
@@ -2407,17 +2408,15 @@
                     $('.contenedor_eliminacion_pedido').show();
                     $('.contenedor_banners').show();
                     $('.info_tiempo_oportunidad.inicial').show();
-                    $('.truco_bloqueo').hide();
+                    //$('.truco_bloqueo').hide();
                     $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                     $('#pedmostreo').removeClass('cambio_bk_pendientes');
                     $('.datos_para_movil').show();
                 });
 
                 $('.optionsRechazo').on('click', function () {
-
                     $('.optionsRechazo').removeClass('optRechazoSelect');
                     $(this).addClass('optRechazoSelect');
-
                 });
 
                 $('#penmostreo').on('click', function () {
@@ -2435,7 +2434,6 @@
                     //TRUCOS BLOQUES
                     $('.truco_bloqueo').show();
                     $('#pedmostreo').addClass('cambio_bk_pendientes');
-
                 });
 
                 //APP CATALOGO

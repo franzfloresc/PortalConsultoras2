@@ -697,11 +697,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //if (Pagina == null)
                 //{
-
-                    // solo pedidos pendientes
-                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
-
-
                     //indiceUltimaPagina = objMisPedidos.ListaPedidos.Count / registrosPagina;
                     //if (objMisPedidos.ListaPedidos.Count % registrosPagina == 0) indiceUltimaPagina--;
                     //TempData["indiceActualPagina"] = indiceActualPagina;
@@ -746,6 +741,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidos.Any())
                 {
+                    // solo pedidos pendientes
+                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+
                     //PedidoModelo.Registros = "1";
                     //PedidoModelo.RegistrosDe = PedidoModelo.ListaDetalle.Count.ToString();
                     //PedidoModelo.RegistrosTotal = lstPedidoWebDetalle.Count.ToString();
@@ -1773,6 +1771,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
                                 mensajecliente.ToString(), true, pedido.Email);
+                            
                         }
                         catch (Exception ex)
                         {
@@ -1797,7 +1796,7 @@ namespace Portal.Consultoras.Web.Controllers
                             try
                             {
                                 string mensaje = mensajeRechazoPedido(nuevaConsultora.Nombre, Util.GetUrlHost(request).ToString(), beSolicitudCliente);
-                                //Common.Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, "Un nuevo cliente te eligió como Consultora Online", mensaje, true, "Consultora Online Belcorp"); //R2442 Cambiando remitente
+                                Common.Util.EnviarMail("no-responder@somosbelcorp.com", nuevaConsultora.Email, "Un nuevo cliente te eligió como Consultora Online", mensaje, true, "Consultora Online Belcorp"); //R2442 Cambiando remitente
                             }
                             catch (Exception ex)
                             {
