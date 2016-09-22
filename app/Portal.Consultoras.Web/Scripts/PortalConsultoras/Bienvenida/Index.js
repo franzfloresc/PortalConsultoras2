@@ -25,41 +25,25 @@ $(document).ready(function () {
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
-
+        var paisCP = false;
+        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+            paisCP = true;
+        }
         fnMovimientoTutorial = setInterval(function ()
         {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //if (numImagen < 5) {
-            //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            //}
-
-            //if (numImagen == 5) {                
-            //    $(".img_slide5").fadeIn();
-            //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
-
-            //    $(".img_slide5").delay(2000);
-            //    $(".img_slide6").delay(2000);
-            //    $(".img_slide7").delay(2000);
-            //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
-            //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
-            //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
-            //}
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
             numImagen++;
-            //if (numImagen > 9) {
-            //    numImagen = 1;
-            //    $(".img_slide5").css('top', '15px');
-            //    $(".img_slide6").css('top', '642px');
-            //    $(".img_slide7").css('top', '1284px');
-            //    $(".imagen_tutorial").animate({ 'opacity': '1' });
-            //}
-            if (numImagen > 8) {
+            if (!paisCP && numImagen == 8 )
+            {
+                $(".img_slide" + numImagen).hide();
+                numImagen++;
+            }
+
+            if (numImagen > 9) {
                 numImagen = 1;
                 $(".imagen_tutorial").animate({ 'opacity': '1' });
             }
         }, 3000);
-
     }
 
     function cerrar_popup_tutorial() {
