@@ -28966,4 +28966,5 @@ h1#penmostreo .campana {
     z-index: 90;
     margin-top: -20px;
     margin-left: -50%;
+    display:none;
 }

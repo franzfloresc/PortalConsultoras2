@@ -58,7 +58,8 @@ function CargarPedidosPend(page, rows) {
                     $('.contenedor_banners').hide();
                     $('.info_tiempo_oportunidad.inicial').hide();
                     
-                    $('.truco_bloqueo').show();
+                    //$('.truco_bloqueo').show();
+                    $(".fondo_pendiente").fadeIn();
                     $('#pedmostreo').addClass('cambio_bk_pendientes');
                     $('.datos_para_movil').hide();
                 }
@@ -76,7 +77,8 @@ function CargarPedidosPend(page, rows) {
                     $('.contenedor_banners').show();
                     $('.info_tiempo_oportunidad.inicial').show();
 
-                    $('.truco_bloqueo').hide();
+                    //$('.truco_bloqueo').hide();
+                    $(".fondo_pendiente").fadeOut();
                     $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                     $('#pedmostreo').removeClass('cambio_bk_pendientes');
                     $('.datos_para_movil').show()
