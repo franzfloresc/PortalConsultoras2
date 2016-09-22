@@ -28296,7 +28296,7 @@ a#cierreMotivoRechazo img {
     border-bottom: 1px solid #C2C2C2;
     margin: 0 auto;
     font-size: 14px;
-    transition: all ease 300ms;
+    /*transition: all ease 300ms;*/
     color: black;
     font-family: 'Lato';
     font-weight: 500;
@@ -28305,9 +28305,13 @@ a#cierreMotivoRechazo img {
 }
 
 .optionsRechazo:hover{
-    background: #f0f0f0;
+    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
+    background-position: 15px 15px;
 }
-
+.optRechazoSelect{
+    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
+    background-position: 15px 15px;    
+}
 .mrechaza{
     display: block;
     position: relative;
