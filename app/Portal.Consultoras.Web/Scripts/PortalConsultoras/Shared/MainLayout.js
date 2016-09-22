@@ -573,8 +573,8 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 };
-function ValidarCorreo(correo) {
-    var expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+function ValidarCorreo(correo) {   
+    var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
 /*Fin Cambios_Landing_Comunidad*/
