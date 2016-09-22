@@ -28051,16 +28051,24 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 /* ACTUALIZAR CONTRASEÑA */
 
+.titulo_interiores.tituloCambioContrasenia{
+    width:100%;
+}
+
 .contenedor_actualizarContraseniaForm{
-    display:block;
-    margin:63px auto 119px auto;
-    font-family:'Lato';
-    width:500px;
+    display: block;
+    margin: 40px auto 119px auto;
+    font-family: 'Lato';
+    text-align: center;
 }
 
 .imagen_consultora, .campos_actualizacionContrasenia{
-    display:inline-block;
-    vertical-align:top;
+    display: block;
+    vertical-align: top;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 365px;
+    padding: 0px 18px 0 20px;
 }
 
 .imagen_consultora{
@@ -28079,6 +28087,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     display:block;
     font-size:18px;
     color:#000;
+    text-align:left;
 }
 
 .cambiarContraseniaTexto{
@@ -28087,12 +28096,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color:#000;
     opacity:0.8;
     margin-bottom:15px;
+    text-align:left;
 }
 
 .formulario_actualizarContrasenia{
     display:block;
     margin:0;
     padding:0;
+    width:100%;
 }
 
 .campoContrasenia, .btnCambiarContrasenia{
@@ -28103,6 +28114,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin:0 0 11px 0;
     font-family:'Lato';
     font-size:14px;
+    width:100%;
 }
 
 .campoContrasenia{
@@ -28144,6 +28156,54 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .btnCambiarContrasenia:hover{
     opacity:0.8;
+}
+
+@media screen and (max-width:1288px) {
+
+    .ubicacion_web.ubicacionWebActualizarContrasenia{
+        padding-left:28px;
+    }
+
+    .logo_esika.logoEsikaActualizarContrasenia{
+        width: 119px;
+        padding-left: 28px;
+    }
+
+    .pestana_lbel.pestanaLbelActualizarContrasenia{
+        margin-left:47px;
+    }
+
+}
+
+@media screen and (min-width:500px) and (max-width:1288px){
+
+    .titulo_interiores.tituloCambioContrasenia{
+        padding-left:28px;
+    }
+
+}
+
+@media screen and (max-width:499px){
+
+    .contenedor_actualizarContraseniaForm{
+       margin: 26px auto 119px auto;
+    }
+
+    .titulo_interiores.tituloCambioContrasenia{
+        width: 100%;
+        padding: 0 0 0 29px;
+        height: 40px;
+    }
+
+    .logo_esika.logoEsikaActualizarContrasenia{
+        width: 93px;
+        text-align: center;
+        float: none;
+        display: block;
+        margin: 6px auto;
+        padding-left:0px;
+    }
+
 }
 
 /* FIN ACTUALIZAR CONTRASEÑA */
