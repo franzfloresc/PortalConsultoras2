@@ -24,7 +24,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-                $('#popupComunicados').show();
+     
     // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
@@ -149,7 +149,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    CargarPopupsConsultora();
+    //CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -3925,7 +3925,7 @@ function clickCerrarComunicado(obj) {
     if (vclose) {
         $('#popupComunicados').hide();
         //console.log('Show popup #4');
-        //CargarPopupsConsultora();
+        CargarPopupsConsultora();
     }
 }
 function clickImagenComunicado(obj) {
