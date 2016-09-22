@@ -2666,17 +2666,18 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos h1 {
-    text-align: left;
+   text-align: center;
     font-size: 22px;
     letter-spacing: 3px;
     color: #000;
     font-family: 'Lato';
-    height:65px;
+    height: 65px;
+    line-height: 65px;
     float: left;
     margin-bottom: -2px;
-    padding: 19px;
-    padding-left: 33px;
-    padding-right: 33px;
+    /* padding: 19px; */
+    /* padding-left: 33px; */
+    /* padding-right: 33px; */
     
 }
 
@@ -28455,7 +28456,7 @@ a#cierreMotivoRechazo img {
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
-    margin-left: 160px;
+    margin-left: 25%;
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
     -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
     box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
@@ -28585,7 +28586,7 @@ div.motivoRechazo textarea {
 
 
 .cambio_bk_pendientes{
-    background-color: #D6D6D6;
+    background-color: #cccccc;
 }
 
 .truco_bloqueo.sim1 {
@@ -28652,7 +28653,7 @@ div.motivoRechazo textarea {
 .info_tiempo_oportunidad.inicial {
     height: 67px;
     padding-top: 5px;
-    margin-top: -57px;
+    margin-top: -74px;
     padding: 10px;
     cursor: pointer;
 }
@@ -28935,4 +28936,23 @@ h1#penmostreo .campana {
     margin-top: -20px;
     margin-left: -50%;
     display:none;
+}
+.content_T_T{
+    background:white;
+    min-height: 600px;
+}
+.bloque_left{
+    position:absolute;
+    top:0;
+    height:65px;
+    background:#cccccc;
+    width:35%;
+    right:0;
+    display:none;
+}
+.w_40{
+    width:40%;
+}
+.w_25{
+     width: 25%;
 }

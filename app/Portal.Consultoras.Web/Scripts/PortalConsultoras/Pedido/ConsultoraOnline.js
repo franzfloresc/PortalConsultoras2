@@ -46,6 +46,7 @@ function CargarPedidosPend(page, rows) {
                     //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
                     $('#penmostreo').show();
+                    $(".bloque_left").fadeIn();
 
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#penmostreo').addClass('bordespacive');
@@ -66,7 +67,7 @@ function CargarPedidosPend(page, rows) {
                 else {
 
                     $('#penmostreo').hide();
-
+                    $(".bloque_left").fadeOut();
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#infoPedido').show();
                     $('#infoPendientes').hide();

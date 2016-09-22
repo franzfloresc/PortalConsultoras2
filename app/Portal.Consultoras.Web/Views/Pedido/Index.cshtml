@@ -173,13 +173,14 @@
         <input type="hidden" id="hdfTotalCliente" value="@Model.TotalCliente" />
         
         <div class="content_T_T" style="position:relative; z-index:100">
+            <div class="bloque_left"></div>
             <div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
                 <div class="paginador_pedidos mostrarPaginadorPedidos">
-                    <div class="titulo_mis_pedidos">
+                    <div class="titulo_mis_pedidos" style="width:100%;">
 
                         @if (ViewBag.MostrarPedidosPendientes == "1")
                         {
-                            <h1 id="pedmostreo">PEDIDO <b>INGRESADO</b></h1>
+                            <h1 id="pedmostreo" class="w_40">PEDIDO <b>INGRESADO</b></h1>
                         }
                         else
                         {
@@ -188,7 +189,7 @@
 
                         @if (ViewBag.MostrarPedidosPendientes == "1")
                         {
-                            <h1 id="penmostreo" style="display:none; background:white ">
+                            <h1 id="penmostreo" style="display: none; background: white;" class="w_25">
                                 <b>PENDIENTES</b>
                                 <div class="info_tiempo_oportunidad inicial">
                                     <div class="campana">
@@ -2403,6 +2404,7 @@
             $(document).ready(function () {
                 $('#pedmostreo').on('click', function () {
                     $(".fondo_pendiente").fadeOut();
+                    $(".bloque_left").fadeOut();
                     $('#pedmostreo').addClass('bordespacive');
                     $('#penmostreo').removeClass('bordespacive');
                     $('#infoPedido').show();
@@ -2426,6 +2428,7 @@
 
                 $('#penmostreo').on('click', function () {
                     $(".fondo_pendiente").fadeIn();
+                    $(".bloque_left").fadeIn();
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#penmostreo').addClass('bordespacive');
                     $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
