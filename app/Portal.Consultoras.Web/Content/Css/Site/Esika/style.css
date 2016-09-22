@@ -28230,6 +28230,15 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         padding: 0;
     }
 
+    .logo_esika.logoEsikaActualizarContrasenia{
+        width: 89px;
+        text-align: center;
+        float: none;
+        display: block;
+        margin: 6px auto;
+        padding-left:0px;
+    }
+
 }
 
 /* FIN ACTUALIZAR CONTRASEÑA */
