@@ -317,6 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model = new UsuarioModel();
 
                     #region Obtener Respuesta del SSiCC
+                    model.MotivoRechazo = "";
                     if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
                     {
                         var procesoRechazado = new BEProcesoPedidoRechazado();
@@ -336,16 +337,26 @@ namespace Portal.Consultoras.Web.Controllers
                             if (listaReclazo.Any())
                             {
                                 model.EstaRechazado = 0;
+                                listaReclazo = listaReclazo.Where(r => r.RequiereGestion).ToList();
                                 var d = listaReclazo.Where(r => r.Procesado).ToList();
                                 if (d.Any())
+                                {
                                     model.EstaRechazado = 1;
+                                    foreach (var rechazo in listaReclazo)
+                                    {
+                                        if (rechazo.MotivoRechazo != "")
+                                        {
+                                            model.MotivoRechazo += " " + rechazo.MotivoRechazo + " " + rechazo.Valor + ".";
+                                        }
+                                    }
+                                }
                                 
                                 // llamar al maestro de mensajes
                             }
                         }
                     }
                     #endregion
-                    
+                    model.MotivoRechazo = model.MotivoRechazo.Trim();
                     model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
                     model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;

@@ -698,6 +698,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorEnviado = model.IndicadorEnviado;
             ViewBag.EstaRechazado = model.EstaRechazado;
             ViewBag.CerrarRechazado = model.CerrarRechazado;
+            ViewBag.MotivoRechazo = model.MotivoRechazo;
 
             return model;
 

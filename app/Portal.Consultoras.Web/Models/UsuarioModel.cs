@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
-
+        public string MotivoRechazo { get; set; }
         public DateTime FechaProceso { get; set; }
 
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado

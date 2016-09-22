@@ -22,16 +22,7 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
-    $("#cerrarMensajeEstadoPedido").click(function () {
-        cerrarMensajeEstadoPedido();
-    });
-
-    function cerrarMensajeEstadoPedido() {
-        $(".content").animate({ "top": "0px" });
-        $(".bloque_mensajesPedido").slideUp();
-    }
-
+    
     function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });

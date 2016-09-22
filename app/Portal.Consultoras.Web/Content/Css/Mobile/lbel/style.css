@@ -1139,6 +1139,7 @@ h4.re3 {
      padding-bottom: 17px;
     
     /*margin-bottom: 54px;*/
+    position: relative;
    }
 .list-inline-border {
     margin: 0;

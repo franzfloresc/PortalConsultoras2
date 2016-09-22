@@ -2,7 +2,7 @@
 
     waitingDialog();
 
-    MensajaEstadoPedido();
+    MensajeEstadoPedido();
 
     closeWaitingDialog();
 
