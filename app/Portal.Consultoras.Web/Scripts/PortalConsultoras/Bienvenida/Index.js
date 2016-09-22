@@ -142,7 +142,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    //CargarPopupsConsultora();
+    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -785,10 +785,20 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
+    
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
+
+    var data1 = $('#divCarruselHorizontal').find('.nombre_producto');
+    nbData = data1.length;
+    var found;
+    for (var iData = 0; iData < nbData; iData++) {
+        if (data1[iData].children[0].innerHTML.length > 40) {
+            data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
+        }
+    }
 
     if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
         $('.fondo_gris').hide();
@@ -898,7 +908,8 @@ function EstructurarDataCarousel(array) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
         } else {
-            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            //item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            item.DescripcionCUV2 = (item.DescripcionCUV2.length > 0 ? item.DescripcionCUV2 : "");
         };
 
         item.Posicion = i+1;
@@ -1125,6 +1136,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
         return false;
     }
 
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
     var param = ({
         MarcaID: marcaID,
         CUV: cuv,
@@ -1245,7 +1258,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-
+        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
@@ -1253,6 +1266,13 @@ function CargarEstrategiasEspeciales(objInput, e) {
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
+
+            if ($('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').children()[0].innerHTML.length > 40) {
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto').addClass('nombre_producto22');
+                $('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').removeClass('nombre_producto');
+                //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
+            }
+            
             $('#popupDetalleCarousel_lanzamiento').show();
         };
     } else {
