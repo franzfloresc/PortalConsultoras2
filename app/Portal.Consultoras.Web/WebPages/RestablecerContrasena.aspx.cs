@@ -26,27 +26,25 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (!Page.IsPostBack)
             {
-                string paisid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"]).Trim()) : "";
-
-                string correo = Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"]).Trim()) : "";
-
-                string paisiso = Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"]).Trim()) : "";
-
-                string codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
-
-                string fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
-
-                string nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
+                var esEsika = false;
+                var paisid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"]).Trim()) : "";
+                var correo = Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"]).Trim()) : "";
+                var paisiso = Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"]).Trim()) : "";
+                var codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
+                var fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
+                var nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
 
                 DateTime fechaactual = DateTime.Now;
 
+                if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
+                    esEsika = true;
+
                 if (!(Convert.ToDateTime(fechasolicitud) >= fechaactual))
                 {
+                    txtmarca.Text = esEsika ? "esika" : "lbel";
                     string titulo = "Sesión Expirada";
-                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña.<br>Vuelva a solicitarla";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "AbrirAlertaPopup", "$(function() { AbrirAlertaPopup('" + titulo + "', '" + mensaje + "'); });", true);
-
-                    Response.AddHeader("REFRESH", "3;URL='" + urlportal + "'");
+                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
                 }
                 else
                 {
@@ -56,6 +54,7 @@ namespace Portal.Consultoras.Web.WebPages
                     txtpaisiso.Text = paisiso;
                     txtcodigousuario.Text = codigousuario;
                     txtcontrasenaanterior.Text = fechasolicitud;
+                    txtmarca.Text = esEsika ? "esika" : "lbel";
                 }
             }
         }
@@ -81,22 +80,23 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     string nuevacontrasena = datos["newPassword"].ToString();
 
-                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
-                    bool result = true;
+                    bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
+                    //bool result = true;
 
                     if (result)
                     {
-                        linkregresarasomosbelcorp.NavigateUrl = urlportal;
                         return serializer.Serialize(new
                         {
-                            succes = true
+                            success = true,
+                            url = urlportal
                         });
                     }
                     else
                     {
                         return serializer.Serialize(new
                         {
-                            succes = false
+                            success = false,
+                            urlportal = urlportal
                         });
                     }
                 }
