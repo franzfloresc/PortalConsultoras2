@@ -2402,6 +2402,7 @@
 
             $(document).ready(function () {
                 $('#pedmostreo').on('click', function () {
+                    $(".fondo_pendiente").fadeOut();
                     $('#pedmostreo').addClass('bordespacive');
                     $('#penmostreo').removeClass('bordespacive');
                     $('#infoPedido').show();
@@ -2412,7 +2413,7 @@
                     $('.contenedor_eliminacion_pedido').show();
                     $('.contenedor_banners').show();
                     $('.info_tiempo_oportunidad.inicial').show();
-                    $('.truco_bloqueo').hide();
+                    //$('.truco_bloqueo').hide();
                     $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                     $('#pedmostreo').removeClass('cambio_bk_pendientes');
                     $('.datos_para_movil').show();
@@ -2424,6 +2425,7 @@
                 });
 
                 $('#penmostreo').on('click', function () {
+                    $(".fondo_pendiente").fadeIn();
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#penmostreo').addClass('bordespacive');
                     $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
@@ -2439,7 +2441,7 @@
                     $('.datos_para_movil').hide();
 
                     //TRUCOS BLOQUES
-                    $('.truco_bloqueo').hide();
+                    //$('.truco_bloqueo').hide();
                     $('#pedmostreo').addClass('cambio_bk_pendientes');
                 });
 
