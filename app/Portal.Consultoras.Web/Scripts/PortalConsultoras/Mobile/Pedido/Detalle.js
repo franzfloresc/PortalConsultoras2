@@ -14,6 +14,19 @@ $(document).ready(function () {
     ValidarKitNuevas();
 
     /* SB20-565 - INICIO */
+
+    $("#suma, #resta").click(function (event) {
+        if (!ValidarPermiso(this)) {
+            event.preventDefault();
+            return false;
+        }
+        var cambio = $(this).attr("id") == "suma" ? +1 : -1;
+        var numactual = $("#txtCantidad").val();
+        numactual = Number(numactual) + cambio;
+        numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
+        $("#txtCantidad").val(numactual);
+    });
+
     $("body").on("click", ".agregarOfertaFinal", function () {
         //AbrirSplash();
         ShowLoading();
@@ -1869,5 +1882,13 @@ function MostrarMensajeProl(data) {
     CargarPedido();
     return true;
 }
+
+function ValidarPermiso(obj) {
+    var permiso = $(obj).attr("disabled") || "";
+    if (permiso != "") {
+        return false;
+    }
+    return true;
+};
 
 /* SB20-565 - FIN */
