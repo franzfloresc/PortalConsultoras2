@@ -841,7 +841,7 @@ function EjecutarServicioPROL() {
                 $('#modal-prol-botonesAceptarCancelar').hide();
                 $('#modal-prol-botoneAceptar').show();                 
                 $('#popup-observaciones-prol').show();
-                
+                AnalyticsGuardarValidar(response);
                 CargarPedido();
                 return true;
             }
@@ -850,6 +850,7 @@ function EjecutarServicioPROL() {
                 if (model.ObservacionInformativa == false) {
                     if (model.ProlSinStock == true) {
                         messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+                        AnalyticsGuardarValidar(response);
                         CargarPedido();
                         return true;
                     }
@@ -868,6 +869,7 @@ function EjecutarServicioPROL() {
                 $('#modal-prol-botoneAceptar').hide();
                 $('#popup-observaciones-prol').show();
 
+                AnalyticsGuardarValidar(response);
                 CargarPedido();                
                 return true;
             }
@@ -883,8 +885,8 @@ function EjecutarServicioPROL() {
             } else {
                 msg = '<h3>Tu pedido se guardó con éxito</h3>';
             }
-            messageInfoBueno(msg);
             AnalyticsGuardarValidar(response);
+            messageInfoBueno(msg);
             CargarPedido();
             return true;
         },
@@ -1055,7 +1057,7 @@ function AnalyticsGuardarValidar(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -1086,7 +1088,7 @@ function AnalyticsPedidoValidado(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);

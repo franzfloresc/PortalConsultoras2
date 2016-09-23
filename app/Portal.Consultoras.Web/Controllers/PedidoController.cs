@@ -3772,14 +3772,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var mensaje = "";
-                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                if (noPasa)
-                {
-                    ErrorServer = true;
-                    tipo = "";
-                    return olstTempListado;
-                }
+                // Confirmar => al modificar tu pedido llama PedidoValidadoDeshacerReserva => Mantiene el pedido en estado Procesado
+                // ReservadoEnHorarioRestringido => llama al  metodo ValidarPedidoReservado (tre como si estuviera validado)
+                //var mensaje = "";
+                //var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                //if (noPasa)
+                //{
+                //    ErrorServer = true;
+                //    tipo = "";
+                //    return olstTempListado;
+                //}
 
                 var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
 
