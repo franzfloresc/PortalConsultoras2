@@ -1243,6 +1243,11 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.CancelarSolicitudCliente(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
 
+        public void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
+        {
+            string error = BLSolicitudCliente.CancelarSolicitudClienteYRemoverPedido(paisID, campaniaID, consultoraID, codigoUsuario, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+            if (!string.IsNullOrEmpty(error)) throw new FaultException(error);
+        }
 
         #endregion
 

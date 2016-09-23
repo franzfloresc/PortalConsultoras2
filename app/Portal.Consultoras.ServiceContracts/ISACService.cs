@@ -603,6 +603,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
+        [OperationContract]
+        void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         [OperationContract]

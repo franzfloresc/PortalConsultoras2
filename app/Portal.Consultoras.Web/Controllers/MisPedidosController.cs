@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                             NombreCorto = facturado.CampaniaID.ToString().Substring(0, 4) + "-" + facturado.CampaniaID.ToString().Substring(4, 2)
                         });
                     }
-                    model.CampaniaActualConsultoraOnline = model.CampaniasConsultoraOnline.First().CampaniaID;
+                    model.CampaniaActualConsultoraOnline = userData.CampaniaID;
                 }
             }
             catch (FaultException ex)
@@ -217,34 +217,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    sc.CancelarSolicitudCliente(userData.PaisID, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
+                    sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
                 }
 
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    listDetallesClienteOnline = sv.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, solicitudClienteId).ToList();
-                }
-                listDetallesClienteOnline = listDetallesClienteOnline.Where(d => d.PedidoWebDetalleID != 0).ToList();
-                if(listDetallesClienteOnline == null) return Json(new { success = true, message = ""});
+                Session["ObservacionesPROL"] = null;
+                Session["PedidoWebDetalle"] = null;
+                UpdPedidoWebMontosPROL();
 
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = this.ObtenerPedidoWebDetalle();
-                if(olstPedidoWebDetalle == null) return Json(new { success = true, message = ""});
-
-                BEPedidoWebDetalle detalle;
-                bool ErrorServer;
-                string tipo;
-                foreach (var item in listDetallesClienteOnline)
-                {
-                    detalle = olstPedidoWebDetalle.FirstOrDefault(d => d.PedidoID == item.PedidoWebID && d.PedidoDetalleID == item.PedidoWebDetalleID);
-                    if (detalle == null) continue;
-
-                    if (detalle.Cantidad > item.Cantidad)
-                    {
-                        detalle.Cantidad -= item.Cantidad;
-                        AdministradorPedido(detalle, "U", out ErrorServer, out tipo);
-                    }
-                    else AdministradorPedido(detalle, "D", out ErrorServer, out tipo);
-                }
                 return Json(new { success = true, message = "" });
             }
             catch (FaultException ex)
@@ -930,214 +909,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return ConsultoraIdmetodo;
         }
-        #endregion
-
-        #region CRUD Pedido
-
-
-        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
-        {
-            try
-            {
-                var userData = UserData();
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-                BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
-                oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
-                oBePedidoWebDetalle.CampaniaID = userData.CampaniaID;
-                oBePedidoWebDetalle.ConsultoraID = userData.ConsultoraID;
-                oBePedidoWebDetalle.PaisID = userData.PaisID;
-                oBePedidoWebDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
-                oBePedidoWebDetalle.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                oBePedidoWebDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-                oBePedidoWebDetalle.PedidoID = userData.PedidoID;
-                oBePedidoWebDetalle.OfertaWeb = model.OfertaWeb;
-                oBePedidoWebDetalle.IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo);
-                oBePedidoWebDetalle.SubTipoOfertaSisID = 0;
-                oBePedidoWebDetalle.EsSugerido = model.EsSugerido;
-                oBePedidoWebDetalle.EsKitNueva = model.EsKitNueva;
-
-                oBePedidoWebDetalle.MarcaID = Convert.ToByte(model.MarcaID);
-                oBePedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
-                oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
-                oBePedidoWebDetalle.CUV = model.CUV;
-
-                oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
-                oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
-                oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
-
-                bool errorServer;
-                string tipo;
-                olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
-
-                return (!errorServer) ? olstPedidoWebDetalle : null;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-
-        private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm, out bool ErrorServer, out string tipo)
-        {
-            List<BEPedidoWebDetalle> olstTempListado = new List<BEPedidoWebDetalle>();
-
-            try
-            {
-                var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
-
-                olstTempListado = ObtenerPedidoWebDetalle();
-
-                if (pedidoWebDetalleNula == false)
-                {
-                    if (oBEPedidoWebDetalle.PedidoDetalleID == 0)
-                    {
-                        if (olstTempListado.Any(p => p.CUV == oBEPedidoWebDetalle.CUV))
-                            oBEPedidoWebDetalle.TipoPedido = "X";
-                    }
-                    else
-                    {
-                        if (olstTempListado.Any(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID))
-                            oBEPedidoWebDetalle.TipoPedido = "X";
-                    }
-                }
-
-                if (TipoAdm == "I")
-                {
-                    int Cantidad;
-                    short Result = ValidarInsercion(olstTempListado, oBEPedidoWebDetalle, out Cantidad);
-                    if (Result != 0)
-                    {
-                        TipoAdm = "U";
-                        oBEPedidoWebDetalle.Stock = oBEPedidoWebDetalle.Cantidad;
-                        oBEPedidoWebDetalle.Cantidad += Cantidad;
-                        oBEPedidoWebDetalle.ImporteTotal = oBEPedidoWebDetalle.Cantidad * oBEPedidoWebDetalle.PrecioUnidad;
-                        oBEPedidoWebDetalle.PedidoDetalleID = Result;
-                        oBEPedidoWebDetalle.Flag = 2;
-                        oBEPedidoWebDetalle.OrdenPedidoWD = 1;
-                    }
-                }
-
-                int TotalClientes = CalcularTotalCliente(olstTempListado, oBEPedidoWebDetalle, TipoAdm == "D" ? oBEPedidoWebDetalle.PedidoDetalleID : (short)0, TipoAdm);
-                decimal TotalImporte = CalcularTotalImporte(olstTempListado, oBEPedidoWebDetalle, TipoAdm == "I" ? (short)0 : oBEPedidoWebDetalle.PedidoDetalleID, TipoAdm);
-
-                oBEPedidoWebDetalle.ImporteTotalPedido = TotalImporte;
-                oBEPedidoWebDetalle.Clientes = TotalClientes;
-
-                oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
-                oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
-
-                switch (TipoAdm)
-                {
-                    case "I":
-                        BEPedidoWebDetalle oBePedidoWebDetalleTemp = null;
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            oBePedidoWebDetalleTemp = sv.Insert(oBEPedidoWebDetalle);
-                        }
-                        oBePedidoWebDetalleTemp.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
-                        oBePedidoWebDetalleTemp.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
-                        oBePedidoWebDetalleTemp.Nombre = oBEPedidoWebDetalle.Nombre;
-
-                        oBEPedidoWebDetalle.PedidoDetalleID = oBePedidoWebDetalleTemp.PedidoDetalleID;
-
-                        if (userData.PedidoID == 0)
-                        {
-                            UsuarioModel usuario = userData;
-                            usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            SetUserData(usuario);
-                        }
-
-                        olstTempListado.Add(oBePedidoWebDetalleTemp);
-
-                        break;
-                    case "U":
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdPedidoWebDetalle(oBEPedidoWebDetalle);
-                        }
-
-                        olstTempListado.Where(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID)
-                            .Update(p =>
-                            {
-                                p.Cantidad = oBEPedidoWebDetalle.Cantidad;
-                                p.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
-                                p.ClienteID = oBEPedidoWebDetalle.ClienteID;
-                                p.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
-                                p.Nombre = oBEPedidoWebDetalle.Nombre;
-                                p.TipoPedido = oBEPedidoWebDetalle.TipoPedido;
-                            });
-
-                        break;
-                    case "D":
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.DelPedidoWebDetalle(oBEPedidoWebDetalle);
-                        }
-
-                        olstTempListado.RemoveAll(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
-
-                        break;
-                }
-
-                Session["PedidoWebDetalle"] = null;
-
-                olstTempListado = ObtenerPedidoWebDetalle();
-                ErrorServer = false;
-                tipo = TipoAdm;
-
-                UpdPedidoWebMontosPROL();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                olstTempListado = ObtenerPedidoWebDetalle();
-                ErrorServer = true;
-                tipo = "";
-            }
-            return olstTempListado;
-        }
-
-        private int CalcularTotalCliente(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, short PedidoDetalleID, string Adm)
-        {
-            List<BEPedidoWebDetalle> Temp = new List<BEPedidoWebDetalle>(Pedido);
-            if (PedidoDetalleID == 0)
-            {
-                if (Adm == "I")
-                    Temp.Add(ItemPedido);
-                else
-                    Temp.Where(p => p.PedidoDetalleID == ItemPedido.PedidoDetalleID).Update(p => p.ClienteID = ItemPedido.ClienteID);
-
-            }
-            else
-                Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
-
-            return Temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
-        }
-
-        private decimal CalcularTotalImporte(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, short PedidoDetalleID, string Adm)
-        {
-            List<BEPedidoWebDetalle> Temp = new List<BEPedidoWebDetalle>(Pedido);
-            if (PedidoDetalleID == 0)
-                Temp.Add(ItemPedido);
-            else
-                Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
-            return Temp.Sum(p => p.ImporteTotal) + (Adm == "U" ? ItemPedido.ImporteTotal : 0);
-        }
-
-        private short ValidarInsercion(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, out int Cantidad)
-        {
-            List<BEPedidoWebDetalle> Temp = new List<BEPedidoWebDetalle>(Pedido);
-            BEPedidoWebDetalle obe = Temp.FirstOrDefault(p => p.ClienteID == ItemPedido.ClienteID && p.CUV == ItemPedido.CUV);
-            Cantidad = obe != null ? obe.Cantidad : 0;
-            return obe != null ? obe.PedidoDetalleID : (short)0;
-        }
-
         #endregion
     }
 }
