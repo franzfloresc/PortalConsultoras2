@@ -6572,6 +6572,7 @@ input[type="checkbox"]:checked + span:after {
     top: 0;
     left: 0;
     overflow-x: hidden;
+    z-index:1001;
 }
 
 .flexsliderTutorialMobile{

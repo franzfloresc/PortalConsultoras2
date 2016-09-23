@@ -29015,6 +29015,7 @@ h1#penmostreo .campana {
     background-color: #ededed;
 }
 
+
 .mod-ofer1 .pos-baja .mod-cantidades{
     float: right;
     margin-top: 18px;
@@ -29634,3 +29635,150 @@ h1#penmostreo .campana {
 }
 
 /* FIN POPUPS OFERTAS REVISTA */
+
+/* ACTUALIZAR CONTRASEÑA */
+
+.contenedor_actualizarContraseniaForm{
+    display: block;
+    margin: 50px auto 119px auto;
+    font-family: 'Lato';
+    text-align: center;
+}
+
+.imagen_consultora, .campos_actualizacionContrasenia{
+    display: block;
+    vertical-align: top;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 365px;
+    padding: 0px 18px 0 20px;
+}
+
+.imagen_consultora{
+    width:131px;
+    height:131px;
+    border-radius:100%;
+    margin-right:40px;
+}
+
+.imagen_consultora img{
+    width:100%;
+    height:auto;
+}
+
+.saludoConsultora{
+    display:block;
+    font-size:18px;
+    color:#000;
+    text-align:left;
+}
+
+.cambiarContraseniaTexto{
+    display:block;
+    font-size:15px;
+    color:#000;
+    opacity:0.8;
+    margin-bottom:15px;
+    text-align:left;
+}
+
+.formulario_actualizarContrasenia{
+    display:block;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+.campoContrasenia, .btnCambiarContrasenia{
+    display:block;
+    width:325px;
+    height:45px;
+    line-height:45px;
+    margin:0 0 11px 0;
+    font-family:'Lato';
+    font-size:14px;
+    width:100%;
+}
+
+.campoContrasenia{
+    border:1px solid #000;
+    color:#000;
+    background:#FFF;
+    font-weight:normal;
+    padding:0 20px;
+}
+
+.campoContrasenia::-webkit-input-placeholder{
+   color:#000;
+}
+
+.campoContrasenia:-moz-placeholder{
+   color:#000;
+}
+
+.campoContrasenia::-moz-placeholder{
+   color:#000;
+}
+
+.campoContrasenia:-ms-input-placeholder{
+   color:#000;
+}
+
+.btnCambiarContrasenia{
+    background:#e81c36;
+    color:#FFF;
+    font-weight:bold;
+    border:1px solid #e81c36;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btnCambiarContrasenia:hover{
+    opacity:0.8;
+}
+
+@media screen and (max-width:1288px) {
+
+    .ubicacion_web.ubicacionWebActualizarContrasenia{
+        padding-left:28px;
+    }
+
+    .logo_esika.logoEsikaActualizarContrasenia{
+        width: 119px;
+        padding-left: 28px;
+    }
+
+}
+
+@media screen and (min-width:500px) and (max-width:1288px){
+
+    .titulo_interiores.tituloCambioContrasenia{
+        padding-left:28px;
+    }
+
+}
+
+@media screen and (max-width:499px){
+
+    .titulo_interiores.tituloCambioContrasenia{
+        background:#000;
+        width: 100%;
+        padding: 0 0 0 29px;
+    }
+
+    .logo_esika.logoEsikaActualizarContrasenia{
+        width: 89px;
+        text-align: center;
+        float: none;
+        display: block;
+        margin: 6px auto;
+        padding-left:0px;
+    }
+
+}
+
+/* FIN ACTUALIZAR CONTRASEÑA */
