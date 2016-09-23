@@ -920,7 +920,7 @@ function TagManagerWS(Catalogo) {
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir WhatsApp',
-        'label': 'Lbel',
+        'label': Catalogo,
         'value': 0
     });
 
