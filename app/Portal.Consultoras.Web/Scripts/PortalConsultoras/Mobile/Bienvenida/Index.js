@@ -309,8 +309,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a onclick="javascript:TagManagerCarruselPrevia();" class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a onclick="javascript:TagManagerCarruselSiguiente();" class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -357,18 +357,18 @@ function ArmarCarouselEstrategias(data) {
                 };
 
                 arrayEstrategia.push(impresionRecomendado);
-
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
+                                
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Home',
                     'action': 'Ofertas para ti',
                     'label': 'Ver anterior'
+                });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
                 });
             } else if (accion == 'next') {
                 //TagManager
@@ -389,18 +389,18 @@ function ArmarCarouselEstrategias(data) {
                 };
 
                 arrayEstrategia.push(impresionRecomendado);
-
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
+                                
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Home',
                     'action': 'Ofertas para ti',
                     'label': 'Ver siguiente'
+                });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
                 });
             };
 
