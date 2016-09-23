@@ -109,26 +109,27 @@ namespace Portal.Consultoras.Entities
         }
     }
 
-    //[DataContract]
+    [DataContract]
     public class BEMisPedidosDetalle
     {
+        [DataMember]
         public long PedidoDetalleId { get; set; }
 
-        //[DataMember]
+        [DataMember]
         public long PedidoId { get; set; }
-        //[DataMember]
+        [DataMember]
         public string Producto { get; set; }
-        //[DataMember]
+        [DataMember]
         public string Tono { get; set; }
-        //[DataMember]
+        [DataMember]
         public string Marca { get; set; }
-        //[DataMember]
+        [DataMember]
         public string CUV { get; set; }
-        //[DataMember]
+        [DataMember]
         public int Cantidad { get; set; }
-        //[DataMember]
+        [DataMember]
         public double PrecioUnitario { get; set; }
-        //[DataMember]
+        [DataMember]
         public double PrecioTotal { get; set; }
 
         public string MedioContacto { get; set; }
@@ -139,10 +140,13 @@ namespace Portal.Consultoras.Entities
 
         public string MensajeValidacion { get; set; }
 
+        [DataMember]
         public int TipoAtencion { get; set; }
 
+        [DataMember]
         public int PedidoWebID { get; set; }
 
+        [DataMember]
         public int PedidoWebDetalleID { get; set; }
         
         //[DataMember]

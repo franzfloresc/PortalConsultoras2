@@ -1,7 +1,6 @@
 ﻿var slidetime = 1000;
 var slidedireccion = "left";
 var slidedireccionInversa = "right";
-var primeraVezClienteOnline = true;
 
 $(document).ready(function () {    
     WidthWindow();
@@ -155,7 +154,6 @@ $(document).ready(function () {
     });
 
     CargarEventosTabs();
-    CargarEventosClienteOnline();
 });
 
 function CargarEventosTabs() {
@@ -177,43 +175,6 @@ function CargarEventosTabs() {
         .on('mouseout', function () { $("#barCursor").css("opacity", "0"); });
 
     $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
-}
-
-function CargarEventosClienteOnline() {
-    $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').on('click', function (e) {
-        if (primeraVezClienteOnline) {
-            primeraVezClienteOnline = false;
-            $('#ddlCampania').trigger('change');
-        }
-    });
-    $('#ddlCampania').on('change', function () {
-        waitingDialog();
-        jQuery.ajax({
-            type: 'POST',
-            url: urlClienteOnline,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
-            success: function (data) {
-                if (!checkTimeout(data)) return false;
-
-                console.log(data);
-                console.log(data.success);
-                console.log(data.listaPedidosClienteOnline.length);
-
-                if(data.success && data.listaPedidosClienteOnline.length > 0){
-                    var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
-                    $('#divTablaClientesOnline').html(tablaClientesOnline);
-                }
-                else $('#divTablaClientesOnline').html(data.message);
-            },
-            error: function(data) {
-                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
-                console.log(data);
-            },
-            complete: closeWaitingDialog
-        });        
-    })
 }
 
 function CargarFramePedido(campania)

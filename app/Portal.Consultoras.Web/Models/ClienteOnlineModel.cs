@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class MisPedidosClienteOnlineModel
+    public class ClienteOnlineModel
     {
         public long SolicitudClienteID { get; set; }
         public int MarcaID { get; set; }

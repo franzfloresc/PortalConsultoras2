@@ -22,5 +22,6 @@ namespace Portal.Consultoras.Web.Models
 
         public List<BECliente> Clientes { get; set; }
         public int ClienteId { get; set; }
+        public bool MostrarClienteOnline { get; set; }
     }
 }

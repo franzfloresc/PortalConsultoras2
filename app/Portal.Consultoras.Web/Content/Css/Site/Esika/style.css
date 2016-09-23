@@ -22695,7 +22695,7 @@ body{
 
 .percepcion_campania select, .pedidosFacturados_campania select{
     display:block;
-    width:81px;
+    width:107px;
     height:41px;
     border:1px solid #CCC;
     padding-left:10px;
@@ -27805,7 +27805,7 @@ span.datoPedidoCliente {
     float: left;
 }
 
-.venderecha{
+.venderecha, .venderecha-ancho{
     float: right;
 }
 .precarga:before {
@@ -27877,6 +27877,10 @@ div.confirmacionRechazo h1 {
 button.btn_eliminarCliente.venderecha.prosigue {
     background-color: #000;
     color: white;
+}
+button.btn_eliminarCliente.venderecha-ancho{
+    width: 280px;
+    margin-right: 0px;
 }
 
 a#cierreRechazoPendientes img {
@@ -28306,8 +28310,7 @@ a#cierreMotivoRechazo img {
     padding-left: 35px;
     cursor: pointer;
 }
-
-.optionsRechazo:hover{
+.optionsRechazo:hover, .optionsRechazo.optionsSeleccionado{
     background: #f0f0f0;
 }
 

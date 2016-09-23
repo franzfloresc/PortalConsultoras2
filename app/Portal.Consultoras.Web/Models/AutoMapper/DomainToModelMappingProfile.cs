@@ -78,9 +78,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 
-            Mapper.CreateMap<BEMisPedidos, MisPedidosClienteOnlineModel>()
+            Mapper.CreateMap<BEMisPedidos, ClienteOnlineModel>()
                 .ForMember(t => t.SolicitudClienteID, f => f.MapFrom(c => c.PedidoId))
                 .ForMember(t => t.ClienteNuevo, f => f.MapFrom(c => c.MarcaID > 0 || !c.FlagConsultora));
+
+            Mapper.CreateMap<BEMisPedidosDetalle, ClienteOnlineDetalleModel>()
+                .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));
         }
     }
 }
