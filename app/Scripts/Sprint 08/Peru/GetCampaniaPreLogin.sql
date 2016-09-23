@@ -1,7 +1,4 @@
-Text
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-CREATE FUNCTION [dbo].[GetCampaniaPreLogin](
+ALTER FUNCTION [dbo].[GetCampaniaPreLogin](
 
 @PaisID tinyint,        
 @ZonaID int,        
@@ -25,7 +22,7 @@ DECLARE @NroCampanias INT
 select	@ZonaHoraria = ISNULL(ZonaHoraria,0),        
 		@HoraCierreZonaNormal = HoraCierreZonaNormal,        
 		@HoraCierreZonaDemAnti = HoraCierreZonaDemAnti,
-		@NroCampanias = NroCampanias       
+		@NroCampanias = NroCampanias      
 from Pais (nolock)        
 where PaisId = @PaisID        
 
@@ -74,6 +71,9 @@ WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID AND
 		CONVERT(datetime, c.FechaInicioFacturacion + @DiasDuracionCronograma -1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion),0)) + CONVERT(datetime, @HoraCierreZonaNormal) < @FechaGeneral        
 ORDER BY c.CampaniaID DESC        
 
+declare @IndicadorEnviado bit = 0  
+DECLARE @esRechazado int = -1
+
 IF(@Campania <> 0)        
 BEGIN       
 	SET @Campania = @Campania - @Anio        
@@ -82,23 +82,21 @@ BEGIN
 	ELSE        
 		SET @Campania = @Anio + @Campania + 1    
 
-  --Colocar nueva lógica    
+		--Colocar nueva lógica    
 
-	declare @IndicadorEnviado bit    
-	set @IndicadorEnviado = 0    
-
-	Select @IndicadorEnviado  = IndicadorEnviado    
-	From pedidoweb (nolock)  
-	Where CampaniaID = @campania and consultoraid = @consultoraid    
-
-	If(@IndicadorEnviado = 1)    
-	Begin    
-		SET @Campania = @Campania - @Anio      
-		IF(@Campania = @NroCampanias)      
-			SET @Campania = @Anio + 101      
-		ELSE      
-			SET @Campania = @Anio + @Campania + 1      
-	end  
+	
+		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+				
+		if @IndicadorEnviado = 1 and @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+		begin
+			SET @Campania = @Campania - @Anio
+			IF(@Campania = @NroCampanias)
+				SET @Campania = @Anio + 101
+			ELSE
+				SET @Campania = @Anio + @Campania + 1
+		END
+		
 
 	INSERT INTO @TablaDatos
 	(CampaniaId)
@@ -118,22 +116,20 @@ BEGIN
 	INNER JOIN [ods].[Campania] ca (nolock) ON c.CampaniaID = ca.CampaniaID
 	WHERE c.ZonaID = @ZonaID AND c.RegionID = @RegionID
 	ORDER BY c.FechaFinFacturacion ASC
+ 
 
-	declare @IndicadorEnviado2 bit   
-	set @IndicadorEnviado2 = 0    
-
-	Select @IndicadorEnviado2  = IndicadorEnviado    
-	From pedidoweb (nolock)  
-	Where CampaniaID = @campania and consultoraid = @consultoraid    
-
-	If(@IndicadorEnviado2 = 1)    
-	Begin    
-		SET @Campania = @Campania - @Anio      
-		IF(@Campania = @NroCampanias)      
-			SET @Campania = @Anio + 101      
-		ELSE      
-			SET @Campania = @Anio + @Campania + 1      
-	end
+		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+				
+		if @IndicadorEnviado = 1 and @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+		begin
+			SET @Campania = @Campania - @Anio
+			IF(@Campania = @NroCampanias)
+				SET @Campania = @Anio + 101
+			ELSE
+				SET @Campania = @Anio + @Campania + 1
+		END
+			
 
 	INSERT INTO @TablaDatos
 	(CampaniaId)
@@ -147,5 +143,4 @@ BEGIN
 END
 	RETURN
 END
-
 
