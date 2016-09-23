@@ -47,6 +47,7 @@ function CargarPedidosPend(page, rows) {
 
                     $('#penmostreo').show();
                     $(".bloque_left").fadeIn();
+                    $('.content_T_T').addClass("fondo_lateral");
 
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#penmostreo').addClass('bordespacive');
@@ -68,6 +69,7 @@ function CargarPedidosPend(page, rows) {
 
                     $('#penmostreo').hide();
                     $(".bloque_left").fadeOut();
+                    $('.content_T_T').removeClass("fondo_lateral");
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#infoPedido').show();
                     $('#infoPendientes').hide();

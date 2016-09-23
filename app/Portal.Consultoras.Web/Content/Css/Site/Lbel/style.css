@@ -2666,9 +2666,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos h1 {
-   text-align: center;
-    font-size: 22px;
-    letter-spacing: 3px;
+       text-align: center;
+    font-weight: 300 !important;
+    font-size: 17px;
+    letter-spacing: 2.5px;
     color: #000;
     font-family: 'Lato';
     height: 65px;
@@ -2677,7 +2678,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     margin-bottom: -2px;
     /* padding: 19px; */
     /* padding-left: 33px; */
-    /* padding-right: 33px; */
+    /* padding-right: 33px;*/
     
 }
 
@@ -2688,9 +2689,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     border-top: 1px solid;
 }
 
-.titulo_mis_pedidos h1 b{
+/*.titulo_mis_pedidos h1 b{
     font-size:21px;
-}
+}*/
 
 .mis_pedidos span{
     font-size: 13px;
@@ -28441,11 +28442,11 @@ a#cierreMotivoRechazo img {
 
 .texto_pedidos_pendientes {
     display: block;
-    font-size: 10px;
+    font-size: 12.5px;
     color: #d20000;
     margin-bottom: 5px;
     font-weight: bold;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 .info_tiempo_oportunidad {
@@ -28456,7 +28457,7 @@ a#cierreMotivoRechazo img {
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
-    margin-left: 25%;
+    margin-left: 20%;
     -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
     -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
     box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
@@ -28586,7 +28587,8 @@ div.motivoRechazo textarea {
 
 
 .cambio_bk_pendientes{
-    background-color: #cccccc;
+    background-color: #efefef;
+    border-bottom:1px solid black;
 }
 
 .truco_bloqueo.sim1 {
@@ -28664,7 +28666,7 @@ div.motivoRechazo textarea {
 
 .info_tiempo_oportunidad.inicial * {
     font-size: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
 }
 
 .info_tiempo_oportunidad.inicial h6 {
@@ -28675,7 +28677,7 @@ div.motivoRechazo textarea {
 }
 
 .info_tiempo_oportunidad.inicial .tiempos_P {
-    width: 264px;
+    width: 225px;
 }
 
 .info_tiempo_oportunidad.inicial .noticia{
@@ -28914,6 +28916,7 @@ h1#penmostreo .campana {
         }
     }
 }
+
 .popup_rechazarPendientes{
     position: relative;
     top: 15%;
@@ -28928,7 +28931,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
 }
 .fondo_pendiente{
-    background: rgba(0,0,0,0.2);
+    background: rgba(214,214,214,0.4);
     width: 200%;
     height: 100%;
     position: absolute;
@@ -28945,14 +28948,74 @@ h1#penmostreo .campana {
     position:absolute;
     top:0;
     height:65px;
-    background:#cccccc;
-    width:35%;
+    background:#efefef;
+    width:41%;
     right:0;
     display:none;
+    border-bottom:1px solid black;
 }
 .w_40{
-    width:40%;
+    width:34%;
 }
 .w_25{
      width: 25%;
+}
+
+.fondo_lateral{
+    display:block;
+}
+
+ .fondo_lateral::before{
+    content:"";
+    position:absolute;
+    width:36px;
+    background-image: url(../../../Images/Esika/tabs_consultora.png);
+    background-color:#FFF;
+    background-repeat:repeat-x;
+    height:100%;
+    right:-36px;
+}
+ .fondo_lateral::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    background-image: url(../../../Images/Esika/tabs_consultora.png);
+    background-color:#FFF;
+    background-repeat:repeat-x;
+    height: 100%;
+    left: -100%;
+    top: 0;
+}
+
+.tab_pendiente_es {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    text-align: left !important;
+    padding-left: 3% !important;
+    width: 66% !important;
+    margin-bottom: 30px !important;
+}
+@media screen and (max-width: 1100px)
+{
+  .w_40 {
+    width: 40%;
+    }
+    .w_25{
+         width: 30%;
+    }
+    .info_tiempo_oportunidad{
+            margin-left: 24%;
+    }
+    .bloque_left{
+            width: 30%;
+    }
+    .tab_pendiente_es {
+    
+    width: 60% !important;  
+    }
+    .fondo_lateral::before {
+    
+    width: 30px;  
+    right: -30px;
+    }
 }

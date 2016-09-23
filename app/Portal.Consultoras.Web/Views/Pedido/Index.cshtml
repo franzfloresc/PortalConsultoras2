@@ -180,7 +180,7 @@
 
                         @if (ViewBag.MostrarPedidosPendientes == "1")
                         {
-                            <h1 id="pedmostreo" class="w_40">PEDIDO <b>INGRESADO</b></h1>
+                            <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
                         }
                         else
                         {
@@ -189,7 +189,7 @@
 
                         @if (ViewBag.MostrarPedidosPendientes == "1")
                         {
-                            <h1 id="penmostreo" style="display: none; background: white;" class="w_25">
+                            <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
                                 <b>PENDIENTES</b>
                                 <div class="info_tiempo_oportunidad inicial">
                                     <div class="campana">
@@ -513,7 +513,7 @@
                     </div>
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
-                    <div style="max-height:419px; overflow:auto;">
+                    <div @*style="max-height:419px; overflow:auto;"*@>
 
                         <div id="divPedidosPend"> </div>
                         @*<div class="content_datos_percepciones mouse-encima-padding">
@@ -1834,9 +1834,9 @@
                             <label>¡No pierdas esta oportunidad!</label>
                         </span>
                         {{#if FlagConsultora}}
-                        <h6 class="tiempos_P">Te quedan <span><b>00:00:00</b></span>horas</h6>
+                        <h6 class="tiempos_P">Te quedan <span><b>00:00:00</b></span> horas</h6>
                         {{else}}
-                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span>horas</h6>
+                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
                         {{/if}}
                         <h4 class="linkea_Pendientes">►REVÍSALO</h4>
                     </div>
@@ -2400,13 +2400,16 @@
         if (mostrarPedidosPendientes == '1')
         {
             $('#pedmostreo').addClass('bordespacive');
+            $('.fondo_lateral').removeClass("fondo_lateral");
 
             $(document).ready(function () {
                 $('#pedmostreo').on('click', function () {
+                    $('.content_T_T').removeClass("fondo_lateral");
                     $(".fondo_pendiente").fadeOut();
                     $(".bloque_left").fadeOut();
                     $('#pedmostreo').addClass('bordespacive');
                     $('#penmostreo').removeClass('bordespacive');
+                    $('#penmostreo').addClass('tab_pendiente_es');
                     $('#infoPedido').show();
                     $('#infoPendientes').hide();
                     $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
@@ -2419,6 +2422,15 @@
                     $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                     $('#pedmostreo').removeClass('cambio_bk_pendientes');
                     $('.datos_para_movil').show();
+
+                    //var idPedido = $("#pedmostreo").attr("data-pedido");
+                    //if(idPedido == "1"){
+                    //    $('.content_T_T').removeClass("fondo_lateral");
+                       
+                    //}else{
+                    //    $('.content_T_T').addClass("fondo_lateral");
+                    //}
+                        
                 });
 
                 $('.optionsRechazo').on('click', function () {
@@ -2427,6 +2439,8 @@
                 });
 
                 $('#penmostreo').on('click', function () {
+                    $('#penmostreo').removeClass('tab_pendiente_es');
+                    $('.content_T_T').addClass("fondo_lateral");
                     $(".fondo_pendiente").fadeIn();
                     $(".bloque_left").fadeIn();
                     $('#pedmostreo').removeClass('bordespacive');
