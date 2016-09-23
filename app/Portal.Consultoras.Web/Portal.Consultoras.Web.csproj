@@ -1647,11 +1647,13 @@
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika7.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika8.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika9.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5.jpg" />
+    <Content Include="Content\Images\Esika\tutorial\tuto6.jpg" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\tutorial\tuto2.png" />
