@@ -10,7 +10,57 @@
         $("#btnGenerar").click(function () {
             IniciarProceso();
         });
+
+        $("#txtFechaFacturacion").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+
     });
+
+    function RestriccionFechas() {
+        if ($("#ddlCampania").val() == "") {
+            $("#txtFechaFacturacion").datepicker("destroy");
+            $("#txtFechaReFacturacion").datepicker("destroy");
+            $("#txtFechaFacturacion").datepicker({
+                showOn: "button",
+                buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy'
+            }).mask('99/99/9999');
+            $("#txtFechaReFacturacion").datepicker({
+                showOn: "button",
+                buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy'
+            }).mask('99/99/9999');
+        }
+        else {
+            $("#txtFechaFacturacion").val('');
+            $("#txtFechaReFacturacion").val('');
+            $("#txtFechaFacturacion").datepicker("destroy");
+            $("#txtFechaReFacturacion").datepicker("destroy");
+            $("#txtFechaFacturacion").datepicker({
+                showOn: "button",
+                buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy',
+                minDate: new Date("01/01/" + (parseInt($("#ddlCampania").val().substring(0, 4)) - 1).toString()),
+                maxDate: new Date("12/31/" + $("#ddlCampania").val().substring(0, 4))
+            }).mask('99/99/9999');
+            $("#txtFechaReFacturacion").datepicker({
+                showOn: "button",
+                buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy',
+                minDate: new Date("01/01/" + (parseInt($("#ddlCampania").val().substring(0, 4)) - 1).toString()),
+                maxDate: new Date("12/31/" + $("#ddlCampania").val().substring(0, 4))
+            }).mask('99/99/9999');
+        }
+        return false;
+    }
 
     function IniciarProceso() {
         var waiting = {
@@ -19,11 +69,13 @@
         };
         waitingDialog(waiting);
 
+        var params = { FechaFacturacion: jQuery('#txtFechaFacturacion').val() };       
         $.ajax({
             type: 'POST',
             url: window.baseUrl + 'EjecucionPROLAuto/EjecutarValidacionPROLAuto',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
             async: true,
             cache: false,
             success: function (data) {
@@ -57,9 +109,7 @@
     }
 
 </script>
-
 <div class="wrap_cab">
-
     <div class="filtros">
         <div class="elements">
             <div class="div-2">
@@ -71,11 +121,16 @@
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper_reg">
-
             <div class="div-3">
                 <div class="titF">País :</div>
                 <div class="selectP2 disabled borde_redondeado">
                     <input type="text" id="txtPais" disabled="disabled" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titJ">Fecha facturación:</div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="txtFechaFacturacion">
                 </div>
             </div>
             <div class="div-3">
@@ -104,7 +159,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             setInterval(function () {
                 $.ajaxSetup({
                     cache: false
