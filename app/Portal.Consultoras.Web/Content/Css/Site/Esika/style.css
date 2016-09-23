@@ -28864,6 +28864,7 @@ h1#penmostreo .campana {
     padding: 3px 7px;
     vertical-align: middle;
     margin-right: 8px;
+    cursor:pointer;
 }
 
 .lupa_online{
@@ -28897,4 +28898,20 @@ h1#penmostreo .campana {
 .estado_cancelado{
     background:#e7e7e7;
     color:black;
+}
+.mis_pagos_tabs{
+    width:79%;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
