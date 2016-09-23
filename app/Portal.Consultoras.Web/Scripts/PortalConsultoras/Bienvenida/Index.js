@@ -505,9 +505,11 @@ function cerrar_popup_tutorial() {
     }
     else {
         if (viewBagVerComunicado == '1') {
-            showComunicadoSinMostrar();
-            if ($.trim($('#popupComunicados').html()) != "") {
-                $('#popupComunicados').show();
+            if ($('#totalComuSinMostrar').val() != '0') {
+                showComunicadoSinMostrar();
+                if ($.trim($('#popupComunicados').html()) != "") {
+                    $('#popupComunicados').show();
+                }
             }
         }
         else {
@@ -716,7 +718,6 @@ function mostrarVideoIntroductorio() {
         primeraVezVideo = false;
 
         /* SB20-834 - INICIO */
-        //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
         if (viewBagVerComunicado == '-1') {
             waitingDialog({});
         }
@@ -738,6 +739,7 @@ function mostrarVideoIntroductorio() {
 function procesarPromesaComunicado(response) {
 
     viewBagVerComunicado = response.comunicadoVisualizado;
+    $('#totalComuSinMostrar').val(response.data.length);
 
     $.each(response.data, function (id, item) {
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
@@ -3860,6 +3862,7 @@ function AgregarTagManagerShowRoomCheckBox() {
 //Fin ShowRoom
 /* SB20-834 - INICIO */
 function ObtenerComunicadosPopUps() {
+    //console.log('ObtenerComunicadosPopUps');
     waitingDialog({});
     $.ajax({
         type: "GET",
@@ -3910,6 +3913,7 @@ function clickCerrarComunicado(obj) {
     var vclose = showComunicadoSinMostrar();
 
     if (vclose) {
+        $('#totalComuSinMostrar').val('0');
         $('#popupComunicados').hide();
         //console.log('Show popup #4');
         CargarPopupsConsultora();
@@ -3944,6 +3948,7 @@ function clickImagenComunicado(obj) {
     var vclose = showComunicadoSinMostrar();
 
     if (vclose) {
+        $('#totalComuSinMostrar').val('0');
         $('#popupComunicados').hide();
         //console.log('Show popup #4');
         //CargarPopupsConsultora();
