@@ -3358,7 +3358,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session["ProductosOfertaFinal"] = null;
+                //Session["ProductosOfertaFinal"] = null;
 
                 return Json(new
                 {
@@ -4726,13 +4726,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         #endregion
-
+        
         [HttpPost]
-        public void LimpiarSesionProductosOF()
-        {
-            Session["ProductosOfertaFinal"] = null;
-        }
-
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
             var listaProductoModel = new List<ProductoModel>();
@@ -4819,15 +4814,44 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
                 }
 
+                /*Obtener si tiene stock de PROL por CodigoSAP*/
+                var listaTieneStock = new List<Lista>();
+                string codigoSap = "";
+                foreach (var beProducto in listaProductoModel)
+                    codigoSap += beProducto.CodigoProducto + "|";
+
+                try
+                {
+                    using (var sv = new wsConsulta())
+                    {
+                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                    listaTieneStock = new List<Lista>();
+                }
+
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
+                bool tieneStockProl = false;
                 foreach (var item in listaProductoModel)
                 {
-                    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
-                    addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
-                    if (addProducto.CUV == "")
-                        listaRetorno.Add(item);
+                    var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == item.CodigoProducto);
+                    if (itemStockProl != null)
+                        tieneStockProl = itemStockProl.estado == 1;
+
+                    if (tieneStockProl)
+                    {
+                        var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
+                        addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
+                        if (addProducto.CUV == "")
+                            listaRetorno.Add(item);   
+                    }                    
                 }
 
                 return Json(new

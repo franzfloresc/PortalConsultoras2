@@ -7864,6 +7864,19 @@ a:focus, a:hover {
     color: #e81c36;
 }
 
+@media only screen and (max-width:380px) {
+    .iphone_1{
+    margin-top: 7px; float: left; width: 35px; height: 35px;
+    }
+    .iphone_2{
+    float: left;
+    width: 80%;
+    margin-top: 7px;
+    padding-left: 10px;
+    text-align: left;
+    }
+}
+
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{

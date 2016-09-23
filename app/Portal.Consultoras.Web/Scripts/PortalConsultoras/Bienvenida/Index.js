@@ -7,32 +7,30 @@ var fnMovimientoTutorial;
 var showViewVideo = viewBagVioVideo;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
+$(document).ready(function() {
 
-$(document).ready(function () {
-
-    $('.contenedor_img_perfil').on('click', CargarCamara);
+    //$('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
-    })
+    });
 
     $('#salvavidaTutorial').show();
 
-    $(".abrir_tutorial").click(function () {
+    $(".abrir_tutorial").click(function() {
         abrir_popup_tutorial();
     });
-    $(".cerrar_tutorial").click(function () {
+    $(".cerrar_tutorial").click(function() {
         cerrar_popup_tutorial();
     });
-    
-     
+
     // Evento para visualizar video introductorio al hacer click
-    $(".ver_video_introductorio").click(function () {
+    $(".ver_video_introductorio").click(function() {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
-        $('#videoIntroductorio').fadeIn(function () {
+        $('#videoIntroductorio').fadeIn(function() {
             $("#videoIntroductorio").delay(200);
-            $("#videoIntroductorio").fadeIn(function () {
+            $("#videoIntroductorio").fadeIn(function() {
                 playVideo();
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -45,7 +43,7 @@ $(document).ready(function () {
         });
     });
 
-    document.onkeydown = function (evt) {
+    document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
@@ -53,9 +51,9 @@ $(document).ready(function () {
             }
             if ($('#videoIntroductorio').is(':visible')) {
                 if (primeraVezVideo) {
-                    abrir_popup_tutorial();                    
+                    abrir_popup_tutorial();
                 }
-                stopVideo();                
+                stopVideo();
                 $('#videoIntroductorio').hide();
                 if (contadorFondoPopUp == 1) {
                     $("#fondoComunPopUp").hide();
@@ -65,24 +63,24 @@ $(document).ready(function () {
             }
         }
     };
-    
+
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
 
     // Funcion para cambiar background según posicion de scroll
-    $(window).scroll(function () {
+    $(window).scroll(function() {
 
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
             $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
+                    opacity: 0
+                }, 100, 'swing', function() {
+                    $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                    $(".flecha_scroll").delay(100);
+                    $(".flecha_scroll").animate({
+                        opacity: 1
+                    }, 100, 'swing');
+                });
         } else {
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
         }
@@ -90,7 +88,7 @@ $(document).ready(function () {
     });
 
     // Evento click que ocurre en la flecha scroll
-    $(".flecha_scroll").on('click', function (e) {
+    $(".flecha_scroll").on('click', function(e) {
 
         e.preventDefault();
         var posicion = $(window).scrollTop();
@@ -115,7 +113,7 @@ $(document).ready(function () {
         ObtenerComunicadosPopUps();
     }
 
-    $('body').bind('resize', '.popup_comunicados', function (e) {
+    $('body').bind('resize', '.popup_comunicados', function(e) {
         stylePopupComunicado($(this).attr('id'));
         //console.log('showViewVideo:' + showViewVideo);
         //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
@@ -124,38 +122,38 @@ $(document).ready(function () {
             $('#popupComunicados').show();
         }
     });
-    /* SB20-834 - FIN */
-
+    /* SB20-834 - FIN */    
+    
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    //CargarPopupsConsultora();
+    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
-    $("#btnActualizarMD").click(function () { ActualizarMD(); });
-    $("#btnActualizarDatos").click(function () {
+    $("#btnCambiarContrasenaMD").click(function() { CambiarContrasenia(); });
+    $("#btnActualizarMD").click(function() { ActualizarMD(); });
+    $("#btnActualizarDatos").click(function() {
         ActualizarDatos();
         return false;
     });
 
-    $("#btnCerrarActualizarDatos").click(function () {
+    $("#btnCerrarActualizarDatos").click(function() {
         CerrarPopupActualizacionDatos();
         return false;
     });
-    $("#btnActualizarDatosMexico").click(function () {
+    $("#btnActualizarDatosMexico").click(function() {
         ActualizarDatosMexico();
         return false;
     });
-    $("#btnCerrarActualizarDatosMexico").click(function () {
+    $("#btnCerrarActualizarDatosMexico").click(function() {
         CerrarPopupActualizacionDatosMexico();
         return false;
     });
-    
-    $("#cerrarVideoIntroductorio").click(function () {
+
+    $("#cerrarVideoIntroductorio").click(function() {
         if (primeraVezVideo) {
             //console.log('Init popup #2');
             abrir_popup_tutorial();
@@ -178,7 +176,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#cerrarAceptacionContrato").click(function () {
+    $("#cerrarAceptacionContrato").click(function() {
         $('#popupAceptacionContrato').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -187,7 +185,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#cerrarInvitacionFlexipago").click(function () {
+    $("#cerrarInvitacionFlexipago").click(function() {
         $('#popupInvitaionFlexipago').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -195,7 +193,7 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
-    $("#abrirPopupMisDatos").click(function () {
+    $("#abrirPopupMisDatos").click(function() {
         if (contadorFondoPopUp == 0) {
             $("#fondoComunPopUp").show();
         }
@@ -204,7 +202,7 @@ $(document).ready(function () {
         contadorFondoPopUp++;
         return false;
     });
-    $("#cerrarPopupMisDatos").click(function () {
+    $("#cerrarPopupMisDatos").click(function() {
         $('#popupMisDatos').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -212,26 +210,26 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
-    $('#hrefTerminos').click(function () {
+    $('#hrefTerminos').click(function() {
         waitingDialog({});
         DownloadAttachPDFTerminos();
     });
-    $('#hrefTerminosMD').click(function () {
+    $('#hrefTerminosMD').click(function() {
         waitingDialog({});
         DownloadAttachContratoActualizarDatos();
     });
-    $('#hrefContratoMD').click(function () {
+    $('#hrefContratoMD').click(function() {
         waitingDialog({});
         DownloadAttachContratoCO();
     });
-    $("#btnCancelarMD").click(function () {
+    $("#btnCancelarMD").click(function() {
         $(".campos_cambiarContrasenia").fadeOut(200);
         $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
         $(".campos_actualizarDatos").delay(200);
         $(".campos_actualizarDatos").fadeIn(200);
     });
 
-    $("#lnkCambiarContrasena").click(function () {
+    $("#lnkCambiarContrasena").click(function() {
         if ($("#divCambiarContrasena").is(":visible")) {
             $(".grupo_input_password").slideUp(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura");
@@ -242,7 +240,7 @@ $(document).ready(function () {
 
         }
     });
-    $(".misDatosContraseniaEnlace").click(function () {
+    $(".misDatosContraseniaEnlace").click(function() {
         if ($(".campos_cambiarContrasenia").is(":visible")) {
             $(".campos_cambiarContrasenia").fadeOut(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
@@ -256,52 +254,48 @@ $(document).ready(function () {
             $(".campos_cambiarContrasenia").fadeIn(200);
         }
     });
-    $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
+    $("#txtTelefono, #txtTelefonoMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+    $("#txtCelular, #txtCelularMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtEMailMD").keypress(function (evt) {
+    $("#txtEMailMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtSobrenombreMD").keypress(function (evt) {
+    $("#txtSobrenombreMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
             return re.test(keyChar);
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $(document).on('click', '.js-agregar-liquidacion', function(e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -312,7 +306,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -341,21 +335,21 @@ $(document).ready(function () {
 
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
-    $(document).on('click', '.js-agregar-popup-liquidacion', function () {
+    $(document).on('click', '.js-agregar-popup-liquidacion', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
         var contenedor = $(this).parents('#divTonosTallas');
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.btn_cerrar_escogerTono', function () {
+    $(document).on('click', '.btn_cerrar_escogerTono', function() {
         HidePopupTonosTallas();
     });
-    $(document).on('change', '#ddlTallaColorLiq', function () {
+    $(document).on('change', '#ddlTallaColorLiq', function() {
         CambiarTonoTalla($(this));
     });
 
-    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
+    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -363,11 +357,11 @@ $(document).ready(function () {
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
 
-    $(document).on('click', '.miCurso', function () {
+    $(document).on('click', '.miCurso', function() {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-    $(document).on('click', '.pop-ofertarevista', function () {
+    $(document).on('click', '.pop-ofertarevista', function() {
         waitingDialog({});
         var $contenedor = $(this).parents('.contiene-productos');
         var cuv = $contenedor.find('.hdItemCuv').val();
@@ -390,7 +384,7 @@ $(document).ready(function () {
             dataType: 'json',
             data: JSON.stringify({ cuv: cuv }),
             contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+            success: function(response) {
                 if (response.success) {
                     response.data.dataPROL.Simbolo = viewBagSimbolo;
                     var settings = $.extend({}, response.data.dataPROL, obj);
@@ -401,7 +395,7 @@ $(document).ready(function () {
                     settings.ganancia = DecimalToStringFormat(settings.ganancia);
                     var html = SetHandlebars("#template-mod-ofer1", settings);
                     $('.mod-ofer1').html(html).show();
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -424,13 +418,13 @@ $(document).ready(function () {
                 }
                 closeWaitingDialog();
             },
-            error: function (response, error) {
+            error: function(response, error) {
                 console.log(error);
                 closeWaitingDialog();
             }
         });
     });
-    $(document).on('click', '.agregar-ofertarevista', function () {
+    $(document).on('click', '.agregar-ofertarevista', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -440,64 +434,12 @@ $(document).ready(function () {
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
     });
-        
+
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
 });
-
-function abrir_popup_tutorial(){
-        $('#popup_tutorial_home').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-        var paisCP = false;
-        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
-            paisCP = true;
-        }
-        fnMovimientoTutorial = setInterval(function ()
-        {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
-            numImagen++;
-            if (!paisCP && numImagen == 8 )
-            {
-                $(".img_slide" + numImagen).hide();
-                numImagen++;
-            }
-
-            if (numImagen > 9) {
-                numImagen = 1;
-                $(".imagen_tutorial").animate({ 'opacity': '1' });
-            }
-        }, 3000);
-    }
-
-function cerrar_popup_tutorial() {
-    $('#popup_tutorial_home').fadeOut();
-    $('html').css({ 'overflow-y': 'auto' });
-    $(".imagen_tutorial").animate({ 'opacity': '1' });
-    window.clearInterval(fnMovimientoTutorial);
-    numImagen = 1;
-    
-    /* SB20-834 - INICIO */
-    if (viewBagVerComunicado == '-1') {
-        ObtenerComunicadosPopUps();
-        showViewVideo = '1';
-    }
-    else {
-        if (viewBagVerComunicado == '1') {
-            if ($('#totalComuSinMostrar').val() != '0') {
-                showComunicadoSinMostrar();
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
-            }
-        }
-        else {
-            //CargarPopupsConsultora();
-        }
-    }
-    /* SB20-834 - FIN */
-}
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -531,7 +473,7 @@ function CerrarCamara() {
 
     $("#CamaraIntroductoria").hide();
     contadorFondoPopUp--;
-    if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
+    if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
 }
 
 function CortarFoto() {
@@ -583,8 +525,7 @@ function SubirFoto() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             alert_msg(data.message);
-            if (data.success)
-            {
+            if (data.success) {
                 $('#imgFotoUsuario').show();
                 $('#imgFotoUsuarioDefault').hide();
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
@@ -640,7 +581,7 @@ function agregarProductoAlCarrito(o) {
                 $(this).remove();
             });
         });
-    }    
+    }
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
@@ -696,6 +637,59 @@ function playVideo() {
         }
     }
 };
+
+function abrir_popup_tutorial(){
+        $('#popup_tutorial_home').fadeIn();
+        $('html').css({ 'overflow-y': 'hidden' });
+        var paisCP = false;
+        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+            paisCP = true;
+        }
+        fnMovimientoTutorial = setInterval(function ()
+        {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
+            numImagen++;
+            if (!paisCP && numImagen == 8 )
+            {
+                $(".img_slide" + numImagen).hide();
+                numImagen++;
+            }
+
+            if (numImagen > 9) {
+                numImagen = 1;
+                $(".imagen_tutorial").animate({ 'opacity': '1' });
+            }
+        }, 3000);
+    }
+
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_home').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+    
+    /* SB20-834 - INICIO */
+    if (viewBagVerComunicado == '-1') {
+        waitingDialog({});
+        showViewVideo = '1';
+    }
+    else {
+        if (viewBagVerComunicado == '1') {
+            if ($('#totalComuSinMostrar').val() != '0') {
+                showComunicadoSinMostrar();
+                if ($.trim($('#popupComunicados').html()) != "") {
+                    $('#popupComunicados').show();
+                }
+            }
+        }
+        else {
+            //CargarPopupsConsultora();
+        }
+    }
+    /* SB20-834 - FIN */
+}
+
 
 function mostrarVideoIntroductorio() {
 
@@ -1445,7 +1439,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-
+        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
@@ -3292,7 +3286,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         OrigenPedidoWeb: OrigenPedidoWeb
     };
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
@@ -3666,6 +3661,7 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     }
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
   
 //ShowRoom

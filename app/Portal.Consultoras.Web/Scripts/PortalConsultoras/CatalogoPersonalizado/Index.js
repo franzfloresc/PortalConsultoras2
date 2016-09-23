@@ -1,4 +1,4 @@
-﻿var cantidadRegistros = 4;
+﻿var cantidadRegistros = 12;
 var offsetRegistros = 0;
 var cargandoRegistros = false;
 
@@ -49,7 +49,7 @@ $(document).ready(function () {
                     settings.ganancia = DecimalToStringFormat(settings.ganancia);
                     var html = SetHandlebars("#template-mod-ofer1", settings);
                     $('.mod-ofer1').html(html).show();
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -88,9 +88,6 @@ $(document).ready(function () {
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
         });
-
-    if (!ReservadoOEnHorarioRestringido(false)) {
-        CargarCatalogoPersonalizado();
 
     Inicializar();
     }
@@ -243,7 +240,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
-    var OrigenPedidoWeb =  $(divPadre).find(".OrigenPedidoWeb").val();
+    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -276,6 +273,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
@@ -465,4 +463,5 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     }
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }

@@ -414,6 +414,7 @@ $(document).ready(function () {
 
             AgregarProducto('Insert', model, "", false);
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log)
+            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             setTimeout(function () {
                 $("#divOfertaFinal").hide();
                 EjecutarServicioPROLSinOfertaFinal();
@@ -423,7 +424,7 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        LimpiarSesionProductosOF();
+        //LimpiarSesionProductosOF();
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;
@@ -1555,6 +1556,7 @@ function BuscarByCUV(CUV) {
                 $("#divObservaciones").html("");
 
                 if (data[0].MarcaID != 0) {
+                    TrackingJetloreSearch(CUV, $("#hdCampaniaCodigo").val());
                     $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
                     $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
                     ObservacionesProducto(data[0]);
@@ -3164,6 +3166,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         async: false,
+        cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.success) {
@@ -4240,7 +4243,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-
+        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
