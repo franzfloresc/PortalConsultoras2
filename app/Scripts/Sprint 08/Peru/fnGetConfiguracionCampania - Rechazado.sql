@@ -356,7 +356,7 @@ BEGIN
 	BEGIN
 			
 			SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
-			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+			FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
 
 			if @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
 			begin

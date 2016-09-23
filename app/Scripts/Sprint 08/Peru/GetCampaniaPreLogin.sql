@@ -1,3 +1,4 @@
+
 ALTER FUNCTION [dbo].[GetCampaniaPreLogin](
 
 @PaisID tinyint,        
@@ -86,7 +87,7 @@ BEGIN
 
 	
 		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
-		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
 				
 		if @IndicadorEnviado = 1 and @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
 		begin
@@ -119,7 +120,7 @@ BEGIN
  
 
 		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
-		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania, @esRechazado)
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
 				
 		if @IndicadorEnviado = 1 and @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
 		begin

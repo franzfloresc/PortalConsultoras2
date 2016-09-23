@@ -1,10 +1,9 @@
 
 GO
-ALTER FUNCTION dbo.EsPedidoRechazado_SB2
+CREATE FUNCTION dbo.EsPedidoRechazado_SB2
 (
 	@ConsultoraID bigint
 	,@CampaniaID int
-	,@esRechazado int
 )
 RETURNS @T TABLE(
 	esRechazado INT
@@ -15,7 +14,8 @@ as
 @esRechazado => -1: Sin enviar, 0: Proceso (sin respuesta), 1: Rechazado, 2: No Rechazado
 */
 begin
-	SET @esRechazado = -1
+	
+	DECLARE @esRechazado INT = -1
 
 	declare @fecha datetime
 	declare @estado varchar(25)
