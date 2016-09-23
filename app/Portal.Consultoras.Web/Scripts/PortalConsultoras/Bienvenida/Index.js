@@ -107,9 +107,12 @@ $(document).ready(function() {
         }
 
     });
-
+    
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopUps();
+    if (showViewVideo == 1) {
+        ObtenerComunicadosPopUps();
+    }
+
     $('body').bind('resize', '.popup_comunicados', function(e) {
         stylePopupComunicado($(this).attr('id'));
         //console.log('showViewVideo:' + showViewVideo);
