@@ -91,9 +91,14 @@ function GetProductoEntidad(id) {
 // Actualizar pedido delsde el detalle => Cantidad Detalle
 
 function UpdateLiquidacionEvento(evento) {
-    var obj = $(evento.currentTarget);
+    var obj = $(evento.currentTarget);    
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+        return false;
+    }
+
+    if (ReservadoOEnHorarioRestringido()) {     
+        $('#Cantidad_'+id).val($("#CantidadTemporal_" + id).val());
         return false;
     }
 
@@ -836,7 +841,7 @@ function EjecutarServicioPROL() {
                 $('#modal-prol-botonesAceptarCancelar').hide();
                 $('#modal-prol-botoneAceptar').show();                 
                 $('#popup-observaciones-prol').show();
-                
+                AnalyticsGuardarValidar(response);
                 CargarPedido();
                 return true;
             }
@@ -845,6 +850,7 @@ function EjecutarServicioPROL() {
                 if (model.ObservacionInformativa == false) {
                     if (model.ProlSinStock == true) {
                         messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+                        AnalyticsGuardarValidar(response);
                         CargarPedido();
                         return true;
                     }
@@ -863,6 +869,7 @@ function EjecutarServicioPROL() {
                 $('#modal-prol-botoneAceptar').hide();
                 $('#popup-observaciones-prol').show();
 
+                AnalyticsGuardarValidar(response);
                 CargarPedido();                
                 return true;
             }
@@ -878,8 +885,8 @@ function EjecutarServicioPROL() {
             } else {
                 msg = '<h3>Tu pedido se guardó con éxito</h3>';
             }
-            messageInfoBueno(msg);
             AnalyticsGuardarValidar(response);
+            messageInfoBueno(msg);
             CargarPedido();
             return true;
         },
@@ -1050,7 +1057,7 @@ function AnalyticsGuardarValidar(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -1081,7 +1088,7 @@ function AnalyticsPedidoValidado(data) {
             'price': value.price.toString(),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? "Estándar" : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
