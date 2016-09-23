@@ -91,9 +91,14 @@ function GetProductoEntidad(id) {
 // Actualizar pedido delsde el detalle => Cantidad Detalle
 
 function UpdateLiquidacionEvento(evento) {
-    var obj = $(evento.currentTarget);
+    var obj = $(evento.currentTarget);    
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+        return false;
+    }
+
+    if (ReservadoOEnHorarioRestringido()) {     
+        $('#Cantidad_'+id).val($("#CantidadTemporal_" + id).val());
         return false;
     }
 

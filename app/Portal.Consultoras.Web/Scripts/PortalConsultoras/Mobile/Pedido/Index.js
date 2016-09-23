@@ -1052,11 +1052,13 @@ function TagManagerCarruselSiguiente(esDrag) {
     });
 };
 
-function CargarProductoDestacado(objParameter, objInput) {
+function CargarProductoDestacado(objParameter, objInput) {   
     ShowLoading();
    
-    if (ReservadoOEnHorarioRestringido())
+    if (ReservadoOEnHorarioRestringido()) {
+        CloseLoading();
         return false;
+    }
 
     var tipoEstrategiaID = objParameter.TipoEstrategiaID;
     var estrategiaID = objParameter.EstrategiaID;
