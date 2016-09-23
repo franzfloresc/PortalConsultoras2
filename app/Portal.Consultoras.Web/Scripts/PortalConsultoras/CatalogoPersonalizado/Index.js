@@ -4,18 +4,95 @@ var cargandoRegistros = false;
 
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
-        if (ReservadoOEnHorarioRestringido()) return false;
+        if (ReservadoOEnHorarioRestringido())
+            return false;
 
         agregarProductoAlCarrito(this);
+
         var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
+    $(document).on('click', '#boton_vermas', function () {
+        CargarCatalogoPersonalizado();
+    });
+    $(document).on('click', '.pop-ofertarevista', function () {
+        waitingDialog({});
+        var $contenedor = $(this).parents('.contiene-productos');
+        var cuv = $contenedor.find('.hdItemCuv').val();
+        var obj = {
+            UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
+            CUV: $contenedor.find('.hdItemCuv').val(),
+            TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
+            ConfiguracionOfertaID: $contenedor.find('.hdItemConfiguracionOfertaID').val(),
+            IndicadorMontoMinimo: $contenedor.find('.hdItemIndicadorMontoMinimo').val(),
+            MarcaID: $contenedor.find('.hdItemMarcaID').val(),
+            PrecioCatalogo: $contenedor.find('.hdItemPrecioUnidad').val(),
+            Descripcion: $contenedor.find('.hdItemDescripcionProd').val(),
+            DescripcionCategoria: $contenedor.find('.hdItemDescripcionCategoria').val(),
+            DescripcionMarca: $contenedor.find('.hdItemDescripcionMarca').val(),
+            DescripcionEstrategia: $contenedor.find('.hdItemDescripcionEstrategia').val()
+        };
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
+            dataType: 'json',
+            data: JSON.stringify({ cuv: cuv }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.success) {
+                    response.data.dataPROL.Simbolo = viewBagSimbolo;
+                    var settings = $.extend({}, response.data.dataPROL, obj);
+                    settings.productoRevista = response.data.producto;
+
+                    settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                    settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                    settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                    var html = SetHandlebars("#template-mod-ofer1", settings);
+                    $('.mod-ofer1').html(html).show();
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+                    //switch (settings.tipo_oferta) {
+                    //    case '003':
+                    //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                    //        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                    //        settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                    //        var html = SetHandlebars("#template-mod-ofer1", settings);
+                    //        $('.mod-ofer1').html(html).show();
+                    //        break;
+                    //    case '048':
+                    //        //var html = SetHandlebars("#template-mod-ofer2", settings);
+                    //        //$('.mod-ofer2').html(html).show();
+                    //        break;
+                    //    case '049':
+                    //        //var html = SetHandlebars("#template-mod-ofer3", settings);
+                    //        //$('.mod-ofer3').html(html).show();
+                    //        break;
+                    //}
+                } else {
+                    console.log(response.message);
+                }
+                closeWaitingDialog();
+            },
+            error: function (response, error) {
+                console.log(error);
+                closeWaitingDialog();
+            }
+        });
+    });
+    $(document).on('click', '.agregar-ofertarevista', function () {
+        if (ReservadoOEnHorarioRestringido())
+            return false;
+
+        var contenedor = $(this).parents(".cuerpo-mod");
+        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var tipoCUV = $(this).attr('data-cuv');
+
+        AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
+        });
 
     Inicializar();
 });
 
-function Inicializar()
-{
+function Inicializar() {
     IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
@@ -111,6 +188,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -138,12 +216,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
         DescripcionCategoria: descripcionCategoria,
         DescripcionMarca: descripcionMarca,
         DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false
+        EsSugerido: false,
+        OrigenPedidoWeb: OrigenPedidoWeb
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
-
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
 
@@ -161,7 +240,7 @@ function AgregarProducto(url, item, otraFunct) {
                 ActualizarGanancia(data.DataBarra);
                 CargarResumenCampaniaHeader(true);
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
-                
+
                 if (typeof (otraFunct) == 'function') {
                     setTimeout(otraFunct, 50);
                 }
@@ -180,7 +259,6 @@ function AgregarProducto(url, item, otraFunct) {
         }
     });
 }
-
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
@@ -216,7 +294,6 @@ function agregarProductoAlCarrito(o) {
         });
     }
 }
-
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
@@ -300,4 +377,76 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 function alert_msg_pedido(message) {
     $('#DialogMensajes .pop_pedido_mensaje').html(message);
     $('#DialogMensajes').dialog('open');
+}
+
+function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
+    waitingDialog();
+    var hidden;
+
+    if (tipoCUV == 'revista') {
+        hidden = $(item).find('#hiddenRevista');
+    } else if (tipoCUV == 'catalogo') {
+        hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    var model = {
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        Cantidad: cantidad,
+        PrecioUnidad: $(hidden).find(".hdItemPrecioUnidad").val(),
+        CUV: $(hidden).find(".hdItemCuv").val(),
+        Tipo: $(hidden).find(".hdItemTipo").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        Pagina: $(hidden).find(".hdItemPagina").val(),
+        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
+        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
+        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
+        EsSugerido: false,
+        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
+    };
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }    
+
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
+    AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }

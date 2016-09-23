@@ -198,7 +198,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);

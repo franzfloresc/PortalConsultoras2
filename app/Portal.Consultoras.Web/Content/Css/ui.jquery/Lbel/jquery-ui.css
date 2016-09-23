@@ -1940,9 +1940,9 @@ button.ui-button::-moz-focus-inner {
 
 /* Overlays *//*ITG - 1869*/
 .ui-widget-overlay {
-    background: #aaaaaa /*{bgColorOverlay}*/ url(../../ui.jquery/images/ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
-    opacity: .3;
-    filter: Alpha(Opacity=30) /*{opacityOverlay}*/;
+    background: url("/Content/Images/bg_popups.png") repeat;
+     opacity: .3;
+    filter: Alpha(Opacity=30); /*{opacityOverlay}
 }
 
 .ui-widget-shadow {

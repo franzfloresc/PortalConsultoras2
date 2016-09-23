@@ -1,4 +1,5 @@
-﻿var arrayOfertasParaTi = [];
+﻿
+var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
@@ -91,6 +92,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdSugeridoDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
+        var OrigenPedidoWeb = MobilePedidoSugerido;
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -120,9 +122,10 @@ $(document).ready(function () {
             DescripcionCategoria: descripcionCategoria,
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: true
+            EsSugerido: true,
+            OrigenPedidoWeb: OrigenPedidoWeb
         };
-        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
+        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
     });
     
     $("#linkAgregarCliente").on("click", function () {
@@ -220,9 +223,9 @@ function ObservacionesProducto(item) {
 
     if (item.TipoOfertaSisID == "1707") {
         if (esShowRoom == "1") {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto disponible sólo desde la sección de Pre-venta Digital.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
         } else {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Esta promoción no se encuentra disponible.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");
         }
 
         $("#divProductoInformacion").hide();
@@ -388,7 +391,7 @@ function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup")
 }
-function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta) {
+function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
     ShowLoading();
     if (ReservadoOEnHorarioRestringido()) {
         CloseLoading();
@@ -407,7 +410,8 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             Descripcion: descripcion,
             Cantidad: cantidad,
             IndicadorMontoMinimo: indicadorMontoMinimo,
-            TipoOferta: tipoOferta
+            TipoOferta: tipoOferta,
+            OrigenPedidoWeb: OrigenPedidoWeb
         }),
         async: true,
         cache: false,
@@ -1224,6 +1228,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
     var posicion = $("#txtCantidadZE").attr("est-posicion");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
+    var OrigenPedidoWeb = MobilePedidoOfertasParaTi;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -1264,7 +1269,8 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWeb: OrigenPedidoWeb
     });
 
     jQuery.ajax({
@@ -1376,6 +1382,12 @@ function MostrarMensaje(tipoMensaje, message) {
             var $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
+            $divMensaje.show();
+            break;
+        case "mensajeCUVShowRoom":
+            var $divMensaje = $('#divMensajeCUV');
+            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
+            $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
     };

@@ -251,7 +251,8 @@ $(document).ready(function () {
                 Cantidad: Cantidad,
                 PrecioUnidad: PrecioUnidad,
                 CUV: CUV,
-                ConfiguracionOfertaID: ConfiguracionOfertaID
+                ConfiguracionOfertaID: ConfiguracionOfertaID,
+                OrigenPedidoWeb: DesktopLiquidacion
             };
             waitingDialog({});
             $.ajaxSetup({
