@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Common
         public static string MY_AWS_ACCESS_KEY_ID = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"];
         public static string MY_AWS_SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"];
         public static string BUCKET_NAME = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME"];
+        public static string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
         public static string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
         //MEJORA S3
         public static string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
@@ -141,7 +142,7 @@ namespace Portal.Consultoras.Common
                     MY_AWS_SECRET_KEY,
                     Amazon.RegionEndpoint.USEast1);
 
-                var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client, BUCKET_NAME, keyRuta);
+                var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client, BUCKET_NAME_QAS, keyRuta);
 
                 string url = string.Empty;
 
@@ -149,7 +150,7 @@ namespace Portal.Consultoras.Common
                 {
                     var expiryUrlRequest = new GetPreSignedUrlRequest
                     {
-                        BucketName = BUCKET_NAME,
+                        BucketName = BUCKET_NAME_QAS,
                         Key = keyRuta,
                         Expires = DateTime.Now.AddDays(1)
                     };

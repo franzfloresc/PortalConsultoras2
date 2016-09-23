@@ -1339,9 +1339,11 @@ namespace Portal.Consultoras.Common
                                                 prop.SetValue(entity, changed, null);
                                             }
                                         }
+                                        
                                         list.Add(entity);
+                                        
                                         //firstCellValue = Convert.ToString(reader["ZONA"]);
-                                    }
+                                    }   
                                 }
                                 //else
                                 //   firstCellValue = "No Rows Returned";
