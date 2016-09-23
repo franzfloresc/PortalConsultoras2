@@ -409,7 +409,7 @@ $(document).ready(function () {
                     settings.ganancia = DecimalToStringFormat(settings.ganancia);
                     var html = SetHandlebars("#template-mod-ofer1", settings);
                     $('.mod-ofer1').html(html).show();
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -3055,6 +3055,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
+
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
@@ -3085,7 +3086,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         OrigenPedidoWeb: OrigenPedidoWeb
     };
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
@@ -3484,6 +3486,7 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     }
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
   
 //ShowRoom

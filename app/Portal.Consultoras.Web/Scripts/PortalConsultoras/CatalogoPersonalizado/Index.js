@@ -49,7 +49,7 @@ $(document).ready(function () {
                     settings.ganancia = DecimalToStringFormat(settings.ganancia);
                     var html = SetHandlebars("#template-mod-ofer1", settings);
                     $('.mod-ofer1').html(html).show();
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -221,6 +221,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
@@ -447,4 +448,5 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     }
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
