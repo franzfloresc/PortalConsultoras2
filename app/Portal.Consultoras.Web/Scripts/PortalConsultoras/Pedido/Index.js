@@ -424,7 +424,7 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        LimpiarSesionProductosOF();
+        //LimpiarSesionProductosOF();
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;
@@ -3166,6 +3166,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         async: false,
+        cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.success) {
