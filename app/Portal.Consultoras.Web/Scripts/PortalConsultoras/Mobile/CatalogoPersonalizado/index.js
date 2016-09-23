@@ -38,6 +38,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+        var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
         var model = {
             TipoOfertaSisID: tipoOfertaSisID,
@@ -53,7 +54,8 @@ $(document).ready(function () {
             DescripcionCategoria: descripcionCategoria,
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: false
+            EsSugerido: false,
+            OrigenPedidoWeb: OrigenPedidoWeb
         };
         AgregarProducto('Insert', model, function () { $(divPadreOfertaRevista).find(".product-add").show(); });
         $('#popUpCatalogoPersonalizado_003').fadeOut("slow");
@@ -83,6 +85,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria_Catalogo").val();
         var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca_Catalogo").val();
         var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia_Catalogo").val();        
+        var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
         var model = {
             TipoOfertaSisID: tipoOfertaSisID,
@@ -98,7 +101,8 @@ $(document).ready(function () {
             DescripcionCategoria: descripcionCategoria,
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: false
+            EsSugerido: false,
+            OrigenPedidoWeb: OrigenPedidoWeb
         };
         AgregarProducto('Insert', model, function () { $(divPadreOfertaRevista).find(".product-add").show(); });
         $('#popUpCatalogoPersonalizado_003').fadeOut("slow");
@@ -289,6 +293,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionCategoria = $(divPadre).find(".hdItemDescripcionCategoria").val();
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
+    var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -316,7 +321,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         DescripcionCategoria: descripcionCategoria,
         DescripcionMarca: descripcionMarca,
         DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false
+        EsSugerido: false,
+        OrigenPedidoWeb: OrigenPedidoWeb
     };
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });

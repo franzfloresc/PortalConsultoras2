@@ -594,7 +594,7 @@ function MostrarShowRoomBannerLateral() {
 
     var togglediv = 0;
 
-    $("#ctras").click(function () {
+    $("#ctras").hover(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -610,7 +610,7 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $("#ctrasHoy").click(function () {
+    $("#ctrasHoy").hover(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -819,7 +819,32 @@ function TrackingJetloreRemoveAll(lista) {
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);
+    }
+}
 
+function TrackingJetloreView(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "view",
+            deal_id: cuv,
+            option_id: campania
+        });
+    }
+}
+
+function TrackingJetloreSearch(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "search",
+            deal_id: cuv,
+            option_id: campania
+        });
     }
 }
 

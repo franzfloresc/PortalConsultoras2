@@ -7,7 +7,6 @@ var fnMovimientoTutorial;
 var showViewVideo = viewBagVioVideo;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
-
 $(document).ready(function () {
 
     $('.contenedor_img_perfil').on('click', CargarCamara);
@@ -127,7 +126,7 @@ $(document).ready(function () {
     CrearDialogs();
     CargarCarouselEstrategias("");
     CargarCarouselLiquidaciones();
-    //CargarPopupsConsultora();
+    CargarPopupsConsultora();
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
@@ -398,7 +397,7 @@ $(document).ready(function () {
                     settings.ganancia = DecimalToStringFormat(settings.ganancia);
                     var html = SetHandlebars("#template-mod-ofer1", settings);
                     $('.mod-ofer1').html(html).show();
-
+                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -442,8 +441,6 @@ $(document).ready(function () {
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
-});
-
 function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
@@ -496,203 +493,6 @@ function cerrar_popup_tutorial() {
     /* SB20-834 - FIN */
 }
 
-function CargarCamara() {
-    //https://github.com/jhuckaby/webcamjs
-    Webcam.set({
-        // live preview size
-        width: 300,
-        height: 300,
-        // device capture size
-        //dest_width: 600,
-        //dest_height: 600,
-        // final cropped size
-        crop_width: 300,
-        crop_height: 300,
-        // format and quality
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        //force_flash: true,
-        flip_horiz: true
-    });
-    Webcam.attach('#my_camera');
-
-    $("#fondoComunPopUp").show();
-    contadorFondoPopUp++;
-    $("#CamaraIntroductoria").show();
-}
-
-function CerrarCamara() {
-    Webcam.reset();
-    $('#imgFotoTomada').attr('src', '');
-    $('#demo').removeClass('croppie-container').html('');
-
-    $("#CamaraIntroductoria").hide();
-    contadorFondoPopUp--;
-    if(contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
-}
-
-function CortarFoto() {
-    $('#demo').croppie('result', {
-        type: 'canvas',
-        format: 'png'
-    }).then(function (resp) {
-        waitingDialog();
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Bienvenida/SubirImagen',
-            data: JSON.stringify({ data: resp }),
-            dataType: 'Json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
-            },
-            error: function (data, error) { console.log(error); },
-            complete: closeWaitingDialog
-        });
-    });
-}
-
-function TomarFoto() {
-    Webcam.snap(function (data_uri) {
-        $('#imgFotoTomada').attr('src', data_uri);
-        $('#demo').croppie({
-            viewport: {
-                width: 150,
-                height: 150,
-                type: 'circle'
-            },
-            url: data_uri
-        });
-    });
-}
-function SubirFoto() {
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/SubirImagen',
-        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            alert_msg(data.message);
-            if (data.success)
-            {
-                $('#imgFotoUsuario').show();
-                $('#imgFotoUsuarioDefault').hide();
-                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-            }
-        },
-        error: function (data, error) { console.log(error); },
-        complete: closeWaitingDialog
-    });
-}
-
-// MICROEFECTO FLECHA HOME
-function animacionFlechaScroll() {
-
-    $(".flecha_scroll").animate({
-        'top': '87%'
-    }, 400, 'swing', function () {
-        $(this).animate({
-            'top': '90%'
-        }, 400, 'swing');
-    });
-
-}
-function agregarProductoAlCarrito(o) {
-    var btnClickeado = $(o);
-    var contenedorItem = btnClickeado.parent().parent();
-    var imagenProducto = $('.imagen_producto', contenedorItem);
-
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
-
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
-        }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 450, 'swing', function () {
-            $(this).animate({
-                'top': carrito.offset().top,
-                'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
-            }, 150, 'swing', function () {
-                $(this).remove();
-            });
-        });
-    }    
-}
-
-//MICROEFECTO RESALTAR ICONO TUTORIAL
-function mostrarUbicacionTutorial() {
-    $(".fondo_oscuro").fadeIn(300, function () {
-        $(".mensaje_header").addClass("opcionTutorial");
-        $(".tooltip_tutorial").fadeIn();
-        mostrarIconoTutorial();
-    });
-
-    setTimeout(function () {
-        $(".tooltip_tutorial").fadeOut();
-        $(".tooltip_tutorial").stop();
-        $(".fondo_oscuro").delay(500);
-        $(".fondo_oscuro").fadeOut(300, function () {
-            $(".mensaje_header").removeClass("opcionTutorial");
-        });
-    }, 9000);
-}
-function mostrarIconoTutorial() {
-
-    $(".tooltip_tutorial").animate({
-        'opacity': 1,
-        'top': 47
-    }, 500, 'swing').animate({
-        'top': 41
-    }, 400, 'swing', mostrarIconoTutorial);
-
-}
-// FIN MICROEFECTO RESALTAR ICONO TUTORIAL
-
-//Video youtube
-function stopVideo() {
-    if (player) {
-        if (player.stopVideo) {
-            player.stopVideo();
-        }
-        else {
-            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
-            var urlVideo = $("#divPlayer").attr("src");
-            $("#divPlayer").attr("src", "");
-            $("#divPlayer").attr("src", urlVideo);
-        }
-    }
-};
-function playVideo() {
-    if (player) {
-        if (player.playVideo) {
-            player.playVideo();
-        }
-        else {
-            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        }
-    }
-};
 
 function mostrarVideoIntroductorio() {
 
@@ -1442,7 +1242,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-
+        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
@@ -3289,7 +3089,8 @@ function AgregarProductoCatalogoPersonalizado(item) {
         OrigenPedidoWeb: OrigenPedidoWeb
     };
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });    
+    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
 function AgregarProducto(url, item, otraFunct) {
     waitingDialog();
@@ -3663,6 +3464,7 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     }
 
     AgregarProducto('Insert', model, function () { $(".contiene-productos:has(.hdItemCuv[value='" + $(item).find('#hiddenCatalogo').find(".hdItemCuv").val() + "'])").find(".product-add").show(); $('[class^=mod-ofer]').hide(); });
+    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
   
 //ShowRoom
