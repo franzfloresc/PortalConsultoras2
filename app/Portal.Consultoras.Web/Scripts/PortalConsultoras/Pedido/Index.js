@@ -8,6 +8,7 @@ var posicionInicial = 0;
 var posicionFinalPantalla = 2;
 var posicionTotal = 0;
 var salto = 3;
+var analyticsGuardarValidarEnviado = false;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
@@ -416,8 +417,8 @@ $(document).ready(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
-            var data = $("#btnNoGraciasOfertaFinal")[0].data;
-            MostrarMensajeProl(data);
+            var response = $("#btnNoGraciasOfertaFinal")[0].data;
+            MostrarMensajeProl(response);
         }
     });
 
@@ -752,7 +753,7 @@ function InsertarProducto(form) {
                                 'brand': response.data.DescripcionLarga,
                                 'id': form.data.CUV,
                                 'category': 'NO DISPONIBLE',
-                                'variant': response.data.DescripcionOferta,
+                                'variant': response.data.DescripcionOferta == "" ? 'Estándar' : response.data.DescripcionOferta,
                                 'quantity': Number(form.data.Cantidad),
                                 'position': 1
                             }]
@@ -818,7 +819,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
                                     'brand': response.data.DescripcionLarga,
                                     'id': response.data.CUV,
                                     'category': 'NO DISPONIBLE',
-                                    'variant': response.data.DescripcionOferta,
+                                    'variant': response.data.DescripcionOferta == "" ? 'Estándar' : response.data.DescripcionOferta,
                                     'quantity': Number(param2.Cantidad),
                                     'position': 1
                                 }]
@@ -1249,7 +1250,7 @@ function ArmarCarouselEstrategias(data) {
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
+                    'list': 'Ofertas para ti – Pedido',
                     'position': recomendado.Posicion
                 };
 
@@ -1263,7 +1264,7 @@ function ArmarCarouselEstrategias(data) {
                 });
                 dataLayer.push({
                     'event': 'virtualEvent',
-                    'category': 'Home',
+                    'category': 'Pedido',
                     'action': 'Ofertas para ti',
                     'label': 'Ver anterior'
                 });
@@ -1281,7 +1282,7 @@ function ArmarCarouselEstrategias(data) {
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
+                    'list': 'Ofertas para ti – Pedido',
                     'position': recomendado.Posicion
                 };
 
@@ -1295,7 +1296,7 @@ function ArmarCarouselEstrategias(data) {
                 });
                 dataLayer.push({
                     'event': 'virtualEvent',
-                    'category': 'Home',
+                    'category': 'Pedido',
                     'action': 'Ofertas para ti',
                     'label': 'Ver siguiente'
                 });
@@ -1360,7 +1361,7 @@ function TagManagerCarruselInicio(arrayItems) {
 function TagManagerClickAgregarProducto() {
     dataLayer.push({
         'event': 'addToCart',
-        'label': '(not available)',
+        //'label': '(not available)',
         'ecommerce': {
             'add': {
                 'actionField': { 'list': 'Ofertas para ti – Pedido' },
@@ -1371,7 +1372,7 @@ function TagManagerClickAgregarProducto() {
                         'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
                         'id': $("#txtCantidadZE").attr("est-cuv2"),
                         'category': 'NO DISPONIBLE',
-                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia"),
+                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia") == "" ? 'Estándar' : $("#txtCantidadZE").attr("est-descripcionEstrategia"),
                         'quantity': parseInt($("#txtCantidadZE").val()),
                         'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
                     }
@@ -2328,8 +2329,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                                 'price': response.data.Precio,
                                 'brand': response.data.DescripcionMarca,
                                 'category': 'NO DISPONIBLE',
-                                'variant': response.data.DescripcionOferta,
-                                'quantity': cantidad
+                                'variant': response.data.DescripcionOferta == "" ? 'Estándar' : response.data.DescripcionOferta,
+                                'quantity': Number(cantidad)
                             }]
                         }
                     }
@@ -2439,6 +2440,7 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
+    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2591,7 +2593,7 @@ function EjecutarServicioPROL() {
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             //var montoTotalPedido = parseFloat($("#hdfTotal").val());
 
-            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+            $("#btnNoGraciasOfertaFinal")[0].data = response;
 
             var cumpleOferta;
             
@@ -2610,12 +2612,10 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
-                                AnalyticsGuardarValidar(response);
                                 AnalyticsPedidoValidado(response);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
-                                }, 2000);
-                                return true;
+                                }, 3000);
                             }
                         }
                     } else {
@@ -2664,6 +2664,7 @@ function EjecutarServicioPROL() {
                 CargarDetallePedido();
             }
             AnalyticsGuardarValidar(response);
+            analyticsGuardarValidarEnviado = true;
         },
         //**********
         error: function (data, error) {
@@ -2675,6 +2676,7 @@ function EjecutarServicioPROL() {
 }
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
+    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
@@ -2813,9 +2815,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
             $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
-            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
-            MostrarMensajeProl(response.data);
-            AnalyticsGuardarValidar(response);
+            $("#btnNoGraciasOfertaFinal")[0].data = response;
+            MostrarMensajeProl(response);
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2824,7 +2825,12 @@ function EjecutarServicioPROLSinOfertaFinal() {
         }
     });
 }
-function MostrarMensajeProl(data) {
+function MostrarMensajeProl(response) {
+    var data = response.data;
+
+    if (!analyticsGuardarValidarEnviado)
+        AnalyticsGuardarValidar(response);
+
     if (data.Reserva == true) {
         if (data.ZonaValida == true) {
             if (data.ObservacionInformativa == false) {
@@ -2834,12 +2840,10 @@ function MostrarMensajeProl(data) {
                 } else {
                     showDialog("divReservaSatisfactoria");
                     //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
-                    }, 2000);
-                    return true;
+                    }, 3000);
                 }
             } else {
                 $('#DivObsBut').css({ "display": "none" });
@@ -2871,7 +2875,6 @@ function MostrarMensajeProl(data) {
 
         CargarDetallePedido();
     }
-    AnalyticsGuardarValidar(response);
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -3990,6 +3993,23 @@ function CargarEstrategiasEspeciales(objInput, e) {
 
             $('#popupDetalleCarousel_lanzamiento').show();
         };
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas para ti – Pedidos' },
+                    'products': [{
+                        'id': estrategia.CUV2,
+                        'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
+                        'price': estrategia.Precio2.toString(),
+                        'brand': estrategia.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': estrategia.DescripcionEstrategia,
+                        'position': estrategia.Posicion
+                    }]
+                }
+            }
+        });
     } else {
         return false;
     }
@@ -4057,18 +4077,19 @@ function AnalyticsBannersInferioresImpression() {
         });
     }
 }
-function AnalyticsGuardarValidar(data) {
+function AnalyticsGuardarValidar(response) {
     var arrayEstrategiasAnalytics = [];
     var accion = $('#hdAccionBotonProl').val();
 
-    $.each(data.pedidoDetalle, function (index, value) {
+    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
-            'price': value.price.toString(),
+            'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? 'Estándar' : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
@@ -4077,29 +4098,30 @@ function AnalyticsGuardarValidar(data) {
     dataLayer.push({
         'event': 'productCheckout',
         'action': accion == 'guardar' ? 'Guardar' : 'Validar',
-        'label': data.mensajeAnalytics,
+        'label': response.mensajeAnalytics,
         'ecommerce': {
             'checkout': {
                 'actionField': {
                     'step': accion == 'guardar' ? 1 : 2,
-                    'option': data.mensajeAnalytics
+                    'option': response.mensajeAnalytics
                 },
                 'products': arrayEstrategiasAnalytics
             }
         }
     });
 }
-function AnalyticsPedidoValidado(data) {
+function AnalyticsPedidoValidado(response) {
     var arrayEstrategiasAnalytics = [];
 
-    $.each(data.pedidoDetalle, function (index, value) {
+    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
             'id': value.id,
-            'price': value.price.toString(),
+            'price': $.trim(value.price),
             'brand': value.brand,
             'category': 'NO DISPONIBLE',
-            'variant': value.variant,
+            'variant': value.variant == "" ? 'Estándar' : value.variant,
             'quantity': value.quantity
         };
         arrayEstrategiasAnalytics.push(estrategia);
