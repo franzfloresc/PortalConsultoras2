@@ -109,20 +109,23 @@ $(document).ready(function () {
         }
 
     });
-
+    
     /* SB20-834 - INICIO */
-    ObtenerComunicadosPopUps();
+    if (showViewVideo == 1) {
+        ObtenerComunicadosPopUps();
+    }
+
     $('body').bind('resize', '.popup_comunicados', function (e) {
         stylePopupComunicado($(this).attr('id'));
         //console.log('showViewVideo:' + showViewVideo);
         //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
 
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
+        if ($.trim($('#popupComunicados').html()) != "") {
+            $('#popupComunicados').show();
+        }
     });
     /* SB20-834 - FIN */
-       
+
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -477,7 +480,7 @@ function cerrar_popup_tutorial() {
     
     /* SB20-834 - INICIO */
     if (viewBagVerComunicado == '-1') {
-        waitingDialog({});
+        ObtenerComunicadosPopUps();
         showViewVideo = '1';
     }
     else {
