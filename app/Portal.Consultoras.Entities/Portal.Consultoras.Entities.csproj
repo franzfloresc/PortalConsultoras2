@@ -233,7 +233,6 @@
     <Compile Include="BEZonificacionJerarquia.cs" />
     <Compile Include="BEConfiguracionProgramaNuevas.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
