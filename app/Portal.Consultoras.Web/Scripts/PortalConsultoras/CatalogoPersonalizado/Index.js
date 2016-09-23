@@ -90,7 +90,6 @@ $(document).ready(function () {
         });
 
     Inicializar();
-    }
 });
 /*SB-600*/
 function Inicializar() {
