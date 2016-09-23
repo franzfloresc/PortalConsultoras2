@@ -1395,7 +1395,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tempComunicados != null && tempComunicados.Length > 0)
                 {
                     comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-                    ComunicadoVisualizado = 1;
+                    if (comunicados.Any())
+                    {
+                        ComunicadoVisualizado = 1;
+                    }
                 }
             }
 
