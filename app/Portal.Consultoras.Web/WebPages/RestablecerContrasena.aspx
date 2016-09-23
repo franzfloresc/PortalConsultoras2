@@ -53,17 +53,7 @@
             margin: 0 auto;
             margin-top: 30px;
         }
-
-        .check_icono_mobile {
-            background: url("../../../Images/Esika/icono_check_esika.svg") no-repeat;
-            background-size: cover;
-        }
-
-        .exclamacion_icono_mobile {
-            background: url("../../../Images/Esika/icono_exclamacion_esika.svg") no-repeat;
-            background-size: cover;
-        }
-
+        
         .icono_alerta img {
             width: 100%;
         }
@@ -91,6 +81,16 @@
 
         .cerrar_popMobile {
             float: right;
+        }
+
+        .exclamacion_icono_mobile {
+            background: url("../../Content/Images/Esika/icono_exclamacion_esika.svg") no-repeat;
+            background-size: cover;
+        }
+
+        .btn_ok_mobile > * {
+            color: white;
+            text-decoration: none;
         }
     </style>
 
@@ -131,8 +131,10 @@
         });
 
         function mostrarMensaje(message) {
-            if ($('#txtmarca').val() == 'lbel')
+            if ($('#txtmarca').val() == 'lbel') {
                 $(".btn_ok_mobile").css("background", "#642f80");
+                $(".exclamacion_icono_mobile").css("background", "url('../../Content/Images/Lbel/icono_exclamacion_lbel.svg') no-repeat").css("background-size", "cover");
+            }                
 
             $('#mensajeInformacionEliminar').html(message);
             $("#popup-eliminar-mensaje").show();
@@ -175,16 +177,16 @@
 
         function ArmarMensaje(password1, password2) {
             if (password1 == "" || password2 == "")
-                //return "Ingresa ambos campos de contraseña.";
-                return "Datos incorrectos. Por favor, volver a ingresar";
+                return "Ingresa ambos campos de contraseña.";
+                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             if (password1.length <= 6)
-                //return "La Nueva Contraseña debe de tener como mínimo 7 caracteres.";
-                return "Datos incorrectos. Por favor, volver a ingresar";
+                return "La nueva contraseña debe de tener como mínimo 7 caracteres.";
+                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             if (password1 != password2)
-                //return "Los campos de la nueva contraseña deben ser iguales, verifique.";
-                return "Datos incorrectos. Por favor, volver a ingresar";
+                return "Los campos de la nueva contraseña deben ser iguales, verifique.";
+                //return "Datos incorrectos. Por favor, volver a ingresar";
 
             return "";
         }
@@ -274,6 +276,7 @@
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
             <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
             <div class="titulo_compartir"><b>ERROR</b></div>
             <div class="mensaje_alerta" id="mensajeInformacionEliminar"></div>
             <a href="javascript:;" onclick="$('#popup-eliminar-mensaje').hide();" class="btn_ok_mobile"><b>OK</b></a>
