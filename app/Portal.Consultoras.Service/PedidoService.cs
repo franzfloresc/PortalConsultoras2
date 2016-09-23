@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Service
         private BLEscalaDescuento BLEscalaDescuento;
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
+        private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
 
         public PedidoService()
         {
@@ -54,6 +55,7 @@ namespace Portal.Consultoras.Service
             BLEscalaDescuento = new BLEscalaDescuento();
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
+            BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
         }
 
         #region Reporte Lider
@@ -1651,6 +1653,11 @@ namespace Portal.Consultoras.Service
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
             return new BLEstrategia().GetImagenOfertaPersonalizadaOF(paisID, campaniaID, cuv);
+        }
+
+        public BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID)
+        {
+            return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
 
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP)

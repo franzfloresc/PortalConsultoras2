@@ -23,7 +23,7 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
+    
      
     // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function () {
