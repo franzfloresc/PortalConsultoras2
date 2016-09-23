@@ -2172,6 +2172,7 @@
     <Content Include="Content\Images\prev_slide_ahover.png" />
     <Content Include="Content\Images\prodmodificado.png" />
     <Content Include="Content\Images\producto.png" />
+    <Content Include="Content\Images\producto_lanzamiento_CP.png" />
     <Content Include="Content\Images\producto_modal.png" />
     <Content Include="Content\Images\prod_grilla.png" />
     <Content Include="Content\Images\prod_grilla_vacio.png" />

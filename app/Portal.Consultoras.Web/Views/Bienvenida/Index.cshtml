@@ -1686,18 +1686,18 @@
             <div class="producto_img_home mini">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
-            {{#IsNullOrEmpty item.Sello '!='}}
+            {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
-                <img src="/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
             </div>
-            {{/IsNullOrEmpty}}
+            {{/if}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio" style="margin-bottom:28px;">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizado}}</span>
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
