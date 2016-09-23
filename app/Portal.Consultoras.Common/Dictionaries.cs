@@ -287,7 +287,7 @@ namespace Portal.Consultoras.Common
             { "GT", "Municipio" },
             { "MX", "Municipio" },
             { "PA", "Distrito" },
-            { "PE", "Distrito" },
+            { "PE", "Provincia" },
             { "PR", "" },
             { "SV", "Municipio" },
             { "VE", "" }
