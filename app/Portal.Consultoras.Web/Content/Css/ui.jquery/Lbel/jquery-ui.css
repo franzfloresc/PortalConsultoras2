@@ -1941,8 +1941,8 @@ button.ui-button::-moz-focus-inner {
 /* Overlays *//*ITG - 1869*/
 .ui-widget-overlay {
     background: url("/Content/Images/bg_popups.png") repeat;
-     /*opacity: .3;
-    filter: Alpha(Opacity=30) /*{opacityOverlay}*/
+     opacity: .3;
+    filter: Alpha(Opacity=30); /*{opacityOverlay}
 }
 
 .ui-widget-shadow {
