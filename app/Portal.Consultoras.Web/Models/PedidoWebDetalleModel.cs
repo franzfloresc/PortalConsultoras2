@@ -137,5 +137,9 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionEstrategia { get; set; }
 
         public int TipoEstrategiaID { get; set; }
+
+        public int OrigenPedidoWeb { get; set; }
+        public bool FlagConsultoraOnline { get; set; }
+
     }
 }

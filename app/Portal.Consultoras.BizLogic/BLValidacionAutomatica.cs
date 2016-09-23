@@ -76,10 +76,10 @@ namespace Portal.Consultoras.BizLogic
             DAValidacionMovil.InsPedidoWebCorreoPROL(ValAutomaticaPROLLogId, CampaniaID, PedidoID);
         }
 
-        public int GetEstadoProcesoPROLAuto(int paisID)
+        public int GetEstadoProcesoPROLAuto(int paisID, DateTime FechaHoraFacturacion)
         {
             var DAPedidoWeb = new DAValidacionAutomatica(paisID);
-            return DAPedidoWeb.GetEstadoProcesoPROLAuto();
+            return DAPedidoWeb.GetEstadoProcesoPROLAuto(FechaHoraFacturacion);
         }
 
         public List<BEValidacionAutomatica> GetEstadoProcesoPROLAutoDetalle(int paisID)

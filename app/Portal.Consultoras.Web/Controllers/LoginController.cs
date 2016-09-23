@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -18,6 +21,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System.Text.RegularExpressions;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Data;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -314,6 +318,50 @@ namespace Portal.Consultoras.Web.Controllers
                 if (oBEUsuario != null)
                 {
                     model = new UsuarioModel();
+
+                    #region Obtener Respuesta del SSiCC
+                    model.MotivoRechazo = "";
+                    if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
+                    {
+                        var procesoRechazado = new BEProcesoPedidoRechazado();
+                        try
+                        {
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                procesoRechazado = sv.ObtenerProcesoPedidoRechazadoGPR(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.ConsultoraID);
+                            }
+                        }
+                        catch (Exception) { procesoRechazado = new BEProcesoPedidoRechazado(); }
+
+                        if (procesoRechazado.IdProcesoPedidoRechazado > 0)
+                        {
+                            model.EstaRechazado = 2;
+                            var listaReclazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                            if (listaReclazo.Any())
+                            {
+                                model.EstaRechazado = 0;
+                                listaReclazo = listaReclazo.Where(r => r.RequiereGestion).ToList();
+                                var d = listaReclazo.Where(r => r.Procesado).ToList();
+                                if (d.Any())
+                                {
+                                    model.EstaRechazado = 1;
+                                    foreach (var rechazo in listaReclazo)
+                                    {
+                                        if (rechazo.MotivoRechazo != "")
+                                        {
+                                            model.MotivoRechazo += " " + rechazo.MotivoRechazo + " " + rechazo.Valor + ".";
+                                        }
+                                    }
+                                }
+                                
+                                // llamar al maestro de mensajes
+                            }
+                        }
+                    }
+                    #endregion
+                    model.MotivoRechazo = model.MotivoRechazo.Trim();
+                    model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
+                    model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;
                     model.PaisID = oBEUsuario.PaisID;
                     model.CodigoISO = oBEUsuario.CodigoISO;
@@ -487,8 +535,11 @@ namespace Portal.Consultoras.Web.Controllers
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                    model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
 
-                    //if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
+                    if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
+
+                    ObtenerProductosOfertaFinal(model);
                 }
 
                 pasoLog = "Agregar usuario en session";
@@ -680,6 +731,82 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             catch { }
+        }
+
+        private void ObtenerProductosOfertaFinal(UsuarioModel userData)
+        {
+            var listaProductoModel = new List<ProductoModel>();
+            var lista = new List<Producto>();
+            string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+
+            int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
+
+            using (ProductoServiceClient ps = new ProductoServiceClient())
+            {
+                lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
+                    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
+            }
+
+            foreach (var producto in lista)
+            {
+                List<BEProducto> olstProducto = new List<BEProducto>();
+                using (ODSServiceClient sv = new ODSServiceClient())
+                {
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
+                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+                }
+
+                if (olstProducto.Count != 0)
+                {
+                    if (!olstProducto[0].TieneStock)
+                        continue;
+
+                    string descripcion = producto.NombreComercial;
+                    string imagenUrl = Util.SubStr(producto.Imagen, 0);
+
+                    if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                    {
+                        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                    }
+
+                    if (imagenUrl == "")
+                        continue;
+
+                    listaProductoModel.Add(new ProductoModel()
+                    {
+                        CUV = olstProducto[0].CUV.Trim(),
+                        Descripcion = descripcion,
+                        PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
+                        PrecioCatalogo = olstProducto[0].PrecioCatalogo,
+                        MarcaID = olstProducto[0].MarcaID,
+                        EstaEnRevista = olstProducto[0].EstaEnRevista,
+                        TieneStock = true,
+                        EsExpoOferta = olstProducto[0].EsExpoOferta,
+                        CUVRevista = olstProducto[0].CUVRevista.Trim(),
+                        CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
+                        IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
+                        TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
+                        ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                        MensajeCUV = "",
+                        DesactivaRevistaGana = -1,
+                        DescripcionMarca = olstProducto[0].DescripcionMarca,
+                        DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
+                        DescripcionCategoria = olstProducto[0].DescripcionCategoria,
+                        FlagNueva = olstProducto[0].FlagNueva,
+                        TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                        ImagenProductoSugerido = imagenUrl,
+                        CodigoProducto = olstProducto[0].CodigoProducto,
+                        TieneStockPROL = true,
+                        PrecioValorizado = olstProducto[0].PrecioValorizado,
+                        PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                        Simbolo = userData.Simbolo
+                    });
+
+                }
+            }
+
+            Session["ProductosOfertaFinal"] = listaProductoModel;
         }
     }
 }

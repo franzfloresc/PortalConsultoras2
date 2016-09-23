@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
@@ -344,7 +345,14 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
+    <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -413,6 +421,7 @@
     <Compile Include="Models\CrossSellingProductoModel.cs" />
     <Compile Include="Models\MailOptInModel.cs" />
     <Compile Include="Models\MailVM.cs" />
+    <Compile Include="Models\MisPedidosDetalleModel.cs" />
     <Compile Include="Models\MisPedidosModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
@@ -1064,7 +1073,6 @@
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
     <Content Include="Content\Css\Site\slick.css" />
-    <Content Include="Content\Css\Site\menu_comunidad.css" />
     <Content Include="Content\Css\Site\style-tismart.css" />
     <Content Include="Content\Css\Site\style.css" />
     <Content Include="Content\Css\Site\footer_PE.css" />
@@ -1647,11 +1655,13 @@
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika7.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika8.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika9.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5.jpg" />
+    <Content Include="Content\Images\Esika\tutorial\tuto6.jpg" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\tutorial\tuto2.png" />
@@ -1709,6 +1719,7 @@
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\icons\close.png" />
@@ -1941,6 +1952,7 @@
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
+    <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
@@ -2061,6 +2073,7 @@
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_2.png" />
     <Content Include="Content\Images\mobile\img-showroom\etiqueta_pop.png" />
     <Content Include="Content\Images\mobile\img-showroom\exclusiva.png" />
+    <Content Include="Content\Images\mobile\img-showroom\lbel.png" />
     <Content Include="Content\Images\mobile\img-showroom\next2.png" />
     <Content Include="Content\Images\mobile\img-showroom\opacity_items.png" />
     <Content Include="Content\Images\mobile\img-showroom\precio_detalle.png" />
@@ -2168,6 +2181,7 @@
     <Content Include="Content\Images\prev_slide_ahover.png" />
     <Content Include="Content\Images\prodmodificado.png" />
     <Content Include="Content\Images\producto.png" />
+    <Content Include="Content\Images\producto_lanzamiento_CP.png" />
     <Content Include="Content\Images\producto_modal.png" />
     <Content Include="Content\Images\prod_grilla.png" />
     <Content Include="Content\Images\prod_grilla_vacio.png" />
@@ -2204,6 +2218,7 @@
     <Content Include="Content\Images\showroom\exclusiva.png" />
     <Content Include="Content\Images\showroom\f_contenedor_pop.png" />
     <Content Include="Content\Images\showroom\hoy1.png" />
+    <Content Include="Content\Images\showroom\lbel.png" />
     <Content Include="Content\Images\showroom\no_disponible.png" />
     <Content Include="Content\Images\showroom\opacity.png" />
     <Content Include="Content\Images\showroom\opacity_items.png" />
@@ -2211,6 +2226,7 @@
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
+    <Content Include="Content\Images\showroom\red.png" />
     <Content Include="Content\Images\showroom\selector.png" />
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />
     <Content Include="Content\Images\showroom\Showroom-hoy.gif" />
@@ -2351,6 +2367,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
@@ -2360,6 +2377,7 @@
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
@@ -2550,6 +2568,9 @@
     <Content Include="Content\Css\Site\fonts\slick.ttf" />
     <Content Include="Content\Css\Site\fonts\slick.woff" />
     <Content Include="Areas\Mobile\Views\Catalogo\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
@@ -2557,29 +2578,29 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+    <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
@@ -2594,7 +2615,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3441,6 +3461,7 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
+    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -3492,6 +3513,9 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <Content Include="Views\Incentivos\Index.cshtml" />
+    <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
+    <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
+    <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3746,7 +3770,9 @@
     <Folder Include="Views\Contenido\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

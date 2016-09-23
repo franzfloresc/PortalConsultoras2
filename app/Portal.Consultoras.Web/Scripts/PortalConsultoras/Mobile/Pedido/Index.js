@@ -1,4 +1,5 @@
-﻿var arrayOfertasParaTi = [];
+﻿
+var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
@@ -122,9 +123,9 @@ $(document).ready(function () {
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
             EsSugerido: true,
-            OrigenPedidoWebModel: OrigenPedidoWeb
+            OrigenPedidoWeb: OrigenPedidoWeb
         };
-        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID);
+        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
     });
     
     $("#linkAgregarCliente").on("click", function () {
@@ -222,9 +223,9 @@ function ObservacionesProducto(item) {
 
     if (item.TipoOfertaSisID == "1707") {
         if (esShowRoom == "1") {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Producto disponible sólo desde la sección de Pre-venta Digital.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
         } else {
-            $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br />Esta promoción no se encuentra disponible.</div>');
+            MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");
         }
 
         $("#divProductoInformacion").hide();
@@ -390,7 +391,7 @@ function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup")
 }
-function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta) {
+function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
     ShowLoading();
     if (ReservadoOEnHorarioRestringido()) {
         CloseLoading();
@@ -409,7 +410,8 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             Descripcion: descripcion,
             Cantidad: cantidad,
             IndicadorMontoMinimo: indicadorMontoMinimo,
-            TipoOferta: tipoOferta
+            TipoOferta: tipoOferta,
+            OrigenPedidoWeb: OrigenPedidoWeb
         }),
         async: true,
         cache: false,
@@ -1268,7 +1270,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWebModel: OrigenPedidoWeb
+        OrigenPedidoWeb: OrigenPedidoWeb
     });
 
     jQuery.ajax({
@@ -1380,6 +1382,12 @@ function MostrarMensaje(tipoMensaje, message) {
             var $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr('class', 'icono_exclamacion');
             $divMensaje.find("#divMensaje").html("Producto de ExpoOferta.");
+            $divMensaje.show();
+            break;
+        case "mensajeCUVShowRoom":
+            var $divMensaje = $('#divMensajeCUV');
+            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
+            $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
     };

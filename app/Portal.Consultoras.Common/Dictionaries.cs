@@ -234,6 +234,26 @@ namespace Portal.Consultoras.Common
         };
 
         /// <summary>
+        /// Formatos de los numeros de documento para mostrar, key: Codigo del país, value: Func<string, string> 
+        /// </summary>
+        public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoView = new Dictionary<string, Func<string, string>>
+        {
+            { "BO", null },
+            { "CL", t => t.Insert(8, "-") },
+            { "CO", t=> t},
+            { "CR", null },
+            { "DO", null },
+            { "EC", null },
+            { "GT", null },
+            { "MX", t=> t },
+            { "PA", null },
+            { "PE", t => t },
+            { "PR", null },
+            { "SV", null },
+            { "VE", null }
+        };
+
+        /// <summary>
         /// Label para el primero combo de lugares, key: Codigo del país, value: string
         /// </summary>
         public static Dictionary<string, string> LabelLugar1 = new Dictionary<string, string>
@@ -241,15 +261,15 @@ namespace Portal.Consultoras.Common
             { "BO", "" },
             { "CL", "Ciudad (Región)" },
             { "CO",  "Departamento" },
-            { "CR", "" },
+            { "CR", "Provincia" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "Departamento" },
             { "MX", "Estado" },
-            { "PA", "" },
+            { "PA", "Provincia" },
             { "PE", "Departamento" },
             { "PR", "" },
-            { "SV", "" },
+            { "SV", "Departamento" },
             { "VE", "" }
         };
 
@@ -261,18 +281,77 @@ namespace Portal.Consultoras.Common
             { "BO", "" },
             { "CL", "Comuna" },
             { "CO", "Ciudad" },
+            { "CR", "Canton" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Municipio" },
+            { "MX", "Municipio" },
+            { "PA", "Distrito" },
+            { "PE", "Provincia" },
+            { "PR", "" },
+            { "SV", "Municipio" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar3 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
+            { "CR", "Distrito" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Centro Poblado" },
+            { "MX", "" },
+            { "PA", "Corregimiento" },
+            { "PE", "Distrito" },
+            { "PR", "" },
+            { "SV", "Canton" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar4 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
+            { "CR", "Barrio/Referencia" },
+            { "DO", "" },
+            { "EC", "" },
+            { "GT", "Zona" },
+            { "MX", "" },
+            { "PA", "Barrio/Colonia" },
+            { "PE", "Centro Poblado" },
+            { "PR", "" },
+            { "SV", "Barrio/Colonia" },
+            { "VE", "" }
+        };
+
+        /// <summary>
+        /// Label para el segundo combo de lugares, key: Codigo del país, value: string
+        /// </summary>
+        public static Dictionary<string, string> LabelLugar5 = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "" },
+            { "CO", "" },
             { "CR", "" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
-            { "MX", "Municipio" },
+            { "GT", "Barrio/Colonia" },
+            { "MX", "" },
             { "PA", "" },
-            { "PE", "Distrito" },
+            { "PE", "" },
             { "PR", "" },
             { "SV", "" },
             { "VE", "" }
         };
-
         public static Dictionary<string, int> MaxLengthCodigoConsultora = new Dictionary<string, int>
         {
             { "BO", 0 },

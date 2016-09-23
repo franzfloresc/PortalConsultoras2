@@ -123,13 +123,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal DescuentoProl { get; set; }
         [DataMember]
+        public bool FlagConsultoraOnline { get; set; }
+
+        [DataMember]
         public decimal MontoEscala { get; set; }
         [DataMember]
         public decimal MontoAhorroCatalogo { get; set; }
         [DataMember]
         public decimal MontoAhorroRevista { get; set; }
         [DataMember]
-        public int OrigenPedidoWebBE { get; set; }
+        public int OrigenPedidoWeb { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -217,12 +220,17 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
+            if (DataRecord.HasColumn(row, "FlagConsultoraOnline"))
+                FlagConsultoraOnline = Convert.ToBoolean(row["FlagConsultoraOnline"]);
             if (DataRecord.HasColumn(row, "MontoEscala"))
                 MontoEscala = row["MontoEscala"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoEscala"]);
             if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
                 MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
+
+            if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
+                OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -320,12 +328,17 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
+            if (DataRecord.HasColumn(row, "FlagConsultoraOnline"))
+                FlagConsultoraOnline = Convert.ToBoolean(row["FlagConsultoraOnline"]);
             if (DataRecord.HasColumn(row, "MontoEscala"))
                 MontoEscala = row["MontoEscala"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoEscala"]);
             if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
                 MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
+
+            if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
+                OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
         }
     }
 }

@@ -38,6 +38,7 @@
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
@@ -65,10 +66,12 @@
       <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorMeta" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorOfertaFIC" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorPermisoFIC" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorRechazado" type="xs:int" />
       <xs:element minOccurs="0" name="InscritaFlexipago" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Lider" type="xs:int" />
@@ -358,13 +361,19 @@
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaSolicitud" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaSolicitudFormat" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagMedio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Leido" type="xs:int" />
+      <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeDelCliente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumIteracion" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SaldoHoras" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -379,12 +388,19 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MedioContacto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeValidacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:long" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
+      <xs:element minOccurs="0" name="PedidoWebDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioTotal" type="xs:double" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:double" />
       <xs:element minOccurs="0" name="Producto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneStock" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoAtencion" type="xs:int" />
       <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

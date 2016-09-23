@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
@@ -208,7 +208,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -218,7 +218,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
 
                 FtpConfigurationElement ftpElement = null;
                 FtpConfigurationElement ftpElementCoDat = null;
@@ -501,7 +501,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     carpetaPais = ConfigurationManager.AppSettings["S3_Pedidos"] + codigoPais;
                     if (!string.IsNullOrEmpty(headerFileS3)) ConfigS3.SetFileS3(headerFileS3, carpetaPais, Path.GetFileName(headerFileS3), false, false, true);
-                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);                    
+                    if (!string.IsNullOrEmpty(detailFileS3)) ConfigS3.SetFileS3(detailFileS3, carpetaPais, Path.GetFileName(detailFileS3), false, false, true);
                     DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, true, null, null);
                 }
                 catch (Exception ex)
@@ -519,7 +519,7 @@ namespace Portal.Consultoras.BizLogic
                         ConfigS3.SetFileS3(dataConFileS3, carpetaPais, Path.GetFileName(dataConFileS3), false, false, true);
                         DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, true, null, null);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
@@ -602,7 +602,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //----- Log Pedidos
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -612,7 +612,7 @@ namespace Portal.Consultoras.BizLogic
                     DAPedidoWeb.UpdLogPedidoDescargaWebDD(nroLote);
                     transaction.Complete();
                 }
-                
+
                 FtpConfigurationElement ftpElement = null;
 
                 Guid fileGuid = Guid.NewGuid();
@@ -921,7 +921,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-            
+
             string[] s = null;
             if (headerFile == null && detailFile == null) s = new string[] { };
             else s = new string[] { headerFile, detailFile };
@@ -1342,9 +1342,9 @@ namespace Portal.Consultoras.BizLogic
         /*GR2089*/
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
-            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora,PedidoId,Accion, CodigoUsuario);
+            new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
         }
-        
+
         public void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb)
         {
             var DAPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
@@ -1382,7 +1382,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWeb> lstPedidosDD = new List<BEPedidoDDWeb>();
-                if (BEPedidoDDWeb.Origen != 2)
+                if (BEPedidoDDWeb.Origen != 2 && BEPedidoDDWeb.EstadoValidacion != 202)
                 {
                     try
                     {
@@ -1946,6 +1946,11 @@ namespace Portal.Consultoras.BizLogic
                     listaPedidosFacturados.Add(entidad);
                 }
             return listaPedidosFacturados;
+        }
+
+        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP)
+        {
+            new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP);
         }
     }
 

@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
 
-    waitingDialog({});
+    waitingDialog();
+
+    MensajeEstadoPedido();
+
     closeWaitingDialog();
 
     $(document).ajaxStop(function () {
@@ -573,8 +576,8 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 };
-function ValidarCorreo(correo) {
-    var expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+function ValidarCorreo(correo) {   
+    var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
 /*Fin Cambios_Landing_Comunidad*/
@@ -623,44 +626,61 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",
-        contentType: 'application/json',
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    var showroomConsultora = response.data;
-                    var evento = response.evento;
+    var idRol = viewBagRol;
 
-                    if (showroomConsultora.EventoConsultoraID != 0) {
-                        if (response.estaActivoLateral) {
-                            $("#hdNombreEventoShowRoom").val(evento.Nombre);
-                            $("#hdEventoIDShowRoom").val(evento.EventoID);
+    if (idRol == 1) {
 
-                            if (response.mostrarShowRoomProductos) {
-                                $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",
+            contentType: 'application/json',
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        var showroomConsultora = response.data;
+                        var evento = response.evento;
 
-                                $("#ctrasHoy").show();
-                            } else {
-                                $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
-                                AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+                        if (showroomConsultora.EventoConsultoraID != 0) {
+                            if (response.estaActivoLateral) {
+                                $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                $("#hdEventoIDShowRoom").val(evento.EventoID);
 
-                                $("#ctras").show();
+                                if (response.mostrarShowRoomProductos) {
+                                    $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
+
+                                    //Carga de Imagenes
+                                    $("#imgVentaTagLateralHoy").attr("src", evento.ImagenVentaTagLateral);
+                                    $("#imgPestaniaShowRoomLateralHoy").attr("src", evento.ImagenPestaniaShowRoom);
+
+                                    //$("#ctras").hide();
+                                    $("#ctrasHoy").show();
+                                } else {
+                                    $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+                                    AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+
+                                    //Carga de Imagenes
+                                    $("#imgPestaniaShowRoomLateral").attr("src", evento.ImagenPestaniaShowRoom);
+
+                                    //$("#ctrasHoy").hide();
+                                    $("#ctras").show();
+                                }
                             }
                         }
                     }
                 }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    closeWaitingDialog();
+                    console.log("Ocurrió un error en ShowRoom");
+                    //alert("Ocurrió un error en ShowRoom");
+                }
             }
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                closeWaitingDialog();
-                console.log("Ocurrió un error en ShowRoom");
-            }
-        }
-    });
-};
+        });
+    }
+
+}
+
 function AgregarTimerShowRoom(dia, mes, anio) {
     var calcNewYear = setInterval(function () {
         //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -701,7 +721,8 @@ function AgregarTimerShowRoom(dia, mes, anio) {
             $("#ctrasHoy").show();
         }
     }, 1000);
-};
+}
+
 function AgregarTagManagerShowRoomBannerLateral(esHoy) {
     var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
@@ -722,7 +743,8 @@ function AgregarTagManagerShowRoomBannerLateral(esHoy) {
             }
         }
     });
-};
+}
+
 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
     var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
@@ -743,7 +765,7 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
             }
         }
     });
-};
+}
 /* Fin ShowRoom */
 
 /* Inicio Marcaciones */
@@ -797,7 +819,32 @@ function TrackingJetloreRemoveAll(lista) {
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);
+    }
+}
 
+function TrackingJetloreView(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "view",
+            deal_id: cuv,
+            option_id: campania
+        });
+    }
+}
+
+function TrackingJetloreSearch(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "search",
+            deal_id: cuv,
+            option_id: campania
+        });
     }
 }
 
