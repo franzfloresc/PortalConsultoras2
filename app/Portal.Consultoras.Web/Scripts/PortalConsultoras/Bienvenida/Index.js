@@ -840,10 +840,10 @@ function EstructurarDataCarousel(array) {
     });
     return array;
 };
-function CargarProductoDestacado(objParameter, objInput, popup, limite) {
-    if (ReservadoOEnHorarioRestringido())
-        return false;
-
+function CargarProductoDestacado(objParameter, objInput, popup, limite) {  
+    if (ReservadoOEnHorarioRestringido()) {       
+        return ;
+    }
     agregarProductoAlCarrito(objInput);
 
     waitingDialog({});
