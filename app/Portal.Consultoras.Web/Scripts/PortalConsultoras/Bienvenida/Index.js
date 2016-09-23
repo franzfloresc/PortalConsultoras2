@@ -697,7 +697,7 @@ function procesarPromesaComunicado(response) {
 }
 
 function showComunicadoSinMostrar() {
-    $('html').css({ 'overflow-y': 'hidden' });
+    //$('html').css({ 'overflow-y': 'hidden' });
     var j = 0;
 
     $('#popupComunicados').find('div.popup_comunicados').each(function (index, element) {
@@ -3707,7 +3707,8 @@ function stylePopupComunicado(ID) {
     var estadoPopup = $("#popupComunicados").css("display");
 
     if (estadoPopup == "block") {
-        $("#" + ID).css({ "margin-top": -altoPopup, "width": imagenPopup.width() });
+        $("#" + ID).css({ "width": imagenPopup.width() });
+        $("#" + ID).css({ "margin-top": -altoPopup });
     }
 }
 function clickCerrarComunicado(obj) {
