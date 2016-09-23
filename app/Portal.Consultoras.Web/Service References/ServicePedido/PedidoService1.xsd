@@ -321,6 +321,7 @@
       <xs:element minOccurs="0" name="DescripcionEstado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnvioCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaHoraFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHoraFin" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHoraFinEnvio" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHoraInicio" type="xs:dateTime" />
