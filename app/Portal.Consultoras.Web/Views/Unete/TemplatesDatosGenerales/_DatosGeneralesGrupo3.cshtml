@@ -116,7 +116,8 @@
         <div class="div-3 div_3_fix">
             <div class="titC">Telf. Fijo:</div>
             <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.Telefono, new { @class = "numero" })
+                @*@Html.TextBoxFor(m => m.Telefono, new { @class = "numero" })*@
+                @Html.TextBoxForExpressionRequiredIf(m => m.Telefono, new { @class = "numero" })
             </div>
 
             <div class="titC">Celular:</div>
