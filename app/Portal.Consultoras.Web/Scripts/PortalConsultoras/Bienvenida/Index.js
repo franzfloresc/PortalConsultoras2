@@ -7,31 +7,30 @@ var fnMovimientoTutorial;
 var showViewVideo = viewBagVioVideo;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
-$(document).ready(function () {
+$(document).ready(function() {
 
-    $('.contenedor_img_perfil').on('click', CargarCamara);
+    //$('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
-    })
+    });
 
     $('#salvavidaTutorial').show();
 
-    $(".abrir_tutorial").click(function () {
+    $(".abrir_tutorial").click(function() {
         abrir_popup_tutorial();
     });
-    $(".cerrar_tutorial").click(function () {
+    $(".cerrar_tutorial").click(function() {
         cerrar_popup_tutorial();
     });
-    
-     
+
     // Evento para visualizar video introductorio al hacer click
-    $(".ver_video_introductorio").click(function () {
+    $(".ver_video_introductorio").click(function() {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
-        $('#videoIntroductorio').fadeIn(function () {
+        $('#videoIntroductorio').fadeIn(function() {
             $("#videoIntroductorio").delay(200);
-            $("#videoIntroductorio").fadeIn(function () {
+            $("#videoIntroductorio").fadeIn(function() {
                 playVideo();
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -44,7 +43,7 @@ $(document).ready(function () {
         });
     });
 
-    document.onkeydown = function (evt) {
+    document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
@@ -52,9 +51,9 @@ $(document).ready(function () {
             }
             if ($('#videoIntroductorio').is(':visible')) {
                 if (primeraVezVideo) {
-                    abrir_popup_tutorial();                    
+                    abrir_popup_tutorial();
                 }
-                stopVideo();                
+                stopVideo();
                 $('#videoIntroductorio').hide();
                 if (contadorFondoPopUp == 1) {
                     $("#fondoComunPopUp").hide();
@@ -64,24 +63,24 @@ $(document).ready(function () {
             }
         }
     };
-    
+
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
 
     // Funcion para cambiar background según posicion de scroll
-    $(window).scroll(function () {
+    $(window).scroll(function() {
 
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
             $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
+                    opacity: 0
+                }, 100, 'swing', function() {
+                    $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                    $(".flecha_scroll").delay(100);
+                    $(".flecha_scroll").animate({
+                        opacity: 1
+                    }, 100, 'swing');
+                });
         } else {
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
         }
@@ -89,7 +88,7 @@ $(document).ready(function () {
     });
 
     // Evento click que ocurre en la flecha scroll
-    $(".flecha_scroll").on('click', function (e) {
+    $(".flecha_scroll").on('click', function(e) {
 
         e.preventDefault();
         var posicion = $(window).scrollTop();
@@ -111,17 +110,17 @@ $(document).ready(function () {
 
     /* SB20-834 - INICIO */
     ObtenerComunicadosPopUps();
-    $('body').bind('resize', '.popup_comunicados', function (e) {
+    $('body').bind('resize', '.popup_comunicados', function(e) {
         stylePopupComunicado($(this).attr('id'));
         //console.log('showViewVideo:' + showViewVideo);
         //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
 
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
+        if ($.trim($('#popupComunicados').html()) != "") {
+            $('#popupComunicados').show();
+        }
     });
-    /* SB20-834 - FIN */
-       
+    /* SB20-834 - FIN */    
+    
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -131,27 +130,27 @@ $(document).ready(function () {
     CargarBanners();
     CargarCatalogoPersonalizado();
 
-    $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
-    $("#btnActualizarMD").click(function () { ActualizarMD(); });
-    $("#btnActualizarDatos").click(function () {
+    $("#btnCambiarContrasenaMD").click(function() { CambiarContrasenia(); });
+    $("#btnActualizarMD").click(function() { ActualizarMD(); });
+    $("#btnActualizarDatos").click(function() {
         ActualizarDatos();
         return false;
     });
 
-    $("#btnCerrarActualizarDatos").click(function () {
+    $("#btnCerrarActualizarDatos").click(function() {
         CerrarPopupActualizacionDatos();
         return false;
     });
-    $("#btnActualizarDatosMexico").click(function () {
+    $("#btnActualizarDatosMexico").click(function() {
         ActualizarDatosMexico();
         return false;
     });
-    $("#btnCerrarActualizarDatosMexico").click(function () {
+    $("#btnCerrarActualizarDatosMexico").click(function() {
         CerrarPopupActualizacionDatosMexico();
         return false;
     });
-    
-    $("#cerrarVideoIntroductorio").click(function () {
+
+    $("#cerrarVideoIntroductorio").click(function() {
         if (primeraVezVideo) {
             //console.log('Init popup #2');
             abrir_popup_tutorial();
@@ -174,7 +173,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#cerrarAceptacionContrato").click(function () {
+    $("#cerrarAceptacionContrato").click(function() {
         $('#popupAceptacionContrato').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -183,7 +182,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#cerrarInvitacionFlexipago").click(function () {
+    $("#cerrarInvitacionFlexipago").click(function() {
         $('#popupInvitaionFlexipago').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -191,7 +190,7 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
-    $("#abrirPopupMisDatos").click(function () {
+    $("#abrirPopupMisDatos").click(function() {
         if (contadorFondoPopUp == 0) {
             $("#fondoComunPopUp").show();
         }
@@ -200,7 +199,7 @@ $(document).ready(function () {
         contadorFondoPopUp++;
         return false;
     });
-    $("#cerrarPopupMisDatos").click(function () {
+    $("#cerrarPopupMisDatos").click(function() {
         $('#popupMisDatos').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -208,26 +207,26 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
-    $('#hrefTerminos').click(function () {
+    $('#hrefTerminos').click(function() {
         waitingDialog({});
         DownloadAttachPDFTerminos();
     });
-    $('#hrefTerminosMD').click(function () {
+    $('#hrefTerminosMD').click(function() {
         waitingDialog({});
         DownloadAttachContratoActualizarDatos();
     });
-    $('#hrefContratoMD').click(function () {
+    $('#hrefContratoMD').click(function() {
         waitingDialog({});
         DownloadAttachContratoCO();
     });
-    $("#btnCancelarMD").click(function () {
+    $("#btnCancelarMD").click(function() {
         $(".campos_cambiarContrasenia").fadeOut(200);
         $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
         $(".campos_actualizarDatos").delay(200);
         $(".campos_actualizarDatos").fadeIn(200);
     });
 
-    $("#lnkCambiarContrasena").click(function () {
+    $("#lnkCambiarContrasena").click(function() {
         if ($("#divCambiarContrasena").is(":visible")) {
             $(".grupo_input_password").slideUp(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura");
@@ -238,7 +237,7 @@ $(document).ready(function () {
 
         }
     });
-    $(".misDatosContraseniaEnlace").click(function () {
+    $(".misDatosContraseniaEnlace").click(function() {
         if ($(".campos_cambiarContrasenia").is(":visible")) {
             $(".campos_cambiarContrasenia").fadeOut(200);
             $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
@@ -252,52 +251,48 @@ $(document).ready(function () {
             $(".campos_cambiarContrasenia").fadeIn(200);
         }
     });
-    $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
+    $("#txtTelefono, #txtTelefonoMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+    $("#txtCelular, #txtCelularMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[0-9+ *#-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtEMailMD").keypress(function (evt) {
+    $("#txtEMailMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
             return re.test(keyChar);
         }
     });
-    $("#txtSobrenombreMD").keypress(function (evt) {
+    $("#txtSobrenombreMD").keypress(function(evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
-        }
-        else {
+        } else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
             return re.test(keyChar);
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $(document).on('click', '.js-agregar-liquidacion', function(e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -308,7 +303,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -337,21 +332,21 @@ $(document).ready(function () {
 
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
-    $(document).on('click', '.js-agregar-popup-liquidacion', function () {
+    $(document).on('click', '.js-agregar-popup-liquidacion', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
         var contenedor = $(this).parents('#divTonosTallas');
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.btn_cerrar_escogerTono', function () {
+    $(document).on('click', '.btn_cerrar_escogerTono', function() {
         HidePopupTonosTallas();
     });
-    $(document).on('change', '#ddlTallaColorLiq', function () {
+    $(document).on('change', '#ddlTallaColorLiq', function() {
         CambiarTonoTalla($(this));
     });
 
-    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
+    $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -359,11 +354,11 @@ $(document).ready(function () {
         AgregarProductoCatalogoPersonalizado(contenedor);
     });
 
-    $(document).on('click', '.miCurso', function () {
+    $(document).on('click', '.miCurso', function() {
         var id = $(this)[0].id;
         GetCursoMarquesina(id)
     });
-    $(document).on('click', '.pop-ofertarevista', function () {
+    $(document).on('click', '.pop-ofertarevista', function() {
         waitingDialog({});
         var $contenedor = $(this).parents('.contiene-productos');
         var cuv = $contenedor.find('.hdItemCuv').val();
@@ -386,7 +381,7 @@ $(document).ready(function () {
             dataType: 'json',
             data: JSON.stringify({ cuv: cuv }),
             contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+            success: function(response) {
                 if (response.success) {
                     response.data.dataPROL.Simbolo = viewBagSimbolo;
                     var settings = $.extend({}, response.data.dataPROL, obj);
@@ -420,13 +415,13 @@ $(document).ready(function () {
                 }
                 closeWaitingDialog();
             },
-            error: function (response, error) {
+            error: function(response, error) {
                 console.log(error);
                 closeWaitingDialog();
             }
         });
     });
-    $(document).on('click', '.agregar-ofertarevista', function () {
+    $(document).on('click', '.agregar-ofertarevista', function() {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -436,11 +431,210 @@ $(document).ready(function () {
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
     });
-        
+
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
+});
+
+function CargarCamara() {
+    //https://github.com/jhuckaby/webcamjs
+    Webcam.set({
+        // live preview size
+        width: 300,
+        height: 300,
+        // device capture size
+        //dest_width: 600,
+        //dest_height: 600,
+        // final cropped size
+        crop_width: 300,
+        crop_height: 300,
+        // format and quality
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+        //force_flash: true,
+        flip_horiz: true
+    });
+    Webcam.attach('#my_camera');
+
+    $("#fondoComunPopUp").show();
+    contadorFondoPopUp++;
+    $("#CamaraIntroductoria").show();
+}
+
+function CerrarCamara() {
+    Webcam.reset();
+    $('#imgFotoTomada').attr('src', '');
+    $('#demo').removeClass('croppie-container').html('');
+
+    $("#CamaraIntroductoria").hide();
+    contadorFondoPopUp--;
+    if (contadorFondoPopUp == 0) $("#fondoComunPopUp").hide();
+}
+
+function CortarFoto() {
+    $('#demo').croppie('result', {
+        type: 'canvas',
+        format: 'png'
+    }).then(function (resp) {
+        waitingDialog();
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Bienvenida/SubirImagen',
+            data: JSON.stringify({ data: resp }),
+            dataType: 'Json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert_msg(data.message);
+                if (data.success) {
+                    $('#imgFotoUsuario').show();
+                    $('#imgFotoUsuarioDefault').hide();
+                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+                }
+            },
+            error: function (data, error) { console.log(error); },
+            complete: closeWaitingDialog
+        });
+    });
+}
+
+function TomarFoto() {
+    Webcam.snap(function (data_uri) {
+        $('#imgFotoTomada').attr('src', data_uri);
+        $('#demo').croppie({
+            viewport: {
+                width: 150,
+                height: 150,
+                type: 'circle'
+            },
+            url: data_uri
+        });
+    });
+}
+function SubirFoto() {
+    waitingDialog();
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/SubirImagen',
+        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            alert_msg(data.message);
+            if (data.success) {
+                $('#imgFotoUsuario').show();
+                $('#imgFotoUsuarioDefault').hide();
+                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+            }
+        },
+        error: function (data, error) { console.log(error); },
+        complete: closeWaitingDialog
+    });
+}
+
+// MICROEFECTO FLECHA HOME
+function animacionFlechaScroll() {
+
+    $(".flecha_scroll").animate({
+        'top': '87%'
+    }, 400, 'swing', function () {
+        $(this).animate({
+            'top': '90%'
+        }, 400, 'swing');
+    });
+
+}
+function agregarProductoAlCarrito(o) {
+    var btnClickeado = $(o);
+    var contenedorItem = btnClickeado.parent().parent();
+    var imagenProducto = $('.imagen_producto', contenedorItem);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+                //}, 100, 'swing', function () {
+                //    $(".campana .info_cam").fadeIn(200);
+                //    $(".campana .info_cam").delay(2500);
+                //    $(".campana .info_cam").fadeOut(200);
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+}
+
+//MICROEFECTO RESALTAR ICONO TUTORIAL
+function mostrarUbicacionTutorial() {
+    $(".fondo_oscuro").fadeIn(300, function () {
+        $(".mensaje_header").addClass("opcionTutorial");
+        $(".tooltip_tutorial").fadeIn();
+        mostrarIconoTutorial();
+    });
+
+    setTimeout(function () {
+        $(".tooltip_tutorial").fadeOut();
+        $(".tooltip_tutorial").stop();
+        $(".fondo_oscuro").delay(500);
+        $(".fondo_oscuro").fadeOut(300, function () {
+            $(".mensaje_header").removeClass("opcionTutorial");
+        });
+    }, 9000);
+}
+function mostrarIconoTutorial() {
+
+    $(".tooltip_tutorial").animate({
+        'opacity': 1,
+        'top': 47
+    }, 500, 'swing').animate({
+        'top': 41
+    }, 400, 'swing', mostrarIconoTutorial);
+
+}
+// FIN MICROEFECTO RESALTAR ICONO TUTORIAL
+
+//Video youtube
+function stopVideo() {
+    if (player) {
+        if (player.stopVideo) {
+            player.stopVideo();
+        }
+        else {
+            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+            var urlVideo = $("#divPlayer").attr("src");
+            $("#divPlayer").attr("src", "");
+            $("#divPlayer").attr("src", urlVideo);
+        }
+    }
+};
+function playVideo() {
+    if (player) {
+        if (player.playVideo) {
+            player.playVideo();
+        }
+        else {
+            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+    }
+};
+
 function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
