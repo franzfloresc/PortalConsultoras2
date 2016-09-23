@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : model.CodigoPais == "MX"
                             ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
                             : model.CodigoPais == "PE"
-                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida + "|" + model.Referencia
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida 
                              : model.CodigoPais == "GT"
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
                             : model.CodigoPais == Constantes.CodigosISOPais.CostaRica
