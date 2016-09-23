@@ -895,5 +895,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv);
+        
+        [OperationContract]
+        BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID);
     }
 }

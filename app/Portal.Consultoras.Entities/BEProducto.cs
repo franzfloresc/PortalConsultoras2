@@ -163,6 +163,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneOfertaRevista { get; set; }
 
+        [DataMember]
+        public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
@@ -231,6 +234,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TieneOfertaRevista") && datarec["TieneOfertaRevista"] != DBNull.Value)
                 TieneOfertaRevista = Convert.ToBoolean(datarec["TieneOfertaRevista"]);
+
+            if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
+                TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);            
         }
 
         public BEProducto()

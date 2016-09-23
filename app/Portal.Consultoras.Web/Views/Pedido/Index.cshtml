@@ -174,7 +174,14 @@
         <div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
             <div class="paginador_pedidos mostrarPaginadorPedidos">
                 <div class="titulo_mis_pedidos">
-                    <h1 id="pedmostreo">PEDIDO <b>INGRESADO</b></h1>
+                    @if (ViewBag.MostrarPedidosPendientes == "1")
+                    {
+                        <h1 id="pedmostreo">PEDIDO <b>INGRESADO</b></h1>
+                    }
+                    else
+                    {
+                        <h1>MIS <b>PRODUCTOS</b></h1>
+                    }
 
                     @if (ViewBag.MostrarPedidosPendientes == "1")
                     { 
@@ -1635,8 +1642,10 @@
             <span class="texto_pedidos_ofertas">
                 <label>PRE-VENTA DIGITAL</label>
             </span>
-            {{else}}
+            @*{{else}}
+            <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
+            </span>*@
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
@@ -2362,7 +2371,7 @@
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        $('#pedmostreo').addClass('bordespacive');
+        //$('#pedmostreo').addClass('bordespacive');
         $('#infoPendientes').hide();
 
         var mostrarPedidosPendientes = '@ViewBag.MostrarPedidosPendientes';

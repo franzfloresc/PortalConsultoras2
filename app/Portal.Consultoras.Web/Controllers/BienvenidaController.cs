@@ -22,6 +22,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var model = new BienvenidaHomeModel();
@@ -211,6 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+
             }
             catch (FaultException ex)
             {
@@ -1508,5 +1515,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         /* SB20-834 - FIN */
+        
+        [HttpPost]
+        public JsonResult CerrarMensajeEstadoPedido()
+        {
+            userData.CerrarRechazado = 1;
+            SetUserData(userData);
+            return Json(userData.CerrarRechazado);
+        }
     }
 }

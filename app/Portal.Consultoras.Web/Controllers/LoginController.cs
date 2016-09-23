@@ -18,6 +18,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System.Text.RegularExpressions;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Data;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -314,6 +315,50 @@ namespace Portal.Consultoras.Web.Controllers
                 if (oBEUsuario != null)
                 {
                     model = new UsuarioModel();
+
+                    #region Obtener Respuesta del SSiCC
+                    model.MotivoRechazo = "";
+                    if (oBEUsuario.IndicadorEnviado == 1 && oBEUsuario.IndicadorRechazado == 1)
+                    {
+                        var procesoRechazado = new BEProcesoPedidoRechazado();
+                        try
+                        {
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                procesoRechazado = sv.ObtenerProcesoPedidoRechazadoGPR(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.ConsultoraID);
+                            }
+                        }
+                        catch (Exception) { procesoRechazado = new BEProcesoPedidoRechazado(); }
+
+                        if (procesoRechazado.IdProcesoPedidoRechazado > 0)
+                        {
+                            model.EstaRechazado = 2;
+                            var listaReclazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
+                            if (listaReclazo.Any())
+                            {
+                                model.EstaRechazado = 0;
+                                listaReclazo = listaReclazo.Where(r => r.RequiereGestion).ToList();
+                                var d = listaReclazo.Where(r => r.Procesado).ToList();
+                                if (d.Any())
+                                {
+                                    model.EstaRechazado = 1;
+                                    foreach (var rechazo in listaReclazo)
+                                    {
+                                        if (rechazo.MotivoRechazo != "")
+                                        {
+                                            model.MotivoRechazo += " " + rechazo.MotivoRechazo + " " + rechazo.Valor + ".";
+                                        }
+                                    }
+                                }
+                                
+                                // llamar al maestro de mensajes
+                            }
+                        }
+                    }
+                    #endregion
+                    model.MotivoRechazo = model.MotivoRechazo.Trim();
+                    model.IndicadorEnviado = oBEUsuario.IndicadorEnviado;
+                    model.IndicadorRechazado = oBEUsuario.IndicadorRechazado;
                     model.NombrePais = oBEUsuario.NombrePais;
                     model.PaisID = oBEUsuario.PaisID;
                     model.CodigoISO = oBEUsuario.CodigoISO;
@@ -489,7 +534,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                     model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
 
-                    //if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
+                    if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
                 }
 
                 pasoLog = "Agregar usuario en session";

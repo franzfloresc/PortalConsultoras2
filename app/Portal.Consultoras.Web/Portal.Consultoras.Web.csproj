@@ -1654,12 +1654,14 @@
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika5.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika7.jpg" />
-    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika8.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika8.png" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika9.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5.jpg" />
+    <Content Include="Content\Images\Esika\tutorial\tuto6.jpg" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\tutorial\tuto2.png" />
@@ -1717,6 +1719,7 @@
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\icons\close.png" />
@@ -2178,6 +2181,7 @@
     <Content Include="Content\Images\prev_slide_ahover.png" />
     <Content Include="Content\Images\prodmodificado.png" />
     <Content Include="Content\Images\producto.png" />
+    <Content Include="Content\Images\producto_lanzamiento_CP.png" />
     <Content Include="Content\Images\producto_modal.png" />
     <Content Include="Content\Images\prod_grilla.png" />
     <Content Include="Content\Images\prod_grilla_vacio.png" />
@@ -3457,6 +3461,7 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
+    <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <None Include="Web References\ServiceLMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
