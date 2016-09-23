@@ -7,6 +7,7 @@ var fnMovimientoTutorial;
 var showViewVideo = viewBagVioVideo;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
+
 $(document).ready(function () {
 
     $('.contenedor_img_perfil').on('click', CargarCamara);
@@ -64,30 +65,7 @@ $(document).ready(function () {
             }
         }
     };
-    //Video youtube
-    function stopVideo() {
-        if (player) {
-            if (player.stopVideo) {
-                player.stopVideo();
-            }
-            else {
-                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
-                var urlVideo = $("#divPlayer").attr("src");
-                $("#divPlayer").attr("src", "");
-                $("#divPlayer").attr("src", urlVideo);
-            }
-        }
-    };
-    function playVideo() {
-        if (player) {
-            if (player.playVideo) {
-                player.playVideo();
-            }
-            else {
-                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            }
-        }
-    };
+    
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
 
@@ -466,8 +444,7 @@ $(document).ready(function () {
     //Fin ShowRoom
 });
 
-
-    function abrir_popup_tutorial(){
+function abrir_popup_tutorial(){
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
         var paisCP = false;
@@ -691,6 +668,31 @@ function mostrarIconoTutorial() {
 
 }
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
+
+//Video youtube
+function stopVideo() {
+    if (player) {
+        if (player.stopVideo) {
+            player.stopVideo();
+        }
+        else {
+            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+            var urlVideo = $("#divPlayer").attr("src");
+            $("#divPlayer").attr("src", "");
+            $("#divPlayer").attr("src", urlVideo);
+        }
+    }
+};
+function playVideo() {
+    if (player) {
+        if (player.playVideo) {
+            player.playVideo();
+        }
+        else {
+            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+    }
+};
 
 function mostrarVideoIntroductorio() {
 
@@ -3860,6 +3862,7 @@ function AgregarTagManagerShowRoomCheckBox() {
     });
 }
 //Fin ShowRoom
+
 /* SB20-834 - INICIO */
 function ObtenerComunicadosPopUps() {
     //console.log('ObtenerComunicadosPopUps');
