@@ -77,6 +77,10 @@ ORDER BY c.CampaniaID DESC
 --		CONVERT(datetime, c.FechaInicioFacturacion + @DiasDuracionCronograma -1 + ISNULL(dbo.GetHorasDuracionRestriccion(@ZonaID, @DiasDuracionCronograma, c.FechaInicioFacturacion),0)) + CONVERT(datetime, @HoraCierreZonaNormal) < @FechaGeneral        
 --ORDER BY c.CampaniaID DESC        
 
+
+declare @IndicadorEnviado bit = 0  
+DECLARE @esRechazado int = -1 
+
 IF(@Campania <> 0)        
 BEGIN       
 	SET @Campania = @Campania - @Anio        
@@ -86,23 +90,18 @@ BEGIN
 		SET @Campania = @Anio + @Campania + 1    
 
   --Colocar nueva lógica    
-
-
-	declare @IndicadorEnviado bit    
-	set @IndicadorEnviado = 0    
-
-	Select @IndicadorEnviado  = IndicadorEnviado    
-	From pedidoweb (nolock)  
-	Where CampaniaID = @campania and consultoraid = @consultoraid    
-
-	If(@IndicadorEnviado = 1)    
-	Begin    
-		SET @Campania = @Campania - @Anio      
-		IF(@Campania = @NroCampanias)      
-			SET @Campania = @Anio + 101      
-		ELSE      
-			SET @Campania = @Anio + @Campania + 1      
-	end  
+    
+		SELECT @esRechazado = esRechazado, @IndicadorEnviado = IndicadorEnviado
+		FROM  EsPedidoRechazado_SB2(@ConsultoraID, @Campania)
+				
+		if @IndicadorEnviado = 1 and @esRechazado = 2 -- no rechazado (sigue con el proceso normal=> cambio de campaña)
+		begin
+			SET @Campania = @Campania - @Anio
+			IF(@Campania = @NroCampanias)
+				SET @Campania = @Anio + 101
+			ELSE
+				SET @Campania = @Anio + @Campania + 1
+		END
 
 	INSERT INTO @TablaDatos
 	(CampaniaId)
