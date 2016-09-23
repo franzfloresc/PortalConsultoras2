@@ -265,6 +265,12 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
+
+    $(document).scroll(function () {
+        try {
+            $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
+        } catch (e) { }        
+    });
 })(jQuery);
 
 function showDialog(dialogId) {
