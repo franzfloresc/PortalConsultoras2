@@ -428,7 +428,7 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        //LimpiarSesionProductosOF();
+        
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;
@@ -4460,20 +4460,4 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
-
-function LimpiarSesionProductosOF()
-{
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/LimpiarSesionProductosOF',      
-        async: true,
-        success: function (data) {            
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert_msg(data.message);
-            }
-        }
-    });
 };
