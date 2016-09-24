@@ -3892,12 +3892,14 @@ function ObtenerComunicadosPopUps() {
 }
 function stylePopupComunicado(ID) {
 
-    var altoPopup = $("#" + ID).height() / 2;
+    //var altoPopup = $("#" + ID).height() / 2;
+    var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
 
     if (estadoPopup == "block") {
-        $("#" + ID).css({ "margin-top": -altoPopup, "width": imagenPopup.width() });
+        $("#" + ID).css({ "width": imagenPopup.width() });
+        $("#" + ID).css({ "top": altoPopup });
     }
 }
 function clickCerrarComunicado(obj) {
