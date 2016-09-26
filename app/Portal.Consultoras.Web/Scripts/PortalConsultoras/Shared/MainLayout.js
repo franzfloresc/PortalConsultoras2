@@ -130,7 +130,12 @@
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-
+    $("#belcorpChat a").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
+    });
+    
     Scrolling();
     MostrarShowRoomBannerLateral();
 });
@@ -568,8 +573,8 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 };
-function ValidarCorreo(correo) {
-    var expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+function ValidarCorreo(correo) {   
+    var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
 /*Fin Cambios_Landing_Comunidad*/
@@ -586,7 +591,7 @@ function MostrarShowRoomBannerLateral() {
 
     var togglediv = 0;
 
-    $("#ctras").click(function () {
+    $("#ctras").hover(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
@@ -602,7 +607,7 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $("#ctrasHoy").click(function () {
+    $("#ctrasHoy").hover(function () {
         if (togglediv == 0) {
             $('.caja-traslado').animate({
                 'right': '0'
