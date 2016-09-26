@@ -2068,7 +2068,7 @@
 
 </script>
 
-<div id="popupMostrarComumnicado" class="popup_actualizarMisDatos" style="display: none;">
+@*<div id="popupMostrarComumnicado" class="popup_actualizarMisDatos" style="display: none;">*@
 </div>
 <!-- SB20-834 - FIN -->
 
@@ -2108,7 +2108,8 @@
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
-        var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        //var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        var viewBagVioVideo = '1';
         var sessionIsContrato = '@Session["IsContrato"]';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';

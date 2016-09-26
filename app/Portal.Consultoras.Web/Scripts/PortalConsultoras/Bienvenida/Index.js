@@ -4,9 +4,15 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
-var showViewVideo = viewBagVioVideo;
 var fotoCroppie;
 var origenPedidoWebEstrategia = 0;
+
+/* SB20-834 - INICIO */
+var showViewVideo = viewBagVioVideo;
+var viewPopupComunicado = false;
+var closePopupComunicado = false;
+/* SB20-834 - FIN */
+
 $(document).ready(function() {
 
     //$('.contenedor_img_perfil').on('click', CargarCamara);
@@ -109,19 +115,22 @@ $(document).ready(function() {
     });
     
     /* SB20-834 - INICIO */
-    if (showViewVideo == 1) {
-        ObtenerComunicadosPopUps();
-    }
+    //if (showViewVideo == 1) {
+        //ObtenerComunicadosPopup();
+    //}
+
+    obtenerComunicadosPopup();
 
     $('body').bind('resize', '.popup_comunicados', function(e) {
-        stylePopupComunicado($(this).attr('id'));
+        //stylePopupComunicado($(this).attr('id'));
         //console.log('showViewVideo:' + showViewVideo);
         //console.log('viewBagVerComunicado: ' + viewBagVerComunicado);
 
-        if ($.trim($('#popupComunicados').html()) != "") {
-            $('#popupComunicados').show();
-        }
+        //if ($.trim($('#popupComunicados').html()) != "") {
+        //    $('#popupComunicados').show();
+        //}
     });
+
     /* SB20-834 - FIN */    
     
     mostrarVideoIntroductorio();
@@ -155,9 +164,10 @@ $(document).ready(function() {
 
     $("#cerrarVideoIntroductorio").click(function() {
         if (primeraVezVideo) {
-            //console.log('Init popup #2');
+            console.log('cerrarVideoIntroductorio');
             abrir_popup_tutorial();
             primeraVezVideo = false;
+            //showViewVideo = '1';
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -439,6 +449,16 @@ $(document).ready(function() {
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
+
+    /* SB20-834 - INICIO */
+    if (showViewVideo == '1') {
+        console.log(viewPopupComunicado);
+        if (viewPopupComunicado == false) {
+            console.log('waiting ...');
+            waitingDialog({});
+        }
+    }
+    /* SB20-834 - FALSE */
 });
 
 function CargarCamara() {
@@ -668,35 +688,46 @@ function cerrar_popup_tutorial() {
     $(".imagen_tutorial").animate({ 'opacity': '1' });
     window.clearInterval(fnMovimientoTutorial);
     numImagen = 1;
+
+    /* SB20-834 - INICIO */
+    console.log('cerrar_popup_tutorial');
+    showViewVideo = '1';
+
+    if (viewPopupComunicado == false) {
+        console.log('waiting ...');
+        waitingDialog({});
+    }
+    
+    if (viewPopupComunicado) {
+        mostrarComunicadosPopup();
+    }
+    /* SB20-834 - FIN */
     
     /* SB20-834 - INICIO */
-    if (viewBagVerComunicado == '-1') {
-        waitingDialog({});
-        showViewVideo = '1';
-    }
-    else {
-        if (viewBagVerComunicado == '1') {
-            if ($('#totalComuSinMostrar').val() != '0') {
-                showComunicadoSinMostrar();
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
-            }
-        }
-        else {
-            //CargarPopupsConsultora();
-        }
-    }
+    //if (viewBagVerComunicado == '-1') {
+    //    waitingDialog({});
+    //    showViewVideo = '1';
+    //}
+    //else {
+    //    if (viewBagVerComunicado == '1') {
+    //        if ($('#totalComuSinMostrar').val() != '0') {
+    //            showComunicadoSinMostrar();
+    //            if ($.trim($('#popupComunicados').html()) != "") {
+    //                $('#popupComunicados').show();
+    //            }
+    //        }
+    //    }
+    //    else {
+    //        //CargarPopupsConsultora();
+    //    }
+    //}
     /* SB20-834 - FIN */
 }
 
-
 function mostrarVideoIntroductorio() {
-
-    //console.log('Init popup #1');
+    //console.log('mostrarVideoIntroductorio');
     if (viewBagVioVideo == "0") {
-
-        closeWaitingDialog();   // SB20-834
+        //closeWaitingDialog();   // SB20-834
 
         if (contadorFondoPopUp == 0) {
             $("#fondoComunPopUp").show();
@@ -715,116 +746,27 @@ function mostrarVideoIntroductorio() {
         contadorFondoPopUp++;
     } else {
         primeraVezVideo = false;
+        //showViewVideo = '1';
 
         /* SB20-834 - INICIO */
-        if (viewBagVerComunicado == '-1') {
-            waitingDialog({});
-        }
-        else {
-            if (viewBagVerComunicado == '1') {
-                //console.log('show popup #3');
-                showComunicadoSinMostrar();
-                $('#popupComunicados').show();
-            }
-            else {
-                //console.log('show popup #4');
-                //CargarPopupsConsultora();
-            }
-        }
+        //console.log(viewBagVioVideo);
+        //console.log(viewBagVerComunicado);
+        //if (viewBagVerComunicado == '-1') {
+        //    waitingDialog({});
+        //}
+        //else {
+        //    if (viewBagVerComunicado == '1') {
+        //        //console.log('show popup #3');
+        //        showComunicadoSinMostrar();
+        //        $('#popupComunicados').show();
+        //    }
+        //    else {
+        //        //console.log('show popup #4');
+        //        //CargarPopupsConsultora();
+        //    }
+        //}
         /* SB20-834 - FIN */
     }
-}
-
-function procesarPromesaComunicado(response) {
-
-    viewBagVerComunicado = response.comunicadoVisualizado;
-    $('#totalComuSinMostrar').val(response.data.length);
-
-    $.each(response.data, function (id, item) {
-        dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
-        var nombreEvento = encodeURI(item.Descripcion);
-        //console.log(item);
-
-        if (item.Accion == "CUV") {
-            //displayTerminos = 'float:right;display:none;';
-            //urlAccion = 'javascript:InsertarPedidoCuvBanner(' + item.DescripcionAccion + ',1);';
-        }
-        else if (item.Accion == "URL") {
-            urlAccion = item.DescripcionAccion;
-            if (urlAccion > 0) {
-                //var id = urlAccion;
-                urlAccion = baseUrl + "MiAcademia/Cursos/idcurso/" + urlAccion;
-                //urlAccion = urlAccion.replace("idcurso_", id);
-            }
-
-            displayTerminos = 'float:right;display:none;';
-            target = '_blank';
-        }
-        //else if (item.Accion == "DON") {
-        //    displayTerminos = '';
-        //    urlAccion = 'javascript:RealizarDonacion(' + dialogComunicadoID + ',' + item.ComunicadoId + ',"' + response.codigoISO + '",' + response.codigoConsultora + ',' + response.codigoCampania + ',"' + nombreEvento + '");';
-        //}
-
-        var comunicado = {
-            id: dialogComunicadoID,
-            hrefUrl: urlAccion,
-            target: target,
-            urlImg: item.UrlImagen,
-            idComunicado: item.ComunicadoId,
-            display: displayTerminos,
-            comunicadoDescripcion: nombreEvento
-        };
-
-        //console.log(comunicado);
-        var content = SetHandlebars("#template-comunicado", comunicado, "");
-        $('#popupComunicados').append(content);
-
-        //$("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
-        //$("#" + dialogComunicadoID + " img").load(function () { comunicado.dialog('option', 'position', 'center'); });
-        //comunicado.dialog('open');
-
-        //// Push a promotionView cuando carga el comunicado.
-        //dataLayer.push({
-        //    'event': 'promotionView',
-        //    'ecommerce': {
-        //        'promoView': {
-        //            'promotions': [
-        //             {
-        //                 'id': item.ComunicadoId,
-        //                 'name': nombreEvento,
-        //                 'position': 'Home pop-up – 1',
-        //                 'creative': 'Banner'
-        //             }]
-        //        }
-        //    }
-        //});
-    });
-
-    showViewVideo = '1';
-}
-
-function showComunicadoSinMostrar() {
-    //$('html').css({ 'overflow-y': 'hidden' });
-    var j = 0;
-
-    $('#popupComunicados').find('div.popup_comunicados').each(function (index, element) {
-        if ($(element).attr('data-cerrado') == '0') {
-            //console.log(element);
-            var id = $(element).attr('id');
-            var img1 = $(element).find('img.img-comunicado');
-
-            setTimeout(function () {
-                //console.log('load image');
-                $('#' + id).show();
-                $('#' + id).fadeIn();
-                stylePopupComunicado(id);
-            }, 300);
-            j++;
-            return false;
-        }
-    });
-
-    return (j > 0) ? false : true;
 }
 
 function UpdateUsuarioVideo() {
@@ -3863,26 +3805,53 @@ function AgregarTagManagerShowRoomCheckBox() {
 //Fin ShowRoom
 
 /* SB20-834 - INICIO */
-function ObtenerComunicadosPopUps() {
-    //console.log('ObtenerComunicadosPopUps');
-    waitingDialog({});
+function obtenerComunicadosPopup() {
+    console.log('obtenerComunicadosPopup');
+    //if (viewBagVioVideo == '1') waitingDialog({});
+
     $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-            closeWaitingDialog();
-            procesarPromesaComunicado(response);
+            //if (viewBagVioVideo == '1') closeWaitingDialog();
+            console.log('armarComunicadosPopup');
+            armarComunicadosPopup(response);
 
-            if (showViewVideo == '1') {
-                if (viewBagVerComunicado == '1') {
-                    $('#popupComunicados').show();
-                    showComunicadoSinMostrar();
+            var images = $("#popupComunicados img");
+            var loadedImgNum = 0;
+
+            images.on('load', function () {
+                loadedImgNum += 1;
+                if (loadedImgNum == images.length) {
+                    if (viewBagVioVideo == '1') closeWaitingDialog();
+                    console.log('load all images');
+
+                    viewPopupComunicado = true;
+                    console.log(showViewVideo);
+                    console.log(viewBagVerComunicado);
+
+                    if (showViewVideo == '1') {
+                        if (viewBagVerComunicado == '1') {
+                            console.log('show popup comunicado');
+                            //viewPopupComunicado = true;
+                            $('#popupComunicados').show();
+                            mostrarComunicadosPopup();
+                        }
+                    }
                 }
-                else {
-                    //CargarPopupsConsultora();
-                }
-            }
+            });
+            //closeWaitingDialog();
+
+            //if (showViewVideo == '1') {
+            //    if (viewBagVerComunicado == '1') {
+            //        //$('#popupComunicados').show();
+            //        //showComunicadoSinMostrar();
+            //    }
+            //    else {
+            //        //CargarPopupsConsultora();
+            //    }
+            //}
         },
         error: function (data, error) {
             console.log(data);
@@ -3890,8 +3859,105 @@ function ObtenerComunicadosPopUps() {
         }
     });
 }
-function stylePopupComunicado(ID) {
 
+function armarComunicadosPopup(response) {
+    viewBagVerComunicado = response.comunicadoVisualizado;
+    //$('#totalComuSinMostrar').val(response.data.length);
+
+    $.each(response.data, function (id, item) {
+        dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
+        var nombreEvento = encodeURI(item.Descripcion);
+        //console.log(item);
+
+        if (item.Accion == "CUV") {
+            //displayTerminos = 'float:right;display:none;';
+            //urlAccion = 'javascript:InsertarPedidoCuvBanner(' + item.DescripcionAccion + ',1);';
+        }
+        else if (item.Accion == "URL") {
+            urlAccion = item.DescripcionAccion;
+            if (urlAccion > 0) {
+                //var id = urlAccion;
+                urlAccion = baseUrl + "MiAcademia/Cursos/idcurso/" + urlAccion;
+                //urlAccion = urlAccion.replace("idcurso_", id);
+            }
+
+            displayTerminos = 'float:right;display:none;';
+            target = '_blank';
+        }
+        //else if (item.Accion == "DON") {
+        //    displayTerminos = '';
+        //    urlAccion = 'javascript:RealizarDonacion(' + dialogComunicadoID + ',' + item.ComunicadoId + ',"' + response.codigoISO + '",' + response.codigoConsultora + ',' + response.codigoCampania + ',"' + nombreEvento + '");';
+        //}
+
+        var comunicado = {
+            id: dialogComunicadoID,
+            hrefUrl: urlAccion,
+            target: target,
+            urlImg: item.UrlImagen,
+            idComunicado: item.ComunicadoId,
+            display: displayTerminos,
+            comunicadoDescripcion: nombreEvento
+        };
+
+        //console.log(comunicado);
+        var content = SetHandlebars("#template-comunicado", comunicado, "");
+        $('#popupComunicados').append(content);
+
+        //$("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
+        //$("#" + dialogComunicadoID + " img").load(function () { comunicado.dialog('option', 'position', 'center'); });
+        //comunicado.dialog('open');
+
+        //// Push a promotionView cuando carga el comunicado.
+        //dataLayer.push({
+        //    'event': 'promotionView',
+        //    'ecommerce': {
+        //        'promoView': {
+        //            'promotions': [
+        //             {
+        //                 'id': item.ComunicadoId,
+        //                 'name': nombreEvento,
+        //                 'position': 'Home pop-up – 1',
+        //                 'creative': 'Banner'
+        //             }]
+        //        }
+        //    }
+        //});
+    });
+
+    //showViewVideo = '1';
+}
+
+function mostrarComunicadosPopup() {
+    console.log('mostrarComunicadosPopup');
+    //$('html').css({ 'overflow-y': 'hidden' });
+    var j = 0;
+
+    $('#popupComunicados').find('div.popup_comunicados[data-cerrado="0"]').each(function (index, element) {
+        //if ($(element).attr('data-cerrado') == '0') {
+            //console.log(element);
+            var id = $(element).attr('id');
+            //var img1 = $(element).find('img.img-comunicado');
+            $('#' + id).show();
+            //$('#' + id).css('visibility', true);
+            centrarComunicadoPopup(id);
+            //$('#' + id).show();
+            j++;
+
+            //setTimeout(function () {
+            //    //console.log('load image');
+            //    //$('#' + id).show();
+            //    $('#' + id).fadeIn();
+            //    stylePopupComunicado(id);
+            //}, 300);
+            //j++;
+            return false;
+        //}
+    });
+
+    return (j > 0) ? false : true;
+}
+function centrarComunicadoPopup(ID) {
+    console.log('centrarComunicadoPopup');
     var altoPopup = $("#" + ID).height() / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
@@ -3901,29 +3967,27 @@ function stylePopupComunicado(ID) {
     }
 }
 function clickCerrarComunicado(obj) {
-
-    //console.log('clickCerrarComunicado');
+    console.log('clickCerrarComunicado');
     var comunicadoID = $(obj).attr('data-comunicado');
     var dialogComunicadoID = $(obj).attr('data-id');
 
     AceptarComunicadoVisualizacion(comunicadoID, dialogComunicadoID);
 
-    //$('#popupComunicados').hide();
+    //$('#popupComunicados').hide();    
     $('#' + dialogComunicadoID).hide();
-    $('#' + dialogComunicadoID).fadeOut();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
-    var vclose = showComunicadoSinMostrar();
+    var vclose = mostrarComunicadosPopup();
+    console.log(vclose);
 
     if (vclose) {
-        $('#totalComuSinMostrar').val('0');
         $('#popupComunicados').hide();
+        closePopupComunicado = true;
         //console.log('Show popup #4');
-        CargarPopupsConsultora();
+        //CargarPopupsConsultora();
     }
 }
 function clickImagenComunicado(obj) {
-
-    //console.log('clickImagenComunicado');
+    console.log('clickImagenComunicado');
     var comunicadoID = $(obj).attr('data-comunicadoid');
     var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
     var dialogComunicadoID = $(obj).attr('data-id');
@@ -3943,26 +4007,24 @@ function clickImagenComunicado(obj) {
     //    }
     //});
 
-    //$('#popupComunicados').hide();
+    //$('#popupComunicados').hide();    
     $('#' + dialogComunicadoID).hide();
-    $('#' + dialogComunicadoID).fadeOut();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
-    var vclose = showComunicadoSinMostrar();
+    var vclose = mostrarComunicadosPopup();
+    console.log(vclose);
 
-    if (vclose) {
-        $('#totalComuSinMostrar').val('0');
+    if (vclose) {        
         $('#popupComunicados').hide();
+        closePopupComunicado = true;
         //console.log('Show popup #4');
         //CargarPopupsConsultora();
     }
 }
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
-
     //console.log('AceptarComunicadoVisualizacion');
 
     if ($('#chkMostrarComunicado_' + ID + '').is(':checked')) {
         var params = { ComunicadoID: ID };
-
         waitingDialog({});
 
         $.ajax({
@@ -3974,7 +4036,6 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
                 if (checkTimeout(data)) {
                     //$("#" + dialogComunicadoID + "").dialog('close');
                     //$('#popupComunicados').hide();
-                    $('#' + dialogComunicadoID).hide();
                     $('#' + dialogComunicadoID).fadeOut();
                     closeWaitingDialog();
                 }
@@ -3987,8 +4048,7 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
             }
         });
     }
-
-    $('#' + dialogComunicadoID).hide();
+    
     $('#' + dialogComunicadoID).fadeOut();
 }
 /* SB20-834 - FIN */
