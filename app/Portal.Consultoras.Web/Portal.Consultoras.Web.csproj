@@ -1620,6 +1620,7 @@
     <Content Include="Content\Images\Esika\ofertasparati_3.png" />
     <Content Include="Content\Images\Esika\ofertasparati_4.png" />
     <Content Include="Content\Images\Esika\oferta_web.png" />
+    <Content Include="Content\Images\Esika\online.png" />
     <Content Include="Content\Images\Esika\pagina.png" />
     <Content Include="Content\Images\Esika\pagina2.png" />
     <Content Include="Content\Images\Esika\pantalla.png" />
@@ -1638,6 +1639,7 @@
     <Content Include="Content\Images\Esika\star_reco.png" />
     <Content Include="Content\Images\Esika\subir.png" />
     <Content Include="Content\Images\Esika\subir_hover.png" />
+    <Content Include="Content\Images\Esika\tabs_consultora.png" />
     <Content Include="Content\Images\Esika\tacho-copy.png" />
     <Content Include="Content\Images\Esika\tarjeta.png" />
     <Content Include="Content\Images\Esika\titulo_interiores.png" />
@@ -1669,6 +1671,7 @@
     <Content Include="Content\Images\Esika\tutorial\tuto4.png" />
     <Content Include="Content\Images\Esika\tutorial\tuto5.png" />
     <Content Include="Content\Images\Esika\tutorial_esika_pedido.jpg" />
+    <Content Include="Content\Images\Esika\ultima_campana.png" />
     <Content Include="Content\Images\Esika\ultima_pagina.png" />
     <Content Include="Content\Images\Esika\ultima_pagina2.png" />
     <Content Include="Content\Images\Esika\user.jpg" />
@@ -1836,8 +1839,10 @@
     <Content Include="Content\Images\Lbel\menos.png" />
     <Content Include="Content\Images\Lbel\mensajes.png" />
     <Content Include="Content\Images\Lbel\mobile.png" />
+    <Content Include="Content\Images\Lbel\notificaciones.png" />
     <Content Include="Content\Images\Lbel\oferta.png" />
     <Content Include="Content\Images\Lbel\oferta_web.png" />
+    <Content Include="Content\Images\Lbel\online.png" />
     <Content Include="Content\Images\Lbel\pagina.png" />
     <Content Include="Content\Images\Lbel\pagina2.png" />
     <Content Include="Content\Images\Lbel\pantalla.png" />
@@ -1878,6 +1883,7 @@
     <Content Include="Content\Images\Lbel\tutorial\tuto4.png" />
     <Content Include="Content\Images\Lbel\tutorial\tuto5.png" />
     <Content Include="Content\Images\Lbel\tutorial_lbel_pedido.jpg" />
+    <Content Include="Content\Images\Lbel\ultima_campana.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina.png" />
     <Content Include="Content\Images\Lbel\ultima_pagina2.png" />
     <Content Include="Content\Images\Lbel\user.jpg" />

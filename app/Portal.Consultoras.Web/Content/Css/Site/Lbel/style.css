@@ -29880,3 +29880,322 @@ h1#penmostreo .campana {
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
+
+/* FIN PROCESO CARGA FOTO */
+
+/*PEDIDO DE CLIENTES ONLINE*/
+.icono_pagos{
+    display:inline-block;
+    vertical-align:middle;
+    width:31px;
+    height:31px;
+    margin-right:5px;     
+    box-sizing: border-box;
+}
+.imagen_1{
+    background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; 
+}
+.imagen_2{
+    background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
+   
+}
+.imagen_3{
+    background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
+}
+
+.imagen_4 {
+    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat !important;
+}
+.ultima_campana{
+     background: url("../../../Images/Lbel/ultima_campana.png") no-repeat;
+     background-size: cover;
+}
+.online_2{
+    background: url("../../../Images/Lbel/online.png") no-repeat;
+    background-size: cover;
+}
+
+.mis_pagos_tabs .tabs_pagos li {
+  /*display: inline;*/
+  text-align: center;
+  width:34%;
+  float:left;
+}
+
+
+
+.mis_pagos_tabs .two:hover ~ hr {
+  margin-left: 34%;
+}
+
+.mis_pagos_tabs .three:hover ~ hr {
+  margin-left: 68%;
+}
+
+
+.mis_pagos_tabs hr{
+  height: .25rem;
+  /*width: 30%;*/
+  width:34%;
+  text-align: left;
+  margin: 0;
+  background: #e81c36;
+  border: none;
+  transition: .3s ease-in-out;
+}
+.icono_online{
+    float:left;
+    width:34px;
+    height:34px;
+    margin-right:10px;   
+    background: url("../../../Images/Esika/online.png") no-repeat !important;
+    margin-top:50px;
+
+}
+.tipo_online{
+    width:19%;
+    display:inline-block;
+    text-align:left;
+    vertical-align:middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    padding-right: 25px;
+}
+.origen_online{
+     width:15%;
+    display:inline-block;
+    text-align:left;
+    vertical-align:middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+.canpana_online{
+    width:15%;
+    display:inline-block;
+    text-align:left;
+    vertical-align:middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+.registro_online{
+    width:15%;
+    display:inline-block;
+    text-align:left;
+    vertical-align:middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+.total_online{
+    width:15%;
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+.detalle_online{
+    width:19%;
+    display:inline-block;
+    vertical-align:middle;
+    text-align:center;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+.texto_gris {
+    color: #666565;
+    font-weight: 300;
+    font-size: 11pt;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.facturado_online{
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-block;
+    margin: 0;
+    padding: 3px 7px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.lupa_online{
+    display: inline-block;
+    position: relative;
+    width:21px;
+    vertical-align:middle;
+    top:0;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.lupa_online img{
+    display: block;
+    width: 100%;
+}
+.lupa_online:hover {
+    top: -5px;
+    opacity: 0.5;
+    filter: alpha(opacity=60);
+}
+.tipo_cliente{
+    color:#e81c36;
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+.estado_cancelado{
+    background:#e7e7e7;
+    color:black;
+}
+@media screen and (max-width: 1024px) {
+    .truco_bloqueo.sim1 {
+        width: 100%;
+        height: 470px;
+    }
+
+    .truco_bloqueo.sim3 {
+        width: 2.9%;
+        top: 470px;
+        height: 65px;
+    }
+
+    .truco_bloqueo.sim4 {
+        position: absolute;
+        top: 470px;
+        width: 11.3%;
+        height: 65px;
+        left: 57.4%;
+    }
+
+    .truco_bloqueo.sim2 {
+        width: 39.2%;
+        height: 1305px;
+        right: -80px;
+        top: 417px;
+    }
+    .paginador_notificaciones{
+        margin-top: 20px;
+    }
+    @-moz-document url-prefix() {
+        .truco_bloqueo.sim1 {
+           height: 471px;
+            }
+        .truco_bloqueo.sim3 {
+        width: 2.9%;
+        top: 471px;
+        height: 65px;
+        }
+        .truco_bloqueo.sim4 {        
+        top: 471px;
+        width: 12.2%;       
+        left: 56.5%;
+        }
+    }
+}
+
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+.fondo_pendiente{
+    background: rgba(214,214,214,0.4);
+    width: 200%;
+    height: 100%;
+    position: absolute;
+    z-index: 90;
+    margin-top: -20px;
+    margin-left: -50%;
+    display:none;
+}
+.content_T_T{
+    background:white;
+    min-height: 600px;
+}
+.bloque_left{
+    position:absolute;
+    top:0;
+    height:65px;
+    background:#efefef;
+    width:41%;
+    right:0;
+    display:none;
+    border-bottom:1px solid black;
+}
+.w_40{
+    width:34%;
+}
+.w_25{
+     width: 25%;
+}
+
+.fondo_lateral{
+    display:block;
+}
+
+ .fondo_lateral::before{
+    content:"";
+    position:absolute;
+    width:36px;
+    background-image: url(../../../Images/Esika/tabs_consultora.png);
+    background-color:#FFF;
+    background-repeat:repeat-x;
+    height:100%;
+    right:-36px;
+}
+ .fondo_lateral::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    background-image: url(../../../Images/Esika/tabs_consultora.png);
+    background-color:#FFF;
+    background-repeat:repeat-x;
+    height: 100%;
+    left: -100%;
+    top: 0;
+}
+
+.tab_pendiente_es {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    text-align: left !important;
+    padding-left: 3% !important;
+    width: 66% !important;
+    margin-bottom: 30px !important;
+}
+@media screen and (max-width: 1100px)
+{
+  .w_40 {
+    width: 40%;
+    }
+    .w_25{
+         width: 30%;
+    }
+    .info_tiempo_oportunidad{
+            margin-left: 24%;
+    }
+    .bloque_left{
+            width: 30%;
+    }
+    .tab_pendiente_es {
+    
+    width: 60% !important;  
+    }
+    .fondo_lateral::before {
+    
+    width: 30px;  
+    right: -30px;
+    }
+}
+

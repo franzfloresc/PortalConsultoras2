@@ -45,31 +45,50 @@ function CargarPedidosPend(page, rows) {
                     //$("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                     //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                    //$('#penmostreo').show();
-
                     $('#penmostreo').show();
+                    $(".bloque_left").fadeIn();
+                    $('.content_T_T').addClass("fondo_lateral");
 
                     $('#pedmostreo').removeClass('bordespacive');
                     $('#penmostreo').addClass('bordespacive');
                     $('#infoPedido').hide();
                     $('#infoPendientes').show();
 
-                    $('.truco_bloqueo').show();
+                    $('ul.paginador_notificaciones').hide();
+                    $('.caja_guardar_pedido').hide();
+                    $('.contenedor_eliminacion_pedido').hide();
+                    $('.contenedor_banners').hide();
+                    $('.info_tiempo_oportunidad.inicial').hide();
+                    
+                    //$('.truco_bloqueo').show();
+                    $(".fondo_pendiente").fadeIn();
                     $('#pedmostreo').addClass('cambio_bk_pendientes');
-
+                    $('.datos_para_movil').hide();
                 }
                 else {
 
                     $('#penmostreo').hide();
-                    //$('#divPedidosPend').empty();
-
-                    $('#pedmostreo').addClass('bordespacive');
-                    $('#penmostreo').removeClass('bordespacive');
+                    $(".bloque_left").fadeOut();
+                    $('.content_T_T').removeClass("fondo_lateral");
+                    $('#pedmostreo').removeClass('bordespacive');
                     $('#infoPedido').show();
                     $('#infoPendientes').hide();
 
-                    $('.truco_bloqueo').hide();
+                    $('ul.paginador_notificaciones').show();
+                    $('.caja_guardar_pedido').show();
+                    $('.contenedor_eliminacion_pedido').show();
+                    $('.contenedor_banners').show();
+                    $('.info_tiempo_oportunidad.inicial').show();
+
+                    //$('.truco_bloqueo').hide();
+                    $(".fondo_pendiente").fadeOut();
+                    $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                     $('#pedmostreo').removeClass('cambio_bk_pendientes');
+                    $('.datos_para_movil').show()
+
+                    $('#divPedidosPend').empty();
+
+                    CargarDetallePedido();
                 }
             }
             else {
@@ -85,11 +104,8 @@ function CargarPedidosPend(page, rows) {
 
 function CargarPopupPedidoPend(pedidoId) {
 
-
-    CargarPedidosPend();
-
-    return;
-
+    //CargarPedidosPend();
+    //return;
 
     var obj = {
         sidx: "",
@@ -282,7 +298,6 @@ function AbrirSplash() {
 function CerrarSplash() {
     closeWaitingDialog();
 }
-
 
 function AceptarPedido(pedidoId, tipo) {
 
