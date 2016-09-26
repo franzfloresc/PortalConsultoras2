@@ -168,16 +168,14 @@ header {
 }
 
 .mensaje_svg {
-    background: url(../../../Images/Esika/mensajes.png) no-repeat;
-    background-position: 0 4px;
+    background: url(../../../Images/Esika/notificaciones-header.png) no-repeat;
+    background-position: 0 2px;
 }
 
 .campana:hover .mensaje_svg {
-    background: url(../../../Images/Esika/mensajes.png) no-repeat !important;
-    background-position: 0 4px !important;
+    background: url(../../../Images/Esika/notificaciones-header.png) no-repeat !important;
+    background-position: 0 2px !important;
 }
-
-
 
 .notificaciones {
     width: 22px;

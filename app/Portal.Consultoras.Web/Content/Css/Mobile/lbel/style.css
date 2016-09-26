@@ -3920,7 +3920,7 @@ width:100%;
     margin-right: 15px;
     margin-top: 18px;
     position:relative;
-    background: url("../../../Images/mobile/Esika/mensajes.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
 }
 .notificaciones_mobiles{
     width:20px;
@@ -4113,9 +4113,14 @@ width:100%;
     background-position: 0 4px;
 }
 
-.btn_seguirp_mobile.ver_video_introductorio{
+.btn_seguirp_mobile.seguimientoPedido {
+    width:114px;
+}
+
+.btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
+    width:114px;
 }
 
 .linea_separadora_mobile{
@@ -7879,7 +7884,7 @@ a:focus, a:hover {
     position: relative;
     background: #FFF;
     width: 95%;
-    max-width:400px;
+    max-width:304px;
     height: auto;
     padding: 41px 0 0 0;
 }
@@ -7944,13 +7949,22 @@ a:focus, a:hover {
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
     width: 238px;
-    height: 454px;
+    height: 470px;
     display: inline-block;
     margin: 0 3px 0 3px;
     padding: 0 0 20px 0;
     vertical-align: middle;
     overflow: hidden;
+    background: none;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenido_item_ofertaFinal{
     background: #FFF;
+    width: 237px;
+    display: block;
+    margin: 0 auto;
+    height: 454px;
+    border:1px solid #e7e1e1;
     box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -o-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
@@ -7990,6 +8004,12 @@ a:focus, a:hover {
 
 .bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos{
     margin-bottom:10px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos div{
+    margin-left:0px;
 }
 
 .bloque_carousel .content_item_carrusel_ofertaFinal .producto_nombre_descripcion{
@@ -8020,7 +8040,7 @@ a:focus, a:hover {
 .bloque_carousel .content_item_carrusel_ofertaFinal .boton_Agregalo_home{
     display: inline-block;
     margin-top:0px;
-    width: 100%;
+    width: 96.3%;
     vertical-align: top;
 }
 
