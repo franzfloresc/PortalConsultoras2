@@ -139,6 +139,12 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
+        $('#boton_vermas').hide();
+        return false;
+    }
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizado',

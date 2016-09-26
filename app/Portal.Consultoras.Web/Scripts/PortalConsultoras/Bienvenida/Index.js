@@ -1680,7 +1680,7 @@ function CargarBanners() {
                                 $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
                                 delayPrincipal = dataResult.data[count].TiempoRotacion;
                                 break;
-                            case -5: // Seccion Baja 1 SB2.0 
+                            case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
                                 var trackingText = dataResult.data[count].TituloComentario;
                                 var trackingDesc = dataResult.data[count].TextoComentario;
                                 var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
@@ -2990,6 +2990,12 @@ function AgregarSuenio() {
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
+        $("#divMainCatalogoPersonalizado").remove();
+        return false;
+    }
+
+    var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
+    if (esCatalogoPersonalizadoZonaValida != "True") {
         $("#divMainCatalogoPersonalizado").remove();
         return false;
     }
