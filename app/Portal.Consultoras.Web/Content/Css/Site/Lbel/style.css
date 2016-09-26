@@ -19159,13 +19159,14 @@ float: right;
    position: absolute;
     /* margin-left: 20px; */
     width: 442px;
+    height:480px;
     /* float: left; */
     /* margin-top: 17px; */
   
 }
 .content_show_right {
     float: right;
-    height: 485px;
+    height: 480px;
     width: 343px;
     overflow: hidden;
 }
@@ -19506,6 +19507,7 @@ html {
     width: 442px;
     height: 511px;
     background: white;
+    overflow:hidden;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -19708,7 +19710,7 @@ label.checkpop.c_on {
     line-height: 21px;
     color: black;
     font-family: 'Lato';
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     font-weight: bold;
 }
@@ -19724,7 +19726,7 @@ label.checkpop.c_on {
 }
 .precio_showroom { 
     font-family:'Lato';
-    color:black;
+    color:#613c87;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19734,7 +19736,7 @@ label.checkpop.c_on {
 .precio_showroom span{
     margin-right:10px; 
     color:black;
-    font-weight:300;
+    font-weight:700;
     font-size:13px;
     text-decoration:line-through;
    }
@@ -19746,6 +19748,7 @@ label.checkpop.c_on {
     color:black;
     float:left;
     margin-top:5px;
+    font-weight:700;
 }
 .stock_showroom span{
    font-family: 'Lato';
@@ -19862,9 +19865,10 @@ label.checkpop.c_on {
     overflow: hidden;
 }
 .titulo_producto_agregado {
-    font-family:'ArialMT';
+    font-family:'Lato';
     font-size:18px;
     text-align:center;
+    color:black;
 }
 .titulo_producto_agregado span{
     font-weight:bold;
@@ -19874,54 +19878,55 @@ label.checkpop.c_on {
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 2px solid #979797;
-    font-family: 'ArialMT';
+    border: 1px solid black;
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     font-weight: bold;
     text-align: center;
-     -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
+    /* -webkit-border-radius: 4px; */
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc);
     float: left;
     cursor: pointer;
     text-decoration: none;
     margin-top: 24px;
     margin-right: 10px;
+    margin-left: 39px;
 }
 .divAgregarShowRoom .volver_set:hover {
         text-decoration:none !important;
     }
 .divAgregarShowRoom .volver_set2 {
-    font-weight: bold;
-    background:red !important;
+   font-weight: bold;
+    background: #613c87 !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    color: white; 
-    border: 2px solid #f11935;
-    font-family: 'ArialMT';
-    text-align:center;
+    color: white;
+    border: 1px solid #e81c36;
+    font-family: 'Lato';
+    text-align: center;
     font-size: 14px;
-     -webkit-border-radius: 4px !important; /* Para Safari y Chrome */
-    -moz-border-radius: 4px !important; /* Para Firefox */
-    -khtml-border-radius: 4px !important; /* Navegadores de Linux */
-    border-radius: 4px !important; /* CSS3 */
-    border-radius:4px;
-    behavior: url(/Content/Css/Pie/PIE.htc) !important; /* Para IE */
+    /* -webkit-border-radius: 4px !important; */
+    -moz-border-radius: 4px !important;
+    -khtml-border-radius: 4px !important;
+    /* border-radius: 4px !important; */
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc) !important;
     float: left;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 24px;         
+    margin-top: 24px;     
    }
 
     .divAgregarShowRoom .volver_set2:hover {
         text-decoration: none !important;
         background: black !important;
-        border: 2px solid black;
+        border: 1px solid black;
         color: white;
     }
 /*POP UP SET SHOWROOM*/
@@ -20013,6 +20018,8 @@ label.checkpop.c_on {
 }
 
 .set_precio span{
+    display: block;
+    margin-top: 3px;
     font-family: 'Lato';
     font-weight:bold;
     font-size: 23px;
@@ -20028,7 +20035,8 @@ label.checkpop.c_on {
     font-size: 11.5px;
     color:black;
     line-height: 20px;
-    margin-top:5px;
+    margin-top:4px;
+    font-weight:700;
    
 }
 .set_precio_gana span{
@@ -20171,13 +20179,13 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-    width:100%;
+        width: 100%;
     height: 75px;
-    font-size:14px;
+    font-size: 14px;
     font-family: 'Lato';
-    text-align:center;
-    padding-top:50px;
-    position:absolute;
+    text-align: center;
+    padding-top: 29px;
+    position: absolute;
     z-index: 100;
     background: url("/Content/Images/showroom/opacity.png");
 
