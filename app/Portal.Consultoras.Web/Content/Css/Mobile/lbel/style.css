@@ -4805,6 +4805,10 @@ body{
     background:url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
 }
 
+.enlace_regresar.catalogosP {
+    left: 3%;
+}
+
 .enlace_regresar img{
     width:100%;
     height:auto;
@@ -5547,8 +5551,8 @@ body{
     font-family:'Lato';
 }
 .fondo_f2f2f2{
-    background:white;
-    border-bottom: 1px solid black;
+    background:#f5f7f7;
+    /*border-bottom: 1px solid black;*/
 }
 .tabs_pagos li {
   display: inline;

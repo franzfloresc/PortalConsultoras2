@@ -5443,26 +5443,30 @@ body {
     background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
 }
 
-    .enlace_regresar.detalleP {
-        top: 0%;
-        left: 2.45%;
-        background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
-    }
+.enlace_regresar.detalleP {
+    top: 0%;
+    left: 2.45%;
+    background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+}
 
-    .enlace_regresar.ingresoP {
-        top: 18%;
-        left: 2.45%;
-    }
+.enlace_regresar.ingresoP {
+    top: 18%;
+    left: 2.45%;
+}
 
-    .enlace_regresar.catalogosR {
-        top: 31%;
-        left: 5.55%;
-    }
+.enlace_regresar.catalogosR {
+    top: 31%;
+    left: 5.55%;
+}
 
-    .enlace_regresar img {
-        width: 100%;
-        height: auto;
-    }
+.enlace_regresar.catalogosP {
+    left: 3%;
+}
+
+.enlace_regresar img {
+    width: 100%;
+    height: auto;
+}
 
 .detalle_pedido_ingresado {
     display: block;
