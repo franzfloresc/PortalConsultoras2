@@ -4130,7 +4130,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .popup_productosSugeridos{
     display: block;
     position: absolute;
-    top: 37%;
+    top: 8.5%;
     left: 13.1%;
     right: 0%;
     bottom: 0%;
@@ -21852,7 +21852,8 @@ hr{
     display:block;
 }
 .content{
-        background: white;
+   position:relative;
+   background: white;
 }
 body{
     background: #f9f9f9;
