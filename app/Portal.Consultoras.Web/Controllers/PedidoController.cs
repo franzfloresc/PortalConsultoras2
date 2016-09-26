@@ -4741,9 +4741,8 @@ namespace Portal.Consultoras.Web.Controllers
             return listaParametriaOfertaFinal;
         }
 
-        #endregion
+        #endregion        
         
-        [HttpPost]
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
             var listaProductoModel = new List<ProductoModel>();

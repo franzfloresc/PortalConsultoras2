@@ -2403,6 +2403,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     text-align:center;
     font-weight:bold;
     letter-spacing:1px;
+    margin-right:0px;
 }
 
 .monto_total,.monto_ganancia, .monto_con_descuento, .monto_descuento, .monto_montodescuento{
@@ -4800,7 +4801,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     display:block;
     position:relative;
     top:50%;
-    margin:-294.9px auto 0 auto;
+    margin:-298.5px auto 0 auto;
     background:#FFF;
     width:100%;
     max-width:597px;
@@ -4847,7 +4848,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background:#f5f5f5;
     height:auto;
     padding-top:25px;
-    padding-bottom:32px;
+    padding-bottom:41px;
 }
 
 .bloque_descripciones, .bloque_carousel{
@@ -4883,10 +4884,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .btn_noGracias_agregarProductos{
-        display: block;
+    display: block;
     position: absolute;
     margin-left: 10px;
-    bottom: 14px;
+    bottom: -1px;
     border: none;
     background: transparent;
     width: 139px;
@@ -4895,8 +4896,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     color: #000;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight: 900;
+    font-weight: normal;
     text-align: left;
+    text-decoration:underline;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -4905,11 +4907,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 
-.btn_noGracias_agregarProductos:hover{
+/*.btn_noGracias_agregarProductos:hover{*/
     /*opacity:0.5;
     filter:alpha(opacity=50);*/
-    text-decoration: underline;
-}
+    /*text-decoration: underline;
+}*/
 
 .bloque_carousel{
     width:53%;
@@ -4917,7 +4919,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
-    height:329px;
+    height:348px;
     margin-right:0px;
     float:left;
     vertical-align:middle;
@@ -20965,18 +20967,29 @@ label.checkpop.c_on {
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
 }
+
 .content_item_carrusel_ofertaFinal{
     position:relative;
     float: left;
     width:248px;
     margin-right:25px;
     height: 357px;
-    background:white;
-    border: 1px solid #e7e1e1;
+    background:none;
+    border:none;
+}
+
+.contenido_item_carrusel_ofertaFinal {
+    background: #FFF;
+    width: 248px;
+    display: block;
+    margin: 0 auto;
+    height: 335px;
+    border:1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
 }
+
 .previous_ofertas.next{
     right: 0px;
 }
@@ -26974,7 +26987,7 @@ position: relative; float: left;
 }
 .info_modificarvalidado{
     float:right;
-    width:240px;
+    width:256px;
     height:auto;
     padding: 20px;
     margin-right: 15px;
