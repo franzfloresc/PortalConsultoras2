@@ -1617,6 +1617,7 @@
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
+    <Content Include="Content\Images\Esika\notificaciones-header.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
     <Content Include="Content\Images\Esika\ofertasparati_1.png" />
@@ -1982,6 +1983,7 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
+    <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
