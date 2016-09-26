@@ -53,7 +53,168 @@ $(document).ready(function () {
         });
     });
 
+    CrearPopShow();
+    MostrarShowRoom();    
 });
+
+function CrearPopShow() {
+    $("#btnCerrarPopShowroom").click(function () {        
+        $("#PopShowroom").modal("hide");
+    });
+
+    $("#btnCerrarPopShowroomHoy").click(function () {
+        $("#PopShowroomHoy").modal("hide");
+    });
+
+    $("#lnkNoMostrarPopup, #lnkNoMostrarPopupHoy").click(function () {
+        var params = { noMostrarPopup: true };
+
+        $.ajax({
+            type: "POST",
+            url: urlUpdatePopupShowRoom,
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    $("#PopShowroom").modal("hide");
+                    $("#PopShowroomHoy").modal("hide");
+                    AgregarTagManagerShowRoomCheckBox();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    messageInfo("Ocurrió un error al intentar no mostrar el popup de showroom.");
+                }
+            }
+        });
+    });
+
+    $("#lnkConoceMasShowRoomPopup").click(function () {
+        AgregarTagManagerShowRoomPopupConocesMas(false);
+    });
+
+    $("#lnkConoceMasShowRoomPopupHoy").click(function () {
+        AgregarTagManagerShowRoomPopupConocesMas(true);
+    });
+}
+
+function MostrarShowRoom() {
+    $.ajax({
+        type: "POST",
+        url: urlMostrarShowRoomPopup,
+        contentType: 'application/json',
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    var showroomConsultora = response.data;
+                    var evento = response.evento;
+
+                    if (showroomConsultora.EventoConsultoraID != 0) {
+                        if (showroomConsultora.MostrarPopup) {
+                            $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                            if (response.mostrarShowRoomProductos) {
+                                $("#spnShowRoomEventoHoy").html(evento.Tema);
+                                $("#spnShowRoomDiaInicioHoy").html(response.diaFin - 2);
+                                $("#spnShowRoomDiaFinHoy").html(response.diaFin);
+                                $("#spnShowRoomMesHoy").html(response.mesFin);
+                                
+                                $("#PopShowroomHoy").modal("show");
+                                $("#lnkConoceMasShowRoomPopupHoy").attr("href", urlShowRoomBienvenida);
+
+                                //Carga de Imagenes
+                                $("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
+                                $("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
+                                $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
+
+                                AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                            } else {
+                                $("#spnShowRoomNombreConsultora").html(response.nombre);
+                                $("#spnShowRoomEvento").html(evento.Tema);
+                                $("#spnShowRoomDiaInicio").html(response.diaInicio);
+                                $("#spnShowRoomDiaFin").html(response.diaFin);
+                                $("#spnShowRoomMes").html(response.mesFin);
+                                if (response.mesFin.length > 6) {
+                                    $(".fecha_promocion_m").css("font-size", "10.5pt");
+                                }
+                                
+                                $("#PopShowroom").modal("show");
+                                $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
+
+                                //Carga de Imagenes
+                                $("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
+                                $("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
+
+                                AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                            }
+
+                            //$("#imgShowRoomGif").attr("src", evento.Imagen1);
+                        }
+                    }
+                }
+            }
+        },
+        error: function (response, error) {
+            /* PCABRERA EPD-180 - INICIO */
+            checkUserSession();
+            /* PCABRERA EPD-180 - FIN */
+            if (checkTimeout(response)) messageInfo("Ocurrió un error al validar showroom.");
+        }
+    });
+}
+
+function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
+    var name = 'showroom digital ' + nombreEvento;
+
+    if (esHoy)
+        name += " - fase 2";
+
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': $("#hdEventoIDShowRoom").val(),
+                    'name': name,
+                    'position': 'Home pop-up - 1',
+                    'creative': 'Banner'
+                }]
+            }
+        }
+    });
+}
+
+function AgregarTagManagerShowRoomPopupConocesMas(esHoy) {
+    var name = 'showroom digital ' + (esHoy ? $("#spnShowRoomEventoHoy").html() : $("#spnShowRoomEvento").html());
+
+    if (esHoy)
+        name += " - fase 2";
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                    {
+                        'id': $("#hdEventoIDShowRoom").val(),
+                        'name': name,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+            }
+        }
+    });
+}
+
+function AgregarTagManagerShowRoomCheckBox() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'checkbox',
+        'label': '(not available)'
+    });
+}
 
 function mostrarTutorialMobile() {
     if (viewBagVioTutorial == "0") {
@@ -148,8 +309,8 @@ function ArmarCarouselEstrategias(data) {
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a onclick="javascript:TagManagerCarruselPrevia();" class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a onclick="javascript:TagManagerCarruselSiguiente();" class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" style="margin-left:-13%"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" style="margin-right:-13%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -196,18 +357,18 @@ function ArmarCarouselEstrategias(data) {
                 };
 
                 arrayEstrategia.push(impresionRecomendado);
-
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
+                                
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Home',
                     'action': 'Ofertas para ti',
                     'label': 'Ver anterior'
+                });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
                 });
             } else if (accion == 'next') {
                 //TagManager
@@ -228,18 +389,18 @@ function ArmarCarouselEstrategias(data) {
                 };
 
                 arrayEstrategia.push(impresionRecomendado);
-
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
+                                
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Home',
                     'action': 'Ofertas para ti',
                     'label': 'Ver siguiente'
+                });
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
                 });
             };
 
@@ -435,6 +596,7 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
     var marca = $("#txtCantidadZE").attr("est-descripcionMarca");
     var posicion = $("#txtCantidadZE").attr("est-posicion");
     var urlImagen = $("#imgZonaEstrategiaEdit").attr("src");
+    var OrigenPedidoWeb = MobileHomeOfertasParaTi;
 
     // validar que se existan tallas
     if ($.trim($("#ddlTallaColor").html()) != "") {
@@ -476,7 +638,8 @@ function AgregarProductoDestacado(tipoEstrategiaImagen) {
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        OrigenPedidoWeb: OrigenPedidoWeb
     });
 
     jQuery.ajax({

@@ -261,7 +261,7 @@
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
-    </div>
+    @*</div>*@
 
         <div class="detalle_pedido_ingresado">
             <span class="titulo_detalle">DETALLE</span>
@@ -283,7 +283,9 @@
                             <span>App móvil</span>
                             {{/iff}}
 
-                            {{#iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
+                            {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+                            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                            {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
                             <br />
                             <span>Oferta Liquidación</span>
                             {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Flexipago}}

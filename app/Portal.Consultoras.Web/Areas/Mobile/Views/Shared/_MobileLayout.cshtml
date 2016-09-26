@@ -105,7 +105,7 @@
         <br/>
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
     <!-- alert-top -->
@@ -145,8 +145,9 @@
             </div>
         </div>
     </header>
-
-    <div id="divShowRoom" class="ocultarPopup" style="display: none;">
+    
+    <!-- SHOWROOM -->
+    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -154,12 +155,13 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigital"></span>
             </div>
         </div>
         <div class="fondo_m">
-            <div class=" row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 24px; width: 110px;">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
                     <div class="texto_dias_m">
                         SÓLO FALTAN
                     </div>
@@ -190,10 +192,9 @@
 
             </div>
         </div>
-        <div class="sombra_m"></div>
+        
     </div>
-
-    <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
+    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -201,14 +202,16 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigitalHoy"></span>
             </div>
         </div>
-        <div class="fondo_m">
+        <div class="fondo_white">
             <div class=" row_contador">
-                <div>
-                    <a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                    <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>
+                <div style="text-align: center;">
+                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
                 </div>
             </div>
         </div>
@@ -218,7 +221,7 @@
             </div>
         </div>
         <div class="indicador_red">
-            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
+            
         </div>
     </div>
 
@@ -401,7 +404,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
     <script type="text/javascript">
-
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
@@ -416,230 +418,226 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        
-        $(function () {
-            SetFormatDecimalPais(formatDecimalPaisMain);
+        var MobileHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
+        var MobilePedidoOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var MobilePedidoSugerido = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobilePedidoOfertaFinal = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
 
-            HandlebarsRegisterHelper();
-            $('.menu_footer').on('click', function () {
-                var $obj = $(this);
-                if ($obj.hasClass('menu_footer')) {
-                    $obj.addClass('menu_footer_menos').removeClass('menu_footer');
-                } else {
-                    $obj.addClass('menu_footer').removeClass('menu_footer_menos');
-                }
-            });
+        var MobileShowRoom = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileShowRoom;
 
-            $(".alert-close").click(function (event) {
-                $(this).parent(".alert-top").slideUp();
-            });
+        var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
 
-            CargarCantidadProductosPedidos(true);
-            CargarCantidadNotificacionesSinLeer();
-            //CargarCantidadPedidosConsultoraOnline();
+        var MobileCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
+        var MobileCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
-            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
-            });
+    $(function () {
 
-            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
-            });
+        SetFormatDecimalPais(formatDecimalPaisMain);
 
-            CargarShowRoom();
-
-            $("body").on("keyup", ".ValidaNumeral", function (evt) {
-                var theEvent = evt || window.event;
-                var key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-                var regex = /[0-9]|\./;
-                if (!regex.test(key)) {
-                    theEvent.returnValue = false;
-                    if (theEvent.preventDefault) theEvent.preventDefault();
-                }
-            });
-
-            $("body").on("keypress", ".ValidaNumeral", function (e) {
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    return false;
-                }
-            });
-
-            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
-                var $input = $(this);
-                var previousVal = $input.val();
-                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
-                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
-                    $input.val(pastedValue);
-                    e.preventDefault();
-                } else {
-                    $input.val(previousVal);
-                    e.preventDefault();
-                };
-            });
-
-
-            $("body").on("click", "[data-cantidad-agregar]", function () {
-                var signo = $(this).attr("data-cantidad-agregar");
-                var objPadre = $(this).parents("[data-cantidad-contenedor]");
-                var objInput = objPadre.find("[data-cantidad-input]");
-
-                var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
-                var actual = objInput.val();
-                actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
-
-                actual = actual + agregar;
-                actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;
-
-                objInput.val(actual);
-            });
-
-            $(document).on("click", ".cantidad_menos_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-                $txtcantidad.val(cantidad);
-            });
-
-            $(document).on("click", ".cantidad_mas_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-                $txtcantidad.val(cantidad);
-            });
-
+        HandlebarsRegisterHelper();
+        $('.menu_footer').on('click', function () {
+            var $obj = $(this);
+            if ($obj.hasClass('menu_footer')) {
+                $obj.addClass('menu_footer_menos').removeClass('menu_footer');
+            } else {
+                $obj.addClass('menu_footer').removeClass('menu_footer_menos');
+            }
         });
 
-        function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
+        $(".alert-close").click(function (event) {
+            $(this).parent(".alert-top").slideUp();
+        });
 
-            if (variant == null || variant == "") {
-                variant = "Estándar";
-            }
-            if (category == null || category == "") {
-                category = "Sin Categoría";
-            }
+        CargarCantidadProductosPedidos(true);
+        CargarCantidadNotificacionesSinLeer();
+        //CargarCantidadPedidosConsultoraOnline();
 
-            dataLayer.push({
-                'event': 'productClick',
-                'ecommerce': {
-                    'click': {
-                        'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                        'products': [{
-                            'name': name,
-                            'id': id,
-                            'category': category,
-                            'variant': variant,
-                            'position': position
-                        }]
-                    }
+        $("body").on("keyup", ".ValidaNumeral", function (evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        });
+
+        $("body").on("keypress", ".ValidaNumeral", function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        $("body").on('paste', ".ValidaPasteNumeral", function (e) {
+            var $input = $(this);
+            var previousVal = $input.val();
+            var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
+            if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
+                $input.val(pastedValue);
+                e.preventDefault();
+            } else {
+                $input.val(previousVal);
+                e.preventDefault();
+            };
+        });
+
+
+        $("body").on("click", "[data-cantidad-agregar]", function () {
+            var signo = $(this).attr("data-cantidad-agregar");
+            var objPadre = $(this).parents("[data-cantidad-contenedor]");
+            var objInput = objPadre.find("[data-cantidad-input]");
+
+            var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
+            var actual = objInput.val();
+            actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
+
+            actual = actual + agregar;
+            actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;
+
+            objInput.val(actual);
+        });
+
+        $(document).on("click", ".cantidad_menos_home", function () {
+            var $txtcantidad = $(this).siblings('input');
+            var cantidad = parseInt($txtcantidad.val());
+
+            cantidad = isNaN(cantidad) ? 0 : cantidad;
+            cantidad = cantidad > 1 ? (cantidad - 1) : 1;
+
+            $txtcantidad.val(cantidad);
+        });
+
+        $(document).on("click", ".cantidad_mas_home", function () {
+            var $txtcantidad = $(this).siblings('input');
+            var cantidad = parseInt($txtcantidad.val());
+
+            cantidad = isNaN(cantidad) ? 0 : cantidad;
+            cantidad = cantidad < 99 ? (cantidad + 1) : 99;
+
+            $txtcantidad.val(cantidad);
+        });
+
+        $("#lnkConoceMasShowRoomBannerLateral").click(function () {
+            AgregarTagManagerShowRoomBannerLateralConocesMas(false);
+        });
+
+        $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
+            AgregarTagManagerShowRoomBannerLateralConocesMas(true);
+        });
+
+        CargarShowRoom();
+    });
+
+    function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
+
+        if (variant == null || variant == "") {
+            variant = "Estándar";
+        }
+        if (category == null || category == "") {
+            category = "Sin Categoría";
+        }
+
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Productos destacados', 'action': 'click' },
+                    'products': [{
+                        'name': name,
+                        'id': id,
+                        'category': category,
+                        'variant': variant,
+                        'position': position
+                    }]
                 }
-            });
-        };
+            }
+        });
+    };
 
-        function ValidarCorreoComunidad(tipo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            var result = true;
-            ShowLoading();
-            var mensaje = "<b>¡Gracias por unirte a Somos Belcorp!</b>, una comunidad de mujeres emprendedoras" +
-                "y apasionadas por el negocio de la belleza." +
-                "<br />" +
-                "<br />" +
-                "Revisa tu correo y sigue los pasos para ingresar." +
-                "¡Te esperamos!" +
-                "<br />";
-            if (tipo == 2) {
+    function ValidarCorreoComunidad(tipo) {
+        $.ajaxSetup({
+            cache: false
+        });
+        var result = true;
+        ShowLoading();
+        var mensaje = "<b>¡Gracias por unirte a Somos Belcorp!</b>, una comunidad de mujeres emprendedoras" +
+            "y apasionadas por el negocio de la belleza." +
+            "<br />" +
+            "<br />" +
+            "Revisa tu correo y sigue los pasos para ingresar." +
+            "¡Te esperamos!" +
+            "<br />";
+        if (tipo == 2) {
 
-                if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
-                    $('#ErrorUsuario').html("Debe ingresar un apodo.");
+            if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
+                $('#ErrorUsuario').css({ "display": "block" });
+                $('#ES_Usuario').css({ "display": "block" });
+                $('#ErrorUsuario').html("Debe ingresar un apodo.");
+                CloseLoading();
+                result = false;
+            } else {
+                if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
+
+                }
+            }
+
+            if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
+                $('#ErrorCorreo').css({ "display": "block" });
+                $('#ES_Correo').css({ "display": "block" });
+                $('#ErrorCorreo').html("Debe ingresar su correo.");
+                result = false;
+            } else {
+                if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
+                    $('#ErrorCorreo').css({ "display": "block" });
+                    $('#ES_Correo').css({ "display": "block" });
+                    $('#ErrorCorreo').html("El formato del correo es incorrecto.");
+                    $('#ErrorCorreo').css({ "color": "red" });
                     CloseLoading();
                     result = false;
                 } else {
-                    if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
+                    if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
 
                     }
                 }
+            }
 
-                if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    $('#ErrorCorreo').html("Debe ingresar su correo.");
-                    result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
-                        $('#ErrorCorreo').css({ "display": "block" });
-                        $('#ES_Correo').css({ "display": "block" });
-                        $('#ErrorCorreo').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    } else {
-                        if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
+            if (result) {
 
-                        }
-                    }
+                if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.') {
+                    CloseLoading();
+                    return;
                 }
 
-                if (result) {
+                var params = {
+                    usuario: $("#txtUsuarioComunidad").val(),
+                    correo: $("#txtNuevoCorreoComunidad").val()
+                };
 
-                    if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.') {
-                        CloseLoading();
-                        return;
-                    }
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlRegistrarUsuarioComunidad,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            if (data.success == true) {
+                                CloseComunidad();
+                                messageInfo(mensaje, function () {
+                                    window.location.reload(true);
+                                });
 
-                    var params = {
-                        usuario: $("#txtUsuarioComunidad").val(),
-                        correo: $("#txtNuevoCorreoComunidad").val()
-                    };
+                                dataLayer.push({
+                                    'event': 'virtualEvent',
+                                    'category': 'Comunidad',
+                                    'action': 'Crear cuenta',
+                                    'label': 'Satisfactorio'
+                                });
 
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlRegistrarUsuarioComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Satisfactorio'
-                                    });
-
-                                } else {
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Error'
-                                    });
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
+                            } else {
                                 CloseComunidad();
                                 messageInfo(data.message);
 
@@ -651,81 +649,82 @@
                                 });
                             }
                         }
-                    });
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            CloseComunidad();
+                            messageInfo(data.message);
 
-                } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
+                            dataLayer.push({
+                                'event': 'virtualEvent',
+                                'category': 'Comunidad',
+                                'action': 'Crear cuenta',
+                                'label': 'Error'
+                            });
+                        }
+                    }
+                });
+
             } else {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Comunidad',
+                    'action': 'Crear cuenta',
+                    'label': 'Error'
+                });
+            }
+        } else {
 
-                if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
+            if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
+                $('#ErrorCorreoC').css({ "display": "block" });
+                $('#ES_CorreoC').css({ "display": "block" });
+                $('#ErrorCorreoC').html("Debe ingresar su correo.");
+                CloseLoading();
+                result = false;
+            } else {
+                if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
                     $('#ErrorCorreoC').css({ "display": "block" });
                     $('#ES_CorreoC').css({ "display": "block" });
-                    $('#ErrorCorreoC').html("Debe ingresar su correo.");
+                    $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
+                    $('#ErrorCorreoC').css({ "color": "red" });
                     CloseLoading();
                     result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
-                        $('#ErrorCorreoC').css({ "display": "block" });
-                        $('#ES_CorreoC').css({ "display": "block" });
-                        $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreoC').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    }
                 }
+            }
 
-                if (result) {
-                    if ($('#ErrorCorreo').html() != '')
-                        return;
+            if (result) {
+                if ($('#ErrorCorreo').html() != '')
+                    return;
 
-                    var params = {
-                        correo: $("#txtCorreoComunidad").val()
-                    };
+                var params = {
+                    correo: $("#txtCorreoComunidad").val()
+                };
 
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlValidarCorreoComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlValidarCorreoComunidad,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
 
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Satisfactorio'
-                                    });
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            if (data.success == true) {
+                                dataLayer.push({
+                                    'event': 'virtualEvent',
+                                    'category': 'Comunidad',
+                                    'action': 'Ingresar',
+                                    'label': 'Satisfactorio'
+                                });
+                                CloseComunidad();
+                                messageInfo(mensaje, function () {
+                                    window.location.reload(true);
+                                });
 
-                                } else {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Error'
-                                    });
-
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
+                            } else {
                                 dataLayer.push({
                                     'event': 'virtualEvent',
                                     'category': 'Comunidad',
@@ -733,458 +732,481 @@
                                     'label': 'Error'
                                 });
 
-                                CloseLoading();
                                 CloseComunidad();
                                 messageInfo(data.message);
                             }
                         }
-                    });
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            dataLayer.push({
+                                'event': 'virtualEvent',
+                                'category': 'Comunidad',
+                                'action': 'Ingresar',
+                                'label': 'Error'
+                            });
+
+                            CloseLoading();
+                            CloseComunidad();
+                            messageInfo(data.message);
+                        }
+                    }
+                });
+            } else {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Comunidad',
+                    'action': 'Ingresar',
+                    'label': 'Error'
+                });
+            }
+        }
+    }
+
+    function ValidarCorreo(correo) {
+        expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return expr.test(correo);
+    }
+
+    function ValidarCorreoIngresado(correo) {
+        $.ajaxSetup({
+            cache: false
+        });
+        ShowLoading();
+        $('#ValCorreo').css({ "display": "block" });
+        $('#ErrorCorreo').css({ "display": "none" });
+        $.ajax({
+            type: "POST",
+            url: urlValidarCorreoIngresado,
+            data: "{'correo': '" + correo + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $('#ValCorreo').css({ "display": "none" });
+                $('#ErrorCorreo').css({ "display": "block" });
+                $('#ES_Correo').css({ "display": "block" });
+                if (data.success == true) {
+                    $('#ErrorCorreo').html("Este correo ya existe.");
+                    $('#ErrorCorreo').css({ "color": "red" });
+                    CloseLoading();
                 } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Ingresar',
-                        'label': 'Error'
-                    });
-                }
-            }
-        }
-
-        function ValidarCorreo(correo) {
-            expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            return expr.test(correo);
-        }
-
-        function ValidarCorreoIngresado(correo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            ShowLoading();
-            $('#ValCorreo').css({ "display": "block" });
-            $('#ErrorCorreo').css({ "display": "none" });
-            $.ajax({
-                type: "POST",
-                url: urlValidarCorreoIngresado,
-                data: "{'correo': '" + correo + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValCorreo').css({ "display": "none" });
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    if (data.success == true) {
-                        $('#ErrorCorreo').html("Este correo ya existe.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorCorreo').html("Correo Disponible.");
-                        $('#ErrorCorreo').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
+                    $('#ErrorCorreo').html("Correo Disponible.");
+                    $('#ErrorCorreo').css({ "color": "green" });
                     CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
                 }
-            });
-        }
+            },
+            error: function (result) {
+                CloseLoading();
+                CloseComunidad();
+                messageInfo('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
 
-        function ValidarUsuarioIngresado(usuario) {
-            $.ajaxSetup({
-                cache: false
-            });
-            $('#ValUsuario').css({ "display": "block" });
-            $('#ErrorUsuario').css({ "display": "none" });
-            ShowLoading();
-            $.ajax({
-                type: "POST",
-                url: urlValidarUsuarioIngresado,
-                data: "{'usuario': '" + usuario + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValUsuario').css({ "display": "none" });
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Comunidad',
+                    'action': 'Crear cuenta',
+                    'label': 'Error'
+                });
+            }
+        });
+    }
 
-                    if (data.success == true) {
-                        $('#ErrorUsuario').html("Este apodo ya existe.");
-                        $('#ErrorUsuario').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorUsuario').html("Apodo Disponible.");
-                        $('#ErrorUsuario').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
+    function ValidarUsuarioIngresado(usuario) {
+        $.ajaxSetup({
+            cache: false
+        });
+        $('#ValUsuario').css({ "display": "block" });
+        $('#ErrorUsuario').css({ "display": "none" });
+        ShowLoading();
+        $.ajax({
+            type: "POST",
+            url: urlValidarUsuarioIngresado,
+            data: "{'usuario': '" + usuario + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $('#ValUsuario').css({ "display": "none" });
+                $('#ErrorUsuario').css({ "display": "block" });
+                $('#ES_Usuario').css({ "display": "block" });
+
+                if (data.success == true) {
+                    $('#ErrorUsuario').html("Este apodo ya existe.");
+                    $('#ErrorUsuario').css({ "color": "red" });
                     CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
+                } else {
+                    $('#ErrorUsuario').html("Apodo Disponible.");
+                    $('#ErrorUsuario').css({ "color": "green" });
+                    CloseLoading();
                 }
-            });
-        }
+            },
+            error: function (result) {
+                CloseLoading();
+                CloseComunidad();
+                messageInfo('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
 
-        function ShowComunidad() {
-            $('.icon-close').click();
-
-            $("#popupComunidad").modal("show");
-        }
-
-        function CloseComunidad() {
-            $("#popupComunidad").modal("hide");
-        }
-
-        function ShowLoading() {
-            $("#loading-spin").fadeIn();
-        }
-
-        function CloseLoading() {
-            $("#loading-spin").fadeOut("fast");
-        }
-
-        function messageInfo(message, fnAceptar) {
-            $('#mensajeInformacion').html(message);
-            $('#popupInformacion').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacion .btn-aceptar').off('click');
-                $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Comunidad',
+                    'action': 'Crear cuenta',
+                    'label': 'Error'
+                });
             }
+        });
+    }
+
+    function ShowComunidad() {
+        $('.icon-close').click();
+
+        $("#popupComunidad").modal("show");
+    }
+
+    function CloseComunidad() {
+        $("#popupComunidad").modal("hide");
+    }
+
+    function ShowLoading() {
+        $("#loading-spin").fadeIn();
+    }
+
+    function CloseLoading() {
+        $("#loading-spin").fadeOut("fast");
+    }
+
+    function messageInfo(message, fnAceptar) {
+        $('#mensajeInformacion').html(message);
+        $('#popupInformacion').show();
+        if ($.isFunction(fnAceptar)) {
+            $('#popupInformacion .btn-aceptar').off('click');
+            $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
         }
+    }
 
-        function messageInfoBueno(message, fnAceptar) {
-            $('#mensajeInformacionSB2Bueno').html(message);
-            $('#popupInformacionSB2Bueno').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
-            }
+    function messageInfoBueno(message, fnAceptar) {
+        $('#mensajeInformacionSB2Bueno').html(message);
+        $('#popupInformacionSB2Bueno').show();
+        if ($.isFunction(fnAceptar)) {
+            $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
+            $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
         }
+    }
 
-        function messageInfoMalo(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Malo').html(message);
-            $('#popupInformacionSB2Malo').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
-                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
-            }
+    function messageInfoMalo(message, fnAceptar) {
+        $('#mensajeInformacionSB2_Malo').html(message);
+        $('#popupInformacionSB2Malo').show();
+        if ($.isFunction(fnAceptar)) {
+            $('#popupInformacionSB2Malo .btn-aceptar').off('click');
+            $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
         }
+    }
 
-        function messageInfoValidado(message, fnAceptar) {
-            $('#mensajeInformacionvalidado').html(message);
-            $('#popupInformacionValidado').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
-            }
+    function messageInfoValidado(message, fnAceptar) {
+        $('#mensajeInformacionvalidado').html(message);
+        $('#popupInformacionValidado').show();
+        if ($.isFunction(fnAceptar)) {
+            $('#popupInformacionValidado .btn_ok_mobile').off('click');
+            $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
         }
+    }
 
-        function CargarCantidadProductosPedidos(noMostrarEfecto) {
-            noMostrarEfecto = noMostrarEfecto || false;
+    function CargarCantidadProductosPedidos(noMostrarEfecto) {
+        noMostrarEfecto = noMostrarEfecto || false;
 
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetCantidadProductos,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetCantidadProductos,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (checkTimeout(data)) {
 
-                        if (data.montoWebAcumulado == 0) {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = "0";
-                            else
-                                montoWebAcumulado = "0.00";
-                        } else {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                            else
-                                montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                        }
-
-                        $(".num-menu-shop").html(data.cantidadProductos);
-                        $(".js-span-pedidoingresado").html(montoWebAcumulado);
-                        if (!noMostrarEfecto) {
-                            $('.num-menu-shop').removeClass('microefecto_color');
-                            setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
+                    if (data.montoWebAcumulado == 0) {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            montoWebAcumulado = "0";
+                        else
+                            montoWebAcumulado = "0.00";
+                    } else {
+                        if (data.paisID == 4)  //Formato de decimales para Colombia
+                            montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
+                        else
+                            montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
                     }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        }
 
-        function CargarCantidadNotificacionesSinLeer() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetNotificacionesSinLeer,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        if (data.cantidadNotificaciones > 0) {
-                            $("#divNotificacionesSinLeer").html(data.cantidadNotificaciones);
-                            $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
-                            $("#divNotificacionesSinLeer").show();
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
+                    $(".num-menu-shop").html(data.cantidadProductos);
+                    $(".js-span-pedidoingresado").html(montoWebAcumulado);
+                    if (!noMostrarEfecto) {
+                        $('.num-menu-shop').removeClass('microefecto_color');
+                        setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
                     }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
+
+                    data.mensaje = data.mensaje || "";
+                    if (data.mensaje != '') {
+                        console.log(data.mensaje);
                     }
                 }
-            });
-        }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    console.error(error);
+                }
+            }
+        });
+    }
 
-        function CargarCantidadPedidosConsultoraOnline() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetCantidadPedidos,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        var cantidadPedidosOnline = data.cantidadPedidos;
-
-                        $("#divPedidosOnlineSinLeer").html(cantidadPedidosOnline);
-
-                        if (cantidadPedidosOnline > 0) {
-                            $("#divPedidosOnlineSinLeer").show();
-
-                            $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
-                            $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
-                            $("#divAlertaPedidosOnline").show();
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
+    function CargarCantidadNotificacionesSinLeer() {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetNotificacionesSinLeer,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.cantidadNotificaciones > 0) {
+                        $("#divNotificacionesSinLeer").html(data.cantidadNotificaciones);
+                        $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
+                        $("#divNotificacionesSinLeer").show();
                     }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
+
+                    data.mensaje = data.mensaje || "";
+                    if (data.mensaje != '') {
+                        console.log(data.mensaje);
                     }
                 }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    console.error(error);
+                }
+            }
+        });
+    }
+
+    function CargarCantidadPedidosConsultoraOnline() {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetCantidadPedidos,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    var cantidadPedidosOnline = data.cantidadPedidos;
+
+                    $("#divPedidosOnlineSinLeer").html(cantidadPedidosOnline);
+
+                    if (cantidadPedidosOnline > 0) {
+                        $("#divPedidosOnlineSinLeer").show();
+
+                        $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
+                        $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
+                        $("#divAlertaPedidosOnline").show();
+                    }
+
+                    data.mensaje = data.mensaje || "";
+                    if (data.mensaje != '') {
+                        console.log(data.mensaje);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    console.error(error);
+                }
+            }
+        });
+    }
+
+    function SeparadorMiles(pnumero) {
+        // Función que colocará el caracter "." como separador de miles.
+
+        var resultado = "";
+        var numero = pnumero.replace(/\,/g, '');
+        var nuevoNumero = "";
+        if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+        else nuevoNumero = numero.replace(/\./g, '');
+
+        if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+
+        for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+            resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+
+        if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+
+        if (numero[0] == "-") return "-" + resultado;
+        else return resultado;
+    };
+
+    /* Tracking Jetlore */
+    function TrackingJetloreAdd(cantidad, campania, cuv) {
+        var esJetlore;
+
+        esJetlore = esPaisTrackingJetlore == "1";
+
+        if (esJetlore) {
+            JL.tracker.addToCart({
+                count: cantidad,
+                deal_id: cuv,
+                option_id: campania
             });
         }
+    }
 
-        function CargarShowRoom() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetShowRoom,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-                    if (checkTimeout(response)) {
-                        if (response.success) {
-                            var showroomConsultora = response.data;
-                            var evento = response.evento;
+    function TrackingJetloreRemove(cantidad, campania, cuv) {
+        var esJetlore;
 
-                            if (showroomConsultora.EventoConsultoraID != 0) {
-                                if (response.estaActivoLateral) {
-                                    $("#hdNombreEventoShowRoom").val(evento.Nombre);
-                                    $("#hdEventoIDShowRoom").val(evento.EventoID);
+        esJetlore = esPaisTrackingJetlore == "1";
 
-                                    if (response.mostrarShowRoomProductos) {
-                                        $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+        if (esJetlore) {
+            JL.tracker.removeFromCart({
+                count: cantidad,
+                deal_id: cuv,
+                option_id: campania
+            });
+        }
+    }
 
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoomHoy").show();
-                                            AgregarTagManagerShowRoomBannerLateral(true);
-                                        }
-                                    } else {
-                                        $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+    function TrackingJetloreRemoveAll(lista) {
+        var esJetlore;
 
-                                        AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+        esJetlore = esPaisTrackingJetlore == "1";
 
-                                        if (document.getElementById("estiloShowRoom") == null) {
-                                            $("#divShowRoom").show();
-                                            AgregarTagManagerShowRoomBannerLateral(false);
-                                        }
+        if (esJetlore) {
+            JL.tracker.removeFromCart(lista);
+
+        }
+    }
+    /* Fin Tracking Jetlore */
+
+    function CargarShowRoom() {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        var showroomConsultora = response.data;
+                        var evento = response.evento;
+
+                        if (showroomConsultora.EventoConsultoraID != 0) {
+                            if (response.estaActivoLateral) {
+                                $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                $("#hdEventoIDShowRoom").val(evento.EventoID);
+
+                                ///////NOHELY
+                                $("#content").css("margin-top", "0px");
+
+                                if (response.mostrarShowRoomProductos) {
+                                    $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+
+                                    $("#spnPreventaDigitalHoy").html(evento.Nombre);
+
+                                    $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
+
+                                    if (document.getElementById("estiloShowRoom") == null) {
+                                        $("#divShowRoomHoy").show();
+                                        AgregarTagManagerShowRoomBannerLateral(true);
+                                    }
+                                } else {
+                                    $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+
+                                    $("#spnPreventaDigital").html(evento.Nombre);
+
+                                    AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+
+                                    if (document.getElementById("estiloShowRoom") == null) {
+                                        $("#divShowRoom").show();
+                                        AgregarTagManagerShowRoomBannerLateral(false);
                                     }
                                 }
                             }
                         }
                     }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.error(error);
-                    }
                 }
-            });
-        }
-
-        function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
-
-            dataLayer.push({
-                'event': 'promotionClick',
-                'ecommerce': {
-                    'promoClick': {
-                        'promotions': [
-                            {
-                                'id': $("#hdEventoIDShowRoom").val(),
-                                'name': name,
-                                'position': 'Home lateral - 1',
-                                'creative': 'Banner'
-                            }]
-                    }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    console.error(error);
                 }
-            });
-        }
-
-        function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-            var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-
-            if (esHoy)
-                name += " - fase 2";
-
-            dataLayer.push({
-                'event': 'promotionView',
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': [
-                            {
-                                'id': $("#hdEventoIDShowRoom").val(),
-                                'name': name,
-                                'position': 'Home lateral - 1',
-                                'creative': 'Banner'
-                            }]
-                    }
-                }
-            });
-        }
-
-        function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
-
-            var resultado = "";
-            var numero = pnumero.replace(/\,/g, '');
-            var nuevoNumero = "";
-            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-            else nuevoNumero = numero.replace(/\./g, '');
-
-            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
-            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
-            if (numero[0] == "-") return "-" + resultado;
-            else return resultado;
-        };
-
-        function AgregarTimerShowRoom(dia, mes, anio) {
-            var calcNewYear = setInterval(function () {
-                //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
-                date_future = new Date(anio, mes - 1, dia);
-                date_now = new Date();
-
-                seconds = Math.floor((date_future - (date_now)) / 1000);
-                minutes = Math.floor(seconds / 60);
-                hours = Math.floor(minutes / 60);
-                days = Math.floor(hours / 24);
-
-                hours = hours - (days * 24);
-                minutes = minutes - (days * 24 * 60) - (hours * 60);
-                seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-
-                //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
-                $("#spnDiasFaltantes").html(days);
-                $("#spnHorasFaltantes").html(hours);
-                $("#spnMinutosFaltantes").html(minutes);
-                $("#spnSegundosFaltantes").html(seconds);
-
-                if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
-                    clearInterval(calcNewYear);
-                }
-                if (days < 0) {
-                    $("#spnDiasFaltantes").html(0);
-                    $("#spnHorasFaltantes").html(0);
-                    $("#spnMinutosFaltantes").html(0);
-                    $("#spnSegundosFaltantes").html(0);
-                    clearInterval(calcNewYear);
-                }
-            }, 1000);
-        }
-
-        /* Tracking Jetlore */
-        function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.addToCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
             }
-        }
+        });
+    }
 
-        function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore;
+    function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
+        var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
-            esJetlore = esPaisTrackingJetlore == "1";
+        if (esHoy)
+            name += " - fase 2";
 
-            if (esJetlore) {
-                JL.tracker.removeFromCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                        {
+                            'id': $("#hdEventoIDShowRoom").val(),
+                            'name': name,
+                            'position': 'Home lateral - 1',
+                            'creative': 'Banner'
+                        }]
+                }
             }
-        }
+        });
+    }
 
-        function TrackingJetloreRemoveAll(lista) {
-            var esJetlore;
+    function AgregarTagManagerShowRoomBannerLateral(esHoy) {
+        var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
-            esJetlore = esPaisTrackingJetlore == "1";
+        if (esHoy)
+            name += " - fase 2";
 
-            if (esJetlore) {
-                JL.tracker.removeFromCart(lista);
-
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                        {
+                            'id': $("#hdEventoIDShowRoom").val(),
+                            'name': name,
+                            'position': 'Home lateral - 1',
+                            'creative': 'Banner'
+                        }]
+                }
             }
-        }
-        /* Fin Tracking Jetlore */
+        });
+    }
+
+    function AgregarTimerShowRoom(dia, mes, anio) {
+        var calcNewYear = setInterval(function () {
+            //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
+            date_future = new Date(anio, mes - 1, dia);
+            date_now = new Date();
+
+            seconds = Math.floor((date_future - (date_now)) / 1000);
+            minutes = Math.floor(seconds / 60);
+            hours = Math.floor(minutes / 60);
+            days = Math.floor(hours / 24);
+
+            hours = hours - (days * 24);
+            minutes = minutes - (days * 24 * 60) - (hours * 60);
+            seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+            //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
+            $("#spnDiasFaltantes").html(days);
+            $("#spnHorasFaltantes").html(hours);
+            $("#spnMinutosFaltantes").html(minutes);
+            $("#spnSegundosFaltantes").html(seconds);
+
+            if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+                clearInterval(calcNewYear);
+            }
+            if (days < 0) {
+                $("#spnDiasFaltantes").html(0);
+                $("#spnHorasFaltantes").html(0);
+                $("#spnMinutosFaltantes").html(0);
+                $("#spnSegundosFaltantes").html(0);
+                clearInterval(calcNewYear);
+            }
+        }, 1000);
+    }
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

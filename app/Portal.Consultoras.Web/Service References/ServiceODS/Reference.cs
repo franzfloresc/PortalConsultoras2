@@ -330,6 +330,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private decimal PrecioValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneLanzamientoCatalogoPersonalizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -581,6 +587,32 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.PrecioValorizadoField.Equals(value) != true)) {
                     this.PrecioValorizadoField = value;
                     this.RaisePropertyChanged("PrecioValorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneLanzamientoCatalogoPersonalizado {
+            get {
+                return this.TieneLanzamientoCatalogoPersonalizadoField;
+            }
+            set {
+                if ((this.TieneLanzamientoCatalogoPersonalizadoField.Equals(value) != true)) {
+                    this.TieneLanzamientoCatalogoPersonalizadoField = value;
+                    this.RaisePropertyChanged("TieneLanzamientoCatalogoPersonalizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertaRevista {
+            get {
+                return this.TieneOfertaRevistaField;
+            }
+            set {
+                if ((this.TieneOfertaRevistaField.Equals(value) != true)) {
+                    this.TieneOfertaRevistaField = value;
+                    this.RaisePropertyChanged("TieneOfertaRevista");
                 }
             }
         }
