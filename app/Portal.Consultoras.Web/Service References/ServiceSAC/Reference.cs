@@ -9570,6 +9570,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSAC.ISACService")]
     public interface ISACService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
+        void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
+        System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse")]
         void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
         
@@ -10004,6 +10010,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
         System.Threading.Tasks.Task CancelarSolicitudClienteAsync(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedidoResponse")]
+        void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedidoResponse")]
+        System.Threading.Tasks.Task CancelarSolicitudClienteYRemoverPedidoAsync(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
         int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
         
@@ -10093,12 +10105,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
         System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
-        void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
-        System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
@@ -10636,6 +10642,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public SACServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            base.Channel.InsProveedorDespachoCobranzaCabecera(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            return base.Channel.InsProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
         }
         
         public void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo) {
@@ -11214,6 +11228,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.CancelarSolicitudClienteAsync(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
         
+        public void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
+            base.Channel.CancelarSolicitudClienteYRemoverPedido(paisID, campaniaID, consultoraID, codigoUsuario, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+        }
+        
+        public System.Threading.Tasks.Task CancelarSolicitudClienteYRemoverPedidoAsync(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
+            return base.Channel.CancelarSolicitudClienteYRemoverPedidoAsync(paisID, campaniaID, consultoraID, codigoUsuario, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+        }
+        
         public int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
             return base.Channel.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
         }
@@ -11332,14 +11354,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
             return base.Channel.UpdProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
-        }
-        
-        public void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            base.Channel.InsProveedorDespachoCobranzaCabecera(paisID, entidad);
-        }
-        
-        public System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            return base.Channel.InsProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {

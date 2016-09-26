@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
         }
@@ -132,12 +132,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Ocurrió un error inesperado al Registrar el Banner, Por favor intente nuevamente.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Ocurrió un error inesperado al Registrar el Banner, Por favor intente nuevamente.";
             }
 
@@ -196,12 +196,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Ocurrió un error inesperado al Eliminar el registro, Por favor intente nuevamente.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 message = "Ocurrió un error inesperado al Eliminar el registro, Por favor intente nuevamente.";
             }
 
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -339,11 +339,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return RedirectToAction("Index", "Bienvenida");
         }
@@ -402,11 +402,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return RedirectToAction("Index", "Bienvenida");
         }
@@ -513,21 +513,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 /*RE2544 - CS*/
                 int SegmentoID;
-                if (UserData().CodigoISO == "VE")
+                if (userData.CodigoISO == "VE")
                 {
-                    SegmentoID = UserData().SegmentoID;
+                    SegmentoID = userData.SegmentoID;
                 }
                 else
                 {
-                    SegmentoID = (UserData().SegmentoInternoID == null) ? UserData().SegmentoID : (int)UserData().SegmentoInternoID;
+                    SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                int PaisId = UserData().PaisID, CampaniaId = UserData().CampaniaID, ZonaId = UserData().ZonaID,
+                int PaisId = userData.PaisID, CampaniaId = userData.CampaniaID, ZonaId = userData.ZonaID,
                     /*Se comenta la linea por problemas con el tipo de consultora de EsJoven que no muestra ningun Banner. Se cambia la logica a pedido de Belcorp.*/
-                    //SegmentoBanner = UserData().EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161 
+                    //SegmentoBanner = userData.EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161 
                 SegmentoBanner = SegmentoID; //Correctivo 2544 (CSR) - Error Banners Inferiores.
                 string zonaIDStr = ","+ZonaId.ToString().Trim()+",";
-                string CodigoConsultora = UserData().CodigoConsultora;
-                bool ConsultoraNueva = UserData().ConsultoraNueva == 2 ? true : false;
+                string CodigoConsultora = userData.CodigoConsultora;
+                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
                 List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
 
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
@@ -555,36 +555,52 @@ namespace Portal.Consultoras.Web.Controllers
                     //    item.GrupoBannerID = 4;
                     //if (item.GrupoBannerID == 22 || item.GrupoBannerID == 23 || item.GrupoBannerID == 26)
                     //    item.GrupoBannerID = 5;
-                    if (item.GrupoBannerID == 151 || item.GrupoBannerID == 152 || item.GrupoBannerID == 153)
+                    if (item.GrupoBannerID == 151)
                         item.GrupoBannerID = -5;
+                    if (item.GrupoBannerID == 152)
+                        item.GrupoBannerID = -6;
+                    if (item.GrupoBannerID == 153)
+                        item.GrupoBannerID = -7;
                 }
 
                 //----------------------------------
                 List<BEBannerInfo> ban_temp_inter = new List<BEBannerInfo>();
-                ban_temp_inter = lstBannerInfo.Where(p => p.GrupoBannerID > -6 && p.GrupoBannerID < -4).ToList();
+                ban_temp_inter = lstBannerInfo.Where(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4).ToList();
 
                 if (ban_temp_inter.Count > 0)
                 {
-                    lstBannerInfo.RemoveAll(p => p.GrupoBannerID > -6 && p.GrupoBannerID < -4);
+                    lstBannerInfo.RemoveAll(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4);
 
-                    List<BEBannerInfo> inter_temp_1 = new List<BEBannerInfo>();
+                    List<BEBannerInfo> inter_temp_1_SB2 = new List<BEBannerInfo>();
+                    List<BEBannerInfo> inter_temp_2_SB2 = new List<BEBannerInfo>();
+                    List<BEBannerInfo> inter_temp_3_SB2 = new List<BEBannerInfo>();
                     //List<BEBannerInfo> inter_temp_2 = new List<BEBannerInfo>();
                     //List<BEBannerInfo> inter_temp_3 = new List<BEBannerInfo>();
                     //List<BEBannerInfo> inter_temp_4 = new List<BEBannerInfo>();
 
-                    //R2161 - Inicio
-                    inter_temp_1 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+                    inter_temp_1_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+                    inter_temp_2_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -6).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+                    inter_temp_3_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -7).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+
                     //inter_temp_1 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
                     //inter_temp_2 = ban_temp_inter.Where(p => p.GrupoBannerID == 3).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
                     //inter_temp_3 = ban_temp_inter.Where(p => p.GrupoBannerID == 4).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
                     //inter_temp_4 = ban_temp_inter.Where(p => p.GrupoBannerID == 5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
-                    //R2161 - Fin
 
-                    if (inter_temp_1.Count > 0)
+                    if (inter_temp_1_SB2.Count > 0)
                     {
-                        lstBannerInfo.AddRange(inter_temp_1);
+                        lstBannerInfo.AddRange(inter_temp_1_SB2);
                     }
 
+                    if (inter_temp_2_SB2.Count > 0)
+                    {
+                        lstBannerInfo.AddRange(inter_temp_2_SB2);
+                    }
+
+                    if (inter_temp_3_SB2.Count > 0)
+                    {
+                        lstBannerInfo.AddRange(inter_temp_3_SB2);
+                    }
                     //if (inter_temp_2.Count > 0)
                     //{
                     //    lstBannerInfo.AddRange(inter_temp_2);
@@ -613,14 +629,17 @@ namespace Portal.Consultoras.Web.Controllers
                     //lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID != 1 && x.GrupoBannerID != 6 &&
                     //     x.GrupoBannerID != 7 && x.GrupoBannerID != 8 && x.GrupoBannerID != 9 && x.GrupoBannerID != 24 && x.GrupoBannerID != 25));
                     // Ordena y agrega los banner Bajos
-                    lstBannerInfo = lstBannerInfo.Where(x => x.GrupoBannerID == -5).OrderBy(x => x.Orden).ToList();
-                    
+                    lstBannerInfoTemp = new List<BEBannerInfo>(); ;
+                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -5).OrderBy(x => x.Orden).ToList());
+                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -6).OrderBy(x => x.Orden).ToList());
+                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -7).OrderBy(x => x.Orden).ToList());
+
                     //lstBannerInfo.Where((x, i) => i == 0).Update(x => x.GrupoBannerID = 6);
                     //lstBannerInfo.Where((x, i) => i == 1).Update(x => x.GrupoBannerID = 8);
                     //lstBannerInfo.Where((x, i) => i == 2).Update(x => x.GrupoBannerID = 7);
                     //lstBannerInfo.Where((x, i) => i == 3).Update(x => x.GrupoBannerID = 9);
 
-                    lstFinalInfo.AddRange(lstBannerInfo);
+                    lstFinalInfo.AddRange(lstBannerInfoTemp);
                 }
                 #endregion
 
@@ -628,12 +647,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
 
@@ -668,9 +687,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEBannerInfo> lstFinalInfo = new List<BEBannerInfo>();
             try
             {
-                int PaisId = UserData().PaisID, CampaniaId = UserData().CampaniaID;
-                string CodigoConsultora = UserData().CodigoConsultora;
-                bool ConsultoraNueva = UserData().ConsultoraNueva == 2 ? true : false;
+                int PaisId = userData.PaisID, CampaniaId = userData.CampaniaID;
+                string CodigoConsultora = userData.CodigoConsultora;
+                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
                 //BEUsuario beusuario = new BEUsuario();
                 List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
                 int segmento_nueva, segmento_top;
@@ -682,12 +701,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 //{
-                //    beusuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
+                //    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
                 //}
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    list_segmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 20).ToList();
+                    list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 20).ToList();
                     segmento_nueva = Convert.ToInt32((from item in list_segmentos where item.TablaLogicaDatosID == 2001 select item.Codigo).First());
                     segmento_top = Convert.ToInt32((from item in list_segmentos where item.TablaLogicaDatosID == 2002 select item.Codigo).First());
                 }
@@ -695,19 +714,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //Estableciendo las reglas para el Banner 1
                 #region Reglas para Banner 1
-                if (UserData().PasePedidoWeb == 0)
+                if (userData.PasePedidoWeb == 0)
                 {
                     lstBannerInfo = (from item in lstBannerInfo
                                      where item.GrupoBannerID != 3 && item.GrupoBannerID != 4 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
                                      select item).ToList();
                 }
-                else if (UserData().TipoOferta2 == 0)
+                else if (userData.TipoOferta2 == 0)
                 {
                     lstBannerInfo = (from item in lstBannerInfo
                                      where item.GrupoBannerID != 2 && item.GrupoBannerID != 4 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
                                      select item).ToList();
                 }
-                else if (UserData().EMail == "")
+                else if (userData.EMail == "")
                 {
                     lstBannerInfo = (from item in lstBannerInfo
                                      where item.GrupoBannerID != 2 && item.GrupoBannerID != 3 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
@@ -728,7 +747,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
                 #region Reglas para Banner 2
-                if (UserData().SegmentoID == segmento_nueva)
+                if (userData.SegmentoID == segmento_nueva)
                 {
                     lstBannerInfo = (from item in lstBannerInfo
                                      where item.GrupoBannerID != 13
@@ -742,21 +761,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
                 #region Reglas para Banner 3
-                if (UserData().SegmentoID != segmento_nueva)
+                if (userData.SegmentoID != segmento_nueva)
                 {
-                    if (UserData().IndicadorDupla == 0)
+                    if (userData.IndicadorDupla == 0)
                     {
                         lstBannerInfo = (from item in lstBannerInfo
                                          where item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
                                          select item).ToList();
                     }
-                    else if (UserData().CompraKitDupla == 0)
+                    else if (userData.CompraKitDupla == 0)
                     {
                         lstBannerInfo = (from item in lstBannerInfo
                                          where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
                                          select item).ToList();
                     }
-                    else if (UserData().CompraOfertaDupla == 0)
+                    else if (userData.CompraOfertaDupla == 0)
                     {
                         lstBannerInfo = (from item in lstBannerInfo
                                          where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
@@ -771,13 +790,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    if (UserData().CompraOfertaEspecial == 0)
+                    if (userData.CompraOfertaEspecial == 0)
                     {
                         lstBannerInfo = (from item in lstBannerInfo
                                          where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
                                          select item).ToList();
                     }
-                    else if (UserData().IndicadorMeta == 0)
+                    else if (userData.IndicadorMeta == 0)
                     {
                         lstBannerInfo = (from item in lstBannerInfo
                                          where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 21
@@ -793,7 +812,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
                 #region Reglas para Banner 4
-                if (UserData().EsJoven == 1 && UserData().SegmentoID != segmento_top)//1530
+                if (userData.EsJoven == 1 && userData.SegmentoID != segmento_top)//1530
                 {
                     //lstBannerInfo = (from item in lstBannerInfo
                     //                 where item.GrupoBannerID != 23
@@ -802,7 +821,7 @@ namespace Portal.Consultoras.Web.Controllers
                                      where item.GrupoBannerID != 22 && item.GrupoBannerID != 23
                                      select item).ToList();
                 }
-                if (UserData().EsJoven == 1 && UserData().SegmentoID == segmento_top)//1530
+                if (userData.EsJoven == 1 && userData.SegmentoID == segmento_top)//1530
                 {
                     //lstBannerInfo = (from item in lstBannerInfo
                     //                 where item.GrupoBannerID != 22
@@ -812,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
                                      select item).ToList();
                 }
 
-                if (UserData().EsJoven != 1 && UserData().SegmentoID != segmento_top)//1530
+                if (userData.EsJoven != 1 && userData.SegmentoID != segmento_top)//1530
                 {
 
                     lstBannerInfo = (from item in lstBannerInfo
@@ -820,7 +839,7 @@ namespace Portal.Consultoras.Web.Controllers
                                      select item).ToList();
                 }
 
-                if (UserData().EsJoven != 1 && UserData().SegmentoID == segmento_top)//1530
+                if (userData.EsJoven != 1 && userData.SegmentoID == segmento_top)//1530
                 {
 
                     lstBannerInfo = (from item in lstBannerInfo
@@ -845,10 +864,10 @@ namespace Portal.Consultoras.Web.Controllers
                 //string nroDocumento;
                 //using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 //{
-                //    nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
+                //    nroDocumento = sv.GetNroDocumentoConsultora(userData.PaisID, userData.CodigoConsultora);
                 //}
 
-                //string[] parametros = new string[] { UserData().CodigoISO, UserData().CodigoConsultora, "", nroDocumento, UserData().NombreConsultora, "", UserData().EMail, UserData().Celular, UserData().Telefono, UserData().CodigoZona};
+                //string[] parametros = new string[] { userData.CodigoISO, userData.CodigoConsultora, "", nroDocumento, userData.NombreConsultora, "", userData.EMail, userData.Celular, userData.Telefono, userData.CodigoZona};
 
                 //foreach (BEBannerInfo item in lstBannerInfo)
                 //{
@@ -896,12 +915,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
 
@@ -1058,7 +1077,7 @@ namespace Portal.Consultoras.Web.Controllers
             int cantidad_envios;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                list_Cantidad = sv.GetTablaLogicaDatos(UserData().PaisID, 21).ToList();
+                list_Cantidad = sv.GetTablaLogicaDatos(userData.PaisID, 21).ToList();
                 cantidad_validacion = Convert.ToInt32((from item in list_Cantidad where item.TablaLogicaDatosID == 2101 select item.Codigo).First());
             }
 
@@ -1068,7 +1087,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    cantidad_envios = sv.ValidarEnvioCatalogo(UserData().PaisID, UserData().CodigoConsultora, UserData().CampaniaID, cantidad_validacion);
+                    cantidad_envios = sv.ValidarEnvioCatalogo(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID, cantidad_validacion);
                 }
                 if (cantidad_envios >= cantidad_validacion)
                     return true;
@@ -1102,25 +1121,25 @@ namespace Portal.Consultoras.Web.Controllers
             switch (ParametroId)
             {
                 case 1:
-                    return UserData().NombrePais.Trim();
+                    return userData.NombrePais.Trim();
                 case 2:
-                    return UserData().CampaniaID.ToString().Trim();
+                    return userData.CampaniaID.ToString().Trim();
                 case 3:
-                    return UserData().CodigoConsultora.Trim();
+                    return userData.CodigoConsultora.Trim();
                 case 4:
-                    return UserData().CodigoZona.Trim();
+                    return userData.CodigoZona.Trim();
                 case 5:
-                    return UserData().NombreConsultora.Trim();
+                    return userData.NombreConsultora.Trim();
                 case 6:
-                    return UserData().EMail.Trim();
+                    return userData.EMail.Trim();
                 case 7:
-                    return UserData().Telefono.Trim();
+                    return userData.Telefono.Trim();
                 case 8:
-                    return UserData().Segmento.Trim();
+                    return userData.Segmento.Trim();
                 case 9:
-                    return UserData().Nivel.Trim();
+                    return userData.Nivel.Trim();
                 case 10:
-                    return Util.Edad(UserData().FechaNacimiento).ToString().Trim();
+                    return Util.Edad(userData.FechaNacimiento).ToString().Trim();
                 default:
                     return "";
             }
@@ -1171,8 +1190,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                string CodigoConsultora = UserData().CodigoConsultora;
-                bool ConsultoraNueva = UserData().ConsultoraNueva == 2 ? true : false;
+                string CodigoConsultora = userData.CodigoConsultora;
+                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
 
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
@@ -1219,12 +1238,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
 
@@ -1241,7 +1260,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
-                    svc.UpdOrdenNumberBanner(UserData().PaisID, banners.ToArray());
+                    svc.UpdOrdenNumberBanner(userData.PaisID, banners.ToArray());
                 }
 
                 return Json(new
@@ -1253,7 +1272,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1263,7 +1282,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

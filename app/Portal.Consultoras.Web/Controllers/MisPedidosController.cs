@@ -16,6 +16,8 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using SC = Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
+using AutoMapper;
+using System.Globalization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -85,6 +87,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
+
+                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                model.MostrarClienteOnline = strpaises.Contains(UserData().CodigoISO);
+                if (model.MostrarClienteOnline)
+                {
+                    model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel{
+                        CampaniaID = userData.CampaniaID,
+                        NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
+                    }};
+                    foreach (var facturado in model.ListaFacturados)
+                    {
+                        model.CampaniasConsultoraOnline.Add(new CampaniaModel
+                        {
+                            CampaniaID = facturado.CampaniaID,
+                            NombreCorto = facturado.CampaniaID.ToString().Substring(0, 4) + "-" + facturado.CampaniaID.ToString().Substring(4, 2)
+                        });
+                    }
+                    model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+                }
             }
             catch (FaultException ex)
             {
@@ -92,6 +113,135 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View(model);
+        }
+        public JsonResult ClienteOnline(int campania)
+        {
+            var listPedidosClienteOnline = new List<BEMisPedidos>();
+            var listModel = new List<ClienteOnlineModel>();
+
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
+                    if (listPedidosClienteOnline == null || listPedidosClienteOnline.Count == 0)
+                    {
+                        campania = AddCampaniaAndNumero(campania, -1);
+                        listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
+                    }
+                }
+                listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
+                listModel.Update(model => {
+                    model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
+                    model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
+                    model.Campania = campania.ToString().Substring(0, 4) + "-" + campania.ToString().Substring(4, 2);
+                    model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
+                    model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
+                    model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
+                });
+                
+                return Json(new
+                {
+                    success = true,
+                    message = listModel.Count == 0 ? "No tiene pedidos de Clientes Online para esta campaña, con el filtro en la campaña actual." : "",
+                    listaPedidosClienteOnline = listModel
+                });
+            }
+            catch (FaultException ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "Ocurrió un error al intentar cargar la información para esta campaña",
+                listaCliente = ""
+            });
+        }
+        public JsonResult ClienteOnlineDetalle(int solicitudClienteId)
+        {
+            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
+            var listModel = new List<ClienteOnlineDetalleModel>();
+
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    listDetallesClienteOnline = sv.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, solicitudClienteId).ToList();
+                }
+                listModel = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
+                listModel.Update(model =>
+                {
+                    model.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioUnitario.ToDecimal(), userData.CodigoISO));
+                    model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal.ToDecimal(), userData.CodigoISO));
+                    model.TipoAtencionString = model.TipoAtencion == 2 ? "Ya lo tengo" : (model.TipoAtencion == 1 ? "Ingresado al Pedido" : "Agotado");
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    listaDetallesClienteOnline = listModel
+                });
+            }
+            catch (FaultException ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "Ocurrió un error al intentar cargar el detalle de este cliente online.",
+                listaCliente = ""
+            });
+        }
+        public JsonResult ClienteOnlineCancelarSolicitud(int solicitudClienteId, int? motivoSolicitudId, string razonMotivoSolicitud)
+        {
+            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
+            var listModel = new List<ClienteOnlineDetalleModel>();
+            try
+            {
+                using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
+                {
+                    sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
+                }
+
+                Session["ObservacionesPROL"] = null;
+                Session["PedidoWebDetalle"] = null;
+                UpdPedidoWebMontosPROL();
+
+                return Json(new { success = true, message = "" });
+            }
+            catch (FaultException ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "Ocurrió un error al intentar cancelar la solicitud."
+            });
         }
 
         public string ObtenerRutaPaqueteDocumentario(int campaniaId)

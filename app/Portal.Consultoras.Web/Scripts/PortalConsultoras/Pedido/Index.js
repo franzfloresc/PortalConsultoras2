@@ -251,6 +251,10 @@ $(document).ready(function () {
             return false;
         }
 
+        if (HorarioRestringido()) {         
+            CerrarSplash();
+            return;
+        }
         if (cantidad <= 0) {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
@@ -2051,6 +2055,9 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     popup = popup || false;
     limite = limite || 0;
 
+    if (HorarioRestringido())
+        return;
+
     var tipoEstrategiaID = objParameter.TipoEstrategiaID;
     var estrategiaID = objParameter.EstrategiaID;
     var posicionItem = objParameter.Posicion;
@@ -2340,6 +2347,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
     };
 
     AbrirSplash();
+
+    if (HorarioRestringido()) {
+        CerrarSplash();
+        return;
+    }
 
     jQuery.ajax({
         type: 'POST',
@@ -2941,8 +2953,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         centerMode: false,
         centerPadding: '0',
         tipo: 'p', // popup
-        prevArrow: '<a class="previous_ofertas js-slick-prev-of"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas next js-slick-next-of"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        prevArrow: '<a class="previous_ofertas js-slick-prev-of" style="left:-10%;" ><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" style="width:100%; height:auto;" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas next js-slick-next-of" style="right:-9.7%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" style="width:100%; height:auto;" alt="" /></a>'
     });
 
     $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-of"));
@@ -3564,6 +3576,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     AbrirSplash();
     if (HorarioRestringido()) {
+        var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
+        $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
         CerrarSplash();
         return false;
     }
@@ -4446,20 +4460,4 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
-
-function LimpiarSesionProductosOF()
-{
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/LimpiarSesionProductosOF',      
-        async: true,
-        success: function (data) {            
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert_msg(data.message);
-            }
-        }
-    });
 };

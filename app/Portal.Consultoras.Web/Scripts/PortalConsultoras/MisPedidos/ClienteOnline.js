@@ -1,0 +1,198 @@
+﻿var primeraVezClienteOnline = true;
+var solicitudClienteIdActual = 0;
+var marcaIdActual = 0;
+
+$(document).ready(function () {
+    CargarEventosClienteOnline();
+});
+
+function CargarEventosClienteOnline() {
+    $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').on('click', function (e) {
+        if (primeraVezClienteOnline) {
+            primeraVezClienteOnline = false;
+            $('#ddlCampania').trigger('change');
+        }
+    });
+    $('#ddlCampania').on('change', function () {
+        waitingDialog();
+        jQuery.ajax({
+            type: 'POST',
+            url: urlClienteOnline,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            success: function (data) {
+                if (!checkTimeout(data)) return false;
+
+                if (data.success && data.listaPedidosClienteOnline.length > 0) {
+                    var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
+                    $('#divTablaClientesOnline').html(tablaClientesOnline);
+                }
+                else $('#divTablaClientesOnline').html(data.message);
+            },
+            error: function (data) {
+                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+                console.log(data);
+            },
+            complete: closeWaitingDialog
+        });
+    });
+    $('#dialog_motivoCancelado .optionsRechazo').on('click', function () {
+        $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+        $(this).addClass('optionsSeleccionado');
+    });
+}
+function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
+    waitingDialog();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlClienteOnlineDetalle,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ solicitudClienteId: solicitudClienteId }),
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                alert_msg(data.message);
+                return false;
+            }
+
+            var titulo = "pedido " + estadoDesc + " de " + nombre;
+            $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
+            $('#popup_cliente_online_detalle .spnClienteOnlineTotal').html(total);
+            if (campaniaActual == $('#ddlCampania').val() && estado == 'A') {
+                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '');
+                $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').show();
+            }
+            else {
+                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '0px');
+                $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').hide();
+            }
+
+            $('#popup_cliente_online_detalle .spnClienteOnlineNombre').html(nombre);
+            $('#popup_cliente_online_detalle .spnClienteOnlineTelefono').html(telefono);
+            $('#popup_cliente_online_detalle .spnClienteOnlineEmail').html(email);
+            $('#popup_cliente_online_detalle .spnClienteOnlineDireccion').html(direccion);
+            $('#popup_cliente_online_detalle .spnClienteOnlineEstado').html(estadoDesc);
+            $('#popup_cliente_online_detalle .spnClienteOnlineMensaje').html(mensaje);
+            
+            var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas'
+            var tablaClientesOnlineDetalle = SetHandlebars(template, data.listaDetallesClienteOnline);
+            $('#divTablaClienteOnlineDetalles').html(tablaClientesOnlineDetalle);
+
+            $('#popup_cliente_online_detalle').show();
+            solicitudClienteIdActual = solicitudClienteId;
+            marcaIdActual = marcaId;
+        },
+        error: function (data) {
+            alert_msg('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+            console.log(data);
+        },
+        complete: closeWaitingDialog
+    });    
+}
+function AbrirConfirmacionCancelado()
+{
+    $('#popup_cliente_online_detalle').hide();
+    $('#dialog_confirmacionCancelado').show();
+}
+function NoAceptarConfirmacionCancelado() {
+    $('#dialog_confirmacionCancelado').hide();
+    $('#popup_cliente_online_detalle').show();
+}
+function AceptarConfirmacionCancelado() {
+    $('#dialog_confirmacionCancelado').hide();
+    $('#dialog_motivoCancelado').show();
+}
+function CancelarSolicitud() {
+    waitingDialog();
+    ReservadoOEnHorarioRestringidoAsync(
+        true,
+        MensajeErrorCancelado,
+        function () {
+            jQuery.ajax({
+                type: 'POST',
+                url: urlClienteOnlineCancelarSolicitud,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    solicitudClienteId: solicitudClienteIdActual,
+                    motivoSolicitudId: $('#dialog_motivoCancelado .optionsRechazo.optionsSeleccionado').first().attr('data-id'),
+                    razonMotivoSolicitud: $('#txtOtrosCancelado').val()
+                }),
+                success: function (data) {
+                    if (!checkTimeout(data)) return false;
+                    if (!data.success) {
+                        MensajeErrorCancelado(data.message);
+                        return false;
+                    }
+
+                    $('#txtOtrosCancelado').val('');
+                    $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+                    $('#dialog_motivoCancelado').hide();
+
+                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
+                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
+                    $('#dialog_mensajeCancelado').show();
+
+                    solicitudClienteIdActual = 0;
+                    marcaIdActual = 0;
+                },
+                error: function (data) {
+                    MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
+                    console.log(data);
+                },
+                complete: closeWaitingDialog
+            });
+        }
+    )    
+}
+function MensajeErrorCancelado(message) {
+    $('#dialog_motivoCancelado').hide();
+    $('#dialog_confirmacionCancelado').show();
+    if(message != null && message != '') alert_msg(message);
+}
+function CerrarMensajeCancelado() {
+    $('#dialog_mensajeCancelado').hide();
+    $('#ddlCampania').trigger('change');
+}
+
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            closeWaitingDialog();
+            fnRestringido();
+        }
+    });
+}
