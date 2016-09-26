@@ -8387,3 +8387,8 @@ a:focus, a:hover {
     color: initial;
   
 }
+#divProductosAgotados .table>thead:first-child>tr:first-child>th {
+  font-family:'Lato';
+  color:black;
+  font-weight:700;
+}
