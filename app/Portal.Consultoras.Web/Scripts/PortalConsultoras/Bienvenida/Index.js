@@ -3105,6 +3105,7 @@ function AgregarProducto(url, item, otraFunct) {
             if (data.success == true) {
                 ActualizarGanancia(data.DataBarra);                
                 CargarResumenCampaniaHeader(true);
+
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
 
                 if (typeof (otraFunct) == 'function') {
