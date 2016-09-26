@@ -138,7 +138,7 @@ function CargarPopupPedidoPend(pedidoId) {
                     var arr = row.split('|');
                     var t = 1;
 
-                    console.log(arr);
+                    //console.log(arr);
 
                     if (arr[1] > 0) {    // 0=App de catalogos, >0=Portal Marca
                         t = 2;
@@ -157,7 +157,7 @@ function CargarPopupPedidoPend(pedidoId) {
                         FlagConsultora: (arr[15] == "true") ? 1 : 0,
                     }
 
-                    console.log(d1);
+                    //console.log(d1);
 
                     if (t == 1) {
                         var html = SetHandlebars("#popup-pedidopend-template", d1);
@@ -208,7 +208,7 @@ function ShowPopupMotivoRechazo() {
     var row = $('#pedidopend_' + id).val();
     var arr = row.split('|');
 
-    console.log(arr);
+    //console.log(arr);
 
     $('#SolicitudId').val(arr[0]);
     $('#MarcaID').val(arr[1]);
@@ -237,7 +237,7 @@ function RechazarPedido() {
         RazonMotivoRechazo: $("#txtOtrosRechazo").val()
     };
 
-    console.log(obj);
+    //console.log(obj);
 
     AbrirSplash();
 
@@ -329,7 +329,7 @@ function AceptarPedido(pedidoId, tipo) {
         detalle.push(d);
     });
 
-    console.log(detalle);
+    //console.log(detalle);
 
     if (isOk) {
 
@@ -382,5 +382,6 @@ function CerrarMensajeAceptado(tipo) {
         $('#dialog2_aceptasPendientes').hide();
     }
 
+    CargarDetallePedido();
     CargarPedidosPend();
 }
