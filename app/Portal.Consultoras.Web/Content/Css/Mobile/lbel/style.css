@@ -3894,7 +3894,7 @@ width:100%;
     margin-right: 15px;
     margin-top: 18px;
     position:relative;
-    background: url("../../../Images/mobile/Esika/mensajes.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
 }
 .notificaciones_mobiles{
     width:20px;
@@ -4086,9 +4086,14 @@ width:100%;
     background-position: 0 4px;
 }
 
-.btn_seguirp_mobile.ver_video_introductorio{
+.btn_seguirp_mobile.seguimientoPedido {
+    width:114px;
+}
+
+.btn_seguirp_mobile.ver_video_introductorio {
     margin-top: 15px;
     margin-bottom: 5px;
+    width:114px;
 }
 
 .linea_separadora_mobile{
