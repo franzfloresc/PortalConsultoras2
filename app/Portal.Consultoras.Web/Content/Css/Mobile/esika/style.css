@@ -8591,3 +8591,8 @@ a:focus, a:hover {
     text-align: left;
     }
 }
+#divProductosAgotados .table>thead:first-child>tr:first-child>th {
+  font-family:'Lato';
+  color:black;
+  font-weight:700;
+}
