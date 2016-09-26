@@ -5443,26 +5443,30 @@ body {
     background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
 }
 
-    .enlace_regresar.detalleP {
-        top: 0%;
-        left: 2.45%;
-        background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
-    }
+.enlace_regresar.detalleP {
+    top: 0%;
+    left: 2.45%;
+    background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+}
 
-    .enlace_regresar.ingresoP {
-        top: 18%;
-        left: 2.45%;
-    }
+.enlace_regresar.ingresoP {
+    top: 18%;
+    left: 2.45%;
+}
 
-    .enlace_regresar.catalogosR {
-        top: 31%;
-        left: 5.55%;
-    }
+.enlace_regresar.catalogosR {
+    top: 31%;
+    left: 5.55%;
+}
 
-    .enlace_regresar img {
-        width: 100%;
-        height: auto;
-    }
+.enlace_regresar.catalogosP {
+    left: 3%;
+}
+
+.enlace_regresar img {
+    width: 100%;
+    height: auto;
+}
 
 .detalle_pedido_ingresado {
     display: block;
@@ -8557,10 +8561,20 @@ a:focus, a:hover {
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 100%;
+    width: 48%;
     text-decoration: none;
     margin-bottom: 6px;
 }
+
+.texto_descripcionCatalogoPersonalizado {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-align: justify;
+}
+
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
