@@ -137,7 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
                                 IsAgregado = false,
-                                TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista
+                                TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
                             });
 
                         }
