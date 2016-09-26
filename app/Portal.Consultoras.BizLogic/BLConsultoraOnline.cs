@@ -60,6 +60,21 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
+        {
+            var DAMisPedidos = new DAConsultoraOnline(paisID);
+            var misPedidos = new List<BEMisPedidos>();
+            using (IDataReader reader = DAMisPedidos.GetMisPedidosClienteOnline(consultoraId, campania))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
+                }
+                return misPedidos;
+            }
+        }
+
         public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
         {
             var cantidad = -1;

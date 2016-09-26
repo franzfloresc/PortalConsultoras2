@@ -22696,7 +22696,7 @@ body{
 
 .percepcion_campania select, .pedidosFacturados_campania select{
     display:block;
-    width:81px;
+    width:107px;
     height:41px;
     border:1px solid #CCC;
     padding-left:10px;
@@ -28557,7 +28557,7 @@ span.datoPedidoCliente {
     float: left;
 }
 
-.venderecha{
+.venderecha, .venderecha-ancho{
     float: right;
 }
 
@@ -28595,6 +28595,11 @@ button.btn_eliminarCliente.venderecha.prosigue {
     color: white;
 }
 
+button.btn_eliminarCliente.venderecha-ancho{
+    width: 280px;
+    margin-right: 0px;
+}
+  
 a#cierreRechazoPendientes img {
     width: 25px;
 }
@@ -28745,7 +28750,7 @@ a#cierreMotivoRechazo img {
     cursor: pointer;
 }
 
-.optionsRechazo:hover{
+.optionsRechazo:hover, .optionsRechazo.optionsSeleccionado{
     background: #f0f0f0;
 }
 
@@ -30016,6 +30021,7 @@ h1#penmostreo .campana {
     padding: 3px 7px;
     vertical-align: middle;
     margin-right: 8px;
+    cursor:pointer;
 }
 
 .lupa_online{
@@ -30050,6 +30056,23 @@ h1#penmostreo .campana {
     background:#e7e7e7;
     color:black;
 }
+.mis_pagos_tabs{
+      width:79%;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
 @media screen and (max-width: 1024px) {
     .truco_bloqueo.sim1 {
         width: 100%;

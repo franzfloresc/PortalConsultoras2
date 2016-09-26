@@ -363,6 +363,7 @@
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\CatalogoIssuModel.cs" />
+    <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
@@ -423,6 +424,7 @@
     <Compile Include="Models\MailVM.cs" />
     <Compile Include="Models\MisPedidosDetalleModel.cs" />
     <Compile Include="Models\MisPedidosModel.cs" />
+    <Compile Include="Models\ClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
@@ -2374,6 +2376,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\CatalogoPersonalizado\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />

@@ -33,6 +33,14 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetMisPedidosClienteOnline(long ConsultoraId, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosClienteOnline_SB2");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+            return Context.ExecuteReader(command);
+        }
 		
 		public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId)
         {
