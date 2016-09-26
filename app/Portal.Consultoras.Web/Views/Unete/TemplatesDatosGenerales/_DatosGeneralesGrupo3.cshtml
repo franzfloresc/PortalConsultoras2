@@ -122,7 +122,7 @@
 
             <div class="titC">Celular:</div>
             <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.Celular, new { @class = "numero" })
+                @Html.TextBoxForExpressionRequiredIf(m => m.Celular, new { @class = "numero" })
             </div>
         </div>
         <div class="div-3 div_3_fix">
