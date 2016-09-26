@@ -637,42 +637,44 @@
             <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
         </div>
-        <div class="producto_img_home">
-            <img src="{{ImagenProductoSugerido}}">
-        </div>
-        <div class="etiqueta_producto">
-        </div>
-        <div class="producto_nombre_descripcion">
-            <h6>{{DescripcionMarca}}</h6>
-            <p class="nombre_producto">
-                <b>{{Descripcion}}</b>
-            </p>
-            <div class="producto_precio">
-                <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+        <div class="contenido_item_ofertaFinal">
+            <div class="producto_img_home">
+                <img src="{{ImagenProductoSugerido}}">
             </div>
-            <div class="contenedor_cantidadProductos">
-                <span class="textoCantidad">CANTIDAD:</span>
-                <div>
-                    @*<span class="signo_menos restar-uno" onclick="sumarUno(this);">
-                        <img src="/Content/Images/Mobile/Esika/menos.png">
-                    </span>
-                    <div class="campo_cantidadProductos">
-                        <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    </div>
-                    <span class="signo_mas sumar-uno" onclick="sumarUno(this);">
-                        <img src="/Content/Images/Mobile/Esika/mas.png">
-                    </span>*@
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    <div class="clear"></div>
+            <div class="etiqueta_producto">
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
+                <div class="contenedor_cantidadProductos">
+                    <span class="textoCantidad">CANTIDAD:</span>
+                    <div>
+                        @*<span class="signo_menos restar-uno" onclick="sumarUno(this);">
+                            <img src="/Content/Images/Mobile/Esika/menos.png">
+                        </span>
+                        <div class="campo_cantidadProductos">
+                            <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        </div>
+                        <span class="signo_mas sumar-uno" onclick="sumarUno(this);">
+                            <img src="/Content/Images/Mobile/Esika/mas.png">
+                        </span>*@
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregarOfertaFinal">
+                    AGRÉGALO
+                </a>
+                <div class="clear"></div>
             </div>
-            <a class="boton_Agregalo_home agregarOfertaFinal">
-                AGRÉGALO
-            </a>
-            <div class="clear"></div>
         </div>
     </div>
     {{/each}}

@@ -1590,8 +1590,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         speed: 300,
         //prevArrow: '<a class="previous_ofertas js-slick-prev-of"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         //nextArrow: '<a class="previous_ofertas next js-slick-next-of"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-        prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 4%; top: -4%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
-        nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 7%; top: -4%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
+        prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png" style="width:100%; height:auto;" /></a>',
+        nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png" style="width:100%; height:auto;" /></a>'
     });
 
     //$('#divCarruselOfertaFinal').prepend($(".js-slick-prev-of"));

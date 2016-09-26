@@ -7758,13 +7758,22 @@ a:focus, a:hover {
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
     width: 238px;
-    height: 454px;
+    height: 470px;
     display: inline-block;
     margin: 0 3px 0 3px;
     padding: 0 0 20px 0;
     vertical-align: middle;
     overflow: hidden;
+    background: none;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenido_item_ofertaFinal{
     background: #FFF;
+    width: 237px;
+    display: block;
+    margin: 0 auto;
+    height: 454px;
+    border:1px solid #e7e1e1;
     box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
     -o-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
@@ -7804,6 +7813,12 @@ a:focus, a:hover {
 
 .bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos{
     margin-bottom:10px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos div{
+    margin-left:0px;
 }
 
 .bloque_carousel .content_item_carrusel_ofertaFinal .producto_nombre_descripcion{
@@ -7834,7 +7849,7 @@ a:focus, a:hover {
 .bloque_carousel .content_item_carrusel_ofertaFinal .boton_Agregalo_home{
     display: inline-block;
     margin-top:0px;
-    width: 100%;
+    width: 96.3%;
     vertical-align: top;
 }
 
