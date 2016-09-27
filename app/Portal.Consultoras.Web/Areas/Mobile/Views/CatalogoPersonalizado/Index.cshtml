@@ -13,7 +13,7 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
 </div>
-<div class="fondo_f2f2f2">
+<div class="fondo_f2f2f2" style="background: #f5f7f7; border-bottom:0">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
 </div>
@@ -297,11 +297,11 @@
                 <div class="producto_img_mobile">
                     <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 </div>
-                {{#IsNullOrEmpty item.Sello '!='}}
+                {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
-                    <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                    <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
                 </div>
-                {{/IsNullOrEmpty}}
+                {{/if}}
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     <p class="nombre_producto">
