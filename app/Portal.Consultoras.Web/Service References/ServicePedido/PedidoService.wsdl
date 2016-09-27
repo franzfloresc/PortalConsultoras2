@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateMontosPedidoWeb_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontosPedidoWeb" />
   </wsdl:message>
@@ -75,6 +81,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetImagenOfertaPersonalizadaOFResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategias" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetTallaColor_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTallaColor" />
@@ -580,12 +592,6 @@
   <wsdl:message name="IPedidoService_DelProductoSugerido_OutputMessage">
     <wsdl:part name="parameters" element="tns:DelProductoSugeridoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevas" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetOfertasNuevasByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertasNuevasByCampania" />
   </wsdl:message>
@@ -928,6 +934,12 @@
   <wsdl:message name="IPedidoService_InsertarLogPedidoWeb_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarLogPedidoWebResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsLogOfertaFinal_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogOfertaFinal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsLogOfertaFinal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsLogOfertaFinalResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosIngresados_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresados" />
   </wsdl:message>
@@ -1089,12 +1101,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetTipoEstrategias_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTipoEstrategiasResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEstrategias_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstrategias" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEstrategias_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstrategiasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosReporteLiderIndicador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosReporteLiderIndicador" />
@@ -1607,6 +1613,10 @@
     <wsdl:part name="parameters" element="tns:GetProductosRecomendadosHabilitadosResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetConfiguracionProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" message="tns:IPedidoService_UpdateMontosPedidoWeb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWebResponse" message="tns:IPedidoService_UpdateMontosPedidoWeb_OutputMessage" />
@@ -1634,6 +1644,10 @@
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOFResponse" message="tns:IPedidoService_GetImagenOfertaPersonalizadaOF_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategias" message="tns:IPedidoService_GetEstrategias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasResponse" message="tns:IPedidoService_GetEstrategias_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTallaColor">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTallaColor" message="tns:IPedidoService_GetTallaColor_InputMessage" />
@@ -1971,10 +1985,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugerido" message="tns:IPedidoService_DelProductoSugerido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelProductoSugeridoResponse" message="tns:IPedidoService_DelProductoSugerido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetOfertasNuevasByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasNuevasByCampania" message="tns:IPedidoService_GetOfertasNuevasByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasNuevasByCampaniaResponse" message="tns:IPedidoService_GetOfertasNuevasByCampania_OutputMessage" />
@@ -2203,6 +2213,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarLogPedidoWeb" message="tns:IPedidoService_InsertarLogPedidoWeb_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarLogPedidoWebResponse" message="tns:IPedidoService_InsertarLogPedidoWeb_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsLogOfertaFinal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsLogOfertaFinal" message="tns:IPedidoService_InsLogOfertaFinal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsLogOfertaFinalResponse" message="tns:IPedidoService_InsLogOfertaFinal_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosIngresados">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresados" message="tns:IPedidoService_GetPedidosIngresados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadosResponse" message="tns:IPedidoService_GetPedidosIngresados_OutputMessage" />
@@ -2310,10 +2324,6 @@
     <wsdl:operation name="GetTipoEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategias" message="tns:IPedidoService_GetTipoEstrategias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse" message="tns:IPedidoService_GetTipoEstrategias_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetEstrategias">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategias" message="tns:IPedidoService_GetEstrategias_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasResponse" message="tns:IPedidoService_GetEstrategias_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_InputMessage" />
@@ -2658,6 +2668,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConfiguracionProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" style="document" />
       <wsdl:input>
@@ -2714,6 +2733,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3477,15 +3505,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetOfertasNuevasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasNuevasByCampania" style="document" />
       <wsdl:input>
@@ -3999,6 +4018,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsLogOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsLogOfertaFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosIngresados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresados" style="document" />
       <wsdl:input>
@@ -4235,15 +4263,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTipoEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEstrategias">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5020,6 +5039,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConfiguracionProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" style="document" />
       <wsdl:input>
@@ -5076,6 +5104,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagenOfertaPersonalizadaOF">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetImagenOfertaPersonalizadaOF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategias">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5839,15 +5876,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetOfertasNuevasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasNuevasByCampania" style="document" />
       <wsdl:input>
@@ -6361,6 +6389,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsLogOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsLogOfertaFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosIngresados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresados" style="document" />
       <wsdl:input>
@@ -6597,15 +6634,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTipoEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetEstrategias">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

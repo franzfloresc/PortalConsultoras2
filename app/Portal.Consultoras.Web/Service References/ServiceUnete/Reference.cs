@@ -828,6 +828,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> ValidarFuenteIngresoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -1020,6 +1023,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> ValidarFuenteIngreso {
+            get {
+                return this.ValidarFuenteIngresoField;
+            }
+            set {
+                if ((this.ValidarFuenteIngresoField.Equals(value) != true)) {
+                    this.ValidarFuenteIngresoField = value;
+                    this.RaisePropertyChanged("ValidarFuenteIngreso");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -1191,6 +1207,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> CodigoLoteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CodigoMarcaVendeMasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CodigoOtrasMarcasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1275,7 +1294,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ImagenCDDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenConstanciaLaboralAvalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenContratoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenCreditoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenDniAvalField;
@@ -1285,6 +1310,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenPagareField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenReciboOtraMarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenReciboPagoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> IndicadorActivoField;
@@ -1314,10 +1345,16 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> MotivoRechazoTelefonicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelEducativoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreConsultoraRecomiendaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreEmpresaAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreFamiliarField;
@@ -1665,6 +1702,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.CodigoLoteField.Equals(value) != true)) {
                     this.CodigoLoteField = value;
                     this.RaisePropertyChanged("CodigoLote");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CodigoMarcaVendeMas {
+            get {
+                return this.CodigoMarcaVendeMasField;
+            }
+            set {
+                if ((this.CodigoMarcaVendeMasField.Equals(value) != true)) {
+                    this.CodigoMarcaVendeMasField = value;
+                    this.RaisePropertyChanged("CodigoMarcaVendeMas");
                 }
             }
         }
@@ -2034,6 +2084,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenConstanciaLaboralAval {
+            get {
+                return this.ImagenConstanciaLaboralAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenConstanciaLaboralAvalField, value) != true)) {
+                    this.ImagenConstanciaLaboralAvalField = value;
+                    this.RaisePropertyChanged("ImagenConstanciaLaboralAval");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenContrato {
             get {
                 return this.ImagenContratoField;
@@ -2042,6 +2105,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ImagenContratoField, value) != true)) {
                     this.ImagenContratoField = value;
                     this.RaisePropertyChanged("ImagenContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenCreditoAval {
+            get {
+                return this.ImagenCreditoAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenCreditoAvalField, value) != true)) {
+                    this.ImagenCreditoAvalField = value;
+                    this.RaisePropertyChanged("ImagenCreditoAval");
                 }
             }
         }
@@ -2081,6 +2157,32 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ImagenPagareField, value) != true)) {
                     this.ImagenPagareField = value;
                     this.RaisePropertyChanged("ImagenPagare");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenReciboOtraMarca {
+            get {
+                return this.ImagenReciboOtraMarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenReciboOtraMarcaField, value) != true)) {
+                    this.ImagenReciboOtraMarcaField = value;
+                    this.RaisePropertyChanged("ImagenReciboOtraMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenReciboPagoAval {
+            get {
+                return this.ImagenReciboPagoAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenReciboPagoAvalField, value) != true)) {
+                    this.ImagenReciboPagoAvalField = value;
+                    this.RaisePropertyChanged("ImagenReciboPagoAval");
                 }
             }
         }
@@ -2203,6 +2305,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nit {
+            get {
+                return this.NitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NitField, value) != true)) {
+                    this.NitField = value;
+                    this.RaisePropertyChanged("Nit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string NivelEducativo {
             get {
                 return this.NivelEducativoField;
@@ -2224,6 +2339,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.NombreConsultoraRecomiendaField, value) != true)) {
                     this.NombreConsultoraRecomiendaField = value;
                     this.RaisePropertyChanged("NombreConsultoraRecomienda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreEmpresaAval {
+            get {
+                return this.NombreEmpresaAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreEmpresaAvalField, value) != true)) {
+                    this.NombreEmpresaAvalField = value;
+                    this.RaisePropertyChanged("NombreEmpresaAval");
                 }
             }
         }
@@ -2849,13 +2977,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CargoEmpresaAvalField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularAvalField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CelularEmpresaAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularFamiliarField;
@@ -2871,6 +2993,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoConsultoraRecomiendaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CodigoMarcaVendeMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CodigoOtrasMarcasField;
@@ -2906,7 +3031,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string DireccionCompletaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DireccionEmpresaAvalField;
+        private string DireccionEntregaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DireccionFamiliarField;
@@ -2972,7 +3097,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ImagenCDDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenConstanciaLaboralAvalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenContratoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenCreditoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenDniAvalField;
@@ -2982,6 +3113,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenPagareField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenReciboOtraMarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenReciboPagoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> IndicadorActivoField;
@@ -3003,6 +3140,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NitField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelEducativoField;
@@ -3081,9 +3221,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoCelularField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoEmpresaAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoFamiliarField;
@@ -3232,19 +3369,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CargoEmpresaAval {
-            get {
-                return this.CargoEmpresaAvalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CargoEmpresaAvalField, value) != true)) {
-                    this.CargoEmpresaAvalField = value;
-                    this.RaisePropertyChanged("CargoEmpresaAval");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CelularAval {
             get {
                 return this.CelularAvalField;
@@ -3253,19 +3377,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CelularAvalField, value) != true)) {
                     this.CelularAvalField = value;
                     this.RaisePropertyChanged("CelularAval");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CelularEmpresaAval {
-            get {
-                return this.CelularEmpresaAvalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CelularEmpresaAvalField, value) != true)) {
-                    this.CelularEmpresaAvalField = value;
-                    this.RaisePropertyChanged("CelularEmpresaAval");
                 }
             }
         }
@@ -3331,6 +3442,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CodigoConsultoraRecomiendaField, value) != true)) {
                     this.CodigoConsultoraRecomiendaField = value;
                     this.RaisePropertyChanged("CodigoConsultoraRecomienda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CodigoMarcaVendeMas {
+            get {
+                return this.CodigoMarcaVendeMasField;
+            }
+            set {
+                if ((this.CodigoMarcaVendeMasField.Equals(value) != true)) {
+                    this.CodigoMarcaVendeMasField = value;
+                    this.RaisePropertyChanged("CodigoMarcaVendeMas");
                 }
             }
         }
@@ -3479,14 +3603,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DireccionEmpresaAval {
+        public string DireccionEntrega {
             get {
-                return this.DireccionEmpresaAvalField;
+                return this.DireccionEntregaField;
             }
             set {
-                if ((object.ReferenceEquals(this.DireccionEmpresaAvalField, value) != true)) {
-                    this.DireccionEmpresaAvalField = value;
-                    this.RaisePropertyChanged("DireccionEmpresaAval");
+                if ((object.ReferenceEquals(this.DireccionEntregaField, value) != true)) {
+                    this.DireccionEntregaField = value;
+                    this.RaisePropertyChanged("DireccionEntrega");
                 }
             }
         }
@@ -3765,6 +3889,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenConstanciaLaboralAval {
+            get {
+                return this.ImagenConstanciaLaboralAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenConstanciaLaboralAvalField, value) != true)) {
+                    this.ImagenConstanciaLaboralAvalField = value;
+                    this.RaisePropertyChanged("ImagenConstanciaLaboralAval");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenContrato {
             get {
                 return this.ImagenContratoField;
@@ -3773,6 +3910,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ImagenContratoField, value) != true)) {
                     this.ImagenContratoField = value;
                     this.RaisePropertyChanged("ImagenContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenCreditoAval {
+            get {
+                return this.ImagenCreditoAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenCreditoAvalField, value) != true)) {
+                    this.ImagenCreditoAvalField = value;
+                    this.RaisePropertyChanged("ImagenCreditoAval");
                 }
             }
         }
@@ -3812,6 +3962,32 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ImagenPagareField, value) != true)) {
                     this.ImagenPagareField = value;
                     this.RaisePropertyChanged("ImagenPagare");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenReciboOtraMarca {
+            get {
+                return this.ImagenReciboOtraMarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenReciboOtraMarcaField, value) != true)) {
+                    this.ImagenReciboOtraMarcaField = value;
+                    this.RaisePropertyChanged("ImagenReciboOtraMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenReciboPagoAval {
+            get {
+                return this.ImagenReciboPagoAvalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenReciboPagoAvalField, value) != true)) {
+                    this.ImagenReciboPagoAvalField = value;
+                    this.RaisePropertyChanged("ImagenReciboPagoAval");
                 }
             }
         }
@@ -3903,6 +4079,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.MotivoRechazoField, value) != true)) {
                     this.MotivoRechazoField = value;
                     this.RaisePropertyChanged("MotivoRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nit {
+            get {
+                return this.NitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NitField, value) != true)) {
+                    this.NitField = value;
+                    this.RaisePropertyChanged("Nit");
                 }
             }
         }
@@ -4241,19 +4430,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.TelefonoCelularField, value) != true)) {
                     this.TelefonoCelularField = value;
                     this.RaisePropertyChanged("TelefonoCelular");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TelefonoEmpresaAval {
-            get {
-                return this.TelefonoEmpresaAvalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoEmpresaAvalField, value) != true)) {
-                    this.TelefonoEmpresaAvalField = value;
-                    this.RaisePropertyChanged("TelefonoEmpresaAval");
                 }
             }
         }

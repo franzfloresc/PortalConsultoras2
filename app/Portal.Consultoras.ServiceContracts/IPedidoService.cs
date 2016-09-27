@@ -651,7 +651,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region PROL AUTO - R2073
 
         [OperationContract]
-        int GetEstadoProcesoPROLAuto(int paisID);
+        int GetEstadoProcesoPROLAuto(int paisID, DateTime FechaHoraFacturacion);
 
         [OperationContract]
         List<BEValidacionAutomatica> GetEstadoProcesoPROLAutoDetalle(int paisID);

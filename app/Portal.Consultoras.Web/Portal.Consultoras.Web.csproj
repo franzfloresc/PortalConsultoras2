@@ -345,7 +345,14 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
+    <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -545,6 +552,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceSeguridad\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PortalService610.xsd\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -2568,29 +2580,54 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService11.wsdl" />
+    <None Include="Service References\PortalService610.xsd\PortalService611.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService612.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService613.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService66.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService67.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService68.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService69.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+    <None Include="Service References\PortalService610.xsd\PortalService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
@@ -2605,7 +2642,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3055,32 +3091,38 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\PortalService610.xsd\configuration91.svcinfo" />
+    <None Include="Service References\PortalService610.xsd\configuration.svcinfo" />
+    <None Include="Service References\PortalService610.xsd\PortalService1.wsdl" />
+    <None Include="Service References\PortalService610.xsd\PortalService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService64.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService65.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PortalService610.xsd\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PortalService610.xsd\PortalService.disco" />
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService61.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService62.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService63.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService64.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService.disco" />
     <Content Include="Service References\ServiceUsuario\Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3503,6 +3545,9 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <Content Include="Views\Incentivos\Index.cshtml" />
+    <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
+    <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
+    <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3884,6 +3929,7 @@
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />
     <WCFMetadataStorage Include="Service References\ServiceSAC\" />
     <WCFMetadataStorage Include="Service References\ServiceSeguridad\" />
+    <WCFMetadataStorage Include="Service References\PortalService610.xsd\" />
     <WCFMetadataStorage Include="Service References\ServiceUnete\" />
     <WCFMetadataStorage Include="Service References\ServiceUsuario\" />
     <WCFMetadataStorage Include="Service References\ServiceZonificacion\" />

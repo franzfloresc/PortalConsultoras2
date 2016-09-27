@@ -151,9 +151,10 @@ namespace Portal.Consultoras.Data
         #region PROL AUTO ADMIN
 
         //JZ_VAL_PROL_AUTO
-        public int GetEstadoProcesoPROLAuto()
+        public int GetEstadoProcesoPROLAuto(DateTime FechaHoraFacturacion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetEstadoProcesoPROLAuto");
+            Context.Database.AddInParameter(command, "@FechaHoraFacturacion", DbType.DateTime, FechaHoraFacturacion);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
