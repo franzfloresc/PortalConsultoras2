@@ -434,7 +434,7 @@
             {
                 <div id="infoPendientes" style="background:white">
                     <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nobre de Cliente</div>
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
 
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
@@ -1084,7 +1084,7 @@
         {{#each this}}
 
         <div class="content_datos_percepciones mouse-encima-padding">
-            <div class="padding_tabla_percepcion dinamicostablegrande izq">
+            <div class="padding_tabla_percepcion dinamicostablegrande izq grillaPendientes">
                 <span class="texto_pedidos_pendientes">
                     {{#if FlagConsultora}}
                     <label> CLIENTE EXISTENTE </label>
@@ -1094,7 +1094,7 @@
                 </span>
                 {{Cliente}}
             </div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">
+            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
                 {{#if_eq MarcaID '0'}}
                 {{MedioContacto}}
                 {{else}}
@@ -1105,9 +1105,9 @@
             @*<div class="padding_tabla_percepcion dinamicostable">{{DetallePedido[0].FechaCreacion}}</div>
                 <div class="padding_tabla_percepcion dinamicostablemedio">{{DetallePedido[0].PrecioTotal}}</div>*@
 
-            <div class="padding_tabla_percepcion dinamicostable">{{FechaSolicitudFormat}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio">@Model.Simbolo {{PrecioTotal}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">
+            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FechaSolicitudFormat}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
                 <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{PrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
                 <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
@@ -1122,7 +1122,7 @@
                         {{else}}
                         <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
                         {{/if}}
-                        <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                        <h4 class="linkea_Pendientes tooltipPendientes">►REVÍSALO</h4>
                     </div>
                 </button>
 
@@ -1559,7 +1559,7 @@
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
             <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
-               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
         </div>
     </div>
