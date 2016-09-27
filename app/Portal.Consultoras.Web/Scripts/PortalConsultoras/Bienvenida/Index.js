@@ -3979,7 +3979,7 @@ function clickCerrarComunicado(obj) {
         closeComunicadosPopup = true;
         $('#popupComunicados').hide();
         //console.log('Show popup #4');
-        CargarPopupsConsultora();
+        //CargarPopupsConsultora();
     }
 }
 function clickImagenComunicado(obj) {
