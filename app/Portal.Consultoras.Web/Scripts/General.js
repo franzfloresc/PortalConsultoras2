@@ -566,10 +566,10 @@ function ActualizarGanancia(data) {
                         var montodesdeAux = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoDesde), true);
                         var montodesdeAux2 = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoHasta), true);
                         if (ind == listaAdd.length - 1) {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + montodesdeAux + " a más."));
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + montodesdeAux + " <br>a más."));
                         }
                         else {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", vbSimbolo + " " + montodesdeAux + " a " + vbSimbolo + " " + montodesdeAux2));
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}","De "+ vbSimbolo + " " + montodesdeAux + "<br> a " + vbSimbolo + " " + montodesdeAux2));
                         }
                         
                     }

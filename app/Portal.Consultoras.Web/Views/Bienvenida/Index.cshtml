@@ -269,11 +269,11 @@
                             {
                                 if (index == Model.ListaEscalaDescuento.Count)
                                 {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) a más.</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a más.</div>
                                 }
                                 else
                                 {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">@Model.Simbolo @Convert.ToInt32(item.MontoDesde) a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
+                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
                                 }
                             }
 
@@ -1713,7 +1713,7 @@
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado"/>
             </div>
-            <div class="producto_img_home mini">
+            <div class="producto_img_home mini" id="imagenAnimacion">
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
             </div>
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}

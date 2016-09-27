@@ -1359,11 +1359,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
             $('#popupDetalleCarousel_packNuevas').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
@@ -1375,6 +1376,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
             }
             
             $('#popupDetalleCarousel_lanzamiento').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         };
         dataLayer.push({
             'event': 'productClick',
@@ -3205,6 +3207,34 @@ function AgregarProductoCatalogoPersonalizado(item) {
         EsSugerido: false,
         OrigenPedidoWeb: OrigenPedidoWeb
     };
+
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
