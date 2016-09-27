@@ -1,13 +1,4 @@
-﻿
-
-//$('#pedmostreo').addClass('bordespacive');
-//$('.fondo_lateral').removeClass("fondo_lateral");
-
-//$(document).ready(function () {
-    
-//});
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     $('#pedmostreo').addClass('bordespacive');
     $('.fondo_lateral').removeClass("fondo_lateral");
@@ -142,7 +133,6 @@ $(document).ready(function () {
 
     CargarPedidosPend();
 });
-
 
 function CargarPedidosPend(page, rows) {
 
