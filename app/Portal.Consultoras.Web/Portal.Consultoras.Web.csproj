@@ -556,11 +556,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\PortalService610.xsd\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\ServiceUnete\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2580,31 +2575,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PortalService610.xsd\PortalService11.wsdl" />
-    <None Include="Service References\PortalService610.xsd\PortalService611.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService612.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService613.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService66.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService67.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService68.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService69.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService610.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
@@ -3091,32 +3061,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\PortalService610.xsd\configuration91.svcinfo" />
-    <None Include="Service References\PortalService610.xsd\configuration.svcinfo" />
-    <None Include="Service References\PortalService610.xsd\PortalService1.wsdl" />
-    <None Include="Service References\PortalService610.xsd\PortalService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService61.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService62.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService63.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService64.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\PortalService610.xsd\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\PortalService610.xsd\PortalService.disco" />
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
     <None Include="Service References\ServiceUnete\Reference.svcmap">
@@ -3929,7 +3873,6 @@
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />
     <WCFMetadataStorage Include="Service References\ServiceSAC\" />
     <WCFMetadataStorage Include="Service References\ServiceSeguridad\" />
-    <WCFMetadataStorage Include="Service References\PortalService610.xsd\" />
     <WCFMetadataStorage Include="Service References\ServiceUnete\" />
     <WCFMetadataStorage Include="Service References\ServiceUsuario\" />
     <WCFMetadataStorage Include="Service References\ServiceZonificacion\" />
