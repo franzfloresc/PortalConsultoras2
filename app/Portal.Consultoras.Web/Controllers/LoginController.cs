@@ -490,6 +490,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.OfertaFinal = oBEUsuario.OfertaFinal;
                     model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                     model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
+                    model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
 
                     //if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
 
