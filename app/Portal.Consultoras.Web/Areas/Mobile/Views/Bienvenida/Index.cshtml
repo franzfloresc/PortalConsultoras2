@@ -125,7 +125,7 @@
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
-       class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+       class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
     <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
@@ -345,7 +345,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-@if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsOfertaFinalZonaValida)
+@if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">

@@ -38,6 +38,6 @@
         public string UrlImagenCatalogoPersonalizado { get; set; }
         public string UrlImagenAppCatalogo { get; set; }
         public int CatalogoPersonalizadoMobile { get; set; }
-        public bool EsOfertaFinalZonaValida { get; set; }
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
     }
 }
