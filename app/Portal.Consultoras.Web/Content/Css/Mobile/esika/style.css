@@ -6565,23 +6565,25 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;
-    
+    z-index: 2010;    
     width: 100%;
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: url(../../../images/bg_popups.png) repeat center center;
+    overflow:auto;
 }
 
 .content_mensajeAlerta {
     width: 100%;
-    height: 100%;
+    max-width: 400px;
+    height: auto;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
+    top:3%;
     background: white;
-    padding: 20px;
+    padding: 15px 15px;
     overflow-y: auto;
 }
 
@@ -6626,6 +6628,11 @@ input[type="checkbox"]:checked + span:after {
     display: block;
     background-color: #e81c36;
     margin-bottom: 20px;
+}
+
+.btn_ok_mobile{
+    color:#FFF!important;
+    text-decoration:none!important;
 }
 
 /* ver mas la fleca abajo => poner solo la clase al contenedor*/

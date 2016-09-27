@@ -5876,24 +5876,28 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile{
     position:fixed;
-    z-index:2010;
-    
+    z-index:2010;    
     width:100%;
     height:100%;
     padding:15px;
     top:0;
-    background:rgba(0,0,0,0.5)
+    background:url(../../../images/bg_popups.png) repeat center center;
+    overflow:auto;
 }
+
 .content_mensajeAlerta{
     width: 100%;
-    height: 100%;
+    max-width: 400px;
+    height: auto;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
+    top:3%;
     background: white;
-    padding: 20px;
+    padding: 15px 15px;
     overflow-y: auto;
 }
+
 .icono_alerta{
     width:50px;
     height:50px;
@@ -5929,8 +5933,12 @@ input[type="checkbox"]:checked + span:after {
     text-align:center;
     display:block;
     background-color: #613c87;
-    margin-bottom:20px;
-    
+    margin-bottom:20px;    
+}
+
+.btn_ok_mobile:hover{
+    color:#FFF!important;
+    text-decoration:none!important;
 }
 
 .ver-mas-vertical span.icono{visibility:hidden}
