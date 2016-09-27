@@ -223,3 +223,7 @@
 .campana:hover .info_cam {
     display: none;
 }
+
+.optRechazoSelect {
+    background-color: silver;
+}
