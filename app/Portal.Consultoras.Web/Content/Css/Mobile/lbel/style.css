@@ -4818,6 +4818,10 @@ body{
     background:url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
 }
 
+.enlace_regresar.catalogosP {
+    left: 3%;
+}
+
 .enlace_regresar img{
     width:100%;
     height:auto;
@@ -5560,8 +5564,8 @@ body{
     font-family:'Lato';
 }
 .fondo_f2f2f2{
-    background:white;
-    border-bottom: 1px solid black;
+    background:#f5f7f7;
+    /*border-bottom: 1px solid black;*/
 }
 .tabs_pagos li {
   display: inline;
@@ -5885,24 +5889,28 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile{
     position:fixed;
-    z-index:2010;
-    
+    z-index:2010;    
     width:100%;
     height:100%;
     padding:15px;
     top:0;
-    background:rgba(0,0,0,0.5)
+    background:url(../../../images/bg_popups.png) repeat center center;
+    overflow:auto;
 }
+
 .content_mensajeAlerta{
     width: 100%;
-    height: 100%;
+    max-width: 400px;
+    height: auto;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
+    top:3%;
     background: white;
-    padding: 20px;
+    padding: 15px 15px;
     overflow-y: auto;
 }
+
 .icono_alerta{
     width:50px;
     height:50px;
@@ -5938,8 +5946,12 @@ input[type="checkbox"]:checked + span:after {
     text-align:center;
     display:block;
     background-color: #613c87;
-    margin-bottom:20px;
-    
+    margin-bottom:20px;    
+}
+
+.btn_ok_mobile:hover{
+    color:#FFF!important;
+    text-decoration:none!important;
 }
 
 .ver-mas-vertical span.icono{visibility:hidden}
@@ -7853,10 +7865,20 @@ a:focus, a:hover {
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 56%;
+    width: 48%;
     text-decoration: none;
     margin-bottom: 6px;
 }
+
+.texto_descripcionCatalogoPersonalizado {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-align: justify;
+}
+
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
