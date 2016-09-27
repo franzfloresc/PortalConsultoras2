@@ -88,8 +88,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
+                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                 string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = strpaises.Contains(UserData().CodigoISO);
+                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel{
@@ -105,6 +106,12 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+                                        
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                        model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                    }
                 }
             }
             catch (FaultException ex)
@@ -220,9 +227,13 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
                 }
 
-                Session["ObservacionesPROL"] = null;
-                Session["PedidoWebDetalle"] = null;
-                UpdPedidoWebMontosPROL();
+                try
+                {
+                    Session["ObservacionesPROL"] = null;
+                    Session["PedidoWebDetalle"] = null;
+                    UpdPedidoWebMontosPROL();
+                }
+                catch { }
 
                 return Json(new { success = true, message = "" });
             }
@@ -230,6 +241,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 UsuarioModel userModel = userData ?? new UsuarioModel();
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+                return Json(new { success = false, message = ex.Message });
             }
             catch (Exception ex)
             {

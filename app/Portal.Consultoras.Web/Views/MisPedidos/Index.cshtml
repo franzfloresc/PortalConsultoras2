@@ -457,12 +457,10 @@
                 @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
 
                 <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                <div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
-                <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
-                <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>
-
+                @foreach(var motivoRechazo in Model.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
                 <textarea id="txtOtrosCancelado" placeholder="Otros:"></textarea>
             </div>
             <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="CancelarSolicitud();">

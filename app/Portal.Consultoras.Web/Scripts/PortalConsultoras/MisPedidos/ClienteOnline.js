@@ -57,6 +57,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
                 return false;
             }
 
+            $('#txtOtrosCancelado').val('');
+            $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+
             var titulo = "pedido " + estadoDesc + " de " + nombre;
             $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
             $('#popup_cliente_online_detalle .spnClienteOnlineTotal').html(total);
@@ -126,11 +129,8 @@ function CancelarSolicitud() {
                         MensajeErrorCancelado(data.message);
                         return false;
                     }
-
-                    $('#txtOtrosCancelado').val('');
-                    $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+                                        
                     $('#dialog_motivoCancelado').hide();
-
                     if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
                     else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
                     $('#dialog_mensajeCancelado').show();
