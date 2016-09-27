@@ -27402,7 +27402,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   display: inline-block;
     background: url("../../../Images/group.svg") center center no-repeat;
 }
-
+.agregado .icono{
+   width: 11px;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") center center no-repeat;
+}
 .pestania {
     padding-top: 15px;
     background-color: black;
