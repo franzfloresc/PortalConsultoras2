@@ -17,6 +17,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (!userData.EsCatalogoPersonalizadoZonaValida)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
             return View();
         }
 

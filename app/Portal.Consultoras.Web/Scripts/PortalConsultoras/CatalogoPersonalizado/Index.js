@@ -141,6 +141,7 @@ function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
         $('#boton_vermas').hide();
+        UnlinkCargarCatalogoToScroll();
         return false;
     }
 
@@ -161,7 +162,7 @@ function CargarCatalogoPersonalizado() {
         success: function (data) {
             if (data.success) {
                 if (data.data.length > 0) {
-                    console.log(data.data);
+                    //console.log(data.data);
                     var htmlDiv = SetHandlebars("#template-catalogopersonalizado", data.data);
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
