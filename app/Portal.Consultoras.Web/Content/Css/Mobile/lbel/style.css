@@ -916,7 +916,9 @@ h4.re3 {
                 left: 5px;
             }
         .panel-line-info .panel-heading .panel-title .panel-title-total {
-            color: #6b7f8e;
+            color: black;
+            font-weight:700;
+            font-family:'Lato';
         }
 .panel-line-info .panel-collapse {
     position: relative;
@@ -1343,9 +1345,9 @@ h4.re3 {
     border-bottom: 4px solid #613c87;
 }
 
-.header-icon {
+/*.header-icon {
     margin-top: -23px;
-}
+}*/
 .panel-group .panel-heading + .panel-collapse > .list-group,
 .panel-group .panel-heading + .panel-collapse > .panel-body {
     border: none;
@@ -4726,7 +4728,7 @@ body{
 }
 
 .btn_agregarCliente span{
-    color:#e81c36;
+    color:#613c87;
 }
 
 .btn_agregarPedido, .btn_guardarPedido{
@@ -5551,8 +5553,8 @@ body{
     font-family:'Lato';
 }
 .fondo_f2f2f2{
-    background:#f5f7f7;
-    /*border-bottom: 1px solid black;*/
+    background:white;
+    border-bottom: 1px solid black;
 }
 .tabs_pagos li {
   display: inline;
