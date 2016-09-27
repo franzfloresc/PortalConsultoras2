@@ -1,4 +1,144 @@
-﻿$(document).ready(function () {
+﻿
+
+//$('#pedmostreo').addClass('bordespacive');
+//$('.fondo_lateral').removeClass("fondo_lateral");
+
+//$(document).ready(function () {
+    
+//});
+
+$(document).ready(function () {
+
+    $('#pedmostreo').addClass('bordespacive');
+    $('.fondo_lateral').removeClass("fondo_lateral");
+
+    $('#pedmostreo').on('click', function () {
+        $('.content_T_T').removeClass("fondo_lateral");
+        $(".fondo_pendiente").fadeOut();
+        $(".bloque_left").fadeOut();
+        $('#pedmostreo').addClass('bordespacive');
+        $('#penmostreo').removeClass('bordespacive');
+        $('#penmostreo').addClass('tab_pendiente_es');
+        $('#infoPedido').show();
+        $('#infoPendientes').hide();
+        $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
+        $('ul.paginador_notificaciones').show();
+        $('.caja_guardar_pedido').show();
+        $('.contenedor_eliminacion_pedido').show();
+        $('.contenedor_banners').show();
+        $('.info_tiempo_oportunidad.inicial').show();
+        //$('.truco_bloqueo').hide();
+        $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
+        $('#pedmostreo').removeClass('cambio_bk_pendientes');
+        $('.datos_para_movil').show();
+
+        //var idPedido = $("#pedmostreo").attr("data-pedido");
+        //if(idPedido == "1"){
+        //    $('.content_T_T').removeClass("fondo_lateral");
+
+        //}else{
+        //    $('.content_T_T').addClass("fondo_lateral");
+        //}
+
+    });
+
+    $('.optionsRechazo').on('click', function () {
+        $('.optionsRechazo').removeClass('optRechazoSelect');
+        $(this).addClass('optRechazoSelect');
+    });
+
+    $('#penmostreo').on('click', function () {
+        $('#penmostreo').removeClass('tab_pendiente_es');
+        $('.content_T_T').addClass("fondo_lateral");
+        $(".fondo_pendiente").fadeIn();
+        $(".bloque_left").fadeIn();
+        $('#pedmostreo').removeClass('bordespacive');
+        $('#penmostreo').addClass('bordespacive');
+        $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
+        $('#infoPedido').hide();
+        $('#infoPendientes').show();
+        $('ul.paginador_notificaciones').hide();
+
+
+        $('.caja_guardar_pedido').hide();
+        $('.contenedor_eliminacion_pedido').hide();
+        $('.contenedor_banners').hide();
+        $('.info_tiempo_oportunidad.inicial').hide();
+        $('.datos_para_movil').hide();
+
+        //TRUCOS BLOQUES
+        //$('.truco_bloqueo').hide();
+        $('#pedmostreo').addClass('cambio_bk_pendientes');
+    });
+
+    //APP CATALOGO
+    $('a.RevisionPendientes').on('click', function () {
+        $('#popup_pendientes').show();
+    });
+
+    $('.btn_revisalo_pendientes1').on('click', function () {
+        $('#popup_pendientes').show();
+    });
+
+    $('.regresaPendientes').on('click', function () {
+        $('#popup_pendientes').hide();
+    });
+
+    $('button.sedetiene').on('click', function () {
+        $('#dialog_confirmacionRechazo').hide();
+    });
+
+    $('#rechazarPendientes').on('click', function () {
+        //$('#dialog_confirmacionRechazo').show();
+    });
+    $('#cierreRechazoPendientes').on('click', function () {
+        //$('#dialog_confirmacionRechazo').hide();
+    });
+    $('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
+        $('#dialog_confirmacionRechazo').hide();
+        $('#dialog_motivoRechazo').show();
+    });
+    $('#cierreMotivoRechazo').on('click', function () {
+        //$('#dialog_motivoRechazo').hide();
+        $('#popup_pendientes').hide();
+        $('.popupPendientesPORTAL').hide();
+    });
+    $('button.btn_eliminarCliente.btn-negro').on('click', function () {
+        $('#dialog_motivoRechazo').hide();
+        $('#popup_pendientes').hide();
+        $('.popupPendientesPORTAL').hide();
+    });
+
+    $('#aceptarPendientes').on('click', function () {
+        $('#popup_pendientes').hide();
+        //$('#dialog_aceptasPendientes').show();
+    });
+
+    $('.ok_aceptaPedido').on('click', function () {
+        $('#dialog_aceptasPendientes').hide();
+        $('.popupPendientesPORTAL').hide();
+    });
+
+    $('#aceptandoPendientes').on('click', function () {
+        //$('#dialog_aceptasPendientes').hide();
+        $('.popupPendientesPORTAL').hide();
+    });
+
+    //PORTAL LBEL
+    $('.btn_revisalo_pendientes2').on('click', function () {
+        $('.popupPendientesPORTAL').show();
+    });
+    $('.cerrarPendientesPORTAL').on('click', function () {
+        $('.popupPendientesPORTAL').hide();
+    });
+    $('#rechazarPendientesPORTAL').on('click', function () {
+        $('#dialog_confirmacionRechazo').show();
+    });
+    $('#aceptarPendientesPORTAL').on('click', function () {
+        $('#dialog_aceptasPendientes').show();
+    });
+
+    $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
 
     CargarPedidosPend();
 });
@@ -138,7 +278,7 @@ function CargarPopupPedidoPend(pedidoId) {
                     var arr = row.split('|');
                     var t = 1;
 
-                    console.log(arr);
+                    //console.log(arr);
 
                     if (arr[1] > 0) {    // 0=App de catalogos, >0=Portal Marca
                         t = 2;
@@ -157,7 +297,7 @@ function CargarPopupPedidoPend(pedidoId) {
                         FlagConsultora: (arr[15] == "true") ? 1 : 0,
                     }
 
-                    console.log(d1);
+                    //console.log(d1);
 
                     if (t == 1) {
                         var html = SetHandlebars("#popup-pedidopend-template", d1);
@@ -208,7 +348,7 @@ function ShowPopupMotivoRechazo() {
     var row = $('#pedidopend_' + id).val();
     var arr = row.split('|');
 
-    console.log(arr);
+    //console.log(arr);
 
     $('#SolicitudId').val(arr[0]);
     $('#MarcaID').val(arr[1]);
@@ -237,7 +377,7 @@ function RechazarPedido() {
         RazonMotivoRechazo: $("#txtOtrosRechazo").val()
     };
 
-    console.log(obj);
+    //console.log(obj);
 
     AbrirSplash();
 
@@ -329,7 +469,7 @@ function AceptarPedido(pedidoId, tipo) {
         detalle.push(d);
     });
 
-    console.log(detalle);
+    //console.log(detalle);
 
     if (isOk) {
 
