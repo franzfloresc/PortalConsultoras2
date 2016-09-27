@@ -3381,6 +3381,21 @@ width:100%;
 .contenedor_encuentralos{
     height:33px;
     background:#613c87;
+    margin-bottom:20px;
+}
+.contenedor_encuentralos:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(232, 28, 54, 0);
+	border-top-color: #613c87;
+	border-width: 18px;
+	margin-left: -18px;
 }
 .btn_encuentralos{
     display: block;
@@ -3419,6 +3434,12 @@ width:100%;
     color: black;
     
     margin-top:17px;
+}
+.titulo_showroom_mobile a{
+    text-decoration:underline;
+    text-align:center;
+    display:block;
+
 }
 .titulo_showroom_mobile span {
     font-size: 18px;

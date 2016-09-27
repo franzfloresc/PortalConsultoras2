@@ -3828,7 +3828,6 @@ function ObtenerComunicadosPopUp() {
         }
     });
 }
-
 function armarComunicadosPopup(response) {
     //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;

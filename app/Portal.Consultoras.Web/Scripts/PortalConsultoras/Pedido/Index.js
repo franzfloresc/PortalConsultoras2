@@ -428,7 +428,6 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        //LimpiarSesionProductosOF();
         $("#divOfertaFinal").hide();
         if (!esMontoMinimo) {
             var response = $("#btnNoGraciasOfertaFinal")[0].data;

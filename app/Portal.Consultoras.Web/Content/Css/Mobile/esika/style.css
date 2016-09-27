@@ -3889,6 +3889,22 @@ table > thead > tr > th {
 .contenedor_encuentralos {
     height: 33px;
     background: #e81c36;
+    position:relative;
+    margin-bottom: 20px;
+}
+.contenedor_encuentralos:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(232, 28, 54, 0);
+	border-top-color: #e81c36;
+	border-width: 18px;
+	margin-left: -18px;
 }
 
 .btn_encuentralos {
@@ -3929,6 +3945,11 @@ table > thead > tr > th {
     line-height: 20px;
     color: black;
     margin-top: 17px;
+}
+.titulo_showroom_mobile a{
+    text-decoration:underline;
+    text-align:center;
+    display:block;
 }
 
     .titulo_showroom_mobile span {
