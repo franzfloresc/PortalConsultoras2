@@ -42,14 +42,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EjecutarValidacionPROLAuto()
+        public JsonResult EjecutarValidacionPROLAuto(string FechaFacturacion)
         {
             try
             {
                 int Respuesta = -1000;
+                DateTime FechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    Respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID);
+                    Respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, FechaHoraFacturacion);
                 }
 
                 string MensajeRespuesta = string.Empty;
