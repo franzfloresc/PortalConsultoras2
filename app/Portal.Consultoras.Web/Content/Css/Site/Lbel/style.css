@@ -28420,10 +28420,11 @@ a#cierreMotivoRechazo img {
     font-size: 13px;
     text-align: center;
     line-height: 45px;
-    background: #e81c36;
+    background: #642f80;
     color: #FFF;
     margin: 0 auto;
     border: 0px;
+    font-family:'Lato';
 }
 
 .btn_revisalo_pendientes2{
@@ -28442,11 +28443,16 @@ a#cierreMotivoRechazo img {
 
 .texto_pedidos_pendientes {
     display: block;
-    font-size: 12.5px;
-    color: #d20000;
+    font-size: 11px;
+    color: #642f80;
     margin-bottom: 5px;
     font-weight: bold;
+    font-family:'Lato';
     /*text-transform: uppercase;*/
+}
+
+.grillaPendientes{
+    font-size:13px!important;
 }
 
 .info_tiempo_oportunidad {
@@ -28484,13 +28490,15 @@ a#cierreMotivoRechazo img {
 .tiempos_P {
     text-align: left;
     color: black;
-    margin: 0;
+    margin: 0 0 0 7px;
+    font-family: 'Lato';
 }
 
 .texto_pedidos_pendientes.tips{
-     margin: 0;
+    margin: 0;
     padding: 0;
     height: 33px;
+    font-size:13px;
 }
   
 .tiempos_P span {
@@ -28505,6 +28513,10 @@ a#cierreMotivoRechazo img {
     font-size: 14px;
     font-weight: 600 !important;
     margin-top: 3px;
+}
+
+.linkea_Pendientes.tooltipPendientes{
+    margin-left:7px;
 }
 
 .mouse-encima-padding {

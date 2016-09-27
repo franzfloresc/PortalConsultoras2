@@ -2765,7 +2765,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .texto_pedidos_ofertas{
     display: block;
     font-size: 11px;
-    color: #d20000;
+    color: #e81c36;
     margin-bottom: 5px;
     font-weight: bold;
     text-transform: uppercase;
@@ -28017,6 +28017,7 @@ a#cierreMotivoRechazo img {
     color: #FFF;
     margin: 0 auto;
     border: 0px;
+    font-family:'Lato';
 }
 
 .btn_revisalo_pendientes2{
@@ -28035,11 +28036,16 @@ a#cierreMotivoRechazo img {
 
 .texto_pedidos_pendientes {
     display: block;
-    font-size: 12.5px;
-    color: #d20000;
+    font-size: 11px;
+    color: #e81c36;
     margin-bottom: 5px;
     font-weight: bold;
+    font-family:'Lato';
     /*text-transform: uppercase;*/
+}
+
+.grillaPendientes{
+    font-size:13px!important;
 }
 
 .info_tiempo_oportunidad {
@@ -28077,7 +28083,8 @@ a#cierreMotivoRechazo img {
 .tiempos_P {
     text-align: left;
     color: black;
-    margin: 0;
+    margin: 0 0 0 7px;
+    font-family: 'Lato';
 }
 .content_paginador{
     float:right;
@@ -28261,9 +28268,10 @@ a#cierreMotivoRechazo img {
     z-index:4;
 }
 .texto_pedidos_pendientes.tips{
-     margin: 0;
+    margin: 0;
     padding: 0;
     height: 33px;
+    font-size:13px;
 }
   
 .tiempos_P span {
@@ -28278,6 +28286,10 @@ a#cierreMotivoRechazo img {
     font-size: 14px;
     font-weight: 600 !important;
     margin-top: 3px;
+}
+
+.linkea_Pendientes.tooltipPendientes{
+    margin-left:7px;
 }
 
 .mouse-encima-padding {
