@@ -29652,19 +29652,23 @@ h1#penmostreo .campana {
 
 /* FIN POPUPS OFERTAS REVISTA */
 /* POPUP COMUNICADOS */
+
 .fondo_popupComunicados{
-    display:none;
-    width:100%;
-    height:100%;
-    background:url(../../../Images/bg_popups.png) repeat;
-    position:fixed;
-    top:0px;
-    z-index:1100;
-.popup_comunicados{
+    display:none;
+    width:100%;
+    height:100%;
+    background:url(../../../Images/bg_popups.png) repeat;
+    position:fixed;
+    top:0px;
+    z-index:1100;
+}
+
+.popup_comunicados {
     display: block;
     /*opacity:0;*/
     position: relative;
-    top:9%;
+    top: 9%;
+    /*width: 323px;*/
     margin: 0 auto 20px auto;
     background: #FFF;
     height: auto;
@@ -29679,6 +29683,10 @@ h1#penmostreo .campana {
     width:100%;
     margin:0 auto;
     height:auto;
+}
+
+.img-comunicado{
+    display:block;
 }
 
 .franja_noVolverMostrar{
