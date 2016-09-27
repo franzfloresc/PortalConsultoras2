@@ -73,44 +73,22 @@ GO
 IF EXISTS(
 	SELECT 1
 	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetPedidoClienteOnlineBySolicitudClienteId_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+	WHERE SPECIFIC_NAME = 'GetMotivosRechazo_SB2' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
 BEGIN
-    DROP PROCEDURE dbo.GetPedidoClienteOnlineBySolicitudClienteId_SB2
+    DROP PROCEDURE dbo.GetMotivosRechazo_SB2
 END
 GO
-CREATE PROCEDURE dbo.GetPedidoClienteOnlineBySolicitudClienteId_SB2
-	@SolicitudClienteId bigint
-as
+CREATE PROCEDURE dbo.GetMotivosRechazo_SB2
+AS
 BEGIN
-	select
-		SC.SolicitudClienteID,
-		SC.ConsultoraID,
-		SC.MarcaID,
-		CASE SC.MarcaID
-			WHEN 0 THEN Campania
-			ELSE (
-				SELECT TOP 1 C.Codigo
-				FROM ods.Campania C
-				INNER JOIN ods.Cronograma Cr ON C.CampaniaID = Cr.CampaniaID
-				INNER JOIN ods.Consultora Co ON Cr.RegionID = Co.RegionID and Cr.ZonaID = Co.ZonaID
-				WHERE
-					Co.ConsultoraID = SC.ConsultoraID
-					AND
-					Cr.FechaFinFacturacion >= SC.FechaSolicitud
-				ORDER BY c.CampaniaID ASC
-			)
-		END AS Campania,
-		SC.FlagConsultora,
-		SC.NombreCompleto,
-		SC.FechaSolicitud,
-		LTRIM(RTRIM(SC.Estado)) AS Estado,
-		SC.Telefono,
-		SC.Direccion,
-		SC.Email,
-		IIF(SC.MarcaID = 0, '', Mensaje) AS Mensaje
-	FROM SolicitudCliente SC
-	WHERE SC.SolicitudClienteId = @SolicitudClienteId ;
+	SELECT
+		MotivoSolicitudID,
+		Motivo,
+		Tipo,
+		Estado
+	FROM MotivoSolicitud
+	WHERE Tipo = 3 AND Estado = 1;
 END
 GO
 ---------------------------------------------------------------------------------------------------------------
