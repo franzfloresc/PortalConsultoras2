@@ -4243,11 +4243,12 @@ function CargarEstrategiasEspeciales(objInput, e) {
     
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
             $('#popupDetalleCarousel_packNuevas').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
@@ -4258,6 +4259,8 @@ function CargarEstrategiasEspeciales(objInput, e) {
             }
 
             $('#popupDetalleCarousel_lanzamiento').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
         };
     } else {
         return false;

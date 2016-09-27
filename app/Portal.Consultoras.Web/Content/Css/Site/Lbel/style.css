@@ -27478,6 +27478,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     background: url("../../../Images/group.svg") no-repeat center center;
 }
 
+.agregado .icono{
+   width: 11px;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") center center no-repeat;
+}
 .pestana_lbel.new {
     width: 30px;
     height: 20px;
