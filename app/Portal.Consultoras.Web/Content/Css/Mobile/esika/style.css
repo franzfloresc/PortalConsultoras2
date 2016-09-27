@@ -2723,8 +2723,8 @@ table > thead > tr > th {
     top: 42%;
     cursor: pointer;
     display: block;
-    width: 20px !important;
-    height: auto !important;
+    width: 20px;
+    height: 60px;
     background-size: 100% 100%;
 }
 .slick-arrow img{
@@ -3488,7 +3488,7 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 19px;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 6px;
     float: left;
     color: #fff;
     letter-spacing: 3px;
@@ -8611,4 +8611,9 @@ a:focus, a:hover {
     padding-left: 10px;
     text-align: left;
     }
+}
+#divProductosAgotados .table>thead:first-child>tr:first-child>th {
+  font-family:'Lato';
+  color:black;
+  font-weight:700;
 }

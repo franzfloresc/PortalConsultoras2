@@ -20787,7 +20787,7 @@ label.checkpop.c_on {
 }
 
 .escala_ganancia {
-    height: 60px;
+    height: 71px;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
@@ -20825,9 +20825,10 @@ label.checkpop.c_on {
     font-size: 8px;
     font-size/*\**/: 9px\9; /*INTERNET EXPLORER 8*/
     font-family: 'lato';
-    margin-top: -6px;
+    /*margin-top: -6px;*/
     width: 68px;
-    transform: scaleY(1.1);
+    line-height:6px;
+    /*transform: scaleY(1.1);*/
 }
 .escala_select{
     padding-left: 4%;
