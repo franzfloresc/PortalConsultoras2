@@ -3086,6 +3086,34 @@ function AgregarProductoCatalogoPersonalizado(item) {
         OrigenPedidoWeb: OrigenPedidoWeb
     };
 
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
