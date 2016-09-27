@@ -44,30 +44,32 @@ $(document).ready(function () {
                     var settings = $.extend({}, response.data.dataPROL, obj);
                     settings.productoRevista = response.data.producto;
 
-                    //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    //settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    //var html = SetHandlebars("#template-mod-ofer1", settings);
-                    //$('.mod-ofer1').html(html).show();
-
-                    switch (settings.tipo_oferta) {
-                        case '003':
-                            settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                            settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                            settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                            var html = SetHandlebars("#template-mod-ofer1", settings);
-                            $('.mod-ofer1').html(html).show();
+                    if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
+                        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                        settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                        var html = SetHandlebars("#template-mod-ofer1", settings);
+                        $('.mod-ofer1').html(html).show();
                             TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-                            break;
-                        case '048':
-                            //var html = SetHandlebars("#template-mod-ofer2", settings);
-                            //$('.mod-ofer2').html(html).show();
-                            break;
-                        case '049':
-                            //var html = SetHandlebars("#template-mod-ofer3", settings);
-                            //$('.mod-ofer3').html(html).show();
-                            break;
                     }
+                    
+                    //switch (settings.tipo_oferta) {
+                    //    case '003':
+                    //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                    //        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                    //        settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                    //        var html = SetHandlebars("#template-mod-ofer1", settings);
+                    //        $('.mod-ofer1').html(html).show();
+                    //        break;
+                    //    case '048':
+                    //        //var html = SetHandlebars("#template-mod-ofer2", settings);
+                    //        //$('.mod-ofer2').html(html).show();
+                    //        break;
+                    //    case '049':
+                    //        //var html = SetHandlebars("#template-mod-ofer3", settings);
+                    //        //$('.mod-ofer3').html(html).show();
+                    //        break;
+                    //}
                 } else {
                     console.log(response.message);
                 }
