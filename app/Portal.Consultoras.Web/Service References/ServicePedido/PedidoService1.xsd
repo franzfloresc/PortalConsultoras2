@@ -945,6 +945,7 @@
       <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Situacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValorTurno" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BETracking" nillable="true" type="tns:BETracking" />
