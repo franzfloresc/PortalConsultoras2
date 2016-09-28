@@ -1318,16 +1318,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         beShowRoom = new BEShowRoomEvento();
                         beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        Session["EsShowRoom"] = "0";
                     }
                     else
                     {
                         if (beShowRoomConsultora == null)
                         {
                             beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                            Session["EsShowRoom"] = "0";
                         }
-                        else Session["EsShowRoom"] = "1";
                     }
 
                     if (beShowRoom.Estado == 1)
@@ -1364,8 +1361,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        Session["EsShowRoom"] = "0";
-
                         return Json(new
                         {
                             success = false,
@@ -1376,8 +1371,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    Session["EsShowRoom"] = "0";
-
                     return Json(new
                     {
                         success = false,

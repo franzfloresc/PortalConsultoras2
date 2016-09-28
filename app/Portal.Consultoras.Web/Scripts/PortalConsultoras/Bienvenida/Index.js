@@ -3600,10 +3600,10 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-    var idRol = viewBagRol;
-
-    if (idRol == 1) {
-
+    if (viewBagRol == 1) {
+        if (sesionEsShowRoom == '0') {
+            return;
+        }
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
@@ -3670,7 +3670,6 @@ function MostrarShowRoom() {
             }
         });
     }
-
 }
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     var name = 'showroom digital ' + nombreEvento;
