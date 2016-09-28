@@ -4526,10 +4526,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public void AgregarKitNuevas()
         {
-            if (Session["ConfiguracionProgramaNuevas"] != null)
-            {
-                return;
-            }
+            if (userData.CodigoISO == "MX" && new List<string> { "53", "63", "71" }.Contains(userData.CodigorRegion)) return;
+            if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
             if (!(userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
                 || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
@@ -4553,10 +4551,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     Session["ConfiguracionProgramaNuevas"] = oBEConfiguracionProgramaNuevas;
-                    if (oBEConfiguracionProgramaNuevas.IndProgObli != "1")
-                    {
-                        return;
-                    }
+                    if (oBEConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
                     var listaTempListado = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
 
@@ -4566,13 +4561,9 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         det = new BEPedidoWebDetalle();
 
-                    if (det.PedidoDetalleID > 0)
-                    {
-                        return;
-                    }
+                    if (det.PedidoDetalleID > 0) return;
 
                     List<BEProducto> olstProducto = new List<BEProducto>();
-
                     using (ODSServiceClient svOds = new ODSServiceClient())
                     {
                         olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit).ToList();

@@ -121,6 +121,12 @@ namespace Portal.Consultoras.Web.WebPages
 
                 string strSituacion = tracking.Situacion;
 
+                /*SB20-964 - INICIO */
+                if (strSituacion.Contains("<br/>")) {
+                    strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
+                }
+                /*SB20-964 - FIN */
+
                 string strFecha = string.Empty;
 
                 if (tracking.Fecha.HasValue)
@@ -435,6 +441,20 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
+
+                        /*SB20-964 - INICIO */
+                        if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
+                        {
+                            if (item.ValorTurno.ToUpper() == "AM")
+                            {
+                                item.Situacion += "<br/><b>En la mañana</b>";
+                            }
+                            else if (item.ValorTurno.ToUpper() == "PM")
+                            {
+                                item.Situacion += "<br/><b>En la tarde</b>";
+                            }
+                        }
+                        /*SB20-964 - FIN */
                     }
 
                     lblNovCampania.Text = campana;
