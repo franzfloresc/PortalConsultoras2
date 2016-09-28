@@ -160,6 +160,7 @@ header {
     /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
+    cursor:pointer;
 }
 
 .cart_compras{
@@ -5458,7 +5459,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     height:100%;
     position:fixed;
-    z-index:899;
+    z-index:300;
     top:0%;
     left:0%;
 }
@@ -21817,10 +21818,14 @@ body{
     position:relative;
 }
 
-.contenedor_circulos{
+.contenedor_circulos, .contenedor_circulosTutorial{
     display:none;
     position: absolute;
     z-index:500;
+}
+
+.contenedor_circulosTutorial{
+    left:5px;
 }
 
 .circulo-1, .circulo-2, .circulo-3{
@@ -21876,29 +21881,55 @@ body{
 }
 
 .tooltip_tutorial{
-    display: none;
+    display: block;
     background: #FFF;
-    width: 245px;
+    width: 204px;
     height: auto;
     position: absolute;
     top: 41px;
-    left: -110px;
-    border-radius: 5px;
+    left: -89px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
     z-index: 1000;
-    box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -moz-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -o-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -ms-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
-    -webkit-box-shadow:0 1px 18px 1px rgba(0,0,0,.31);
+    box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     opacity:0;
 }
 
-.tooltip_tutorial span{
+.cerrar_tooltipTutorial {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 7px;
+    top: 7px;
+}
+
+.cerrar_tooltipTutorial img{
+    width:100%;
+    height:auto;
+}
+
+.titulo_necesitasAyuda{
     display: block;
     width: 100%;
-    padding:11px 9px 10px 9px;
+    margin: 0 auto;
+    text-align: center;
     font-family: 'Lato';
+    margin-top: 11px;
+    color: #642f80;
     font-size: 13px;
+    font-weight: 700;
+}
+
+.descripcion_necesitasAyuda{
+    display: block;
+    width: 100%;
+    padding: 4px 10px 12px 10px;
+    font-family: 'Lato';
+    font-size: 12px;
     line-height: 17px;
     font-weight: 400;
     color: #000;
@@ -21931,9 +21962,9 @@ body{
     margin-left: -10px;
 }
 
-.tutoriales_svg:hover{
+/*.tutoriales_svg:hover{
     opacity:0.7;
-}
+}*/
 
  /*.tutoriales_svg:hover{
         background: url(../../../Images/Lbel/tutorial.png) no-repeat;
