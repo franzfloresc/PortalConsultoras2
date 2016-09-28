@@ -2545,7 +2545,7 @@ function EjecutarServicioPROL() {
                             }
                         }
 
-                        if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0) {
+                        if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0 || item.Caso == 97) {
                             html += "<li>" + item.Descripcion + "</li>";
 
                             mensajePedido += item.Caso + " " + item.Descripcion + " ";
