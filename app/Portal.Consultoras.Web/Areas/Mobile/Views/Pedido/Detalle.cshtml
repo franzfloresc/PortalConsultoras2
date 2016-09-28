@@ -512,9 +512,9 @@
                         </span>
                         <span class="precio_oferta_pedido">
                             <!-- ICONO ADVERTENCIA -->
+                            {{#if ../EstadoSimplificacionCuv}}
                             {{#if detalle.IndicadorOfertaCUV}}
-                            {{#if detalle.PedidoConDescuentoCuv}}
-                            <span class="icono_advertencia_notificacion"></span>
+                            <span class="icon-advertencia"></span>
                             {{/if}}
                             {{/if}}
                             <!-- FIN ICONO ADVERTENCIA -->

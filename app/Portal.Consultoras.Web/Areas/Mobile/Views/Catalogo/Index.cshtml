@@ -184,9 +184,12 @@
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
-            <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-            <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
-            <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+            <div style="max-width:440px; margin:0 auto;">
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+            </div>
+            
         </div>
     </div>
 </script>

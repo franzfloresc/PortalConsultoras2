@@ -399,12 +399,15 @@ $(document).ready(function() {
                     var settings = $.extend({}, response.data.dataPROL, obj);
                     settings.productoRevista = response.data.producto;
 
-                    settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    var html = SetHandlebars("#template-mod-ofer1", settings);
-                    $('.mod-ofer1').html(html).show();
-                    TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+                    if (response.data.dataPROL != undefined && response.data.dataPROL != null) {
+                        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                        settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                        var html = SetHandlebars("#template-mod-ofer1", settings);
+                        $('.mod-ofer1').html(html).show();
+                            TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+                    }
+
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -1358,11 +1361,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarEstrategiasEspeciales(objInput, e) {
     if ($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1) {
         var estrategia = JSON.parse($(objInput).attr("data-estrategia"));
-        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val())
+
         if (estrategia.TipoEstrategiaImagenMostrar == '2') {
             var html = ArmarPopupPackNuevas(estrategia);
             $('#popupDetalleCarousel_packNuevas').html(html);
             $('#popupDetalleCarousel_packNuevas').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
             var html = ArmarPopupLanzamiento(estrategia);
             $('#popupDetalleCarousel_lanzamiento').html(html);
@@ -1374,6 +1378,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
             }
             
             $('#popupDetalleCarousel_lanzamiento').show();
+            TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
         };
         dataLayer.push({
             'event': 'productClick',
@@ -1468,7 +1473,7 @@ function ArmarCarouselLiquidaciones(data) {
                             '<span class="producto_precio_oferta"></span>',
                         '</div>',
                         '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
-                            'VER MAS',
+                            'VER MÁS',
                         '</a>',
                     '</div>',
                 '</div>',
@@ -3205,6 +3210,34 @@ function AgregarProductoCatalogoPersonalizado(item) {
         OrigenPedidoWeb: OrigenPedidoWeb
     };
 
+    var imagenProducto = $('#imagenAnimacion>img', item);
+
+    if (imagenProducto.length > 0) {
+        var carrito = $('.campana');
+
+        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+        $(".transicion").css({
+            'height': imagenProducto.css("height"),
+            'width': imagenProducto.css("width"),
+            'top': imagenProducto.offset().top,
+            'left': imagenProducto.offset().left,
+        }).animate({
+            'top': carrito.offset().top - 60,
+            'left': carrito.offset().left + 100,
+            'height': carrito.css("height"),
+            'width': carrito.css("width"),
+            'opacity': 0.5
+        }, 450, 'swing', function () {
+            $(this).animate({
+                'top': carrito.offset().top,
+                'opacity': 0,
+            }, 150, 'swing', function () {
+                $(this).remove();
+            });
+        });
+    }
+
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 }
@@ -3224,6 +3257,7 @@ function AgregarProducto(url, item, otraFunct) {
             if (data.success == true) {
                 ActualizarGanancia(data.DataBarra);                
                 CargarResumenCampaniaHeader(true);
+
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
 
                 if (typeof (otraFunct) == 'function') {
@@ -3826,7 +3860,6 @@ function ObtenerComunicadosPopUp() {
         }
     });
 }
-
 function armarComunicadosPopup(response) {
     //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
@@ -3946,7 +3979,7 @@ function clickCerrarComunicado(obj) {
         closeComunicadosPopup = true;
         $('#popupComunicados').hide();
         //console.log('Show popup #4');
-        CargarPopupsConsultora();
+        //CargarPopupsConsultora();
     }
 }
 function clickImagenComunicado(obj) {

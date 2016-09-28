@@ -2762,7 +2762,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 .texto_pedidos_ofertas{
     display: block;
     font-size: 11px;
-    color: #d20000;
+    color: #e81c36;
     margin-bottom: 5px;
     font-weight: bold;
     text-transform: uppercase;
@@ -3271,6 +3271,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     background:#f8f8f8;
     /*margin-bottom:100px;*/
     box-sizing:border-box;
+    margin-bottom:28px;
 }
 
 .caja_carousel_productos .ver_mas_productos {
@@ -3459,7 +3460,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
-    z-index:500;
+    z-index:400;
 }
 
 .producto_img img {
@@ -4148,8 +4149,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .popup_productosSugeridos{
     display: block;
     position: absolute;
-top: 8.5%;
-left: 13.1%;
+    top: 8.5%;
+    left: 13.1%;
     right: 0%;
     bottom: 0%;
     background: #FFF;
@@ -14116,9 +14117,9 @@ table-layout: initial !important;
         width: auto !important;
     background: #FFFFFF !important;
     color: #555 !important;
-    -webkit-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
+    /*-webkit-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
     -moz-box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
-    box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);
+    box-shadow: -2px 1px 21px -2px rgba(107,104,107,1);*/
    
 }
 
@@ -19306,13 +19307,14 @@ float: right;
     position: relative;
     /* margin-left: 20px; */
     width: 442px;
+    height:480px;
     float: left;
     /* margin-top: 17px; */
   
 }
 .content_show_right {
     float: left;
-    height: 485px;
+    height: 480px;
     width: 379px;
     overflow: hidden;
 }
@@ -19655,6 +19657,7 @@ html {
     width: 442px;
     height: 511px;
     background: white;
+    overflow:hidden;
 }
 .titulo_hoy {
    font-family: 'lato';
@@ -19859,7 +19862,7 @@ label.checkpop.c_on {
     line-height: 21px;
     color: black;
     font-family: 'Lato';
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     font-weight: bold;
 }
@@ -19875,7 +19878,7 @@ label.checkpop.c_on {
 }
 .precio_showroom { 
     font-family:'LAto';
-    color:black;
+    color:#e81c36;
     font-size:20px;
     text-align:center;
     margin-top:10px;
@@ -19885,7 +19888,7 @@ label.checkpop.c_on {
 .precio_showroom span{
     margin-right:10px; 
     color:black;
-    font-weight:300;
+    font-weight:700;
     font-size:13px;
     text-decoration:line-through;
    }
@@ -19897,6 +19900,7 @@ label.checkpop.c_on {
     color:black;
     float:left;
     margin-top:5px;
+    font-weight:700;
 }
 .stock_showroom span{
    font-family: 'Lato';
@@ -20007,9 +20011,10 @@ label.checkpop.c_on {
     overflow: hidden;
 }
 .titulo_producto_agregado {
-    font-family:'ArialMT';
+    font-family:'Lato';
     font-size:18px;
     text-align:center;
+    color:black;
 }
 .titulo_producto_agregado span{
     font-weight:bold;
@@ -20019,54 +20024,55 @@ label.checkpop.c_on {
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 2px solid #979797;
-    font-family: 'ArialMT';
+    border: 1px solid black;
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     font-weight: bold;
     text-align: center;
-     -webkit-border-radius: 4px; /* Para Safari y Chrome */
-    -moz-border-radius: 4px; /* Para Firefox */
-    -khtml-border-radius: 4px; /* Navegadores de Linux */
-    border-radius: 4px; /* CSS3 */
-    behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */
+    /* -webkit-border-radius: 4px; */
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc);
     float: left;
     cursor: pointer;
     text-decoration: none;
     margin-top: 24px;
     margin-right: 10px;
+    margin-left: 39px;
 }
 .divAgregarShowRoom .volver_set:hover {
         text-decoration:none !important;
     }
 .divAgregarShowRoom .volver_set2 {
-    font-weight: bold;
-    background:red !important;
+   font-weight: bold;
+    background: #e81c36 !important;
     width: 159px;
     display: block;
     padding-top: 8px;
     padding-bottom: 8px;
-    color: white; 
-    border: 2px solid #f11935;
-    font-family: 'ArialMT';
-    text-align:center;
+    color: white;
+    border: 1px solid #e81c36;
+    font-family: 'Lato';
+    text-align: center;
     font-size: 14px;
-     -webkit-border-radius: 4px !important; /* Para Safari y Chrome */
-    -moz-border-radius: 4px !important; /* Para Firefox */
-    -khtml-border-radius: 4px !important; /* Navegadores de Linux */
-    border-radius: 4px !important; /* CSS3 */
-    border-radius:4px;
-    behavior: url(/Content/Css/Pie/PIE.htc) !important; /* Para IE */
+    /* -webkit-border-radius: 4px !important; */
+    -moz-border-radius: 4px !important;
+    -khtml-border-radius: 4px !important;
+    /* border-radius: 4px !important; */
+    /* border-radius: 4px; */
+    behavior: url(/Content/Css/Pie/PIE.htc) !important;
     float: left;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 24px;         
+    margin-top: 24px;
    }
 
     .divAgregarShowRoom .volver_set2:hover {
         text-decoration: none !important;
         background: black !important;
-        border: 2px solid black;
+        border: 1px solid black;
         color: white;
     }
 /*POP UP SET SHOWROOM*/
@@ -20158,6 +20164,8 @@ label.checkpop.c_on {
 }
 
 .set_precio span{
+    display: block;
+    margin-top: 3px;
     font-family: 'Lato';
     font-weight:bold;
     font-size: 23px;
@@ -20173,7 +20181,8 @@ label.checkpop.c_on {
     font-size: 11.5px;
     color:black;
     line-height: 20px;
-    margin-top:5px;
+    margin-top:4px;
+    font-weight:700;
    
 }
 .set_precio_gana span{
@@ -20315,13 +20324,13 @@ label.checkpop.c_on {
      color:#f11935 !important;   
 }
 .agotado_carrusel {
-    width:100%;
+    width: 100%;
     height: 75px;
-    font-size:14px;
+    font-size: 14px;
     font-family: 'Lato';
-    text-align:center;
-    padding-top:50px;
-    position:absolute;
+    text-align: center;
+    padding-top: 29px;
+    position: absolute;
     z-index: 100;
     background: url("/Content/Images/showroom/opacity.png");
 
@@ -20840,12 +20849,12 @@ label.checkpop.c_on {
 .precio_ganancia{
     text-align: center;
     /* display: block; */
-    font-size: 8px;
+    font-size: 10px;
     font-size/*\**/: 9px\9; /*INTERNET EXPLORER 8*/
     font-family: 'lato';
-    /*margin-top: -6px;*/
+    margin-top: -6px;
     width: 68px;
-    line-height:6px;
+    line-height:11px;
     /*transform: scaleY(1.1);*/
 }
 .escala_select{
@@ -21861,7 +21870,8 @@ hr{
     display:block;
 }
 .content{
-    background: white;
+   position:relative;
+   background: white;
     position:relative;
 }
 body{
@@ -26977,7 +26987,7 @@ position: relative; float: left;
 .info_productos_carrito {
     font-family: 'Lato';
     font-size: 13px;
-    line-height: 17px;
+    line-height: 20px;
     color:black;
     padding-bottom:5px;
     border-bottom: 1px solid #ccc;
@@ -27446,7 +27456,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   display: inline-block;
     background: url("../../../Images/group.svg") center center no-repeat;
 }
-
+.agregado .icono{
+   width: 11px;
+  height: 11px;
+  display: inline-block;
+    background: url("../../../Images/group.svg") center center no-repeat;
+}
 .pestania {
     padding-top: 15px;
     background-color: black;
@@ -28162,6 +28177,7 @@ a#cierreMotivoRechazo img {
     color: #FFF;
     margin: 0 auto;
     border: 0px;
+    font-family:'Lato';
 }
 
 .btn_revisalo_pendientes2{
@@ -28180,11 +28196,16 @@ a#cierreMotivoRechazo img {
 
 .texto_pedidos_pendientes {
     display: block;
-    font-size: 12.5px;
-    color: #d20000;
+    font-size: 11px;
+    color: #e81c36;
     margin-bottom: 5px;
     font-weight: bold;
+    font-family:'Lato';
     /*text-transform: uppercase;*/
+}
+
+.grillaPendientes{
+    font-size:13px!important;
 }
 
 .info_tiempo_oportunidad {
@@ -28222,7 +28243,8 @@ a#cierreMotivoRechazo img {
 .tiempos_P {
     text-align: left;
     color: black;
-    margin: 0;
+    margin: 0 0 0 7px;
+    font-family: 'Lato';
 }
 .content_paginador{
     float:right;
@@ -28406,9 +28428,10 @@ a#cierreMotivoRechazo img {
     z-index:5;
 }
 .texto_pedidos_pendientes.tips{
-     margin: 0;
+    margin: 0;
     padding: 0;
     height: 33px;
+    font-size:13px;
 }
   
 .tiempos_P span {
@@ -28423,6 +28446,10 @@ a#cierreMotivoRechazo img {
     font-size: 14px;
     font-weight: 600 !important;
     margin-top: 3px;
+}
+
+.linkea_Pendientes.tooltipPendientes{
+    margin-left:7px;
 }
 
 .mouse-encima-padding {
@@ -28771,7 +28798,6 @@ h1#penmostreo .campana {
     -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     animation: opacidad-bottom 500ms linear 0ms 1 normal;*/
-}
 }
 
 /*@keyframes opacidad-bottom {

@@ -425,7 +425,6 @@ namespace Portal.Consultoras.Web.Controllers
                 (Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/");
 
             bool isNull = false;
-                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
             if (Session["UserData"] == null)
             {
@@ -582,10 +581,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
                 ViewBag.SemanaAnalytics = ObtenerSemanaAnalytics();
             }
-
             DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
             TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
-
             //Mensaje Cierre Campania y Fecha Promesa
             var TextoPromesaEspecial = false;
             var TextoPromesa = ".";
@@ -694,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Simbolo = model.Simbolo;
             string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
-                ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
+            ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
             ViewBag.IndicadorEnviado = model.IndicadorEnviado;
             ViewBag.EstaRechazado = model.EstaRechazado;

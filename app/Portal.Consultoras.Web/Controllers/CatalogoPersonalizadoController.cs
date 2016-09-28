@@ -17,6 +17,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (!userData.EsCatalogoPersonalizadoZonaValida)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
             return View();
         }
 
@@ -142,7 +146,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 Sello = producto.Sello,
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
-                                TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado
+                                TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
                             });
 
                         }

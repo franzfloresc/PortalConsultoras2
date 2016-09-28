@@ -677,81 +677,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
-                //ViewBag.ConsultoraID = UserData().ConsultoraID;
-                //ViewBag.NombreConsultora = UserData().PrimerNombre;
-                //ViewBag.Simbolo = UserData().Simbolo;
-
                 List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
                 MisPedidosModel model = new MisPedidosModel();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
+                    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
                 }
-
-                //int pagAeux;
-                //if (Pagina != null)
-                //    if (int.TryParse(Pagina, out pagAeux))
-                //        Pagina = (int.Parse(Pagina) - 1).ToString();
-
-                //if (Pagina == null)
-                //{
-                    //indiceUltimaPagina = objMisPedidos.ListaPedidos.Count / registrosPagina;
-                    //if (objMisPedidos.ListaPedidos.Count % registrosPagina == 0) indiceUltimaPagina--;
-                    //TempData["indiceActualPagina"] = indiceActualPagina;
-                    //TempData["indiceUltimaPagina"] = indiceUltimaPagina;
-                //}
-                //else
-                //{
-                //    objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-                //    indiceActualPagina = (int)TempData["indiceActualPagina"];
-                //    indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
-                //    if (Pagina.Equals("<<")) indiceActualPagina = 0;
-                //    else
-                //    {
-                //        if (Pagina.Equals("<"))
-                //        {
-                //            if (indiceActualPagina > 0) indiceActualPagina--;
-                //        }
-                //        else
-                //        {
-                //            if (Pagina.Equals(">"))
-                //            {
-                //                if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
-                //            }
-                //            else
-                //            {
-                //                if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
-                //                else
-                //                {
-                //                    indiceActualPagina = int.Parse(Pagina);
-                //                }
-                //            }
-                //        }
-                //    }
-                //    TempData["indiceUltimaPagina"] = indiceUltimaPagina;
-                //    TempData["indiceActualPagina"] = indiceActualPagina;
-                //}
-
-
-                //ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Where(p => String.IsNullOrEmpty(p.Estado)).Count();
-
-                //return View(mostrarPagina());
 
                 if (olstMisPedidos.Any())
                 {
                     // solo pedidos pendientes
                     olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
-
-                    //PedidoModelo.Registros = "1";
-                    //PedidoModelo.RegistrosDe = PedidoModelo.ListaDetalle.Count.ToString();
-                    //PedidoModelo.RegistrosTotal = lstPedidoWebDetalle.Count.ToString();
-                    //PedidoModelo.Pagina = "1";
-                    //PedidoModelo.PaginaDe = (lstPedidoWebDetalle.Count() % 100 == 0) ? (lstPedidoWebDetalle.Count() / 100).ToString() : ((int)(lstPedidoWebDetalle.Count() / 100) + 1).ToString();
-
-                    //userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    //SetUserData(userData);
 
                     olstMisPedidos.ToList().ForEach(y => y.FechaSolicitudFormat = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")) );
 
@@ -772,12 +709,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.RegistrosTotal = pag.RecordCount.ToString();
                     model.Pagina = pag.CurrentPage.ToString();
                     model.PaginaDe = pag.PageCount.ToString();
-
                 }
                 else
                 {
-                    //PedidoModelo.Registros = "0";
-                    //PedidoModelo.RegistrosDe = "0";
                     model.RegistrosTotal = "0";
                     model.Pagina = "0";
                     model.PaginaDe = "0";
@@ -812,7 +746,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(UserData().PaisID, pedidoId).ToList();
+                    olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 }
 
                 //model.ListaDetalle = olstMisPedidosDet;
@@ -836,7 +770,7 @@ namespace Portal.Consultoras.Web.Controllers
                         int? revistaGana = null;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            revistaGana = sv.ValidarDesactivaRevistaGana(UserData().PaisID, UserData().CampaniaID, UserData().CodigoZona);
+                            revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
 
                         string inputCUV = "";
@@ -850,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {
-                            olstMisProductos = svc.GetValidarCUVMisPedidos(UserData().PaisID, UserData().CampaniaID, inputCUV, UserData().RegionID, UserData().ZonaID, UserData().CodigorRegion, UserData().CodigoZona).ToList();
+                            olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                         }
 
                         Session["objMisPedidosDetalleVal"] = olstMisProductos;

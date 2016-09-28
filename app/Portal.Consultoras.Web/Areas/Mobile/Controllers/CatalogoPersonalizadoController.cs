@@ -10,6 +10,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            if (!userData.EsCatalogoPersonalizadoZonaValida)
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            }
             return View();
         }
 

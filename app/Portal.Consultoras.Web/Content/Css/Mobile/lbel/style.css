@@ -916,7 +916,9 @@ h4.re3 {
                 left: 5px;
             }
         .panel-line-info .panel-heading .panel-title .panel-title-total {
-            color: #6b7f8e;
+            color: black;
+            font-weight:700;
+            font-family:'Lato';
         }
 .panel-line-info .panel-collapse {
     position: relative;
@@ -1344,9 +1346,9 @@ h4.re3 {
     border-bottom: 4px solid #613c87;
 }
 
-.header-icon {
+/*.header-icon {
     margin-top: -23px;
-}
+}*/
 .panel-group .panel-heading + .panel-collapse > .list-group,
 .panel-group .panel-heading + .panel-collapse > .panel-body {
     border: none;
@@ -3381,6 +3383,21 @@ width:100%;
 .contenedor_encuentralos{
     height:33px;
     background:#613c87;
+    margin-bottom:20px;
+}
+.contenedor_encuentralos:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(232, 28, 54, 0);
+	border-top-color: #613c87;
+	border-width: 18px;
+	margin-left: -18px;
 }
 .btn_encuentralos{
     display: block;
@@ -3419,6 +3436,12 @@ width:100%;
     color: black;
     
     margin-top:17px;
+}
+.titulo_showroom_mobile a{
+    text-decoration:underline;
+    text-align:center;
+    display:block;
+
 }
 .titulo_showroom_mobile span {
     font-size: 18px;
@@ -3921,6 +3944,7 @@ width:100%;
     margin-top: 18px;
     position:relative;
     background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
+    background-position: center -1px;
 }
 .notificaciones_mobiles{
     width:20px;
@@ -4114,7 +4138,7 @@ width:100%;
 }
 
 .btn_seguirp_mobile.seguimientoPedido {
-    width:114px;
+    width: 114px;
 }
 
 .btn_seguirp_mobile.ver_video_introductorio {
@@ -4739,7 +4763,7 @@ body{
 }
 
 .btn_agregarCliente span{
-    color:#e81c36;
+    color:#613c87;
 }
 
 .btn_agregarPedido, .btn_guardarPedido{
@@ -4816,6 +4840,10 @@ body{
     top: 34%;
     left: 5.55%;
     background:url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+}
+
+.enlace_regresar.catalogosP {
+    left: 3%;
 }
 
 .enlace_regresar img{
@@ -5885,24 +5913,28 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile{
     position:fixed;
-    z-index:2010;
-    
+    z-index:2010;    
     width:100%;
     height:100%;
     padding:15px;
     top:0;
-    background:rgba(0,0,0,0.5)
+    background:url(../../../images/bg_popups.png) repeat center center;
+    overflow:auto;
 }
+
 .content_mensajeAlerta{
     width: 100%;
-    height: 100%;
+    max-width: 400px;
+    height: auto;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
+    top:3%;
     background: white;
-    padding: 20px;
+    padding: 15px 15px;
     overflow-y: auto;
 }
+
 .icono_alerta{
     width:50px;
     height:50px;
@@ -5938,8 +5970,12 @@ input[type="checkbox"]:checked + span:after {
     text-align:center;
     display:block;
     background-color: #613c87;
-    margin-bottom:20px;
-    
+    margin-bottom:20px;    
+}
+
+.btn_ok_mobile:hover{
+    color:#FFF!important;
+    text-decoration:none!important;
 }
 
 .ver-mas-vertical span.icono{visibility:hidden}
@@ -6944,11 +6980,11 @@ input[type="checkbox"]:checked + span:after {
 /* PANTALLA MI ASESOR DE BELLEZA */
 
 .titulo_asesorBelleza{
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);*/
 }
 
 .tabs_asesoresBelleza{
@@ -7853,10 +7889,20 @@ a:focus, a:hover {
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 56%;
+    width: 48%;
     text-decoration: none;
     margin-bottom: 6px;
 }
+
+.texto_descripcionCatalogoPersonalizado {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-align: justify;
+}
+
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
@@ -8067,6 +8113,24 @@ a:focus, a:hover {
     padding-left: 10px;
     text-align: left;
     }
+}
+
+span.icon-advertencia{
+    display: inline-block;
+    /*background: #d20000;*/
+    background:url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    /*border-radius: 100%;*/
+    margin-right: 8px;
+    /*margin-bottom:32px;*/
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -6px;
 }
 
 /* MENSAJES PEDIDO RECHAZADO */
