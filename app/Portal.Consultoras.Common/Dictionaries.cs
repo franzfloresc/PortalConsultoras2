@@ -377,12 +377,12 @@ namespace Portal.Consultoras.Common
             { "CR", "DNI/RUC" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "DNI/RUC" },
             { "MX", "IFE" },
-            { "PA", "" },
+            { "PA", "DNI/RUC" },
             { "PE", "DNI/RUC" },
             { "PR", "DNI/RUC" },
-            { "SV", "" },
+            { "SV", "DNI/RUC" },
             { "VE", "" }
         };
 
