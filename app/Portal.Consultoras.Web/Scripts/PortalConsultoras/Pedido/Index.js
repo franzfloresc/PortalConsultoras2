@@ -1178,6 +1178,7 @@ function PedidoOnSuccess() {
 }
 
 function CargarCarouselEstrategias(cuv) {
+    $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
@@ -1198,7 +1199,7 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
-    
+    $('#divListaEstrategias').hide();
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
@@ -1215,8 +1216,9 @@ function ArmarCarouselEstrategias(data) {
 
     cierreCarouselEstrategias();
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
-        $('#divListadoEstrategia').parents('.caja_carousel_productos').hide();
+        $('#divListaEstrategias').hide();
     } else {
+        $('#divListaEstrategias').show();
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
