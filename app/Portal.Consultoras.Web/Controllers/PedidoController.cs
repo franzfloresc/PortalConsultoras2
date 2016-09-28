@@ -806,6 +806,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!olstPedidoWebDetalle.Any())
                 {
                     model.ListaDetalle = new List<BEPedidoWebDetalle>();
+                    if (userData.ZonaValida)
+                    {
+                        using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
+                        {
+                            sv.Url = ConfigurarUrlServiceProl();
+                            sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
+                        }
+                    }
                 }
                 else
                 {
@@ -2552,31 +2560,39 @@ namespace Portal.Consultoras.Web.Controllers
                         int TipoObs = 0;
                         string CUV = string.Empty;
                         string Observacion = string.Empty;
+                        TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
 
-                        if (EsReservaPedidoPROL)
+                        if (TipoObs == 97)
                         {
-                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
-                            CUV = Convert.ToString(row.ItemArray.GetValue(0));
-                            Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
+                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", "");
                         }
                         else
                         {
-                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
-                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
-                            Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
-                        }
+                            if (EsReservaPedidoPROL)
+                            {
+                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
+                                CUV = Convert.ToString(row.ItemArray.GetValue(0));
+                                Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
+                            }
+                            else
+                            {
+                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
+                                CUV = Convert.ToString(row.ItemArray.GetValue(1));
+                                Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
+                            }
 
                         if (TipoObs == 0)
                             ValidacionReemplazo += 1;
 
-                        if (TipoObs == 95)
-                        {
-                            ValidacionPROLMM = true;
-                            CUV_Val = CUV;
-                            string regex = "(\\#.*\\#)";
-                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
+                            if (TipoObs == 95)
+                            {
+                                ValidacionPROLMM = true;
+                                CUV_Val = CUV;
+                                string regex = "(\\#.*\\#)";
+                                Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
+                            }
                         }
-
                         Restrictivas = true;
                         olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
@@ -3344,6 +3360,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valida)
                 {
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         bool ValidacionAbierta = false;
@@ -3354,13 +3372,20 @@ namespace Portal.Consultoras.Web.Controllers
                             ValidacionAbierta = true;
                             Estado = Constantes.EstadoPedido.Procesado;
                         }
+                        olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+                        if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any()) // Si el userData no tiene información del PedidoID y no tiene pedidos.
+                        {
+                            userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                            Estado = Constantes.EstadoPedido.Pendiente;
+                        }
                         //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
                         sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, userData.CodigoUsuario, ValidacionAbierta);
                         if (Tipo == "PI")
                         {
                             //Inserta Aceptacion Reemplazos
-                            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                            olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                            // List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                            //olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                             List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
                             if (Reemplazos.Count != 0)
                             {
