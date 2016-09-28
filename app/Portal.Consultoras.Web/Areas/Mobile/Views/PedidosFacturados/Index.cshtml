@@ -24,7 +24,7 @@
                 {
                     var pedidoCliente = Model.ListaPedidoCliente[i];
 
-                    <a href="javascript:;" class="mytab @( i == 0 ? "active" : "")" data-campania="@pedidoCliente.CampaniaID">
+                    <a href="javascript:;" class="mytab @( i == 0 ? "active" : "")" data-campania="@pedidoCliente.CampaniaID" style="width: @(100.00 / Model.ListaPedidoCliente.Count)%">
                         <small>Campaña</small>
                         <br />
                         <b>@pedidoCliente.CampaniaID.ToString().Substring(4)</b>

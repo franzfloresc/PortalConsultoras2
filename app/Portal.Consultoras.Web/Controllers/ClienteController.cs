@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.Activo = true;
                     sv.Update(entidad);
 
-                    Session["GetClientesByCampania"] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                    Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
 
                 }
                 return Json(new
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.Activo = true;
                         sv.Insert(entidad);
 
-                        Session["GetClientesByCampania"] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                        Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                     }
                     else
                     {

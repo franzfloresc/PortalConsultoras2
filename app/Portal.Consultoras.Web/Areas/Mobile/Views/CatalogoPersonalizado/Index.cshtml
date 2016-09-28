@@ -10,17 +10,17 @@
     </style>
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
 </div>
-<div class="fondo_f2f2f2">
+<div class="fondo_f2f2f2" style="background: #f5f7f7; border-bottom:0">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
 </div>
-<br/>
-<br />
-
 <div class="wrapper_resumen_mobile">
+    <div class="texto_descripcionCatalogoPersonalizado">
+        Encuentra una selección de los productos que tus clientes siempre te solicitan
+    </div>
     <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
 
     </div>
@@ -297,18 +297,18 @@
                 <div class="producto_img_mobile">
                     <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 </div>
-                {{#IsNullOrEmpty item.Sello '!='}}
+                {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
-                    <img src="~/Content/Images/nuevo-producto.png" alt="Etiqueta Producto" />
+                    <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
                 </div>
-                {{/IsNullOrEmpty}}
+                {{/if}}
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
                     <p class="nombre_producto">
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio" style="margin-bottom: 2px !important;">
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                        @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                     </div>
                     <div style="min-height:38px">
