@@ -26,7 +26,8 @@ $(document).ready(function () {
         $('#popup_tutorial_home').fadeIn();
         $('html').css({ 'overflow-y': 'hidden' });
         var paisCP = false;
-        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+        var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
+        if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
             paisCP = true;
         }
         fnMovimientoTutorial = setInterval(function ()

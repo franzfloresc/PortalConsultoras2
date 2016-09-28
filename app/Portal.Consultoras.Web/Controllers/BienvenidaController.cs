@@ -211,6 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
+                model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
             }
             catch (FaultException ex)
             {

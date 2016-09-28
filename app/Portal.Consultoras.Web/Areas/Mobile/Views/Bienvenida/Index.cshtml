@@ -47,7 +47,7 @@
                 <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
-                @if (Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+                @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
                 {
                     <li><img src="~/Content/Images/Esika/Tutorial/tuto6.jpg" /></li>
                 }
