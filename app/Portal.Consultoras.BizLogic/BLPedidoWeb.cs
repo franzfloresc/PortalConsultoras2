@@ -1947,6 +1947,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             return listaPedidosFacturados;
         }
+
+        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP)
+        {
+            new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP);
+        }
     }
 
     internal class TemplateField

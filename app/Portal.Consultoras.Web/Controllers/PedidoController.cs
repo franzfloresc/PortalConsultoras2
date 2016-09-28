@@ -456,7 +456,9 @@ namespace Portal.Consultoras.Web.Controllers
                 oBePedidoWebDetalle.MarcaID = Convert.ToByte(model.MarcaID);
                 oBePedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
-                oBePedidoWebDetalle.CUV = model.CUV;                
+                oBePedidoWebDetalle.CUV = model.CUV;
+
+                oBePedidoWebDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
 
                 oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
                 oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
@@ -1060,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1076,7 +1078,8 @@ namespace Portal.Consultoras.Web.Controllers
                 DescripcionProd = Descripcion,
                 TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
                 ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),                
-                OfertaWeb = false
+                OfertaWeb = false,
+                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb)
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
@@ -1403,7 +1406,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
+        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido, int origenPedidoWeb)
         {            
             List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
@@ -1447,7 +1450,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //oBEPedidoWebDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
 
                 oBEPedidoWebDetalle.MarcaID = Convert.ToByte(olstProducto[0].MarcaID);
-                oBEPedidoWebDetalle.Cantidad = Convert.ToInt32(CantCUVpedido);
+                oBEPedidoWebDetalle.Cantidad = CantCUVpedido;
                 oBEPedidoWebDetalle.PrecioUnidad = olstProducto[0].PrecioCatalogo;
                 oBEPedidoWebDetalle.CUV = olstProducto[0].CUV.Trim();
 
@@ -1458,6 +1461,8 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionLarga = olstProducto[0].DescripcionMarca;
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
+
+                oBEPedidoWebDetalle.OrigenPedidoWeb = origenPedidoWeb;
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -3318,7 +3323,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session["ProductosOfertaFinal"] = null;
+                //Session["ProductosOfertaFinal"] = null;
 
                 return Json(new
                 {
@@ -4664,7 +4669,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaParametriaOfertaFinal;                        
         }
         
-        #endregion
+        #endregion        
 
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
@@ -4749,11 +4754,51 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
                 }
 
+                /*Obtener si tiene stock de PROL por CodigoSAP*/
+                var listaTieneStock = new List<Lista>();
+                string codigoSap = "";
+                foreach (var beProducto in listaProductoModel)
+                    codigoSap += beProducto.CodigoProducto + "|";
+
+                try
+                {
+                    using (var sv = new wsConsulta())
+                    {
+                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                    listaTieneStock = new List<Lista>();
+                }
+
+                // Si ya esta en pedido detalle no se debe mostrar
+                var pedidoDetalle = ObtenerPedidoWebDetalle();
+                var listaRetorno = new List<ProductoModel>();
+                bool tieneStockProl = false;
+                foreach (var item in listaProductoModel)
+                {
+                    var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == item.CodigoProducto);
+                    if (itemStockProl != null)
+                        tieneStockProl = itemStockProl.estado == 1;
+
+                    if (tieneStockProl)
+                    {
+                        var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
+                        addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
+                        if (addProducto.CUV == "")
+                            listaRetorno.Add(item);
+                    }   
+                }
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
-                    data = listaProductoModel,
+                    data = listaRetorno,
                     limiteJetlore = limiteJetlore
                 });
             }
@@ -4786,6 +4831,34 @@ namespace Portal.Consultoras.Web.Controllers
             bool resultado = segmentoId == 1;
 
             return resultado;
+        }
+
+        [HttpPost]
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log)
+        {
+            try 
+            {
+                using (PedidoServiceClient svp = new PedidoServiceClient())
+                {
+                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log);
+                }
+                return Json(new
+                    {
+                        success = true,
+                        message = "El log ha sido registrado satisfactoriamente.",
+                        extra = ""
+                    });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
         }
     }
 }

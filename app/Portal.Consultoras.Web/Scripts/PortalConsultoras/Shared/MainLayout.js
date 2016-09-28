@@ -130,12 +130,7 @@
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-    $("#belcorpChat a").click(function () {       
-        if (this.href.indexOf('#') != -1) {
-            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
-        }
-    });
-    
+
     Scrolling();
     MostrarShowRoomBannerLateral();
 });
@@ -623,44 +618,61 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",
-        contentType: 'application/json',
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    var showroomConsultora = response.data;
-                    var evento = response.evento;
+    var idRol = viewBagRol;
 
-                    if (showroomConsultora.EventoConsultoraID != 0) {
-                        if (response.estaActivoLateral) {
-                            $("#hdNombreEventoShowRoom").val(evento.Nombre);
-                            $("#hdEventoIDShowRoom").val(evento.EventoID);
+    if (idRol == 1) {
 
-                            if (response.mostrarShowRoomProductos) {
-                                $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",
+            contentType: 'application/json',
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        var showroomConsultora = response.data;
+                        var evento = response.evento;
 
-                                $("#ctrasHoy").show();
-                            } else {
-                                $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
-                                AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+                        if (showroomConsultora.EventoConsultoraID != 0) {
+                            if (response.estaActivoLateral) {
+                                $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                $("#hdEventoIDShowRoom").val(evento.EventoID);
 
-                                $("#ctras").show();
+                                if (response.mostrarShowRoomProductos) {
+                                    $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
+
+                                    //Carga de Imagenes
+                                    $("#imgVentaTagLateralHoy").attr("src", evento.ImagenVentaTagLateral);
+                                    $("#imgPestaniaShowRoomLateralHoy").attr("src", evento.ImagenPestaniaShowRoom);
+
+                                    //$("#ctras").hide();
+                                    $("#ctrasHoy").show();
+                                } else {
+                                    $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+                                    AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
+
+                                    //Carga de Imagenes
+                                    $("#imgPestaniaShowRoomLateral").attr("src", evento.ImagenPestaniaShowRoom);
+
+                                    //$("#ctrasHoy").hide();
+                                    $("#ctras").show();
+                                }
                             }
                         }
                     }
                 }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    closeWaitingDialog();
+                    console.log("Ocurrió un error en ShowRoom");
+                    //alert("Ocurrió un error en ShowRoom");
+                }
             }
-        },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                closeWaitingDialog();
-                console.log("Ocurrió un error en ShowRoom");
-            }
-        }
-    });
-};
+        });
+    }
+
+}
+
 function AgregarTimerShowRoom(dia, mes, anio) {
     var calcNewYear = setInterval(function () {
         //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -701,7 +713,8 @@ function AgregarTimerShowRoom(dia, mes, anio) {
             $("#ctrasHoy").show();
         }
     }, 1000);
-};
+}
+
 function AgregarTagManagerShowRoomBannerLateral(esHoy) {
     var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
@@ -722,7 +735,8 @@ function AgregarTagManagerShowRoomBannerLateral(esHoy) {
             }
         }
     });
-};
+}
+
 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
     var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
 
@@ -743,7 +757,7 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
             }
         }
     });
-};
+}
 /* Fin ShowRoom */
 
 /* Inicio Marcaciones */
@@ -797,7 +811,32 @@ function TrackingJetloreRemoveAll(lista) {
 
     if (esJetlore) {
         JL.tracker.removeFromCart(lista);
+    }
+}
 
+function TrackingJetloreView(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "view",
+            deal_id: cuv,
+            option_id: campania
+        });
+    }
+}
+
+function TrackingJetloreSearch(cuv, campania) {
+    var esJetlore;
+    esJetlore = esPaisTrackingJetlore == "1";
+
+    if (esJetlore) {
+        JL.tracker.track({
+            event: "search",
+            deal_id: cuv,
+            option_id: campania
+        });
     }
 }
 
