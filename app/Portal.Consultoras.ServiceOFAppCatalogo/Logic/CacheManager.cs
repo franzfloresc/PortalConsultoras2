@@ -13,7 +13,8 @@ namespace Portal.Consultoras.ServiceCatalogoPersonalizado.Logic
     {
         Paises = 1,
         ListaProductoCatalogo = 2,
-        ListaProductoCatalogoPcm = 3
+        ListaProductoCatalogoPcm = 3,
+        ListaProductoEstrategiasOfertaParaTi = 4
     }
 
     internal class CacheManager<T>

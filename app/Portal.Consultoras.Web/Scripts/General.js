@@ -228,10 +228,20 @@ jQuery(document).ready(function () {
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
     }
 
-    DecimalToStringFormat = function (monto) {
+    IsDecimalExist = function (p_decimalNumber) {
+        var l_boolIsExist = true;
+
+        if (p_decimalNumber % 1 == 0)
+            l_boolIsExist = false;
+
+        return l_boolIsExist;
+    }
+
+    DecimalToStringFormat = function (monto, noDecimal) {
         formatDecimalPais = formatDecimalPais || new Object();
+        noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = formatDecimalPais.decimalCantidad;
+        var decimalCantidad = noDecimal ? 0 : formatDecimalPais.decimalCantidad;
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
@@ -485,7 +495,8 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " +data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
     $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
@@ -538,18 +549,21 @@ function ActualizarGanancia(data) {
             tieneAreaEscala.find(".escala_ganancia.escala_select").find(".indicador_escala").remove();
             tieneAreaEscala.find(".escala_ganancia.escala_select").find(".precio_ganancia").remove();
             tieneAreaEscala.find(".escala_ganancia").removeClass("escala_select");
-
+            tieneAreaEscala.find(".escala_ganancia").removeClass("eg_padding_inactivo");
+            tieneAreaEscala.find(".escala_ganancia").addClass("eg_padding_activo");
             $.each(tieneAreaEscala.find(".escala_ganancia"), function (ind, objHtmlEscala) {               
                 if (listaAdd.length > ind) {
                     $(objHtmlEscala).find(".home_porcentaje").html(listaAdd[ind].PorDescuento);
                     if (listaAdd[ind].Seleccionado == true) {
                         $(objHtmlEscala).addClass("escala_select");
                         $(objHtmlEscala).prepend(htmlIconSelect);
+                        var montodesdeAux = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoDesde), true);
+                        var montodesdeAux2 = DecimalToStringFormat(Math.ceil(listaAdd[ind].MontoHasta), true);
                         if (ind == listaAdd.length - 1) {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a más."));
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", "De " + vbSimbolo + " " + montodesdeAux + " <br>a más."));
                         }
                         else {
-                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}", vbSimbolo + " " + listaAdd[ind].MontoDesdeStr + " a " + vbSimbolo + " " + listaAdd[ind].MontoHastaStr));
+                            $(objHtmlEscala).append(htmlMontosEscala.replace("{}","De "+ vbSimbolo + " " + montodesdeAux + "<br> a " + vbSimbolo + " " + montodesdeAux2));
                         }
                         
                     }

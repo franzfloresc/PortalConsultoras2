@@ -211,7 +211,7 @@
                                 <!--SB20-483 - INICIO -->
                                 <div class="caja_montos_textos_sinDescuento">
                                     <span>TOTAL SIN DSCTO.</span>
-                                    <span>DSCTO. OFERTAS POR NIVELES</span>
+                                    <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                 </div>
                                 <br />
                                 <!--SB20-483 - FIN -->
@@ -219,7 +219,7 @@
                                     <span id="spnNombreCliente"></span>
                                 </p>
                                 <div class="monto_total">
-                                    <span>Monto total:</span>
+                                    <span><b>Monto total:</b></span>
                                 </div>
                                 <br />
                                 <div class="monto_ganancia">
@@ -442,11 +442,11 @@
                 <div class="pedidoBase_lineaCredito">
                     <span>
                         <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @Model.FormatoPedidoBase</label></p>
+                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
                     </span>
                     <span>
                         <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @Model.FormatoLineaCredito</p>
+                        <p>@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
                     </span>
                 </div>
                 <div class="clear"></div>
@@ -856,16 +856,19 @@
             <h1 class="titulo_ofertaFinal">
                 <span id="spnTituloOfertaFinal">TODAVIA<b>&nbsp;TE FALTA UN POCO</b></span>
             </h1>
+            <div id="spCabeceraMontominimo" style="display:none; margin-top: -5px;">
+                <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
+            </div>
             <span class="descripcion_ofertaFinal">
                 Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal">21</span> <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
             </span>
             <div class="contenedor_bloques_agregaProductos">
                 <div class="bloque_descripciones">
                     <h6 class="descripcion_principal"><b><span id="spnSubTituloOfertaFinal">Consigue más ganancias agregando uno de estos productos</span></b></h6>
-                    <span class="enlace_catalogos">
+                    @*<span class="enlace_catalogos">
                         También puedes buscarlo en tus
                         <a href="#" title="Tus Catálogos">TUS CATÁLOGOS</a>
-                    </span>
+                    </span>*@
                     <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos" id="btnNoGraciasOfertaFinal">
                         NO, GRACIAS
                     </button>
@@ -988,14 +991,19 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto">
-
-            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA LIQUIDACIÓN</label>
             </span>
             {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+            <span class="texto_pedidos_ofertas">
+                <label>PRE-VENTA DIGITAL</label>
             </span>
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
@@ -1126,6 +1134,7 @@
     <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales(this, event);" {{/iff}}>
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi"/>            
             <div class="producto_img">
                 <img src="{{FotoProducto01}}" />
                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
@@ -1244,6 +1253,7 @@
             </a>
         </div>
         <div class="contenido_popUp">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp"/>
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
                     {{#if_eq FlagMostrarImg '1'}}
@@ -1306,7 +1316,8 @@
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
-        <div class="contenido_popUp">
+        <div data-item="" class="contenido_popUp">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp"/>
             <div class="content_item_carrusel">
                 {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
@@ -1374,32 +1385,34 @@
             <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
         </div>
-        <div class="producto_img_home">
-            <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
-        </div>
-        <div class="etiqueta_producto">
-        </div>
-        <div class="producto_nombre_descripcion">
-            <h6>{{DescripcionMarca}}</h6>
-            <p class="nombre_producto">
-                <b>{{Descripcion}}</b>
-            </p>
-            <div class="producto_precio">
-                @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
-                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+        <div class="contenido_item_carrusel_ofertaFinal">
+            <div class="producto_img_home">
+                <img src="{{ImagenProductoSugerido}}" style="height: 100%;">
             </div>
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+            <div class="etiqueta_producto">
+            </div>
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                <p class="nombre_producto">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
-            </div>
-            <a class="boton_Agregalo_home agregarOfertaFinal">
-                AGRÉGALO
-            </a>
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home agregarOfertaFinal">
+                    AGRÉGALO
+                </a>
 
-            <div class="clear"></div>
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
     {{/each}}
@@ -1435,6 +1448,8 @@
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
