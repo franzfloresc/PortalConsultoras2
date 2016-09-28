@@ -6980,11 +6980,11 @@ input[type="checkbox"]:checked + span:after {
 /* PANTALLA MI ASESOR DE BELLEZA */
 
 .titulo_asesorBelleza{
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
     -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);*/
 }
 
 .tabs_asesoresBelleza{

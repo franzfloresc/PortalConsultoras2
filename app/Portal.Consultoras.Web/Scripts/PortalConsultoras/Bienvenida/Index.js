@@ -1473,7 +1473,7 @@ function ArmarCarouselLiquidaciones(data) {
                             '<span class="producto_precio_oferta"></span>',
                         '</div>',
                         '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
-                            'VER MAS',
+                            'VER MÁS',
                         '</a>',
                     '</div>',
                 '</div>',

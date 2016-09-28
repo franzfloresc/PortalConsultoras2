@@ -20783,13 +20783,13 @@ label.checkpop.c_on {
 .precio_ganancia{
     text-align: center;
     /* display: block; */
-    font-size: 8px;
-    font-size/*\**/: 9px\9; /*INTERNET EXPLORER 8*/
+    font-size: 10px;
+    font-size/*\**/: 9px\9;
     font-family: 'lato';
-    /*margin-top: -6px;*/
+    margin-top: -6px;
     width: 68px;
-    line-height:6px;
-    /*transform: scaleY(1.1);*/
+    line-height: 11px;
+    /* transform: scaleY(1.1); */
     
 }
 .escala_select{
@@ -26906,7 +26906,7 @@ position: relative; float: left;
 .info_productos_carrito {
     font-family: 'Lato';
     font-size: 13px;
-    line-height: 17px;
+    line-height: 20px;
     color:black;
     padding-bottom:5px;
     border-bottom: 1px solid #ccc;
