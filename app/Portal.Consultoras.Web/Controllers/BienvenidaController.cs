@@ -196,19 +196,23 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
-                int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
-                using (SACServiceClient sac = new SACServiceClient())
+                int Visualizado = 1, ComunicadoVisualizado = 1;
+                try
                 {
-                    BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (comunicado != null)
-                        Visualizado = comunicado.Visualizo ? 1 : 0;
+                    using (SACServiceClient sac = new SACServiceClient())
+                    {
+                        BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (comunicado != null)
+                            Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
-                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                        BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                            ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                    }
                 }
+                catch (Exception) { }
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
             }
@@ -232,7 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult SubirImagen(string data)
         {
             if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            string[] dataPartes = data.Split(new char[]{ ',' });
+            string[] dataPartes = data.Split(new char[] { ',' });
             if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
             string image = dataPartes[1];
 
@@ -490,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONSetUsuarioVideo()
         {
-            int retorno;           
+            int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
@@ -1219,7 +1223,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-      
+
         #region ShowRoom
 
         [HttpPost]
