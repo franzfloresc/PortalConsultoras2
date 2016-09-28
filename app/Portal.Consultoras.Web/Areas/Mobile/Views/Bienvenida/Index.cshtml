@@ -47,6 +47,10 @@
                 <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
+                @if (Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+                {
+                    <li><img src="~/Content/Images/Esika/Tutorial/tuto6.jpg" /></li>
+                }
             </ul>
         </div>
 
@@ -125,9 +129,9 @@
     @(Html.Raw(ViewBag.MensajeCierreCampania))
     <br />
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
-       class="btn_seguirp_mobile" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+       class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
-    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
+    <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -171,7 +175,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
 
         </div>
         <!-- FIN ITEM 1-->
@@ -189,15 +193,15 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.PaisID == 3) //Chile
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 4) //Colombia
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 12) //Puerto Rico
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
@@ -345,11 +349,11 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-@if (Model.CatalogoPersonalizadoMobile != 0)
+@if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
     <div class="banner_inferior_mobile oculto_lbel">
-        <img src="@Model.UrlImagenCatalogoPersonalizado" alt="-" />
+        <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
     </div>
 }
 <div class="disclaimer_b">@(pieEscala)</div>
@@ -654,6 +658,70 @@
     </div>
     {{/each}}
 </script>
+
+<!--SHOWROOM: modal popup -->
+<div class="modal fade" id="PopShowroom">
+    <div class="modal-dialog modal-alert" style="width:265px; margin:0 auto; margin-top:50px !important;">
+        <div class="modal-content" style="float: right;width: 225px;padding:0;">
+            <div class="modal-body" style="padding: 0; min-height: 384px;">
+                <div id="btnCerrarPopShowroom" class="CerrarPopMobile"></div>
+                <div class="pestana_pop_m">
+                    @*<img src="@Url.Content("~/Content/Images/mobile/img-showroom/titulo_mobil.jpg")" alt="-" />*@
+                    <img id="imgPestaniaShowRoom" alt="imgPestaniaShowRoom" style="max-width: 100% !important;" />
+                </div>
+                <div class="datos_pop_m">
+                    <div class="nombre_separado_m"><span id="spnShowRoomNombreConsultora">María</span></div>
+                    <div class="titulo_nombre_pop_m" style="width:21px"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/deco_nombre.png")" alt=""></div>
+                    <div class="titulo_nombre_pop_m" style="width:131px">te invitamos a la</div>
+                    <div class="titulo_nombre_pop_m" style="width:21px"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/deco_nombre.png")" alt=""></div>
+                    @*<div class="titulo_preventa_m">PRE · VENTA</div>
+                        <div class="titulo_digital_m">DIGITAL</div>*@
+                    <div class="evento_tema_hoy_m">
+                        <img id="imgPreventaDigital" alt="imgPreventaDigital" style="max-width: 94% !important;" />
+                    </div>
+                    <div class="titulo_padre_m"><span id="spnShowRoomEvento">DÍA DEL PADRE</span></div>
+                    <div class="fecha_promocion_m">Del <span id="spnShowRoomDiaInicio">XX</span> al <span id="spnShowRoomDiaFin">XX</span> de <span id="spnShowRoomMes">Junio</span></div>
+                    <div class="img_pop_m"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/exclusiva.png")" alt="-" /></div>
+                    <div class="boton_cerrar_mobile"><a href="javascript:;" id="lnkConoceMasShowRoomPopup" target="_blank">CONOCE MÁS AQUÍ</a></div>
+                    <div class="boton_desaparecer_pop"><a href="javascript:;" id="lnkNoMostrarPopup">No volver a ver éste comunicado</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--SHOWROOM: modal popup HOY -->
+<div class="modal fade" id="PopShowroomHoy">
+    <div class="modal-dialog modal-alert" style="width:265px; margin:0 auto; margin-top:50px !important;">
+        <div class="modal-content" style="float: right;width: 225px;padding:0;">
+
+            <div class="modal-body" style="padding: 0; min-height: 420px;">
+                <div id="btnCerrarPopShowroomHoy" class="CerrarPopMobile"></div>
+                <div class="pestana_pop_m">
+                    @*<img src="@Url.Content("~/Content/Images/mobile/img-showroom/titulo_mobil.jpg")" alt="-" />*@
+                    <img id="imgPestaniaShowRoomHoy" alt="imgPestaniaShowRoomHoy" style="max-width: 100% !important;" />
+                </div>
+                <div class="datos_pop_m">
+                    <div class="hoy_mobile"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/Showroom-hoy.gif")" alt="-" /></div>
+                    @*<div class="titulo_preventa_m">PRE · VENTA</div>
+                        <div class="titulo_digital_m">DIGITAL</div>*@
+                    <div class="evento_tema_hoy_m">
+                        <img id="imgPreventaDigitalHoy" alt="imgPreventaDigitalHoy" style="max-width: 94% !important;" />
+                    </div>
+                    <div class="titulo_padre_m"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
+                    <div class="img_pop_m" style="width: 210px; margin-left: -13px;">
+                        @*<div class="imagen_set_pop_up"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></div>
+                            <div class="precio_hoy">SETS DESDE<br /><span>$5,990</span></div>*@
+                        <img id="imgVentaSetPopupHoy" alt="imgVentaSetPopupHoy" />
+                    </div>
+                    <hr class="clear" />
+                    <div class="boton_cerrar_mobile"><a href="javascript:;" id="lnkConoceMasShowRoomPopupHoy">VER OFERTAS AQUÍ</a></div>
+                    <div class="boton_desaparecer_pop"><a href="javascript:;" id="lnkNoMostrarPopupHoy">No volver a ver éste comunicado</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -670,6 +738,9 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var contadorFondoPopUp = 0;
         var viewBagVioTutorial = '@Model.VioTutorial';
+        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new {area = ""})';
+        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new {area = ""})';
+        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
 }
