@@ -1006,7 +1006,9 @@ h4.re3 {
             }
 
         .panel-line-info .panel-heading .panel-title .panel-title-total {
-            color: #6b7f8e;
+            color: black;
+            font-weight:700;
+            font-family:'Lato';
         }
 
 .panel-line-info .panel-collapse {
@@ -1513,9 +1515,9 @@ h4.re3 {
     border-bottom: 4px solid #e81c36;
 }
 
-.header-icon {
+/*.header-icon {
     margin-top: -23px;
-}
+}*/
 
 .panel-group .panel-heading + .panel-collapse > .list-group,
 .panel-group .panel-heading + .panel-collapse > .panel-body {
@@ -2723,8 +2725,8 @@ table > thead > tr > th {
     top: 42%;
     cursor: pointer;
     display: block;
-    width: 20px !important;
-    height: auto !important;
+    width: 20px;
+    height: 60px;
     background-size: 100% 100%;
 }
 .slick-arrow img{
@@ -3488,7 +3490,7 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 19px;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 6px;
     float: left;
     color: #fff;
     letter-spacing: 3px;
@@ -4505,6 +4507,7 @@ table > thead > tr > th {
     margin-top: 18px;
     position: relative;
     background: url("../../../Images/mobile/Esika/mensajes.png") no-repeat;
+    background-position: center -1px;
 }
 
 .notificaciones_mobiles {
@@ -4720,10 +4723,15 @@ table > thead > tr > th {
     background-position: 0 4px;
 }
 
-    .btn_seguirp_mobile.ver_video_introductorio {
-        margin-top: 15px;
-        margin-bottom: 5px;
-    }
+.btn_seguirp_mobile.seguimientoPedido {
+    width: 114px;
+}
+
+.btn_seguirp_mobile.ver_video_introductorio {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width:114px;
+}
 
 .linea_separadora_mobile {
     width: 100%;
@@ -5443,26 +5451,30 @@ body {
     background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
 }
 
-    .enlace_regresar.detalleP {
-        top: 0%;
-        left: 2.45%;
-        background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
-    }
+.enlace_regresar.detalleP {
+    top: 0%;
+    left: 2.45%;
+    background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+}
 
-    .enlace_regresar.ingresoP {
-        top: 18%;
-        left: 2.45%;
-    }
+.enlace_regresar.ingresoP {
+    top: 18%;
+    left: 2.45%;
+}
 
-    .enlace_regresar.catalogosR {
-        top: 31%;
-        left: 5.55%;
-    }
+.enlace_regresar.catalogosR {
+    top: 31%;
+    left: 5.55%;
+}
 
-    .enlace_regresar img {
-        width: 100%;
-        height: auto;
-    }
+.enlace_regresar.catalogosP {
+    left: 3%;
+}
+
+.enlace_regresar img {
+    width: 100%;
+    height: auto;
+}
 
 .detalle_pedido_ingresado {
     display: block;
@@ -6561,23 +6573,25 @@ input[type="checkbox"]:checked + span:after {
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;
-    
+    z-index: 2010;    
     width: 100%;
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: url(../../../images/bg_popups.png) repeat center center;
+    overflow:auto;
 }
 
 .content_mensajeAlerta {
     width: 100%;
-    height: 100%;
+    max-width: 400px;
+    height: auto;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
+    top:3%;
     background: white;
-    padding: 20px;
+    padding: 15px 15px;
     overflow-y: auto;
 }
 
@@ -6622,6 +6636,11 @@ input[type="checkbox"]:checked + span:after {
     display: block;
     background-color: #e81c36;
     margin-bottom: 20px;
+}
+
+.btn_ok_mobile{
+    color:#FFF!important;
+    text-decoration:none!important;
 }
 
 /* ver mas la fleca abajo => poner solo la clase al contenedor*/
@@ -8557,10 +8576,20 @@ a:focus, a:hover {
 }
 .enlace_popupCatalogoPersonalizado {
     display: block;
-    width: 56%;
+    width: 48%;
     text-decoration: none;
     margin-bottom: 6px;
 }
+
+.texto_descripcionCatalogoPersonalizado {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-align: justify;
+}
+
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
@@ -8595,4 +8624,22 @@ a:focus, a:hover {
   font-family:'Lato';
   color:black;
   font-weight:700;
+}
+
+span.icon-advertencia{
+    display: inline-block;
+    /*background: #d20000;*/
+    background:url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    /*border-radius: 100%;*/
+    margin-right: 8px;
+    /*margin-bottom:32px;*/
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -6px;
 }
