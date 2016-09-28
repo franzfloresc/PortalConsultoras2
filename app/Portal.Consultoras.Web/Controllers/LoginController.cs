@@ -494,7 +494,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     //if(model.RolID == 1) this.CrearUsuarioMiAcademia(model);
 
-                    ObtenerProductosOfertaFinal(model);
+                    if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore || 
+                        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                    {
+                        ObtenerProductosOfertaFinal(model);
+                    }
                 }
 
                 pasoLog = "Agregar usuario en session";
