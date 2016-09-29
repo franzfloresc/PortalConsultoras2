@@ -932,6 +932,7 @@ function EjecutarServicioPROL() {
             $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
 
             /*SB20-565 - INICIO */
+            $("#btnNoGraciasOfertaFinal")[0].data = response.data;
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             var cumpleOferta;
             /*SB20-565 - FIN */
@@ -946,8 +947,8 @@ function EjecutarServicioPROL() {
                 //$('#DivObsBut').css({ "display": "block" });
                 //$('#DivObsInfBut').css({ "display": "none" });
 
-                console.log('Reserva == false');
-                $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+                console.log('caso 1');
+                
                 codigoMensajeProl = response.data.CodigoMensajeProl;
 
                 cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
@@ -971,9 +972,9 @@ function EjecutarServicioPROL() {
             }
 
             if (model.ZonaValida == true) {
-                console.log('ZonaValida == true');
+                console.log('caso 2');
                 if (model.ObservacionInformativa == false) {
-                    console.log('ObservacionInformativa == false')
+                    console.log('caso 2.1')
 
                     //if (model.ProlSinStock == true) {
                     //    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
@@ -997,22 +998,25 @@ function EjecutarServicioPROL() {
                             CargarPedido();
                             return true;
                         }
+                        else {
+                            messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                            //PEDIDO VALIDADO
+                            AnalyticsGuardarValidar(response);
+                            AnalyticsPedidoValidado(response);
+                            setTimeout(function () {
+                                location.href = urlPedidoValidado;
+                            }, 2000);
+
+                            return true;
+                        }
                     }
                     /* SB20-565 - FINAL */
-
-                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
-                    AnalyticsPedidoValidado(response);
-                    setTimeout(function () {
-                        location.href = urlPedidoValidado;
-                    }, 2000);
-
-                    return true;
                 }
 
+                console.log('2.2');
+                var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
                 /* SB20-565 - INICIO */
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                 console.log(cumpleOferta);
 
                 if (cumpleOferta.resultado) {
@@ -1022,25 +1026,32 @@ function EjecutarServicioPROL() {
                     $('#modal-prol-botonesAceptarCancelar').show();
                     $('#modal-prol-botoneAceptar').hide();
                     $('#popup-observaciones-prol').show();
-
-                    CargarPedido();
-                    return true;
                 }
+
+                CargarPedido();
+                return true;
             }
             
-            var msg = ""
-            if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-                msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-            } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p>' + mensajeGuardarCO + '</p>';
+            console.log('caso 3');
+            cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+            if (cumpleOferta.resultado) {
+                MostrarPopupOfertaFinal(cumpleOferta, 1);
             } else {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
+                var msg = ""
+                if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
+                    msg = '<h3>Tu pedido se guardó con éxito</h3>';
+                    msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
+                    msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
+                } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
+                    msg = '<h3>Tu pedido se guardó con éxito</h3>';
+                    msg += '<p>' + mensajeGuardarCO + '</p>';
+                } else {
+                    msg = '<h3>Tu pedido se guardó con éxito</h3>';
+                }
+                messageInfoBueno(msg);
+                AnalyticsGuardarValidar(response);
             }
-            messageInfoBueno(msg);
-            AnalyticsGuardarValidar(response);
+
             CargarPedido();
             return true;
         },
@@ -1566,6 +1577,9 @@ function InsertarProducto(model) {
 };
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
+
+    console.log('MostrarPopupOfertaFinal');
+    console.log(tipoPopupMostrar);
     //$('.js-slick-prev-of').remove();
     //$('.js-slick-next-of').remove();
 
@@ -1578,7 +1592,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divCarruselOfertaFinal");
 
-    //$("#divOfertaFinal").show();
+    $("#divOfertaFinal").show();
 
     $('#divCarruselOfertaFinal').slick({
         infinite: true,
@@ -1606,27 +1620,38 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
+    console.log('CargandoValoresPopupOfertaFinal');
+    console.log(tipoPopupMostrar);
+    console.log(montoFaltante);
+    console.log(porcentajeDescuento);
+
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
+    //$('#spCabeceraMontominimo').hide();
+
     if (tipoPopupMostrar == 1) {
+        $("#divIconoOfertaFinal").removeClass("icono_exclamacion");
         $("#divIconoOfertaFinal").addClass("icono_aprobacion");
-        $("#spnTituloOfertaFinal").html("GUARDASTE TU <b>PEDIDO CON ÉXITO !</b>");
+        $("#spnTituloOfertaFinal").html("RESERVASTE TU<b>&nbsp;PEDIDO CON ÉXITO!</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("para ganar más esta campaña.");
-        if (viewBagPaisID == 11) {
-            $("#spnSubTituloOfertaFinal").html("Gana mas con estas ofertas que tenemos solo para ti");
-        } else if (viewBagPaisID == 3) {
-            $("#spnSubTituloOfertaFinal").html("Gana mas con estas ofertas que tenemos solo para ti");
+        $("#spnMensajeOfertaFinal").html("&nbsp;para conseguir " + porcentajeDescuento + "% DSCTO y ganar más esta campaña.");
+        if (viewBagPaisID == 3) {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estas ofertas que tenemos solo para ti");
+        } else if (viewBagPaisID == 11) {
+            $("#spnSubTituloOfertaFinal").html("Alcanza el " + porcentajeDescuento + "% DSCTO con estos productos que tenemos para ti");
         }
     }
     else {
+        $("#divIconoOfertaFinal").removeClass("icono_aprobacion");
         $("#divIconoOfertaFinal").addClass("icono_exclamacion");
-        $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
+        $("#spnTituloOfertaFinal").html("TODAVÍA<b>&nbsp;TE FALTA UN POCO...</b>");
         $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
-        if (viewBagPaisID == "11") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagPaisID == "3") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti.");
+        //$('#spMontoMinimoCabecera').html(montoMinimo);
+        //$('#spCabeceraMontominimo').show();
+        $("#spnMensajeOfertaFinal").html("&nbsp;para poder pasar tu pedido.");
+        if (viewBagPaisID == 3) {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti");
+        } else if (viewBagPaisID == 11) {
+            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti");
         }
     }
 
@@ -1697,6 +1722,8 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
 }
 
 function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
+    console.log('CumpleParametriaOfertaFinal');
+    console.log(monto);
     var resultado = false;
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
@@ -1724,6 +1751,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     }
                 });
 
+                console.log(escalaDescuento);
+
                 if (escalaDescuento == null) {
                     resultado = false;
                 } else {
@@ -1732,6 +1761,7 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
+                            console.log(diferenciaMontoEd);
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
@@ -1757,12 +1787,15 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     if (mensajeCUV == "XXXXX") {
                         var montoMinimo = parseFloat($("#hdMontoMinimo").val());
+                        console.log('acaca');
+                        console.log(montoMinimo);
                         var diferenciaMonto = montoMinimo - monto;
 
                         var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
                         if (parametria != null && parametria.length != 0) {
                             if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
+                                console.log(diferenciaMontoEd);
                                 montoFaltante = diferenciaMonto;
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
                                 resultado = true;
@@ -1784,6 +1817,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
             }
         }
     }
+
+    console.log(montoFaltante);
 
     return {
         resultado: resultado,
