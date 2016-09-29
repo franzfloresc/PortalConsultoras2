@@ -275,5 +275,7 @@ namespace Portal.Consultoras.Web.Models
         public int EstaRechazado { get; set; }
 
         public int CerrarRechazado { get; set; }
+
+        public string NombreGerenteZonal { get; set; }  // SB20-907
     }
 }

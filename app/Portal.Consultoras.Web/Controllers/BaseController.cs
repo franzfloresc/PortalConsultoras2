@@ -878,6 +878,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EsOfertaFinalZonaValida = oBEUsuario.EsOfertaFinalZonaValida;
                 model.CatalogoPersonalizado = oBEUsuario.CatalogoPersonalizado;
                 model.EsCatalogoPersonalizadoZonaValida = oBEUsuario.EsCatalogoPersonalizadoZonaValida;
+
+                model.NombreGerenteZonal = oBEUsuario.NombreGerenteZona;  // SB20-907
             }
             Session["UserData"] = model;
 
