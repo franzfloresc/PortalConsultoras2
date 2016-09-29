@@ -58,14 +58,13 @@
       <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoPaternoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Calle" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CargoEmpresaAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CelularAval" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CelularEmpresaAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CelularFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CelularNoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoMarcaVendeMas" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoOtrasMarcas" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
@@ -77,7 +76,7 @@
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionCompleta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DireccionEmpresaAval" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DireccionEntrega" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DireccionNoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Edad" type="xs:int" />
@@ -99,10 +98,14 @@
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenContrato" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCreditoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenDniAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenIFE" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenPagare" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenReciboOtraMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenReciboPagoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorActivo" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorActivoID" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorOptin" nillable="true" type="xs:boolean" />
@@ -110,6 +113,7 @@
       <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMeta" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducativo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
@@ -136,7 +140,6 @@
       <xs:element minOccurs="0" name="TeRecomendoOtraConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="TelefonoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoCelular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TelefonoEmpresaAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoFijo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoNoFamiliar" nillable="true" type="xs:string" />
@@ -147,6 +150,7 @@
       <xs:element minOccurs="0" name="TipoDocumentoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumentoLegal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoVinculoAval" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoVinculoFamiliar" nillable="true" type="xs:int" />

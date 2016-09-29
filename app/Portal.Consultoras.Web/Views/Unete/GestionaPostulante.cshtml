@@ -246,7 +246,7 @@
                 },
                 {
                     name: 'EvaluacionCrediticia', index: 'EvaluacionCrediticia', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
-                        return rowObject[13] == '2' ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
+                        return (rowObject[13] == '2' || rowObject[13] == '30' || rowObject[13] == '31' || rowObject[13] == '32' || rowObject[13] == '33') ? '<img src="@Url.Content("~/Content/Images/icons/sign-check.png")" />' :
                             rowObject[13] == '3' ? '<img src="@Url.Content("~/Content/Images/icons/sign-error.png")" />' :
                             '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/icons/sign-warning.png")" onclick="consultarEvaluacionCrediticia(' + rowObject[0] + ');" /></a>';
                     }

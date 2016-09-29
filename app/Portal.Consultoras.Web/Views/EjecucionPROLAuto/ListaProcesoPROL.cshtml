@@ -14,6 +14,9 @@
             </th>
             <th style="width: 15%;">Fecha/Hora Fin Envío Correo
             </th>
+            <th style="width: 15%;">
+                Fecha Facturacion
+            </th>            
         </tr>
     </thead>
     <tbody>
@@ -52,6 +55,12 @@
                     @if (item.FechaHoraFinEnvio.Year != 2000)
                     {
                         @Html.DisplayTextFor(modelItem => item.FechaHoraFinEnvio)
+                    }
+                </td>
+                <td class="center">
+                    @if (item.FechaHoraFacturacion.Year != 2000)
+                    {
+                        @Html.DisplayTextFor(modelItem => item.FechaHoraFacturacion)
                     }
                 </td>
             </tr>

@@ -26,7 +26,8 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaHoraInicioEnvio { get; set; }
         [DataMember]
         public DateTime FechaHoraFinEnvio { get; set; }
-
+        [DataMember]
+        public DateTime FechaHoraFacturacion { get; set; }
         public BEValidacionAutomatica()
         { 
         
@@ -41,6 +42,7 @@ namespace Portal.Consultoras.Entities
             EnvioCorreo = Convert.ToBoolean(row["EnvioCorreo"]);
             FechaHoraInicioEnvio = Convert.ToDateTime(row["FechaHoraInicioEnvio"]);
             FechaHoraFinEnvio = Convert.ToDateTime(row["FechaHoraFinEnvio"]);
+            FechaHoraFacturacion = Convert.ToDateTime(row["FechaHoraFacturacion"]);
         }
     }
 

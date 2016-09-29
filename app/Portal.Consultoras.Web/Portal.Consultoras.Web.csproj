@@ -345,7 +345,14 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
+    <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1058,7 +1065,6 @@
     <Content Include="Content\Css\Site\jquery.tag-editor.css" />
     <Content Include="Content\Css\Site\Lbel\reset.css" />
     <Content Include="Content\Css\Site\Lbel\style.css" />
-    <Content Include="Content\Css\Site\menu_comunidad_new.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
     <Content Include="Content\Css\Site\slick.min.css" />
@@ -1066,7 +1072,6 @@
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
     <Content Include="Content\Css\Site\slick.css" />
-    <Content Include="Content\Css\Site\menu_comunidad.css" />
     <Content Include="Content\Css\Site\style-tismart.css" />
     <Content Include="Content\Css\Site\style.css" />
     <Content Include="Content\Css\Site\footer_PE.css" />
@@ -1649,11 +1654,13 @@
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika6.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika7.jpg" />
     <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika8.jpg" />
+    <Content Include="Content\Images\Esika\tutorialHome\tutorial-home-esika9.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial1.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial2.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial3.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial4.jpg" />
     <Content Include="Content\Images\Esika\tutorialPedido\esika_tutorial5.jpg" />
+    <Content Include="Content\Images\Esika\tutorial\tuto6.jpg" />
     <Content Include="Content\Images\Esika\tutorial_esika.jpg" />
     <Content Include="Content\Images\Esika\tutorial\tuto1.png" />
     <Content Include="Content\Images\Esika\tutorial\tuto2.png" />
@@ -2568,29 +2575,29 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService11.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService610.xsd">
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService611.xsd">
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService612.xsd">
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService613.xsd">
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService66.xsd">
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService67.xsd">
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService68.xsd">
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService69.xsd">
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionCrediticia\configuration91.svcinfo" />
@@ -2605,7 +2612,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.disco" />
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
@@ -3057,30 +3063,10 @@
     </None>
     <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
     <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService61.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService62.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService63.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService64.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService65.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceUnete\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService.disco" />
     <Content Include="Service References\ServiceUsuario\Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3196,7 +3182,6 @@
     <Content Include="WebPages\Comunidad\CondicionesServicio_8.html" />
     <Content Include="WebPages\Comunidad\CondicionesServicio_9.html" />
     <Content Include="WebPages\Comunidad\footercomunidad.html" />
-    <Content Include="WebPages\Comunidad\menucomunidad - OLD.html" />
     <Content Include="WebPages\Comunidad\menucomunidad.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_10.html" />
     <Content Include="WebPages\Comunidad\PoliticasPrivacidad_11.html" />
@@ -3504,6 +3489,9 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo3.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo4.cshtml" />
     <Content Include="Views\Incentivos\Index.cshtml" />
+    <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
+    <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
+    <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

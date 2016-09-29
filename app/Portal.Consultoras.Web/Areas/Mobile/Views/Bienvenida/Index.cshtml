@@ -47,6 +47,10 @@
                 <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
                 <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
+                @if (Model.CodigoISO == Constantes.CodigosISOPais.Peru || Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+                {
+                    <li><img src="~/Content/Images/Esika/Tutorial/tuto6.jpg" /></li>
+                }
             </ul>
         </div>
 
@@ -127,7 +131,7 @@
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
        class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
     <br />
-    <a class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;" title="Mira el Video de Bienvenida">MIRA EL VIDEO DE BIENVENIDA</a>
+    <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -171,7 +175,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index","Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
 
         </div>
         <!-- FIN ITEM 1-->
@@ -189,15 +193,15 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.PaisID == 3) //Chile
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 4) //Colombia
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 12) //Puerto Rico
             {
-                <a title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {

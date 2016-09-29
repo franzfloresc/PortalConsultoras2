@@ -15,6 +15,2604 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionParametroCarga", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionParametroCarga : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasDuracionCronogramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasParametroCargaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short ValidacionActivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaNombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasDuracionCronograma {
+            get {
+                return this.DiasDuracionCronogramaField;
+            }
+            set {
+                if ((this.DiasDuracionCronogramaField.Equals(value) != true)) {
+                    this.DiasDuracionCronogramaField = value;
+                    this.RaisePropertyChanged("DiasDuracionCronograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasParametroCarga {
+            get {
+                return this.DiasParametroCargaField;
+            }
+            set {
+                if ((this.DiasParametroCargaField.Equals(value) != true)) {
+                    this.DiasParametroCargaField = value;
+                    this.RaisePropertyChanged("DiasParametroCarga");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RegionNombre {
+            get {
+                return this.RegionNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionNombreField, value) != true)) {
+                    this.RegionNombreField = value;
+                    this.RaisePropertyChanged("RegionNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short ValidacionActiva {
+            get {
+                return this.ValidacionActivaField;
+            }
+            set {
+                if ((this.ValidacionActivaField.Equals(value) != true)) {
+                    this.ValidacionActivaField = value;
+                    this.RaisePropertyChanged("ValidacionActiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ZonaNombre {
+            get {
+                return this.ZonaNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaNombreField, value) != true)) {
+                    this.ZonaNombreField = value;
+                    this.RaisePropertyChanged("ZonaNombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BELogParametroDiasCargaPedido", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BELogParametroDiasCargaPedido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosRegionZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasParametroCargaActualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasParametroCargaAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosRegionZona {
+            get {
+                return this.CodigosRegionZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosRegionZonaField, value) != true)) {
+                    this.CodigosRegionZonaField = value;
+                    this.RaisePropertyChanged("CodigosRegionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasParametroCargaActual {
+            get {
+                return this.DiasParametroCargaActualField;
+            }
+            set {
+                if ((this.DiasParametroCargaActualField.Equals(value) != true)) {
+                    this.DiasParametroCargaActualField = value;
+                    this.RaisePropertyChanged("DiasParametroCargaActual");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasParametroCargaAnterior {
+            get {
+                return this.DiasParametroCargaAnteriorField;
+            }
+            set {
+                if ((this.DiasParametroCargaAnteriorField.Equals(value) != true)) {
+                    this.DiasParametroCargaAnteriorField = value;
+                    this.RaisePropertyChanged("DiasParametroCargaAnterior");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaField, value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionPortal", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionPortal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsquemaDAConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoSimplificacionCUVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> TipoProcesoCargaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsquemaDAConsultora {
+            get {
+                return this.EsquemaDAConsultoraField;
+            }
+            set {
+                if ((this.EsquemaDAConsultoraField.Equals(value) != true)) {
+                    this.EsquemaDAConsultoraField = value;
+                    this.RaisePropertyChanged("EsquemaDAConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EstadoSimplificacionCUV {
+            get {
+                return this.EstadoSimplificacionCUVField;
+            }
+            set {
+                if ((this.EstadoSimplificacionCUVField.Equals(value) != true)) {
+                    this.EstadoSimplificacionCUVField = value;
+                    this.RaisePropertyChanged("EstadoSimplificacionCUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> TipoProcesoCarga {
+            get {
+                return this.TipoProcesoCargaField;
+            }
+            set {
+                if ((this.TipoProcesoCargaField.Equals(value) != true)) {
+                    this.TipoProcesoCargaField = value;
+                    this.RaisePropertyChanged("TipoProcesoCarga");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEParticipantesDemandaAnticipada", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEParticipantesDemandaAnticipada : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AceptoParticiparField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConfiguracionConsultoraDAIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFormatoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaModificadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaModificadaFormatoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte TipoConfiguracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AceptoParticipar {
+            get {
+                return this.AceptoParticiparField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AceptoParticiparField, value) != true)) {
+                    this.AceptoParticiparField = value;
+                    this.RaisePropertyChanged("AceptoParticipar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCampania {
+            get {
+                return this.CodigoCampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCampaniaField, value) != true)) {
+                    this.CodigoCampaniaField = value;
+                    this.RaisePropertyChanged("CodigoCampania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoZona {
+            get {
+                return this.CodigoZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
+                    this.CodigoZonaField = value;
+                    this.RaisePropertyChanged("CodigoZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConfiguracionConsultoraDAID {
+            get {
+                return this.ConfiguracionConsultoraDAIDField;
+            }
+            set {
+                if ((this.ConfiguracionConsultoraDAIDField.Equals(value) != true)) {
+                    this.ConfiguracionConsultoraDAIDField = value;
+                    this.RaisePropertyChanged("ConfiguracionConsultoraDAID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((this.FechaField.Equals(value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFormato {
+            get {
+                return this.FechaFormatoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFormatoField, value) != true)) {
+                    this.FechaFormatoField = value;
+                    this.RaisePropertyChanged("FechaFormato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaModificada {
+            get {
+                return this.FechaModificadaField;
+            }
+            set {
+                if ((this.FechaModificadaField.Equals(value) != true)) {
+                    this.FechaModificadaField = value;
+                    this.RaisePropertyChanged("FechaModificada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaModificadaFormato {
+            get {
+                return this.FechaModificadaFormatoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaModificadaFormatoField, value) != true)) {
+                    this.FechaModificadaFormatoField = value;
+                    this.RaisePropertyChanged("FechaModificadaFormato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteTotal {
+            get {
+                return this.ImporteTotalField;
+            }
+            set {
+                if ((this.ImporteTotalField.Equals(value) != true)) {
+                    this.ImporteTotalField = value;
+                    this.RaisePropertyChanged("ImporteTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreZona {
+            get {
+                return this.NombreZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreZonaField, value) != true)) {
+                    this.NombreZonaField = value;
+                    this.RaisePropertyChanged("NombreZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte TipoConfiguracion {
+            get {
+                return this.TipoConfiguracionField;
+            }
+            set {
+                if ((this.TipoConfiguracionField.Equals(value) != true)) {
+                    this.TipoConfiguracionField = value;
+                    this.RaisePropertyChanged("TipoConfiguracion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEServicioSegmentoZona", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEServicioSegmentoZona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BannerIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConfiguracionZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombrePaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SegmentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoInternoIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BannerId {
+            get {
+                return this.BannerIdField;
+            }
+            set {
+                if ((this.BannerIdField.Equals(value) != true)) {
+                    this.BannerIdField = value;
+                    this.RaisePropertyChanged("BannerId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((this.CampaniaIdField.Equals(value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ConfiguracionZona {
+            get {
+                return this.ConfiguracionZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfiguracionZonaField, value) != true)) {
+                    this.ConfiguracionZonaField = value;
+                    this.RaisePropertyChanged("ConfiguracionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesCampania {
+            get {
+                return this.DesCampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesCampaniaField, value) != true)) {
+                    this.DesCampaniaField = value;
+                    this.RaisePropertyChanged("DesCampania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombrePais {
+            get {
+                return this.NombrePaisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
+                    this.NombrePaisField = value;
+                    this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisId {
+            get {
+                return this.PaisIdField;
+            }
+            set {
+                if ((this.PaisIdField.Equals(value) != true)) {
+                    this.PaisIdField = value;
+                    this.RaisePropertyChanged("PaisId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Segmento {
+            get {
+                return this.SegmentoField;
+            }
+            set {
+                if ((this.SegmentoField.Equals(value) != true)) {
+                    this.SegmentoField = value;
+                    this.RaisePropertyChanged("Segmento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegmentoInternoID {
+            get {
+                return this.SegmentoInternoIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoInternoIDField, value) != true)) {
+                    this.SegmentoInternoIDField = value;
+                    this.RaisePropertyChanged("SegmentoInternoID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BETablaLogicaDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BETablaLogicaDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short TablaLogicaDatosIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short TablaLogicaIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short TablaLogicaDatosID {
+            get {
+                return this.TablaLogicaDatosIDField;
+            }
+            set {
+                if ((this.TablaLogicaDatosIDField.Equals(value) != true)) {
+                    this.TablaLogicaDatosIDField = value;
+                    this.RaisePropertyChanged("TablaLogicaDatosID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short TablaLogicaID {
+            get {
+                return this.TablaLogicaIDField;
+            }
+            set {
+                if ((this.TablaLogicaIDField.Equals(value) != true)) {
+                    this.TablaLogicaIDField = value;
+                    this.RaisePropertyChanged("TablaLogicaID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEAfiliaClienteConsultora", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEAfiliaClienteConsultora : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EmailActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsAfiliadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsConsultoraLiderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Celular {
+            get {
+                return this.CelularField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
+                    this.CelularField = value;
+                    this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EmailActivo {
+            get {
+                return this.EmailActivoField;
+            }
+            set {
+                if ((this.EmailActivoField.Equals(value) != true)) {
+                    this.EmailActivoField = value;
+                    this.RaisePropertyChanged("EmailActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsAfiliado {
+            get {
+                return this.EsAfiliadoField;
+            }
+            set {
+                if ((this.EsAfiliadoField.Equals(value) != true)) {
+                    this.EsAfiliadoField = value;
+                    this.RaisePropertyChanged("EsAfiliado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsConsultoraLider {
+            get {
+                return this.EsConsultoraLiderField;
+            }
+            set {
+                if ((this.EsConsultoraLiderField.Equals(value) != true)) {
+                    this.EsConsultoraLiderField = value;
+                    this.RaisePropertyChanged("EsConsultoraLider");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telefono {
+            get {
+                return this.TelefonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
+                    this.TelefonoField = value;
+                    this.RaisePropertyChanged("Telefono");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudCliente", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BESolicitudCliente : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUbigeoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoConsultoraAsginadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] DetalleSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DireccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailGZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EnviadoGZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoSolicitudClienteIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LeidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarcaNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeaClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeaGZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreConsultoraAsignadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreGZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumIteracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long SolicitudClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoDistribucionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioModificacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUbigeo {
+            get {
+                return this.CodigoUbigeoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUbigeoField, value) != true)) {
+                    this.CodigoUbigeoField = value;
+                    this.RaisePropertyChanged("CodigoUbigeo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CorreoConsultoraAsginada {
+            get {
+                return this.CorreoConsultoraAsginadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoConsultoraAsginadaField, value) != true)) {
+                    this.CorreoConsultoraAsginadaField = value;
+                    this.RaisePropertyChanged("CorreoConsultoraAsginada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] DetalleSolicitud {
+            get {
+                return this.DetalleSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleSolicitudField, value) != true)) {
+                    this.DetalleSolicitudField = value;
+                    this.RaisePropertyChanged("DetalleSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Direccion {
+            get {
+                return this.DireccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
+                    this.DireccionField = value;
+                    this.RaisePropertyChanged("Direccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmailGZ {
+            get {
+                return this.EmailGZField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailGZField, value) != true)) {
+                    this.EmailGZField = value;
+                    this.RaisePropertyChanged("EmailGZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EnviadoGZ {
+            get {
+                return this.EnviadoGZField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EnviadoGZField, value) != true)) {
+                    this.EnviadoGZField = value;
+                    this.RaisePropertyChanged("EnviadoGZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoSolicitudClienteId {
+            get {
+                return this.EstadoSolicitudClienteIdField;
+            }
+            set {
+                if ((this.EstadoSolicitudClienteIdField.Equals(value) != true)) {
+                    this.EstadoSolicitudClienteIdField = value;
+                    this.RaisePropertyChanged("EstadoSolicitudClienteId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaModificacion {
+            get {
+                return this.FechaModificacionField;
+            }
+            set {
+                if ((this.FechaModificacionField.Equals(value) != true)) {
+                    this.FechaModificacionField = value;
+                    this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaSolicitud {
+            get {
+                return this.FechaSolicitudField;
+            }
+            set {
+                if ((this.FechaSolicitudField.Equals(value) != true)) {
+                    this.FechaSolicitudField = value;
+                    this.RaisePropertyChanged("FechaSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Leido {
+            get {
+                return this.LeidoField;
+            }
+            set {
+                if ((this.LeidoField.Equals(value) != true)) {
+                    this.LeidoField = value;
+                    this.RaisePropertyChanged("Leido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MarcaNombre {
+            get {
+                return this.MarcaNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarcaNombreField, value) != true)) {
+                    this.MarcaNombreField = value;
+                    this.RaisePropertyChanged("MarcaNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje {
+            get {
+                return this.MensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
+                    this.MensajeField = value;
+                    this.RaisePropertyChanged("Mensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeaCliente {
+            get {
+                return this.MensajeaClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeaClienteField, value) != true)) {
+                    this.MensajeaClienteField = value;
+                    this.RaisePropertyChanged("MensajeaCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeaGZ {
+            get {
+                return this.MensajeaGZField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeaGZField, value) != true)) {
+                    this.MensajeaGZField = value;
+                    this.RaisePropertyChanged("MensajeaGZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreConsultoraAsignada {
+            get {
+                return this.NombreConsultoraAsignadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreConsultoraAsignadaField, value) != true)) {
+                    this.NombreConsultoraAsignadaField = value;
+                    this.RaisePropertyChanged("NombreConsultoraAsignada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreGZ {
+            get {
+                return this.NombreGZField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreGZField, value) != true)) {
+                    this.NombreGZField = value;
+                    this.RaisePropertyChanged("NombreGZ");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumIteracion {
+            get {
+                return this.NumIteracionField;
+            }
+            set {
+                if ((this.NumIteracionField.Equals(value) != true)) {
+                    this.NumIteracionField = value;
+                    this.RaisePropertyChanged("NumIteracion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Seccion {
+            get {
+                return this.SeccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
+                    this.SeccionField = value;
+                    this.RaisePropertyChanged("Seccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long SolicitudClienteID {
+            get {
+                return this.SolicitudClienteIDField;
+            }
+            set {
+                if ((this.SolicitudClienteIDField.Equals(value) != true)) {
+                    this.SolicitudClienteIDField = value;
+                    this.RaisePropertyChanged("SolicitudClienteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telefono {
+            get {
+                return this.TelefonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
+                    this.TelefonoField = value;
+                    this.RaisePropertyChanged("Telefono");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoDistribucion {
+            get {
+                return this.TipoDistribucionField;
+            }
+            set {
+                if ((this.TipoDistribucionField.Equals(value) != true)) {
+                    this.TipoDistribucionField = value;
+                    this.RaisePropertyChanged("TipoDistribucion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica1 {
+            get {
+                return this.UnidadGeografica1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica1Field, value) != true)) {
+                    this.UnidadGeografica1Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica2 {
+            get {
+                return this.UnidadGeografica2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica2Field, value) != true)) {
+                    this.UnidadGeografica2Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica3 {
+            get {
+                return this.UnidadGeografica3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica3Field, value) != true)) {
+                    this.UnidadGeografica3Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioModificacion {
+            get {
+                return this.UsuarioModificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
+                    this.UsuarioModificacionField = value;
+                    this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudClienteDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BESolicitudClienteDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionMarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TonoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV {
+            get {
+                return this.CUVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
+                    this.CUVField = value;
+                    this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionMarca {
+            get {
+                return this.DescripcionMarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionMarcaField, value) != true)) {
+                    this.DescripcionMarcaField = value;
+                    this.RaisePropertyChanged("DescripcionMarca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionProducto {
+            get {
+                return this.DescripcionProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionProductoField, value) != true)) {
+                    this.DescripcionProductoField = value;
+                    this.RaisePropertyChanged("DescripcionProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio {
+            get {
+                return this.PrecioField;
+            }
+            set {
+                if ((this.PrecioField.Equals(value) != true)) {
+                    this.PrecioField = value;
+                    this.RaisePropertyChanged("Precio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Tono {
+            get {
+                return this.TonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TonoField, value) != true)) {
+                    this.TonoField = value;
+                    this.RaisePropertyChanged("Tono");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudNuevaConsultora", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BESolicitudNuevaConsultora : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarcaNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MarcaNombre {
+            get {
+                return this.MarcaNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarcaNombreField, value) != true)) {
+                    this.MarcaNombreField = value;
+                    this.RaisePropertyChanged("MarcaNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEstadoSolicitudCliente", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEEstadoSolicitudCliente : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoSolicitudClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoEstadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Activo {
+            get {
+                return this.ActivoField;
+            }
+            set {
+                if ((this.ActivoField.Equals(value) != true)) {
+                    this.ActivoField = value;
+                    this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoSolicitudClienteID {
+            get {
+                return this.EstadoSolicitudClienteIDField;
+            }
+            set {
+                if ((this.EstadoSolicitudClienteIDField.Equals(value) != true)) {
+                    this.EstadoSolicitudClienteIDField = value;
+                    this.RaisePropertyChanged("EstadoSolicitudClienteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoEstado {
+            get {
+                return this.TipoEstadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoEstadoField, value) != true)) {
+                    this.TipoEstadoField = value;
+                    this.RaisePropertyChanged("TipoEstado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEReporteAfiliados", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEReporteAfiliados : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AnoCampanaIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUbigeoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EdadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsAfiliadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaCreacionStringField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaModificacionStringField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnidadGeografica3Field;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AnoCampanaIngreso {
+            get {
+                return this.AnoCampanaIngresoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AnoCampanaIngresoField, value) != true)) {
+                    this.AnoCampanaIngresoField = value;
+                    this.RaisePropertyChanged("AnoCampanaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUbigeo {
+            get {
+                return this.CodigoUbigeoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUbigeoField, value) != true)) {
+                    this.CodigoUbigeoField = value;
+                    this.RaisePropertyChanged("CodigoUbigeo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Correo {
+            get {
+                return this.CorreoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
+                    this.CorreoField = value;
+                    this.RaisePropertyChanged("Correo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Edad {
+            get {
+                return this.EdadField;
+            }
+            set {
+                if ((this.EdadField.Equals(value) != true)) {
+                    this.EdadField = value;
+                    this.RaisePropertyChanged("Edad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsAfiliado {
+            get {
+                return this.EsAfiliadoField;
+            }
+            set {
+                if ((this.EsAfiliadoField.Equals(value) != true)) {
+                    this.EsAfiliadoField = value;
+                    this.RaisePropertyChanged("EsAfiliado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaCreacion {
+            get {
+                return this.FechaCreacionField;
+            }
+            set {
+                if ((this.FechaCreacionField.Equals(value) != true)) {
+                    this.FechaCreacionField = value;
+                    this.RaisePropertyChanged("FechaCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaCreacionString {
+            get {
+                return this.FechaCreacionStringField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaCreacionStringField, value) != true)) {
+                    this.FechaCreacionStringField = value;
+                    this.RaisePropertyChanged("FechaCreacionString");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaModificacion {
+            get {
+                return this.FechaModificacionField;
+            }
+            set {
+                if ((this.FechaModificacionField.Equals(value) != true)) {
+                    this.FechaModificacionField = value;
+                    this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaModificacionString {
+            get {
+                return this.FechaModificacionStringField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaModificacionStringField, value) != true)) {
+                    this.FechaModificacionStringField = value;
+                    this.RaisePropertyChanged("FechaModificacionString");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Segmento {
+            get {
+                return this.SegmentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoField, value) != true)) {
+                    this.SegmentoField = value;
+                    this.RaisePropertyChanged("Segmento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica1 {
+            get {
+                return this.UnidadGeografica1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica1Field, value) != true)) {
+                    this.UnidadGeografica1Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica2 {
+            get {
+                return this.UnidadGeografica2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica2Field, value) != true)) {
+                    this.UnidadGeografica2Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnidadGeografica3 {
+            get {
+                return this.UnidadGeografica3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnidadGeografica3Field, value) != true)) {
+                    this.UnidadGeografica3Field = value;
+                    this.RaisePropertyChanged("UnidadGeografica3");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEReportePedidos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEReportePedidos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DireccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool LeidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SolicitudClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoFijoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoMovilConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TonoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Direccion {
+            get {
+                return this.DireccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
+                    this.DireccionField = value;
+                    this.RaisePropertyChanged("Direccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmailCliente {
+            get {
+                return this.EmailClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailClienteField, value) != true)) {
+                    this.EmailClienteField = value;
+                    this.RaisePropertyChanged("EmailCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmailConsultora {
+            get {
+                return this.EmailConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailConsultoraField, value) != true)) {
+                    this.EmailConsultoraField = value;
+                    this.RaisePropertyChanged("EmailConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaSolicitud {
+            get {
+                return this.FechaSolicitudField;
+            }
+            set {
+                if ((this.FechaSolicitudField.Equals(value) != true)) {
+                    this.FechaSolicitudField = value;
+                    this.RaisePropertyChanged("FechaSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Leido {
+            get {
+                return this.LeidoField;
+            }
+            set {
+                if ((this.LeidoField.Equals(value) != true)) {
+                    this.LeidoField = value;
+                    this.RaisePropertyChanged("Leido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Marca {
+            get {
+                return this.MarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
+                    this.MarcaField = value;
+                    this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeCliente {
+            get {
+                return this.MensajeClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeClienteField, value) != true)) {
+                    this.MensajeClienteField = value;
+                    this.RaisePropertyChanged("MensajeCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCliente {
+            get {
+                return this.NombreClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
+                    this.NombreClienteField = value;
+                    this.RaisePropertyChanged("NombreCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreConsultora {
+            get {
+                return this.NombreConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreConsultoraField, value) != true)) {
+                    this.NombreConsultoraField = value;
+                    this.RaisePropertyChanged("NombreConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Precio {
+            get {
+                return this.PrecioField;
+            }
+            set {
+                if ((this.PrecioField.Equals(value) != true)) {
+                    this.PrecioField = value;
+                    this.RaisePropertyChanged("Precio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Producto {
+            get {
+                return this.ProductoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductoField, value) != true)) {
+                    this.ProductoField = value;
+                    this.RaisePropertyChanged("Producto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SolicitudClienteID {
+            get {
+                return this.SolicitudClienteIDField;
+            }
+            set {
+                if ((this.SolicitudClienteIDField.Equals(value) != true)) {
+                    this.SolicitudClienteIDField = value;
+                    this.RaisePropertyChanged("SolicitudClienteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoCliente {
+            get {
+                return this.TelefonoClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoClienteField, value) != true)) {
+                    this.TelefonoClienteField = value;
+                    this.RaisePropertyChanged("TelefonoCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoFijoConsultora {
+            get {
+                return this.TelefonoFijoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoFijoConsultoraField, value) != true)) {
+                    this.TelefonoFijoConsultoraField = value;
+                    this.RaisePropertyChanged("TelefonoFijoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoMovilConsultora {
+            get {
+                return this.TelefonoMovilConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoMovilConsultoraField, value) != true)) {
+                    this.TelefonoMovilConsultoraField = value;
+                    this.RaisePropertyChanged("TelefonoMovilConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Tono {
+            get {
+                return this.TonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TonoField, value) != true)) {
+                    this.TonoField = value;
+                    this.RaisePropertyChanged("Tono");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPaisCampana", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEPaisCampana : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AnoCampanaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NroCampaniasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrefijoPaisField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AnoCampana {
+            get {
+                return this.AnoCampanaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AnoCampanaField, value) != true)) {
+                    this.AnoCampanaField = value;
+                    this.RaisePropertyChanged("AnoCampana");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NroCampanias {
+            get {
+                return this.NroCampaniasField;
+            }
+            set {
+                if ((this.NroCampaniasField.Equals(value) != true)) {
+                    this.NroCampaniasField = value;
+                    this.RaisePropertyChanged("NroCampanias");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrefijoPais {
+            get {
+                return this.PrefijoPaisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrefijoPaisField, value) != true)) {
+                    this.PrefijoPaisField = value;
+                    this.RaisePropertyChanged("PrefijoPais");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEProveedorDespachoCobranza", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEProveedorDespachoCobranza : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -332,24 +2930,33 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BETablaLogicaDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEFactorGanancia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
-    public partial class BETablaLogicaDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEFactorGanancia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoField;
+        private int EscalaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
+        private int FactorGananciaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short TablaLogicaDatosIDField;
+        private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short TablaLogicaIDField;
+        private string PaisNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PorcentajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal RangoMaximoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal RangoMinimoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -362,53 +2969,973 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Codigo {
+        public int Escala {
             get {
-                return this.CodigoField;
+                return this.EscalaField;
             }
             set {
-                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
-                    this.CodigoField = value;
-                    this.RaisePropertyChanged("Codigo");
+                if ((this.EscalaField.Equals(value) != true)) {
+                    this.EscalaField = value;
+                    this.RaisePropertyChanged("Escala");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
+        public int FactorGananciaID {
             get {
-                return this.DescripcionField;
+                return this.FactorGananciaIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
+                if ((this.FactorGananciaIDField.Equals(value) != true)) {
+                    this.FactorGananciaIDField = value;
+                    this.RaisePropertyChanged("FactorGananciaID");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public short TablaLogicaDatosID {
+        public int PaisID {
             get {
-                return this.TablaLogicaDatosIDField;
+                return this.PaisIDField;
             }
             set {
-                if ((this.TablaLogicaDatosIDField.Equals(value) != true)) {
-                    this.TablaLogicaDatosIDField = value;
-                    this.RaisePropertyChanged("TablaLogicaDatosID");
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public short TablaLogicaID {
+        public string PaisNombre {
             get {
-                return this.TablaLogicaIDField;
+                return this.PaisNombreField;
             }
             set {
-                if ((this.TablaLogicaIDField.Equals(value) != true)) {
-                    this.TablaLogicaIDField = value;
-                    this.RaisePropertyChanged("TablaLogicaID");
+                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
+                    this.PaisNombreField = value;
+                    this.RaisePropertyChanged("PaisNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Porcentaje {
+            get {
+                return this.PorcentajeField;
+            }
+            set {
+                if ((this.PorcentajeField.Equals(value) != true)) {
+                    this.PorcentajeField = value;
+                    this.RaisePropertyChanged("Porcentaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal RangoMaximo {
+            get {
+                return this.RangoMaximoField;
+            }
+            set {
+                if ((this.RangoMaximoField.Equals(value) != true)) {
+                    this.RangoMaximoField = value;
+                    this.RaisePropertyChanged("RangoMaximo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal RangoMinimo {
+            get {
+                return this.RangoMinimoField;
+            }
+            set {
+                if ((this.RangoMinimoField.Equals(value) != true)) {
+                    this.RangoMinimoField = value;
+                    this.RaisePropertyChanged("RangoMinimo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionValidacionZona", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionValidacionZona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasDuracionCronogramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short ValidacionActivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaNombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasDuracionCronograma {
+            get {
+                return this.DiasDuracionCronogramaField;
+            }
+            set {
+                if ((this.DiasDuracionCronogramaField.Equals(value) != true)) {
+                    this.DiasDuracionCronogramaField = value;
+                    this.RaisePropertyChanged("DiasDuracionCronograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RegionNombre {
+            get {
+                return this.RegionNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionNombreField, value) != true)) {
+                    this.RegionNombreField = value;
+                    this.RaisePropertyChanged("RegionNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short ValidacionActiva {
+            get {
+                return this.ValidacionActivaField;
+            }
+            set {
+                if ((this.ValidacionActivaField.Equals(value) != true)) {
+                    this.ValidacionActivaField = value;
+                    this.RaisePropertyChanged("ValidacionActiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ZonaNombre {
+            get {
+                return this.ZonaNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaNombreField, value) != true)) {
+                    this.ZonaNombreField = value;
+                    this.RaisePropertyChanged("ZonaNombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BELogModificacionCronograma", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BELogModificacionCronograma : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosRegionZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasDuracionCronogramaActualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short DiasDuracionCronogramaAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosRegionZona {
+            get {
+                return this.CodigosRegionZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosRegionZonaField, value) != true)) {
+                    this.CodigosRegionZonaField = value;
+                    this.RaisePropertyChanged("CodigosRegionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasDuracionCronogramaActual {
+            get {
+                return this.DiasDuracionCronogramaActualField;
+            }
+            set {
+                if ((this.DiasDuracionCronogramaActualField.Equals(value) != true)) {
+                    this.DiasDuracionCronogramaActualField = value;
+                    this.RaisePropertyChanged("DiasDuracionCronogramaActual");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short DiasDuracionCronogramaAnterior {
+            get {
+                return this.DiasDuracionCronogramaAnteriorField;
+            }
+            set {
+                if ((this.DiasDuracionCronogramaAnteriorField.Equals(value) != true)) {
+                    this.DiasDuracionCronogramaAnteriorField = value;
+                    this.RaisePropertyChanged("DiasDuracionCronogramaAnterior");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaField, value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BELugarPago", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BELugarPago : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoInstructivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoLogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoLogoAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LugarPagoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCortoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PaisNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlSitioField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoInstructivo {
+            get {
+                return this.ArchivoInstructivoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoInstructivoField, value) != true)) {
+                    this.ArchivoInstructivoField = value;
+                    this.RaisePropertyChanged("ArchivoInstructivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoLogo {
+            get {
+                return this.ArchivoLogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoLogoField, value) != true)) {
+                    this.ArchivoLogoField = value;
+                    this.RaisePropertyChanged("ArchivoLogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoLogoAnterior {
+            get {
+                return this.ArchivoLogoAnteriorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoLogoAnteriorField, value) != true)) {
+                    this.ArchivoLogoAnteriorField = value;
+                    this.RaisePropertyChanged("ArchivoLogoAnterior");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LugarPagoID {
+            get {
+                return this.LugarPagoIDField;
+            }
+            set {
+                if ((this.LugarPagoIDField.Equals(value) != true)) {
+                    this.LugarPagoIDField = value;
+                    this.RaisePropertyChanged("LugarPagoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCorto {
+            get {
+                return this.NombreCortoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
+                    this.NombreCortoField = value;
+                    this.RaisePropertyChanged("NombreCorto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaisNombre {
+            get {
+                return this.PaisNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
+                    this.PaisNombreField = value;
+                    this.RaisePropertyChanged("PaisNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlSitio {
+            get {
+                return this.UrlSitioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlSitioField, value) != true)) {
+                    this.UrlSitioField = value;
+                    this.RaisePropertyChanged("UrlSitio");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEIncentivo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEIncentivo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoPDFField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoPortadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoPortadaAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IncentivoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCortoFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCortoInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PaisNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubtituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoPDF {
+            get {
+                return this.ArchivoPDFField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoPDFField, value) != true)) {
+                    this.ArchivoPDFField = value;
+                    this.RaisePropertyChanged("ArchivoPDF");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoPortada {
+            get {
+                return this.ArchivoPortadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoPortadaField, value) != true)) {
+                    this.ArchivoPortadaField = value;
+                    this.RaisePropertyChanged("ArchivoPortada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoPortadaAnterior {
+            get {
+                return this.ArchivoPortadaAnteriorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoPortadaAnteriorField, value) != true)) {
+                    this.ArchivoPortadaAnteriorField = value;
+                    this.RaisePropertyChanged("ArchivoPortadaAnterior");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaIDFin {
+            get {
+                return this.CampaniaIDFinField;
+            }
+            set {
+                if ((this.CampaniaIDFinField.Equals(value) != true)) {
+                    this.CampaniaIDFinField = value;
+                    this.RaisePropertyChanged("CampaniaIDFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaIDInicio {
+            get {
+                return this.CampaniaIDInicioField;
+            }
+            set {
+                if ((this.CampaniaIDInicioField.Equals(value) != true)) {
+                    this.CampaniaIDInicioField = value;
+                    this.RaisePropertyChanged("CampaniaIDInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IncentivoID {
+            get {
+                return this.IncentivoIDField;
+            }
+            set {
+                if ((this.IncentivoIDField.Equals(value) != true)) {
+                    this.IncentivoIDField = value;
+                    this.RaisePropertyChanged("IncentivoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCortoFin {
+            get {
+                return this.NombreCortoFinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCortoFinField, value) != true)) {
+                    this.NombreCortoFinField = value;
+                    this.RaisePropertyChanged("NombreCortoFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCortoInicio {
+            get {
+                return this.NombreCortoInicioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCortoInicioField, value) != true)) {
+                    this.NombreCortoInicioField = value;
+                    this.RaisePropertyChanged("NombreCortoInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaisNombre {
+            get {
+                return this.PaisNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
+                    this.PaisNombreField = value;
+                    this.RaisePropertyChanged("PaisNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Subtitulo {
+            get {
+                return this.SubtituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubtituloField, value) != true)) {
+                    this.SubtituloField = value;
+                    this.RaisePropertyChanged("Subtitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Titulo {
+            get {
+                return this.TituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TituloField, value) != true)) {
+                    this.TituloField = value;
+                    this.RaisePropertyChanged("Titulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Url {
+            get {
+                return this.UrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlField, value) != true)) {
+                    this.UrlField = value;
+                    this.RaisePropertyChanged("Url");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEBelcorpNoticia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEBelcorpNoticia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoPortadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BelcorpNoticiaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCortoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PaisNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlPDFField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoPortada {
+            get {
+                return this.ArchivoPortadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoPortadaField, value) != true)) {
+                    this.ArchivoPortadaField = value;
+                    this.RaisePropertyChanged("ArchivoPortada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BelcorpNoticiaID {
+            get {
+                return this.BelcorpNoticiaIDField;
+            }
+            set {
+                if ((this.BelcorpNoticiaIDField.Equals(value) != true)) {
+                    this.BelcorpNoticiaIDField = value;
+                    this.RaisePropertyChanged("BelcorpNoticiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCorto {
+            get {
+                return this.NombreCortoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
+                    this.NombreCortoField = value;
+                    this.RaisePropertyChanged("NombreCorto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaisNombre {
+            get {
+                return this.PaisNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
+                    this.PaisNombreField = value;
+                    this.RaisePropertyChanged("PaisNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Titulo {
+            get {
+                return this.TituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TituloField, value) != true)) {
+                    this.TituloField = value;
+                    this.RaisePropertyChanged("Titulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlPDF {
+            get {
+                return this.UrlPDFField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlPDFField, value) != true)) {
+                    this.UrlPDFField = value;
+                    this.RaisePropertyChanged("UrlPDF");
                 }
             }
         }
@@ -3491,179 +7018,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionParametroCarga", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEConfiguracionParametroCarga : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasDuracionCronogramaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasParametroCargaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int RegionIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RegionNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short ValidacionActivaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ZonaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ZonaNombreField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaID {
-            get {
-                return this.CampaniaIDField;
-            }
-            set {
-                if ((this.CampaniaIDField.Equals(value) != true)) {
-                    this.CampaniaIDField = value;
-                    this.RaisePropertyChanged("CampaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasDuracionCronograma {
-            get {
-                return this.DiasDuracionCronogramaField;
-            }
-            set {
-                if ((this.DiasDuracionCronogramaField.Equals(value) != true)) {
-                    this.DiasDuracionCronogramaField = value;
-                    this.RaisePropertyChanged("DiasDuracionCronograma");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasParametroCarga {
-            get {
-                return this.DiasParametroCargaField;
-            }
-            set {
-                if ((this.DiasParametroCargaField.Equals(value) != true)) {
-                    this.DiasParametroCargaField = value;
-                    this.RaisePropertyChanged("DiasParametroCarga");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int RegionID {
-            get {
-                return this.RegionIDField;
-            }
-            set {
-                if ((this.RegionIDField.Equals(value) != true)) {
-                    this.RegionIDField = value;
-                    this.RaisePropertyChanged("RegionID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RegionNombre {
-            get {
-                return this.RegionNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RegionNombreField, value) != true)) {
-                    this.RegionNombreField = value;
-                    this.RaisePropertyChanged("RegionNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short ValidacionActiva {
-            get {
-                return this.ValidacionActivaField;
-            }
-            set {
-                if ((this.ValidacionActivaField.Equals(value) != true)) {
-                    this.ValidacionActivaField = value;
-                    this.RaisePropertyChanged("ValidacionActiva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ZonaID {
-            get {
-                return this.ZonaIDField;
-            }
-            set {
-                if ((this.ZonaIDField.Equals(value) != true)) {
-                    this.ZonaIDField = value;
-                    this.RaisePropertyChanged("ZonaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ZonaNombre {
-            get {
-                return this.ZonaNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ZonaNombreField, value) != true)) {
-                    this.ZonaNombreField = value;
-                    this.RaisePropertyChanged("ZonaNombre");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionValidacion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEConfiguracionValidacion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3885,2338 +7239,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.ProcesoRegularField.Equals(value) != true)) {
                     this.ProcesoRegularField = value;
                     this.RaisePropertyChanged("ProcesoRegular");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BELogParametroDiasCargaPedido", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BELogParametroDiasCargaPedido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUsuarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigosRegionZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasParametroCargaActualField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasParametroCargaAnteriorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUsuario {
-            get {
-                return this.CodigoUsuarioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
-                    this.CodigoUsuarioField = value;
-                    this.RaisePropertyChanged("CodigoUsuario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigosRegionZona {
-            get {
-                return this.CodigosRegionZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigosRegionZonaField, value) != true)) {
-                    this.CodigosRegionZonaField = value;
-                    this.RaisePropertyChanged("CodigosRegionZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasParametroCargaActual {
-            get {
-                return this.DiasParametroCargaActualField;
-            }
-            set {
-                if ((this.DiasParametroCargaActualField.Equals(value) != true)) {
-                    this.DiasParametroCargaActualField = value;
-                    this.RaisePropertyChanged("DiasParametroCargaActual");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasParametroCargaAnterior {
-            get {
-                return this.DiasParametroCargaAnteriorField;
-            }
-            set {
-                if ((this.DiasParametroCargaAnteriorField.Equals(value) != true)) {
-                    this.DiasParametroCargaAnteriorField = value;
-                    this.RaisePropertyChanged("DiasParametroCargaAnterior");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Fecha {
-            get {
-                return this.FechaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaField, value) != true)) {
-                    this.FechaField = value;
-                    this.RaisePropertyChanged("Fecha");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionPortal", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEConfiguracionPortal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsquemaDAConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EstadoSimplificacionCUVField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> TipoProcesoCargaField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsquemaDAConsultora {
-            get {
-                return this.EsquemaDAConsultoraField;
-            }
-            set {
-                if ((this.EsquemaDAConsultoraField.Equals(value) != true)) {
-                    this.EsquemaDAConsultoraField = value;
-                    this.RaisePropertyChanged("EsquemaDAConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EstadoSimplificacionCUV {
-            get {
-                return this.EstadoSimplificacionCUVField;
-            }
-            set {
-                if ((this.EstadoSimplificacionCUVField.Equals(value) != true)) {
-                    this.EstadoSimplificacionCUVField = value;
-                    this.RaisePropertyChanged("EstadoSimplificacionCUV");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> TipoProcesoCarga {
-            get {
-                return this.TipoProcesoCargaField;
-            }
-            set {
-                if ((this.TipoProcesoCargaField.Equals(value) != true)) {
-                    this.TipoProcesoCargaField = value;
-                    this.RaisePropertyChanged("TipoProcesoCarga");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEParticipantesDemandaAnticipada", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEParticipantesDemandaAnticipada : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AceptoParticiparField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoCampaniaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUsuarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ConfiguracionConsultoraDAIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaFormatoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaModificadaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaModificadaFormatoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal ImporteTotalField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte TipoConfiguracionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ZonaIDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AceptoParticipar {
-            get {
-                return this.AceptoParticiparField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AceptoParticiparField, value) != true)) {
-                    this.AceptoParticiparField = value;
-                    this.RaisePropertyChanged("AceptoParticipar");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoCampania {
-            get {
-                return this.CodigoCampaniaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoCampaniaField, value) != true)) {
-                    this.CodigoCampaniaField = value;
-                    this.RaisePropertyChanged("CodigoCampania");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoConsultora {
-            get {
-                return this.CodigoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
-                    this.CodigoConsultoraField = value;
-                    this.RaisePropertyChanged("CodigoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUsuario {
-            get {
-                return this.CodigoUsuarioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
-                    this.CodigoUsuarioField = value;
-                    this.RaisePropertyChanged("CodigoUsuario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoZona {
-            get {
-                return this.CodigoZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
-                    this.CodigoZonaField = value;
-                    this.RaisePropertyChanged("CodigoZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ConfiguracionConsultoraDAID {
-            get {
-                return this.ConfiguracionConsultoraDAIDField;
-            }
-            set {
-                if ((this.ConfiguracionConsultoraDAIDField.Equals(value) != true)) {
-                    this.ConfiguracionConsultoraDAIDField = value;
-                    this.RaisePropertyChanged("ConfiguracionConsultoraDAID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Fecha {
-            get {
-                return this.FechaField;
-            }
-            set {
-                if ((this.FechaField.Equals(value) != true)) {
-                    this.FechaField = value;
-                    this.RaisePropertyChanged("Fecha");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaFormato {
-            get {
-                return this.FechaFormatoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaFormatoField, value) != true)) {
-                    this.FechaFormatoField = value;
-                    this.RaisePropertyChanged("FechaFormato");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaModificada {
-            get {
-                return this.FechaModificadaField;
-            }
-            set {
-                if ((this.FechaModificadaField.Equals(value) != true)) {
-                    this.FechaModificadaField = value;
-                    this.RaisePropertyChanged("FechaModificada");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaModificadaFormato {
-            get {
-                return this.FechaModificadaFormatoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaModificadaFormatoField, value) != true)) {
-                    this.FechaModificadaFormatoField = value;
-                    this.RaisePropertyChanged("FechaModificadaFormato");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal ImporteTotal {
-            get {
-                return this.ImporteTotalField;
-            }
-            set {
-                if ((this.ImporteTotalField.Equals(value) != true)) {
-                    this.ImporteTotalField = value;
-                    this.RaisePropertyChanged("ImporteTotal");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCompleto {
-            get {
-                return this.NombreCompletoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
-                    this.NombreCompletoField = value;
-                    this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreZona {
-            get {
-                return this.NombreZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreZonaField, value) != true)) {
-                    this.NombreZonaField = value;
-                    this.RaisePropertyChanged("NombreZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte TipoConfiguracion {
-            get {
-                return this.TipoConfiguracionField;
-            }
-            set {
-                if ((this.TipoConfiguracionField.Equals(value) != true)) {
-                    this.TipoConfiguracionField = value;
-                    this.RaisePropertyChanged("TipoConfiguracion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ZonaID {
-            get {
-                return this.ZonaIDField;
-            }
-            set {
-                if ((this.ZonaIDField.Equals(value) != true)) {
-                    this.ZonaIDField = value;
-                    this.RaisePropertyChanged("ZonaID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEServicioSegmentoZona", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEServicioSegmentoZona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int BannerIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ConfiguracionZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DesCampaniaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombrePaisField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int SegmentoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SegmentoInternoIDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BannerId {
-            get {
-                return this.BannerIdField;
-            }
-            set {
-                if ((this.BannerIdField.Equals(value) != true)) {
-                    this.BannerIdField = value;
-                    this.RaisePropertyChanged("BannerId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaId {
-            get {
-                return this.CampaniaIdField;
-            }
-            set {
-                if ((this.CampaniaIdField.Equals(value) != true)) {
-                    this.CampaniaIdField = value;
-                    this.RaisePropertyChanged("CampaniaId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ConfiguracionZona {
-            get {
-                return this.ConfiguracionZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ConfiguracionZonaField, value) != true)) {
-                    this.ConfiguracionZonaField = value;
-                    this.RaisePropertyChanged("ConfiguracionZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DesCampania {
-            get {
-                return this.DesCampaniaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DesCampaniaField, value) != true)) {
-                    this.DesCampaniaField = value;
-                    this.RaisePropertyChanged("DesCampania");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombrePais {
-            get {
-                return this.NombrePaisField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
-                    this.NombrePaisField = value;
-                    this.RaisePropertyChanged("NombrePais");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisId {
-            get {
-                return this.PaisIdField;
-            }
-            set {
-                if ((this.PaisIdField.Equals(value) != true)) {
-                    this.PaisIdField = value;
-                    this.RaisePropertyChanged("PaisId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Segmento {
-            get {
-                return this.SegmentoField;
-            }
-            set {
-                if ((this.SegmentoField.Equals(value) != true)) {
-                    this.SegmentoField = value;
-                    this.RaisePropertyChanged("Segmento");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SegmentoInternoID {
-            get {
-                return this.SegmentoInternoIDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SegmentoInternoIDField, value) != true)) {
-                    this.SegmentoInternoIDField = value;
-                    this.RaisePropertyChanged("SegmentoInternoID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEAfiliaClienteConsultora", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEAfiliaClienteConsultora : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CelularField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EmailActivoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EsAfiliadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsConsultoraLiderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Celular {
-            get {
-                return this.CelularField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
-                    this.CelularField = value;
-                    this.RaisePropertyChanged("Celular");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EmailActivo {
-            get {
-                return this.EmailActivoField;
-            }
-            set {
-                if ((this.EmailActivoField.Equals(value) != true)) {
-                    this.EmailActivoField = value;
-                    this.RaisePropertyChanged("EmailActivo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EsAfiliado {
-            get {
-                return this.EsAfiliadoField;
-            }
-            set {
-                if ((this.EsAfiliadoField.Equals(value) != true)) {
-                    this.EsAfiliadoField = value;
-                    this.RaisePropertyChanged("EsAfiliado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsConsultoraLider {
-            get {
-                return this.EsConsultoraLiderField;
-            }
-            set {
-                if ((this.EsConsultoraLiderField.Equals(value) != true)) {
-                    this.EsConsultoraLiderField = value;
-                    this.RaisePropertyChanged("EsConsultoraLider");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCompleto {
-            get {
-                return this.NombreCompletoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
-                    this.NombreCompletoField = value;
-                    this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Telefono {
-            get {
-                return this.TelefonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
-                    this.TelefonoField = value;
-                    this.RaisePropertyChanged("Telefono");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudCliente", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BESolicitudCliente : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CampaniaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUbigeoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CorreoConsultoraAsginadaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] DetalleSolicitudField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DireccionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailGZField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EnviadoGZField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EstadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EstadoSolicitudClienteIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaModificacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaSolicitudField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LeidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MarcaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MarcaNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeaClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeaGZField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreConsultoraAsignadaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreGZField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumIteracionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SeccionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long SolicitudClienteIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipoDistribucionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica3Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsuarioModificacionField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Campania {
-            get {
-                return this.CampaniaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
-                    this.CampaniaField = value;
-                    this.RaisePropertyChanged("Campania");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoConsultora {
-            get {
-                return this.CodigoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
-                    this.CodigoConsultoraField = value;
-                    this.RaisePropertyChanged("CodigoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUbigeo {
-            get {
-                return this.CodigoUbigeoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUbigeoField, value) != true)) {
-                    this.CodigoUbigeoField = value;
-                    this.RaisePropertyChanged("CodigoUbigeo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CorreoConsultoraAsginada {
-            get {
-                return this.CorreoConsultoraAsginadaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CorreoConsultoraAsginadaField, value) != true)) {
-                    this.CorreoConsultoraAsginadaField = value;
-                    this.RaisePropertyChanged("CorreoConsultoraAsginada");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] DetalleSolicitud {
-            get {
-                return this.DetalleSolicitudField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DetalleSolicitudField, value) != true)) {
-                    this.DetalleSolicitudField = value;
-                    this.RaisePropertyChanged("DetalleSolicitud");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Direccion {
-            get {
-                return this.DireccionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
-                    this.DireccionField = value;
-                    this.RaisePropertyChanged("Direccion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EmailGZ {
-            get {
-                return this.EmailGZField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailGZField, value) != true)) {
-                    this.EmailGZField = value;
-                    this.RaisePropertyChanged("EmailGZ");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EnviadoGZ {
-            get {
-                return this.EnviadoGZField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EnviadoGZField, value) != true)) {
-                    this.EnviadoGZField = value;
-                    this.RaisePropertyChanged("EnviadoGZ");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Estado {
-            get {
-                return this.EstadoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
-                    this.EstadoField = value;
-                    this.RaisePropertyChanged("Estado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EstadoSolicitudClienteId {
-            get {
-                return this.EstadoSolicitudClienteIdField;
-            }
-            set {
-                if ((this.EstadoSolicitudClienteIdField.Equals(value) != true)) {
-                    this.EstadoSolicitudClienteIdField = value;
-                    this.RaisePropertyChanged("EstadoSolicitudClienteId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaModificacion {
-            get {
-                return this.FechaModificacionField;
-            }
-            set {
-                if ((this.FechaModificacionField.Equals(value) != true)) {
-                    this.FechaModificacionField = value;
-                    this.RaisePropertyChanged("FechaModificacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaSolicitud {
-            get {
-                return this.FechaSolicitudField;
-            }
-            set {
-                if ((this.FechaSolicitudField.Equals(value) != true)) {
-                    this.FechaSolicitudField = value;
-                    this.RaisePropertyChanged("FechaSolicitud");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Leido {
-            get {
-                return this.LeidoField;
-            }
-            set {
-                if ((this.LeidoField.Equals(value) != true)) {
-                    this.LeidoField = value;
-                    this.RaisePropertyChanged("Leido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MarcaID {
-            get {
-                return this.MarcaIDField;
-            }
-            set {
-                if ((this.MarcaIDField.Equals(value) != true)) {
-                    this.MarcaIDField = value;
-                    this.RaisePropertyChanged("MarcaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MarcaNombre {
-            get {
-                return this.MarcaNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MarcaNombreField, value) != true)) {
-                    this.MarcaNombreField = value;
-                    this.RaisePropertyChanged("MarcaNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Mensaje {
-            get {
-                return this.MensajeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
-                    this.MensajeField = value;
-                    this.RaisePropertyChanged("Mensaje");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeaCliente {
-            get {
-                return this.MensajeaClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeaClienteField, value) != true)) {
-                    this.MensajeaClienteField = value;
-                    this.RaisePropertyChanged("MensajeaCliente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeaGZ {
-            get {
-                return this.MensajeaGZField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeaGZField, value) != true)) {
-                    this.MensajeaGZField = value;
-                    this.RaisePropertyChanged("MensajeaGZ");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCompleto {
-            get {
-                return this.NombreCompletoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
-                    this.NombreCompletoField = value;
-                    this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreConsultoraAsignada {
-            get {
-                return this.NombreConsultoraAsignadaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreConsultoraAsignadaField, value) != true)) {
-                    this.NombreConsultoraAsignadaField = value;
-                    this.RaisePropertyChanged("NombreConsultoraAsignada");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreGZ {
-            get {
-                return this.NombreGZField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreGZField, value) != true)) {
-                    this.NombreGZField = value;
-                    this.RaisePropertyChanged("NombreGZ");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumIteracion {
-            get {
-                return this.NumIteracionField;
-            }
-            set {
-                if ((this.NumIteracionField.Equals(value) != true)) {
-                    this.NumIteracionField = value;
-                    this.RaisePropertyChanged("NumIteracion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Seccion {
-            get {
-                return this.SeccionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
-                    this.SeccionField = value;
-                    this.RaisePropertyChanged("Seccion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long SolicitudClienteID {
-            get {
-                return this.SolicitudClienteIDField;
-            }
-            set {
-                if ((this.SolicitudClienteIDField.Equals(value) != true)) {
-                    this.SolicitudClienteIDField = value;
-                    this.RaisePropertyChanged("SolicitudClienteID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Telefono {
-            get {
-                return this.TelefonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
-                    this.TelefonoField = value;
-                    this.RaisePropertyChanged("Telefono");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipoDistribucion {
-            get {
-                return this.TipoDistribucionField;
-            }
-            set {
-                if ((this.TipoDistribucionField.Equals(value) != true)) {
-                    this.TipoDistribucionField = value;
-                    this.RaisePropertyChanged("TipoDistribucion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica1 {
-            get {
-                return this.UnidadGeografica1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica1Field, value) != true)) {
-                    this.UnidadGeografica1Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica2 {
-            get {
-                return this.UnidadGeografica2Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica2Field, value) != true)) {
-                    this.UnidadGeografica2Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica3 {
-            get {
-                return this.UnidadGeografica3Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica3Field, value) != true)) {
-                    this.UnidadGeografica3Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica3");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UsuarioModificacion {
-            get {
-                return this.UsuarioModificacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
-                    this.UsuarioModificacionField = value;
-                    this.RaisePropertyChanged("UsuarioModificacion");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudClienteDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BESolicitudClienteDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CUVField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantidadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionMarcaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TonoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CUV {
-            get {
-                return this.CUVField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
-                    this.CUVField = value;
-                    this.RaisePropertyChanged("CUV");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Cantidad {
-            get {
-                return this.CantidadField;
-            }
-            set {
-                if ((this.CantidadField.Equals(value) != true)) {
-                    this.CantidadField = value;
-                    this.RaisePropertyChanged("Cantidad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DescripcionMarca {
-            get {
-                return this.DescripcionMarcaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionMarcaField, value) != true)) {
-                    this.DescripcionMarcaField = value;
-                    this.RaisePropertyChanged("DescripcionMarca");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DescripcionProducto {
-            get {
-                return this.DescripcionProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionProductoField, value) != true)) {
-                    this.DescripcionProductoField = value;
-                    this.RaisePropertyChanged("DescripcionProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Precio {
-            get {
-                return this.PrecioField;
-            }
-            set {
-                if ((this.PrecioField.Equals(value) != true)) {
-                    this.PrecioField = value;
-                    this.RaisePropertyChanged("Precio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Tono {
-            get {
-                return this.TonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TonoField, value) != true)) {
-                    this.TonoField = value;
-                    this.RaisePropertyChanged("Tono");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BESolicitudNuevaConsultora", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BESolicitudNuevaConsultora : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MarcaNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MarcaNombre {
-            get {
-                return this.MarcaNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MarcaNombreField, value) != true)) {
-                    this.MarcaNombreField = value;
-                    this.RaisePropertyChanged("MarcaNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nombre {
-            get {
-                return this.NombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
-                    this.NombreField = value;
-                    this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEEstadoSolicitudCliente", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEEstadoSolicitudCliente : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EstadoSolicitudClienteIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoEstadoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Activo {
-            get {
-                return this.ActivoField;
-            }
-            set {
-                if ((this.ActivoField.Equals(value) != true)) {
-                    this.ActivoField = value;
-                    this.RaisePropertyChanged("Activo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EstadoSolicitudClienteID {
-            get {
-                return this.EstadoSolicitudClienteIDField;
-            }
-            set {
-                if ((this.EstadoSolicitudClienteIDField.Equals(value) != true)) {
-                    this.EstadoSolicitudClienteIDField = value;
-                    this.RaisePropertyChanged("EstadoSolicitudClienteID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoEstado {
-            get {
-                return this.TipoEstadoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoEstadoField, value) != true)) {
-                    this.TipoEstadoField = value;
-                    this.RaisePropertyChanged("TipoEstado");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEReporteAfiliados", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEReporteAfiliados : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AnoCampanaIngresoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUbigeoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CorreoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EdadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsAfiliadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaCreacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaCreacionStringField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaModificacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaModificacionStringField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SegmentoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UnidadGeografica3Field;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AnoCampanaIngreso {
-            get {
-                return this.AnoCampanaIngresoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AnoCampanaIngresoField, value) != true)) {
-                    this.AnoCampanaIngresoField = value;
-                    this.RaisePropertyChanged("AnoCampanaIngreso");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoConsultora {
-            get {
-                return this.CodigoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
-                    this.CodigoConsultoraField = value;
-                    this.RaisePropertyChanged("CodigoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUbigeo {
-            get {
-                return this.CodigoUbigeoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUbigeoField, value) != true)) {
-                    this.CodigoUbigeoField = value;
-                    this.RaisePropertyChanged("CodigoUbigeo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Correo {
-            get {
-                return this.CorreoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
-                    this.CorreoField = value;
-                    this.RaisePropertyChanged("Correo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Edad {
-            get {
-                return this.EdadField;
-            }
-            set {
-                if ((this.EdadField.Equals(value) != true)) {
-                    this.EdadField = value;
-                    this.RaisePropertyChanged("Edad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsAfiliado {
-            get {
-                return this.EsAfiliadoField;
-            }
-            set {
-                if ((this.EsAfiliadoField.Equals(value) != true)) {
-                    this.EsAfiliadoField = value;
-                    this.RaisePropertyChanged("EsAfiliado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaCreacion {
-            get {
-                return this.FechaCreacionField;
-            }
-            set {
-                if ((this.FechaCreacionField.Equals(value) != true)) {
-                    this.FechaCreacionField = value;
-                    this.RaisePropertyChanged("FechaCreacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaCreacionString {
-            get {
-                return this.FechaCreacionStringField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaCreacionStringField, value) != true)) {
-                    this.FechaCreacionStringField = value;
-                    this.RaisePropertyChanged("FechaCreacionString");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaModificacion {
-            get {
-                return this.FechaModificacionField;
-            }
-            set {
-                if ((this.FechaModificacionField.Equals(value) != true)) {
-                    this.FechaModificacionField = value;
-                    this.RaisePropertyChanged("FechaModificacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaModificacionString {
-            get {
-                return this.FechaModificacionStringField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaModificacionStringField, value) != true)) {
-                    this.FechaModificacionStringField = value;
-                    this.RaisePropertyChanged("FechaModificacionString");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCompleto {
-            get {
-                return this.NombreCompletoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
-                    this.NombreCompletoField = value;
-                    this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Segmento {
-            get {
-                return this.SegmentoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SegmentoField, value) != true)) {
-                    this.SegmentoField = value;
-                    this.RaisePropertyChanged("Segmento");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica1 {
-            get {
-                return this.UnidadGeografica1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica1Field, value) != true)) {
-                    this.UnidadGeografica1Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica2 {
-            get {
-                return this.UnidadGeografica2Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica2Field, value) != true)) {
-                    this.UnidadGeografica2Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UnidadGeografica3 {
-            get {
-                return this.UnidadGeografica3Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UnidadGeografica3Field, value) != true)) {
-                    this.UnidadGeografica3Field = value;
-                    this.RaisePropertyChanged("UnidadGeografica3");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEReportePedidos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEReportePedidos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CampaniaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantidadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DireccionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EstadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaSolicitudField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool LeidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MarcaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int SolicitudClienteIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoFijoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoMovilConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TonoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Campania {
-            get {
-                return this.CampaniaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
-                    this.CampaniaField = value;
-                    this.RaisePropertyChanged("Campania");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Cantidad {
-            get {
-                return this.CantidadField;
-            }
-            set {
-                if ((this.CantidadField.Equals(value) != true)) {
-                    this.CantidadField = value;
-                    this.RaisePropertyChanged("Cantidad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoConsultora {
-            get {
-                return this.CodigoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
-                    this.CodigoConsultoraField = value;
-                    this.RaisePropertyChanged("CodigoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Direccion {
-            get {
-                return this.DireccionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
-                    this.DireccionField = value;
-                    this.RaisePropertyChanged("Direccion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EmailCliente {
-            get {
-                return this.EmailClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailClienteField, value) != true)) {
-                    this.EmailClienteField = value;
-                    this.RaisePropertyChanged("EmailCliente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EmailConsultora {
-            get {
-                return this.EmailConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailConsultoraField, value) != true)) {
-                    this.EmailConsultoraField = value;
-                    this.RaisePropertyChanged("EmailConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Estado {
-            get {
-                return this.EstadoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
-                    this.EstadoField = value;
-                    this.RaisePropertyChanged("Estado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaSolicitud {
-            get {
-                return this.FechaSolicitudField;
-            }
-            set {
-                if ((this.FechaSolicitudField.Equals(value) != true)) {
-                    this.FechaSolicitudField = value;
-                    this.RaisePropertyChanged("FechaSolicitud");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Leido {
-            get {
-                return this.LeidoField;
-            }
-            set {
-                if ((this.LeidoField.Equals(value) != true)) {
-                    this.LeidoField = value;
-                    this.RaisePropertyChanged("Leido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Marca {
-            get {
-                return this.MarcaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
-                    this.MarcaField = value;
-                    this.RaisePropertyChanged("Marca");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeCliente {
-            get {
-                return this.MensajeClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeClienteField, value) != true)) {
-                    this.MensajeClienteField = value;
-                    this.RaisePropertyChanged("MensajeCliente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCliente {
-            get {
-                return this.NombreClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
-                    this.NombreClienteField = value;
-                    this.RaisePropertyChanged("NombreCliente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreConsultora {
-            get {
-                return this.NombreConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreConsultoraField, value) != true)) {
-                    this.NombreConsultoraField = value;
-                    this.RaisePropertyChanged("NombreConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Precio {
-            get {
-                return this.PrecioField;
-            }
-            set {
-                if ((this.PrecioField.Equals(value) != true)) {
-                    this.PrecioField = value;
-                    this.RaisePropertyChanged("Precio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Producto {
-            get {
-                return this.ProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ProductoField, value) != true)) {
-                    this.ProductoField = value;
-                    this.RaisePropertyChanged("Producto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SolicitudClienteID {
-            get {
-                return this.SolicitudClienteIDField;
-            }
-            set {
-                if ((this.SolicitudClienteIDField.Equals(value) != true)) {
-                    this.SolicitudClienteIDField = value;
-                    this.RaisePropertyChanged("SolicitudClienteID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TelefonoCliente {
-            get {
-                return this.TelefonoClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoClienteField, value) != true)) {
-                    this.TelefonoClienteField = value;
-                    this.RaisePropertyChanged("TelefonoCliente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TelefonoFijoConsultora {
-            get {
-                return this.TelefonoFijoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoFijoConsultoraField, value) != true)) {
-                    this.TelefonoFijoConsultoraField = value;
-                    this.RaisePropertyChanged("TelefonoFijoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TelefonoMovilConsultora {
-            get {
-                return this.TelefonoMovilConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoMovilConsultoraField, value) != true)) {
-                    this.TelefonoMovilConsultoraField = value;
-                    this.RaisePropertyChanged("TelefonoMovilConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Tono {
-            get {
-                return this.TonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TonoField, value) != true)) {
-                    this.TonoField = value;
-                    this.RaisePropertyChanged("Tono");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPaisCampana", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEPaisCampana : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AnoCampanaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NroCampaniasField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrefijoPaisField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AnoCampana {
-            get {
-                return this.AnoCampanaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AnoCampanaField, value) != true)) {
-                    this.AnoCampanaField = value;
-                    this.RaisePropertyChanged("AnoCampana");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NroCampanias {
-            get {
-                return this.NroCampaniasField;
-            }
-            set {
-                if ((this.NroCampaniasField.Equals(value) != true)) {
-                    this.NroCampaniasField = value;
-                    this.RaisePropertyChanged("NroCampanias");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PrefijoPais {
-            get {
-                return this.PrefijoPaisField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PrefijoPaisField, value) != true)) {
-                    this.PrefijoPaisField = value;
-                    this.RaisePropertyChanged("PrefijoPais");
                 }
             }
         }
@@ -6563,163 +7585,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.ZonaIDField.Equals(value) != true)) {
                     this.ZonaIDField = value;
                     this.RaisePropertyChanged("ZonaID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionValidacionZona", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEConfiguracionValidacionZona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasDuracionCronogramaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int RegionIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RegionNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short ValidacionActivaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ZonaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ZonaNombreField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaID {
-            get {
-                return this.CampaniaIDField;
-            }
-            set {
-                if ((this.CampaniaIDField.Equals(value) != true)) {
-                    this.CampaniaIDField = value;
-                    this.RaisePropertyChanged("CampaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasDuracionCronograma {
-            get {
-                return this.DiasDuracionCronogramaField;
-            }
-            set {
-                if ((this.DiasDuracionCronogramaField.Equals(value) != true)) {
-                    this.DiasDuracionCronogramaField = value;
-                    this.RaisePropertyChanged("DiasDuracionCronograma");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int RegionID {
-            get {
-                return this.RegionIDField;
-            }
-            set {
-                if ((this.RegionIDField.Equals(value) != true)) {
-                    this.RegionIDField = value;
-                    this.RaisePropertyChanged("RegionID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RegionNombre {
-            get {
-                return this.RegionNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RegionNombreField, value) != true)) {
-                    this.RegionNombreField = value;
-                    this.RaisePropertyChanged("RegionNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short ValidacionActiva {
-            get {
-                return this.ValidacionActivaField;
-            }
-            set {
-                if ((this.ValidacionActivaField.Equals(value) != true)) {
-                    this.ValidacionActivaField = value;
-                    this.RaisePropertyChanged("ValidacionActiva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ZonaID {
-            get {
-                return this.ZonaIDField;
-            }
-            set {
-                if ((this.ZonaIDField.Equals(value) != true)) {
-                    this.ZonaIDField = value;
-                    this.RaisePropertyChanged("ZonaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ZonaNombre {
-            get {
-                return this.ZonaNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ZonaNombreField, value) != true)) {
-                    this.ZonaNombreField = value;
-                    this.RaisePropertyChanged("ZonaNombre");
                 }
             }
         }
@@ -8482,147 +9347,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEFactorGanancia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEFactorGanancia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EscalaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FactorGananciaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PaisNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PorcentajeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal RangoMaximoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal RangoMinimoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Escala {
-            get {
-                return this.EscalaField;
-            }
-            set {
-                if ((this.EscalaField.Equals(value) != true)) {
-                    this.EscalaField = value;
-                    this.RaisePropertyChanged("Escala");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FactorGananciaID {
-            get {
-                return this.FactorGananciaIDField;
-            }
-            set {
-                if ((this.FactorGananciaIDField.Equals(value) != true)) {
-                    this.FactorGananciaIDField = value;
-                    this.RaisePropertyChanged("FactorGananciaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaisNombre {
-            get {
-                return this.PaisNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
-                    this.PaisNombreField = value;
-                    this.RaisePropertyChanged("PaisNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Porcentaje {
-            get {
-                return this.PorcentajeField;
-            }
-            set {
-                if ((this.PorcentajeField.Equals(value) != true)) {
-                    this.PorcentajeField = value;
-                    this.RaisePropertyChanged("Porcentaje");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal RangoMaximo {
-            get {
-                return this.RangoMaximoField;
-            }
-            set {
-                if ((this.RangoMaximoField.Equals(value) != true)) {
-                    this.RangoMaximoField = value;
-                    this.RaisePropertyChanged("RangoMaximo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal RangoMinimo {
-            get {
-                return this.RangoMinimoField;
-            }
-            set {
-                if ((this.RangoMinimoField.Equals(value) != true)) {
-                    this.RangoMinimoField = value;
-                    this.RaisePropertyChanged("RangoMinimo");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebDetalleDescuento", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEPedidoWebDetalleDescuento : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -8746,733 +9470,261 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BELogModificacionCronograma", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BELogModificacionCronograma : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUsuarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigosRegionZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasDuracionCronogramaActualField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DiasDuracionCronogramaAnteriorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUsuario {
-            get {
-                return this.CodigoUsuarioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
-                    this.CodigoUsuarioField = value;
-                    this.RaisePropertyChanged("CodigoUsuario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigosRegionZona {
-            get {
-                return this.CodigosRegionZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigosRegionZonaField, value) != true)) {
-                    this.CodigosRegionZonaField = value;
-                    this.RaisePropertyChanged("CodigosRegionZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasDuracionCronogramaActual {
-            get {
-                return this.DiasDuracionCronogramaActualField;
-            }
-            set {
-                if ((this.DiasDuracionCronogramaActualField.Equals(value) != true)) {
-                    this.DiasDuracionCronogramaActualField = value;
-                    this.RaisePropertyChanged("DiasDuracionCronogramaActual");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short DiasDuracionCronogramaAnterior {
-            get {
-                return this.DiasDuracionCronogramaAnteriorField;
-            }
-            set {
-                if ((this.DiasDuracionCronogramaAnteriorField.Equals(value) != true)) {
-                    this.DiasDuracionCronogramaAnteriorField = value;
-                    this.RaisePropertyChanged("DiasDuracionCronogramaAnterior");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Fecha {
-            get {
-                return this.FechaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaField, value) != true)) {
-                    this.FechaField = value;
-                    this.RaisePropertyChanged("Fecha");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BELugarPago", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BELugarPago : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoInstructivoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoLogoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoLogoAnteriorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LugarPagoIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCortoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PaisNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UrlSitioField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoInstructivo {
-            get {
-                return this.ArchivoInstructivoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoInstructivoField, value) != true)) {
-                    this.ArchivoInstructivoField = value;
-                    this.RaisePropertyChanged("ArchivoInstructivo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoLogo {
-            get {
-                return this.ArchivoLogoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoLogoField, value) != true)) {
-                    this.ArchivoLogoField = value;
-                    this.RaisePropertyChanged("ArchivoLogo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoLogoAnterior {
-            get {
-                return this.ArchivoLogoAnteriorField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoLogoAnteriorField, value) != true)) {
-                    this.ArchivoLogoAnteriorField = value;
-                    this.RaisePropertyChanged("ArchivoLogoAnterior");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LugarPagoID {
-            get {
-                return this.LugarPagoIDField;
-            }
-            set {
-                if ((this.LugarPagoIDField.Equals(value) != true)) {
-                    this.LugarPagoIDField = value;
-                    this.RaisePropertyChanged("LugarPagoID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nombre {
-            get {
-                return this.NombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
-                    this.NombreField = value;
-                    this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCorto {
-            get {
-                return this.NombreCortoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
-                    this.NombreCortoField = value;
-                    this.RaisePropertyChanged("NombreCorto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaisNombre {
-            get {
-                return this.PaisNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
-                    this.PaisNombreField = value;
-                    this.RaisePropertyChanged("PaisNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UrlSitio {
-            get {
-                return this.UrlSitioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UrlSitioField, value) != true)) {
-                    this.UrlSitioField = value;
-                    this.RaisePropertyChanged("UrlSitio");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEIncentivo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEIncentivo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoPDFField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoPortadaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoPortadaAnteriorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDFinField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDInicioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IncentivoIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCortoFinField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCortoInicioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PaisNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SubtituloField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TituloField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UrlField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoPDF {
-            get {
-                return this.ArchivoPDFField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoPDFField, value) != true)) {
-                    this.ArchivoPDFField = value;
-                    this.RaisePropertyChanged("ArchivoPDF");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoPortada {
-            get {
-                return this.ArchivoPortadaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoPortadaField, value) != true)) {
-                    this.ArchivoPortadaField = value;
-                    this.RaisePropertyChanged("ArchivoPortada");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoPortadaAnterior {
-            get {
-                return this.ArchivoPortadaAnteriorField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoPortadaAnteriorField, value) != true)) {
-                    this.ArchivoPortadaAnteriorField = value;
-                    this.RaisePropertyChanged("ArchivoPortadaAnterior");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaIDFin {
-            get {
-                return this.CampaniaIDFinField;
-            }
-            set {
-                if ((this.CampaniaIDFinField.Equals(value) != true)) {
-                    this.CampaniaIDFinField = value;
-                    this.RaisePropertyChanged("CampaniaIDFin");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaIDInicio {
-            get {
-                return this.CampaniaIDInicioField;
-            }
-            set {
-                if ((this.CampaniaIDInicioField.Equals(value) != true)) {
-                    this.CampaniaIDInicioField = value;
-                    this.RaisePropertyChanged("CampaniaIDInicio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IncentivoID {
-            get {
-                return this.IncentivoIDField;
-            }
-            set {
-                if ((this.IncentivoIDField.Equals(value) != true)) {
-                    this.IncentivoIDField = value;
-                    this.RaisePropertyChanged("IncentivoID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCortoFin {
-            get {
-                return this.NombreCortoFinField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCortoFinField, value) != true)) {
-                    this.NombreCortoFinField = value;
-                    this.RaisePropertyChanged("NombreCortoFin");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCortoInicio {
-            get {
-                return this.NombreCortoInicioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCortoInicioField, value) != true)) {
-                    this.NombreCortoInicioField = value;
-                    this.RaisePropertyChanged("NombreCortoInicio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaisNombre {
-            get {
-                return this.PaisNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
-                    this.PaisNombreField = value;
-                    this.RaisePropertyChanged("PaisNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Subtitulo {
-            get {
-                return this.SubtituloField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SubtituloField, value) != true)) {
-                    this.SubtituloField = value;
-                    this.RaisePropertyChanged("Subtitulo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Titulo {
-            get {
-                return this.TituloField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TituloField, value) != true)) {
-                    this.TituloField = value;
-                    this.RaisePropertyChanged("Titulo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Url {
-            get {
-                return this.UrlField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UrlField, value) != true)) {
-                    this.UrlField = value;
-                    this.RaisePropertyChanged("Url");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEBelcorpNoticia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEBelcorpNoticia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArchivoPortadaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int BelcorpNoticiaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCortoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PaisNombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TituloField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UrlPDFField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ArchivoPortada {
-            get {
-                return this.ArchivoPortadaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArchivoPortadaField, value) != true)) {
-                    this.ArchivoPortadaField = value;
-                    this.RaisePropertyChanged("ArchivoPortada");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BelcorpNoticiaID {
-            get {
-                return this.BelcorpNoticiaIDField;
-            }
-            set {
-                if ((this.BelcorpNoticiaIDField.Equals(value) != true)) {
-                    this.BelcorpNoticiaIDField = value;
-                    this.RaisePropertyChanged("BelcorpNoticiaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaID {
-            get {
-                return this.CampaniaIDField;
-            }
-            set {
-                if ((this.CampaniaIDField.Equals(value) != true)) {
-                    this.CampaniaIDField = value;
-                    this.RaisePropertyChanged("CampaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraID {
-            get {
-                return this.ConsultoraIDField;
-            }
-            set {
-                if ((this.ConsultoraIDField.Equals(value) != true)) {
-                    this.ConsultoraIDField = value;
-                    this.RaisePropertyChanged("ConsultoraID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCorto {
-            get {
-                return this.NombreCortoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCortoField, value) != true)) {
-                    this.NombreCortoField = value;
-                    this.RaisePropertyChanged("NombreCorto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaisNombre {
-            get {
-                return this.PaisNombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
-                    this.PaisNombreField = value;
-                    this.RaisePropertyChanged("PaisNombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Titulo {
-            get {
-                return this.TituloField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TituloField, value) != true)) {
-                    this.TituloField = value;
-                    this.RaisePropertyChanged("Titulo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UrlPDF {
-            get {
-                return this.UrlPDFField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UrlPDFField, value) != true)) {
-                    this.UrlPDFField = value;
-                    this.RaisePropertyChanged("UrlPDF");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSAC.ISACService")]
     public interface ISACService {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCargaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCargaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[]> GetRegionZonaDiasParametroCargaAsync(int PaisID, int RegionID, int ZonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedido", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedidoResponse")]
+        void UpdConfiguracionParametroCargaPedido(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedido", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedidoResponse")]
+        System.Threading.Tasks.Task UpdConfiguracionParametroCargaPedidoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedidoResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] GetLogParametroDiasCargaPedido(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[]> GetLogParametroDiasCargaPedidoAsync(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedidoResponse")]
+        void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedidoResponse")]
+        System.Threading.Tasks.Task InsLogParametroDiasCargaPedidoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionPortalResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[] GetConfiguracionPortal(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionPortalResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[]> GetConfiguracionPortalAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDA", ReplyAction="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDAResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[] GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDA", ReplyAction="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDAResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[]> GetParticipantesConfiguracionConsultoraDAAsync(int PaisID, string CodigoCampania, string CodigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipada", ReplyAction="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipadaResponse")]
+        int InsParticipantesDemandaAnticipada(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipada", ReplyAction="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipadaResponse")]
+        System.Threading.Tasks.Task<int> InsParticipantesDemandaAnticipadaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraByCodigo", ReplyAction="http://tempuri.org/ISACService/GetConsultoraByCodigoResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada GetConsultoraByCodigo(int paisID, string CodigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraByCodigo", ReplyAction="http://tempuri.org/ISACService/GetConsultoraByCodigoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada> GetConsultoraByCodigoAsync(int paisID, string CodigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteCacheServicio", ReplyAction="http://tempuri.org/ISACService/DeleteCacheServicioResponse")]
+        void DeleteCacheServicio(string CodigoISO, int CampaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteCacheServicio", ReplyAction="http://tempuri.org/ISACService/DeleteCacheServicioResponse")]
+        System.Threading.Tasks.Task DeleteCacheServicioAsync(string CodigoISO, int CampaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignados", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignadosResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[] GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignados", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignadosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[]> GetServicioCampaniaSegmentoZonaAsignadosAsync(int ServicioId, int PaisId, int Tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZonaResponse")]
+        void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZonaResponse")]
+        System.Threading.Tasks.Task UpdServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltanteMasivoResponse")]
+        int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltanteMasivoResponse")]
+        System.Threading.Tasks.Task<int> DelProductoFaltanteMasivoAsync(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarColoniasByTerritorio", ReplyAction="http://tempuri.org/ISACService/ListarColoniasByTerritorioResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[] ListarColoniasByTerritorio(int paisID, string codigo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarColoniasByTerritorio", ReplyAction="http://tempuri.org/ISACService/ListarColoniasByTerritorioResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[]> ListarColoniasByTerritorioAsync(int paisID, string codigo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ValidarNumeroRFC", ReplyAction="http://tempuri.org/ISACService/ValidarNumeroRFCResponse")]
+        string ValidarNumeroRFC(int paisID, string numeroRFC);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ValidarNumeroRFC", ReplyAction="http://tempuri.org/ISACService/ValidarNumeroRFCResponse")]
+        System.Threading.Tasks.Task<string> ValidarNumeroRFCAsync(int paisID, string numeroRFC);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultora", ReplyAction="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultoraResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultora", ReplyAction="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultoraResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora> GetAfiliaClienteConsultoraByConsultoraAsync(int paisID, string ConsultoraID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/InsAfiliaClienteConsultoraResponse")]
+        int InsAfiliaClienteConsultora(int paisID, long ConsultoraID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/InsAfiliaClienteConsultoraResponse")]
+        System.Threading.Tasks.Task<int> InsAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdAfiliaClienteConsultoraResponse")]
+        int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdAfiliaClienteConsultoraResponse")]
+        System.Threading.Tasks.Task<int> UpdAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultoraResponse")]
+        int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultoraResponse")]
+        System.Threading.Tasks.Task<int> UpdDesafiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> GetSolicitudClienteAsync(int paisID, long SolicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudClienteDetalle", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteDetalleResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] GetSolicitudClienteDetalle(int paisID, long SolicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudClienteDetalle", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[]> GetSolicitudClienteDetalleAsync(int paisID, long SolicitudClienteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteResponse")]
+        void UpdSolicitudCliente(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteResponse")]
+        System.Threading.Tasks.Task UpdSolicitudClienteAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RechazarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse")]
+        void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RechazarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse")]
+        System.Threading.Tasks.Task RechazarSolicitudClienteAsync(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
+        void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
+        System.Threading.Tasks.Task CancelarSolicitudClienteAsync(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
+        int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
+        System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[]> BuscarSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> DetalleSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal ObtenerConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal> ObtenerConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse")]
+        int ActualizarConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse")]
+        System.Threading.Tasks.Task<int> ActualizarConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga", ReplyAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse")]
+        void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga", ReplyAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse")]
+        System.Threading.Tasks.Task GetInformacionCursoLiderDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[] GetEstadoSolicitudCliente(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[]> GetEstadoSolicitudClienteAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteAfiliados", ReplyAction="http://tempuri.org/ISACService/GetReporteAfiliadosResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[] GetReporteAfiliados(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteAfiliados", ReplyAction="http://tempuri.org/ISACService/GetReporteAfiliadosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[]> GetReporteAfiliadosAsync(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReportePedidos", ReplyAction="http://tempuri.org/ISACService/GetReportePedidosResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[] GetReportePedidos(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReportePedidos", ReplyAction="http://tempuri.org/ISACService/GetReportePedidosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[]> GetReportePedidosAsync(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga", ReplyAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse")]
+        void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga", ReplyAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse")]
+        System.Threading.Tasks.Task GetConsultoraDigitalesDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActivaPais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEPaisCampana GetCampaniaActivaPais(int paisID, System.DateTime fechaConsulta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActivaPais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
+        System.DateTime GetFechaHoraPais(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
+        System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
+        int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
+        System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
+        void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
+        System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
+        void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
+        System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse")]
+        void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse")]
+        System.Threading.Tasks.Task MntoCampoProveedorDespachoCobranzaAsync(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMntoResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity);
@@ -9485,6 +9737,132 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiDResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaBYiDAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia", ReplyAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse")]
+        void UpdatePedidoWebEstimadoGanancia(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia", ReplyAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse")]
+        System.Threading.Tasks.Task UpdatePedidoWebEstimadoGananciaAsync(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaSiguienteEscalaAsync(decimal monto, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaEscalaDescuentoAsync(decimal monto, int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] GetRegionZonaDiasDuracionCronograma(int PaisID, int RegionID, int ZonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[]> GetRegionZonaDiasDuracionCronogramaAsync(int PaisID, int RegionID, int ZonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse")]
+        void UpdConfiguracionValidacionZonaCronograma(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse")]
+        System.Threading.Tasks.Task UpdConfiguracionValidacionZonaCronogramaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogModificacionCronograma", ReplyAction="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] GetLogModificacionCronograma(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogModificacionCronograma", ReplyAction="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[]> GetLogModificacionCronogramaAsync(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo", ReplyAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse")]
+        void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo", ReplyAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse")]
+        System.Threading.Tasks.Task InsLogModificacionCronogramaMasivoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona> GetConfiguracionValidacionZonaAsync(int paisID, int campaniaID, int zonaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectLugarPago", ReplyAction="http://tempuri.org/ISACService/SelectLugarPagoResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BELugarPago[] SelectLugarPago(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectLugarPago", ReplyAction="http://tempuri.org/ISACService/SelectLugarPagoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago[]> SelectLugarPagoAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLugarPagoById", ReplyAction="http://tempuri.org/ISACService/GetLugarPagoByIdResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BELugarPago GetLugarPagoById(int paisID, int lugarPagoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLugarPagoById", ReplyAction="http://tempuri.org/ISACService/GetLugarPagoByIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago> GetLugarPagoByIdAsync(int paisID, int lugarPagoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
+        void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
+        System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
+        void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
+        System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteLugarPago", ReplyAction="http://tempuri.org/ISACService/DeleteLugarPagoResponse")]
+        void DeleteLugarPago(int paisID, int lugarPagoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteLugarPago", ReplyAction="http://tempuri.org/ISACService/DeleteLugarPagoResponse")]
+        System.Threading.Tasks.Task DeleteLugarPagoAsync(int paisID, int lugarPagoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectIncentivos", ReplyAction="http://tempuri.org/ISACService/SelectIncentivosResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEIncentivo[] SelectIncentivos(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectIncentivos", ReplyAction="http://tempuri.org/ISACService/SelectIncentivosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEIncentivo[]> SelectIncentivosAsync(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertIncentivo", ReplyAction="http://tempuri.org/ISACService/InsertIncentivoResponse")]
+        void InsertIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertIncentivo", ReplyAction="http://tempuri.org/ISACService/InsertIncentivoResponse")]
+        System.Threading.Tasks.Task InsertIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateIncentivo", ReplyAction="http://tempuri.org/ISACService/UpdateIncentivoResponse")]
+        void UpdateIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateIncentivo", ReplyAction="http://tempuri.org/ISACService/UpdateIncentivoResponse")]
+        System.Threading.Tasks.Task UpdateIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteIncentivo", ReplyAction="http://tempuri.org/ISACService/DeleteIncentivoResponse")]
+        void DeleteIncentivo(int paisID, int incentivoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteIncentivo", ReplyAction="http://tempuri.org/ISACService/DeleteIncentivoResponse")]
+        System.Threading.Tasks.Task DeleteIncentivoAsync(int paisID, int incentivoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[]> SelectBelcorpNoticiasAsync(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById", ReplyAction="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia GetBelcorpNoticiaById(int paisID, int belcorpNoticiaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById", ReplyAction="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia> GetBelcorpNoticiaByIdAsync(int paisID, int belcorpNoticiaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse")]
+        void InsertBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse")]
+        System.Threading.Tasks.Task InsertBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
+        void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
+        System.Threading.Tasks.Task UpdateBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/DeleteBelcorpNoticiaResponse")]
         void DeleteBelcorpNoticia(int paisID, int belcorpNoticiaID);
@@ -9745,258 +10123,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelConfiguracionParametroCarga", ReplyAction="http://tempuri.org/ISACService/DelConfiguracionParametroCargaResponse")]
         System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int CampaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCargaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCargaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[]> GetRegionZonaDiasParametroCargaAsync(int PaisID, int RegionID, int ZonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedido", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedidoResponse")]
-        void UpdConfiguracionParametroCargaPedido(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedido", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaPedidoResponse")]
-        System.Threading.Tasks.Task UpdConfiguracionParametroCargaPedidoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedidoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] GetLogParametroDiasCargaPedido(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/GetLogParametroDiasCargaPedidoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[]> GetLogParametroDiasCargaPedidoAsync(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedidoResponse")]
-        void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedido", ReplyAction="http://tempuri.org/ISACService/InsLogParametroDiasCargaPedidoResponse")]
-        System.Threading.Tasks.Task InsLogParametroDiasCargaPedidoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionPortalResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[] GetConfiguracionPortal(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionPortalResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[]> GetConfiguracionPortalAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDA", ReplyAction="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDAResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[] GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDA", ReplyAction="http://tempuri.org/ISACService/GetParticipantesConfiguracionConsultoraDAResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[]> GetParticipantesConfiguracionConsultoraDAAsync(int PaisID, string CodigoCampania, string CodigoConsultora);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipada", ReplyAction="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipadaResponse")]
-        int InsParticipantesDemandaAnticipada(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipada", ReplyAction="http://tempuri.org/ISACService/InsParticipantesDemandaAnticipadaResponse")]
-        System.Threading.Tasks.Task<int> InsParticipantesDemandaAnticipadaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraByCodigo", ReplyAction="http://tempuri.org/ISACService/GetConsultoraByCodigoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada GetConsultoraByCodigo(int paisID, string CodigoConsultora);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraByCodigo", ReplyAction="http://tempuri.org/ISACService/GetConsultoraByCodigoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada> GetConsultoraByCodigoAsync(int paisID, string CodigoConsultora);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteCacheServicio", ReplyAction="http://tempuri.org/ISACService/DeleteCacheServicioResponse")]
-        void DeleteCacheServicio(string CodigoISO, int CampaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteCacheServicio", ReplyAction="http://tempuri.org/ISACService/DeleteCacheServicioResponse")]
-        System.Threading.Tasks.Task DeleteCacheServicioAsync(string CodigoISO, int CampaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignados", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignadosResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[] GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignados", ReplyAction="http://tempuri.org/ISACService/GetServicioCampaniaSegmentoZonaAsignadosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[]> GetServicioCampaniaSegmentoZonaAsignadosAsync(int ServicioId, int PaisId, int Tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZonaResponse")]
-        void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZona", ReplyAction="http://tempuri.org/ISACService/UpdServicioCampaniaSegmentoZonaResponse")]
-        System.Threading.Tasks.Task UpdServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltanteMasivoResponse")]
-        int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltanteMasivoResponse")]
-        System.Threading.Tasks.Task<int> DelProductoFaltanteMasivoAsync(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarColoniasByTerritorio", ReplyAction="http://tempuri.org/ISACService/ListarColoniasByTerritorioResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[] ListarColoniasByTerritorio(int paisID, string codigo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarColoniasByTerritorio", ReplyAction="http://tempuri.org/ISACService/ListarColoniasByTerritorioResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[]> ListarColoniasByTerritorioAsync(int paisID, string codigo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ValidarNumeroRFC", ReplyAction="http://tempuri.org/ISACService/ValidarNumeroRFCResponse")]
-        string ValidarNumeroRFC(int paisID, string numeroRFC);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ValidarNumeroRFC", ReplyAction="http://tempuri.org/ISACService/ValidarNumeroRFCResponse")]
-        System.Threading.Tasks.Task<string> ValidarNumeroRFCAsync(int paisID, string numeroRFC);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultora", ReplyAction="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultoraResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultora", ReplyAction="http://tempuri.org/ISACService/GetAfiliaClienteConsultoraByConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora> GetAfiliaClienteConsultoraByConsultoraAsync(int paisID, string ConsultoraID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/InsAfiliaClienteConsultoraResponse")]
-        int InsAfiliaClienteConsultora(int paisID, long ConsultoraID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/InsAfiliaClienteConsultoraResponse")]
-        System.Threading.Tasks.Task<int> InsAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdAfiliaClienteConsultoraResponse")]
-        int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdAfiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdAfiliaClienteConsultoraResponse")]
-        System.Threading.Tasks.Task<int> UpdAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultoraResponse")]
-        int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultora", ReplyAction="http://tempuri.org/ISACService/UpdDesafiliaClienteConsultoraResponse")]
-        System.Threading.Tasks.Task<int> UpdDesafiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> GetSolicitudClienteAsync(int paisID, long SolicitudClienteId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudClienteDetalle", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteDetalleResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] GetSolicitudClienteDetalle(int paisID, long SolicitudClienteId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetSolicitudClienteDetalle", ReplyAction="http://tempuri.org/ISACService/GetSolicitudClienteDetalleResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[]> GetSolicitudClienteDetalleAsync(int paisID, long SolicitudClienteId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteResponse")]
-        void UpdSolicitudCliente(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/UpdSolicitudClienteResponse")]
-        System.Threading.Tasks.Task UpdSolicitudClienteAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RechazarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse")]
-        void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RechazarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse")]
-        System.Threading.Tasks.Task RechazarSolicitudClienteAsync(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
-        void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
-        System.Threading.Tasks.Task CancelarSolicitudClienteAsync(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
-        int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ", ReplyAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse")]
-        System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[]> BuscarSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas", ReplyAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> DetalleSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal ObtenerConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal> ObtenerConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse")]
-        int ActualizarConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal", ReplyAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse")]
-        System.Threading.Tasks.Task<int> ActualizarConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga", ReplyAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse")]
-        void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga", ReplyAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse")]
-        System.Threading.Tasks.Task GetInformacionCursoLiderDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[] GetEstadoSolicitudCliente(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[]> GetEstadoSolicitudClienteAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteAfiliados", ReplyAction="http://tempuri.org/ISACService/GetReporteAfiliadosResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[] GetReporteAfiliados(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReporteAfiliados", ReplyAction="http://tempuri.org/ISACService/GetReporteAfiliadosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[]> GetReporteAfiliadosAsync(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReportePedidos", ReplyAction="http://tempuri.org/ISACService/GetReportePedidosResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[] GetReportePedidos(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetReportePedidos", ReplyAction="http://tempuri.org/ISACService/GetReportePedidosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[]> GetReportePedidosAsync(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga", ReplyAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse")]
-        void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga", ReplyAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse")]
-        System.Threading.Tasks.Task GetConsultoraDigitalesDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActivaPais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEPaisCampana GetCampaniaActivaPais(int paisID, System.DateTime fechaConsulta);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActivaPais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
-        System.DateTime GetFechaHoraPais(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
-        System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
-        int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse")]
-        System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
-        void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse")]
-        System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
-        void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera", ReplyAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse")]
-        System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse")]
-        void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/MntoCampoProveedorDespachoCobranzaResponse")]
-        System.Threading.Tasks.Task MntoCampoProveedorDespachoCobranzaAsync(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
@@ -10381,132 +10507,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalle", ReplyAction="http://tempuri.org/ISACService/GetIndicadorDescuentoByPedidoWebDetalleResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoWebDetalleDescuento[]> GetIndicadorDescuentoByPedidoWebDetalleAsync(int paisID, int campaniaId, int pedidoId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia", ReplyAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse")]
-        void UpdatePedidoWebEstimadoGanancia(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia", ReplyAction="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGananciaResponse")]
-        System.Threading.Tasks.Task UpdatePedidoWebEstimadoGananciaAsync(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscala", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaSiguienteEscalaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaSiguienteEscalaAsync(decimal monto, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuento", ReplyAction="http://tempuri.org/ISACService/GetFactorGananciaEscalaDescuentoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaEscalaDescuentoAsync(decimal monto, int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] GetRegionZonaDiasDuracionCronograma(int PaisID, int RegionID, int ZonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronograma", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasDuracionCronogramaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[]> GetRegionZonaDiasDuracionCronogramaAsync(int PaisID, int RegionID, int ZonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse")]
-        void UpdConfiguracionValidacionZonaCronograma(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronograma", ReplyAction="http://tempuri.org/ISACService/UpdConfiguracionValidacionZonaCronogramaResponse")]
-        System.Threading.Tasks.Task UpdConfiguracionValidacionZonaCronogramaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogModificacionCronograma", ReplyAction="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] GetLogModificacionCronograma(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLogModificacionCronograma", ReplyAction="http://tempuri.org/ISACService/GetLogModificacionCronogramaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[]> GetLogModificacionCronogramaAsync(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo", ReplyAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse")]
-        void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivo", ReplyAction="http://tempuri.org/ISACService/InsLogModificacionCronogramaMasivoResponse")]
-        System.Threading.Tasks.Task InsLogModificacionCronogramaMasivoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionZonaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona> GetConfiguracionValidacionZonaAsync(int paisID, int campaniaID, int zonaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectLugarPago", ReplyAction="http://tempuri.org/ISACService/SelectLugarPagoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BELugarPago[] SelectLugarPago(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectLugarPago", ReplyAction="http://tempuri.org/ISACService/SelectLugarPagoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago[]> SelectLugarPagoAsync(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLugarPagoById", ReplyAction="http://tempuri.org/ISACService/GetLugarPagoByIdResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BELugarPago GetLugarPagoById(int paisID, int lugarPagoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetLugarPagoById", ReplyAction="http://tempuri.org/ISACService/GetLugarPagoByIdResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago> GetLugarPagoByIdAsync(int paisID, int lugarPagoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
-        void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
-        System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
-        void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
-        System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteLugarPago", ReplyAction="http://tempuri.org/ISACService/DeleteLugarPagoResponse")]
-        void DeleteLugarPago(int paisID, int lugarPagoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteLugarPago", ReplyAction="http://tempuri.org/ISACService/DeleteLugarPagoResponse")]
-        System.Threading.Tasks.Task DeleteLugarPagoAsync(int paisID, int lugarPagoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectIncentivos", ReplyAction="http://tempuri.org/ISACService/SelectIncentivosResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEIncentivo[] SelectIncentivos(int paisID, int campaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectIncentivos", ReplyAction="http://tempuri.org/ISACService/SelectIncentivosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEIncentivo[]> SelectIncentivosAsync(int paisID, int campaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertIncentivo", ReplyAction="http://tempuri.org/ISACService/InsertIncentivoResponse")]
-        void InsertIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertIncentivo", ReplyAction="http://tempuri.org/ISACService/InsertIncentivoResponse")]
-        System.Threading.Tasks.Task InsertIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateIncentivo", ReplyAction="http://tempuri.org/ISACService/UpdateIncentivoResponse")]
-        void UpdateIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateIncentivo", ReplyAction="http://tempuri.org/ISACService/UpdateIncentivoResponse")]
-        System.Threading.Tasks.Task UpdateIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteIncentivo", ReplyAction="http://tempuri.org/ISACService/DeleteIncentivoResponse")]
-        void DeleteIncentivo(int paisID, int incentivoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteIncentivo", ReplyAction="http://tempuri.org/ISACService/DeleteIncentivoResponse")]
-        System.Threading.Tasks.Task DeleteIncentivoAsync(int paisID, int incentivoID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectBelcorpNoticias", ReplyAction="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[]> SelectBelcorpNoticiasAsync(int paisID, int campaniaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById", ReplyAction="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia GetBelcorpNoticiaById(int paisID, int belcorpNoticiaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById", ReplyAction="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia> GetBelcorpNoticiaByIdAsync(int paisID, int belcorpNoticiaID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse")]
-        void InsertBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse")]
-        System.Threading.Tasks.Task InsertBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
-        void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
-        System.Threading.Tasks.Task UpdateBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -10536,6 +10536,342 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 base(binding, remoteAddress) {
         }
         
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID) {
+            return base.Channel.GetRegionZonaDiasParametroCarga(PaisID, RegionID, ZonaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[]> GetRegionZonaDiasParametroCargaAsync(int PaisID, int RegionID, int ZonaID) {
+            return base.Channel.GetRegionZonaDiasParametroCargaAsync(PaisID, RegionID, ZonaID);
+        }
+        
+        public void UpdConfiguracionParametroCargaPedido(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades) {
+            base.Channel.UpdConfiguracionParametroCargaPedido(paisID, listaEntidades);
+        }
+        
+        public System.Threading.Tasks.Task UpdConfiguracionParametroCargaPedidoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades) {
+            return base.Channel.UpdConfiguracionParametroCargaPedidoAsync(paisID, listaEntidades);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] GetLogParametroDiasCargaPedido(int PaisID) {
+            return base.Channel.GetLogParametroDiasCargaPedido(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[]> GetLogParametroDiasCargaPedidoAsync(int PaisID) {
+            return base.Channel.GetLogParametroDiasCargaPedidoAsync(PaisID);
+        }
+        
+        public void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades) {
+            base.Channel.InsLogParametroDiasCargaPedido(paisID, CodigoUsuario, listaEntidades);
+        }
+        
+        public System.Threading.Tasks.Task InsLogParametroDiasCargaPedidoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades) {
+            return base.Channel.InsLogParametroDiasCargaPedidoAsync(paisID, CodigoUsuario, listaEntidades);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[] GetConfiguracionPortal(int paisID) {
+            return base.Channel.GetConfiguracionPortal(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[]> GetConfiguracionPortalAsync(int paisID) {
+            return base.Channel.GetConfiguracionPortalAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[] GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora) {
+            return base.Channel.GetParticipantesConfiguracionConsultoraDA(PaisID, CodigoCampania, CodigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[]> GetParticipantesConfiguracionConsultoraDAAsync(int PaisID, string CodigoCampania, string CodigoConsultora) {
+            return base.Channel.GetParticipantesConfiguracionConsultoraDAAsync(PaisID, CodigoCampania, CodigoConsultora);
+        }
+        
+        public int InsParticipantesDemandaAnticipada(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada) {
+            return base.Channel.InsParticipantesDemandaAnticipada(paisID, participantesDemandaAnticipada);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsParticipantesDemandaAnticipadaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada) {
+            return base.Channel.InsParticipantesDemandaAnticipadaAsync(paisID, participantesDemandaAnticipada);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada GetConsultoraByCodigo(int paisID, string CodigoConsultora) {
+            return base.Channel.GetConsultoraByCodigo(paisID, CodigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada> GetConsultoraByCodigoAsync(int paisID, string CodigoConsultora) {
+            return base.Channel.GetConsultoraByCodigoAsync(paisID, CodigoConsultora);
+        }
+        
+        public void DeleteCacheServicio(string CodigoISO, int CampaniaId) {
+            base.Channel.DeleteCacheServicio(CodigoISO, CampaniaId);
+        }
+        
+        public System.Threading.Tasks.Task DeleteCacheServicioAsync(string CodigoISO, int CampaniaId) {
+            return base.Channel.DeleteCacheServicioAsync(CodigoISO, CampaniaId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId) {
+            return base.Channel.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId) {
+            return base.Channel.GetServicioCampaniaSegmentoZonaAsync(ServicioId, CampaniaId, PaisId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[] GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo) {
+            return base.Channel.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[]> GetServicioCampaniaSegmentoZonaAsignadosAsync(int ServicioId, int PaisId, int Tipo) {
+            return base.Channel.GetServicioCampaniaSegmentoZonaAsignadosAsync(ServicioId, PaisId, Tipo);
+        }
+        
+        public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId) {
+            base.Channel.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
+        }
+        
+        public System.Threading.Tasks.Task UpdServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId) {
+            return base.Channel.UpdServicioCampaniaSegmentoZonaAsync(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
+        }
+        
+        public int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion) {
+            return base.Channel.DelProductoFaltanteMasivo(paisID, campaniaID, zona, cuv, fecha, descripcion);
+        }
+        
+        public System.Threading.Tasks.Task<int> DelProductoFaltanteMasivoAsync(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion) {
+            return base.Channel.DelProductoFaltanteMasivoAsync(paisID, campaniaID, zona, cuv, fecha, descripcion);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[] ListarColoniasByTerritorio(int paisID, string codigo) {
+            return base.Channel.ListarColoniasByTerritorio(paisID, codigo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[]> ListarColoniasByTerritorioAsync(int paisID, string codigo) {
+            return base.Channel.ListarColoniasByTerritorioAsync(paisID, codigo);
+        }
+        
+        public string ValidarNumeroRFC(int paisID, string numeroRFC) {
+            return base.Channel.ValidarNumeroRFC(paisID, numeroRFC);
+        }
+        
+        public System.Threading.Tasks.Task<string> ValidarNumeroRFCAsync(int paisID, string numeroRFC) {
+            return base.Channel.ValidarNumeroRFCAsync(paisID, numeroRFC);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID) {
+            return base.Channel.GetAfiliaClienteConsultoraByConsultora(paisID, ConsultoraID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora> GetAfiliaClienteConsultoraByConsultoraAsync(int paisID, string ConsultoraID) {
+            return base.Channel.GetAfiliaClienteConsultoraByConsultoraAsync(paisID, ConsultoraID);
+        }
+        
+        public int InsAfiliaClienteConsultora(int paisID, long ConsultoraID) {
+            return base.Channel.InsAfiliaClienteConsultora(paisID, ConsultoraID);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID) {
+            return base.Channel.InsAfiliaClienteConsultoraAsync(paisID, ConsultoraID);
+        }
+        
+        public int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion) {
+            return base.Channel.UpdAfiliaClienteConsultora(paisID, ConsultoraID, EsAfiliacion);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion) {
+            return base.Channel.UpdAfiliaClienteConsultoraAsync(paisID, ConsultoraID, EsAfiliacion);
+        }
+        
+        public int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID) {
+            return base.Channel.UpdDesafiliaClienteConsultora(paisID, ConsultoraID, EsAfiliacion, MotivoDesafiliacionID);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdDesafiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID) {
+            return base.Channel.UpdDesafiliaClienteConsultoraAsync(paisID, ConsultoraID, EsAfiliacion, MotivoDesafiliacionID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId) {
+            return base.Channel.GetSolicitudCliente(paisID, SolicitudClienteId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> GetSolicitudClienteAsync(int paisID, long SolicitudClienteId) {
+            return base.Channel.GetSolicitudClienteAsync(paisID, SolicitudClienteId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] GetSolicitudClienteDetalle(int paisID, long SolicitudClienteId) {
+            return base.Channel.GetSolicitudClienteDetalle(paisID, SolicitudClienteId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[]> GetSolicitudClienteDetalleAsync(int paisID, long SolicitudClienteId) {
+            return base.Channel.GetSolicitudClienteDetalleAsync(paisID, SolicitudClienteId);
+        }
+        
+        public void UpdSolicitudCliente(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud) {
+            base.Channel.UpdSolicitudCliente(paisID, entidadSolicitud);
+        }
+        
+        public System.Threading.Tasks.Task UpdSolicitudClienteAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud) {
+            return base.Channel.UpdSolicitudClienteAsync(paisID, entidadSolicitud);
+        }
+        
+        public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo) {
+            base.Channel.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
+        }
+        
+        public System.Threading.Tasks.Task RechazarSolicitudClienteAsync(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo) {
+            return base.Channel.RechazarSolicitudClienteAsync(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
+            return base.Channel.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
+            return base.Channel.ReasignarSolicitudClienteAsync(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
+        }
+        
+        public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
+            base.Channel.CancelarSolicitudCliente(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+        }
+        
+        public System.Threading.Tasks.Task CancelarSolicitudClienteAsync(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
+            return base.Channel.CancelarSolicitudClienteAsync(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+        }
+        
+        public int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
+        }
+        
+        public System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.EnviarSolicitudClienteaGZAsync(paisID, entidadSolicitudCliente);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.BuscarSolicitudAnuladasRechazadas(paisID, entidadSolicitudCliente);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[]> BuscarSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.BuscarSolicitudAnuladasRechazadasAsync(paisID, entidadSolicitudCliente);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.DetalleSolicitudAnuladasRechazadas(paisID, entidadSolicitudCliente);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> DetalleSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
+            return base.Channel.DetalleSolicitudAnuladasRechazadasAsync(paisID, entidadSolicitudCliente);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal ObtenerConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
+            return base.Channel.ObtenerConfiguracionPortal(beoConfiguracionPortal);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal> ObtenerConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
+            return base.Channel.ObtenerConfiguracionPortalAsync(beoConfiguracionPortal);
+        }
+        
+        public int ActualizarConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
+            return base.Channel.ActualizarConfiguracionPortal(beoConfiguracionPortal);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
+            return base.Channel.ActualizarConfiguracionPortalAsync(beoConfiguracionPortal);
+        }
+        
+        public void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
+            base.Channel.GetInformacionCursoLiderDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+        }
+        
+        public System.Threading.Tasks.Task GetInformacionCursoLiderDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
+            return base.Channel.GetInformacionCursoLiderDescargaAsync(PaisId, PaisISO, FechaProceso, Usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[] GetEstadoSolicitudCliente(int paisID) {
+            return base.Channel.GetEstadoSolicitudCliente(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[]> GetEstadoSolicitudClienteAsync(int paisID) {
+            return base.Channel.GetEstadoSolicitudClienteAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[] GetReporteAfiliados(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin) {
+            return base.Channel.GetReporteAfiliados(paisID, FechaInicio, FechaFin);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[]> GetReporteAfiliadosAsync(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin) {
+            return base.Channel.GetReporteAfiliadosAsync(paisID, FechaInicio, FechaFin);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[] GetReportePedidos(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID) {
+            return base.Channel.GetReportePedidos(FechaInicio, FechaFin, estado, marca, campania, paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[]> GetReportePedidosAsync(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID) {
+            return base.Channel.GetReportePedidosAsync(FechaInicio, FechaFin, estado, marca, campania, paisID);
+        }
+        
+        public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
+            base.Channel.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+        }
+        
+        public System.Threading.Tasks.Task GetConsultoraDigitalesDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
+            return base.Channel.GetConsultoraDigitalesDescargaAsync(PaisId, PaisISO, FechaProceso, Usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEPaisCampana GetCampaniaActivaPais(int paisID, System.DateTime fechaConsulta) {
+            return base.Channel.GetCampaniaActivaPais(paisID, fechaConsulta);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta) {
+            return base.Channel.GetCampaniaActivaPaisAsync(paisID, fechaConsulta);
+        }
+        
+        public System.DateTime GetFechaHoraPais(int paisID) {
+            return base.Channel.GetFechaHoraPais(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID) {
+            return base.Channel.GetFechaHoraPaisAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID) {
+            return base.Channel.GetProveedorDespachoCobranza(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID) {
+            return base.Channel.GetProveedorDespachoCobranzaAsync(paisID);
+        }
+        
+        public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID) {
+            return base.Channel.DelProveedorDespachoCobranza(paisID, ProveedorDespachoCobanzaID);
+        }
+        
+        public System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID) {
+            return base.Channel.DelProveedorDespachoCobranzaAsync(paisID, ProveedorDespachoCobanzaID);
+        }
+        
+        public void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            base.Channel.UpdProveedorDespachoCobranzaCabecera(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            return base.Channel.UpdProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
+        }
+        
+        public void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            base.Channel.InsProveedorDespachoCobranzaCabecera(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            return base.Channel.InsProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
+        }
+        
+        public void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo) {
+            base.Channel.MntoCampoProveedorDespachoCobranza(entidad, accion, campoid, valor, valorAntiguo);
+        }
+        
+        public System.Threading.Tasks.Task MntoCampoProveedorDespachoCobranzaAsync(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo) {
+            return base.Channel.MntoCampoProveedorDespachoCobranzaAsync(entidad, accion, campoid, valor, valorAntiguo);
+        }
+        
         public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity) {
             return base.Channel.GetProveedorDespachoCobranzaMnto(paisID, entity);
         }
@@ -10550,6 +10886,174 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaBYiDAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity) {
             return base.Channel.GetProveedorDespachoCobranzaBYiDAsync(paisID, entity);
+        }
+        
+        public void UpdatePedidoWebEstimadoGanancia(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia) {
+            base.Channel.UpdatePedidoWebEstimadoGanancia(paisID, campaniaId, pedidoId, estimadoGanancia);
+        }
+        
+        public System.Threading.Tasks.Task UpdatePedidoWebEstimadoGananciaAsync(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia) {
+            return base.Channel.UpdatePedidoWebEstimadoGananciaAsync(paisID, campaniaId, pedidoId, estimadoGanancia);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID) {
+            return base.Channel.GetFactorGananciaSiguienteEscala(monto, paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaSiguienteEscalaAsync(decimal monto, int paisID) {
+            return base.Channel.GetFactorGananciaSiguienteEscalaAsync(monto, paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID) {
+            return base.Channel.GetFactorGananciaEscalaDescuento(monto, paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaEscalaDescuentoAsync(decimal monto, int paisID) {
+            return base.Channel.GetFactorGananciaEscalaDescuentoAsync(monto, paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] GetRegionZonaDiasDuracionCronograma(int PaisID, int RegionID, int ZonaID) {
+            return base.Channel.GetRegionZonaDiasDuracionCronograma(PaisID, RegionID, ZonaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[]> GetRegionZonaDiasDuracionCronogramaAsync(int PaisID, int RegionID, int ZonaID) {
+            return base.Channel.GetRegionZonaDiasDuracionCronogramaAsync(PaisID, RegionID, ZonaID);
+        }
+        
+        public void UpdConfiguracionValidacionZonaCronograma(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades) {
+            base.Channel.UpdConfiguracionValidacionZonaCronograma(paisID, listaEntidades);
+        }
+        
+        public System.Threading.Tasks.Task UpdConfiguracionValidacionZonaCronogramaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades) {
+            return base.Channel.UpdConfiguracionValidacionZonaCronogramaAsync(paisID, listaEntidades);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] GetLogModificacionCronograma(int PaisID) {
+            return base.Channel.GetLogModificacionCronograma(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[]> GetLogModificacionCronogramaAsync(int PaisID) {
+            return base.Channel.GetLogModificacionCronogramaAsync(PaisID);
+        }
+        
+        public void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades) {
+            base.Channel.InsLogModificacionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
+        }
+        
+        public System.Threading.Tasks.Task InsLogModificacionCronogramaMasivoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades) {
+            return base.Channel.InsLogModificacionCronogramaMasivoAsync(paisID, CodigoUsuario, listaEntidades);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID) {
+            return base.Channel.GetConfiguracionValidacionZona(paisID, campaniaID, zonaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona> GetConfiguracionValidacionZonaAsync(int paisID, int campaniaID, int zonaID) {
+            return base.Channel.GetConfiguracionValidacionZonaAsync(paisID, campaniaID, zonaID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BELugarPago[] SelectLugarPago(int paisID) {
+            return base.Channel.SelectLugarPago(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago[]> SelectLugarPagoAsync(int paisID) {
+            return base.Channel.SelectLugarPagoAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BELugarPago GetLugarPagoById(int paisID, int lugarPagoID) {
+            return base.Channel.GetLugarPagoById(paisID, lugarPagoID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago> GetLugarPagoByIdAsync(int paisID, int lugarPagoID) {
+            return base.Channel.GetLugarPagoByIdAsync(paisID, lugarPagoID);
+        }
+        
+        public void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            base.Channel.InsertLugarPago(entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            return base.Channel.InsertLugarPagoAsync(entidad);
+        }
+        
+        public void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            base.Channel.UpdateLugarPago(entidad);
+        }
+        
+        public System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            return base.Channel.UpdateLugarPagoAsync(entidad);
+        }
+        
+        public void DeleteLugarPago(int paisID, int lugarPagoID) {
+            base.Channel.DeleteLugarPago(paisID, lugarPagoID);
+        }
+        
+        public System.Threading.Tasks.Task DeleteLugarPagoAsync(int paisID, int lugarPagoID) {
+            return base.Channel.DeleteLugarPagoAsync(paisID, lugarPagoID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEIncentivo[] SelectIncentivos(int paisID, int campaniaID) {
+            return base.Channel.SelectIncentivos(paisID, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEIncentivo[]> SelectIncentivosAsync(int paisID, int campaniaID) {
+            return base.Channel.SelectIncentivosAsync(paisID, campaniaID);
+        }
+        
+        public void InsertIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
+            base.Channel.InsertIncentivo(entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsertIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
+            return base.Channel.InsertIncentivoAsync(entidad);
+        }
+        
+        public void UpdateIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
+            base.Channel.UpdateIncentivo(entidad);
+        }
+        
+        public System.Threading.Tasks.Task UpdateIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
+            return base.Channel.UpdateIncentivoAsync(entidad);
+        }
+        
+        public void DeleteIncentivo(int paisID, int incentivoID) {
+            base.Channel.DeleteIncentivo(paisID, incentivoID);
+        }
+        
+        public System.Threading.Tasks.Task DeleteIncentivoAsync(int paisID, int incentivoID) {
+            return base.Channel.DeleteIncentivoAsync(paisID, incentivoID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID) {
+            return base.Channel.SelectBelcorpNoticias(paisID, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[]> SelectBelcorpNoticiasAsync(int paisID, int campaniaID) {
+            return base.Channel.SelectBelcorpNoticiasAsync(paisID, campaniaID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia GetBelcorpNoticiaById(int paisID, int belcorpNoticiaID) {
+            return base.Channel.GetBelcorpNoticiaById(paisID, belcorpNoticiaID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia> GetBelcorpNoticiaByIdAsync(int paisID, int belcorpNoticiaID) {
+            return base.Channel.GetBelcorpNoticiaByIdAsync(paisID, belcorpNoticiaID);
+        }
+        
+        public void InsertBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
+            base.Channel.InsertBelcorpNoticia(entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsertBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
+            return base.Channel.InsertBelcorpNoticiaAsync(entidad);
+        }
+        
+        public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
+            base.Channel.UpdateBelcorpNoticia(entidad);
+        }
+        
+        public System.Threading.Tasks.Task UpdateBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
+            return base.Channel.UpdateBelcorpNoticiaAsync(entidad);
         }
         
         public void DeleteBelcorpNoticia(int paisID, int belcorpNoticiaID) {
@@ -10894,342 +11398,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int CampaniaID) {
             return base.Channel.DelConfiguracionParametroCargaAsync(paisID, CampaniaID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID) {
-            return base.Channel.GetRegionZonaDiasParametroCarga(PaisID, RegionID, ZonaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[]> GetRegionZonaDiasParametroCargaAsync(int PaisID, int RegionID, int ZonaID) {
-            return base.Channel.GetRegionZonaDiasParametroCargaAsync(PaisID, RegionID, ZonaID);
-        }
-        
-        public void UpdConfiguracionParametroCargaPedido(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades) {
-            base.Channel.UpdConfiguracionParametroCargaPedido(paisID, listaEntidades);
-        }
-        
-        public System.Threading.Tasks.Task UpdConfiguracionParametroCargaPedidoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] listaEntidades) {
-            return base.Channel.UpdConfiguracionParametroCargaPedidoAsync(paisID, listaEntidades);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] GetLogParametroDiasCargaPedido(int PaisID) {
-            return base.Channel.GetLogParametroDiasCargaPedido(PaisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[]> GetLogParametroDiasCargaPedidoAsync(int PaisID) {
-            return base.Channel.GetLogParametroDiasCargaPedidoAsync(PaisID);
-        }
-        
-        public void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades) {
-            base.Channel.InsLogParametroDiasCargaPedido(paisID, CodigoUsuario, listaEntidades);
-        }
-        
-        public System.Threading.Tasks.Task InsLogParametroDiasCargaPedidoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogParametroDiasCargaPedido[] listaEntidades) {
-            return base.Channel.InsLogParametroDiasCargaPedidoAsync(paisID, CodigoUsuario, listaEntidades);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[] GetConfiguracionPortal(int paisID) {
-            return base.Channel.GetConfiguracionPortal(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal[]> GetConfiguracionPortalAsync(int paisID) {
-            return base.Channel.GetConfiguracionPortalAsync(paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[] GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora) {
-            return base.Channel.GetParticipantesConfiguracionConsultoraDA(PaisID, CodigoCampania, CodigoConsultora);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada[]> GetParticipantesConfiguracionConsultoraDAAsync(int PaisID, string CodigoCampania, string CodigoConsultora) {
-            return base.Channel.GetParticipantesConfiguracionConsultoraDAAsync(PaisID, CodigoCampania, CodigoConsultora);
-        }
-        
-        public int InsParticipantesDemandaAnticipada(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada) {
-            return base.Channel.InsParticipantesDemandaAnticipada(paisID, participantesDemandaAnticipada);
-        }
-        
-        public System.Threading.Tasks.Task<int> InsParticipantesDemandaAnticipadaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada participantesDemandaAnticipada) {
-            return base.Channel.InsParticipantesDemandaAnticipadaAsync(paisID, participantesDemandaAnticipada);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada GetConsultoraByCodigo(int paisID, string CodigoConsultora) {
-            return base.Channel.GetConsultoraByCodigo(paisID, CodigoConsultora);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEParticipantesDemandaAnticipada> GetConsultoraByCodigoAsync(int paisID, string CodigoConsultora) {
-            return base.Channel.GetConsultoraByCodigoAsync(paisID, CodigoConsultora);
-        }
-        
-        public void DeleteCacheServicio(string CodigoISO, int CampaniaId) {
-            base.Channel.DeleteCacheServicio(CodigoISO, CampaniaId);
-        }
-        
-        public System.Threading.Tasks.Task DeleteCacheServicioAsync(string CodigoISO, int CampaniaId) {
-            return base.Channel.DeleteCacheServicioAsync(CodigoISO, CampaniaId);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId) {
-            return base.Channel.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId) {
-            return base.Channel.GetServicioCampaniaSegmentoZonaAsync(ServicioId, CampaniaId, PaisId);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[] GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo) {
-            return base.Channel.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEServicioSegmentoZona[]> GetServicioCampaniaSegmentoZonaAsignadosAsync(int ServicioId, int PaisId, int Tipo) {
-            return base.Channel.GetServicioCampaniaSegmentoZonaAsignadosAsync(ServicioId, PaisId, Tipo);
-        }
-        
-        public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId) {
-            base.Channel.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
-        }
-        
-        public System.Threading.Tasks.Task UpdServicioCampaniaSegmentoZonaAsync(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId) {
-            return base.Channel.UpdServicioCampaniaSegmentoZonaAsync(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
-        }
-        
-        public int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion) {
-            return base.Channel.DelProductoFaltanteMasivo(paisID, campaniaID, zona, cuv, fecha, descripcion);
-        }
-        
-        public System.Threading.Tasks.Task<int> DelProductoFaltanteMasivoAsync(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion) {
-            return base.Channel.DelProductoFaltanteMasivoAsync(paisID, campaniaID, zona, cuv, fecha, descripcion);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[] ListarColoniasByTerritorio(int paisID, string codigo) {
-            return base.Channel.ListarColoniasByTerritorio(paisID, codigo);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BETablaLogicaDatos[]> ListarColoniasByTerritorioAsync(int paisID, string codigo) {
-            return base.Channel.ListarColoniasByTerritorioAsync(paisID, codigo);
-        }
-        
-        public string ValidarNumeroRFC(int paisID, string numeroRFC) {
-            return base.Channel.ValidarNumeroRFC(paisID, numeroRFC);
-        }
-        
-        public System.Threading.Tasks.Task<string> ValidarNumeroRFCAsync(int paisID, string numeroRFC) {
-            return base.Channel.ValidarNumeroRFCAsync(paisID, numeroRFC);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID) {
-            return base.Channel.GetAfiliaClienteConsultoraByConsultora(paisID, ConsultoraID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEAfiliaClienteConsultora> GetAfiliaClienteConsultoraByConsultoraAsync(int paisID, string ConsultoraID) {
-            return base.Channel.GetAfiliaClienteConsultoraByConsultoraAsync(paisID, ConsultoraID);
-        }
-        
-        public int InsAfiliaClienteConsultora(int paisID, long ConsultoraID) {
-            return base.Channel.InsAfiliaClienteConsultora(paisID, ConsultoraID);
-        }
-        
-        public System.Threading.Tasks.Task<int> InsAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID) {
-            return base.Channel.InsAfiliaClienteConsultoraAsync(paisID, ConsultoraID);
-        }
-        
-        public int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion) {
-            return base.Channel.UpdAfiliaClienteConsultora(paisID, ConsultoraID, EsAfiliacion);
-        }
-        
-        public System.Threading.Tasks.Task<int> UpdAfiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion) {
-            return base.Channel.UpdAfiliaClienteConsultoraAsync(paisID, ConsultoraID, EsAfiliacion);
-        }
-        
-        public int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID) {
-            return base.Channel.UpdDesafiliaClienteConsultora(paisID, ConsultoraID, EsAfiliacion, MotivoDesafiliacionID);
-        }
-        
-        public System.Threading.Tasks.Task<int> UpdDesafiliaClienteConsultoraAsync(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID) {
-            return base.Channel.UpdDesafiliaClienteConsultoraAsync(paisID, ConsultoraID, EsAfiliacion, MotivoDesafiliacionID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId) {
-            return base.Channel.GetSolicitudCliente(paisID, SolicitudClienteId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> GetSolicitudClienteAsync(int paisID, long SolicitudClienteId) {
-            return base.Channel.GetSolicitudClienteAsync(paisID, SolicitudClienteId);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[] GetSolicitudClienteDetalle(int paisID, long SolicitudClienteId) {
-            return base.Channel.GetSolicitudClienteDetalle(paisID, SolicitudClienteId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudClienteDetalle[]> GetSolicitudClienteDetalleAsync(int paisID, long SolicitudClienteId) {
-            return base.Channel.GetSolicitudClienteDetalleAsync(paisID, SolicitudClienteId);
-        }
-        
-        public void UpdSolicitudCliente(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud) {
-            base.Channel.UpdSolicitudCliente(paisID, entidadSolicitud);
-        }
-        
-        public System.Threading.Tasks.Task UpdSolicitudClienteAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitud) {
-            return base.Channel.UpdSolicitudClienteAsync(paisID, entidadSolicitud);
-        }
-        
-        public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo) {
-            base.Channel.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
-        }
-        
-        public System.Threading.Tasks.Task RechazarSolicitudClienteAsync(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo) {
-            return base.Channel.RechazarSolicitudClienteAsync(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
-            return base.Channel.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
-            return base.Channel.ReasignarSolicitudClienteAsync(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
-        }
-        
-        public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
-            base.Channel.CancelarSolicitudCliente(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
-        }
-        
-        public System.Threading.Tasks.Task CancelarSolicitudClienteAsync(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
-            return base.Channel.CancelarSolicitudClienteAsync(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
-        }
-        
-        public int EnviarSolicitudClienteaGZ(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
-        }
-        
-        public System.Threading.Tasks.Task<int> EnviarSolicitudClienteaGZAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.EnviarSolicitudClienteaGZAsync(paisID, entidadSolicitudCliente);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[] BuscarSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.BuscarSolicitudAnuladasRechazadas(paisID, entidadSolicitudCliente);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente[]> BuscarSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.BuscarSolicitudAnuladasRechazadasAsync(paisID, entidadSolicitudCliente);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.DetalleSolicitudAnuladasRechazadas(paisID, entidadSolicitudCliente);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente> DetalleSolicitudAnuladasRechazadasAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BESolicitudCliente entidadSolicitudCliente) {
-            return base.Channel.DetalleSolicitudAnuladasRechazadasAsync(paisID, entidadSolicitudCliente);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal ObtenerConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
-            return base.Channel.ObtenerConfiguracionPortal(beoConfiguracionPortal);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal> ObtenerConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
-            return base.Channel.ObtenerConfiguracionPortalAsync(beoConfiguracionPortal);
-        }
-        
-        public int ActualizarConfiguracionPortal(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
-            return base.Channel.ActualizarConfiguracionPortal(beoConfiguracionPortal);
-        }
-        
-        public System.Threading.Tasks.Task<int> ActualizarConfiguracionPortalAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPortal beoConfiguracionPortal) {
-            return base.Channel.ActualizarConfiguracionPortalAsync(beoConfiguracionPortal);
-        }
-        
-        public void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
-            base.Channel.GetInformacionCursoLiderDescarga(PaisId, PaisISO, FechaProceso, Usuario);
-        }
-        
-        public System.Threading.Tasks.Task GetInformacionCursoLiderDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
-            return base.Channel.GetInformacionCursoLiderDescargaAsync(PaisId, PaisISO, FechaProceso, Usuario);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[] GetEstadoSolicitudCliente(int paisID) {
-            return base.Channel.GetEstadoSolicitudCliente(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoSolicitudCliente[]> GetEstadoSolicitudClienteAsync(int paisID) {
-            return base.Channel.GetEstadoSolicitudClienteAsync(paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[] GetReporteAfiliados(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin) {
-            return base.Channel.GetReporteAfiliados(paisID, FechaInicio, FechaFin);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReporteAfiliados[]> GetReporteAfiliadosAsync(int paisID, System.DateTime FechaInicio, System.DateTime FechaFin) {
-            return base.Channel.GetReporteAfiliadosAsync(paisID, FechaInicio, FechaFin);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[] GetReportePedidos(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID) {
-            return base.Channel.GetReportePedidos(FechaInicio, FechaFin, estado, marca, campania, paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEReportePedidos[]> GetReportePedidosAsync(System.DateTime FechaInicio, System.DateTime FechaFin, int estado, string marca, string campania, int paisID) {
-            return base.Channel.GetReportePedidosAsync(FechaInicio, FechaFin, estado, marca, campania, paisID);
-        }
-        
-        public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
-            base.Channel.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
-        }
-        
-        public System.Threading.Tasks.Task GetConsultoraDigitalesDescargaAsync(int PaisId, string PaisISO, string FechaProceso, string Usuario) {
-            return base.Channel.GetConsultoraDigitalesDescargaAsync(PaisId, PaisISO, FechaProceso, Usuario);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEPaisCampana GetCampaniaActivaPais(int paisID, System.DateTime fechaConsulta) {
-            return base.Channel.GetCampaniaActivaPais(paisID, fechaConsulta);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta) {
-            return base.Channel.GetCampaniaActivaPaisAsync(paisID, fechaConsulta);
-        }
-        
-        public System.DateTime GetFechaHoraPais(int paisID) {
-            return base.Channel.GetFechaHoraPais(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID) {
-            return base.Channel.GetFechaHoraPaisAsync(paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID) {
-            return base.Channel.GetProveedorDespachoCobranza(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaAsync(int paisID) {
-            return base.Channel.GetProveedorDespachoCobranzaAsync(paisID);
-        }
-        
-        public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID) {
-            return base.Channel.DelProveedorDespachoCobranza(paisID, ProveedorDespachoCobanzaID);
-        }
-        
-        public System.Threading.Tasks.Task<int> DelProveedorDespachoCobranzaAsync(int paisID, int ProveedorDespachoCobanzaID) {
-            return base.Channel.DelProveedorDespachoCobranzaAsync(paisID, ProveedorDespachoCobanzaID);
-        }
-        
-        public void UpdProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            base.Channel.UpdProveedorDespachoCobranzaCabecera(paisID, entidad);
-        }
-        
-        public System.Threading.Tasks.Task UpdProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            return base.Channel.UpdProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
-        }
-        
-        public void InsProveedorDespachoCobranzaCabecera(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            base.Channel.InsProveedorDespachoCobranzaCabecera(paisID, entidad);
-        }
-        
-        public System.Threading.Tasks.Task InsProveedorDespachoCobranzaCabeceraAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
-            return base.Channel.InsProveedorDespachoCobranzaCabeceraAsync(paisID, entidad);
-        }
-        
-        public void MntoCampoProveedorDespachoCobranza(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo) {
-            base.Channel.MntoCampoProveedorDespachoCobranza(entidad, accion, campoid, valor, valorAntiguo);
-        }
-        
-        public System.Threading.Tasks.Task MntoCampoProveedorDespachoCobranzaAsync(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo) {
-            return base.Channel.MntoCampoProveedorDespachoCobranzaAsync(entidad, accion, campoid, valor, valorAntiguo);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {
@@ -11742,174 +11910,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoWebDetalleDescuento[]> GetIndicadorDescuentoByPedidoWebDetalleAsync(int paisID, int campaniaId, int pedidoId) {
             return base.Channel.GetIndicadorDescuentoByPedidoWebDetalleAsync(paisID, campaniaId, pedidoId);
-        }
-        
-        public void UpdatePedidoWebEstimadoGanancia(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia) {
-            base.Channel.UpdatePedidoWebEstimadoGanancia(paisID, campaniaId, pedidoId, estimadoGanancia);
-        }
-        
-        public System.Threading.Tasks.Task UpdatePedidoWebEstimadoGananciaAsync(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia) {
-            return base.Channel.UpdatePedidoWebEstimadoGananciaAsync(paisID, campaniaId, pedidoId, estimadoGanancia);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID) {
-            return base.Channel.GetFactorGananciaSiguienteEscala(monto, paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaSiguienteEscalaAsync(decimal monto, int paisID) {
-            return base.Channel.GetFactorGananciaSiguienteEscalaAsync(monto, paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID) {
-            return base.Channel.GetFactorGananciaEscalaDescuento(monto, paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEFactorGanancia> GetFactorGananciaEscalaDescuentoAsync(decimal monto, int paisID) {
-            return base.Channel.GetFactorGananciaEscalaDescuentoAsync(monto, paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] GetRegionZonaDiasDuracionCronograma(int PaisID, int RegionID, int ZonaID) {
-            return base.Channel.GetRegionZonaDiasDuracionCronograma(PaisID, RegionID, ZonaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[]> GetRegionZonaDiasDuracionCronogramaAsync(int PaisID, int RegionID, int ZonaID) {
-            return base.Channel.GetRegionZonaDiasDuracionCronogramaAsync(PaisID, RegionID, ZonaID);
-        }
-        
-        public void UpdConfiguracionValidacionZonaCronograma(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades) {
-            base.Channel.UpdConfiguracionValidacionZonaCronograma(paisID, listaEntidades);
-        }
-        
-        public System.Threading.Tasks.Task UpdConfiguracionValidacionZonaCronogramaAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] listaEntidades) {
-            return base.Channel.UpdConfiguracionValidacionZonaCronogramaAsync(paisID, listaEntidades);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] GetLogModificacionCronograma(int PaisID) {
-            return base.Channel.GetLogModificacionCronograma(PaisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[]> GetLogModificacionCronogramaAsync(int PaisID) {
-            return base.Channel.GetLogModificacionCronogramaAsync(PaisID);
-        }
-        
-        public void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades) {
-            base.Channel.InsLogModificacionCronogramaMasivo(paisID, CodigoUsuario, listaEntidades);
-        }
-        
-        public System.Threading.Tasks.Task InsLogModificacionCronogramaMasivoAsync(int paisID, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BELogModificacionCronograma[] listaEntidades) {
-            return base.Channel.InsLogModificacionCronogramaMasivoAsync(paisID, CodigoUsuario, listaEntidades);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID) {
-            return base.Channel.GetConfiguracionValidacionZona(paisID, campaniaID, zonaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona> GetConfiguracionValidacionZonaAsync(int paisID, int campaniaID, int zonaID) {
-            return base.Channel.GetConfiguracionValidacionZonaAsync(paisID, campaniaID, zonaID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BELugarPago[] SelectLugarPago(int paisID) {
-            return base.Channel.SelectLugarPago(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago[]> SelectLugarPagoAsync(int paisID) {
-            return base.Channel.SelectLugarPagoAsync(paisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BELugarPago GetLugarPagoById(int paisID, int lugarPagoID) {
-            return base.Channel.GetLugarPagoById(paisID, lugarPagoID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago> GetLugarPagoByIdAsync(int paisID, int lugarPagoID) {
-            return base.Channel.GetLugarPagoByIdAsync(paisID, lugarPagoID);
-        }
-        
-        public void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            base.Channel.InsertLugarPago(entidad);
-        }
-        
-        public System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            return base.Channel.InsertLugarPagoAsync(entidad);
-        }
-        
-        public void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            base.Channel.UpdateLugarPago(entidad);
-        }
-        
-        public System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            return base.Channel.UpdateLugarPagoAsync(entidad);
-        }
-        
-        public void DeleteLugarPago(int paisID, int lugarPagoID) {
-            base.Channel.DeleteLugarPago(paisID, lugarPagoID);
-        }
-        
-        public System.Threading.Tasks.Task DeleteLugarPagoAsync(int paisID, int lugarPagoID) {
-            return base.Channel.DeleteLugarPagoAsync(paisID, lugarPagoID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEIncentivo[] SelectIncentivos(int paisID, int campaniaID) {
-            return base.Channel.SelectIncentivos(paisID, campaniaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEIncentivo[]> SelectIncentivosAsync(int paisID, int campaniaID) {
-            return base.Channel.SelectIncentivosAsync(paisID, campaniaID);
-        }
-        
-        public void InsertIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
-            base.Channel.InsertIncentivo(entidad);
-        }
-        
-        public System.Threading.Tasks.Task InsertIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
-            return base.Channel.InsertIncentivoAsync(entidad);
-        }
-        
-        public void UpdateIncentivo(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
-            base.Channel.UpdateIncentivo(entidad);
-        }
-        
-        public System.Threading.Tasks.Task UpdateIncentivoAsync(Portal.Consultoras.Web.ServiceSAC.BEIncentivo entidad) {
-            return base.Channel.UpdateIncentivoAsync(entidad);
-        }
-        
-        public void DeleteIncentivo(int paisID, int incentivoID) {
-            base.Channel.DeleteIncentivo(paisID, incentivoID);
-        }
-        
-        public System.Threading.Tasks.Task DeleteIncentivoAsync(int paisID, int incentivoID) {
-            return base.Channel.DeleteIncentivoAsync(paisID, incentivoID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[] SelectBelcorpNoticias(int paisID, int campaniaID) {
-            return base.Channel.SelectBelcorpNoticias(paisID, campaniaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia[]> SelectBelcorpNoticiasAsync(int paisID, int campaniaID) {
-            return base.Channel.SelectBelcorpNoticiasAsync(paisID, campaniaID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia GetBelcorpNoticiaById(int paisID, int belcorpNoticiaID) {
-            return base.Channel.GetBelcorpNoticiaById(paisID, belcorpNoticiaID);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia> GetBelcorpNoticiaByIdAsync(int paisID, int belcorpNoticiaID) {
-            return base.Channel.GetBelcorpNoticiaByIdAsync(paisID, belcorpNoticiaID);
-        }
-        
-        public void InsertBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
-            base.Channel.InsertBelcorpNoticia(entidad);
-        }
-        
-        public System.Threading.Tasks.Task InsertBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
-            return base.Channel.InsertBelcorpNoticiaAsync(entidad);
-        }
-        
-        public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
-            base.Channel.UpdateBelcorpNoticia(entidad);
-        }
-        
-        public System.Threading.Tasks.Task UpdateBelcorpNoticiaAsync(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
-            return base.Channel.UpdateBelcorpNoticiaAsync(entidad);
         }
     }
 }
