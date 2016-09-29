@@ -136,12 +136,17 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
                     model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
+                    model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
+                    model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
+                    model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");
+                    model.Email = Util.ReemplazarSaltoLinea(model.Email, " ");
+                    model.MensajeDelCliente = Util.ReemplazarSaltoLinea(model.MensajeDelCliente, " ");
                 });
                 
                 return Json(new
                 {
                     success = true,
-                    message = listModel.Count == 0 ? "No tiene pedidos de Clientes Online para esta campaña, con el filtro en la campaña actual." : "",
+                    message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña, con el filtro en la campaña actual." : "",
                     listaPedidosClienteOnline = listModel
                 });
             }

@@ -31,7 +31,7 @@ function CargarEventosClienteOnline() {
                 else $('#divTablaClientesOnline').html(data.message);
             },
             error: function (data) {
-                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+                $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
                 console.log(data);
             },
             complete: closeWaitingDialog
@@ -90,7 +90,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             marcaIdActual = marcaId;
         },
         error: function (data) {
-            alert_msg('Hubieron problemas de conexion al intentar cargar los datos Clientes Online, inténtelo más tarde.');
+            alert_msg('Hubieron problemas de conexion al intentar cargar los datos del pedido de Consultora Online, inténtelo más tarde.');
             console.log(data);
         },
         complete: closeWaitingDialog
