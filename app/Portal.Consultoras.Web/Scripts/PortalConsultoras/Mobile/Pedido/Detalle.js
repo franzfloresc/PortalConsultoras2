@@ -1,4 +1,5 @@
-﻿
+﻿var tipoOfertaFinal_Log = "";
+var gap_Log = 0;
 var tipoOrigen = '2';
 
 var esPedidoValidado = false; /* SB20-565 */
@@ -73,7 +74,7 @@ $(document).ready(function () {
             DescripcionMarca: descripcionMarca,
             DescripcionEstrategia: descripcionEstrategia,
             EsSugerido: false,
-            OrigenPedidoWeb: MobilePedidoSugerido
+            OrigenPedidoWeb: MobilePedidoOfertaFinal
         };
 
         InsertarProducto(model);

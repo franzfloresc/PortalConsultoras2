@@ -204,13 +204,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
-                            if (tipoOrigen == "2") {
-                                // cuando se agregue para mobile
-                            }
-                            else {
-                                tipoOfertaFinal_Log = "E" + escalaDescuentoSiguiente.PorDescuento;
-                                gap_Log = montoFaltante;
-                            }
+                            tipoOfertaFinal_Log = "E" + escalaDescuentoSiguiente.PorDescuento;
+                            gap_Log = montoFaltante;
                             resultado = true;
                         } else {
                             resultado = false;
@@ -241,13 +236,10 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                             if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
                                 montoFaltante = diferenciaMonto;
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
-                                if (tipoOrigen == "2") {
-                                    // cuando se agregue para mobile
-                                }
-                                else {
-                                    tipoOfertaFinal_Log = "MM";
-                                    gap_Log = montoFaltante;
-                                }
+
+                                tipoOfertaFinal_Log = "MM";
+                                gap_Log = montoFaltante;                                
+
                                 resultado = true;
                             } else {
                                 resultado = false;
