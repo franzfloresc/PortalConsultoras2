@@ -65,9 +65,9 @@ $(document).ready(function () {
                                 var html = SetHandlebars("#template-mod-ofer2", settings);
                                 $('.mod-ofer2').html(html).show();
                             }
-                            else if (settings.lista_oObjItemPack.length > 0) {
-                                var html = SetHandlebars("#template-mod-ofer2", settings);
-                                $('.mod-ofer2').html(html).show();
+                            else if (settings.lista_oObjPack.length > 0) {
+                                var html = SetHandlebars("#template-mod-ofer3", settings);
+                                $('.mod-ofer3').html(html).show();
                             }
                             break;
                             //    case '049':
@@ -91,7 +91,7 @@ $(document).ready(function () {
             return false;
 
         var contenedor = $(this).parents(".cuerpo-mod");
-        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var cantidad = $(this).siblings('.liquidacion_rango_home, .ofertarevista_rango_home').find('#txtCantidad').val();
         var tipoCUV = $(this).attr('data-cuv');
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
