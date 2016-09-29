@@ -2487,153 +2487,10 @@ function EjecutarServicioPROL() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            CerrarSplash();
-
-            $("#hdfAccionPROL").val(response.data.Prol);
-            $("#hdfReserva").val(response.data.Reserva);
-            $("#hdfObsInfor").val(response.data.ObservacionInformativa);
-            $("#hdfModificaPedido").val(response.data.EsModificacion);
-            $("#hdfZonaValida").val(response.data.ZonaValida);
-            $("#hdfPROLSinStock").val(response.data.ProlSinStock);
-            $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
-            $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
-            $("#hdMontoDescuento").val(response.data.MontoDescuento);
-            $("#hdMontoEscala").val(response.data.MontoEscala);
-            $("#divMensajeObservacionesPROL").html("");
-
-            var mensajePedido = "";
-
-            if (response.data.ErrorProl == false) {
-
-                if (!response.data.ValidacionInteractiva) {
-
-                    html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
-                    html += '<img src="/Content/Images/icons/warning.png">';
-                    html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
-                    html += '<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
-                    html += '</div>';
-                    $("#divContendorPrincipal").after(html);
-                    return false;
-                }
-
-                if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
-                    mensajePedido += "Tu pedido se guardó con éxito";
-
-                    if (response.data.ProlSinStock) {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                    }
-                    else {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                        if (response.data.ZonaNuevoProlM == false) {
-                            $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-                        }
-                    }
-                } else {
-                    if (response.data.EsDiaProl) {
-                        $("#divTituloObservacionesPROL").html("Importante");
-                    } else {
-                        $("#divTituloObservacionesPROL").html("Aviso");
-                    }
-
-                    var html = "<ul>";
-                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                    var msgDefaultCont = 0;
-                    $.each(response.data.ListaObservacionesProl, function (index, item) {
-                        if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                                item.Caso = 105;
-                            }
-                        }
-
-                        if (item.Caso == 95 || item.Caso == 105 || item.Caso == 0) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                            return;
-                        }
-
-                        if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                        } else {
-                            if (msgDefaultCont == 0) {
-                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
-                            }
-                            msgDefaultCont++;
-                            mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                        }
-                    });
-                    html += "</ul>";
-
-                    $("#divMensajeObservacionesPROL").html(html);
-                }
-                mensajePedido = "-1 " + mensajePedido;
-            } else {
-                mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
-
-                $("#divTituloObservacionesPROL").html("ERROR");
-                $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
-            }
-
-            $("#hdfMensajePedido").val(mensajePedido);
-
-            var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
-
-            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
-
-            var montoDescuento = parseFloat(response.data.MontoDescuento);
-            var montoEscala = parseFloat(response.data.MontoEscala);
-            if (montoDescuento > 0) {
-                var htmlTexto = "";
-                htmlTexto += '<p class="monto_descuento">';
-                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
-                htmlTexto += '</p>';
-                htmlTexto += '<p class="monto_montodescuento">';
-                htmlTexto += 'MONTO DESCUENTO :';
-                htmlTexto += '</p>';
-
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
-                $("#divMontosEscalaDescuentoTexto").css("display", "block");
-
-                var htmlMontos = "";
-                htmlMontos += '<p class="monto_descuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-                htmlMontos += '<p class="monto_montodescuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-
-                $("#divMontosEscalaDescuento").html("");
-                $("#divMontosEscalaDescuento").html(htmlMontos);
-
-                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
-
-                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
-                $("#divMontosEscalaDescuento").css("display", "block");
-            } else {
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuento").html("");
-
-                $("#divMontosEscalaDescuentoTexto").css("display", "none");
-                $("#divMontosEscalaDescuento").css("display", "none");
-            }
-
-            $('#btnValidarPROL').val(response.data.Prol);
-            var tooltips = response.data.ProlTooltip.split('|');
-            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
-            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+            
+            RespuestaEjecutarServicioPROL(response);
 
             var codigoMensajeProl = response.data.CodigoMensajeProl;
-
-            $("#btnNoGraciasOfertaFinal")[0].data = response;
-
             var cumpleOferta;
 
             //MENSAJES
@@ -2719,138 +2576,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
         contentType: 'application/json; charset=utf-8',
         //async: false,
         success: function (response) {
-            CerrarSplash();
 
-            $("#hdfAccionPROL").val(response.data.Prol);
-            $("#hdfReserva").val(response.data.Reserva);
-            $("#hdfObsInfor").val(response.data.ObservacionInformativa);
-            $("#hdfModificaPedido").val(response.data.EsModificacion);
-            $("#hdfZonaValida").val(response.data.ZonaValida);
-            $("#hdfPROLSinStock").val(response.data.ProlSinStock);
-            $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
-            $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
-            $("#hdMontoDescuento").val(response.data.MontoDescuento);
-            $("#hdMontoEscala").val(response.data.MontoEscala);
-            $("#divMensajeObservacionesPROL").html("");
-
-            var mensajePedido = "";
-
-            if (response.data.ErrorProl == false) {
-                if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
-                    mensajePedido += "Tu pedido se guardó con éxito";
-
-                    if (response.data.ProlSinStock) {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                    }
-                    else {
-                        $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                        if (response.data.ZonaNuevoProlM == false) {
-                            $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-                        }
-                    }
-                } else {
-                    if (response.data.EsDiaProl) {
-                        $("#divTituloObservacionesPROL").html("Importante");
-                    } else {
-                        $("#divTituloObservacionesPROL").html("Aviso");
-                    }
-
-                    var html = "<ul>";
-                    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                    var msgDefaultCont = 0;
-                    $.each(response.data.ListaObservacionesProl, function (index, item) {
-                        if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                                item.Caso = 105;
-                            }
-                        }
-
-                        if (item.Caso == 95 || item.Caso == 105) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                            return;
-                        }
-
-                        if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
-                            html += "<li>" + item.Descripcion + "</li>";
-
-                            mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                        } else {
-                            if (msgDefaultCont == 0) {
-                                html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
-                            }
-                            msgDefaultCont++;
-                            mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                        }
-                    });
-                    html += "</ul>";
-
-                    $("#divMensajeObservacionesPROL").html(html);
-                }
-                mensajePedido = "-1 " + mensajePedido;
-            } else {
-                mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
-
-                $("#divTituloObservacionesPROL").html("ERROR");
-                $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
-            }
-
-            $("#hdfMensajePedido").val(mensajePedido);
-
-            var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
-
-            $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
-
-            var montoDescuento = parseFloat(response.data.MontoDescuento);
-            var montoEscala = parseFloat(response.data.MontoEscala);
-            if (montoDescuento > 0) {
-                var htmlTexto = "";
-                htmlTexto += '<p class="monto_descuento">';
-                htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
-                htmlTexto += '</p>';
-                htmlTexto += '<p class="monto_montodescuento">';
-                htmlTexto += 'MONTO DESCUENTO :';
-                htmlTexto += '</p>';
-
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
-                $("#divMontosEscalaDescuentoTexto").css("display", "block");
-
-                var htmlMontos = "";
-                htmlMontos += '<p class="monto_descuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-                htmlMontos += '<p class="monto_montodescuento">';
-                htmlMontos += '<b>';
-                htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
-                htmlMontos += '</b>';
-                htmlMontos += '</p>';
-
-                $("#divMontosEscalaDescuento").html("");
-                $("#divMontosEscalaDescuento").html(htmlMontos);
-
-                var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
-
-                $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-                $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
-                $("#divMontosEscalaDescuento").css("display", "block");
-            } else {
-                $("#divMontosEscalaDescuentoTexto").html("");
-                $("#divMontosEscalaDescuento").html("");
-
-                $("#divMontosEscalaDescuentoTexto").css("display", "none");
-                $("#divMontosEscalaDescuento").css("display", "none");
-            }
-
-            $('#btnValidarPROL').val(response.data.Prol);
-            var tooltips = response.data.ProlTooltip.split('|');
-            $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
-            $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
-
-            $("#btnNoGraciasOfertaFinal")[0].data = response;
+            RespuestaEjecutarServicioPROL(response, false);
             MostrarMensajeProl(response);
         },
         error: function (data, error) {
@@ -2860,6 +2587,155 @@ function EjecutarServicioPROLSinOfertaFinal() {
         }
     });
 }
+
+function RespuestaEjecutarServicioPROL(response, inicio) {
+    CerrarSplash();
+    inicio = inicio == null || inicio == undefined ? true : inicio;
+    $("#hdfAccionPROL").val(response.data.Prol);
+    $("#hdfReserva").val(response.data.Reserva);
+    $("#hdfObsInfor").val(response.data.ObservacionInformativa);
+    $("#hdfModificaPedido").val(response.data.EsModificacion);
+    $("#hdfZonaValida").val(response.data.ZonaValida);
+    $("#hdfPROLSinStock").val(response.data.ProlSinStock);
+    $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
+    $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
+    $("#hdMontoDescuento").val(response.data.MontoDescuento);
+    $("#hdMontoEscala").val(response.data.MontoEscala);
+    $("#divMensajeObservacionesPROL").html("");
+
+    var mensajePedido = "";
+
+    if (response.data.ErrorProl == false) {
+        if (inicio) {
+            if (!response.data.ValidacionInteractiva) {
+
+                html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
+                html += '<img src="/Content/Images/icons/warning.png">';
+                html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
+                html += '<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
+                html += '</div>';
+                $("#divContendorPrincipal").after(html);
+                return false;
+            }
+        }
+
+        if (response.data.ObservacionRestrictiva == false && response.data.ObservacionInformativa == false) {
+            mensajePedido += "Tu pedido se guardó con éxito";
+
+            if (response.data.ProlSinStock) {
+                $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
+            }
+            else {
+                $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
+                if (response.data.ZonaNuevoProlM == false) {
+                    $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+                }
+            }
+        } else {
+            if (response.data.EsDiaProl) {
+                $("#divTituloObservacionesPROL").html("Importante");
+            } else {
+                $("#divTituloObservacionesPROL").html("Aviso");
+            }
+
+            var html = "<ul>";
+            var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+            var msgDefaultCont = 0;
+            $.each(response.data.ListaObservacionesProl, function (index, item) {
+                if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
+                    if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                        item.Caso = 105;
+                    }
+                }
+
+                if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                    html += "<li>" + item.Descripcion + "</li>";
+
+                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                    return;
+                }
+
+                if (viewBagMenuNotificaciones == 0 && item.Caso == 0 && response.data.ObservacionInformativa) {
+                    html += "<li>" + item.Descripcion + "</li>";
+
+                    mensajePedido += item.Caso + " " + item.Descripcion + " ";
+                } else {
+                    if (msgDefaultCont == 0) {
+                        html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
+                    }
+                    msgDefaultCont++;
+                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
+                }
+            });
+            html += "</ul>";
+
+            $("#divMensajeObservacionesPROL").html(html);
+        }
+        mensajePedido = "-1 " + mensajePedido;
+    } else {
+        mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
+
+        $("#divTituloObservacionesPROL").html("ERROR");
+        $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
+    }
+
+    $("#hdfMensajePedido").val(mensajePedido);
+
+    var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
+
+    $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
+
+    var montoDescuento = parseFloat(response.data.MontoDescuento);
+    var montoEscala = parseFloat(response.data.MontoEscala);
+    if (montoDescuento > 0) {
+        var htmlTexto = "";
+        htmlTexto += '<p class="monto_descuento">';
+        htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
+        htmlTexto += '</p>';
+        htmlTexto += '<p class="monto_montodescuento">';
+        htmlTexto += 'MONTO DESCUENTO :';
+        htmlTexto += '</p>';
+
+        $("#divMontosEscalaDescuentoTexto").html("");
+        $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
+        $("#divMontosEscalaDescuentoTexto").css("display", "block");
+
+        var htmlMontos = "";
+        htmlMontos += '<p class="monto_descuento">';
+        htmlMontos += '<b>';
+        htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+        htmlMontos += '</b>';
+        htmlMontos += '</p>';
+        htmlMontos += '<p class="monto_montodescuento">';
+        htmlMontos += '<b>';
+        htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+        htmlMontos += '</b>';
+        htmlMontos += '</p>';
+
+        $("#divMontosEscalaDescuento").html("");
+        $("#divMontosEscalaDescuento").html(htmlMontos);
+
+        var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
+        $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
+        $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
+        $("#divMontosEscalaDescuento").css("display", "block");
+    } else {
+        $("#divMontosEscalaDescuentoTexto").html("");
+        $("#divMontosEscalaDescuento").html("");
+
+        $("#divMontosEscalaDescuentoTexto").css("display", "none");
+        $("#divMontosEscalaDescuento").css("display", "none");
+    }
+
+    $('#btnValidarPROL').val(response.data.Prol);
+    var tooltips = response.data.ProlTooltip.split('|');
+    $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+
+    $("#btnNoGraciasOfertaFinal")[0].data = response;
+}
+
 function MostrarMensajeProl(response) {
     var data = response.data;
 
