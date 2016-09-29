@@ -28174,6 +28174,49 @@ span.datoPedidoCliente {
     width: 78%;
 }
 
+.tiempo_atencionPedido {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 44px;
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #1a1a1a;
+    font-weight: normal;
+    padding-left:16px;
+}
+
+.tiempo_atencionPedido span:last-child{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.revision_pedidosAceptados {
+    display: block;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: normal;
+    padding-left:16px;
+}
+
+.revision_pedidosAceptados .texto_revisaPedidos{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.icono_consultoraOnline, .texto_misPedidosClientesOnline{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.icono_consultoraOnline{
+    width:34px;
+    height:34px;
+    margin-right:6px;
+    background:url(../../../Images/Lbel/online.png) no-repeat center center;
+}
+
 .content_datos_pendientes {
     width: 100%;
     height: auto;
