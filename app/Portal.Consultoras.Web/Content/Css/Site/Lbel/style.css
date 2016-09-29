@@ -27364,6 +27364,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .enlace_popupCatalogoPersonalizado a{
     display:inline;
     color:#642f80;
+    text-decoration: underline;
 }
 
 .enlace_popupCatalogoPersonalizado a:hover{

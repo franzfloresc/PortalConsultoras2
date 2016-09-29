@@ -7888,7 +7888,8 @@ a:focus, a:hover {
 }
 .enlace_popupCatalogoPersonalizado a {
     display: inline;
-    color: #e81c36;
+    color:#642f80;
+    text-decoration: underline;
 }
 @media only screen and (max-width:380px) {
     .iphone_1{
