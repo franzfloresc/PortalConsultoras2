@@ -6,6 +6,7 @@ var numImagen = 1;
 var fnMovimientoTutorial;
 var fotoCroppie
 var origenPedidoWebEstrategia = 0;
+
 $(document).ready(function () {
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
@@ -388,29 +389,37 @@ $(document).ready(function () {
                     var settings = $.extend({}, response.data.dataPROL, obj);
                     settings.productoRevista = response.data.producto;
 
-                    settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    var html = SetHandlebars("#template-mod-ofer1", settings);
-                    $('.mod-ofer1').html(html).show();
+                    //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                    //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                    //settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                    //var html = SetHandlebars("#template-mod-ofer1", settings);
+                    //$('.mod-ofer1').html(html).show();
                     TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-                    //switch (settings.tipo_oferta) {
-                    //    case '003':
-                    //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    //        settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    //        settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    //        var html = SetHandlebars("#template-mod-ofer1", settings);
-                    //        $('.mod-ofer1').html(html).show();
-                    //        break;
-                    //    case '048':
-                    //        //var html = SetHandlebars("#template-mod-ofer2", settings);
-                    //        //$('.mod-ofer2').html(html).show();
-                    //        break;
+                    switch (settings.tipo_oferta) {
+                        case '003':
+                            settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
+                            settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
+                            settings.ganancia = DecimalToStringFormat(settings.ganancia);
+                            var html = SetHandlebars("#template-mod-ofer1", settings);
+                            $('.mod-ofer1').html(html).show();
+                            console.log(settings.tipo_oferta);
+                            break;
+                        case '048':
+                            console.log(response.data);
+                            if (settings.lista_ObjNivel.length > 0) {
+                                var html = SetHandlebars("#template-mod-ofer2", settings);
+                                $('.mod-ofer2').html(html).show();
+                            }
+                            else if (settings.lista_oObjItemPack.length > 0) {
+                                var html = SetHandlebars("#template-mod-ofer2", settings);
+                                $('.mod-ofer2').html(html).show();
+                            }
+                            break;
                     //    case '049':
                     //        //var html = SetHandlebars("#template-mod-ofer3", settings);
                     //        //$('.mod-ofer3').html(html).show();
                     //        break;
-                    //}
+                    }
                 } else {
                     console.log(response.message);
                 }
