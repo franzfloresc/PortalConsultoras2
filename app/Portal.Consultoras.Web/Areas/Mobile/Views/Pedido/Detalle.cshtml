@@ -613,7 +613,7 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 <div class="contenedor_cantidadProductos">
@@ -694,5 +694,6 @@
         /* SB20-565 - FIN */
 
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
 }

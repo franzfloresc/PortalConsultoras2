@@ -45,6 +45,11 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
     $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
 
+    if (tipoOrigen == "2") {
+        $(".js-slick-next-" + aux).click();
+        $(".js-slick-prev-" + aux).click();
+    }
+
     CargandoValoresPopupOfertaFinal(tipoPopupMostrar, cumpleOferta.montoFaltante, cumpleOferta.porcentajeDescuento);
 }
 
@@ -181,6 +186,8 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                 if (escalaDescuento == null) {
                     resultado = false;
                 } else {
+                    
+                    escalaDescuento.MontoHasta = Math.ceil(escalaDescuento.MontoHasta);
 
                     var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
                     var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
