@@ -385,7 +385,6 @@ $(document).ready(function () {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             CerrarSplash();
-            //limpiarInputsPedido();
             return false;
         }
 
@@ -2632,7 +2631,6 @@ function EjecutarServicioPROL() {
             $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 
             var codigoMensajeProl = response.data.CodigoMensajeProl;
-            //var montoTotalPedido = parseFloat($("#hdfTotal").val());
 
             $("#btnNoGraciasOfertaFinal")[0].data = response;
 
@@ -2642,10 +2640,9 @@ function EjecutarServicioPROL() {
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
-                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                         if (cumpleOferta.resultado) {
                             esPedidoValidado = response.data.ProlSinStock != true;
-                            MostrarPopupOfertaFinal(cumpleOferta, 1);
                         } else {
                             if (response.data.ProlSinStock == true) {
                                 showDialog("divReservaSatisfactoria3");
@@ -2662,10 +2659,8 @@ function EjecutarServicioPROL() {
                     } else {
                         var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                        cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        if (cumpleOferta.resultado) {
-                            MostrarPopupOfertaFinal(cumpleOferta, tipoMensaje);
-                        } else {
+                        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                        if (!cumpleOferta.resultado) {
                             $('#DivObsBut').css({ "display": "none" });
                             $('#DivObsInfBut').css({ "display": "block" });
 
@@ -2676,10 +2671,8 @@ function EjecutarServicioPROL() {
                     }
                 } else {
 
-                    cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    if (cumpleOferta.resultado) {
-                        MostrarPopupOfertaFinal(cumpleOferta, 1);
-                    } else {
+                    cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                    if (!cumpleOferta.resultado) {
                         if (viewBagNombrePais == 'Venezuela') {
                             showDialog("divReservaSatisfactoriaVE");
                         } else {
@@ -2699,10 +2692,8 @@ function EjecutarServicioPROL() {
 
                 var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                if (cumpleOferta.resultado) {
-                    MostrarPopupOfertaFinal(cumpleOferta, tipoMensaje);
-                } else {
+                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+                if (!cumpleOferta.resultado) {
                     showDialog("divObservacionesPROL");
                     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                 }
@@ -2711,7 +2702,6 @@ function EjecutarServicioPROL() {
             AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;
         },
-        //**********
         error: function (data, error) {
             CerrarSplash();
             if (checkTimeout(data)) {

@@ -92,6 +92,14 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcen
         $("#divOfertaFinal").show();
 }
 
+function CumpleOfertaFinalMostrar(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
+    var cumpleOferta = CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
+    if (cumpleOferta.resultado) {
+        MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
+    }
+    return cumpleOferta;
+}
+
 function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
     var resultado = false;
     var productosMostrar = new Array();
