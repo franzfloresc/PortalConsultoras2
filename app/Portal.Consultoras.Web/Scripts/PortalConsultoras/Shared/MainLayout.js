@@ -842,7 +842,7 @@ function TrackingJetloreSearch(cuv, campania) {
     if (esJetlore) {
         JL.tracker.track({
             event: "search",
-            deal_id: cuv,
+            text: cuv,
             option_id: campania
         });
     }

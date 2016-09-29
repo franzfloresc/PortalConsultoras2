@@ -901,7 +901,7 @@ function EjecutarPROL() {
         }
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('<h3>No existen productos en su Pedido.</h3>');
+        messageInfoMalo('No existen productos en su Pedido.');
     }
 }
 
