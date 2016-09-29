@@ -2642,7 +2642,6 @@ function EjecutarServicioPROL() {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
                         cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        console.log(cumpleOferta);
                         if (cumpleOferta.resultado) {
                             esPedidoValidado = response.data.ProlSinStock != true;
                             MostrarPopupOfertaFinal(cumpleOferta, 1);
@@ -2663,7 +2662,6 @@ function EjecutarServicioPROL() {
                         var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
 
                         cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        console.log(cumpleOferta);
                         if (cumpleOferta.resultado) {
                             MostrarPopupOfertaFinal(cumpleOferta, tipoMensaje);
                         } else {
@@ -2678,7 +2676,6 @@ function EjecutarServicioPROL() {
                 } else {
 
                     cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    console.log(cumpleOferta);
                     if (cumpleOferta.resultado) {
                         MostrarPopupOfertaFinal(cumpleOferta, 1);
                     } else {
@@ -2926,9 +2923,6 @@ function MostrarMensajeProl(response) {
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
-    console.log('MostrarPopupOfertaFinal');
-    console.log(tipoPopupMostrar);
-
     $('.js-slick-prev-of').remove();
     $('.js-slick-next-of').remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
@@ -2959,11 +2953,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 }
 
 function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
-
-    console.log('CargandoValoresPopupOfertaFinal');
-    console.log(tipoPopupMostrar);
-    console.log(montoFaltante);
-    console.log(porcentajeDescuento);
 
     var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
     var montoMinimo = DecimalToStringFormat(parseFloat($("#hdMontoMinimo").val()));
@@ -3064,8 +3053,6 @@ function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObse
 }
 
 function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    console.log('CumpleParametriaOfertaFinal');
-    console.log(monto);
     var resultado = false;
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
@@ -3093,8 +3080,6 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
                     }
                 });
 
-                console.log(escalaDescuento);
-
                 if (escalaDescuento == null) {
                     resultado = false;
                 } else {
@@ -3104,7 +3089,6 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     if (parametriaEd != null && parametriaEd.length != 0) {
                         if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
-                            console.log(diferenciaMontoEd);
                             montoFaltante = diferenciaMontoEd;
                             porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
                             precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
@@ -3132,15 +3116,12 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
 
                     if (mensajeCUV == "XXXXX") {
                         var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                        console.log('acaca');
-                        console.log(montoMinimo);
                         var diferenciaMonto = montoMinimo - monto;
 
                         var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
 
                         if (parametria != null && parametria.length != 0) {
                             if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
-                                console.log(diferenciaMontoEd);
                                 montoFaltante = diferenciaMonto;
                                 precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
                                 tipoOfertaFinal_Log = "MM";
@@ -3164,8 +3145,6 @@ function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl,
             }
         }
     }
-
-    console.log(montoFaltante);
 
     return {
         resultado: resultado,
