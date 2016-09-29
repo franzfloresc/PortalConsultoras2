@@ -328,7 +328,7 @@ BEGIN
 		cast(0 as bit) as EsMontoMinino,
 		1 as 'FlagProcedencia'
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'R', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
 
 	UNION ALL
 	
