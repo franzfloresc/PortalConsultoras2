@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisPedidosController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new MisPedidosSb2Model();
             var pedidoActual = new BEPedidoWeb();
@@ -53,32 +53,20 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                     model.ListaFacturados = listaPedidoFacturados;
                 }
-                else
-                    model.ListaFacturados = new List<BEPedidoWeb>();
+                else model.ListaFacturados = new List<BEPedidoWeb>();
 
                 model.TienePercepcion = userData.CodigoISO == Constantes.CodigosISOPais.Peru;
                 model.Simbolo = userData.Simbolo;
                 model.UserIso = userData.CodigoISO;
-
-
+                
                 BEUsuario usuario;
-
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
                 }
 
                 string paisID = usuario.PaisID.ToString();
-
-                string codigoConsultora;
-                if (UserData().UsuarioPrueba == 1)
-                {
-                    codigoConsultora = UserData().ConsultoraAsociada;
-                }
-                else
-                {
-                    codigoConsultora = usuario.CodigoConsultora;
-                }
+                string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisISO = UserData().CodigoISO.Trim();
                 string campanhaID = UserData().CampaniaID.ToString();
@@ -93,25 +81,28 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
-                    model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel{
-                        CampaniaID = userData.CampaniaID,
-                        NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
-                    }};
-                    foreach (var facturado in model.ListaFacturados)
-                    {
-                        model.CampaniasConsultoraOnline.Add(new CampaniaModel
+                    model.CampaniasConsultoraOnline = new List<CampaniaModel>(model.ListaFacturados.Select (
+                        facturado => new CampaniaModel
                         {
                             CampaniaID = facturado.CampaniaID,
                             NombreCorto = facturado.CampaniaID.ToString().Substring(0, 4) + "-" + facturado.CampaniaID.ToString().Substring(4, 2)
+                        }
+                    ));
+                    if (!model.CampaniasConsultoraOnline.Any(cco => cco.CampaniaID == userData.CampaniaID))
+                    {
+                        model.CampaniasConsultoraOnline.Insert(0,new CampaniaModel{
+                            CampaniaID = userData.CampaniaID,
+                            NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
                         });
                     }
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;
-                                        
+                    
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
                         model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                     }
+                    model.LanzarTabClienteOnline = lanzarTabConsultoraOnline;
                 }
             }
             catch (FaultException ex)

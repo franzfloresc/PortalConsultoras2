@@ -41,6 +41,8 @@ function CargarEventosClienteOnline() {
         $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
         $(this).addClass('optionsSeleccionado');
     });
+
+    if (lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').trigger('click');
 }
 function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
     waitingDialog();

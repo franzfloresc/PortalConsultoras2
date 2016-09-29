@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public int ClienteId { get; set; }
 
         public bool MostrarClienteOnline { get; set; }
+        public bool LanzarTabClienteOnline { get; set; }
         public List<CampaniaModel> CampaniasConsultoraOnline { get; set; }
         public int CampaniaActualConsultoraOnline { get; set; }
         public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
