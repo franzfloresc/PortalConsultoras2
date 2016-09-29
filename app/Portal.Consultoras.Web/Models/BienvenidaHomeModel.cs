@@ -75,5 +75,7 @@ namespace Portal.Consultoras.Web.Models
         public int CatalogoPersonalizadoDesktop { get; set; }
 
         public string ImagenUsuario { get; set; }
+
+        public BarraConsultoraModel DataBarra { get; set; }
     }
 }

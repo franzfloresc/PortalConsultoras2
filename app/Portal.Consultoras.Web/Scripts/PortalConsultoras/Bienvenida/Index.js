@@ -438,6 +438,8 @@ $(document).ready(function () {
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
+
+    MostrarBarra(null, '1');
 });
 
 function CargarCamara() {
@@ -1160,8 +1162,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
-                            waitingDialog({});
-                            ActualizarGanancia(data.DataBarra);
+                            waitingDialog();
+                            MostrarBarra(data.DataBarra, '1');
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
                             TagManagerClickAgregarProducto();
@@ -1569,7 +1571,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         async: true,
                         success: function (data) {
                             if (data.success == true) {
-                                ActualizarGanancia(data.DataBarra);
+                                MostrarBarra(data.DataBarra, '1');
                                 CargarResumenCampaniaHeader(true);
                                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                                 TagManagerClickAgregarProductoLiquidacion(item);
@@ -1805,7 +1807,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
 
-                    ActualizarGanancia(result.DataBarra);
+                    MostrarBarra(result.DataBarra, '1');
 
                     CargarResumenCampaniaHeader(true);
 
@@ -3141,7 +3143,7 @@ function AgregarProducto(url, item, otraFunct) {
         async: true,
         success: function (data) {
             if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);                
+                MostrarBarra(data.DataBarra, '1');
                 CargarResumenCampaniaHeader(true);
 
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
