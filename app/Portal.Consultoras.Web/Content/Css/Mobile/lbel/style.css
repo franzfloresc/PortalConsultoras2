@@ -7923,6 +7923,121 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
+@media only screen and (max-width:380px) {
+    .iphone_1{
+    margin-top: 7px; float: left; width: 35px; height: 35px;
+    }
+    .iphone_2{
+    float: left;
+    width: 80%;
+    margin-top: 7px;
+    padding-left: 10px;
+    text-align: left;
+    }
+}
+
+span.icon-advertencia{
+    display: inline-block;
+    /*background: #d20000;*/
+    background:url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    /*border-radius: 100%;*/
+    margin-right: 8px;
+    /*margin-bottom:32px;*/
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -6px;
+}
+
+/* MENSAJES PEDIDO RECHAZADO */
+
+.bloque_mensajesPedido{
+    background: #a18328;
+    width: 100%;
+    height: 77px;
+    display: none;
+    padding: 11px 11px;
+    text-align: left;
+    position: relative;
+    top: -9px;
+}
+
+.icono_cerrar_mensaje{
+    display: block;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 15px;
+}
+
+.icono_cerrar_mensaje span{
+    display:block;
+}
+
+.icono_cerrar_mensaje span img{
+    width:100%;
+    height:auto;
+}
+
+.icono_cerrar_mensaje span:nth-child(2){
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    color:#FFF;
+    margin-left:-9px;
+}
+
+.icono_estadoPedido, .mensajes_estadoPedido{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_estadoPedido{
+    width: 32px;
+    height: 32px!important;
+    margin-right: 5.8px;
+    padding-top: 1px;
+}
+
+.icono_estadoPedido img{
+    width:100%;
+    height:auto;
+}
+
+.mensajes_estadoPedido {
+    color: #FFF;
+    font-family: 'Lato';
+    line-height:19px;
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:14px;
+    font-weight:700;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: block;
+    margin-left: 2px;
+    color: #FFF;
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
 /* POPUP OFERTA FINAL */
 
 .popup_ofertaFinal{
@@ -8102,119 +8217,3 @@ a:focus, a:hover {
 }
 
 /* FIN POPUP OFERTA FINAL */
-
-@media only screen and (max-width:380px) {
-    .iphone_1{
-    margin-top: 7px; float: left; width: 35px; height: 35px;
-    }
-    .iphone_2{
-    float: left;
-    width: 80%;
-    margin-top: 7px;
-    padding-left: 10px;
-    text-align: left;
-    }
-}
-
-span.icon-advertencia{
-    display: inline-block;
-    /*background: #d20000;*/
-    background:url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
-    width: 18px;
-    height: 18px;
-    /*border-radius: 100%;*/
-    margin-right: 8px;
-    /*margin-bottom:32px;*/
-    font-family: 'Lato';
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFF;
-    text-align: center;
-    vertical-align: middle;
-    margin-top: -6px;
-}
-
-/* MENSAJES PEDIDO RECHAZADO */
-
-.bloque_mensajesPedido{
-    background: #a18328;
-    width: 100%;
-    height: 77px;
-    display: none;
-    padding: 11px 11px;
-    text-align: left;
-    position: relative;
-    top: -9px;
-}
-
-.icono_cerrar_mensaje{
-    display: block;
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    width: 15px;
-}
-
-.icono_cerrar_mensaje span{
-    display:block;
-}
-
-.icono_cerrar_mensaje span img{
-    width:100%;
-    height:auto;
-}
-
-.icono_cerrar_mensaje span:nth-child(2){
-    font-family:'Lato';
-    font-size:10px;
-    text-align:center;
-    color:#FFF;
-    margin-left:-9px;
-}
-
-.icono_estadoPedido, .mensajes_estadoPedido{
-    display:inline-block;
-    vertical-align:middle;
-}
-
-.icono_estadoPedido{
-    width: 32px;
-    height: 32px!important;
-    margin-right: 5.8px;
-    padding-top: 1px;
-}
-
-.icono_estadoPedido img{
-    width:100%;
-    height:auto;
-}
-
-.mensajes_estadoPedido {
-    color: #FFF;
-    font-family: 'Lato';
-    line-height:19px;
-}
-
-.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
-    display:block;
-    text-align:left;
-}
-
-.mensaje_estadoActualPedido{
-    font-size:14px;
-    font-weight:700;
-}
-
-.mensaje_horarioIngresoPedido{
-    font-size:12px;
-    font-weight:normal;
-}
-
-.mensaje_horarioIngresoPedido a{
-    display: block;
-    margin-left: 2px;
-    color: #FFF;
-    text-decoration:underline;
-}
-
-/* FIN MENSAJES PEDIDO RECHAZADO */
