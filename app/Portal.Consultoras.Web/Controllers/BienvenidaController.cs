@@ -213,6 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 catch (Exception) { }
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
             }
