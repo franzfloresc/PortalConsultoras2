@@ -25,12 +25,10 @@ function MostrarBarra(datax, destino) {
 
             if (IsDecimalExist(item.MontoHasta)) {
                 listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
-                listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta));
             } else {
-                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1; 
-                listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta)); 
-
+                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1;
             }
+            listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(listaEscalaDescuento[i].MontoHasta, true);
         });
     }
 
@@ -40,11 +38,11 @@ function MostrarBarra(datax, destino) {
     }
     
     dataBarra.MontoMinimo = Math.ceil(dataBarra.MontoMinimo);
-    dataBarra.MontoMinimoStr = $.trim(dataBarra.MontoMinimo);
+    dataBarra.MontoMinimoStr = DecimalToStringFormat(dataBarra.MontoMinimo, true);
     dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
-    dataBarra.MontoMaximoStr = $.trim(dataBarra.MontoMaximo);
+    dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
     dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
-    dataBarra.TippingPointStr = $.trim(dataBarra.TippingPoint);
+    dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
 
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
