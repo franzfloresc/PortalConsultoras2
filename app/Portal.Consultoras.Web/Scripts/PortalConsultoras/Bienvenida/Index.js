@@ -3935,13 +3935,15 @@ function mostrarComunicadosPopup() {
         //if ($(element).attr('data-cerrado') == '0') {
         //console.log(element);
         var id = $(element).attr('id');
-        var img1 = $(element).find('img.img-comunicado');
+        //var img1 = $(element).find('img.img-comunicado');
 
-        setTimeout(function () {
-            //console.log('load image');
-            $('#' + id).show();
-            centrarComunicadoPopup(id);
-        }, 300);
+        $('#' + id).show();
+        centrarComunicadoPopup(id);
+            //setTimeout(function () {
+            //    //console.log('load image');
+            //    $('#' + id).show();
+            //    centrarComunicadoPopup(id);
+            //}, 300);
         j++;
         return false;
         //}
