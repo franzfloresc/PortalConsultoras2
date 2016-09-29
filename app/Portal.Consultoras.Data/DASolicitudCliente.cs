@@ -211,8 +211,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, razonMotivoCancelacion);
             
             Context.ExecuteReader(command);
-        } 
+        }
 
+        public IDataReader GetMotivosRechazo()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMotivosRechazo_SB2");
+            return Context.ExecuteReader(command);
+        }
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(BESolicitudCliente entidadSolicitudCliente)

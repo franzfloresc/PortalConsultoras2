@@ -687,10 +687,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidos.Any())
                 {
-                    // solo pedidos pendientes
-                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
 
-                    olstMisPedidos.ToList().ForEach(y => y.FechaSolicitudFormat = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")) );
+                    olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")) );
+                    olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO) );
 
                     model.ListaPedidos = olstMisPedidos;
 
@@ -1304,7 +1304,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
                     try
                     {
-                    //Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                     }
                     catch (Exception ex)
                     {

@@ -432,7 +432,7 @@
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
-                <div id="infoPendientes" style="background:white">
+                <div id="infoPendientes" style="background:white; display: none;">
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -936,7 +936,7 @@
     <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
-            <div class="cubre"></div>
+            <div class="cubre cubre2"></div>
 
             <input type="hidden" id="hdIdComprobantePercepcion">
 
@@ -1020,10 +1020,15 @@
 
                 <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
 
-                <div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
+                @*<div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
                 <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
                 <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>
+                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
+
+                @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
 
                 <textarea id="txtOtrosRechazo" placeholder="Otros:"></textarea>
             </div>
@@ -1102,11 +1107,11 @@
             @*<div class="padding_tabla_percepcion dinamicostable">{{DetallePedido[0].FechaCreacion}}</div>
                 <div class="padding_tabla_percepcion dinamicostablemedio">{{DetallePedido[0].PrecioTotal}}</div>*@
 
-            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FechaSolicitudFormat}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
-                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{PrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
+                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
                 <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
                     REVÍSALO
 
@@ -1447,7 +1452,7 @@
             <span class="texto_pedidos_ofertas">
                 <label>OFERTA FLEXIPLAGO</label>
             </span>
-            {{else}}
+            {{else if_eq FlagConsultoraOnline '1'}}
             <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
             </span>
@@ -1888,6 +1893,9 @@
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
+
+        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
 

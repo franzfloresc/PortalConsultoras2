@@ -604,6 +604,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
+        [OperationContract]
+        List<BEMotivoSolicitud> GetMotivosRechazo(int paisID);
+
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         [OperationContract]
         int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente);

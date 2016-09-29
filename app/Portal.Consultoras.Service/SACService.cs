@@ -1243,6 +1243,10 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.CancelarSolicitudCliente(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
 
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            return BLSolicitudCliente.GetMotivosRechazo(paisID);
+        }
 
         #endregion
 

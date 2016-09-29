@@ -287,6 +287,18 @@ namespace Portal.Consultoras.BizLogic
             DASolicitudCliente.CancelarSolicitudCliente(solicitudId,opcionCancelacion,razonMotivoCancelacion);
         }
 
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            List<BEMotivoSolicitud> motivosRechazos = new List<BEMotivoSolicitud>();
+            var DASolicitudCliente = new DASolicitudCliente(paisID);
+
+            using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+            {
+                while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+            }
+            return motivosRechazos;
+        }
+
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)

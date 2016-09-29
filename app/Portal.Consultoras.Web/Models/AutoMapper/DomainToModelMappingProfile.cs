@@ -2,6 +2,8 @@
 using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
 
+using Portal.Consultoras.Web.ServiceSAC;
+
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class DomainToModelMappingProfile : Profile
@@ -76,6 +78,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>();
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
+
+            Mapper.CreateMap<BEMotivoSolicitud, MisPedidosMotivoRechazoModel>();
+
         }
     }
 }

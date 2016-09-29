@@ -59,7 +59,10 @@ namespace Portal.Consultoras.Entities
         public string SaldoHoras { get; set; }
 
         [DataMember]
-        public string FechaSolicitudFormat { get; set; }
+        public string FormartoFechaSolicitud { get; set; }
+
+        [DataMember]
+        public string FormatoPrecioTotal { get; set; }
 
         [DataMember]
         public int PedidoWebID { get; set; }

@@ -21,4 +21,10 @@ namespace Portal.Consultoras.Web.Models
         public List<BECliente> Clientes { get; set; }
         public int ClienteId { get; set; }
     }
+
+    public class MisPedidosMotivoRechazoModel
+    {
+        public int MotivoSolicitudID { get; set; }
+        public string Motivo { get; set; }
+    }
 }
