@@ -461,6 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PaisISO = userData.CodigoISO;
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 model.NombreCompleto = beusuario.Nombre;
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
                 model.EMail = beusuario.EMail;
                 model.Telefono = beusuario.Telefono;
                 model.Celular = beusuario.Celular;
