@@ -586,6 +586,7 @@ function agregarProductoAlCarrito(o) {
 //MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarUbicacionTutorial() {
+
     $(".fondo_oscuro").fadeIn(300, function () {
         //$(".mensaje_header").addClass("opcionTutorial");
         $(".tooltip_tutorial").fadeIn();
@@ -593,16 +594,7 @@ function mostrarUbicacionTutorial() {
         mostrarIconoTutorial();
     });
 
-    setTimeout(function () {
-        $(".contenedor_circulosTutorial").fadeOut();
-        $(".tooltip_tutorial").fadeOut();
-        $(".tooltip_tutorial").stop();
-        $(".fondo_oscuro").delay(500);
-        $(".fondo_oscuro").fadeOut(300);
-        //$(".fondo_oscuro").fadeOut(300, function () {
-        //    $(".mensaje_header").removeClass("opcionTutorial");
-        //});
-    }, 4000);
+    setTimeout(ocultarUbicacionTutorial, 4000);
 
 }
 
@@ -614,6 +606,16 @@ function mostrarIconoTutorial() {
     }, 500, 'swing').animate({
         'top': 41
     }, 400, 'swing', mostrarIconoTutorial);
+
+}
+
+function ocultarUbicacionTutorial() {
+
+    $(".contenedor_circulosTutorial").fadeOut();
+    $(".tooltip_tutorial").fadeOut();
+    $(".tooltip_tutorial").stop();
+    $(".fondo_oscuro").delay(500);
+    $(".fondo_oscuro").fadeOut(300);
 
 }
 
