@@ -142,7 +142,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 Sello = producto.Sello,
                                 IsAgregado = false,
                                 TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
-                                TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado
+                                TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
                             });
 
                         }
@@ -175,16 +176,18 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerOfertaRevista(string cuv)
+        public JsonResult ObtenerOfertaRevista(string cuv, string tipoOfertaRevista)
         {
             try
             {
                 BEProducto producto = new BEProducto();
+                BEProducto productPack = new BEProducto();
+                BEProducto productNivel = new BEProducto();
 
                 ObjOfertaCatalogos dataPROL;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
-                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
                 }
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
