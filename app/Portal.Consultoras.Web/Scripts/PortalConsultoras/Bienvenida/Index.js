@@ -126,6 +126,7 @@ $(document).ready(function () {
     if (showViewVideo == 1) {
         ObtenerComunicadosPopup();
     }
+
     $('body').bind('resize', '.popup_comunicados', function (e) {
         //centrarComunicadoPopup($(this).attr('id'));
 
@@ -3730,13 +3731,15 @@ function mostrarComunicadosPopup() {
         //if ($(element).attr('data-cerrado') == '0') {
             //console.log(element);
             var id = $(element).attr('id');
-            var img1 = $(element).find('img.img-comunicado');
+            //var img1 = $(element).find('img.img-comunicado');
+            $('#' + id).show();
+            centrarComunicadoPopup(id);
 
-            setTimeout(function () {
-                //console.log('load image');
-                $('#' + id).show();
-                centrarComunicadoPopup(id);
-            }, 300);
+            //setTimeout(function () {
+            //    //console.log('load image');
+            //    $('#' + id).show();
+            //    centrarComunicadoPopup(id);
+            //}, 300);
             j++;
             return false;
         //}
@@ -3778,6 +3781,7 @@ function clickCerrarComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
+
 function clickImagenComunicado(obj) {
     //console.log('clickImagenComunicado');
     var comunicadoID = $(obj).attr('data-comunicadoid');
@@ -3812,6 +3816,7 @@ function clickImagenComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
+
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
     //console.log('AceptarComunicadoVisualizacion');
 
@@ -3819,7 +3824,6 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
         var params = { ComunicadoID: ID };
 
         waitingDialog({});
-
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
