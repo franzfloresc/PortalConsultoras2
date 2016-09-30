@@ -2588,9 +2588,18 @@
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -2938,6 +2947,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
     <Content Include="Service References\ServiceSAC\Portal.Consultoras.Web.ServiceSAC.BEBannerPedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -3045,16 +3055,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />

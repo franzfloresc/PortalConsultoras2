@@ -688,6 +688,7 @@ function cerrar_popup_tutorial() {
     
     /* SB20-834 - INICIO */
     if (viewBagVerComunicado == '-1') {
+        showViewVideo = '1';
         waitingDialog({});
         ObtenerComunicadosPopup();
     }
@@ -733,6 +734,7 @@ function mostrarVideoIntroductorio() {
             UpdateUsuarioVideo();
             contadorFondoPopUp++;
         } else {
+            abrir_popup_tutorial();
             primeraVezVideo = false;
 
             /* SB20-834 - INICIO */
