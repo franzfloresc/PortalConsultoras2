@@ -28524,22 +28524,22 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
     border-bottom: 1px solid #C2C2C2;
     margin: 0 auto;
     font-size: 14px;
-    transition: all ease 300ms;
+    /*transition: all ease 300ms;*/
     color: black;
     font-family: 'Lato';
     font-weight: 500;
     padding-left: 35px;
     cursor: pointer;
 }
-.optionsRechazo:hover, .optionsRechazo.optionsSeleccionado{
-    background: #f0f0f0;
+.optionsRechazo:hover, .optionsRechazoSelect{
+    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
+    background-position: 15px 15px;
 }
 
 .mrechaza{

@@ -385,7 +385,7 @@
                                 <span class="datoPedidoCliente spnClienteOnlineDireccion"></span>
                             </div>
                         </div>
-                        <div class="bloque_datos izq">
+                        <div class="bloque_datos izq divClienteOnlineMensaje">
                             <div class="nombre_cliente">
                                 <span class="AtribCliente">Comentario:</span>
                                 <span class="datoPedidoCliente spnClienteOnlineMensaje"></span>
@@ -402,7 +402,7 @@
                 </div>
                 <div class="linea_separadora" style="margin-top:-1px"></div>*@
 
-                <div id="divTablaClienteOnlineDetalles" style="max-height:419px; overflow:auto;">
+                <div id="divTablaClienteOnlineDetalles" style="max-height: 419px; overflow: auto; margin-top: 38px;">
                 </div>
                 <div class="linea_separadora" style="height:2px;"></div>
 
@@ -461,7 +461,7 @@
                 <input type="hidden" name="MarcaID" id="MarcaID" />
                 @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
 
-                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
+                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO CANCELASTE!</b></h1>
                 @foreach(var motivoRechazo in Model.MotivosRechazo)
                 {
                     <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
@@ -797,19 +797,21 @@
     </script>
     <script id="html-clientes-online-detalle-catalogos" type="text/x-handlebars-template">
         <div class="content_datos_pendientes">
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Codigo</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Unidades</div>
-            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Precio Unitario</div>
-            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Subtotal</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Unitario</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Subtotal</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
         </div>
         <div class="linea_separadora" style="margin-top:-1px"></div>
         {{#each this as |detalle|}}
         <div class="content_datos_percepciones">
+            <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.CUV}}</div>
             <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.PrecioUnitarioString}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.PrecioTotalString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioUnitarioString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioTotalString}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.TipoAtencionString}}</div>
         </div>
         {{/each}}

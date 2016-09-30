@@ -38,8 +38,8 @@ function CargarEventosClienteOnline() {
         });
     });
     $('#dialog_motivoCancelado .optionsRechazo').on('click', function () {
-        $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
-        $(this).addClass('optionsSeleccionado');
+        $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsRechazoSelect');
+        $(this).addClass('optionsRechazoSelect');
     });
 
     if (lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').trigger('click');
@@ -60,7 +60,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             }
 
             $('#txtOtrosCancelado').val('');
-            $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsSeleccionado');
+            $('#dialog_motivoCancelado .optionsRechazo').removeClass('optionsRechazoSelect');
 
             var titulo = "pedido " + estadoDesc + " de " + nombre;
             $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
@@ -70,7 +70,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').show();
             }
             else {
-                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '0px');
+                $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '14px');
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').hide();
             }
 
@@ -81,7 +81,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             $('#popup_cliente_online_detalle .spnClienteOnlineEstado').html(estadoDesc);
             $('#popup_cliente_online_detalle .spnClienteOnlineMensaje').html(mensaje);
             
-            var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas'
+            $('#popup_cliente_online_detalle .divClienteOnlineMensaje').css('display', marcaId == 0 ? 'none' : 'block');
+            $('#popup_cliente_online_detalle .cubre').css('height', marcaId == 0 ? '160px' : '');
+            var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas';
             var tablaClientesOnlineDetalle = SetHandlebars(template, data.listaDetallesClienteOnline);
             $('#divTablaClienteOnlineDetalles').html(tablaClientesOnlineDetalle);
 
@@ -122,7 +124,7 @@ function CancelarSolicitud() {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
                     solicitudClienteId: solicitudClienteIdActual,
-                    motivoSolicitudId: $('#dialog_motivoCancelado .optionsRechazo.optionsSeleccionado').first().attr('data-id'),
+                    motivoSolicitudId: $('#dialog_motivoCancelado .optionsRechazo.optionsRechazoSelect').first().attr('data-id'),
                     razonMotivoSolicitud: $('#txtOtrosCancelado').val()
                 }),
                 success: function (data) {
