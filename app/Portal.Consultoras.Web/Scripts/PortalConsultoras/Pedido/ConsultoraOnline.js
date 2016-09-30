@@ -38,7 +38,6 @@ $(document).ready(function () {
     });
 
     $('#penmostreo').on('click', function () {
-        
         $('.content_T_T').addClass("fondo_lateral");
         $(".fondo_pendiente").fadeIn();
         $(".bloque_left").fadeIn();
@@ -65,21 +64,21 @@ $(document).ready(function () {
     });
 
     //APP CATALOGO
-    $('a.RevisionPendientes').on('click', function () {
-        $('#popup_pendientes').show();
-    });
+    //$('a.RevisionPendientes').on('click', function () {
+    //    $('#popup_pendientes').show();
+    //});
 
-    $('.btn_revisalo_pendientes1').on('click', function () {
-        $('#popup_pendientes').show();
-    });
+    //$('.btn_revisalo_pendientes1').on('click', function () {
+    //    $('#popup_pendientes').show();
+    //});
 
     $('.regresaPendientes').on('click', function () {
         $('#popup_pendientes').hide();
     });
 
-    $('button.sedetiene').on('click', function () {
-        $('#dialog_confirmacionRechazo').hide();
-    });
+    //$('button.sedetiene').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').hide();
+    //});
 
     $('#rechazarPendientes').on('click', function () {
         //$('#dialog_confirmacionRechazo').show();
@@ -88,10 +87,10 @@ $(document).ready(function () {
         //$('#dialog_confirmacionRechazo').hide();
     });
 
-    $('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
-        $('#dialog_confirmacionRechazo').hide();
-        $('#dialog_motivoRechazo').show();
-    });
+    //$('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').hide();
+    //    $('#dialog_motivoRechazo').show();
+    //});
 
     $('#cierreMotivoRechazo').on('click', function () {
         //$('#dialog_motivoRechazo').hide();
@@ -162,12 +161,10 @@ function CargarPedidosPend(page, rows) {
         async: true,
         success: function (response) {
             if (response.success) {
-
                 var data = response.data;
 
                 if (data.RegistrosTotal > 0) {
-                    // show tab
-                    
+
                     $('#cont1PedidosPend').text(data.RegistrosTotal);
                     $('#cont2PedidosPend').text(data.RegistrosTotal);
                     $('#fecPedidoPendRec').text(data.FechaPedidoReciente);
@@ -214,7 +211,6 @@ function CargarPedidosPend(page, rows) {
                     $('#divPedidosPend').empty();
 
                     if (flagHuboPedidosPend) {
-
                         $('#penmostreo').hide();
                         $('.content_T_T').removeClass("fondo_lateral");
                         $(".fondo_pendiente").fadeOut();
@@ -272,11 +268,8 @@ function CargarPopupPedidoPend(pedidoId) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-
             CerrarSplash();
-
             if (response.success) {
-
                 var data = response.data;
 
                 if (data.RegistrosTotal > 0) {
@@ -284,10 +277,10 @@ function CargarPopupPedidoPend(pedidoId) {
                     var row = $('#pedidopend_' + pedidoId).val();
                     var arr = row.split('|');
                     var t = 1;
-
                     //console.log(arr);
 
-                    if (arr[1] > 0) {    // 0=App de catalogos, >0=Portal Marca
+                    // 0=App de catalogos, >0=Portal Marca
+                    if (arr[1] > 0) {    
                         t = 2;
                     }
 
@@ -362,7 +355,6 @@ function ShowPopupMotivoRechazo() {
     var id = $('#hdePedidoIdRechazo').val();
     var row = $('#pedidopend_' + id).val();
     var arr = row.split('|');
-
     //console.log(arr);
 
     $('#SolicitudId').val(arr[0]);
@@ -397,7 +389,6 @@ function RechazarPedido() {
     };
 
     //console.log(obj);
-
     AbrirSplash();
 
     $.ajax({
@@ -408,7 +399,6 @@ function RechazarPedido() {
         data: JSON.stringify(obj),
         success: function (data) {
             if (checkTimeout(data)) {
-
                 CerrarSplash();
 
                 if (data.success == true) {
@@ -445,8 +435,8 @@ function RechazarPedido() {
 };
 
 function CerrarMensajeRechazado() {
-    $('#dialog_mensajeRechazado').hide();
 
+    $('#dialog_mensajeRechazado').hide();
     CargarPedidosPend();
 }
 
@@ -468,7 +458,6 @@ function AceptarPedido(pedidoId, tipo) {
         var val1 = $(this).find(":nth-child(1)").val();
         var val2 = $(this).find(":nth-child(7) select").val();
         var val3 = $(this).find("#pedpend-deta2-cantidad").text();
-        //console.log(val3);
         var opt = 0;
 
         if (typeof val2 !== 'undefined') {
@@ -512,9 +501,7 @@ function AceptarPedido(pedidoId, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-
                 CerrarSplash();
-
                 if (response.success) {
 
                     //alert(response.message);
@@ -541,6 +528,7 @@ function AceptarPedido(pedidoId, tipo) {
 }
 
 function CerrarMensajeAceptado(tipo) {
+
     if (tipo == 1) {
         $('#dialog_aceptasPendientes').hide();
     } else {

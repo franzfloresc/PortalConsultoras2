@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
-                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("PaisesConsultoraOnline");
+                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                 if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                 {
                     List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
