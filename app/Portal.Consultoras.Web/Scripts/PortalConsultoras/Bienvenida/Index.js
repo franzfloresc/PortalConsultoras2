@@ -733,6 +733,7 @@ function mostrarVideoIntroductorio() {
             UpdateUsuarioVideo();
             contadorFondoPopUp++;
         } else {
+            abrir_popup_tutorial();
             primeraVezVideo = false;
 
             /* SB20-834 - INICIO */
