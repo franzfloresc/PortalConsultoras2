@@ -688,6 +688,7 @@ function cerrar_popup_tutorial() {
     
     /* SB20-834 - INICIO */
     if (viewBagVerComunicado == '-1') {
+        showViewVideo = '1';
         waitingDialog({});
         ObtenerComunicadosPopup();
     }
