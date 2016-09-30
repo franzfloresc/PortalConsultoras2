@@ -22192,9 +22192,9 @@ body{
        width: 29.5%;
        margin-right: 5%;
     }
-    .tabs_pagos li a{
+    /*.tabs_pagos li a{
         background-position:11% 7px !important;
-    }
+    }*/
     .imagen_3_factura {
     background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
     background-position: 3% 7px !important;
@@ -29133,6 +29133,12 @@ h1#penmostreo .campana {
     right: -30px;
     }
 }
+@media screen and (max-width: 1138px)
+{
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+ }
+}
 .mis_pagos_tabs{
     width:79%;
 }
@@ -29148,4 +29154,18 @@ h1#penmostreo .campana {
     padding-bottom: 40px;
     box-sizing: border-box;
     font-family: 'Lato';
+}
+@media screen and (max-width: 1138px){
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+    }
+    .mis_pagos_tabs hr {
+        width: 38%;
+    }
+   
+  .mis_pagos_tabs  .two:hover ~ hr {
+  margin-left: 38%;
+    }
+
+
 }

@@ -22107,10 +22107,10 @@ body{
     background-position: 2% 7px !important;
     padding-left: 4% !important;
     }
-    .tabs_pagos li a{
+    /*.tabs_pagos li a{
         background-position:8% 7px;
         padding-left: 3%;
-    }
+    }*/
     .boton_cerrar_s a{
         padding-left:8px;
     }
@@ -22158,7 +22158,7 @@ body{
 .content_mis_pedidos{
     width:100%;
     height:auto;
-    margin-top:20px;
+    margin-top:45px;
 }
 
 .icono_campanias{
@@ -27351,10 +27351,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index: 21;
 }
 
-.titulo_interiores {
-    width: 37%;
-    border-bottom: 1px solid;
-}
+
 
 /*.imagen-curvatura {
     background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
@@ -28851,7 +28848,7 @@ h1#penmostreo .campana {
   width:34%;
   text-align: left;
   margin: 0;
-  background: #e81c36;
+  background: #613c87;
   border: none;
   transition: .3s ease-in-out;
 }
@@ -29128,3 +29125,18 @@ h1#penmostreo .campana {
     right: -30px;
     }
 }
+@media screen and (max-width: 1138px){
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+    }
+    .mis_pagos_tabs hr {
+        width: 38%;
+    }
+   
+  .mis_pagos_tabs  .two:hover ~ hr {
+  margin-left: 38%;
+    }
+
+
+}
+
