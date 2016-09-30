@@ -25,36 +25,7 @@ $(document).ready(function() {
     });
     $(".cerrar_tutorial").click(function() {
         cerrar_popup_tutorial();
-    });
-
-        var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
-        if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
-            paisCP = true;
-        }
-        fnMovimientoTutorial = setInterval(function ()
-        {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
-            numImagen++;
-            if (!paisCP && numImagen == 8 )
-            {
-                $(".img_slide" + numImagen).hide();
-                numImagen++;
-            }
-
-            if (numImagen > 9) {
-                numImagen = 1;
-                $(".imagen_tutorial").animate({ 'opacity': '1' });
-            }
-        }, 3000);
-    }
-
-    function cerrar_popup_tutorial() {
-        $('#popup_tutorial_home').fadeOut();
-        $('html').css({ 'overflow-y': 'auto' });
-        $(".imagen_tutorial").animate({ 'opacity': '1' });
-        window.clearInterval(fnMovimientoTutorial);
-        numImagen = 1;
-    }
+    });         
 
     // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function() {
@@ -679,19 +650,19 @@ function playVideo() {
     }
 };
 
-function abrir_popup_tutorial(){
-        $('#popup_tutorial_home').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-        var paisCP = false;
-        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+function abrir_popup_tutorial() {
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+    var paisCP = false;
+    if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+        var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
+        if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
             paisCP = true;
         }
-        fnMovimientoTutorial = setInterval(function ()
-        {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
+        fnMovimientoTutorial = setInterval(function() {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
             numImagen++;
-            if (!paisCP && numImagen == 8 )
-            {
+            if (!paisCP && numImagen == 8) {
                 $(".img_slide" + numImagen).hide();
                 numImagen++;
             }
@@ -702,6 +673,7 @@ function abrir_popup_tutorial(){
             }
         }, 3000);
     }
+}
 
 function cerrar_popup_tutorial() {
     $('#popup_tutorial_home').fadeOut();
