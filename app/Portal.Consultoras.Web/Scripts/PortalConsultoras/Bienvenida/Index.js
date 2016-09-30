@@ -3821,12 +3821,14 @@ function AgregarTagManagerShowRoomCheckBox() {
 function ObtenerComunicadosPopUp() {
     //console.log('ObtenerComunicadosPopUps');
     waitingDialog({});
+    var sleepPopupComunicados = setInterval(function () { waitingDialog({}); }, 100);
+
     $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-            closeWaitingDialog();
+            //closeWaitingDialog();
             armarComunicadosPopup(response);
             var images = $("#popupComunicados img");
             var loadedImgNum = 0;
@@ -3834,6 +3836,7 @@ function ObtenerComunicadosPopUp() {
             images.on('load', function () {
                 loadedImgNum += 1;
                 if (loadedImgNum == images.length) {
+                    clearInterval(sleepPopupComunicados);
                     closeWaitingDialog();
                     //console.log('load all images');
 
