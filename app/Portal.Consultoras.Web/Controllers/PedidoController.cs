@@ -2566,39 +2566,31 @@ namespace Portal.Consultoras.Web.Controllers
                         int TipoObs = 0;
                         string CUV = string.Empty;
                         string Observacion = string.Empty;
-                        TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
 
-                        if (TipoObs == 97)
+                        if (EsReservaPedidoPROL)
                         {
-                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
-                            Observacion = Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", "");
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(0));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
                         }
                         else
                         {
-                            if (EsReservaPedidoPROL)
-                            {
-                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
-                                CUV = Convert.ToString(row.ItemArray.GetValue(0));
-                                Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
-                            }
-                            else
-                            {
-                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
-                                CUV = Convert.ToString(row.ItemArray.GetValue(1));
-                                Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
-                            }
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
+                        }
 
                         if (TipoObs == 0)
                             ValidacionReemplazo += 1;
 
-                            if (TipoObs == 95)
-                            {
-                                ValidacionPROLMM = true;
-                                CUV_Val = CUV;
-                                string regex = "(\\#.*\\#)";
-                                Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
-                            }
+                        if (TipoObs == 95)
+                        {
+                            ValidacionPROLMM = true;
+                            CUV_Val = CUV;
+                            string regex = "(\\#.*\\#)";
+                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                         }
+
                         Restrictivas = true;
                         olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
