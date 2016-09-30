@@ -689,10 +689,6 @@ header {
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
-    padding-top: 32px;
-    padding-bottom: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
     text-align: center;
     letter-spacing: -1px;
     color: black;
@@ -6287,6 +6283,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }*/
 .boton-home a {
     color: black;
+    padding-top: 32px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .liquidacion_rango_left_pedido {
     width: 23px;
@@ -22609,7 +22609,7 @@ body{
 
 .percepcion_campania select, .pedidosFacturados_campania select{
     display:block;
-    width:81px;
+    width:107px;
     height:41px;
     border:1px solid #CCC;
     padding-left:10px;
@@ -26927,7 +26927,7 @@ position: relative; float: left;
     float:left;
     margin-left:10px;
     font-family:'Lato';
-    font-size:14px;
+    font-size:13px;
     line-height:17px;
     color:black;
     text-align: left;
@@ -27437,7 +27437,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .caja_montos_textos_sinDescuento{
     font-weight:normal;
-    margin-right:10px;
+    margin-right:28px;
 }
 
 .caja_montos_cantidades_sinDescuento{
@@ -27455,6 +27455,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .caja_montos_cantidades_sinDescuento span:last-child{
     line-height:30px;
+}
+
+.dscto_ofertasNiveles{
+    margin-left:20px;
 }
 
 .separador_montos{
@@ -28388,7 +28392,7 @@ span.datoPedidoCliente {
     float: left;
 }
 
-.venderecha{
+.venderecha, .venderecha-ancho{
     float: right;
 }
 
@@ -28424,6 +28428,10 @@ div.confirmacionRechazo h1 {
 button.btn_eliminarCliente.venderecha.prosigue {
     background-color: #000;
     color: white;
+}
+button.btn_eliminarCliente.venderecha-ancho{
+    width: 280px;
+    margin-right: 0px;
 }
 
 a#cierreRechazoPendientes img {
@@ -28573,7 +28581,6 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
@@ -28587,15 +28594,11 @@ a#cierreMotivoRechazo img {
     padding-left: 35px;
     cursor: pointer;
 }
-
-.optionsRechazo:hover{
+.optionsRechazo:hover, .optionsRechazoSelect{
     background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
     background-position: 15px 15px;
 }
-.optionsRechazoSelect{
-    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
-    background-position: 15px 15px;    
-}
+
 .mrechaza{
     display: block;
     position: relative;
@@ -28670,7 +28673,7 @@ div.motivoRechazo textarea {
 }
 
 .truco_bloqueo.sim3 {
-        width: 6%;
+    width: 6%;
     top: 457px;
     height: 63px;
     left: 0;
@@ -28892,6 +28895,7 @@ h1#penmostreo .campana {
     padding: 3px 7px;
     vertical-align: middle;
     margin-right: 8px;
+    cursor:pointer;
 }
 
 .lupa_online{
@@ -28926,6 +28930,23 @@ h1#penmostreo .campana {
     background:#e7e7e7;
     color:black;
 }
+.mis_pagos_tabs{
+    width:79%;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+
 @media screen and (max-width: 1024px) {
     .truco_bloqueo.sim1 {
         width: 100%;

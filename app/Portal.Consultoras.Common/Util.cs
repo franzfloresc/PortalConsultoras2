@@ -2811,6 +2811,11 @@ namespace Portal.Consultoras.Common
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
             return str;
         }
+
+        public static string ReemplazarSaltoLinea(string cadena, string saltoLinea)
+        {
+            return cadena.Replace("\r\n", saltoLinea).Replace("\n", saltoLinea).Replace("\r", saltoLinea);
+        }
     }
 
 
