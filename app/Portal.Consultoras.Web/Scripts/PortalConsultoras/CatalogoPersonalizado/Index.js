@@ -66,10 +66,6 @@ $(document).ready(function () {
                                 $('.mod-ofer3').html(html).show();
                             }
                             break;
-                            //    case '049':
-                            //        //var html = SetHandlebars("#template-mod-ofer3", settings);
-                            //        //$('.mod-ofer3').html(html).show();
-                            //        break;
                     }
                 } else {
                     console.log(response.message);

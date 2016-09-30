@@ -364,6 +364,8 @@ $(document).ready(function () {
         waitingDialog({});
         var $contenedor = $(this).parents('.contiene-productos');
         var cuv = $contenedor.find('.hdItemCuv').val();
+        var tipoOfertaRevista = $contenedor.find('.hdItemTipoOfertaRevista').val().trim();
+
         var obj = {
             UrlImagen: $contenedor.find('.producto_img_home>img').attr('src'),
             CUV: $contenedor.find('.hdItemCuv').val(),
@@ -381,19 +383,13 @@ $(document).ready(function () {
             type: 'POST',
             url: baseUrl + 'CatalogoPersonalizado/ObtenerOfertaRevista',
             dataType: 'json',
-            data: JSON.stringify({ cuv: cuv }),
+            data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 if (response.success) {
                     response.data.dataPROL.Simbolo = viewBagSimbolo;
                     var settings = $.extend({}, response.data.dataPROL, obj);
                     settings.productoRevista = response.data.producto;
-
-                    //settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
-                    //settings.precio_revista = DecimalToStringFormat(settings.precio_revista);
-                    //settings.ganancia = DecimalToStringFormat(settings.ganancia);
-                    //var html = SetHandlebars("#template-mod-ofer1", settings);
-                    //$('.mod-ofer1').html(html).show();
                     TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     switch (settings.tipo_oferta) {
                         case '003':
@@ -410,15 +406,11 @@ $(document).ready(function () {
                                 var html = SetHandlebars("#template-mod-ofer2", settings);
                                 $('.mod-ofer2').html(html).show();
                             }
-                            else if (settings.lista_oObjItemPack.length > 0) {
-                                var html = SetHandlebars("#template-mod-ofer2", settings);
-                                $('.mod-ofer2').html(html).show();
+                            else if (settings.lista_oObjPack.length > 0) {
+                                var html = SetHandlebars("#template-mod-ofer3", settings);
+                                $('.mod-ofer3').html(html).show();
                             }
                             break;
-                    //    case '049':
-                    //        //var html = SetHandlebars("#template-mod-ofer3", settings);
-                    //        //$('.mod-ofer3').html(html).show();
-                    //        break;
                     }
                 } else {
                     console.log(response.message);
@@ -436,7 +428,7 @@ $(document).ready(function () {
             return false;
 
         var contenedor = $(this).parents(".cuerpo-mod");
-        var cantidad = $(this).siblings('.liquidacion_rango_home').find('#txtCantidad').val();
+        var cantidad = $(this).siblings('.liquidacion_rango_home, .ofertarevista_rango_home').find('#txtCantidad').val();
         var tipoCUV = $(this).attr('data-cuv');
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);

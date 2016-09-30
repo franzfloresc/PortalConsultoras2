@@ -13,12 +13,12 @@
 <div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-                <div class="pestana_lbel new"></div>
-                <div class="clear"></div>
-                <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
-                <div id="divCatalogoPersonalizado"></div>
-                <div class="clear"></div>
-            </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+            <div class="pestana_lbel new"></div>
+            <div class="clear"></div>
+            <div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes siempre te solicitan</div>
+            <div id="divCatalogoPersonalizado"></div>
+            <div class="clear"></div>
+        </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     </div>
 </div>
 <!-- POPUP MENSAJE -->
@@ -146,7 +146,7 @@
         <div class="contiene-productos">
             <div class="producto_img_home mini" id="imagenAnimacion">
 
-                <img src="{{UrlImagen}}" />
+                <img src="{{UrlImagen}}"/>
             </div>
 
             <div class="producto_nombre_descripcion">
@@ -156,7 +156,7 @@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
                 <span>{{Simbolo}} {{precio_revista}}</span>
-                <span>GANA: {{Simbolo}} {{ganancia}}</span>
+                <span>Gana: {{Simbolo}} {{ganancia}}</span>
                 <hr class="clear">
                 <div class="clear"></div>
             </div>
@@ -202,39 +202,63 @@
 </script>
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
     <div class="cuerpo-mod">
+        <div style="display:none;" id="hiddenCatalogo">
+            <input type="hidden" class="hdItemCuv" value="{{CUV}}" />
+            <input type="hidden" class="hdItemTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+            <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+            <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+            <input type="hidden" class="hdItemTipo" value="1" />
+            <input type="hidden" class="hdItemMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="hdItemPrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="hdItemDescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="hdItemPagina" value="0" />
+            <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
+            <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
+        </div>
+        <div style="display:none;" id="hiddenRevista">
+                <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
+                <input type="hidden" class="hdItemTipoOfertaSisID" value="{{productoRevista.TipoOfertaSisID}}" />
+                <input type="hidden" class="hdItemConfiguracionOfertaID" value="{{productoRevista.ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="{{productoRevista.IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdItemTipo" value="1" />
+                <input type="hidden" class="hdItemMarcaID" value="{{productoRevista.MarcaID}}" />
+                <input type="hidden" class="hdItemPrecioUnidad" value="{{productoRevista.PrecioCatalogo}}" />
+                <input type="hidden" class="hdItemDescripcionProd" value="{{productoRevista.Descripcion}}" />
+                <input type="hidden" class="hdItemPagina" value="0" />
+                <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
+                <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
+                <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
+        </div>
         <div class="cerrar-mod" onclick="$('.mod-ofer2').hide()"><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="contiene-productos">
             <span class="mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</span>
             <hr class="clear">
-            <div class="producto_img_home mini">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                <span class="inc">Dorsay 100 ml</span>
+            <div class="producto_img_home mini" id="imagenAnimacion">
+                <img src="{{UrlImagen}}" />
+                <span class="inc">{{Descripcion}}</span>
             </div>            
 
             <div class="compras">
-                <div class="columnas c1">
+                <div class="columnas">
                     <span></span>
-                    <span>Compra 1x $ 29.900</span>
-                    <span>GANANCIA:  $ 9.500</span>
+                    <span>Compra 1 x {{Simbolo}} {{precio_revista}}</span>
+                    <span>Gana:  {{Simbolo}} {{ganancia}}</span>
                 </div>
-                <div class="columnas c2">
+                {{#each lista_ObjNivel as |nivel|}}
+                <div class="columnas">
                     <span></span>
-                    <span>Compra 2x $ 99.900</span>
-                    <span>GANANCIA:  $ 29.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
+                    <span>Compra {{nivel.escala_nivel}} x {{../Simbolo}} {{nivel.precio_nivel}}</span>
+                    <span>Gana:  {{../Simbolo}} Not Found</span>
+                    {{#each ../lista_oObjGratis as |item|}}
+                    {{#if_eq nivel.escala_nivel item.escala_nivel_gratis}}
+                        <p>{{cantidad}} {{descripcion_gratis}}</p>
+                    {{/if_eq}}
+                    {{/each}}
                 </div>
-                <div class="columnas c3">
-                    <span></span>
-                    <span>Compra 4x $ 189.900</span>
-                    <span>GANANCIA:  $ 59.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                </div>
-                <div class="columnas c4">
-                    <span></span>
-                    <span>Compra 6x $ 249.900</span>
-                    <span>GANANCIA:  $ 99.500</span>
-                    <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200064288_20131041749_01_rrdhiqdnya.png" />
-                </div>
+                {{/each}}               
             </div>
             <hr class="clear">
             <div class="mod-cantidades metido">
@@ -245,7 +269,7 @@
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home">
+                <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">
                     AGRÉGALO
                 </a>
             </div>
@@ -268,7 +292,7 @@
                         <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home">
+                <a class="boton_Agregalo_home  agregar-ofertarevista" data-cuv="catalogo">
                     AGRÉGALO
                 </a>
             </div>
@@ -313,7 +337,7 @@
             </div>
             <div class="compras">
                 <div class="columnas c1">
-                    <div style="display: block;height: 242px;">
+                    <div style="display: block;height: 242px;" id="imagenAnimacion">
                         <img src="{{UrlImagen}}" style="height: 100%;width: auto;"/>
                     </div>
                     <span>{{Descripcion}}</span>
