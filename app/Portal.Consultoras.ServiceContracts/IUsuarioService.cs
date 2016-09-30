@@ -163,6 +163,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
 
+        [OperationContract]
+        IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+
         //[OperationContract]
         //IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
 

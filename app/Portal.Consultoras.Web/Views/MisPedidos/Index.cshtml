@@ -68,20 +68,21 @@
         <div class="titulo_tabs mis_pagos_tabs">
             <ul class="tabs_pagos" data-tab="tab">
                 <li class="one">
-                    <a href="javascript:;" data-tag="EstadoCuenta">
+                    <a href="javascript:;" data-tag="UltimasCampanias">
                         <div class="icono_pagos ultima_campana"></div>
                         MIS<b> ULTIMAS CAMPAÑAS</b>
                         <div class="marcador_tab oculto"></div>
                     </a>
                 </li>
-                <li class="two">
-                    <a href="javascript:;" data-tag="LugaresPago">
-                        <div class="icono_pagos online_2"></div>
-                        MIS PEDIDOS DE<b> CLIENTES ONLINE</b>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
-                </li>             
-               
+                @if (Model.MostrarClienteOnline) {
+                    <li class="two">
+                        <a href="javascript:;" data-tag="PedidosClientesOnline">
+                            <div class="icono_pagos online_2"></div>
+                            MIS PEDIDOS DE<b> CONSULTORA ONLINE</b>
+                            <div class="marcador_tab oculto"></div>
+                        </a>
+                    </li>
+                }               
                 <hr id="barCursor" />
             </ul>
         </div>
@@ -92,82 +93,25 @@
 </div>
 
 <!-- Fin titulo-->
-<!--CLIENTES ONLINE-->
-<div id="ClientesOnline" class="content_belcorp content_belcorp_misPedidos">
-
-    <div class="icono_online"></div>
-    <div class="pedidosFacturados_campania" style="width:auto; float:left; margin-top:48px; margin-bottom:0">
-        <h1>MIS PEDIDOS DE <b> CLIENTES ONLINE</b></h1>
-        <form novalidate="novalidate">
-            <select data-selectcamp="" class="valid"><option value="2016-13" data-campformat="2016-13">C-13</option><option value="2016-12" data-campformat="2016-12">C-12</option><option value="2016-11" data-campformat="2016-11">C-11</option><option value="2016-10" data-campformat="2016-10">C-10</option></select>
-        </form>        
-    </div>
-    <hr class="clear" />
-    <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">Estos son los <b>pedidos aceptados</b>  que llegaron por el App del catálogo y los portales de Esika, L’Bel y Cyzone.</div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online texto_gris">Tipo y nombre<br/>de Cliente</div>
-        <div class="origen_online texto_gris">Origen</div>
-        <div class="canpana_online texto_gris">Campaña</div>
-        <div class="registro_online texto_gris">Fecha Registro</div>
-        <div class="total_online texto_gris">Precio Total.</div>       
-        <div class="detalle_online texto_gris">Estado</div>
-    </div>
-    <div class="linea_separadora" style="height:2px"></div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">           
-             <span class="facturado_online estado_detalleFacturado"> ACEPTADO </span>                
-             <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-              </a>    
+@if (Model.MostrarClienteOnline) {
+    <div id="ClientesOnline" data-tag-html="PedidosClientesOnline" class="content_belcorp content_belcorp_misPedidos" style="display:none">
+        <div class="tabla_misPedidos">
+            <div class="icono_online"></div>
+            <div class="pedidosFacturados_campania" style="width:auto; float:left; margin-top:48px; margin-bottom:0">
+                <h1>MIS PEDIDOS DE <b> CONSULTORA ONLINE</b></h1>
+                <form novalidate="novalidate">
+                    @Html.DropDownListFor(model => model.CampaniaActualConsultoraOnline, new SelectList(Model.CampaniasConsultoraOnline, "CampaniaID", "NombreCorto"), new { id = "ddlCampania" })
+                </form>
+            </div>
+            <hr class="clear" />
+            <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">Estos son los <b>pedidos aceptados</b>  que llegaron por el App del catálogo y los portales de Esika, L’Bel y Cyzone.</div>
+            <div id="divTablaClientesOnline"></div>
         </div>
     </div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">
-            <span class="facturado_online estado_cancelado"> CANCELADO </span>
-            <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-            </a>
-        </div>
-    </div>
-    <div class="content_datos_mispedidos">
-        <div class="tipo_online">
-            <span class="tipo_cliente">NUEVO CLIENTE</span>
-            <span>Fiorella Goyzueta Arellano</span>
-        </div>
-        <div class="origen_online">App Catálogo</div>
-        <div class="canpana_online">2016-11</div>
-        <div class="registro_online">15/07/2016</div>
-        <div class="total_online">S/. 23,000</div>
-        <div class="detalle_online">
-            <span class="facturado_online estado_cancelado"> CANCELADO </span>
-            <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
-                <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
-            </a>
-        </div>
-    </div>
-    
-  
-
-</div>
+}
 
 <!--FIN-->
-<div id="cuerpo">    
+<div id="divUltimosPedidos" data-tag-html="UltimasCampanias" style="display:none">
     <div data-div="f">
         <div class="popup_frame" data-popup="facturado">
             <div class="popup_body">
@@ -249,7 +193,6 @@
                         <!-- CONTENIDO TABLAS CLIENTE-->
                         <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="">
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -266,12 +209,9 @@
                     <div class="titulo_detalle_pago titulo_campanias">
                         <div>MIS ÚLTIMOS<b> PEDIDOS</b></div>
                     </div>
-
                     <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">@mensajeCantidad</div>
-
                     <hr class="clear" />
                     <div class="linea_separadora" style="height:2px"></div>
-
                     <!-- CABECERA DE TABLAS -->
                     <div class="content_datos_mispedidos">
                         <div class="nombre_campania texto_gris_cabeceraMisPedidos">Campaña</div>
@@ -284,9 +224,7 @@
                         <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
                     </div>
                     <!-- FIN CABECERA DE TABLAS -->
-
                     <div class="linea_separadora" style="margin-top:-1px"></div>
-
                     <!--CONTENIDO DE TABLAS -->
                     <!--Pedido Actual -->
                     @*@if (Model.PedidoActual.CampaniaID != 0)
@@ -408,6 +346,155 @@
     </div>
 </div>
 <!--FIN-->
+
+@if (Model.MostrarClienteOnline) {
+    <!--PENDIENTES APP CATALOGO-->
+    <div id="popup_cliente_online_detalle" class="contenedor_popup_percepciones" style="display: none;">
+        <div class="popup_Pendientes">
+            <div class="cubre"></div>
+            <div class="btn_cerrar_popupPercepcion" onclick="$('#popup_cliente_online_detalle').hide();">
+                <a class="regresaPendientes" title="Regresar" style="text-align: right;">
+                    <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                    <div class="texto_btn_regresar">REGRESAR</div>
+                </a>
+            </div>
+            <div class="content_popUp_Pendientes">
+                <div class="percepcion_campania libero">
+                    <h1><b class="spnClienteOnlineTitulo"></b></h1>
+                </div>
+
+                <div class="contenedor_bloque_datos">
+                    <div class="datos_cliente_pendientes">
+                        <div class="bloque_datos izq">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Nombre:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineNombre"></span>
+                            </div>
+                            <div class="telefono_cliente">
+                                <span class="AtribCliente">Teléfono:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineTelefono"></span>
+                            </div>
+                        </div>
+                        <div class="bloque_datos der">
+                            <div class="correo_cliente">
+                                <span class="AtribCliente">Correo:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineEmail"></span>
+                            </div>
+                            <div class="direccion_cliente">
+                                <span class="AtribCliente">Dirección:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineDireccion"></span>
+                            </div>
+                        </div>
+                        <div class="bloque_datos izq divClienteOnlineMensaje">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Comentario:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineMensaje"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="content_datos_pendientes">
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
+                </div>
+                <div class="linea_separadora" style="margin-top:-1px"></div>*@
+
+                <div id="divTablaClienteOnlineDetalles" style="max-height: 419px; overflow: auto; margin-top: 38px;">
+                </div>
+                <div class="linea_separadora" style="height:2px;"></div>
+
+                <div class="calculo_PendientesTotal venderecha">
+                    <h4>TOTAL PEDIDO: <span class="spnClienteOnlineTotal"></span></h4>
+                </div>
+                <div class="clear"></div>
+                <div class="linea_separadora_roja solo-cliente-online-aceptado" style="height: 2px;"></div>
+
+                <div class="btn_grupo_accionesPedido accionesPendientes solo-cliente-online-aceptado">
+                    <button id="cancelarSolicitud" type="button" class="btn_eliminarCliente venderecha-ancho" onclick="AbrirConfirmacionCancelado();">
+                        QUIERO CANCELAR TODO EL PEDIDO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN PENDIENTES APP CATALOGO-->
+    <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
+    <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionCancelado" style="display: none;">
+        <div class="popup_rechazarPendientes">
+            <input type="hidden" id="hdePedidoIdRechazo" />
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreRechazoPendientes" onclick="NoAceptarConfirmacionCancelado();">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp confirmacionRechazo">
+                <div class="icono_exclamacion" id="apro_o_excla"></div>
+                <h1 class="titulo_confirma"><b>¿SEGURO QUE QUIERES CANCELAR TODO EL PEDIDO?</b></h1>
+                @*<span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>*@
+                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="NoAceptarConfirmacionCancelado();">
+                    NO, DÉJAME VERLO
+                </button>
+                <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="AceptarConfirmacionCancelado();">
+                    SI, CANCELO EL PEDIDO
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
+    <!--INICIO MODAL DE SELECCIÓN DE RAZÓN DE RECHAZO EN PENDIENTES-->
+    <div class="contenedor_popup_agregarUnidades" id="dialog_motivoCancelado" style="display: none;">
+        <div class="popup_agregarUnidades mrechaza">
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreMotivoRechazo" onclick="CancelarSolicitud();">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp motivoRechazo">
+
+                <input type="hidden" name="SolicitudId" id="SolicitudId" />
+                <input type="hidden" name="NumIteracion" id="NumIteracion" />
+                <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
+                <input type="hidden" name="Campania" id="Campania" />
+                <input type="hidden" name="MarcaID" id="MarcaID" />
+                @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
+
+                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO CANCELASTE!</b></h1>
+                @foreach(var motivoRechazo in Model.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
+                <textarea id="txtOtrosCancelado" placeholder="Otros:"></textarea>
+            </div>
+            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="CancelarSolicitud();">
+                ENVIAR
+            </button>
+        </div>
+    </div>
+    <!--FINAL MODAL DE SELECCIÓN DE RAZÓN DE RECHAZO EN PENDIENTES-->
+    <!--INICIO MODAL DE MENSAJE DE RECHAZO EN PENDIENTES-->
+    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeCancelado" style="display: none;">
+        <div class="popup_rechazarPendientes">
+
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreRechazoPendientes" onclick="CerrarMensajeCancelado();">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp confirmacionRechazo">
+                <div class="icono_exclamacion" id="apro_o_excla"></div>
+                <h1 class="titulo_confirma"><b>CANCELASTE</b> EL PEDIDO</h1>
+                <span class="mensaje_agregarUnidades spnMensajeSolicitudCancelada"></span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeCancelado()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--FINAL MODAL DE MENSAJE DE RECHAZO EN PENDIENTES-->
+}
 
 <script id="html-detalle-ingresado" type="text/x-handlebars-template">
     {{#each this.Rows as |detalle|}}
@@ -656,10 +743,94 @@
     {{/iff}}
     <div class="clear"></div>
 </script>
+
+@if (Model.MostrarClienteOnline) {
+    <script id="html-clientes-online" type="text/x-handlebars-template">
+        <div class="content_datos_mispedidos">
+            <div class="tipo_online texto_gris">Tipo y nombre<br />de Cliente</div>
+            <div class="origen_online texto_gris">Origen</div>
+            <div class="canpana_online texto_gris">Campaña</div>
+            <div class="registro_online texto_gris">Fecha Registro</div>
+            <div class="total_online texto_gris">Precio Total.</div>
+            <div class="detalle_online texto_gris">Estado</div>
+        </div>
+        <div class="linea_separadora" style="height:2px"></div>
+        {{#each this as |detalle|}}
+            <div class="content_datos_mispedidos">
+                <div class="tipo_online">
+                    <span class="tipo_cliente">{{detalle.TipoCliente}}</span>
+                    <span>{{detalle.Cliente}}</span>
+                </div>
+                <div class="origen_online">{{detalle.Origen}}</div>
+                <div class="canpana_online">{{detalle.Campania}}</div>
+                <div class="registro_online">{{detalle.FechaSolicitudString}}</div>
+                <div class="total_online">{{detalle.PrecioTotalString}}</div>
+                <div class="detalle_online" onclick="CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');">
+                    {{#iff detalle.Estado '==' 'A'}}
+                    <span class="facturado_online estado_detalleFacturado"> {{detalle.EstadoDesc}} </span>
+                    {{else}}
+                    <span class="facturado_online estado_cancelado"> {{detalle.EstadoDesc}} </span>
+                    {{/iff}}
+                    <a href="javascript:;" title="Ver Estado / Detalles" class="lupa_online">
+                        <img src="/Content/Images/icono-ver-estado.png" alt="Ver Estado / Detalles">
+                    </a>
+                </div>
+            </div>
+        {{/each}}
+    </script>
+    <script id="html-clientes-online-detalle-marcas" type="text/x-handlebars-template">
+        <div class="content_datos_pendientes">
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
+        </div>
+        <div class="linea_separadora" style="margin-top:-1px"></div>
+        {{#each this as |detalle|}}
+        <div class="content_datos_percepciones">
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.PrecioUnitarioString}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.PrecioTotalString}}</div>
+        </div>
+        {{/each}}
+    </script>
+    <script id="html-clientes-online-detalle-catalogos" type="text/x-handlebars-template">
+        <div class="content_datos_pendientes">
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Codigo</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Unidades</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Unitario</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Subtotal</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+        </div>
+        <div class="linea_separadora" style="margin-top:-1px"></div>
+        {{#each this as |detalle|}}
+        <div class="content_datos_percepciones">
+            <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.CUV}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioUnitarioString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioTotalString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.TipoAtencionString}}</div>
+        </div>
+        {{/each}}
+    </script>
+}
 @section scripts{
     <script>
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPedidos = '@ViewBag.URLWebTracking';
+        var lanzarTabClienteOnline = ('@Model.LanzarTabClienteOnline' == 'True');
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
+    @if (Model.MostrarClienteOnline) {
+        <script>
+            var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos")';
+            var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
+            var urlClienteOnlineCancelarSolicitud = '@Url.Action("ClienteOnlineCancelarSolicitud", "MisPedidos")';
+            var campaniaActual = '@Model.CampaniaActualConsultoraOnline';
+        </script>
+        <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script> 
+    }
 }

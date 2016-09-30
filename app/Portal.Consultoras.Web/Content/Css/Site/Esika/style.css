@@ -22698,7 +22698,7 @@ body{
 
 .percepcion_campania select, .pedidosFacturados_campania select{
     display:block;
-    width:81px;
+    width:107px;
     height:41px;
     border:1px solid #CCC;
     padding-left:10px;
@@ -22867,7 +22867,7 @@ body{
 .texto_gris_popup{
     color: #666565;
     font-weight: 300;
-    font-size: 11pt;
+    font-size: 14px!important;
     line-height:14pt;
 }
 
@@ -27267,8 +27267,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
     padding-top: 30px;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 36px;
+    padding-right: 36px;
     padding-bottom: 75px;
 }
 
@@ -27350,10 +27350,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     letter-spacing: -0.2px;
 }
 
-.mensajes_deAtencion span:last-child {
+.mensajes_deAtencion span:nth-child(2) {
+    width:40%;
     float: right;
     text-align: right;
-    margin-right: -60px;
+    /*margin-right: -60px;*/
     font-size: 15px;
     padding-right: 20px;
 }
@@ -27579,6 +27580,7 @@ span.datoPedidoCliente {
     font-size: 13px;
     font-weight: normal;
     padding-left:16px;
+    padding-bottom:40px;
 }
 
 .revision_pedidosAceptados .texto_revisaPedidos{
@@ -27620,7 +27622,7 @@ span.datoPedidoCliente {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemini{
@@ -27629,7 +27631,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemedio{
@@ -27638,7 +27640,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablegrande{
@@ -27673,6 +27675,37 @@ span.datoPedidoCliente {
     padding: 8px;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-size:13px;
+}
+
+@media screen and (max-width:1137px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 14px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 124%;
+    }
+
+}
+
+@media screen and (max-width:1100px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 4px;
+        padding-bottom: 15px;
+        font-size: 11px;
+        width: 124%;
+    }
+
 }
 
 .notiPendientes{
@@ -27842,7 +27875,7 @@ span.datoPedidoCliente {
     float: left;
 }
 
-.venderecha{
+.venderecha, .venderecha-ancho{
     float: right;
 }
 .precarga:before {
@@ -27914,6 +27947,10 @@ div.confirmacionRechazo h1 {
 button.btn_eliminarCliente.venderecha.prosigue {
     background-color: #000;
     color: white;
+}
+button.btn_eliminarCliente.venderecha-ancho{
+    width: 280px;
+    margin-right: 0px;
 }
 
 a#cierreRechazoPendientes img {
@@ -28341,7 +28378,6 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
@@ -28355,15 +28391,11 @@ a#cierreMotivoRechazo img {
     padding-left: 35px;
     cursor: pointer;
 }
-
-.optionsRechazo:hover{
+.optionsRechazo:hover, .optionsRechazoSelect{
     background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
     background-position: 15px 15px;
 }
-.optionsRechazoSelect{
-    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
-    background-position: 15px 15px;    
-}
+
 .mrechaza{
     display: block;
     position: relative;
@@ -28918,6 +28950,7 @@ h1#penmostreo .campana {
     padding: 3px 7px;
     vertical-align: middle;
     margin-right: 8px;
+    cursor:pointer;
 }
 
 .lupa_online{
@@ -29099,4 +29132,20 @@ h1#penmostreo .campana {
     width: 30px;  
     right: -30px;
     }
+}
+.mis_pagos_tabs{
+    width:79%;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
