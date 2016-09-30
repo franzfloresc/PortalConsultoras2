@@ -4,9 +4,14 @@ var arrayOfertasParaTi = [];
 var arrayLiquidaciones = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
-var fotoCroppie
+/* SB20-834 - INICIO */
 var origenPedidoWebEstrategia = 0;
+var showViewVideo = viewBagVioVideo;
+var closeComunicadosPopup = false;
+/* SB20-834 - FIN */
+var fotoCroppie;
 $(document).ready(function () {
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
@@ -41,6 +46,33 @@ $(document).ready(function () {
             });
         });
     });
+
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            if ($('#popup_tutorial_home').is(':visible')) {
+                cerrar_popup_tutorial();
+            }
+            if ($('#videoIntroductorio').is(':visible')) {
+                if (primeraVezVideo) {
+                    abrir_popup_tutorial();
+                }
+                stopVideo();
+                $('#videoIntroductorio').hide();
+                if (contadorFondoPopUp == 1) {
+                    $("#fondoComunPopUp").hide();
+                }
+                contadorFondoPopUp--;
+                return false;
+            }
+            /* SB20-834 - INICIO */
+            if ($('#popupComunicados').is(':visible')) {
+                $('#popupComunicados').hide();
+                closeComunicadosPopup = true;
+            }
+            /* SB20-834 - FIN */
+        }
+    };
 
     // Intervalo Microefecto Flecha Scroll
     setInterval(animacionFlechaScroll, 1000);
@@ -90,6 +122,20 @@ $(document).ready(function () {
 
     });
 
+    /* SB20-834 - INICIO */
+    if (showViewVideo == 1) {
+        ObtenerComunicadosPopup();
+    }
+
+    $('body').bind('resize', '.popup_comunicados', function (e) {
+        //centrarComunicadoPopup($(this).attr('id'));
+
+        //if ($.trim($('#popupComunicados').html()) != "") {
+        //    $('#popupComunicados').show();
+        //}
+    });
+    /* SB20-834 - FIN */
+       
     mostrarVideoIntroductorio();
     CrearDialogs();
     CargarCarouselEstrategias("");
@@ -121,6 +167,7 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
+            primeraVezVideo = true;
             abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
@@ -139,6 +186,7 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
+
     $("#cerrarAceptacionContrato").click(function () {
         $('#popupAceptacionContrato').hide();
         if (contadorFondoPopUp == 1) {
@@ -147,6 +195,7 @@ $(document).ready(function () {
         contadorFondoPopUp--;
         return false;
     });
+
     $("#cerrarInvitacionFlexipago").click(function () {
         $('#popupInvitaionFlexipago').hide();
         if (contadorFondoPopUp == 1) {
@@ -410,6 +459,73 @@ $(document).ready(function () {
     //Fin ShowRoom
 });
 
+function abrir_popup_tutorial() {
+    //closeWaitingDialog();   // SB20-834
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        //if (numImagen < 5) {
+        //    $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        //}
+
+        //if (numImagen == 5) {                
+        //    $(".img_slide5").fadeIn();
+        //    $(".img_slide5").animate({ 'top': '-642px' }, 3000);
+        //    $(".img_slide6").animate({ 'top': '0px' }, 3000);
+        //    $(".img_slide7").animate({ 'top': '642px' }, 3000);
+
+        //    $(".img_slide5").delay(2000);
+        //    $(".img_slide6").delay(2000);
+        //    $(".img_slide7").delay(2000);
+        //    $(".img_slide5").animate({ 'top': '-1284px' }, 3000);
+        //    $(".img_slide6").animate({ 'top': '-642px' }, 3000);
+        //    $(".img_slide7").animate({ 'top': '0px' }, 3000);
+        //}
+        numImagen++;
+        //if (numImagen > 9) {
+        //    numImagen = 1;
+        //    $(".img_slide5").css('top', '15px');
+        //    $(".img_slide6").css('top', '642px');
+        //    $(".img_slide7").css('top', '1284px');
+        //    $(".imagen_tutorial").animate({ 'opacity': '1' });
+        //}
+        if (numImagen > 8) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+    }, 3000);
+}
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_home').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+    
+    /* SB20-834 - INICIO */
+    if (viewBagVerComunicado == '-1') {
+        showViewVideo = '1';
+        ObtenerComunicadosPopup();
+    }
+    else {
+        if (viewBagVerComunicado == '1') {
+            //if ($('#totalComuSinMostrar').val() != '0') {
+            if (closeComunicadosPopup == false) {
+                mostrarComunicadosPopup();
+                if ($.trim($('#popupComunicados').html()) != "") {
+                    $('#popupComunicados').show();
+                }
+            }
+        }
+        else {
+            //CargarPopupsConsultora();
+        }
+    }
+    /* SB20-834 - FIN */
+}
+
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
@@ -434,6 +550,7 @@ function CargarCamara() {
     contadorFondoPopUp++;
     $("#CamaraIntroductoria").show();
 }
+
 function CerrarCamara() {
     Webcam.reset();
     $('#imgFotoTomada').attr('src', '');
@@ -583,25 +700,51 @@ function mostrarIconoTutorial() {
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
-    if (viewBagVioVideo == "0") {
-        if (contadorFondoPopUp == 0) {
-            $("#fondoComunPopUp").show();
-        }
-        $("#videoIntroductorio").show();
-        setTimeout(function () {
-            playVideo();
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Video de Bienvenida: Iniciar video',
-                'label': 'SomosBelcorp.com ¡se renueva para ti!'
-            });
-        }, 1000);
-        UpdateUsuarioVideo();
-        contadorFondoPopUp++;
-    } else {
+    try {
+
+        //console.log('Init popup #1');
+        if (viewBagVioVideo == "0") {
+
+            //closeWaitingDialog();   // SB20-834
+
+            if (contadorFondoPopUp == 0) {
+                $("#fondoComunPopUp").show();
+            }
+            $("#videoIntroductorio").show();
+            setTimeout(function () {
+                playVideo();
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Video de Bienvenida: Iniciar video',
+                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
+                });
+            }, 1000);
+            UpdateUsuarioVideo();
+            contadorFondoPopUp++;
+        } else {
         //abrir_popup_tutorial();
-        primeraVezVideo = false;
+            primeraVezVideo = false;
+
+            /* SB20-834 - INICIO */
+            if (viewBagVerComunicado == '-1') {
+                waitingDialog({});
+            }
+            else {
+                if (viewBagVerComunicado == '1') {
+                    //console.log('show popup #3');
+                    $('#popupComunicados').show();
+                    mostrarComunicadosPopup();
+                }
+                else {
+                    //console.log('show popup #4');
+                    //CargarPopupsConsultora();
+                }
+            }
+            /* SB20-834 - FIN */
+        }
+    } catch (e) {
+
     }
 }
 
@@ -3404,27 +3547,31 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
 
 //Video youtube
 function stopVideo() {
-    if (player) {
-        if (player.stopVideo) {
-            player.stopVideo();
+    try {
+        if (player) {
+            if (player.stopVideo) {
+                player.stopVideo();
+            }
+            else {
+                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+                var urlVideo = $("#divPlayer").attr("src");
+                $("#divPlayer").attr("src", "");
+                $("#divPlayer").attr("src", urlVideo);
+            }
         }
-        else {
-            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
-            var urlVideo = $("#divPlayer").attr("src");
-            $("#divPlayer").attr("src", "");
-            $("#divPlayer").attr("src", urlVideo);
-        }
-    }
+    } catch (e) { }
 };
 function playVideo() {
-    if (player) {
-        if (player.playVideo) {
-            player.playVideo();
+    try {
+        if (player) {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+            else {
+                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }
         }
-        else {
-            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}','*');
-        }
-    }
+    } catch (e) { }
 };
 
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
@@ -3725,3 +3872,233 @@ function cerrar_popup_tutorial() {
     window.clearInterval(fnMovimientoTutorial);
     numImagen = 1;
 }
+
+/* SB20-834 - INICIO */
+function ObtenerComunicadosPopup() {
+    waitingDialog({});
+
+    $.ajax({
+        type: "GET",
+        url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
+        contentType: 'application/json',
+        success: function (response) {
+
+            armarComunicadosPopup(response);
+            var images = $("#popupComunicados img.img-comunicado");
+            var loadedImgNum = 0;
+
+            if (images.length == 0) {
+                closeWaitingDialog();
+            } else {
+                images.on('load', function () {
+                    loadedImgNum += 1;
+                    if (loadedImgNum == images.length) {
+                        closeWaitingDialog();
+
+                        if (viewBagVerComunicado == '1') {
+                            $('#popupComunicados').show();
+                            mostrarComunicadosPopup();
+                        }
+                    }
+                });
+            }
+        },
+        error: function (data, error) {
+            console.log(data);
+            closeWaitingDialog();
+        }
+    });
+}
+
+function armarComunicadosPopup(response) {
+    //console.log('armarComunicadosPopup');
+    viewBagVerComunicado = response.comunicadoVisualizado;
+    //$('#totalComuSinMostrar').val(response.data.length);
+
+    $.each(response.data, function (id, item) {
+        dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
+        var nombreEvento = encodeURI(item.Descripcion);
+        //console.log(item);
+
+        if (item.Accion == "CUV") {
+            //displayTerminos = 'float:right;display:none;';
+            //urlAccion = 'javascript:InsertarPedidoCuvBanner(' + item.DescripcionAccion + ',1);';
+        }
+        else if (item.Accion == "URL") {
+            urlAccion = item.DescripcionAccion;
+            if (urlAccion > 0) {
+                //var id = urlAccion;
+                urlAccion = baseUrl + "MiAcademia/Cursos/idcurso/" + urlAccion;
+                //urlAccion = urlAccion.replace("idcurso_", id);
+            }
+            displayTerminos = 'float:right;display:none;';
+            target = '_blank';
+        }
+        //else if (item.Accion == "DON") {
+        //    displayTerminos = '';
+        //    urlAccion = 'javascript:RealizarDonacion(' + dialogComunicadoID + ',' + item.ComunicadoId + ',"' + response.codigoISO + '",' + response.codigoConsultora + ',' + response.codigoCampania + ',"' + nombreEvento + '");';
+        //}
+
+        var comunicado = {
+            id: dialogComunicadoID,
+            hrefUrl: urlAccion,
+            target: target,
+            urlImg: item.UrlImagen,
+            idComunicado: item.ComunicadoId,
+            display: displayTerminos,
+            comunicadoDescripcion: nombreEvento
+        };
+
+        //console.log(comunicado);
+        var content = SetHandlebars("#template-comunicado", comunicado, "");
+        $('#popupComunicados').append(content);
+
+        //$("#" + dialogComunicadoID + "").siblings(".ui-dialog-titlebar").hide();
+        //$("#" + dialogComunicadoID + " img").load(function () { comunicado.dialog('option', 'position', 'center'); });
+        //comunicado.dialog('open');
+
+        //// Push a promotionView cuando carga el comunicado.
+        //dataLayer.push({
+        //    'event': 'promotionView',
+        //    'ecommerce': {
+        //        'promoView': {
+        //            'promotions': [
+        //             {
+        //                 'id': item.ComunicadoId,
+        //                 'name': nombreEvento,
+        //                 'position': 'Home pop-up – 1',
+        //                 'creative': 'Banner'
+        //             }]
+        //        }
+        //    }
+        //});
+    });
+}
+
+function mostrarComunicadosPopup() {
+    //console.log('mostrarComunicadosPopup');
+    //$('html').css({ 'overflow-y': 'hidden' });
+    var j = 0;
+
+    $('#popupComunicados').find('div.popup_comunicados[data-cerrado="0"]').each(function (index, element) {
+        //if ($(element).attr('data-cerrado') == '0') {
+            //console.log(element);
+            var id = $(element).attr('id');
+            //var img1 = $(element).find('img.img-comunicado');
+            $('#' + id).show();
+            centrarComunicadoPopup(id);
+
+            //setTimeout(function () {
+            //    //console.log('load image');
+            //    $('#' + id).show();
+            //    centrarComunicadoPopup(id);
+            //}, 300);
+            j++;
+            return false;
+        //}
+    });
+
+    return (j > 0) ? false : true;
+}
+
+function centrarComunicadoPopup(ID) {
+    //console.log('centrarComunicadoPopup');
+    //var altoPopup = $("#" + ID).height() / 2;
+    var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
+    var imagenPopup = $('#' + ID).find(".img-comunicado");
+    var estadoPopup = $("#popupComunicados").css("display");
+
+    if (estadoPopup == "block") {
+        $("#" + ID).css({ "width": imagenPopup.width() });
+        $("#" + ID).css({ "top": altoPopup });
+    }
+}
+
+function clickCerrarComunicado(obj) {
+    //console.log('clickCerrarComunicado');
+    var comunicadoID = $(obj).attr('data-comunicado');
+    var dialogComunicadoID = $(obj).attr('data-id');
+
+    AceptarComunicadoVisualizacion(comunicadoID, dialogComunicadoID);
+
+    //$('#popupComunicados').hide();
+    $('#' + dialogComunicadoID).hide();
+    $('#' + dialogComunicadoID).attr('data-cerrado', 1);
+    var vclose = mostrarComunicadosPopup();
+
+    if (vclose) {
+        //$('#totalComuSinMostrar').val('0');
+        closeComunicadosPopup = true;
+        $('#popupComunicados').hide();
+        //console.log('Show popup #4');
+        //CargarPopupsConsultora();
+    }
+}
+
+function clickImagenComunicado(obj) {
+    //console.log('clickImagenComunicado');
+    var comunicadoID = $(obj).attr('data-comunicadoid');
+    var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
+    var dialogComunicadoID = $(obj).attr('data-id');
+
+    //dataLayer.push({
+    //    'event': 'promotionClick',
+    //    'ecommerce': {
+    //        'promoClick': {
+    //            'promotions': [
+    //                {
+    //                    'id': comunicadoID,
+    //                    'name': comunicadoDescripcion,
+    //                    'position': 'Home pop-up - 1',
+    //                    'creative': 'Banner'
+    //                }]
+    //        }
+    //    }
+    //});
+
+    //$('#popupComunicados').hide();
+    $('#' + dialogComunicadoID).hide();
+    $('#' + dialogComunicadoID).attr('data-cerrado', 1);
+    var vclose = mostrarComunicadosPopup();
+
+    if (vclose) {
+        //$('#totalComuSinMostrar').val('0');
+        closeComunicadosPopup = true;
+        $('#popupComunicados').hide();
+        //console.log('Show popup #4');
+        //CargarPopupsConsultora();
+    }
+}
+
+function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
+    //console.log('AceptarComunicadoVisualizacion');
+
+    if ($('#chkMostrarComunicado_' + ID + '').is(':checked')) {
+        var params = { ComunicadoID: ID };
+
+        waitingDialog({});
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+            data: JSON.stringify(params),
+            contentType: 'application/json',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    //$("#" + dialogComunicadoID + "").dialog('close');
+                    //$('#popupComunicados').hide();
+                    $('#' + dialogComunicadoID).hide();
+                    closeWaitingDialog();
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Ocurrió un error al aceptar el comunicado.");
+                }
+            }
+        });
+    }
+
+    $('#' + dialogComunicadoID).hide();
+}
+/* SB20-834 - FIN */
