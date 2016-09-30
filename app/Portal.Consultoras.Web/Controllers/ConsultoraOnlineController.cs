@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
         ~ConsultoraOnlineController()
         {
             Session["objMisPedidos"] = null;
+            Session["objMisPedidosDetalle"] = null;
+            Session["objMisPedidosDetalleVal"] = null;
         }
 
         public ActionResult Index(string activation)
@@ -758,8 +760,6 @@ namespace Portal.Consultoras.Web.Controllers
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 }
 
-                //model.ListaDetalle = olstMisPedidosDet;
-
                 if (olstMisPedidosDet.Count > 0)
                 {
                     MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
@@ -768,13 +768,13 @@ namespace Portal.Consultoras.Web.Controllers
                     long _pedidoId = Convert.ToInt64(pedidoId);
                     pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
 
-                    // setear valores iniciales
                     //olstMisPedidosDet.ToList().ForEach(x => x.TieneStock = 0);
                     //olstMisPedidosDet.ToList().ForEach(x => x.EstaEnRevista = 0);
 
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
-                    if (pedido.MarcaID == 0)    // 0=App Catalogos, >0=Portal Marca
+                    // 0=App Catalogos, >0=Portal Marca
+                    if (pedido.MarcaID == 0)    
                     {
                         int? revistaGana = null;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1000,7 +1000,8 @@ namespace Portal.Consultoras.Web.Controllers
             int tipo;
             string marcaPedido;
 
-            if (pedido.MarcaID == 0)        // 0=App Catalogos, >0=Portal Marca
+            // 0=App Catalogos, >0=Portal Marca
+            if (pedido.MarcaID == 0)        
             {
                 tipo = 1;
                 marcaPedido = pedido.MedioContacto;
@@ -1155,7 +1156,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 ServiceSAC.BESolicitudClienteDetalle beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle();
                                 beSolicitudDetalle.SolicitudClienteDetalleID = item.PedidoDetalleId;
-                                beSolicitudDetalle.TipoAtencion = (item.OpcionAcepta == "ingrten") ? 2 : 0;
+                                beSolicitudDetalle.TipoAtencion = (item.OpcionAcepta == "ingrten") ? 2 : 0;     // ya lo tengo, agotado
                                 beSolicitudDetalle.PedidoWebID = 0;
                                 beSolicitudDetalle.PedidoWebDetalleID = 0;
 
@@ -1256,10 +1257,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</td>");
                     mensajecliente.Append("</tr>");
                     int cntfila = 0;
+
                     foreach (var item in pedido.DetallePedido)
                     {
                         totalPedido += item.PrecioTotal;
-
                         cntfila = cntfila + 1;
 
                         if (cntfila % 2 == 0)
@@ -1325,6 +1326,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
                     mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
+
                     try
                     {
                         Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
@@ -1584,7 +1586,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
                     //Inicio GR-1385
-
                     BEMisPedidos pedido = new BEMisPedidos();
                     pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == SolicitudId).FirstOrDefault();
 

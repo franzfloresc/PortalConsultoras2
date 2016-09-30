@@ -28085,7 +28085,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*información adicional*/
 .mensajes_deAtencion span {
     width: 50%;
-    color: #e81c36;
+    color: #642f80;
     font-weight: 700;
     font-size: 16px;
     margin-left: 20px;
@@ -28769,18 +28769,18 @@ h1#penmostreo .campana {
     box-sizing: border-box;
 }
 .imagen_1{
-    background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; 
+    background: url(../../../Images/Lbel/estado_cuenta.png) no-repeat; 
 }
 .imagen_2{
-    background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
+    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
    
 }
 .imagen_3{
-    background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
+    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;    
 }
 
 .imagen_4 {
-    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat !important;
+    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
 }
 .ultima_campana{
      background: url("../../../Images/Lbel/ultima_campana.png") no-repeat;
@@ -28824,7 +28824,7 @@ h1#penmostreo .campana {
     width:34px;
     height:34px;
     margin-right:10px;   
-    background: url("../../../Images/Esika/online.png") no-repeat !important;
+    background: url("../../../Images/Lbel/online.png") no-repeat !important;
     margin-top:50px;
 
 }
@@ -28916,7 +28916,7 @@ h1#penmostreo .campana {
     filter: alpha(opacity=60);
 }
 .tipo_cliente{
-    color:#e81c36;
+    color:#642f80;
     display:block;
     font-size:11px;
     font-weight:700;
