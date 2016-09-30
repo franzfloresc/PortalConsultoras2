@@ -61,10 +61,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
                         lista = ps.ObtenerTodosProductos(userData.CatalogoPersonalizado, userData.CodigoISO,
                                 userData.CampaniaID, userData.CodigoConsultora,
                                 userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
-                                cantidad).ToList();
+                                cantidad, esFacturacion).ToList();
                     }
                                         
                     foreach (var producto in lista)
