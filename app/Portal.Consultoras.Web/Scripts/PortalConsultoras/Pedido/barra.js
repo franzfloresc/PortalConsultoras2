@@ -171,11 +171,6 @@ function MostrarBarra(datax, destino) {
         }
     });
 
-    if (destino == "1") {
-        if (indPuntoLimite <= 0)
-            return false;
-    }
-
     var wTotal = widthTotal;
     var vLimite = listaLimite[indPuntoLimite].valor;
 
@@ -214,15 +209,23 @@ function MostrarBarra(datax, destino) {
         htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
         htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
 
-        var wText = destino == '2' ? ind == 0 ? "130" : "90" : indPuntoLimite != ind ? "55" : "130";
+        var wText = destino == '2' ? ind == 0 ? "130" : "90" : indPuntoLimite != ind || indPuntoLimite == 0 ? "55" : "130";
         var marl = indPuntoLimite == listaLimite.length - 1 ? "-80" : "21";
+        if (destino == '1' && indPuntoLimite == 0) {
+            wText = wTotal / listaLimite.length
+            marl = "0";
+        }
         var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
         var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        var nombrePunto = destino == '2' ? limite.nombre :
-            (limite.nombre2
-            .replace("{DSCTO}", indPuntoLimite != ind ? "DSCTO" : "")
-            .replace("{detalle}", indPuntoLimite != ind ? "" : (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr)));
-        console.log(limite.nombre2, nombrePunto);
+        var nombrePunto = limite.nombre;
+        if (destino == '1') {
+            var txtDscto = indPuntoLimite == 0 ? "" : indPuntoLimite != ind ? "DSCTO" : "";
+            var txtDetalle = indPuntoLimite == 0 ? "DSCTO" : indPuntoLimite != ind ? "" : (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+            nombrePunto = limite.nombre2
+            .replace("{DSCTO}", txtDscto)
+            .replace("{detalle}", txtDetalle);
+        }
+
         htmlSet = htmlSet
             .ReplaceAll("{punto}", ind)
             .ReplaceAll("{texto}", nombrePunto)
@@ -234,20 +237,24 @@ function MostrarBarra(datax, destino) {
         var objH = $(htmlSet).css("float", 'left');
         $("#divBarra #divBarraLimite").append(objH);
 
-        var wPunto = $("#punto_" + ind + " [data-texto]").width();
-        wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
-        if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
-            if (vLogro < vLimite) {
-                if (mx <= 0) {
-                    wPunto = wmin;
+        var wPunto = wText;
+        if (!(destino == '1' && indPuntoLimite == 0)) {
+            wPunto = $("#punto_" + ind + " [data-texto]").width();
+            wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
+        
+            if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
+                if (vLogro < vLimite) {
+                    if (mx <= 0) {
+                        wPunto = wmin;
+                    }
                 }
             }
-        }
 
-        $("#punto_" + ind).css("width", wPunto);
-        if (ind == 0) {
-            if (mn == 0) {
-                $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
+            $("#punto_" + ind).css("width", wPunto);
+            if (ind == 0) {
+                if (mn == 0) {
+                    $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
+                }
             }
         }
         wTotalPunto += wPunto;
@@ -286,6 +293,9 @@ function MostrarBarra(datax, destino) {
 
     // asignar espacio para el progreso
     var wAreaMover = widthTotal - wTotalPunto;
+    if (destino == "1" && indPuntoLimite == 0) {
+        wAreaMover = 0;
+    }
     if (indPuntoLimite > 0) {
         if (vLogro >= vLimite) {
             $("#punto_" + (indPuntoLimite)).css("margin-right", wAreaMover);
@@ -362,11 +372,22 @@ function MostrarBarra(datax, destino) {
         }
     }
 
+    if (destino == "1") {
+        if (indPuntoLimite <= 0 && mn > 0) {
+            wLimite = 0;
+            wLogro = 0;
+        }
+    }
+
     //wLogro = wLimite == widthTotal ? vLogro > vLimite ? widthTotal - 20 : wLimite : wLogro;
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
 
     //console.log(widthTotal, wTotalPunto, wAreaMover, wLimite, indPuntoLimite, vLogro, vLimite, wLimiteAnterior);
+
+    if (destino == "1") {
+        return true;
+    }
 
     // mensaje
     if (mn == 0 && vLogro == 0) {
