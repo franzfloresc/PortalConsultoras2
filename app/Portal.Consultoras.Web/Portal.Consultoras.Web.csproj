@@ -213,6 +213,8 @@
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
+    <Compile Include="Areas\Mobile\Models\BarraConsultoraEscalaDescuentoMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\BarraConsultoraMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
     <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoClienteModel.cs" />
@@ -1612,6 +1614,7 @@
     <Content Include="Content\Images\Esika\mobile.png" />
     <Content Include="Content\Images\Esika\mobile2.png" />
     <Content Include="Content\Images\Esika\next.png" />
+    <Content Include="Content\Images\Esika\notificaciones-header.png" />
     <Content Include="Content\Images\Esika\notificaciones.png" />
     <Content Include="Content\Images\Esika\oferta.png" />
     <Content Include="Content\Images\Esika\ofertasparati_1.png" />
@@ -1970,6 +1973,7 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
+    <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
@@ -1979,6 +1983,8 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\flecha-left.png" />
+    <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -2085,6 +2091,7 @@
     <Content Include="Content\Images\mobile\img-showroom\titulo_preventa.jpg" />
     <Content Include="Content\Images\mobile\img-showroom\top_triangular.png" />
     <Content Include="Content\Images\mobile\img-showroom\volver.png" />
+    <Content Include="Content\Images\mobile\img_producto_ofertaFinal.png" />
     <Content Include="Content\Images\mobile\landing_mobile_8.jpg" />
     <Content Include="Content\Images\mobile\LandingConsultoras.jpg" />
     <Content Include="Content\Images\mobile\Lbel\asesor_basePolvos_lbel.png" />
@@ -2374,6 +2381,7 @@
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />

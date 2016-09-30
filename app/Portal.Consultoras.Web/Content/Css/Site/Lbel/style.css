@@ -168,13 +168,13 @@ header {
 }
 
 .mensaje_svg {
-    background: url(../../../Images/Esika/mensajes.png) no-repeat;
-    background-position: 0 4px;
+    background: url(../../../Images/Esika/notificaciones-header.png) no-repeat;
+    background-position: 0 2px;
 }
 
 .campana:hover .mensaje_svg {
-    background: url(../../../Images/Esika/mensajes.png) no-repeat !important;
-    background-position: 0 4px !important;
+    background: url(../../../Images/Esika/notificaciones-header.png) no-repeat !important;
+    background-position: 0 2px !important;
 }
 
 .notificaciones {
@@ -2422,7 +2422,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     color: #642f80;
     margin-bottom: 3px;
     position: relative;
-    text-align:right;
+    text-align:left;
     text-transform:uppercase;
     /*right:30%;*/
 }
@@ -28053,32 +28053,39 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-size:16px;
 }
 .producto_img_home:hover .ver_detalle_carrusel,  .producto_img:hover .ver_detalle_carrusel{
-    display:block;
-    }
+    opacity:1;
+}
 .producto_img_home{
     position:relative;
 }
 .ver_detalle_carrusel{
-    display:none;
-    position:absolute;
-    height:35px;
-    line-height:30px;
-    width:60%;
-    font-weight:700;
-    border:2px solid black;
-    font-family:'Lato';
-    background:rgba(255,255,255,0.8);
-    left:0;
-    right:0;
-    bottom:10px;
-    margin:0 auto;
-    -webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    display: block;
+    font-size: 12px;
+    position: absolute;
+    height: 35px;
+    line-height: 32px;
+    width: 60%;
+    font-weight: 700;
+    border: 1px solid #ddd8d8;
+    font-family: 'Lato';
+    background: #FFF;
+    opacity:0;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: 0 auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    /*-webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
     -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
-    animation: opacidad-bottom 500ms linear 0ms 1 normal;
+    animation: opacidad-bottom 500ms linear 0ms 1 normal;*/
 }
 
-@keyframes opacidad-bottom {
+/*@keyframes opacidad-bottom {
     0% {
         opacity:0;
     
@@ -28086,7 +28093,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     80% {
         opacity:1;
     }
-}
+}*/
 
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 
