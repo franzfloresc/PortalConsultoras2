@@ -310,7 +310,7 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--CATALOGO PERSONALIZADO-->
-@if (Model.CatalogoPersonalizadoDesktop != 0)
+@if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
@@ -2119,7 +2119,6 @@
         var primeraVezVideo = true;
         var viewBagRol = '@ViewBag.Rol';
         var viewBagVerComunicado = '-1';
-
     </script>
     
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
