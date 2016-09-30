@@ -202,22 +202,27 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
-                int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
-                using (SACServiceClient sac = new SACServiceClient())
+                int Visualizado = 1, ComunicadoVisualizado = 1;
+                try
                 {
-                    BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (comunicado != null)
-                        Visualizado = comunicado.Visualizo ? 1 : 0;
+                    using (SACServiceClient sac = new SACServiceClient())
+                    {
+                        BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (comunicado != null)
+                            Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
-                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                        BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                            ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                    }
                 }
+                catch (Exception) { }
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
-
+                model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
             }
             catch (FaultException ex)
             {

@@ -326,7 +326,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
+                if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore ||
+                        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                {
+                    if (esFacturacion)
+                        ObtenerListadoProductosOfertaFinal();
+                }
             }
             catch (FaultException ex)
             {
@@ -2560,39 +2566,31 @@ namespace Portal.Consultoras.Web.Controllers
                         int TipoObs = 0;
                         string CUV = string.Empty;
                         string Observacion = string.Empty;
-                        TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
 
-                        if (TipoObs == 97)
+                        if (EsReservaPedidoPROL)
                         {
-                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
-                            Observacion = Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", "");
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(0));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
                         }
                         else
                         {
-                            if (EsReservaPedidoPROL)
-                            {
-                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
-                                CUV = Convert.ToString(row.ItemArray.GetValue(0));
-                                Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
-                            }
-                            else
-                            {
-                                TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
-                                CUV = Convert.ToString(row.ItemArray.GetValue(1));
-                                Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
-                            }
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
+                        }
 
                         if (TipoObs == 0)
                             ValidacionReemplazo += 1;
 
-                            if (TipoObs == 95)
-                            {
-                                ValidacionPROLMM = true;
-                                CUV_Val = CUV;
-                                string regex = "(\\#.*\\#)";
-                                Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
-                            }
+                        if (TipoObs == 95)
+                        {
+                            ValidacionPROLMM = true;
+                            CUV_Val = CUV;
+                            string regex = "(\\#.*\\#)";
+                            Observacion = Regex.Replace(Observacion, regex, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                         }
+
                         Restrictivas = true;
                         olstPedidoWebDetalleObs.Add(new ObservacionModel() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
@@ -4769,120 +4767,23 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Session["ProductosOfertaFinal"] == null)
                 {
-                    string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
-
-                    int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
-
-                    using (ProductoServiceClient ps = new ProductoServiceClient())
-                    {
-                        lista = ps.ObtenerProductos(tipoOfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
-                            userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
-                    }
-
-                    foreach (var producto in lista)
-                    {
-                        List<BEProducto> olstProducto = new List<BEProducto>();
-                        using (ODSServiceClient sv = new ODSServiceClient())
-                        {
-                            olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
-                                userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
-                        }
-
-                        if (olstProducto.Count != 0)
-                        {
-                            if (!olstProducto[0].TieneStock)
-                                continue;
-
-                            string descripcion = producto.NombreComercial;
-                            string imagenUrl = Util.SubStr(producto.Imagen, 0);
-
-                            if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                            {
-                                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-                            }
-
-                            if (imagenUrl == "")
-                                continue;
-
-                            listaProductoModel.Add(new ProductoModel()
-                            {
-                                CUV = olstProducto[0].CUV.Trim(),
-                                Descripcion = descripcion,
-                                PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
-                                PrecioCatalogo = olstProducto[0].PrecioCatalogo,
-                                MarcaID = olstProducto[0].MarcaID,
-                                EstaEnRevista = olstProducto[0].EstaEnRevista,
-                                TieneStock = true,
-                                EsExpoOferta = olstProducto[0].EsExpoOferta,
-                                CUVRevista = olstProducto[0].CUVRevista.Trim(),
-                                CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
-                                IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
-                                TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
-                                ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
-                                MensajeCUV = "",
-                                DesactivaRevistaGana = -1,
-                                DescripcionMarca = olstProducto[0].DescripcionMarca,
-                                DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
-                                DescripcionCategoria = olstProducto[0].DescripcionCategoria,
-                                FlagNueva = olstProducto[0].FlagNueva,
-                                TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
-                                ImagenProductoSugerido = imagenUrl,
-                                CodigoProducto = olstProducto[0].CodigoProducto,
-                                TieneStockPROL = true,
-                                PrecioValorizado = olstProducto[0].PrecioValorizado,
-                                PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
-                                Simbolo = userData.Simbolo
-                            });
-
-                        }
-                    }
-
-                    Session["ProductosOfertaFinal"] = listaProductoModel;
+                    listaProductoModel = ObtenerListadoProductosOfertaFinal();
                 }
                 else
                 {
                     listaProductoModel = (List<ProductoModel>)Session["ProductosOfertaFinal"] ?? new List<ProductoModel>();
                 }
 
-                /*Obtener si tiene stock de PROL por CodigoSAP*/
-                var listaTieneStock = new List<Lista>();
-                string codigoSap = "";
-                foreach (var beProducto in listaProductoModel)
-                    codigoSap += beProducto.CodigoProducto + "|";
-
-                try
-                {
-                    using (var sv = new wsConsulta())
-                    {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                    listaTieneStock = new List<Lista>();
-                }
-
                 // Si ya esta en pedido detalle no se debe mostrar
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
                 var listaRetorno = new List<ProductoModel>();
-                bool tieneStockProl = false;
+                
                 foreach (var item in listaProductoModel)
                 {
-                    var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == item.CodigoProducto);
-                    if (itemStockProl != null)
-                        tieneStockProl = itemStockProl.estado == 1;
-
-                    if (tieneStockProl)
-                    {
-                        var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
-                        addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
-                        if (addProducto.CUV == "")
-                            listaRetorno.Add(item);   
-                    }                    
+                    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
+                    addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
+                    if (addProducto.CUV == "")
+                        listaRetorno.Add(item);                    
                 }
 
                 return Json(new
@@ -4950,6 +4851,83 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
+        }
+
+        private List<ProductoModel> ObtenerListadoProductosOfertaFinal()
+        {
+            var listaProductoModel = new List<ProductoModel>();
+            var lista = new List<Producto>();
+            string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+
+            int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
+
+            using (ProductoServiceClient ps = new ProductoServiceClient())
+            {
+                lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
+                    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
+            }
+
+            foreach (var producto in lista)
+            {
+                List<BEProducto> olstProducto = new List<BEProducto>();
+                using (ODSServiceClient sv = new ODSServiceClient())
+                {
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, producto.Cuv,
+                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).ToList();
+                }
+
+                if (olstProducto.Count != 0)
+                {
+                    if (!olstProducto[0].TieneStock)
+                        continue;
+
+                    string descripcion = producto.NombreComercial;
+                    string imagenUrl = Util.SubStr(producto.Imagen, 0);
+
+                    if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                    {
+                        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                    }
+
+                    if (imagenUrl == "")
+                        continue;
+
+                    listaProductoModel.Add(new ProductoModel()
+                    {
+                        CUV = olstProducto[0].CUV.Trim(),
+                        Descripcion = descripcion,
+                        PrecioCatalogoString = Util.DecimalToStringFormat(olstProducto[0].PrecioCatalogo, userData.CodigoISO),
+                        PrecioCatalogo = olstProducto[0].PrecioCatalogo,
+                        MarcaID = olstProducto[0].MarcaID,
+                        EstaEnRevista = olstProducto[0].EstaEnRevista,
+                        TieneStock = true,
+                        EsExpoOferta = olstProducto[0].EsExpoOferta,
+                        CUVRevista = olstProducto[0].CUVRevista.Trim(),
+                        CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
+                        IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
+                        TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
+                        ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                        MensajeCUV = "",
+                        DesactivaRevistaGana = -1,
+                        DescripcionMarca = olstProducto[0].DescripcionMarca,
+                        DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
+                        DescripcionCategoria = olstProducto[0].DescripcionCategoria,
+                        FlagNueva = olstProducto[0].FlagNueva,
+                        TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                        ImagenProductoSugerido = imagenUrl,
+                        CodigoProducto = olstProducto[0].CodigoProducto,
+                        TieneStockPROL = true,
+                        PrecioValorizado = olstProducto[0].PrecioValorizado,
+                        PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                        Simbolo = userData.Simbolo
+                    });
+
+                }
+            }
+
+            Session["ProductosOfertaFinal"] = listaProductoModel;
+            return listaProductoModel;
         }
     }
 }

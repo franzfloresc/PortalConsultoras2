@@ -1,4 +1,6 @@
-﻿
+﻿var tipoOfertaFinal_Log = "";
+var gap_Log = 0;
+var tipoOrigen = '2';
 
 var esPedidoValidado = false; /* SB20-565 */
 
@@ -28,7 +30,6 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".agregarOfertaFinal", function () {
-        //AbrirSplash();
         ShowLoading();
 
         var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
@@ -48,55 +49,48 @@ $(document).ready(function () {
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            //$('.liquidacion_rango_cantidad_pedido').val(1);
-            //CerrarSplash();
             CloseLoading();
-            //limpiarInputsPedido();
             return false;
         }
 
         if (cantidad <= 0) {
             alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            //$('.liquidacion_rango_cantidad_pedido').val(1);
-            //CerrarSplash();
             CloseLoading();
             return false;
-        } else {
-            var model = {
-                TipoOfertaSisID: tipoOfertaSisID,
-                ConfiguracionOfertaID: configuracionOfertaID,
-                IndicadorMontoMinimo: indicadorMontoMinimo,
-                MarcaID: marcaID,
-                Cantidad: cantidad,
-                PrecioUnidad: precioUnidad,
-                CUV: cuv,
-                Tipo: tipo,
-                DescripcionProd: descripcionProd,
-                Pagina: pagina,
-                DescripcionCategoria: descripcionCategoria,
-                DescripcionMarca: descripcionMarca,
-                DescripcionEstrategia: descripcionEstrategia,
-                EsSugerido: false
-            };
-
-            console.log('agregar:');
-            console.log(model);
-            //AgregarProducto('Insert', model, "", false);
-            AgregarProductoListado(model);
-
-            setTimeout(function () {
-                $("#popupOfertaFinal").hide();
-                EjecutarServicioPROLSinOfertaFinal();
-            }, 1000);
         }
+
+        var model = {
+            TipoOfertaSisID: tipoOfertaSisID,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            MarcaID: marcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: precioUnidad,
+            CUV: cuv,
+            Tipo: tipo,
+            DescripcionProd: descripcionProd,
+            Pagina: pagina,
+            DescripcionCategoria: descripcionCategoria,
+            DescripcionMarca: descripcionMarca,
+            DescripcionEstrategia: descripcionEstrategia,
+            EsSugerido: false,
+            OrigenPedidoWeb: MobilePedidoOfertaFinal
+        };
+
+        InsertarProducto(model);
+
+        setTimeout(function () {
+            $("#popupOfertaFinal").hide();
+            EjecutarServicioPROLSinOfertaFinal();
+        }, 1000);
+        
     });
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
 
-        if (esMontoMinimo) {
-            $("#popupOfertaFinal").hide();
-        } else {
+        $("#popupOfertaFinal").hide();
+        if (!esMontoMinimo) {
             var data = $("#btnNoGraciasOfertaFinal")[0].data;
             MostrarMensajeProl(data);
         }
@@ -901,7 +895,7 @@ function EjecutarPROL() {
         }
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('<h3>No existen productos en su Pedido.</h3>');
+        messageInfoMalo('No existen productos en su Pedido.');
     }
 }
 
@@ -916,136 +910,7 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            var model = response.data;
-           
-            CloseLoading();
-
-            if (!model.ValidacionInteractiva) {
-                messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
-                return false;
-            }
-
-            $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
-            $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
-
-            var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
-
-            $('#btnGuardarPedido').text(model.Prol);
-            var tooltips = model.ProlTooltip.split('|');
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
-
-            /*SB20-565 - INICIO */
-            var codigoMensajeProl = response.data.CodigoMensajeProl;
-            var cumpleOferta;
-            /*SB20-565 - FIN */
-
-            if (model.Reserva != true) {
-
-                /* SB20-565 - INICIO */
-                //$('#modal-prol-botonesAceptarCancelar').hide();
-                //$('#modal-prol-botoneAceptar').show();                 
-                //$('#popup-observaciones-prol').show();
-                
-                //$('#DivObsBut').css({ "display": "block" });
-                //$('#DivObsInfBut').css({ "display": "none" });
-                                
-                $("#btnNoGraciasOfertaFinal")[0].data = response.data;
-                codigoMensajeProl = response.data.CodigoMensajeProl;
-
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 2, codigoMensajeProl, response.data.ListaObservacionesProl);
-                //console.log(cumpleOferta);
-
-                if (cumpleOferta.resultado) {
-                    MostrarPopupOfertaFinal(cumpleOferta, 2);
-                } else {
-                    //showDialog("divObservacionesPROL");
-                    //$("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-
-                    $('#modal-prol-botonesAceptarCancelar').hide();
-                    $('#modal-prol-botoneAceptar').show();
-                    $('#popup-observaciones-prol').show();
-                }
-                //CargarDetallePedido();
-                /* SB20-565 - FIN */
-
-                CargarPedido();
-                return true;
-            }
-
-            if (model.ZonaValida == true) {
-                console.log('ZonaValida == true');
-                if (model.ObservacionInformativa == false) {
-                   // console.log('ObservacionInformativa == false')
-
-                    //if (model.ProlSinStock == true) {
-                    //    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                    //    CargarPedido();
-                    //    return true;
-                    //}
-
-                    /* SB20-565 - INICIO */
-                    cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    //console.log(cumpleOferta);
-
-                    if (cumpleOferta.resultado) {
-                        esPedidoValidado = response.data.ProlSinStock != true;
-                        MostrarPopupOfertaFinal(cumpleOferta, 1);
-                    } else {
-                        if (response.data.ProlSinStock == true) {
-                            //showDialog("divReservaSatisfactoria3");
-                            //CargarDetallePedido();
-
-                            messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                            CargarPedido();
-                            return true;
-                        }
-                    }
-                    /* SB20-565 - FINAL */
-
-                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
-                    AnalyticsPedidoValidado(response);
-                    setTimeout(function () {
-                        location.href = urlPedidoValidado;
-                    }, 2000);
-
-                    return true;
-                }
-
-                /* SB20-565 - INICIO */
-                cumpleOferta = CumpleOfertaFinal(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                console.log(cumpleOferta);
-
-                if (cumpleOferta.resultado) {
-                    esPedidoValidado = response.data.ProlSinStock != true;
-                    MostrarPopupOfertaFinal(cumpleOferta, 1);
-                } else {
-                    $('#modal-prol-botonesAceptarCancelar').show();
-                    $('#modal-prol-botoneAceptar').hide();
-                    $('#popup-observaciones-prol').show();
-
-                    CargarPedido();
-                    return true;
-                }
-            }
-            
-            var msg = ""
-            if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-                msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-            } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p>' + mensajeGuardarCO + '</p>';
-            } else {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-            }
-            messageInfoBueno(msg);
-            AnalyticsGuardarValidar(response);
-            CargarPedido();
-            return true;
+            RespuestaEjecutarServicioPROL(response);
         },
         error: function (data, error) {
             CloseLoading();
@@ -1072,76 +937,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         async: true,
         cache: false,
         success: function (response) {
-            var model = response.data;
-            CloseLoading();
-
-            if (!model.ValidacionInteractiva) {
-                messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
-                return false;
-            }
-
-            $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
-            $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
-
-            var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
-
-            $('#btnGuardarPedido').text(model.Prol);
-            var tooltips = model.ProlTooltip.split('|');
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
-            $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
-
-            if (model.Reserva != true) {
-                $('#modal-prol-botonesAceptarCancelar').hide();
-                $('#modal-prol-botoneAceptar').show();
-                $('#popup-observaciones-prol').show();
-                AnalyticsGuardarValidar(response);
-                CargarPedido();
-                return true;
-            }
-
-            if (model.ZonaValida == true) {
-                if (model.ObservacionInformativa == false) {
-                    if (model.ProlSinStock == true) {
-                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                        AnalyticsGuardarValidar(response);
-                        CargarPedido();
-                        return true;
-                    }
-
-                    messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
-                    //PEDIDO VALIDADO
-                    AnalyticsGuardarValidar(response);
-                    AnalyticsPedidoValidado(response);
-                    setTimeout(function () {
-                        location.href = urlPedidoValidado;
-                    }, 2000);
-                    return true;
-                }
-
-                $('#modal-prol-botonesAceptarCancelar').show();
-                $('#modal-prol-botoneAceptar').hide();
-                $('#popup-observaciones-prol').show();
-
-                AnalyticsGuardarValidar(response);
-                CargarPedido();
-                return true;
-            }
-
-            var msg = ""
-            if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-                msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-            } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-                msg += '<p>' + mensajeGuardarCO + '</p>';
-            } else {
-                msg = '<h3>Tu pedido se guardó con éxito</h3>';
-            }
-            AnalyticsGuardarValidar(response);
-            messageInfoBueno(msg);
-            CargarPedido();
-            return true;
+            RespuestaEjecutarServicioPROL(response, false);
         },
         error: function (data, error) {
             CloseLoading();
@@ -1155,6 +951,121 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
         }
     });
+}
+
+function RespuestaEjecutarServicioPROL(response, inicio) {
+    inicio = inicio == null || inicio == undefined ? true : inicio;
+    var model = response.data;
+
+    CloseLoading();
+
+    if (!model.ValidacionInteractiva) {
+        messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
+        return false;
+    }
+
+    $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
+    $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
+
+    var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
+
+    $('#btnGuardarPedido').text(model.Prol);
+    var tooltips = model.ProlTooltip.split('|');
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
+
+    var codigoMensajeProl = "";
+    var cumpleOferta = { resultado: false };
+
+    if (inicio) {
+        $("#btnNoGraciasOfertaFinal")[0].data = response.data;
+        codigoMensajeProl = response.data.CodigoMensajeProl;
+    }   
+
+
+    if (model.Reserva != true) {
+        if (inicio) {
+            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+        }        
+        if (!cumpleOferta.resultado) {
+            $('#modal-prol-botonesAceptarCancelar').hide();
+            $('#modal-prol-botoneAceptar').show();
+            $('#popup-observaciones-prol').show();
+            AnalyticsGuardarValidar(response);
+        }
+
+        CargarPedido();
+        return true;
+    }
+
+    if (model.ZonaValida == true) {
+
+        if (model.ObservacionInformativa == false) {
+            if (inicio) {
+                cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+            }
+
+            if (cumpleOferta.resultado) {
+                esPedidoValidado = response.data.ProlSinStock != true;
+            } else {
+                if (response.data.ProlSinStock == true) {
+                    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+                    AnalyticsGuardarValidar(response);
+                    CargarPedido();
+                    return true;
+                }
+
+                messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                //PEDIDO VALIDADO
+                AnalyticsGuardarValidar(response);
+                AnalyticsPedidoValidado(response);
+                setTimeout(function () {
+                    location.href = urlPedidoValidado;
+                }, 2000);
+
+                return true;
+            }
+        }
+
+        if (inicio) {
+            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+            cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
+        }
+        
+        if (cumpleOferta.resultado) {
+            esPedidoValidado = response.data.ProlSinStock != true;
+        } else {
+            $('#modal-prol-botonesAceptarCancelar').show();
+            $('#modal-prol-botoneAceptar').hide();
+            $('#popup-observaciones-prol').show();
+        }
+        AnalyticsGuardarValidar(response);
+        CargarPedido();
+        return true;
+    }
+    if (inicio) {
+        cumpleOferta = CumpleOfertaFinalMostrar(response.data.MontoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+    }
+    
+    if (!cumpleOferta.resultado) {
+        var msg = ""
+        if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+            msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
+            msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
+        } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+            msg += '<p>' + mensajeGuardarCO + '</p>';
+        } else {
+            msg = '<h3>Tu pedido se guardó con éxito</h3>';
+        }
+        messageInfoBueno(msg);
+        AnalyticsGuardarValidar(response);
+    }
+
+    CargarPedido();
+    return true;
 }
 
 /* SB20-565 - FIN */
@@ -1379,110 +1290,8 @@ function MostrarDetalleGanancia() {
 
 
 /* SB20-565 - INICIO */
-function AgregarProductoListado(model) {
-    console.log('AgregarProductoListado');
-    ShowLoading();
-
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
-
-    //var CUV = $('#hdfCUV').val();
-    //$("#hdCuvRecomendado").val(CUV);
-    //$("#btnAgregarProducto").attr("disabled", "disabled");
-    //$("#btnAgregarProducto").hide();
-
-    //var tipoOferta = $("#hdTipoOfertaSisID").val();
-
-    //var Cantidad = $("#txtCantidad").val();
-
-    //var param = ({
-    //    MarcaID: 0,
-    //    CUV: CUV,
-    //    PrecioUnidad: 0,
-    //    Descripcion: 0,
-    //    Cantidad: Cantidad,
-    //    IndicadorMontoMinimo: 0,
-    //    TipoOferta: $("#hdTipoEstrategiaID").val()
-    //});
-
-    //jQuery.ajax({
-    //    type: 'POST',
-    //    url: urlValidarStockEstrategia,
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset=utf-8',
-    //    //data: JSON.stringify(param),
-    //    data: JSON.stringify(model),
-    //    async: true,
-    //    success: function (datos) {
-    //        if (!datos.result) {
-    //            MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-    //            CloseLoading();
-    //        } else {
-    //            InsertarProducto();
-    //            return true;
-    //        }
-    //    },
-    //    error: function (data, error) {
-    //        CloseLoading();
-    //        if (checkTimeout(data)) {
-    //            //$("#btnAgregarProducto").show();
-    //            //$("#btnAgregarProducto").removeAttr("disabled");
-    //            console.error(data);
-    //        }
-    //    }
-    //});
-
-    InsertarProducto(model);
-};
 
 function InsertarProducto(model) {
-    console.log('InsertarProducto');
-
-    //var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
-    //var urlInsertar = esOfertaNueva ? urlInsertOfertaNueva : urlInsert;
-    //var model;
-
-    //if (!esOfertaNueva) {
-    //    model = {
-    //        Tipo: 1,
-    //        CUVComplemento: "",
-    //        MarcaIDComplemento: 0,
-    //        PrecioUnidadComplemento: 0,
-    //        IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-    //        TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
-    //        ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
-    //        Registros: "",
-    //        RegistrosDe: "",
-    //        RegistrosTotal: "",
-    //        Pagina: "",
-    //        PaginaDe: "",
-    //        ClienteID_: "",
-    //        DescripcionEstrategia: "",
-    //        DescripcionLarga: "",
-    //        CUV: $("#hdfCUV").val(),
-    //        MarcaID: $("#hdfMarcaID").val(),
-    //        PrecioUnidad: $("#hdfPrecioUnidad").val(),
-    //        DescripcionProd: $("#divNombreProducto").html(),
-    //        Cantidad: $("#txtCantidad").val(),
-    //        ClienteID: $("#ddlClientes").val(),
-    //        ClienteDescripcion: $("#ddlClientes option:selected").text()
-    //    };
-
-    //} else {
-    //    model = {
-    //        MarcaID: $("#hdfMarcaID").val(),
-    //        CUV: $("#hdfCUV").val(),
-    //        PrecioUnidad: $("#hdfPrecioUnidad").val(),
-    //        Descripcion: $("#divNombreProducto").html(),
-    //        Cantidad: $("#txtCantidad").val(),
-    //        IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-    //        TipoOferta: $("#hdTipoOfertaSisID").val(),
-    //        tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
-    //    };
-    //}
-
     jQuery.ajax({
         type: 'POST',
         url: urlInsertar,
@@ -1505,31 +1314,7 @@ function InsertarProducto(model) {
                 }, 2000);
 
                 ActualizarGanancia(data.DataBarra);
-
-                //var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
-                //if (existeError == "1") {
-                //    $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
-                //    $("#btnAgregarProducto").show();
-                //    $("#btnAgregarProducto").removeAttr("disabled");
-                //    CloseLoading();
-                //    return false;
-                //}
-                //$('#divMensajeCUV').hide();
-                //$("#divProductoObservaciones").html("");
-                //$("#divProductoMantenedor").hide();
-                //$("#btnAgregarProducto").hide();
-                //$("#divListaEstrategias").show();
-                //$("#divResumenPedido").show();
-                //$("footer").show();
-                //$(".footer-page").css({ "margin-bottom": "0px" });
-
-                //var cuv = $("#hdfCUV").val();
-                //CargarCarouselEstrategias(cuv);
-
-                //PedidoOnSuccess();
-
-                //$("#hdCuvEnSession").val("");
-
+                
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                 dataLayer.push({
                     'event': 'addToCart',
@@ -1553,8 +1338,6 @@ function InsertarProducto(model) {
                 CargarPedido();
 
             } else {
-                //$("#btnAgregarProducto").removeAttr("disabled", "disabled");
-                //$("#btnAgregarProducto").show();
                 messageInfoMalo(data.message);
             }
         },
@@ -1567,272 +1350,6 @@ function InsertarProducto(model) {
     });
 
 };
-
-function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
-    //$('.js-slick-prev-of').remove();
-    //$('.js-slick-next-of').remove();
-
-    $('.js-slick-prev-h').remove();
-    $('.js-slick-next-h').remove();
-
-    $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
-
-    $('#divCarruselOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
-
-    SetHandlebars("#ofertaFinal-template", cumpleOferta.productosMostrar, "#divCarruselOfertaFinal");
-
-    //$("#divOfertaFinal").show();
-
-    $('#divCarruselOfertaFinal').slick({
-        infinite: true,
-        vertical: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        //centerMode: false,
-        //centerPadding: '0',
-        //tipo: 'p', // popup
-        speed: 300,
-        //prevArrow: '<a class="previous_ofertas js-slick-prev-of"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        //nextArrow: '<a class="previous_ofertas next js-slick-next-of"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-        prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png" style="width:100%; height:auto;" /></a>',
-        nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png" style="width:100%; height:auto;" /></a>'
-    });
-
-    //$('#divCarruselOfertaFinal').prepend($(".js-slick-prev-of"));
-    //$('#divCarruselOfertaFinal').prepend($(".js-slick-next-of"));
-
-    $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-h"));
-    $('#divCarruselOfertaFinal').prepend($(".js-slick-next-h"));
-
-    CargandoValoresPopupOfertaFinal(tipoPopupMostrar, cumpleOferta.montoFaltante, cumpleOferta.porcentajeDescuento);
-}
-
-function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, montoFaltante, porcentajeDescuento) {
-    var formatoMontoFaltante = DecimalToStringFormat(montoFaltante);
-    if (tipoPopupMostrar == 1) {
-        $("#divIconoOfertaFinal").addClass("icono_aprobacion");
-        $("#spnTituloOfertaFinal").html("GUARDASTE TU <b>PEDIDO CON ÉXITO !</b>");
-        $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("para ganar más esta campaña.");
-        if (viewBagPaisID == 11) {
-            $("#spnSubTituloOfertaFinal").html("Gana mas con estas ofertas que tenemos solo para ti");
-        } else if (viewBagPaisID == 3) {
-            $("#spnSubTituloOfertaFinal").html("Gana mas con estas ofertas que tenemos solo para ti");
-        }
-    }
-    else {
-        $("#divIconoOfertaFinal").addClass("icono_exclamacion");
-        $("#spnTituloOfertaFinal").html("TODAVIA<b>&nbsp;TE FALTA UN POCO</b>");
-        $("#spnMontoFaltanteOfertaFinal").html(formatoMontoFaltante);
-        $("#spnMensajeOfertaFinal").html("&nbsp;para llegar al monto mínimo y guardar tu pedido");
-        if (viewBagPaisID == "11") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estas ofertas que tenemos solo para ti.");
-        } else if (viewBagPaisID == "3") {
-            $("#spnSubTituloOfertaFinal").html("Completa tu pedido con estos productos que tenemos para ti.");
-        }
-    }
-
-    $("#popupOfertaFinal").show();
-}
-
-function CumpleOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    var resultado = false;
-    var productosMostrar = new Array();
-    var montoFaltante = 0;
-    var porcentajeDescuento = 0;
-
-    var tipoOfertaFinal = $("#hdOfertaFinal").val();
-    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
-    var esFacturacion = $("#hdEsFacturacion").val();
-
-    if (tipoOfertaFinal == "1" || tipoOfertaFinal == "2")
-        resultado = true;
-
-    if (resultado) {
-        if (esFacturacion == "True" && esOfertaFinalZonaValida == "True")
-            resultado = true;
-        else
-            resultado = false;
-    }
-
-    if (resultado) {
-        var cumpleParametria = CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
-        if (cumpleParametria.resultado) {
-            montoFaltante = cumpleParametria.montoFaltante;
-            porcentajeDescuento = cumpleParametria.porcentajeDescuento;
-            var productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            var listaProductoOfertaFinal = productoOfertaFinal.lista;
-            var limite = productoOfertaFinal.limite;
-
-            if (listaProductoOfertaFinal != null) {
-                var contador = 0;
-                $.each(listaProductoOfertaFinal, function (index, value) {
-                    if (value.PrecioCatalogo >= montoFaltante && value.PrecioCatalogo > cumpleParametria.precioMinimoOfertaFinal) {
-                        productosMostrar.push(value);
-                        contador++;
-                        //return false;
-
-                        if (contador >= limite)
-                            return false;
-                    }
-                });
-
-                if (productosMostrar.length == 0) {
-                    resultado = false;
-                } else {
-                    resultado = true;
-                }
-            } else {
-                resultado = false;
-            }
-        }
-        else
-            resultado = false;
-    }
-
-    return {
-        resultado: resultado,
-        productosMostrar: productosMostrar,
-        montoFaltante: montoFaltante,
-        porcentajeDescuento: porcentajeDescuento
-    };
-}
-
-function CumpleParametriaOfertaFinal(monto, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    var resultado = false;
-    var montoFaltante = 0;
-    var porcentajeDescuento = 0;
-    var precioMinimoOfertaFinal = 0;
-
-    //Escala
-    if (tipoPopupMostrar == 1) {
-        var esConsultoraNueva = $("#hdEsConsultoraNueva").val();
-        if (esConsultoraNueva == "False") {
-            if (codigoMensajeProl == "00") {
-                var escalaDescuento = null;
-                var escalaDescuentoSiguiente = null;
-
-                $.each(listaEscalaDescuento, function (index, value) {
-                    if (value.MontoHasta >= monto) {
-                        escalaDescuento = value;
-
-                        if (index <= listaEscalaDescuento.length - 1) {
-                            escalaDescuentoSiguiente = listaEscalaDescuento[index + 1];
-                        } else {
-                            escalaDescuentoSiguiente = null;
-                        }
-
-                        return false;
-                    }
-                });
-
-                if (escalaDescuento == null) {
-                    resultado = false;
-                } else {
-                    var diferenciaMontoEd = escalaDescuento.MontoHasta - monto;
-                    var parametriaEd = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "E" + escalaDescuento.PorDescuento) : null;
-
-                    if (parametriaEd != null && parametriaEd.length != 0) {
-                        if (parametriaEd[0].MontoDesde <= diferenciaMontoEd && parametriaEd[0].MontoHasta >= diferenciaMontoEd) {
-                            montoFaltante = diferenciaMontoEd;
-                            porcentajeDescuento = escalaDescuentoSiguiente.PorDescuento;
-                            precioMinimoOfertaFinal = parametriaEd[0].PrecioMinimo;
-                            resultado = true;
-                        } else {
-                            resultado = false;
-                        }
-                    } else {
-                        resultado = false;
-                    }
-                }
-            }
-        }
-    } else {
-        //Monto Minimo y Maximo
-        if (codigoMensajeProl == "01") {
-            if (listaObservacionesProl.length == 1) {
-                var tipoError = listaObservacionesProl[0].Caso;
-
-                if (tipoError == 95) {
-                    //var mensajePedido = listaObservacionesProl[0].Descripcion || "";
-                    var mensajeCUV = listaObservacionesProl[0].CUV;
-
-                    if (mensajeCUV == "XXXXX") {
-                        var montoMinimo = parseFloat($("#hdMontoMinimo").val());
-                        var diferenciaMonto = montoMinimo - monto;
-
-                        var parametria = listaParametriaOfertaFinal != null ? listaParametriaOfertaFinal.Find("TipoParametriaOfertaFinal", "MM") : null;
-
-                        if (parametria != null && parametria.length != 0) {
-                            if (parametria[0].MontoDesde <= diferenciaMonto && parametria[0].MontoHasta >= diferenciaMonto) {
-                                montoFaltante = diferenciaMonto;
-                                precioMinimoOfertaFinal = parametria[0].PrecioMinimo;
-                                resultado = true;
-                            } else {
-                                resultado = false;
-                            }
-                        } else {
-                            resultado = false;
-                        }
-                    } else {
-                        resultado = false;
-                    }
-                } else {
-                    resultado = false;
-                }
-            }
-            else {
-                resultado = false;
-            }
-        }
-    }
-
-    return {
-        resultado: resultado,
-        montoFaltante: montoFaltante,
-        porcentajeDescuento: porcentajeDescuento,
-        precioMinimoOfertaFinal: precioMinimoOfertaFinal
-    };
-}
-
-function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
-    var item = { tipoOfertaFinal: tipoOfertaFinal };
-
-    var lista = null;
-    var limite = 0;
-
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ObtenerProductosOfertaFinal',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: false,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    lista = response.data;
-                    limite = response.limiteJetlore;
-                } else {
-                    lista = null;
-                }
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                //alert_msg(data.message);
-                lista = null;
-                //CerrarSplash();
-            }
-        }
-    });
-
-    return {
-        lista: lista,
-        limite: limite
-    };
-}
 
 function MostrarMensajeProl(data) {
 

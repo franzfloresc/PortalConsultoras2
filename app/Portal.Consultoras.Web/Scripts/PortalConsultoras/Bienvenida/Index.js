@@ -25,7 +25,7 @@ $(document).ready(function() {
     });
     $(".cerrar_tutorial").click(function() {
         cerrar_popup_tutorial();
-    });
+    });         
 
     // Evento para visualizar video introductorio al hacer click
     $(".ver_video_introductorio").click(function() {
@@ -650,19 +650,19 @@ function playVideo() {
     }
 };
 
-function abrir_popup_tutorial(){
-        $('#popup_tutorial_home').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-        var paisCP = false;
-        if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+function abrir_popup_tutorial() {
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+    var paisCP = false;
+    if (viewBagPaisID == "11" || viewBagPaisID == "3") {
+        var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
+        if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
             paisCP = true;
         }
-        fnMovimientoTutorial = setInterval(function ()
-        {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });           
+        fnMovimientoTutorial = setInterval(function() {
+            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
             numImagen++;
-            if (!paisCP && numImagen == 8 )
-            {
+            if (!paisCP && numImagen == 8) {
                 $(".img_slide" + numImagen).hide();
                 numImagen++;
             }
@@ -673,6 +673,7 @@ function abrir_popup_tutorial(){
             }
         }, 3000);
     }
+}
 
 function cerrar_popup_tutorial() {
     $('#popup_tutorial_home').fadeOut();
@@ -3820,12 +3821,14 @@ function AgregarTagManagerShowRoomCheckBox() {
 function ObtenerComunicadosPopUp() {
     //console.log('ObtenerComunicadosPopUps');
     waitingDialog({});
+    var sleepPopupComunicados = setInterval(function () { waitingDialog({}); }, 100);
+
     $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-            closeWaitingDialog();
+            //closeWaitingDialog();
             armarComunicadosPopup(response);
             var images = $("#popupComunicados img");
             var loadedImgNum = 0;
@@ -3833,6 +3836,7 @@ function ObtenerComunicadosPopUp() {
             images.on('load', function () {
                 loadedImgNum += 1;
                 if (loadedImgNum == images.length) {
+                    clearInterval(sleepPopupComunicados);
                     closeWaitingDialog();
                     //console.log('load all images');
 
