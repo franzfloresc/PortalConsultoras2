@@ -3739,13 +3739,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaSolicitudFormatField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FlagConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagMedioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormartoFechaSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormatoPrecioTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LeidoField;
@@ -3908,19 +3911,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaSolicitudFormat {
-            get {
-                return this.FechaSolicitudFormatField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaSolicitudFormatField, value) != true)) {
-                    this.FechaSolicitudFormatField = value;
-                    this.RaisePropertyChanged("FechaSolicitudFormat");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool FlagConsultora {
             get {
                 return this.FlagConsultoraField;
@@ -3942,6 +3932,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.FlagMedioField, value) != true)) {
                     this.FlagMedioField = value;
                     this.RaisePropertyChanged("FlagMedio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormartoFechaSolicitud {
+            get {
+                return this.FormartoFechaSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormartoFechaSolicitudField, value) != true)) {
+                    this.FormartoFechaSolicitudField = value;
+                    this.RaisePropertyChanged("FormartoFechaSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormatoPrecioTotal {
+            get {
+                return this.FormatoPrecioTotalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormatoPrecioTotalField, value) != true)) {
+                    this.FormatoPrecioTotalField = value;
+                    this.RaisePropertyChanged("FormatoPrecioTotal");
                 }
             }
         }

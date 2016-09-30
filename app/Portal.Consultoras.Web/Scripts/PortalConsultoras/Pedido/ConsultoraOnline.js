@@ -188,7 +188,7 @@ function CargarPedidosPend(page, rows) {
 
                     if (lanzarTabConsultoraOnline == '1')
                     {
-                        //$('#penmostreo').show();
+                        $('.content_T_T').addClass("fondo_lateral");
                         $(".fondo_pendiente").fadeIn();
                         $(".bloque_left").fadeIn();
                         $('#pedmostreo').removeClass('bordespacive');
@@ -210,38 +210,20 @@ function CargarPedidosPend(page, rows) {
                 }
                 else {
 
-                    //$('#penmostreo').hide();
-                    //$(".bloque_left").fadeOut();
-                    //$('.content_T_T').removeClass("fondo_lateral");
-                    //$('#pedmostreo').removeClass('bordespacive');
-                    //$('#infoPedido').show();
-                    //$('#infoPendientes').hide();
-
-                    //$('ul.paginador_notificaciones').show();
-                    //$('.caja_guardar_pedido').show();
-                    //$('.contenedor_eliminacion_pedido').show();
-                    //$('.contenedor_banners').show();
-                    //$('.info_tiempo_oportunidad.inicial').show();
-
-                    ////$('.truco_bloqueo').hide();
-                    //$(".fondo_pendiente").fadeOut();
-                    //$('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
-                    //$('#pedmostreo').removeClass('cambio_bk_pendientes');
-                    //$('.datos_para_movil').show()
-
                     $('#divPedidosPend').empty();
 
-                    console.log('flagHuboPedidosPend');
-                    console.log(flagHuboPedidosPend);
+                    //console.log('flagHuboPedidosPend');
+                    //console.log(flagHuboPedidosPend);
 
                     if (flagHuboPedidosPend) {
 
+                        $('#penmostreo').hide();
                         $('.content_T_T').removeClass("fondo_lateral");
                         $(".fondo_pendiente").fadeOut();
                         $(".bloque_left").fadeOut();
-                        $('#pedmostreo').addClass('bordespacive');
-                        $('#penmostreo').removeClass('bordespacive');
-                        $('#penmostreo').addClass('tab_pendiente_es');
+                        //$('#pedmostreo').addClass('bordespacive');
+                        //$('#penmostreo').removeClass('bordespacive');
+                        //$('#penmostreo').addClass('tab_pendiente_es');
                         $('#infoPedido').show();
                         $('#infoPendientes').hide();
                         $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
@@ -249,11 +231,13 @@ function CargarPedidosPend(page, rows) {
                         $('.caja_guardar_pedido').show();
                         $('.contenedor_eliminacion_pedido').show();
                         $('.contenedor_banners').show();
-                        $('.info_tiempo_oportunidad.inicial').hide();   //
+                        $('.info_tiempo_oportunidad.inicial').show();
                         //$('.truco_bloqueo').hide();
                         $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                         $('#pedmostreo').removeClass('cambio_bk_pendientes');
                         $('.datos_para_movil').show();
+
+                        $('#pedmostreo').val('MIS <b>PRODUCTOS</b>');
 
                         CargarDetallePedido();
                     }

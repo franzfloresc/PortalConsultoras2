@@ -1140,7 +1140,22 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
+                        }// ingrped
+                        else
+                        {
+                            using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                            {
+                                ServiceSAC.BESolicitudClienteDetalle beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle();
+                                beSolicitudDetalle.SolicitudClienteDetalleID = item.PedidoDetalleId;
+                                beSolicitudDetalle.TipoAtencion = (item.OpcionAcepta == "ingrten") ? 2 : 0;
+                                beSolicitudDetalle.PedidoWebID = 0;
+                                beSolicitudDetalle.PedidoWebDetalleID = 0;
+
+                                // UPDATE Detalle Solicitud
+                                svc.UpdSolicitudClienteDetalle(UserData().PaisID, beSolicitudDetalle);
+                            }
                         }
+
                     }// foreach
                 }
 
