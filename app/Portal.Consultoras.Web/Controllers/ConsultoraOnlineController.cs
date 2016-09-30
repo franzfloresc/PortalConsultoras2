@@ -1676,10 +1676,10 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajecliente.Append("</td>");
                         mensajecliente.Append("</tr>");
                         int cntfila = 0;
+
                         foreach (var item in pedido.DetallePedido)
                         {
                             totalPedido += item.PrecioTotal;
-
                             cntfila = cntfila + 1;
 
                             if (cntfila % 2 == 0)
@@ -1749,8 +1749,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(PaisId, SolicitudId);
                             fechaActual = beSolicitudCliente.FechaModificacion;
-
                             HttpRequestBase request = this.HttpContext.Request;
+
                             try
                             {
                                 string mensaje = mensajeRechazoPedido(nuevaConsultora.Nombre, Util.GetUrlHost(request).ToString(), beSolicitudCliente);
