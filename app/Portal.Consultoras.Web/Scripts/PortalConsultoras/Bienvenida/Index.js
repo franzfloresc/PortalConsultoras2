@@ -598,7 +598,7 @@ function mostrarVideoIntroductorio() {
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
     } else {
-        abrir_popup_tutorial();
+        //abrir_popup_tutorial();
         primeraVezVideo = false;
     }
 }
