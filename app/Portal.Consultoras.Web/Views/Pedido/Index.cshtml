@@ -1014,7 +1014,7 @@
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreMotivoRechazo" onclick="$('#dialog_motivoRechazo').hide()">
+                <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1060,7 +1060,7 @@
             <div class="contenido_popUp aceptaPedido">
                 <div class="icono_aprobacion" id="apro_o_excla"></div>
                 <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                <span class="mensaje_agregarUnidades">No te olvides de coordinar la entrega de los productos.</span>
+                <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
                 <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
                     OK
                 </button>
@@ -1210,7 +1210,7 @@
 
             <div class="calculo_PendientesTotal">
 
-                <h4>TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
 
             </div>
 
@@ -1322,7 +1322,7 @@
             <input type="hidden" value="{{PedidoDetalleId}}" />
             <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
             <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">{{Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
             <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioUnitario}}</div>
             <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">

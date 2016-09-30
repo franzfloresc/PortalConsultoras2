@@ -1,5 +1,6 @@
 ﻿
 var flagHuboPedidosPend = false;
+var totalIngPedido = 0;
 
 $(document).ready(function () {
 
@@ -212,9 +213,6 @@ function CargarPedidosPend(page, rows) {
 
                     $('#divPedidosPend').empty();
 
-                    //console.log('flagHuboPedidosPend');
-                    //console.log(flagHuboPedidosPend);
-
                     if (flagHuboPedidosPend) {
 
                         $('#penmostreo').hide();
@@ -245,7 +243,7 @@ function CargarPedidosPend(page, rows) {
             }
             else {
                 $('#divPedidosPend').empty();
-                alert("No se pudieron obtener los datos");
+                alert_msg("No se pudieron obtener los datos");
             }
         },
         error: function (error) {
@@ -255,9 +253,6 @@ function CargarPedidosPend(page, rows) {
 }
 
 function CargarPopupPedidoPend(pedidoId) {
-
-    //CargarPedidosPend();
-    //return;
 
     var obj = {
         sidx: "",
@@ -296,9 +291,16 @@ function CargarPopupPedidoPend(pedidoId) {
                         t = 2;
                     }
 
+                    var pnombre = '';
+                    if (arr[3].indexOf(' ') > 0) {
+                        pnombre = arr[3].substring(0, arr[3].indexOf(' '));
+                    } else {
+                        pnombre = arr[3];
+                    }
+
                     var d1 = {
                         PedidoId: pedidoId,
-                        Contacto: arr[3].substring(0,arr[3].indexOf(' ')),
+                        Contacto: pnombre,
                         Nombre: arr[3],
                         Telefono: arr[4],
                         Direccion: arr[5],
@@ -306,7 +308,7 @@ function CargarPopupPedidoPend(pedidoId) {
                         Comentario: arr[7],
                         PrecioTotal: arr[13],
                         SaldoHoras: arr[14],
-                        FlagConsultora: (arr[15] == "true") ? 1 : 0,
+                        FlagConsultora: (arr[15] == 'true') ? 1 : 0,
                     }
 
                     //console.log(d1);
@@ -332,11 +334,11 @@ function CargarPopupPedidoPend(pedidoId) {
                     }
                 }
                 else {
-                    alert("No se encontraron resultados");
+                    alert_msg("No se encontraron resultados");
                 }
             }
             else {
-                alert("No se pudieron obtener los datos");
+                alert_msg("No se pudieron obtener los datos");
             }
         },
         error: function (error) {
@@ -375,12 +377,13 @@ function ShowPopupMotivoRechazo() {
 
 function RechazarPedido() {
 
+    $('#dialog_motivoRechazo').hide();
     $('#btnRechazarPedido').prop('disabled', true);
     //var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
     //var objHtmlPanelPedidoRechazado = $("#DivPanelPedidoRechazado").val();
     var opt = $('.optionsRechazoSelect').data('id');
-    if (opt == null) {
-        opt = 0;
+    if (opt == 'undefined') {
+        opt = 11;   // otros
     }
 
     var obj = {
@@ -464,16 +467,21 @@ function AceptarPedido(pedidoId, tipo) {
     $('div#' + divId + ' > div').each(function () {
         var val1 = $(this).find(":nth-child(1)").val();
         var val2 = $(this).find(":nth-child(7) select").val();
+        var val3 = $(this).find("#pedpend-deta2-cantidad").text();
+        //console.log(val3);
         var opt = 0;
 
         if (typeof val2 !== 'undefined') {
             if (val2 == "") {
-                alert("Seleccione como atendera el producto");
+                alert_msg("Importante Seleccione como atenderá el producto");
                 isOk = false;
                 return false;
             }
             else {
                 opt = val2;
+                if (val2 == 'ingrped') {
+                    totalIngPedido += parseInt(val3);
+                }
             }
         }
 
@@ -496,8 +504,6 @@ function AceptarPedido(pedidoId, tipo) {
 
         AbrirSplash();
 
-        console.log(AceptarPedido);
-
         $.ajax({
             type: 'POST',
             url: '/ConsultoraOnline/AceptarPedido',
@@ -515,6 +521,7 @@ function AceptarPedido(pedidoId, tipo) {
 
                     if (tipo == 1) {
                         $('#popup_pendientes').hide();
+                        $('#msgPedidoAceptado1').text('Se han agregado ' + totalIngPedido + ' productos a tu pedido')
                         $('#dialog_aceptasPendientes').show();
                     }
                     else {
@@ -523,7 +530,7 @@ function AceptarPedido(pedidoId, tipo) {
                     }
                 }
                 else {
-                    alert(response.message);
+                    alert_msg(response.message);
                 }
             },
             error: function (error) {

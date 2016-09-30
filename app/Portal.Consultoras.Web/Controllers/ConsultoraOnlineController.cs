@@ -685,30 +685,39 @@ namespace Portal.Consultoras.Web.Controllers
                     olstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
                 }
 
-                if (olstMisPedidos.Any())
+                if (olstMisPedidos.Count > 0)
                 {
                     olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
 
-                    olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")) );
-                    olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO) );
+                    if (olstMisPedidos.Count > 0)
+                    {
+                        olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                        olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
 
-                    model.ListaPedidos = olstMisPedidos;
+                        model.ListaPedidos = olstMisPedidos;
 
-                    objMisPedidos = model;
-                    Session["objMisPedidos"] = objMisPedidos;
+                        objMisPedidos = model;
+                        Session["objMisPedidos"] = objMisPedidos;
 
-                    var pedidoReciente = olstMisPedidos.OrderByDescending(x => x.FechaSolicitud).First();
-                    model.FechaPedidoReciente = pedidoReciente.FechaSolicitud.ToString("HH:mm:ss");
+                        var pedidoReciente = olstMisPedidos.OrderByDescending(x => x.FechaSolicitud).First();
+                        model.FechaPedidoReciente = pedidoReciente.FechaSolicitud.ToString("HH:mm:ss");
 
-                    BEGrid grid = SetGrid(sidx, sord, page, rows);
-                    BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
+                        BEGrid grid = SetGrid(sidx, sord, page, rows);
+                        BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
 
-                    model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                        model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
-                    model.Registros = grid.PageSize.ToString();
-                    model.RegistrosTotal = pag.RecordCount.ToString();
-                    model.Pagina = pag.CurrentPage.ToString();
-                    model.PaginaDe = pag.PageCount.ToString();
+                        model.Registros = grid.PageSize.ToString();
+                        model.RegistrosTotal = pag.RecordCount.ToString();
+                        model.Pagina = pag.CurrentPage.ToString();
+                        model.PaginaDe = pag.PageCount.ToString();
+                    }
+                    else
+                    {
+                        model.RegistrosTotal = "0";
+                        model.Pagina = "0";
+                        model.PaginaDe = "0";
+                    }
                 }
                 else
                 {
@@ -751,7 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //model.ListaDetalle = olstMisPedidosDet;
 
-                if (olstMisPedidosDet.Any())
+                if (olstMisPedidosDet.Count > 0)
                 {
                     MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
                     consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
@@ -1088,8 +1097,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in pedidoModel.ListaDetalleModel)
                     {
-                        // Agregar al Pedido
-                        if (item.OpcionAcepta == "ingrped")
+                        if (item.OpcionAcepta == "ingrped") // ingresa al pedido
                         {
                             BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.Where(x => x.PedidoDetalleId == item.PedidoDetalleId).FirstOrDefault();
 
