@@ -34,7 +34,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int setUsuarioVerTutorial(int paisID, string codigoUsuario);
-        
+
+        [OperationContract]
+        int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario);
+
         [OperationContract]
         void Insert(BEUsuario usuario);
 

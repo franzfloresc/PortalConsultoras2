@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('#salvavidaTutorial').show();
 
     $(".abrir_tutorial").click(function () {
-        abrir_popup_tutorial();
+        abrir_popup_tutorial(true);
     });
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
@@ -598,9 +598,24 @@ function mostrarVideoIntroductorio() {
         UpdateUsuarioVideo();
         contadorFondoPopUp++;
     } else {
-        //abrir_popup_tutorial();
+        abrir_popup_tutorial();       
         primeraVezVideo = false;
     }
+}
+
+function UpdateUsuarioTutorial() {
+    viewBagVioTutorial = 1;
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorial',
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            viewBagVioTutorial = data.result;
+        },
+        error: function (data) {}
+    })
 }
 
 function UpdateUsuarioVideo() {
@@ -3694,7 +3709,14 @@ function AgregarTagManagerShowRoomCheckBox() {
 }
 //Fin ShowRoom
 
-function abrir_popup_tutorial() {
+function abrir_popup_tutorial(obligado) {
+    obligado = obligado == undefined ? false : obligado;
+    if (!obligado) {
+        if (viewBagVioTutorial == 1) {
+            return false;
+        }
+    }
+    
     $('#popup_tutorial_home').fadeIn();
     $('html').css({ 'overflow-y': 'hidden' });
     var paisCP = false;
@@ -3723,4 +3745,5 @@ function cerrar_popup_tutorial() {
     $(".imagen_tutorial").animate({ 'opacity': '1' });
     window.clearInterval(fnMovimientoTutorial);
     numImagen = 1;
+    viewBagVioTutorial = 1;
 }

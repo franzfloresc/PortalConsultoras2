@@ -259,6 +259,7 @@ function UpdateUsuarioTutorialMobile() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            viewBagVioTutorial = data.result;
         },
         error: function (data) {
         }
