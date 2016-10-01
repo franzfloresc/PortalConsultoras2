@@ -124,6 +124,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetUsuarioVerTutorialDestock">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetUsuarioVerTutorialDestockResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetUsuarioVerTutorialDestockResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Insert">
     <xs:complexType>
       <xs:sequence>

@@ -81,6 +81,12 @@
   <wsdl:message name="IUsuarioService_setUsuarioVerTutorial_OutputMessage">
     <wsdl:part name="parameters" element="tns:setUsuarioVerTutorialResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetUsuarioVerTutorialDestock_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsuarioVerTutorialDestock" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SetUsuarioVerTutorialDestock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsuarioVerTutorialDestockResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Insert_InputMessage">
     <wsdl:part name="parameters" element="tns:Insert" />
   </wsdl:message>
@@ -486,6 +492,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" message="tns:IUsuarioService_setUsuarioVerTutorial_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse" message="tns:IUsuarioService_setUsuarioVerTutorial_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDestock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock" message="tns:IUsuarioService_SetUsuarioVerTutorialDestock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestockResponse" message="tns:IUsuarioService_SetUsuarioVerTutorialDestock_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Insert" message="tns:IUsuarioService_Insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertResponse" message="tns:IUsuarioService_Insert_OutputMessage" />
@@ -802,6 +812,15 @@
     </wsdl:operation>
     <wsdl:operation name="setUsuarioVerTutorial">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDestock">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1436,6 +1455,15 @@
     </wsdl:operation>
     <wsdl:operation name="setUsuarioVerTutorial">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUsuarioVerTutorialDestock">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
