@@ -247,6 +247,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            /* SB20-565 - INICIO */
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            model.EsFacturacion = esFacturacion;
+            model.OfertaFinal = userData.OfertaFinal;
+            model.EsOfertaFinalZonaValida = userData.EsOfertaFinalZonaValida;
+            model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
+            model.EsConsultoraNueva = VerificarConsultoraNueva();
+            model.MontoMinimo = userData.MontoMinimo;
+            model.MontoMaximo = userData.MontoMaximo;
+
+            //var dataBarra = GetDataBarra(true, true);
+            //AutoMapper.Mapper.CreateMap<BarraConsultoraModel, BarraConsultoraMobileModel>();
+            //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
+            model.DataBarra = GetDataBarra(true, true);
+            /* SB20-565 - FIN */
+
             return View(model);
         }
         
@@ -599,5 +616,45 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #endregion
+
+        /* SB20-565 - INICIO */
+        private List<BEEscalaDescuento> GetParametriaOfertaFinal()
+        {
+            List<BEEscalaDescuento> listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
+
+            try
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
+                }
+            }
+            catch (Exception)
+            {
+                listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
+            }
+
+            return listaParametriaOfertaFinal;
+        }
+
+        public bool VerificarConsultoraNueva()
+        {
+            int segmentoId;
+
+            if (userData.CodigoISO == "VE")
+            {
+                segmentoId = userData.SegmentoID;
+            }
+            else
+            {
+                segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+            }
+
+            bool resultado = segmentoId == 1;
+
+            return resultado;
+        }
+
+        /* SB20-565 - FIN */
     }
 }
