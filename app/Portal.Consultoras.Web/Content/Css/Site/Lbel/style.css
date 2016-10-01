@@ -21467,7 +21467,7 @@ label.checkpop.c_on {
     font-weight: 300;
     color: black;
     position: relative;
-    background: url("../../../Images/Lbel/estado_cuenta.png") no-repeat;
+    /*background: url("../../../Images/Lbel/estado_cuenta.png") no-repeat;*/
     background-position: 18% 7px;
     box-sizing: border-box;
     padding-left: 5%;
@@ -27364,6 +27364,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .enlace_popupCatalogoPersonalizado a{
     display:inline;
     color:#642f80;
+    text-decoration: underline;
 }
 
 .enlace_popupCatalogoPersonalizado a:hover{
