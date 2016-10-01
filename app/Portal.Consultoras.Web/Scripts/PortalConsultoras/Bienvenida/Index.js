@@ -3715,6 +3715,7 @@ function abrir_popup_tutorial(obligado) {
         if (viewBagVioTutorial == 1) {
             return false;
         }
+        UpdateUsuarioTutorial();
     }
     
     $('#popup_tutorial_home').fadeIn();
