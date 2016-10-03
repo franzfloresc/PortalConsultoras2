@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new MisPedidosModel();
             if (Session["objMisPedidos"] == null)
-            {           
+            {
                 using (var sv = new UsuarioServiceClient())
                 {
                     model.ListaPedidos = sv.GetNotificacionesConsultoraOnline(userData.PaisID, userData.ConsultoraID).ToList();
@@ -1333,5 +1333,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         //}
 
         #endregion
+
+        public ActionResult Historial()
+        {
+            return View();
+        }
+
+        public ActionResult PedidosPendientes()
+        {
+            return View();
+        }
+
+        public ActionResult DetallePedidoHistorial()
+        {
+            return View();
+        }
     }
 }
