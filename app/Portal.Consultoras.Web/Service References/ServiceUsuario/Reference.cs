@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int VioTutorialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int VioTutorialDestockField;
+        private int VioTutorialDesktopField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
@@ -1937,14 +1937,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int VioTutorialDestock {
+        public int VioTutorialDesktop {
             get {
-                return this.VioTutorialDestockField;
+                return this.VioTutorialDesktopField;
             }
             set {
-                if ((this.VioTutorialDestockField.Equals(value) != true)) {
-                    this.VioTutorialDestockField = value;
-                    this.RaisePropertyChanged("VioTutorialDestock");
+                if ((this.VioTutorialDesktopField.Equals(value) != true)) {
+                    this.VioTutorialDesktopField = value;
+                    this.RaisePropertyChanged("VioTutorialDesktop");
                 }
             }
         }
@@ -5179,11 +5179,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
         System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestockResponse")]
-        int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestockResponse")]
-        System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDestockAsync(int paisID, string codigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Insert", ReplyAction="http://tempuri.org/IUsuarioService/InsertResponse")]
         void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
@@ -5673,12 +5673,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.setUsuarioVerTutorialAsync(paisID, codigoUsuario);
         }
         
-        public int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario) {
-            return base.Channel.SetUsuarioVerTutorialDestock(paisID, codigoUsuario);
+        public int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktop(paisID, codigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDestockAsync(int paisID, string codigoUsuario) {
-            return base.Channel.SetUsuarioVerTutorialDestockAsync(paisID, codigoUsuario);
+        public System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktopAsync(paisID, codigoUsuario);
         }
         
         public void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {
