@@ -536,6 +536,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BESolicitudNuevaConsultora" nillable="true" type="tns:BESolicitudNuevaConsultora" />
+  <xs:complexType name="ArrayOfBEMotivoSolicitud">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMotivoSolicitud" nillable="true" type="tns:BEMotivoSolicitud" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMotivoSolicitud" nillable="true" type="tns:ArrayOfBEMotivoSolicitud" />
+  <xs:complexType name="BEMotivoSolicitud">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Estado" type="xs:short" />
+      <xs:element minOccurs="0" name="Motivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MotivoSolicitudID" type="xs:int" />
+      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMotivoSolicitud" nillable="true" type="tns:BEMotivoSolicitud" />
   <xs:complexType name="ArrayOfBESolicitudCliente">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BESolicitudCliente" nillable="true" type="tns:BESolicitudCliente" />

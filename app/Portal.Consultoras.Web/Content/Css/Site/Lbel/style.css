@@ -22216,10 +22216,10 @@ body{
     background-position: 2% 7px !important;
     padding-left: 4% !important;
     }
-    .tabs_pagos li a{
+    /*.tabs_pagos li a{
         background-position:8% 7px;
         padding-left: 3%;
-    }
+    }*/
     .boton_cerrar_s a{
         padding-left:8px;
     }
@@ -22267,7 +22267,7 @@ body{
 .content_mis_pedidos{
     width:100%;
     height:auto;
-    margin-top:20px;
+    margin-top:45px;
 }
 
 .icono_campanias{
@@ -22886,7 +22886,7 @@ body{
 .texto_gris_popup{
     color: #666565;
     font-weight: 300;
-    font-size: 11pt;
+    font-size: 14px!important;
     line-height:14pt;
 }
 
@@ -27518,10 +27518,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     z-index: 21;
 }
 
-.titulo_interiores {
-    width: 37%;
-    border-bottom: 1px solid;
-}
+
 
 /*.imagen-curvatura {
     background: transparent url(../../../Images/Lbel/pestana_lbel.png) no-repeat;
@@ -28234,64 +28231,25 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /* FIN PROCESO CARGA FOTO */
 
 /*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
-
-/* Consultora Online */
-
 /*MICHAEL*/
 .popup_Pendientes {
     display: block;
     position: relative;
-    width: 72%;
+    width: 960px;
     max-width: 1230px;
     height: auto;
     background: #FFF;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
     padding-top: 30px;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 36px;
+    padding-right: 36px;
     padding-bottom: 75px;
 }
 
 .content_popUp_Pendientes {
     width: 100%;
     max-width: 1189px;
-    margin: 0 auto;
     box-sizing: border-box;
     font-family: 'Lato';
     position: relative;
@@ -28300,48 +28258,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*información adicional*/
 .mensajes_deAtencion span {
     width: 50%;
-    color: #e81c36;
+    color: #642f80;
     font-weight: 700;
     font-size: 16px;
     margin-left: 20px;
 }
-
-/*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
 .mensajes_deAtencion span:first-child {
     float: left;
     text-align: left;
@@ -28349,10 +28270,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     letter-spacing: -0.2px;
 }
 
-.mensajes_deAtencion span:last-child {
+.mensajes_deAtencion span:nth-child(2) {
+    width:40%;
     float: right;
     text-align: right;
-    margin-right: -60px;
+    /*margin-right: -60px;*/
     font-size: 15px;
     padding-right: 20px;
 }
@@ -28425,6 +28347,50 @@ span.datoPedidoCliente {
     width: 78%;
 }
 
+.tiempo_atencionPedido {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 44px;
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #1a1a1a;
+    font-weight: normal;
+    padding-left:16px;
+}
+
+.tiempo_atencionPedido span:last-child{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.revision_pedidosAceptados {
+    display: block;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: normal;
+    padding-left:16px;
+    padding-bottom:40px;
+}
+
+.revision_pedidosAceptados .texto_revisaPedidos{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.icono_consultoraOnline, .texto_misPedidosClientesOnline{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.icono_consultoraOnline{
+    width:34px;
+    height:34px;
+    margin-right:6px;
+    background:url(../../../Images/Lbel/online.png) no-repeat center center;
+}
+
 .content_datos_pendientes {
     width: 100%;
     height: auto;
@@ -28445,7 +28411,7 @@ span.datoPedidoCliente {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemini{
@@ -28454,7 +28420,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemedio{
@@ -28463,7 +28429,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablegrande{
@@ -28491,13 +28457,43 @@ span.datoPedidoCliente {
 .dinamicostablegrande.izq{
     text-align: left;
 }
-
 .oscurece {
     color: black;
     font-weight: 700;
     padding: 8px;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-size:13px;
+}
+
+@media screen and (max-width:1137px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 14px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 110%;
+    }
+
+}
+
+@media screen and (max-width:1100px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 4px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 124%;
+    }
+
 }
 
 .notiPendientes{
@@ -28786,7 +28782,6 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
@@ -28800,9 +28795,9 @@ a#cierreMotivoRechazo img {
     padding-left: 35px;
     cursor: pointer;
 }
-
-.optionsRechazo:hover, .optionsRechazo.optionsSeleccionado{
-    background: #f0f0f0;
+.optionsRechazo:hover, .optionsRechazoSelect{
+    background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
+    background-position: 15px 15px;
 }
 
 .mrechaza{
@@ -28875,9 +28870,9 @@ div.motivoRechazo textarea {
 }
 
 .truco_bloqueo.sim3 {
-        width: 80px;
+    width: 6%;
     top: 457px;
-    height: 57px;
+    height: 63px;
     left: 0;
     opacity: .2;
     position: absolute;
@@ -28888,9 +28883,9 @@ div.motivoRechazo textarea {
 .truco_bloqueo.sim4{
     position: absolute;
     top: 457px;
-    width: 389px;
-    height: 57px;
-    left: 546px;
+   width: 22.7%;
+    height: 63px;
+    left: 46.6%;
     opacity: .2;
     display: none;
 }
@@ -29953,18 +29948,18 @@ h1#penmostreo .campana {
     box-sizing: border-box;
 }
 .imagen_1{
-    background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; 
+    background: url(../../../Images/Lbel/estado_cuenta.png) no-repeat; 
 }
 .imagen_2{
-    background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
+    background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
    
 }
 .imagen_3{
-    background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;    
+    background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;    
 }
 
 .imagen_4 {
-    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat !important;
+    background: url("../../../Images/Lbel/icono_percepciones.png") no-repeat !important;
 }
 .ultima_campana{
      background: url("../../../Images/Lbel/ultima_campana.png") no-repeat;
@@ -29999,7 +29994,7 @@ h1#penmostreo .campana {
   width:34%;
   text-align: left;
   margin: 0;
-  background: #e81c36;
+  background: #613c87;
   border: none;
   transition: .3s ease-in-out;
 }
@@ -30008,7 +30003,7 @@ h1#penmostreo .campana {
     width:34px;
     height:34px;
     margin-right:10px;   
-    background: url("../../../Images/Esika/online.png") no-repeat !important;
+    background: url("../../../Images/Lbel/online.png") no-repeat !important;
     margin-top:50px;
 
 }
@@ -30101,7 +30096,7 @@ h1#penmostreo .campana {
     filter: alpha(opacity=60);
 }
 .tipo_cliente{
-    color:#e81c36;
+    color:#642f80;
     display:block;
     font-size:11px;
     font-weight:700;
@@ -30230,8 +30225,22 @@ h1#penmostreo .campana {
     background-color:#FFF;
     background-repeat:repeat-x;
     height:100%;
-    right:-36px;
+    right:-36px; 
+    -webkit-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -moz-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -ms-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    }
+ @keyframes opacidad-fondo {
+    0% {
+        opacity:0;
+    
+    }
+    100% {
+        opacity:1;
+    }
 }
+
  .fondo_lateral::after{
     content: "";
     position: absolute;
@@ -30275,5 +30284,19 @@ h1#penmostreo .campana {
     width: 30px;  
     right: -30px;
     }
+}
+@media screen and (max-width: 1138px){
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+    }
+    .mis_pagos_tabs hr {
+        width: 38%;
+    }
+   
+  .mis_pagos_tabs  .two:hover ~ hr {
+  margin-left: 38%;
+    }
+
+
 }
 

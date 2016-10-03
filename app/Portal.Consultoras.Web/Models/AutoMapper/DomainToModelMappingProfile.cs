@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 
@@ -81,6 +82,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEMisPedidos, ClienteOnlineModel>()
                 .ForMember(t => t.SolicitudClienteID, f => f.MapFrom(c => c.PedidoId))
                 .ForMember(t => t.ClienteNuevo, f => f.MapFrom(c => c.MarcaID > 0 || !c.FlagConsultora));
+
+            Mapper.CreateMap<BEMotivoSolicitud, MisPedidosMotivoRechazoModel>();
 
             Mapper.CreateMap<BEMisPedidosDetalle, ClienteOnlineDetalleModel>()
                 .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));

@@ -78,7 +78,7 @@
                     <li class="two">
                         <a href="javascript:;" data-tag="PedidosClientesOnline">
                             <div class="icono_pagos online_2"></div>
-                            MIS PEDIDOS DE<b> CLIENTES ONLINE</b>
+                            MIS PEDIDOS DE<b> CONSULTORA ONLINE</b>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
@@ -91,6 +91,9 @@
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
+<div class="content_belcorp">
+    <div class="pestana_lbel" style="margin-bottom:0;"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+</div>
 
 <!-- Fin titulo-->
 @if (Model.MostrarClienteOnline) {
@@ -98,7 +101,7 @@
         <div class="tabla_misPedidos">
             <div class="icono_online"></div>
             <div class="pedidosFacturados_campania" style="width:auto; float:left; margin-top:48px; margin-bottom:0">
-                <h1>MIS PEDIDOS DE <b> CLIENTES ONLINE</b></h1>
+                <h1>MIS PEDIDOS DE <b> CONSULTORA ONLINE</b></h1>
                 <form novalidate="novalidate">
                     @Html.DropDownListFor(model => model.CampaniaActualConsultoraOnline, new SelectList(Model.CampaniasConsultoraOnline, "CampaniaID", "NombreCorto"), new { id = "ddlCampania" })
                 </form>
@@ -200,7 +203,7 @@
     </div>
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-            <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+           
             <!--INICIO TABLA MIS PEDIDOS-->
             <div class="tabla_misPedidos">
                 <!--CONTENEDOR -->
@@ -361,7 +364,6 @@
             <div class="content_popUp_Pendientes">
                 <div class="percepcion_campania libero">
                     <h1><b class="spnClienteOnlineTitulo"></b></h1>
-                    <h5 class="spnClienteOnlineMensaje"></h5>
                 </div>
 
                 <div class="contenedor_bloque_datos">
@@ -386,6 +388,12 @@
                                 <span class="datoPedidoCliente spnClienteOnlineDireccion"></span>
                             </div>
                         </div>
+                        <div class="bloque_datos izq divClienteOnlineMensaje">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Comentario:</span>
+                                <span class="datoPedidoCliente spnClienteOnlineMensaje"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -397,7 +405,7 @@
                 </div>
                 <div class="linea_separadora" style="margin-top:-1px"></div>*@
 
-                <div id="divTablaClienteOnlineDetalles" style="max-height:419px; overflow:auto;">
+                <div id="divTablaClienteOnlineDetalles" style="max-height: 419px; overflow: auto; margin-top: 38px;">
                 </div>
                 <div class="linea_separadora" style="height:2px;"></div>
 
@@ -456,13 +464,11 @@
                 <input type="hidden" name="MarcaID" id="MarcaID" />
                 @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
 
-                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                <div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
-                <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
-                <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>
-
+                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO CANCELASTE!</b></h1>
+                @foreach(var motivoRechazo in Model.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
                 <textarea id="txtOtrosCancelado" placeholder="Otros:"></textarea>
             </div>
             <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="CancelarSolicitud();">
@@ -794,19 +800,21 @@
     </script>
     <script id="html-clientes-online-detalle-catalogos" type="text/x-handlebars-template">
         <div class="content_datos_pendientes">
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Codigo</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Unidades</div>
-            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Precio Unitario</div>
-            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Subtotal</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Unitario</div>
+            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Subtotal</div>
             <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
         </div>
         <div class="linea_separadora" style="margin-top:-1px"></div>
         {{#each this as |detalle|}}
         <div class="content_datos_percepciones">
+            <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.CUV}}</div>
             <div class="padding_tabla_percepcion dinamicostableextragrande">{{detalle.Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostablemini">{{detalle.Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.PrecioUnitarioString}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.PrecioTotalString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioUnitarioString}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{detalle.PrecioTotalString}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">{{detalle.TipoAtencionString}}</div>
         </div>
         {{/each}}
@@ -816,11 +824,16 @@
     <script>
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPedidos = '@ViewBag.URLWebTracking';
-        var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos")';
-        var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
-        var urlClienteOnlineCancelarSolicitud = '@Url.Action("ClienteOnlineCancelarSolicitud", "MisPedidos")';
-        var campaniaActual = '@Model.CampaniaActualConsultoraOnline';
+        var lanzarTabClienteOnline = ('@Model.LanzarTabClienteOnline' == 'True');
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/Index.js")"></script>
-    @if (Model.MostrarClienteOnline) { <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script> }
+    @if (Model.MostrarClienteOnline) {
+        <script>
+            var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos")';
+            var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
+            var urlClienteOnlineCancelarSolicitud = '@Url.Action("ClienteOnlineCancelarSolicitud", "MisPedidos")';
+            var campaniaActual = '@Model.CampaniaActualConsultoraOnline';
+        </script>
+        <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script> 
+    }
 }

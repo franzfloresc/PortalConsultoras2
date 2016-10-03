@@ -626,10 +626,10 @@ function MostrarShowRoomBannerLateral() {
         }
     });
 
-    var idRol = viewBagRol;
-
-    if (idRol == 1) {
-
+    if (viewBagRol == 1) {
+        if (sesionEsShowRoom == '0') {
+            return;
+        }
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomBannerLateral",

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Portal.Consultoras.Web.ServiceUsuario;
 
+
 namespace Portal.Consultoras.Web.Models
 {
     public class MisPedidosModel
@@ -20,5 +21,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BEMisPedidosDetalle> ListaDetalle { get; set; }
 
         public List<MisPedidosDetalleModel> ListaDetalleModel { get; set; }
+
+        public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
     }
 }

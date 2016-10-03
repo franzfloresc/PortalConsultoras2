@@ -35,7 +35,6 @@
     <!-- Google Tag Manager -->
     <script type="text/javascript">
         dataLayer = [{
-            'event': 'userCustomVars',
             'campana': '@ViewBag.CampaniaCodigo',
             'segmento': '@ViewBag.SegmentoAnalytics',
             'edad': '@ViewBag.EdadAnalytics',
@@ -454,6 +453,7 @@
         var DesktopLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopLiquidacion;
         var DesktopCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp;
         var DesktopCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado;
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>

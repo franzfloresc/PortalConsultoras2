@@ -19825,7 +19825,7 @@ label.checkpop.c_on {
     margin-top:30px;
     margin-bottom: 40px;
     position:relative;
-    }
+}
 .producto_showroom:nth-child(3n){
     margin-right:0;
 }
@@ -22293,9 +22293,9 @@ body{
        width: 29.5%;
        margin-right: 5%;
     }
-    .tabs_pagos li a{
+    /*.tabs_pagos li a{
         background-position:11% 7px !important;
-    }
+    }*/
     .imagen_3_factura {
     background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
     background-position: 3% 7px !important;
@@ -22968,7 +22968,7 @@ body{
 .texto_gris_popup{
     color: #666565;
     font-weight: 300;
-    font-size: 11pt;
+    font-size: 14px!important;
     line-height:14pt;
 }
 
@@ -27366,15 +27366,15 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .popup_Pendientes {
     display: block;
     position: relative;
-    width: 72%;
+    width: 960px;
     max-width: 1230px;
     height: auto;
     background: #FFF;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
     padding-top: 30px;
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 36px;
+    padding-right: 36px;
     padding-bottom: 75px;
 }
 
@@ -27502,10 +27502,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     letter-spacing: -0.2px;
 }
 
-.mensajes_deAtencion span:last-child {
+.mensajes_deAtencion span:nth-child(2) {
+    width:40%;
     float: right;
     text-align: right;
-    margin-right: -60px;
+    /*margin-right: -60px;*/
     font-size: 15px;
     padding-right: 20px;
 }
@@ -27722,6 +27723,45 @@ span.datoPedidoCliente {
     width: 78%;
 }
 
+.tiempo_atencionPedido {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 44px;
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #1a1a1a;
+    font-weight: normal;
+    padding-left:16px;
+}
+
+.revision_pedidosAceptados {
+    display: block;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: normal;
+    padding-left:16px;
+    padding-bottom:40px;
+}
+
+.revision_pedidosAceptados .texto_revisaPedidos{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.icono_consultoraOnline, .texto_misPedidosClientesOnline{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.icono_consultoraOnline{
+    width:34px;
+    height:34px;
+    margin-right:6px;
+    background:url(../../../Images/Esika/online.png) no-repeat center center;
+}
+
 .content_datos_pendientes {
     width: 100%;
     height: auto;
@@ -27742,7 +27782,7 @@ span.datoPedidoCliente {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemini{
@@ -27751,7 +27791,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablemedio{
@@ -27760,7 +27800,7 @@ span.datoPedidoCliente {
     padding-left: 0px;
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .dinamicostablegrande{
@@ -27795,6 +27835,37 @@ span.datoPedidoCliente {
     padding: 8px;
     padding-top: 15px;
     padding-bottom: 15px;
+    font-size:13px;
+}
+
+@media screen and (max-width:1137px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 14px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 124%;
+    }
+
+}
+
+@media screen and (max-width:1100px){
+
+    .oscurece {
+        color: black;
+        font-weight: 700;
+        /* padding: 8px; */
+        padding-top: 15px;
+        padding-left: 4px;
+        padding-bottom: 15px;
+        font-size: 12px;
+        width: 110%;
+    }
+
 }
 
 .notiPendientes{
@@ -28467,7 +28538,6 @@ a#cierreMotivoRechazo img {
     background: #f0f0f0;
 }
 
-
 .optionsRechazo {
     width: 71%;
     padding: 10px;
@@ -28489,6 +28559,7 @@ a#cierreMotivoRechazo img {
     background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
     background-position: 15px 15px;    
 }
+
 .mrechaza{
     display: block;
     position: relative;
@@ -30122,10 +30193,6 @@ icono_pago
 .estado_cancelado{
     background:#e7e7e7;
     color:black;
-}
-.mis_pagos_tabs{
-    width:79%;
-}
 .popup_rechazarPendientes{
     position: relative;
     top: 15%;
@@ -30242,6 +30309,19 @@ icono_pago
     background-repeat:repeat-x;
     height:100%;
     right:-36px;
+    -webkit-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -moz-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -ms-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+}
+ @keyframes opacidad-fondo {
+    0% {
+        opacity:0;
+    
+    }
+    100% {
+        opacity:1;
+    }
 }
  .fondo_lateral::after{
     content: "";
@@ -30287,4 +30367,39 @@ icono_pago
     right: -30px;
     }
 }
+@media screen and (max-width: 1138px)
+{
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+ }
+}
+.mis_pagos_tabs{
+    width:79%;
+}
+.popup_rechazarPendientes{
+    position: relative;
+    top: 15%;
+    margin: 0 auto;
+    background: #FFF;
+    width: 100%;
+    max-width: 505px;
+    height: 300px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+}
+@media screen and (max-width: 1138px){
+ .mis_pagos_tabs .tabs_pagos li{
+         width: 38%;
+    }
+    .mis_pagos_tabs hr {
+        width: 38%;
+    }
+   
+  .mis_pagos_tabs  .two:hover ~ hr {
+  margin-left: 38%;
+    }
 
+
+}

@@ -3482,7 +3482,6 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Views\CatalogoPersonalizado\Index.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
       <SubType>Designer</SubType>

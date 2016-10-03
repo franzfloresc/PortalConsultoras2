@@ -75,6 +75,17 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId)
+        {
+            var dAMisPedidos = new DAConsultoraOnline(paisID);
+            BEMisPedidos miPedido = null;
+            using (IDataReader reader = dAMisPedidos.GetPedidoClienteOnlineBySolicitudClienteId(solicitudClienteId))
+            {
+                if (reader.Read()) miPedido = new BEMisPedidos(reader);
+            }
+            return miPedido;
+        }
+
         public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
         {
             var cantidad = -1;
