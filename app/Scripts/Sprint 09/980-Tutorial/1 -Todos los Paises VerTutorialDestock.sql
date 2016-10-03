@@ -27,3 +27,17 @@ BEGIN
 END
 
 go
+
+-- Solo peru y chile dejaro en null o cero el campo VioTutorialDestock
+-- demás países ponerlo igual a VioVideo
+GO
+declare @Igual int = 0
+select @Igual = count(1) from pais where CodigoIso in ('CL', 'PE') and EstadoActivo = 1
+
+if @Igual = 0
+begin
+	UPDATE Usuario
+	SET VioTutorialDestock = VioVideo
+end
+
+GO
