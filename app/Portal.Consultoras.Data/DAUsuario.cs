@@ -33,6 +33,13 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
+        public int SetUsuarioVerTutorialDestock(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.setUsuarioVerTutorialDestock_SB2");
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
         public IDataReader GetUsuario(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuario");

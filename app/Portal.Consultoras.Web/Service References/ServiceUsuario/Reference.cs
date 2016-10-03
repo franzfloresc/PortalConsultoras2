@@ -371,6 +371,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int VioTutorialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VioTutorialDestockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1929,6 +1932,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.VioTutorialField.Equals(value) != true)) {
                     this.VioTutorialField = value;
                     this.RaisePropertyChanged("VioTutorial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VioTutorialDestock {
+            get {
+                return this.VioTutorialDestockField;
+            }
+            set {
+                if ((this.VioTutorialDestockField.Equals(value) != true)) {
+                    this.VioTutorialDestockField = value;
+                    this.RaisePropertyChanged("VioTutorialDestock");
                 }
             }
         }
@@ -5147,6 +5163,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
         System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestockResponse")]
+        int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestock", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDestockResponse")]
+        System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDestockAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Insert", ReplyAction="http://tempuri.org/IUsuarioService/InsertResponse")]
         void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
@@ -5633,6 +5655,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario) {
             return base.Channel.setUsuarioVerTutorialAsync(paisID, codigoUsuario);
+        }
+        
+        public int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDestock(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDestockAsync(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDestockAsync(paisID, codigoUsuario);
         }
         
         public void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {

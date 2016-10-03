@@ -109,6 +109,8 @@ namespace Portal.Consultoras.Web.Models
 
         public int VioTutorialModelo { get; set; }
 
+        public int VioTutorialDestock { get; set; }
+
         public int PedidoID { get; set; }
         public string CodigorRegion { get; set; }
         public string CodigoZona { get; set; }
