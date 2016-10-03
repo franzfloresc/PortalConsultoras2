@@ -218,10 +218,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ds.Tables.Add(dt);
 
-            string ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
-            var isoPais = userData.CodigoISO ?? "";
-            isoPais = ambiente.ToLower() == "QA".ToLower() ? "" : ("_" + isoPais);
-            var keyWeb = ambiente + "_Prol_ServicesCalculos" + isoPais;
+            var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+            var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
             var rtpa = new List<ObjMontosProl>();
             using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
@@ -288,6 +286,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.GetPermisosByRol(PaisID, RolID).ToList();
                     }
+
+                    string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
                     if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
@@ -766,6 +767,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaLimPago = oBEUsuario.FechaLimPago;
                 model.VioVideoModelo = oBEUsuario.VioVideo;
                 model.VioTutorialModelo = oBEUsuario.VioTutorial;
+                model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                 model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                 model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
                 model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
@@ -1026,6 +1028,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.CargoEntidadesShowRoom) return;
 
+            Session["EsShowRoom"] = "0";
+
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
             {
@@ -1054,6 +1058,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
                             model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+
+                            if (model.BeShowRoomConsultora != null)
+                            {
+                                Session["EsShowRoom"] = "1";
+                            }
                         }
                     }
                     model.CargoEntidadesShowRoom = true;

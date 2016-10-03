@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProveedorDespachoCobranzaCabecera" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdProveedorDespachoCobranzaCabecera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProveedorDespachoCobranzaCabeceraResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_InsProveedorDespachoCobranzaCabecera_InputMessage">
     <wsdl:part name="parameters" element="tns:InsProveedorDespachoCobranzaCabecera" />
   </wsdl:message>
@@ -478,6 +484,12 @@
   <wsdl:message name="ISACService_CancelarSolicitudClienteYRemoverPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:CancelarSolicitudClienteYRemoverPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetMotivosRechazo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivosRechazo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetMotivosRechazo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivosRechazoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZ" />
   </wsdl:message>
@@ -561,12 +573,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_DelProveedorDespachoCobranza_OutputMessage">
     <wsdl:part name="parameters" element="tns:DelProveedorDespachoCobranzaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdProveedorDespachoCobranzaCabecera" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_UpdProveedorDespachoCobranzaCabecera_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdProveedorDespachoCobranzaCabeceraResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1079,6 +1085,10 @@
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsProveedorDespachoCobranzaCabecera">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera" message="tns:ISACService_InsProveedorDespachoCobranzaCabecera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabeceraResponse" message="tns:ISACService_InsProveedorDespachoCobranzaCabecera_OutputMessage" />
@@ -1375,6 +1385,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedido" message="tns:ISACService_CancelarSolicitudClienteYRemoverPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/CancelarSolicitudClienteYRemoverPedidoResponse" message="tns:ISACService_CancelarSolicitudClienteYRemoverPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazo" message="tns:ISACService_GetMotivosRechazo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazoResponse" message="tns:ISACService_GetMotivosRechazo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EnviarSolicitudClienteaGZ">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" message="tns:ISACService_EnviarSolicitudClienteaGZ_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse" message="tns:ISACService_EnviarSolicitudClienteaGZ_OutputMessage" />
@@ -1430,10 +1444,6 @@
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" message="tns:ISACService_DelProveedorDespachoCobranza_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DelProveedorDespachoCobranzaResponse" message="tns:ISACService_DelProveedorDespachoCobranza_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabeceraResponse" message="tns:ISACService_UpdProveedorDespachoCobranzaCabecera_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1778,6 +1788,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsProveedorDespachoCobranzaCabecera">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
@@ -2444,6 +2463,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EnviarSolicitudClienteaGZ">
       <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
       <wsdl:input>
@@ -2563,15 +2591,6 @@
     </wsdl:operation>
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3348,6 +3367,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsProveedorDespachoCobranzaCabecera">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
@@ -4014,6 +4042,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMotivosRechazo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EnviarSolicitudClienteaGZ">
       <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
       <wsdl:input>
@@ -4133,15 +4170,6 @@
     </wsdl:operation>
     <wsdl:operation name="DelProveedorDespachoCobranza">
       <soap:operation soapAction="http://tempuri.org/ISACService/DelProveedorDespachoCobranza" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdProveedorDespachoCobranzaCabecera">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProveedorDespachoCobranzaCabecera" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -41,6 +41,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetPedidoClienteOnlineBySolicitudClienteId(long solicitudClienteId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoClienteOnlineBySolicitudClienteId_SB2");
+            Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, solicitudClienteId);
+            return Context.ExecuteReader(command);
+        }
 		
 		public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId)
         {

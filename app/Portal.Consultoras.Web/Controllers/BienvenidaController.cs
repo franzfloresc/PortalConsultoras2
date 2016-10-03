@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
 
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
+                model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -244,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult SubirImagen(string data)
         {
             if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            string[] dataPartes = data.Split(new char[]{ ',' });
+            string[] dataPartes = data.Split(new char[] { ',' });
             if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
             string image = dataPartes[1];
 
@@ -503,11 +504,27 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONSetUsuarioVideo()
         {
-            int retorno;           
+            int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
                 userData.VioVideoModelo = retorno;
+            }
+            SetUserData(userData);
+            return Json(new
+            {
+                result = retorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet]
+        public JsonResult JSONSetUsuarioTutorialDesktop()
+        {
+            int retorno;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                retorno = sv.SetUsuarioVerTutorialDesktop(userData.PaisID, userData.CodigoUsuario);
+                userData.VioTutorialDesktop = retorno;
             }
             SetUserData(userData);
             return Json(new
@@ -1331,16 +1348,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         beShowRoom = new BEShowRoomEvento();
                         beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        Session["EsShowRoom"] = "0";
                     }
                     else
                     {
                         if (beShowRoomConsultora == null)
                         {
                             beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                            Session["EsShowRoom"] = "0";
                         }
-                        else Session["EsShowRoom"] = "1";
                     }
 
                     if (beShowRoom.Estado == 1)
@@ -1377,8 +1391,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        Session["EsShowRoom"] = "0";
-
                         return Json(new
                         {
                             success = false,
@@ -1389,8 +1401,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    Session["EsShowRoom"] = "0";
-
                     return Json(new
                     {
                         success = false,

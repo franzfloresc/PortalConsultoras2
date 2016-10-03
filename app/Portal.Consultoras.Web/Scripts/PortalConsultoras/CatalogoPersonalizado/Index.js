@@ -50,9 +50,8 @@ $(document).ready(function () {
                         settings.ganancia = DecimalToStringFormat(settings.ganancia);
                         var html = SetHandlebars("#template-mod-ofer1", settings);
                         $('.mod-ofer1').html(html).show();
-                            TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+                        TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
                     }
-                    
                     //switch (settings.tipo_oferta) {
                     //    case '003':
                     //        settings.precio_catalogo = DecimalToStringFormat(settings.precio_catalogo);
@@ -94,13 +93,12 @@ $(document).ready(function () {
 
     Inicializar();
 });
-/*SB-600*/
+
 function Inicializar() {
     IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
-
 function IniDialog() {
     $('#DialogMensajes').dialog({
         autoOpen: false,
@@ -127,8 +125,8 @@ function CargarCatalogoScroll() {
     if ($(window).scrollTop() + $(window).height() > $(document).height() - $('footer').outerHeight()) {
         ValidarCargaCatalogoPersonalizado();
     }
-
 }
+
 function ValidarCargaCatalogoPersonalizado() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
@@ -136,11 +134,9 @@ function ValidarCargaCatalogoPersonalizado() {
     waitingDialog();
     ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarCatalogoToScroll, CargarCatalogoPersonalizado);
 }
-/*F- SB-600*/
 function CargarCatalogoPersonalizado() {
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
-        $('#boton_vermas').hide();
         UnlinkCargarCatalogoToScroll();
         return false;
     }
@@ -148,11 +144,9 @@ function CargarCatalogoPersonalizado() {
     var esCatalogoPersonalizadoZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val();
     if (esCatalogoPersonalizadoZonaValida != "True") {
         $('#boton_vermas').hide();
-        UnlinkCargarCatalogoToScroll();
         return false;
     }
-    //$('#divCatalogoPersonalizado').html('<div style="text-align: center;"><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
-    waitingDialog();
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizado',
@@ -167,7 +161,7 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
                 }
 
-                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll() ;
+                if (data.data.length < cantidadRegistros) UnlinkCargarCatalogoToScroll();
                 offsetRegistros += cantidadRegistros;
             }
         },
@@ -180,48 +174,7 @@ function CargarCatalogoPersonalizado() {
         }
     });
 }
-/*SB20-600*/
-function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
-    if (!$.isFunction(fnRestringido)) return false;
-    if (!$.isFunction(fnNoRestringido)) return false;
-    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
 
-
-
-    $.ajaxSetup({ cache: false });
-    jQuery.ajax({
-        type: 'GET',
-        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
-        dataType: 'json',
-        async: true,
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (!checkTimeout(data)) return false;
-            if (!data.success) {
-                fnNoRestringido();
-                return false;
-            }
-            
-            if (data.pedidoReservado && !mostrarAlerta) {
-                waitingDialog();
-                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
-                return false;
-            }
-
-            if (mostrarAlerta) {
-                closeWaitingDialog();
-                alert_msg_pedido(data.message);
-            }
-            fnRestringido();
-        },
-        error: function (error) {
-            console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-        }
-    });
-}
-
-/*F SB20-600*/
 function AgregarProductoCatalogoPersonalizado(item) {
     waitingDialog();
 
@@ -382,8 +335,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+            else if (mostrarAlerta == true) alert_msg_pedido(data.message);
         },
         error: function (error) {
             console.log(error);
@@ -392,11 +344,49 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 }
+
+function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoRestringido) {
+    if (!$.isFunction(fnRestringido)) return false;
+    if (!$.isFunction(fnNoRestringido)) return false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    $.ajaxSetup({ cache: false });
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        dataType: 'json',
+        async: true,
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+            if (!data.success) {
+                fnNoRestringido();
+                return false;
+            }
+
+            if (data.pedidoReservado && !mostrarAlerta) {
+                waitingDialog();
+                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                return false;
+            }
+
+            if (mostrarAlerta) {
+                closeWaitingDialog();
+                alert_msg_pedido(data.message);
+            }
+            fnRestringido();
+        },
+        error: function (error) {
+            console.log(error);
+            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
+    });
+}
+
 function alert_msg_pedido(message) {
     $('#DialogMensajes .pop_pedido_mensaje').html(message);
     $('#DialogMensajes').dialog('open');
 }
-
 
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();

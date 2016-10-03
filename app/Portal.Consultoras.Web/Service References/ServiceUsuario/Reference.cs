@@ -371,6 +371,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int VioTutorialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VioTutorialDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int VioVideoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1929,6 +1932,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.VioTutorialField.Equals(value) != true)) {
                     this.VioTutorialField = value;
                     this.RaisePropertyChanged("VioTutorial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int VioTutorialDesktop {
+            get {
+                return this.VioTutorialDesktopField;
+            }
+            set {
+                if ((this.VioTutorialDesktopField.Equals(value) != true)) {
+                    this.VioTutorialDesktopField = value;
+                    this.RaisePropertyChanged("VioTutorialDesktop");
                 }
             }
         }
@@ -3803,13 +3819,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.DateTime FechaSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaSolicitudFormatField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FlagConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagMedioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormartoFechaSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormatoPrecioTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LeidoField;
@@ -3972,19 +3991,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaSolicitudFormat {
-            get {
-                return this.FechaSolicitudFormatField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaSolicitudFormatField, value) != true)) {
-                    this.FechaSolicitudFormatField = value;
-                    this.RaisePropertyChanged("FechaSolicitudFormat");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool FlagConsultora {
             get {
                 return this.FlagConsultoraField;
@@ -4006,6 +4012,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.FlagMedioField, value) != true)) {
                     this.FlagMedioField = value;
                     this.RaisePropertyChanged("FlagMedio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormartoFechaSolicitud {
+            get {
+                return this.FormartoFechaSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormartoFechaSolicitudField, value) != true)) {
+                    this.FormartoFechaSolicitudField = value;
+                    this.RaisePropertyChanged("FormartoFechaSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormatoPrecioTotal {
+            get {
+                return this.FormatoPrecioTotalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormatoPrecioTotalField, value) != true)) {
+                    this.FormatoPrecioTotalField = value;
+                    this.RaisePropertyChanged("FormatoPrecioTotal");
                 }
             }
         }
@@ -5147,6 +5179,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/setUsuarioVerTutorial", ReplyAction="http://tempuri.org/IUsuarioService/setUsuarioVerTutorialResponse")]
         System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktop", ReplyAction="http://tempuri.org/IUsuarioService/SetUsuarioVerTutorialDesktopResponse")]
+        System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Insert", ReplyAction="http://tempuri.org/IUsuarioService/InsertResponse")]
         void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
@@ -5633,6 +5671,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> setUsuarioVerTutorialAsync(int paisID, string codigoUsuario) {
             return base.Channel.setUsuarioVerTutorialAsync(paisID, codigoUsuario);
+        }
+        
+        public int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktop(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> SetUsuarioVerTutorialDesktopAsync(int paisID, string codigoUsuario) {
+            return base.Channel.SetUsuarioVerTutorialDesktopAsync(paisID, codigoUsuario);
         }
         
         public void Insert(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {

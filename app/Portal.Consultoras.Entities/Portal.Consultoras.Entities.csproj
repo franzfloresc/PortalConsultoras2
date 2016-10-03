@@ -150,6 +150,7 @@
     <Compile Include="BEMensajeMetaConsultora.cs" />
     <Compile Include="BEMenuMobile.cs" />
     <Compile Include="BEMisPedidos.cs" />
+    <Compile Include="BEMotivoSolicitud.cs" />
     <Compile Include="BENavidadConsultora.cs" />
     <Compile Include="BENotificaciones.cs" />
     <Compile Include="BEOferta.cs" />

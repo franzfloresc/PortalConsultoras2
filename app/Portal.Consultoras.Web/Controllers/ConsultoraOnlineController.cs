@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
         ~ConsultoraOnlineController()
         {
             Session["objMisPedidos"] = null;
+            Session["objMisPedidosDetalle"] = null;
+            Session["objMisPedidosDetalleVal"] = null;
         }
 
         public ActionResult Index(string activation)
@@ -685,30 +687,39 @@ namespace Portal.Consultoras.Web.Controllers
                     olstMisPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
                 }
 
-                if (olstMisPedidos.Any())
+                if (olstMisPedidos.Count > 0)
                 {
-                    // solo pedidos pendientes
-                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
 
-                    olstMisPedidos.ToList().ForEach(y => y.FechaSolicitudFormat = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")) );
+                    if (olstMisPedidos.Count > 0)
+                    {
+                        olstMisPedidos.ToList().ForEach(y => y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " + y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+                        olstMisPedidos.ToList().ForEach(y => y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
 
-                    model.ListaPedidos = olstMisPedidos;
+                        model.ListaPedidos = olstMisPedidos;
 
-                    objMisPedidos = model;
-                    Session["objMisPedidos"] = objMisPedidos;
+                        objMisPedidos = model;
+                        Session["objMisPedidos"] = objMisPedidos;
 
-                    var pedidoReciente = olstMisPedidos.OrderByDescending(x => x.FechaSolicitud).First();
-                    model.FechaPedidoReciente = pedidoReciente.FechaSolicitud.ToString("HH:mm:ss");
+                        var pedidoReciente = olstMisPedidos.OrderByDescending(x => x.FechaSolicitud).First();
+                        model.FechaPedidoReciente = pedidoReciente.FechaSolicitud.ToString("HH:mm:ss");
 
-                    BEGrid grid = SetGrid(sidx, sord, page, rows);
-                    BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
+                        BEGrid grid = SetGrid(sidx, sord, page, rows);
+                        BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
 
-                    model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                        model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
-                    model.Registros = grid.PageSize.ToString();
-                    model.RegistrosTotal = pag.RecordCount.ToString();
-                    model.Pagina = pag.CurrentPage.ToString();
-                    model.PaginaDe = pag.PageCount.ToString();
+                        model.Registros = grid.PageSize.ToString();
+                        model.RegistrosTotal = pag.RecordCount.ToString();
+                        model.Pagina = pag.CurrentPage.ToString();
+                        model.PaginaDe = pag.PageCount.ToString();
+                    }
+                    else
+                    {
+                        model.RegistrosTotal = "0";
+                        model.Pagina = "0";
+                        model.PaginaDe = "0";
+                    }
                 }
                 else
                 {
@@ -749,9 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 }
 
-                //model.ListaDetalle = olstMisPedidosDet;
-
-                if (olstMisPedidosDet.Any())
+                if (olstMisPedidosDet.Count > 0)
                 {
                     MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
                     consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
@@ -759,13 +768,13 @@ namespace Portal.Consultoras.Web.Controllers
                     long _pedidoId = Convert.ToInt64(pedidoId);
                     pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
 
-                    // setear valores iniciales
                     //olstMisPedidosDet.ToList().ForEach(x => x.TieneStock = 0);
                     //olstMisPedidosDet.ToList().ForEach(x => x.EstaEnRevista = 0);
 
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
-                    if (pedido.MarcaID == 0)    // 0=App Catalogos, >0=Portal Marca
+                    // 0=App Catalogos, >0=Portal Marca
+                    if (pedido.MarcaID == 0)    
                     {
                         int? revistaGana = null;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -991,7 +1000,8 @@ namespace Portal.Consultoras.Web.Controllers
             int tipo;
             string marcaPedido;
 
-            if (pedido.MarcaID == 0)        // 0=App Catalogos, >0=Portal Marca
+            // 0=App Catalogos, >0=Portal Marca
+            if (pedido.MarcaID == 0)        
             {
                 tipo = 1;
                 marcaPedido = pedido.MedioContacto;
@@ -1089,8 +1099,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in pedidoModel.ListaDetalleModel)
                     {
-                        // Agregar al Pedido
-                        if (item.OpcionAcepta == "ingrped")
+                        if (item.OpcionAcepta == "ingrped") // ingresa al pedido
                         {
                             BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.Where(x => x.PedidoDetalleId == item.PedidoDetalleId).FirstOrDefault();
 
@@ -1141,7 +1150,22 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
+                        }// ingrped
+                        else
+                        {
+                            using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                            {
+                                ServiceSAC.BESolicitudClienteDetalle beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle();
+                                beSolicitudDetalle.SolicitudClienteDetalleID = item.PedidoDetalleId;
+                                beSolicitudDetalle.TipoAtencion = (item.OpcionAcepta == "ingrten") ? 2 : 0;     // ya lo tengo, agotado
+                                beSolicitudDetalle.PedidoWebID = 0;
+                                beSolicitudDetalle.PedidoWebDetalleID = 0;
+
+                                // UPDATE Detalle Solicitud
+                                svc.UpdSolicitudClienteDetalle(UserData().PaisID, beSolicitudDetalle);
+                            }
                         }
+
                     }// foreach
                 }
 
@@ -1234,10 +1258,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</td>");
                     mensajecliente.Append("</tr>");
                     int cntfila = 0;
+
                     foreach (var item in pedido.DetallePedido)
                     {
                         totalPedido += item.PrecioTotal;
-
                         cntfila = cntfila + 1;
 
                         if (cntfila % 2 == 0)
@@ -1302,6 +1326,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
                     mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
+
                     try
                     {
                         Common.Util.EnviarMail3(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
@@ -1561,7 +1586,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
                     //Inicio GR-1385
-
                     BEMisPedidos pedido = new BEMisPedidos();
                     pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == SolicitudId).FirstOrDefault();
 
@@ -1652,10 +1676,10 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajecliente.Append("</td>");
                         mensajecliente.Append("</tr>");
                         int cntfila = 0;
+
                         foreach (var item in pedido.DetallePedido)
                         {
                             totalPedido += item.PrecioTotal;
-
                             cntfila = cntfila + 1;
 
                             if (cntfila % 2 == 0)
@@ -1725,8 +1749,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(PaisId, SolicitudId);
                             fechaActual = beSolicitudCliente.FechaModificacion;
-
                             HttpRequestBase request = this.HttpContext.Request;
+
                             try
                             {
                                 string mensaje = mensajeRechazoPedido(nuevaConsultora.Nombre, Util.GetUrlHost(request).ToString(), beSolicitudCliente);

@@ -194,6 +194,10 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
+            
+            Handlebars.registerHelper('UpperCase', function (context) {
+                return context.toUpperCase();
+            });
         }
     }
 
