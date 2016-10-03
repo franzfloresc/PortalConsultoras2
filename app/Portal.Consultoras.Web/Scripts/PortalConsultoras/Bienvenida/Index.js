@@ -659,7 +659,7 @@ function UpdateUsuarioTutorial() {
     viewBagVioTutorial = 1;
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorial',
+        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorialDesktop',
         data: '',
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
