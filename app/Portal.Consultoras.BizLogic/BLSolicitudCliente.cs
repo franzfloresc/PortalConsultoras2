@@ -166,9 +166,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read()) { resultado = new BEResultadoSolicitud(reader); }
                 }
-
-                BEConsultoraSolicitudCliente consultoraSolicitudCliente = GetConsultoraSolicitudCliente(paisID, int.Parse(entidadSolicitud.ConsultoraID.ToString()), entidadSolicitud.CodigoConsultora, 0);
-                this.EnviarEmailSolicitudCliente(paisID, consultoraSolicitudCliente, resultado);
+                //EPD902 - Quitar envio de correo. 03102016
+                //BEConsultoraSolicitudCliente consultoraSolicitudCliente = GetConsultoraSolicitudCliente(paisID, int.Parse(entidadSolicitud.ConsultoraID.ToString()), entidadSolicitud.CodigoConsultora, 0);
+                //this.EnviarEmailSolicitudCliente(paisID, consultoraSolicitudCliente, resultado); 
                 return resultado;
             }
             catch (Exception ex)
