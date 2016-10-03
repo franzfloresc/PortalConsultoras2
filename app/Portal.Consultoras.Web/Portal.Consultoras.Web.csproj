@@ -3453,7 +3453,6 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertasLiquidacion.cshtml" />
     <Content Include="Views\Pedido\Index.cshtml" />
-    <Content Include="Views\Pedido\ListadoPedido.cshtml" />
     <Content Include="Views\ParticipantesDemandaAnticipada\Index.cshtml" />
     <Content Include="Views\ProveedorDespachoCobranza\Index.cshtml" />
     <Content Include="Views\ShowRoom\AdministrarShowRoom.cshtml" />
@@ -3654,8 +3653,6 @@
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
-    <Content Include="Views\Pedido\ListadoFaltantes.cshtml" />
-    <Content Include="Views\Pedido\ListadoOfertas.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
     <Content Include="Views\GestionContenido\ConfiguracionFormulariosInformativos.cshtml" />
     <Content Include="Views\GestionContenido\FondoLogin.cshtml" />
@@ -3670,10 +3667,8 @@
     <Content Include="Views\Rol\Rol.cshtml" />
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
-    <Content Include="Views\Pedido\ListadoPedidoReservado.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalleImp.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
-    <Content Include="Views\Pedido\PedidoValidadoImp.cshtml" />
     <Content Include="Views\GestionContenido\ContenidoDato.cshtml" />
     <Content Include="Views\Shared\_PrintLayout.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />

@@ -189,9 +189,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEProducto producto = new BEProducto();
 
+                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
+
                 ObjOfertaCatalogos dataPROL;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
+                    sv.Url = ConfigurationManager.AppSettings[keyWeb];
                     dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
                 }
                 using (ODSServiceClient sv = new ODSServiceClient())

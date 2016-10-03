@@ -218,10 +218,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ds.Tables.Add(dt);
 
-            string ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
-            var isoPais = userData.CodigoISO ?? "";
-            isoPais = ambiente.ToLower() == "QA".ToLower() ? "" : ("_" + isoPais);
-            var keyWeb = ambiente + "_Prol_ServicesCalculos" + isoPais;
+            var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+            var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
             var rtpa = new List<ObjMontosProl>();
             using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
