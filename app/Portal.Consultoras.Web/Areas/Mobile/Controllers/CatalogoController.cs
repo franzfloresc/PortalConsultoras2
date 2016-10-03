@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -880,8 +881,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                     url = urlNotFound;
             }
-            catch (Exception)
+            catch (FaultException faulException)
             {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = urlNotFound;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
                 url = urlNotFound;
             }
             return Json(url);
