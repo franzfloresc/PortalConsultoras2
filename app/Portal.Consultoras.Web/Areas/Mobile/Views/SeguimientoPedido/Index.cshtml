@@ -185,12 +185,21 @@
                     {
                         var esActual05 = Model.Estado == "EN CHEQUEO";
                         var estaActivo05 = estado05EntregaProyectada.Fecha.HasValue;
+                        var turno = estado05EntregaProyectada.ValorTurno;
                         var claseIcono05 = esActual05 ? "seg-current" : estaActivo05 ? "seg-active" : "";
                         contador += 1;
 
                         <div class="col-xs-4">
                             <div class="seg-item seg-next-icon @claseIcono05">
-                                <h3 class="seg-title text-center">@contador<br />Entrega Proyectada</h3>
+                                <h3 class="seg-title text-center">@contador<br />Entrega Proyectada
+                                    @if (!string.IsNullOrEmpty(turno))
+                                    {
+                                        <br/>
+                                        <span style="text-transform: lowercase;">
+                                            <b>@turno</b>
+                                        </span>
+                                    }
+                                </h3>
                                 <span class="seg-icon">
                                     <i class="icon-seg icon-hora-entrega"></i>
                                 </span>

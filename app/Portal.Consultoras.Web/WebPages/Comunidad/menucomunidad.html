@@ -1,540 +1,666 @@
-﻿<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Somos Belcorp</title>
-    <link href="https://www.somosbelcorp.com/Content/Css/Site/style-tismart.css" rel="stylesheet" type="text/css">
-    <script src="https://www.somosbelcorp.com/Scripts/Comunidad/jquery.min.js" type="text/javascript"></script>
-    <script src="https://www.somosbelcorp.com/Scripts/jquery.index.js" type="text/javascript"></script>
-    <script src="https://www.somosbelcorp.com/Scripts/Comunidad/fuzescale-1.3.min.js" type="text/javascript"></script>
-    <script src="https://www.somosbelcorp.com/Scripts/Comunidad/modernizr.custom.js"></script>
-
-
-    <script>
-
-        var var_comunidad = location.host;//'comunidadqa.somosbelcorp.com';
-        var var_somosbelcorp = 'https://www.somosbelcorp.com/';
-
-        $(document).ready(function (e) {
-            QSRedireccionEstadisticas("estadistica");
-
-            if ($(window).width() > 960) {
-                if ($(window).width() <= 1280)
-                    $("#cont_contenido, .container").css({ 'width': $(window).width() });
-                else
-                    $("#cont_contenido, .container").css({ 'width': 1280 });
-            }
-            else
-                $("#cont_contenido, .container").css({ 'width': 960 });
-
-            //$("li#menu_minegocio").hide();
-            //$("li#menu_micarrera").hide();
-
-            if (LITHIUM.CommunityJsonObject.User.id != "-1") {
-                $("#HNombre").css("display", "inline");
-                $("#HCerrar").css("display", "inline");
-                $("#MeResponde").css("display", "none");
-                $("#MeCampania").css("display", "none");
-                $("#HCambiarNombre").css("display", "inline");
-
-                var url_login = document.location.protocol + "//" + var_comunidad + "/restapi/vc/users/login/" + LITHIUM.CommunityJsonObject.User.login + "/profiles/";
-
-                $.ajax({
-                    type: "GET",
-                    url: url_login,
-                    dataType: "xml",
-                    success: function (response) {
-                        $(response).find("profile").each(function () {
-                            if ($(this).attr('name') == 'name_first') {
-                                $("#HNombre").html("Hola " + $(this).text());
-                            }
-
-                            if ($(this).attr('name') == 'codigo_consultora') {
-                                var consultora = $(this).text();
-                                if (consultora != '') {
-                                    //$("li#menu_minegocio").show();
-                                    //$("li#menu_micarrera").show();
-                                    //$("li#menu_micomunidad").removeClass("field33").addClass("field25");
-                                    //$("li#menu_mismarcas").removeClass("field33").addClass("field25");
-                                    //$("li#menu_unetebelcorp").hide();
-                                    //$("#m_marcas_b").addClass("no_border");
-                                    $("#MeResponde").css("display", "block");
-                                    $("#MeCampania").css("display", "block");
-                                    $("#wrap_menu_principal_nc").css("display", "none");
-                                    $("#wrap_menu_principal").css("display", "block");
-                                    $("#hEsConsultora").val("1");
-                                    $("#HPerfil").css("display", "inline");
-                                }
-                            }
-
-                            if ($(this).attr('name') == 'pais') {
-                                var pais = $(this).text();
-                                if ($("#hEsConsultora").val() == "1") {
-                                    if (pais == 'PE') {
-                                        $("#PEProgBel1").css("display", "block");
-                                        $("#PEProgBel2").css("display", "block");
-                                        $("#PEProgBel3").css("display", "block");
-                                        $("#PEProgBel4").css("display", "block");
-                                        $("#FactPE").css("display", "block");
-                                        $("#PercPE").css("display", "block");
-                                    }
-                                    else {
-                                        if (pais == 'CL') {
-                                            $("#CLProgBel1").css("display", "block");
-                                            $("#CLProgBel2").css("display", "block");
-                                        }
-                                        else {
-                                            if (pais == 'MX') {
-                                                $("#MXProgBel1").css("display", "block");
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-
-                            if ($(this).attr('name') == 'campania_actual') {
-                                var campania = $(this).text();
-                                if (campania != '')
-                                    $("#MeCampaniaDes").html("C-" + campania.substring(4, 6));
-                            }
-                        });
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-
-            }
-        });
-
-        $(window).resize(function (e) {
-            if ($(window).width() > 960) {
-                if ($(window).width() <= 1280)
-                    $("#cont_contenido, .container").css({ 'width': $(window).width() });
-                else
-                    $("#cont_contenido, .container").css({ 'width': 1280 });
-            }
-            else
-                $("#cont_contenido, .container").css({ 'width': 960 });
-        });
-
-        function CerrarSesion() {
-            if ($("#hEsConsultora").val() == '1') {
-                location.href = var_somosbelcorp + 'WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=1';
-            }
-            else {
-                location.href = var_somosbelcorp + 'WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=0';
-            }
-        }
-
-        function CambiarNombreComunidad() {
-            location.href = var_somosbelcorp + 'WebPages/CambiarUsuarioComunidad.aspx?U=' + LITHIUM.CommunityJsonObject.User.login;
-        }
-
-        function MiPerfil() {
-            location.href = '/t5/user/viewprofilepage/user-id/' + LITHIUM.CommunityJsonObject.User.id;
-        }
-
-        function QSRedireccionEstadisticas(sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) {
-                    location.href = document.location.protocol + '//' + var_comunidad + '/t5/user/viewprofilepage/user-id/' + LITHIUM.CommunityJsonObject.User.id;
-                }
-            }
-        }
-
-    </script>
-
-
-
-    <!--[if gte IE 7]>
-      <style type="text/css">
-      #nav li:hover ul.submenu {
-    display: block;
-    text-transform: none;
-    line-height: 20px;
-    font-size: 14px;
-    background-color: #e7ebe9;
-    left: -43%;
-    padding: 2%;
-    position: absolute;
-    top: 95px;
-    width: 139%;
-    z-index: 99;
+﻿<style type="text/css">
+    .menu_sb2 {
+        position: relative;
+        top: 0px !important;
+        left: 0px !important;
+        background: white !important;
+        height: 80px;
+        z-index: 900;
+        width: 100% !important;
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     }
-      </style>
-      <![endif]-->
-</head>
 
-<body>
+        .menu_sb2 ul, ol {
+            list-style: none;
+        }
 
-    <div id="cont_contenido">
-        <input id="hEsConsultora" type="hidden">
-        <div id="wrap_header_menu_background">
-            <div id="wrap_header_menu" class="field100">
-                <div id="logo_tsmv" class="field20">
-                    <a href='https://www.somosbelcorp.com/Bienvenida'><img src="https://www.somosbelcorp.com/Content/Images/comunidad/belcorp_logo.png" alt="SomosBelcorp" width="82" height="82" /></a>
+    .wrapper_header {
+        height: 80px;
+        margin: 0 auto;
+        max-width: 1189px;
+    }
+
+    .nav_principal {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        background: transparent;
+    }
+
+    .menu_new_esika {
+        float: left;
+        width: 70%;
+        height: 60px;
+        position: relative;
+    }
+
+    .menu_esika_b {
+        height: 60px;
+        float: left;
+        width: 19%;
+    }
+
+    .boton_cerrar_s a {
+        float: right;
+        text-align: center;
+        padding-top: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
+        line-height: 12px;
+        font-family: 'lato';
+        font-size: 9px;
+        margin-top: 15px;
+        color: black;
+    }
+
+    .new_menu_a {
+        display: inline-block;
+        font-family: 'lato';
+        font-weight: 700;
+        font-size: 10.5px;
+        text-decoration: none;
+        color: black;
+        border-bottom: 2px solid white;
+        letter-spacing: 0.75pt;
+        text-transform: uppercase;
+    }
+
+    .new_menu {
+        margin-top: 31px;
+        margin-left: 4.8%;
+        height: 50px;
+        float: left;
+        position: relative;
+    }
+
+    .flecha_menu {
+        width: 0px;
+        height: 0px;
+        float: right;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #000;
+        margin-top: 4px;
+        margin-left: 5px;
+    }
+
+    .nav_principal li:hover > ul {
+        display: block;
+    }
+
+    .nav_principal li:hover .pestana_esika {
+        display: block;
+    }
+
+    .nav_principal li:hover .pestana_lbel {
+        display: block;
+    }
+
+    .sub_menu_home1 {
+        position: absolute;
+        top: 48px;
+        margin-left: -73px;
+        width: 196px;
+        height: auto;
+        padding-bottom: 37px;
+        padding-left: 65px;
+        padding-right: 60px;
+        display: none;
+        background: rgba(255,255,255,0.95) url("https://www.somosbelcorp.com/Content/Images/Esika/fondo.png");
+        -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+        -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+        box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    }
+
+    .sub_menu_home2 {
+        position: absolute;
+        left: -111px;
+        display: none;
+        top: 48px;
+        width: 223px;
+        height: auto;
+        padding-bottom: 37px;
+        padding-left: 60px;
+        padding-right: 60px;
+        background: rgba(255,255,255,0.95) url("https://www.somosbelcorp.com/Content/Images/Esika/fondo.png");
+        -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+        -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+        box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    }
+
+    .linea_menu {
+        width: 100%;
+        height: 1px;
+        background: black;
+    }
+
+    .pestana_esika {
+        width: 20px;
+        height: 16px;
+        top: 33px;
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        background: url("https://www.somosbelcorp.com/Content/Images/Esika/pestana_esika.png");
+        background-size: cover;
+    }
+
+    .pestana_lbel {
+        display: none;
+        background: white url("https://www.somosbelcorp.com/Content/Images/Lbel/pestana_lbel.png") no-repeat;
+        background-size: cover;
+        width: 30px;
+        height: 20px;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        margin-top: 30px;
+        z-index: 1;
+        position: absolute;
+    }
+
+    .content_left_menu {
+        float: left;
+        margin-right: 50px;
+        margin-top: 40px;
+    }
+
+    .menu_titulo {
+        font-family: 'Lato';
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        font-weight: 700;
+        background: url("https://www.somosbelcorp.com/Content/Images/Esika/fle_.png") no-repeat;
+        background-position: 0px 5px;
+        padding-left: 13px;
+        margin-bottom: 13px;
+        margin-left: -15px;
+        color: black;
+        display: block;
+        text-decoration: none;
+    }
+
+    .menu_enlace {
+        font-family: 'Lato';
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        margin-bottom: 13px;
+        color: black;
+        display: block;
+        text-decoration: none;
+        text-align: left;
+    }
+
+        .menu_enlace:hover {
+            text-decoration: underline;
+        }
+
+    .menu_imagen {
+        margin-top: 40px;
+        margin-right: 45px;
+        margin-left: 13px;
+        float: left;
+        width: 180px;
+        height: 143px;
+        position: relative;
+        display: block;
+    }
+
+        .menu_imagen img {
+            width: 100%;
+        }
+
+    .titulo_imagen {
+        width: 100%;
+        height: 30px;
+        font-family: 'Lato';
+        font-size: 11px;
+        font-weight: 900;
+        color: white;
+        text-align: center;
+        letter-spacing: 0.5px;
+        line-height: 30px;
+        background: black;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .logo_esika {
+        margin-top: 6px;
+        float: left;
+        width: 10%;
+        padding-right: 2px;
+    }
+
+        .logo_esika a {
+            width: 82%;
+            height: 62px;
+            background-size: cover;
+            display: block;
+        }
+
+    .content_left_menu:last-child {
+        margin-right: 0;
+    }
+
+    .no_margin_right {
+        margin-right: 0;
+    }
+
+    .sub_comunidad1 {
+        width: 748px;
+    }
+
+    .sub_comunidad3 {
+        left: -211px;
+        width: 484px;
+    }
+
+    .sub_comunidad2 {
+        margin-left: -118px;
+    }
+
+    .boton_cam {
+        text-align: center;
+        float: right;
+        height: 80px;
+        padding-top: 24px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: #a18328;
+        color: white;
+        line-height: 15px;
+        font-family: 'lato';
+        font-size: 9px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+        .boton_cam span {
+            font-size: 15px;
+            font-family: Lato;
+        }
+
+    .boton_cam_lbel {
+        background: #613c87;
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
+<script src="https://www.somosbelcorp.com/Scripts/Comunidad/modernizr.custom.js"></script>
+<script src="https://www.somosbelcorp.com/Scripts/Comunidad/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var var_comunidad = location.host;//'comunidadqa.somosbelcorp.com';
+    var var_somosbelcorp = 'https://www.somosbelcorp.com/';
+
+    $(document).ready(function (e) {
+        QSRedireccionEstadisticas("estadistica");
+
+        if (LITHIUM.CommunityJsonObject.User.id != "-1") {
+            //$("#HNombre").css("display", "block");
+            $("#HCerrar").css("display", "block");
+            //$("#MeResponde").css("display", "none");
+            $("#MeCampania").css("display", "none");
+            //$("#HCambiarNombre").css("display", "block");
+
+            var url_login = document.location.protocol + "//" + var_comunidad + "/restapi/vc/users/login/" + LITHIUM.CommunityJsonObject.User.login + "/profiles/";
+
+            $.ajax({
+                type: "GET",
+                url: url_login,
+                dataType: "xml",
+                success: function (response) {
+                    $(response).find("profile").each(function () {
+                        //if ($(this).attr('name') == 'name_first') {
+                        //    $("#HNombre").html("Hola " + $(this).text());
+                        //}
+
+                        if ($(this).attr('name') == 'codigo_consultora') {
+                            var consultora = $(this).text();
+                            if (consultora != '') {
+                                //$("#MeResponde").css("display", "block");
+                                $("#MeCampania").css("display", "block");
+                                $("#menuNoConsultora").css("display", "none");
+                                $("#menuConsultora").css("display", "block");
+                                $("#hEsConsultora").val("1");
+                                //$("#HPerfil").css("display", "block");
+                            }
+                        }
+
+                        if ($(this).attr('name') == 'pais') {
+                            var pais = $(this).text().toUpperCase();
+
+                            $("#imgMiNegocioCatalogoRevista").attr("src", "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/" + pais + "/imagen_01.png");
+                            $("#imgMiNegocioIncentivos").attr("src", "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/" + pais + "/imagen_03.png");
+
+                            switch (pais) {
+                                case "PE":
+                                case "EC":
+                                case "CO":
+                                case "CL":
+                                case "BO":
+                                case "GT":
+                                case "SV":
+                                case "PR":
+                                case "DO":
+                                case "VE":
+                                    $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/Esika/logo_esika.png");
+                                    break;
+                                case "MX":
+                                case "PA":
+                                case "CR":
+                                    $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/Lbel/logo_lbel.png");
+                                    $(".pestana_marca").removeClass("pestana_esika");
+                                    $(".pestana_marca").addClass("pestana_lbel");
+                                    $(".boton_marca").addClass("boton_cam_lbel");
+                                    break;
+                                default:
+                                    $("#imgLogo").attr("src", "https://www.somosbelcorp.com/Content/Images/belcorp_logo.png");
+                                    break;
+                            }
+
+                            //if ($("#hEsConsultora").val() == "1") {
+                            //    if (pais == 'PE') {
+                            //        $("#PEProgBel1").css("display", "block");
+                            //        $("#PEProgBel2").css("display", "block");
+                            //        $("#PEProgBel3").css("display", "block");
+                            //        $("#PEProgBel4").css("display", "block");
+                            //        $("#FactPE").css("display", "block");
+                            //        $("#PercPE").css("display", "block");
+                            //    }
+                            //    else {
+                            //        if (pais == 'CL') {
+                            //            $("#CLProgBel1").css("display", "block");
+                            //            $("#CLProgBel2").css("display", "block");
+                            //        }
+                            //        else {
+                            //            if (pais == 'MX') {
+                            //                $("#MXProgBel1").css("display", "block");
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                        }
+
+                        if ($(this).attr('name') == 'campania_actual') {
+                            var campania = $(this).text();
+                            if (campania != '')
+                                $("#MeCampaniaDes").html("C-" + campania.substring(4, 6));
+                        }
+                    });
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    });
+
+    function CerrarSesion() {
+        if ($("#hEsConsultora").val() == '1') {
+            location.href = var_somosbelcorp + 'WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=1';
+        }
+        else {
+            location.href = var_somosbelcorp + 'WebPages/ComunidadLogOut.aspx?C=' + LITHIUM.CommunityJsonObject.User.login + '&T=0';
+        }
+    }
+
+    function QSRedireccionEstadisticas(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                location.href = document.location.protocol + '//' + var_comunidad + '/t5/user/viewprofilepage/user-id/' + LITHIUM.CommunityJsonObject.User.id;
+            }
+        }
+    }
+
+</script>
+
+<div class="menu_sb2">
+    <input id="hEsConsultora" type="hidden">
+    <div class="wrapper_header">
+        <div class="fondo_oscuro"></div>
+        <div class="logo_esika">
+            <a href="https://www.somosbelcorp.com/Bienvenida/">
+                <img id="imgLogo" src="https://www.somosbelcorp.com/Content/Images/belcorp_logo.png" style="height: 60px;" />
+            </a>
+        </div>
+        <div id="menuNoConsultora" class="menu_new_esika" style="display:block;">
+            <ul class="nav_principal">
+                <li class="new_menu">
+                    <a href="javascript:;" class="new_menu_a">
+                        Comunidad Somos Belcorp
+                        <div class="flecha_menu"></div>
+                        <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                    </a>
+                    <ul class="sub_menu_home1">
+                        <li>
+                            <div class="linea_menu"> </div>
+                            <div class="content_left_menu">
+                                <a href="javascript:;" class="menu_titulo">
+                                    EMPIEZA LA CONVERSACIÓN
+                                </a>
+                                <a href="/" class="menu_enlace">
+                                    Entrar a la Comunidad
+                                </a>
+                                <a href="/?estadistica=1" class="menu_enlace">
+                                    Ver mi perfil de Comunidad
+                                </a>
+                            </div>
+
+                        </li>
+                    </ul>
+                </li>
+                <li class="new_menu">
+                    <a href="javascript:;" class="new_menu_a">
+                        Nuestras Marcas
+                        <div class="flecha_menu"></div>
+                        <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                    </a>
+                    <ul class="sub_menu_home2">
+                        <li>
+                            <div class="linea_menu"> </div>
+                            <div class="content_left_menu ">
+                                <a href="http://www.esika.biz/" target="_blank" class="menu_titulo">
+                                    ÉSIKA
+                                </a>
+                            </div>
+                            <div class="content_left_menu ">
+                                <a href="https://www.cyzone.com/" target="_blank" class="menu_titulo">
+                                    CYZONE
+                                </a>
+                            </div>
+                            <div class="content_left_menu no_margin_right">
+                                <a href="http://www.lbel.com/" target="_blank" class="menu_titulo">
+                                    L'BEL
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="new_menu">
+                    <a href="javascript:;" class="new_menu_a">
+                        Únete a Belcorp
+                        <div class="flecha_menu"></div>
+                        <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                    </a>
+                    <ul class="sub_menu_home1" style="margin-left: -102px;">
+                        <li>
+                            <div class="linea_menu"> </div>
+                            <div class="content_left_menu">
+                                <a href="javascript:;" class="menu_titulo">
+                                    UN EQUIPO TRIUNFADOR
+                                </a>
+                                <a href="http://uneteabelcorp.com/" target="_blank" class="menu_enlace">
+                                    Quiero ser consultora
+                                </a>
+                                <a href="http://uneteabelcorp.com/peru/quienes-somos.html" target="_blank" class="menu_enlace">
+                                    Quiero saber más de Belcorp
+                                </a>
+                                <a href="http://uneteabelcorp.com/peru/inscribete.html" target="_blank" class="menu_enlace">
+                                    Contáctanos
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="menuConsultora" style="display:none;">
+            <div class="menu_new_esika">
+                <ul class="nav_principal ">
+                    <li class="new_menu">
+                        <a href="javascript:;" class="new_menu_a">
+                            MI NEGOCIO
+                            <div class="flecha_menu"></div>
+                            <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                        </a>
+                        <ul class="sub_menu_home1 sub_comunidad1">
+                            <li>
+                                <div class="linea_menu"> </div>
+                                <div class="content_left_menu">
+                                    <a href="https://www.somosbelcorp.com/Pedido" class="menu_titulo">
+                                        INGRESA TU PEDIDO
+                                    </a>
+                                    <a href="https://www.somosbelcorp.com/Tracking" class="menu_enlace" title="Seguimiento a tu pedido">
+                                        Seguimiento a tu pedido
+                                    </a>
+                                    <a href="https://www.somosbelcorp.com/MisPedidos" class="menu_enlace" title="Mis pedidos">
+                                        Mis pedidos
+                                    </a>
+                                    <a href="https://www.somosbelcorp.com/MisPagos" class="menu_enlace" title="Mis pagos">
+                                        Mis pagos
+                                    </a>
+                                    <a href="https://www.somosbelcorp.com/MisBeneficios" class="menu_enlace" title="Mis beneficios">
+                                        Mis beneficios
+                                    </a>
+                                </div>
+                                <div class="content_left_menu">
+                                    <a href="https://www.somosbelcorp.com/Cliente" class="menu_enlace" title="Mis clientes">
+                                        Mis clientes
+                                    </a>
+                                </div>
+                                <a href="https://www.somosbelcorp.com/MisCatalogosRevistas" class="menu_imagen" title="Mis Catalogos y Revistas">
+                                    <img id="imgMiNegocioCatalogoRevista" alt="Mis Catalogos y Revistas" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/PE/imagen_01.png">
+                                    <div class="titulo_imagen">CATÁLOGOS Y REVISTAS</div>
+                                </a>
+                                <a href="https://www.somosbelcorp.com/Incentivos" class="menu_imagen no_margin_right" title="Incentivos">
+                                    <img id="imgMiNegocioIncentivos" alt="Incentivos" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MiNegocio/PE/imagen_03.png">
+                                    <div class="titulo_imagen">INCENTIVOS</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="new_menu">
+                        <a href="javascript:;" class="new_menu_a" title="MI ACADEMIA">
+                            MI ACADEMIA
+                        </a>
+                    </li>
+                    <li class="new_menu">
+                        <a href="javascript:;" class="new_menu_a">
+                            MI COMUNIDAD
+                            <div class="flecha_menu"></div>
+                            <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                        </a>
+                        <ul class="sub_menu_home1 sub_comunidad2">
+                            <li>
+                                <div class="linea_menu"> </div>
+                                <div class="content_left_menu">
+                                    <a href="javascript:;" class="menu_titulo">
+                                        EMPIEZA LA CONVERSACIÓN
+                                    </a>
+                                    <a href="/" class="menu_enlace">
+                                        Entrar a la Comunidad
+                                    </a>
+                                    <a href="/?estadistica=1" class="menu_enlace">
+                                        Ver mi perfil de Comunidad
+                                    </a>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="new_menu">
+                        <a href="javascript:;" class="new_menu_a" title="MI ASESOR DE BELLEZA">
+                            MI ASESOR DE BELLEZA
+                            <div class="flecha_menu"></div>
+                            <div class="pestana_marca pestana_esika"></div><!--CAMBIAR LA CLASE POR "pestana_lbel"-->
+                        </a>
+                        <ul class="sub_menu_home2 sub_comunidad3">
+                            <li>
+                                <div class="linea_menu"> </div>
+                                <div class="content_left_menu ">
+                                    <p class="menu_enlace">
+                                        <b>ÉSIKA</b>
+                                    </p>
+                                    <a href="http://www.esika.com/coach-de-belleza/maquillador-virtual/" class="menu_enlace" title="Maquillador Virtual">
+                                        Maquillador Virtual
+                                    </a>
+                                    <a href="http://www.esika.com/coach-de-belleza/manicure-virtual/" class="menu_enlace" title="Manicure virtual">
+                                        Manicure virtual
+                                    </a>
+                                    <a href="http://www.esika.com/blog/" class="menu_enlace" title="Esika blog">
+                                        Esika blog
+                                    </a>
+                                </div>
+                                <div class="content_left_menu ">
+                                    <p class="menu_enlace">
+                                        <b>LBEL</b>
+                                    </p>
+                                    <a href="http://www.lbel.com/diagnosticodepiel" class="menu_enlace" title="Diagnóstico de Piel">
+                                        Diagnóstico de Piel
+                                    </a>
+                                    <a href="http://www.lbel.com/asesordemaquillaje/" class="menu_enlace" title="Asesor de Bases y Polvos">
+                                        Asesor de Bases y Polvos
+                                    </a>
+                                    <a href="http://www.lbel.com/tutoriales" class="menu_enlace" title="Belleza a tu medida">
+                                        Belleza a tu medida
+                                    </a>
+                                </div>
+                                <div class="content_left_menu no_margin_right">
+                                    <p class="menu_enlace">
+                                        <b>CYZONE</b>
+                                    </p>
+                                    <a href="http://www.cyzone.com/pe/maquillador-virtual" class="menu_enlace" title="Maquillador virtual">
+                                        Maquillador virtual
+                                    </a>
+                                    <a href="http://www.cyzone.com/pe/manicure-virtual" class="menu_enlace" title="Manicure virtual">
+                                        Manicure virtual
+                                    </a>
+                                    <a href="http://www.cyzone.com/look-book/" class="menu_enlace" title="Look book">
+                                        Look book
+                                    </a>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="HCerrar" class="menu_esika_b">
+                <div class="boton_cerrar_s">
+                    <a href="javascript:;" onclick="CerrarSesion();">
+                        CERRAR <br> SESIÓN
+                    </a>
                 </div>
-                <div id="cont_menus" class="field80">
-                    <div id="header_tsmv">
-                        <div class="field50">
-                            <div class="menu_opciones_sh"><span id="HNombre" class="margin_right_20" style="display: none;"></span></div>
-                            <div class="menu_opciones"><span id="HPerfil" class="margin_right_10" style="padding-left:10px; display: none;"><a href="https://www.somosbelcorp.com/MisDatos">Mis Datos</a></span></div>
-                            <div class="menu_opciones"><span id="HCerrar" class="margin_right_10" style="padding-left:10px; display: none;"><a href="#" onclick="return CerrarSesion()">Cerrar sesión</a></span></div>
-                            <div class="menu_opciones"><span id="HCambiarNombre" class="margin_right_10" style="padding-left:10px; display: none;"><a href="#" onclick="return CambiarNombreComunidad()">Cambia aquí tu nombre</a></span></div>
-                        </div>
-                        <div class="field50">
-                            <div id="MeResponde" class="belcorp_responde_com" style="display: none; width:60%"><a href="http://belcorpresponde.somosbelcorp.com" target="_blank"><img src="https://www.somosbelcorp.com/Content/Images/comunidad/belcorpresponde_min.png" alt="Belcorp responde" /></a></div>
-                            <div id="MeCampania" class="field40 campaign" style="display: none">Estás en <span id="MeCampaniaDes"></span></div>
-                        </div>
-                    </div>
-                    <div id="wrap_menu_principal_nc" class="field100" style="display:block">
-                        <ul id="menu" class="field100">
-                            <li id="menu_micomunidad" class="field33">
-                                <div class="menu_border_right">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/comunidad.png" alt="SomosBelcorp" />Comunidad Somos Belcorp</a>
-                                </div>
-                            </li>
-                            <li id="menu_mismarcas" class="field33">
-                                <div id="m_marcas_b" class=" menu_border_right">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/marcas.png" alt="SomosBelcorp" />Nuestras Marcas</a>
-                                </div>
-                            </li>
-                            <li id="menu_unetebelcorp" class="field34">
-                                <div class="menu_border_right no_border">
-                                    <a href="#"><img class="vertical_align_text" src="https://www.somosbelcorp.com/Content/Images/comunidad/unete.png" alt="SomosBelcorp" />Únete a Belcorp</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div id="submenu1" class="submenu subs_marcas submenu_3">
-                            <ul>
-                                <li class="field33">
-                                    <a href="#">
-                                        Empieza la Conversación <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/foros.jpg" alt="Empieza la Conversación" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="/">Entrar a la Comunidad</a></li>
-                                        <li><a href="/?estadistica=1">Ver mi perfil de Comunidad</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="submenu2" class="submenu submenu_4">
-                            <ul>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/esika_gray.png" style="margin-top:-5px" alt="Ésika" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_esika.jpg" alt="Esika" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.esika.biz/" target="_blank">Ir a Esika.biz &gt;</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/cyzone_gray.png" style="margin-top:-5px" alt="Cyzone" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_cyzone.jpg" alt="Cyzone" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.cyzone.com/" target="_blank">Ir a Cyzone.com &gt;</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/lbel_gray.png" style="margin-top:-5px" alt="L'BEL" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_lbel.jpg" alt="Lbel" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.lbel.com/" target="_blank">Ir a Lbel.com &gt;</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        Catálogos <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/catalogos.jpg" alt="Catalogos" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.catalogosbelcorp.com/" target="_blank">Ver catálogos &gt;</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="submenu3" class="submenu subs_marcas submenu_3">
-                            <ul>
-                                <li class="field33">
-                                    <a href="#">
-                                        Un Equipo Triunfador <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/unete.jpg" alt="Unete" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://uneteabelcorp.com/" target="_blank">Quiero ser consultora</a></li>
-                                        <li><a href="http://uneteabelcorp.com/peru/quienes-somos.html" target="_blank">Quiero saber más de Belcorp</a></li>
-                                        <li><a href="http://uneteabelcorp.com/peru/inscribete.html" target="_blank">Contáctanos</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div id="wrap_menu_principal" class="field100" style="display:none">
-                        <ul id="menu" class="field100">
-                            <li id="menu_minegocio" class="field25">
-                                <div class="menu_border_right">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/negocio.png" alt="SomosBelcorp" />Mi negocio</a>
-                                </div>
-                            </li>
-                            <li id="menu_micarrera" class="field25">
-                                <div class="menu_border_right">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/carrera.png" alt="SomosBelcorp" />Mi Academia<span></span></a>
-                                </div>
-                            </li>
-                            <li id="menu_micomunidad" class="field25">
-                                <div class="menu_border_right">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/comunidad.png" alt="SomosBelcorp" />Mi comunidad</a>
-                                </div>
-                            </li>
-                            <li id="menu_mismarcas" class="field25">
-                                <div id="m_marcas_b" class=" menu_border_right  no_border">
-                                    <a href="#"><img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/marcas.png" alt="SomosBelcorp" />Mis marcas</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div id="submenu1" class="submenu submenu_5">
-                            <ul>
-                                <li class="field20">
-                                    <a href="#">
-                                        Mis pedidos <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/menu1.jpg" alt="SomosBelcorp" />
-                                    </a>
-                                    <ul>
-                                        <li class="submenu_important">
-                                            <div id="wrap_box">
-                                                <a href="https://www.somosbelcorp.com/Pedido">INGRESA TU PEDIDO</a>
-                                            </div>
-                                        </li>
-                                        <li><a href="https://www.somosbelcorp.com/Bienvenida">Información de campaña</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/Tracking">Seguimiento a tu pedido</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/PaqueteDocumentario">Paquete Documentario</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/PedidoWeb/PedidoWeb">Pedidos ingresados</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/PedidoWebAnteriores/PedidoWebAnteriores">Pedidos facturados</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/OfertaLiquidacion/OfertasLiquidacion">Zona liquidación</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field20">
-                                    <a href="#">
-                                        Mis pagos <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/menu2.jpg" alt="SomosBelcorp" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.somosbelcorp.com/EstadoCuenta">Estado de cuenta</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/LugaresPago">Lugares de pago</a></li>
-                                        <li><a id="FactPE" href="https://www.somosbelcorp.com/FacturaElectronica" target="_blank" style="display:none;">Facturación electrónica</a></li>
-                                        <li><a id="PercPE" href="https://www.somosbelcorp.com/Percepciones" style="display:none;">Consultas percepciones</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field20">
-                                    <a href="#">
-                                        Revista y catálogos <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/menu3.jpg" alt="SomosBelcorp" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.somosbelcorp.com/Catalogo">Catálogos</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/RevistaGana">Revista Somos Belcorp</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field20">
-                                    <a href="#">
-                                        Mis clientes <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/menu4.jpg" alt="SomosBelcorp" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.somosbelcorp.com/Cliente">Listado de clientes</a></li>
-                                        <li><a href="https://www.somosbelcorp.com/PedidoWeb/PedidoWeb">Pedidos por cliente</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field20">
-                                    <a href="#">
-                                        Mis programas belcorp <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/menu5.jpg" alt="SomosBelcorp" />
-                                    </a>
-                                    <ul>
-                                        <li><a id="PEProgBel1" href="https://s3.amazonaws.com/somosbelcorp/2015/Brillante/Folleto_Per%C3%BA_final.pdf" target="_blank" style="display:none;">Brillante 2015</a></li>
-                                        <li><a id="PEProgBel2" href="https://s3.amazonaws.com/somosbelcorp/2014/Activacion+Digital+de+Flexipago/index.html" target="_blank" style="display:none;">Flexipago</a></li>
-                                        <li><a id="PEProgBel3" href="https://www.somosbelcorp.com/familiaprotegida" target="_blank" style="display:none;">Familia Protegida</a></li>
-                                        <li><a id="PEProgBel4" href="https://s3.amazonaws.com/somosbelcorp/2014/Programa+Nuevas/PE/index.html" target="_blank" style="display:none;">Programa Nuevas</a></li>
-                                        <li><a id="CLProgBel1" href="https://s3.amazonaws.com/somosbelcorp/2015/Brillante/ARTE+CHILE.pdf" target="_blank" style="display:none;">Brillante 2015</a></li>
-                                        <li><a id="CLProgBel2" href="https://www.somosbelcorp.com/familiaprotegida" target="_blank" style="display:none;">Familia Protegida</a></li>
-                                        <li><a id="MXProgBel1" href="https://s3.amazonaws.com/somosbelcorp/2015/Brillante/FOLLETO+MXdigital.pdf" target="_blank" style="display:none;">Brillante 2015</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="submenu2" class="submenu subs_marcas submenu_3">
-                            <ul>
-                                <li class="field33">
-                                    <a href="#">
-                                        Academia Belcorp <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/aprendizaje_01.jpg" alt="Academia Belcorp" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.somosbelcorp.com/miacademia">Mis Cursos</a></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="submenu3" class="submenu subs_marcas submenu_3">
-                            <ul>
-                                <li class="field33">
-                                    <a href="#">
-                                        Empieza la Conversación <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/foros.jpg" alt="Empieza la Conversación" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="/">Entrar a la Comunidad</a></li>
-                                        <li><a href="/?estadistica=1">Ver mi perfil de Comunidad</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                                <li class="field33">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="submenu4" class="submenu submenu_4">
-                            <ul>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/esika_gray.png" style="margin-top:-5px" alt="Ésika" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_esika.jpg" alt="Esika" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.esika.biz/coach-de-belleza/asesor-de-looks/" target="_blank">Asesor de Looks</a></li>
-                                        <li><a href="http://www.esika.biz/coach-de-belleza/asesor-de-fragancias-para-ti/" target="_blank">Asesor de Fragancias</a></li>
-                                        <li><a href="http://www.esika.biz/coach-de-belleza/maquillador-virtual/" target="_blank">Maquillador Virtual</a></li>
-                                        <li><a href="http://www.esika.biz/coach-de-belleza/manicure-virtual/" target="_blank">Manicure Virtual</a></li>
-                                        <li><a href="http://fashionblog.esika.biz/" target="_blank">Esika Fashion Blog</a></li>
-                                        <li><a href="http://www.esika.biz/guia-de-belleza/tips-de-belleza/" target="_blank">Tips de Belleza</a></li>
-                                        <li><a href="http://www.esika.biz/a-la-moda/esika-fashion/" target="_blank">A la moda</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/cyzone_gray.png" style="margin-top:-5px" alt="Cyzone" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_cyzone.jpg" alt="Cyzone" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="https://www.cyzone.com/el-maquillador-virtual-esta-cambiado-de-look/" target="_blank">Maquillador Virtual</a></li>
-                                        <li><a href="https://www.cyzone.com/manicure_virtual/" target="_blank">Manicure Virtual</a></li>
-                                        <li><a href="https://www.cyzone.com/blog/" target="_blank">Cyblog</a></li>
-                                        <li><a href="https://www.cyzone.com/look-book/" target="_blank">Look Book</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        <img src="https://www.somosbelcorp.com/Content/Images/comunidad/lbel_gray.png" style="margin-top:-5px" lt="L'BEL" /><br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_lbel.jpg" alt="Lbel" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.lbel.com/" target="_blank">Ir a Lbel.com</a></li>
-                                    </ul>
-                                </li>
-                                <li class="field25">
-                                    <a href="#">
-                                        Catálogos <br />
-                                        <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/catalogos.jpg" alt="Catalogos" />
-                                    </a>
-                                    <ul>
-                                        <li><a href="http://www.catalogosbelcorp.com/" target="_blank">Ver catálogos</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
+                <div id="MeCampania" class="boton_marca boton_cam">
+                    <!--para Lbel Añadir clase "boton_cam_lbel"-->
+                    ESTÁS EN <br> <span id="MeCampaniaDes">C-00</span>
                 </div>
             </div>
-            <div id="white_bg_for_menu"></div>
         </div>
     </div>
-</body>
-</html>
+    <div class="clear"></div>
+</div>
+

@@ -15,21 +15,24 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Css/Mobile/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
 }
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
-<div class="titulo_showroom_mobile">
-    <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
-    Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
+<div class="wrapper_resumen_mobile">
+    <div class="titulo_showroom_mobile">
+        <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
+        Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.
+    </div>
+
+    <div class="titulo_showroom_mobile">
+        <a onclick="SetMarcaGoogleAnalyticsTermino();"
+           href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre<br />@Model.Tema</a>
+    </div>
+
+    <br />
 </div>
 
-<div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" 
-       href="@Model.RutaShowRoomPopup" target="_blank">T&eacute;rminos y condiciones de la @Model.Nombre <br />@Model.Tema</a>
-</div>
-
-<br />
 
 @{ var posicion = 1; }
 @foreach (var item in Model.ListaShowRoomOferta)
@@ -42,27 +45,8 @@
         contadorDetalle++;
     }
     var inhabilitar = item.Stock == 0;
-    var formatoPrecioOferta = "";
-    var formatoPrecioCatalogo = "";
-    if (Model.CodigoIso == Constantes.CodigosISOPais.Colombia)
-    {
-        formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta).Replace(',', '.');
-        formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo).Replace(',', '.');
-    }
-    else
-    {
-        if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
-        {
-            formatoPrecioOferta = string.Format("{0:#,##0}", item.PrecioOferta);
-            formatoPrecioCatalogo = string.Format("{0:#,##0}", item.PrecioCatalogo);
-        }
-        else
-        {
-            formatoPrecioOferta = Convert.ToInt32(item.PrecioOferta).ToString();
-            formatoPrecioCatalogo = Convert.ToInt32(item.PrecioCatalogo).ToString();  
-        }
-          
-    }
+    var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
+    var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);        
     
     <div class="listado_item" data-posicion="@posicion">
         <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
@@ -304,7 +288,9 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            ActualizarCantidadTotalPedido();
+                                            //ActualizarCantidadTotalPedido();
+                                            CargarCantidadProductosPedidos();
+                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
                                         else {
                                             messageInfo(response.message);

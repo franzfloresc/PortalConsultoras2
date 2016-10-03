@@ -322,6 +322,17 @@ namespace Portal.Consultoras.Entities
                 EsOfertaFinalZonaValida = Convert.ToBoolean(row["EsOfertaFinalZonaValida"]);
             if (DataRecord.HasColumn(row, "CatalogoPersonalizado") && row["CatalogoPersonalizado"] != DBNull.Value)
                 CatalogoPersonalizado = Convert.ToInt32(row["CatalogoPersonalizado"]);
+            if (DataRecord.HasColumn(row, "EsCatalogoPersonalizadoZonaValida") && row["EsCatalogoPersonalizadoZonaValida"] != DBNull.Value)
+                EsCatalogoPersonalizadoZonaValida = Convert.ToBoolean(row["EsCatalogoPersonalizadoZonaValida"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
+                IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
+            if (DataRecord.HasColumn(row, "IndicadorRechazado") && row["IndicadorRechazado"] != DBNull.Value)
+                IndicadorRechazado = Convert.ToInt32(row["IndicadorRechazado"]);
+
+            // SB20-907
+            if (DataRecord.HasColumn(row, "GerenteZona") && row["GerenteZona"] != DBNull.Value)
+                NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
         }
 
         [DataMember]
@@ -870,6 +881,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CatalogoPersonalizado { get; set; }
 
+        [DataMember]
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public BEUsuario(IDataRecord row, string Lider)
         {
             if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
@@ -959,7 +972,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         private string msRpta4 { get; set; }
 
+        [DataMember]
+        public int IndicadorEnviado { get; set; }
+        [DataMember]
+        public int IndicadorRechazado { get; set; }
 
+        [DataMember]
+        public string NombreGerenteZona { get; set; }
 
         public BEUsuario(IDataRecord row, string tipo1, string tipo2)
         {

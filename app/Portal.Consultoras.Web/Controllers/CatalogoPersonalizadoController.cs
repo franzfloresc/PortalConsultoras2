@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +17,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (!userData.EsCatalogoPersonalizadoZonaValida)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
             return View();
         }
 
@@ -56,10 +61,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
                         lista = ps.ObtenerTodosProductos(userData.CatalogoPersonalizado, userData.CodigoISO,
                                 userData.CampaniaID, userData.CodigoConsultora,
                                 userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
-                                cantidad).ToList();
+                                cantidad, esFacturacion).ToList();
                     }
                                         
                     foreach (var producto in lista)
@@ -101,7 +109,11 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             descripcion = producto.NombreComercial;
                             imagenUrl = producto.Imagen;
-                            add = true;
+                            if (olstProducto[0].TieneStock)
+                            {
+                                add = true;
+                            }
+                            //add = true;
                         }
 
                         if (add)
@@ -135,7 +147,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
-                                IsAgregado = false
+                                IsAgregado = false,
+                                TieneOfertaEnRevista = olstProducto[0].TieneOfertaRevista,
+                                TieneLanzamientoCatalogoPersonalizado = olstProducto[0].TieneLanzamientoCatalogoPersonalizado,
+                                TipoOfertaRevista = olstProducto[0].TipoOfertaRevista
                             });
 
                         }
@@ -166,6 +181,44 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        public JsonResult ObtenerOfertaRevista(string cuv)
+        {
+            try
+            {
+                BEProducto producto = new BEProducto();
+
+                ObjOfertaCatalogos dataPROL;
+                using (var sv = new ServicesCalculoPrecioNiveles())
+                {
+                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString());
+                }
+                using (ODSServiceClient sv = new ODSServiceClient())
+                {
+                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
+                            userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1).FirstOrDefault();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    data = new { dataPROL = dataPROL,
+                                 producto = producto }
+                });
+            }
+            catch(Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrrio un problema con la operacion.",
+                    data = ""
+                });
+            }
+            
         }
     }
 }

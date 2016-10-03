@@ -112,6 +112,15 @@ namespace Portal.Consultoras.Web.WebPages {
         protected global::System.Web.UI.WebControls.Label lblSaldo;
         
         /// <summary>
+        /// lblMotivoRechazo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotivoRechazo;
+        
+        /// <summary>
         /// lTabla control.
         /// </summary>
         /// <remarks>

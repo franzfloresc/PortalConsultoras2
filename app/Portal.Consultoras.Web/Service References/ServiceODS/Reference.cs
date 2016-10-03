@@ -330,6 +330,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private decimal PrecioValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneLanzamientoCatalogoPersonalizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -337,6 +343,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoEstrategiaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoOfertaRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOfertaSisIDField;
@@ -586,6 +595,32 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneLanzamientoCatalogoPersonalizado {
+            get {
+                return this.TieneLanzamientoCatalogoPersonalizadoField;
+            }
+            set {
+                if ((this.TieneLanzamientoCatalogoPersonalizadoField.Equals(value) != true)) {
+                    this.TieneLanzamientoCatalogoPersonalizadoField = value;
+                    this.RaisePropertyChanged("TieneLanzamientoCatalogoPersonalizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertaRevista {
+            get {
+                return this.TieneOfertaRevistaField;
+            }
+            set {
+                if ((this.TieneOfertaRevistaField.Equals(value) != true)) {
+                    this.TieneOfertaRevistaField = value;
+                    this.RaisePropertyChanged("TieneOfertaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool TieneStock {
             get {
                 return this.TieneStockField;
@@ -620,6 +655,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.TipoEstrategiaIDField, value) != true)) {
                     this.TipoEstrategiaIDField = value;
                     this.RaisePropertyChanged("TipoEstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoOfertaRevista {
+            get {
+                return this.TipoOfertaRevistaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoOfertaRevistaField, value) != true)) {
+                    this.TipoOfertaRevistaField = value;
+                    this.RaisePropertyChanged("TipoOfertaRevista");
                 }
             }
         }
@@ -2613,6 +2661,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetConsultoraIdByCodigo", ReplyAction="http://tempuri.org/IODSService/GetConsultoraIdByCodigoResponse")]
         System.Threading.Tasks.Task<long> GetConsultoraIdByCodigoAsync(int paisID, string CodigoConsultora);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetValidarCUVMisPedidos", ReplyAction="http://tempuri.org/IODSService/GetValidarCUVMisPedidosResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEProducto[] GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetValidarCUVMisPedidos", ReplyAction="http://tempuri.org/IODSService/GetValidarCUVMisPedidosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetValidarCUVMisPedidosAsync(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/SelectConsultoraDatos", ReplyAction="http://tempuri.org/IODSService/SelectConsultoraDatosResponse")]
         Portal.Consultoras.Web.ServiceODS.BEConsultoraDD[] SelectConsultoraDatos(int paisID, string codigoZona, string codigoSeccion, string codigoConsultora, string nombreConsultora);
         
@@ -2839,6 +2893,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<long> GetConsultoraIdByCodigoAsync(int paisID, string CodigoConsultora) {
             return base.Channel.GetConsultoraIdByCodigoAsync(paisID, CodigoConsultora);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEProducto[] GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona) {
+            return base.Channel.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetValidarCUVMisPedidosAsync(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona) {
+            return base.Channel.GetValidarCUVMisPedidosAsync(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
         }
         
         public Portal.Consultoras.Web.ServiceODS.BEConsultoraDD[] SelectConsultoraDatos(int paisID, string codigoZona, string codigoSeccion, string codigoConsultora, string nombreConsultora) {

@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime? Fecha { get; set; }
 
+        [DataMember]
+        public string ValorTurno { get; set; }  /*SB20-964 */
 
         public BETracking()
         {
@@ -54,6 +56,10 @@ namespace Portal.Consultoras.Entities
                 Situacion = Convert.ToString(row["Situacion"]);
             if (row.HasColumn("Fecha"))
                 Fecha = row["Fecha"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["Fecha"]);
+
+            /*SB20-964 */
+            if (row.HasColumn("ValorTurno"))
+                ValorTurno = Convert.ToString(row["ValorTurno"]);
         }
     }
 

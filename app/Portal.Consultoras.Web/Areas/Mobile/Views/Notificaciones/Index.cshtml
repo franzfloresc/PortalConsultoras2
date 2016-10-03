@@ -16,9 +16,10 @@
             position: absolute;
             top: 5px;
             bottom: 5px;
-            left: -15px;
-            border-left: 7px solid #000;
+            /* left: -15px; */
+            /* border-left: 7px solid #000; */
             margin-bottom: 10px;
+            font-weight: bold;
         }
     </style>
 }
@@ -50,7 +51,7 @@ else
 
                     <div class="text-noti">
                         <div class="upper">
-                            <strong>
+                            
                                 @if (item.FlagProcedencia == true)
                                 {
                                     <span id="lnk-cue-notificacion-@item.ProcesoId" role="link" title="Tienes una nueva notificación">@item.Asunto</span>
@@ -59,15 +60,15 @@ else
                                 {
                                     <span id="lnk-cue-notificacion" role="link" title="Tienes una nueva notificación">@item.Asunto</span>
                                 }
-                            </strong>
+                            
 
-                            <b>
+                            
                                 CAMPAÑA
                                 @if (item.CampaniaId > 0)
                                 {
                                     @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
                                 }
-                            </b>
+                            
                         </div>
                         <span class="fecha_notificaciones">
                             @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)

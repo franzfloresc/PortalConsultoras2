@@ -107,8 +107,8 @@ namespace Portal.Consultoras.Web.Controllers
             SolicitudClienteConsultoraModel model = new SolicitudClienteConsultoraModel();
             int PaisId = UserData().PaisID;
             ViewBag.PaisID = PaisId;
-            ViewBag.Simbolo = UserData().Simbolo;
-            ViewBag.NombreCompleto = UserData().NombreConsultora;
+            ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.NombreCompleto = userData.NombreConsultora;
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {

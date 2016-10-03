@@ -494,6 +494,7 @@
       <xs:element minOccurs="0" name="NombreConsultoraAsignada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGZ" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumIteracion" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
       <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudClienteID" type="xs:long" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
@@ -517,7 +518,12 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoWebDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoWebID" type="xs:int" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SolicitudClienteDetalleID" type="xs:long" />
+      <xs:element minOccurs="0" name="SolicitudClienteID" type="xs:long" />
+      <xs:element minOccurs="0" name="TipoAtencion" type="xs:int" />
       <xs:element minOccurs="0" name="Tono" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

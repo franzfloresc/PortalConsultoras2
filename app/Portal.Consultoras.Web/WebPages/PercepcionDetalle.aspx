@@ -27,10 +27,6 @@
     <div class="contenedor_popup_percepciones" style="display: block!important; background: none!important;">
         <div class="popup_Percepcion" style="width: 100%!important;">
             <div class="content_popUp">
-                <div class="percepcion_campania">
-                    <span></span>
-                    <h1>MIS<b>&nbsp;&nbsp;PERCEPCIONES</b></h1>
-                </div>
                 <div class="contenedor_bloque_datos">
                     <div class="datos_cliente">
                         <h2>
