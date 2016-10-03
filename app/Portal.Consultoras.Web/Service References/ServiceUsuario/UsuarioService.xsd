@@ -363,9 +363,10 @@
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaSolicitud" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaSolicitudFormat" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagMedio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormartoFechaSolicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormatoPrecioTotal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Leido" type="xs:int" />
       <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />

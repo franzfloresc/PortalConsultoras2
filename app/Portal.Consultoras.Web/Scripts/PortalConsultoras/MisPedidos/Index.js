@@ -174,7 +174,8 @@ function CargarEventosTabs() {
         .on('mouseover',function () { $("#barCursor").css("opacity", "1"); })
         .on('mouseout', function () { $("#barCursor").css("opacity", "0"); });
 
-    $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
+    $("#barCursor").css("opacity", "0");
+    if (!lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
 }
 
 function CargarFramePedido(campania)

@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new PedidoSb2Model();
 
@@ -311,7 +311,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Pedidos Pendientes
                 ViewBag.MostrarPedidosPendientes = "0";
-                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("PaisesConsultoraOnline");
+                ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
+                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                 if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                 {
                     List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
@@ -321,8 +322,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (olstMisPedidos.Any())
                     {
-                        ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                        olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
+                        if (olstMisPedidos.Count > 0)
+                        {
+                            ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+                        }
                     }
+                }
+
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                 }
 
                 #endregion

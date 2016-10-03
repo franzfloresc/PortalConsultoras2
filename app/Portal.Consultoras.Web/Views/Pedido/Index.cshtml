@@ -230,7 +230,7 @@
                                     <!--SB20-483 - INICIO -->
                                     <div class="caja_montos_textos_sinDescuento">
                                         <span>TOTAL SIN DSCTO.</span>
-                                    <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
+                                        <span>DSCTO. OFERTAS POR NIVELES</span>
                                     </div>
                                     <br />
                                     <!--SB20-483 - FIN -->
@@ -432,7 +432,7 @@
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
-                <div id="infoPendientes" style="background:white">
+                <div id="infoPendientes" style="background:white; display: none;">
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -445,6 +445,15 @@
                     <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
                     <div>
                         <div id="divPedidosPend"> </div>
+                    </div>
+                    <div class="tiempo_atencionPedido">
+                        <span class="icono_notaDemanda"></span>
+                        <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
+                    </div>
+                    <div class="revision_pedidosAceptados">
+                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                        <span class="icono_consultoraOnline"></span>
+                        <span class="texto_misPedidosClientesOnline">MIS PEDIDOS DE <b>CLIENTES ONLINE</b></span>
                     </div>
                 </div>
             }
@@ -940,7 +949,7 @@
     <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
-            <div class="cubre"></div>
+            <div class="cubre cubre2"></div>
 
             <input type="hidden" id="hdIdComprobantePercepcion">
 
@@ -1009,7 +1018,7 @@
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreMotivoRechazo" onclick="$('#dialog_motivoRechazo').hide()">
+                <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1024,10 +1033,15 @@
 
                 <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
 
-                <div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
+                @*<div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
                 <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
                 <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>
+                <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
+
+                @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
 
                 <textarea id="txtOtrosRechazo" placeholder="Otros:"></textarea>
             </div>
@@ -1050,7 +1064,7 @@
             <div class="contenido_popUp aceptaPedido">
                 <div class="icono_aprobacion" id="apro_o_excla"></div>
                 <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                <span class="mensaje_agregarUnidades">No te olvides de coordinar la entrega de los productos.</span>
+                <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
                 <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
                     OK
                 </button>
@@ -1106,11 +1120,11 @@
             @*<div class="padding_tabla_percepcion dinamicostable">{{DetallePedido[0].FechaCreacion}}</div>
                 <div class="padding_tabla_percepcion dinamicostablemedio">{{DetallePedido[0].PrecioTotal}}</div>*@
 
-            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FechaSolicitudFormat}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
-                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{PrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
+                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
                 <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
                     REVÍSALO
 
@@ -1136,13 +1150,13 @@
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
             <div class="mensajes_deAtencion">
-
                 <span>¡No te pierdas esta oportunidad!</span>
                 {{#if FlagConsultora}}
                 <span>Te quedan <br>00:00:00</span>
                 {{else}}
                 <span>Te quedan <br>{{SaldoHoras}}</span>
                 {{/if}}
+                <div class="clear"></div>
             </div>
 
             <div class="percepcion_campania libero">
@@ -1190,7 +1204,7 @@
             <div class="linea_separadora" style="margin-top:-1px"></div>
             <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
 
-            <div style="max-height:419px; overflow:auto;">
+            <div style="max-height: 226px; overflow-y:auto;">
 
                 <div id="divDetPedidoPend"> </div>
 
@@ -1200,7 +1214,7 @@
 
             <div class="calculo_PendientesTotal">
 
-                <h4>TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
 
             </div>
 
@@ -1312,7 +1326,7 @@
             <input type="hidden" value="{{PedidoDetalleId}}" />
             <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
             <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">{{Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
             <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioUnitario}}</div>
             <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">
@@ -1456,10 +1470,10 @@
             <span class="texto_pedidos_ofertas">
                 <label>PRE-VENTA DIGITAL</label>
             </span>
-            @*{{else}}
+            {{else if_eq FlagConsultoraOnline '1'}}
             <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
-            </span>*@
+            </span>
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
                 {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}                 
@@ -1905,6 +1919,8 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
+        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
 

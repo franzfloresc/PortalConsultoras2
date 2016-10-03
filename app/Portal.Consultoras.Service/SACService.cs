@@ -1249,6 +1249,11 @@ namespace Portal.Consultoras.Service
             if (!string.IsNullOrEmpty(error)) throw new FaultException(error);
         }
 
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            return BLSolicitudCliente.GetMotivosRechazo(paisID);
+        }
+
         #endregion
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */

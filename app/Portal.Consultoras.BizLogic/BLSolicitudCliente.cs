@@ -290,25 +290,16 @@ namespace Portal.Consultoras.BizLogic
 
         public string CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
-            string error = "";
             try
             {
+                BEMisPedidos miPedido = new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudId);
+                if (Convert.ToInt32(miPedido.Campania) != campaniaID) return "Este pedido no pertenece a la campaña vigente. Sólo se pueden cancelar los pedidos de la campaña vigente";
+                if (miPedido.Estado != "A") return "Este pedido no se encuentra aceptado.";
+
                 DAPedidoWeb dAPedidoWeb = new DAPedidoWeb(paisID);
                 DAPedidoWebDetalle dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-
+                
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(paisID, campaniaID, consultoraID, "").ToList();
-                //    new List<BEPedidoWebDetalle>();
-                //using (IDataReader reader = dAPedidoWebDetalle.GetPedidoWebDetalleByCampania(campaniaID, consultoraID))
-                //{
-                //    while (reader.Read())
-                //    {
-                //        var entidad = new BEPedidoWebDetalle(reader, "");
-                //        entidad.PaisID = paisID;
-                //        olstPedidoWebDetalle.Add(entidad);
-                //    }
-                //    reader.Close();
-                //}
-
                 List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();
                 listDetallesClienteOnline = listDetallesClienteOnline.Where(d => d.PedidoWebDetalleID != 0).ToList();
                 
@@ -371,11 +362,22 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex) { 
                 LogManager.SaveLog(ex, "", paisID.ToString());
-                error = "Ocurrió un error al intentar cancelar la solicutd de pedido";
+                return "Ocurrió un error al intentar cancelar la solicutd de pedido";
             }
-            return error;
+            return "";
         }
 
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            List<BEMotivoSolicitud> motivosRechazos = new List<BEMotivoSolicitud>();
+            var DASolicitudCliente = new DASolicitudCliente(paisID);
+
+            using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+            {
+                while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+            }
+            return motivosRechazos;
+        }
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)
