@@ -34,6 +34,7 @@ $(document).ready(function() {
         $('#videoIntroductorio').fadeIn(function() {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function() {
+                $(".popup_video_introductorio").fadeIn();
                 playVideo();
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -164,9 +165,8 @@ $(document).ready(function() {
 
     $("#cerrarVideoIntroductorio").click(function() {
         if (primeraVezVideo) {
-           
-            abrir_popup_tutorial();
-            primeraVezVideo = false;
+            primeraVezVideo = true;
+            abrir_popup_tutorial();            
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -447,11 +447,64 @@ $(document).ready(function() {
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
     });
 
+        
     //ShowRoom
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
 });
+
+function abrir_popup_tutorial() {
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+    var paisCP = false;
+    var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
+    if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
+        paisCP = true;
+    }
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        numImagen++;
+        if (!paisCP && numImagen == 8) {
+            $(".img_slide" + numImagen).hide();
+            numImagen++;
+        }
+
+        if (numImagen > 9) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+    }, 3000);
+}
+
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_home').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+    
+    /* SB20-834 - INICIO */
+    if (viewBagVerComunicado == '-1') {
+        showViewVideo = '1';
+        ObtenerComunicadosPopup();
+    }
+    else {
+        if (viewBagVerComunicado == '1') {
+            //if ($('#totalComuSinMostrar').val() != '0') {
+            if (closeComunicadosPopup == false) {
+                mostrarComunicadosPopup();
+                if ($.trim($('#popupComunicados').html()) != "") {
+                    $('#popupComunicados').show();
+                }
+            }
+        }
+        else {
+            //CargarPopupsConsultora();
+        }
+    }
+    /* SB20-834 - FIN */
+}
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -625,90 +678,6 @@ function mostrarIconoTutorial() {
 }
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
-//Video youtube
-function stopVideo() {
-    try {
-        if (player) {
-            if (player.stopVideo) {
-                player.stopVideo();
-            }
-            else {
-                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
-                var urlVideo = $("#divPlayer").attr("src");
-                $("#divPlayer").attr("src", "");
-                $("#divPlayer").attr("src", urlVideo);
-            }
-        }
-    } catch (e) { }
-};
-function playVideo() {
-    try {
-        if (player) {
-            if (player.playVideo) {
-                player.playVideo();
-            }
-            else {
-                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            }
-        }
-    } catch (e) { }
-};
-
-function abrir_popup_tutorial() {
-    $('#popup_tutorial_home').fadeIn();
-    $('html').css({ 'overflow-y': 'hidden' });
-    var paisCP = false;
-    if (viewBagPaisID == "11" || viewBagPaisID == "3") {
-        var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
-        if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
-            paisCP = true;
-        }
-        fnMovimientoTutorial = setInterval(function() {
-            $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-            numImagen++;
-            if (!paisCP && numImagen == 8) {
-                $(".img_slide" + numImagen).hide();
-                numImagen++;
-            }
-
-            if (numImagen > 9) {
-                numImagen = 1;
-                $(".imagen_tutorial").animate({ 'opacity': '1' });
-            }
-        }, 3000);
-    }
-}
-
-function cerrar_popup_tutorial() {
-    $('#popup_tutorial_home').fadeOut();
-    $('html').css({ 'overflow-y': 'auto' });
-    $(".imagen_tutorial").animate({ 'opacity': '1' });
-    window.clearInterval(fnMovimientoTutorial);
-    numImagen = 1;
-    
-    /* SB20-834 - INICIO */
-    if (viewBagVerComunicado == '-1') {        
-        waitingDialog({});
-        ObtenerComunicadosPopup();
-    }
-    else {
-        if (viewBagVerComunicado == '1') {
-            //if ($('#totalComuSinMostrar').val() != '0') {
-            if (closeComunicadosPopup == false) {
-                mostrarComunicadosPopup();
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
-            }
-        }
-        else {
-            //CargarPopupsConsultora();
-        }
-    }
-    /* SB20-834 - FIN */
-}
-
-
 function mostrarVideoIntroductorio() {
     try {
 
@@ -757,7 +726,6 @@ function mostrarVideoIntroductorio() {
 
     }
 }
-
 
 function UpdateUsuarioVideo() {
     $.ajax({
@@ -3191,6 +3159,7 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var descripcionMarca = $(divPadre).find(".hdItemDescripcionMarca").val();
     var descripcionEstrategia = $(divPadre).find(".hdItemDescripcionEstrategia").val();
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
+
     if (!isInt(cantidad)) {
         alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
@@ -3556,6 +3525,35 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
     }
 }
 
+//Video youtube
+function stopVideo() {
+    try {
+        if (player) {
+            if (player.stopVideo) {
+                player.stopVideo();
+            }
+            else {
+                //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+                var urlVideo = $("#divPlayer").attr("src");
+                $("#divPlayer").attr("src", "");
+                $("#divPlayer").attr("src", urlVideo);
+            }
+        }
+    } catch (e) { }
+};
+function playVideo() {
+    try {
+        if (player) {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+            else {
+                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }
+        }
+    } catch (e) { }
+};
+
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();
     var hidden;
@@ -3700,10 +3698,10 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-    var idRol = viewBagRol;
-
-    if (idRol == 1) {
-
+    if (viewBagRol == 1) {
+        if (sesionEsShowRoom == '0') {
+            return;
+        }
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
@@ -3770,9 +3768,7 @@ function MostrarShowRoom() {
             }
         });
     }
-
 }
-
 function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     var name = 'showroom digital ' + nombreEvento;
 
@@ -3862,6 +3858,7 @@ function ObtenerComunicadosPopup() {
         }
     });
 }
+
 function armarComunicadosPopup(response) {
     //console.log('armarComunicadosPopup');
     viewBagVerComunicado = response.comunicadoVisualizado;
@@ -3954,7 +3951,7 @@ function mostrarComunicadosPopup() {
 }
 
 function centrarComunicadoPopup(ID) {
-
+    //console.log('centrarComunicadoPopup');
     //var altoPopup = $("#" + ID).height() / 2;
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
@@ -3965,8 +3962,8 @@ function centrarComunicadoPopup(ID) {
         $("#" + ID).css({ "top": altoPopup });
     }
 }
-function clickCerrarComunicado(obj) {
 
+function clickCerrarComunicado(obj) {
     //console.log('clickCerrarComunicado');
     var comunicadoID = $(obj).attr('data-comunicado');
     var dialogComunicadoID = $(obj).attr('data-id');
@@ -3986,8 +3983,8 @@ function clickCerrarComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
-function clickImagenComunicado(obj) {
 
+function clickImagenComunicado(obj) {
     //console.log('clickImagenComunicado');
     var comunicadoID = $(obj).attr('data-comunicadoid');
     var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
@@ -4021,15 +4018,14 @@ function clickImagenComunicado(obj) {
         //CargarPopupsConsultora();
     }
 }
-function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
 
+function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
     //console.log('AceptarComunicadoVisualizacion');
 
     if ($('#chkMostrarComunicado_' + ID + '').is(':checked')) {
         var params = { ComunicadoID: ID };
 
         waitingDialog({});
-
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
@@ -4040,7 +4036,6 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
                     //$("#" + dialogComunicadoID + "").dialog('close');
                     //$('#popupComunicados').hide();
                     $('#' + dialogComunicadoID).hide();
-                    $('#' + dialogComunicadoID).fadeOut();
                     closeWaitingDialog();
                 }
             },
@@ -4054,6 +4049,5 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
     }
 
     $('#' + dialogComunicadoID).hide();
-    
 }
 /* SB20-834 - FIN */

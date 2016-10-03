@@ -1790,12 +1790,12 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
+    
     if (item.TipoOfertaSisID == "1707") {
-        var esShowRoom = sesionEsShowRoom;
 
         $("#divObservaciones").html("");
 
-        if (esShowRoom == "1") {
+        if (sesionEsShowRoom == "1") {
             //$("#divObservaciones").append("<div class='noti'><div class='noti_message red_texto_size'>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
         } else {
@@ -1892,7 +1892,7 @@ function ObservacionesProducto(item) {
     $("#txtCantidad").focus();
     
     if (item.TipoOfertaSisID == "1707") {
-        if (esShowRoom != "1") {
+        if (sesionEsShowRoom != "1") {
             $("#txtDescripcionProd").val("");
             $("#hdfDescripcionProd").val("");
             $("#txtPrecioR").val("");

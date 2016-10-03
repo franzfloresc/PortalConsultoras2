@@ -28231,44 +28231,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /* FIN PROCESO CARGA FOTO */
 
 /*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
-
-/* Consultora Online */
-
 /*MICHAEL*/
 .popup_Pendientes {
     display: block;
@@ -28288,7 +28250,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .content_popUp_Pendientes {
     width: 100%;
     max-width: 1189px;
-    margin: 0 auto;
     box-sizing: border-box;
     font-family: 'Lato';
     position: relative;
@@ -28302,43 +28263,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-size: 16px;
     margin-left: 20px;
 }
-
-/*SB20-863* Inicio*/
-
-.producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
-
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
-            margin-bottom:10px;
-            margin-top: 5px;
-        }
-
-
-/*Sb20-863 - Fín*/
 .mensajes_deAtencion span:first-child {
     float: left;
     text-align: left;
@@ -28443,8 +28367,6 @@ span.datoPedidoCliente {
     vertical-align: middle;
     text-align: center;
     font-size: 14px;
-}
-
 .dinamicostablemini{
     text-align: center;
     width: 11%;
@@ -28488,7 +28410,6 @@ span.datoPedidoCliente {
 .dinamicostablegrande.izq{
     text-align: left;
 }
-
 .oscurece {
     color: black;
     font-weight: 700;
@@ -28522,8 +28443,6 @@ span.datoPedidoCliente {
     font-size: 14px;
     top: 16px;
     margin-top: -11.5px;
-}
-
 .notiPendientes:after{
         border-color: rgba(136, 183, 213, 0);
     border-bottom-color: #F7F7F7;
@@ -30033,7 +29952,6 @@ h1#penmostreo .campana {
     vertical-align:middle;
     padding-top: 23px;
     padding-bottom: 23px;
-}
 .registro_online{
     width:15%;
     display:inline-block;

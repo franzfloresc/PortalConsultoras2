@@ -99,6 +99,9 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
+    if (sesionEsShowRoom == '0') {
+        return;
+    }
     $.ajax({
         type: "POST",
         url: urlMostrarShowRoomPopup,

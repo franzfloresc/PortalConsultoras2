@@ -1026,6 +1026,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.CargoEntidadesShowRoom) return;
 
+            Session["EsShowRoom"] = "0";
+
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
             {
@@ -1054,6 +1056,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
                             model.BeShowRoom.ImagenPreventaDigital = string.IsNullOrEmpty(model.BeShowRoom.ImagenPreventaDigital)
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, model.BeShowRoom.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+
+                            if (model.BeShowRoomConsultora != null)
+                            {
+                                Session["EsShowRoom"] = "1";
+                            }
                         }
                     }
                     model.CargoEntidadesShowRoom = true;
