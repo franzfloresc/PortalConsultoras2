@@ -27260,7 +27260,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .popup_Pendientes {
     display: block;
     position: relative;
-    width: 72%;
+    width: 960px;
     max-width: 1230px;
     height: auto;
     background: #FFF;
@@ -27702,8 +27702,8 @@ span.datoPedidoCliente {
         padding-top: 15px;
         padding-left: 4px;
         padding-bottom: 15px;
-        font-size: 11px;
-        width: 124%;
+        font-size: 12px;
+        width: 110%;
     }
 
 }
@@ -29088,6 +29088,19 @@ h1#penmostreo .campana {
     background-repeat:repeat-x;
     height:100%;
     right:-36px;
+    -webkit-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -moz-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    -ms-animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+    animation: opacidad-fondo 1000ms linear 0ms 1 normal;
+}
+ @keyframes opacidad-fondo {
+    0% {
+        opacity:0;
+    
+    }
+    100% {
+        opacity:1;
+    }
 }
  .fondo_lateral::after{
     content: "";
