@@ -28,7 +28,7 @@ END
 
 go
 
--- Solo peru y chile dejaro en null o cero el campo VioTutorialDestock
+-- Solo peru y chile dejarlo en null o cero el campo VioTutorialDestock
 -- demás países ponerlo igual a VioVideo
 GO
 declare @Igual int = 0
