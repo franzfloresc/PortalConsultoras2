@@ -810,6 +810,7 @@ END
 
 
 USE BelcorpBolivia
+GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
  @CampaniaID INT,    
@@ -1612,6 +1613,7 @@ END
 /*end*/
 
 USE BelcorpVenezuela
+GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]      
  @CampaniaID INT,          
