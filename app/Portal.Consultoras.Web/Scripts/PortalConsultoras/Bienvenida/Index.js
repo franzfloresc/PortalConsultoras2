@@ -36,13 +36,6 @@ $(document).ready(function() {
             $("#videoIntroductorio").fadeIn(function() {
                 $(".popup_video_introductorio").fadeIn();
                 playVideo();
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Video de Bienvenida: Iniciar video',
-                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
-                });
-
             });
         });
     });
@@ -170,12 +163,6 @@ $(document).ready(function() {
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
         stopVideo();
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Home',
-            'action': 'Video de Bienvenida: Finalizar video',
-            'label': 'SomosBelcorp.com ¡se renueva para ti!'
-        });
         $('#videoIntroductorio').hide();
         if (contadorFondoPopUp == 1) {
             $("#fondoComunPopUp").hide();
@@ -639,12 +626,6 @@ function mostrarVideoIntroductorio() {
             $("#videoIntroductorio").show();
             setTimeout(function () {
                 playVideo();
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Video de Bienvenida: Iniciar video',
-                    'label': 'SomosBelcorp.com ¡se renueva para ti!'
-                });
             }, 1000);
             UpdateUsuarioVideo();
             contadorFondoPopUp++;
@@ -1457,7 +1438,7 @@ function ArmarCarouselLiquidaciones(data) {
                 'brand': recomendado.DescripcionMarca,
                 'category': 'NO DISPONIBLE',
                 'variant': recomendado.DescripcionEstrategia,
-                'list': 'Liquidacion Web – Home',
+                'list': 'Liquidación Web - Home',
                 'position': recomendado.Posicion
             };
             arrayEstrategia.push(impresionRecomendado);
@@ -1496,7 +1477,7 @@ function ArmarCarouselLiquidaciones(data) {
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Liquidacion Web – Home',
+                    'list': 'Liquidación Web - Home',
                     'position': recomendado.Posicion
                 };
 
@@ -2110,7 +2091,6 @@ function CambiarContrasenia() {
                 }
             },
             error: function (data, error) {
-                //debugger;
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     alert("Error en el Cambio de Contraseña");
@@ -3512,6 +3492,12 @@ function playVideo() {
             else {
                 document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
             }
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Video de Bienvenida: Iniciar video',
+            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+        });
         }
     } catch (e) { }
 };

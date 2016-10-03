@@ -12,6 +12,7 @@ var analyticsGuardarValidarEnviado = false;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
+var arrayProductosSugeridos = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
 var origenPedidoWebEstrategia = 0;
@@ -243,6 +244,7 @@ $(document).ready(function () {
         var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
         var OrigenPedidoWeb = DesktopPedidoSugerido;
+        var posicion = $(divPadre).find(".hdPosicionSugerido").val();
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -278,17 +280,41 @@ $(document).ready(function () {
                 DescripcionMarca: descripcionMarca,
                 DescripcionEstrategia: descripcionEstrategia,
                 EsSugerido: true,
-                OrigenPedidoWeb: OrigenPedidoWeb
+                OrigenPedidoWeb: OrigenPedidoWeb,
+                Posicion: posicion
             };
 
             AgregarProducto('Insert', model, 'divProductoSugerido', true);
-
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': 'Productos de reemplazo - Pedido' },
+                        'products': [{
+                            'name': model.DescripcionProd,
+                            'price': model.PrecioUnidad,
+                            'brand': model.DescripcionMarca,
+                            'id': model.CUV,
+                            'category': 'NO DISPONIBLE',
+                            'variant': (model.DescripcionEstrategia == "" || model.DescripcionEstrategia == null) ? 'Estándar' : model.DescripcionEstrategia,
+                            'quantity': Number(model.Cantidad),
+                            'position': Number(model.Posicion)
+                        }]
+                    }
+                }
+            })
             $("#divProductoAgotadoFinal").hide();
         }
     });
     $("body").on("click", "[data-close='divProductoAgotadoFinal']", function () {
         limpiarInputsPedido();
         $("#divProductoAgotadoFinal").hide();
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ingresa tu pedido',
+            'action': 'Productos de reemplazo',
+            'label': 'No gracias'
+        });
     });
     $('#frmInsertPedido').on('submit', function () {
         if (!$(this).valid()) {
@@ -1227,7 +1253,7 @@ function ArmarCarouselEstrategias(data) {
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,
-            centerMode: true,
+            centerMode: false,
             centerPadding: '0px',
             slidesToShow: cant,
             slidesToScroll: 1,
@@ -1614,7 +1640,9 @@ function ObtenerProductosSugeridos(CUV) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+            $.each(data, function (index, item) {
+                item.posicion = index + 1;
+            });
             var lista = data;
 
             if (lista.length <= 0) {
@@ -1657,15 +1685,93 @@ function ObtenerProductosSugeridos(CUV) {
                 slidesToShow: 2,
                 slidesToScroll: 1,
                 autoplay: false,
-                centerMode: true,
+                centerMode: false,
                 centerPadding: '0',
                 tipo: 'p', // popup
                 prevArrow: '<a class="previous_ofertas-popup js-slick-prev-h"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas-popup next js-slick-next-h"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                var accion;
+                if (nextSlide == 0 && currentSlide + 1 == arrayProductosSugeridos.length) {
+                    accion = 'next';
+                } else if (currentSlide == 0 && nextSlide + 1 == arrayProductosSugeridos.length) {
+                    accion = 'prev';
+                } else if (nextSlide > currentSlide) {
+                    accion = 'next';
+                } else {
+                    accion = 'prev';
+                };
+
+                if (accion == 'prev') {
+                    var posicionPrimerActivo = $($('#divCarruselSugerido').find(".slick-active")[0]).find('.hdPosicionSugerido').val();
+                    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayProductosSugeridos.length - 1 : posicionPrimerActivo - 2;
+                    var recomendado = arrayProductosSugeridos[posicionEstrategia];
+                    var arraySugerido = new Array();
+
+                    var impresionSugerido = {
+                        'name': recomendado.Descripcion,
+                        'id': recomendado.CUV,
+                        'price': recomendado.PrecioCatalogoString,
+                        'brand': recomendado.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': (recomendado.DescripcionEstrategia == "" || recomendado.DescripcionEstrategia == null) ? 'Estándar' : recomendado.DescripcionEstrategia,
+                        'list': 'Productos de reemplazo - Pedido',
+                        'position': recomendado.posicion
+                    };
+
+                    arraySugerido.push(impresionSugerido);
+                    
+                    dataLayer.push({
+                        'event': 'productImpression',
+                        'ecommerce': {
+                            'impressions': arraySugerido
+                        }
+                    });
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ingresa tu pedido',
+                        'action': 'Productos de reemplazo',
+                        'label': 'Ver anterior'
+                    });
+                } else if (accion == 'next') {
+                    var posicionUltimoActivo = $($('#divCarruselSugerido').find(".slick-active").slice(-1)[0]).find('.hdPosicionSugerido').val();
+                    var posicionEstrategia = arrayProductosSugeridos.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+                    var recomendado = arrayProductosSugeridos[posicionEstrategia];
+                    var arraySugerido = new Array();
+
+                    var impresionSugerido = {
+                        'name': recomendado.Descripcion,
+                        'id': recomendado.CUV,
+                        'price': recomendado.PrecioCatalogoString,
+                        'brand': recomendado.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': (recomendado.DescripcionEstrategia == "" || recomendado.DescripcionEstrategia == null) ? 'Estándar' : recomendado.DescripcionEstrategia,
+                        'list': 'Productos de reemplazo - Pedido',
+                        'position': recomendado.posicion
+                    };
+
+                    arraySugerido.push(impresionSugerido);
+                    
+                    dataLayer.push({
+                        'event': 'productImpression',
+                        'ecommerce': {
+                            'impressions': arraySugerido
+                        }
+                    });
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ingresa tu pedido',
+                        'action': 'Productos de reemplazo',
+                        'label': 'Ver siguiente'
+                    });
+                }
             });
 
             $('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
             $('#divCarruselSugerido').prepend($(".js-slick-next-h"));
+
+            TagManagerCarruselSugeridosInicio(data);
+
         },
         error: function (data, error) {
             CerrarSplash();
@@ -1678,6 +1784,42 @@ function ObtenerProductosSugeridos(CUV) {
             }
         }
     });
+}
+
+function TagManagerCarruselSugeridosInicio(data) {
+    arrayProductosSugeridos = data;    
+    var arraySugeridos = [];
+
+    arraySugeridos.push({
+        'name': data[0].Descripcion,
+        'id': data[0].CUV,
+        'price': data[0].PrecioCatalogoString,
+        'brand': data[0].DescripcionMarca,
+        'category': 'NO DISPONIBLE',
+        'variant': (data[0].DescripcionEstrategia == null || data[0].DescripcionEstrategia == '') ? 'Estándar' : data[0].DescripcionEstrategia,
+        'list': 'Productos de reemplazo - Pedido',
+        'position': data[0].posicion
+    });
+
+    if (data.length > 1) {
+        arraySugeridos.push({
+            'name': data[1].Descripcion,
+            'id': data[1].CUV,
+            'price': data[1].PrecioCatalogoString,
+            'brand': data[1].DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': (data[1].DescripcionEstrategia == null || data[1].DescripcionEstrategia == '') ? 'Estándar' : data[1].DescripcionEstrategia,
+            'list': 'Productos de reemplazo - Pedido',
+            'position': data[1].posicion
+        });
+    }
+
+    dataLayer.push({
+        'event': 'productImpression',
+        'ecommerce': {
+            'impressions': arraySugeridos
+        }
+    })
 }
 
 function alert_msg(message, titulo) {
@@ -2519,10 +2661,12 @@ function EjecutarServicioPROL() {
                             } else {
                                 showDialog("divReservaSatisfactoria");
                                 //PEDIDO VALIDADO
+                                AnalyticsGuardarValidar(response);
                                 AnalyticsPedidoValidado(response);
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
                                 }, 3000);
+                                return false;
                             }
                         }
                     } else {
@@ -4009,6 +4153,7 @@ function AnalyticsPedidoValidado(response) {
     dataLayer.push({
         'event': 'productCheckout',
         'action': 'Validado',
+        'label': 'Validado con éxito',
         'ecommerce': {
             'checkout': {
                 'actionField': { 'step': 3 },
