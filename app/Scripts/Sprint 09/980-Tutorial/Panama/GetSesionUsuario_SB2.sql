@@ -177,7 +177,7 @@ BEGIN
 						ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial,
-			ISNULL(u.VioTutorialDestock, 0) as VioTutorialDestock,
+			ISNULL(u.VioTutorialDesktop, 0) as VioTutorialDesktop,
 			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida
 		FROM [dbo].[Usuario] u with(nolock)  
 		LEFT JOIN (  
@@ -283,7 +283,7 @@ BEGIN
 			ISNULL(p.CatalogoPersonalizado,0) as CatalogoPersonalizado,
 			ISNULL(u.VioVideo, 0) as VioVideo,
 			ISNULL(u.VioTutorial, 0) as VioTutorial,
-			ISNULL(u.VioTutorialDestock, 0) as VioTutorialDestock,
+			ISNULL(u.VioTutorialDesktop, 0) as VioTutorialDesktop,
 			isnull(@EsCatalogoPersonalizadoZonaValida,0) as EsCatalogoPersonalizadoZonaValida 
 		FROM [dbo].[Usuario] u (nolock)  
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo  

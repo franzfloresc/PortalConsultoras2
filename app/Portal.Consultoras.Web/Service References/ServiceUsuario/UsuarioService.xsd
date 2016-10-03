@@ -116,7 +116,7 @@
       <xs:element minOccurs="0" name="UsuarioPrueba" type="xs:int" />
       <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
       <xs:element minOccurs="0" name="VioTutorial" type="xs:int" />
-      <xs:element minOccurs="0" name="VioTutorialDestock" type="xs:int" />
+      <xs:element minOccurs="0" name="VioTutorialDesktop" type="xs:int" />
       <xs:element minOccurs="0" name="VioVideo" type="xs:int" />
       <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />

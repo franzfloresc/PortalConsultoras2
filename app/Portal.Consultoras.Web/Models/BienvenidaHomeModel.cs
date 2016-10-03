@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int VioVideoBienvenidaModel { get; set; }
 
-        public int VioTutorialDestock { get; set; }
+        public int VioTutorialDesktop { get; set; }
 
         public decimal MontoPedido { get; set; }
 

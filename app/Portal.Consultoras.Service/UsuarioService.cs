@@ -60,10 +60,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.setUsuarioVerTutorial(paisID, codigoUsuario);
         }
 
-        public int SetUsuarioVerTutorialDestock(int paisID, string codigoUsuario)
+        public int SetUsuarioVerTutorialDesktop(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.SetUsuarioVerTutorialDestock(paisID, codigoUsuario);
+            return BLUsuario.SetUsuarioVerTutorialDesktop(paisID, codigoUsuario);
         }
 
         public void Insert(BEUsuario usuario)
