@@ -1009,11 +1009,13 @@
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
-                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
+                {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}                 
+                {{else}}
+                <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
+                {{/iff}}                
             </span>
             {{/IsNullOrEmpty}}
             {{/if_eq}}
-
 
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
