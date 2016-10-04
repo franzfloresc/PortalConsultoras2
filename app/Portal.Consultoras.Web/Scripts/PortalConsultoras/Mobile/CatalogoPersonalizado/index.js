@@ -296,13 +296,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        messageInfo("La cantidad ingresada debe ser un número mayor que cero, verifique");
         CloseLoading();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        messageInfo("La cantidad ingresada debe ser mayor que cero, verifique");
         CloseLoading();
         return false;
     }
@@ -352,7 +352,7 @@ function AgregarProducto(url, item, otraFunct) {
                 }
             }
             else {
-                alert_msg_com(data.message);
+                messageInfo(data.message);
             }
             CloseLoading();
         },
@@ -390,15 +390,15 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    alert_msg_pedido(data.message);
+                    messageInfo(data.message);
                 }
                 else fnRedireccionar();
             }
-            else if (mostrarAlerta == true) alert_msg_pedido(data.message);
+            else if (mostrarAlerta == true) messageInfo(data.message);
         },
         error: function (error) {
             console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
@@ -431,18 +431,13 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 
             if (mostrarAlerta) {
                 CloseLoading();
-                alert_msg_pedido(data.message);
+                messageInfo(data.message);
             }
             fnRestringido();
         },
         error: function (error) {
             console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
-}
-
-function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
 }
