@@ -197,13 +197,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
@@ -255,7 +255,7 @@ function AgregarProducto(url, item, otraFunct) {
                 }
             }
             else {
-                alert_msg_com(data.message);
+                alert_msg_pedido(data.message);
             }
             closeWaitingDialog();
         },
@@ -399,15 +399,14 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
         return false;
     }
 
-
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }

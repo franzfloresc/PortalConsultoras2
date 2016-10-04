@@ -77,10 +77,11 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (olstProducto.Count == 0) continue;
 
-                        string descripcion = "", imagenUrl = "";
-                        bool add = false;
+                        string descripcion = producto.NombreComercial, imagenUrl = producto.Imagen;
+                        bool add = true;
                         if (userData.CatalogoPersonalizado == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                         {
+                            add = false;
                             string infoEstrategia;
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
@@ -100,17 +101,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     add = true;
                                 }
                             }
-                            
-                        }
-                        else
-                        {
-                            descripcion = producto.NombreComercial;
-                            imagenUrl = producto.Imagen;
-                            add = true;
                         }
 
                         if (add)
                         {
+                            decimal preciotachado = userData.CatalogoPersonalizado == 2 && tipoProductoMostrar == 1
+                                ? producto.PrecioValorizado : olstProducto[0].PrecioValorizado;
+
                             listaProductoModel.Add(new ProductoModel()
                             {
                                 CUV = olstProducto[0].CUV.Trim(),
@@ -136,8 +133,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 ImagenProductoSugerido = imagenUrl,
                                 CodigoProducto = olstProducto[0].CodigoProducto,
                                 TieneStockPROL = true,
-                                PrecioValorizado = olstProducto[0].PrecioValorizado,
-                                PrecioValorizadoString = Util.DecimalToStringFormat(olstProducto[0].PrecioValorizado, userData.CodigoISO),
+                                PrecioValorizado = preciotachado,
+                                PrecioValorizadoString = Util.DecimalToStringFormat(preciotachado, userData.CodigoISO),
                                 Simbolo = userData.Simbolo,
                                 Sello = producto.Sello,
                                 IsAgregado = false,
