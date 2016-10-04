@@ -1,5 +1,89 @@
 ﻿@{
-    ViewBag.Title = "DetallePedidoHistorial";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
-<h2>DetallePedidoHistorial</h2>
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;HISTORIAL DE PEDIDOS
+</div>
+<div class="fondo_f2f2f2">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <!--SEGUIR LOGICA DE PEDIDO FACTURADO PARA LOS TABS-->
+        <div class="tabs-link tab-primary upper"> 
+            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
+                <small>Campaña</small> <br />
+                <b>13</b> 2016
+            </a>
+            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
+                <small>Campaña</small> <br />
+                <b>13</b> 2016
+            </a>
+            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
+                <small>Campaña</small> <br />
+                <b>13</b> 2016
+            </a>            
+        </div>
+</div>
+<div class="wrapper_resumen_mobile">
+    <div class="texto_historial">
+    Estos son los <b>pedidos aceptados</b> que llegaron por el App del catálogo y los portales de Esika, L’Bel y Cyzone.
+    </div>
+    <!--LISTA  HISTORIAL PEDIDO-->
+    <div class="content_historial_pedido">        
+            <div class="titulo_pendiente">NUEVO CLIENTE</div>
+            <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
+            <div class="descripcion_pendiente">
+                <span style="float:left;">Origen</span>
+                <span style="float: right;">App Catálogo</span>
+                <hr class="clear" />
+                <span style="float:left;">Campaña</span>
+                <span style="float: right;">2016-11</span>
+                <hr class="clear" />
+                <span style="float:left;">Fecha de registro</span>
+                <span style="float: right;">13/07/06</span>
+            </div>
+            <hr class="clear">
+            <div class="precio_pendiente" style="margin-bottom:10px;">
+                <span style="float:left;">PRECIO TOTAL</span>
+                <span style="float: right;">S/. 23.000</span>
+            </div>
+            <hr class="clear">
+            <div class="descripcion_pendiente">
+                <span style="float:left;">Estado</span>
+                <span style="float: right;">
+                    <a href="#" class="facturado_pendiente">FACTURADO</a>
+                    <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>  
+                    <hr class="clear" />              
+                </span>            
+            </div>    
+    </div>
+    <div class="content_historial_pedido">
+        <div class="titulo_pendiente">NUEVO CLIENTE</div>
+        <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Origen</span>
+            <span style="float: right;">App Catálogo</span>
+            <hr class="clear" />
+            <span style="float:left;">Campaña</span>
+            <span style="float: right;">2016-11</span>
+            <hr class="clear" />
+            <span style="float:left;">Fecha de registro</span>
+            <span style="float: right;">13/07/06</span>
+        </div>
+        <hr class="clear">
+        <div class="precio_pendiente" style="margin-bottom:10px;">
+            <span style="float:left;">PRECIO TOTAL</span>
+            <span style="float: right;">S/. 23.000</span>
+        </div>
+        <hr class="clear">
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Estado</span>
+            <span style="float: right;">
+                <a href="#" class="facturado_pendiente cancelado_pendiente">CANCELADO</a>
+                <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>
+                <hr class="clear" />
+            </span>
+        </div>
+    </div>
+</div>

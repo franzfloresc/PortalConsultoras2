@@ -7692,20 +7692,20 @@ a:focus, a:hover {
     font-weight:700;
     font-size:13px;
     text-transform:uppercase;
-    padding-left: 10px;
+    /*padding-left: 10px;*/
 }
 .nombre_cliente_pendiente{
     font-family:'Lato';
     color:black;
     font-size:13px;  
-    padding-left: 10px; 
+    /*padding-left: 10px;*/ 
 }
 .descripcion_pendiente{
   font-family:'Lato'; 
   font-size: 13px;
   color: #606061;
-  padding-left: 10px;
-  padding-right: 10px;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
   overflow: hidden;
 }
 .descripcion_pendiente span{
@@ -7718,8 +7718,8 @@ a:focus, a:hover {
   font-weight:700;
   margin-top:5px;
   width:100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
   overflow: hidden;
 }
 .tooltip_pendiente{
@@ -7776,7 +7776,7 @@ a:focus, a:hover {
     line-height:45px;
     font-size: 13px;
     color: white !important;
-    font-weight:700;
+    /*font-weight:700;*/
     text-decoration:none;
     cursor:pointer;
 }
@@ -7817,6 +7817,157 @@ a:focus, a:hover {
     margin-bottom:60px;
     display:block;
 }
-@media only screen and (max-width: 340px) {
+/*HISTORIAL*/
+.content_dato_historial{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:300;
+    margin-bottom:5px;
+    overflow:hidden;
     
+    margin:0 auto;
+}
+.nom_his{
+    display:block;
+    width:40%;
+
+    float:left;
+}
+.nom_his_2{
+    display:block;
+    width:60%;
+    float:left;
+
+}
+.content_dato_historial:first-child{
+    margin-top:25px;
+}
+.content_dato_historial:last-child{
+    margin-bottom:25px;
+}
+.triang_pe{
+    position:relative;
+}
+.triang_pe:after{
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #f2f2f2;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.btn_ingreso_pedido{
+    display:block;
+    border:1px solid #808080;
+    color:#808080;
+    font-family:'Lato';
+    font-size:13px;
+    background:white;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    margin-top:20px;
+    padding-left:20px;
+    text-decoration:none;
+}
+.btn_ingreso_pedido:hover {
+      text-decoration:none;
+}
+.btn_cancelar_pendientes{
+    display:block;
+    border:1px solid black;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:50px;
+    text-align:center;
+}
+.btn_cancelar_pendientes:hover{
+    color:white;
+    background:black;
+    text-decoration:none;
+}
+.titulo_tooltip_p span{
+    font-weight:900;
+}
+.notificaciones_menu_mobile{
+    position:absolute;
+    right:30px;
+    width:20px;
+    height:20px;
+    border-radius:100px;
+    background:#613c87;
+    color:white;
+    line-height:19px;
+    font-family:'Lato';
+    font-size:10px;
+    text-align:center;
+    font-weight:700;
+    top:0;
+}
+.menu_subHeader{
+    position:relative
+}
+/*HISTORIAL PEDIDO PENDIENTE*/
+.texto_historial{
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    /*text-align:center;*/
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.content_historial_pedido{
+   border-top:1px solid #bababa;
+   padding-top:20px;
+   padding-bottom:26px;
+}
+.facturado_pendiente{
+    display:block;
+    background:#613c87;
+    color:white;
+    width:90px;
+    height:25px;
+    line-height:25px;
+    text-align:center;
+    float:right;
+    font-family:'Lato';
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+}
+.facturado_pendiente:hover{
+    text-decoration:none;
+    color:white;
+}
+.cancelado_pendiente{
+    color:black;
+    background:#e7e7e7;
+}
+.cancelado_pendiente:hover{
+    color:black;
+    background:#e7e7e7;
+}
+.lupa_pendiente{
+    width:19px;
+    height:19px;
+    margin-top:3px;
+    float:right;
+    margin-right:10px;
+}
+.lupa_pendiente img{
+    width:100%;
+}
+.content_historial_pedido:last-child{
+    margin-bottom:30px;
 }
