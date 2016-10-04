@@ -721,16 +721,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region AceptarPedido
 
-            int paisId = UserData().PaisID;
-            string MensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
+            int paisId = userData.PaisID;
+            string mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", userData.NombreConsultora);
             try
             {
+                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
                     beSolicitudCliente.SolicitudClienteID = pedidoId;
                     beSolicitudCliente.CodigoConsultora = UserData().ConsultoraID.ToString();
-                    beSolicitudCliente.MensajeaCliente = MensajeaCliente;
+                    beSolicitudCliente.MensajeaCliente = mensajeaCliente;
                     beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
                     beSolicitudCliente.Estado = "A";
                     sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
@@ -902,8 +903,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
-                            mensajecliente.ToString(), true, pedido.Email);
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,mensajecliente.ToString(), true, pedido.Email);
                     }
                     catch (Exception ex)
                     {
@@ -916,17 +916,17 @@ namespace Portal.Consultoras.Web.Controllers
                     String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
                     StringBuilder mensaje = new StringBuilder();
                     mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
-                    mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente);
+                    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
+                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
                     try
                     {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                     }
                     catch (Exception ex)
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     }
                 }
 
@@ -1106,8 +1106,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
-                                mensajecliente.ToString(), true, pedido.Email);
+                            string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                            Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
                         }
                         catch (Exception ex)
                         {
