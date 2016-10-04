@@ -17,6 +17,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public short Estado { get; set; }
 
+        public BEMotivoSolicitud()
+        {
+        }
+
         public BEMotivoSolicitud(IDataRecord row)
         {
             this.MotivoSolicitudID = Convert.ToInt32(row["MotivoSolicitudID"]);
