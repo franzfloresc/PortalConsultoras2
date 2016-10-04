@@ -21,7 +21,7 @@ $(document).ready(function () {
     $('#salvavidaTutorial').show();
 
     $(".abrir_tutorial").click(function () {
-        abrir_popup_tutorial();
+        abrir_popup_tutorial(true);
     });
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
@@ -446,58 +446,6 @@ $(document).ready(function () {
     //Fin ShowRoom
 });
 
-function abrir_popup_tutorial() {
-    $('#popup_tutorial_home').fadeIn();
-    $('html').css({ 'overflow-y': 'hidden' });
-    var paisCP = false;
-    var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
-    if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
-        paisCP = true;
-    }
-    fnMovimientoTutorial = setInterval(function () {
-        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
-        numImagen++;
-        if (!paisCP && numImagen == 8) {
-            $(".img_slide" + numImagen).hide();
-            numImagen++;
-        }
-
-        if (numImagen > 9) {
-            numImagen = 1;
-            $(".imagen_tutorial").animate({ 'opacity': '1' });
-        }
-    }, 3000);
-}
-
-function cerrar_popup_tutorial() {
-    $('#popup_tutorial_home').fadeOut();
-    $('html').css({ 'overflow-y': 'auto' });
-    $(".imagen_tutorial").animate({ 'opacity': '1' });
-    window.clearInterval(fnMovimientoTutorial);
-    numImagen = 1;
-    
-    /* SB20-834 - INICIO */
-    if (viewBagVerComunicado == '-1') {
-        showViewVideo = '1';
-        ObtenerComunicadosPopup();
-    }
-    else {
-        if (viewBagVerComunicado == '1') {
-            //if ($('#totalComuSinMostrar').val() != '0') {
-            if (closeComunicadosPopup == false) {
-                mostrarComunicadosPopup();
-                if ($.trim($('#popupComunicados').html()) != "") {
-                    $('#popupComunicados').show();
-                }
-            }
-        }
-        else {
-            //CargarPopupsConsultora();
-        }
-    }
-    /* SB20-834 - FIN */
-}
-
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
@@ -689,7 +637,7 @@ function mostrarVideoIntroductorio() {
             UpdateUsuarioVideo();
             contadorFondoPopUp++;
         } else {
-        //abrir_popup_tutorial();
+            abrir_popup_tutorial();       
             primeraVezVideo = false;
 
             /* SB20-834 - INICIO */
@@ -712,6 +660,21 @@ function mostrarVideoIntroductorio() {
     } catch (e) {
 
     }
+}
+
+function UpdateUsuarioTutorial() {
+    viewBagVioTutorial = 1;
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorialDesktop',
+        data: '',
+        dataType: 'Json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            viewBagVioTutorial = data.result;
+        },
+        error: function (data) {}
+    })
 }
 
 function UpdateUsuarioVideo() {
@@ -3812,6 +3775,37 @@ function AgregarTagManagerShowRoomCheckBox() {
     });
 }
 //Fin ShowRoom
+
+function abrir_popup_tutorial(obligado) {
+    obligado = obligado == undefined ? false : obligado;
+    if (!obligado) {
+        if (viewBagVioTutorial == 1) {
+            return false;
+        }
+        UpdateUsuarioTutorial();
+    }
+    
+    $('#popup_tutorial_home').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+    var paisCP = false;
+    var CatalogoPersonalizado_ZonaValida = $("#hdEsCatalogoPersonalizadoZonaValida").val() == "False" ? 0 : 1;
+    if ((viewBagPaisID == "11" || viewBagPaisID == "3") && CatalogoPersonalizado_ZonaValida) {
+        paisCP = true;
+    }
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen).animate({ 'opacity': '0' });
+        numImagen++;
+        if (!paisCP && numImagen == 8) {
+            $(".img_slide" + numImagen).hide();
+            numImagen++;
+        }
+
+        if (numImagen > 9) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+    }, 3000);
+}
 
 /* SB20-834 - INICIO */
 function ObtenerComunicadosPopup() {
