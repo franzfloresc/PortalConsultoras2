@@ -2661,17 +2661,19 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos h1 {
-    text-align: left;
-    font-size: 22px;
-    letter-spacing: 3px;
+       text-align: center;
+    font-weight: 300 !important;
+    font-size: 17px;
+    letter-spacing: 2.5px;
     color: #000;
     font-family: 'Lato';
-
+    height: 65px;
+    line-height: 65px;
     float: left;
     margin-bottom: -2px;
-    padding: 18px;
-    padding-left: 33px;
-    padding-right: 33px;
+    /* padding: 19px; */
+    /* padding-left: 33px; */
+    /* padding-right: 33px;*/
     
 }
 

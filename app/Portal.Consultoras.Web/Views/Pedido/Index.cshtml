@@ -1470,10 +1470,10 @@
             <span class="texto_pedidos_ofertas">
                 <label>PRE-VENTA DIGITAL</label>
             </span>
-            @*{{else if_eq FlagConsultoraOnline '1'}}
+            {{else if_eq FlagConsultoraOnline '1'}}
             <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
-            </span>*@
+            </span>
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
                 {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}                 
