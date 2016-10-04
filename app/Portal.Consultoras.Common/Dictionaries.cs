@@ -374,15 +374,15 @@ namespace Portal.Consultoras.Common
             { "BO", "" },
             { "CL", "RUT" },
             { "CO", "Cédula"},
-            { "CR", "" },
+            { "CR", "DNI/RUC" },
             { "DO", "" },
             { "EC", "" },
-            { "GT", "" },
+            { "GT", "DNI/RUC" },
             { "MX", "IFE" },
-            { "PA", "" },
+            { "PA", "DNI/RUC" },
             { "PE", "DNI/RUC" },
             { "PR", "DNI/RUC" },
-            { "SV", "" },
+            { "SV", "DNI/RUC" },
             { "VE", "" }
         };
 
