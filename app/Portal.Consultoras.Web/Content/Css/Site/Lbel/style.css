@@ -2661,17 +2661,19 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 .titulo_mis_pedidos h1 {
-    text-align: left;
-    font-size: 22px;
-    letter-spacing: 3px;
+       text-align: center;
+    font-weight: 300 !important;
+    font-size: 17px;
+    letter-spacing: 2.5px;
     color: #000;
     font-family: 'Lato';
-
+    height: 65px;
+    line-height: 65px;
     float: left;
     margin-bottom: -2px;
-    padding: 18px;
-    padding-left: 33px;
-    padding-right: 33px;
+    /* padding: 19px; */
+    /* padding-left: 33px; */
+    /* padding-right: 33px;*/
     
 }
 
@@ -2682,9 +2684,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
     border-top: 1px solid;
 }
 
-.titulo_mis_pedidos h1 b{
+/*.titulo_mis_pedidos h1 b{
     font-size:21px;
-}
+}*/
 
 .mis_pedidos span{
     font-size: 13px;
@@ -28700,7 +28702,7 @@ a#cierreMotivoRechazo img {
     margin-bottom: 5px;
     font-weight: bold;
     font-family:'Lato';
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 .grillaPendientes{
@@ -28846,7 +28848,8 @@ div.motivoRechazo textarea {
 
 
 .cambio_bk_pendientes{
-    background-color: #D6D6D6;
+    background-color: #efefef;
+    border-bottom:1px solid black;
 }
 
 .truco_bloqueo.sim1 {
@@ -28910,7 +28913,7 @@ div.motivoRechazo textarea {
 .info_tiempo_oportunidad.inicial {
     height: 67px;
     padding-top: 5px;
-    margin-top: -57px;
+    margin-top: -74px;
     padding: 10px;
     cursor: pointer;
 }
@@ -28921,7 +28924,7 @@ div.motivoRechazo textarea {
 
 .info_tiempo_oportunidad.inicial * {
     font-size: 12px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
 }
 
 .info_tiempo_oportunidad.inicial h6 {
@@ -28932,7 +28935,7 @@ div.motivoRechazo textarea {
 }
 
 .info_tiempo_oportunidad.inicial .tiempos_P {
-    width: 264px;
+    width: 225px;
 }
 
 .info_tiempo_oportunidad.inicial .noticia{

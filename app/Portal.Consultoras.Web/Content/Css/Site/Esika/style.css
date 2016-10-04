@@ -21870,9 +21870,8 @@ hr{
     display:block;
 }
 .content{
-   position:relative;
+   
    background: white;
-    position:relative;
 }
 body{
     background: #f9f9f9;
@@ -28555,7 +28554,7 @@ a#cierreMotivoRechazo img {
     background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
     background-position: 15px 15px;
 }
-.optRechazoSelect{
+.optRechazoSelect, .optionsRechazoSelect{
     background: url(../../../Images/icono_check.png) no-repeat #f0f0f0;
     background-position: 15px 15px;    
 }
@@ -30190,9 +30189,10 @@ icono_pago
     font-weight:700;
     text-transform:uppercase;
 }
-.estado_cancelado{
-    background:#e7e7e7;
-    color:black;
+.estado_cancelado {
+    background: #e7e7e7;
+    color: black;
+}
 .popup_rechazarPendientes{
     position: relative;
     top: 15%;
