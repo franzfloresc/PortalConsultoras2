@@ -3008,35 +3008,25 @@ function CargarCatalogoPersonalizado() {
         type: 'POST',
         url: baseUrl + 'CatalogoPersonalizado/ObtenerProductosCatalogoPersonalizadoHome',
         dataType: 'json',
+        data: null,
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            data.data = data.data || new Array();
             if (data.success) {
                 $("#divCatalogoPersonalizado").html("");
                 $("#linea_separadoraCP").show();
-                var contador = 0;
-                var limite = 8;
-                var arrayProducto = new Array();
-
-                $.each(data.data, function (index, value) {
-                    arrayProducto.push(value);
-                    contador++;
-
-                    if (contador == limite) {
-                        return false;
-                    }
-                });
-                if (arrayProducto.length > 0) {
-                    SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
-                } else {
-                    $("#divMainCatalogoPersonalizado").remove();
-                    $("#linea_separadoraCP").hide();
+                if (data.data.length > 0) {
+                    SetHandlebars("#template-catalogopersonalizado", data.data, "#divCatalogoPersonalizado");
                 }
-                
             }
             else {
+                data.data = new Array();
+            }
+
+            if (data.data.length == 0) {
                 $("#divMainCatalogoPersonalizado").remove();
                 $("#linea_separadoraCP").hide();
-            }            
+            }
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -3068,13 +3058,13 @@ function AgregarProductoCatalogoPersonalizado(item) {
     var OrigenPedidoWeb = $(divPadre).find(".OrigenPedidoWeb").val();
 
     if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
 
     if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
         closeWaitingDialog();
         return false;
     }
@@ -3459,12 +3449,28 @@ function playVideo() {
 
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();
-    var hidden;
+    var hidden = "";
 
     if (tipoCUV == 'revista') {
         hidden = $(item).find('#hiddenRevista');
     } else if (tipoCUV == 'catalogo') {
         hidden = $(item).find('#hiddenCatalogo');
+    }
+
+    if (hidden.length == 0) {
+        return false;
+    }
+
+    if (!isInt(cantidad)) {
+        alert_msg_pedido("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_pedido("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
     }
 
     var model = {
@@ -3484,18 +3490,6 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
         EsSugerido: false,
         OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
     };
-
-    if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
-
-    if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
 
     var imagenProducto = $('#imagenAnimacion>img', item);
 
