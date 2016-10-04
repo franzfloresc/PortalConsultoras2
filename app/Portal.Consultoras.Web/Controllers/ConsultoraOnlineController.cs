@@ -994,6 +994,12 @@ namespace Portal.Consultoras.Web.Controllers
             BEMisPedidos pedido = new BEMisPedidos();
             long _pedidoId = long.Parse(id);
             pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
+
+            // set detalles del pedido
+            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+            olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
+            pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
+
             //ViewBag.Simbolo = UserData().Simbolo;
 
             //string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
@@ -1055,9 +1061,8 @@ namespace Portal.Consultoras.Web.Controllers
                     beCliente.Nombre = pedido.Cliente;// NombreCliente;
                     beCliente.PaisID = UserData().PaisID;
                     beCliente.Activo = true;
-                    sc.Insert(beCliente);
-
-                    clienteId = beCliente.ClienteID;
+                    clienteId = sc.Insert(beCliente);
+                    //clienteId = beCliente.ClienteID;
                 }
 
                 if (tipo == 1)  // SOLO para App Catalogos
@@ -1085,8 +1090,8 @@ namespace Portal.Consultoras.Web.Controllers
                     //    olstMisProductos = sv.GetValidarCUVMisPedidos(UserData().PaisID, UserData().CampaniaID, inputCUV, UserData().RegionID, UserData().ZonaID, UserData().CodigorRegion, UserData().CodigoZona).ToList();
                     //}
 
-                    List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
-                    olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
+                    //List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+                    //olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
 
                     List<BEProducto> olstMisProductos = new List<BEProducto>();
                     olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
@@ -1123,6 +1128,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.CUV = pedidoDetalle.CUV;
                                     model.DescripcionProd = pedidoDetalle.Producto;
                                     model.ClienteDescripcion = pedido.Cliente;
+                                    //model.OrigenPedidoWeb = 1281;
+                                    model.OrigenPedidoWeb = 0;
 
                                     // ADD / UPDATE Detalle de Pedido
                                     olstPedidoWebDetalle = AgregarDetallePedido(model);
@@ -1387,6 +1394,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBePedidoWebDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
                 oBePedidoWebDetalle.PrecioUnidad = model.PrecioUnidad;
                 oBePedidoWebDetalle.CUV = model.CUV;
+                oBePedidoWebDetalle.OrigenPedidoWeb = model.OrigenPedidoWeb;
 
                 oBePedidoWebDetalle.DescripcionProd = model.DescripcionProd;
                 oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
@@ -1738,7 +1746,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     //Fín GR-1385
-
                 }
                 else
                 {
