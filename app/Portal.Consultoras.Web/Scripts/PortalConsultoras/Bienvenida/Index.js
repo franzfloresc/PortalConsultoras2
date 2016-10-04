@@ -398,15 +398,15 @@ $(document).ready(function () {
                             settings.ganancia = DecimalToStringFormat(settings.ganancia);
                             var html = SetHandlebars("#template-mod-ofer1", settings);
                             $('.mod-ofer1').html(html).show();
-                            console.log(settings.tipo_oferta);
                             break;
                         case '048':
-                            console.log(response.data);
                             if (settings.lista_ObjNivel.length > 0) {
+                                settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
                                 var html = SetHandlebars("#template-mod-ofer2", settings);
                                 $('.mod-ofer2').html(html).show();
                             }
                             else if (settings.lista_oObjPack.length > 0) {
+                                settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
                                 var html = SetHandlebars("#template-mod-ofer3", settings);
                                 $('.mod-ofer3').html(html).show();
                             }

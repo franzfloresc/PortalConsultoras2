@@ -53,15 +53,15 @@ $(document).ready(function () {
                             settings.ganancia = DecimalToStringFormat(settings.ganancia);
                             var html = SetHandlebars("#template-mod-ofer1", settings);
                             $('.mod-ofer1').html(html).show();
-                            console.log(settings.tipo_oferta);
                             break;
                         case '048':
-                            console.log(response.data);
                             if (settings.lista_ObjNivel.length > 0) {
+                                settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
                                 var html = SetHandlebars("#template-mod-ofer2", settings);
                                 $('.mod-ofer2').html(html).show();
                             }
                             else if (settings.lista_oObjPack.length > 0) {
+                                settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
                                 var html = SetHandlebars("#template-mod-ofer3", settings);
                                 $('.mod-ofer3').html(html).show();
                             }
@@ -87,7 +87,7 @@ $(document).ready(function () {
         var tipoCUV = $(this).attr('data-cuv');
 
         AgregarProductoOfertaRevista(contenedor, cantidad, tipoCUV);
-        });
+    });
 
     Inicializar();
 });
@@ -387,12 +387,29 @@ function alert_msg_pedido(message) {
 
 function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
     waitingDialog();
-    var hidden;
+    var hidden = "";
 
     if (tipoCUV == 'revista') {
         hidden = $(item).find('#hiddenRevista');
     } else if (tipoCUV == 'catalogo') {
         hidden = $(item).find('#hiddenCatalogo');
+    }
+    
+    if (hidden.length == 0) {
+        return false;
+    }
+
+
+    if (!isInt(cantidad)) {
+        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
+    }
+
+    if (cantidad <= 0) {
+        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
+        closeWaitingDialog();
+        return false;
     }
 
     var model = {
@@ -411,19 +428,7 @@ function AgregarProductoOfertaRevista(item, cantidad, tipoCUV) {
         DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
         EsSugerido: false,
         OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
-    };
-
-    if (!isInt(cantidad)) {
-        alert_msg_com("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }
-
-    if (cantidad <= 0) {
-        alert_msg_com("La cantidad ingresada debe ser mayor que cero, verifique");
-        closeWaitingDialog();
-        return false;
-    }    
+    };  
 
     var imagenProducto = $('#imagenAnimacion>img', item);
 

@@ -105,13 +105,25 @@ jQuery(document).ready(function () {
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
         $.each(this, function (index, item) {
-            if (item[campo] == valor) {
-                try {
-                    array.push(Clone(item));
-                } catch (e) {
-                    array.push(item);
+            if (typeof (campo) == "string") {
+                if (item[campo] == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
                 }
             }
+            else if (typeof (campo) == "object") {
+                if (JSON.stringify(item) == JSON.stringify(campo)) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            }
+            
         });
         return array;
     };
@@ -266,6 +278,31 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
+    
+    RemoverRepetidos = function (lista, campo) {
+        campo = $.trim(campo);
+        var newLista = new Array();
+        var arrAux = new Array();
+        $.each(lista, function (ind, item) {
+            arrAux = new Array();
+            if (campo != "") {
+                arrAux = newLista.Find(campo, item[campo]);
+            }
+            else {
+                arrAux = newLista.Find(item)
+            }
+            if (arrAux.length == 0) {
+                try {
+                    newLista.push(Clone(item));
+                } catch (e) {
+                    newLista.push(item);
+                }
+            }
+        });
+
+        return newLista;
+    };
+
 })(jQuery);
 
 function showDialog(dialogId) {
