@@ -38,8 +38,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -177,8 +178,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -309,8 +311,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -442,8 +445,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -576,8 +580,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -709,8 +714,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -849,8 +855,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -989,8 +996,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -1121,8 +1129,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -1253,8 +1262,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -1386,8 +1396,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -1520,8 +1531,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
@@ -1652,8 +1664,9 @@ BEGIN
  SELECT d.PedidoWebID, d.PedidoWebDetalleID FROM dbo.SolicitudCliente c INNER JOIN SolicitudClienteDetalle d
  ON c.SolicitudClienteID = d.SolicitudClienteID
  WHERE 
- --c.Campania = @CampaniaID 
- c.ConsultoraID = @ConsultoraID 
+ LTRIM(RTRIM(c.Estado)) = 'A'
+ AND c.Campania = @CampaniaID 
+ AND c.ConsultoraID = @ConsultoraID 
  AND ISNULL(d.PedidoWebID,0) <> 0 
  AND ISNULL(d.PedidoWebDetalleID,0) <> 0
  /* Consultora Online */
