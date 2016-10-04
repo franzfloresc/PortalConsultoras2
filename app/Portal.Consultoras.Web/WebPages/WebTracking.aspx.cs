@@ -447,11 +447,15 @@ namespace Portal.Consultoras.Web.WebPages
                         {
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
-                                item.ValorTurno = "<br/><b>En la mañana</b>";
+                                item.ValorTurno = "<b>En la mañana</b>";
                             }
                             else if (item.ValorTurno.ToUpper() == "PM")
                             {
-                                item.ValorTurno = "<br/><b>En la tarde</b>";
+                                item.ValorTurno = "<b>En la tarde</b>";
+                            }
+                            else
+                            {
+                                item.ValorTurno = string.Empty;
                             }
                         }
                         /*SB20-964 - FIN */
