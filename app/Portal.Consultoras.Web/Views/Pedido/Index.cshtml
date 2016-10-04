@@ -453,7 +453,14 @@
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
                         <span class="icono_consultoraOnline"></span>
-                        <span class="texto_misPedidosClientesOnline">MIS PEDIDOS DE <b>CLIENTES ONLINE</b></span>
+                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DE <b>CONSULTORA ONLINE</b></span>
+                    </div>
+
+                    <div style="display: none;">
+                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                        {
+                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                        }
                     </div>
                 </div>
             }
@@ -1904,6 +1911,7 @@
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
 
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
