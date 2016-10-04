@@ -538,3 +538,9 @@ function CerrarMensajeAceptado(tipo) {
     CargarDetallePedido();
     CargarPedidosPend();
 }
+
+function MostrarMisPedidosConsultoraOnline() {
+    var frmConsultoraOnline = $('#frmConsultoraOnline');
+    frmConsultoraOnline.attr("action", urlMisPedidosClienteOnline);
+    frmConsultoraOnline.submit();
+}

@@ -335,10 +335,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
                                     ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                } 
+                                }
                             }
                         }
-                    }                      
+                    }
                 }
 
                 #endregion
