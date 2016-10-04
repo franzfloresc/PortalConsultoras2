@@ -3803,6 +3803,17 @@ function abrir_popup_tutorial(obligado) {
     }, 3000);
 }
 
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_home').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+    viewBagVioTutorial = 1;
+
+    mostrarComunicadosPopup();
+}
+
 /* SB20-834 - INICIO */
 function ObtenerComunicadosPopup() {
     waitingDialog();
