@@ -181,12 +181,12 @@ namespace Portal.Consultoras.Common
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom
-            
+
             // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
-            // 7: ShowRoom
+            // 7: ShowRoom                  8: Consultora Online
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -209,6 +209,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopCatalogoPersonalizadoPopUp = 1432;
 
             public const int DesktopShowRoom = 1571;
+            public const int DesktopConsultoraOnline = 1281;
 
             public const int MobileHomeOfertasParaTi = 2121;
 
@@ -219,7 +220,7 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoom = 2571;
 
             public const int MobileLiquidacion = 2341;
-            
+
             public const int MobileCatalogoPersonalizado = 2431;
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
