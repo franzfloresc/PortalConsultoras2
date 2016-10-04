@@ -66,15 +66,13 @@
         })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
     </script>
     <!-- End Google Tag Manager -->
-
-
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
 
         <script type="text/javascript">
             var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-            
+
             JL.tracking({
                 cid: trackingJetloreAccessToken,
                 user_id: '@ViewBag.CodigoConsultoraDL',
@@ -86,6 +84,7 @@
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -102,10 +101,10 @@
                 @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
-        <br/>
+        <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
     <!-- alert-top -->
@@ -147,17 +146,17 @@
                     <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
                 <div class="col-xs-4 text-center">
-                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida" 
+                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
                        class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
-                        <a role="link" region="Superior" parent="Pedido" title="Pedido" 
+                        <a role="link" region="Superior" parent="Pedido" title="Pedido"
                            class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" role="menu" region="Superior" parent="Pedido" title="Pedido" id="lnk-sup-pedido">
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
                         </a>
-                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones" 
+                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
                            class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
                             <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
@@ -167,7 +166,8 @@
         </div>
     </header>
 
-    <div id="divShowRoom" class="ocultarPopup" style="display: none;">
+    <!-- SHOWROOM -->
+    <div id="divShowRoom" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -175,12 +175,13 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigital"></span>
             </div>
         </div>
         <div class="fondo_m">
-            <div class=" row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 24px; width: 110px;">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
                     <div class="texto_dias_m">
                         SÓLO FALTAN
                     </div>
@@ -211,10 +212,9 @@
 
             </div>
         </div>
-        <div class="sombra_m"></div>
-    </div>
 
-    <div id="divShowRoomHoy" class="ocultarPopup" style="display: none;">
+    </div>
+    <div id="divShowRoomHoy" class="ocultarPopup divShowRoom" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <div class="imagen_preventa">
@@ -222,14 +222,16 @@
                 <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
             </div>
             <div class="titulo_contador_m">
-                PRE · VENTA DIGITAL
+                @*PRE · VENTA DIGITAL*@
+                <span id="spnPreventaDigitalHoy"></span>
             </div>
         </div>
-        <div class="fondo_m">
+        <div class="fondo_white">
             <div class=" row_contador">
-                <div>
-                    <a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
-                    <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>
+                <div style="text-align: center;">
+                    @*<a href="#" class="imagen_mobile_hoy"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></a>
+                        <a href="#" class="set_mobile_hoy"> SETS DESDE <br /><span>$ 5,990</span></a>*@
+                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" />
                 </div>
             </div>
         </div>
@@ -239,7 +241,7 @@
             </div>
         </div>
         <div class="indicador_red">
-            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/red.png")" alt="-" />
+
         </div>
     </div>
 
@@ -402,7 +404,6 @@
         </div>
     </div>
     <!--FIN-->
-    
     <!--POP MENSAJE LO LOGRASTE-->
     <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -422,7 +423,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
     <script type="text/javascript">
-
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
@@ -437,12 +437,27 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var MobileHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
+        var MobilePedidoOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var MobilePedidoSugerido = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobilePedidoOfertaFinal = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.EstaRechazado';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var motivoRechazo = '@ViewBag.MotivoRechazo';
-        
+
+        var MobileShowRoom = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileShowRoom;
+
+        var MobileLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileLiquidacion;
+
+        var MobileCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
+        var MobileCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
+
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var urlShowRoomIndex = '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})';
+
         $(function () {
+
             SetFormatDecimalPais(formatDecimalPaisMain);
 
             MensajeEstadoPedido();
@@ -464,16 +479,6 @@
             CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
             //CargarCantidadPedidosConsultoraOnline();
-
-            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
-            });
-
-            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
-                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
-            });
-
-            CargarShowRoom();
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {
                 var theEvent = evt || window.event;
@@ -541,6 +546,15 @@
                 $txtcantidad.val(cantidad);
             });
 
+            $("#lnkConoceMasShowRoomBannerLateral").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(false);
+            });
+
+            $("#lnkConoceMasShowRoomBannerLateralHoy").click(function () {
+                AgregarTagManagerShowRoomBannerLateralConocesMas(true);
+            });
+
+            CargarShowRoom();
         });
 
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -1027,7 +1041,71 @@
             });
         }
 
+        function SeparadorMiles(pnumero) {
+            // Función que colocará el caracter "." como separador de miles.
+
+            var resultado = "";
+            var numero = pnumero.replace(/\,/g, '');
+            var nuevoNumero = "";
+            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+            else nuevoNumero = numero.replace(/\./g, '');
+
+            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+
+            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+
+            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+
+            if (numero[0] == "-") return "-" + resultado;
+            else return resultado;
+        };
+
+        /* Tracking Jetlore */
+        function TrackingJetloreAdd(cantidad, campania, cuv) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.addToCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemove(cantidad, campania, cuv) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart({
+                    count: cantidad,
+                    deal_id: cuv,
+                    option_id: campania
+                });
+            }
+        }
+
+        function TrackingJetloreRemoveAll(lista) {
+            var esJetlore;
+
+            esJetlore = esPaisTrackingJetlore == "1";
+
+            if (esJetlore) {
+                JL.tracker.removeFromCart(lista);
+
+            }
+        }
+        /* Fin Tracking Jetlore */
+
         function CargarShowRoom() {
+            if (sesionEsShowRoom == '0') {
+                return;
+            }
             jQuery.ajax({
                 type: 'POST',
                 url: urlGetShowRoom,
@@ -1041,11 +1119,18 @@
 
                             if (showroomConsultora.EventoConsultoraID != 0) {
                                 if (response.estaActivoLateral) {
-                                    $("#hdNombreEventoShowRoom").val(evento.Nombre);
+                                    $("#hdNombreEventoShowRoom").val(evento.Tema);
                                     $("#hdEventoIDShowRoom").val(evento.EventoID);
 
+                                    ///////NOHELY
+                                    $("#content").css("margin-top", "0px");
+
                                     if (response.mostrarShowRoomProductos) {
-                                        $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", '@Url.Action("Index", "ShowRoom", new {area = "Mobile"})');
+                                        $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", urlShowRoomIndex);
+
+                                        $("#spnPreventaDigitalHoy").html(evento.Nombre);
+
+                                        $("#imgVentaSetPopupBannerHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                         if (document.getElementById("estiloShowRoom") == null) {
                                             $("#divShowRoomHoy").show();
@@ -1053,6 +1138,8 @@
                                         }
                                     } else {
                                         $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
+
+                                        $("#spnPreventaDigital").html(evento.Nombre);
 
                                         AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
 
@@ -1118,26 +1205,6 @@
             });
         }
 
-        function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
-
-            var resultado = "";
-            var numero = pnumero.replace(/\,/g, '');
-            var nuevoNumero = "";
-            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-            else nuevoNumero = numero.replace(/\./g, '');
-
-            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
-            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
-            if (numero[0] == "-") return "-" + resultado;
-            else return resultado;
-        };
-
         function AgregarTimerShowRoom(dia, mes, anio) {
             var calcNewYear = setInterval(function () {
                 //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -1171,47 +1238,6 @@
                 }
             }, 1000);
         }
-
-        /* Tracking Jetlore */
-        function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.addToCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemoveAll(lista) {
-            var esJetlore;
-
-            esJetlore = esPaisTrackingJetlore == "1";
-
-            if (esJetlore) {
-                JL.tracker.removeFromCart(lista);
-
-            }
-        }
-        /* Fin Tracking Jetlore */
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}

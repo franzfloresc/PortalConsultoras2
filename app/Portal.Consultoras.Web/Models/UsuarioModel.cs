@@ -265,6 +265,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EjecutaProl { get; set; }
 
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string MotivoRechazo { get; set; }

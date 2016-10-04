@@ -229,7 +229,7 @@ function ModificarPedido() {
 
 function CargarListado(page, rows) {
 
-    $('#divListado').html('<div style="text-align: center;">Cargando Listado<br><img src="' + urlLoad + '" /></div>');
+    $('#divListado').html('<div style="text-align: center; margin-top:20px; margin-bottom:17px;">Cargando Listado<br><img src="' + urlLoad + '" /></div>');
 
     var obj = {
         sidx: "",

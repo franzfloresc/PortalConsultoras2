@@ -1,16 +1,14 @@
-﻿using System;
+﻿using EasyCallback;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EasyCallback;
-using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -28,75 +26,36 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (!Page.IsPostBack)
             {
-                string paisid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"]).Trim()) : "";
+                var esEsika = false;
+                var paisid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xyzab"]).Trim()) : "";
+                var correo = Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"]).Trim()) : "";
+                var paisiso = Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"]).Trim()) : "";
+                var codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
+                var fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
+                var nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
 
-                string correo = Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["abxyz"]).Trim()) : "";
+                DateTime fechaactual = DateTime.Now;
 
-                string paisiso = Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["yzabx"]).Trim()) : "";
-
-                string codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
-
-                string fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
-
-                DateTime fechaactual = DateTime.Now; 
+                if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
+                    esEsika = true;
 
                 if (!(Convert.ToDateTime(fechasolicitud) >= fechaactual))
                 {
+                    txtmarca.Text = esEsika ? "esika" : "lbel";
                     string titulo = "Sesión Expirada";
-                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña.<br>Vuelva a solicitarla";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "AbrirAlertaPopup", "$(function() { AbrirAlertaPopup('" + titulo + "', '" + mensaje + "'); });", true);
-
-                    Response.AddHeader("REFRESH", "3;URL='" + urlportal + "'");
-
+                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
                 }
                 else
                 {
-                    HttpCookie cokie = Request.Cookies["datosenviado"];
-
-                    if (cokie != null)
-                    {
-                        string emailcokie = cokie["email"];
-                        string paisisocokie = cokie["paisiso"];
-
-                        if (emailcokie == correo && paisisocokie == paisiso)
-                        {
-                            txtpaisid.Text = paisid;
-                            txtcorreo.Text = correo;
-                            txtpaisiso.Text = paisiso;
-                            txtcodigousuario.Text = codigousuario;
-                            txtcontrasenaanterior.Text = fechasolicitud;
-
-                            string[] myCookies = Request.Cookies.AllKeys;
-                            foreach (string cookie in myCookies)
-                            {
-                                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                            }
-
-                        }
-                        else
-                        {
-                            string[] myCookies = Request.Cookies.AllKeys;
-                            foreach (string cookie in myCookies)
-                            {
-                                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                            }
-
-                            Response.Redirect("about:blank");
-                        }
-
-                    }
-                    else
-                    {
-                        string[] myCookies = Request.Cookies.AllKeys;
-                        foreach (string cookie in myCookies)
-                        {
-                            Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
-                        }
-                        Response.Redirect("about:blank");
-                    }
-
+                    lblNombre.Text = nombre;
+                    txtpaisid.Text = paisid;
+                    txtcorreo.Text = correo;
+                    txtpaisiso.Text = paisiso;
+                    txtcodigousuario.Text = codigousuario;
+                    txtcontrasenaanterior.Text = fechasolicitud;
+                    txtmarca.Text = esEsika ? "esika" : "lbel";
                 }
-
             }
         }
 
@@ -119,7 +78,6 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-
                     string nuevacontrasena = datos["newPassword"].ToString();
 
                     bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
@@ -127,26 +85,22 @@ namespace Portal.Consultoras.Web.WebPages
 
                     if (result)
                     {
-
                         return serializer.Serialize(new
                         {
-                            succes = true,
-                            url = urlportal + "/WebPages/CambioExitoso.aspx",
-
+                            success = true,
+                            url = urlportal
                         });
                     }
                     else
                     {
                         return serializer.Serialize(new
                         {
-                            succes = false,
-                            estado = "0"
+                            success = false,
+                            urlportal = urlportal
                         });
                     }
-
                 }
             }
-
             catch (Exception ex)
             {
                 return serializer.Serialize(new
@@ -179,7 +133,5 @@ namespace Portal.Consultoras.Web.WebPages
             }
             return cipherText;
         }
-
-
     }
 }

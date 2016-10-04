@@ -552,7 +552,7 @@ function ObtenerNombrePais(idPais) {
 function SetGoogleAnalytics(Imagen, Accion, Label) {
     dataLayer.push({
         'event': 'virtualEvent',
-        'category': 'Catalogo',
+        'category': 'Catálogos y revistas',
         'action': Accion,
         'label': Label,
         'value': 0
@@ -791,6 +791,13 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
     $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);
     $('#CompartirCorreoMobile').show();
+    // Mostrar las marcas adecuadas.
+    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+    $("#divCheckbox [data-cat]").hide();
+    for (var i = 0; i < cata.length; i++) {
+        var cat = $(cata[i]).attr("data-cat");
+        $("#divCheckbox [data-cat='" + cat + "']").show();
+    }
 }
 
 //REVISTA
@@ -920,8 +927,9 @@ function TagManagerWS(Catalogo) {
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Compartir WhatsApp',
-        'label': 'Lbel',
+        'label': Catalogo,
         'value': 0
-    });
+    });
+
 }
 

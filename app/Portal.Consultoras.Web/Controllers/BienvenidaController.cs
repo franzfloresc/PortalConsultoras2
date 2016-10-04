@@ -22,6 +22,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var model = new BienvenidaHomeModel();
@@ -196,22 +202,28 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
-                int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
-                using (SACServiceClient sac = new SACServiceClient())
+                int Visualizado = 1, ComunicadoVisualizado = 1;
+                try
                 {
-                    BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (comunicado != null)
-                        Visualizado = comunicado.Visualizo ? 1 : 0;
+                    using (SACServiceClient sac = new SACServiceClient())
+                    {
+                        BEComunicado comunicado = sac.GetComunicadoByConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (comunicado != null)
+                            Visualizado = comunicado.Visualizo ? 1 : 0;
 
-                    BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                    if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
-                        ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                        BEComunicado[] VisualizaComunicado = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                        if (VisualizaComunicado != null && VisualizaComunicado.Length > 0)
+                            ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
+                    }
                 }
+                catch (Exception) { }
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
+                model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
             }
             catch (FaultException ex)
             {
@@ -233,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult SubirImagen(string data)
         {
             if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            string[] dataPartes = data.Split(new char[]{ ',' });
+            string[] dataPartes = data.Split(new char[] { ',' });
             if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
             string image = dataPartes[1];
 
@@ -374,42 +386,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
-        {
-            try
-            {
-                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
-                {
-                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-        }
+        //public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        //{
+        //    try
+        //    {
+        //        using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+        //        {
+        //            sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+        //        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         public ActionResult RedireccionarFlexipago()
         {
@@ -491,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONSetUsuarioVideo()
         {
-            int retorno;           
+            int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
@@ -1226,7 +1238,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult MostrarShowRoomPopup()
         {
-            var userData = UserData();
             try
             {
                 var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
@@ -1238,39 +1249,49 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
                     if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+
+                    if (beShowRoom.Estado == 1)
+                    {
+                        bool mostrarShowRoomProductos = false;
+                        var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
+
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                            mostrarShowRoomProductos = true;
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
+                            diaFin = userData.FechaInicioCampania.Day,
+                            mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                            nombre = string.IsNullOrEmpty(userData.Sobrenombre)
+                                ? userData.NombreConsultora
+                                : userData.Sobrenombre,
+                            message = "ShowRoomConsultora encontrada",
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomPopup
+                        });
+                    }
                     else
                     {
-                        beShowRoom.Imagen1 = beShowRoom.Imagen1 ?? "";
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        beShowRoom.Imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, beShowRoom.Imagen1,
-                            Globals.UrlMatriz + "/" + UserData().CodigoISO);
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
                     }
 
-                    bool mostrarShowRoomProductos = false;
-                    var rutaShowRoomPopup = ConfigurationManager.AppSettings["RutaShowRoomPopup"];
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                    if (fechaHoy >= userData.FechaInicioCampania.AddDays(-2).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                        mostrarShowRoomProductos = true;
-                    }
-                    if (fechaHoy > userData.FechaInicioCampania.AddDays(1).Date) beShowRoomConsultora.MostrarPopup = false;
-
-                    return Json(new
-                    {
-                        success = true,
-                        data = beShowRoomConsultora,
-                        diaFin = userData.FechaInicioCampania.Day,
-                        mesFin = NombreMes(userData.FechaInicioCampania.Month),
-                        nombre = string.IsNullOrEmpty(userData.Sobrenombre)
-                            ? userData.NombreConsultora
-                            : userData.Sobrenombre,
-                        message = "ShowRoomConsultora encontrada",
-                        evento = beShowRoom,
-                        mostrarShowRoomProductos,
-                        rutaShowRoomPopup
-                    });
                 }
                 else
                 {
@@ -1310,62 +1331,64 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         beShowRoom = new BEShowRoomEvento();
                         beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        Session["EsShowRoom"] = "0";
                     }
                     else
                     {
-                        beShowRoom.Imagen1 = beShowRoom.Imagen1 ?? "";
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        beShowRoom.Imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, beShowRoom.Imagen1,
-                            Globals.UrlMatriz + "/" + UserData().CodigoISO);
-
                         if (beShowRoomConsultora == null)
                         {
                             beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                            Session["EsShowRoom"] = "0";
                         }
-                        else Session["EsShowRoom"] = "1";
                     }
 
-                    var rutaShowRoomBannerLateral = ConfigurationManager.AppSettings["RutaShowRoomBannerLateral"];
-                    bool mostrarShowRoomProductos = false;
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                    bool estaActivoLateral = true;
+                    if (beShowRoom.Estado == 1)
+                    {
+                        var rutaShowRoomBannerLateral = beShowRoom.RutaShowRoomBannerLateral;
+                        bool mostrarShowRoomProductos = false;
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        bool estaActivoLateral = true;
 
-                    if (fechaHoy >= userData.FechaInicioCampania.AddDays(-2).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        mostrarShowRoomProductos = true;
-                        rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
-                    }
-                    if (fechaHoy > userData.FechaInicioCampania.AddDays(1).Date)
-                    {
-                        estaActivoLateral = false;
-                        //beShowRoomConsultora.MostrarPopup = false;
-                    }
+                        int diasAntes = beShowRoom.DiasAntes;
+                        int diasDespues = beShowRoom.DiasDespues;
 
-                    return Json(new
+                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        {
+                            mostrarShowRoomProductos = true;
+                            rutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
+                        }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                            estaActivoLateral = false;
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = beShowRoomConsultora,
+                            message = "ShowRoomConsultora encontrada",
+                            diasFaltantes = userData.FechaInicioCampania.Day - diasAntes,
+                            mesFaltante = userData.FechaInicioCampania.Month,
+                            anioFaltante = userData.FechaInicioCampania.Year,
+                            evento = beShowRoom,
+                            mostrarShowRoomProductos,
+                            rutaShowRoomBannerLateral,
+                            estaActivoLateral
+                        });
+                    }
+                    else
                     {
-                        success = true,
-                        data = beShowRoomConsultora,
-                        message = "ShowRoomConsultora encontrada",
-                        diasFaltantes = userData.FechaInicioCampania.Day - 2,
-                        mesFaltante = userData.FechaInicioCampania.Month,
-                        anioFaltante = userData.FechaInicioCampania.Year,
-                        evento = beShowRoom,
-                        mostrarShowRoomProductos,
-                        rutaShowRoomBannerLateral,
-                        estaActivoLateral
-                    });
+                        return Json(new
+                        {
+                            success = false,
+                            data = "",
+                            message = "ShowRoomEvento no encontrado"
+                        });
+                    }
                 }
                 else
                 {
-                    Session["EsShowRoom"] = "0";
-
                     return Json(new
                     {
                         success = false,
                         data = "",
-                        message = "ShowRoomConsultora encontrada"
+                        message = "ShowRoomConsultora no encontrada"
                     });
                 }
             }
@@ -1382,7 +1405,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
+        
         [HttpPost]
         public JsonResult CerrarMensajeEstadoPedido()
         {
@@ -1390,5 +1413,117 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
             return Json(userData.CerrarRechazado);
         }
+        
+        /* SB20-834 - INICIO */
+        public JsonResult ObtenerComunicadosPopUps()
+        {
+            int ComunicadoVisualizado = 0;
+            List<BEComunicado> comunicados = new List<BEComunicado>();
+
+            using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+            {
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+
+                if (tempComunicados != null && tempComunicados.Length > 0)
+                {
+                    comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                    if (comunicados.Any())
+                    {
+                        ComunicadoVisualizado = 1;
+                    }
+                }
+            }
+
+            return Json(new
+            {
+                success = true,
+                data = comunicados,
+                codigoISO = userData.CodigoISO,
+                codigoCampania = userData.CampaniaID,
+                codigoConsultora = userData.CodigoConsultora,
+                comunicadoVisualizado = ComunicadoVisualizado,
+                ipUsuario = userData.IPUsuario
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult RegistrarDonacionConsultora(string CodigoISO, string CodigoConsultora, string Campania, int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarDonacionConsultora(UserData().PaisID, CodigoISO, UserData().CodigoConsultora, Campania, UserData().IPUsuario);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                string mensaje = string.Format("¡Gracias por ayudar a la familia Ésika a reconstruir su vida! Tu donación será cargada a tu estado de cuenta de pedido de campaña {0}", Campania.Substring(4));
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+        /* SB20-834 - FIN */
     }
 }
