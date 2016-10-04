@@ -310,30 +310,35 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Pedidos Pendientes
+
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
-                string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                if (paisesConsultoraOnline.Contains(userData.CodigoISO))
-                {
-                    List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
-                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                    {
-                        olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
-                    }
-                    if (olstMisPedidos.Any())
-                    {
-                        olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
-                        if (olstMisPedidos.Count > 0)
-                        {
-                            ViewBag.MostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                        }
-                    }
-                }
 
-                using (SACServiceClient sv = new SACServiceClient())
+                if (ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") == "1")
                 {
-                    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                    string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO))
+                    {
+                        List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                        using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                        {
+                            olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
+                        }
+                        if (olstMisPedidos.Any())
+                        {
+                            olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
+                            if (olstMisPedidos.Count > 0)
+                            {
+                                ViewBag.MostrarPedidosPendientes = "1";
+
+                                using (SACServiceClient sv = new SACServiceClient())
+                                {
+                                    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                } 
+                            }
+                        }
+                    }                      
                 }
 
                 #endregion
