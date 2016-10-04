@@ -358,6 +358,7 @@
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("CodigoConsultora") %>' Font-Size="10pt" color="black"></asp:Label>
+                                                                    <asp:Label ID="lblTextoValorTurno" Text='<%#Eval("ValorTurno")%>' runat="server" Font-Size="8pt"></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Text='<%# Eval("NumeroPedido") %>' Font-Size="10pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
@@ -423,6 +424,7 @@
                                                             <asp:TemplateField HeaderText="Fecha">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblFecha" runat="server" Text='<%# Eval("FechaEstimadoRecojo") %>'></asp:Label>
+                                                                    <asp:Label ID="lblTextoValorTurno" Text='<%#Eval("ValorTurno")%>' runat="server" Font-Size="8pt"></asp:Label>
                                                                     <asp:Label ID="lblTexto" runat="server" Font-Size="8pt" Visible="false"></asp:Label>
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
