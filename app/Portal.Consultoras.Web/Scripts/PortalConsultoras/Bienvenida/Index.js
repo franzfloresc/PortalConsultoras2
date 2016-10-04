@@ -410,12 +410,12 @@ $(document).ready(function() {
                     //        break;
                     //}
                 } else {
-                    console.log(response.message);
+                    //console.log(response.message);
                 }
                 closeWaitingDialog();
             },
             error: function(response, error) {
-                console.log(error);
+                //console.log(error);
                 closeWaitingDialog();
             }
         });
@@ -492,7 +492,9 @@ function CortarFoto() {
                     $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
                 }
             },
-            error: function (data, error) { console.log(error); },
+            error: function(data, error) {
+                //console.log(error);
+            },
             complete: closeWaitingDialog
         });
     });
@@ -527,7 +529,9 @@ function SubirFoto() {
                 $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
             }
         },
-        error: function (data, error) { console.log(error); },
+        error: function(data, error) {
+            //console.log(error);
+        },
         complete: closeWaitingDialog
     });
 }
@@ -629,7 +633,7 @@ function mostrarVideoIntroductorio() {
             }
             else {
                 if (viewBagVerComunicado == '-1') {
-                    console.log(viewBagVerComunicado);
+                    //console.log(viewBagVerComunicado);
                     waitingDialog();
                 }
                 else {
@@ -1264,7 +1268,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 alert_msg_pedido(data.message);
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
             alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
@@ -2008,7 +2012,7 @@ function CargarMisDatos() {
             closeWaitingDialog();
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 };
@@ -3621,7 +3625,7 @@ function CrearPopShow() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
+                    //console.log("Ocurrió un error en ShowRoom");
                     //alert("Ocurrió un error en ShowRoom");
                 }
             }
@@ -3701,7 +3705,7 @@ function MostrarShowRoom() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
+                    //console.log("Ocurrió un error en ShowRoom");
                     //alert("Ocurrió un error en ShowRoom");
                 }
             }
@@ -3830,7 +3834,7 @@ function ObtenerComunicadosPopup() {
             }
         },
         error: function (data, error) {
-            console.log(data);
+            //console.log(data);
             closeWaitingDialog();
         }
     });
@@ -3900,7 +3904,7 @@ function armarComunicadosPopup(response) {
 }
 
 function mostrarComunicadosPopup() {
-    console.log(viewBagVerComunicado, viewBagVioTutorial, viewBagVioVideo);
+    //console.log(viewBagVerComunicado, viewBagVioTutorial, viewBagVioVideo);
     if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0) {
         $('#popupComunicados').hide();
         return true;
