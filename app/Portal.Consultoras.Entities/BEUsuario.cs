@@ -195,6 +195,8 @@ namespace Portal.Consultoras.Entities
                 VioVideo = Convert.ToInt32(row["VioVideo"]);
             if (DataRecord.HasColumn(row, "VioTutorial") && row["VioTutorial"] != DBNull.Value) // SB20-344
                 VioTutorial = Convert.ToInt32(row["VioTutorial"]);
+            if (DataRecord.HasColumn(row, "VioTutorialDesktop") && row["VioTutorialDesktop"] != DBNull.Value)
+                VioTutorialDesktop = Convert.ToInt32(row["VioTutorialDesktop"]);
             if (DataRecord.HasColumn(row, "Nivel") && row["Nivel"] != DBNull.Value)
                 Nivel = Convert.ToString(row["Nivel"]);
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
@@ -368,6 +370,8 @@ namespace Portal.Consultoras.Entities
         public int VioVideo { get; set; }
         [DataMember]
         public int VioTutorial { get; set; }
+        [DataMember]
+        public int VioTutorialDesktop { get; set; }
         [DataMember]
         public String Nivel { get; set; }
         [DataMember]

@@ -99,6 +99,9 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
+    if (sesionEsShowRoom == '0') {
+        return;
+    }
     $.ajax({
         type: "POST",
         url: urlMostrarShowRoomPopup,
@@ -259,6 +262,7 @@ function UpdateUsuarioTutorialMobile() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            viewBagVioTutorial = data.result;
         },
         error: function (data) {
         }

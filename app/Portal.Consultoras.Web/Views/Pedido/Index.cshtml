@@ -860,7 +860,8 @@
                 <span style="display: block;text-align: center;font-size: 12px;">Recuerda que esta campaña el monto mínimo es de @Model.Simbolo<span id="spMontoMinimoCabecera"></span></span>
             </div>
             <span class="descripcion_ofertaFinal">
-                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal">21</span> <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
+                Agrega @Model.Simbolo <span id="spnMontoFaltanteOfertaFinal"></span> 
+                <span id="spnMensajeOfertaFinal">&nbsp;para conseguir 30% DSCTO y gana más esta campaña.</span>
             </span>
             <div class="contenedor_bloques_agregaProductos">
                 <div class="bloque_descripciones">
@@ -916,6 +917,7 @@
                 <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
             </div>
             <div>
                 <div class="producto_imagen">
@@ -1008,11 +1010,13 @@
             {{else}}
             {{#IsNullOrEmpty DescripcionOferta '!='}}
             <span class="texto_pedidos_ofertas">
-                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
+                {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}                 
+                {{else}}
+                <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
+                {{/iff}}                
             </span>
             {{/IsNullOrEmpty}}
             {{/if_eq}}
-
 
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
@@ -1107,7 +1111,7 @@
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
             <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
-               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
         </div>
     </div>
@@ -1419,7 +1423,7 @@
 </script>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
@@ -1448,7 +1452,6 @@
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
 
     </script>
