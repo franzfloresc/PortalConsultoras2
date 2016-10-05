@@ -29,7 +29,8 @@ namespace Portal.Consultoras.BizLogic
         ProveedorDespachoCobranza,
         MenuGeneralSB2,
         EscalaDescuento,
-        ParametriaOfertaFinal
+        ParametriaOfertaFinal,
+        MotivoSolicitud
     }
 
     internal class CacheManager<T>

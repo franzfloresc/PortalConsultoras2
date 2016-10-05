@@ -130,7 +130,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal MontoAhorroCatalogo { get; set; }
         [DataMember]
-        public decimal MontoAhorroRevista { get; set; } 
+        public decimal MontoAhorroRevista { get; set; }
+        [DataMember]
+        public int OrigenPedidoWeb { get; set; }
 
         public BEPedidoWebDetalle()
         { }

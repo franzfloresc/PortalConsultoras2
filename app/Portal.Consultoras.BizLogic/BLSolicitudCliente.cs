@@ -369,12 +369,18 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
         {
-            List<BEMotivoSolicitud> motivosRechazos = new List<BEMotivoSolicitud>();
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-
-            using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+            List<BEMotivoSolicitud> motivosRechazos = (List<BEMotivoSolicitud>)CacheManager<BEMotivoSolicitud>.GetData(paisID, ECacheItem.MotivoSolicitud);
+            if (motivosRechazos == null || motivosRechazos.Count == 0)
             {
-                while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+                motivosRechazos = new List<BEMotivoSolicitud>();
+
+                var DASolicitudCliente = new DASolicitudCliente(paisID);
+
+                using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+                {
+                    while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+                }
+                CacheManager<BEMotivoSolicitud>.AddData(paisID, ECacheItem.MotivoSolicitud, motivosRechazos);
             }
             return motivosRechazos;
         }
