@@ -209,7 +209,7 @@
                     Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico) 
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
                 {
                     cabezaEscala = "Ganancia estimada total*";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
@@ -240,48 +240,16 @@
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
         <!--ESCALA DE DESCUENTO-->
-        <div class="content_escala" data-divescala="cuadrado">
-            @{
-                string padding = "eg_padding_inactivo";
-                string numerosGrandes = "";
-                if (Model.ListaEscalaDescuento != null && Model.ListaEscalaDescuento.Count > 0)
-                {
-                    padding = Model.ListaEscalaDescuento.Where(x => x.Seleccionado).ToList().Count > 0 ? "eg_padding_activo" : "eg_padding_inactivo";
-
-                    foreach (var item in Model.ListaEscalaDescuento)
-                    {
-                        int index = Model.ListaEscalaDescuento.IndexOf(item) + 1;
-                        string clase = (item.Seleccionado ? "escala_select" : "") +
-                                       (index == Model.ListaEscalaDescuento.Count ? " border-right " : "");
-                        numerosGrandes = item.MontoHasta >= 10000 ? "font-size: 5.9px; transform: scaleY(1.8);" : "";
-                        <div class="escala_ganancia @(clase) @(padding)">
-
-                            @if (item.Seleccionado)
-                            {
-                                <div class="indicador_escala"></div>
-                            }
-
-                            <div style="overflow:hidden">
-                                <div class="home_porcentaje">@item.PorDescuento</div>
-                                <div class="texto_dscto">%<span>DSCTO</span></div>
-                            </div>
-                            @if (item.Seleccionado)
-                            {
-                                if (index == Model.ListaEscalaDescuento.Count)
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a más.</div>
-                                }
-                                else
-                                {
-                                    <div class="precio_ganancia" style="@(numerosGrandes)">De @Model.Simbolo @Convert.ToInt32(item.MontoDesde) <br>a @Model.Simbolo @Convert.ToInt32(item.MontoHasta)</div>
-                                }
-                            }
-
-                        </div>
-                    }
-                }
-            }
-
+        <div class="content_escala" data-divescala="cuadrado" data-barra-width="">
+            <div id="divBarra">
+                <div id="divBarraLimite"></div>
+                <hr class="clear" />
+                <div id="divBarraPosicion" class="BarraPosicion">
+                    <span id="divBarraEspacioLimite" class="BarraLimite">
+                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                    </span>
+                </div>
+            </div>
         </div>
         <!--FIN ESCALA DE DESCUENTO-->
     </div>
@@ -2059,6 +2027,8 @@
     </div>
 </script>
 
+<input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
+
 <!-- SB20-834 - INICIO -->
 @*<input  type="hidden" id="totalComuSinMostrar" value="0" />*@
 
@@ -2100,6 +2070,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
@@ -2138,6 +2109,8 @@
         var primeraVezVideo = true;
         var viewBagRol = '@ViewBag.Rol';
         var viewBagVerComunicado = '-1';
+        var dataBarra = JSON.parse($("#hdDataBarra").val());
+        $("#hdDataBarra").val("");
     </script>
     
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

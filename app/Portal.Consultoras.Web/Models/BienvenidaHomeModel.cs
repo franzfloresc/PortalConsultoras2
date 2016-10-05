@@ -81,5 +81,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenUsuario { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+        
+        public BarraConsultoraModel DataBarra { get; set; }
     }
 }
