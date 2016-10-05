@@ -292,7 +292,7 @@
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
                     }                                                                                                 
-                }
+             }
                 
                 <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
                 <input type="hidden" id="hdePieEscala" value="@pieEscala" />
@@ -351,7 +351,10 @@
                             {{else}}
                             {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                             <br />
+                            {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                            {{else}}
                             <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                            {{/iff}}
                             {{/IsNullOrEmpty}}
                             {{/iff}}
                         </span>
