@@ -4,86 +4,99 @@
 
 <div class="titulo_mobile">
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;HISTORIAL DE PEDIDOS
+    &nbsp;&nbsp;HISTORIAL DE PEDIDOS
 </div>
-<div class="fondo_f2f2f2">
+<div class="fondo_f2f2f2 triang_pe">
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-        <!--SEGUIR LOGICA DE PEDIDO FACTURADO PARA LOS TABS-->
-        <div class="tabs-link tab-primary upper"> 
-            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
-                <small>Campaña</small> <br />
-                <b>13</b> 2016
-            </a>
-            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
-                <small>Campaña</small> <br />
-                <b>13</b> 2016
-            </a>
-            <a href="javascript:;" class="mytab" @*style="width: @(100.00 / Model.ListaPedidoCliente.Count)%"*@>
-                <small>Campaña</small> <br />
-                <b>13</b> 2016
-            </a>            
+    <div class="content_320">
+        <div class="content_dato_historial">
+            <span class="nom_his">Nombre</span>
+            <span class="nom_his_2"><b>FIORELLA GOYZUETA</b></span>
         </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Teléfono:</span>
+            <span class="nom_his_2"><b>998787898</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Correo:</span>
+            <span class="nom_his_2"><b>fiorella@gmail.com</b></span>
+        </div>
+        <div class="content_dato_historial">
+            <span class="nom_his">Dirección:</span>
+            <span class="nom_his_2"><b>Pardo y Aliaga 456, Mza. 37 Urb. El Golf, San Isidro</b></span>
+        </div>
+    </div>
+    <hr class="clear" />
 </div>
 <div class="wrapper_resumen_mobile">
-    <div class="texto_historial">
-    Estos son los <b>pedidos aceptados</b> que llegaron por el App del catálogo y los portales de Esika, L’Bel y Cyzone.
-    </div>
-    <!--LISTA  HISTORIAL PEDIDO-->
-    <div class="content_historial_pedido">        
-            <div class="titulo_pendiente">NUEVO CLIENTE</div>
-            <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Origen</span>
-                <span style="float: right;">App Catálogo</span>
-                <hr class="clear" />
-                <span style="float:left;">Campaña</span>
-                <span style="float: right;">2016-11</span>
-                <hr class="clear" />
-                <span style="float:left;">Fecha de registro</span>
-                <span style="float: right;">13/07/06</span>
+    <!--DETALLE PENDIENTE-->
+    <div class="detalle_pedido_reservado">
+        <div class="left_reservado" style="width:228px;">
+            <div class="datos_Reservado">
+                <span> 03289 </span>
+                <span>ES LEYENDA EDT 100 ML</span>
             </div>
-            <hr class="clear">
-            <div class="precio_pendiente" style="margin-bottom:10px;">
-                <span style="float:left;">PRECIO TOTAL</span>
-                <span style="float: right;">S/. 23.000</span>
+            
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado"><b>3</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Subtotal</span>
+            </div>            
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>S/. 99.90</span>
+                <span>S/. 99.90</span>
+            </div>            
+        </div>
+        <hr class="clear" />
+        <a href="#" class="btn_ingreso_pedido">INGRESADO AL PEDIDO</a>
+    </div>
+    <!--2-->
+    <div class="detalle_pedido_reservado">
+        <div class="left_reservado" style="width:228px;">
+            <div class="datos_Reservado">
+                <span> 03289 </span>
+                <span>ES LEYENDA EDT 100 ML</span>
             </div>
-            <hr class="clear">
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Estado</span>
-                <span style="float: right;">
-                    <a href="#" class="facturado_pendiente">FACTURADO</a>
-                    <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>  
-                    <hr class="clear" />              
-                </span>            
-            </div>    
+
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">CANT</div>
+            <div class="datos_Reservado"><b>3</b></div>
+        </div>
+        <hr class="clear"><br>
+        <div class="left_reservado">
+            <div class="texto_reservado">
+                <span>Precio Unitario</span>
+                <span>Subtotal</span>
+            </div>
+        </div>
+        <div class="right_reservado">
+            <div class="texto_reservado">
+                <span>S/. 99.90</span>
+                <span>S/. 99.90</span>
+            </div>
+        </div>
+        <hr class="clear" />
+        <a href="#" class="btn_ingreso_pedido">YA LO TENGO</a>
     </div>
-    <div class="content_historial_pedido">
-        <div class="titulo_pendiente">NUEVO CLIENTE</div>
-        <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
-        <div class="descripcion_pendiente">
-            <span style="float:left;">Origen</span>
-            <span style="float: right;">App Catálogo</span>
-            <hr class="clear" />
-            <span style="float:left;">Campaña</span>
-            <span style="float: right;">2016-11</span>
-            <hr class="clear" />
-            <span style="float:left;">Fecha de registro</span>
-            <span style="float: right;">13/07/06</span>
-        </div>
-        <hr class="clear">
-        <div class="precio_pendiente" style="margin-bottom:10px;">
-            <span style="float:left;">PRECIO TOTAL</span>
-            <span style="float: right;">S/. 23.000</span>
-        </div>
-        <hr class="clear">
-        <div class="descripcion_pendiente">
-            <span style="float:left;">Estado</span>
-            <span style="float: right;">
-                <a href="#" class="facturado_pendiente cancelado_pendiente">CANCELADO</a>
-                <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>
-                <hr class="clear" />
-            </span>
-        </div>
+
+    <!--fin-->
+    <!--MONTO FINAL-->
+    <div class="left_reservado">
+        <div class="importe_final" style="font-size:16px;"><b>MONTO TOTAL</b> </div>
     </div>
+    <div class="right_reservado">
+        <div class="importe_final" style="font-size:16px"><b>S/. 636.60</b></div>
+    </div>
+    <hr class="clear" />
+    <a href="#" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a>
 </div>
