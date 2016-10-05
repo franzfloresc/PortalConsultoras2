@@ -33,7 +33,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //pedidoActual = sv.GetPedidosWebByConsultoraCampania(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID);
                     listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
                 }
                 using (sc.ClienteServiceClient sv = new sc.ClienteServiceClient())
@@ -81,20 +80,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
-                    model.CampaniasConsultoraOnline = new List<CampaniaModel>(model.ListaFacturados.Select (
-                        facturado => new CampaniaModel
-                        {
-                            CampaniaID = facturado.CampaniaID,
-                            NombreCorto = facturado.CampaniaID.ToString().Substring(0, 4) + "-" + facturado.CampaniaID.ToString().Substring(4, 2)
-                        }
-                    ));
-                    if (!model.CampaniasConsultoraOnline.Any(cco => cco.CampaniaID == userData.CampaniaID))
+                    model.CampaniasConsultoraOnline = new List<CampaniaModel>();
+                    for(int i = 0; i <= 4; i++)
                     {
-                        model.CampaniasConsultoraOnline.Insert(0,new CampaniaModel{
-                            CampaniaID = userData.CampaniaID,
-                            NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
-                        });
+                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
                     }
+                    model.CampaniasConsultoraOnline.Update(campania => campania.NombreCorto = campania.CampaniaID.ToString().Substring(0, 4) + "-" + campania.CampaniaID.ToString().Substring(4, 2));
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;
                     
                     using (SACServiceClient sv = new SACServiceClient())
@@ -112,28 +103,28 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-        public JsonResult ClienteOnline(int campania)
+        public JsonResult ClienteOnline(int[] campanias)
         {
             var listPedidosClienteOnline = new List<BEMisPedidos>();
             var listModel = new List<ClienteOnlineModel>();
+            int campaniaResultado = 0;
 
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
-                    if (listPedidosClienteOnline == null || listPedidosClienteOnline.Count == 0)
+                    foreach(int campania in campanias)
                     {
-                        campania = AddCampaniaAndNumero(campania, -1);
+                        campaniaResultado = campania;
                         listPedidosClienteOnline = sv.GetMisPedidosClienteOnline(userData.PaisID, userData.ConsultoraID, campania).ToList();
+                        if (listPedidosClienteOnline.Count != 0) break;
                     }
                 }
                 listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
                 listModel.Update(model => {
                     model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
                     model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
-                    model.Campania = campania.ToString();
-                    model.CampaniaDescripcion = campania.ToString().Substring(0, 4) + "-" + campania.ToString().Substring(4, 2);
+                    model.Campania = campaniaResultado.ToString().Substring(0, 4) + "-" + campaniaResultado.ToString().Substring(4, 2);
                     model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
                     model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
@@ -148,7 +139,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = listModel.Count == 0 ? "No tiene pedidos de Consultora Online para esta campaña, con el filtro en la campaña actual." : "",
-                    listaPedidosClienteOnline = listModel
+                    listaPedidosClienteOnline = listModel,
+                    campaniaResultado = campaniaResultado
                 });
             }
             catch (FaultException ex)
@@ -166,7 +158,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = false,
                 message = "Ocurrió un error al intentar cargar la información para esta campaña",
-                listaCliente = ""
+                listaCliente = "",
+                campaniaResultado = campaniaResultado
             });
         }
         public JsonResult ClienteOnlineDetalle(int solicitudClienteId)

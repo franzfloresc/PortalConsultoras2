@@ -14,16 +14,21 @@ function CargarEventosClienteOnline() {
         }
     });
     $('#ddlCampania').on('change', function () {
+        var campanias = [$('#ddlCampania').val()];
+        var campaniaAnterior = $('#ddlCampania option:selected').first().next().val();
+        if (campaniaAnterior != null && campaniaAnterior != '') campanias.push(campaniaAnterior);
+
         waitingDialog();
         jQuery.ajax({
             type: 'POST',
             url: urlClienteOnline,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            data: JSON.stringify({ campanias: campanias }),
             success: function (data) {
                 if (!checkTimeout(data)) return false;
 
+                if (data.success) $('#ddlCampania').val(data.campaniaResultado);
                 if (data.success && data.listaPedidosClienteOnline.length > 0) {
                     var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
                     $('#divTablaClientesOnline').html(tablaClientesOnline);
@@ -44,7 +49,7 @@ function CargarEventosClienteOnline() {
 
     if (lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').trigger('click');
 }
-function CargarDetallleClienteOnline(solicitudClienteId, campaniaID, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
+function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
@@ -65,7 +70,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, campaniaID, marcaId, no
             var titulo = "pedido " + estadoDesc + " de " + nombre;
             $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
             $('#popup_cliente_online_detalle .spnClienteOnlineTotal').html(total);
-            if (campaniaActual == campaniaID && estado == 'A') {
+            if (campaniaActual == $('#ddlCampania').val() && estado == 'A') {
                 $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '');
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').show();
             }
