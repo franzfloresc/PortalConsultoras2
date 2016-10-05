@@ -59,7 +59,9 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoDescuento { get; set; }
 
         public decimal MontoEscala { get; set; }
+
         public string Simbolo { get; set; }
+
         public string UrlImagenCompartirCatalogo { get; set; }
 
         public IList<BEEscalaDescuento> ListaEscalaDescuento { get; set; }
@@ -77,5 +79,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenUsuario { get; set; }
 
         public BarraConsultoraModel DataBarra { get; set; }
+        public bool EsCatalogoPersonalizadoZonaValida { get; set; }
     }
 }

@@ -4506,7 +4506,7 @@ table > thead > tr > th {
     margin-right: 15px;
     margin-top: 18px;
     position: relative;
-    background: url("../../../Images/mobile/Esika/mensajes.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
     background-position: center -1px;
 }
 
@@ -4625,11 +4625,12 @@ table > thead > tr > th {
     text-align:left;
 }
 
-    .enlace_sociasEmpresarias .btn_seguirp_mobile {
-        width: 7px;
-        height: 8px;
-        background-position: center center;
-    }
+.enlace_sociasEmpresarias .btn_seguirp_mobile {
+    width: 7px;
+    height: 8px;
+    background-position: center center;
+    margin-top:8px;
+}
 
 .texto_enlace_socias {
     text-decoration: underline;
@@ -4683,8 +4684,8 @@ table > thead > tr > th {
     background: #f5f5f5;
     width: 100%;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 34px;
+    padding-right: 34px;
     font-family: 'lato';
     font-size: 12px;
     line-height: 15px;
@@ -4715,11 +4716,16 @@ table > thead > tr > th {
 .btn_seguirp_mobile {
     padding-left: 13px;
     display: inline-block;
-    margin-top:15px;
+    margin-right: 5px;
+    margin-left: 5px;
+    vertical-align: top;
+    width: 43%;
+    text-align: left;
+    margin-top: 15px;
     color: black;
     font-family: 'Lato';
     font-size: 12px;
-    background: url("../../../Images/mobile/Esika/indicador_pedido.png") no-repeat;
+    background: url(../../../Images/mobile/Esika/indicador_pedido.png) no-repeat;
     background-position: 0 4px;
 }
 
@@ -5230,28 +5236,28 @@ body {
     margin-bottom: 30px;
 }
 
-    .contenedor_cantidadProductos .textoCantidad {
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        margin-bottom: 6px;
-    }
+.contenedor_cantidadProductos .textoCantidad {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 6px;
+}
 
-    .contenedor_cantidadProductos div {
-        text-align: center;
-        margin-left: 3px;
-    }
+.contenedor_cantidadProductos div {
+    text-align: center;
+    margin-left: 3px;
+}
 
-        .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
-            border: 1px solid #b0b0b0;
-            background: #FFF;
-            height: 45px;
-            vertical-align: top;
-            line-height: 45px;
-            margin-left: -1px;
-            float: left;
-            overflow: hidden;
-        }
+.contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
+    border: 1px solid #b0b0b0;
+    background: #FFF;
+    height: 45px;
+    vertical-align: top;
+    line-height: 45px;
+    margin-left: -1px;
+    float: left;
+    overflow: hidden;
+}
 
 .signo_menos, .signo_mas {
     width: 25%;
@@ -5261,43 +5267,43 @@ body {
     width: 50%;
 }
 
-    .contenedor_cantidadProductos div .campo_cantidadProductos input {
-        width: 100%;
-        border: 0px;
-        background: #FFF;
-        text-align: center;
-        color: #000;
-        font-size: 13px;
-        font-weight: bold;
-    }
+.contenedor_cantidadProductos div .campo_cantidadProductos input {
+    width: 100%;
+    border: 0px;
+    background: #FFF;
+    text-align: center;
+    color: #000;
+    font-size: 13px;
+    font-weight: bold;
+}
 
-        .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
-            color: #000;
-        }
+.contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
+    color: #000;
+}
 
 .contenedor_seleccionCliente {
     display: block;
     margin-bottom: 30px;
 }
 
-    .contenedor_seleccionCliente select {
-        margin-bottom: 9px;
-        width: 100%;
-        height: 45px;
-        border: 1px solid #000;
-        background: #FFF;
-        font-size: 13px;
-        line-height: 13px;
-        font-weight: bold;
-        text-align-last: center;
-        color: #a1a1a1;
-        -webkit-appearance: none;
-        border-radius: 0;
-    }
+.contenedor_seleccionCliente select {
+    margin-bottom: 9px;
+    width: 100%;
+    height: 45px;
+    border: 1px solid #000;
+    background: #FFF;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: bold;
+    text-align-last: center;
+    color: #a1a1a1;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
 
-    .contenedor_seleccionCliente form select option {
-        color: #000;
-    }
+.contenedor_seleccionCliente form select option {
+    color: #000;
+}
 
 .contenedor_resumenPedido {
     display: block;
@@ -6583,13 +6589,13 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .content_mensajeAlerta {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
+        width: 100%;
+    /* max-width: 400px; */
+    height: 100%;
     /* height: 0; */
     margin: 0 auto;
     position: relative;
-    top:3%;
+    /* top: 3%; */
     background: white;
     padding: 15px 15px;
     overflow-y: auto;
@@ -6622,7 +6628,7 @@ input[type="checkbox"]:checked + span:after {
     font-size: 14px;
     text-align: center;
     margin-top: 13px;
-    margin-bottom: 17px;
+    margin-bottom: 23px;
     color: black;
 }
 
@@ -7308,6 +7314,7 @@ input[type="checkbox"]:checked + span:after {
     top: 0;
     left: 0;
     overflow-x: hidden;
+    z-index:1001;
 }
 
 .flexsliderTutorialMobile {
@@ -8431,10 +8438,82 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
+
 a:focus, a:hover {
-    color: initial;
-  
+    color: initial;  
 }
+
+/* POPUP OFERTA FINAL */
+
+.popup_ofertaFinal{
+    display: block;
+    margin: 5% auto 5% auto;
+    position: relative;
+    background: #FFF;
+    width: 95%;
+    max-width:304px;
+    height: auto;
+    padding: 41px 0 0 0;
+}
+
+.popup_ofertaFinal .cerrar_popMobile{
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    float: none;
+}
+
+.popup_ofertaFinal .icono_aprobacion{
+    width:60px;
+    height:60px;
+}
+
+.ofertaFinal_titulo{
+    display: block;
+    margin: 0 0 8px 0;
+    padding: 0 28px;
+    font-family: 'Lato';
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 29.38px;
+    color: #000;
+}
+
+.ofertaFinal_descripcion{
+    display: block;
+    margin: 0 0 22px 0;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 19px;
+}
+
+.contenedor_carruselOfertaFinal{
+    background: #f5f5f5;
+    padding: 22px 5px 22px 5px;
+}
+
+.ofertaFinal_info {
+    font-family: 'Lato';
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin:0 0 28px 0;
+    padding: 0px 26px;
+    line-height:22px;
+}
+
+.bloque_carousel{
+    display: block;
+    width: 100%;
+    height: auto;
+    text-align:center;
+    margin-bottom:25px;
+}
+
 /*SHOWROOM*/
 .divShowRoom{
     margin-top: 63px;
@@ -8607,6 +8686,7 @@ a:focus, a:hover {
 .enlace_popupCatalogoPersonalizado a {
     display: inline;
     color: #e81c36;
+    text-decoration: underline;
 }
 @media only screen and (max-width:380px) {
     .iphone_1{
@@ -8643,3 +8723,112 @@ span.icon-advertencia{
     vertical-align: middle;
     margin-top: -6px;
 }
+
+.bloque_carousel .content_item_carrusel_ofertaFinal{
+    width: 238px;
+    height: 470px;
+    display: inline-block;
+    margin: 0 3px 0 3px;
+    padding: 0 0 20px 0;
+    vertical-align: middle;
+    overflow: hidden;
+    background: none;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenido_item_ofertaFinal{
+    background: #FFF;
+    width: 237px;
+    display: block;
+    margin: 0 auto;
+    height: 454px;
+    border:1px solid #e7e1e1;
+    box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
+    -o-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
+    -ms-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
+    -webkit-box-shadow: 0px 15px 18px -7px rgba(204,200,204,1);
+}
+
+.bloque_carousel .btn_controles_carousel{
+    display:inline-block;
+    height:auto;
+    vertical-align:middle;
+}
+
+/*.bloque_carousel .btn_controles_carousel.btn_control_atras{
+    margin-right:10px;
+}*/
+
+.bloque_carousel .btn_controles_carousel.btn_control_atras a, .bloque_carousel .btn_controles_carousel.btn_control_siguiente a{
+    position: relative;
+    top: 50%;
+    margin-top: -35px;
+}
+
+/*.bloque_carousel .btn_controles_carousel.btn_control_siguiente{
+    margin-left:10px;
+}*/
+
+.bloque_carousel .producto_img_home{
+    margin-top: 7px;
+    height: 190px;
+}
+
+.bloque_carousel .producto_img_home img{
+    width:auto;
+    height:100%;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos{
+    margin-bottom:10px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .contenedor_cantidadProductos div{
+    margin-left:0px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .producto_nombre_descripcion{
+    padding-right:12px;
+    padding-left:12px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .producto_nombre_descripcion .nombre_producto{
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.bloque_carousel .producto_precio{
+    margin-bottom:20px;
+}
+
+.bloque_carousel .producto_precio .producto_precio_normal{
+    margin:0px;
+    padding:0px;
+    text-align:right;
+    text-decoration:line-through;
+    font-size:12px;
+    width:50%;
+    font-weight:300;
+    padding-right:5px;
+}
+
+.bloque_carousel .content_item_carrusel_ofertaFinal .boton_Agregalo_home{
+    display: inline-block;
+    margin-top:0px;
+    width: 96.3%;
+    vertical-align: top;
+}
+
+.enlace_btnNoGracias{
+    display: block;
+    width: 87px;
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-decoration:underline;
+    color:#000;
+}
+
+/* FIN POPUP OFERTA FINAL */

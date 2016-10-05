@@ -178,7 +178,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
-                "~/Scripts/PortalConsultoras/Pedido/barra.js"
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"
                 ));
 
             #endregion

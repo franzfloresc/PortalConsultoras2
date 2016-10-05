@@ -345,6 +345,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string TipoEstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoOfertaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOfertaSisIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -652,6 +655,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.TipoEstrategiaIDField, value) != true)) {
                     this.TipoEstrategiaIDField = value;
                     this.RaisePropertyChanged("TipoEstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoOfertaRevista {
+            get {
+                return this.TipoOfertaRevistaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoOfertaRevistaField, value) != true)) {
+                    this.TipoOfertaRevistaField = value;
+                    this.RaisePropertyChanged("TipoOfertaRevista");
                 }
             }
         }

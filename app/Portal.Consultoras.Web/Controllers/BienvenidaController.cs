@@ -22,6 +22,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             var model = new BienvenidaHomeModel();
@@ -196,9 +202,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
-                int Visualizado = 1, ComunicadoVisualizado = 1;
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
+                int Visualizado = 1, ComunicadoVisualizado = 1;
                 try
                 {
                     using (SACServiceClient sac = new SACServiceClient())
@@ -212,11 +218,11 @@ namespace Portal.Consultoras.Web.Controllers
                             ComunicadoVisualizado = VisualizaComunicado[0].Visualizo ? 1 : 0;
                     }
                 }
-                catch (Exception){}
-                
+                catch (Exception) { }
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
-
+                model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.DataBarra = GetDataBarra();
             }
             catch (FaultException ex)
@@ -239,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult SubirImagen(string data)
         {
             if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            string[] dataPartes = data.Split(new char[]{ ',' });
+            string[] dataPartes = data.Split(new char[] { ',' });
             if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
             string image = dataPartes[1];
 
@@ -380,42 +386,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
-        {
-            try
-            {
-                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
-                {
-                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente",
-                    extra = ""
-                });
-            }
-        }
+        //public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        //{
+        //    try
+        //    {
+        //        using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+        //        {
+        //            sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+        //        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = "Hubo un problema con el servicio, intente nuevamente",
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         public ActionResult RedireccionarFlexipago()
         {
@@ -497,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONSetUsuarioVideo()
         {
-            int retorno;           
+            int retorno;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
@@ -1226,7 +1232,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-      
+
         #region ShowRoom
 
         [HttpPost]
@@ -1325,16 +1331,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         beShowRoom = new BEShowRoomEvento();
                         beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                        Session["EsShowRoom"] = "0";
                     }
                     else
                     {
                         if (beShowRoomConsultora == null)
                         {
                             beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                            Session["EsShowRoom"] = "0";
                         }
-                        else Session["EsShowRoom"] = "1";
                     }
 
                     if (beShowRoom.Estado == 1)
@@ -1371,8 +1374,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        Session["EsShowRoom"] = "0";
-
                         return Json(new
                         {
                             success = false,
@@ -1383,8 +1384,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    Session["EsShowRoom"] = "0";
-
                     return Json(new
                     {
                         success = false,
@@ -1406,5 +1405,117 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        /* SB20-834 - INICIO */
+        public JsonResult ObtenerComunicadosPopUps()
+        {
+            int ComunicadoVisualizado = 0;
+            List<BEComunicado> comunicados = new List<BEComunicado>();
+
+            using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+            {
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+
+                if (tempComunicados != null && tempComunicados.Length > 0)
+                {
+                    comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                    if (comunicados.Any())
+                    {
+                        ComunicadoVisualizado = 1;
+                    }
+                }
+            }
+
+            return Json(new
+            {
+                success = true,
+                data = comunicados,
+                codigoISO = userData.CodigoISO,
+                codigoCampania = userData.CampaniaID,
+                codigoConsultora = userData.CodigoConsultora,
+                comunicadoVisualizado = ComunicadoVisualizado,
+                ipUsuario = userData.IPUsuario
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult RegistrarDonacionConsultora(string CodigoISO, string CodigoConsultora, string Campania, int ComunicadoID)
+        {
+            try
+            {
+                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                {
+                    sac.InsertarDonacionConsultora(UserData().PaisID, CodigoISO, UserData().CodigoConsultora, Campania, UserData().IPUsuario);
+                    sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
+                }
+                string mensaje = string.Format("¡Gracias por ayudar a la familia Ésika a reconstruir su vida! Tu donación será cargada a tu estado de cuenta de pedido de campaña {0}", Campania.Substring(4));
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+        /* SB20-834 - FIN */
     }
 }
