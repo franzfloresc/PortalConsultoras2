@@ -1176,7 +1176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Inicio GR-1385
-
+                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
                 if (pedido.FlagMedio == "01")
                 {
                     double totalPedido = 0;
@@ -1315,7 +1315,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulocliente,
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,
                             mensajecliente.ToString(), true, pedido.Email);
                     }
                     catch (Exception ex)
@@ -1336,7 +1336,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                     }
                     catch (Exception ex)
                     {
