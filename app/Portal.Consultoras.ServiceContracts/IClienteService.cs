@@ -12,7 +12,7 @@ namespace Portal.Consultoras.ServiceContracts
     public interface IClienteService
     {
         [OperationContract]
-        void Insert(BECliente cliente);
+        int Insert(BECliente cliente);
 
         [OperationContract]
         int InsertById(BECliente cliente);

@@ -11,19 +11,21 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraOnline
     {
-        public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId)
+        public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
             var DAMisPedidos = new DAConsultoraOnline(PaisID);
             var misPedidos = new List<BEMisPedidos>();
-            var miPedidoDetalles = new List<BEMisPedidosDetalle>();
-            using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnline(ConsultoraId))
+            //var miPedidoDetalles = new List<BEMisPedidosDetalle>();
+            //using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnlineCab(ConsultoraId))
+            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
-                    var entidadPadre = new BEMisPedidos(reader);
-                    misPedidos.Add(entidadPadre);
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
                 }
 
+                /*
                 reader.NextResult();
 
                 while (reader.Read())
@@ -36,9 +38,52 @@ namespace Portal.Consultoras.BizLogic
                 {
                     pedido.DetallePedido = miPedidoDetalles.Where(p => p.PedidoId == pedido.PedidoId).ToList();
                 }
+                 * */
 
                 return misPedidos;
             }
+        }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalle(int PaisID, int PedidoID)
+        {
+            var DAMisPedidos = new DAConsultoraOnline(PaisID);
+            var miPedidoDetalles = new List<BEMisPedidosDetalle>();
+            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedidoDetalle(PedidoID))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidosDetalle(reader);
+                    miPedidoDetalles.Add(entidad);
+                }
+
+                return miPedidoDetalles;
+            }
+        }
+
+        public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
+        {
+            var DAMisPedidos = new DAConsultoraOnline(paisID);
+            var misPedidos = new List<BEMisPedidos>();
+            using (IDataReader reader = DAMisPedidos.GetMisPedidosClienteOnline(consultoraId, campania))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
+                }
+                return misPedidos;
+            }
+        }
+
+        public BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId)
+        {
+            var dAMisPedidos = new DAConsultoraOnline(paisID);
+            BEMisPedidos miPedido = null;
+            using (IDataReader reader = dAMisPedidos.GetPedidoClienteOnlineBySolicitudClienteId(solicitudClienteId))
+            {
+                if (reader.Read()) miPedido = new BEMisPedidos(reader);
+            }
+            return miPedido;
         }
 
         public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
@@ -54,6 +99,21 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return cantidad;
+        }
+
+        public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+
+            using (IDataReader reader = DAConsultoraOnline.GetValidarCUVSolicitudPedido(Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+            return productos;
         }
     }
 }

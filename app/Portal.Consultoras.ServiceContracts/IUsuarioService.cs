@@ -157,7 +157,17 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
 
         [OperationContract]
-        IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId);
+        //IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId);
+        IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
+
+        [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
+
+        [OperationContract]
+        IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+
+        //[OperationContract]
+        //IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
 
         [OperationContract]
         void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073

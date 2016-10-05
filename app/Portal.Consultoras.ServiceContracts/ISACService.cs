@@ -593,6 +593,9 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud);
 
         [OperationContract]
+        void UpdSolicitudClienteDetalle(int paisID, BESolicitudClienteDetalle entidadSolicitudDetalle);
+
+        [OperationContract]
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
@@ -600,6 +603,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+        
+        [OperationContract]
+        void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
+
+        [OperationContract]
+        List<BEMotivoSolicitud> GetMotivosRechazo(int paisID);
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         [OperationContract]

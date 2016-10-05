@@ -3745,10 +3745,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string FlagMedioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormartoFechaSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormatoPrecioTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LeidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MedioContactoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeDelClienteField;
@@ -3758,6 +3770,15 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long PedidoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoWebIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SaldoHorasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoField;
@@ -3916,6 +3937,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormartoFechaSolicitud {
+            get {
+                return this.FormartoFechaSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormartoFechaSolicitudField, value) != true)) {
+                    this.FormartoFechaSolicitudField = value;
+                    this.RaisePropertyChanged("FormartoFechaSolicitud");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormatoPrecioTotal {
+            get {
+                return this.FormatoPrecioTotalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormatoPrecioTotalField, value) != true)) {
+                    this.FormatoPrecioTotalField = value;
+                    this.RaisePropertyChanged("FormatoPrecioTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int Leido {
             get {
                 return this.LeidoField;
@@ -3929,6 +3976,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Marca {
+            get {
+                return this.MarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
+                    this.MarcaField = value;
+                    this.RaisePropertyChanged("Marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MarcaID {
             get {
                 return this.MarcaIDField;
@@ -3937,6 +3997,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MarcaIDField.Equals(value) != true)) {
                     this.MarcaIDField = value;
                     this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MedioContacto {
+            get {
+                return this.MedioContactoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MedioContactoField, value) != true)) {
+                    this.MedioContactoField = value;
+                    this.RaisePropertyChanged("MedioContacto");
                 }
             }
         }
@@ -3981,6 +4054,45 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoWebID {
+            get {
+                return this.PedidoWebIDField;
+            }
+            set {
+                if ((this.PedidoWebIDField.Equals(value) != true)) {
+                    this.PedidoWebIDField = value;
+                    this.RaisePropertyChanged("PedidoWebID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioTotal {
+            get {
+                return this.PrecioTotalField;
+            }
+            set {
+                if ((this.PrecioTotalField.Equals(value) != true)) {
+                    this.PrecioTotalField = value;
+                    this.RaisePropertyChanged("PrecioTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SaldoHoras {
+            get {
+                return this.SaldoHorasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SaldoHorasField, value) != true)) {
+                    this.SaldoHorasField = value;
+                    this.RaisePropertyChanged("SaldoHoras");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Telefono {
             get {
                 return this.TelefonoField;
@@ -4019,13 +4131,28 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstaEnRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MedioContactoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeValidacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long PedidoDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long PedidoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoWebDetalleIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoWebIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double PrecioTotalField;
@@ -4035,6 +4162,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneStockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoAtencionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TonoField;
@@ -4076,6 +4209,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstaEnRevista {
+            get {
+                return this.EstaEnRevistaField;
+            }
+            set {
+                if ((this.EstaEnRevistaField.Equals(value) != true)) {
+                    this.EstaEnRevistaField = value;
+                    this.RaisePropertyChanged("EstaEnRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Marca {
             get {
                 return this.MarcaField;
@@ -4102,6 +4248,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeValidacion {
+            get {
+                return this.MensajeValidacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeValidacionField, value) != true)) {
+                    this.MensajeValidacionField = value;
+                    this.RaisePropertyChanged("MensajeValidacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long PedidoDetalleId {
+            get {
+                return this.PedidoDetalleIdField;
+            }
+            set {
+                if ((this.PedidoDetalleIdField.Equals(value) != true)) {
+                    this.PedidoDetalleIdField = value;
+                    this.RaisePropertyChanged("PedidoDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public long PedidoId {
             get {
                 return this.PedidoIdField;
@@ -4110,6 +4282,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.PedidoIdField.Equals(value) != true)) {
                     this.PedidoIdField = value;
                     this.RaisePropertyChanged("PedidoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoWebDetalleID {
+            get {
+                return this.PedidoWebDetalleIDField;
+            }
+            set {
+                if ((this.PedidoWebDetalleIDField.Equals(value) != true)) {
+                    this.PedidoWebDetalleIDField = value;
+                    this.RaisePropertyChanged("PedidoWebDetalleID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoWebID {
+            get {
+                return this.PedidoWebIDField;
+            }
+            set {
+                if ((this.PedidoWebIDField.Equals(value) != true)) {
+                    this.PedidoWebIDField = value;
+                    this.RaisePropertyChanged("PedidoWebID");
                 }
             }
         }
@@ -4149,6 +4347,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ProductoField, value) != true)) {
                     this.ProductoField = value;
                     this.RaisePropertyChanged("Producto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneStock {
+            get {
+                return this.TieneStockField;
+            }
+            set {
+                if ((this.TieneStockField.Equals(value) != true)) {
+                    this.TieneStockField = value;
+                    this.RaisePropertyChanged("TieneStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoAtencion {
+            get {
+                return this.TipoAtencionField;
+            }
+            set {
+                if ((this.TipoAtencionField.Equals(value) != true)) {
+                    this.TipoAtencionField = value;
+                    this.RaisePropertyChanged("TipoAtencion");
                 }
             }
         }
@@ -5113,11 +5337,23 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             "se")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetallePedido[]> GetNotificacionesConsultoraDetallePedidoAsync(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraOnlineResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnlineResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraOnlineResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetNotificacionesConsultoraOnlineAsync(int PaisID, long ConsultoraId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosConsultoraOnlineResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, int PedidoID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionesConsultoraVisualizacionRespon" +
             "se")]
@@ -5252,6 +5488,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnlineResponse")]
         System.Threading.Tasks.Task<int> GetCantidadPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GuardarContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse")]
+        void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GuardarContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse")]
+        System.Threading.Tasks.Task GuardarContraseniaAsync(string paisISO, string codigoUsuario, string contrasenia);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5657,12 +5899,28 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetNotificacionesConsultoraDetallePedidoAsync(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId) {
-            return base.Channel.GetNotificacionesConsultoraOnline(PaisID, ConsultoraId);
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetMisPedidosConsultoraOnline(PaisID, ConsultoraId, Campania);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetNotificacionesConsultoraOnlineAsync(int PaisID, long ConsultoraId) {
-            return base.Channel.GetNotificacionesConsultoraOnlineAsync(PaisID, ConsultoraId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania) {
+            return base.Channel.GetMisPedidosConsultoraOnlineAsync(PaisID, ConsultoraId, Campania);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID) {
+            return base.Channel.GetMisPedidosDetalleConsultoraOnline(PaisID, PedidoID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, int PedidoID) {
+            return base.Channel.GetMisPedidosDetalleConsultoraOnlineAsync(PaisID, PedidoID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania) {
+            return base.Channel.GetMisPedidosClienteOnline(paisID, consultoraId, campania);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosClienteOnlineAsync(int paisID, long consultoraId, int campania) {
+            return base.Channel.GetMisPedidosClienteOnlineAsync(paisID, consultoraId, campania);
         }
         
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
@@ -5831,6 +6089,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> GetCantidadPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId) {
             return base.Channel.GetCantidadPedidosConsultoraOnlineAsync(PaisID, ConsultoraId);
+        }
+        
+        public void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia) {
+            base.Channel.GuardarContrasenia(paisISO, codigoUsuario, contrasenia);
+        }
+        
+        public System.Threading.Tasks.Task GuardarContraseniaAsync(string paisISO, string codigoUsuario, string contrasenia) {
+            return base.Channel.GuardarContraseniaAsync(paisISO, codigoUsuario, contrasenia);
         }
     }
 }
