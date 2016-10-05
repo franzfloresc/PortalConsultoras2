@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
 
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
+                model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -507,6 +508,22 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 retorno = sv.setUsuarioVideoIntroductorio(userData.PaisID, userData.CodigoUsuario);
                 userData.VioVideoModelo = retorno;
+            }
+            SetUserData(userData);
+            return Json(new
+            {
+                result = retorno
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet]
+        public JsonResult JSONSetUsuarioTutorialDesktop()
+        {
+            int retorno;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                retorno = sv.SetUsuarioVerTutorialDesktop(userData.PaisID, userData.CodigoUsuario);
+                userData.VioTutorialDesktop = retorno;
             }
             SetUserData(userData);
             return Json(new
