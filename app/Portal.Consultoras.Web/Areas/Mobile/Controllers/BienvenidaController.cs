@@ -126,7 +126,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                    //model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                    model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
 
                 }
 

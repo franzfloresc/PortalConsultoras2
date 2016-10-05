@@ -159,6 +159,10 @@ namespace Portal.Consultoras.Entities
     public class BESolicitudClienteDetalle 
     {
         [DataMember]
+        public long SolicitudClienteID { get; set; }
+        [DataMember]
+        public long SolicitudClienteDetalleID { get; set; }
+        [DataMember]
         public string CUV { get; set; }
         [DataMember]
         public string DescripcionProducto { get; set; }
@@ -171,10 +175,24 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DescripcionMarca { get; set; }
 
+        [DataMember]
+        public int TipoAtencion { get; set; }
+
+        [DataMember]
+        public int PedidoWebID { get; set; }
+
+        [DataMember]
+        public int PedidoWebDetalleID { get; set; }
+
         public BESolicitudClienteDetalle() { }
 
         public BESolicitudClienteDetalle(IDataRecord row) 
         {
+            if (DataRecord.HasColumn(row, "SolicitudClienteID") && row["SolicitudClienteID"] != DBNull.Value)
+                SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
+            if (DataRecord.HasColumn(row, "SolicitudClienteDetalleID") && row["SolicitudClienteDetalleID"] != DBNull.Value)
+                SolicitudClienteDetalleID = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
+
             if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "Producto") && row["Producto"] != DBNull.Value)
@@ -187,6 +205,15 @@ namespace Portal.Consultoras.Entities
                 Tono = Convert.ToString(row["Tono"]);
             if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
                 DescripcionMarca = Convert.ToString(row["DescripcionMarca"]);
+
+            if (DataRecord.HasColumn(row, "TipoAtencion") && row["TipoAtencion"] != DBNull.Value)
+                TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
+
+            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+
+            if (DataRecord.HasColumn(row, "PedidoWebDetalleID") && row["PedidoWebDetalleID"] != DBNull.Value)
+                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
 
         }
     }

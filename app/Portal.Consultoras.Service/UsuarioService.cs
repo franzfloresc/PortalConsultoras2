@@ -298,13 +298,26 @@ namespace Portal.Consultoras.Service
             return BLNotificaciones.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
 
-
-        //ConsultoraOnline
-        public IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId)
+        public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
             var BLMisPedidos = new BLConsultoraOnline();
-            return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
+            //return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
+            return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID)
+        {
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
+        }
+
+
+        //ConsultoraOnline
+        //public IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId)
+        //{
+        //    var BLMisPedidos = new BLConsultoraOnline();
+        //    return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
+        //}
 
         //R2073
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
@@ -499,10 +512,10 @@ namespace Portal.Consultoras.Service
             return SolicitudClienteCatalogo.ObtenerDetalleNotificacionCatalogo(PaisID, SolicitudClienteCatalogoId);
         }
 
-        public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
+        public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
             BLConsultoraOnline BLConsultoraOnline = new BLConsultoraOnline();
-            return BLConsultoraOnline.GetCantidadPedidosConsultoraOnline(PaisID, ConsultoraId);
+            return BLConsultoraOnline.GetCantidadPedidosConsultoraOnline(PaisID, ConsultoraId, Campania);
         }
 
         public void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia)

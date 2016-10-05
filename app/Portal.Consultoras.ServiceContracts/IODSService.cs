@@ -118,6 +118,9 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
+        IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+
+        [OperationContract]
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
 
     }

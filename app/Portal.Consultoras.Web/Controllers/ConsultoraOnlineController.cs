@@ -618,7 +618,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    olstMisPedidos = sv.GetNotificacionesConsultoraOnline(UserData().PaisID, UserData().ConsultoraID).ToList();
+                    //olstMisPedidos = sv.GetNotificacionesConsultoraOnline(UserData().PaisID, UserData().ConsultoraID).ToList();
+                    olstMisPedidos = sv.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, userData.CampaniaID).ToList();
                 }
                 model.ListaPedidos = olstMisPedidos;
 

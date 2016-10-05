@@ -11,19 +11,21 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraOnline
     {
-        public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId)
+        public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
             var DAMisPedidos = new DAConsultoraOnline(PaisID);
             var misPedidos = new List<BEMisPedidos>();
-            var miPedidoDetalles = new List<BEMisPedidosDetalle>();
-            using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnline(ConsultoraId))
+            //var miPedidoDetalles = new List<BEMisPedidosDetalle>();
+            //using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnlineCab(ConsultoraId))
+            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
-                    var entidadPadre = new BEMisPedidos(reader);
-                    misPedidos.Add(entidadPadre);
+                    var entidad = new BEMisPedidos(reader);
+                    misPedidos.Add(entidad);
                 }
 
+                /*
                 reader.NextResult();
 
                 while (reader.Read())
@@ -36,17 +38,64 @@ namespace Portal.Consultoras.BizLogic
                 {
                     pedido.DetallePedido = miPedidoDetalles.Where(p => p.PedidoId == pedido.PedidoId).ToList();
                 }
+                 * */
 
                 return misPedidos;
             }
         }
 
-        public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalle(int PaisID, int PedidoID)
+        {
+            var DAMisPedidos = new DAConsultoraOnline(PaisID);
+            var miPedidoDetalles = new List<BEMisPedidosDetalle>();
+            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedidoDetalle(PedidoID))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BEMisPedidosDetalle(reader);
+                    miPedidoDetalles.Add(entidad);
+                }
+
+                return miPedidoDetalles;
+            }
+        }
+
+        //public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId)
+        //{
+        //    var DAMisPedidos = new DAConsultoraOnline(PaisID);
+        //    var misPedidos = new List<BEMisPedidos>();
+        //    var miPedidoDetalles = new List<BEMisPedidosDetalle>();
+        //    using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnline(ConsultoraId))
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            var entidadPadre = new BEMisPedidos(reader);
+        //            misPedidos.Add(entidadPadre);
+        //        }
+
+        //        reader.NextResult();
+
+        //        while (reader.Read())
+        //        {
+        //            var entidadHijo = new BEMisPedidosDetalle(reader);
+        //            miPedidoDetalles.Add(entidadHijo);
+        //        }
+
+        //        foreach (var pedido in misPedidos)
+        //        {
+        //            pedido.DetallePedido = miPedidoDetalles.Where(p => p.PedidoId == pedido.PedidoId).ToList();
+        //        }
+
+        //        return misPedidos;
+        //    }
+        //}
+
+        public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
             var cantidad = -1;
             var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
 
-            using (IDataReader reader = DAConsultoraOnline.GetCantidadPedidosConsultoraOnline(ConsultoraId))
+            using (IDataReader reader = DAConsultoraOnline.GetCantidadPedidosConsultoraOnline(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
@@ -54,6 +103,21 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return cantidad;
+        }
+
+        public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+
+            using (IDataReader reader = DAConsultoraOnline.GetValidarCUVSolicitudPedido(Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+            return productos;
         }
     }
 }
