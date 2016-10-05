@@ -59,6 +59,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora);
 
+        [OperationContract]
+        IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+
+
         #region Digitacion Distribuida
 
         #region Consultoras
@@ -116,9 +120,6 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> GetProductoSugeridoByCUV(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona);
 
         #endregion
-
-        [OperationContract]
-        IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
 
         [OperationContract]
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);

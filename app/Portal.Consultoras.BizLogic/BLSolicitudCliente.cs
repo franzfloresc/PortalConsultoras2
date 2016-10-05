@@ -7,6 +7,7 @@ using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -287,6 +288,102 @@ namespace Portal.Consultoras.BizLogic
             DASolicitudCliente.CancelarSolicitudCliente(solicitudId,opcionCancelacion,razonMotivoCancelacion);
         }
 
+        public string CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
+        {
+            try
+            {
+                BEMisPedidos miPedido = new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudId);
+                if (Convert.ToInt32(miPedido.Campania) != campaniaID) return "Este pedido no pertenece a la campaña vigente. Sólo se pueden cancelar los pedidos de la campaña vigente";
+                if (miPedido.Estado != "A") return "Este pedido no se encuentra aceptado.";
+
+                DAPedidoWeb dAPedidoWeb = new DAPedidoWeb(paisID);
+                DAPedidoWebDetalle dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+                
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(paisID, campaniaID, consultoraID, "").ToList();
+                List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();
+                listDetallesClienteOnline = listDetallesClienteOnline.Where(d => d.PedidoWebDetalleID != 0).ToList();
+                
+                TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+                {
+                    if (listDetallesClienteOnline != null && listDetallesClienteOnline.Count > 0 && olstPedidoWebDetalle != null && olstPedidoWebDetalle.Count > 0)
+                    {
+                        int pedidoId = olstPedidoWebDetalle.First().PedidoID;
+
+                        BEPedidoWebDetalle detalle;
+                        foreach (var item in listDetallesClienteOnline)
+                        {
+                            detalle = olstPedidoWebDetalle.FirstOrDefault(d => d.PedidoID == item.PedidoWebID && d.PedidoDetalleID == item.PedidoWebDetalleID);
+                            if (detalle == null) continue;
+
+                            if (detalle.Cantidad > item.Cantidad)
+                            {
+                                detalle.Cantidad -= item.Cantidad;
+                                detalle.ImporteTotal = detalle.Cantidad * detalle.PrecioUnidad;
+                                detalle.Flag = 1;
+                                detalle.Stock = item.Cantidad;
+
+                                dAPedidoWebDetalle.UpdPedidoWebDetalle(detalle);
+                                switch (detalle.TipoOfertaSisID)
+                                {
+                                    case Common.Constantes.ConfiguracionOferta.ShowRoom:
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
+                                        break;
+                                    case Common.Constantes.ConfiguracionOferta.Liquidacion:
+                                    case Common.Constantes.ConfiguracionOferta.Accesorizate:
+                                        new DAOfertaProducto(paisID).UpdOfertaProductoStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                olstPedidoWebDetalle.Remove(detalle);
+                                dAPedidoWebDetalle.DelPedidoWebDetalle(detalle.CampaniaID, detalle.PedidoID, detalle.PedidoDetalleID, detalle.TipoOfertaSisID, "");
+                                switch (detalle.TipoOfertaSisID)
+                                {
+                                    case Common.Constantes.ConfiguracionOferta.ShowRoom:
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
+                                        break;
+                                    case Common.Constantes.ConfiguracionOferta.Liquidacion:
+                                    case Common.Constantes.ConfiguracionOferta.Accesorizate:
+                                        new DAOfertaProducto(paisID).UpdOfertaProductoStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
+                                        break;
+                                }
+                            }
+                        }
+
+                        int totalClientes = olstPedidoWebDetalle.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+                        decimal importeTotal = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                        dAPedidoWeb.UpdPedidoWebTotales(campaniaID, pedidoId, totalClientes, importeTotal, codigoUsuario);
+                    }
+                    this.CancelarSolicitudCliente(paisID, solicitudId, opcionCancelacion, razonMotivoCancelacion);
+                    transactionScope.Complete();
+                }
+            }
+            catch (Exception ex) { 
+                LogManager.SaveLog(ex, "", paisID.ToString());
+                return "Ocurrió un error al intentar cancelar la solicutd de pedido";
+            }
+            return "";
+        }
+
+        public List<BEMotivoSolicitud> GetMotivosRechazo(int paisID)
+        {
+            List<BEMotivoSolicitud> motivosRechazos = (List<BEMotivoSolicitud>)CacheManager<BEMotivoSolicitud>.GetData(paisID, ECacheItem.MotivoSolicitud);
+            if (motivosRechazos == null || motivosRechazos.Count == 0)
+            {
+                motivosRechazos = new List<BEMotivoSolicitud>();
+
+                var DASolicitudCliente = new DASolicitudCliente(paisID);
+
+                using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+                {
+                    while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
+                }
+                CacheManager<BEMotivoSolicitud>.AddData(paisID, ECacheItem.MotivoSolicitud, motivosRechazos);
+            }
+            return motivosRechazos;
+        }
 
         /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)

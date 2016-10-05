@@ -77,6 +77,7 @@ $(document).ready(function () {
         $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
+                $(".popup_video_introductorio").fadeIn();
                 playVideo();
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -106,8 +107,12 @@ $(document).ready(function () {
                     opacity: 1
                 }, 100, 'swing');
             });
+
+
         } else {
+
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+
         }
 
     });
@@ -165,7 +170,6 @@ $(document).ready(function () {
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
             abrir_popup_tutorial();
-            primeraVezVideo = false;
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -575,7 +579,6 @@ function UpdateUsuarioVideo() {
         dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            viewBagVioVideo = data.result;
         },
         error: function (data) {
         }

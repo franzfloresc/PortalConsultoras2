@@ -126,9 +126,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new UsuarioServiceClient())
                 {
-                    //model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                    model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-
+                    model.IsConsultoraOnline = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                 }
 
                 model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png", String.Empty);

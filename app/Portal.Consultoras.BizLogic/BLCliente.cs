@@ -11,10 +11,10 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLCliente
     {
-        public void Insert(BECliente cliente)
+        public int Insert(BECliente cliente)
         {
             var DACliente = new DACliente(cliente.PaisID);
-            DACliente.InsCliente(cliente);
+            return DACliente.InsCliente(cliente);
         }
 
         public int InsertById(BECliente cliente)

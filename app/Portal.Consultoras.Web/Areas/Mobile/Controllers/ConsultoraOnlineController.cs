@@ -413,7 +413,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (var sv = new UsuarioServiceClient())
             {
-                //model.ListaPedidos = sv.GetNotificacionesConsultoraOnline(userData.PaisID, userData.ConsultoraID).ToList();
                 model.ListaPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
             }
 
@@ -468,88 +467,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View("DetallePedido", pedido);
         }
-
-        //[HttpPost]
-        //public JsonResult AceptarPedido(string id)
-        //{
-        //    var message = string.Empty;
-        //    var success = true;
-        //    var userData = UserData();
-        //    var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-
-        //    var pedidoId = long.Parse(id);
-        //    var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
-
-        //    var marcaPedido = pedido == null ? "" : pedido.DetallePedido.Any() ? pedido.DetallePedido[0].Marca : "";
-
-        //    var mensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
-        //    try
-        //    {
-        //        using (var sc = new SACServiceClient())
-        //        {
-        //            var beSolicitudCliente = new BESolicitudCliente();
-        //            beSolicitudCliente.SolicitudClienteID = pedidoId;
-        //            beSolicitudCliente.CodigoConsultora = userData.ConsultoraID.ToString();
-        //            beSolicitudCliente.MensajeaCliente = mensajeaCliente;
-        //            beSolicitudCliente.UsuarioModificacion = userData.CodigoUsuario;
-        //            beSolicitudCliente.Estado = "A";
-        //            sc.UpdSolicitudCliente(userData.PaisID, beSolicitudCliente);
-        //        }
-
-        //        var refresh = new List<BEMisPedidos>();
-        //        foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
-        //        {
-        //            if (item.PedidoId == int.Parse(id))
-        //            {
-        //                item.Estado = "A";
-        //                item.FechaModificacion = DateTime.Now;
-        //            }
-        //            refresh.Add(item);
-        //        }
-
-        //        var refreshMisPedidos = new MisPedidosModel();
-        //        refreshMisPedidos.ListaPedidos = refresh;
-        //        Session["objMisPedidos"] = refreshMisPedidos;
-
-        //        using (var sc = new ClienteServiceClient())
-        //        {
-        //            var beCliente = new BECliente();
-        //            beCliente.ConsultoraID = pedidoId;
-        //            beCliente.eMail = pedido.Email;//emailCliente;
-        //            beCliente.Nombre = pedido.Cliente;// NombreCliente;
-        //            beCliente.PaisID = userData.PaisID;
-        //            beCliente.Activo = true;
-        //            sc.Insert(beCliente);
-        //        }
-
-        //        var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
-        //        var mensaje = new StringBuilder();
-        //        mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
-        //        mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
-        //        mensaje.Append("<br/>Saludos,<br/><br />");
-        //        mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-        //        mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora);
-        //        try
-        //        {
-        //            Util.EnviarMail3Mobile(userData.EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
-
-        //            message = "El pedido fue aceptado.";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //            message = ex.Message;
-        //        }
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        message = ex.Message;
-        //        success = false;
-        //    }
-
-        //    return Json(new { success, message });
-        //}
 
         [HttpPost]
         public JsonResult AceptarPedido(string id, MisPedidosModel pedidoModel)
@@ -1363,74 +1280,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
-        //[HttpPost]
-        //public JsonResult RechazarPedido(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId, int OpcionRechazo, string RazonMotivoRechazo)
-        //{
-        //    var message = string.Empty;
-        //    var success = true;
-        //    var userData = UserData();
-        //    var fechaActual = DateTime.Now;
-        //    using (var sv = new SACServiceClient())
-        //    {
-        //        var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-        //        var tablalogicaDatos = sv.GetTablaLogicaDatos(userData.PaisID, 56);
-        //        var numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
-        //        if (NumIteracion == numIteracionMaximo)
-        //        {
-        //            sv.RechazarSolicitudCliente(userData.PaisID, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
-        //        }
-        //        else
-        //        {
-        //            try
-        //            {
-        //                var nuevaConsultora = sv.ReasignarSolicitudCliente(userData.PaisID, SolicitudId, CodigoUbigeo, Campania, MarcaId, OpcionRechazo, RazonMotivoRechazo);
-        //                if (nuevaConsultora != null)
-        //                {
-        //                    var beSolicitudCliente = sv.GetSolicitudCliente(userData.PaisID, SolicitudId);
-        //                    fechaActual = beSolicitudCliente.FechaModificacion;
-
-        //                    try
-        //                    {
-        //                        string mensaje = mensajeRechazoPedido(nuevaConsultora.Nombre, Util.GetUrlHost(this.HttpContext.Request).ToString(), beSolicitudCliente);
-        //                        Util.EnviarMailMobile("no-responder@somosbelcorp.com", nuevaConsultora.Email, "Un nuevo cliente te eligió como Consultora Online", mensaje, true, "Consultora Online Belcorp");
-        //                    }
-        //                    catch (Exception ex)
-        //                    {
-        //                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //                    }
-
-        //                    var refresh = new List<BEMisPedidos>();
-        //                    foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
-        //                    {
-        //                        if (item.PedidoId == SolicitudId)
-        //                        {
-        //                            item.Estado = "R";
-        //                            item.FechaModificacion = DateTime.Now;
-        //                        }
-        //                        refresh.Add(item);
-        //                    }
-
-        //                    var refreshMisPedidos = new MisPedidosModel();
-        //                    refreshMisPedidos.ListaPedidos = refresh;
-        //                    Session["objMisPedidos"] = refreshMisPedidos;
-        //                }
-
-        //                message = "El pedido fue rechazado.";
-        //            }
-        //            catch (FaultException ex)
-        //            {
-        //                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //                message = ex.Message;
-        //                success = false;
-        //            }
-        //        }
-        //    }
-
-        //    return Json(new { success, message }, JsonRequestBehavior.AllowGet);
-        //}
-
+        
         [HttpPost]
         public JsonResult CancelarPedido(long SolicitudId, int OpcionCancelado, string RazonMotivoCancelado)
         {
@@ -1493,7 +1343,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         using (var sv = new UsuarioServiceClient())
                         {
-                            cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                            cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                         }
 
                         Session[keyFechaGetCantidadPedidos] = DateTime.Now;
@@ -1508,8 +1358,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     using (var sv = new UsuarioServiceClient())
                     {
-                        //cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                        cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        cantidadPedidos = sv.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
                     }
 
                     Session[keyFechaGetCantidadPedidos] = DateTime.Now;

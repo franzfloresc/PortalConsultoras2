@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Data
         {
         }
 
+        //public IDataReader GetMisPedidosConsultoraOnlineCab(long ConsultoraId)
         public IDataReader GetSolicitudesPedido(long ConsultoraId, int Campania)
         {
             //DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultoraOnline");
@@ -33,19 +34,25 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetMisPedidosConsultoraOnline(long ConsultoraId)
+        public IDataReader GetMisPedidosClienteOnline(long ConsultoraId, int Campania)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultoraOnline");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosClienteOnline_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+            return Context.ExecuteReader(command);
+        }
 
+        public IDataReader GetPedidoClienteOnlineBySolicitudClienteId(long solicitudClienteId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoClienteOnlineBySolicitudClienteId_SB2");
+            Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, solicitudClienteId);
             return Context.ExecuteReader(command);
         }
 		
-		public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId, int Campania)
+		public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadPedidosConsultoraOnline");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
-            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
 
             return Context.ExecuteReader(command);
         }

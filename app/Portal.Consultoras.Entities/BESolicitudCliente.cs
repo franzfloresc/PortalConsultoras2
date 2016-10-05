@@ -81,6 +81,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int EstadoSolicitudClienteId { get; set; }
 
+        [DataMember]
+        public int PedidoWebID { get; set; }
+
         public BESolicitudCliente()
         {
         }
@@ -151,6 +154,9 @@ namespace Portal.Consultoras.Entities
             /* R2319 - AAHA 02022015 - Fin */
             if (DataRecord.HasColumn(row, "EstadoSolicitudClienteId") && row["EstadoSolicitudClienteId"] != DBNull.Value)
                 EstadoSolicitudClienteId = Convert.ToInt32(row["EstadoSolicitudClienteId"]);
+
+            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
         }
 
     }
@@ -162,6 +168,7 @@ namespace Portal.Consultoras.Entities
         public long SolicitudClienteID { get; set; }
         [DataMember]
         public long SolicitudClienteDetalleID { get; set; }
+
         [DataMember]
         public string CUV { get; set; }
         [DataMember]

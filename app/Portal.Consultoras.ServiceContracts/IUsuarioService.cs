@@ -164,6 +164,12 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
 
         [OperationContract]
+        IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
+
+        //[OperationContract]
+        //IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
+
+        [OperationContract]
         void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
 
         [OperationContract]
@@ -224,7 +230,7 @@ namespace Portal.Consultoras.ServiceContracts
         /*R2520 - JICM - LIDERES - FIN*/
 
         [OperationContract]
-        int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
+        int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId);
 
         [OperationContract]
         void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia);

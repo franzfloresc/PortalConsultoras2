@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-
 
 namespace Portal.Consultoras.Entities
 {
@@ -40,7 +36,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaSolicitud { get; set; }
         [DataMember]
-        public DateTime? FechaModificacion { get; set; } 
+        public DateTime? FechaModificacion { get; set; }
         [DataMember]
         public string FlagMedio { get; set; } // GR-1385
         [DataMember]
@@ -74,17 +70,22 @@ namespace Portal.Consultoras.Entities
         {
             this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
             this.MarcaID = Convert.ToInt32(row["MarcaID"]);
-            this.Campania = Convert.ToString(row["Campania"]);
             this.Cliente = Convert.ToString(row["NombreCompleto"]);
             this.Direccion = Convert.ToString(row["Direccion"]);
             this.Telefono = Convert.ToString(row["Telefono"]);
             this.Email = Convert.ToString(row["Email"]);
             this.MensajeDelCliente = Convert.ToString(row["Mensaje"]);
-            this.Leido = Convert.ToInt16(row["Leido"]);
             this.Estado = Convert.ToString(row["Estado"]);
-            this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
             this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
+
+            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+                this.Campania = Convert.ToString(row["Campania"]);
+            if (DataRecord.HasColumn(row, "Leido") && row["Leido"] != DBNull.Value)
+                this.Leido = Convert.ToInt16(row["Leido"]);
+            if (DataRecord.HasColumn(row, "NumIteracion") && row["NumIteracion"] != DBNull.Value)
+                this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
+            if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+                this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
 
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
@@ -105,7 +106,8 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
                 this.PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
-            
+
+
             this.DetallePedido = new List<BEMisPedidosDetalle>();
         }
     }
@@ -132,16 +134,12 @@ namespace Portal.Consultoras.Entities
         public double PrecioUnitario { get; set; }
         [DataMember]
         public double PrecioTotal { get; set; }
-
         [DataMember]
         public string MedioContacto { get; set; }
-
         [DataMember]
         public int EstaEnRevista { get; set; }
-
         [DataMember]
         public int TieneStock { get; set; }
-
         [DataMember]
         public string MensajeValidacion { get; set; }
 
@@ -153,7 +151,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int PedidoWebDetalleID { get; set; }
-
+        
         //[DataMember]
         //public int Estado;
         public BEMisPedidosDetalle()
@@ -162,6 +160,7 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosDetalle(IDataRecord row)
         {
+            this.PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
             this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
             this.Producto = Convert.ToString(row["Producto"]);
             this.Tono = Convert.ToString(row["Tono"]);
@@ -171,7 +170,7 @@ namespace Portal.Consultoras.Entities
             this.Cantidad = Convert.ToInt32(row["Cantidad"]);
             this.PrecioTotal = this.PrecioUnitario * this.Cantidad;
             //this.Estado = Convert.ToInt32(row["Estado"]);
-            
+
             //gr-1012
             if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
                 this.MedioContacto = Convert.ToString(row["MContacto"]);

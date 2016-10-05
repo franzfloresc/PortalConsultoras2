@@ -414,8 +414,10 @@ $(document).ready(function () {
 
     $('#btnNoGraciasOfertaFinal, #lnkCerrarPopupOfertaFinal').click(function () {
         var esMontoMinimo = $("#divIconoOfertaFinal").attr("class") == "icono_exclamacion";
-        $("#divOfertaFinal").hide();
-        if (!esMontoMinimo) {
+
+        if (esMontoMinimo) {
+            $("#divOfertaFinal").hide();
+        } else {
             var data = $("#btnNoGraciasOfertaFinal")[0].data;
             MostrarMensajeProl(data);
         }

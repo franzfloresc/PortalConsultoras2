@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -45,6 +46,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         lst = sv.GetItemsMenuMobile(userData.PaisID);
                     }
+                    
+                    string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    if (!strpaises.Contains(userData.CodigoISO)) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/consultoraonline"));
 
                     //Agregamos los menú Padre
                     foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
