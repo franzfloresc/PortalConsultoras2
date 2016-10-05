@@ -1342,21 +1342,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 
 
-            if (!model.CampaniasConsultoraOnline.Any(cco => cco.CampaniaID == userData.CampaniaID))
-            {
-                model.CampaniasConsultoraOnline.Insert(0, new CampaniaModel
-                {
-                    CampaniaID = userData.CampaniaID,
-                    NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
-                });
-            }
-            model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+            //if (!model.CampaniasConsultoraOnline.Any(cco => cco.CampaniaID == userData.CampaniaID))
+            //{
+            //    model.CampaniasConsultoraOnline.Insert(0, new CampaniaModel
+            //    {
+            //        CampaniaID = userData.CampaniaID,
+            //        NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
+            //    });
+            //}
+            //model.CampaniaActualConsultoraOnline = userData.CampaniaID;
 
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-            }
+            //using (SACServiceClient sv = new SACServiceClient())
+            //{
+            //    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+            //    model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+            //}
             return View();
         }
 
