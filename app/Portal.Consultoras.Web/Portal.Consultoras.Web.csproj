@@ -213,6 +213,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\ConsultoraOnlineHistorialMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoClienteModel.cs" />
     <Compile Include="Areas\Mobile\Models\CatalogoMobileModel.cs" />
@@ -2361,6 +2362,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\Historial.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Catalogo\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MiAsesorBelleza\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />

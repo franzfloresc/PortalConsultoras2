@@ -1,23 +1,21 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-//using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServicePedido;
 //using Portal.Consultoras.Web.ServiceConsultoraOnline;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
-using System.Globalization;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -2008,28 +2006,53 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Historial()
         {
-            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-            if (mostrarPedidosPendientes != "1" || !strpaises.Contains(userData.CodigoISO)) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            var model = new ConsultoraOnlineHistorialMobileModel();
+            var listaPedidoFacturados = new List<ServicePedido.BEPedidoWeb>();
 
+            try
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
+                }
 
+                model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel { CampaniaID = userData.CampaniaID } };
+                model.CampaniasConsultoraOnline.AddRange(listaPedidoFacturados.Select(pedido => new CampaniaModel { CampaniaID = pedido.CampaniaID }));
+                model.CampaniasConsultoraOnline.OrderByDescending(campania => campania.CampaniaID);
+                model.CampaniasConsultoraOnline.Update(campania => {
+                    campania.Anio = Convert.ToInt32(campania.CampaniaID.ToString().Substring(0, 4));
+                    campania.NroCampania = Convert.ToInt32(campania.CampaniaID.ToString().Substring(4, 2));
+                });
+                
+                //model.CampaniasConsultoraOnline = new List<CampaniaModel>(listaPedidoFacturados.Select(
+                //    pedido => new CampaniaModel
+                //    {
+                //        CampaniaID = pedido.CampaniaID,
+                //        Anio = Convert.ToInt32(pedido.CampaniaID.ToString().Substring(0, 4)),
+                //        NroCampania = Convert.ToInt32(pedido.CampaniaID.ToString().Substring(4, 2))
+                //    }
+                //));
+                //model.CampaniasConsultoraOnline.Insert(0, new CampaniaModel
+                //{
+                //    CampaniaID = userData.CampaniaID,
+                //    Anio = Convert.ToInt32(userData.CampaniaID.ToString().Substring(0, 4)),
+                //    NroCampania = Convert.ToInt32(userData.CampaniaID.ToString().Substring(4, 2))
+                //});
 
-            //if (!model.CampaniasConsultoraOnline.Any(cco => cco.CampaniaID == userData.CampaniaID))
-            //{
-            //    model.CampaniasConsultoraOnline.Insert(0, new CampaniaModel
-            //    {
-            //        CampaniaID = userData.CampaniaID,
-            //        NombreCorto = userData.CampaniaID.ToString().Substring(0, 4) + "-" + userData.CampaniaID.ToString().Substring(4, 2)
-            //    });
-            //}
-            //model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+                model.CampaniaActualConsultoraOnline = userData.CampaniaID;
 
-            //using (SACServiceClient sv = new SACServiceClient())
-            //{
-            //    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-            //    model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-            //}
-            return View();
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                    model.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return View(model);
         }
 
         public ActionResult PedidosPendientes(string sidx, string sord, int page, int rows)
