@@ -21082,7 +21082,7 @@ label.checkpop.c_on {
     vertical-align:middle;
     height: 45px;
     line-height: 42px;
-    background: #FFF;
+    /*background: #FFF;*/
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -28497,13 +28497,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .mod-ofer2 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 710px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 636px;
+    top: 50%;
     background: #FFF;
-    margin: 4% auto 1.5% auto;
+    margin: -318px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    text-align:center;
+    /*overflow:hidden;*/
 }
 .mod-ofer2 .sombrio{
         position: relative;
@@ -28523,11 +28528,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top: -31px;
 }
 
-.mod-ofer2 .liquidacion_rango_home{
+/*.mod-ofer2 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer2 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -28542,10 +28547,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color: white;
 }
 
-.mod-ofer2 .boton_Agregalo_home {
+/*.mod-ofer2 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer2 .pos-baja{
     height: 90px;
@@ -28582,10 +28587,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .mod-ofer2 .mod-cantidades.metido{
-        position: relative;
+    position: relative;
     margin: 0 auto;
-    margin-left: 204px;
-    margin-top: -70px;
+    /* OVERFLOW: HIDDEN; */
+    /* HEIGHT: 50px; */
+    width: 300px;
+    margin-left: 450px;
+    /* margin-top: -70px; */
 }
 
 .mod-ofer2 .cuerpo-mod .contiene-productos .producto_img_home.mini{
@@ -28629,12 +28637,13 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .mod-ofer2 .cerrar-mod{
-        float: right;
+    float: right;
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
     cursor: pointer;
+    top:0;
 }
 
 .mod-ofer2 .compras{
@@ -28703,13 +28712,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .mod-ofer3 .cuerpo-mod{
     display: block;
     position: relative;
-    width: 835px;
-    max-width: 1230px;
-    height: auto;
+    width: 971px;
+    /* max-width: 1230px; */
+    height: 618px;
+    top: 50%;
     background: #FFF;
-    margin: .5% auto 1.5% auto;
+    margin: -309px auto auto auto;
     z-index: 3;
-    padding-top: 50px;
+   padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+    /*overflow:hidden;*/
+    text-align:center;
 }
 
 .mod-ofer3 .sombrio {
@@ -28730,11 +28744,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-top: -31px;
 }
 
-.mod-ofer3 .liquidacion_rango_home{
+/*.mod-ofer3 .liquidacion_rango_home{
     position: absolute;
     z-index: 9;
     margin-left: -80px;
-}
+}*/
 
 .mod-ofer3 .pos-baja .boton_Agregalo_home{
     background-color: transparent;
@@ -28749,10 +28763,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color: white;
 }
 
-.mod-ofer3 .boton_Agregalo_home {
+/*.mod-ofer3 .boton_Agregalo_home {
     z-index: 9;
     position: absolute;
-}
+}*/
 
 .mod-ofer3 .pos-baja{
     height: 90px;
@@ -28839,7 +28853,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position: absolute;
     right: 0;
     margin-right: -37px;
-    margin-top: -49px;
+    /*margin-top: -49px;*/
+    top:0;
     cursor: pointer;
 }
 
@@ -28970,3 +28985,218 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 /* FIN POPUPS OFERTAS REVISTA */
+
+
+/*POP UP CATALOGO PERSONALIZADO*/
+
+.mod-ofer2 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.mod-ofer3 .linea_encabezado_popupCatalogoPersonalizado {
+    display: inline-block;
+    background: #000;
+    height: 1px;
+    width: 300px;
+}
+.item1_oferta_personalizada{
+    display:inline-block;
+    width:22.5%;
+    height:auto;
+    margin-right:25px;  
+    vertical-align: top;  
+}
+.item1_oferta_personalizada:last-child{
+    margin-right:0px;
+}
+.content_precio_set{
+    width:100%;
+    height:89px;   
+    border-bottom:1px solid #cfcfcf;
+}
+.compra_set{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    line-height: 19px;
+}
+.gananecia_set{
+    font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:3px;
+}
+.gratis_set{
+     font-family:'Lato';
+    font-size:11px;
+    font-weight:700;
+    color:black;
+    text-transform:uppercase;
+    text-align:center;
+    margin-top:10px;
+}
+.mod-ofer2 .encabezado_popupCatalogoPersonalizado {
+    display: block;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 233px;
+    border-bottom: 1px solid #dadada;
+}
+
+.sub_imagen_oferta {
+    width: 24%;
+    margin-right: 5%;
+    height: auto;
+    /* border: 1px solid #dadada; */
+    float: left;
+    margin-left: 5%;
+}
+.sub_imagen_oferta img {
+    width: 100%;
+}
+.sub_descripcion_oferta {
+    width: 55%;
+    height: 55px;
+    line-height: 55px;
+    text-align:left;
+    /* padding-top: 8%; */
+    /* padding-bottom: 8%; */
+    border-bottom: 1px solid #dadada;
+    float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black
+}
+.item1_oferta_personalizada  .sub_descripcion_oferta:last-child{
+    border-bottom:0;
+}
+.texto_mencion{
+    width:100%;
+    text-align:center;
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    color:black;
+    margin-top:26px;
+}
+.sombra_oferta {
+    width: 100%;
+    height: 78px;
+    margin-top:35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    background: #ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+}
+.row_40{
+    margin-left:-40px;
+    margin-right:-40px;
+}
+.texto_sombra{    
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:black;
+    width:305px;
+    float:left;
+    text-align:center;
+    margin-left:200px;
+    margin-top:23px;
+}
+.texto_sombra  span{
+    font-size:15px;
+}
+.item_pack_personalizado{
+    width:33%;
+    display:inline-block;
+    margin-top:20px;
+    vertical-align: top;
+}
+.content_item_pack{
+    width:100%;
+    height:340px;
+    overflow: hidden;
+}
+.img_principal_pack{
+    width:149px;
+    height:149px;
+    margin:0 auto;
+    margin-top:41px;
+    margin-bottom:16px;
+    border:1px solid #cfcfcf;
+}
+.img_principal_pack img{
+    width:100%;
+    }
+.titulo_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:16px;
+    color:black;
+    margin-top:-6px;
+    text-align:center;
+    height:38px;
+}
+.texto_unidad_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:12px;
+    color:black;
+     text-align:center;
+}
+.texto_ganancia_pack{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:11px;
+    color:#e81c36;
+    text-align:center;
+    text-transform:uppercase;
+}
+.fondo_negro_pack {
+    height:41px;
+    background:black;
+    color:white;
+    font-family:'Lato';
+    line-height:41px;
+    font-size:16px;
+    text-align:center;
+    width:82%;
+    position:relative;
+}
+.fondo_negro_pack:before {
+    content: "";
+    width: 0;
+    height: 0;
+    right: -24px;
+    position: absolute;
+    border-right: 12px solid transparent;
+    border-top: 21px solid transparent;
+    border-left: 12px solid black;
+    border-bottom: 20px solid black;
+    }
+.pack_inter {
+    width: 78%;
+    margin-top:13px;
+    border-left: 1px solid #cfcfcf;
+    overflow:hidden;
+}
+.content_item_pack .content_sub_items {
+    overflow: hidden;
+    padding-top: 12px;
+    height: 248px;
+    border-bottom:0;
+}
+.pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
+     border-top:1px solid #dadada;
+    }
