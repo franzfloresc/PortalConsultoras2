@@ -180,19 +180,19 @@ function MostrarBarra(datax, destino) {
 
     // colocar los puntos limites
     var styleMin = 'style="margin-left: 6px;"';
-    var htmlPunto = '<div id="punto_{punto}">'
+    var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
                     + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
                     + '<div class="linea_indicador_barra" {style}></div>'
                 + '</div>'
             + '</div>';
-    var htmlTippintPoint = '<div id="punto_{punto}">'
+    var htmlTippintPoint = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     + '<div style="width:{wText}px;position: absolute;" data-texto><div class="tippingPoint {estado}"></div></div>'
                     + '<div class="linea_indicador_barra"></div>'
                 + '</div>'
             + '</div>';
-    var htmlPuntoLimite = '<div id="punto_{punto}">'
+    var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     + '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
@@ -204,13 +204,25 @@ function MostrarBarra(datax, destino) {
     
     var wTotalPunto = 0;
     $("#divBarra #divBarraLimite").html("");
-
+    
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
         htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
         htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
 
-        var wText = destino == '2' ? ind == 0 ? "130" : "90" : indPuntoLimite != ind || indPuntoLimite == 0 ? "55" : "130";
+        var selectPunto = "0";
+        var wText = ind == 0 ? "130" : "90";
+        if (destino == '1') {
+            if (vLogro < vLimite) {
+                wText = indPuntoLimite - 1 != ind || indPuntoLimite == 0 ? "55" : "130";
+                selectPunto = indPuntoLimite - 1 != ind || indPuntoLimite == 0 ? "0" : "1";
+            }
+            else {
+                wText = indPuntoLimite != ind || indPuntoLimite == 0 ? "55" : "130";
+                selectPunto = indPuntoLimite != ind || indPuntoLimite == 0 ? "0" : "1";
+            }
+
+        }
         var marl = indPuntoLimite == listaLimite.length - 1 ? "-80" : "21";
         if (destino == '1' && indPuntoLimite == 0) {
             wText = wTotal / listaLimite.length
@@ -220,8 +232,25 @@ function MostrarBarra(datax, destino) {
         var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
         var nombrePunto = limite.nombre;
         if (destino == '1') {
-            var txtDscto = indPuntoLimite == 0 ? "" : indPuntoLimite != ind ? "DSCTO" : "";
-            var txtDetalle = indPuntoLimite == 0 ? "DSCTO" : indPuntoLimite != ind ? "" : (vbSimbolo + "" + limite.MontoDesdeStr + " a " + (indPuntoLimite < listaLimite.length - 1 ? (vbSimbolo + "" + limite.MontoHastaStr) : "más"));
+            var txtDscto = "";
+            var txtDetalle = "";
+            if (vLogro < vLimite) {
+                if (indPuntoLimite == 0) {
+                    txtDscto = "";
+                    txtDetalle = "DSCTO";
+                }
+                else {
+                    txtDscto = indPuntoLimite - 1 != ind ? "DSCTO" : "";
+                    txtDetalle = indPuntoLimite - 1 != ind ? "" :
+                    (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+                }
+            }
+            else {
+                txtDscto = indPuntoLimite != ind ? "DSCTO" : "";
+                txtDetalle = indPuntoLimite != ind ? "" :
+                (vbSimbolo + "" + limite.MontoDesdeStr + " a más");
+            }
+
             nombrePunto = limite.nombre2
             .replace("{DSCTO}", txtDscto)
             .replace("{detalle}", txtDetalle);
@@ -233,7 +262,8 @@ function MostrarBarra(datax, destino) {
             .ReplaceAll("{wText}", wText)
             .ReplaceAll("{marl}", marl)
             .ReplaceAll("{estado}", activo)
-            .ReplaceAll("{style}", styleMinx);
+            .ReplaceAll("{style}", styleMinx)
+            .ReplaceAll("{select}", selectPunto);
 
         var objH = $(htmlSet).css("float", 'left');
         $("#divBarra #divBarraLimite").append(objH);
@@ -264,6 +294,13 @@ function MostrarBarra(datax, destino) {
 
     });
     $("#divBarra #divBarraLimite").append("<div class='clear'></div>");
+
+    if (destino == '1') {
+        $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
+        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#000000");
+        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
+    }
+    
 
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
