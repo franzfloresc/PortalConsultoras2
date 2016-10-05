@@ -136,7 +136,6 @@
             </div>
         </div>
         <div class="wrapper_header">
-            <div class="fondo_oscuro"></div>
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
@@ -194,8 +193,19 @@
                 <div class="mensaje_header" id="salvavidaTutorial" style="display:none;">
                     <a href="#" class="abrir_tutorial">
                         <div class="campana_svg tutoriales_svg">
+                            <div class="contenedor_circulosTutorial">
+                                <div class="circulo-1 iniciarTransicion"></div>
+                                <div class="circulo-2 iniciarTransicion"></div>
+                                <div class="circulo-3 iniciarTransicion"></div>
+                            </div>
                             <div class="tooltip_tutorial">
-                                <span><b>Haciendo clic en el salvavidas</b>, podrás conocer cómo navegar en las páginas de Somos Belcorp</span>
+                                <div class="cerrar_tooltipTutorial">
+                                    <a href="javascript:void();" onclick="ocultarUbicacionTutorial();" title="Cerrar">
+                                        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+                                    </a>
+                                </div>
+                                <span class="titulo_necesitasAyuda">¿Necesitas ayuda?</span>
+                                <span class="descripcion_necesitasAyuda">Hoy te brindamos este salvavidas que te ayudará a comprender la sección en donde te encuentres</span>
                             </div>
                         </div>
                     </a>
@@ -221,6 +231,7 @@
         </div>
         <div class="clear"></div>
     </header>
+    <div class="fondo_oscuro"></div>
     <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
     </div>

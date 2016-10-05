@@ -435,6 +435,8 @@ $(document).ready(function() {
     CrearPopShow();
     MostrarShowRoom();
     //Fin ShowRoom
+
+    MostrarBarra(null, '1');
 });
 
 function CargarCamara() {
@@ -585,22 +587,20 @@ function agregarProductoAlCarrito(o) {
 }
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
+
 function mostrarUbicacionTutorial() {
+
     $(".fondo_oscuro").fadeIn(300, function () {
-        $(".mensaje_header").addClass("opcionTutorial");
+        //$(".mensaje_header").addClass("opcionTutorial");
         $(".tooltip_tutorial").fadeIn();
+        $(".contenedor_circulosTutorial").fadeIn();
         mostrarIconoTutorial();
     });
 
-    setTimeout(function () {
-        $(".tooltip_tutorial").fadeOut();
-        $(".tooltip_tutorial").stop();
-        $(".fondo_oscuro").delay(500);
-        $(".fondo_oscuro").fadeOut(300, function () {
-            $(".mensaje_header").removeClass("opcionTutorial");
-        });
-    }, 9000);
+    setTimeout(ocultarUbicacionTutorial, 4000);
+
 }
+
 function mostrarIconoTutorial() {
 
     $(".tooltip_tutorial").animate({
@@ -611,6 +611,17 @@ function mostrarIconoTutorial() {
     }, 400, 'swing', mostrarIconoTutorial);
 
 }
+
+function ocultarUbicacionTutorial() {
+
+    $(".contenedor_circulosTutorial").fadeOut();
+    $(".tooltip_tutorial").fadeOut();
+    $(".tooltip_tutorial").stop();
+    $(".fondo_oscuro").delay(500);
+    $(".fondo_oscuro").fadeOut(300);
+
+}
+
 // FIN MICROEFECTO RESALTAR ICONO TUTORIAL
 
 function mostrarVideoIntroductorio() {
@@ -780,6 +791,7 @@ function CargarPopupsConsultora() {
 
 //Metodos para carousel Ofertas para Tí
 function CargarCarouselEstrategias(cuv) {
+    $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divCarruselHorizontal.slick-initialized').slick('unslick');    
@@ -806,121 +818,123 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 function ArmarCarouselEstrategias(data) {
+    $('#divListaEstrategias').hide();
     
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     SetHandlebars("#estrategia-template", data, '#divCarruselHorizontal');
+    
+    if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
+        return false;
+    }
 
     var data1 = $('#divCarruselHorizontal').find('.nombre_producto');
-    nbData = data1.length;
-    var found;
+    var nbData = data1.length;
     for (var iData = 0; iData < nbData; iData++) {
         if (data1[iData].children[0].innerHTML.length > 40) {
             data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
         }
     }
-
-    if ($.trim($('#divCarruselHorizontal').html()).length == 0) {
-        $('.fondo_gris').hide();
-    } else {
-        $('#divCarruselHorizontal').not('.slick-initialized').slick({
-            infinite: true,
-            vertical: false,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 260,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-            responsive: [
-                {
-                    breakpoint: 1025,
-                    settings: {
-                        slidesToShow: 3
-                    }
+    
+    $('#divListaEstrategias').show();
+    $('#divCarruselHorizontal').not('.slick-initialized').slick({
+        infinite: true,
+        vertical: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 260,
+        prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings: {
+                    slidesToShow: 3
                 }
-            ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            var accion;
-            if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
-                accion = 'next';
-            } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
-                accion = 'prev';
-            } else if (nextSlide > currentSlide) {
-                accion = 'next';
-            } else {
-                accion = 'prev';
+            }
+        ]
+    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        var accion;
+        if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+            accion = 'next';
+        } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+            accion = 'prev';
+        } else if (nextSlide > currentSlide) {
+            accion = 'next';
+        } else {
+            accion = 'prev';
+        };
+
+        if (accion == 'prev') {
+            //TagManager
+            var posicionPrimerActivo = $($('#divCarruselHorizontal').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+            var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+            var recomendado = arrayOfertasParaTi[posicionEstrategia];
+            var arrayEstrategia = new Array();
+                
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCompleta,
+                'id': recomendado.CUV2,
+                'price': recomendado.Precio2.toString(),
+                'brand': recomendado.DescripcionMarca,
+                'category': 'NO DISPONIBLE',
+                'variant': recomendado.DescripcionEstrategia,
+                'list': 'Ofertas para ti – Home',
+                'position': recomendado.Posicion
             };
 
-            if (accion == 'prev') {
-                //TagManager
-                var posicionPrimerActivo = $($('#divCarruselHorizontal').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-                var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-                var recomendado = arrayOfertasParaTi[posicionEstrategia];
-                var arrayEstrategia = new Array();
-                
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV2,
-                    'price': recomendado.Precio2.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
-                    'position': recomendado.Posicion
-                };
+            arrayEstrategia.push(impresionRecomendado);
 
-                arrayEstrategia.push(impresionRecomendado);
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Home',
+                'action': 'Ofertas para ti',
+                'label': 'Ver anterior'
+            });
+        } else if (accion == 'next') {
+            //TagManager
+            var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+            var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+            var recomendado = arrayOfertasParaTi[posicionEstrategia];
+            var arrayEstrategia = new Array();
 
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Ofertas para ti',
-                    'label': 'Ver anterior'
-                });
-            } else if (accion == 'next') {
-                //TagManager
-                var posicionUltimoActivo = $($('#divCarruselHorizontal').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-                var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-                var recomendado = arrayOfertasParaTi[posicionEstrategia];
-                var arrayEstrategia = new Array();
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCompleta,
+                'id': recomendado.CUV2,
+                'price': recomendado.Precio2.toString(),
+                'brand': recomendado.DescripcionMarca,
+                'category': 'NO DISPONIBLE',
+                'variant': recomendado.DescripcionEstrategia,
+                'list': 'Ofertas para ti – Home',
+                'position': recomendado.Posicion
+            };
 
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV2,
-                    'price': recomendado.Precio2.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Ofertas para ti – Home',
-                    'position': recomendado.Posicion
-                };
+            arrayEstrategia.push(impresionRecomendado);
 
-                arrayEstrategia.push(impresionRecomendado);
-
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Ofertas para ti',
-                    'label': 'Ver siguiente'
-                });
-            }
-        });
-        TagManagerCarruselInicio(data);
-    }
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Home',
+                'action': 'Ofertas para ti',
+                'label': 'Ver siguiente'
+            });
+        }
+    });
+    TagManagerCarruselInicio(data);
+    
 };
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
@@ -1191,8 +1205,8 @@ function AgregarProductoDestacado(popup, tipoEstrategiaImagen) {
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
-                            waitingDialog({});
-                            ActualizarGanancia(data.DataBarra);
+                            waitingDialog();
+                            MostrarBarra(data.DataBarra, '1');
                             CargarCarouselEstrategias(cuv);
                             CargarResumenCampaniaHeader(true);
                             TagManagerClickAgregarProducto();
@@ -1600,7 +1614,7 @@ function AgregarProductoLiquidacion(contenedor) {
                         async: true,
                         success: function (data) {
                             if (data.success == true) {
-                                ActualizarGanancia(data.DataBarra);
+                                MostrarBarra(data.DataBarra, '1');
                                 CargarResumenCampaniaHeader(true);
                                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                                 TagManagerClickAgregarProductoLiquidacion(item);
@@ -1836,7 +1850,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             if (checkTimeout(result)) {
                 if (result.success == true) {
 
-                    ActualizarGanancia(result.DataBarra);
+                    MostrarBarra(result.DataBarra, '1');
 
                     CargarResumenCampaniaHeader(true);
 
@@ -3033,6 +3047,7 @@ function CargarCatalogoPersonalizado() {
         return false;
     }
 
+    $("#divMainCatalogoPersonalizado").hide();
     $('#divCatalogoPersonalizado').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Catalogo Personalizado<br><img src="' + urlLoad + '" /></div>');
     jQuery.ajax({
         type: 'POST',
@@ -3056,6 +3071,7 @@ function CargarCatalogoPersonalizado() {
                     }
                 });
                 if (arrayProducto.length > 0) {
+                    $("#divMainCatalogoPersonalizado").show();
                     SetHandlebars("#template-catalogopersonalizado", arrayProducto, "#divCatalogoPersonalizado");
                 } else {
                     $("#divMainCatalogoPersonalizado").remove();
@@ -3172,7 +3188,7 @@ function AgregarProducto(url, item, otraFunct) {
         async: true,
         success: function (data) {
             if (data.success == true) {
-                ActualizarGanancia(data.DataBarra);                
+                MostrarBarra(data.DataBarra, '1');
                 CargarResumenCampaniaHeader(true);
 
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);

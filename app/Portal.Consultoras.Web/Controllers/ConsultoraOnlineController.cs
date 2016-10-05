@@ -1024,7 +1024,6 @@ namespace Portal.Consultoras.Web.Controllers
             string mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", userData.NombreConsultora);
             try
             {
-                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
@@ -1177,7 +1176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Inicio GR-1385
-
+                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
                 if (pedido.FlagMedio == "01")
                 {
                     double totalPedido = 0;
@@ -1316,7 +1315,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,mensajecliente.ToString(), true, pedido.Email);
+                        Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente,
+                            mensajecliente.ToString(), true, pedido.Email);
                     }
                     catch (Exception ex)
                     {
