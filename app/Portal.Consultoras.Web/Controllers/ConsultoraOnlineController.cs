@@ -1024,7 +1024,6 @@ namespace Portal.Consultoras.Web.Controllers
             string mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", userData.NombreConsultora);
             try
             {
-                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
