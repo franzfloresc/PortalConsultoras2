@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
         public string Marca { get; set; }
         public string Origen { get; set; }
         public string Campania { get; set; }
+        public string CampaniaDescripcion { get; set; }
         public DateTime FechaSolicitud { get; set; }
         public string FechaSolicitudString { get; set; }
         public decimal PrecioTotal { get; set; }
