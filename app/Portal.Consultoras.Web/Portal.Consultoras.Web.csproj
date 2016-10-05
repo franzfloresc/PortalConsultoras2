@@ -2553,6 +2553,7 @@
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\Historial.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\PedidosPendientes.cshtml" />
     <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoHistorial.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendiente.cshtml" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />

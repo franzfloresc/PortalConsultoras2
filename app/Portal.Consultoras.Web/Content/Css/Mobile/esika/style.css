@@ -6533,7 +6533,7 @@ input[type="checkbox"]:checked + span:after {
 .MensajeAlertaMobile {
     position: fixed;
     z-index: 2010;
-    
+    display:none;
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -6681,6 +6681,8 @@ input[type="checkbox"]:checked + span:after {
 
     .titulo_compartir {
         font-size: 19px;
+            line-height: 28px;
+
     }
 }
 /*CAMBIO FOOTER*/
@@ -8383,9 +8385,9 @@ span.title-app-b {
 }
 
 /* FIN PROCESO CARGA FOTO */
-a:focus, a:hover {
+/*a:focus, a:hover {
     color: initial;
-}
+}*/
   
 /*CONSULTORA ONLINE*/
 .content_pendiente{
@@ -8460,11 +8462,15 @@ a:focus, a:hover {
 	border-width: 13px;
 	margin-left: -13px;
 }
+.tooltip_pendiente .titulo_tooltip_p{
+    margin-top:0px;
+} 
 .titulo_tooltip_p{
    font-family:'Lato'; 
    font-size: 13px;
    color: #e81c36;
    font-weight:700;
+   margin-top:-7px;
 }
 .hora_tooltip_p{
    font-family:'Lato'; 
@@ -8557,6 +8563,7 @@ a:focus, a:hover {
 }
 .triang_pe{
     position:relative;
+    margin-bottom:15px;
 }
 .triang_pe:after{
     top: 100%;
@@ -8680,4 +8687,109 @@ a:focus, a:hover {
 }
 .content_historial_pedido:last-child{
     margin-bottom:30px;
+}
+/*DETALLE PEDIDO PENDIENTE*/
+.tiempo_restante{
+    font-family:'Lato';
+    font-size:15px;
+    color:#e81c36;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.contacte_cliente{
+     font-family:'Lato';
+    font-size:17px;
+    color:black;   
+}
+.texto_detalle_pedido{
+     font-family:'Lato';
+    font-size:13px;
+    color:black;   
+    font-weight:300;
+    line-height:18px;
+    margin-top:7px;
+    margin-bottom:20px;
+}
+.select_detalle{
+    width:100%;
+    height:45px;
+    border:1px solid black;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.linea_separadora_roja{
+    width:100%;
+    height:1px;
+    background:#e81c36;
+}
+.btn_acepto_pedido{
+    margin:0 auto;
+    width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top: 17px;
+    font-weight: 700;
+    color:white;
+    text-align:center;
+   
+    display:block;
+    background:#e81c36;
+    display:block;
+}
+
+a{
+    text-decoration:none;
+}
+.btn_rechazo_pedido{
+     margin:0 auto;
+     width:100%;
+    height:45px;
+    line-height:45px;
+    font-family:'Lato';
+    font-size:13px;
+    margin-top:17px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color:black;
+    text-align:center;
+    border:1px solid black;
+    display:block; 
+    
+}
+.btn_rechazo_pedido:hover{    
+    color:white;
+    background:black;   
+}
+.comentario_rechazados{
+    width:100%;
+    border:1px solid #c9c9c9;
+    padding:13px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    height:70px;
+}
+.opcion_rechazo{
+    border-bottom:1px solid #c9c9c9;
+    width:100%;
+    padding-left:32px;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+}
+.opcion_rechazo:hover {
+        background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+        background-position:10px 18px;
+    }
+.opcion_rechazo:last-child{
+    border-bottom:0;
 }

@@ -1348,5 +1348,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
+
+        public ActionResult DetallePedidoPendiente()
+        {
+            return View();
+        }
     }
 }
