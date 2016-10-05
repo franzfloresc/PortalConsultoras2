@@ -204,6 +204,7 @@ function MostrarBarra(datax, destino) {
     
     var wTotalPunto = 0;
     $("#divBarra #divBarraLimite").html("");
+
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
         htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
@@ -220,7 +221,7 @@ function MostrarBarra(datax, destino) {
         var nombrePunto = limite.nombre;
         if (destino == '1') {
             var txtDscto = indPuntoLimite == 0 ? "" : indPuntoLimite != ind ? "DSCTO" : "";
-            var txtDetalle = indPuntoLimite == 0 ? "DSCTO" : indPuntoLimite != ind ? "" : (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+            var txtDetalle = indPuntoLimite == 0 ? "DSCTO" : indPuntoLimite != ind ? "" : (vbSimbolo + "" + limite.MontoDesdeStr + " a " + (indPuntoLimite < listaLimite.length - 1 ? (vbSimbolo + "" + limite.MontoHastaStr) : "más"));
             nombrePunto = limite.nombre2
             .replace("{DSCTO}", txtDscto)
             .replace("{detalle}", txtDetalle);
@@ -241,19 +242,21 @@ function MostrarBarra(datax, destino) {
         if (!(destino == '1' && indPuntoLimite == 0)) {
             wPunto = $("#punto_" + ind + " [data-texto]").width();
             wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
-        
+
             if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
-                if (vLogro < vLimite) {
-                    if (mx <= 0) {
-                        wPunto = wmin;
+                if (destino == '2') {
+                    if (vLogro < vLimite) {
+                        if (mx <= 0) {
+                            wPunto = wmin;
+                        }
                     }
                 }
-            }
 
-            $("#punto_" + ind).css("width", wPunto);
-            if (ind == 0) {
-                if (mn == 0) {
-                    $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
+                $("#punto_" + ind).css("width", wPunto);
+                if (ind == 0) {
+                    if (mn == 0) {
+                        $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
+                    }
                 }
             }
         }
