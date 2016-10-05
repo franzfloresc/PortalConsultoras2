@@ -765,10 +765,10 @@
                     <span>{{detalle.Cliente}}</span>
                 </div>
                 <div class="origen_online">{{detalle.Origen}}</div>
-                <div class="canpana_online">{{detalle.Campania}}</div>
+                <div class="canpana_online">{{detalle.CampaniaDescripcion}}</div>
                 <div class="registro_online">{{detalle.FechaSolicitudString}}</div>
                 <div class="total_online">{{detalle.PrecioTotalString}}</div>
-                <div class="detalle_online" onclick="CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');">
+                <div class="detalle_online" onclick="CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.Campania}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');">
                     {{#iff detalle.Estado '==' 'A'}}
                     <span class="facturado_online estado_detalleFacturado"> {{detalle.EstadoDesc}} </span>
                     {{else}}

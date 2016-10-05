@@ -44,7 +44,7 @@ function CargarEventosClienteOnline() {
 
     if (lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag="PedidosClientesOnline"]').trigger('click');
 }
-function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
+function CargarDetallleClienteOnline(solicitudClienteId, campaniaID, marcaId, nombre, direccion, telefono, email, estado, estadoDesc, mensaje, total) {
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
@@ -65,7 +65,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             var titulo = "pedido " + estadoDesc + " de " + nombre;
             $('#popup_cliente_online_detalle .spnClienteOnlineTitulo').html(titulo.toUpperCase());
             $('#popup_cliente_online_detalle .spnClienteOnlineTotal').html(total);
-            if (campaniaActual == $('#ddlCampania').val() && estado == 'A') {
+            if (campaniaActual == campaniaID && estado == 'A') {
                 $('#popup_cliente_online_detalle .popup_Pendientes').css('padding-bottom', '');
                 $('#popup_cliente_online_detalle .solo-cliente-online-aceptado').show();
             }

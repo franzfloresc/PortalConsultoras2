@@ -132,7 +132,8 @@ namespace Portal.Consultoras.Web.Controllers
                 listModel.Update(model => {
                     model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
                     model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
-                    model.Campania = campania.ToString().Substring(0, 4) + "-" + campania.ToString().Substring(4, 2);
+                    model.Campania = campania.ToString();
+                    model.CampaniaDescripcion = campania.ToString().Substring(0, 4) + "-" + campania.ToString().Substring(4, 2);
                     model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
                     model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
