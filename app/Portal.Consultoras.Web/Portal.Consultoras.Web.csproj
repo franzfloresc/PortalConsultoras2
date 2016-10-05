@@ -1275,6 +1275,7 @@
     <Content Include="Content\Images\btn_03v.png" />
     <Content Include="Content\Images\btn_cerrar_popup.svg" />
     <Content Include="Content\Images\btn_cerrar_popupPercepcion.png" />
+    <Content Include="Content\Images\btn_cerrar_popup_color_negro.svg" />
     <Content Include="Content\Images\btn_desafiliate.png" />
     <Content Include="Content\Images\btn_modifica.png" />
     <Content Include="Content\Images\btn_modifica_e.png" />
