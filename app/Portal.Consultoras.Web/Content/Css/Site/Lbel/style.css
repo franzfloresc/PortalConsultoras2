@@ -28283,6 +28283,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .mensaje_horarioIngresoPedido a{
     display: inline-block;
     margin-left: 2px;
+    text-decoration:underline;
 }
 
 .mensaje_horarioIngresoPedido a:hover{

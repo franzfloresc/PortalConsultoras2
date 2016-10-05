@@ -1,5 +1,5 @@
 
-CREATE PROCEDURE dbo.ObtenerProcesoPedidoRechazadoGPR_SB2
+ALTER PROCEDURE dbo.ObtenerProcesoPedidoRechazadoGPR_SB2
 	@ConsultoraID bigint
 	, @CampaniaID int
 AS
@@ -36,6 +36,7 @@ BEGIN
 	,r.Valor
 	,r.RequiereGestion
 	,r.Procesado
+	,r.Rechazado
 	from GPR.ProcesoPedidoRechazado p
 		LEFT join GPR.PedidoRechazado r
 			on r.IdProcesoPedidoRechazado = p.IdProcesoPedidoRechazado

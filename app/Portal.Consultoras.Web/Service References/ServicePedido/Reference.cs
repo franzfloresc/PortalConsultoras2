@@ -2039,6 +2039,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ProcesadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool RechazadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool RequiereGestionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2128,6 +2131,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProcesadoField.Equals(value) != true)) {
                     this.ProcesadoField = value;
                     this.RaisePropertyChanged("Procesado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Rechazado {
+            get {
+                return this.RechazadoField;
+            }
+            set {
+                if ((this.RechazadoField.Equals(value) != true)) {
+                    this.RechazadoField = value;
+                    this.RaisePropertyChanged("Rechazado");
                 }
             }
         }
