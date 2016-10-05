@@ -230,11 +230,14 @@ function MostrarBarra(datax, destino) {
         }
         var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
         var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
+        if (destino == '1' && selectPunto == "0" && indPuntoLimite == 0 && mn == 0) {
+            styleMinx = "";
+        }
         var nombrePunto = limite.nombre;
         if (destino == '1') {
             var txtDscto = "";
             var txtDetalle = "";
-            if (vLogro < vLimite) {
+            if (vLogro <= vLimite) {
                 if (indPuntoLimite == 0) {
                     txtDscto = "";
                     txtDetalle = "DSCTO";
@@ -364,12 +367,21 @@ function MostrarBarra(datax, destino) {
         }
         indAux--;
     }
-    if (vLogro >= vLimite) {
-        if (indPuntoLimite > 0 && mn > 0) {
-            wPuntosAnterior += $("#punto_" + indPuntoLimite).width();
+    if (mn > 0) {
+        if (vLogro >= vLimite) {
+            if (indPuntoLimite > 0) {
+                wPuntosAnterior += $("#punto_" + indPuntoLimite).width();
+            }
+        }
+    }
+    else {
+        if (indPuntoLimite == 1) {
+            wPuntosAnterior += $("#punto_" + (indPuntoLimite - 1)).width();
         }
     }
 
+
+    console.log(vLogro, vLimite, wAreaMover, wPuntosAnterior, indPuntoLimite);
     var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
     var wLimiteAnterior = wPuntosAnterior;
     if (indPuntoLimite > 0) {
