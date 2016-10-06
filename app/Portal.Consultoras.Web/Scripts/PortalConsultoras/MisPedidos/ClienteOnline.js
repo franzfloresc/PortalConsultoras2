@@ -146,7 +146,7 @@ function CancelarSolicitud() {
 
                     solicitudClienteIdActual = 0;
                     marcaIdActual = 0;
-                    ActualizarGanancia.val(data.dataBarra);
+                    ActualizarGanancia(data.dataBarra);
                 },
                 error: function (data) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
