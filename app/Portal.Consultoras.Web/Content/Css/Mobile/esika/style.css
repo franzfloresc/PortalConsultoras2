@@ -2295,6 +2295,10 @@ h4.re3 {
         color: black;
     }
 
+        .block-seguimiento-content .seg-active .seg-fecha .texto_valorTurno{
+            text-transform: lowercase;
+            color:#e81c36;
+        }
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
@@ -8877,3 +8881,7 @@ a:focus, a:hover {
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
+.texto_valorTurno {
+    text-transform: lowercase;
+    color:#e81c36;
+}
