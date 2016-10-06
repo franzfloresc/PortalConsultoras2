@@ -424,7 +424,7 @@
         </div>
     </div>
     <!--FIN PENDIENTES APP CATALOGO-->
-    <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
+    <!--INICIO MODAL DE CONFIRMACIÓN DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionCancelado" style="display: none;">
         <div class="popup_rechazarPendientes">
             <input type="hidden" id="hdePedidoIdRechazo" />
@@ -446,8 +446,8 @@
             </div>
         </div>
     </div>
-    <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
-    <!--INICIO MODAL DE SELECCIÓN DE RAZÓN DE RECHAZO EN PENDIENTES-->
+    <!--FINAL MODAL DE CONFIRMACIÓN DE CANCELADO-->
+    <!--INICIO MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoCancelado" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
@@ -476,8 +476,8 @@
             </button>
         </div>
     </div>
-    <!--FINAL MODAL DE SELECCIÓN DE RAZÓN DE RECHAZO EN PENDIENTES-->
-    <!--INICIO MODAL DE MENSAJE DE RECHAZO EN PENDIENTES-->
+    <!--FINAL MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
+    <!--INICIO MODAL DE MENSAJE DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeCancelado" style="display: none;">
         <div class="popup_rechazarPendientes">
 
@@ -496,7 +496,7 @@
             </div>
         </div>
     </div>
-    <!--FINAL MODAL DE MENSAJE DE RECHAZO EN PENDIENTES-->
+    <!--FINAL MODAL DE MENSAJE DE CANCELADO-->
 }
 
 <script id="html-detalle-ingresado" type="text/x-handlebars-template">
@@ -833,7 +833,10 @@
             var urlClienteOnlineDetalle = '@Url.Action("ClienteOnlineDetalle", "MisPedidos")';
             var urlClienteOnlineCancelarSolicitud = '@Url.Action("ClienteOnlineCancelarSolicitud", "MisPedidos")';
             var campaniaActual = '@Model.CampaniaActualConsultoraOnline';
+
+            var mensajeCanceladoMarcas = '@Constantes.COPedidoCanceladoMensaje.Marcas';
+            var mensajeCanceladoPortal = '@Constantes.COPedidoCanceladoMensaje.Portal';
         </script>
-        <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script> 
+        <script src="@Url.Content("~/Scripts/PortalConsultoras/MisPedidos/ClienteOnline.js")"></script>
     }
 }

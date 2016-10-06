@@ -4233,9 +4233,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MedioContactoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4326,19 +4323,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
                     this.MarcaField = value;
                     this.RaisePropertyChanged("Marca");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MedioContacto {
-            get {
-                return this.MedioContactoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MedioContactoField, value) != true)) {
-                    this.MedioContactoField = value;
-                    this.RaisePropertyChanged("MedioContacto");
                 }
             }
         }
@@ -5446,10 +5430,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetMisPedidosConsultoraOnlineAsync(int PaisID, long ConsultoraId, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID);
+        Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosDetalleConsultoraOnlineResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, int PedidoID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnline", ReplyAction="http://tempuri.org/IUsuarioService/GetMisPedidosClienteOnlineResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania);
@@ -6023,11 +6007,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetMisPedidosConsultoraOnlineAsync(PaisID, ConsultoraId, Campania);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[] GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID) {
             return base.Channel.GetMisPedidosDetalleConsultoraOnline(PaisID, PedidoID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, int PedidoID) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]> GetMisPedidosDetalleConsultoraOnlineAsync(int PaisID, long PedidoID) {
             return base.Channel.GetMisPedidosDetalleConsultoraOnlineAsync(PaisID, PedidoID);
         }
         
