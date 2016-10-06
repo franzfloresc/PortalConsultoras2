@@ -14,16 +14,21 @@ function CargarEventosClienteOnline() {
         }
     });
     $('#ddlCampania').on('change', function () {
+        var campanias = [$('#ddlCampania').val()];
+        var campaniaAnterior = $('#ddlCampania option:selected').first().next().val();
+        if (campaniaAnterior != null && campaniaAnterior != '') campanias.push(campaniaAnterior);
+
         waitingDialog();
         jQuery.ajax({
             type: 'POST',
             url: urlClienteOnline,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            data: JSON.stringify({ campanias: campanias }),
             success: function (data) {
                 if (!checkTimeout(data)) return false;
 
+                if (data.success) $('#ddlCampania').val(data.campaniaResultado);
                 if (data.success && data.listaPedidosClienteOnline.length > 0) {
                     var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
                     $('#divTablaClientesOnline').html(tablaClientesOnline);
@@ -135,12 +140,13 @@ function CancelarSolicitud() {
                     }
                                         
                     $('#dialog_motivoCancelado').hide();
-                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
-                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
+                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
+                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
                     $('#dialog_mensajeCancelado').show();
 
                     solicitudClienteIdActual = 0;
                     marcaIdActual = 0;
+                    ActualizarGanancia(data.dataBarra);
                 },
                 error: function (data) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
@@ -182,7 +188,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
-                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                location.href = baseUrl + 'Pedido/PedidoValidado';
                 return false;
             }
 

@@ -174,7 +174,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.SetUsuarioVerTutorialDesktop(CodigoUsuario);
         }
-
+        
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             BEUsuario usuario = null;
@@ -1065,5 +1065,12 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             DAUsuario.GuardarContrasenia(codigoUsuario, contraseniaEncriptada);
         }
+
+        public int UpdateUsuarioTutoriales(int paisID, string CodigoUsuario, int tipo)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.UpdateUsuarioTutoriales(CodigoUsuario, tipo);
+        }
+        
     }
 }

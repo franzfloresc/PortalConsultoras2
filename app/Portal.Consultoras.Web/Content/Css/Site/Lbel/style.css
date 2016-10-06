@@ -2584,7 +2584,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    /*/*padding-right:1.5%;*/*/
+    /*padding-right:1.5%;*/
 }
 
 .cabecera_producto{
@@ -12425,7 +12425,7 @@ ol {
         display: block;
         font-size: 12px;
         color: #e51437;
-        font: Arial;
+        font-family: Arial;
         padding: 0px 0px 2px 0px;
     }
 
@@ -20256,7 +20256,7 @@ label.checkpop.c_on {
     /*margin: 0 auto;*/
     margin: 0 ;
     /*max-width: 1228px;*/
-    max-width: 100%
+    max-width: 100%;
     /*padding-top: 20px;
     padding-bottom: 20px;*/
     position: relative;
@@ -21473,28 +21473,31 @@ label.checkpop.c_on {
     float:left;
 }
 .tabs_pagos li {
-  display: inline;
+  /*display: inline;*/
   text-align: center;
+  width:25%;
+  float:left;
+
 }
 
 .tabs_pagos li a {
     display: inline-block;
     /* vertical-align: middle; */
-    /*width: 30%;*/
-    width:24%;
-    padding-top:13px;
-    padding-bottom:14px;
+    /* width: 30%; */
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 7px;
     margin: 0;
     text-decoration: none;
-     font-family: 'lato';
+    font-family: 'lato';
     font-size: 10pt;
     font-weight: 300;
     color: black;
     position: relative;
-    /*background: url("../../../Images/Lbel/estado_cuenta.png") no-repeat;*/
-    background-position: 18% 7px;
+    /* background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; */
+    /* background-position: 18% 7px; */
     box-sizing: border-box;
-    padding-left: 5%;
+    /* padding-left: 5%; */
 }
 .imagen_2_lugares{
     background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
@@ -23242,7 +23245,7 @@ body{
 }
 
 .content_datos_pedidosIngresados .importePago_prod{
-    margin-left:23px,
+    margin-left: 23px;
 }
 
 .content_datos_pedidosIngresados .codigo_prod,

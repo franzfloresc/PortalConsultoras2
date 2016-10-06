@@ -944,7 +944,30 @@
         </div>
     </div>
     <!--FIN PENDIENTES APP CATALOGO-->
+    
 
+    <!--Popup mensaje como lo atenderas -->
+    
+    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
+        <div class="popup_agregarUnidades">
+            
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="aceptandoPendientes_aaa" onclick="$('#dialog_mensajeComoAtender').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp aceptaPedido">
+                <div class="icono_exclamacion" id="apro_o_excla_aaa"></div>
+                <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
+                <span class="mensaje_agregarUnidades">Por favor elige cómo atenderas todos los productos del pedido.</span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--Popup mensaje como lo atenderas -->
+    
     <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
@@ -1132,7 +1155,7 @@
                             <label>¡No pierdas esta oportunidad!</label>
                         </span>
                         {{#if FlagConsultora}}
-                        @*<h6 class="tiempos_P">Te quedan <span><b>00:00:00</b></span> horas</h6>*@
+                        <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
                         {{else}}
                         <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
                         {{/if}}
@@ -1151,7 +1174,7 @@
             <div class="mensajes_deAtencion">
                 <span>¡No te pierdas esta oportunidad!</span>
                 {{#if FlagConsultora}}
-                <span>Te quedan <br>00:00:00</span>
+                <span>Te quedan <br>24:00:00</span>
                 {{else}}
                 <span>Te quedan <br>{{SaldoHoras}}</span>
                 {{/if}}
@@ -1456,32 +1479,35 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto">
-            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA LIQUIDACIÓN</label>
-            </span>
-            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA FLEXIPLAGO</label>
-            </span>
-            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-            <span class="texto_pedidos_ofertas">
-                <label>PRE-VENTA DIGITAL</label>
-            </span>
-            {{else if_eq FlagConsultoraOnline '1'}}
+            {{#if_eq FlagConsultoraOnline '1'}}
             <span class="texto_pedidos_ofertas">
                 <label>CLIENTE ONLINE</label>
             </span>
-            {{#IsNullOrEmpty DescripcionOferta '!='}}
-            <span class="texto_pedidos_ofertas">
-                {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+            {{else}}
+                {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+            	{{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+            	{{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            	<span class="texto_pedidos_ofertas">
+                	<label>OFERTA LIQUIDACIÓN</label>
+	            </span>
+	            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            	<span class="texto_pedidos_ofertas">
+                	<label>OFERTA FLEXIPLAGO</label>
+            	</span>
+            	{{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+            	<span class="texto_pedidos_ofertas">
+                	<label>PRE-VENTA DIGITAL</label>
+            	</span>
                 {{else}}
-                <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
-                {{/iff}}
-            </span>
-            {{/IsNullOrEmpty}}
+            	{{#IsNullOrEmpty DescripcionOferta '!='}}
+            	<span class="texto_pedidos_ofertas">
+                	{{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                	{{else}}
+                	<label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
+                	{{/iff}}
+            	</span>
+            	{{/IsNullOrEmpty}}
+            	{{/if_eq}}
             {{/if_eq}}
 
             {{#if_eq TipoPedido 'M'}}

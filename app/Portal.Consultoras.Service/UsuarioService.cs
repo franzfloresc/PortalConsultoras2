@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Service
             return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
-        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID)
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID)
         {
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
@@ -530,6 +530,12 @@ namespace Portal.Consultoras.Service
 
             BLUsuario BLUsuario = new BLUsuario();
             BLUsuario.GuardarContrasenia(paisID, codigoUsuario, contrasenia);
+        }
+
+        public int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.UpdateUsuarioTutoriales(paisID, codigoUsuario, tipo);
         }
     }
 }
