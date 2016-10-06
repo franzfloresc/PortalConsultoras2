@@ -8786,7 +8786,7 @@ a{
     font-size:13px;
     color:black;
 }
-.opcion_rechazo:hover {
+.opcion_rechazo:hover, .opcion_rechazo.opcion_rechazo-select{
         background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
         background-position:10px 18px;
     }

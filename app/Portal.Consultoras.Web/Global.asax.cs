@@ -346,6 +346,10 @@ namespace Portal.Consultoras.Web
             providerSession.Add("MatrizComercial", "ObtenerISOPais");
             providerSession.Add("MatrizComercial", "UpdateMatrizComercial");
 
+            providerSession.Add("MisPedidos", "ClienteOnline");
+            providerSession.Add("MisPedidos", "ClienteOnlineDetalle");
+            providerSession.Add("MisPedidos", "ClienteOnlineCancelarSolicitud");
+
             //Web Mobile
             providerSession.Add("Bienvenida", "Index", "Mobile");
             providerSession.Add("Catalogo", "Index", "Mobile");
@@ -377,6 +381,8 @@ namespace Portal.Consultoras.Web
             providerSession.Add("ConsultoraOnline", "MisPedidos", "Mobile");
             providerSession.Add("ConsultoraOnline", "DetallePedido", "Mobile");
             providerSession.Add("ConsultoraOnline", "MiPerfil", "Mobile");
+            providerSession.Add("ConsultoraOnline", "Historial", "Mobile");
+            providerSession.Add("ConsultoraOnline", "DetallePedidoHistorial", "Mobile");
 
             /*ShowRoom*/
             providerSession.Add("ShowRoom", "AdministrarShowRoom");

@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Service
             return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
-        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, int PedidoID)
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID)
         {
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
@@ -317,6 +317,11 @@ namespace Portal.Consultoras.Service
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
         {
             return new BLConsultoraOnline().GetMisPedidosClienteOnline(paisID, consultoraId, campania);
+        }
+
+        public BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId)
+        {
+            return new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudClienteId);
         }
 
         //R2073

@@ -26,10 +26,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetSolicitudesPedidoDetalle(int PedidoID)
+        public IDataReader GetSolicitudesPedidoDetalle(long PedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalle_SB2");
-            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int32, PedidoID);
+            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int64, PedidoID);
 
             return Context.ExecuteReader(command);
         }

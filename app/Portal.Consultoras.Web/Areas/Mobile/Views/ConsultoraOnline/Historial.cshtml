@@ -1,4 +1,4 @@
-﻿@model Portal.Consultoras.Web.Areas.Mobile.Models.ConsultoraOnlineHistorialMobileModel    
+﻿@model Portal.Consultoras.Web.Areas.Mobile.Models.ConsultoraOnlineHistorialMobileModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
@@ -27,71 +27,54 @@
     </div>
 
     <div id="divTablaClientesOnline">
-        <!--LISTA  HISTORIAL PEDIDO-->
-        <div class="content_historial_pedido">
-            <div class="titulo_pendiente">NUEVO CLIENTE</div>
-            <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Origen</span>
-                <span style="float: right;">App Catálogo</span>
-                <hr class="clear" />
-                <span style="float:left;">Campaña</span>
-                <span style="float: right;">2016-11</span>
-                <hr class="clear" />
-                <span style="float:left;">Fecha de registro</span>
-                <span style="float: right;">13/07/06</span>
-            </div>
-            <hr class="clear">
-            <div class="precio_pendiente" style="margin-bottom:10px;">
-                <span style="float:left;">PRECIO TOTAL</span>
-                <span style="float: right;">S/. 23.000</span>
-            </div>
-            <hr class="clear">
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Estado</span>
-                <span style="float: right;">
-                    <a href="#" class="facturado_pendiente">FACTURADO</a>
-                    <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>
-                    <hr class="clear" />
-                </span>
-            </div>
-        </div>
-        <div class="content_historial_pedido">
-            <div class="titulo_pendiente">NUEVO CLIENTE</div>
-            <div class="nombre_cliente_pendiente">Fiorella Goyzueta Arellano</div>
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Origen</span>
-                <span style="float: right;">App Catálogo</span>
-                <hr class="clear" />
-                <span style="float:left;">Campaña</span>
-                <span style="float: right;">2016-11</span>
-                <hr class="clear" />
-                <span style="float:left;">Fecha de registro</span>
-                <span style="float: right;">13/07/06</span>
-            </div>
-            <hr class="clear">
-            <div class="precio_pendiente" style="margin-bottom:10px;">
-                <span style="float:left;">PRECIO TOTAL</span>
-                <span style="float: right;">S/. 23.000</span>
-            </div>
-            <hr class="clear">
-            <div class="descripcion_pendiente">
-                <span style="float:left;">Estado</span>
-                <span style="float: right;">
-                    <a href="#" class="facturado_pendiente cancelado_pendiente">CANCELADO</a>
-                    <a href="#" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>
-                    <hr class="clear" />
-                </span>
-            </div>
-        </div>
-
     </div>
 </div>
 
+
+<script id="html-clientes-online" type="text/x-handlebars-template">
+    {{#each this as |detalle|}}
+    <div class="content_historial_pedido">
+        <div class="titulo_pendiente">{{detalle.TipoCliente}}</div>
+        <div class="nombre_cliente_pendiente">{{detalle.Cliente}}</div>
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Origen</span>
+            <span style="float: right;">{{detalle.Origen}}</span>
+            <hr class="clear" />
+            <span style="float:left;">Campaña</span>
+            <span style="float: right;">{{detalle.Campania}}</span>
+            <hr class="clear" />
+            <span style="float:left;">Fecha de registro</span>
+            <span style="float: right;">{{detalle.FechaSolicitudString}}</span>
+        </div>
+        <hr class="clear">
+        <div class="precio_pendiente" style="margin-bottom:10px;">
+            <span style="float:left;">PRECIO TOTAL</span>
+            <span style="float: right;">{{detalle.PrecioTotalString}}</span>
+        </div>
+        <hr class="clear">
+        <div class="descripcion_pendiente">
+            <span style="float:left;">Estado</span>
+            <span style="float: right;" onclick="CargarDetalleHistorial('{{detalle.SolicitudClienteID}}')">
+                @*CargarDetallleClienteOnline('{{detalle.SolicitudClienteID}}', '{{detalle.MarcaID}}', '{{detalle.Cliente}}', '{{detalle.Direccion}}', '{{detalle.Telefono}}', '{{detalle.Email}}', '{{detalle.Estado}}', '{{detalle.EstadoDesc}}', '{{detalle.MensajeDelCliente}}', '{{detalle.PrecioTotalString}}');*@
+                {{#iff detalle.Estado '==' 'A'}}
+                <a href="javascript:;" class="facturado_pendiente">
+                    {{detalle.EstadoDesc}}
+                </a>
+                {{else}}
+                <a href="javascript:;" class="facturado_pendiente cancelado_pendiente">{{detalle.EstadoDesc}}</a>
+                {{/iff}}
+                <a href="javascript:;" class="lupa_pendiente"><img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="-" /></a>
+                <hr class="clear" />
+            </span>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
 @section scripts{
     <script>
-        //var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlClienteOnline = '@Url.Action("ClienteOnline", "MisPedidos", new { Area = ""})';
+        var urlClienteOnlineDetalleHistorial = '@Url.Action("DetallePedidoHistorial", "ConsultoraOnline", new { Area = "Mobile" })';
         var campaniaActual = '@Model.CampaniaActualConsultoraOnline';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Historial.js")"></script>

@@ -2011,35 +2011,61 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                model.CampaniasConsultoraOnline = new List<CampaniaModel>();
+                for (int i = 0; i <= 2; i++)
                 {
-                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID).ToList();
+                    model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
                 }
-
-                model.CampaniasConsultoraOnline = new List<CampaniaModel> { new CampaniaModel { CampaniaID = userData.CampaniaID } };
-                model.CampaniasConsultoraOnline.AddRange(listaPedidoFacturados.Select(pedido => new CampaniaModel { CampaniaID = pedido.CampaniaID }));
-                model.CampaniasConsultoraOnline.OrderByDescending(campania => campania.CampaniaID);
                 model.CampaniasConsultoraOnline.Update(campania => {
                     campania.Anio = Convert.ToInt32(campania.CampaniaID.ToString().Substring(0, 4));
                     campania.NroCampania = Convert.ToInt32(campania.CampaniaID.ToString().Substring(4, 2));
                 });
-                
-                //model.CampaniasConsultoraOnline = new List<CampaniaModel>(listaPedidoFacturados.Select(
-                //    pedido => new CampaniaModel
-                //    {
-                //        CampaniaID = pedido.CampaniaID,
-                //        Anio = Convert.ToInt32(pedido.CampaniaID.ToString().Substring(0, 4)),
-                //        NroCampania = Convert.ToInt32(pedido.CampaniaID.ToString().Substring(4, 2))
-                //    }
-                //));
-                //model.CampaniasConsultoraOnline.Insert(0, new CampaniaModel
-                //{
-                //    CampaniaID = userData.CampaniaID,
-                //    Anio = Convert.ToInt32(userData.CampaniaID.ToString().Substring(0, 4)),
-                //    NroCampania = Convert.ToInt32(userData.CampaniaID.ToString().Substring(4, 2))
-                //});
-
                 model.CampaniaActualConsultoraOnline = userData.CampaniaID;
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return View(model);
+        }
+
+        public ActionResult DetallePedidoHistorial(long solicitudClienteID)
+        {
+            var clienteOnline = new BEMisPedidos();
+            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
+            var model = new ClienteOnlineModel();
+
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    clienteOnline = sv.GetPedidoClienteOnlineBySolicitudClienteId(userData.PaisID, solicitudClienteID);
+                    listDetallesClienteOnline = sv.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, solicitudClienteID).ToList();
+                }
+
+                model = Mapper.Map<ClienteOnlineModel>(clienteOnline);
+                model.Detalles = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
+                model.Detalles.Update(modelDetalle =>
+                {
+                    modelDetalle.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(modelDetalle.PrecioUnitario.ToDecimal(), userData.CodigoISO));
+                    modelDetalle.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(modelDetalle.PrecioTotal.ToDecimal(), userData.CodigoISO));
+                    modelDetalle.TipoAtencionString = modelDetalle.TipoAtencion == 2 ? "Ya lo tengo" : (modelDetalle.TipoAtencion == 1 ? "Ingresado al Pedido" : "Agotado");
+                });
+
+                //model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
+                //model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
+                //model.Campania = model.Campania.Substring(0, 4) + "-" + model.Campania.Substring(4, 2);
+                //model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
+                //model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
+                model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
+                model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
+                model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");
+                model.Email = Util.ReemplazarSaltoLinea(model.Email, " ");
+                model.MensajeDelCliente = Util.ReemplazarSaltoLinea(model.MensajeDelCliente, " ");
+                model.PuedeCancelar = (userData.CampaniaID.ToString() == model.Campania && model.Estado == "A");
+                model.PrecioTotal = Convert.ToDecimal(model.Detalles.Sum(detalle => detalle.PrecioTotal));
+                model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal, userData.CodigoISO));
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -2049,7 +2075,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userModel.CodigoConsultora, userModel.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
             }
 
             return View(model);
@@ -2245,11 +2277,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View(model);
-        }
-
-        public ActionResult DetallePedidoHistorial()
-        {
-            return View();
         }
 
         public ActionResult DetallePedidoPendiente()

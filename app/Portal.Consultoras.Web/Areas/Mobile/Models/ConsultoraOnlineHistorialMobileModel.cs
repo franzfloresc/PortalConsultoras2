@@ -7,6 +7,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
     {
         public List<CampaniaModel> CampaniasConsultoraOnline { get; set; }
         public int CampaniaActualConsultoraOnline { get; set; }
-        public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
     }
 }

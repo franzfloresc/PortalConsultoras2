@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
                 campaniaResultado = campaniaResultado
             });
         }
-        public JsonResult ClienteOnlineDetalle(int solicitudClienteId)
+        public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
             var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
             var listModel = new List<ClienteOnlineDetalleModel>();

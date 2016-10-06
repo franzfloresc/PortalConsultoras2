@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.CustomFilters
             {
                 if ((action.ControllerName == actionDescriptor.ControllerDescriptor.ControllerName || action.ControllerName == "*")
                     && (action.ActionName == actionDescriptor.ActionName || action.ActionName == "*")
-                    && (action.AreaName == area))
+                    && ((action.AreaName ?? "") == area))
                 {
                     yield return new Filter(new SessionExpiredActionFilter(), FilterScope.First, null);
                     break;
