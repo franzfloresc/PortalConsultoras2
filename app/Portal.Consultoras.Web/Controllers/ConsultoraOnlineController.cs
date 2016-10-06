@@ -24,11 +24,17 @@ namespace Portal.Consultoras.Web.Controllers
         int registrosPagina = 5;
         int indiceActualPagina = 0;
         int indiceUltimaPagina;
+        bool isEsika = false;
         #endregion
 
         public ConsultoraOnlineController()
         {
             this.registrosPagina = 5;
+
+            if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+            {
+                isEsika = true;
+            }
         }
         ~ConsultoraOnlineController()
         {
@@ -701,8 +707,26 @@ namespace Portal.Consultoras.Web.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var pedidoReciente = olstMisPedidos.OrderByDescending(x => x.FechaSolicitud).First();
-                        model.FechaPedidoReciente = pedidoReciente.FechaSolicitud.ToString("HH:mm:ss");
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+
+                        if (lstClientesExistentes.Count == olstMisPedidos.Count)
+                        {
+                            model.FechaPedidoReciente = "24:00:00";
+                        }
+                        else
+                        {
+                            var pedidoReciente = olstMisPedidos.Where(x => x.FlagConsultora == false).OrderBy(x => x.FechaSolicitud).First();
+                            //TimeSpan ts = DateTime.Now - pedidoReciente.FechaSolicitud;
+                            //model.FechaPedidoReciente = (24 - ts.Hours).ToString() + ":" + (60 - ts.Minutes).ToString() + ":" + "00";
+
+                            DateTime starDate = DateTime.Now;
+                            DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
+
+                            // Difference in days, hours, and minutes.
+                            TimeSpan ts = endDate - starDate;
+                            model.FechaPedidoReciente = ts.Hours.ToString() + ":" + ts.Minutes.ToString() + ":" + ts.Seconds.ToString();
+
+                        }
 
                         BEGrid grid = SetGrid(sidx, sord, page, rows);
                         BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
@@ -754,7 +778,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
                 MisPedidosDetalleModel model = new MisPedidosDetalleModel();
-
+                
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
@@ -812,7 +836,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                                 else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                                 {
-                                    item.MensajeValidacion = "Este producto está en oferta en revista";
+                                    item.EstaEnRevista = 1;
+                                    if (isEsika)
+                                    {
+                                        item.MensajeValidacion = "Producto en la Guía de Negocio Ésika con oferta especial.";
+                                    }
+                                    else
+                                    {
+                                        item.MensajeValidacion = "Producto en la revista Somos Belcorp con oferta especial.";
+                                    }
                                 }
                             }
                             else

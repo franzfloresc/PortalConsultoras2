@@ -49,14 +49,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -70,6 +91,7 @@ FechaSolicitud ASC,
 PrecioTotal DESC
 
 END   
+
 
 /*end*/
 
@@ -124,14 +146,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -199,14 +242,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -274,14 +338,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -349,14 +434,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -424,14 +530,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -499,14 +626,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -574,14 +722,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -649,14 +818,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -724,14 +914,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -799,14 +1010,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -874,14 +1106,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )
@@ -949,14 +1202,35 @@ select
 	case isnull(FlagConsultora,0) 
 		when 1 then '00:00:00' 
 		--else '5:30:27'
-		else dbo.CalcDiffTimeSolicitudPedido(FechaSolicitud)
+		else dbo.CaclSaldoHorasSolicitudPedido(FechaSolicitud)
 	end SaldoHoras,
 	isnull(PedidoWebID,0) as PedidoWebID
 from SolicitudCliente sc left join Marca m on sc.MarcaID = m.MarcaID
 where ConsultoraID = @ConsultoraId 
 and ( sc.Estado IS NULL or (LTRIM(RTRIM(sc.Estado)) IN ('A','R','C')))  
 --and ( sc.Estado IS NULL )	-- pendientes de aprobacaion
-and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+and (
+	(
+		isnull(sc.MarcaID,0) = 0
+		and Campania = @Campania
+	)
+	or 
+	(
+		isnull(sc.MarcaID,0) != 0
+		and Campania = Campania
+	)
+)
+and (
+	(
+		isnull(FlagConsultora,0) = 1
+		and cast(sc.FechaSolicitud as date) between cast(@FechaInicioFact as date) and cast(@FechaFinFact as date)
+	)
+	or 
+	(
+		isnull(FlagConsultora,0) = 0
+		and sc.FechaSolicitud > dateadd(day,-1,getdate())
+	)
+)
 --and ( 
 --	( isnull(FlagConsultora,0) = 0 and  dateadd(hh,24,FechaSolicitud) <= getdate() )
 --	or ( sc.FechaSolicitud between @FechaInicioFact and @FechaFinFact )

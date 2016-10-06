@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         ~ConsultoraOnlineController()
         {
             Session["objMisPedidos"] = null;
+            Session["objMisPedidosDetalle"] = null;
         }
 
         public ActionResult Index(string data)
@@ -407,7 +408,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (var sv = new UsuarioServiceClient())
             {
-                model.ListaPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                var lstPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                model.ListaPedidos = lstPedidos.OrderByDescending(x => x.FechaSolicitud).ToList();
             }
 
             Session["objMisPedidos"] = model;
@@ -460,6 +462,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Simbolo = userData.Simbolo;
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
+            // set detalles del pedido
+            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+            using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            {
+                olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+                Session["objMisPedidosDetalle"] = olstMisPedidosDet;
+            }
+            
+            pedido.DetallePedido = olstMisPedidosDet.ToArray();
+
             return View("DetallePedido", pedido);
         }
 
@@ -473,6 +485,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var pedidoId = long.Parse(id);
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
+
+            // set detalles del pedido
+            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+            olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
+            pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
 
             var marcaPedido = pedido == null ? "" : pedido.DetallePedido.Any() ? pedido.DetallePedido[0].Marca : "";
                         
@@ -515,7 +532,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     beCliente.Activo = true;
                     sc.Insert(beCliente);
                 }
+
+                foreach (var item in pedido.DetallePedido)
+                {
+                    using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                    {
+                        ServiceSAC.BESolicitudClienteDetalle beSolicitudDetalle = new ServiceSAC.BESolicitudClienteDetalle();
+                        beSolicitudDetalle.SolicitudClienteDetalleID = item.PedidoDetalleId;
+                        beSolicitudDetalle.TipoAtencion = 2;     // ya lo tengo
+                        beSolicitudDetalle.PedidoWebID = 0;
+                        beSolicitudDetalle.PedidoWebDetalleID = 0;
+
+                        // UPDATE Detalle Solicitud
+                        svc.UpdSolicitudClienteDetalle(UserData().PaisID, beSolicitudDetalle);
+                    }
+                }
+
                 string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+
                 if (pedido.FlagMedio == "01")
                 {
                     double totalPedido = 0;
@@ -602,7 +636,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     mensajecliente.Append("Listado de Productos</span>");
                     mensajecliente.Append("</td>");
                     mensajecliente.Append("</tr>");
+
                     int cntfila = 0;
+
                     foreach (var item in pedido.DetallePedido)
                     {
                         totalPedido += item.PrecioTotal;

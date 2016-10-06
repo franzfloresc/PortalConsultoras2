@@ -14,16 +14,21 @@ function CargarEventosClienteOnline() {
         }
     });
     $('#ddlCampania').on('change', function () {
+        var campanias = [$('#ddlCampania').val()];
+        var campaniaAnterior = $('#ddlCampania option:selected').first().next().val();
+        if (campaniaAnterior != null && campaniaAnterior != '') campanias.push(campaniaAnterior);
+
         waitingDialog();
         jQuery.ajax({
             type: 'POST',
             url: urlClienteOnline,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campania: $('#ddlCampania').val() }),
+            data: JSON.stringify({ campanias: campanias }),
             success: function (data) {
                 if (!checkTimeout(data)) return false;
 
+                if (data.success) $('#ddlCampania').val(data.campaniaResultado);
                 if (data.success && data.listaPedidosClienteOnline.length > 0) {
                     var tablaClientesOnline = SetHandlebars("#html-clientes-online", data.listaPedidosClienteOnline);
                     $('#divTablaClientesOnline').html(tablaClientesOnline);
