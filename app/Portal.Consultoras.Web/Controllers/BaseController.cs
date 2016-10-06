@@ -655,7 +655,6 @@ namespace Portal.Consultoras.Web.Controllers
                         Codigo = UserPortal;
                     }
 
-
                     BEPais PaisModel = lst.First(p => p.CodigoISO == Pais);
                     if (PaisModel != null)
                         GetUserData(PaisModel.PaisID, Codigo, Tipo);

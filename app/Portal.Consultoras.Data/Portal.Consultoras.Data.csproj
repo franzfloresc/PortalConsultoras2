@@ -134,6 +134,7 @@
     <Compile Include="DAPedidoFacturado.cs" />
     <Compile Include="DAPedidoFIC.cs" />
     <Compile Include="DAPedidoFICDetalle.cs" />
+    <Compile Include="DAPedidoRechazado.cs" />
     <Compile Include="DAPedidoReporteLider.cs" />
     <Compile Include="DAPedidoWeb.cs" />
     <Compile Include="DAPedidoWebAnteriores.cs" />
