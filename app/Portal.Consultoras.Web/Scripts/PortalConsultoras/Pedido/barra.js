@@ -36,13 +36,15 @@ function MostrarBarra(datax, destino) {
     if (dataBarra.ListaMensajeMeta.length > 0) {
         listaMensajeMeta = dataBarra.ListaMensajeMeta;
     }
-    
+
     dataBarra.MontoMinimo = Math.ceil(dataBarra.MontoMinimo);
     dataBarra.MontoMinimoStr = DecimalToStringFormat(dataBarra.MontoMinimo, true);
-    dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
-    dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
-    dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
-    dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
+    if (destino == "1") {
+        dataBarra.MontoMaximo = Math.ceil(dataBarra.MontoMaximo);
+        dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
+        dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
+        dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
+    }
 
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
@@ -143,7 +145,11 @@ function MostrarBarra(datax, destino) {
                 tipoMensaje: 'MontoMinimo',
                 width: wPrimer,
                 valor: data.MontoMinimo,
-                valorStr: data.MontoMinimoStr
+                valorStr: data.MontoMinimoStr,
+                MontoDesde: 0,
+                MontoDesdeStr: DecimalToStringFormat(0, true),
+                MontoHasta: data.MontoMinimo,
+                MontoHastaStr: data.MontoMinimoStr
             });
         }
     }
@@ -155,6 +161,7 @@ function MostrarBarra(datax, destino) {
 
     var indPuntoLimite = 0;
     // obtener el punto limite actual
+    console.log(listaLimite);
     listaLimite = listaLimite || new Array();
     $.each(listaLimite, function (ind, limite) {
         if (ind > 0 ) {
@@ -230,11 +237,11 @@ function MostrarBarra(datax, destino) {
         }
         var activo = limite.tipoMensaje == 'TippingPoint' && indPuntoLimite == 1 ? "activo" : "";
         var styleMinx = mn == 0 && ind == 0 ? styleMin : "";
-        if (destino == '1' && selectPunto == "0" && indPuntoLimite == 0 && mn == 0) {
-            styleMinx = "";
-        }
         var nombrePunto = limite.nombre;
         if (destino == '1') {
+            if (selectPunto == "0" && indPuntoLimite == 0 && mn == 0) {
+                styleMinx = "";
+            }
             var txtDscto = "";
             var txtDetalle = "";
             if (vLogro <= vLimite) {
@@ -277,19 +284,13 @@ function MostrarBarra(datax, destino) {
             wPunto += $("#punto_" + ind + " .bandera_marcador").width() || 0;
 
             if (indPuntoLimite == listaLimite.length - 1 && indPuntoLimite == ind) {
-                if (destino == '2') {
-                    if (vLogro < vLimite) {
-                        if (mx <= 0) {
-                            wPunto = wmin;
-                        }
-                    }
+                if (destino == '2' && vLogro < vLimite && mx <= 0) {
+                    wPunto = wmin;
                 }
 
                 $("#punto_" + ind).css("width", wPunto);
-                if (ind == 0) {
-                    if (mn == 0) {
-                        $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
-                    }
+                if (ind == 0 && mn == 0) {
+                    $("#punto_" + ind + " .linea_indicador_barra").css("margin-left", "0px;");
                 }
             }
         }
@@ -303,8 +304,8 @@ function MostrarBarra(datax, destino) {
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#000000");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
     }
-    
 
+    // remover cuando supera el area total
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
         while (indAux > 1) {
@@ -380,8 +381,6 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-
-    console.log(vLogro, vLimite, wAreaMover, wPuntosAnterior, indPuntoLimite);
     var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
     var wLimiteAnterior = wPuntosAnterior;
     if (indPuntoLimite > 0) {
