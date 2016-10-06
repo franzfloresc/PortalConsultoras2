@@ -496,9 +496,17 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(param),
             async: true,
-            success: function (html) {
-                ActualizarGanancia(html.DataBarra);
+            success: function (data) {
                 CloseLoading();
+                if (!checkTimeout(data))
+                    return false;
+
+                if (data.success != true) {
+                    messageInfo(data.message);
+                    return false;
+                }
+
+                ActualizarGanancia(data.DataBarra);
                 CargarPedido();
                 var descripcionMarca = GetDescripcionMarca(MarcaID);
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -507,12 +515,12 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                     'ecommerce': {
                         'remove': {
                             'products': [{
-                                'name': html.data.DescripcionProducto,
-                                'id': html.data.CUV,
-                                'price': html.data.Precio,
-                                'brand': html.data.DescripcionMarca,
+                                'name': data.data.DescripcionProducto,
+                                'id': data.data.CUV,
+                                'price': data.data.Precio,
+                                'brand': data.data.DescripcionMarca,
                                 'category': 'NO DISPONIBLE',
-                                'variant': html.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta,
                                 'quantity': Number(Cantidad)
                             }]
                         }
@@ -599,18 +607,29 @@ function PedidoDetalleEliminarTodo() {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            if (checkTimeout(data)) {
-                ActualizarGanancia(data.DataBarra);
-                TrackingJetloreRemoveAll(listaDetallePedido);
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Ingresa tu pedido',
-                    'action': 'Eliminar pedido completo',
-                    'label': '(not available)'
-                });
-                messageDelete("Se eliminaron todos productos del pedido.");
-                location.reload();
+
+            if (!checkTimeout(data)) {
+                CloseLoading();
+                return false;
             }
+
+            if (data.success != true) {
+                messageInfo(data.message);
+                CloseLoading();
+                return false;
+            }
+
+            ActualizarGanancia(data.DataBarra);
+            TrackingJetloreRemoveAll(listaDetallePedido);
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ingresa tu pedido',
+                'action': 'Eliminar pedido completo',
+                'label': '(not available)'
+            });
+            messageDelete("Se eliminaron todos productos del pedido.");
+            location.reload();
+          
             CloseLoading();
         },
         error: function (data, error) {
@@ -764,21 +783,26 @@ function PedidoUpdate(item, PROL) {
         async: true,
         success: function (data) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    ActualizarGanancia(data.DataBarra);
-                    
-                    if (PROL == "0")
-                        $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
-                    CargarPedido();
-                    
-                    var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
-                    if (diferenciaCantidades > 0)
-                        TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-                    else if (diferenciaCantidades < 0)
-                        TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-                }
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                messageInfo(data.message);
+                return false;
             }
+
+            ActualizarGanancia(data.DataBarra);
+                    
+            if (PROL == "0")
+                $('#CantidadTemporal_' + item.PedidoDetalleID).val($('#Cantidad_' + item.PedidoDetalleID).val());
+            CargarPedido();
+                    
+            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+            if (diferenciaCantidades > 0)
+                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+            else if (diferenciaCantidades < 0)
+                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+                
         },
         error: function (data, error) {
             CloseLoading();
@@ -1289,7 +1313,7 @@ function MostrarDetalleGanancia() {
 function InsertarProducto(model) {
     jQuery.ajax({
         type: 'POST',
-        url: urlInsertar,
+        url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
@@ -1301,40 +1325,41 @@ function InsertarProducto(model) {
                 return false;
             }
 
+            if (data.success != true) {
+                messageInfo(data.message);
+                CloseLoading();
+                return false;
+            }
+
             CloseLoading();
 
-            if (data.success == true) {
-                setTimeout(function () {
-                    //$("#divMensajeProductoAgregado").show();
-                }, 2000);
+            setTimeout(function () {
+                //$("#divMensajeProductoAgregado").show();
+            }, 2000);
 
-                ActualizarGanancia(data.DataBarra);
+            ActualizarGanancia(data.DataBarra);
                 
-                TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-                dataLayer.push({
-                    'event': 'addToCart',
-                    'ecommerce': {
-                        'add': {
-                            'actionField': { 'list': 'Estándar' },
-                            'products': [{
-                                'name': data.data.DescripcionProd,
-                                'price': String(data.data.PrecioUnidad),
-                                'brand': data.data.DescripcionLarga,
-                                'id': data.data.CUV,
-                                'category': 'NO DISPONIBLE',
-                                'variant': data.data.DescripcionOferta,
-                                'quantity': Number(model.Cantidad),
-                                'position': 1
-                            }]
-                        }
+            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': 'Estándar' },
+                        'products': [{
+                            'name': data.data.DescripcionProd,
+                            'price': String(data.data.PrecioUnidad),
+                            'brand': data.data.DescripcionLarga,
+                            'id': data.data.CUV,
+                            'category': 'NO DISPONIBLE',
+                            'variant': data.data.DescripcionOferta,
+                            'quantity': Number(model.Cantidad),
+                            'position': 1
+                        }]
                     }
-                });
+                }
+            });
 
-                CargarPedido();
-
-            } else {
-                messageInfoMalo(data.message);
-            }
+            CargarPedido();
         },
         error: function (data, error) {
             CloseLoading();

@@ -604,53 +604,51 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
-        //Mensajes CUV
-        var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
-        var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
-        if (isEsika) {
-            var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
-        } else {
-            var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
-        }
-        var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
-        var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
+    //Mensajes CUV
+    var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
+    var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
+    if (isEsika) {
+        var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
+    } else {
+        var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
+    }
+    var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+    var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
-        var cantProductosLoad = 'Model.ListaEstrategias.Count';
-        var posicion = -1;
-        var posicionAnteriorPrimeraEstrategia = 0;
-        var posicionAnteriorUltimaEstrategia = 0;
-        var esTipoDrag = 0;
-        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
-        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
+    var cantProductosLoad = 'Model.ListaEstrategias.Count';
+    var posicion = -1;
+    var posicionAnteriorPrimeraEstrategia = 0;
+    var posicionAnteriorUltimaEstrategia = 0;
+    var esTipoDrag = 0;
+    var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+    var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlInsertar = '@Url.Action("Insert", "Pedido", new {area = ""})';
-        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
-        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
-        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
-        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var urlInsertOfertaNueva = '@Url.Action("AgregarProductoZE", "Pedido", new {area = ""})';
-        var urlInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
-        var urlCargarListaEstrategia = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+    var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+    var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+    var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
+    var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
+    var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+    var urlCargarListaEstrategia = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
 
-        var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
-        var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
+    var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
+    var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
-        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
-        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-        var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
-        var paisIDSesion = '@Model.PaisId';
+    var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+    var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
+    var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+    var urlSesionExperirada = '@Url.Content("~/SesionExpirada.html")';
+    var paisIDSesion = '@Model.PaisId';
 
-        var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
-        var urlAgregarProducto = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+    var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+    var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+    var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
-        var simbolo = '@Model.Simbolo';
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var vbSimbolo = simbolo;
-        var productoSugerido = false
-        var productoAgotado = false;
+    var simbolo = '@Model.Simbolo';
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+    var vbSimbolo = simbolo;
+    var productoSugerido = false
+    var productoAgotado = false;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 }
