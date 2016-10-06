@@ -518,5 +518,11 @@ namespace Portal.Consultoras.Service
             BLUsuario BLUsuario = new BLUsuario();
             BLUsuario.GuardarContrasenia(paisID, codigoUsuario, contrasenia);
         }
+
+        public int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.UpdateUsuarioTutoriales(paisID, codigoUsuario, tipo);
+        }
     }
 }

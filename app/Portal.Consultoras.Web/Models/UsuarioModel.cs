@@ -268,5 +268,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EjecutaProl { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+
+        public int VioTutorialSalvavidas { get; set; }
     }
 }

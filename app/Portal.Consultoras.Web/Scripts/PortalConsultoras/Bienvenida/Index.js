@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('#imgFotoUsuario').error(function() {
         $('#imgFotoUsuario').hide();
         $('#imgFotoUsuarioDefault').show();
-    })
+    });
 
     $('#salvavidaTutorial').show();
 
@@ -158,7 +158,8 @@ $(document).ready(function () {
     
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
-            abrir_popup_tutorial();
+            mostrarUbicacionTutorial(true, true);            
+            //abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -594,16 +595,30 @@ function agregarProductoAlCarrito(o) {
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
 
-function mostrarUbicacionTutorial() {
-
-    $(".fondo_oscuro").fadeIn(300, function () {
-        //$(".mensaje_header").addClass("opcionTutorial");
+function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
+    tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
+    mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
+    
+    if (tieneFondoNegro) {
+        $(".fondo_oscuro").fadeIn(300, function() {
+            //$(".mensaje_header").addClass("opcionTutorial");
+            $(".tooltip_tutorial").fadeIn();
+            $(".contenedor_circulosTutorial").fadeIn();
+            mostrarIconoTutorial();
+        });
+    } else {
         $(".tooltip_tutorial").fadeIn();
         $(".contenedor_circulosTutorial").fadeIn();
         mostrarIconoTutorial();
-    });
+    }
 
-    setTimeout(ocultarUbicacionTutorial, 4000);
+    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    
+    setTimeout(function() {
+        ocultarUbicacionTutorial();
+        if (mostrarPopupTutorial)
+            abrir_popup_tutorial();
+    }, 4000);
 
 }
 
@@ -641,12 +656,16 @@ function mostrarVideoIntroductorio() {
              }
              $("#videoIntroductorio").show();
              setTimeout(function () { playVideo(); }, 1000);
-             UpdateUsuarioVideo();
+             UpdateUsuarioTutoriales(constanteVioVideo);
              contadorFondoPopUp++;
          } else {
              if (viewBagVioTutorial == 0) {
-                 abrir_popup_tutorial();
-                 primeraVezVideo = false;
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, true);
+                 } else {
+                     abrir_popup_tutorial();
+                     primeraVezVideo = false;
+                 }                 
              }
              else {
                  if (viewBagVerComunicado == '-1') {
@@ -667,35 +686,26 @@ function mostrarVideoIntroductorio() {
      }
 }
 
-function UpdateUsuarioTutorial() {
-    //viewBagVioTutorial = 1;
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorialDesktop',
-        data: '',
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            //viewBagVioTutorial = data.result;
-        },
-        error: function (data) {}
-    });
-}
+function UpdateUsuarioTutoriales(tipo) {
+    //tipo ===> 1: Video, 2: TutorialDesktop, 3: TutorialSalvavidas, 4: TutorialMobile
 
-function UpdateUsuarioVideo() {
+    var item = {
+        tipo: tipo
+    };
+
     $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioVideo',
-        data: '',
-        dataType: 'Json',
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/JSONUpdateUsuarioTutoriales',
+        data: JSON.stringify(item),
+        dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //viewBagVioVideo = data.result;
+            //viewBagVioTutorialSalvavidas = data.result;
         },
         error: function (data) {
         }
     });
-};
+}
 
 function CrearDialogs() {
     $('#DialogMensajes').dialog({
@@ -3787,7 +3797,7 @@ function abrir_popup_tutorial(obligado) {
         if (viewBagVioTutorial == 1) {
             return false;
         }
-        UpdateUsuarioTutorial();
+        UpdateUsuarioTutoriales(constanteVioTutorialDesktop);
     }
     
     $('#popup_tutorial_home').fadeIn();

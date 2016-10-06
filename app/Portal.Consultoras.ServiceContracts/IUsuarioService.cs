@@ -227,5 +227,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia);
+
+        [OperationContract]
+        int UpdateUsuarioTutoriales(int paisID, string codigoUsuario, int tipo);
     }
 }
