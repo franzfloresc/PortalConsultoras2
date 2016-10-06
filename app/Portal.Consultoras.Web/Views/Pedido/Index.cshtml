@@ -1489,8 +1489,8 @@
             	{{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
             	<span class="texto_pedidos_ofertas">
                 	<label>OFERTA LIQUIDACIÓN</label>
-	        </span>
-	        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+	            </span>
+	            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
             	<span class="texto_pedidos_ofertas">
                 	<label>OFERTA FLEXIPLAGO</label>
             	</span>
@@ -1498,6 +1498,7 @@
             	<span class="texto_pedidos_ofertas">
                 	<label>PRE-VENTA DIGITAL</label>
             	</span>
+                {{else}}
             	{{#IsNullOrEmpty DescripcionOferta '!='}}
             	<span class="texto_pedidos_ofertas">
                 	{{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}

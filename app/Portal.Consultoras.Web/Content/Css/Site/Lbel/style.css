@@ -21473,28 +21473,31 @@ label.checkpop.c_on {
     float:left;
 }
 .tabs_pagos li {
-  display: inline;
+  /*display: inline;*/
   text-align: center;
+  width:25%;
+  float:left;
+
 }
 
 .tabs_pagos li a {
     display: inline-block;
     /* vertical-align: middle; */
-    /*width: 30%;*/
-    width:24%;
-    padding-top:13px;
-    padding-bottom:14px;
+    /* width: 30%; */
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 7px;
     margin: 0;
     text-decoration: none;
-     font-family: 'lato';
+    font-family: 'lato';
     font-size: 10pt;
     font-weight: 300;
     color: black;
     position: relative;
-    /*background: url("../../../Images/Lbel/estado_cuenta.png") no-repeat;*/
-    background-position: 18% 7px;
+    /* background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; */
+    /* background-position: 18% 7px; */
     box-sizing: border-box;
-    padding-left: 5%;
+    /* padding-left: 5%; */
 }
 .imagen_2_lugares{
     background: url("../../../Images/Lbel/lugares_pago.png") no-repeat !important;
