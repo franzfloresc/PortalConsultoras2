@@ -160,6 +160,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioValorizado { get; set; }
 
+        [DataMember]
+        public bool TieneOfertaRevista { get; set; }
+
+        [DataMember]
+        public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
+
+        [DataMember]
+        public string TipoOfertaRevista { get; set; }
+        
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
@@ -225,6 +234,15 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
                 PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
+
+            if (DataRecord.HasColumn(datarec, "TieneOfertaRevista") && datarec["TieneOfertaRevista"] != DBNull.Value)
+                TieneOfertaRevista = Convert.ToBoolean(datarec["TieneOfertaRevista"]);
+
+            if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
+                TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);        
+            
+            if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
+                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();    
         }
 
         public BEProducto()

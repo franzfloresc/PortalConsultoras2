@@ -459,7 +459,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
-            ViewBag.Simbolo = UserData().Simbolo;
+            ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.NombreCompleto = userData.NombreConsultora;
 
             // set detalles del pedido
             List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
@@ -491,8 +492,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
 
             var marcaPedido = pedido == null ? "" : pedido.DetallePedido.Any() ? pedido.DetallePedido[0].Marca : "";
-
-            var mensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
+                        
+            var mensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",userData.NombreConsultora);
             try
             {
                 using (var sc = new SACServiceClient())
@@ -705,11 +706,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                    mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora);
+                mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>", userData.NombreConsultora, userData.EMail);
                     try
                     {
-                        Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
-
+                    string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                    Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         message = "El pedido fue aceptado.";
                     }
                     catch (Exception ex)

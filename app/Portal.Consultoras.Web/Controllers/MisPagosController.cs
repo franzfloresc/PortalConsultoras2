@@ -27,8 +27,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             string fechaVencimiento;
             string montoPagar;
+            decimal montoPagarDec;
 
-            ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar);
+            ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
 
             var parametroAEncriptar = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
 
@@ -111,11 +112,21 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EnviarCorreoEstadoCuenta(string correo)
         {
+            string aux_fechaVencimiento;
+            string montoPagar;
+            decimal montoPagarDec = 0;  
+
             try
             {
                 List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
                 lst = ObtenerEstadoCuenta();
-                lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
+                lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();             
+
+                ObtenerFechaVencimientoMontoPagar(out aux_fechaVencimiento, out montoPagar, out montoPagarDec);
+                lst.Add(new EstadoCuentaModel()
+                {
+                    Cargo = montoPagarDec
+                });                
 
                 #region cotnenido del correo
                 /*CO-RE2584 - CS(CGI) */
@@ -240,6 +251,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             decimal cargo = 0;
             decimal abono = 0;
+            string fechaVencimiento;
+            string montoPagar;
+            decimal montoPagarDec = 0;
             List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
             lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
@@ -247,15 +261,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count != 0)
             {
-                EstadoCuentaModel cuenta = lst[lst.Count - 1];
-                cargo = cuenta.Cargo;
-                abono = cuenta.Abono;
-                lst.RemoveAt(lst.Count - 1);
+                ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
+
+                //EstadoCuentaModel cuenta = lst[lst.Count - 1];
+                //cargo = cuenta.Cargo;
+                //abono = cuenta.Abono;
+                //lst.RemoveAt(lst.Count - 1);
 
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
                 {
-                    Cargo = cuenta.Cargo
+                    Cargo = montoPagarDec
                 });
             }
 
@@ -268,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
 
-            ExportToExcelEstadoCuenta("EstadoCuentaExcel", lst, dicCabeceras, dic, arrTotal, cargo, abono);
+            ExportToExcelEstadoCuenta("EstadoCuentaExcel", lst, dicCabeceras, dic, arrTotal, montoPagarDec, abono);
             return new EmptyResult();
         }
 
@@ -629,10 +645,11 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private void ObtenerFechaVencimientoMontoPagar(out string fechaVencimiento, out string montoPagar)
+        private void ObtenerFechaVencimientoMontoPagar(out string fechaVencimiento, out string montoPagar, out decimal montoPagarDec)
         {
             fechaVencimiento = "--/--";
             montoPagar = Util.DecimalToStringFormat(0, userData.CodigoISO);
+            montoPagarDec = 0;
 
             try
             {
@@ -646,9 +663,15 @@ namespace Portal.Consultoras.Web.Controllers
                     using (ContenidoServiceClient sv = new ContenidoServiceClient())
                     {
                         if (userData.PaisID == 4 || userData.PaisID == 11) //Colombia y Perú
-                            montoPagar = Util.DecimalToStringFormat(sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente, userData.CodigoISO);
+                        {
+                            montoPagarDec = sv.GetDeudaTotal(userData.PaisID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
+                        }
                         else
-                            montoPagar = Util.DecimalToStringFormat(sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente, userData.CodigoISO);
+                        {
+                            montoPagarDec = sv.GetSaldoPendiente(userData.PaisID, userData.CampaniaID, int.Parse(userData.ConsultoraID.ToString()))[0].SaldoPendiente;
+                            montoPagar = Util.DecimalToStringFormat(montoPagarDec, userData.CodigoISO);
+                        }
                     }
                 }
             }

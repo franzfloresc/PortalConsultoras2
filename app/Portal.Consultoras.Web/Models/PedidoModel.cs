@@ -114,6 +114,7 @@ namespace Portal.Consultoras.Web.Models
         public string TotalSinDsctoFormato { get; set; }
         public string TotalConDsctoFormato { get; set; }
 
+        public int OrigenPedidoWeb { get; set; }
     }
 
     public class ProductoModel
@@ -162,6 +163,10 @@ namespace Portal.Consultoras.Web.Models
 
         public string Sello { get; set; }
         public bool IsAgregado { get; set; }
+        public bool TieneOfertaEnRevista { get; set; }
+
+        public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
+        public string TipoOfertaRevista { get; set; }
     }
 
     public class ObservacionModel

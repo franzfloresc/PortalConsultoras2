@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Entities
         public int Orden { get; set; }
 
         [DataMember]
-        [ViewProperty]
         public int UnidadesPermitidas { get; set; }
 
         [DataMember]
