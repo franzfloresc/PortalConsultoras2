@@ -310,7 +310,7 @@
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--CATALOGO PERSONALIZADO-->
-@if (Model.CatalogoPersonalizadoDesktop != 0)
+@if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado">
         <div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
@@ -798,7 +798,7 @@
             @*<input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">*@
             <div class="results"><div id="demo"></div></div>          
             <input type="button" value="Cortar Foto" onclick="CortarFoto()">  
-</div>
+        </div>
     </div>
 
     <!-- POPUP ACTUALIZACIÓN DATOS -->
@@ -1241,7 +1241,7 @@
 </div>
 <div class="mod-ofer2">
 </div>
-<div class="mod-ofer3"> 
+<div class="mod-ofer3">
 </div>
 
 <!-- POP UP SHOWROOM HTML-->
@@ -1324,6 +1324,37 @@
 
     </div>
 </div>
+
+<!-- POPUP COMUNICADOS -->
+
+<!-- SB20-834 - INICIO -->
+<div class="fondo_popupComunicados" id="popupComunicados" style="display:none;">
+    @*<div class="popup_comunicados">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void();" onclick="return $('#popupComunicados').fadeOut();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_imagen_comunicado">
+            <img src="@Url.Content("~/Content/Images/Esika/tutorialHome/tutorial-home-esika1.jpg")" alt="Alternate Text" />
+        </div>
+        <div class="franja_noVolverMostrar">
+            <form>
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="condiciones" id="noMostrarPopupComunicado" />
+                    <label for="noMostrarPopupComunicado" class="texto_terminosCondiciones">
+                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>*@
+</div>
+
+<!-- FIN POPUP COMUNICADOS -->
+
+<!-- SB20-834 - FIN -->
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1703,9 +1734,9 @@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
-                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                </div>
+                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
+                    </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -1746,7 +1777,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp"/>
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp"/>
         </div>
         <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -2038,6 +2069,41 @@
     </div>
 </script>
 
+<!-- SB20-834 - INICIO -->
+@*<input  type="hidden" id="totalComuSinMostrar" value="0" />*@
+
+<script id="template-comunicado" type="text/x-handlebars-template">
+
+    <div class="popup_comunicados" id="{{id}}" style="display:none;" data-cerrado="0">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:void(0);" title="Cerrar" data-comunicado="{{idComunicado}}" data-id="{{id}}" onclick="clickCerrarComunicado(this);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenedor_imagen_comunicado">
+            <a href="{{hrefUrl}}" target="{{target}}" data-id="{{id}}" data-comunicadoid="{{idComunicado}}" data-comunicadodescripcion="{{comunicadoDescripcion}}" onclick="clickImagenComunicado(this)">
+                <img src="{{urlImg}}" alt="Alternate Text" class="img-comunicado" id="img_{{id}}" />
+            </a>
+        </div>
+        <div class="franja_noVolverMostrar">
+            <form>
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="condiciones" id="chkMostrarComunicado_{{idComunicado}}" />
+                    <label for="chkMostrarComunicado_{{idComunicado}}" class="texto_terminosCondiciones">
+                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</script>
+
+<div id="popupMostrarComumnicado" class="popup_actualizarMisDatos" style="display: none;">
+</div>
+<!-- SB20-834 - FIN -->
+
 @section scripts{
     @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
     <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
@@ -2080,7 +2146,7 @@
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
         var viewBagRol = '@ViewBag.Rol';
-
+        var viewBagVerComunicado = '-1';
     </script>
     
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

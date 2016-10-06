@@ -284,13 +284,13 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio" style="margin-bottom:28px;">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    @*<span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>*@
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
-                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                </div>
+                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
+                    </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
