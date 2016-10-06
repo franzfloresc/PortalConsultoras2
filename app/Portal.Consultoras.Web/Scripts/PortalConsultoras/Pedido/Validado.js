@@ -77,7 +77,12 @@ function ConfirmarModificar() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
                     location.href = baseUrl + 'Pedido/Index';
                 }
                 else {

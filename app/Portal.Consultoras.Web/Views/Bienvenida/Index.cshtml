@@ -758,9 +758,24 @@
                     player = new YT.Player("divPlayer", {
                         width: "100%",
                         videoId: videoIdMostrar,
-                        playerVars: { rel: 0 }
+                        playerVars: { rel: 0 },
+                        events: {
+                            'onStateChange': onPlayerStateChange
+                        }
                     });
                 };
+
+                function onPlayerStateChange(event) {
+                    // track when video ends
+                    if (event.data == YT.PlayerState.ENDED) {
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Home',
+                            'action': 'Video de Bienvenida: Finalizar video',
+                            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+                        });
+                    }
+                }
             </script>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
@@ -2112,6 +2127,7 @@
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
         var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
+        var viewBagVioTutorial = '@Model.VioTutorialDesktop';
         var sessionIsContrato = '@Session["IsContrato"]';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
