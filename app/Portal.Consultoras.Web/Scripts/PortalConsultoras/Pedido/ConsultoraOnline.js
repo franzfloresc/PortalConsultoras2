@@ -1,6 +1,5 @@
 ﻿
 var flagHuboPedidosPend = false;
-var totalIngPedido = 0;
 
 $(document).ready(function () {
 
@@ -84,44 +83,45 @@ $(document).ready(function () {
     //    $('#dialog_confirmacionRechazo').hide();
     //});
 
-    $('#rechazarPendientes').on('click', function () {
-        //$('#dialog_confirmacionRechazo').show();
-    });
-    $('#cierreRechazoPendientes').on('click', function () {
-        //$('#dialog_confirmacionRechazo').hide();
-    });
+    //$('#rechazarPendientes').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').show();
+    //});
+
+    //$('#cierreRechazoPendientes').on('click', function () {
+    //    $('#dialog_confirmacionRechazo').hide();
+    //});
 
     //$('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
     //    $('#dialog_confirmacionRechazo').hide();
     //    $('#dialog_motivoRechazo').show();
     //});
 
-    $('#cierreMotivoRechazo').on('click', function () {
-        //$('#dialog_motivoRechazo').hide();
-        $('#popup_pendientes').hide();
-        $('.popupPendientesPORTAL').hide();
-    });
+    //$('#cierreMotivoRechazo').on('click', function () {
+    //    $('#dialog_motivoRechazo').hide();
+    //    $('#popup_pendientes').hide();
+    //    $('.popupPendientesPORTAL').hide();
+    //});
 
-    $('button.btn_eliminarCliente.btn-negro').on('click', function () {
-        $('#dialog_motivoRechazo').hide();
-        $('#popup_pendientes').hide();
-        $('.popupPendientesPORTAL').hide();
-    });
+    //$('button.btn_eliminarCliente.btn-negro').on('click', function () {
+    //    $('#dialog_motivoRechazo').hide();
+    //    $('#popup_pendientes').hide();
+    //    $('.popupPendientesPORTAL').hide();
+    //});
 
-    $('#aceptarPendientes').on('click', function () {
-        $('#popup_pendientes').hide();
-        //$('#dialog_aceptasPendientes').show();
-    });
+    //$('#aceptarPendientes').on('click', function () {
+    //    $('#popup_pendientes').hide();
+    //    //$('#dialog_aceptasPendientes').show();
+    //});
 
-    $('.ok_aceptaPedido').on('click', function () {
-        $('#dialog_aceptasPendientes').hide();
-        $('.popupPendientesPORTAL').hide();
-    });
+    //$('.ok_aceptaPedido').on('click', function () {
+    //    $('#dialog_aceptasPendientes').hide();
+    //    $('.popupPendientesPORTAL').hide();
+    //});
 
-    $('#aceptandoPendientes').on('click', function () {
-        //$('#dialog_aceptasPendientes').hide();
-        $('.popupPendientesPORTAL').hide();
-    });
+    //$('#aceptandoPendientes').on('click', function () {
+    //    //$('#dialog_aceptasPendientes').hide();
+    //    $('.popupPendientesPORTAL').hide();
+    //});
 
     //PORTAL LBEL
     $('.btn_revisalo_pendientes2').on('click', function () {
@@ -147,11 +147,11 @@ $(document).ready(function () {
 
 function CargarPedidosPend(page, rows) {
 
-    $('#divPedidosPend').html('<div style="text-align: center;">Cargando Pedidos Pendientes<br><img src="' + urlLoad + '" /></div>');
-
     //if ($('ul.paginador_notificaciones').is(':visible')) {
         $('ul.paginador_notificaciones').hide();
     //}
+
+    $('#divPedidosPend').html('<div style="text-align: center;">Cargando Pedidos Pendientes<br><img src="' + urlLoad + '" /></div>');
 
     var obj = {
         sidx: "",
@@ -168,6 +168,7 @@ function CargarPedidosPend(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
+
             if (response.success) {
                 var data = response.data;
 
@@ -255,7 +256,8 @@ function CargarPedidosPend(page, rows) {
             }
         },
         error: function (error) {
-            alert(error);
+            //alert(error);
+            alert_msg("Ocurrió un error inesperado al buscar los pedidos. Consulte con su administrador del sistema para obtener mayor información");
         }
     });
 }
@@ -280,6 +282,7 @@ function CargarPopupPedidoPend(pedidoId) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
+
             CerrarSplash();
             if (response.success) {
                 var data = response.data;
@@ -347,7 +350,9 @@ function CargarPopupPedidoPend(pedidoId) {
             }
         },
         error: function (error) {
-            alert(error);
+            //alert(error);
+            closeWaitingDialog();
+            alert_msg("Ocurrió un error inesperado al buscar los detalles del pedido. Consulte con su administrador del sistema para obtener mayor información");
         }
     });
 }
@@ -363,7 +368,6 @@ function ShowPopupAceptoPedido(pedidoId, tipo) {
 }
 
 function ShowPopupMotivoRechazo() {
-
     var id = $('#hdePedidoIdRechazo').val();
     var row = $('#pedidopend_' + id).val();
     var arr = row.split('|');
@@ -411,6 +415,7 @@ function RechazarPedido() {
         contentType: 'application/json',
         data: JSON.stringify(obj),
         success: function (data) {
+
             if (checkTimeout(data)) {
                 CerrarSplash();
 
@@ -448,7 +453,6 @@ function RechazarPedido() {
 };
 
 function CerrarMensajeRechazado() {
-
     $('#dialog_mensajeRechazado').hide();
     CargarPedidosPend();
 }
@@ -463,11 +467,10 @@ function CerrarSplash() {
 
 function AceptarPedido(pedidoId, tipo) {
 
-    console.log('AceptarPedido');
     var isOk = true;
     var detalle = [];
     var divId = (tipo == 1) ? "divDetPedidoPend" : "divDet2PedidoPend";
-    totalIngPedido = 0;
+    var totalIng = 0;
 
     $('div#' + divId + ' > div').each(function () {
         var val1 = $(this).find(":nth-child(1)").val();
@@ -485,7 +488,7 @@ function AceptarPedido(pedidoId, tipo) {
             else {
                 opt = val2;
                 if (val2 == 'ingrped') {
-                    totalIngPedido += parseInt(val3);
+                    totalIng += parseInt(val3);
                 }
             }
         }
@@ -517,14 +520,14 @@ function AceptarPedido(pedidoId, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
+
                 CerrarSplash();
                 if (response.success) {
-
                     //alert(response.message);
 
                     if (tipo == 1) {
                         $('#popup_pendientes').hide();
-                        $('#msgPedidoAceptado1').text('Se han agregado ' + totalIngPedido + ' productos a tu pedido')
+                        $('#msgPedidoAceptado1').text('Se han agregado ' + totalIng + ' productos a tu pedido')
                         $('#dialog_aceptasPendientes').show();
                     }
                     else {
@@ -537,14 +540,15 @@ function AceptarPedido(pedidoId, tipo) {
                 }
             },
             error: function (error) {
-                alert(error);
+                closeWaitingDialog();
+                //alert(error);
+                alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
             }
         });
     }
 }
 
 function CerrarMensajeAceptado(tipo) {
-
     if (tipo == 1) {
         $('#dialog_aceptasPendientes').hide();
     } else {
