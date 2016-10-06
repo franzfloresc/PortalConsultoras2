@@ -226,6 +226,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
+        }
     }
 }
 

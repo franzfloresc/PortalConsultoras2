@@ -2584,7 +2584,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 .celda_iconos_acciones{
     text-align:center;
-    /*/*padding-right:1.5%;*/*/
+    /*padding-right:1.5%;*/
 }
 
 .cabecera_producto{
@@ -12425,7 +12425,7 @@ ol {
         display: block;
         font-size: 12px;
         color: #e51437;
-        font: Arial;
+        font-family: Arial;
         padding: 0px 0px 2px 0px;
     }
 
@@ -20256,7 +20256,7 @@ label.checkpop.c_on {
     /*margin: 0 auto;*/
     margin: 0 ;
     /*max-width: 1228px;*/
-    max-width: 100%
+    max-width: 100%;
     /*padding-top: 20px;
     padding-bottom: 20px;*/
     position: relative;
@@ -23242,7 +23242,7 @@ body{
 }
 
 .content_datos_pedidosIngresados .importePago_prod{
-    margin-left:23px,
+    margin-left: 23px;
 }
 
 .content_datos_pedidosIngresados .codigo_prod,

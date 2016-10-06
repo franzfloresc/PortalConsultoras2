@@ -154,7 +154,8 @@ $(document).ready(function() {
 
     $("#cerrarVideoIntroductorio").click(function() {
         if (primeraVezVideo) {
-            abrir_popup_tutorial();
+            mostrarUbicacionTutorial(true, true);            
+            //abrir_popup_tutorial();
             //setInterval(AnimacionTutorial, 800);
             //setTimeout(ocultarAnimacionTutorial, 9000);
         }
@@ -438,7 +439,6 @@ $(document).ready(function() {
 
     MostrarBarra(null, '1');
 });
-
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
     Webcam.set({
@@ -588,16 +588,43 @@ function agregarProductoAlCarrito(o) {
 
 //MICROEFECTO RESALTAR ICONO TUTORIAL
 
-function mostrarUbicacionTutorial() {
-
-    $(".fondo_oscuro").fadeIn(300, function () {
-        //$(".mensaje_header").addClass("opcionTutorial");
+function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
+    tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
+    mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
+    
+    if (tieneFondoNegro) {
+        $(".fondo_oscuro").fadeIn(300, function() {
+            //$(".mensaje_header").addClass("opcionTutorial");
+            $(".tooltip_tutorial").fadeIn();
+            $(".contenedor_circulosTutorial").fadeIn();
+            mostrarIconoTutorial();
+        });
+    } else {
         $(".tooltip_tutorial").fadeIn();
         $(".contenedor_circulosTutorial").fadeIn();
         mostrarIconoTutorial();
-    });
+    }
 
-    setTimeout(ocultarUbicacionTutorial, 4000);
+    UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
+    viewBagVioTutorialSalvavidas = 1;
+
+    setTimeout(function() {
+        ocultarUbicacionTutorial();
+        if (mostrarPopupTutorial)
+            abrir_popup_tutorial();
+        else {
+            if (viewBagVerComunicado == '-1') {
+                //console.log(viewBagVerComunicado);
+                waitingDialog();
+            } else {
+                mostrarComunicadosPopup();
+
+                if (viewBagVerComunicado != '1') {
+                    //CargarPopupsConsultora();
+                }
+            }
+        }
+    }, 4000);
 
 }
 
@@ -626,70 +653,67 @@ function ocultarUbicacionTutorial() {
 
 function mostrarVideoIntroductorio() {
     try {
-        if (viewBagVioVideo == "0") {
+         if (viewBagVioVideo == "0") {
+ 
+             //closeWaitingDialog();   // SB20-834
+ 
+             if (contadorFondoPopUp == 0) {
+                 $("#fondoComunPopUp").show();
+             }
+             $("#videoIntroductorio").show();
+             setTimeout(function () { playVideo(); }, 1000);
+             UpdateUsuarioTutoriales(constanteVioVideo);
+             contadorFondoPopUp++;
+         } else {
+             if (viewBagVioTutorial == 0) {
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, true);
+                 } else {
+                     abrir_popup_tutorial();
+                 }
+                 primeraVezVideo = false;
+             } else {
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, false);
+                 } else {
+                     if (viewBagVerComunicado == '-1') {
+                         //console.log(viewBagVerComunicado);
+                         waitingDialog();
+                     } else {
+                         mostrarComunicadosPopup();
 
-            //closeWaitingDialog();   // SB20-834
-
-            if (contadorFondoPopUp == 0) {
-                $("#fondoComunPopUp").show();
-            }
-            $("#videoIntroductorio").show();
-            setTimeout(function () { playVideo(); }, 1000);
-            UpdateUsuarioVideo();
-            contadorFondoPopUp++;
-        } else {
-            if (viewBagVioTutorial == 0) {
-                abrir_popup_tutorial();
-                primeraVezVideo = false;
-            }
-            else {
-                if (viewBagVerComunicado == '-1') {
-                    //console.log(viewBagVerComunicado);
-                    waitingDialog();
-                }
-                else {
-                    mostrarComunicadosPopup();
-
-                    if (viewBagVerComunicado != '1') {
-                        //CargarPopupsConsultora();
-                    }
-                }
-            }
-        }
-    } catch (e) {
-
-    }
+                         if (viewBagVerComunicado != '1') {
+                             //CargarPopupsConsultora();
+                         }
+                     }
+                 }                
+             }
+         }
+     } catch (e) {
+ 
+     }
 }
 
-function UpdateUsuarioTutorial() {
-    //viewBagVioTutorial = 1;
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioTutorialDesktop',
-        data: '',
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            //viewBagVioTutorial = data.result;
-        },
-        error: function (data) {}
-    })
-}
+function UpdateUsuarioTutoriales(tipo) {
+    //tipo ===> 1: Video, 2: TutorialDesktop, 3: TutorialSalvavidas, 4: TutorialMobile
 
-function UpdateUsuarioVideo() {
+    var item = {
+        tipo: tipo
+    };
+
     $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Bienvenida/JSONSetUsuarioVideo',
-        data: '',
-        dataType: 'Json',
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/JSONUpdateUsuarioTutoriales',
+        data: JSON.stringify(item),
+        dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //viewBagVioVideo = data.result;
+            //viewBagVioTutorialSalvavidas = data.result;
         },
         error: function (data) {
         }
     });
-};
+}
 
 function CrearDialogs() {
     $('#DialogMensajes').dialog({
@@ -3787,7 +3811,7 @@ function abrir_popup_tutorial(obligado) {
         if (viewBagVioTutorial == 1) {
             return false;
         }
-        UpdateUsuarioTutorial();
+        UpdateUsuarioTutoriales(constanteVioTutorialDesktop);
     }
     
     $('#popup_tutorial_home').fadeIn();
@@ -3844,7 +3868,7 @@ function ObtenerComunicadosPopup() {
                     loadedImgNum += 1;
                     if (loadedImgNum == images.length) {
                         closeWaitingDialog();
-                        mostrarComunicadosPopup();                        
+                        mostrarComunicadosPopup();
                     }
                 });
             }
@@ -3920,8 +3944,7 @@ function armarComunicadosPopup(response) {
 }
 
 function mostrarComunicadosPopup() {
-    //console.log(viewBagVerComunicado, viewBagVioTutorial, viewBagVioVideo);
-    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0) {
+    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0 || viewBagVioTutorialSalvavidas == 0) {
         $('#popupComunicados').hide();
         return true;
     }
@@ -3933,32 +3956,20 @@ function mostrarComunicadosPopup() {
     }
 
     $('#popupComunicados').show();
-    //$('html').css({ 'overflow-y': 'hidden' });
     var j = 0;
 
-    lista.each(function (index, element) {
-        //if ($(element).attr('data-cerrado') == '0') {
-            var id = $(element).attr('id');
-            //var img1 = $(element).find('img.img-comunicado');
-            $('#' + id).show();
-            centrarComunicadoPopup(id);
-
-            //setTimeout(function () {
-            //    //console.log('load image');
-            //    $('#' + id).show();
-            //    centrarComunicadoPopup(id);
-            //}, 300);
+    lista.each(function(index, element) {
+        var id = $(element).attr('id');
+        $('#' + id).show();
+        centrarComunicadoPopup(id);
         j++;
         return false;
-        //}
     });
 
     return (j > 0) ? false : true;
 }
 
 function centrarComunicadoPopup(ID) {
-    //console.log('centrarComunicadoPopup');
-    //var altoPopup = $("#" + ID).height() / 2;
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
     var estadoPopup = $("#popupComunicados").css("display");
@@ -3970,27 +3981,22 @@ function centrarComunicadoPopup(ID) {
 }
 
 function clickCerrarComunicado(obj) {
-    //console.log('clickCerrarComunicado');
     var comunicadoID = $(obj).attr('data-comunicado');
     var dialogComunicadoID = $(obj).attr('data-id');
 
     AceptarComunicadoVisualizacion(comunicadoID, dialogComunicadoID);
 
-    //$('#popupComunicados').hide();
     $('#' + dialogComunicadoID).hide();   
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
     var vclose = mostrarComunicadosPopup();
 
     if (vclose) {
-        // $('#totalComuSinMostrar').val('0');
         closeComunicadosPopup = true;
         $('#popupComunicados').hide();
-        //CargarPopupsConsultora();
     }
 }
 
 function clickImagenComunicado(obj) {
-    //console.log('clickImagenComunicado');
     var comunicadoID = $(obj).attr('data-comunicadoid');
     var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
     var dialogComunicadoID = $(obj).attr('data-id');
@@ -4019,14 +4025,11 @@ function clickImagenComunicado(obj) {
         //$('#totalComuSinMostrar').val('0');
         closeComunicadosPopup = true;
         $('#popupComunicados').hide();
-        //console.log('Show popup #4');
         //CargarPopupsConsultora();
     }
 }
 
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
-    //console.log('AceptarComunicadoVisualizacion');
-
     if ($('#chkMostrarComunicado_' + ID + '').is(':checked')) {
         var params = { ComunicadoID: ID };
 
@@ -4038,8 +4041,6 @@ function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
             contentType: 'application/json',
             success: function (data) {
                 if (checkTimeout(data)) {
-                    //$("#" + dialogComunicadoID + "").dialog('close');
-                    //$('#popupComunicados').hide();
                     $('#' + dialogComunicadoID).hide();
                     closeWaitingDialog();
                 }

@@ -83,5 +83,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         
         public BarraConsultoraModel DataBarra { get; set; }
+
+        public int VioTutorialSalvavidas { get; set; }
     }
 }

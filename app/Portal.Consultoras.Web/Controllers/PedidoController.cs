@@ -1,5 +1,4 @@
-﻿using System.Web.UI;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
@@ -9,13 +8,11 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -1895,16 +1892,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.MontoDescuento = montoDescuento;
             model.MontoEscala = montoEscala;
 
-            //model.Prol = model.ZonaValida
-            //    ? usuario.PROLSinStock
-            //        ? "Guarda tu pedido"
-            //        : usuario.NuevoPROL && usuario.ZonaNuevoPROL
-            //            ? "Guarda tu pedido"
-            //            : usuario.MostrarBotonValidar
-            //                ? "Valida tu pedido"
-            //                : "Guarda tu pedido"
-            //    : "Guarda tu pedido";
-
             /* SB20-287 - INICIO */
             TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
@@ -3011,95 +2998,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-
-
-        /*
-        public ActionResult PedidoValidadoPaginar(string Tipo, string PaginaActual)
-        {
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
-
-            olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-            PedidoModelo.Total = string.Format("{0:N2}", olstPedidoWebDetalle.Sum(p => p.ImporteTotal));
-            PedidoModelo.Total_Minimo = string.Format("{0:N2}", olstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal));
-
-            int cantidadTotal = olstPedidoWebDetalle.Count;
-
-            string Paginas = (olstPedidoWebDetalle.Count % 100 == 0) ? (olstPedidoWebDetalle.Count / 100).ToString() : ((int)(olstPedidoWebDetalle.Count / 100) + 1).ToString();
-
-            if (Tipo == "1")
-            {
-                if (Paginas == "0")
-                    PedidoModelo.Pagina = "0";
-                else
-                    PedidoModelo.Pagina = "1";
-            }
-
-            if (Tipo == "2")
-            {
-                if (Paginas == "0")
-                    PedidoModelo.Pagina = "0";
-                else
-                    PedidoModelo.Pagina = Paginas;
-            }
-
-            if (Tipo == "3")
-            {
-                if (Paginas == "0")
-                    PedidoModelo.Pagina = "0";
-                else if (PaginaActual == "1")
-                    PedidoModelo.Pagina = "1";
-                else
-                    PedidoModelo.Pagina = (Convert.ToInt32(PaginaActual) - 1).ToString();
-            }
-
-            if (Tipo == "4")
-            {
-                if (Paginas == "0")
-                    PedidoModelo.Pagina = "0";
-                else if (PaginaActual == Paginas)
-                    PedidoModelo.Pagina = Paginas;
-                else
-                    PedidoModelo.Pagina = (Convert.ToInt32(PaginaActual) + 1).ToString();
-            }
-
-            if (PedidoModelo.Pagina != "0")
-            {
-                olstPedidoWebDetalle = olstPedidoWebDetalle.Skip((Convert.ToInt32(PedidoModelo.Pagina) - 1) * 100).Take(100).ToList();
-            }
-
-            if (PedidoModelo.Pagina == "0")
-            {
-                PedidoModelo.Registros = "0";
-                PedidoModelo.RegistrosDe = "0";
-                PedidoModelo.RegistrosTotal = "0";
-            }
-            else if (PedidoModelo.Pagina == "1")
-            {
-                PedidoModelo.Registros = "1";
-                PedidoModelo.RegistrosDe = olstPedidoWebDetalle.Count < 100 ? olstPedidoWebDetalle.Count.ToString() : "100";
-                PedidoModelo.RegistrosTotal = cantidadTotal.ToString();
-            }
-            else
-            {
-                PedidoModelo.Registros = ((Convert.ToInt32(PedidoModelo.Pagina) * 100) - 99).ToString();
-                PedidoModelo.RegistrosDe = (Convert.ToInt32(PedidoModelo.Registros) + olstPedidoWebDetalle.Count() - 1).ToString();
-                PedidoModelo.RegistrosTotal = cantidadTotal.ToString();
-            }
-
-            PedidoModelo.PaginaDe = Paginas;
-            PedidoModelo.ListaDetalle = olstPedidoWebDetalle;
-            PedidoModelo.Simbolo = userData.Simbolo;
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("ListadoPedidoReservado", PedidoModelo);
-            }
-
-            return RedirectToAction("Index");
-        }
-         * */
 
         [HttpPost]
         public JsonResult CargarDetallePedidoValidado(string sidx, string sord, int page, int rows)

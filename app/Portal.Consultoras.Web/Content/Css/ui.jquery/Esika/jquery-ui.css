@@ -1942,7 +1942,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-overlay {
     background: #aaaaaa /*{bgColorOverlay}*/ url(../images/ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
     opacity: 0.3;
-    filter: Alpha(Opacity=30) /*{opacityOverlay}*/;
+    filter: Alpha(Opacity=30); /*{opacityOverlay}*/
 }
 
 .ui-widget-shadow {
