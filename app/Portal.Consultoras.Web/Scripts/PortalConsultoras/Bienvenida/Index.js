@@ -613,11 +613,24 @@ function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
     }
 
     UpdateUsuarioTutoriales(constanteVioTutorialSalvavidas);
-    
+    viewBagVioTutorialSalvavidas = 1;
+
     setTimeout(function() {
         ocultarUbicacionTutorial();
         if (mostrarPopupTutorial)
             abrir_popup_tutorial();
+        else {
+            if (viewBagVerComunicado == '-1') {
+                //console.log(viewBagVerComunicado);
+                waitingDialog();
+            } else {
+                mostrarComunicadosPopup();
+
+                if (viewBagVerComunicado != '1') {
+                    //CargarPopupsConsultora();
+                }
+            }
+        }
     }, 4000);
 
 }
@@ -664,21 +677,23 @@ function mostrarVideoIntroductorio() {
                      mostrarUbicacionTutorial(false, true);
                  } else {
                      abrir_popup_tutorial();
-                     primeraVezVideo = false;
-                 }                 
-             }
-             else {
-                 if (viewBagVerComunicado == '-1') {
-                    //console.log(viewBagVerComunicado);
-                     waitingDialog();
                  }
-                 else {
-                     mostrarComunicadosPopup();
- 
-                     if (viewBagVerComunicado != '1') {
-                         //CargarPopupsConsultora();
+                 primeraVezVideo = false;
+             } else {
+                 if (viewBagVioTutorialSalvavidas == '0') {
+                     mostrarUbicacionTutorial(false, false);
+                 } else {
+                     if (viewBagVerComunicado == '-1') {
+                         //console.log(viewBagVerComunicado);
+                         waitingDialog();
+                     } else {
+                         mostrarComunicadosPopup();
+
+                         if (viewBagVerComunicado != '1') {
+                             //CargarPopupsConsultora();
+                         }
                      }
-                 }
+                 }                
              }
          }
      } catch (e) {
@@ -3933,7 +3948,7 @@ function armarComunicadosPopup(response) {
 }
 
 function mostrarComunicadosPopup() {
-    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0) {
+    if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0 || viewBagVioTutorialSalvavidas == 0) {
         $('#popupComunicados').hide();
         return true;
     }
