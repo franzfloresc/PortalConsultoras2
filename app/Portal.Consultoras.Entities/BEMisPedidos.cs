@@ -137,10 +137,13 @@ namespace Portal.Consultoras.Entities
 
         public string MedioContacto { get; set; }
 
+        [DataMember]
         public int EstaEnRevista { get; set; }
 
+        [DataMember]
         public int TieneStock { get; set; }
 
+        [DataMember]
         public string MensajeValidacion { get; set; }
 
         [DataMember]

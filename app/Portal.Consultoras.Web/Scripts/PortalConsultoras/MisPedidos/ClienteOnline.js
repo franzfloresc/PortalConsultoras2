@@ -140,12 +140,13 @@ function CancelarSolicitud() {
                     }
                                         
                     $('#dialog_motivoCancelado').hide();
-                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
-                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
+                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
+                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
                     $('#dialog_mensajeCancelado').show();
 
                     solicitudClienteIdActual = 0;
                     marcaIdActual = 0;
+                    ActualizarGanancia.val(data.dataBarra);
                 },
                 error: function (data) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
@@ -187,7 +188,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
-                location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
+                location.href = baseUrl + 'Pedido/PedidoValidado';
                 return false;
             }
 

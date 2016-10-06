@@ -18,6 +18,7 @@ using SC = Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
 using AutoMapper;
 using System.Globalization;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -162,7 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
                 campaniaResultado = campaniaResultado
             });
         }
-        public JsonResult ClienteOnlineDetalle(int solicitudClienteId)
+        public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
             var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
             var listModel = new List<ClienteOnlineDetalleModel>();
@@ -178,7 +179,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioUnitario.ToDecimal(), userData.CodigoISO));
                     model.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioTotal.ToDecimal(), userData.CodigoISO));
-                    model.TipoAtencionString = model.TipoAtencion == 2 ? "Ya lo tengo" : (model.TipoAtencion == 1 ? "Ingresado al Pedido" : "Agotado");
+                    model.TipoAtencionString = model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.YaTengo) ? Constantes.COTipoAtencionMensaje.YaTengo :
+                        (model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.IngresadoPedido) ? Constantes.COTipoAtencionMensaje.IngresadoPedido :
+                        (model.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.Agotado) ? Constantes.COTipoAtencionMensaje.Agotado : ""));
                 });
 
                 return Json(new
@@ -217,15 +220,17 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
                 }
 
+                BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
                     Session["ObservacionesPROL"] = null;
                     Session["PedidoWebDetalle"] = null;
                     UpdPedidoWebMontosPROL();
+                    dataBarra = GetDataBarra();
                 }
                 catch { }
 
-                return Json(new { success = true, message = "" });
+                return Json(new { success = true, message = "", dataBarra = dataBarra });
             }
             catch (FaultException ex)
             {

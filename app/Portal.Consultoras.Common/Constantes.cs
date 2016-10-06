@@ -225,7 +225,19 @@ namespace Portal.Consultoras.Common
             public const int MobileCatalogoPersonalizadoPopUp = 2432;
 
         }
+        
+        public class COTipoAtencionMensaje
+        {
+            public const string Agotado = "Agotado";
+            public const string IngresadoPedido = "Ingresado al Pedido";
+            public const string YaTengo = "Ya lo tengo";
+        }
 
+        public class COPedidoCanceladoMensaje
+        {
+            public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
+            public const string Marcas = "No te olvides comunicarte con tu cliente.";
+        }
     }
 }
 
