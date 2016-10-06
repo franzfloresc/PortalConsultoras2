@@ -2730,8 +2730,7 @@ table > thead > tr > th {
     background-size: 100% 100%;
 }
 .slick-arrow img{
-    width:100%;
-
+    /*width:100%;*/
 }
 
 .slick-prev {
@@ -7375,8 +7374,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
     .contenedor-tutorial-esika .opciones-tutorial div {
-        font-weight;
-        bold;
+        font-weight: bold;        
         font-size: 12px;
         cursor: pointer;
     }
