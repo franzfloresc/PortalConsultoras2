@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Common
             Glance = 8
         }
 
-
         public enum RespuestaGEO
         {
             OK,
@@ -199,5 +198,11 @@ namespace Portal.Consultoras.Common
             Otro = 4
         }
 
+        public enum ConsultoraOnlineTipoAtencion
+        {
+            Agotado = 0,
+            IngresadoPedido = 1,
+            YaTengo = 2
+        }
     }
 }

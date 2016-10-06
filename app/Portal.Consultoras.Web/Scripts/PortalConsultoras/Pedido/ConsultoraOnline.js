@@ -35,6 +35,10 @@ $(document).ready(function () {
         //}else{
         //    $('.content_T_T').addClass("fondo_lateral");
         //}
+
+        //if (flagHuboPedidosPend) {
+        //    CargarDetallePedido();
+        //}
     });
 
     $('#penmostreo').on('click', function () {
@@ -145,6 +149,10 @@ function CargarPedidosPend(page, rows) {
 
     $('#divPedidosPend').html('<div style="text-align: center;">Cargando Pedidos Pendientes<br><img src="' + urlLoad + '" /></div>');
 
+    //if ($('ul.paginador_notificaciones').is(':visible')) {
+        $('ul.paginador_notificaciones').hide();
+    //}
+
     var obj = {
         sidx: "",
         sord: "",
@@ -182,7 +190,7 @@ function CargarPedidosPend(page, rows) {
                     //$("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                     //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                   $('#penmostreo').show();
+                    $('#penmostreo').show();
 
                     if (lanzarTabConsultoraOnline == '1')
                     {
@@ -205,6 +213,10 @@ function CargarPedidosPend(page, rows) {
                         $('#pedmostreo').addClass('cambio_bk_pendientes');
                         $('.datos_para_movil').hide();
                     }
+
+                    //if ($('ul.paginador_notificaciones').is(':visible')) {
+                        $('ul.paginador_notificaciones').hide();
+                   //}
                 }
                 else {
 
@@ -371,10 +383,11 @@ function RechazarPedido() {
 
     $('#dialog_motivoRechazo').hide();
     $('#btnRechazarPedido').prop('disabled', true);
+
     //var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
     //var objHtmlPanelPedidoRechazado = $("#DivPanelPedidoRechazado").val();
     var opt = $('.optionsRechazoSelect').data('id');
-    if (opt == 'undefined') {
+    if (typeof opt == 'undefined') {
         opt = 11;   // otros
     }
 
@@ -450,9 +463,11 @@ function CerrarSplash() {
 
 function AceptarPedido(pedidoId, tipo) {
 
+    console.log('AceptarPedido');
     var isOk = true;
     var detalle = [];
     var divId = (tipo == 1) ? "divDetPedidoPend" : "divDet2PedidoPend";
+    totalIngPedido = 0;
 
     $('div#' + divId + ' > div').each(function () {
         var val1 = $(this).find(":nth-child(1)").val();
@@ -462,7 +477,8 @@ function AceptarPedido(pedidoId, tipo) {
 
         if (typeof val2 !== 'undefined') {
             if (val2 == "") {
-                alert_msg("Importante Seleccione como atenderá el producto");
+                //alert_msg("Importante Seleccione como atenderá el producto");
+                $('#dialog_mensajeComoAtender').show();
                 isOk = false;
                 return false;
             }
@@ -535,6 +551,7 @@ function CerrarMensajeAceptado(tipo) {
         $('#dialog2_aceptasPendientes').hide();
     }
 
+    CargarDetallePedido();
     CargarPedidosPend();
 }
 
