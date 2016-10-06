@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-//using Portal.Consultoras.Web.ServiceConsultoraOnline;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -2051,14 +2050,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     modelDetalle.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(modelDetalle.PrecioUnitario.ToDecimal(), userData.CodigoISO));
                     modelDetalle.PrecioTotalString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(modelDetalle.PrecioTotal.ToDecimal(), userData.CodigoISO));
-                    modelDetalle.TipoAtencionString = modelDetalle.TipoAtencion == 2 ? "Ya lo tengo" : (modelDetalle.TipoAtencion == 1 ? "Ingresado al Pedido" : "Agotado");
+                    modelDetalle.TipoAtencionString = modelDetalle.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.YaTengo) ? Constantes.COTipoAtencionMensaje.YaTengo :
+                        (modelDetalle.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.IngresadoPedido) ? Constantes.COTipoAtencionMensaje.IngresadoPedido :
+                        (modelDetalle.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.Agotado) ? Constantes.COTipoAtencionMensaje.Agotado : ""));
                 });
 
-                //model.TipoCliente = model.ClienteNuevo ? "CLIENTE NUEVO" : "CLIENTE EXISTENTE";
-                //model.Origen = model.MarcaID == 0 ? "App Catálogos" : string.Format("Portal {0}", model.Marca);
-                //model.Campania = model.Campania.Substring(0, 4) + "-" + model.Campania.Substring(4, 2);
-                //model.FechaSolicitudString = model.FechaSolicitud.ToString("dd \\de MMMM", CultureInfo.GetCultureInfo("es-PE"));
-                //model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
                 model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
                 model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
                 model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");

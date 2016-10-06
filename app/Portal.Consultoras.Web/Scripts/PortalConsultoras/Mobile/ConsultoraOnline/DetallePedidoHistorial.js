@@ -39,8 +39,8 @@ function CancelarSolicitud(solicitudClienteIdActual, marcaIdActual) {
                     }
 
                     $('#dialog_motivoCancelado').hide();
-                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('Se retiraron de tu pedido los productos de este cliente.');
-                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html('No te olvides comunicarte con tu cliente.');
+                    if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
+                    else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
                     $('#dialog_mensajeCancelado').show();
                 },
                 error: function (data) {

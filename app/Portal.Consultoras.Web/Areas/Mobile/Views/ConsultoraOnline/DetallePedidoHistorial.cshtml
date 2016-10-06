@@ -1,4 +1,6 @@
-﻿@model Portal.Consultoras.Web.Models.ClienteOnlineModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ClienteOnlineModel
+
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
@@ -147,6 +149,9 @@
         var urlClienteOnlineHistorial = '@Url.Action("Historial", "ConsultoraOnline", new { Area = "Mobile" })';
         var urlClienteOnlineCancelarSolicitud = '@Url.Action("ClienteOnlineCancelarSolicitud", "MisPedidos", new { Area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { Area = "Mobile" })';
+
+        var mensajeCanceladoMarcas = '@Constantes.COPedidoCanceladoMensaje.Marcas';
+        var mensajeCanceladoPortal = '@Constantes.COPedidoCanceladoMensaje.Portal';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoHistorial.js")"></script>
 }
