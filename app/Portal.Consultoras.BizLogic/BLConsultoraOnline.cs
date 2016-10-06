@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEMisPedidosDetalle> GetMisPedidosDetalle(int PaisID, int PedidoID)
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetalle(int PaisID, long PedidoID)
         {
             var DAMisPedidos = new DAConsultoraOnline(PaisID);
             var miPedidoDetalles = new List<BEMisPedidosDetalle>();
