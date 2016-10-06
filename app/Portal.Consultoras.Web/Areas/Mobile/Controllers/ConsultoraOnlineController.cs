@@ -408,7 +408,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             using (var sv = new UsuarioServiceClient())
             {
-                model.ListaPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                var lstPedidos = sv.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
+                model.ListaPedidos = lstPedidos.OrderByDescending(x => x.FechaSolicitud).ToList();
             }
 
             Session["objMisPedidos"] = model;
