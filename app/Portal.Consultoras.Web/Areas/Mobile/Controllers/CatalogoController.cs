@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -384,54 +385,248 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (item.LBel == "1")
                     {
                         if (catalogoLbel != null && !string.IsNullOrEmpty(catalogoLbel.DocumentID))
-                        {
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
-                            if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
-                            else mailBody += "LBel</a></td>";
-                        }
-                        else mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.lbel.com" + "\" style=\"color:#333;\">LBel</a></td>";
+                        
+                            #region Email Perú LBel
+
+                            if (UserData().PaisID == 11)
+                            {
+                                if (CampaniaID == "201614")
+                                {
+                                    if (UserData().CodigoZona == "1072")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "1075")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_lb1614pe_1/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201615")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1615pe/" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201616")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_lb1616pe" + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
+                                        if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                        else mailBody += "LBel</a></td>";
+                                    }
+                                }
+                                else
+                                {
+                                    mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
+                                    if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                    else mailBody += "LBel</a></td>";
+                                }
+                            }
+                            else
+                            {
+                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoLbel.SkinURL + "\" style=\"color:#333;\">";
+                                if (catalogoUnificado == "1") mailBody += "LBel - Esika</a></td>";
+                                else mailBody += "LBel</a></td>";
+                            }
+
+                            #endregion
+                        
+                        else 
+                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.lbel.com" + "\" style=\"color:#333;\">LBel</a></td>";
                     }
                     if (item.Esika == "1")
                     {
                         if (catalogoEsika != null && !string.IsNullOrEmpty(catalogoEsika.DocumentID))
 
-                            if (userData.PaisID == 3 && CampaniaID == "201604" && userData.CodigoZona == "1319")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201604" && userData.CodigoZona == "1401")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201604" && userData.CodigoZona == "1410")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201604" && userData.CodigoZona == "1405")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c04.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
+                            #region Email Perú Esika
 
-                            else if (userData.PaisID == 3 && CampaniaID == "201605" && userData.CodigoZona == "1319")
+                            if (UserData().PaisID == 11)
                             {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201605" && userData.CodigoZona == "1401")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201605" && userData.CodigoZona == "1410")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016" + "\" style=\"color:#333;\">Esika</a></td>";
-                            }
-                            else if (userData.PaisID == 3 && CampaniaID == "201605" && userData.CodigoZona == "1405")
-                            {
-                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto.esika.chile.c05.2016" + "\" style=\"color:#333;\">Esika</a></td>";
+                                if (CampaniaID == "201614")
+                                {
+                                    if (UserData().CodigoZona == "1072")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "1075")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1614pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201615")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_ek1615pe/" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201616")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_ek1616pe" + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";
+                                    }
+                                }
+                                else
+                                {
+                                    mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";
+                                }
+
                             }
                             else
                             {
                                 mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoEsika.SkinURL + "\" style=\"color:#333;\">Esika</a></td>";
                             }
+
+                            #endregion
 
                         else
                             mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.cyzone.com" + "\" style=\"color:#333;\">Esika</a></td>";
@@ -439,7 +634,104 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (item.Cyzone == "1")
                     {
                         if (catalogoCyZone != null && !string.IsNullOrEmpty(catalogoCyZone.DocumentID))
-                            mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+
+                            #region Email Perú Cyzone
+
+                            if (UserData().PaisID == 11)
+                            {
+                                if (CampaniaID == "201614")
+                                {
+                                    if (UserData().CodigoZona == "1072")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "1075")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1614pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201615")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://issuu.com/somosbelcorp/docs/piloto_cy1615pe/" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                }
+                                else if (CampaniaID == "201616")
+                                {
+                                    if (UserData().CodigoZona == "1081")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3033")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "3036")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else if (UserData().CodigoZona == "5035")
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "https://issuu.com/somosbelcorp/docs/piloto_cy1616pe" + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                    else
+                                    {
+                                        mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                    }
+                                }
+                                else
+                                {
+                                    mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+                                }
+                            }
+                            else
+                            {
+                                mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + catalogoCyZone.SkinURL + "\" style=\"color:#333;\">Cyzone</a></td>";
+                            }
+
+                            #endregion
+
                         else
                             mailBody += "<td width=\"98\" style=\"text-align:center;\"><a href=\"" + "http://www.esika.biz" + "\" style=\"color:#333;\">Cyzone</a></td>";
                     }
@@ -564,35 +856,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var url = string.Empty;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
+
             try
             {
-                var request = WebRequest.CreateHttp(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
-                request.Accept = "application/json";
-                request.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate,sdch");
-
-                var json = string.Empty;
-                using (var response = request.GetResponse())
-                {
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        json = reader.ReadToEnd();
-                    }
-                }
-                var jsonSerializer = new JavaScriptSerializer();
-                var dictionary = jsonSerializer.DeserializeObject(json) as Dictionary<string, object>;
-
-                if (dictionary.Count > 0 && dictionary.ContainsKey("thumbnail_url"))
-                {
-                    url = dictionary["thumbnail_url"].ToString();
-                    url = url.Replace("medium", "large");
-                }
-                else
-                    url = urlNotFound;
+                WebClient client = new WebClient();
+                string getString = client.DownloadString(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                dynamic item = serializer.Deserialize<object>(getString);
+                url = item["thumbnail_url"];
             }
-            catch (Exception)
+            catch (FaultException faulException)
             {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
                 url = urlNotFound;
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = urlNotFound;
+            }
+
             return Json(url);
         }
 
