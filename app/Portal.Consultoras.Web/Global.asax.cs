@@ -346,6 +346,10 @@ namespace Portal.Consultoras.Web
             providerSession.Add("MatrizComercial", "ObtenerISOPais");
             providerSession.Add("MatrizComercial", "UpdateMatrizComercial");
 
+            providerSession.Add("MisPedidos", "ClienteOnline");
+            providerSession.Add("MisPedidos", "ClienteOnlineDetalle");
+            providerSession.Add("MisPedidos", "ClienteOnlineCancelarSolicitud");
+
             //Web Mobile
             providerSession.Add("Bienvenida", "Index", "Mobile");
             providerSession.Add("Catalogo", "Index", "Mobile");

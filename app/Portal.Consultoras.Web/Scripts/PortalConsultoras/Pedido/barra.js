@@ -11,20 +11,13 @@ function MostrarBarra(datax) {
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
 
-    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
+    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
     if (dataBarra.ListaEscalaDescuento.length > 0) {
         listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
 
         $.each(listaEscalaDescuento, function (i, item) {
-
-            if (IsDecimalExist(item.MontoHasta)) {
-                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta)
-                listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta));
-            } else {
-                listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta) + 1; 
-                listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta)); 
-
-            }
+            listaEscalaDescuento[i].MontoHasta = Math.ceil(item.MontoHasta);
+            listaEscalaDescuento[i].MontoHastaStr = $.trim(Math.ceil(item.MontoHasta));
         });
     }
 
@@ -32,7 +25,7 @@ function MostrarBarra(datax) {
     if (dataBarra.ListaMensajeMeta.length > 0) {
         listaMensajeMeta = dataBarra.ListaMensajeMeta;
     }
-    
+
     ActualizarGanancia(dataBarra);
 
     dataBarra.MontoMinimo = Math.ceil(dataBarra.MontoMinimo);
@@ -61,7 +54,7 @@ function MostrarBarra(datax) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-    var textoPunto = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';   
+    var textoPunto = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
     if (mx > 0) {
         vLogro = mt - md;
 
@@ -86,7 +79,7 @@ function MostrarBarra(datax) {
             });
         }
 
-        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);       
+        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
             msgLimite: dif <= 0 ? "" : ("SOLO PUEDES AGREGAR " + vbSimbolo + " " + dif + " MÁS"),

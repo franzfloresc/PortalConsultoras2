@@ -26,9 +26,9 @@ namespace Portal.Consultoras.Service
             BLPedidoWebAnteriores = new BLPedidoWebAnteriores();
         }
 
-        public void Insert(BECliente cliente)
+        public int Insert(BECliente cliente)
         {
-            BLCliente.Insert(cliente);
+            return BLCliente.Insert(cliente);
         }
 
         public void Update(BECliente cliente)

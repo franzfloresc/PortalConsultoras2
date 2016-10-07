@@ -275,7 +275,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultoraNueva { get; set; }
 
         public string AccionBoton { get; set; }
-        
+
         public int OrigenPedidoWeb { get; set; }
     }
 }
