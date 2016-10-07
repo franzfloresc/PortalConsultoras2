@@ -8486,7 +8486,7 @@ span.icon-advertencia{
 }
 .facturado_pendiente{
     display:block;
-    background:#613c87;
+    background:#a18328;
     color:white;
     width:90px;
     height:25px;
@@ -8497,6 +8497,7 @@ span.icon-advertencia{
     font-size:12px;
     font-weight:700;
     text-decoration:none;
+    text-transform:uppercase;
 }
 .facturado_pendiente:hover{
     text-decoration:none;
@@ -8628,4 +8629,12 @@ a{
     }
 .opcion_rechazo:last-child{
     border-bottom:0;
+}
+.titulo_pedido_cancelado{
+    font-family:'LAto';
+    font-size:13px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:10px;
 }

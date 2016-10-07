@@ -2063,6 +2063,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         (modelDetalle.TipoAtencion == (int)(Enumeradores.ConsultoraOnlineTipoAtencion.Agotado) ? Constantes.COTipoAtencionMensaje.Agotado : ""));
                 });
 
+                model.EstadoDesc = model.Estado == "A" ? "Aceptado" : "Cancelado";
                 model.Cliente = Util.ReemplazarSaltoLinea(model.Cliente, " ");
                 model.Direccion = Util.ReemplazarSaltoLinea(model.Direccion, " ");
                 model.Telefono = Util.ReemplazarSaltoLinea(model.Telefono, " ");
